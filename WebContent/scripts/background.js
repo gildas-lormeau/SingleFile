@@ -150,14 +150,6 @@ var singlefile = {};
 			return parentPort;
 		}
 
-		function build(portData) {
-			portData.parent = findParent(portData);
-			if (portData.parent) {
-				portData.parent.children = portData.parent.children || [];
-				portData.parent.children.push(portData);
-			}
-		}
-
 		function walk(portData, level) {
 			if (portData.children)
 				portData.children.forEach(function(pData) {
@@ -169,8 +161,11 @@ var singlefile = {};
 		}
 
 		tabData.ports.forEach(function(portData) {
-			if (!portData.frameCount)
-				build(portData, 0);
+			portData.parent = findParent(portData);
+			if (portData.parent) {
+				portData.parent.children = portData.parent.children || [];
+				portData.parent.children.push(portData);
+			}
 		});
 		tabData.levels = [];
 		walk(tabData.top, 0);
