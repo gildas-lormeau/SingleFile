@@ -218,7 +218,7 @@
 						return node.getAttribute("style");
 					}, function(value) {
 						node.setAttribute("style", value);
-					}, targetDoc.baseURI, sendRequest);					
+					}, targetDoc.baseURI, sendRequest);
 				});
 			}
 		},
@@ -265,6 +265,28 @@
 						node.setAttribute(node.href ? "href" : "src", getDataURI(data, EMPTY_PIXEL_DATA, true));
 					}, true);
 				}
+			}
+		},
+		canvas : {
+			replace : function() {
+				Array.prototype.forEach.call(targetDoc.querySelectorAll("canvas"), function(node) {
+					var i, data, newNode = targetDoc.createElement("img");
+					try {
+						data = node.toDataURL("image/png", "");
+					} catch (e) {
+					}
+					if (data) {
+						newNode.setAttribute("src", data);
+						for (i = 0; i < node.attributes.length; i++)
+							if (node.attributes[i].value)
+								newNode.setAttribute(node.attributes[i].name, node.attributes[i].value);
+						if (!newNode.width)
+							newNode.style.pixelWidth = node.clientWidth;
+						if (!newNode.height)
+							newNode.style.pixelHeight = node.clientHeight;
+						node.parentElement.replaceChild(newNode, node);
+					}
+				});
 			}
 		},
 		svg : {

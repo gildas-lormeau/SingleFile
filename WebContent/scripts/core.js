@@ -73,6 +73,8 @@
 		options = opt;
 		if (options.removeHidden)
 			holder.filters.element.removeHidden();
+		if (options.removeScripts)
+			holder.filters.canvas.replace();		
 		doc = getDocument();
 		holder.filters.element.clean(doc);
 		if (options.removeFrames)
