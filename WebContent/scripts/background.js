@@ -22,8 +22,8 @@ var singlefile = {};
 
 (function() {
 
-	var tabs = [], scrapbookDetected = false;
-	var SCRAPBOOK_EXT_ID = "imfajgkkpglkdjkjejkefllgajgmhmfp"/* "ihkkeoeinpbomhnpkmmkpggkaefincbn" */;
+	var tabs = [], /*scrapbookDetected = false*/ scrapbookDetected = true;
+	var SCRAPBOOK_EXT_ID = /*"imfajgkkpglkdjkjejkefllgajgmhmfp"*/ "ihkkeoeinpbomhnpkmmkpggkaefincbn";
 
 	singlefile.getOptions = function() {
 		return localStorage["options"] ? JSON.parse(localStorage["options"]) : {
@@ -43,11 +43,13 @@ var singlefile = {};
 		delete localStorage["options"];
 	};
 
+	/*
 	chrome.extension.sendRequest(SCRAPBOOK_EXT_ID, {
 		ping : true
 	}, function() {
 		scrapbookDetected = true;
 	});
+	*/
 
 	function getWinProperties() {
 		var winProperties = {}, property;
