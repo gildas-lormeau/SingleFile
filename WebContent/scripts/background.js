@@ -22,7 +22,8 @@ var singlefile = {};
 
 (function() {
 
-	var tabs = [];
+	var tabs = [], scrapbookDetected = false;
+	var SCRAPBOOK_EXT_ID = "imfajgkkpglkdjkjejkefllgajgmhmfp"/* "ihkkeoeinpbomhnpkmmkpggkaefincbn" */;
 
 	singlefile.getOptions = function() {
 		return localStorage["options"] ? JSON.parse(localStorage["options"]) : {
@@ -41,6 +42,12 @@ var singlefile = {};
 	singlefile.resetOptions = function() {
 		delete localStorage["options"];
 	};
+
+	chrome.extension.sendRequest(SCRAPBOOK_EXT_ID, {
+		ping : true
+	}, function() {
+		scrapbookDetected = true;
+	});
 
 	function getWinProperties() {
 		var winProperties = {}, property;
@@ -258,7 +265,8 @@ var singlefile = {};
 					title : "Progress: 0%"
 				});
 				tabs[tab.id].top.port.postMessage( {
-					start : true
+					start : true,
+					sendContent : scrapbookDetected
 				});
 			});
 		}
@@ -306,8 +314,10 @@ var singlefile = {};
 					totalResources : 0,
 					processedResources : 0
 				};
-				if (msg.topWindow)
+				if (msg.topWindow) {
 					tabData.top = portData;
+					tabData.title = msg.title;
+				}
 				if (!singlefile.getOptions().removeFrames || msg.topWindow) {
 					tabData.ports.push(portData);
 					tabData.processedDocMax++;
@@ -358,8 +368,14 @@ var singlefile = {};
 						tabData.levelIndex--;
 						processFrames(tabId);
 					}
-				} else
+				} else {
 					done(tabId);
+					chrome.extension.sendRequest(SCRAPBOOK_EXT_ID, {
+						title : tabData.title,
+						content : msg.data,
+						url : tabData.top.url
+					});
+				}
 			}
 			if (msg.done) {
 				chrome.browserAction.setIcon( {

@@ -19,7 +19,7 @@
  */
 
 (function(holder) {
-	var targetDoc, doc, options, winID, processedFrames = 0, initPageCallback, timeoutCallback, bgPort, winPort, requests = {}, requestCount = 0, responseCount = 0;
+	var targetDoc, doc, options, winID, processedFrames = 0, initPageCallback, timeoutCallback, bgPort, winPort, requests = {}, requestCount = 0, responseCount = 0, sendContent;
 
 	function storeRequest(url, callback, base64, encodedText, characterSet) {
 		if (!requests[url]) {
@@ -135,7 +135,7 @@
 		holder.filters.frame.set(doc, data);
 		bgPort.postMessage( {
 			setDocData : true,
-			data : window != top ? holder.filters.document.getDoctype() + doc.outerHTML : null,
+			data : window != top  || sendContent ?  holder.filters.document.getDoctype() + doc.outerHTML : null,
 			mimeType : "text/html"
 		});
 	}
@@ -169,7 +169,8 @@
 		}
 	}
 
-	function start() {
+	function start(msg) {
+		sendContent = msg.sendContent;
 		timeoutCallback = setTimeout(initPageCallback, 1000);
 		setWinId("0");
 	}
@@ -221,7 +222,7 @@
 			};
 			bgPort.addListener(function(message) {
 				if (message.start)
-					start();
+					start(message);
 				else if (message.getStylesheets) {
 					initProcess(message.options);					
 					getStylesheets();
@@ -250,7 +251,8 @@
 				bgPort.postMessage( {
 					init : true,
 					topWindow : window == top,
-					url : location.href
+					url : location.href,
+					title : document.title
 				});
 		}
 	};
