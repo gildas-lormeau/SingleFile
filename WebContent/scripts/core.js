@@ -57,7 +57,7 @@
 			clone = targetDoc.documentElement.cloneNode(true);
 			mask = clone.querySelector("#__SingleFile_mask__");
 			if (mask) {
-				clone.querySelector("body").removeChild(mask);
+				mask.parentElement.removeChild(mask);
 				return clone;
 			}
 		}
