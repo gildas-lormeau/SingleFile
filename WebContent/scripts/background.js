@@ -22,14 +22,21 @@ var singlefile = {};
 
 (function() {
 
-	var tabs = [], SCRAPBOOK_EXT_ID =  /*"imfajgkkpglkdjkjejkefllgajgmhmfp"*/ "ihkkeoeinpbomhnpkmmkpggkaefincbn", scrapbookDetected = detectScrapbook();
-	
-	function detectScrapbook() {
+	var dev = false;
+
+	var tabs = [], SCRAPBOOK_EXT_ID = dev ? "imfajgkkpglkdjkjejkefllgajgmhmfp" : "ihkkeoeinpbomhnpkmmkpggkaefincbn";
+
+	function detectScrapbook(callback) {
 		var img = new Image();
 		img.src = "chrome-extension://" + SCRAPBOOK_EXT_ID + "/resources/icon_16.png";
-		return img.width != 0;
+		img.onload = function() {
+			callback(true);
+		};
+		img.onerror = function() {
+			callback(false);
+		};
 	}
-	
+
 	singlefile.getOptions = function() {
 		return localStorage["options"] ? JSON.parse(localStorage["options"]) : {
 			removeFrames : false,
@@ -263,9 +270,11 @@ var singlefile = {};
 					tabId : tab.id,
 					title : "Progress: 0%"
 				});
-				tabs[tab.id].top.port.postMessage( {
-					start : true,
-					sendContent : scrapbookDetected
+				detectScrapbook(function(sendContent) {
+					tabs[tab.id].top.port.postMessage( {
+						start : true,
+						sendContent : sendContent
+					});
 				});
 			});
 		}
@@ -369,10 +378,13 @@ var singlefile = {};
 					}
 				} else {
 					done(tabId);
-					chrome.extension.sendRequest(SCRAPBOOK_EXT_ID, {
-						title : tabData.title,
-						content : msg.data,
-						url : tabData.top.url
+					detectScrapbook(function(sendContent) {
+						if (sendContent)
+							chrome.extension.sendRequest(SCRAPBOOK_EXT_ID, {
+								title : tabData.title,
+								content : msg.data,
+								url : tabData.top.url
+							});
 					});
 				}
 			}
@@ -395,5 +407,5 @@ var singlefile = {};
 			}
 		});
 	});
-	
+
 })();
