@@ -22,9 +22,14 @@ var singlefile = {};
 
 (function() {
 
-	var tabs = [], /*scrapbookDetected = false*/ scrapbookDetected = true;
-	var SCRAPBOOK_EXT_ID = /*"imfajgkkpglkdjkjejkefllgajgmhmfp"*/ "ihkkeoeinpbomhnpkmmkpggkaefincbn";
-
+	var tabs = [], scrapbookDetected = detectScrapbook(), SCRAPBOOK_EXT_ID =  /*"imfajgkkpglkdjkjejkefllgajgmhmfp"*/ "ihkkeoeinpbomhnpkmmkpggkaefincbn";
+	
+	function detectScrapbook() {
+		var img = new Image();
+		img.src = "chrome-extension://" + SCRAPBOOK_EXT_ID + "/resources/icon_16.png";
+		return img.width != 0;
+	}
+	
 	singlefile.getOptions = function() {
 		return localStorage["options"] ? JSON.parse(localStorage["options"]) : {
 			removeFrames : false,
@@ -42,14 +47,6 @@ var singlefile = {};
 	singlefile.resetOptions = function() {
 		delete localStorage["options"];
 	};
-
-	/*
-	chrome.extension.sendRequest(SCRAPBOOK_EXT_ID, {
-		ping : true
-	}, function() {
-		scrapbookDetected = true;
-	});
-	*/
 
 	function getWinProperties() {
 		var winProperties = {}, property;
@@ -398,5 +395,5 @@ var singlefile = {};
 			}
 		});
 	});
-
+	
 })();
