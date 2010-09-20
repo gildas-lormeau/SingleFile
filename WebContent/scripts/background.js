@@ -22,7 +22,7 @@ var singlefile = {};
 
 (function() {
 
-	var tabs = [], scrapbookDetected = detectScrapbook(), SCRAPBOOK_EXT_ID =  /*"imfajgkkpglkdjkjejkefllgajgmhmfp"*/ "ihkkeoeinpbomhnpkmmkpggkaefincbn";
+	var tabs = [], SCRAPBOOK_EXT_ID =  /*"imfajgkkpglkdjkjejkefllgajgmhmfp"*/ "ihkkeoeinpbomhnpkmmkpggkaefincbn", scrapbookDetected = detectScrapbook();
 	
 	function detectScrapbook() {
 		var img = new Image();
