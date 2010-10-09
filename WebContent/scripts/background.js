@@ -127,7 +127,6 @@ var singlefile = {};
 
 	function startDone(tabId) {
 		var msg, options = singlefile.getOptions();
-		tabs[tabId].processing = true;
 		msg = {
 			getStylesheets : true,
 			options : singlefile.getOptions()
@@ -228,13 +227,13 @@ var singlefile = {};
 			title : "Progress: " + Math.min(100, Math.floor((processedResources / totalResources) * 100)) + "%"
 		});
 	}
-
-	chrome.browserAction.onClicked.addListener(function(tab) {
+	
+	function processTab(tabId) {
 		function executeScripts(scripts, callback, index) {
 			if (!index)
 				index = 0;
 			if (index < scripts.length) {
-				chrome.tabs.executeScript(tab.id, {
+				chrome.tabs.executeScript(tabId, {
 					file : scripts[index].file,
 					code : scripts[index].code,
 					allFrames : true
@@ -245,7 +244,7 @@ var singlefile = {};
 				callback();
 		}
 
-		if (!tabs[tab.id] || (!tabs[tab.id].processing && !tabs[tab.id].processed)) {
+		if (!tabs[tabId] || (!tabs[tabId].processing && !tabs[tabId].processed)) {
 			executeScripts( [ {
 				code : "var singlefile = {};"
 			}, {
@@ -257,27 +256,32 @@ var singlefile = {};
 			}, {
 				file : "scripts/main.js"
 			} ], function() {
-				if (!tabs[tab.id])
+				if (!tabs[tabId])
 					return;
+				tabs[tabId].processing = true;		
 				chrome.browserAction.setBadgeBackgroundColor( {
 					color : [ 200, 200, 200, 192 ]
 				});
 				chrome.browserAction.setIcon( {
-					tabId : tab.id,
+					tabId : tabId,
 					path : '../resources/icon_48_wait0.png'
 				});
 				chrome.browserAction.setTitle( {
-					tabId : tab.id,
+					tabId : tabId,
 					title : "Progress: 0%"
 				});
 				detectScrapbook(function(sendContent) {
-					tabs[tab.id].top.port.postMessage( {
+					tabs[tabId].top.port.postMessage( {
 						start : true,
 						sendContent : sendContent
 					});
 				});
 			});
 		}
+	}
+
+	chrome.browserAction.onClicked.addListener(function(tab) {
+		processTab(tab.id);
 	});
 
 	chrome.extension.onConnect.addListener(function(port) {
@@ -310,7 +314,6 @@ var singlefile = {};
 					processedPortCount : 0,
 					processedFrameCount : 0,
 					processedFrameMax : 0,
-					processing : false,
 					processed : false,
 					callbacks : {},
 					responses : {}
@@ -406,6 +409,12 @@ var singlefile = {};
 				});
 			}
 		});
+	});
+	
+	chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse) {
+		if (sender.id != SCRAPBOOK_EXT_ID)
+			return;		
+		processTab(request.id);
 	});
 
 })();

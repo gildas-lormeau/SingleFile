@@ -70,3 +70,11 @@ a {
 	display: inline-block;
 	padding-top: 5px;
 }
+
+#reloadButton {
+	background: lightGrey;
+	bottom: 0px;
+	margin: 5px;
+	position: absolute;
+	right: 0px;
+}

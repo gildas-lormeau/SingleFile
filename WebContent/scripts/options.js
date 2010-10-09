@@ -49,4 +49,7 @@ function load() {
 		bgPage.singlefile.resetOptions();
 		load();
 	});
+	document.getElementById("reloadButton").addEventListener("click", function() {
+		bgPage.history.go(0);
+	});
 }
