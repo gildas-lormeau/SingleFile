@@ -360,8 +360,17 @@ var singlefile = {};
 			if (msg.setDataDone) {
 				portData.frameCount = msg.frameCount;
 				portData.winID = msg.winID;
-				if (singlefile.getOptions().removeFrames)
+				if (singlefile.getOptions().removeFrames) {
 					done(tabId);
+					detectScrapbook(function(sendContent) {
+						if (sendContent)
+							chrome.extension.sendRequest(SCRAPBOOK_EXT_ID, {
+								title : tabData.title,
+								content : msg.data,
+								url : tabData.top.url
+							});
+					});
+				}
 				else {
 					tabData.processedDocCount++;
 					if (tabData.processedDocMax == tabData.processedDocCount) {
@@ -415,6 +424,7 @@ var singlefile = {};
 		if (sender.id != SCRAPBOOK_EXT_ID)
 			return;		
 		processTab(request.id);
+		sendResponse({});
 	});
 
 })();

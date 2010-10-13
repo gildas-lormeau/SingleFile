@@ -27,14 +27,14 @@ function load() {
 	removeUnusedInput = document.getElementById("removeUnusedInput");
 	document.getElementById("popupContent").onchange = function() {
 		setTimeout(function() {
-			bgPage.singlefile.setOptions( {
+			bgPage.singlefile.setOptions({
 				removeFrames : removeFramesInput.checked,
 				removeScripts : removeScriptsInput.checked,
 				removeObjects : removeObjectsInput.checked,
 				removeHidden : removeHiddenInput.checked,
 				removeUnused : removeUnusedInput.checked
 			});
-		}, 500);		
+		}, 500);
 	};
 	removeFramesInput.checked = options.removeFrames;
 	removeScriptsInput.checked = options.removeScripts;
@@ -43,7 +43,7 @@ function load() {
 	removeUnusedInput.checked = options.removeUnused;
 	removeScriptsInput.addEventListener("click", function() {
 		removeHiddenInput.checked = false;
-		removeUnusedInput.checked = false;		
+		removeUnusedInput.checked = false;
 	});
 	document.getElementById("resetButton").addEventListener("click", function() {
 		bgPage.singlefile.resetOptions();

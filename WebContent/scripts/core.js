@@ -102,6 +102,7 @@
 		if (requestCount == 0)
 			bgPort.postMessage( {
 				setDataDone : true,
+				data : window == top && sendContent ?  holder.filters.document.getDoctype() + doc.outerHTML : null,						
 				frameCount : holder.filters.frame.count(doc),
 				winID : winID
 			});
@@ -234,6 +235,7 @@
 					setData(message.data, function() {
 						bgPort.postMessage( {
 							setDataDone : true,
+							data : window == top && sendContent ?  holder.filters.document.getDoctype() + doc.outerHTML : null,									
 							frameCount : holder.filters.frame.count(doc),
 							winID : winID
 						});
