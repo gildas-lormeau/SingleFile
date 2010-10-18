@@ -102,7 +102,8 @@
 		if (requestCount == 0)
 			bgPort.postMessage( {
 				setDataDone : true,
-				data : window == top && sendContent ?  holder.filters.document.getDoctype() + doc.outerHTML : null,						
+				data : window == top && options.removeFrames && sendContent ?  holder.filters.document.getDoctype() + doc.outerHTML : null,	
+				favicoData : window == top && options.removeFrames && sendContent ? holder.filters.image.getFavicoData(doc) : null,
 				frameCount : holder.filters.frame.count(doc),
 				winID : winID
 			});
@@ -137,6 +138,7 @@
 		bgPort.postMessage( {
 			setDocData : true,
 			data : window != top  || sendContent ?  holder.filters.document.getDoctype() + doc.outerHTML : null,
+			favicoData : window == top && sendContent ? holder.filters.image.getFavicoData(doc) : null,
 			mimeType : "text/html"
 		});
 	}

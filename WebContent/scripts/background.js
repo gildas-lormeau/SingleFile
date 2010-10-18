@@ -367,6 +367,7 @@ var singlefile = {};
 							chrome.extension.sendRequest(SCRAPBOOK_EXT_ID, {
 								title : tabData.title,
 								content : msg.data,
+								favicoData : msg.favicoData,
 								url : tabData.top.url
 							});
 					});
@@ -395,6 +396,7 @@ var singlefile = {};
 							chrome.extension.sendRequest(SCRAPBOOK_EXT_ID, {
 								title : tabData.title,
 								content : msg.data,
+								favicoData : msg.favicoData,
 								url : tabData.top.url
 							});
 					});

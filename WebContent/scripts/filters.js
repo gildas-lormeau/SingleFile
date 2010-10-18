@@ -265,6 +265,10 @@
 						node.setAttribute(node.href ? "href" : "src", getDataURI(data, EMPTY_PIXEL_DATA, true));
 					}, true);
 				}
+			},
+			getFavicoData : function(doc) {
+				var favico = doc.querySelector('link[href][rel="shortcut icon"], link[href][rel="icon"], link[href][rel="apple-touch-icon"]');
+				return favico ? favico.href : null;
 			}
 		},
 		canvas : {
