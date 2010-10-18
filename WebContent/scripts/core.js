@@ -74,7 +74,7 @@
 		if (options.removeHidden)
 			holder.filters.element.removeHidden();
 		if (options.removeScripts)
-			holder.filters.canvas.replace();		
+			holder.filters.canvas.replace();
 		doc = getDocument();
 		holder.filters.element.clean(doc);
 		if (options.removeFrames)
@@ -90,7 +90,7 @@
 		sendRequests("setStylesheets");
 		if (requestCount == 0) {
 			holder.filters.document.get(doc, storeRequest, window == top);
-			bgPort.postMessage( {
+			bgPort.postMessage({
 				setTotalResources : true,
 				totalResources : requestCount
 			});
@@ -100,9 +100,9 @@
 	function getData() {
 		sendRequests("setData");
 		if (requestCount == 0)
-			bgPort.postMessage( {
+			bgPort.postMessage({
 				setDataDone : true,
-				data : window == top && options.removeFrames && sendContent ?  holder.filters.document.getDoctype() + doc.outerHTML : null,	
+				data : window == top && options.removeFrames && sendContent ? holder.filters.document.getDoctype() + doc.outerHTML : null,
 				favicoData : window == top && options.removeFrames && sendContent ? holder.filters.image.getFavicoData(doc) : null,
 				frameCount : holder.filters.frame.count(doc),
 				winID : winID
@@ -116,7 +116,7 @@
 			cb(data);
 		});
 		if (!isStylesheet)
-			bgPort.postMessage( {
+			bgPort.postMessage({
 				incProcessedResources : true
 			});
 		if (responseCount == requestCount) {
@@ -135,9 +135,9 @@
 			doc = getDocument();
 		}
 		holder.filters.frame.set(doc, data);
-		bgPort.postMessage( {
+		bgPort.postMessage({
 			setDocData : true,
-			data : window != top  || sendContent ?  holder.filters.document.getDoctype() + doc.outerHTML : null,
+			data : window != top || sendContent ? holder.filters.document.getDoctype() + doc.outerHTML : null,
 			favicoData : window == top && sendContent ? holder.filters.image.getFavicoData(doc) : null,
 			mimeType : "text/html"
 		});
@@ -158,7 +158,7 @@
 				callbackId = null;
 			}, 20);
 		}, true);
-		bgPort.postMessage( {
+		bgPort.postMessage({
 			done : true
 		});
 		if (options.removeScripts) {
@@ -198,7 +198,7 @@
 		processedFrames++;
 		if (processedFrames == holder.filters.frame.count()) {
 			if (top != window)
-				winPort.postMessageToParent( {
+				winPort.postMessageToParent({
 					done : true
 				});
 			else {
@@ -219,7 +219,7 @@
 			bgPort = backgroundPort;
 			winPort = windowPort;
 			initPageCallback = function() {
-				bgPort.postMessage( {
+				bgPort.postMessage({
 					startDone : true
 				});
 			};
@@ -227,7 +227,7 @@
 				if (message.start)
 					start(message);
 				else if (message.getStylesheets) {
-					initProcess(message.options);					
+					initProcess(message.options);
 					getStylesheets();
 				} else if (message.setStylesheets)
 					setData(message.data, getStylesheets, true);
@@ -235,9 +235,10 @@
 					getData();
 				else if (message.setData)
 					setData(message.data, function() {
-						bgPort.postMessage( {
+						bgPort.postMessage({
 							setDataDone : true,
-							data : window == top && sendContent ?  holder.filters.document.getDoctype() + doc.outerHTML : null,									
+							data : window == top && sendContent ? holder.filters.document.getDoctype() + doc.outerHTML : null,
+							favicoData : window == top && options.removeFrames && sendContent ? holder.filters.image.getFavicoData(doc) : null,
 							frameCount : holder.filters.frame.count(doc),
 							winID : winID
 						});
@@ -252,7 +253,7 @@
 			targetDoc = srcDoc;
 			doc = targetDoc.documentElement;
 			if (doc instanceof HTMLHtmlElement)
-				bgPort.postMessage( {
+				bgPort.postMessage({
 					init : true,
 					topWindow : window == top,
 					url : location.href,
