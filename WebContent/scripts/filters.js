@@ -249,18 +249,18 @@
 				});
 			},
 			getFavico : function(doc, sendRequest) {
-				var node, foundLink = false, IMG_SELECTOR = 'link[href][rel="shortcut icon"], link[href][rel="apple-touch-icon"], link[href][rel="icon"]';
+				var node, docHead = doc.querySelector("html > head"), foundLink = false, IMG_SELECTOR = 'link[href][rel="shortcut icon"], link[href][rel="apple-touch-icon"], link[href][rel="icon"]';
 				Array.prototype.forEach.call(doc.querySelectorAll(IMG_SELECTOR), function(n) {
 					var url = formatURL(n.href, targetDoc.baseURI);
 					if (!foundLink && url.indexOf("data:") != 0)
 						foundLink = true;
 				});
-				if (!foundLink) {
+				if (!foundLink && docHead) {
 					node = targetDoc.createElement("link");
 					node.type = "image/x-icon";
 					node.rel = "shortcut icon";
 					node.href = "/favicon.ico";
-					doc.querySelector("html > head").appendChild(node);
+					docHead.appendChild(node);
 					sendRequest(node.href, function(data) {
 						node.setAttribute(node.href ? "href" : "src", getDataURI(data, EMPTY_PIXEL_DATA, true));
 					}, true);
@@ -268,7 +268,9 @@
 			},
 			getFavicoData : function(doc) {
 				var favico = doc.querySelector('link[href][rel="shortcut icon"], link[href][rel="icon"], link[href][rel="apple-touch-icon"]');
-				return favico ? favico.href : null;
+				if (favico && favico.href != EMPTY_PIXEL_DATA)
+					return favico.href;
+				return null;
 			}
 		},
 		canvas : {

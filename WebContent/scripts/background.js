@@ -101,7 +101,7 @@ var singlefile = {};
 					xhr.onerror();
 				}
 			}
-			tabs[tabId].callbacks[url].push( {
+			tabs[tabId].callbacks[url].push({
 				responseHandler : responseHandler,
 				errorHandler : errorHandler
 			});
@@ -192,7 +192,7 @@ var singlefile = {};
 					var index = pChildData.winID.split('.').pop();
 					data[index] = pChildData.data;
 				});
-			pData.port.postMessage( {
+			pData.port.postMessage({
 				getDocData : true,
 				data : data
 			});
@@ -206,7 +206,7 @@ var singlefile = {};
 	function done(tabId) {
 		tabs[tabId].processing = false;
 		tabs[tabId].processed = true;
-		tabs[tabId].top.port.postMessage( {
+		tabs[tabId].top.port.postMessage({
 			done : true,
 			winProperties : getWinProperties()
 		});
@@ -218,16 +218,16 @@ var singlefile = {};
 			processedResources += portData.processedResources;
 			totalResources += portData.totalResources;
 		});
-		chrome.browserAction.setIcon( {
+		chrome.browserAction.setIcon({
 			tabId : tabId,
 			path : '../resources/icon_48_wait' + Math.floor((processedResources / totalResources) * 9) + '.png'
 		});
-		chrome.browserAction.setTitle( {
+		chrome.browserAction.setTitle({
 			tabId : tabId,
 			title : "Progress: " + Math.min(100, Math.floor((processedResources / totalResources) * 100)) + "%"
 		});
 	}
-	
+
 	function processTab(tabId) {
 		function executeScripts(scripts, callback, index) {
 			if (!index)
@@ -245,7 +245,7 @@ var singlefile = {};
 		}
 
 		if (!tabs[tabId] || (!tabs[tabId].processing && !tabs[tabId].processed)) {
-			executeScripts( [ {
+			executeScripts([ {
 				code : "var singlefile = {};"
 			}, {
 				file : "scripts/filters.js"
@@ -258,20 +258,20 @@ var singlefile = {};
 			} ], function() {
 				if (!tabs[tabId])
 					return;
-				tabs[tabId].processing = true;		
-				chrome.browserAction.setBadgeBackgroundColor( {
+				tabs[tabId].processing = true;
+				chrome.browserAction.setBadgeBackgroundColor({
 					color : [ 200, 200, 200, 192 ]
 				});
-				chrome.browserAction.setIcon( {
+				chrome.browserAction.setIcon({
 					tabId : tabId,
 					path : '../resources/icon_48_wait0.png'
 				});
-				chrome.browserAction.setTitle( {
+				chrome.browserAction.setTitle({
 					tabId : tabId,
 					title : "Progress: 0%"
 				});
 				detectScrapbook(function(sendContent) {
-					tabs[tabId].top.port.postMessage( {
+					tabs[tabId].top.port.postMessage({
 						start : true,
 						sendContent : sendContent
 					});
@@ -347,7 +347,7 @@ var singlefile = {};
 				tabData.processedPortCount++;
 				if (tabData.processedPortCount == tabData.ports.length) {
 					tabData.ports.forEach(function(pData) {
-						pData.port.postMessage( {
+						pData.port.postMessage({
 							getData : true
 						});
 					});
@@ -365,14 +365,14 @@ var singlefile = {};
 					detectScrapbook(function(sendContent) {
 						if (sendContent)
 							chrome.extension.sendRequest(SCRAPBOOK_EXT_ID, {
+								tabId : tabId,
 								title : tabData.title,
 								content : msg.data,
 								favicoData : msg.favicoData,
 								url : tabData.top.url
 							});
 					});
-				}
-				else {
+				} else {
 					tabData.processedDocCount++;
 					if (tabData.processedDocMax == tabData.processedDocCount) {
 						tabData.processedDocCount = 0;
@@ -394,6 +394,7 @@ var singlefile = {};
 					detectScrapbook(function(sendContent) {
 						if (sendContent)
 							chrome.extension.sendRequest(SCRAPBOOK_EXT_ID, {
+								tabId : tabId,
 								title : tabData.title,
 								content : msg.data,
 								favicoData : msg.favicoData,
@@ -403,29 +404,42 @@ var singlefile = {};
 				}
 			}
 			if (msg.done) {
-				chrome.browserAction.setIcon( {
+				chrome.browserAction.setIcon({
 					tabId : tabId,
 					path : '../resources/icon_48.png'
 				});
-				chrome.browserAction.setBadgeBackgroundColor( {
+				chrome.browserAction.setBadgeBackgroundColor({
 					color : [ 10, 200, 10, 192 ]
 				});
-				chrome.browserAction.setBadgeText( {
+				chrome.browserAction.setBadgeText({
 					tabId : tabId,
 					text : "OK"
 				});
-				chrome.browserAction.setTitle( {
+				chrome.browserAction.setTitle({
 					tabId : tabId,
 					title : "Save the page with Ctrl-S"
 				});
 			}
 		});
 	});
-	
+
 	chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse) {
+		var tabId = request.id;
 		if (sender.id != SCRAPBOOK_EXT_ID)
-			return;		
-		processTab(request.id);
+			return;
+		if (tabs[tabId] && tabs[tabId].processing) {
+			sendResponse({
+				processing : true
+			});
+			return;
+		}
+		if (tabs[tabId] && tabs[tabId].processed) {
+			sendResponse({
+				processed : true
+			});
+			return;
+		}
+		processTab(tabId);
 		sendResponse({});
 	});
 
