@@ -314,6 +314,10 @@
 					if (node.href.indexOf("data:") != 0)
 						sendRequest(node.href, function(data) {
 							var i, newNode;
+							if (data.mediaType == "text/html") {
+								node.parentElement.removeChild(node);
+								return;
+							}
 							newNode = targetDoc.createElement("style");
 							for (i = 0; i < node.attributes.length; i++)
 								if (node.attributes[i].value)
