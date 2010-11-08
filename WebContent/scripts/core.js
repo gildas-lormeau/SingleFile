@@ -19,7 +19,7 @@
  */
 
 (function(holder) {
-	var targetDoc, doc, options, winID, processedFrames = 0, initPageCallback, timeoutCallback, bgPort, winPort, requests = {}, requestCount = 0, responseCount = 0, sendContent;
+	var targetDoc, doc, options, winID, processedFrames = 0, initPageCallback, timeoutCallback, bgPort, winPort, requests = {}, requestCount = 0, responseCount = 0, sendContent, scrapbooking;
 
 	function storeRequest(url, callback, base64, encodedText, characterSet) {
 		if (!requests[url]) {
@@ -65,7 +65,7 @@
 	}
 
 	function setDocument() {
-		if (options.removeScripts)
+		if (options.removeScripts && !scrapbooking)
 			targetDoc.replaceChild(doc, targetDoc.documentElement);
 	}
 
@@ -174,6 +174,7 @@
 
 	function start(msg) {
 		sendContent = msg.sendContent;
+		scrapbooking = msg.scrapbooking;
 		timeoutCallback = setTimeout(initPageCallback, 1000);
 		setWinId("0");
 	}

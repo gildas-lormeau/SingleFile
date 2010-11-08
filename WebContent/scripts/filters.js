@@ -239,12 +239,12 @@
 		},
 		image : {
 			get : function(doc, sendRequest) {
-				var IMG_SELECTOR = 'link[href][rel="shortcut icon"], link[href][rel="apple-touch-icon"], link[href][rel="icon"], img[src], input[src][type="image"]';
+				var IMG_SELECTOR = 'link[href][rel="shortcut icon"], link[href][rel="apple-touch-icon"], link[href][rel="icon"], img[src], input[src][type="image"], video[poster]';
 				Array.prototype.forEach.call(doc.querySelectorAll(IMG_SELECTOR), function(node) {
-					var url = formatURL(node.href || node.src, targetDoc.baseURI);
+					var url = formatURL(node.href || node.src || node.poster, targetDoc.baseURI);
 					if (url.indexOf("data:") != 0)
 						sendRequest(url, function(data) {
-							node.setAttribute(node.href ? "href" : "src", getDataURI(data, EMPTY_PIXEL_DATA, true));
+							node.setAttribute(node.href ? "href" : node.src ? "src" : "poster", getDataURI(data, EMPTY_PIXEL_DATA, true));
 						}, true);
 				});
 			},

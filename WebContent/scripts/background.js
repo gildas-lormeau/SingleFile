@@ -228,7 +228,7 @@ var singlefile = {};
 		});
 	}
 
-	function processTab(tabId) {
+	function processTab(tabId, scrapbooking) {
 		function executeScripts(scripts, callback, index) {
 			if (!index)
 				index = 0;
@@ -273,7 +273,8 @@ var singlefile = {};
 				detectScrapbook(function(sendContent) {
 					tabs[tabId].top.port.postMessage({
 						start : true,
-						sendContent : sendContent
+						sendContent : sendContent,
+						scrapbooking : scrapbooking
 					});
 				});
 			});
@@ -439,7 +440,7 @@ var singlefile = {};
 			});
 			return;
 		}
-		processTab(tabId);
+		processTab(tabId, true);
 		sendResponse({});
 	});
 
