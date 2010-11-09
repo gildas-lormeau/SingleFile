@@ -46,12 +46,14 @@
 		init : function(bgPort) {
 			if (window == top)
 				bgPort.addListener(function(message) {
-					if (message.start)
-						showProcessing();
-					else if (message.done)
-						setTimeout(function() {
-							hideProcessing();
-						}, 250);
+					if (!message.scrapbooking) {
+						if (message.start) {
+							showProcessing();
+						} else if (message.done)
+							setTimeout(function() {
+								hideProcessing();
+							}, 250);
+					}
 				});
 		}
 	};

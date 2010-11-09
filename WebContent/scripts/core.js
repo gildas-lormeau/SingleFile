@@ -53,13 +53,12 @@
 
 	function getDocument() {
 		var clone, mask;
-		if (options.removeScripts) {
+		if (options.removeScripts || scrapbooking) {
 			clone = targetDoc.documentElement.cloneNode(true);
 			mask = clone.querySelector("#__SingleFile_mask__");
-			if (mask) {
+			if (mask)
 				mask.parentElement.removeChild(mask);
-				return clone;
-			}
+			return clone;
 		}
 		return targetDoc.documentElement;
 	}
@@ -71,15 +70,15 @@
 
 	function initProcess(opt) {
 		options = opt;
+		if (options.removeScripts || scrapbooking)
+			holder.filters.canvas.replace();
 		if (options.removeHidden)
 			holder.filters.element.removeHidden();
-		if (options.removeScripts)
-			holder.filters.canvas.replace();
 		doc = getDocument();
 		holder.filters.element.clean(doc);
 		if (options.removeFrames)
 			holder.filters.frame.remove(doc);
-		if (options.removeScripts)
+		if (options.removeScripts || scrapbooking)
 			holder.filters.script.remove(doc);
 		if (options.removeObjects)
 			holder.filters.object.remove(doc);
@@ -161,7 +160,7 @@
 		bgPort.postMessage({
 			done : true
 		});
-		if (options.removeScripts) {
+		if (options.removeScripts && !scrapbooking) {
 			function resetWindowProperties(winPropertiesStr) {
 				var property, winProp = JSON.parse(winPropertiesStr);
 				for (property in window)
