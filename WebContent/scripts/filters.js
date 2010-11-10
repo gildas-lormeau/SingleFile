@@ -276,7 +276,11 @@
 				}
 			},
 			getFavicoData : function(doc) {
-				var favico = doc.querySelector('link[href][rel="shortcut icon"], link[href][rel="icon"], link[href][rel="apple-touch-icon"]');
+				var favico, favicosByRel = {}, favicos = doc.querySelectorAll('link[href][rel="shortcut icon"], link[href][rel="icon"], link[href][rel="apple-touch-icon"]');
+				Array.prototype.forEach.call(favicos, function(favico) {
+					favicosByRel[favico.rel.toLowerCase()] = favico;
+				});
+				favico = favicosByRel["shortcut icon"] || favicosByRel["icon"] || favicosByRel["apple-touch-icon"];
 				if (favico && favico.href != EMPTY_PIXEL_DATA)
 					return favico.href;
 				return null;
