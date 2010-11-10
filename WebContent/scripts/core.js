@@ -82,6 +82,7 @@
 			holder.filters.script.remove(doc);
 		if (options.removeObjects)
 			holder.filters.object.remove(doc);
+		holder.filters.a.setAbsolute(doc);
 	}
 
 	function getStylesheets() {
@@ -174,6 +175,9 @@
 	function start(msg) {
 		sendContent = msg.sendContent;
 		scrapbooking = msg.scrapbooking;
+		if (scrapbooking)
+			document.documentElement.insertBefore(document.createComment(" archived from url=" + document.location.href + " date=" + new Date() + " "),
+					document.documentElement.firstChild);
 		timeoutCallback = setTimeout(initPageCallback, 1000);
 		setWinId("0");
 	}

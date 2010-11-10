@@ -182,6 +182,15 @@
 					});
 			}
 		},
+		a : {
+			setAbsolute : function(doc) {
+				var baseURI = document.baseURI.split("#")[0];
+				Array.prototype.forEach.call(doc.querySelectorAll("a[href]"), function(link) {
+					if (link.href && (link.href.indexOf(baseURI) != 0 || link.href.indexOf("#") == -1))
+						link.href = link.href;
+				});
+			}
+		},
 		frame : {
 			clean : function() {
 				Array.prototype.forEach.call(targetDoc.querySelectorAll("iframe[src], frame[src]"), function(frame) {

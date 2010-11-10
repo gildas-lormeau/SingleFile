@@ -428,6 +428,10 @@ var singlefile = {};
 		var tabId = request.id;
 		if (sender.id != SCRAPBOOK_EXT_ID)
 			return;
+		chrome.browserAction.setBadgeText({
+			tabId : tabId,
+			text : ""
+		});
 		if (tabs[tabId] && tabs[tabId].processing) {
 			sendResponse({
 				processing : true
