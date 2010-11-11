@@ -175,9 +175,8 @@
 	function start(msg) {
 		sendContent = msg.sendContent;
 		scrapbooking = msg.scrapbooking;
-		if (scrapbooking)
-			document.documentElement.insertBefore(document.createComment(" archived from url=" + document.location.href + " date=" + new Date() + " "),
-					document.documentElement.firstChild);
+		document.documentElement.insertBefore(document.createComment("\n Archive processed by SingleFile \n url: " + document.location.href + " \n saved date: " + new Date() + " \n"),
+				document.documentElement.firstChild);
 		timeoutCallback = setTimeout(initPageCallback, 1000);
 		setWinId("0");
 	}
