@@ -326,7 +326,7 @@
 				Array.prototype.forEach.call(doc.querySelectorAll(LINK_SELECTOR), function(node) {
 					if (node.href.indexOf("data:") != 0)
 						sendRequest(node.href, function(data) {
-							var i, newNode;
+							var i, newNode, commentNode;
 							if (data.mediaType == "text/html") {
 								node.parentElement.removeChild(node);
 								return;
@@ -337,8 +337,14 @@
 									newNode.setAttribute(node.attributes[i].name, node.attributes[i].value);
 							newNode._href = node.href;
 							newNode.removeAttribute("href");
-							newNode.textContent = resolveURLs(data.content || "", data.url) + "\n";
-							node.parentElement.replaceChild(newNode, node);
+							newNode.textContent = resolveURLs(data.content || "", data.url) + "\n";							
+							if (node.disabled) {
+								commentNode = doc.createComment();
+								commentNode.textContent = newNode.outerHTML.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/--/g,"&minus;&minus;");
+								node.parentElement.replaceChild(commentNode, node);
+							} 
+							else
+								node.parentElement.replaceChild(newNode, node);
 						});
 				});
 			}
@@ -370,7 +376,7 @@
 					replaceCssURLs(function() {
 						return styleSheet.textContent;
 					}, function(value) {
-						styleSheet.textContent = value
+						styleSheet.textContent = value;
 					}, styleSheet._href || targetDoc.baseURI, sendRequest);
 				});
 			},
