@@ -1,0 +1,23 @@
+{
+	"name": "SingleFile",
+	"icons": {
+		"16": "resources/icon_16.png",
+		"48": "resources/icon_48.png",
+		"128": "resources/icon_128.png" },
+	"version": "0.2.18",
+	"description": "SingleFile helps you to archive a complete page into a single HTML file",
+	"background_page" : "pages/background.html",
+	"options_page": "pages/options.html",
+	"browser_action": {
+	    "default_icon": "resources/icon_48.png", 
+	    "default_title": "Process this page with SingleFile"
+	},
+	"content_scripts" : [ {
+		"matches" : [ "http://*/*", "https://*/*" ],
+		"js" : [ "scripts/content/content.js" ],
+		"run_at" : "document_start",
+		"all_frames" : true
+	} ],
+	"permissions": [ "tabs", "notifications", "contextMenus" ],
+	"minimum_chrome_version" : "7"
+}
