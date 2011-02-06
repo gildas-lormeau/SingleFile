@@ -35,35 +35,35 @@ folder</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known
 	</div>
 	<li><a id="options">Options description</a>
 
-	<p>You can customize the way SingleFile process the page through the options page. Right-click on SingleFile icon <img src="../resources/icon_48.png" id="icon"> in the
+	<p>You can customize the way SingleFile process a document through the options page. Right-click on SingleFile icon <img src="../resources/icon_48.png" id="icon"> in the
 	Chrome toolbar and select "Options" in the context menu to open the options page.</p>
 	<div class="screenshot"></div>
 	<p>Details :</p>
 	<ul>
 		<li><span class="option">remove frames</span>
 		<p>Remove all frames on the page</p>
-		<p>You can enable this option if the file size is too large when disabled or to remove some ads.</p>
-		<p class="notice">It is recommended to <u>disable</u> this option</p>
+		<p>You can enable this option if the file size is too large when disabled or to remove some ads. You should enable this option to view saved pages on IE8.</p>
+		<p class="notice">It is recommended to <u>disable</u> this option unless you want to open saved pages in IE8.</p>
 		</li>
 
 		<li><span class="option">remove scripts</span>
 		<p>Remove all javascript scripts</p>
-		<p>Most of the time, you don't need javascript into the saved page. If your want to save the page dynamic behavior, you may need to disable this option. Nevertheless, the
-		dynamic behavior may not work or document can be altered when opening the saved file.<br>
-		It is recommended to enable <span class="option">process raw document</span> if you disable this option.</p>
+		<p>Most of the time, you don't need javascript into the saved page. If you want to save the dynamic behavior of the document, you may need to disable this option.
+		Nevertheless it may not work or document can be altered when opening the saved file.<br>
+		It is strongly recommended to enable <span class="option">process raw document</span> if you disable this option.</p>
 		<p class="notice">It is recommended to <u>enable</u> this option</p>
 		</li>
 
 		<li><span class="option">remove objects</span>
 		<p>Remove all objects</p>
-		<p>Remove all non embeddable elements : flash, java applet ...</p>
+		<p>Remove all non embeddable elements : flash objects, java applets ...</p>
 		<p class="notice">It is recommended to <u>enable</u> this option if you want to read the saved page offline</p>
 		</li>
 
 		<li><span class="option">remove hidden elements</span>
 		<p>Remove all hidden elements</p>
-		<p>Remove all the HTML unvisible elements on the page (with <code>visibility = "hidden"</code>&nbsp;or&nbsp;<code>display = "none"</code>&nbsp;or&nbsp;<code>opacity =
-		0</code> CSS property values). This option may alter the document but can considerably reduce the saved file size.</p>
+		<p>Remove all document hidden elements (<code>visibility = "hidden"</code>&nbsp;or&nbsp;<code>display = "none"</code>&nbsp;or&nbsp;<code>opacity = "0"</code> CSS property
+		values). This option may alter the document but can considerably reduce the saved file size.</p>
 		<p class="notice">It is recommended to <u>disable</u> this option unless the saved file size is too large</p>
 		</li>
 
@@ -77,27 +77,28 @@ folder</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known
 		<li><span class="option">scrapbook the page</span>
 		<p>Send the archived page to <a href="https://chrome.google.com/webstore/detail/ihkkeoeinpbomhnpkmmkpggkaefincbn">Scrapbook for SingleFile</a></p>
 		<p>This option allows to use SingleFile action icon as a shortcut to send the viewed page to <a
-			href="https://chrome.google.com/webstore/detail/ihkkeoeinpbomhnpkmmkpggkaefincbn">Scrapbook for SingleFile</a> extension if installed.</p>
+			href="https://chrome.google.com/webstore/detail/ihkkeoeinpbomhnpkmmkpggkaefincbn">Scrapbook for SingleFile</a> extension.</p>
 		<p class="notice">It is recommended to <u>disable</u> this option unless you want to use SingleFile icon to scrapbook pages</p>
 		</li>
 
 		<li><span class="option">process in background</span>
 		<p>Process the page in background</p>
-		<p>Processing in background means it won't be blocking (*). If you disable this option, a shadow will prevent you to use the page during the SingleFile processing. Even
-		though processing may be faster.</p>
+		<p>Processing in background means it won't be blocking (*). If you disable this option, a shadow will prevent you to use the page during the SingleFile processing but
+		processing will be faster.</p>
 		<p class="notice">It is recommended to <u>disable</u> this option unless <span class="option">display processed page</span> option is disabled</p>
 		</li>
 
 		<li><span class="option">save processed page (*)</span>
 		<p>Save the page on filesystem</p>
-		<p>When enabled this option allows to save automatically archives on filesystem. See <a href="#folder">Saved archives folder</a> for more details.</p>
+		<p>If you enable this option, documents will be automatically saved on filesystem. See <a href="#folder">Saved archives folder</a> for more details.</p>
 		<p class="notice">It is recommended to <u>disable</u> this option unless you want files to be automatically saved</p>
 		</li>
 
 		<li><span class="option">display processed page (*)</span>
 		<p>Display the processed page in the tab</p>
-		<p>This option must be enabled if you want to use Chrome "Save as" dialog box to save the processed page. To improve processing speed, you should disable <span class="option">process
-		in background</span> when this option is enabled.</p>
+		<p>This option must be enabled if you want to use Chrome "Save as" dialog box to save the processed page.<br>
+		You should enable <span class="option">process in background</span> when this option is disabled so the processing won't be blocking. Conversely, you should disable <span
+			class="option">process in background</span> when this option is enabled so the processing will be faster.</p>
 		<p class="notice">It is recommended to <u>enable</u> this option</p>
 		</li>
 
@@ -109,8 +110,8 @@ folder</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known
 
 		<li><span class="option">process raw document</span>
 		<p>Process the raw downloaded document</p>
-		<p>This option allows SingleFile to process the downloaded document instead of the displayed document. The main difference is that JavaScript scripts won't be parsed and
-		executed. Frames won't be embedded too.</p>
+		<p>This option allows SingleFile to process the downloaded document instead of the displayed document. The main difference is that scripts won't be parsed and executed.
+		Frames won't be embedded too.</p>
 		<p class="notice">It is recommended to <u>disable</u> this option unless <span class="option">remove scripts</span> is disabled</p>
 		</li>
 
@@ -121,9 +122,9 @@ folder</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known
 	</li>
 
 	<li><a id="folder">Saved archives folder (*)</a>
-	<p>When <span class="option">save processed page</span> is enabled, pages will be automatically saved but Chrome will not allow to choose the root folder where archives are
-	stored. Neither it will allow to make links pointing to saved files folder. So you have to find "manually" the this folder.</p>
-	<p>Files are saved in "FileSystem" folder located into Chrome user data folder:</p>
+	<p>When <span class="option">save processed page</span> is enabled, pages will be automatically saved on filesystem. However, Chrome will not allow to choose the root folder
+	where archives are stored. Neither it will allow SingleFile to make links pointing to saved files folder. So you have to find "manually" this folder.</p>
+	<p>Files are saved in the extension subfolder of "FileSystem" folder located into Chrome user data folder:</p>
 	<ul style="text-align: left">
 		<li>Windows default path: <br>
 		<span class="option">%LOCALAPPDATA%\Google\Chrome\User&nbsp;Data\Default\FileSystem\chrome-extension_jemlklgaibiijojffihnhieihhagocma_0\Persistent\</span></li>
@@ -132,7 +133,9 @@ folder</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known
 		<li>Mac OS X default path: <br>
 		<span class="option">~/Library/Application&nbsp;Support/Google/Chrome/Default/FileSystem/chrome-extension_jemlklgaibiijojffihnhieihhagocma_0/Persistent/</span></li>
 	</ul>
-	<p>You can create symbolic links to help you to access easily to this folder and use sync services like dropbox. Here are the way of doing it on <a
+	<p>You can create shortcuts to access to this folder easily.
+	<p>
+	<p>You can also create symbolic links in order to use sync services like dropbox. Here are the way of doing it on <a
 		href="http://technet.microsoft.com/en-us/library/cc753194(WS.10).aspx">windows (mklink /d)</a> and <a href="http://www.unixtutorial.org/commands/ln/">linux or Mac OS X (ln
 	-s)</a>.</p>
 	<p>You can also change Chrome user data folder with <a href="http://www.chromium.org/user-experience/user-data-directory">--user-data-dir switch</a>.
@@ -141,9 +144,9 @@ folder</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known
 	<li><a id="notes">Technical notes</a>
 	<ul>
 		<li>all images are converted into <a href="http://en.wikipedia.org/wiki/Base64">base64</a></li>
-		<li>frame document contents and automatically saved pages are encoded with <a href="http://en.wikipedia.org/wiki/Utf_8">utf-8 charset</a></li>
+		<li>frame document contents and automatically saved pages (*) are encoded with <a href="http://en.wikipedia.org/wiki/Utf_8">utf-8 charset</a></li>
 		<li>encoded contents are injected in the document using <a href="http://en.wikipedia.org/wiki/Data_URI_scheme">data URI scheme</a></li>
-		<li>data URI scheme is supported by the following web browsers: Chrome, Firefox, Opera, Safari, Konqueror and Internet Explorer 8 (limited support : data URIs must be
+		<li>data URI scheme is supported by the following web browsers: Chrome, Firefox, Opera, Safari, Konqueror and Internet Explorer 8 (limited support: data URIs must be
 		smaller than 32 KB, embedded frames are not supported)</li>
 		<li>SVG images are supported (SVG document is converted into utf-8 but is not processed)</li>
 	</ul>
@@ -151,7 +154,7 @@ folder</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known
 
 	<li><a id="knownIssues">Known issues</a>
 	<ul>
-		<li>SVG images without src attribute or with empty src attribute are not embedded</li>		
+		<li>SVG images without src attribute or with empty src attribute are not embedded</li>
 	</ul>
 	</li>
 

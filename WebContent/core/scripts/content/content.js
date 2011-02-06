@@ -283,21 +283,21 @@
 	}
 
 	function setContentRequest(message) {
-		var mutationEventId = 0, winId = wininfo.winId;
+		var mutationEventId = 0, winId = wininfo.winId, timeoutSetContent;
 
 		function resetWindowProperties(winPropertiesStr) {
-			var property, winProp, customEvent;
+			var property, winProp, customEvent, parse = JSON.parse || JSON.decode;
 			try {
-				winProp = eval("(" + winPropertiesStr + ")");
-				customEvent = document.createEvent("CustomEvent");
+				winProp = parse(winPropertiesStr);
 				for (property in window)
 					if (!winProp[property])
-						window[property] = null;
-				customEvent.initCustomEvent("WindowPropertiesCleaned", true, true);
-				document.dispatchEvent(customEvent);
+						window[property] = null;							
 			} catch (e) {
 				console.log(e);
 			}
+			customEvent = document.createEvent("CustomEvent");
+			customEvent.initCustomEvent("WindowPropertiesCleaned", true, true);
+			document.dispatchEvent(customEvent);
 		}
 
 		function onDOMSubtreeModified(event) {
@@ -342,6 +342,10 @@
 				doc.addEventListener("DOMSubtreeModified", onDOMSubtreeModified, true);
 			}
 
+			if (timeoutSetContent) {
+				clearTimeout(timeoutSetContent);
+				timeoutSetContent = null;
+			}				
 			doc.removeEventListener('WindowPropertiesCleaned', onWindowPropertiesCleaned, true);
 			if (config.processInBackground || singlefile.processSelection || (!config.processInBackground && !config.removeScripts))
 				if (location.pathname.indexOf(".txt") + 4 != location.pathname.length) {
@@ -384,9 +388,9 @@
 							.getDocContent(doc, docElement));
 			}
 		}
-
 		if (config.displayProcessedPage) {
-			window.location.href = "javascript:(" + resetWindowProperties.toString() + ")('" + JSON.stringify(message.winProperties) + "')";
+			window.location.href = "javascript:(" + resetWindowProperties.toString() + ")('" + JSON.stringify(message.winProperties) + "'); void 0;";			
+			timeoutSetContent = setTimeout(onWindowPropertiesCleaned, 3000);			
 			doc.addEventListener('WindowPropertiesCleaned', onWindowPropertiesCleaned, true);
 		} else
 			setContentResponse();

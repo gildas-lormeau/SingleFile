@@ -85,7 +85,6 @@
 					return "@import \"" + formatURL(result[1], host) + "\";";
 			return value;
 		});
-
 	}
 
 	function getDataURI(data, defaultURL, woURL) {
@@ -142,7 +141,7 @@
 			if (!(href.indexOf("data:") == 0)) {
 				requestManager.send(fullHref, function(data) {
 					var i, newNode, commentNode;
-					if (data.status == 404) {
+					if (data.status >= 400) {
 						node.parentElement.removeChild(node);
 						return;
 					}
@@ -172,7 +171,7 @@
 			function sendRequest(imp) {
 				requestManager.send(url,
 						function(data) {
-							styleSheet.textContent = styleSheet.textContent.replace(imp, data.status != 404 && data.content ? resolveURLs(data.content,
+							styleSheet.textContent = styleSheet.textContent.replace(imp, data.status < 400 && data.content ? resolveURLs(data.content,
 									data.url) : "");
 						}, null, characterSet);
 				ret = false;
@@ -271,7 +270,7 @@
 			var src = node.getAttribute("src");
 			if (!(src.indexOf("data:") == 0))
 				requestManager.send(formatURL(src, baseURI), function(data) {
-					if (data.status != 404) {
+					if (data.status < 400) {
 						data.content = data.content.replace(/"([^"]*)<\/\s*script\s*>([^"]*)"/gi, '"$1<"+"/script>$2"');
 						data.content = data.content.replace(/'([^']*)<\/\s*script\s*>([^']*)'/gi, "'$1<'+'/script>$2'");
 						node.textContent = [ "\n", data.content, "\n" ].join("");
@@ -355,9 +354,7 @@
 
 		function RequestManager(onProgress) {
 			var that = this, currentCount = 0, requests = [];
-
 			this.requestCount = 0;
-
 			this.send = function(url, responseHandler, characterSet, mediaTypeParam) {
 				this.requestCount++;
 				requests.push({
@@ -367,7 +364,6 @@
 					mediaTypeParam : mediaTypeParam
 				});
 			};
-
 			this.doSend = function() {
 				requests.forEach(function(request) {
 					requestManager.send(request.url, function(response) {

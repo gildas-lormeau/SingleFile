@@ -24,7 +24,7 @@ var wininfo = {};
 
 	var EXT_ID = "wininfo";
 
-	var contentRequestCallbacks, executeSetFramesWinIdString = executeSetFramesWinId.toString(), processLength, processIndex, timeoutProcess;
+	var contentRequestCallbacks, executeSetFramesWinIdString = executeSetFramesWinId.toString(), processLength, processIndex, timeoutProcess, timeoutInit;
 
 	function addListener(onMessage) {
 		function windowMessageListener(event) {
@@ -120,7 +120,6 @@ var wininfo = {};
 					}
 				})(i);
 		}
-
 		execute(extensionId, document.querySelectorAll(selector), index, winId, window);
 	}
 
@@ -147,7 +146,16 @@ var wininfo = {};
 	function initRequest(message) {
 		wininfo.winId = message.winId;
 		wininfo.index = message.index;
-		location.href = "javascript:(" + executeSetFramesWinIdString + ")('" + EXT_ID + "','iframe, frame'," + wininfo.index + ",'" + wininfo.winId + "')";
+		timeoutInit = setTimeout(function() {
+			initResponse({
+				initResponse : true,
+				frames : [],
+				winId : message.winId,
+				index : message.index
+			});
+		}, 3000);
+		location.href = "javascript:(" + executeSetFramesWinIdString + ")('" + EXT_ID + "','iframe, frame'," + wininfo.index + ",'" + wininfo.winId
+				+ "'); void 0;";
 	}
 
 	function initResponse(message) {
@@ -164,6 +172,10 @@ var wininfo = {};
 			});
 		}
 
+		if (timeoutInit) {
+			clearTimeout(timeoutInit);
+			timeoutInit = null;
+		}
 		if (window == top) {
 			message.frames = message.frames instanceof Array ? message.frames : JSON.parse(message.frames);
 			if (message.winId != "0")
