@@ -20,7 +20,7 @@
 
 (function() {
 
-	var DEFAULT_FILENAME_MAX_LENGTH = 90, DEFAULT_CONFIG = {
+	var DEFAULT_CONFIG = {
 		removeFrames : false,
 		removeScripts : true,
 		removeObjects : true,
@@ -28,7 +28,7 @@
 		removeUnusedCSSRules : false,
 		displayProcessedPage : false,
 		savePage : false,
-		filenameMaxLength : DEFAULT_FILENAME_MAX_LENGTH,
+		filenameMaxLength : 90,
 		processInBackground : true,
 		getContent : true,
 		getRawDoc : false
@@ -247,7 +247,7 @@
 
 	chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse) {
 		// console.log("onRequestExternal", request);
-		var property, config = DEFAULT_CONFIG;
+		var property, config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
 		if (request.config)
 			for (property in request.config)
 				config[property] = request.config[property];
