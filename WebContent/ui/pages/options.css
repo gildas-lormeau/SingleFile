@@ -87,3 +87,24 @@ a {
 #filenameMaxLengthInput {
 	width: 20px;
 }
+
+.help {
+	font-size: 9pt;
+	color: LightSlateGrey;
+	display: none;	
+}
+
+.help p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.question-mark {
+	padding-left: 4px;
+	cursor: pointer;
+	opacity: .5;
+}
+
+.question-mark:hover {
+	opacity: .8;
+}
