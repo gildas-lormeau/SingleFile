@@ -77,8 +77,8 @@
 
 	function removeHiddenElements() {
 		Array.prototype.forEach.call(doc.querySelectorAll("html > body *:not(style):not(script):not(link):not(area)"), function(element) {
-			var style = getComputedStyle(element);
-			if ((style.visibility == "hidden" || style.display == "none" || style.opacity == 0))
+			var style = getComputedStyle(element), tagName = element.tagName.toLowerCase();
+			if (tagName != "iframe" && tagName != "frame" && ((style.visibility == "hidden" || style.display == "none" || style.opacity == 0)))
 				element.parentElement.removeChild(element);
 		});
 	}
@@ -291,7 +291,7 @@
 				winProp = parse(winPropertiesStr);
 				for (property in window)
 					if (!winProp[property])
-						window[property] = null;							
+						window[property] = null;
 			} catch (e) {
 				console.log(e);
 			}
@@ -345,21 +345,21 @@
 			if (timeoutSetContent) {
 				clearTimeout(timeoutSetContent);
 				timeoutSetContent = null;
-			}				
+			}
 			doc.removeEventListener('WindowPropertiesCleaned', onWindowPropertiesCleaned, true);
 			if (config.processInBackground || singlefile.processSelection || (!config.processInBackground && !config.removeScripts))
-				if (location.pathname.indexOf(".txt") + 4 != location.pathname.length) {
-					doc.open();
-					doc.write(message.content);
-					doc.addEventListener("DOMSubtreeModified", onDOMSubtreeModified, true);
-					doc.close();
-				} else {
+				if (location.pathname.indexOf(".txt") + 4 == location.pathname.length) {
 					tmpDoc = document.implementation.createHTMLDocument();
 					tmpDoc.open();
 					tmpDoc.write(message.content);
 					tmpDoc.close();
 					docElement = doc.importNode(tmpDoc.documentElement, true);
 					replaceDoc();
+				} else {
+					doc.open();
+					doc.write(message.content || singlefile.util.getDocContent(doc, docElement));
+					doc.addEventListener("DOMSubtreeModified", onDOMSubtreeModified, true);
+					doc.close();
 				}
 			else
 				replaceDoc();
@@ -389,8 +389,8 @@
 			}
 		}
 		if (config.displayProcessedPage) {
-			window.location.href = "javascript:(" + resetWindowProperties.toString() + ")('" + JSON.stringify(message.winProperties) + "'); void 0;";			
-			timeoutSetContent = setTimeout(onWindowPropertiesCleaned, 3000);			
+			window.location.href = "javascript:(" + resetWindowProperties.toString() + ")('" + JSON.stringify(message.winProperties) + "'); void 0;";
+			timeoutSetContent = setTimeout(onWindowPropertiesCleaned, 3000);
 			doc.addEventListener('WindowPropertiesCleaned', onWindowPropertiesCleaned, true);
 		} else
 			setContentResponse();
