@@ -78,12 +78,12 @@ function load() {
 		bgPage.singlefile.config.reset();
 		load();
 	});
-	document.getElementById("storageOptions").style.display = storageIsEnabled ? "" : "none";	
+	document.getElementById("storageOptions").style.display = storageIsEnabled ? "" : "none";
 }
 
 addEventListener("load", load);
 addEventListener("click", function(event) {
-	var tooltip ;
+	var tooltip;
 	if (event.target.className == "question-mark") {
 		tooltip = event.target.parentElement.parentElement.children[2];
 		tooltip.style.display = tooltip.style.display == "block" ? "none" : "block";

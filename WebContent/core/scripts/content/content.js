@@ -388,6 +388,7 @@
 							.getDocContent(doc, docElement));
 			}
 		}
+
 		if (config.displayProcessedPage) {
 			window.location.href = "javascript:(" + resetWindowProperties.toString() + ")('" + JSON.stringify(message.winProperties) + "'); void 0;";
 			timeoutSetContent = setTimeout(onWindowPropertiesCleaned, 3000);

@@ -22,8 +22,8 @@
 
 	singlefile.ui = {};
 
-	var DEFAULT_ICON_PATH = "../resources/icon_48.png";
-	var DEFAULT_PASSIVE_ICON_PATH = "../resources/icon_48_passive.png";
+	var DEFAULT_ICON_PATH = "../resources/icon_19.png";
+	var DEFAULT_PASSIVE_ICON_PATH = "../resources/icon_19_forbidden.png";
 	var DEFAULT_BADGE_CONFIG = {
 		text : "",
 		bgColor : [ 64, 64, 64, 255 ],
@@ -79,7 +79,7 @@
 			text : "...",
 			bgColor : [ 2, 147, 20, 255 ],
 			title : "Initialize process...",
-			iconPath : DEFAULT_PASSIVE_ICON_PATH
+			iconPath : DEFAULT_ICON_PATH
 		};
 		tabsData[tabId] = tabData;
 		refreshBadge(tabId);
@@ -119,10 +119,10 @@
 			if (currentProgress != progress) {
 				currentProgress = progress;
 				badgeConfig.title = "progress: " + Math.min(100, Math.floor((index / maxIndex) * 100)) + "%";
-				barProgress = Math.floor((index / maxIndex) * 9);
+				barProgress = Math.floor((index / maxIndex) * 15);
 				if (currentBarProgress != barProgress) {
 					currentBarProgress = barProgress;
-					badgeConfig.iconPath = "../resources/icon_48_wait" + barProgress + ".png";
+					badgeConfig.iconPath = "../resources/icon_19_wait" + barProgress + ".png";
 				}
 				refreshBadge();
 			}

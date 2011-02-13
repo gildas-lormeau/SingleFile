@@ -89,10 +89,10 @@
 	chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 		notifyProcessable(tab.id, tab.url, true);
 	});
-
 	chrome.tabs.onRemoved.addListener(function(tabId) {
 		singlefile.ui.notifyTabRemoved(tabId);
 	});
+
 	chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse) {
 		if (request.processStart) {
 			singlefile.ui.notifyProcessStart(request.tabId, request.processingPagesCount);

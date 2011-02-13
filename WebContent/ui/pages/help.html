@@ -19,7 +19,7 @@ folder</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known
 	<ul>
 		<li>wait until the page is fully loaded : you may need to scroll down the entire page and hover dynamic document elements (e.g. "rollover" images) to be sure all elements
 		are displayed</li>
-		<li>click on the SingleFile icon <img src="../resources/icon_48.png" id="icon"> in the Chrome toolbar or press Ctrl-Shift-S shortcut or use context menu to launch page
+		<li>click on the SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the Chrome toolbar or press Ctrl-Shift-S shortcut or use context menu to launch page
 		processing</li>
 		<li>wait until the shadow disappears then hit Ctrl-S or select "Save as" in the wrench menu and save the page</li>
 		<li>all images, style sheets and frame contents are embedded into the ".htm" saved file</li>
@@ -35,7 +35,7 @@ folder</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known
 	</div>
 	<li><a id="options">Options description</a>
 
-	<p>You can customize the way SingleFile process a document through the options page. Right-click on SingleFile icon <img src="../resources/icon_48.png" id="icon"> in the
+	<p>You can customize the way SingleFile process a document through the options page. Right-click on SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the
 	Chrome toolbar and select "Options" in the context menu to open the options page.</p>
 	<div class="screenshot"></div>
 	<p>Details :</p>
@@ -49,7 +49,7 @@ folder</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known
 		<p>Check this option to remove all non embeddable elements : flash objects, java applets ...</p>
 		<p class="notice">It is recommended to <u>check</u> this option</p>
 		</li>
-		
+
 		<li><span class="option">remove scripts</span>
 		<p>Check this option if you do not want to save scripts. Most of the time, you do not need scripts in the saved page. Thus they can alter it. Nevertheless if you want to save
 		page dynamic behavior then uncheck this option. If you uncheck this option then it is strongly recommended to check <span class="option">process raw document</span> option.</p>
@@ -93,8 +93,8 @@ folder</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known
 		</li>
 
 		<li><span class="option">max filename length (*)</span>
-		<p>Set the value of maximum filename length. This value is used when <span class="option">save processed page</span> option is checked. SingleFile cannot guess the maximum filename
-		length allowed by the Operating System so you have to configure it manually.</p>
+		<p>Set the value of maximum filename length. This value is used when <span class="option">save processed page</span> option is checked. SingleFile cannot guess the maximum
+		filename length allowed by the Operating System so you have to configure it manually.</p>
 		<p class="notice">It is recommended to set this option to <u>90</u> (if you are using Windows)</p>
 		</li>
 
@@ -145,20 +145,22 @@ folder</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known
 	<ul>
 		<li>SVG images without src attribute or with empty src attribute are not embedded</li>
 		<li>If you are using <a href="https://chrome.google.com/extensions/detail/odjhifogjcknibkahlpidmdajjpkkcfn">NotScripts</a> extension and have issues when using SingleFile
-		then you must add this line in "CHANGE__PASSWORD__HERE.js" file as described <a href="http://optimalcycling.com/other-projects/notscripts/faq/#stumbleuponextension">here</a>:<br>
+		then you must add this line in "CHANGE__PASSWORD__HERE.js" file as described <a href="http://optimalcycling.com/other-projects/notscripts/faq/#mitigation">here</a>:<br>
 		<code>const DO_NOT_MITIGATE_INLINE_SCRIPTS = true;</code></li>
-		<li>If <span class="option">process in background</span> is unchecked and <span class="option">display processed page</span> is checked, processed page may sometimes be
+		<li>If <span class="option">process in background</span> is unchecked and <span class="option">display processed page</span> is checked then the page may sometimes be
 		altered after being processed (i.e. some elements are not correctly placed). This issue won't affect the saved page.</li>
 		<li><code>file:///*</code>, <code>chrome://*</code> and <code>https://chrome.google.com/*</code> URIs cannot be processed</li>
+		<li>Some pages make the tab crash when processing (e.g. gmail), however if <span class="option">save processed page</span> is checked then you will be able to open the saved
+		page in another browser</li>
 	</ul>
 	</li>
 
 	<li><a id="unknownIssues">Unknown issues</a>
 	<p>If you find an unknown issue (i.e. frozen process, extra saved files, blank or altered document, tab crash...):</p>
 	<ul>
-		<li>reset options</li>
+		<li>reset SingleFile options</li>
 		<li>disable all other extensions to see if there is a conflict</li>
-		<li>if there is a conflict, try to determine against which extension(s)</li>
+		<li>if there is a conflict then try to determine against which extension(s)</li>
 		<li>report the issue <a href="https://chrome.google.com/webstore/detail/mpiodijhokgodhhofbcjdecpffjipkle">here</a> with a short description describing how to reproduce it,
 		Chrome version, OS name and version.</li>
 	</ul>

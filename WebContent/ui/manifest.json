@@ -9,7 +9,7 @@
 	"background_page" : "pages/background.html",
 	"options_page": "pages/options.html",
 	"browser_action": {
-	    "default_icon": "resources/icon_48.png", 
+	    "default_icon": "resources/icon_19.png", 
 	    "default_title": "Process this page with SingleFile"
 	},
 	"content_scripts" : [ {

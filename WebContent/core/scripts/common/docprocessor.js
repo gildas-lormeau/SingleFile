@@ -169,11 +169,9 @@
 			var i, url, result, imports = removeComments(styleSheet.textContent).match(IMPORT_EXP);
 
 			function sendRequest(imp) {
-				requestManager.send(url,
-						function(data) {
-							styleSheet.textContent = styleSheet.textContent.replace(imp, data.status < 400 && data.content ? resolveURLs(data.content,
-									data.url) : "");
-						}, null, characterSet);
+				requestManager.send(url, function(data) {
+					styleSheet.textContent = styleSheet.textContent.replace(imp, data.status < 400 && data.content ? resolveURLs(data.content, data.url) : "");
+				}, null, characterSet);
 				ret = false;
 			}
 
