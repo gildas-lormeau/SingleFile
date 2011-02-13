@@ -98,8 +98,10 @@
 				blockingProcess : !pageData.config.processInBackground || pageData.config.displayProcessedPage,
 				processingPagesCount : processingPagesCount
 			});
-			if (pageData.config.processInBackground && !pageData.config.displayProcessedPage)
+			if (pageData.config.processInBackground && !pageData.config.displayProcessedPage) {
 				tabs[pageData.tabId].processing = false;
+				pageData.processing = false;
+			}
 		}
 
 		if (!docData.initialized) {
@@ -187,65 +189,64 @@
 			tabs[pageData.tabId] = null;
 	}
 
-	chrome.extension.onConnect
-			.addListener(function(port) {
-				var tabId = port.sender.tab.id, portPageId = [];
+	function onConnect(port) {
+		var tabId = port.sender.tab.id, portPageId = [];
 
-				function onDisconnect() {
-					var pageData = tabs[tabId][portPageId[port.portId_]];
-					if (!pageData)
-						return;
-					pageData.portsId = pageData.portsId.filter(function(id) {
-						return id != port.portId_;
-					});
-					if (!pageData.portsId.length)
-						if (pageData.processing)
-							pageData.pendingDelete = true;
-						else
-							deletePageData(pageData);
-				}
-
-				function onMessage(message) {
-					var pageData, docData;
-					// if (!message.getResourceContentRequest && !message.docProgress)
-					// console.log("onMessage", message, port.portId_);
-					if (message.winId) {
-						portPageId[port.portId_] = message.pageId;
-						if (message.processInit)
-							processInit(tabId, port, message);
-						else {
-							pageData = tabs[tabId][message.pageId];
-							docData = pageData.getDocData(message.winId);
-							if (message.processDocFragment)
-								pageData.processDocFragment(docData, message.mutationEventId, message.content);
-							if (message.getResourceContentRequest)
-								pageData.getResourceContentRequest(message.url, message.requestId, message.winId, message.characterSet, message.mediaTypeParam,
-										docData);
-							if (message.docInit)
-								docInit(pageData, docData, message.maxIndex);
-							if (message.docProgress)
-								docProgress(pageData, docData, message.index);
-							if (message.docEnd)
-								docEnd(pageData, docData, message.content);
-							if (message.setFrameContentResponse)
-								docData.children[message.index].setFrameContentCallback();
-							if (message.getContentResponse) {
-								docData.content = message.content;
-								docData.getContentCallback();
-							}
-							if (message.setContentResponse)
-								setContentResponse(tabId, message.pageId, docData, message.content);
-						}
-					}
-				}
-
-				if (port.name == "singlefile") {
-					port.onMessage.addListener(onMessage);
-					port.onDisconnect.addListener(onDisconnect);
-				}
+		function onDisconnect() {
+			var pageData = tabs[tabId][portPageId[port.portId_]];
+			if (!pageData)
+				return;
+			pageData.portsId = pageData.portsId.filter(function(id) {
+				return id != port.portId_;
 			});
+			if (!pageData.portsId.length)
+				if (pageData.processing)
+					pageData.pendingDelete = true;
+				else
+					deletePageData(pageData);
+		}
 
-	chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse) {
+		function onMessage(message) {
+			var pageData, docData;
+			// if (!message.getResourceContentRequest && !message.docProgress)
+			// console.log("onMessage", message, port.portId_);
+			if (message.winId) {
+				portPageId[port.portId_] = message.pageId;
+				if (message.processInit)
+					processInit(tabId, port, message);
+				else {
+					pageData = tabs[tabId][message.pageId];
+					docData = pageData.getDocData(message.winId);
+					if (message.processDocFragment)
+						pageData.processDocFragment(docData, message.mutationEventId, message.content);
+					if (message.getResourceContentRequest)
+						pageData
+								.getResourceContentRequest(message.url, message.requestId, message.winId, message.characterSet, message.mediaTypeParam, docData);
+					if (message.docInit)
+						docInit(pageData, docData, message.maxIndex);
+					if (message.docProgress)
+						docProgress(pageData, docData, message.index);
+					if (message.docEnd)
+						docEnd(pageData, docData, message.content);
+					if (message.setFrameContentResponse)
+						docData.children[message.index].setFrameContentCallback();
+					if (message.getContentResponse) {
+						docData.content = message.content;
+						docData.getContentCallback();
+					}
+					if (message.setContentResponse)
+						setContentResponse(tabId, message.pageId, docData, message.content);
+				}
+			}
+		}
+
+		if (port.name == "singlefile") {
+			port.onMessage.addListener(onMessage);
+			port.onDisconnect.addListener(onDisconnect);
+		}
+	}
+
+	function onRequestExternal(request, sender, sendResponse) {
 		// console.log("onRequestExternal", request);
 		var property, config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
 		if (request.config)
@@ -260,6 +261,9 @@
 		else
 			process(request.id, sender.id, config);
 		sendResponse({});
-	});
+	}
+
+	chrome.extension.onConnect.addListener(onConnect);
+	chrome.extension.onRequestExternal.addListener(onRequestExternal);
 
 })();
