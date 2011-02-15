@@ -37,19 +37,19 @@
 		function refreshTabBadge(tabId) {
 			chrome.browserAction.setBadgeText({
 				tabId : tabId,
-				text : tabsData[tabId] ? tabsData[tabId].text || badgeConfig.text : badgeConfig.text
+				text : tabsData[tabId] && tabsData[tabId].text || badgeConfig.text
 			});
 			chrome.browserAction.setBadgeBackgroundColor({
 				tabId : tabId,
-				color : tabsData[tabId] ? tabsData[tabId].bgColor || badgeConfig.bgColor : badgeConfig.bgColor
+				color : tabsData[tabId] && tabsData[tabId].bgColor || badgeConfig.bgColor
 			});
 			chrome.browserAction.setTitle({
 				tabId : tabId,
-				title : tabsData[tabId] ? tabsData[tabId].title || badgeConfig.title : badgeConfig.title
+				title : tabsData[tabId] && tabsData[tabId].title || badgeConfig.title
 			});
 			chrome.browserAction.setIcon({
 				tabId : tabId,
-				path : tabsData[tabId] ? tabsData[tabId].iconPath || badgeConfig.iconPath : badgeConfig.iconPath
+				path : tabsData[tabId] && tabsData[tabId].iconPath || badgeConfig.iconPath
 			});
 		}
 
@@ -79,7 +79,8 @@
 			text : "...",
 			bgColor : [ 2, 147, 20, 255 ],
 			title : "Initialize process...",
-			iconPath : DEFAULT_ICON_PATH
+			iconPath : DEFAULT_ICON_PATH,
+			processing : true
 		};
 		tabsData[tabId] = tabData;
 		refreshBadge(tabId);
@@ -95,6 +96,7 @@
 	};
 
 	singlefile.ui.notifyProcessError = function(tabId) {
+		delete tabsData[tabId].processing;
 		tabsData[tabId].bgColor = [ 229, 4, 12, 255 ];
 		tabsData[tabId].text = "ERR";
 		refreshBadge(tabId);
@@ -102,6 +104,7 @@
 
 	singlefile.ui.notifyProcessEnd = function(tabId, processingPagesCount) {
 		tabsData[tabId].text = "OK";
+		delete tabsData[tabId].processing;
 		badgeConfig.text = "" + (processingPagesCount || "");
 		if (!processingPagesCount) {
 			currentBarProgress = -1;
@@ -139,9 +142,9 @@
 				iconPath : DEFAULT_PASSIVE_ICON_PATH,
 				title : "SingleFile cannot process this page"
 			};
-			refreshBadge(tabId);
-		} else if (reset)
+		} else if (reset && tabsData[tabId] && !tabsData[tabId].processing)
 			delete tabsData[tabId];
+		refreshBadge(tabId);
 	};
 
 })();

@@ -10,7 +10,7 @@
 	"content_scripts": [ {
 		  "matches": [ "http://*/*", "https://*/*", "ftp://*/*" ],
 		  "js": [ "scripts/content/wininfo.js" ],
-		  "run_at" : "document_end",
+		  "run_at" : "document_start",
 		  "all_frames" : true
 	 } ],
 	"permissions": [ "tabs", "http://*/*", "https://*/*", "unlimitedStorage" ],

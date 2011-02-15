@@ -87,7 +87,7 @@
 
 	function docInit(pageData, docData, maxIndex) {
 		function pageInit() {
-			pageData.timeoutPageInit = null;
+			delete pageData.timeoutPageInit;
 			pageData.processableDocs = pageData.initializedDocs;
 			pageData.initProcess();
 			processingPagesCount++;
@@ -181,12 +181,12 @@
 	}
 
 	function deletePageData(pageData) {
-		tabs[pageData.tabId][pageData.pageId] = null;
+		delete tabs[pageData.tabId][pageData.pageId];
 		tabs[pageData.tabId] = tabs[pageData.tabId].filter(function(pageData) {
 			return pageData;
 		});
 		if (!tabs[pageData.tabId].length)
-			tabs[pageData.tabId] = null;
+			delete tabs[pageData.tabId];
 	}
 
 	function onConnect(port) {
