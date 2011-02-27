@@ -329,6 +329,12 @@
 		});
 	}
 
+	function removeMetaRefresh(docElement) {
+		Array.prototype.forEach.call(docElement.querySelectorAll("meta[http-equiv=refresh]"), function(node) {
+			node.parentElement.removeChild(node);
+		});
+	}
+
 	function resetFrames(docElement, baseURI) {
 		Array.prototype.forEach.call(docElement.querySelectorAll("iframe, frame"), function(node) {
 			var src = formatURL(node.getAttribute("src"), baseURI);
@@ -390,6 +396,7 @@
 				removeFrames(docElement);
 			resetFrames(docElement, baseURI);
 			removeBlockquotesCite(docElement);
+			removeMetaRefresh(docElement);
 			setAbsoluteLinks(docElement, baseURI);
 			if (addDefaultFavico)
 				insertDefaultFavico(doc, docElement, baseURI);
@@ -427,7 +434,7 @@
 			initManager.onEnd();
 		return function() {
 			manager.doSend();
-			if (manager.requestCount == 0 && manager.onEnd)
+			if (manager.onEnd && manager.requestCount == 0)
 				manager.onEnd();
 		};
 	};

@@ -23,7 +23,7 @@
 	singlefile.nio = {};
 
 	singlefile.nio.RequestManager = function() {
-		var cache = {}, keys = [], pendingResponseHandlers = {};
+		var cache = {}, keys = [], pendingResponseHandlers = {}, XHR_TIMEOUT = 45000;
 
 		function sendResponses(key) {
 			if (pendingResponseHandlers[key]) {
@@ -47,15 +47,15 @@
 		};
 
 		this.send = function(url, responseHandler, characterSet, mediaTypeParam) {
-			var xhr, key = JSON.stringify({
+			var xhr, timeout, key = JSON.stringify({
 				url : url,
 				characterSet : characterSet,
 				mediaTypeParam : mediaTypeParam
-			}), resource = cache[key];
+			});
 
-			if (resource)
+			if (cache[key])
 				setTimeout(function() {
-					responseHandler(resource);
+					responseHandler(cache[key]);
 				}, 1);
 			else if (pendingResponseHandlers[key])
 				pendingResponseHandlers[key].push(responseHandler);
@@ -64,6 +64,7 @@
 				xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function() {
 					if (xhr.readyState == 4) {
+						clearTimeout(timeout);
 						cache[key] = {
 							url : url,
 							status : xhr.status,
@@ -81,6 +82,10 @@
 				xhr.open("GET", url, true);
 				if (characterSet)
 					xhr.overrideMimeType('text/plain; charset=' + characterSet);
+				timeout = setTimeout(function() {
+					xhr.abort();
+					sendResponses(key);
+				}, XHR_TIMEOUT);
 				try {
 					xhr.send(null);
 				} catch (e) {
