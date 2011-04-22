@@ -19,7 +19,7 @@
  */
 
 function load() {
-	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput, processInBackgroundInput, getRawDocInput, displayProcessedPageInput, savePageInput, getContentInput;
+	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput, processInBackgroundInput, getRawDocInput, displayProcessedPageInput, savePageInput, getContentInput, displayInContextMenu;
 	var bgPage = chrome.extension.getBackgroundPage(), config = bgPage.singlefile.config.get(), filenameMaxLengthInput, storageIsEnabled = (typeof window.requestFileSystem != "undefined" || typeof window.webkitRequestFileSystem != "undefined")
 			&& typeof ArrayBuffer != "undefined";
 
@@ -40,6 +40,7 @@ function load() {
 	removeObjectsInput = document.getElementById("removeObjectsInput");
 	removeHiddenInput = document.getElementById("removeHiddenInput");
 	removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
+	displayInContextMenuInput = document.getElementById("displayInContextMenuInput");
 	processInBackgroundInput = document.getElementById("processInBackgroundInput");
 	getRawDocInput = document.getElementById("getRawDocInput");
 	displayProcessedPageInput = document.getElementById("displayProcessedPageInput");
@@ -54,6 +55,7 @@ function load() {
 			removeObjects : removeObjectsInput.checked,
 			removeHidden : removeHiddenInput.checked,
 			removeUnusedCSSRules : removeUnusedCSSRulesInput.checked,
+			displayInContextMenu : displayInContextMenuInput.checked,
 			processInBackground : processInBackgroundInput.checked,
 			getRawDoc : getRawDocInput.checked,
 			displayProcessedPage : displayProcessedPageInput.checked,
@@ -67,6 +69,7 @@ function load() {
 	removeObjectsInput.checked = config.removeObjects;
 	removeHiddenInput.checked = config.removeHidden;
 	removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
+	displayInContextMenuInput.checked = config.displayInContextMenu;
 	processInBackgroundInput.checked = config.processInBackground;
 	getRawDocInput.checked = config.getRawDoc;
 	displayProcessedPageInput.checked = config.displayProcessedPage;
@@ -74,6 +77,7 @@ function load() {
 	filenameMaxLengthInput.value = config.filenameMaxLength;
 	getContentInput.checked = config.getContent;
 	refresh();
+	displayInContextMenuInput.addEventListener("click", bgPage.singlefile.refreshMenu);
 	document.getElementById("resetButton").addEventListener("click", function() {
 		bgPage.singlefile.config.reset();
 		load();

@@ -47,7 +47,7 @@
 	}
 
 	function process(tabId, url, processSelection) {
-		var SINGLE_FILE_CORE_EXT_ID = dev ? /*"oabofdibacblkhpogjinmdbcekfkikjc"*/ "onlinihoegnbbcmeeocfeplgbkmoidla" : "jemlklgaibiijojffihnhieihhagocma";
+		var SINGLE_FILE_CORE_EXT_ID = dev ? /* "oabofdibacblkhpogjinmdbcekfkikjc" */"onlinihoegnbbcmeeocfeplgbkmoidla" : "jemlklgaibiijojffihnhieihhagocma";
 		detectExtension(SINGLE_FILE_CORE_EXT_ID, function(detected) {
 			if (detected) {
 				if (processable(url)) {
@@ -125,18 +125,26 @@
 	chrome.browserAction.onClicked.addListener(function(tab) {
 		process(tab.id, tab.url);
 	});
-	chrome.contextMenus.create({
-		title : "Process page with SingleFile",
-		onclick : function(info, tab) {
-			process(tab.id, tab.url);
-		}
-	});
-	chrome.contextMenus.create({
-		contexts : [ "selection" ],
-		title : "Process selection with SingleFile",
-		onclick : function(info, tab) {
-			process(tab.id, tab.url, true);
-		}
-	});
+
+	singlefile.refreshMenu = function() {
+		if (singlefile.config.get().displayInContextMenu) {
+			chrome.contextMenus.create({
+				title : "Process page with SingleFile",
+				onclick : function(info, tab) {
+					process(tab.id, tab.url);
+				}
+			});
+			chrome.contextMenus.create({
+				contexts : [ "selection" ],
+				title : "Process selection with SingleFile",
+				onclick : function(info, tab) {
+					process(tab.id, tab.url, true);
+				}
+			});
+		} else
+			chrome.contextMenus.removeAll();
+	};
+	
+	singlefile.refreshMenu();
 
 })();

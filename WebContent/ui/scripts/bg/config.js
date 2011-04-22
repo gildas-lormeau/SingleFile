@@ -38,7 +38,8 @@
 			savePage : false,
 			filenameMaxLength : 90,
 			getContent : false,
-			getRawDoc : false
+			getRawDoc : false,
+			displayInContextMenu : true
 		};
 	};
 
@@ -48,5 +49,15 @@
 
 	// migration 0.1 -> 0.2
 	delete localStorage.options;
+	
+	// migration 0.2.26 -> 0.2.27
+	if (localStorage.config) {
+		var conf = singlefile.config.get();
+		if (typeof conf.displayInContextMenu == "undefined") {
+			conf.displayInContextMenu = true;
+			singlefile.config.set(conf);
+		}
+			
+	}
 
 })();
