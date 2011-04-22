@@ -19,11 +19,12 @@
  */
 
 (function() {
-	var STORAGE_SIZE = 1073741824, FILENAME_MAX_LENGTH = 256, BOM, fs;
+	var STORAGE_SIZE = 1073741824, FILENAME_MAX_LENGTH = 256, BOM, fs, requestFS = window.requestFileSystem || window.webkitRequestFileSystem, BBuilder = window.BlobBuilder
+			|| window.WebKitBlobBuilder;
 
 	singlefile.storage = {};
 
-	singlefile.storage.isEnabled = typeof requestFileSystem != "undefined" && typeof ArrayBuffer != "undefined" && typeof Uint8Array != "undefined";
+	singlefile.storage.isEnabled = typeof requestFS != "undefined" && typeof ArrayBuffer != "undefined" && typeof Uint8Array != "undefined";
 
 	function init() {
 		var view;
@@ -32,7 +33,7 @@
 		BOM = new ArrayBuffer(3);
 		view = new Uint8Array(BOM);
 		view.set([ 0xEF, 0xBB, 0xBF ]);
-		requestFileSystem(true, STORAGE_SIZE, function(filesystem) {
+		requestFS(true, STORAGE_SIZE, function(filesystem) {
 			fs = filesystem;
 			singlefile.storage.isEnabled = true;
 		}, function(e) {
@@ -51,7 +52,7 @@
 				exclusive : true
 			}, function(fileEntry) {
 				fileEntry.createWriter(function(fileWriter) {
-					var blobBuilder = new BlobBuilder();
+					var blobBuilder = new BBuilder();
 					blobBuilder.append(BOM);
 					blobBuilder.append(content);
 					fileWriter.onerror = function(e) {

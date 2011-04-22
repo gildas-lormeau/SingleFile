@@ -20,7 +20,7 @@
 
 function load() {
 	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput, processInBackgroundInput, getRawDocInput, displayProcessedPageInput, savePageInput, getContentInput;
-	var bgPage = chrome.extension.getBackgroundPage(), config = bgPage.singlefile.config.get(), filenameMaxLengthInput, storageIsEnabled = typeof requestFileSystem != "undefined"
+	var bgPage = chrome.extension.getBackgroundPage(), config = bgPage.singlefile.config.get(), filenameMaxLengthInput, storageIsEnabled = (typeof window.requestFileSystem != "undefined" || typeof window.webkitRequestFileSystem != "undefined")
 			&& typeof ArrayBuffer != "undefined";
 
 	function refresh() {
