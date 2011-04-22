@@ -47,7 +47,7 @@
 	}
 
 	function process(tabId, url, processSelection) {
-		var SINGLE_FILE_CORE_EXT_ID = dev ? "oabofdibacblkhpogjinmdbcekfkikjc" : "jemlklgaibiijojffihnhieihhagocma";
+		var SINGLE_FILE_CORE_EXT_ID = dev ? /*"oabofdibacblkhpogjinmdbcekfkikjc"*/ "onlinihoegnbbcmeeocfeplgbkmoidla" : "jemlklgaibiijojffihnhieihhagocma";
 		detectExtension(SINGLE_FILE_CORE_EXT_ID, function(detected) {
 			if (detected) {
 				if (processable(url)) {
