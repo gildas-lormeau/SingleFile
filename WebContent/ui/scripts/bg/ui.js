@@ -31,9 +31,7 @@
 		path : DEFAULT_ICON_PATH
 	};
 
-	var badgeStates = [];
-
-	var currentBarProgress = -1, currentProgress = -1, tabs = {}, badgeConfig = JSON.parse(JSON.stringify(DEFAULT_BADGE_CONFIG));
+	var badgeStates = [], currentBarProgress = -1, currentProgress = -1, tabs = {}, badgeConfig = JSON.parse(JSON.stringify(DEFAULT_BADGE_CONFIG));
 
 	function refreshBadge(tabId) {
 		function refreshTabBadge(tabId) {
