@@ -144,7 +144,7 @@
 		} else
 			chrome.contextMenus.removeAll();
 	};
-	
+
 	singlefile.refreshMenu();
 
 })();
