@@ -41,7 +41,7 @@
 
 	singlefile.util.getDocContent = function(doc, docElement) {
 		docElement = docElement || doc.documentElement;
-		return [ getDoctype(doc), docElement.outerHTML ].join("");
+		return getDoctype(doc) + docElement.outerHTML;
 	};
 
 })();

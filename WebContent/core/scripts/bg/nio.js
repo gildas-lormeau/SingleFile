@@ -36,6 +36,7 @@
 
 		function throwAwayHighOrderBytes(str) {
 			var i, ret = [];
+			ret.length = str.length;
 			for (i = 0; i < str.length; i++)
 				ret[i] = String.fromCharCode(str.charCodeAt(i) & 0xff);
 			return ret.join("");

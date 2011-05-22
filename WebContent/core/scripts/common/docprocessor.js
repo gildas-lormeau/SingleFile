@@ -89,9 +89,9 @@
 
 	function getDataURI(data, defaultURL, woURL) {
 		if (data.content)
-			return [ woURL ? "" : "url(", "data:", data.mediaType, ";", data.mediaTypeParam, ",", data.content, woURL ? "" : ")" ].join("");
+			return (woURL ? "" : "url(") +  "data:" + data.mediaType + ";" + data.mediaTypeParam + "," + data.content + (woURL ? "" : ")");
 		else
-			return woURL ? defaultURL : [ "url(", defaultURL, ")" ].join("");
+			return woURL ? defaultURL : "url(" + defaultURL + ")";
 	}
 
 	function removeComments(content) {
@@ -100,7 +100,7 @@
 			start = content.indexOf("/*");
 			end = content.indexOf("*/", start);
 			if (start != -1 && end != -1)
-				content = [ content.substring(0, start), content.substr(end + 2) ].join("");
+				content = content.substring(0, start) + content.substr(end + 2);
 		} while (start != -1 && end != -1);
 		return content;
 	}
@@ -271,7 +271,7 @@
 					if (data.status < 400) {
 						data.content = data.content.replace(/"([^"]*)<\/\s*script\s*>([^"]*)"/gi, '"$1<"+"/script>$2"');
 						data.content = data.content.replace(/'([^']*)<\/\s*script\s*>([^']*)'/gi, "'$1<'+'/script>$2'");
-						node.textContent = [ "\n", data.content, "\n" ].join("");
+						node.textContent = "\n" + data.content + "\n";
 					}
 					node.removeAttribute("src");
 				}, characterSet);
