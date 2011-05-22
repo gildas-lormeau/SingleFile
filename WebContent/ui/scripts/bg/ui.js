@@ -49,14 +49,12 @@
 					if (badgeState[property] != tabData[property]) {
 						badgeState[property] = tabData[property];
 						confObject[property] = tabData[property];
-						console.log(JSON.stringify(confObject));
 						fn(confObject);
 					}
 				} else {
 					if (badgeState[property] != badgeConfig[property]) {
 						badgeState[property] = badgeConfig[property];
 						confObject[property] = badgeConfig[property];
-						console.log(JSON.stringify(confObject));
 						fn(confObject);
 					}
 				}
