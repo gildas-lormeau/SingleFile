@@ -26,31 +26,46 @@
 	var DEFAULT_PASSIVE_ICON_PATH = "../resources/icon_19_forbidden.png";
 	var DEFAULT_BADGE_CONFIG = {
 		text : "",
-		bgColor : [ 64, 64, 64, 255 ],
+		color : [ 64, 64, 64, 255 ],
 		title : "Process this page with SingleFile",
-		iconPath : DEFAULT_ICON_PATH
+		path : DEFAULT_ICON_PATH
 	};
 
-	var currentBarProgress = -1, currentProgress = -1, tabsData = {}, badgeConfig = JSON.parse(JSON.stringify(DEFAULT_BADGE_CONFIG));
+	var badgeStates = [];
+
+	var currentBarProgress = -1, currentProgress = -1, tabs = {}, badgeConfig = JSON.parse(JSON.stringify(DEFAULT_BADGE_CONFIG));
 
 	function refreshBadge(tabId) {
 		function refreshTabBadge(tabId) {
-			chrome.browserAction.setBadgeText({
-				tabId : tabId,
-				text : tabsData[tabId] && tabsData[tabId].text || badgeConfig.text
-			});
-			chrome.browserAction.setBadgeBackgroundColor({
-				tabId : tabId,
-				color : tabsData[tabId] && tabsData[tabId].bgColor || badgeConfig.bgColor
-			});
-			chrome.browserAction.setTitle({
-				tabId : tabId,
-				title : tabsData[tabId] && tabsData[tabId].title || badgeConfig.title
-			});
-			chrome.browserAction.setIcon({
-				tabId : tabId,
-				path : tabsData[tabId] && tabsData[tabId].iconPath || badgeConfig.iconPath
-			});
+			function refreshBadgeProperty(property, fn) {
+				var badgeState;
+				var tabData = tabs[tabId], confObject = {
+					tabId : tabId
+				};
+				if (!badgeStates[tabId])
+					badgeStates[tabId] = [];
+				badgeState = badgeStates[tabId];
+				if (tabData && tabData[property]) {
+					if (badgeState[property] != tabData[property]) {
+						badgeState[property] = tabData[property];
+						confObject[property] = tabData[property];
+						console.log(JSON.stringify(confObject));
+						fn(confObject);
+					}
+				} else {
+					if (badgeState[property] != badgeConfig[property]) {
+						badgeState[property] = badgeConfig[property];
+						confObject[property] = badgeConfig[property];
+						console.log(JSON.stringify(confObject));
+						fn(confObject);
+					}
+				}
+			}
+
+			refreshBadgeProperty("text", chrome.browserAction.setBadgeText);
+			refreshBadgeProperty("color", chrome.browserAction.setBadgeBackgroundColor);
+			refreshBadgeProperty("title", chrome.browserAction.setTitle);
+			refreshBadgeProperty("path", chrome.browserAction.setIcon);
 		}
 
 		if (tabId)
@@ -77,39 +92,39 @@
 		var tabData = {
 			id : tabId,
 			text : "...",
-			bgColor : [ 2, 147, 20, 255 ],
+			color : [ 2, 147, 20, 255 ],
 			title : "Initialize process...",
-			iconPath : DEFAULT_ICON_PATH,
+			path : DEFAULT_ICON_PATH,
 			processing : true
 		};
-		tabsData[tabId] = tabData;
+		tabs[tabId] = tabData;
 		refreshBadge(tabId);
 	};
 
 	singlefile.ui.notifyProcessStart = function(tabId, processingPagesCount) {
-		delete tabsData[tabId].text;
-		delete tabsData[tabId].title;
-		delete tabsData[tabId].iconPath;
-		tabsData[tabId].bgColor = [ 4, 229, 36, 255 ];
+		delete tabs[tabId].text;
+		delete tabs[tabId].title;
+		delete tabs[tabId].path;
+		tabs[tabId].color = [ 4, 229, 36, 255 ];
 		badgeConfig.text = "" + processingPagesCount;
 		refreshBadge();
 	};
 
 	singlefile.ui.notifyProcessError = function(tabId) {
-		delete tabsData[tabId].processing;
-		tabsData[tabId].bgColor = [ 229, 4, 12, 255 ];
-		tabsData[tabId].text = "ERR";
+		delete tabs[tabId].processing;
+		tabs[tabId].color = [ 229, 4, 12, 255 ];
+		tabs[tabId].text = "ERR";
 		refreshBadge(tabId);
 	};
 
 	singlefile.ui.notifyProcessEnd = function(tabId, processingPagesCount) {
-		tabsData[tabId].text = "OK";
-		delete tabsData[tabId].processing;
+		tabs[tabId].text = "OK";
+		delete tabs[tabId].processing;
 		badgeConfig.text = "" + (processingPagesCount || "");
 		if (!processingPagesCount) {
 			currentBarProgress = -1;
 			currentProgress = -1;
-			delete tabsData[tabId].title;
+			delete tabs[tabId].title;
 			badgeConfig = JSON.parse(JSON.stringify(DEFAULT_BADGE_CONFIG));
 		}
 		refreshBadge();
@@ -125,7 +140,7 @@
 				barProgress = Math.floor((index / maxIndex) * 15);
 				if (currentBarProgress != barProgress) {
 					currentBarProgress = barProgress;
-					badgeConfig.iconPath = "../resources/icon_19_wait" + barProgress + ".png";
+					badgeConfig.path = "../resources/icon_19_wait" + barProgress + ".png";
 				}
 				refreshBadge();
 			}
@@ -133,17 +148,18 @@
 	};
 
 	singlefile.ui.notifyTabRemoved = function(tabId) {
-		delete tabsData[tabId];
+		delete tabs[tabId];
+		delete badgeStates[tabId];
 	};
 
 	singlefile.ui.notifyProcessable = function(tabId, processable, reset) {
 		if (!processable) {
-			tabsData[tabId] = {
-				iconPath : DEFAULT_PASSIVE_ICON_PATH,
+			tabs[tabId] = {
+				path : DEFAULT_PASSIVE_ICON_PATH,
 				title : "SingleFile cannot process this page"
 			};
-		} else if (reset && tabsData[tabId] && !tabsData[tabId].processing)
-			delete tabsData[tabId];
+		} else if (reset && tabs[tabId] && !tabs[tabId].processing)
+			delete tabs[tabId];
 		refreshBadge(tabId);
 	};
 
