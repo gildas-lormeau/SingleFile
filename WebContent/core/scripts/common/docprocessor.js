@@ -89,7 +89,7 @@
 
 	function getDataURI(data, defaultURL, woURL) {
 		if (data.content)
-			return (woURL ? "" : "url(") +  "data:" + data.mediaType + ";" + data.mediaTypeParam + "," + data.content + (woURL ? "" : ")");
+			return (woURL ? "" : "url(") + "data:" + data.mediaType + ";" + data.mediaTypeParam + "," + data.content + (woURL ? "" : ")");
 		else
 			return woURL ? defaultURL : "url(" + defaultURL + ")";
 	}
@@ -344,7 +344,7 @@
 	}
 
 	function setAbsoluteLinks(docElement, baseURI) {
-		Array.prototype.forEach.call(docElement.querySelectorAll("a[href]"), function(link) {
+		Array.prototype.forEach.call(docElement.querySelectorAll("a:not([href^='#'])"), function(link) {
 			var fullHref = formatURL(link.getAttribute("href"), baseURI);
 			if (fullHref && (!(fullHref.indexOf(baseURI.split("#")[0]) == 0) || fullHref.indexOf("#") == -1))
 				link.setAttribute("href", fullHref);
