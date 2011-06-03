@@ -54,7 +54,7 @@
 					var selector;
 					if (rule.media) {
 						cssRules.push("@media " + Array.prototype.join.call(rule.media, ",") + " {");
-						process(rule.cssRules, true);
+						process(rule.cssRules);
 						cssRules.push("}");
 					} else if (rule.selectorText) {
 						selector = rule.selectorText.replace(/::after|::before|::first-line|::first-letter|:focus|:hover/gi, '').trim();
