@@ -298,12 +298,12 @@
 	}
 
 	function removeScripts(docElement) {
-		var body = docElement.querySelector("html > body");
 		Array.prototype.forEach.call(docElement.querySelectorAll("script"), function(node) {
 			node.parentElement.removeChild(node);
 		});
-		if (body && body.getAttribute("onload"))
-			body.removeAttribute("onload");
+		Array.prototype.forEach.call(docElement.querySelectorAll("*[onload]"), function(node) {
+			node.removeAttribute("onload");
+		});
 	}
 
 	function removeObjects(docElement) {
