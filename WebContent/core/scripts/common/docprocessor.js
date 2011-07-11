@@ -74,14 +74,14 @@
 		var ret = content.replace(URL_EXP, function(value) {
 			var result = value.match(URL_VALUE_EXP);
 			if (result)
-				if (!(result[1].indexOf("data:") == 0))
+				if (result[1].indexOf("data:") != 0)
 					return value.replace(result[1], formatURL(result[1], host));
 			return value;
 		});
 		return ret.replace(IMPORT_ALT_EXP, function(value) {
 			var result = value.match(IMPORT_VALUE_ALT_EXP);
 			if (result)
-				if (!(result[1].indexOf("data:") == 0))
+				if (result[1].indexOf("data:") != 0)
 					return "@import \"" + formatURL(result[1], host) + "\";";
 			return value;
 		});
@@ -127,7 +127,7 @@
 				result = values[i].match(URL_VALUE_EXP);
 				if (result && result[1]) {
 					url = formatURL(result[1], host);
-					if (!(url.indexOf("data:") == 0))
+					if (url.indexOf("data:") != 0)
 						sendRequest(result[1]);
 				}
 			}
@@ -138,7 +138,7 @@
 	function processStylesheets(doc, docElement, baseURI, requestManager) {
 		Array.prototype.forEach.call(docElement.querySelectorAll('link[href][rel*="stylesheet"]'), function(node) {
 			var href = node.getAttribute("href"), fullHref = formatURL(href, baseURI);
-			if (!(href.indexOf("data:") == 0)) {
+			if (href.indexOf("data:") != 0) {
 				requestManager.send(fullHref, function(data) {
 					var i, newNode, commentNode;
 					if (data.status >= 400) {
@@ -180,7 +180,7 @@
 					result = imports[i].match(IMPORT_URL_VALUE_EXP);
 					if (result && (result[2] || result[4])) {
 						url = formatURL(result[2] || result[4], styleSheet._baseURI || baseURI);
-						if (!(url.indexOf("data:") == 0))
+						if (url.indexOf("data:") != 0)
 							sendRequest(imports[i]);
 					}
 				}
@@ -202,7 +202,7 @@
 			var url, value = node.getAttribute("background");
 			if (value.indexOf(".") != -1) {
 				url = formatURL(value, baseURI);
-				if (!(url.indexOf("data:") == 0))
+				if (url.indexOf("data:") != 0)
 					requestManager.send(url, function(data) {
 						node.setAttribute("background", getDataURI(data, EMPTY_PIXEL_DATA, true));
 					}, "x-user-defined", "base64");
@@ -228,7 +228,7 @@
 		function process(attributeName) {
 			Array.prototype.forEach.call(images, function(node) {
 				var url = formatURL(node.getAttribute(attributeName), baseURI);
-				if (!(url.indexOf("data:") == 0))
+				if (url.indexOf("data:") != 0)
 					requestManager.send(url, function(data) {
 						node.setAttribute(attributeName, getDataURI(data, EMPTY_PIXEL_DATA, true));
 					}, "x-user-defined", "base64");
@@ -248,7 +248,7 @@
 		var images = docElement.querySelectorAll('object[type="image/svg+xml"], object[type="image/svg-xml"], embed[src*=".svg"]');
 		Array.prototype.forEach.call(images, function(node) {
 			var data = node.getAttribute("data"), src = node.getAttribute("src"), url = formatURL(data || src, baseURI);
-			if (!(url.indexOf("data:") == 0))
+			if (url.indexOf("data:") != 0)
 				requestManager.send(url, function(data) {
 					node.setAttribute(data ? "data" : "src", getDataURI(data, "data:text/xml,<svg></svg>", true));
 				}, null, null);
@@ -266,7 +266,7 @@
 	function processScripts(docElement, baseURI, characterSet, requestManager) {
 		Array.prototype.forEach.call(docElement.querySelectorAll("script[src]"), function(node) {
 			var src = node.getAttribute("src");
-			if (!(src.indexOf("data:") == 0))
+			if (src.indexOf("data:") != 0)
 				requestManager.send(formatURL(src, baseURI), function(data) {
 					if (data.status < 400) {
 						data.content = data.content.replace(/"([^"]*)<\/\s*script\s*>([^"]*)"/gi, '"$1<"+"/script>$2"');
