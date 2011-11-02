@@ -85,18 +85,19 @@
 
 	function getSelectedContent() {
 		var node, wrapper, clonedNode, selection = getSelection(), range = selection.rangeCount ? selection.getRangeAt(0) : null;
-
 		function addStyle(node) {
 			var rules, cssText;
 			Array.prototype.forEach.call(node.children, function(child) {
 				addStyle(child);
 			});
 			rules = getMatchedCSSRules(node, '', false);
-			cssText = "";
-			Array.prototype.forEach.call(rules, function(rule) {
-				cssText += rule.style.cssText;
-			});
-			node.setAttribute("style", cssText);
+			if (rules) {
+				cssText = "";
+				Array.prototype.forEach.call(rules, function(rule) {
+					cssText += rule.style.cssText;
+				});
+				node.setAttribute("style", cssText);
+			}
 		}
 
 		if (range && range.startOffset != range.endOffset) {
@@ -212,8 +213,8 @@
 		function bgProcessInit() {
 			var xhr;
 			if (singlefile.processSelection) {
-				if (selectedContent || topWindow)
-					sendBgProcessInit(topWindow ? null : singlefile.util.getDocContent(doc, selectedContent));
+				if (selectedContent || !topWindow)
+					sendBgProcessInit(topWindow ? singlefile.util.getDocContent(doc, selectedContent) : null);
 			} else {
 				if (config.getRawDoc && topWindow) {
 					xhr = new XMLHttpRequest();
@@ -266,15 +267,17 @@
 			}
 		}
 
-		Array.prototype.forEach.call(doc.querySelectorAll("noscript"), function(node) {
-			node.textContent = "";
-		});
-		canvasData = getCanvasData(doc);
-		if (config.removeHidden)
-			removeHiddenElements();
-		if (topWindow)
-			document.documentElement.insertBefore(document.createComment("\n Archive processed by SingleFile \n url: " + location.href + " \n saved date: "
-					+ new Date() + " \n"), document.documentElement.firstChild);
+		if (!selectedContent) {
+			Array.prototype.forEach.call(doc.querySelectorAll("noscript"), function(node) {
+				node.textContent = "";
+			});
+			canvasData = getCanvasData(doc);
+			if (config.removeHidden)
+				removeHiddenElements();
+			if (topWindow)
+				document.documentElement.insertBefore(document.createComment("\n Archive processed by SingleFile \n url: " + location.href + " \n saved date: "
+						+ new Date() + " \n"), document.documentElement.firstChild);
+		}
 		if ((!config.removeFrames && !config.getRawDoc) || topWindow)
 			if (config.processInBackground)
 				bgProcessInit();
