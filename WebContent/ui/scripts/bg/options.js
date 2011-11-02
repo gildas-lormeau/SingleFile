@@ -17,24 +17,10 @@
  *   You should have received a copy of the GNU Lesser General Public License
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
+(function() {
 
-function load() {
-	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput, processInBackgroundInput, getRawDocInput, displayProcessedPageInput, savePageInput, getContentInput, displayInContextMenu;
-	var bgPage = chrome.extension.getBackgroundPage(), config = bgPage.singlefile.config.get(), filenameMaxLengthInput, storageIsEnabled = (typeof window.requestFileSystem != "undefined" || typeof window.webkitRequestFileSystem != "undefined")
-			&& typeof ArrayBuffer != "undefined";
-
-	function refresh() {
-		savePageInput.disabled = !storageIsEnabled;
-		if (savePageInput.disabled)
-			savePageInput.checked = false;
-		displayProcessedPageInput.disabled = !savePageInput.checked || removeUnusedCSSRulesInput.checked;
-		if (displayProcessedPageInput.disabled) {
-			document.querySelector("label[for=displayProcessedPageInput]").style.opacity = ".5";
-			displayProcessedPageInput.checked = true;
-		} else
-			document.querySelector("label[for=displayProcessedPageInput]").style.opacity = "1";
-	}
-
+	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput, processInBackgroundInput, getRawDocInput, getContentInput, displayInContextMenu, bgPage = chrome.extension
+			.getBackgroundPage(), config = bgPage.singlefile.config.get();
 	removeFramesInput = document.getElementById("removeFramesInput");
 	removeScriptsInput = document.getElementById("removeScriptsInput");
 	removeObjectsInput = document.getElementById("removeObjectsInput");
@@ -43,12 +29,8 @@ function load() {
 	displayInContextMenuInput = document.getElementById("displayInContextMenuInput");
 	processInBackgroundInput = document.getElementById("processInBackgroundInput");
 	getRawDocInput = document.getElementById("getRawDocInput");
-	displayProcessedPageInput = document.getElementById("displayProcessedPageInput");
-	savePageInput = document.getElementById("savePageInput");
-	filenameMaxLengthInput = document.getElementById("filenameMaxLengthInput");
 	getContentInput = document.getElementById("getContentInput");
 	document.getElementById("popupContent").onchange = function() {
-		refresh();
 		bgPage.singlefile.config.set({
 			removeFrames : removeFramesInput.checked,
 			removeScripts : removeScriptsInput.checked,
@@ -58,9 +40,6 @@ function load() {
 			displayInContextMenu : displayInContextMenuInput.checked,
 			processInBackground : processInBackgroundInput.checked,
 			getRawDoc : getRawDocInput.checked,
-			displayProcessedPage : displayProcessedPageInput.checked,
-			savePage : savePageInput.checked,
-			filenameMaxLength : parseInt(filenameMaxLengthInput.value, 10),
 			getContent : getContentInput.checked
 		});
 	};
@@ -72,25 +51,19 @@ function load() {
 	displayInContextMenuInput.checked = config.displayInContextMenu;
 	processInBackgroundInput.checked = config.processInBackground;
 	getRawDocInput.checked = config.getRawDoc;
-	displayProcessedPageInput.checked = config.displayProcessedPage;
-	savePageInput.checked = config.savePage;
-	filenameMaxLengthInput.value = config.filenameMaxLength;
 	getContentInput.checked = config.getContent;
-	refresh();
 	displayInContextMenuInput.addEventListener("click", bgPage.singlefile.refreshMenu);
 	document.getElementById("resetButton").addEventListener("click", function() {
 		bgPage.singlefile.config.reset();
 		load();
 	});
-	document.getElementById("storageOptions").style.display = storageIsEnabled ? "" : "none";
-}
+	addEventListener("click", function(event) {
+		var tooltip;
+		if (event.target.className == "question-mark") {
+			tooltip = event.target.parentElement.parentElement.children[2];
+			tooltip.style.display = tooltip.style.display == "block" ? "none" : "block";
+			event.preventDefault();
+		}
+	});
 
-addEventListener("load", load);
-addEventListener("click", function(event) {
-	var tooltip;
-	if (event.target.className == "question-mark") {
-		tooltip = event.target.parentElement.parentElement.children[2];
-		tooltip.style.display = tooltip.style.display == "block" ? "none" : "block";
-		event.preventDefault();
-	}
-});
+})();

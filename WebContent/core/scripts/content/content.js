@@ -376,7 +376,7 @@
 				setContentResponse : true,
 				winId : "0",
 				pageId : pageId,
-				content : config.savePage || config.getContent ? content : null
+				content : config.getContent ? content : null
 			});
 		}
 

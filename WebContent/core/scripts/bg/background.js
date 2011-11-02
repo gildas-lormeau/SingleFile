@@ -27,8 +27,6 @@
 		removeHidden : false,
 		removeUnusedCSSRules : false,
 		displayProcessedPage : false,
-		savePage : false,
-		filenameMaxLength : 90,
 		processInBackground : true,
 		getContent : true,
 		getRawDoc : false
@@ -65,7 +63,6 @@
 
 	function setContentResponse(tabId, pageId, docData, content) {
 		var pageData = tabs[tabId][pageId];
-		pageData.endProcess(content);
 		processingPagesCount--;
 		chrome.extension.sendRequest(pageData.senderId, {
 			processEnd : true,

@@ -4,7 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>SingleFile options</title>
 <link rel="stylesheet" href="options.css">
-<script type="text/javascript" src="../scripts/bg/options.js"></script>
 </head>
 <body>
 <div>
@@ -48,6 +47,14 @@
 		</div>
 	</div>
 	<div class="option">
+		<label for="displayInContextMenuInput">add entry into the context menu<img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="displayInContextMenuInput">
+		<div class="help">
+			<p>Check this option to launch processing on a page with context menu.</p>
+			<p class="notice">It is recommended to <u>check</u> this option</p>
+		</div>
+	</div>
+	<h4>Advanced options:</h4>
+	<div class="option">
 		<label for="getContentInput">scrapbook the page <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="getContentInput">
 		<div class="help">
 			<p>Check this option to send the processed page to Scrapbook for SingleFile.</p>
@@ -55,54 +62,24 @@
 		</div>
 	</div>
 	<div class="option">
-		<label for="displayInContextMenuInput">display a context menu entry <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="displayInContextMenuInput">
-		<div class="help">
-			<p>Check this option to launch processing on a page with context menu.</p>
-			<p class="notice">It is recommended to <u>check</u> this option</p>
-		</div>
-	</div>	
-	<h4>Advanced options:</h4>
-	<div class="option">
 		<label for="processInBackgroundInput">process in background <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="processInBackgroundInput">
 		<div class="help">
 			<p>Check this option to process the page in background. Processing in background means it won't be blocking.</p>
-			<p class="notice">It is recommended to <u>uncheck</u> this option</p>		
+			<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 		</div>
-	</div>
-	<div id="storageOptions">
-		<div class="option">
-			<label for="savePageInput">save processed page <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="savePageInput">
-			<div class="help">
-				<p>Check this option to save the processed page on filesystem.</p>
-				<p class="notice">It is recommended to <u>uncheck</u> this option</p>		
-			</div>
-		</div>
-		<div class="option">
-			<label for="displayProcessedPageInput">display processed page <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="displayProcessedPageInput">
-			<div class="help">
-				<p>Check this option to display the processed page in the tab.</p>
-				<p class="notice">It is recommended to <u>check</u> this option</p>
-			</div>
-		</div>
-		<div class="option">
-			<label for="filenameMaxLengthInput">max filename length <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="text" id="filenameMaxLengthInput">
-			<div class="help">
-				<p>Set the value of maximum filename length. This value is used when "save processed page" option is checked.</p>
-				<p class="notice">It is recommended to set this option to <u>90</u> (if you are using Windows)</p>
-			</div>
-		</div>		
 	</div>
 	<div class="option">
 		<label for="getRawDocInput">process raw document <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="getRawDocInput">
 		<div class="help">
 			<p>Check this option to process the raw downloaded document instead of the displayed document. This option also helps to not alter the saved page when "remove scripts" is unchecked</p>
-			<p class="notice">It is recommended to <u>uncheck</u> this option</p>		
+			<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 		</div>
 	</div>
 	<div class="option">	
 		<a href="help.html" target="SingleSileHelpPage">help</a><button id="resetButton" title="Reset all the options to default (i.e. recommended) state">Reset to default options</button>
-	</div>	
+	</div>
 </div>
 </div>
+<script type="text/javascript" src="../scripts/bg/options.js"></script>
 </body>
 </html>

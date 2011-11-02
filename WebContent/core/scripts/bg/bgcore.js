@@ -185,21 +185,6 @@
 				that.progressMax += docData.progressMax || 0;
 			});
 		},
-		endProcess : function(content) {
-			var that = this;
-			if (this.config.savePage)
-				singlefile.storage.addContent(this.title ? this.title.replace(/[\\\/:\*\?\"><|]/gi, "").trim() || "Unnamed page" : "Unnamed page", content
-						.replace(/<meta[^>]*http-equiv\s*=\s*["']?content-type[^>]*>/gi, "").replace(/<meta[^>]*charset\s*=[^>]*>/gi, ""),
-						this.config.filenameMaxLength, function(processed, filename) {
-							chrome.extension.sendRequest(that.senderId, {
-								pageSaved : true,
-								tabId : that.tabId,
-								pageId : that.pageId,
-								processed : processed,
-								filename : filename
-							});
-						});
-		},
 		getResourceContentRequest : function(url, requestId, winId, characterSet, mediaTypeParam, docData) {
 			this.requestManager.send(url, function(content) {
 				docData.getResourceContentResponse(content, requestId);
