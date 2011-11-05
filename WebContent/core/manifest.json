@@ -4,7 +4,7 @@
 		"16": "resources/icon_16.png",
 		"48": "resources/icon_48.png",
 		"128": "resources/icon_128.png" },
-	"version": "0.2.31",
+	"version": "0.2.33",
 	"description": "Page processor used by SingleFile",
 	"background_page" : "pages/background.html",
 	"content_scripts": [ {
