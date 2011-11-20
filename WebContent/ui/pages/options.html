@@ -7,10 +7,10 @@
 </head>
 <body>
 <div>
-<h2><img alt="SingleFile icon" id="icon" src="../resources/icon_48.png"/>SingleFile</h2>
+<h2>SingleFile</h2>
 <hr>
 <div id="popupContent">	
-	<h4>Basic options:</h4>
+	<h4>Basic options</h4>
 	<div class="option">
 		<label for="removeFramesInput">remove frames <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="removeFramesInput">
 		<div class="help">
@@ -26,17 +26,39 @@
 		</div>
 	</div>
 	<div class="option">
-		<label for="removeScriptsInput">remove scripts <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="removeScriptsInput">
-		<div class="help">
-			<p>Check this option if you do not want to save scripts.</p>
-			<p class="notice">It is recommended to <u>check</u> this option</p>		
-		</div>
-	</div>
-	<div class="option">
 		<label for="removeHiddenInput">remove hidden elements <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="removeHiddenInput">
 		<div class="help">
 			<p>Check this option to remove all hidden elements.</p>
 			<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+		</div>
+	</div>
+	<div class="option">
+		<label for="displayInContextMenuInput">add entry in the context menu <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="displayInContextMenuInput">
+		<div class="help">
+			<p>Check this option to launch processing on a page with context menu.</p>
+			<p class="notice">It is recommended to <u>check</u> this option</p>
+		</div>
+	</div>
+	<div class="option">
+		<label for="displayBannerInput">display save banner <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="displayBannerInput">
+		<div class="help">
+			<p>Check this option to display a banner with a download link at the top of the page when processing is finished.</p>
+			<p class="notice">It is recommended to <u>check</u> this option or "display save notification" option</p>
+		</div>
+	</div>
+	<div class="option">
+		<label for="displayNotificationInput">display save notification <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="displayNotificationInput">
+		<div class="help">
+			<p>Check this option to display a notification with a download link when processing is finished.</p>
+			<p class="notice">It is recommended to <u>check</u> this option or "display save banner" option</p>
+		</div>
+	</div>
+	<h4>Advanced options</h4>
+	<div class="option">
+		<label for="removeScriptsInput">remove scripts <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="removeScriptsInput">
+		<div class="help">
+			<p>Check this option if you do not want to save scripts.</p>
+			<p class="notice">It is recommended to <u>check</u> this option</p>
 		</div>
 	</div>
 	<div class="option">
@@ -47,24 +69,9 @@
 		</div>
 	</div>
 	<div class="option">
-		<label for="displayInContextMenuInput">add entry into the context menu<img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="displayInContextMenuInput">
-		<div class="help">
-			<p>Check this option to launch processing on a page with context menu.</p>
-			<p class="notice">It is recommended to <u>check</u> this option</p>
-		</div>
-	</div>
-	<h4>Advanced options:</h4>
-	<div class="option">
-		<label for="getContentInput">send archive to PageArchiver <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="getContentInput">
+		<label for="sendToPageArchiverInput">send saved page to PageArchiver <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="sendToPageArchiverInput">
 		<div class="help">
 			<p>Check this option to send the processed page to PageArchiver chrome extension.</p>
-			<p class="notice">It is recommended to <u>uncheck</u> this option</p>
-		</div>
-	</div>
-	<div class="option">
-		<label for="processInBackgroundInput">process in background <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="processInBackgroundInput">
-		<div class="help">
-			<p>Check this option to process the page in background. Processing in background means it won't be blocking.</p>
 			<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 		</div>
 	</div>
@@ -72,6 +79,13 @@
 		<label for="getRawDocInput">process raw document <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="getRawDocInput">
 		<div class="help">
 			<p>Check this option to process the raw downloaded document instead of the displayed document. This option also helps to not alter the saved page when "remove scripts" is unchecked</p>
+			<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+		</div>
+	</div>
+	<div class="option">
+		<label for="processInBackgroundInput">process in background <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="processInBackgroundInput">
+		<div class="help">
+			<p>Check this option to process the page in background. Processing in background means it won't be blocking.</p>
 			<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 		</div>
 	</div>

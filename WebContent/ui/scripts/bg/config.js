@@ -33,11 +33,14 @@
 			removeObjects : true,
 			removeHidden : false,
 			removeUnusedCSSRules : false,
-			processInBackground : false,
-			displayProcessedPage : true,
-			getContent : false,
+			processInBackground : true,
+			displayProcessedPage : false,
+			getContent : true,
 			getRawDoc : false,
-			displayInContextMenu : true
+			displayInContextMenu : true,
+			sendToPageArchiver : false,
+			displayNotification : false,
+			displayBanner: true
 		};
 	};
 
@@ -55,7 +58,20 @@
 			conf.displayInContextMenu = true;
 			singlefile.config.set(conf);
 		}
+	}
 
+	// migration 0.2.33 -> 0.3.0
+	if (localStorage.config) {
+		var conf = singlefile.config.get();
+		if (typeof conf.displayNotification == "undefined") {
+			conf.sendToPageArchiver = conf.getContent;
+			conf.getContent = true;
+			conf.displayNotification = false;
+			conf.displayBanner = true;
+			conf.processInBackground = true;
+			conf.displayProcessedPage = false;
+			singlefile.config.set(conf);
+		}
 	}
 
 })();

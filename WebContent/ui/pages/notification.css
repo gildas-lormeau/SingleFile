@@ -1,0 +1,12 @@
+body {
+	font-family: sans-serif;
+	font-size: 11pt;
+}
+
+a {
+	width: 290px;
+	display: inline-block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

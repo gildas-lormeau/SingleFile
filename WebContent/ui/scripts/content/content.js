@@ -48,6 +48,35 @@
 			document.body.removeChild(div);
 	}
 
+	function displayBanner(url) {
+		var frame = document.createElement("iframe");
+		frame.style.width = "100%";
+		frame.style.position = "fixed";
+		frame.style.top = "0px";
+		frame.style.left = "0px";
+		frame.style.borderWidth = "0px";
+		frame.style.borderBottomWidth = "1px";
+		frame.style.borderBottomStyle = "solid";
+		frame.style.borderBottomColor = "#b6bac0";
+		frame.style.zIndex = 2147483647;
+		frame.style["-webkit-transition"] = "height .5s ease-out";
+		frame.src = url;
+		frame.id = "singlefile-save-banner";
+		document.documentElement.style["-webkit-transition"] = "top .5s ease-out";
+		document.documentElement.style.position = "relative";
+		document.body.appendChild(frame);
+		frame.style.height = "0px";
+		frame.offsetLeft;
+		document.documentElement.style.top = "36px";
+		frame.style.height = "35px";
+	}
+
+	function closeBanner() {
+		document.documentElement.style["-webkit-transition-duration"] = "0s";
+		document.documentElement.style.top = "0px";
+		document.body.removeChild(document.getElementById("singlefile-save-banner"));
+	}
+
 	window.addEventListener("keyup", function(event) {
 		if (event.ctrlKey && event.shiftKey && event.keyCode == 83)
 			chrome.extension.sendRequest({});
@@ -59,6 +88,10 @@
 				processStart();
 			if (request.processEnd)
 				processEnd();
+			if (request.displayBanner)
+				displayBanner(request.url);
+			if (request.closeBanner)
+				closeBanner();
 		});
 
 })();

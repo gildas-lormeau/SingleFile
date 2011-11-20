@@ -19,18 +19,27 @@
  */
 (function() {
 
-	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput, processInBackgroundInput, getRawDocInput, getContentInput, displayInContextMenu, bgPage = chrome.extension
-			.getBackgroundPage(), config = bgPage.singlefile.config.get();
-	removeFramesInput = document.getElementById("removeFramesInput");
-	removeScriptsInput = document.getElementById("removeScriptsInput");
-	removeObjectsInput = document.getElementById("removeObjectsInput");
-	removeHiddenInput = document.getElementById("removeHiddenInput");
-	removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
-	displayInContextMenuInput = document.getElementById("displayInContextMenuInput");
-	processInBackgroundInput = document.getElementById("processInBackgroundInput");
-	getRawDocInput = document.getElementById("getRawDocInput");
-	getContentInput = document.getElementById("getContentInput");
-	document.getElementById("popupContent").onchange = function() {
+	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput, processInBackgroundInput, getRawDocInput, sendToPageArchiverInput, displayNotificationInput, displayBannerInput, displayInContextMenuInput, bgPage = chrome.extension
+			.getBackgroundPage(), config;
+
+	function refresh() {
+		config = bgPage.singlefile.config.get();
+		removeFramesInput.checked = config.removeFrames;
+		removeScriptsInput.checked = config.removeScripts;
+		removeObjectsInput.checked = config.removeObjects;
+		removeHiddenInput.checked = config.removeHidden;
+		removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
+		displayInContextMenuInput.checked = config.displayInContextMenu;
+		displayNotificationInput.checked = config.displayNotification;
+		displayBannerInput.checked = config.displayBanner;
+		processInBackgroundInput.checked = config.processInBackground;
+		getRawDocInput.checked = config.getRawDoc;
+		sendToPageArchiverInput.checked = config.sendToPageArchiver;
+		if (displayNotificationInput.checked || displayBannerInput.checked)
+			processInBackgroundInput.checked = processInBackgroundInput.disabled = true;
+	}
+
+	function update() {
 		bgPage.singlefile.config.set({
 			removeFrames : removeFramesInput.checked,
 			removeScripts : removeScriptsInput.checked,
@@ -38,25 +47,37 @@
 			removeHidden : removeHiddenInput.checked,
 			removeUnusedCSSRules : removeUnusedCSSRulesInput.checked,
 			displayInContextMenu : displayInContextMenuInput.checked,
+			displayNotification : displayNotificationInput.checked,
+			displayBanner : displayBannerInput.checked,
+			displayProcessedPage : !displayNotificationInput.checked && !displayBannerInput.checked,
 			processInBackground : processInBackgroundInput.checked,
 			getRawDoc : getRawDocInput.checked,
-			getContent : getContentInput.checked
+			sendToPageArchiver : sendToPageArchiverInput.checked
 		});
-	};
-	removeFramesInput.checked = config.removeFrames;
-	removeScriptsInput.checked = config.removeScripts;
-	removeObjectsInput.checked = config.removeObjects;
-	removeHiddenInput.checked = config.removeHidden;
-	removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
-	displayInContextMenuInput.checked = config.displayInContextMenu;
-	processInBackgroundInput.checked = config.processInBackground;
-	getRawDocInput.checked = config.getRawDoc;
-	getContentInput.checked = config.getContent;
+	}
+
+	function updateProcessInBackground() {
+		processInBackgroundInput.checked = processInBackgroundInput.disabled = displayNotificationInput.checked || displayBannerInput.checked;
+	}
+
+	removeFramesInput = document.getElementById("removeFramesInput");
+	removeScriptsInput = document.getElementById("removeScriptsInput");
+	removeObjectsInput = document.getElementById("removeObjectsInput");
+	removeHiddenInput = document.getElementById("removeHiddenInput");
+	removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
+	displayInContextMenuInput = document.getElementById("displayInContextMenuInput");
+	displayNotificationInput = document.getElementById("displayNotificationInput");
+	displayBannerInput = document.getElementById("displayBannerInput");
+	processInBackgroundInput = document.getElementById("processInBackgroundInput");
+	getRawDocInput = document.getElementById("getRawDocInput");
+	sendToPageArchiverInput = document.getElementById("sendToPageArchiverInput");
 	displayInContextMenuInput.addEventListener("click", bgPage.singlefile.refreshMenu);
+	displayNotificationInput.addEventListener("click", updateProcessInBackground, false);
+	displayBannerInput.addEventListener("click", updateProcessInBackground, false);
 	document.getElementById("resetButton").addEventListener("click", function() {
 		bgPage.singlefile.config.reset();
-		load();
-	});
+		refresh();
+	}, false);
 	addEventListener("click", function(event) {
 		var tooltip;
 		if (event.target.className == "question-mark") {
@@ -64,6 +85,8 @@
 			tooltip.style.display = tooltip.style.display == "block" ? "none" : "block";
 			event.preventDefault();
 		}
-	});
+	}, false);
+	document.getElementById("popupContent").onchange = update;
+	refresh();
 
 })();

@@ -74,16 +74,6 @@
 			});
 	}
 
-	singlefile.ui.notifySavedPage = function(processed, filename) {
-		var notificationArchiving = webkitNotifications.createNotification(DEFAULT_ICON_PATH, "SingleFile", processed ? (filename + " is saved") : ("Error: "
-				+ filename + " cannot be saved"));
-		notificationArchiving.show();
-		if (processed)
-			setTimeout(function() {
-				notificationArchiving.cancel();
-			}, 3000);
-	};
-
 	singlefile.ui.notifyProcessInit = function(tabId) {
 		var tabData = {
 			id : tabId,
@@ -113,10 +103,18 @@
 		refreshBadge(tabId);
 	};
 
-	singlefile.ui.notifyProcessEnd = function(tabId, processingPagesCount) {
+	singlefile.ui.notifyProcessEnd = function(tabId, processingPagesCount, displayNotification, displayBanner, url, title) {
+		var params = encodeURIComponent(url) + "&" + encodeURIComponent(title);
+		if (displayNotification)
+			webkitNotifications.createHTMLNotification("notification.html?" + params).show();
+		if (displayBanner)
+			chrome.tabs.sendRequest(tabId, {
+				displayBanner : true,
+				url : chrome.extension.getURL("/pages/banner.html") + "?" + params
+			});
 		tabs[tabId].text = "OK";
 		delete tabs[tabId].processing;
-		badgeConfig.text = "" + (processingPagesCount || "");
+		badgeConfig.text = ("" + processingPagesCount || "");
 		if (!processingPagesCount) {
 			currentBarProgress = -1;
 			currentProgress = -1;

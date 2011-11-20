@@ -19,7 +19,7 @@ body>div {
 	-webkit-box-shadow: #888 2px 2px 2px;
 }
 
-div>object {
+div>iframe {
 	margin-top: 30px;
 	margin-left: auto;
 	margin-right: auto;
@@ -71,7 +71,7 @@ ol>li>ul>li {
 	background-image: url(../resources/options_screen.png);
 	background-repeat: no-repeat;
 	background-position: center center;
-	height: 500px;
+	height: 562px;
 }
 
 #title {

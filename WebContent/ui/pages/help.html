@@ -8,50 +8,39 @@
 <body>
 <div>
 <div id="titleBorder">
-<h2><img src="../resources/icon_48.png" id="titleIcon"><span id="title">SingleFile help</span></h2>
-<h4>SingleFile helps you to archive a complete page into a single HTML file.</h4>
+<h2>SingleFile help</h2>
+<h4>Archive a complete page into a single HTML file</h4>
 </div>
 <span id="index"><a href="#instructions">Instructions</a> - <a href="#demo">Demo</a> - <a href="#options">Options description</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known issues</a> - <a href="#unknownIssues">Unknown issues</a></span>
 <hr>
 <ol>
 	<li><a id="instructions">Instructions</a>
 	<ul>
-		<li>wait until the page is fully loaded : you may need to scroll down the entire page and hover dynamic document elements (e.g. "rollover" images) to be sure all elements
-		are loaded</li>
-		<li>click on the SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the Chrome toolbar or press Ctrl-Shift-S or use context menu to launch page
-		processing</li>
-		<li>wait until the shadow disappears then hit Ctrl-S or select "Save as" in the wrench menu and save the page</li>
-		<li>all images, style sheets and frame contents are embedded into the ".htm" saved file</li>
+		<li>wait until the page is fully loaded : you may need to scroll down the entire page and hover dynamic document elements (e.g. "rollover" images) to be sure all elements are loaded</li>
+		<li>click on the SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the Chrome toolbar (or press Ctrl-Shift-S or use context menu) to launch page processing</li>
+		<li>wait until the save banner appears at the top the page</li>
+		<li>click on the link into the banner to save the page in default download folder</li>
 	</ul>
+	<p>
+		Since version 0.3.0 of SingleFile it is not possible save the page with Chrome "Save as" dialog anymore. If you still want to use this feature then uncheck <span class="option">display save banner</span> and <span class="option">display save notification</span> in the options page. 
+	</p>
 	</li>
 
-	<li><a id="demo">Demo : SingleFile advantages over default file save</a>
-	<div><object width="480" height="385">
-		<param name="movie" value="http://www.youtube.com/v/D99LfOF3qis&hl=fr_FR&fs=1&">
-		<param name="allowFullScreen" value="true">
-		<param name="allowscriptaccess" value="always">
-		<embed src="http://www.youtube.com/v/D99LfOF3qis&hl=fr_FR&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="385"></object>
-	</div>
+	<li><a id="demo">Demo</a>
+	<div><iframe width="420" height="315" src="http://www.youtube.com/embed/pFCJAFvc_MA" frameborder="0" allowfullscreen></iframe></div>
 	<li><a id="options">Options description</a>
 
-	<p>You can customize the way SingleFile process a document through the options page. Right-click on SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the
-	Chrome toolbar and select "Options" in the context menu to open the options page.</p>
+	<p>You can customize the way SingleFile process a document through the options page. Right-click on SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the Chrome toolbar and select "Options" in the context menu to open the options page.</p>
 	<div class="screenshot"></div>
 	<p>Details :</p>
 	<ul>
 		<li><span class="option">remove frames</span>
-		<p>Check this option to remove all frames on the page. It may help to reduce the file size, to remove some ads and to view saved pages on IE8.</p>
+		<p>Check this option to remove all frames on the page. It may help to reduce the file size, to remove some ads and must be checked to view saved pages on IE.</p>
 		<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 		</li>
 
 		<li><span class="option">remove objects</span>
 		<p>Check this option to remove all non embeddable elements : flash objects, java applets ... Permission restrictions prevent them to be executed when they are embedded in the document.</p>
-		<p class="notice">It is recommended to <u>check</u> this option</p>
-		</li>
-
-		<li><span class="option">remove scripts</span>
-		<p>Check this option if you do not want to save scripts. Most of the time, you do not need scripts in the saved page. Thus they can alter it. Nevertheless if you want to save
-		page dynamic behavior then uncheck this option. If you uncheck this option then you should also check <span class="option">process raw document</span> option to keep page integrity.</p>
 		<p class="notice">It is recommended to <u>check</u> this option</p>
 		</li>
 
@@ -61,24 +50,35 @@
 		<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 		</li>
 
+		<li><span class="option">add entry in the context menu</span>
+		<p>Check this option to launch processing on a page with page context menu. This option also helps to process only the selected area in the page.</p>
+		<p class="notice">It is recommended to <u>check</u> this option</p>
+		</li>
+
+		<li><span class="option">display save banner</span> (only with Chrome 15+)
+		<p>Check this option to display a banner with a download link at the top of the page when processing is finished. If this option and <span class="option">display save notification</span> are not checked then you must manually save the page through Chrome "Save as" dialog (make sure that "Web page, Complete" option is selected) after it has been processed.</p>
+		<p class="notice">It is recommended to <u>check</u> this option or <span class="option">display save notification</span> option</p>
+		</li>
+
+		<li><span class="option">display save notification</span> (only with Chrome 16+)
+		<p>Check this option to display a notification with a download link when processing is finished. If this option and <span class="option">display save banner</span> are not checked then you must manually save the page through Chrome "Save as" dialog (make sure that "Web page, Complete" option is selected) after it has been processed.</p>
+		<p class="notice">It is recommended to <u>check</u> this option or <span class="option">display save banner</span> option</p>
+		</li>
+
+		<li><span class="option">remove scripts</span>
+		<p>Check this option if you do not want to save scripts. Most of the time, you do not need scripts in the saved page. Thus they can alter it. Nevertheless if you want to save
+		page dynamic behavior then uncheck this option. If you uncheck this option then you should also check <span class="option">process raw document</span> option to keep page integrity.</p>
+		<p class="notice">It is recommended to <u>check</u> this option</p>
+		</li>
+
 		<li><span class="option">remove unused CSS rules</span>
 		<p>Check this option to remove all CSS rules that do not match any element. This option may alter the document but can considerably reduce the saved file size. If you check
 		this option, it may also introduce some incompatibilities issues in the saved page when opening it into another browser (i.e. not based on Webkit).</p>
 		<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 		</li>
-		
-		<li><span class="option">display a context menu entry</span>
-		<p>Check this option to launch processing on a page with context menu. This option also helps to process only the selected area in the page.</p>
-		<p class="notice">It is recommended to <u>check</u> this option</p>
-		</li>
 
-		<li><span class="option">send archive to PageArchiver</span>
-		<p>Check this option to send the processed page to <a href="https://chrome.google.com/webstore/detail/ihkkeoeinpbomhnpkmmkpggkaefincbn">PageArchiver</a> chrome extension.</p>
-		<p class="notice">It is recommended to <u>uncheck</u> this option</p>
-		</li>
-
-		<li><span class="option">process in background</span>
-		<p>Check this option to process the page in background. Processing in background is usually faster but can alter the page.</p>
+		<li><span class="option">send saved page to PageArchiver</span>
+		<p>Check this option to send the processed page to <a href="https://chrome.google.com/webstore/detail/ihkkeoeinpbomhnpkmmkpggkaefincbn">PageArchiver</a> extension.</p>
 		<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 		</li>
 
@@ -88,8 +88,13 @@
 		<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 		</li>
 
+		<li><span class="option">process in background</span>
+		<p>Check this option to process the page in background. Processing in background is usually faster but can alter the page if there are critical issues with page validity.</p>
+		<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+		</li>
+
 		<li><span class="option">Reset to default options</span>
-		<p>Reset all the options to default (i.e. recommended) state.</p>
+		<p>Reset all the options to default state.</p>
 		</li>
 	</ul>
 	</li>
@@ -97,11 +102,11 @@
 	<li><a id="notes">Technical notes</a>
 	<ul>
 		<li>all images are converted into <a href="http://en.wikipedia.org/wiki/Base64">base64</a></li>
-		<li>frame document contents and automatically saved pages (*) are encoded with <a href="http://en.wikipedia.org/wiki/Utf_8">utf-8 charset</a></li>
+		<li>frame document contents are encoded with <a href="http://en.wikipedia.org/wiki/Utf_8">UTF-8 charset</a></li>
 		<li>encoded contents are injected in the document using <a href="http://en.wikipedia.org/wiki/Data_URI_scheme">data URI scheme</a></li>
 		<li>data URI scheme is supported by the following web browsers: Chrome, Firefox, Opera, Safari, Konqueror and Internet Explorer 8 (limited support: data URIs must be smaller
 		than 32 KB, embedded frames are not supported)</li>
-		<li>SVG images are supported (SVG document is converted into utf-8 but is not processed)</li>
+		<li>SVG images are supported (SVG document is converted into UTF-8 but is not processed)</li>
 	</ul>
 	</li>
 
@@ -111,7 +116,7 @@
 		<li>If you are using <a href="https://chrome.google.com/extensions/detail/odjhifogjcknibkahlpidmdajjpkkcfn">NotScripts</a> extension and have issues when using SingleFile
 		then you must add this line in "CHANGE__PASSWORD__HERE.js" file as described <a href="http://optimalcycling.com/other-projects/notscripts/faq/#mitigation">here</a>:<br>
 		<code>const DO_NOT_MITIGATE_INLINE_SCRIPTS = true;</code></li>
-		<li><code>file:///*</code>, <code>chrome://*</code> and <code>https://chrome.google.com/*</code> URIs cannot be processed</li>
+		<li>For security reasons these URIs cannot be processed:<br><code>file:///*</code>, <code> chrome://*</code>, <code> https://chrome.google.com/*</code></li>
 	</ul>
 	</li>
 
@@ -119,10 +124,10 @@
 	<p>If you find an unknown issue (i.e. frozen process, extra saved files, blank or altered document, tab crash...):</p>
 	<ul>
 		<li>reset SingleFile options</li>
+		<li>if option reseting did not work, try to uncheck <span class="option">display save notification</span> and <span class="option">display save banner</span> and make sure that <span class="option">process in background</span> unchecked: you will need to use Chrome "Save as" dialog to save the page.</li>
 		<li>disable all other extensions to see if there is a conflict</li>
 		<li>if there is a conflict then try to determine against which extension(s)</li>
-		<li>report the issue <a href="https://chrome.google.com/webstore/detail/mpiodijhokgodhhofbcjdecpffjipkle">here</a> with a short description describing how to reproduce it,
-		Chrome version, OS name and version.</li>
+		<li>please report the issue <a href="https://github.com/gildas-lormeau/SingleFile/issues">here</a> with a short description describing how to reproduce the issue, Chrome version, OS name and version.</li>
 	</ul>
 	</li>
 </ol>

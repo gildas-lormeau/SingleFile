@@ -1,0 +1,52 @@
+body {
+	overflow: hidden;
+	margin-top: 4px;
+	margin-left: 4px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, rgb(253,
+		237, 166) ), color-stop(1, rgb(250, 229, 146) ) );
+}
+
+.link {
+	color: black;
+	font-family: Arial;
+	text-decoration: none;
+	font-size: 11pt;
+	padding-left: 20px;
+}
+
+.link:hover {
+	text-decoration: underline;
+}
+
+.link::before {
+	background-image: url(../resources/icon_19_save.png);
+	height: 19px;
+	width: 19px;
+	content: " ";
+	display: inline-block;
+	position: relative;
+	top: 3px;
+	left: -14px;
+}
+
+.close-button {
+	text-shadow: 1px 1px #333;
+	display: inline-block;
+	height: 14px;
+	width: 14px;
+	background-image: url(../resources/icon_close.png);
+	font-family: sans-serif;
+	font-weight: bold;
+	opacity: .4;
+	position: absolute;
+	right: 6px;
+	top: 10px;
+	cursor: default;
+}
+
+.close-button:hover {
+	-webkit-transition: opacity .2s ease-out;
+	opacity: 1;
+}

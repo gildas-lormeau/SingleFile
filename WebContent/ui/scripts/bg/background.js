@@ -69,12 +69,12 @@
 		singlefile.ui.notifyProcessable(tabId, processable(url), reset);
 	}
 
-	function notifyScrapbook(request) {
-		var SCRAPBOOK_EXT_ID = dev ? "imfajgkkpglkdjkjejkefllgajgmhmfp" : "ihkkeoeinpbomhnpkmmkpggkaefincbn";
-		if (request.content)
-			detectExtension(SCRAPBOOK_EXT_ID, function(detected) {
+	function notifyPageArchiver(request) {
+		var PAGEARCHIVER_EXT_ID = dev ? "gneihhijimfbdmoieljdpjldkfbfijaa" : "ihkkeoeinpbomhnpkmmkpggkaefincbn";
+		if (singlefile.config.get().sendToPageArchiver && request.content)
+			detectExtension(PAGEARCHIVER_EXT_ID, function(detected) {
 				if (detected)
-					chrome.extension.sendRequest(SCRAPBOOK_EXT_ID, request);
+					chrome.extension.sendRequest(PAGEARCHIVER_EXT_ID, request);
 			});
 	}
 
@@ -94,33 +94,42 @@
 	});
 
 	chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse) {
+		var blobBuilder, url;
 		if (request.processStart) {
 			singlefile.ui.notifyProcessStart(request.tabId, request.processingPagesCount);
 			if (request.blockingProcess)
 				chrome.tabs.sendRequest(request.tabId, {
 					processStart : true
 				});
-			notifyScrapbook(request);
+			notifyPageArchiver(request);
 		}
 		if (request.processProgress) {
 			singlefile.ui.notifyProcessProgress(request.index, request.maxIndex);
-			notifyScrapbook(request);
+			notifyPageArchiver(request);
 		}
-		if (request.pageSaved)
-			singlefile.ui.notifySavedPage(request.processed, request.filename);
 		if (request.processEnd) {
 			if (request.blockingProcess)
 				chrome.tabs.sendRequest(request.tabId, {
 					processEnd : true
 				});
-			singlefile.ui.notifyProcessEnd(request.tabId, request.processingPagesCount);
-			notifyScrapbook(request);
+			blobBuilder = new WebKitBlobBuilder();
+			blobBuilder.append((new Uint8Array([ 0xEF, 0xBB, 0xBF ])).buffer);
+			blobBuilder.append(request.content);
+			url = webkitURL.createObjectURL(blobBuilder.getBlob());
+			singlefile.ui.notifyProcessEnd(request.tabId, request.processingPagesCount, singlefile.config.get().displayNotification,
+					singlefile.config.get().displayBanner, url, request.title);
+			notifyPageArchiver(request);
 		}
 		if (request.processError)
 			singlefile.ui.notifyProcessError(request.tabId);
 	});
 	chrome.extension.onRequest.addListener(function(request, sender) {
-		process(sender.tab.id, sender.tab.url);
+		if (request.closeBanner)
+			chrome.tabs.sendRequest(sender.tab.id, {
+				closeBanner : true
+			});
+		else
+			process(sender.tab.id, sender.tab.url);
 	});
 	chrome.browserAction.onClicked.addListener(function(tab) {
 		process(tab.id, tab.url);
