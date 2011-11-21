@@ -58,6 +58,7 @@
 
 	function updateProcessInBackground() {
 		processInBackgroundInput.checked = processInBackgroundInput.disabled = displayNotificationInput.checked || displayBannerInput.checked;
+		update();
 	}
 
 	removeFramesInput = document.getElementById("removeFramesInput");
@@ -77,6 +78,7 @@
 	document.getElementById("resetButton").addEventListener("click", function() {
 		bgPage.singlefile.config.reset();
 		refresh();
+		update();
 	}, false);
 	addEventListener("click", function(event) {
 		var tooltip;
