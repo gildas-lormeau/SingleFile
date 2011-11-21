@@ -5,7 +5,7 @@
 		"48": "resources/icon_48.png",
 		"128": "resources/icon_128.png" },
 	"version": "0.3.0",
-	"description": "SingleFile helps you to archive a complete page into a single HTML file",
+	"description": "Archive a complete page into a single HTML file",
 	"background_page" : "pages/background.html",
 	"options_page": "pages/options.html",
 	"browser_action": {
