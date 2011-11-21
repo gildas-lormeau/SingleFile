@@ -8,21 +8,21 @@
 <body>
 <div>
 <div id="titleBorder">
-<h2>SingleFile help</h2>
-<h4>Archive a complete page into a single HTML file</h4>
+	<h2>SingleFile help</h2>
+	<h4>Archive a complete page into a single HTML file</h4>
 </div>
 <span id="index"><a href="#instructions">Instructions</a> - <a href="#demo">Demo</a> - <a href="#options">Options description</a> - <a href="#notes">Technical notes</a> - <a href="#knownIssues">Known issues</a> - <a href="#unknownIssues">Unknown issues</a></span>
 <hr>
 <ol>
 	<li><a id="instructions">Instructions</a>
 	<ul>
-		<li>wait until the page is fully loaded : you may need to scroll down the entire page and hover dynamic document elements (e.g. "rollover" images) to be sure all elements are loaded</li>
+		<li>wait until the page is fully loaded: you may need to scroll down the entire page and hover dynamic document elements (e.g. "rollover" images) to be sure all elements are loaded</li>
 		<li>click on the SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the Chrome toolbar (or press Ctrl-Shift-S or use context menu) to launch page processing</li>
 		<li>wait until the save banner appears at the top the page</li>
 		<li>click on the link into the banner to save the page in default download folder</li>
 	</ul>
 	<p>
-		Since version 0.3.0 of SingleFile it is not possible save the page with Chrome "Save as" dialog anymore. If you still want to use this feature then uncheck <span class="option">display save banner</span> and <span class="option">display save notification</span> in the options page. 
+		Since version 0.3.0 of SingleFile it is not possible to save the page with Chrome "Save as" dialog anymore. If you still want to use this feature then uncheck <span class="option">display save banner</span> and <span class="option">display save notification</span> in the options page (select "Webpage, Complete" type in "Save as" dialog).
 	</p>
 	</li>
 
@@ -61,7 +61,7 @@
 		</li>
 
 		<li><span class="option">display save notification</span> (only with Chrome 16+)
-		<p>Check this option to display a notification with a download link when processing is finished. If this option and <span class="option">display save banner</span> are not checked then you must manually save the page through Chrome "Save as" dialog (make sure that "Web page, Complete" option is selected) after it has been processed.</p>
+		<p>Check this option to display a notification with a download link when processing is finished. If this option and <span class="option">display save banner</span> are not checked then you must manually save the page through Chrome "Save as" dialog (make sure that "Web page, Complete" type is selected) after it has been processed.</p>
 		<p class="notice">It is recommended to <u>check</u> this option or <span class="option">display save banner</span> option</p>
 		</li>
 
@@ -124,7 +124,7 @@
 	<p>If you find an unknown issue (i.e. frozen process, extra saved files, blank or altered document, tab crash...):</p>
 	<ul>
 		<li>reset SingleFile options</li>
-		<li>if option reseting did not work, try to uncheck <span class="option">display save notification</span> and <span class="option">display save banner</span> and make sure that <span class="option">process in background</span> unchecked: you will need to use Chrome "Save as" dialog to save the page.</li>
+		<li>if option reseting did not work, try to uncheck <span class="option">display save notification</span> and <span class="option">display save banner</span> and make sure that <span class="option">process in background</span> is unchecked: you will have to use Chrome "Save as" dialog to save the page.</li>
 		<li>disable all other extensions to see if there is a conflict</li>
 		<li>if there is a conflict then try to determine against which extension(s)</li>
 		<li>please report the issue <a href="https://github.com/gildas-lormeau/SingleFile/issues">here</a> with a short description describing how to reproduce the issue, Chrome version, OS name and version.</li>
