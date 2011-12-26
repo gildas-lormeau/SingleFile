@@ -158,6 +158,8 @@
 	}
 
 	function sendFgProcessInit(title, url, baseURI, winId, winIndex) {
+		var contextmenuTime = window.contextmenuTime;
+		window.contextmenuTime = null;
 		bgPort.postMessage({
 			processInit : true,
 			pageId : pageId,
@@ -166,11 +168,14 @@
 			title : title || doc.title,
 			baseURI : baseURI || doc.baseURI,
 			winId : winId || wininfo.winId,
+			contextmenuTime : contextmenuTime,
 			index : winIndex || wininfo.index
 		});
 	}
 
 	function sendBgProcessInit(content, title, url, baseURI, characterSet, winId, winIndex) {
+		var contextmenuTime = window.contextmenuTime;
+		window.contextmenuTime = null;
 		bgPort.postMessage({
 			processInit : true,
 			pageId : pageId,
@@ -182,6 +187,7 @@
 			characterSet : characterSet || doc.characterSet,
 			canvasData : canvasData,
 			winId : winId || wininfo.winId,
+			contextmenuTime : contextmenuTime,
 			index : winIndex || wininfo.index
 		});
 	}

@@ -46,7 +46,7 @@
 		return !url.indexOf("https://chrome.google.com") == 0 && (url.indexOf("http://") == 0 || url.indexOf("https://") == 0);
 	}
 
-	function process(tabId, url, processSelection) {
+	function process(tabId, url, processSelection, processFrame) {
 		var SINGLE_FILE_CORE_EXT_ID = dev ? "onlinihoegnbbcmeeocfeplgbkmoidla" : "jemlklgaibiijojffihnhieihhagocma";
 		detectExtension(SINGLE_FILE_CORE_EXT_ID, function(detected) {
 			if (detected) {
@@ -54,6 +54,7 @@
 					singlefile.ui.notifyProcessInit(tabId);
 					chrome.extension.sendRequest(SINGLE_FILE_CORE_EXT_ID, {
 						processSelection : processSelection,
+						processFrame : processFrame,
 						id : tabId,
 						config : singlefile.config.get()
 					});
@@ -78,6 +79,7 @@
 			});
 	}
 
+	// TODO : onSelectionChanged, getSelected are deprecated
 	chrome.tabs.onSelectionChanged.addListener(function() {
 		chrome.tabs.getSelected(null, function(tab) {
 			notifyProcessable(tab.id, tab.url);
@@ -87,7 +89,8 @@
 		notifyProcessable(tab.id, tab.url);
 	});
 	chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-		notifyProcessable(tab.id, tab.url, true);
+		if (changeInfo.status = "loading")
+			notifyProcessable(tab.id, tab.url, true);
 	});
 	chrome.tabs.onRemoved.addListener(function(tabId) {
 		singlefile.ui.notifyTabRemoved(tabId);
@@ -129,25 +132,33 @@
 				closeBanner : true
 			});
 		else
-			process(sender.tab.id, sender.tab.url);
+			process(sender.tab.id, sender.tab.url, false, false);
 	});
 	chrome.browserAction.onClicked.addListener(function(tab) {
-		process(tab.id, tab.url);
+		process(tab.id, tab.url, false, false);
 	});
 
 	singlefile.refreshMenu = function() {
 		if (singlefile.config.get().displayInContextMenu) {
 			chrome.contextMenus.create({
-				title : "Process page with SingleFile",
+				contexts : [ "page" ],
+				title : "process page",
 				onclick : function(info, tab) {
-					process(tab.id, tab.url);
+					process(tab.id, tab.url, false, false);
+				}
+			});
+			chrome.contextMenus.create({
+				contexts : [ "frame" ],
+				title : "process frame",
+				onclick : function(info, tab) {
+					process(tab.id, tab.url, false, true);
 				}
 			});
 			chrome.contextMenus.create({
 				contexts : [ "selection" ],
-				title : "Process selection with SingleFile",
+				title : "process selection",
 				onclick : function(info, tab) {
-					process(tab.id, tab.url, true);
+					process(tab.id, tab.url, true, false);
 				}
 			});
 		} else

@@ -64,6 +64,7 @@
 			refreshBadgeProperty("path", chrome.browserAction.setIcon);
 		}
 
+		// TODO : getAllInWindow is deprecated
 		if (tabId)
 			refreshTabBadge(tabId);
 		else

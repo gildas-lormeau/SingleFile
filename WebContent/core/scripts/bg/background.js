@@ -54,7 +54,7 @@
 		pageData.portsId.push(port.portId_);
 		if (!pageData.getDocData(message.winId))
 			pageData.processDoc(port, message.topWindow, message.winId, message.index, message.content, message.title, message.url, message.baseURI,
-					message.characterSet, message.canvasData, {
+					message.characterSet, message.canvasData, message.contextmenuTime, {
 						init : docInit,
 						progress : docProgress,
 						end : docEnd
@@ -153,14 +153,17 @@
 		pageData.setDocContent(docData, content, setContentResponse);
 	}
 
-	function process(tabId, senderId, config, processSelection) {
-		var pageData, configScript = "singlefile.config = " + JSON.stringify(config) + "; singlefile.pageId = " + pageId + ";"
+	function process(tabId, senderId, config, processSelection, processFrame) {
+		var pageData, configScript;
+		if (processFrame)
+			config.processInBackground = true;
+		configScript = "singlefile.config = " + JSON.stringify(config) + "; singlefile.pageId = " + pageId + ";"
 				+ (processSelection ? "singlefile.processSelection = " + processSelection : "");
 		if (tabs[tabId] && tabs[tabId].processing)
 			return;
 		tabs[tabId] = tabs[tabId] || [];
 		tabs[tabId].processing = true;
-		pageData = new singlefile.PageData(tabId, pageId, senderId, config, processSelection, function() {
+		pageData = new singlefile.PageData(tabId, pageId, senderId, config, processSelection, processFrame, function() {
 			executeScripts(tabId, [ {
 				code : "var singlefile = {};"
 			}, {
@@ -236,7 +239,6 @@
 				}
 			}
 		}
-
 		if (port.name == "singlefile") {
 			port.onMessage.addListener(onMessage);
 			port.onDisconnect.addListener(onDisconnect);
@@ -250,13 +252,15 @@
 			for (property in request.config)
 				config[property] = request.config[property];
 		if (request.processSelection)
-			process(request.id, sender.id, config, true);
+			process(request.id, sender.id, config, true, false);
+		else if (request.processFrame)
+			process(request.id, sender.id, config, false, true);
 		else if (request.tabIds)
 			request.tabIds.forEach(function(tabId) {
-				process(tabId, sender.id, config);
+				process(tabId, sender.id, config, false, false);
 			});
 		else
-			process(request.id, sender.id, config);
+			process(request.id, sender.id, config, false, false);
 		sendResponse({});
 	}
 

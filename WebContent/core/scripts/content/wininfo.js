@@ -140,7 +140,6 @@ var wininfo = {};
 		delete message.contentRequestId;
 		delete message.getContentResponse;
 		contentRequestCallbacks[id](message);
-		delete contentRequestCallbacks[id];
 	}
 
 	function initRequest(message) {
@@ -221,6 +220,10 @@ var wininfo = {};
 	if (window == top)
 		wininfo.getContent = getContent;
 	chrome.extension.onRequest.addListener(onRequest);
+	addEventListener("contextmenu", function() {
+		window.contextmenuTime = (new Date()).getTime();
+	}, false);
+
 	addListener(onMessage);
 
 })();

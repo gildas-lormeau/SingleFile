@@ -23,7 +23,7 @@
 	singlefile.PageData = PageData;
 	singlefile.DocData = DocData;
 
-	function PageData(tabId, pageId, senderId, config, processSelection, callback) {
+	function PageData(tabId, pageId, senderId, config, processSelection, processFrame, callback) {
 		var timeoutError, that = this;
 		this.pageId = pageId;
 		this.docs = [];
@@ -33,6 +33,7 @@
 		this.senderId = senderId;
 		this.config = config;
 		this.processSelection = processSelection;
+		this.processFrame = processFrame;
 		this.processing = true;
 		this.tabId = tabId;
 		this.requestManager = new singlefile.nio.RequestManager();
@@ -43,6 +44,8 @@
 		this.top = null;
 		this.timeoutPageInit = null;
 		this.portsId = [];
+		this.contextmenuTime = null;
+		this.frameDocData = null;
 		timeoutError = setTimeout(function() {
 			that.processing = false;
 			chrome.extension.sendRequest(that.senderId, {
@@ -68,7 +71,7 @@
 					docData.process();
 			});
 		},
-		processDoc : function(port, topWindow, winId, index, content, title, url, baseURI, characterSet, canvasData, callbacks) {
+		processDoc : function(port, topWindow, winId, index, content, title, url, baseURI, characterSet, canvasData, contextmenuTime, callbacks) {
 			var that = this, docData;
 			docData = new DocData(port, winId, index, content, baseURI, characterSet, canvasData);
 			if (topWindow) {
@@ -77,6 +80,10 @@
 				this.url = url;
 			}
 			this.docs.push(docData);
+			if (this.processFrame && contextmenuTime && (!this.contextmenuTime || contextmenuTime > this.contextmenuTime)) {
+				this.contextmenuTime = contextmenuTime;
+				this.frameDocData = docData;
+			}
 			if (this.config.processInBackground && docData.content) {
 				docData.parseContent();
 				docData.processDocCallback = singlefile.initProcess(docData.doc, docData.doc.documentElement, topWindow, baseURI, characterSet, this.config,
@@ -100,7 +107,7 @@
 					});
 		},
 		setDocContent : function(docData, content, callback) {
-			var that = this;
+			var selectedDocData, that = this;
 
 			function buildPage(docData, setFrameContent, getContent, callback) {
 				function setContent(docData) {
@@ -155,8 +162,13 @@
 					if (docData.parent)
 						docData.parent.setChild(docData);
 				});
+				if (this.frameDocData) {
+					selectedDocData = this.frameDocData;
+					selectedDocData.parent = null;
+				} else
+					selectedDocData = this.top;
 				if (this.config.processInBackground)
-					buildPage(this.top, function(docData, callback) {
+					buildPage(selectedDocData, function(docData, callback) {
 						docData.parent.docFrames[docData.index].setAttribute("src", "data:text/html;charset=utf-8,"
 								+ encodeURI(singlefile.util.getDocContent(docData.doc)));
 						delete docData.doc;
