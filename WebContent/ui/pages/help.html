@@ -17,15 +17,16 @@
 	<li><a id="instructions">Instructions</a>
 	<ul>
 		<li>wait until the page is fully loaded: you may need to scroll down the entire page and hover dynamic document elements (e.g. "rollover" images) to be sure all elements are loaded</li>
-		<li>click on the SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the Chrome toolbar (or press <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>S</kbd> or use context menu) to launch page processing</li>
+		<li>click on the SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the Chrome toolbar (or press <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>S</kbd>) to launch page processing</li>
 		<li>wait until the save banner appears at the top the page</li>
 		<li>click on the link into the banner to save the page in default download folder</li>
 	</ul>
-	<p>
-		Since version 0.3.0 of SingleFile, the default behavior is to show a "Save Banner", which allows you to easily save the page into the Downloads directory. To use the Chrome File->Save As... dialog and save the file to a selected location, uncheck the <span class="option">display save banner</span> and <span class="option">display save notification</span> in the options page (right click on SingleFile icon, select Options).
-	</p>
+	<p>Additional notes:</p>
+	<ul>
+		<li>You can use the context menu to process the whole page ("process page"), the selected part of a page ("process selection") or a frame ("process frame")</li>
+		<li>Since version 0.3.0 of SingleFile, the default behavior is to show a banner, which allows you to easily save the page into the Downloads directory. To use the Chrome File->Save As... dialog and save the file to a selected location, uncheck the <span class="option">display save banner</span> and <span class="option">display save notification</span> in the options page.</li>		
+	</ul>
 	</li>
-
 	<li><a id="demo">Demo</a>
 	<div><iframe width="630" height="470" src="http://www.youtube.com/embed/pFCJAFvc_MA" frameborder="0" allowfullscreen></iframe></div>
 	<li><a id="options">Options description</a>
@@ -60,7 +61,7 @@
 		<p class="notice">It is recommended to <u>check</u> this option or <span class="option">display save notification</span> option</p>
 		</li>
 
-		<li><span class="option">display save notification</span> (only with Chrome 16+)
+		<li><span class="option">display save notification</span> (only with Chrome 17+)
 		<p>Check this option to display a notification with a download link when processing is finished. If this option and <span class="option">display save banner</span> are not checked then you must manually save the page through Chrome "Save as" dialog (make sure that "Web page, Complete" type is selected) after it has been processed.</p>
 		<p class="notice">It is recommended to <u>check</u> this option or <span class="option">display save banner</span> option</p>
 		</li>
@@ -116,6 +117,7 @@
 		<li>If you are using <a href="https://chrome.google.com/extensions/detail/odjhifogjcknibkahlpidmdajjpkkcfn">NotScripts</a> extension and have issues when using SingleFile
 		then you must add this line in "CHANGE__PASSWORD__HERE.js" file as described <a href="http://optimalcycling.com/other-projects/notscripts/faq/#mitigation">here</a>:<br>
 		<code>const DO_NOT_MITIGATE_INLINE_SCRIPTS = true;</code></li>
+		<li>Chrome is unable to display base64 encoded resources (images an frames) weighting more than 4MB</li>
 		<li>For security reasons these URIs cannot be processed:<br><code>file:///*</code>, <code> chrome://*</code>, <code> https://chrome.google.com/*</code></li>
 	</ul>
 	</li>
