@@ -155,8 +155,10 @@
 
 	function process(tabId, senderId, config, processSelection, processFrame) {
 		var pageData, configScript;
-		if (processFrame)
+		if (processFrame) {
 			config.processInBackground = true;
+			config.removeFrames = false;
+		}
 		configScript = "singlefile.config = " + JSON.stringify(config) + "; singlefile.pageId = " + pageId + ";"
 				+ (processSelection ? "singlefile.processSelection = " + processSelection : "");
 		if (tabs[tabId] && tabs[tabId].processing)
