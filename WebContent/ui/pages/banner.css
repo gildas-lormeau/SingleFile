@@ -11,6 +11,7 @@ body {
 .link {
 	text-decoration: none;
 	padding-left: 20px;
+	margin-top: 5px;
 }
 
 .link:hover {
