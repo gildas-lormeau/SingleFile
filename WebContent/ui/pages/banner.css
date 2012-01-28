@@ -6,12 +6,13 @@ body {
 	color: black;
 	font-family: Arial;
 	font-size: 11pt;
+	margin-top: 5px;
 }
 
 .link {
 	text-decoration: none;
 	padding-left: 20px;
-	margin-top: 5px;
+	color: black;
 }
 
 .link:hover {
@@ -33,7 +34,7 @@ body {
 	position: absolute;
 	padding: 2px;
 	right: 50px;
-	top: 8px;
+	top: 6px;
 	opacity: .5;
 	-webkit-transition: opacity 250ms;
 }
