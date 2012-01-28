@@ -1,18 +1,15 @@
 body {
 	overflow: hidden;
-	margin-top: 4px;
-	margin-left: 4px;
-	margin-bottom: 0px;
-	margin-right: 0px;
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, rgb(253,
 		237, 166) ), color-stop(1, rgb(250, 229, 146) ) );
+	background-repeat: repeat-x;
+	color: black;
+	font-family: Arial;
+	font-size: 11pt;
 }
 
 .link {
-	color: black;
-	font-family: Arial;
 	text-decoration: none;
-	font-size: 11pt;
 	padding-left: 20px;
 }
 
@@ -29,6 +26,36 @@ body {
 	position: relative;
 	top: 3px;
 	left: -14px;
+}
+
+.filename-container {
+	position: absolute;
+	padding: 2px;
+	right: 50px;
+	top: 8px;
+	opacity: .5;
+	-webkit-transition: opacity 250ms;
+}
+
+.filename-container:hover {
+	opacity: 1;
+}
+
+.filename {
+	padding: 2px;
+	max-width: 400px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+.filename[contenteditable=true] {
+	background-color: #fff8d6;
+}
+
+.edit {
+	padding-left: 5px;
 }
 
 .close-button {

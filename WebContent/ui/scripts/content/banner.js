@@ -20,14 +20,49 @@
 
 (function() {
 	var link = document.getElementById("link");
+	var filenameInput = document.getElementById("filename");
+	var closeButton = document.getElementById("close");
+	var editButton = document.getElementById("edit");
 	var params = location.search.substring(1).split("&");
 	var date = new Date();
 	var time = date.toISOString().split("T")[0] + " " + date.toLocaleTimeString();
-	link.href = decodeURIComponent(params[0]);
-	link.download = decodeURIComponent(params[1]) + " (" + time + ")" + ".htm";
-	link.onclick = document.getElementById("close").onclick = function() {
+	var filename = decodeURIComponent(params[1]) + " (" + time + ")" + ".htm";
+
+	function close() {
 		chrome.extension.sendRequest({
 			closeBanner : true
 		});
-	};
+	}
+
+	function resetFilename() {
+		filenameInput.style.textOverflow = "ellipsis";
+		filenameInput.blur();
+		filenameInput.contentEditable = false;
+		filenameInput.removeEventListener("keydown", onkeydown, false);
+	}
+
+	function onkeydown(event) {
+		if (event.keyIdentifier == "U+001B") {
+			resetFilename();
+			filenameInput.textContent = filenameInput.title = filename;
+		}
+		if (event.keyIdentifier == "Enter") {
+			resetFilename();
+			filename = link.download = filenameInput.title = filenameInput.textContent;
+			event.preventDefault();
+		}
+	}
+
+	function editName() {
+		filenameInput.style["text-overflow"] = "clip";
+		filenameInput.contentEditable = true;
+		filenameInput.focus();
+		filenameInput.addEventListener("keydown", onkeydown, false);
+	}
+
+	link.href = decodeURIComponent(params[0]);
+	link.download = filenameInput.textContent = filenameInput.title = filename;
+	link.addEventListener("click", close, false);
+	closeButton.addEventListener("click", close, false);
+	editButton.addEventListener("click", editName, false);
 })();
