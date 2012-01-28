@@ -175,6 +175,8 @@
 
 	function sendBgProcessInit(content, title, url, baseURI, characterSet, winId, winIndex) {
 		var contextmenuTime = window.contextmenuTime;
+		if (!this.wininfo)
+			return;
 		window.contextmenuTime = null;
 		bgPort.postMessage({
 			processInit : true,
