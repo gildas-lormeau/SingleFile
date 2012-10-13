@@ -29,7 +29,7 @@ var wininfo = {};
 	function addListener(onMessage) {
 		function windowMessageListener(event) {
 			var data = event.data;
-			if (data.indexOf(EXT_ID + '::') == 0)
+			if (typeof data === 'string' && data.indexOf(EXT_ID + '::') == 0)
 				onMessage(JSON.parse(data.substr(EXT_ID.length + 2)));
 		}
 		this.addEventListener("message", windowMessageListener, false);
@@ -59,7 +59,7 @@ var wininfo = {};
 			function addListener(onMessage) {
 				function windowMessageListener(event) {
 					var data = event.data;
-					if (data.indexOf(extensionId + '::') == 0)
+					if (typeof data === 'string' && data.indexOf(extensionId + '::') == 0)
 						onMessage(parse(data.substr(extensionId.length + 2)));
 				}
 				top.addEventListener("message", windowMessageListener, false);
