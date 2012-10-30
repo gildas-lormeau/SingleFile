@@ -48,6 +48,7 @@
 
 	function process(tabId, url, processSelection, processFrame) {
 		var SINGLE_FILE_CORE_EXT_ID = dev ? "onlinihoegnbbcmeeocfeplgbkmoidla" : "jemlklgaibiijojffihnhieihhagocma";
+		
 		detectExtension(SINGLE_FILE_CORE_EXT_ID, function(detected) {
 			if (detected) {
 				if (processable(url)) {
@@ -97,7 +98,7 @@
 	});
 
 	chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse) {
-		var blobBuilder, url;
+		var blob, url;
 		if (request.processStart) {
 			singlefile.ui.notifyProcessStart(request.tabId, request.processingPagesCount);
 			if (request.blockingProcess)
@@ -115,10 +116,8 @@
 				chrome.tabs.sendRequest(request.tabId, {
 					processEnd : true
 				});
-			blobBuilder = new WebKitBlobBuilder();
-			blobBuilder.append((new Uint8Array([ 0xEF, 0xBB, 0xBF ])).buffer);
-			blobBuilder.append(request.content);
-			url = webkitURL.createObjectURL(blobBuilder.getBlob());
+			blob = new Blob([(new Uint8Array([ 0xEF, 0xBB, 0xBF ])).buffer, request.content]);
+			url = webkitURL.createObjectURL(blob);
 			singlefile.ui.notifyProcessEnd(request.tabId, request.processingPagesCount, singlefile.config.get().displayNotification,
 					singlefile.config.get().displayBanner, url, request.title);
 			notifyPageArchiver(request);
