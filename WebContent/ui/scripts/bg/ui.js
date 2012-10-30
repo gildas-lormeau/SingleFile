@@ -107,7 +107,7 @@
 	singlefile.ui.notifyProcessEnd = function(tabId, processingPagesCount, displayNotification, displayBanner, url, title) {
 		var params = encodeURIComponent(url) + "&" + encodeURIComponent(title);
 		if (displayNotification)
-			webkitNotifications.createHTMLNotification("notification.html?" + params).show();
+			webkitNotifications.createHTMLNotification("/pages/notification.html?" + params).show();
 		if (displayBanner)
 			chrome.tabs.sendRequest(tabId, {
 				displayBanner : true,

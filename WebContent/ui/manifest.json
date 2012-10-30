@@ -1,23 +1,39 @@
 {
-	"name": "SingleFile",
-	"icons": {
-		"16": "resources/icon_16.png",
-		"48": "resources/icon_48.png",
-		"128": "resources/icon_128.png" },
-	"version": "0.3.4",
-	"description": "Archive a complete page into a single HTML file",
-	"background_page" : "pages/background.html",
-	"options_page": "pages/options.html",
-	"browser_action": {
-	    "default_icon": "resources/icon_19.png", 
-	    "default_title": "Process this page with SingleFile"
-	},
-	"content_scripts" : [ {
-		"matches" : [ "http://*/*", "https://*/*" ],
-		"js" : [ "scripts/content/content.js" ],
-		"run_at" : "document_start",
-		"all_frames" : true
-	} ],
-	"permissions": [ "tabs", "notifications", "contextMenus" ],
-	"minimum_chrome_version" : "7"
+  "name": "SingleFile",
+  "icons": {
+    "16": "resources/icon_16.png",
+    "48": "resources/icon_48.png",
+    "128": "resources/icon_128.png" },
+  "version": "0.3.4",
+  "description": "Archive a complete page into a single HTML file",
+  "background" : {
+    "scripts": [
+      "scripts/bg/index.js",
+      "scripts/bg/ui.js",
+      "scripts/bg/config.js",
+      "scripts/bg/background.js"
+    ]
+  },
+  "options_page": "pages/options.html",
+  "browser_action": {
+      "default_icon": "resources/icon_19.png", 
+      "default_title": "Process this page with SingleFile"
+  },
+  "content_scripts" : [ {
+    "matches" : [ "http://*/*", "https://*/*" ],
+    "js" : [ "scripts/content/content.js" ],
+    "run_at" : "document_start",
+    "all_frames" : true
+  } ],
+  "web_accessible_resources": [
+    "pages/banner.html",
+    "pages/banner.css",
+    "scripts/content/banner.js",
+    "pages/notification.html",
+    "pages/notification.css",
+    "scripts/bg/notification.js"
+  ],
+  "permissions": [ "tabs", "notifications", "contextMenus" ],
+  "minimum_chrome_version" : "7",
+  "manifest_version": 2
 }
