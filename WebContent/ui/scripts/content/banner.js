@@ -29,7 +29,7 @@
 	var filename = decodeURIComponent(params[1]) + " (" + time + ")" + ".htm";
 
 	function close() {
-		chrome.extension.sendRequest({
+		chrome.extension.sendMessage({
 			closeBanner : true
 		});
 	}

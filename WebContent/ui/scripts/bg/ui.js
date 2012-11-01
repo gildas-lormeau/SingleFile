@@ -109,7 +109,7 @@
 		if (displayNotification)
 			webkitNotifications.createHTMLNotification("/pages/notification.html?" + params).show();
 		if (displayBanner)
-			chrome.tabs.sendRequest(tabId, {
+			chrome.tabs.sendMessage(tabId, {
 				displayBanner : true,
 				url : chrome.extension.getURL("/pages/banner.html") + "?" + params
 			});

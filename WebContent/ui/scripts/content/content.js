@@ -79,11 +79,11 @@
 
 	window.addEventListener("keyup", function(event) {
 		if (event.ctrlKey && event.shiftKey && event.keyCode == 83)
-			chrome.extension.sendRequest({});
+			chrome.extension.sendMessage({});
 	}, true);
 
-	if (topWindow)
-		chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+	if (topWindow) {
+		chrome.extension.onMessage.addListener(function(request) {
 			if (request.processStart)
 				processStart();
 			if (request.processEnd)
@@ -93,5 +93,6 @@
 			if (request.closeBanner)
 				closeBanner();
 		});
+	}
 
 })();

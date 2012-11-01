@@ -35,7 +35,7 @@ var wininfo = {};
 		this.addEventListener("message", windowMessageListener, false);
 	}
 
-	function executeSetFramesWinId(extensionId, selector, index, winId) {
+	function executeSetFramesWinId(extensionId, index, winId) {
 		function execute(extensionId, elements, index, winId, win) {
 			var i, framesInfo = [], stringify = JSON.stringify || JSON.encode, parse = JSON.parse || JSON.decode;
 
@@ -109,7 +109,7 @@ var wininfo = {};
 					}
 
 					if (frameDoc && top.addEventListener) {
-						execute(extensionId, frameDoc.querySelectorAll(selector), index, frameWinId, frameElement.contentWindow);
+						execute(extensionId, frameDoc.querySelectorAll("iframe, frame"), index, frameWinId, frameElement.contentWindow);
 						addListener(onMessage);
 					} else {
 						frameElement.contentWindow.postMessage(extensionId + "::" + stringify({
@@ -120,7 +120,7 @@ var wininfo = {};
 					}
 				})(i);
 		}
-		execute(extensionId, document.querySelectorAll(selector), index, winId, window);
+		execute(extensionId, document.querySelectorAll("iframe, frame"), index, winId, window);
 	}
 
 	function getContent(frame, callback) {
@@ -153,19 +153,15 @@ var wininfo = {};
 				index : message.index
 			});
 		}, 3000);
-		location.href = "javascript:(" + executeSetFramesWinIdString + ")('" + EXT_ID + "','iframe, frame'," + wininfo.index + ",'" + wininfo.winId
-				+ "'); void 0;";
+		location.href = "javascript:(" + executeSetFramesWinIdString + ")('" + EXT_ID + "'," + wininfo.index + ",'" + wininfo.winId + "'); void 0;";
 	}
 
 	function initResponse(message) {
 		function process() {
-			bgPort = chrome.extension.connect({
-				name : "wininfo"
-			});
 			wininfo.frames = wininfo.frames.filter(function(frame) {
 				return frame.winId;
 			});
-			bgPort.postMessage({
+			chrome.extension.sendMessage({
 				initResponse : true,
 				processableDocs : wininfo.frames.length + 1
 			});
@@ -195,20 +191,18 @@ var wininfo = {};
 		}
 	}
 
-	function onRequest(request) {
-		// console.log("onRequest", request);
-		if (request.initRequest && this == top && document.documentElement instanceof HTMLHtmlElement) {
+	function onExtensionMessage(message) {
+		if (message.initRequest && document.documentElement instanceof HTMLHtmlElement) {
 			contentRequestCallbacks = [];
 			processLength = 0;
 			processIndex = 0;
 			timeoutProcess = null;
 			wininfo.frames = [];
-			initRequest(request);
+			initRequest(message);
 		}
 	}
 
-	function onMessage(message) {
-		// console.log("wininfo", "onMessage", message, window.location.href);
+	function onWindowMessage(message) {
 		if (message.initRequest)
 			initRequest(message);
 		if (message.initResponse)
@@ -217,13 +211,13 @@ var wininfo = {};
 			getContentResponse(message);
 	}
 
-	if (window == top)
+	if (window == top) {
 		wininfo.getContent = getContent;
-	chrome.extension.onRequest.addListener(onRequest);
+		chrome.extension.onMessage.addListener(onExtensionMessage);
+	}
 	addEventListener("contextmenu", function() {
 		window.contextmenuTime = (new Date()).getTime();
 	}, false);
-
-	addListener(onMessage);
+	addListener(onWindowMessage);
 
 })();

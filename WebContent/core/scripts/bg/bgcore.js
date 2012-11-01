@@ -48,7 +48,7 @@
 		this.frameDocData = null;
 		timeoutError = setTimeout(function() {
 			that.processing = false;
-			chrome.extension.sendRequest(that.senderId, {
+			chrome.extension.sendMessage(that.senderId, {
 				processError : true,
 				tabId : tabId
 			});

@@ -19,19 +19,13 @@
  */
 
 var wininfo = {
-	init : function(tabId, processCallback) {
-		function onConnect(port) {
-			if (port.name == "wininfo" && port.sender.tab.id == tabId)
-				port.onMessage.addListener(function(message) {
-					// console.log("winfo.onMessage", tabId, message);
-					if (message.initResponse)
-						processCallback(message.processableDocs);
-					chrome.extension.onConnect.removeListener(onConnect);
-				});
-		}
-
-		chrome.extension.onConnect.addListener(onConnect);
-		chrome.tabs.sendRequest(tabId, {
+	init : function(tabId, callback) {
+		chrome.extension.onMessage.addListener(function(message) {
+			// console.log("wininfo.onMessage", tabId, message);
+			if (message.initResponse)
+				callback(message.processableDocs);
+		});
+		chrome.tabs.sendMessage(tabId, {
 			initRequest : true,
 			winId : "0",
 			index : 0

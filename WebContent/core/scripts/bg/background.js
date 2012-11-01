@@ -64,7 +64,7 @@
 	function setContentResponse(tabId, pageId, docData, content) {
 		var pageData = tabs[tabId][pageId];
 		processingPagesCount--;
-		chrome.extension.sendRequest(pageData.senderId, {
+		chrome.extension.sendMessage(pageData.senderId, {
 			processEnd : true,
 			tabId : tabId,
 			pageId : pageId,
@@ -88,7 +88,7 @@
 			pageData.processableDocs = pageData.initializedDocs;
 			pageData.initProcess();
 			processingPagesCount++;
-			chrome.extension.sendRequest(pageData.senderId, {
+			chrome.extension.sendMessage(pageData.senderId, {
 				processStart : true,
 				tabId : pageData.tabId,
 				pageId : pageData.pageId,
@@ -136,7 +136,7 @@
 				progressMax += tabData.progressMax;
 			}
 		});
-		chrome.extension.sendRequest(pageData.senderId, {
+		chrome.extension.sendMessage(pageData.senderId, {
 			processProgress : true,
 			tabId : pageData.tabId,
 			pageId : pageData.pageId,
@@ -247,8 +247,8 @@
 		}
 	}
 
-	function onRequestExternal(request, sender, sendResponse) {
-		// console.log("onRequestExternal", request);
+	function onMessageExternal(request, sender, sendResponse) {
+		// console.log("onMessageExternal", request);
 		var property, config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
 		if (request.config)
 			for (property in request.config)
@@ -267,6 +267,6 @@
 	}
 
 	chrome.extension.onConnect.addListener(onConnect);
-	chrome.extension.onRequestExternal.addListener(onRequestExternal);
+	chrome.extension.onMessageExternal.addListener(onMessageExternal);
 
 })();

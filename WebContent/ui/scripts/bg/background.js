@@ -43,17 +43,17 @@
 	}
 
 	function processable(url) {
-		return !url.indexOf("https://chrome.google.com") == 0 && (url.indexOf("http://") == 0 || url.indexOf("https://") == 0);
+		return url.indexOf("https://chrome.google.com") != 0 && (url.indexOf("http://") == 0 || url.indexOf("https://") == 0);
 	}
 
 	function process(tabId, url, processSelection, processFrame) {
 		var SINGLE_FILE_CORE_EXT_ID = dev ? "onlinihoegnbbcmeeocfeplgbkmoidla" : "jemlklgaibiijojffihnhieihhagocma";
-		
+
 		detectExtension(SINGLE_FILE_CORE_EXT_ID, function(detected) {
 			if (detected) {
 				if (processable(url)) {
 					singlefile.ui.notifyProcessInit(tabId);
-					chrome.extension.sendRequest(SINGLE_FILE_CORE_EXT_ID, {
+					chrome.extension.sendMessage(SINGLE_FILE_CORE_EXT_ID, {
 						processSelection : processSelection,
 						processFrame : processFrame,
 						id : tabId,
@@ -76,13 +76,12 @@
 		if (singlefile.config.get().sendToPageArchiver && request.content)
 			detectExtension(PAGEARCHIVER_EXT_ID, function(detected) {
 				if (detected)
-					chrome.extension.sendRequest(PAGEARCHIVER_EXT_ID, request);
+					chrome.extension.sendMessage(PAGEARCHIVER_EXT_ID, request);
 			});
 	}
 
-	// TODO : onSelectionChanged, getSelected are deprecated
-	chrome.tabs.onSelectionChanged.addListener(function() {
-		chrome.tabs.getSelected(null, function(tab) {
+	chrome.tabs.onActivated.addListener(function(activeInfo) {
+		chrome.tabs.get(activeInfo.tabId, function(tab) {
 			notifyProcessable(tab.id, tab.url);
 		});
 	});
@@ -90,19 +89,19 @@
 		notifyProcessable(tab.id, tab.url);
 	});
 	chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-		if (changeInfo.status = "loading")
+		if (changeInfo.status = "loading" && tab.url)
 			notifyProcessable(tab.id, tab.url, true);
 	});
 	chrome.tabs.onRemoved.addListener(function(tabId) {
 		singlefile.ui.notifyTabRemoved(tabId);
 	});
 
-	chrome.extension.onRequestExternal.addListener(function(request, sender, sendResponse) {
+	chrome.extension.onMessageExternal.addListener(function(request, sender, sendResponse) {
 		var blob, url;
 		if (request.processStart) {
 			singlefile.ui.notifyProcessStart(request.tabId, request.processingPagesCount);
 			if (request.blockingProcess)
-				chrome.tabs.sendRequest(request.tabId, {
+				chrome.tabs.sendMessage(request.tabId, {
 					processStart : true
 				});
 			notifyPageArchiver(request);
@@ -113,10 +112,12 @@
 		}
 		if (request.processEnd) {
 			if (request.blockingProcess)
-				chrome.tabs.sendRequest(request.tabId, {
+				chrome.tabs.sendMessage(request.tabId, {
 					processEnd : true
 				});
-			blob = new Blob([(new Uint8Array([ 0xEF, 0xBB, 0xBF ])).buffer, request.content]);
+			blob = new Blob([ (new Uint8Array([ 0xEF, 0xBB, 0xBF ])), request.content ], {
+				type : "text/html"
+			});
 			url = webkitURL.createObjectURL(blob);
 			singlefile.ui.notifyProcessEnd(request.tabId, request.processingPagesCount, singlefile.config.get().displayNotification,
 					singlefile.config.get().displayBanner, url, request.title);
@@ -125,13 +126,13 @@
 		if (request.processError)
 			singlefile.ui.notifyProcessError(request.tabId);
 	});
-	chrome.extension.onRequest.addListener(function(request, sender) {
-		if (request.closeBanner)
-			chrome.tabs.sendRequest(sender.tab.id, {
+	chrome.extension.onMessage.addListener(function(message, sender) {
+		if (message.closeBanner)
+			chrome.tabs.sendMessage(sender.tab.id, {
 				closeBanner : true
 			});
 		else
-			process(sender.tab.id, sender.tab.url, false, false);
+			process(tabId, port.sender.tab.url, false, false);
 	});
 	chrome.browserAction.onClicked.addListener(function(tab) {
 		process(tab.id, tab.url, false, false);
