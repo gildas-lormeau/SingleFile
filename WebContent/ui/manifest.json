@@ -28,10 +28,7 @@
   "web_accessible_resources": [
     "pages/banner.html",
     "pages/banner.css",
-    "scripts/content/banner.js",
-    "pages/notification.html",
-    "pages/notification.css",
-    "scripts/bg/notification.js"
+    "scripts/content/banner.js"
   ],
   "permissions": [ "tabs", "notifications", "contextMenus" ],
   "minimum_chrome_version" : "7",

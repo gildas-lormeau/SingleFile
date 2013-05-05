@@ -23,7 +23,6 @@
 	singlefile.ui = {};
 
 	var DEFAULT_ICON_PATH = "../resources/icon_19.png";
-	var DEFAULT_PASSIVE_ICON_PATH = "../resources/icon_19_forbidden.png";
 	var DEFAULT_BADGE_CONFIG = {
 		text : "",
 		color : [ 64, 64, 64, 255 ],
@@ -104,10 +103,8 @@
 		refreshBadge(tabId);
 	};
 
-	singlefile.ui.notifyProcessEnd = function(tabId, processingPagesCount, displayNotification, displayBanner, url, title) {
-		var params = encodeURIComponent(url) + "&" + encodeURIComponent(title);
-		if (displayNotification)
-			webkitNotifications.createHTMLNotification("/pages/notification.html?" + params).show();
+	singlefile.ui.notifyProcessEnd = function(tabId, processingPagesCount, displayBanner, url, title) {
+		var params = encodeURIComponent(url) + "&" + encodeURIComponent(title);		
 		if (displayBanner)
 			chrome.tabs.sendMessage(tabId, {
 				displayBanner : true,
@@ -148,14 +145,14 @@
 	};
 
 	singlefile.ui.notifyProcessable = function(tabId, processable, reset) {
+		if (processable)
+			chrome.browserAction.enable(tabId);
 		if (!processable) {
-			tabs[tabId] = {
-				path : DEFAULT_PASSIVE_ICON_PATH,
-				title : "SingleFile cannot process this page"
-			};
-		} else if (reset && tabs[tabId] && !tabs[tabId].processing)
+			chrome.browserAction.disable(tabId);
+		} else if (reset && tabs[tabId] && !tabs[tabId].processing) {
 			delete tabs[tabId];
-		refreshBadge(tabId);
+			refreshBadge(tabId);
+		}
 	};
 
 })();

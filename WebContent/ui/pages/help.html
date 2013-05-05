@@ -23,8 +23,7 @@
 	</ul>
 	<p>Additional notes:</p>
 	<ul>
-		<li>You can use the context menu to process the whole page ("process page"), the selected part of a page ("process selection") or a frame ("process frame")</li>
-		<li>Since version 0.3.0 of SingleFile, the default behavior is to show a banner, which allows you to easily save the page into the Downloads directory. To use the Chrome File->Save As... dialog and save the file to a selected location, uncheck the <span class="option">display save banner</span> and <span class="option">display save notification</span> in the options page.</li>		
+		<li>You can use the context menu to process the whole page ("process page"), the selected part of a page ("process selection") or a frame ("process frame")</li>		
 	</ul>
 	</li>
 	<li><a id="demo">Demo</a>
@@ -56,14 +55,9 @@
 		<p class="notice">It is recommended to <u>check</u> this option</p>
 		</li>
 
-		<li><span class="option">display save banner</span> (only with Chrome 15+)
-		<p>Check this option to display a banner with a download link at the top of the page when processing is finished. If this option and <span class="option">display save notification</span> are not checked then you must manually save the page through Chrome "Save as" dialog (make sure that "Web page, Complete" type is selected) after it has been processed.</p>
-		<p class="notice">It is recommended to <u>check</u> this option or <span class="option">display save notification</span> option</p>
-		</li>
-
-		<li><span class="option">display save notification</span> (only with Chrome 17+)
-		<p>Check this option to display a notification with a download link when processing is finished. If this option and <span class="option">display save banner</span> are not checked then you must manually save the page through Chrome "Save as" dialog (make sure that "Web page, Complete" type is selected) after it has been processed.</p>
-		<p class="notice">It is recommended to <u>check</u> this option or <span class="option">display save banner</span> option</p>
+		<li><span class="option">display save banner</span>
+		<p>Check this option to display a banner with a download link at the top of the page when processing is finished. If this option is not checked then you must manually save the page through Chrome "Save as" dialog (make sure that "Web page, Complete" type is selected) after it has been processed.</p>
+		<p class="notice">It is recommended to <u>check</u> this option</p>
 		</li>
 
 		<li><span class="option">remove scripts</span>
@@ -105,8 +99,7 @@
 		<li>all images are converted into <a href="http://en.wikipedia.org/wiki/Base64">base64</a></li>
 		<li>frame document contents are encoded with <a href="http://en.wikipedia.org/wiki/Utf_8">UTF-8 charset</a></li>
 		<li>encoded contents are injected in the document using <a href="http://en.wikipedia.org/wiki/Data_URI_scheme">data URI scheme</a></li>
-		<li>data URI scheme is supported by the following web browsers: Chrome, Firefox, Opera, Safari, Konqueror and Internet Explorer 8 (limited support: data URIs must be smaller
-		than 32 KB, embedded frames are not supported)</li>
+		<li>data URI scheme is supported by the following web browsers: Chrome, Firefox, Opera, Safari, Konqueror and Internet Explorer</li>
 		<li>SVG images are supported (SVG document is converted into UTF-8 but is not processed)</li>
 	</ul>
 	</li>
@@ -126,7 +119,7 @@
 	<p>If you find an unknown issue (i.e. frozen process, extra saved files, blank or altered document, tab crash...):</p>
 	<ul>
 		<li>reset SingleFile options</li>
-		<li>if option reseting did not work, try to uncheck <span class="option">display save notification</span> and <span class="option">display save banner</span> and make sure that <span class="option">process in background</span> is unchecked: you will have to use Chrome "Save as" dialog to save the page (select "Webpage, Complete" type in "Save as" dialog).</li>
+		<li>if option reseting did not work, try to <span class="option">display save banner</span> and make sure that <span class="option">process in background</span> is unchecked: you will have to use Chrome "Save as" dialog to save the page (select "Webpage, Complete" type in "Save as" dialog).</li>
 		<li>disable all other extensions to see if there is a conflict</li>
 		<li>if there is a conflict then try to determine against which extension(s)</li>
 		<li>please report the issue <a href="https://github.com/gildas-lormeau/SingleFile/issues">here</a> with a short description describing how to reproduce the issue, Chrome version, OS name and version.</li>

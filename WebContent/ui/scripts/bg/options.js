@@ -19,7 +19,7 @@
  */
 (function() {
 
-	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput, processInBackgroundInput, getRawDocInput, sendToPageArchiverInput, displayNotificationInput, displayBannerInput, displayInContextMenuInput, bgPage = chrome.extension
+	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput, processInBackgroundInput, getRawDocInput, sendToPageArchiverInput, displayBannerInput, displayInContextMenuInput, bgPage = chrome.extension
 			.getBackgroundPage(), config;
 
 	function refresh() {
@@ -30,12 +30,11 @@
 		removeHiddenInput.checked = config.removeHidden;
 		removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
 		displayInContextMenuInput.checked = config.displayInContextMenu;
-		displayNotificationInput.checked = config.displayNotification;
 		displayBannerInput.checked = config.displayBanner;
 		processInBackgroundInput.checked = config.processInBackground;
 		getRawDocInput.checked = config.getRawDoc;
 		sendToPageArchiverInput.checked = config.sendToPageArchiver;
-		if (displayNotificationInput.checked || displayBannerInput.checked)
+		if (displayBannerInput.checked)
 			processInBackgroundInput.checked = processInBackgroundInput.disabled = true;
 	}
 
@@ -47,9 +46,8 @@
 			removeHidden : removeHiddenInput.checked,
 			removeUnusedCSSRules : removeUnusedCSSRulesInput.checked,
 			displayInContextMenu : displayInContextMenuInput.checked,
-			displayNotification : displayNotificationInput.checked,
 			displayBanner : displayBannerInput.checked,
-			displayProcessedPage : !displayNotificationInput.checked && !displayBannerInput.checked,
+			displayProcessedPage : !displayBannerInput.checked,
 			processInBackground : processInBackgroundInput.checked,
 			getRawDoc : getRawDocInput.checked,
 			sendToPageArchiver : sendToPageArchiverInput.checked
@@ -57,7 +55,7 @@
 	}
 
 	function updateProcessInBackground() {
-		processInBackgroundInput.checked = processInBackgroundInput.disabled = displayNotificationInput.checked || displayBannerInput.checked;
+		processInBackgroundInput.checked = processInBackgroundInput.disabled = displayBannerInput.checked;
 		update();
 	}
 
@@ -67,13 +65,11 @@
 	removeHiddenInput = document.getElementById("removeHiddenInput");
 	removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
 	displayInContextMenuInput = document.getElementById("displayInContextMenuInput");
-	displayNotificationInput = document.getElementById("displayNotificationInput");
 	displayBannerInput = document.getElementById("displayBannerInput");
 	processInBackgroundInput = document.getElementById("processInBackgroundInput");
 	getRawDocInput = document.getElementById("getRawDocInput");
 	sendToPageArchiverInput = document.getElementById("sendToPageArchiverInput");
 	displayInContextMenuInput.addEventListener("click", bgPage.singlefile.refreshMenu);
-	displayNotificationInput.addEventListener("click", updateProcessInBackground, false);
 	displayBannerInput.addEventListener("click", updateProcessInBackground, false);
 	document.getElementById("resetButton").addEventListener("click", function() {
 		bgPage.singlefile.config.reset();

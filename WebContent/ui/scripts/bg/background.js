@@ -119,8 +119,7 @@
 				type : "text/html"
 			});
 			url = webkitURL.createObjectURL(blob);
-			singlefile.ui.notifyProcessEnd(request.tabId, request.processingPagesCount, singlefile.config.get().displayNotification,
-					singlefile.config.get().displayBanner, url, request.title);
+			singlefile.ui.notifyProcessEnd(request.tabId, request.processingPagesCount, singlefile.config.get().displayBanner, url, request.title);
 			notifyPageArchiver(request);
 		}
 		if (request.processError)

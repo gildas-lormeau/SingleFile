@@ -39,7 +39,6 @@
 			getRawDoc : false,
 			displayInContextMenu : true,
 			sendToPageArchiver : false,
-			displayNotification : false,
 			displayBanner: true
 		};
 	};
@@ -70,6 +69,15 @@
 			conf.displayBanner = true;
 			conf.processInBackground = true;
 			conf.displayProcessedPage = false;
+			singlefile.config.set(conf);
+		}
+	}
+	
+	// migration 0.3.6 -> 0.3.7
+	if (localStorage.config) {
+		var conf = singlefile.config.get();
+		if (typeof conf.displayNotification != "undefined" && conf.displayNotification) {
+			conf.displayBanner = true;
 			singlefile.config.set(conf);
 		}
 	}
