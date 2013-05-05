@@ -34,12 +34,15 @@
 			}
 		}
 
-		function throwAwayHighOrderBytes(str) {
-			var i, ret = [];
-			ret.length = str.length;
-			for (i = 0; i < str.length; i++)
-				ret[i] = String.fromCharCode(str.charCodeAt(i) & 0xff);
-			return ret.join("");
+		function arrayBufferToBase64(buffer) {
+			var binary, bytes, len, i;
+			binary = "";
+			bytes = new Uint8Array(buffer);
+			len = bytes.byteLength;
+			for (i = 0; i < len; i++) {
+				binary += String.fromCharCode(bytes[i]);
+			}
+			return btoa(binary);
 		}
 
 		this.reset = function() {
@@ -63,26 +66,25 @@
 			else {
 				pendingResponseHandlers[key] = [ responseHandler ];
 				xhr = new XMLHttpRequest();
-				xhr.onreadystatechange = function() {
-					if (xhr.readyState == 4) {
-						clearTimeout(timeout);
-						cache[key] = {
-							url : url,
-							status : xhr.status,
-							mediaType : xhr.getResponseHeader("Content-Type"),
-							content : mediaTypeParam == "base64" ? btoa(throwAwayHighOrderBytes(xhr.responseText)) : xhr.responseText,
-							mediaTypeParam : mediaTypeParam
-						};
-						keys.push(key);
-						sendResponses(key);
-					}
+				xhr.onload = function() {
+					clearTimeout(timeout);
+					cache[key] = {
+						url : url,
+						status : xhr.status,
+						mediaType : xhr.getResponseHeader("Content-Type"),
+						content : mediaTypeParam == "base64" ? arrayBufferToBase64(xhr.response) : xhr.responseText,
+						mediaTypeParam : mediaTypeParam
+					};
+					keys.push(key);
+					sendResponses(key);
 				};
 				xhr.onerror = function() {
 					sendResponses(key);
 				};
 				xhr.open("GET", url, true);
-				if (characterSet)
-					xhr.overrideMimeType('text/plain; charset=' + characterSet);
+				if (mediaTypeParam == "base64") {
+					xhr.responseType = "arraybuffer";
+				}
 				timeout = setTimeout(function() {
 					xhr.abort();
 					sendResponses(key);
