@@ -119,7 +119,7 @@
 				}
 				if (requestIndex == requestMax)
 					callback(content);
-			}, "x-user-defined", "base64");
+			}, null, "base64");
 		}
 
 		if (values)
@@ -205,7 +205,7 @@
 				if (url.indexOf("data:") != 0)
 					requestManager.send(url, function(data) {
 						node.setAttribute("background", getDataURI(data, EMPTY_PIXEL_DATA, true));
-					}, "x-user-defined", "base64");
+					}, null, "base64");
 			}
 		});
 	}
@@ -231,7 +231,7 @@
 				if (url.indexOf("data:") != 0)
 					requestManager.send(url, function(data) {
 						node.setAttribute(attributeName, getDataURI(data, EMPTY_PIXEL_DATA, true));
-					}, "x-user-defined", "base64");
+					}, null, "base64");
 			});
 		}
 
