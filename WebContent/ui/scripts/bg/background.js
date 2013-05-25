@@ -20,7 +20,7 @@
 
 (function() {
 
-	var dev = false;
+	var dev = true;
 
 	var extensionDetected = [];
 
