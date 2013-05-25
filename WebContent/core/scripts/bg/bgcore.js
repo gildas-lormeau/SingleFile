@@ -170,7 +170,7 @@
 				if (this.config.processInBackground)
 					buildPage(selectedDocData, function(docData, callback) {
 						var content = encodeURI(singlefile.util.getDocContent(docData.doc)), maxFrameSize = that.config.maxFrameSize;
-						if (maxFrameSize && content.length > maxFrameSize)
+						if (maxFrameSize > 0 && content.length > maxFrameSize * 1024 * 1024)
 							content = "";
 						docData.parent.docFrames[docData.index].setAttribute("src", "data:text/html;charset=utf-8," + content);
 						delete docData.doc;
