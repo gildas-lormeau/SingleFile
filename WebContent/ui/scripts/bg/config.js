@@ -34,6 +34,7 @@
 			removeHidden : false,
 			removeUnusedCSSRules : false,
 			processInBackground : true,
+			maxFrameSize: 2,
 			displayProcessedPage : false,
 			getContent : true,
 			getRawDoc : false,
@@ -78,6 +79,15 @@
 		var conf = singlefile.config.get();
 		if (typeof conf.displayNotification != "undefined" && conf.displayNotification) {
 			conf.displayBanner = true;
+			singlefile.config.set(conf);
+		}
+	}
+	
+	// migration 0.3.9 -> 0.3.10
+	if (localStorage.config) {
+		var conf = singlefile.config.get();
+		if (typeof conf.maxFrameSize == "undefined") {
+			conf.maxFrameSize = 2;
 			singlefile.config.set(conf);
 		}
 	}

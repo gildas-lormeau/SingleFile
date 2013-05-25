@@ -47,13 +47,19 @@ button:active {
 	margin-bottom: 12px;
 }
 
-input[type="checkbox"],button,input[type="text"] {
+input[type="checkbox"],button,input[type="text"],input[type="number"] {
 	float: right;
 	margin: 1px 0px;
 }
 
 input[type="checkbox"] {
 	margin-top: 4px;
+}
+
+input[type="number"] {
+	width: 40px;
+	text-align: right;
+	padding-right: 2px;
 }
 
 button {

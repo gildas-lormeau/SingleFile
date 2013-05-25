@@ -169,8 +169,10 @@
 					selectedDocData = this.top;
 				if (this.config.processInBackground)
 					buildPage(selectedDocData, function(docData, callback) {
-						docData.parent.docFrames[docData.index].setAttribute("src", "data:text/html;charset=utf-8,"
-								+ encodeURI(singlefile.util.getDocContent(docData.doc)));
+						var content = encodeURI(singlefile.util.getDocContent(docData.doc)), maxFrameSize = that.config.maxFrameSize;
+						if (maxFrameSize && content.length > maxFrameSize)
+							content = "";
+						docData.parent.docFrames[docData.index].setAttribute("src", "data:text/html;charset=utf-8," + content);
 						delete docData.doc;
 						callback();
 					}, function(docData, callback) {

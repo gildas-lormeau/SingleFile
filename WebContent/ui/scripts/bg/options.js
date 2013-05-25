@@ -19,7 +19,7 @@
  */
 (function() {
 
-	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput, processInBackgroundInput, getRawDocInput, sendToPageArchiverInput, displayBannerInput, displayInContextMenuInput, bgPage = chrome.extension
+	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput, processInBackgroundInput, maxFrameSizeInput, getRawDocInput, sendToPageArchiverInput, displayBannerInput, displayInContextMenuInput, bgPage = chrome.extension
 			.getBackgroundPage(), config;
 
 	function refresh() {
@@ -32,6 +32,7 @@
 		displayInContextMenuInput.checked = config.displayInContextMenu;
 		displayBannerInput.checked = config.displayBanner;
 		processInBackgroundInput.checked = config.processInBackground;
+		maxFrameSizeInput.value = config.maxFrameSize;
 		getRawDocInput.checked = config.getRawDoc;
 		sendToPageArchiverInput.checked = config.sendToPageArchiver;
 		if (displayBannerInput.checked)
@@ -49,6 +50,7 @@
 			displayBanner : displayBannerInput.checked,
 			displayProcessedPage : !displayBannerInput.checked,
 			processInBackground : processInBackgroundInput.checked,
+			maxFrameSize: maxFrameSizeInput.valueAsNumber || 0,
 			getRawDoc : getRawDocInput.checked,
 			sendToPageArchiver : sendToPageArchiverInput.checked
 		});
@@ -67,6 +69,7 @@
 	displayInContextMenuInput = document.getElementById("displayInContextMenuInput");
 	displayBannerInput = document.getElementById("displayBannerInput");
 	processInBackgroundInput = document.getElementById("processInBackgroundInput");
+	maxFrameSizeInput = document.getElementById("maxFrameSizeInput");
 	getRawDocInput = document.getElementById("getRawDocInput");
 	sendToPageArchiverInput = document.getElementById("sendToPageArchiverInput");
 	displayInContextMenuInput.addEventListener("click", bgPage.singlefile.refreshMenu);

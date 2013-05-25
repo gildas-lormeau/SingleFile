@@ -28,6 +28,7 @@
 		removeUnusedCSSRules : false,
 		displayProcessedPage : false,
 		processInBackground : true,
+		maxFrameSize : 2,
 		getContent : true,
 		getRawDoc : false
 	};
