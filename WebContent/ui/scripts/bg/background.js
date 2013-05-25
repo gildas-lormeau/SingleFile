@@ -131,7 +131,7 @@
 				closeBanner : true
 			});
 		else
-			process(tabId, port.sender.tab.url, false, false);
+			process(sender.tab.id, sender.tab.url, false, false);
 	});
 	chrome.browserAction.onClicked.addListener(function(tab) {
 		process(tab.id, tab.url, false, false);
