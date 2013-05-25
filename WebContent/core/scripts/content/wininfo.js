@@ -172,19 +172,21 @@ var wininfo = {};
 			timeoutInit = null;
 		}
 		if (window == top) {
-			message.frames = message.frames instanceof Array ? message.frames : JSON.parse(message.frames);
-			if (message.winId != "0")
-				processIndex++;
-			wininfo.frames = wininfo.frames.concat(message.frames);
-			processLength += message.frames.length;
-			if (timeoutProcess)
-				clearTimeout(timeoutProcess);
-			if (processIndex == processLength)
-				process();
-			else
-				timeoutProcess = setTimeout(function() {
+			if (message.frames) {
+				message.frames = message.frames instanceof Array ? message.frames : JSON.parse(message.frames);
+				wininfo.frames = wininfo.frames.concat(message.frames);
+				processLength += message.frames.length;
+				if (message.winId != "0")
+					processIndex++;
+				if (timeoutProcess)
+					clearTimeout(timeoutProcess);
+				if (processIndex == processLength)
 					process();
-				}, 200);
+				else
+					timeoutProcess = setTimeout(function() {
+						process();
+					}, 200);
+			}
 		} else {
 			wininfo.winId = message.winId;
 			wininfo.index = message.index;
