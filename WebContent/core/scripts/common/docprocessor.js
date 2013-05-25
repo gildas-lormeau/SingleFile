@@ -28,6 +28,22 @@
 	var IMPORT_ALT_EXP = /@import\s*('|")?\s*[^\(|;|'|"]*\s*('|")?\s*;/gi;
 	var EMPTY_PIXEL_DATA = "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
+	function decodeDataURI(dataURI) {
+		var content = dataURI.indexOf(","), meta = dataURI.substr(5, content).toLowerCase()
+		// 'data:'.length == 5
+		, data = decodeURIComponent(dataURI.substr(content + 1));
+
+		if (/;\s*base64\s*[;,]/.test(meta)) {
+			data = atob(data); // decode base64
+		}
+		if (/;\s*charset=[uU][tT][fF]-?8\s*[;,]/.test(meta)) {
+			data = decodeURIComponent(escape(data)); // decode UTF-8
+		}
+
+		return data;
+	}
+	;
+
 	function formatURL(link, host) {
 		var i, newlinkparts, hparts, lparts;
 		if (!link)
@@ -137,53 +153,62 @@
 
 	function processStylesheets(doc, docElement, baseURI, requestManager) {
 		Array.prototype.forEach.call(docElement.querySelectorAll('link[href][rel*="stylesheet"]'), function(node) {
-			var href = node.getAttribute("href"), fullHref = formatURL(href, baseURI);
-			if (href.indexOf("data:") != 0) {
-				requestManager.send(fullHref, function(data) {
-					var i, newNode, commentNode;
+			var href = node.getAttribute("href"), url = formatURL(href, baseURI);
+
+			function createStyleNode(content) {
+				var i, newNode, commentNode;
+				newNode = doc.createElement("style");
+				for (i = 0; i < node.attributes.length; i++)
+					if (node.attributes[i].value)
+						newNode.setAttribute(node.attributes[i].name, node.attributes[i].value);
+				newNode._baseURI = url;
+				newNode.removeAttribute("href");
+				newNode.textContent = resolveURLs(content, url);
+				if (node.disabled) {
+					commentNode = doc.createComment();
+					commentNode.textContent = newNode.outerHTML.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/--/g, "&minus;&minus;");
+					node.parentElement.replaceChild(commentNode, node);
+				} else
+					node.parentElement.replaceChild(newNode, node);
+			}
+
+			if (href.indexOf("data:") != 0)
+				requestManager.send(url, function(data) {
 					if (data.status >= 400) {
 						node.parentElement.removeChild(node);
-						return;
+					} else {
+						createStyleNode(data.content || "");
 					}
-					newNode = doc.createElement("style");
-					for (i = 0; i < node.attributes.length; i++)
-						if (node.attributes[i].value)
-							newNode.setAttribute(node.attributes[i].name, node.attributes[i].value);
-					newNode._baseURI = fullHref;
-					newNode.removeAttribute("href");
-					newNode.textContent = resolveURLs(data.content || "", data.url);
-					if (node.disabled) {
-						commentNode = doc.createComment();
-						commentNode.textContent = newNode.outerHTML.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/--/g, "&minus;&minus;");
-						node.parentElement.replaceChild(commentNode, node);
-					} else
-						node.parentElement.replaceChild(newNode, node);
 				});
-			}
+			else
+				createStyleNode(decodeDataURI(href));
 		});
 	}
 
 	function processImports(docElement, baseURI, characterSet, requestManager) {
 		var ret = true;
 		Array.prototype.forEach.call(docElement.querySelectorAll("style"), function(styleSheet) {
-			var i, url, result, imports = removeComments(styleSheet.textContent).match(IMPORT_EXP);
+			var url, result, imports = removeComments(styleSheet.textContent).match(IMPORT_EXP);
 
-			function sendRequest(imp) {
-				requestManager.send(url, function(data) {
-					styleSheet.textContent = styleSheet.textContent.replace(imp, data.status < 400 && data.content ? resolveURLs(data.content, data.url) : "");
-				}, null, characterSet);
-				ret = false;
+			function insertStylesheet(imp, content) {
+				styleSheet.textContent = styleSheet.textContent.replace(imp, resolveURLs(content, url));
 			}
 
 			if (imports)
-				for (i = 0; i < imports.length; i++) {
-					result = imports[i].match(IMPORT_URL_VALUE_EXP);
+				imports.forEach(function(imp) {
+					result = imp.match(IMPORT_URL_VALUE_EXP);
 					if (result && (result[2] || result[4])) {
 						url = formatURL(result[2] || result[4], styleSheet._baseURI || baseURI);
-						if (url.indexOf("data:") != 0)
-							sendRequest(imports[i]);
+						if (url.indexOf("data:") != 0) {
+							requestManager.send(url, function(data) {
+								insertStylesheet(imp, data.status < 400 && data.content ? data.content : "");
+							}, null, characterSet);
+						} else {
+							insertStylesheet(imports[i], decodeDataURI(url));
+						}
+						ret = false;
 					}
-				}
+				});
 		});
 		return ret;
 	}
