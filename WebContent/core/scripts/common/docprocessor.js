@@ -174,11 +174,10 @@
 
 			if (href.indexOf("data:") != 0)
 				requestManager.send(url, function(data) {
-					if (data.status >= 400) {
+					if (data.status >= 400)
 						node.parentElement.removeChild(node);
-					} else {
+					else
 						createStyleNode(data.content || "");
-					}
 				});
 			else
 				createStyleNode(decodeDataURI(href));
@@ -203,9 +202,8 @@
 							requestManager.send(url, function(data) {
 								insertStylesheet(data.status < 400 && data.content ? data.content : "");
 							}, null, characterSet);
-						} else {
+						} else
 							insertStylesheet(decodeDataURI(url));
-						}
 						ret = false;
 					}
 				});
