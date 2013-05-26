@@ -189,21 +189,22 @@
 		var ret = true;
 		Array.prototype.forEach.call(docElement.querySelectorAll("style"), function(styleSheet) {
 			var imports = removeComments(styleSheet.textContent).match(IMPORT_EXP);
-
-			function insertStylesheet(imp, content, url) {
-				styleSheet.textContent = styleSheet.textContent.replace(imp, resolveURLs(content, url));
-			}
 			if (imports)
 				imports.forEach(function(imp) {
 					var url, result = imp.match(IMPORT_URL_VALUE_EXP);
+
+					function insertStylesheet(content) {
+						styleSheet.textContent = styleSheet.textContent.replace(imp, resolveURLs(content, url));
+					}
+
 					if (result && (result[2] || result[4])) {
 						url = formatURL(result[2] || result[4], styleSheet._baseURI || baseURI);
 						if (url.indexOf("data:") != 0) {
 							requestManager.send(url, function(data) {
-								insertStylesheet(imp, data.status < 400 && data.content ? data.content : "", url);
+								insertStylesheet(data.status < 400 && data.content ? data.content : "");
 							}, null, characterSet);
 						} else {
-							insertStylesheet(imp, decodeDataURI(url), url);
+							insertStylesheet(decodeDataURI(url));
 						}
 						ret = false;
 					}
