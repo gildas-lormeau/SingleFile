@@ -203,7 +203,7 @@
 								insertStylesheet(imp, data.status < 400 && data.content ? data.content : "", url);
 							}, null, characterSet);
 						} else {
-							insertStylesheet(imports[i], decodeDataURI(url), url);
+							insertStylesheet(imp, decodeDataURI(url), url);
 						}
 						ret = false;
 					}
