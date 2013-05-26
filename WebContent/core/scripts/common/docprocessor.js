@@ -188,23 +188,22 @@
 	function processImports(docElement, baseURI, characterSet, requestManager) {
 		var ret = true;
 		Array.prototype.forEach.call(docElement.querySelectorAll("style"), function(styleSheet) {
-			var url, result, imports = removeComments(styleSheet.textContent).match(IMPORT_EXP);
+			var imports = removeComments(styleSheet.textContent).match(IMPORT_EXP);
 
-			function insertStylesheet(imp, content) {
+			function insertStylesheet(imp, content, url) {
 				styleSheet.textContent = styleSheet.textContent.replace(imp, resolveURLs(content, url));
 			}
-
 			if (imports)
 				imports.forEach(function(imp) {
-					result = imp.match(IMPORT_URL_VALUE_EXP);
+					var url, result = imp.match(IMPORT_URL_VALUE_EXP);
 					if (result && (result[2] || result[4])) {
 						url = formatURL(result[2] || result[4], styleSheet._baseURI || baseURI);
 						if (url.indexOf("data:") != 0) {
 							requestManager.send(url, function(data) {
-								insertStylesheet(imp, data.status < 400 && data.content ? data.content : "");
+								insertStylesheet(imp, data.status < 400 && data.content ? data.content : "", url);
 							}, null, characterSet);
 						} else {
-							insertStylesheet(imports[i], decodeDataURI(url));
+							insertStylesheet(imports[i], decodeDataURI(url), url);
 						}
 						ret = false;
 					}
