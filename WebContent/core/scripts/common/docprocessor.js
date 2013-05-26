@@ -42,7 +42,6 @@
 
 		return data;
 	}
-	;
 
 	function formatURL(link, host) {
 		var i, newlinkparts, hparts, lparts;
