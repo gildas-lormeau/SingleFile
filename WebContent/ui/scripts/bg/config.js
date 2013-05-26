@@ -34,13 +34,13 @@
 			removeHidden : false,
 			removeUnusedCSSRules : false,
 			processInBackground : true,
-			maxFrameSize: 2,
+			maxFrameSize : 2,
 			displayProcessedPage : false,
 			getContent : true,
 			getRawDoc : false,
 			displayInContextMenu : true,
 			sendToPageArchiver : false,
-			displayBanner: true
+			displayBanner : true
 		};
 	};
 
@@ -48,41 +48,18 @@
 		delete localStorage.config;
 	};
 
-	// migration 0.1 -> 0.2
-	delete localStorage.options;
-
-	// migration 0.2.26 -> 0.2.27
-	if (localStorage.config) {
-		var conf = singlefile.config.get();
-		if (typeof conf.displayInContextMenu == "undefined") {
-			conf.displayInContextMenu = true;
-			singlefile.config.set(conf);
-		}
-	}
-
-	// migration 0.2.33 -> 0.3.0
-	if (localStorage.config) {
-		var conf = singlefile.config.get();
-		if (typeof conf.displayNotification == "undefined") {
-			conf.sendToPageArchiver = conf.getContent;
-			conf.getContent = true;
-			conf.displayNotification = false;
-			conf.displayBanner = true;
-			conf.processInBackground = true;
-			conf.displayProcessedPage = false;
-			singlefile.config.set(conf);
-		}
-	}
-	
 	// migration 0.3.6 -> 0.3.7
 	if (localStorage.config) {
 		var conf = singlefile.config.get();
-		if (typeof conf.displayNotification != "undefined" && conf.displayNotification) {
-			conf.displayBanner = true;
+		if (typeof conf.displayNotification != "undefined") {
+			if (conf.displayNotification) {
+				conf.displayBanner = true;
+			}
+			delete conf.displayNotification;
 			singlefile.config.set(conf);
 		}
 	}
-	
+
 	// migration 0.3.9 -> 0.3.10
 	if (localStorage.config) {
 		var conf = singlefile.config.get();
