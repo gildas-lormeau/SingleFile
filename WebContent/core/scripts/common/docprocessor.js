@@ -161,7 +161,7 @@
 				for (i = 0; i < node.attributes.length; i++)
 					if (node.attributes[i].value)
 						newNode.setAttribute(node.attributes[i].name, node.attributes[i].value);
-				newNode._baseURI = url;
+				newNode.dataset.href = url;
 				newNode.removeAttribute("href");
 				newNode.textContent = resolveURLs(content, url);
 				if (node.disabled) {
@@ -190,20 +190,21 @@
 			var imports = removeComments(styleSheet.textContent).match(IMPORT_EXP);
 			if (imports)
 				imports.forEach(function(imp) {
-					var url, result = imp.match(IMPORT_URL_VALUE_EXP);
+					var url, href, result = imp.match(IMPORT_URL_VALUE_EXP);
 
 					function insertStylesheet(content) {
 						styleSheet.textContent = styleSheet.textContent.replace(imp, resolveURLs(content, url));
 					}
 
 					if (result && (result[2] || result[4])) {
-						url = formatURL(result[2] || result[4], styleSheet._baseURI || baseURI);
-						if (url.indexOf("data:") != 0) {
+						href = result[2] || result[4];
+						url = formatURL(href, styleSheet.dataset.href || baseURI);
+						if (href.indexOf("data:") != 0) {
 							requestManager.send(url, function(data) {
 								insertStylesheet(data.status < 400 && data.content ? data.content : "");
 							}, null, characterSet);
 						} else
-							insertStylesheet(decodeDataURI(url));
+							insertStylesheet(decodeDataURI(href));
 						ret = false;
 					}
 				});
@@ -280,7 +281,7 @@
 
 	function processStyles(docElement, baseURI, requestManager) {
 		Array.prototype.forEach.call(docElement.querySelectorAll("style"), function(styleSheet) {
-			replaceURLs(styleSheet.textContent, styleSheet._baseURI || baseURI, requestManager, function(textContent) {
+			replaceURLs(styleSheet.textContent, styleSheet.dataset.href || baseURI, requestManager, function(textContent) {
 				styleSheet.textContent = textContent;
 			});
 		});
