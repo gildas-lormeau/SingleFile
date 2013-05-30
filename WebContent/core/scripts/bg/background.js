@@ -212,7 +212,7 @@
 		function onMessage(message) {
 			var pageData, docData;
 			// if (!message.getResourceContentRequest && !message.docProgress)
-			// console.log("onMessage", message, port.portId_);
+			//	console.log("onMessage", message, port.portId_);
 			if (message.winId) {
 				portPageId[port.portId_] = message.pageId;
 				if (message.processInit)

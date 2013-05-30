@@ -4,7 +4,7 @@
     "16": "resources/icon_16.png",
     "48": "resources/icon_48.png",
     "128": "resources/icon_128.png" },
-  "version": "0.3.14",
+  "version": "0.3.15",
   "description": "Archive a complete page into a single HTML file",
   "background" : {
     "scripts": [
