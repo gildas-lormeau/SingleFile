@@ -125,14 +125,14 @@ var wininfo = {};
 
 	function getContent(frame, callback) {
 		if (frame.sameDomain) {
+			contentRequestCallbacks.push(callback);
 			top.postMessage(EXT_ID + "::" + JSON.stringify({
 				getContentRequest : true,
 				winId : frame.winId,
 				contentRequestId : contentRequestCallbacks.length
-			}), "*");
-			contentRequestCallbacks.push(callback);
+			}), "*");			
 		} else
-			callback();
+			callback({});
 	}
 
 	function getContentResponse(message) {
