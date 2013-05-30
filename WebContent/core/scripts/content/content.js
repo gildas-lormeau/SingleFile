@@ -78,7 +78,7 @@
 	function removeHiddenElements() {
 		Array.prototype.forEach.call(doc.querySelectorAll("html > body *:not(style):not(script):not(link):not(area)"), function(element) {
 			var style = getComputedStyle(element), tagName = element.tagName.toLowerCase();
-			if (tagName != "iframe" && tagName != "frame" && ((style.visibility == "hidden" || style.display == "none" || style.opacity == 0)))
+			if (tagName != "iframe" && !element.querySelector("iframe") && ((style.visibility == "hidden" || style.display == "none" || style.opacity == 0)))
 				element.parentElement.removeChild(element);
 		});
 	}
@@ -449,7 +449,7 @@
 	});
 	bgPort.onMessage.addListener(function(message) {
 		// if (!message.getResourceContentResponse)
-		// console.log(message);
+		//	console.log(message);
 		if (message.getResourceContentResponse)
 			getResourceContentResponse(message);
 		if (message.setFrameContentRequest)
