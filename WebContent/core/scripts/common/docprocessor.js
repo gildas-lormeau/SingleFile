@@ -29,15 +29,13 @@
 	var EMPTY_PIXEL_DATA = "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
 	function decodeDataURI(dataURI) {
-		var content = dataURI.indexOf(","), meta = dataURI.substr(5, content).toLowerCase()
-		// 'data:'.length == 5
-		, data = decodeURIComponent(dataURI.substr(content + 1));
+		var content = dataURI.indexOf(","), meta = dataURI.substr(5, content).toLowerCase(), data = decodeURIComponent(dataURI.substr(content + 1));
 
 		if (/;\s*base64\s*[;,]/.test(meta)) {
-			data = atob(data); // decode base64
+			data = atob(data);
 		}
 		if (/;\s*charset=[uU][tT][fF]-?8\s*[;,]/.test(meta)) {
-			data = decodeURIComponent(escape(data)); // decode UTF-8
+			data = decodeURIComponent(escape(data));
 		}
 
 		return data;
