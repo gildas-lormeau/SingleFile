@@ -20,12 +20,12 @@
 
 (function() {
 
-	var IMPORT_URL_VALUE_EXP = /(url\s*\(\s*(?:'|")?\s*([^('|"|\))]*)\s*(?:'|")?\s*\))|(@import\s*\(?\s*(?:'|")?\s*([^('|"|\))]*)\s*(?:'|")?\s*(?:\)|;))/i;
-	var URL_VALUE_EXP = /url\s*\(\s*(?:'|")?\s*([^('|"|\))]*)\s*(?:'|")?\s*\)/i;
-	var IMPORT_VALUE_ALT_EXP = /@import\s*\(?\s*(?:'|")?\s*([^('|"|\))]*)\s*(?:'|")?\s*(?:\)|;)/i;
+	var IMPORT_URL_VALUE_EXP = /(url\s*\(\s*(?:'|")?\s*([^('"\))]*)\s*(?:'|")?\s*\))|(@import\s*\(?\s*(?:'|")?\s*([^('"\))]*)\s*(?:'|")?\s*(?:\)|;))/i;
+	var URL_VALUE_EXP = /url\s*\(\s*(?:'|")?\s*([^('"\))]*)\s*(?:'|")?\s*\)/i;
+	var IMPORT_VALUE_ALT_EXP = /@import\s*\(?\s*(?:'|")?\s*([^('"\))]*)\s*(?:'|")?\s*(?:\)|;)/i;
 	var URL_EXP = /url\s*\(([^\)]*)\)/gi;
-	var IMPORT_EXP = /(@import\s*url\s*\([^\)]*\)\s*;?)|(@import\s*('|")?\s*[^\(|;|'|"]*\s*('|")?\s*;)/gi;
-	var IMPORT_ALT_EXP = /@import\s*('|")?\s*[^\(|;|'|"]*\s*('|")?\s*;/gi;
+	var IMPORT_EXP = /(@import\s*url\s*\([^\)]*\)\s*;?)|(@import\s*('|")?\s*[^\(;'"]*\s*('|")?\s*;)/gi;
+	var IMPORT_ALT_EXP = /@import\s*('|")?\s*[^\(;'"]*\s*('|")?\s*;/gi;
 	var EMPTY_PIXEL_DATA = "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
 	function decodeDataURI(dataURI) {
