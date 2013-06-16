@@ -21,6 +21,8 @@
 (function() {
 
 	var dev = false;
+	
+	var isChrome = (navigator.vendor.indexOf("Google") != -1);
 
 	var extensionDetected = [];
 
@@ -47,7 +49,7 @@
 	}
 
 	function process(tabId, url, processSelection, processFrame) {
-		var SINGLE_FILE_CORE_EXT_ID = dev ? "onlinihoegnbbcmeeocfeplgbkmoidla" : "jemlklgaibiijojffihnhieihhagocma";
+		var SINGLE_FILE_CORE_EXT_ID = dev ? "onlinihoegnbbcmeeocfeplgbkmoidla" : isChrome ? "jemlklgaibiijojffihnhieihhagocma" : "ejmpikefailopkdnglnenfhpepfoghnn";
 
 		detectExtension(SINGLE_FILE_CORE_EXT_ID, function(detected) {
 			if (detected) {
