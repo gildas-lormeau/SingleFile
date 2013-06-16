@@ -30,7 +30,6 @@
     "pages/banner.css",
     "scripts/content/banner.js"
   ],
-  "permissions": [ "tabs", "notifications", "contextMenus" ],
-  "minimum_chrome_version" : "7",
+  "permissions": [ "tabs", "contextMenus" ],
   "manifest_version": 2
 }

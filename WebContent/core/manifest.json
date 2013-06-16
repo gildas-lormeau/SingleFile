@@ -27,6 +27,5 @@
     "resources/icon_16.png"
   ],
   "permissions": [ "tabs", "http://*/*", "https://*/*", "unlimitedStorage" ],
-  "minimum_chrome_version" : "7",
   "manifest_version": 2
 }
