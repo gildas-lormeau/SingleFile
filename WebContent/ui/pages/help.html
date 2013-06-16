@@ -17,7 +17,7 @@
 	<li><a id="instructions">Instructions</a>
 	<ul>
 		<li>wait until the page is fully loaded: you may need to scroll down the entire page and hover dynamic document elements (e.g. "rollover" images) to be sure all elements are loaded</li>
-		<li>click on the SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the Chrome toolbar (or press <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>S</kbd>) to launch page processing</li>
+		<li>click on the SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the toolbar (or press <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>S</kbd>) to launch page processing</li>
 		<li>wait until the save banner appears at the top the page</li>
 		<li>click on the link into the banner to save the page in default download folder</li>
 	</ul>
@@ -30,7 +30,7 @@
 	<div><iframe width="630" height="470" src="http://www.youtube.com/embed/pFCJAFvc_MA" frameborder="0" allowfullscreen></iframe></div>
 	<li><a id="options">Options description</a>
 
-	<p>You can customize the way SingleFile process a document through the options page. Right-click on SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the Chrome toolbar and select "Options" in the context menu to open the options page.</p>
+	<p>You can customize the way SingleFile process a document through the options page. Right-click on SingleFile icon <img src="../resources/icon_19.png" id="icon"> in the browser toolbar and select "Options" in the context menu to open the options page.</p>
 	<div class="screenshot"></div>
 	<p>Details :</p>
 	<ul>
@@ -56,7 +56,7 @@
 		</li>
 
 		<li><span class="option">display save banner</span>
-		<p>Check this option to display a banner with a download link at the top of the page when processing is finished. If this option is not checked then you must manually save the page through Chrome "Save as" dialog (make sure that "Web page, Complete" type is selected) after it has been processed.</p>
+		<p>Check this option to display a banner with a download link at the top of the page when processing is finished. If this option is not checked then you must manually save the page through the "Save as" dialog (make sure that "Web page, Complete" type is selected) after it has been processed.</p>
 		<p class="notice">It is recommended to <u>check</u> this option</p>
 		</li>
 
@@ -73,7 +73,7 @@
 		</li>
 
 		<li><span class="option">send saved page to PageArchiver</span>
-		<p>Check this option to send the processed page to <a href="https://chrome.google.com/webstore/detail/ihkkeoeinpbomhnpkmmkpggkaefincbn">PageArchiver</a> extension.</p>
+		<p>Check this option to send the processed page to "PageArchiver" extension.</p>
 		<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 		</li>
 
@@ -112,11 +112,10 @@
 	<li><a id="knownIssues">Known issues</a>
 	<ul>
 		<li>SVG images without src attribute or with empty src attribute are not embedded</li>
-		<li>If you are using <a href="https://chrome.google.com/extensions/detail/odjhifogjcknibkahlpidmdajjpkkcfn">NotScripts</a> extension and have issues when using SingleFile
+		<li>If you are using "NotScripts" extension and have issues when using SingleFile
 		then you must add this line in "CHANGE__PASSWORD__HERE.js" file as described <a href="http://optimalcycling.com/other-projects/notscripts/faq/#mitigation">here</a>:<br>
 		<code>const DO_NOT_MITIGATE_INLINE_SCRIPTS = true;</code></li>
-		<li>Chrome is unable to display base64 encoded resources (images an frames) weighting more than 4MB</li>
-		<li>For security reasons these URIs cannot be processed:<br><code>file:///*</code>, <code> chrome://*</code>, <code> https://chrome.google.com/*</code></li>
+		<li>For security reasons these URIs cannot be processed:<br><code>file:///*</code>, <code> chrome://*</code> <span class="chrome-only-content">, <code >https://chrome.google.com/*</code></span> <span class="opera-only-content">, <code >https://addons.opera.com/*</code></span></li>
 	</ul>
 	</li>
 
@@ -124,13 +123,14 @@
 	<p>If you find an unknown issue (i.e. frozen process, extra saved files, blank or altered document, tab crash...):</p>
 	<ul>
 		<li>reset SingleFile options</li>
-		<li>if option reseting did not work, try to <span class="option">display save banner</span> and make sure that <span class="option">process in background</span> is unchecked: you will have to use Chrome "Save as" dialog to save the page (select "Webpage, Complete" type in "Save as" dialog).</li>
+		<li>if option reseting did not work, try to <span class="option">display save banner</span> and make sure that <span class="option">process in background</span> is unchecked: you will have to use the "Save as" dialog to save the page (select "Webpage, Complete" type in "Save as" dialog).</li>
 		<li>disable all other extensions to see if there is a conflict</li>
 		<li>if there is a conflict then try to determine against which extension(s)</li>
-		<li>please report the issue <a href="https://github.com/gildas-lormeau/SingleFile/issues">here</a> with a short description describing how to reproduce the issue, Chrome version, OS name and version.</li>
+		<li>please report the issue <a href="https://github.com/gildas-lormeau/SingleFile/issues">here</a> with a short description describing how to reproduce the issue, Browser name and version, OS name and version.</li>
 	</ul>
 	</li>
 </ol>
 </div>
+<script type="text/javascript" src="../scripts/bg/help.js"></script>
 </body>
 </html>

@@ -43,7 +43,7 @@
 	}
 
 	function processable(url) {
-		return url.indexOf("https://chrome.google.com") != 0 && (url.indexOf("http://") == 0 || url.indexOf("https://") == 0);
+		return ((navigator.vendor.indexOf("Opera") != -1 && url.indexOf("https://addons.opera.com") != 0) || (navigator.vendor.indexOf("Google") != -1 && url.indexOf("https://chrome.google.com") != 0)) && (url.indexOf("http://") == 0 || url.indexOf("https://") == 0);
 	}
 
 	function process(tabId, url, processSelection, processFrame) {
