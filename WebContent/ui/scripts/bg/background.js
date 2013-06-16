@@ -22,7 +22,8 @@
 
 	var dev = false;
 	
-	var isChrome = (navigator.vendor.indexOf("Google") != -1);
+	var isChrome = navigator.vendor.indexOf("Google") != -1;
+	var isOpera = navigator.vendor.indexOf("Opera") != -1;
 
 	var extensionDetected = [];
 
@@ -45,7 +46,7 @@
 	}
 
 	function processable(url) {
-		return ((navigator.vendor.indexOf("Opera") != -1 && url.indexOf("https://addons.opera.com") != 0) || (navigator.vendor.indexOf("Google") != -1 && url.indexOf("https://chrome.google.com") != 0)) && (url.indexOf("http://") == 0 || url.indexOf("https://") == 0);
+		return ((isOpera && url.indexOf("https://addons.opera.com") != 0) || (isChrome && url.indexOf("https://chrome.google.com") != 0)) && (url.indexOf("http://") == 0 || url.indexOf("https://") == 0);
 	}
 
 	function process(tabId, url, processSelection, processFrame) {
