@@ -129,7 +129,7 @@ var wininfo = {};
 			top.postMessage(EXT_ID + "::" + JSON.stringify({
 				getContentRequest : true,
 				winId : frame.winId,
-				contentRequestId : contentRequestCallbacks.length
+				contentRequestId : contentRequestCallbacks.length - 1
 			}), "*");			
 		} else
 			callback({});
@@ -139,7 +139,7 @@ var wininfo = {};
 		var id = message.contentRequestId;
 		delete message.contentRequestId;
 		delete message.getContentResponse;
-		contentRequestCallbacks[id](message);
+		contentRequestCallbacks[id](message);		
 	}
 
 	function initRequest(message) {
