@@ -118,7 +118,7 @@
 		return content;
 	}
 
-	function replaceURLs(content, host, requestManager, callback) {
+	function replaceURLs(content, host, requestManager, removeBackgroundImages, callback) {
 		var i, url, result, values = removeComments(content).match(URL_EXP), requestMax = 0, requestIndex = 0;
 
 		function sendRequest(origUrl) {
@@ -127,8 +127,11 @@
 				requestIndex++;
 				if (content.indexOf(origUrl) != -1) {
 					data.mediaType = data.mediaType ? data.mediaType.split(";")[0] : null;
-					content = content.replace(new RegExp(origUrl.replace(/([{}\(\)\^$&.\*\?\/\+\|\[\\\\]|\]|\-)/g, "\\$1"), "gi"), getDataURI(data,
-							EMPTY_PIXEL_DATA, true));
+					content = content.replace(
+							new RegExp(origUrl.replace(/([{}\(\)\^$&.\*\?\/\+\|\[\\\\]|\]|\-)/g, "\\$1"), "gi"),
+								removeBackgroundImages && data.mediaType.indexOf('image') >= 0 ? EMPTY_PIXEL_DATA :
+																getDataURI(data, EMPTY_PIXEL_DATA, true));
+
 				}
 				if (requestIndex == requestMax)
 					callback(content);
@@ -209,15 +212,15 @@
 		return ret;
 	}
 
-	function processStyleAttributes(docElement, baseURI, requestManager) {
+	function processStyleAttributes(docElement, baseURI, requestManager, removeBackgroundImages) {
 		Array.prototype.forEach.call(docElement.querySelectorAll("*[style]"), function(node) {
-			replaceURLs(node.getAttribute("style"), baseURI, requestManager, function(style) {
+			replaceURLs(node.getAttribute("style"), baseURI, requestManager, removeBackgroundImages, function(style) {
 				node.setAttribute("style", style);
 			});
 		});
 	}
 
-	function processBgAttributes(docElement, baseURI, requestManager) {
+	function processBgAttributes(docElement, baseURI, requestManager, removeBackgroundImages) {
 		var backgrounds = docElement.querySelectorAll("*[background]");
 		Array.prototype.forEach.call(backgrounds, function(node) {
 			var url, value = node.getAttribute("background");
@@ -225,7 +228,8 @@
 				url = formatURL(value, baseURI);
 				if (url.indexOf("data:") != 0)
 					requestManager.send(url, function(data) {
-						node.setAttribute("background", getDataURI(data, EMPTY_PIXEL_DATA, true));
+						node.setAttribute("background", removeBackgroundImages && data.mediaType.indexOf('image') >= 0 ?
+								EMPTY_PIXEL_DATA : getDataURI(data, EMPTY_PIXEL_DATA, true));
 					}, null, "base64");
 			}
 		});
@@ -243,7 +247,7 @@
 		}
 	}
 
-	function processImages(docElement, baseURI, requestManager) {
+	function processImages(docElement, baseURI, requestManager, scale) {
 		var images;
 
 		function process(attributeName) {
@@ -252,7 +256,7 @@
 				if (url.indexOf("data:") != 0)
 					requestManager.send(url, function(data) {
 						node.setAttribute(attributeName, getDataURI(data, EMPTY_PIXEL_DATA, true));
-					}, null, "base64");
+					}, null, "base64", node, scale);
 			});
 		}
 
@@ -276,9 +280,10 @@
 		});
 	}
 
-	function processStyles(docElement, baseURI, requestManager) {
+	function processStyles(docElement, baseURI, requestManager, removeBackgroundImages) {
 		Array.prototype.forEach.call(docElement.querySelectorAll("style"), function(styleSheet) {
-			replaceURLs(styleSheet.textContent, styleSheet.dataset.href || baseURI, requestManager, function(textContent) {
+			replaceURLs(styleSheet.textContent, styleSheet.dataset.href || baseURI, requestManager, removeBackgroundImages,
+			function(textContent) {
 				styleSheet.textContent = textContent;
 			});
 		});
@@ -373,20 +378,22 @@
 	}
 
 	// ----------------------------------------------------------------------------------------------
-
+	//17. Called from core/scripts/bg/bgcore.js processDoc
 	singlefile.initProcess = function(doc, docElement, addDefaultFavico, baseURI, characterSet, config, canvasData, requestManager, onInit, onProgress, onEnd) {
 		var initManager = new RequestManager(), manager = new RequestManager(onProgress);
 
 		function RequestManager(onProgress) {
 			var that = this, currentCount = 0, requests = [];
 			this.requestCount = 0;
-			this.send = function(url, responseHandler, characterSet, mediaTypeParam) {
+			this.send = function(url, responseHandler, characterSet, mediaTypeParam, node, scale) {
 				this.requestCount++;
 				requests.push({
 					url : url,
 					responseHandler : responseHandler,
 					characterSet : characterSet,
-					mediaTypeParam : mediaTypeParam
+					mediaTypeParam : mediaTypeParam,
+					node : node,
+					scale : scale
 				});
 			};
 			this.doSend = function() {
@@ -402,7 +409,7 @@
 							if (that.onEnd)
 								that.onEnd();
 						}
-					}, request.characterSet, request.mediaTypeParam);
+					}, request.characterSet, request.mediaTypeParam, request.node, request.scale);
 				});
 				requests = [];
 			};
@@ -421,14 +428,14 @@
 			setAbsoluteLinks(docElement, baseURI);
 			if (addDefaultFavico)
 				insertDefaultFavico(doc, docElement, baseURI);
-			processStyleAttributes(docElement, baseURI, manager);
+			processStyleAttributes(docElement, baseURI, manager, config.removeBackgroundImages);
 			processBgAttributes(docElement, baseURI, manager);
-			processImages(docElement, baseURI, manager);
+			processImages(docElement, baseURI, manager, config.scaleImages);
 			processSVGs(docElement, baseURI, manager);
-			processStyles(docElement, baseURI, manager);
+			processStyles(docElement, baseURI, manager, config.removeBackgroundImages);
 			processScripts(docElement, baseURI, characterSet, manager);
 			processCanvas(doc, docElement, canvasData);
-			if (onInit)
+			if (onInit) //Calls core/scripts/bg/background.js docInit
 				setTimeout(function() {
 					onInit(manager.requestCount);
 				}, 1);

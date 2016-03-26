@@ -40,7 +40,9 @@
 			getRawDoc : false,
 			displayInContextMenu : true,
 			sendToPageArchiver : false,
-			displayBanner : true
+			displayBanner : true,
+			scaleImages : 0.2,
+			removeBackgroundImages : false
 		};
 	};
 
@@ -65,6 +67,16 @@
 		var conf = singlefile.config.get();
 		if (typeof conf.maxFrameSize == "undefined") {
 			conf.maxFrameSize = 2;
+			singlefile.config.set(conf);
+		}
+	}
+
+	// migration 0.3.18 -> 0.3.19
+	if (localStorage.config) {
+		var conf = singlefile.config.get();
+		if (typeof conf.scaleImages == "undefined") {
+			conf.scaleImages = 0.2;
+			conf.removeBackgroundImages = false;
 			singlefile.config.set(conf);
 		}
 	}

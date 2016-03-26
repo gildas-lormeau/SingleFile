@@ -30,7 +30,9 @@
 		processInBackground : true,
 		maxFrameSize : 2,
 		getContent : true,
-		getRawDoc : false
+		getRawDoc : false,
+		scaleImages : 0.2,
+		removeBackgroundImages : false
 	};
 
 	var tabs = singlefile.tabs = [], processingPagesCount = 0, pageId = 0;
@@ -49,7 +51,7 @@
 		else if (callback)
 			callback();
 	}
-
+	//15.
 	function processInit(tabId, port, message) {
 		var pageData = tabs[tabId][message.pageId];
 		pageData.portsId.push(port.portId_);
@@ -61,7 +63,7 @@
 						end : docEnd
 					});
 	}
-
+	//22. Called from core/scripts/bg/bgcore.js setDocContent - Last step
 	function setContentResponse(tabId, pageId, docData, content) {
 		var pageData = tabs[tabId][pageId];
 		processingPagesCount--;
@@ -82,14 +84,14 @@
 		if (pageData.pendingDelete)
 			deletePageData(pageData);
 	}
-
+	//18. Called from core/scripts/common/docprocessor.js initProcess
 	function docInit(pageData, docData, maxIndex) {
 		function pageInit() {
 			delete pageData.timeoutPageInit;
 			pageData.processableDocs = pageData.initializedDocs;
 			pageData.initProcess();
 			processingPagesCount++;
-			chrome.extension.sendMessage(pageData.senderId, {
+			chrome.extension.sendMessage(pageData.senderId, { //follow action to ui/scripts/content/content.js processStart
 				processStart : true,
 				tabId : pageData.tabId,
 				pageId : pageData.pageId,
@@ -118,7 +120,7 @@
 			}
 		}
 	}
-
+	//19. Called from core/scripts/common/docprocessor.js onProgress
 	function docProgress(pageData, docData, index) {
 		var progressIndex = 0, progressMax = 0;
 		docData.progressIndex = index;
@@ -149,11 +151,11 @@
 			maxIndex : progressMax
 		});
 	}
-
+	//20. Called from core/scripts/common/docprocessor.js onEnd
 	function docEnd(pageData, docData, content) {
 		pageData.setDocContent(docData, content, setContentResponse);
 	}
-
+	//3.
 	function process(tabId, senderId, config, processSelection, processFrame) {
 		var pageData, configScript;
 		if (processFrame) {
@@ -167,7 +169,7 @@
 		tabs[tabId] = tabs[tabId] || [];
 		tabs[tabId].processing = true;
 		pageData = new singlefile.PageData(tabId, pageId, senderId, config, processSelection, processFrame, function() {
-			executeScripts(tabId, [ {
+			executeScripts(tabId, [ { //11.
 				code : "var singlefile = {};"
 			}, {
 				file : "scripts/common/util.js"
@@ -178,7 +180,7 @@
 			}, {
 				file : "scripts/content/content.js"
 			} ]);
-		});
+		}); //follow action to core/scripts/bg/bgcore.js
 		tabs[tabId][pageId] = pageData;
 		pageId++;
 	}
@@ -215,7 +217,7 @@
 			//	console.log("onMessage", message, port.portId_);
 			if (message.winId) {
 				portPageId[port.portId_] = message.pageId;
-				if (message.processInit)
+				if (message.processInit) //15. Called from core/scripts/content/content.js
 					processInit(tabId, port, message);
 				else {
 					pageData = tabs[tabId][message.pageId];
@@ -224,7 +226,8 @@
 						pageData.processDocFragment(docData, message.mutationEventId, message.content);
 					if (message.getResourceContentRequest)
 						pageData
-								.getResourceContentRequest(message.url, message.requestId, message.winId, message.characterSet, message.mediaTypeParam, docData);
+								.getResourceContentRequest(message.url, message.requestId, message.winId,
+										message.characterSet, message.mediaTypeParam, docData, message.node, message.scale);
 					if (message.docInit)
 						docInit(pageData, docData, message.maxIndex);
 					if (message.docProgress)
@@ -247,7 +250,7 @@
 			port.onDisconnect.addListener(onDisconnect);
 		}
 	}
-
+	//2. Called from ui/scripts/bg/background.js process
 	function onMessageExternal(request, sender, sendResponse) {
 		// console.log("onMessageExternal", request);
 		var property, config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));

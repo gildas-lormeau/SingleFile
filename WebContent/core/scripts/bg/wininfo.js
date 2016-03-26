@@ -18,14 +18,14 @@
  *   along with SingleFile Core.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var wininfo = {
+var wininfo = { //5. Called from core/scripts/bg/bgcore.js PageData
 	init : function(tabId, callback) {
 		chrome.extension.onMessage.addListener(function(message) {
 			// console.log("wininfo.onMessage", tabId, message);
-			if (message.initResponse)
-				callback(message.processableDocs);
+			if (message.initResponse) //9. Called from core/scripts/content/wininfo.js initResponse
+				callback(message.processableDocs); //follow action to core/scripts/bg/bgcore.js PageData
 		});
-		chrome.tabs.sendMessage(tabId, {
+		chrome.tabs.sendMessage(tabId, { //follow action to core/scripts/content/wininfo.js onExtensionMessage
 			initRequest : true,
 			winId : "0",
 			index : 0

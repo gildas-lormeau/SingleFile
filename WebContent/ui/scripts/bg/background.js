@@ -56,7 +56,7 @@
 			if (detected) {
 				if (processable(url)) {
 					singlefile.ui.notifyProcessInit(tabId);
-					chrome.extension.sendMessage(SINGLE_FILE_CORE_EXT_ID, {
+					chrome.extension.sendMessage(SINGLE_FILE_CORE_EXT_ID, { //in core/scripts/bg/background.js
 						processSelection : processSelection,
 						processFrame : processFrame,
 						id : tabId,

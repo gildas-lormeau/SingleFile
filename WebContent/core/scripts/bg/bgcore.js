@@ -22,7 +22,7 @@
 
 	singlefile.PageData = PageData;
 	singlefile.DocData = DocData;
-
+	//4. Called from core/scripts/bg/background.js coreProcess
 	function PageData(tabId, pageId, senderId, config, processSelection, processFrame, callback) {
 		var timeoutError, that = this;
 		this.pageId = pageId;
@@ -53,10 +53,10 @@
 				tabId : tabId
 			});
 		}, 15000);
-		wininfo.init(tabId, function(processableDocs) {
+		wininfo.init(tabId, function(processableDocs) { //follow action to core/scripts/bg/wininfo.js
 			clearTimeout(timeoutError);
 			that.processableDocs = processableDocs;
-			callback();
+			callback(); //10. follow action to core/scripts/bg/background.js coreProcess
 		});
 	}
 
@@ -70,7 +70,7 @@
 				} else
 					docData.process();
 			});
-		},
+		}, //16.
 		processDoc : function(port, topWindow, winId, index, content, title, url, baseURI, characterSet, canvasData, contextmenuTime, callbacks) {
 			var that = this, docData;
 			docData = new DocData(port, winId, index, content, baseURI, characterSet, canvasData);
@@ -93,7 +93,7 @@
 							callbacks.progress(that, docData, index);
 						}, function() {
 							callbacks.end(that, docData);
-						});
+						}); //follow action to core/scripts/common/docprocessor.js initProcess
 			}
 		},
 		processDocFragment : function(docData, mutationEventId, content) {
@@ -106,7 +106,7 @@
 						docData.setDocFragment(doc.body.innerHTML, mutationEventId);
 					});
 		},
-		setDocContent : function(docData, content, callback) {
+		setDocContent : function(docData, content, callback) { //21. Called from core/scripts/bg/background.js docEnd; callback is setContentResponse
 			var selectedDocData, that = this;
 
 			function buildPage(docData, setFrameContent, getContent, callback) {
@@ -199,10 +199,10 @@
 				that.progressMax += docData.progressMax || 0;
 			});
 		},
-		getResourceContentRequest : function(url, requestId, winId, characterSet, mediaTypeParam, docData) {
+		getResourceContentRequest : function(url, requestId, winId, characterSet, mediaTypeParam, docData, node, scale) {
 			this.requestManager.send(url, function(content) {
 				docData.getResourceContentResponse(content, requestId);
-			}, characterSet, mediaTypeParam);
+			}, characterSet, mediaTypeParam, node, scale);
 		},
 		getDocData : function(winId) {
 			var found;
@@ -235,9 +235,7 @@
 	DocData.prototype = {
 		parseContent : function() {
 			var doc = document.implementation.createHTMLDocument();
-			doc.open();
-			doc.write(this.content);
-			doc.close();
+			doc.documentElement.innerHTML = this.content; //this also works in firefox. doc.write works only if added to document
 			this.doc = doc;
 			this.docFrames = doc.querySelectorAll("iframe, frame");
 			delete this.content;
