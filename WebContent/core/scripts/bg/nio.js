@@ -70,11 +70,11 @@
 				xhr = new XMLHttpRequest();
 				xhr.onload = function() {
 					clearTimeout(timeout);
-					var media = xhr.getResponseHeader("Content-Type");
+					var media = xhr.getResponseHeader("Content-Type") || xhr.getResponseHeader("content-type");
 					var data = mediaTypeParam == "base64" ? arrayBufferToBase64(xhr.response) : xhr.responseText;
 			        	
-					if (media.indexOf('image') >= 0 && media.indexOf('svg') < 0 && 
-						mediaTypeParam == "base64" && (scale < 1 || node && (node.width || node.height))) {
+					if (media && media.indexOf('image') >= 0 && media.indexOf('svg') < 0 && 
+						mediaTypeParam == "base64" && scale > 0 && (scale < 1 || node && (node.width || node.height))) {
 							var img = new Image();
 							// When the event "onload" is triggered we can resize the image.
 					        img.onload = function()
