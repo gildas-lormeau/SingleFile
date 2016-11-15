@@ -29,16 +29,14 @@
 	var EMPTY_PIXEL_DATA = "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
 	function decodeDataURI(dataURI) {
-		var content = dataURI.indexOf(","), meta = dataURI.substr(5, content).toLowerCase(), data = decodeURIComponent(dataURI.substr(content + 1));
-
-		if (/;\s*base64\s*[;,]/.test(meta)) {
-			data = atob(data);
-		}
-		if (/;\s*charset=[uU][tT][fF]-?8\s*[;,]/.test(meta)) {
-			data = decodeURIComponent(escape(data));
-		}
-
-		return data;
+		// we use sync XHR here because the alternatives don't work:
+		// - decodeURIComponent() will give an error if passed something like "%;"
+		// - unescape() does not decode utf8
+		// - we need to '%E4%BA%8B%}' to decode to "事%}"
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", dataURI, false);
+		xhr.send(null);
+		return xhr.responseText;
 	}
 
 	function formatURL(link, host) {
