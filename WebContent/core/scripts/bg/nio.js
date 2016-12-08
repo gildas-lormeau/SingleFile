@@ -52,7 +52,7 @@
 			keys = [];
 		};
 
-		this.send = function(url, responseHandler, characterSet, mediaTypeParam) {
+		this.send = function(url, responseHandler, characterSet, mediaTypeParam, node, scale) {
 			var xhr, timeout, key = JSON.stringify({
 				url : url,
 				characterSet : characterSet,
@@ -70,15 +70,97 @@
 				xhr = new XMLHttpRequest();
 				xhr.onload = function() {
 					clearTimeout(timeout);
-					cache[key] = {
-						url : url,
-						status : xhr.status,
-						mediaType : xhr.getResponseHeader("Content-Type"),
-						content : mediaTypeParam == "base64" ? arrayBufferToBase64(xhr.response) : xhr.responseText,
-						mediaTypeParam : mediaTypeParam
-					};
-					keys.push(key);
-					sendResponses(key);
+					var media = xhr.getResponseHeader("Content-Type") || xhr.getResponseHeader("content-type");
+					var data = mediaTypeParam == "base64" ? arrayBufferToBase64(xhr.response) : xhr.responseText;
+			        	
+					if (media && media.indexOf('image') >= 0 && media.indexOf('svg') < 0 && 
+						mediaTypeParam == "base64" && scale > 0 && (scale < 1 || node && (node.width || node.height))) {
+							var img = new Image();
+							// When the event "onload" is triggered we can resize the image.
+					        img.onload = function()
+				            {        
+				            	clearTimeout(timeout);
+				            	var ratio = Math.min(1, node && node.width ? node.width / img.width : 1,
+			            			node && node.height ? node.height / img.height : 1);
+		            			if (ratio < 1 || media.indexOf('jp') < 0 || scale < 1) {
+					                 // We create a canvas and get its context.
+					                var canvas = document.createElement('canvas');
+					                var ctx = canvas.getContext('2d');
+					
+					                // We set the dimensions at the wanted size.
+					                canvas.width = img.width * ratio;
+					                canvas.height = img.height * ratio;
+					
+					                // We resize the image with the canvas method drawImage();
+					                ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+					                
+					                //Determine whether it contains transparent pixels
+					                var transparent = false;
+					                if (media.indexOf('png') > 0) {
+					                  var imgData=ctx.getImageData(0,0,canvas.width,canvas.height);
+									  var dat=imgData.data;
+									  var n = dat.length;
+									  for(var i=0;i< n && !transparent;i+=4){
+									    if(dat[i+3]<255){ transparent = true; }
+									  }
+					                }
+									//Decide on the output format
+									if (ratio < 1 && transparent) {
+										var dp = canvas.toDataURL(media).replace(/data:image.+;base64,/, '');
+										if (dp.length < data.length)
+											data = dp;
+									} else if (media.indexOf('jp') > 0) {
+										if (ratio < 1 || scale < 1) {
+											var ds = canvas.toDataURL('image/jpeg', scale)
+												.replace(/data:image.+;base64,/, '');
+											if (ds.length < data.length) {
+												data = ds;
+												media = 'image/jpeg';
+											}
+										}
+									} else if (!transparent && (media.indexOf('png') < 0 || scale < 1)) {
+										var d = canvas.toDataURL('image/png')
+											.replace(/data:image.+;base64,/, '');
+										var d2 = canvas.toDataURL('image/jpeg', scale)
+											.replace(/data:image.+;base64,/, '');
+										var min = Math.min(d.length, d2.length, data.length);
+										if (min === data.length);
+										else if (min === d.length) {
+											data = d;
+											media = 'image/png';
+										} else {
+											data = d2;
+											media = 'image/jpeg';
+										}
+									}
+		            			}
+								cache[key] = {
+									url : url,
+									status : xhr.status,
+									mediaType : media,
+									content : data,
+									mediaTypeParam : mediaTypeParam
+								};
+								keys.push(key);
+								sendResponses(key);
+				            };
+					        img.onerror = function() {
+								cache[key] = {};
+								keys.push(key);
+								sendResponses(key);
+							};   
+					        img.src = "data:" + media + ";base64," + data;
+					} else {
+						cache[key] = {
+							url : url,
+							status : xhr.status,
+							mediaType : media,
+							content : data,
+							mediaTypeParam : mediaTypeParam
+						};
+						keys.push(key);
+						sendResponses(key);
+					}
 				};
 				xhr.onerror = function() {
 					cache[key] = {};

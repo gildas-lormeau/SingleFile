@@ -25,7 +25,7 @@
 	function RequestManager(pageId, winId) {
 		var requestId = 0, callbacks = [];
 
-		this.send = function(url, responseHandler, characterSet, mediaTypeParam) {
+		this.send = function(url, responseHandler, characterSet, mediaTypeParam, node, scale) {
 			callbacks[requestId] = responseHandler;
 			bgPort.postMessage({
 				getResourceContentRequest : true,
@@ -34,7 +34,9 @@
 				requestId : requestId,
 				url : url,
 				characterSet : characterSet,
-				mediaTypeParam : mediaTypeParam
+				mediaTypeParam : mediaTypeParam,
+				node : node,
+				scale : scale
 			});
 			requestId++;
 		};
@@ -172,13 +174,13 @@
 			index : winIndex || wininfo.index
 		});
 	}
-
+	//14.
 	function sendBgProcessInit(content, title, url, baseURI, characterSet, winId, winIndex) {
 		var contextmenuTime = window.contextmenuTime;
 		if (!this.wininfo)
 			return;
 		window.contextmenuTime = null;
-		bgPort.postMessage({
+		bgPort.postMessage({ //follow action to core/scripts/bg/background.js processInit
 			processInit : true,
 			pageId : pageId,
 			topWindow : winId ? false : window == top,
@@ -195,7 +197,7 @@
 	}
 
 	// ----------------------------------------------------------------------------------------------
-
+	//12. Called from core/scripts/bg/background.js coreProcess
 	function init() {
 		var selectedContent = getSelectedContent(), topWindow = window == top;
 
@@ -217,7 +219,7 @@
 					});
 			}
 		}
-
+		//13.
 		function bgProcessInit() {
 			var xhr;
 			if (singlefile.processSelection) {

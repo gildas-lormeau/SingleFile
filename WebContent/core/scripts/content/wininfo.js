@@ -141,7 +141,7 @@ var wininfo = {};
 		delete message.getContentResponse;
 		contentRequestCallbacks[id](message);		
 	}
-
+	//7.
 	function initRequest(message) {
 		wininfo.winId = message.winId;
 		wininfo.index = message.index;
@@ -155,7 +155,7 @@ var wininfo = {};
 		}, 3000);
 		location.href = "javascript:(" + executeSetFramesWinIdString + ")('" + EXT_ID + "'," + wininfo.index + ",'" + wininfo.winId + "'); void 0;";
 	}
-
+	//8.
 	function initResponse(message) {
 		function process() {
 			wininfo.frames = wininfo.frames.filter(function(frame) {
@@ -192,7 +192,7 @@ var wininfo = {};
 			wininfo.index = message.index;
 		}
 	}
-
+	//6. Called from core/scripts/bg/wininfo.js
 	function onExtensionMessage(message) {
 		if (message.initRequest && document.documentElement instanceof HTMLHtmlElement) {
 			contentRequestCallbacks = [];

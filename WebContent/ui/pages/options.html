@@ -33,6 +33,15 @@
 		</div>
 	</div>
 	<div class="option">
+		<label for="removeBackgroundImages">remove background images <img class="question-mark" src="../resources/icon_question_mark.jpg">
+		</label>
+		<input type="checkbox" id="removeBackgroundImages">
+		<div class="help">
+			<p>Check this option to remove all background images.</p>
+			<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+		</div>
+	</div>
+	<div class="option">
 		<label for="displayInContextMenuInput">add entry in the context menu <img class="question-mark" src="../resources/icon_question_mark.jpg"></label> <input type="checkbox" id="displayInContextMenuInput">
 		<div class="help">
 			<p>Check this option to launch processing on a page with context menu.</p>
@@ -44,6 +53,15 @@
 		<div class="help">
 			<p>Check this option to display a banner with a download link at the top of the page when processing is finished.</p>
 			<p class="notice">It is recommended to <u>check</u> this option</p>
+		</div>
+	</div>
+	<div class="option">
+		<label for="scaleImages">scale down and compress images <img class="question-mark" src="../resources/icon_question_mark.jpg">
+		</label>
+		<input type="number" id="scaleImages" min="0" max="1" step="0.1">
+		<div class="help">
+			<p>Use this option to scale down images to the size they are displayed in and compress them to the quality chosen. This can make the output file smaller. 0 means 'off'</p>
+			<p class="notice">It is recommended to set this option <u>0.2</u> </p>
 		</div>
 	</div>
 	<h4>Advanced options</h4>

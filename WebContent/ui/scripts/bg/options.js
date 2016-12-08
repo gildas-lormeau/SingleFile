@@ -19,8 +19,10 @@
  */
 (function() {
 
-	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput, processInBackgroundInput, maxFrameSizeInput, getRawDocInput, sendToPageArchiverInput, displayBannerInput, displayInContextMenuInput, bgPage = chrome.extension
-			.getBackgroundPage(), config;
+	var removeScriptsInput, removeFramesInput, removeObjectsInput, removeHiddenInput, removeUnusedCSSRulesInput,
+		processInBackgroundInput, maxFrameSizeInput, getRawDocInput, sendToPageArchiverInput, displayBannerInput,
+		displayInContextMenuInput, bgPage = chrome.extension
+			.getBackgroundPage(), config, scaleImagesInput, removeBackgroundImagesInput;
 
 	function refresh() {
 		config = bgPage.singlefile.config.get();
@@ -35,6 +37,8 @@
 		maxFrameSizeInput.value = config.maxFrameSize;
 		getRawDocInput.checked = config.getRawDoc;
 		sendToPageArchiverInput.checked = config.sendToPageArchiver;
+		scaleImagesInput.value = config.scaleImages;
+		removeBackgroundImagesInput.checked = config.removeBackgroundImages;
 		if (displayBannerInput.checked)
 			processInBackgroundInput.checked = processInBackgroundInput.disabled = true;
 	}
@@ -52,7 +56,10 @@
 			processInBackground : processInBackgroundInput.checked,
 			maxFrameSize: maxFrameSizeInput.valueAsNumber || 0,
 			getRawDoc : getRawDocInput.checked,
-			sendToPageArchiver : sendToPageArchiverInput.checked
+			sendToPageArchiver : sendToPageArchiverInput.checked,
+			scaleImages : scaleImagesInput.valueAsNumber < 0 || scaleImagesInput.valueAsNumber > 1 ? 0.2 :
+				scaleImagesInput.valueAsNumber,
+			removeBackgroundImages : removeBackgroundImagesInput.checked
 		});
 	}
 
@@ -72,6 +79,8 @@
 	maxFrameSizeInput = document.getElementById("maxFrameSizeInput");
 	getRawDocInput = document.getElementById("getRawDocInput");
 	sendToPageArchiverInput = document.getElementById("sendToPageArchiverInput");
+	scaleImagesInput = document.getElementById("scaleImages");
+	removeBackgroundImagesInput = document.getElementById("removeBackgroundImages");
 	displayInContextMenuInput.addEventListener("click", bgPage.singlefile.refreshMenu);
 	displayBannerInput.addEventListener("click", updateProcessInBackground, false);
 	document.getElementById("resetButton").addEventListener("click", function() {
