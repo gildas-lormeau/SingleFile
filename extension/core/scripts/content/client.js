@@ -27,6 +27,7 @@
 			const options = request.options;
 			options.url = document.location.href;
 			options.content = getDoctype(document) + document.documentElement.outerHTML;
+			options.jsEnabled = true;
 			options.onprogress = event => {
 				if (event.type == "resources-initialized") {
 					chrome.runtime.sendMessage({
