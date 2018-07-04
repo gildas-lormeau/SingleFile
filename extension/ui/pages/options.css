@@ -5,6 +5,7 @@ body {
 body>div {
 	margin-left: auto;
 	margin-right: auto;	
+	padding: 10px;
 	font-family: sans-serif;
 	text-align: justify;
 }
@@ -34,6 +35,10 @@ button:active {
 #popupContent .option {
 	margin-left: 5px;
 	margin-bottom: 12px;
+}
+
+#popupContent .bottom {
+	padding-top: 20px;
 }
 
 input[type="checkbox"],button,input[type="text"],input[type="number"] {
