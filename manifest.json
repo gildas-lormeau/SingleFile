@@ -14,7 +14,8 @@
             "extension/core/scripts/bg/config.js",
             "extension/core/scripts/bg/bg.js",
             "extension/ui/scripts/bg/ui.js"
-        ]
+        ],
+        "persistent": false
     },
     "options_ui": {
         "page": "extension/ui/pages/options.html",
