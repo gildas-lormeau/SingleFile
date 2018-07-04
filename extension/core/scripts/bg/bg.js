@@ -22,18 +22,15 @@
 
 (() => {
 
-	chrome.tabs.onActivated.addListener(activeInfo => chrome.tabs.get(activeInfo.tabId, tab => notifyActive(tab.id, tab.url)));
-	chrome.tabs.onCreated.addListener(tab => notifyActive(tab.id, tab.url));
-	chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-		if (changeInfo.status == "loading" && tab.url) {
-			notifyActive(tab.id, tab.url, true);
-		}
-	});
+	const CHROME_STORE_URL = "https://chrome.google.com";
+
+	chrome.tabs.onActivated.addListener(activeInfo => chrome.tabs.get(activeInfo.tabId, tab => singlefile.ui.notifyTabActive(tab.id, isAllowedURL(tab.url))));
+	chrome.tabs.onCreated.addListener(tab => singlefile.ui.notifyTabActive(tab.id, isAllowedURL(tab.url)));
+	chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => singlefile.ui.notifyTabActive(tab.id, isAllowedURL(tab.url)));
 	chrome.tabs.onRemoved.addListener(tabId => singlefile.ui.notifyTabRemoved(tabId));
 
 	chrome.runtime.onMessage.addListener((request, sender) => {
 		if (request.processStart) {
-			singlefile.ui.notifyProcessStart(sender.tab.id);
 			singlefile.ui.notifyProcessProgress(sender.tab.id, request.index, request.maxIndex);
 		}
 		if (request.processProgress) {
@@ -49,18 +46,14 @@
 	});
 
 	chrome.browserAction.onClicked.addListener(tab => {
-		if (isActive(tab.url)) {
-			chrome.tabs.sendMessage(tab.id, { processStart: true, options: singlefile.config.get() });
+		if (isAllowedURL(tab.url)) {
 			singlefile.ui.notifyProcessInit(tab.id);
+			chrome.tabs.sendMessage(tab.id, { processStart: true, options: singlefile.config.get() });
 		}
 	});
 
-	function isActive(url) {
-		return url.indexOf("https://chrome.google.com") != 0 && (url.indexOf("http://") == 0 || url.indexOf("https://") == 0);
-	}
-
-	function notifyActive(tabId, url, reset) {
-		singlefile.ui.notifyActive(tabId, isActive(url), reset);
+	function isAllowedURL(url) {
+		return (url.startsWith("http://") || url.startsWith("https://")) && !url.startsWith(CHROME_STORE_URL);
 	}
 
 })();

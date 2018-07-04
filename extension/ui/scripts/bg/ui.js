@@ -24,127 +24,104 @@ singlefile.ui = (() => {
 
 	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_19.png";
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_19_wait";
-	const DEFAULT_BADGE_CONFIG = {
-		text: "",
-		color: [64, 64, 64, 255],
-		title: "Process this page with SingleFile",
-		path: DEFAULT_ICON_PATH
-	};
-	const badgeStates = [];
-	const tabs = {};
+	const DEFAULT_TITLE = "Process this page with SingleFile";
+	const DEFAULT_COLOR = [2, 147, 20, 255];
+	const BADGE_PROPERTIES = [{ name: "text", fn: "setBadgeText" }, { name: "color", fn: "setBadgeBackgroundColor" }, { name: "title", fn: "setTitle" }, { name: "path", fn: "setIcon" }];
 
-	let badgeConfig = JSON.parse(JSON.stringify(DEFAULT_BADGE_CONFIG));
+	const tabs = {};
+	const badgeTabs = {};
+	let badgeRefreshPending = [];
 
 	return {
 		notifyProcessInit(tabId) {
 			tabs[tabId] = {
 				id: tabId,
 				text: "...",
-				color: [2, 147, 20, 255],
+				color: DEFAULT_COLOR,
 				title: "initializing...",
 				path: DEFAULT_ICON_PATH,
-				processing: true,
-				currentBarProgress: -1,
-				currentProgress: -1
+				progress: -1,
+				barProgress: -1
 			};
 			refreshBadge(tabId);
 		},
-		notifyProcessStart(tabId) {
-			const tabData = tabs[tabId];
-			delete tabData.text;
-			delete tabData.title;
-			delete tabData.path;
-			tabData.color = [4, 229, 36, 255];
-			badgeConfig.text = "";
-			refreshBadge();
-		},
 		notifyProcessError(tabId) {
 			const tabData = tabs[tabId];
-			delete tabData.processing;
-			tabData.color = [229, 4, 12, 255];
 			tabData.text = "ERR";
+			tabData.color = [229, 4, 12, 255];
+			tabData.title = DEFAULT_TITLE;
+			tabData.path = DEFAULT_ICON_PATH;
+			tabData.progress = -1;
+			tabData.barProgress = -1;
 			refreshBadge(tabId);
 		},
 		notifyProcessEnd(tabId) {
 			const tabData = tabs[tabId];
 			tabData.text = "OK";
-			delete tabData.processing;
-			badgeConfig.text = "";
-			tabData.currentBarProgress = -1;
-			tabData.currentProgress = -1;
-			delete tabData.title;
-			badgeConfig = JSON.parse(JSON.stringify(DEFAULT_BADGE_CONFIG));
-			refreshBadge();
+			tabData.color = [4, 229, 36, 255];
+			tabData.title = DEFAULT_TITLE;
+			tabData.path = DEFAULT_ICON_PATH;
+			tabData.progress = -1;
+			tabData.barProgress = -1;
+			refreshBadge(tabId);
 		},
 		notifyProcessProgress(tabId, index, maxIndex) {
-			if (maxIndex) {
-				const tabData = tabs[tabId];
-				const progress = Math.max(Math.min(100, Math.floor((index / maxIndex) * 100)), 0);
-				if (tabData.currentProgress != progress) {
-					tabData.currentProgress = progress;
-					badgeConfig.title = "progress: " + Math.min(100, Math.floor((index / maxIndex) * 100)) + "%";
-					const barProgress = Math.floor((index / maxIndex) * 15);
-					if (tabData.currentBarProgress != barProgress) {
-						tabData.currentBarProgress = barProgress;
-						badgeConfig.path = WAIT_ICON_PATH_PREFIX + barProgress + ".png";
-					}
-					refreshBadge();
+			const tabData = tabs[tabId];
+			const progress = Math.max(Math.min(100, Math.floor((index / maxIndex) * 100)), 0);
+			if (tabData.progress != progress) {
+				tabData.progress = progress;
+				tabData.text = "";
+				tabData.title = "progress: " + Math.min(100, Math.floor((index / maxIndex) * 100)) + "%";
+				tabData.color = [4, 229, 36, 255];
+				const barProgress = Math.floor((index / maxIndex) * 15);
+				if (tabData.barProgress != barProgress) {
+					tabData.barProgress = barProgress;
+					tabData.path = WAIT_ICON_PATH_PREFIX + barProgress + ".png";
 				}
+				refreshBadge(tabId);
 			}
 		},
 		notifyTabRemoved(tabId) {
 			delete tabs[tabId];
-			delete badgeStates[tabId];
 		},
-		notifyActive(tabId, isActive, reset) {
+		notifyTabActive(tabId, isActive) {
 			if (isActive) {
 				chrome.browserAction.enable(tabId);
-				if (reset && tabs[tabId] && !tabs[tabId].processing) {
-					delete tabs[tabId];
-					refreshBadge(tabId);
-				}
-			}
-			if (!isActive) {
+			} else {
 				chrome.browserAction.disable(tabId);
 			}
 		}
 	};
 
-	function refreshBadge(tabId) {
-		if (tabId) {
-			refreshTabBadge(tabId);
-		} else {
-			chrome.tabs.query({ currentWindow: true }, tabs => tabs.forEach(tab => refreshTabBadge(tab.id)));
+	async function refreshBadge(tabId) {
+		await Promise.all(badgeRefreshPending);
+		const promise = refreshBadgeAsync(tabId);
+		badgeRefreshPending.push(promise);
+		await promise;
+		badgeRefreshPending = badgeRefreshPending.filter(pending => pending != promise);
+	}
+
+	async function refreshBadgeAsync(tabId) {
+		for (let property of BADGE_PROPERTIES) {
+			await refreshBadgeProperty(tabId, property.name, property.fn);
 		}
 	}
 
-	function refreshTabBadge(tabId) {
-		refreshBadgeProperty("text", chrome.browserAction.setBadgeText);
-		refreshBadgeProperty("color", chrome.browserAction.setBadgeBackgroundColor);
-		refreshBadgeProperty("title", chrome.browserAction.setTitle);
-		refreshBadgeProperty("path", chrome.browserAction.setIcon);
-
-		function refreshBadgeProperty(property, fn) {
+	function refreshBadgeProperty(tabId, property, fn) {
+		return new Promise(resolve => {
 			const tabData = tabs[tabId];
-			const confObject = { tabId };
-			if (!badgeStates[tabId]) {
-				badgeStates[tabId] = [];
+			const value = tabData[property];
+			if (!badgeTabs[tabId]) {
+				badgeTabs[tabId] = {};
 			}
-			const badgeState = badgeStates[tabId];
-			if (tabData && tabData[property]) {
-				if (badgeState[property] != tabData[property]) {
-					badgeState[property] = tabData[property];
-					confObject[property] = tabData[property];
-					fn(confObject);
-				}
+			if (JSON.stringify(badgeTabs[tabId][property]) != JSON.stringify(value)) {
+				const parameter = { tabId };
+				badgeTabs[tabId][property] = parameter[property] = value;
+				chrome.browserAction[fn](parameter, resolve);
 			} else {
-				if (badgeState[property] != badgeConfig[property]) {
-					badgeState[property] = badgeConfig[property];
-					confObject[property] = badgeConfig[property];
-					fn(confObject);
-				}
+				resolve();
 			}
-		}
+		});
 	}
 
 })();
