@@ -24,6 +24,8 @@
 
 	const fetchResponses = new Map();
 
+	let requestId = 1;
+
 	chrome.runtime.onMessage.addListener((request, sender, send) => {
 
 		function sendResponse(response) {
@@ -33,20 +35,22 @@
 			send(response);
 		}
 
-		function sendFetchResponse(requestId, response) {
-			fetchResponses.set(requestId, response);
+		function sendFetchResponse(responseId, response) {
+			fetchResponses.set(responseId, response);
 			const headers = {};
 			for (let headerName of response.headers.keys()) {
 				headers[headerName] = response.headers.get(headerName);
 			}
-			sendResponse({ requestId, headers });
+			sendResponse({ responseId, headers });
 		}
 
 		if (request.method) {
 			if (request.method == "fetch") {
+				const responseId = requestId;
 				fetch(request.url, request.options)
-					.then(response => sendFetchResponse(request.requestId, response))
+					.then(response => sendFetchResponse(responseId, response))
 					.catch(error => sendResponse({ error: error.toString() }));
+				requestId = requestId + 1;
 			}
 			if (request.method == "fetch.uint8array") {
 				const content = fetchResponses.get(request.requestId);
