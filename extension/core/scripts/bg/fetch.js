@@ -48,7 +48,13 @@
 			if (request.method == "fetch") {
 				const responseId = requestId;
 				fetch(request.url, request.options)
-					.then(response => sendFetchResponse(responseId, response))
+					.then(response => {
+						if (response.status >= 400) {
+							sendResponse({ error: response.statusText || response.status });
+						} else {
+							sendFetchResponse(responseId, response);
+						}
+					})
 					.catch(error => sendResponse({ error: error.toString() }));
 				requestId = requestId + 1;
 			}
