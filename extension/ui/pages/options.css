@@ -1,22 +1,12 @@
 body {
-	background-color: #eee;
+	background-color: #fff;
 }
 
 body>div {
 	margin-left: auto;
-	margin-right: auto;
-	width: 350px;
-	background-color: #fff;
+	margin-right: auto;	
 	font-family: sans-serif;
-	margin-bottom: 10px;
-	border-width: 1px;
-	border-style: solid;
-	border-radius: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 5px;
 	text-align: justify;
-	box-shadow: #888 2px 2px 2px;
 }
 
 #icon {
@@ -25,12 +15,11 @@ body>div {
 }
 
 button {
-	background: -webkit-gradient(linear, left bottom, left top, color-stop(0.12, rgb(201
-		, 201, 201) ), color-stop(0.79, rgb(247, 247, 247) ) );
+	background: white;
 	border-color: rgb(191, 191, 191);
 	border-style: solid;
 	height: 25px;
-	border-radius: 4px;
+	border-radius: 2px;
 }
 
 button:active {
