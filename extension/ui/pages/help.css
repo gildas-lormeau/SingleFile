@@ -1,0 +1,163 @@
+body {
+    background-color: #eee;
+}
+
+body>div {
+    position: relative;
+    background-color: #fff;
+    font-family: sans-serif;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    text-align: justify;
+    box-shadow: #888 2px 2px 2px;
+}
+
+div>iframe {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-left: auto;
+}
+
+.option {
+    font-size: 1.1em;
+    font-style: normal;
+    font-family: sans-serif;
+    color: graytext;
+}
+
+.notice {
+    font-style: italic;
+    font-family: serif;
+    font-size: 1.1em;
+}
+
+ol {
+    -webkit-padding-start: 30px;
+    margin: 0px;
+    padding-right: 10px;
+}
+
+ol>li {
+    padding-top: 2em;
+}
+
+a[id] {
+    font-weight: bold;
+}
+
+ol>li>ul>li {
+    padding-top: .5em;
+}
+
+.icon {
+    height: 1em;
+}
+
+#titleIcon {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+#title {
+    padding-left: .3em;
+    vertical-align: top;
+}
+
+#titleBorder {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+#index {
+    padding-left: 10px;
+    font-size: .9em;
+}
+
+h2,
+h4 {
+    padding-left: .3em;
+    margin-bottom: 0px;
+}
+
+li {
+    line-height: 1.5em;
+}
+
+#logo-html5 {
+    position: absolute;
+    right: 0px;
+    bottom: 20px;
+}
+
+.availability {
+    font-size: 11pt;
+}
+
+code {
+    font-size: 1.1em;
+}
+
+kbd,
+.key {
+    display: inline;
+    display: inline-block;
+    min-width: 1em;
+    padding: .2em .3em;
+    font: normal .85em/1 "Lucida Grande", Lucida, Arial, sans-serif;
+    text-align: center;
+    text-decoration: none;
+    -moz-border-radius: .3em;
+    -webkit-border-radius: .3em;
+    border-radius: .3em;
+    border: none;
+    cursor: default;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+kbd[title],
+.key[title] {
+    cursor: help;
+}
+
+kbd,
+kbd.dark,
+.dark-keys kbd,
+.key,
+.key.dark,
+.dark-keys .key {
+    background: rgb(80, 80, 80);
+    background: -moz-linear-gradient(top, rgb(60, 60, 60), rgb(80, 80, 80));
+    background: -webkit-gradient(linear, left top, left bottom, from(rgb(60, 60, 60)), to(rgb(80, 80, 80)));
+    color: rgb(250, 250, 250);
+    text-shadow: -1px -1px 0 rgb(70, 70, 70);
+    -moz-box-shadow: inset 0 0 1px rgb(150, 150, 150), inset 0 -.05em .4em rgb(80, 80, 80), 0 .1em 0 rgb(30, 30, 30), 0 .1em .1em rgba(0, 0, 0, .3);
+    -webkit-box-shadow: inset 0 0 1px rgb(150, 150, 150), inset 0 -.05em .4em rgb(80, 80, 80), 0 .1em 0 rgb(30, 30, 30), 0 .1em .1em rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 1px rgb(150, 150, 150), inset 0 -.05em .4em rgb(80, 80, 80), 0 .1em 0 rgb(30, 30, 30), 0 .1em .1em rgba(0, 0, 0, .3);
+}
+
+kbd.light,
+.light-keys kbd,
+.key.light,
+.light-keys .key {
+    background: rgb(250, 250, 250);
+    background: -moz-linear-gradient(top, rgb(210, 210, 210), rgb(255, 255, 255));
+    background: -webkit-gradient(linear, left top, left bottom, from(rgb(210, 210, 210)), to(rgb(255, 255, 255)));
+    color: rgb(50, 50, 50);
+    text-shadow: 0 0 2px rgb(255, 255, 255);
+    -moz-box-shadow: inset 0 0 1px rgb(255, 255, 255), inset 0 0 .4em rgb(200, 200, 200), 0 .1em 0 rgb(130, 130, 130), 0 .11em 0 rgba(0, 0, 0, .4), 0 .1em .11em rgba(0, 0, 0, .9);
+    -webkit-box-shadow: inset 0 0 1px rgb(255, 255, 255), inset 0 0 .4em rgb(200, 200, 200), 0 .1em 0 rgb(130, 130, 130), 0 .11em 0 rgba(0, 0, 0, .4), 0 .1em .11em rgba(0, 0, 0, .9);
+    box-shadow: inset 0 0 1px rgb(255, 255, 255), inset 0 0 .4em rgb(200, 200, 200), 0 .1em 0 rgb(130, 130, 130), 0 .11em 0 rgba(0, 0, 0, .4), 0 .1em .11em rgba(0, 0, 0, .9);
+}

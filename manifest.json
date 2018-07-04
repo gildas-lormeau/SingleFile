@@ -1,0 +1,46 @@
+{
+    "name": "SingleFile",
+    "icons": {
+        "16": "extension/ui/resources/icon_16.png",
+        "48": "extension/ui/resources/icon_48.png",
+        "128": "extension/ui/resources/icon_128.png"
+    },
+    "version": "1.0.0",
+    "description": "Archive a complete page into a single HTML file",
+    "background": {
+        "scripts": [
+            "extension/core/scripts/bg/index.js",
+            "extension/core/scripts/bg/fetch.js",
+            "extension/core/scripts/bg/config.js",
+            "extension/core/scripts/bg/bg.js",
+            "extension/ui/scripts/bg/ui.js"
+        ]
+    },
+    "options_page": "extension/ui/pages/options.html",
+    "browser_action": {
+        "default_icon": "extension/ui/resources/icon_19.png",
+        "default_title": "Process this page with SingleFile"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "js": [
+                "lib/single-file/single-file-core.js",
+                "lib/single-file/single-file-browser.js",
+                "extension/core/scripts/content/fetch.js",
+                "extension/core/scripts/content/client.js",
+                "extension/ui/scripts/content/index.js",
+                "extension/ui/scripts/content/ui.js"
+            ],
+            "run_at": "document_start",
+            "all_frames": false
+        }
+    ],
+    "permissions": [
+        "tabs"
+    ],
+    "manifest_version": 2
+}

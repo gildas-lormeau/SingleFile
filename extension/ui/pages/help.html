@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>SingleFile help</title>
+	<link rel="stylesheet" href="help.css">
+</head>
+
+<body>
+	<div>
+		<div id="titleBorder">
+			<h2>SingleFile</h2>
+			<h4>Archive a complete page into a single HTML file</h4>
+		</div>
+		<span id="index">
+			<a href="#instructions">Instructions</a> -
+			<a href="#options">Options description</a> -
+			<a href="#notes">Technical notes</a> -
+			<a href="#unknownIssues">Unknown issues</a>
+		</span>
+		<hr>
+		<ol>
+			<li>
+				<a id="instructions">Instructions</a>
+				<ul>
+					<li>wait until the page is fully loaded: you may need to scroll down the entire page and hover dynamic document elements
+						(e.g. "rollover" images) to be sure all elements are loaded</li>
+					<li>click on the SingleFile icon
+						<img src="../resources/icon_19.png" class="icon"> in the extension toolbar</li>
+				</ul>
+				<p>Additional notes:</p>
+				<ul>
+					<li>You can use the context menu to process the whole page ("process page"), the selected part of a page ("process selection")
+						or a frame ("process frame")</li>
+				</ul>
+			</li>
+			<li>
+				<a id="options">Options description</a>
+
+				<p>You can customize the way SingleFile process a document through the options page. Right-click on SingleFile icon
+					<img src="../resources/icon_19.png" class="icon"> in the browser toolbar and select "Options" in the context menu to open the options page.</p>
+				<p>Details :</p>
+				<ul>
+					<li>
+						<span class="option">remove hidden elements</span>
+						<p>Check this option to remove all hidden elements (
+							<code>visibility = "hidden"</code>,&nbsp;or&nbsp;
+							<code>display = "none"</code>,&nbsp;or&nbsp;
+							<code>opacity = "0"</code> CSS property values). This option may alter the document but can considerably reduce the size of the file.</p>
+						<p class="notice">It is recommended to
+							<u>uncheck</u> this option</p>
+					</li>
+
+					<li>
+						<span class="option">remove unused CSS rules</span>
+						<p>Check this option to remove all CSS rules that do not match any element. This option may alter the document but can
+							considerably reduce the size of the file. Checking this option may also introduce some incompatibilities issues in
+							the saved page when opening it into another browser (i.e. not based on Chromium).</p>
+						<p class="notice">It is recommended to
+							<u>uncheck</u> this option</p>
+					</li>
+
+					<li>
+						<span class="option">Reset to default options</span>
+						<p>Reset all the options to default state.</p>
+					</li>
+				</ul>
+			</li>
+
+			<li>
+				<a id="notes">Technical notes</a>
+				<ul>
+					<li>all images are converted into
+						<a href="http://en.wikipedia.org/wiki/Base64">base64</a>
+					</li>
+					<li>resources are injected in the document using
+						<a href="http://en.wikipedia.org/wiki/Data_URI_scheme">data URI scheme</a>
+					</li>
+					<li>data URI scheme is supported by all modern browsers.</li>
+				</ul>
+			</li>
+
+			<li>
+				<a id="unknownIssues">Unknown issues</a>
+				<p>If you find an unknown issue (i.e. frozen process, extra saved files, blank or altered document, tab crash...):</p>
+				<ul>
+					<li>reset SingleFile options</li>
+					<li>if resetting options did not work, try to disable all other extensions to see if there is a conflict</li>
+					<li>if there is a conflict then try to determine against which extension(s)</li>
+					<li>please report the issue
+						<a href="https://github.com/gildas-lormeau/SingleFile/issues">here</a> with a short description describing how to reproduce the issue, Browser version, OS name and version.</li>
+				</ul>
+			</li>
+		</ol>
+	</div>
+</body>
+
+</html>
