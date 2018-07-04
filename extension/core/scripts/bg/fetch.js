@@ -33,29 +33,29 @@
 			send(response);
 		}
 
-		function sendFetchResponse(response) {
-			fetchResponses.set(request.url, response);
+		function sendFetchResponse(requestId, response) {
+			fetchResponses.set(requestId, response);
 			const headers = {};
 			for (let headerName of response.headers.keys()) {
 				headers[headerName] = response.headers.get(headerName);
 			}
-			sendResponse({ headers });
+			sendResponse({ requestId, headers });
 		}
 
 		if (request.method) {
 			if (request.method == "fetch") {
 				fetch(request.url, request.options)
-					.then(sendFetchResponse)
+					.then(response => sendFetchResponse(request.requestId, response))
 					.catch(error => sendResponse({ error: error.toString() }));
 			}
 			if (request.method == "fetch.uint8array") {
-				const content = fetchResponses.get(request.url);
+				const content = fetchResponses.get(request.requestId);
 				content.arrayBuffer()
 					.then(buffer => sendResponse({ uint8array: Array.from(new Uint8Array(buffer)) }))
 					.catch(error => sendResponse({ error: error.toString() }));
 			}
 			if (request.method == "fetch.text") {
-				const content = fetchResponses.get(request.url);
+				const content = fetchResponses.get(request.requestId);
 				content.text()
 					.then(text => sendResponse({ text }))
 					.catch(error => sendResponse({ error: error.toString() }));

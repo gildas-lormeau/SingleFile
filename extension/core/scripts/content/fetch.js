@@ -22,35 +22,41 @@
 
 window.fetch = (() => {
 
+	let requestId = 1;
+
 	return async (url, options) => {
-		const response = await chromeRuntimeSendMessage({ method: "fetch", url, options });
+		const responseFetch = await chromeRuntimeSendMessage({ method: "fetch", url, options });
 		return {
-			headers: { get: headerName => response.headers[headerName] },
+			headers: { get: headerName => responseFetch.headers[headerName] },
 			arrayBuffer: async () => {
-				const response = await chromeRuntimeSendMessage({ method: "fetch.uint8array", url });
+				const response = await chromeRuntimeSendMessage({ method: "fetch.uint8array", requestId: responseFetch.requestId });
 				return new Uint8Array(response.uint8array).buffer;
 			},
 			blob: async () => {
-				const response = await chromeRuntimeSendMessage({ method: "fetch.uint8array", url });
+				const response = await chromeRuntimeSendMessage({ method: "fetch.uint8array", requestId: responseFetch.requestId });
 				return new Blob([new Uint8Array(response.uint8array)]);
 			},
 			text: async () => {
-				const response = await chromeRuntimeSendMessage({ method: "fetch.text", url });
+				const response = await chromeRuntimeSendMessage({ method: "fetch.text", requestId: responseFetch.requestId });
 				return response.text;
 			}
 		};
 	};
 
 	function chromeRuntimeSendMessage(message) {
-		return new Promise((resolve, reject) =>
+		return new Promise((resolve, reject) => {
+			if (!message.requestId) {
+				message.requestId = requestId;
+				requestId = requestId + 1;
+			}
 			chrome.runtime.sendMessage(message, response => {
 				if (response.error) {
 					reject(response.error);
 				} else {
 					resolve(response);
 				}
-			})
-		);
+			});
+		});
 	}
 
 })();
