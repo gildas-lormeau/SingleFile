@@ -32,13 +32,13 @@
                 "https://*/*"
             ],
             "js": [
+                "extension/ui/scripts/content/index.js",
+                "extension/ui/scripts/content/ui.js",
                 "lib/single-file/base64.js",
                 "lib/single-file/single-file-core.js",
                 "lib/single-file/single-file-browser.js",
                 "extension/core/scripts/content/fetch.js",
-                "extension/core/scripts/content/client.js",
-                "extension/ui/scripts/content/index.js",
-                "extension/ui/scripts/content/ui.js"
+                "extension/core/scripts/content/client.js"
             ],
             "run_at": "document_start",
             "all_frames": false
