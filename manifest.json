@@ -44,7 +44,9 @@
         }
     ],
     "permissions": [
-        "tabs"
+        "tabs",
+        "http://*/*",
+        "https://*/*"
     ],
     "manifest_version": 2
 }
