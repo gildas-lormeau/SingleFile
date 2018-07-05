@@ -1,6 +1,5 @@
-SingleFile (c) 2018 Gildas Lormeau
-
 SingleFile is a Chrome extension that helps to archive a complete page into a single HTML file.
+
 
 SingleFile is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -14,3 +13,5 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
+
+SingleFile (c) 2018 Gildas Lormeau
