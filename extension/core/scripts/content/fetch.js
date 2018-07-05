@@ -20,7 +20,7 @@
 
 /* global window, chrome, Blob */
 
-window.fetch = (() => {
+window.superFetch = (() => {
 
 	return async (url, options) => {
 		const responseFetch = await chromeRuntimeSendMessage({ method: "fetch", url, options });
