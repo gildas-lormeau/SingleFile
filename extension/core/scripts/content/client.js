@@ -24,6 +24,7 @@
 
 	chrome.extension.onMessage.addListener(request => {
 		if (request.processStart) {
+			fixInlineScripts();
 			const options = request.options;
 			options.url = document.location.href;
 			options.content = getDoctype(document) + document.documentElement.outerHTML;
@@ -87,6 +88,10 @@
 			return docTypeString + ">\n";
 		}
 		return "";
+	}
+
+	function fixInlineScripts() {
+		document.querySelectorAll("script").forEach(element => element.textContent = element.textContent.replace(/<\/script>/gi, "<\\/script>"));
 	}
 
 })();
