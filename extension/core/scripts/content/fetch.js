@@ -44,8 +44,8 @@ window.superFetch = (() => {
 	function chromeRuntimeSendMessage(message) {
 		return new Promise((resolve, reject) => {
 			chrome.runtime.sendMessage(message, response => {
-				if (response.error) {
-					reject(response.error);
+				if (!response || response.error) {
+					reject(response && response.error);
 				} else {
 					resolve(response);
 				}
