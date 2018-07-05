@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global chrome, SingleFile, singlefile, document, Blob */
+/* global chrome, SingleFile, singlefile, document, Blob, MouseEvent */
 
 (() => {
 
@@ -68,7 +68,7 @@
 		document.body.appendChild(link);
 		link.download = page.filename;
 		link.href = page.url;
-		link.click();
+		link.dispatchEvent(new MouseEvent("click"));
 		link.remove();
 	}
 
