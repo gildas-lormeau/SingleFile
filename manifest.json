@@ -48,5 +48,6 @@
         "http://*/*",
         "https://*/*"
     ],
+    "incognito": "split",
     "manifest_version": 2
 }
