@@ -26,32 +26,29 @@
 
 	chrome.tabs.onActivated.addListener(activeInfo => chrome.tabs.get(activeInfo.tabId, tab => {
 		if (!chrome.runtime.lastError) {
-			singlefile.ui.notifyTabActive(tab.id, isAllowedURL(tab.url));
+			singlefile.ui.active(tab.id, isAllowedURL(tab.url));
 		}
 	}));
-	chrome.tabs.onCreated.addListener(tab => singlefile.ui.notifyTabActive(tab.id, isAllowedURL(tab.url)));
-	chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => singlefile.ui.notifyTabActive(tab.id, isAllowedURL(tab.url)));
-	chrome.tabs.onRemoved.addListener(tabId => singlefile.ui.notifyTabRemoved(tabId));
+	chrome.tabs.onCreated.addListener(tab => singlefile.ui.active(tab.id, isAllowedURL(tab.url)));
+	chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => singlefile.ui.active(tab.id, isAllowedURL(tab.url)));
+	chrome.tabs.onRemoved.addListener(tabId => singlefile.ui.removed(tabId));
 
 	chrome.runtime.onMessage.addListener((request, sender) => {
-		if (request.processStart) {
-			singlefile.ui.notifyProcessProgress(sender.tab.id, request.index, request.maxIndex);
-		}
-		if (request.processProgress) {
-			singlefile.ui.notifyProcessProgress(sender.tab.id, request.index, request.maxIndex);
+		if (request.processStart || request.processProgress) {
+			singlefile.ui.progress(sender.tab.id, request.index, request.maxIndex);
 		}
 		if (request.processEnd) {
-			singlefile.ui.notifyProcessEnd(sender.tab.id);
+			singlefile.ui.end(sender.tab.id);
 		}
 		if (request.processError) {
-			singlefile.ui.notifyProcessError(sender.tab.id);
+			singlefile.ui.error(sender.tab.id);
 		}
 		return false;
 	});
 
 	chrome.browserAction.onClicked.addListener(tab => {
 		if (isAllowedURL(tab.url)) {
-			singlefile.ui.notifyProcessInit(tab.id);
+			singlefile.ui.init(tab.id);
 			chrome.tabs.sendMessage(tab.id, { processStart: true, options: singlefile.config.get() });
 		}
 	});

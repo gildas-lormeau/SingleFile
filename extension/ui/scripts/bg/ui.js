@@ -33,7 +33,7 @@ singlefile.ui = (() => {
 	let badgeRefreshPending = [];
 
 	return {
-		notifyProcessInit(tabId) {
+		init(tabId) {
 			tabs[tabId] = {
 				id: tabId,
 				text: "...",
@@ -45,7 +45,7 @@ singlefile.ui = (() => {
 			};
 			refreshBadge(tabId);
 		},
-		notifyProcessError(tabId) {
+		error(tabId) {
 			const tabData = tabs[tabId];
 			tabData.text = "ERR";
 			tabData.color = [229, 4, 12, 255];
@@ -55,7 +55,7 @@ singlefile.ui = (() => {
 			tabData.barProgress = -1;
 			refreshBadge(tabId);
 		},
-		notifyProcessEnd(tabId) {
+		end(tabId) {
 			const tabData = tabs[tabId];
 			tabData.text = "OK";
 			tabData.color = [4, 229, 36, 255];
@@ -65,7 +65,7 @@ singlefile.ui = (() => {
 			tabData.barProgress = -1;
 			refreshBadge(tabId);
 		},
-		notifyProcessProgress(tabId, index, maxIndex) {
+		progress(tabId, index, maxIndex) {
 			const tabData = tabs[tabId];
 			const progress = Math.max(Math.min(100, Math.floor((index / maxIndex) * 100)), 0);
 			if (tabData.progress != progress) {
@@ -81,10 +81,10 @@ singlefile.ui = (() => {
 				refreshBadge(tabId);
 			}
 		},
-		notifyTabRemoved(tabId) {
+		removed(tabId) {
 			delete tabs[tabId];
 		},
-		notifyTabActive(tabId, isActive) {
+		active(tabId, isActive) {
 			if (isActive) {
 				chrome.browserAction.enable(tabId);
 			} else {
