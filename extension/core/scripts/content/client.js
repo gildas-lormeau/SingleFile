@@ -22,7 +22,7 @@
 
 (() => {
 
-	chrome.extension.onMessage.addListener(request => {
+	chrome.runtime.onMessage.addListener(request => {
 		if (request.processStart) {
 			fixInlineScripts();
 			const options = request.options;
