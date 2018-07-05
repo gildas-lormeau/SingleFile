@@ -32,6 +32,7 @@
                 "https://*/*"
             ],
             "js": [
+                "lib/single-file/base64.js",
                 "lib/single-file/single-file-core.js",
                 "lib/single-file/single-file-browser.js",
                 "extension/core/scripts/content/fetch.js",
