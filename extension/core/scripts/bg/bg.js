@@ -24,7 +24,11 @@
 
 	const CHROME_STORE_URL = "https://chrome.google.com";
 
-	chrome.tabs.onActivated.addListener(activeInfo => chrome.tabs.get(activeInfo.tabId, tab => singlefile.ui.notifyTabActive(tab.id, isAllowedURL(tab.url))));
+	chrome.tabs.onActivated.addListener(activeInfo => chrome.tabs.get(activeInfo.tabId, tab => {
+		if (!chrome.runtime.lastError) {
+			singlefile.ui.notifyTabActive(tab.id, isAllowedURL(tab.url));
+		}
+	}));
 	chrome.tabs.onCreated.addListener(tab => singlefile.ui.notifyTabActive(tab.id, isAllowedURL(tab.url)));
 	chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => singlefile.ui.notifyTabActive(tab.id, isAllowedURL(tab.url)));
 	chrome.tabs.onRemoved.addListener(tabId => singlefile.ui.notifyTabRemoved(tabId));
