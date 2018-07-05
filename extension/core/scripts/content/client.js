@@ -48,13 +48,13 @@
 					chrome.runtime.sendMessage({ processEnd: true });
 				}
 			};
-			singlefile.ui.processStart();
+			singlefile.ui.start();
 			SingleFile.process(options)
 				.then(page => {
 					page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 					page.filename = page.title + ".html";
 					downloadPage(page);
-					singlefile.ui.processEnd();
+					singlefile.ui.end();
 				})
 				.catch(error => {
 					console.error(error);

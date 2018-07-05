@@ -25,7 +25,7 @@ singlefile.ui = (() => {
 	const MASK_ID = "__SingleFile_mask__";
 
 	return {
-		processStart() {
+		start() {
 			let maskElement = document.getElementById(MASK_ID);
 			if (!maskElement) {
 				maskElement = document.createElement("singlefile-mask");
@@ -45,7 +45,7 @@ singlefile.ui = (() => {
 				maskElement.style.opacity = .3;
 			}
 		},
-		processEnd() {
+		end() {
 			const maskElement = document.getElementById(MASK_ID);
 			if (maskElement) {
 				maskElement.remove();
