@@ -30,21 +30,21 @@
 			options.content = getDoctype(document) + document.documentElement.outerHTML;
 			options.jsEnabled = true;
 			options.onprogress = event => {
-				if (event.type == "resources-initialized") {
+				if (event.type == event.RESOURCES_INITIALIZED) {
 					chrome.runtime.sendMessage({
 						processStart: true,
 						index: event.details.index,
 						maxIndex: event.details.max
 					});
 				}
-				if (event.type == "resource-loaded") {
+				if (event.type == event.RESOURCE_LOADED) {
 					chrome.runtime.sendMessage({
 						processProgress: true,
 						index: event.details.index,
 						maxIndex: event.details.max
 					});
 				}
-				if (event.type == "page-ended") {
+				if (event.type == event.PAGE_ENDED) {
 					chrome.runtime.sendMessage({ processEnd: true });
 				}
 			};
