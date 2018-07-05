@@ -30,7 +30,7 @@
 
 		function sendResponse(response) {
 			if (request.method.startsWith("fetch.")) {
-				fetchResponses.delete(request.url);
+				fetchResponses.delete(request.requestId);
 			}
 			send(response);
 		}
