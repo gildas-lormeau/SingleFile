@@ -48,8 +48,10 @@
 
 	chrome.browserAction.onClicked.addListener(tab => {
 		if (isAllowedURL(tab.url)) {
-			singlefile.ui.init(tab.id);
-			chrome.tabs.sendMessage(tab.id, { processStart: true, options: singlefile.config.get() });
+			chrome.tabs.query({ currentWindow: true, highlighted: true }, tabs => tabs.forEach(tab => {
+				singlefile.ui.init(tab.id);
+				chrome.tabs.sendMessage(tab.id, { processStart: true, options: singlefile.config.get() });
+			}));
 		}
 	});
 
