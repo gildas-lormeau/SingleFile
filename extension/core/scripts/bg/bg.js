@@ -26,11 +26,7 @@
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_SAVE_SELECTED = "save-selected";
 
-	chrome.tabs.onActivated.addListener(activeInfo => chrome.tabs.get(activeInfo.tabId, tab => {
-		if (!chrome.runtime.lastError) {
-			singlefile.ui.active(tab.id, isAllowedURL(tab.url));
-		}
-	}));
+	chrome.tabs.onActivated.addListener(activeInfo => chrome.tabs.get(activeInfo.tabId, tab => singlefile.ui.active(tab.id, isAllowedURL(tab.url))));
 	chrome.tabs.onCreated.addListener(tab => singlefile.ui.active(tab.id, isAllowedURL(tab.url)));
 	chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => singlefile.ui.active(tab.id, isAllowedURL(tab.url)));
 	chrome.tabs.onRemoved.addListener(tabId => singlefile.ui.removed(tabId));
