@@ -62,7 +62,7 @@
 
 	function getCanvasData() {
 		const canvasData = [];
-		Array.prototype.forEach.call(document.querySelectorAll("canvas"), canvasElement => {
+		document.querySelectorAll("canvas").forEach(canvasElement => {
 			try {
 				canvasData.push({ dataURI: canvasElement.toDataURL("image/png", ""), width: canvasElement.clientWidth, height: canvasElement.clientHeight });
 			} catch (e) {
