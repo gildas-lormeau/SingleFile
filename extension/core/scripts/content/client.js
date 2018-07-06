@@ -22,12 +22,17 @@
 
 (() => {
 
+	const SELECTED_CONTENT_ATTRIBUTE_NAME = "data-single-file-selected-content";
+
 	chrome.runtime.onMessage.addListener(request => {
 		if (request.processStart) {
 			fixInlineScripts();
 			const options = request.options;
 			options.url = document.location.href;
-			options.content = options.selected ? getSelectedContent() : getDoctype(document) + document.documentElement.outerHTML;
+			if (options.selected) {
+				markSelectedContent();
+			}
+			options.content = getDoctype(document) + document.documentElement.outerHTML;
 			options.jsEnabled = true;
 			options.onprogress = event => {
 				if (event.type == event.RESOURCES_INITIALIZED) {
@@ -90,7 +95,7 @@
 		return "";
 	}
 
-	function getSelectedContent() {
+	function markSelectedContent() {
 		const selection = getSelection();
 		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
 		let node;
@@ -99,10 +104,8 @@
 			if (node.nodeType != node.ELEMENT_NODE) {
 				node = node.parentElement;
 			}
-			const clonedNode = node.cloneNode(true);
-			node.parentElement.replaceChild(clonedNode, node);
 		}
-		return node.outerHTML;
+		node.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
 	}
 
 	function fixInlineScripts() {
