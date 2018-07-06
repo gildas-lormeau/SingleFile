@@ -107,21 +107,17 @@ singlefile.ui = (() => {
 		}
 	}
 
-	function refreshBadgeProperty(tabId, property, fn) {
-		return new Promise(resolve => {
-			const tabData = tabs[tabId];
-			const value = tabData[property];
-			if (!badgeTabs[tabId]) {
-				badgeTabs[tabId] = {};
-			}
-			if (JSON.stringify(badgeTabs[tabId][property]) != JSON.stringify(value)) {
-				const parameter = { tabId };
-				badgeTabs[tabId][property] = parameter[property] = value;
-				chrome.browserAction[fn](parameter, resolve);
-			} else {
-				resolve();
-			}
-		});
+	async function refreshBadgeProperty(tabId, property, fn) {
+		const tabData = tabs[tabId];
+		const value = tabData[property];
+		if (!badgeTabs[tabId]) {
+			badgeTabs[tabId] = {};
+		}
+		if (JSON.stringify(badgeTabs[tabId][property]) != JSON.stringify(value)) {
+			const parameter = { tabId };
+			badgeTabs[tabId][property] = parameter[property] = value;
+			return new Promise(resolve => chrome.browserAction[fn](parameter, resolve));
+		}
 	}
 
 })();
