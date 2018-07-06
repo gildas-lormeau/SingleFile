@@ -22,7 +22,7 @@
 
 (() => {
 
-	const CHROME_STORE_URL = "https://chrome.google.com";
+	const STORE_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_SAVE_SELECTED = "save-selected";
 
@@ -80,7 +80,7 @@
 	}
 
 	function isAllowedURL(url) {
-		return (url.startsWith("http://") || url.startsWith("https://")) && !url.startsWith(CHROME_STORE_URL);
+		return (url.startsWith("http://") || url.startsWith("https://")) && !STORE_URLS.find(storeUrl => url.startsWith(storeUrl));
 	}
 
 })();
