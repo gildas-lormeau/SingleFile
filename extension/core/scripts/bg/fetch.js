@@ -27,6 +27,34 @@
 	let requestId = 1;
 
 	chrome.runtime.onMessage.addListener((request, sender, send) => {
+		if (request.method) {
+			if (request.method == "fetch") {
+				const responseId = requestId;
+				fetch(request.url, request.options)
+					.then(response => {
+						if (response.status >= 400) {
+							sendResponse({ error: response.statusText || response.status });
+						} else {
+							sendFetchResponse(responseId, response);
+						}
+					})
+					.catch(error => sendResponse({ error: error.toString() }));
+				requestId = requestId + 1;
+			}
+			if (request.method == "fetch.array") {
+				const content = fetchResponses.get(request.requestId);
+				content.arrayBuffer()
+					.then(buffer => sendResponse({ array: Array.from(new Uint8Array(buffer)) }))
+					.catch(error => sendResponse({ error: error.toString() }));
+			}
+			if (request.method == "fetch.text") {
+				const content = fetchResponses.get(request.requestId);
+				content.text()
+					.then(text => sendResponse({ text }))
+					.catch(error => sendResponse({ error: error.toString() }));
+			}
+			return true;
+		}
 
 		function sendResponse(response) {
 			if (request.method.startsWith("fetch.")) {
@@ -42,35 +70,6 @@
 				headers[headerName] = response.headers.get(headerName);
 			}
 			sendResponse({ responseId, headers });
-		}
-
-		if (request.method) {
-			if (request.method == "fetch") {
-				const responseId = requestId;
-				fetch(request.url, request.options)
-					.then(response => {
-						if (response.status >= 400) {
-							sendResponse({ error: response.statusText || response.status });
-						} else {
-							sendFetchResponse(responseId, response);
-						}
-					})
-					.catch(error => sendResponse({ error: error.toString() }));
-				requestId = requestId + 1;
-			}
-			if (request.method == "fetch.uint8array") {
-				const content = fetchResponses.get(request.requestId);
-				content.arrayBuffer()
-					.then(buffer => sendResponse({ uint8array: Array.from(new Uint8Array(buffer)) }))
-					.catch(error => sendResponse({ error: error.toString() }));
-			}
-			if (request.method == "fetch.text") {
-				const content = fetchResponses.get(request.requestId);
-				content.text()
-					.then(text => sendResponse({ text }))
-					.catch(error => sendResponse({ error: error.toString() }));
-			}
-			return true;
 		}
 	});
 

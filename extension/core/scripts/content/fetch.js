@@ -27,12 +27,12 @@ window.superFetch = (() => {
 		return {
 			headers: { get: headerName => responseFetch.headers[headerName] },
 			arrayBuffer: async () => {
-				const response = await chromeRuntimeSendMessage({ method: "fetch.uint8array", requestId: responseFetch.responseId });
-				return new Uint8Array(response.uint8array).buffer;
+				const response = await chromeRuntimeSendMessage({ method: "fetch.array", requestId: responseFetch.responseId });
+				return new Uint8Array(response.array).buffer;
 			},
 			blob: async () => {
-				const response = await chromeRuntimeSendMessage({ method: "fetch.uint8array", requestId: responseFetch.responseId });
-				return new Blob([new Uint8Array(response.uint8array)]);
+				const response = await chromeRuntimeSendMessage({ method: "fetch.array", requestId: responseFetch.responseId });
+				return new Blob([new Uint8Array(response.array)]);
 			},
 			text: async () => {
 				const response = await chromeRuntimeSendMessage({ method: "fetch.text", requestId: responseFetch.responseId });
