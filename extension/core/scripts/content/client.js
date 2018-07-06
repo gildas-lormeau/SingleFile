@@ -57,8 +57,9 @@
 			singlefile.ui.start();
 			SingleFile.process(options)
 				.then(page => {
+					const date = new Date();
+					page.filename = page.title + " - (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" + ".html";
 					page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
-					page.filename = page.title + ".html";
 					downloadPage(page);
 					singlefile.ui.end();
 				})
