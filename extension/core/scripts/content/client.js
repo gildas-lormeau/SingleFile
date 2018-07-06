@@ -27,38 +27,11 @@
 	chrome.runtime.onMessage.addListener(request => {
 		if (request.processStart) {
 			fixInlineScripts();
-			const options = request.options;
-			options.url = document.location.href;
-			if (options.selected) {
-				markSelectedContent();
-			}
-			options.content = getDoctype(document) + document.documentElement.outerHTML;
-			document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
-			options.jsEnabled = true;
-			options.onprogress = event => {
-				if (event.type == event.RESOURCES_INITIALIZED) {
-					chrome.runtime.sendMessage({
-						processStart: true,
-						index: event.details.index,
-						maxIndex: event.details.max
-					});
-				}
-				if (event.type == event.RESOURCE_LOADED) {
-					chrome.runtime.sendMessage({
-						processProgress: true,
-						index: event.details.index,
-						maxIndex: event.details.max
-					});
-				}
-				if (event.type == event.PAGE_ENDED) {
-					chrome.runtime.sendMessage({ processEnd: true });
-				}
-			};
 			singlefile.ui.init();
-			SingleFile.process(options)
+			SingleFile.process(getOptions(request.options))
 				.then(page => {
 					const date = new Date();
-					page.filename = page.title + " - (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" + ".html";
+					page.filename = page.title + " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" + ".html";
 					page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 					downloadPage(page);
 					singlefile.ui.end();
@@ -70,13 +43,33 @@
 		}
 	});
 
-	function downloadPage(page) {
-		const link = document.createElement("a");
-		document.body.appendChild(link);
-		link.download = page.filename;
-		link.href = page.url;
-		link.dispatchEvent(new MouseEvent("click"));
-		link.remove();
+	function fixInlineScripts() {
+		document.querySelectorAll("script").forEach(element => element.textContent = element.textContent.replace(/<\/script>/gi, "<\\/script>"));
+	}
+
+	function getOptions(options) {
+		options.url = document.location.href;
+		if (options.selected) {
+			markSelectedContent();
+		}
+		options.content = getDoctype(document) + document.documentElement.outerHTML;
+		document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
+		options.jsEnabled = true;
+		options.onprogress = onProgress;
+		return options;
+	}
+
+	function markSelectedContent() {
+		const selection = getSelection();
+		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
+		let node;
+		if (range && range.startOffset != range.endOffset) {
+			node = range.commonAncestorContainer;
+			if (node.nodeType != node.ELEMENT_NODE) {
+				node = node.parentElement;
+			}
+		}
+		node.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
 	}
 
 	function getDoctype(doc) {
@@ -97,21 +90,33 @@
 		return "";
 	}
 
-	function markSelectedContent() {
-		const selection = getSelection();
-		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
-		let node;
-		if (range && range.startOffset != range.endOffset) {
-			node = range.commonAncestorContainer;
-			if (node.nodeType != node.ELEMENT_NODE) {
-				node = node.parentElement;
-			}
+	function onProgress(event) {
+		if (event.type == event.RESOURCES_INITIALIZED) {
+			chrome.runtime.sendMessage({
+				processStart: true,
+				index: event.details.index,
+				maxIndex: event.details.max
+			});
 		}
-		node.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+		if (event.type == event.RESOURCE_LOADED) {
+			chrome.runtime.sendMessage({
+				processProgress: true,
+				index: event.details.index,
+				maxIndex: event.details.max
+			});
+		}
+		if (event.type == event.PAGE_ENDED) {
+			chrome.runtime.sendMessage({ processEnd: true });
+		}
 	}
 
-	function fixInlineScripts() {
-		document.querySelectorAll("script").forEach(element => element.textContent = element.textContent.replace(/<\/script>/gi, "<\\/script>"));
+	function downloadPage(page) {
+		const link = document.createElement("a");
+		document.body.appendChild(link);
+		link.download = page.filename;
+		link.href = page.url;
+		link.dispatchEvent(new MouseEvent("click"));
+		link.remove();
 	}
 
 })();
