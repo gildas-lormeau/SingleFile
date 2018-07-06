@@ -1,6 +1,12 @@
 SingleFile is an extension for Chrome and FireFox that helps you to archive a complete page into a single HTML file.
 
 
+Available on:
+
+ - Firefox: [https://addons.mozilla.org/en-US/firefox/addon/single-file](https://addons.mozilla.org/en-US/firefox/addon/single-file)
+
+ - Chrome: [https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle](https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle)
+
 SingleFile is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
