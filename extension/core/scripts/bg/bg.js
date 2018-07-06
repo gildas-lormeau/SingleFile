@@ -23,6 +23,8 @@
 (() => {
 
 	const CHROME_STORE_URL = "https://chrome.google.com";
+	const MENU_ID_SAVE_PAGE = "save-page";
+	const MENU_ID_SAVE_SELECTED = "save-selected";
 
 	chrome.tabs.onActivated.addListener(activeInfo => chrome.tabs.get(activeInfo.tabId, tab => {
 		if (!chrome.runtime.lastError) {
@@ -48,12 +50,38 @@
 
 	chrome.browserAction.onClicked.addListener(tab => {
 		if (isAllowedURL(tab.url)) {
-			chrome.tabs.query({ currentWindow: true, highlighted: true }, tabs => tabs.forEach(tab => {
-				singlefile.ui.init(tab.id);
-				chrome.tabs.sendMessage(tab.id, { processStart: true, options: singlefile.config.get() });
-			}));
+			chrome.tabs.query({ currentWindow: true, highlighted: true }, tabs => tabs.forEach(processTab));
 		}
 	});
+
+	chrome.runtime.onInstalled.addListener(function () {
+		chrome.contextMenus.create({
+			id: MENU_ID_SAVE_PAGE,
+			contexts: ["page"],
+			title: "Save page with SingleFile"
+		});
+		chrome.contextMenus.create({
+			id: MENU_ID_SAVE_SELECTED,
+			contexts: ["selection"],
+			title: "Save selection with SingleFile"
+		});
+	});
+
+	chrome.contextMenus.onClicked.addListener((event, tab) => {
+		if (event.menuItemId == MENU_ID_SAVE_PAGE) {
+			processTab(tab);
+		}
+		if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
+			processTab(tab, { selected: true });
+		}
+	});
+
+	function processTab(tab, processOptions = {}) {
+		const options = singlefile.config.get();
+		Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
+		singlefile.ui.init(tab.id);
+		chrome.tabs.sendMessage(tab.id, { processStart: true, options });
+	}
 
 	function isAllowedURL(url) {
 		return (url.startsWith("http://") || url.startsWith("https://")) && !url.startsWith(CHROME_STORE_URL);

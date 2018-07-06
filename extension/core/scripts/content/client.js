@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global chrome, SingleFile, singlefile, document, Blob, MouseEvent */
+/* global chrome, SingleFile, singlefile, document, Blob, MouseEvent, getSelection */
 
 (() => {
 
@@ -27,7 +27,7 @@
 			fixInlineScripts();
 			const options = request.options;
 			options.url = document.location.href;
-			options.content = getDoctype(document) + document.documentElement.outerHTML;
+			options.content = options.selected ? getSelectedContent() : getDoctype(document) + document.documentElement.outerHTML;
 			options.jsEnabled = true;
 			options.onprogress = event => {
 				if (event.type == event.RESOURCES_INITIALIZED) {
@@ -88,6 +88,21 @@
 			return docTypeString + ">\n";
 		}
 		return "";
+	}
+
+	function getSelectedContent() {
+		const selection = getSelection();
+		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
+		let node;
+		if (range && range.startOffset != range.endOffset) {
+			node = range.commonAncestorContainer;
+			if (node.nodeType != node.ELEMENT_NODE) {
+				node = node.parentElement;
+			}
+			const clonedNode = node.cloneNode(true);
+			node.parentElement.replaceChild(clonedNode, node);
+		}
+		return node.outerHTML;
 	}
 
 	function fixInlineScripts() {
