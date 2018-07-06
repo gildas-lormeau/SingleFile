@@ -64,7 +64,7 @@
 					singlefile.ui.end();
 				})
 				.catch(error => {
-					console.error(error);
+					console.error(error); // eslint-disable-line no-console
 					chrome.runtime.sendMessage({ processError: true });
 				});
 		}
