@@ -26,7 +26,7 @@ singlefile.ui = (() => {
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_19_wait";
 	const DEFAULT_TITLE = "Process this page with SingleFile";
 	const DEFAULT_COLOR = [2, 147, 20, 255];
-	const BADGE_PROPERTIES = [{ name: "text", fn: "setBadgeText" }, { name: "color", fn: "setBadgeBackgroundColor" }, { name: "title", fn: "setTitle" }, { name: "path", fn: "setIcon" }];
+	const BADGE_PROPERTIES = [{ name: "text", browserActionMethod: "setBadgeText" }, { name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "title", browserActionMethod: "setTitle" }, { name: "path", browserActionMethod: "setIcon" }];
 
 	const tabs = {};
 	const badgeTabs = {};
@@ -103,11 +103,11 @@ singlefile.ui = (() => {
 
 	async function refreshBadgeAsync(tabId) {
 		for (let property of BADGE_PROPERTIES) {
-			await refreshBadgeProperty(tabId, property.name, property.fn);
+			await refreshBadgeProperty(tabId, property.name, property.browserActionMethod);
 		}
 	}
 
-	async function refreshBadgeProperty(tabId, property, fn) {
+	async function refreshBadgeProperty(tabId, property, browserActionMethod) {
 		const tabData = tabs[tabId];
 		const value = tabData[property];
 		if (!badgeTabs[tabId]) {
@@ -116,7 +116,7 @@ singlefile.ui = (() => {
 		if (JSON.stringify(badgeTabs[tabId][property]) != JSON.stringify(value)) {
 			const parameter = { tabId };
 			badgeTabs[tabId][property] = parameter[property] = value;
-			return new Promise(resolve => chrome.browserAction[fn](parameter, resolve));
+			return new Promise(resolve => chrome.browserAction[browserActionMethod](parameter, resolve));
 		}
 	}
 
