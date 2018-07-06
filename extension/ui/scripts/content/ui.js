@@ -22,14 +22,13 @@
 
 singlefile.ui = (() => {
 
-	const MASK_ID = "__SingleFile_mask__";
+	const MASK_TAGNAME = "singlefile-mask";
 
 	return {
 		init() {
-			let maskElement = document.getElementById(MASK_ID);
+			let maskElement = document.querySelector(MASK_TAGNAME);
 			if (!maskElement) {
-				maskElement = document.createElement("singlefile-mask");
-				maskElement.id = "__SingleFile_mask__";
+				maskElement = document.createElement(MASK_TAGNAME);
 				maskElement.style.all = "unset";
 				maskElement.style.position = "fixed";
 				maskElement.style.top = "0px";
@@ -46,7 +45,7 @@ singlefile.ui = (() => {
 			}
 		},
 		end() {
-			const maskElement = document.getElementById(MASK_ID);
+			const maskElement = document.querySelector(MASK_TAGNAME);
 			if (maskElement) {
 				maskElement.remove();
 			}
