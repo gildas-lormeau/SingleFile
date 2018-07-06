@@ -53,10 +53,23 @@
 			markSelectedContent();
 		}
 		options.content = getDoctype(document) + document.documentElement.outerHTML;
+		options.canvasData = getCanvasData();
 		document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
 		options.jsEnabled = true;
 		options.onprogress = onProgress;
 		return options;
+	}
+
+	function getCanvasData() {
+		const canvasData = [];
+		Array.prototype.forEach.call(document.querySelectorAll("canvas"), canvasElement => {
+			try {
+				canvasData.push({ dataURI: canvasElement.toDataURL("image/png", ""), width: canvasElement.clientWidth, height: canvasElement.clientHeight });
+			} catch (e) {
+				canvasData.push(null);
+			}
+		});
+		return canvasData;
 	}
 
 	function markSelectedContent() {
