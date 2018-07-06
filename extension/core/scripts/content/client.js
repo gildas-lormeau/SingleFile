@@ -33,6 +33,7 @@
 				markSelectedContent();
 			}
 			options.content = getDoctype(document) + document.documentElement.outerHTML;
+			document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
 			options.jsEnabled = true;
 			options.onprogress = event => {
 				if (event.type == event.RESOURCES_INITIALIZED) {
