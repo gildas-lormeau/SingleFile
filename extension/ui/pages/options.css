@@ -1,106 +1,68 @@
 body {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 body>div {
-	margin-left: auto;
-	margin-right: auto;	
-	padding: 10px;
-	font-family: sans-serif;
-	text-align: justify;
-}
-
-#icon {
-	width: 1em;
-	padding-right: .3em;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    font-family: sans-serif;
+    text-align: justify;
 }
 
 button {
-	background: white;
-	border-color: rgb(191, 191, 191);
-	border-style: solid;
-	height: 25px;
-	border-radius: 2px;
+    background: white;
+    border-color: rgb(191, 191, 191);
+    border-style: solid;
+    height: 25px;
+    border-radius: 2px;
 }
 
 button:active {
-	border-color: rgb(237, 237, 237);
+    border-color: rgb(237, 237, 237);
 }
 
 #popupContent {
-	height: auto;
-	padding-right: 5px;
+    height: auto;
+    padding-right: 5px;
 }
 
 #popupContent .option {
-	margin-left: 5px;
-	margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
 }
 
 #popupContent .bottom {
-	padding-top: 20px;
-}
-
-input[type="checkbox"],button,input[type="text"],input[type="number"] {
-	float: right;
-	margin: 1px 0px;
+    padding-top: 20px;
 }
 
 input[type="checkbox"] {
-	margin-top: 4px;
-}
-
-input[type="number"] {
-	width: 40px;
-	text-align: right;
-	padding-right: 2px;
+    margin-left: 30px;
+    position: relative;
+    top: -2px;
 }
 
 button {
-	padding-left: 20px;
-	padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 h2 {
-	margin-bottom: 14px;
-	margin-top: 14px;
+    margin-bottom: 14px;
+    margin-top: 14px;
 }
 
 h3 {
-	margin-bottom: 10px;
-	margin-top: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 a {
-	display: inline-block;
-	padding-top: 5px;
+    display: inline-block;
+    padding-top: 5px;
 }
 
 #reloadButton {
-	background: lightGrey;
-	bottom: 0px;
-	margin: 5px;
-	position: absolute;
-	right: 0px;
-}
-
-.help {
-	font-size: 9pt;
-	color: LightSlateGrey;
-	display: none;	
-}
-
-.help p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.question-mark {
-	padding-left: 4px;
-	cursor: pointer;
-	opacity: .5;
-}
-
-.question-mark:hover {
-	opacity: .8;
+    background: lightGrey;
+    margin-left: 5px;
 }
