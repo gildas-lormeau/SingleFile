@@ -114,9 +114,9 @@ singlefile.ui = (() => {
 			badgeTabs[tabId] = {};
 		}
 		if (JSON.stringify(badgeTabs[tabId][property]) != JSON.stringify(value)) {
-			const parameter = { tabId };
-			badgeTabs[tabId][property] = parameter[property] = value;
-			return new Promise(resolve => chrome.browserAction[browserActionMethod](parameter, resolve));
+			const browserActionParameter = { tabId };
+			badgeTabs[tabId][property] = browserActionParameter[property] = value;
+			return new Promise(resolve => chrome.browserAction[browserActionMethod](browserActionParameter, resolve));
 		}
 	}
 
