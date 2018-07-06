@@ -25,7 +25,7 @@ singlefile.ui = (() => {
 	const MASK_ID = "__SingleFile_mask__";
 
 	return {
-		start() {
+		init() {
 			let maskElement = document.getElementById(MASK_ID);
 			if (!maskElement) {
 				maskElement = document.createElement("singlefile-mask");

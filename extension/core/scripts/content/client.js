@@ -54,7 +54,7 @@
 					chrome.runtime.sendMessage({ processEnd: true });
 				}
 			};
-			singlefile.ui.start();
+			singlefile.ui.init();
 			SingleFile.process(options)
 				.then(page => {
 					const date = new Date();
