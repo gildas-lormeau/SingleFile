@@ -27,7 +27,6 @@
 	chrome.runtime.onMessage.addListener(request => {
 		if (request.processStart) {
 			fixInlineScripts();
-			singlefile.ui.init();
 			SingleFile.process(getOptions(request.options))
 				.then(page => {
 					const date = new Date();
@@ -40,6 +39,7 @@
 					console.error(error); // eslint-disable-line no-console
 					chrome.runtime.sendMessage({ processError: true });
 				});
+			singlefile.ui.init();
 		}
 	});
 
