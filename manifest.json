@@ -11,7 +11,7 @@
         "scripts": [
             "lib/frame-tree/bg/frame-tree.js",
             "lib/fetch/bg/fetch.js",
-            "extension/core/scripts/bg/index.js",
+            "extension/index.js",
             "extension/core/scripts/bg/config.js",
             "extension/core/scripts/bg/bg.js",
             "extension/ui/scripts/bg/ui.js"
@@ -32,7 +32,7 @@
                 "<all_urls>"
             ],
             "js": [
-                "extension/ui/scripts/content/index.js",
+                "extension/index.js",
                 "extension/ui/scripts/content/ui.js",
                 "lib/single-file/base64.js",
                 "lib/single-file/parse-srcset.js",
