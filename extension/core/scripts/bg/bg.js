@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global singlefile, chrome */
+/* global singlefile, chrome, FrameTree */
 
 (() => {
 
@@ -75,7 +75,17 @@
 	function processTab(tab, processOptions = {}) {
 		const options = singlefile.config.get();
 		Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
+		options.insertSingleFileComment = true;
 		singlefile.ui.init(tab.id);
+		if (options.removeFrames) {
+			processStart(tab, options);
+		} else {
+			FrameTree.initialize(tab.id)
+				.then(() => processStart(tab, options));
+		}
+	}
+
+	function processStart(tab, options) {
 		chrome.tabs.sendMessage(tab.id, { processStart: true, options });
 	}
 

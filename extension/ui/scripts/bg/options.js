@@ -25,6 +25,7 @@
 	const bgPage = chrome.extension.getBackgroundPage();
 	const removeHiddenInput = document.getElementById("removeHiddenInput");
 	const removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
+	const removeFramesInput = document.getElementById("removeFramesInput");
 	document.getElementById("resetButton").addEventListener("click", () => {
 		bgPage.singlefile.config.reset();
 		refresh();
@@ -44,12 +45,14 @@
 		const config = bgPage.singlefile.config.get();
 		removeHiddenInput.checked = config.removeHidden;
 		removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
+		removeFramesInput.checked = config.removeFrames;
 	}
 
 	function update() {
 		bgPage.singlefile.config.set({
 			removeHidden: removeHiddenInput.checked,
-			removeUnusedCSSRules: removeUnusedCSSRulesInput.checked
+			removeUnusedCSSRules: removeUnusedCSSRulesInput.checked,
+			removeFrames: removeFramesInput.checked
 		});
 	}
 

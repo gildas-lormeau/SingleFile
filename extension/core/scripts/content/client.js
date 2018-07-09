@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global chrome, SingleFile, singlefile, document, Blob, MouseEvent, getSelection */
+/* global chrome, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection */
 
 (() => {
 
@@ -27,7 +27,12 @@
 	chrome.runtime.onMessage.addListener(request => {
 		if (request.processStart) {
 			fixInlineScripts();
-			SingleFile.process(getOptions(request.options))
+			getOptions(request.options)
+				.then(options => SingleFile.initialize(options))
+				.then(process => {
+					singlefile.ui.init();
+					return process();
+				})
 				.then(page => {
 					const date = new Date();
 					page.filename = page.title + " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" + ".html";
@@ -39,7 +44,6 @@
 					chrome.runtime.sendMessage({ processError: true });
 					throw error;
 				});
-			singlefile.ui.init();
 		}
 	});
 
@@ -47,13 +51,16 @@
 		document.querySelectorAll("script").forEach(element => element.textContent = element.textContent.replace(/<\/script>/gi, "<\\/script>"));
 	}
 
-	function getOptions(options) {
+	async function getOptions(options) {
 		options.url = document.location.href;
 		if (options.selected) {
 			markSelectedContent();
 		}
 		options.content = getDoctype(document) + document.documentElement.outerHTML;
 		options.canvasData = getCanvasData();
+		if (!options.removeFrames) {
+			options.framesData = await FrameTree.getFramesData();
+		}
 		document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
 		options.jsEnabled = true;
 		options.onprogress = onProgress;

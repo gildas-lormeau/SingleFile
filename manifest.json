@@ -9,6 +9,7 @@
     "description": "Archive a complete page into a single HTML file",
     "background": {
         "scripts": [
+            "lib/frame-tree/bg/frame-tree.js",
             "extension/core/scripts/bg/index.js",
             "extension/core/scripts/bg/fetch.js",
             "extension/core/scripts/bg/config.js",
@@ -28,13 +29,13 @@
     "content_scripts": [
         {
             "matches": [
-                "http://*/*",
-                "https://*/*"
+                "<all_urls>"
             ],
             "js": [
                 "extension/ui/scripts/content/index.js",
                 "extension/ui/scripts/content/ui.js",
                 "lib/single-file/base64.js",
+                "lib/single-file/parse-srcset.js",
                 "lib/single-file/single-file-core.js",
                 "lib/single-file/single-file-browser.js",
                 "extension/core/scripts/content/fetch.js",
@@ -42,6 +43,16 @@
             ],
             "run_at": "document_start",
             "all_frames": false
+        },
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "lib/frame-tree/content/frame-tree.js"
+            ],
+            "run_at": "document_start",
+            "all_frames": true
         }
     ],
     "permissions": [
