@@ -10,8 +10,8 @@
     "background": {
         "scripts": [
             "lib/frame-tree/bg/frame-tree.js",
+            "lib/fetch/bg/fetch.js",
             "extension/core/scripts/bg/index.js",
-            "extension/core/scripts/bg/fetch.js",
             "extension/core/scripts/bg/config.js",
             "extension/core/scripts/bg/bg.js",
             "extension/ui/scripts/bg/ui.js"
@@ -38,7 +38,7 @@
                 "lib/single-file/parse-srcset.js",
                 "lib/single-file/single-file-core.js",
                 "lib/single-file/single-file-browser.js",
-                "extension/core/scripts/content/fetch.js",
+                "lib/fetch/content/fetch.js",
                 "extension/core/scripts/content/client.js"
             ],
             "run_at": "document_start",
