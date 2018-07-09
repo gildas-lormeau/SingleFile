@@ -90,7 +90,7 @@
 	}
 
 	function isAllowedURL(url) {
-		return (url.startsWith("http://") || url.startsWith("https://")) && !STORE_URLS.find(storeUrl => url.startsWith(storeUrl));
+		return (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !STORE_URLS.find(storeUrl => url.startsWith(storeUrl));
 	}
 
 })();
