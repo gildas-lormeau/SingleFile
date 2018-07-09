@@ -24,8 +24,11 @@
 
 	const SELECTED_CONTENT_ATTRIBUTE_NAME = "data-single-file-selected-content";
 
+	let processing = false;
+
 	chrome.runtime.onMessage.addListener(request => {
-		if (request.processStart) {
+		if (request.processStart && !processing) {
+			processing = true;
 			fixInlineScripts();
 			getOptions(request.options)
 				.then(options => SingleFile.initialize(options))
@@ -39,9 +42,11 @@
 					page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 					downloadPage(page);
 					singlefile.ui.end();
+					processing = false;
 				})
 				.catch(error => {
 					chrome.runtime.sendMessage({ processError: true });
+					processing = false;
 					throw error;
 				});
 		}
