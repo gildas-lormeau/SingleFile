@@ -39,7 +39,7 @@
                 "lib/single-file/single-file-core.js",
                 "lib/single-file/single-file-browser.js",
                 "lib/fetch/content/fetch.js",
-                "extension/core/scripts/content/client.js"
+                "extension/core/scripts/content/content.js"
             ],
             "run_at": "document_start",
             "all_frames": false
