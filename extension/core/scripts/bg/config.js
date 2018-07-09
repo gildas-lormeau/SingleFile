@@ -30,7 +30,7 @@ singlefile.config = (() => {
 			return localStorage.config ? JSON.parse(localStorage.config) : {
 				removeHidden: false,
 				removeUnusedCSSRules: false,
-				removeFrames: false
+				removeFrames: true
 			};
 		},
 		reset() {
