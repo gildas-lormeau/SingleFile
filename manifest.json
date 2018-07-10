@@ -1,5 +1,6 @@
 {
     "name": "SingleFile",
+    "author": "Gildas Lormeau",
     "icons": {
         "16": "extension/ui/resources/icon_16.png",
         "48": "extension/ui/resources/icon_48.png",
