@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global singlefile */
+/* global singlefile, navigator */
 
 singlefile.ui = (() => {
 
@@ -29,6 +29,7 @@ singlefile.ui = (() => {
 	const DEFAULT_TITLE = "Process this page with SingleFile";
 	const DEFAULT_COLOR = [2, 147, 20, 255];
 	const BADGE_PROPERTIES = [{ name: "text", browserActionMethod: "setBadgeText" }, { name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "title", browserActionMethod: "setTitle" }, { name: "path", browserActionMethod: "setIcon" }];
+	const RUNNING_IN_EDGE = navigator.userAgent.includes("Edge");
 
 	const tabs = {};
 	const badgeTabs = {};
@@ -118,7 +119,14 @@ singlefile.ui = (() => {
 		if (JSON.stringify(badgeTabs[tabId][property]) != JSON.stringify(value)) {
 			const browserActionParameter = { tabId };
 			badgeTabs[tabId][property] = browserActionParameter[property] = value;
-			return new Promise(resolve => browser.browserAction[browserActionMethod](browserActionParameter, resolve));
+			return new Promise(resolve => {
+				if (RUNNING_IN_EDGE) {
+					browser.browserAction[browserActionMethod](browserActionParameter);
+					resolve();
+				} else {
+					browser.browserAction[browserActionMethod](browserActionParameter, resolve);
+				}
+			});
 		}
 	}
 
