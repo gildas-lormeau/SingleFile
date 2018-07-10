@@ -78,6 +78,7 @@
 		const options = singlefile.config.get();
 		Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
 		options.insertSingleFileComment = true;
+		options.insertFaviconLink = true;
 		singlefile.ui.init(tab.id);
 		if (options.removeFrames) {
 			processStart(tab, options);

@@ -28,6 +28,8 @@
 		const removeHiddenInput = document.getElementById("removeHiddenInput");
 		const removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
 		const removeFramesInput = document.getElementById("removeFramesInput");
+		const removeScriptsInput = document.getElementById("removeScriptsInput");
+		const saveRawPageInput = document.getElementById("saveRawPageInput");
 		document.getElementById("resetButton").addEventListener("click", () => {
 			bgPage.singlefile.config.reset();
 			refresh();
@@ -48,13 +50,17 @@
 			removeHiddenInput.checked = config.removeHidden;
 			removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
 			removeFramesInput.checked = config.removeFrames;
+			removeScriptsInput.checked = config.removeScripts;
+			saveRawPageInput.checked = config.saveRawPage;
 		}
 
 		function update() {
 			bgPage.singlefile.config.set({
 				removeHidden: removeHiddenInput.checked,
 				removeUnusedCSSRules: removeUnusedCSSRulesInput.checked,
-				removeFrames: removeFramesInput.checked
+				removeFrames: removeFramesInput.checked,
+				removeScripts: removeScriptsInput.checked,
+				saveRawPage: saveRawPageInput.checked
 			});
 		}
 	});

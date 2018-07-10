@@ -22,6 +22,14 @@
 
 singlefile.config = (() => {
 
+	if (localStorage.config) {
+		const config = JSON.parse(localStorage.config);
+		if (config.removeScripts === undefined) {
+			config.removeScripts = true;
+			localStorage.config = JSON.stringify(config);
+		}
+	}
+
 	return {
 		set(config) {
 			localStorage.config = JSON.stringify(config);
@@ -30,7 +38,9 @@ singlefile.config = (() => {
 			return localStorage.config ? JSON.parse(localStorage.config) : {
 				removeHidden: false,
 				removeUnusedCSSRules: false,
-				removeFrames: true
+				removeFrames: true,
+				removeScripts: true,
+				rawDocument: false
 			};
 		},
 		reset() {
