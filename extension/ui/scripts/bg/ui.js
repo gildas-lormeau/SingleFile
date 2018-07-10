@@ -18,9 +18,11 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global singlefile, chrome */
+/* global singlefile */
 
 singlefile.ui = (() => {
+
+	const browser = this.browser || this.chrome;
 
 	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_19.png";
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_19_wait";
@@ -86,9 +88,9 @@ singlefile.ui = (() => {
 		},
 		active(tabId, isActive) {
 			if (isActive) {
-				chrome.browserAction.enable(tabId);
+				browser.browserAction.enable(tabId);
 			} else {
-				chrome.browserAction.disable(tabId);
+				browser.browserAction.disable(tabId);
 			}
 		}
 	};
@@ -116,7 +118,7 @@ singlefile.ui = (() => {
 		if (JSON.stringify(badgeTabs[tabId][property]) != JSON.stringify(value)) {
 			const browserActionParameter = { tabId };
 			badgeTabs[tabId][property] = browserActionParameter[property] = value;
-			return new Promise(resolve => chrome.browserAction[browserActionMethod](browserActionParameter, resolve));
+			return new Promise(resolve => browser.browserAction[browserActionMethod](browserActionParameter, resolve));
 		}
 	}
 

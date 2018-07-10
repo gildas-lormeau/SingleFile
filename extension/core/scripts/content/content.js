@@ -18,15 +18,17 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global chrome, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection */
+/* global SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection */
 
 (() => {
+
+	const browser = this.browser || this.chrome;
 
 	const SELECTED_CONTENT_ATTRIBUTE_NAME = "data-single-file-selected-content";
 
 	let processing = false;
 
-	chrome.runtime.onMessage.addListener(request => {
+	browser.runtime.onMessage.addListener(request => {
 		if (request.processStart && !processing) {
 			processing = true;
 			fixInlineScripts();
@@ -45,7 +47,7 @@
 					processing = false;
 				})
 				.catch(error => {
-					chrome.runtime.sendMessage({ processError: true });
+					browser.runtime.sendMessage({ processError: true });
 					processing = false;
 					throw error;
 				});
@@ -117,21 +119,21 @@
 
 	function onProgress(event) {
 		if (event.type == event.RESOURCES_INITIALIZED) {
-			chrome.runtime.sendMessage({
+			browser.runtime.sendMessage({
 				processStart: true,
 				index: event.details.index,
 				maxIndex: event.details.max
 			});
 		}
 		if (event.type == event.RESOURCE_LOADED) {
-			chrome.runtime.sendMessage({
+			browser.runtime.sendMessage({
 				processProgress: true,
 				index: event.details.index,
 				maxIndex: event.details.max
 			});
 		}
 		if (event.type == event.PAGE_ENDED) {
-			chrome.runtime.sendMessage({ processEnd: true });
+			browser.runtime.sendMessage({ processEnd: true });
 		}
 	}
 

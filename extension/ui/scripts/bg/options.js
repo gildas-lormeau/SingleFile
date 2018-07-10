@@ -18,11 +18,13 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global chrome, document, addEventListener */
+/* global document, addEventListener */
 
 (() => {
 
-	const bgPage = chrome.extension.getBackgroundPage();
+	const browser = this.browser || this.chrome;
+
+	const bgPage = browser.extension.getBackgroundPage();
 	const removeHiddenInput = document.getElementById("removeHiddenInput");
 	const removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
 	const removeFramesInput = document.getElementById("removeFramesInput");

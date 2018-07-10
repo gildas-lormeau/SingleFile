@@ -18,20 +18,22 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global singlefile, chrome, FrameTree */
+/* global singlefile, FrameTree */
 
 (() => {
+
+	const browser = this.browser || this.chrome;
 
 	const STORE_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_SAVE_SELECTED = "save-selected";
 
-	chrome.tabs.onActivated.addListener(activeInfo => chrome.tabs.get(activeInfo.tabId, tab => singlefile.ui.active(tab.id, isAllowedURL(tab.url))));
-	chrome.tabs.onCreated.addListener(tab => singlefile.ui.active(tab.id, isAllowedURL(tab.url)));
-	chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => singlefile.ui.active(tab.id, isAllowedURL(tab.url)));
-	chrome.tabs.onRemoved.addListener(tabId => singlefile.ui.removed(tabId));
+	browser.tabs.onActivated.addListener(activeInfo => browser.tabs.get(activeInfo.tabId, tab => singlefile.ui.active(tab.id, isAllowedURL(tab.url))));
+	browser.tabs.onCreated.addListener(tab => singlefile.ui.active(tab.id, isAllowedURL(tab.url)));
+	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => singlefile.ui.active(tab.id, isAllowedURL(tab.url)));
+	browser.tabs.onRemoved.addListener(tabId => singlefile.ui.removed(tabId));
 
-	chrome.runtime.onMessage.addListener((request, sender) => {
+	browser.runtime.onMessage.addListener((request, sender) => {
 		if (request.processStart || request.processProgress) {
 			singlefile.ui.progress(sender.tab.id, request.index, request.maxIndex);
 		}
@@ -44,26 +46,26 @@
 		return false;
 	});
 
-	chrome.browserAction.onClicked.addListener(tab => {
+	browser.browserAction.onClicked.addListener(tab => {
 		if (isAllowedURL(tab.url)) {
-			chrome.tabs.query({ currentWindow: true, highlighted: true }, tabs => tabs.forEach(processTab));
+			browser.tabs.query({ currentWindow: true, highlighted: true }, tabs => tabs.forEach(processTab));
 		}
 	});
 
-	chrome.runtime.onInstalled.addListener(function () {
-		chrome.contextMenus.create({
+	browser.runtime.onInstalled.addListener(function () {
+		browser.contextMenus.create({
 			id: MENU_ID_SAVE_PAGE,
 			contexts: ["page"],
 			title: "Save page with SingleFile"
 		});
-		chrome.contextMenus.create({
+		browser.contextMenus.create({
 			id: MENU_ID_SAVE_SELECTED,
 			contexts: ["selection"],
 			title: "Save selection with SingleFile"
 		});
 	});
 
-	chrome.contextMenus.onClicked.addListener((event, tab) => {
+	browser.contextMenus.onClicked.addListener((event, tab) => {
 		if (event.menuItemId == MENU_ID_SAVE_PAGE) {
 			processTab(tab);
 		}
@@ -86,7 +88,7 @@
 	}
 
 	function processStart(tab, options) {
-		chrome.tabs.sendMessage(tab.id, { processStart: true, options });
+		browser.tabs.sendMessage(tab.id, { processStart: true, options });
 	}
 
 	function isAllowedURL(url) {
