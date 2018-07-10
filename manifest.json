@@ -19,6 +19,7 @@
         ],
         "persistent": false
     },
+    "options_page": "extension/ui/pages/options.html",
     "options_ui": {
         "page": "extension/ui/pages/options.html",
         "open_in_tab": false
