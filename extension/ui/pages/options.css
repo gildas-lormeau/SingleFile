@@ -8,6 +8,7 @@ body>div {
     padding: 10px;
     font-family: sans-serif;
     text-align: justify;
+    max-width: 600px;
 }
 
 button {
