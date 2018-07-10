@@ -24,38 +24,39 @@
 
 	const browser = this.browser || this.chrome;
 
-	const bgPage = browser.extension.getBackgroundPage();
-	const removeHiddenInput = document.getElementById("removeHiddenInput");
-	const removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
-	const removeFramesInput = document.getElementById("removeFramesInput");
-	document.getElementById("resetButton").addEventListener("click", () => {
-		bgPage.singlefile.config.reset();
+	browser.runtime.getBackgroundPage(bgPage => {
+		const removeHiddenInput = document.getElementById("removeHiddenInput");
+		const removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
+		const removeFramesInput = document.getElementById("removeFramesInput");
+		document.getElementById("resetButton").addEventListener("click", () => {
+			bgPage.singlefile.config.reset();
+			refresh();
+			update();
+		}, false);
+		addEventListener("click", event => {
+			if (event.target.className == "question-mark") {
+				const tooltip = event.target.parentElement.parentElement.children[2];
+				tooltip.style.display = tooltip.style.display == "block" ? "none" : "block";
+				event.preventDefault();
+			}
+		}, false);
+		document.getElementById("popupContent").onchange = update;
 		refresh();
-		update();
-	}, false);
-	addEventListener("click", event => {
-		if (event.target.className == "question-mark") {
-			const tooltip = event.target.parentElement.parentElement.children[2];
-			tooltip.style.display = tooltip.style.display == "block" ? "none" : "block";
-			event.preventDefault();
+
+		function refresh() {
+			const config = bgPage.singlefile.config.get();
+			removeHiddenInput.checked = config.removeHidden;
+			removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
+			removeFramesInput.checked = config.removeFrames;
 		}
-	}, false);
-	document.getElementById("popupContent").onchange = update;
-	refresh();
 
-	function refresh() {
-		const config = bgPage.singlefile.config.get();
-		removeHiddenInput.checked = config.removeHidden;
-		removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
-		removeFramesInput.checked = config.removeFrames;
-	}
-
-	function update() {
-		bgPage.singlefile.config.set({
-			removeHidden: removeHiddenInput.checked,
-			removeUnusedCSSRules: removeUnusedCSSRulesInput.checked,
-			removeFrames: removeFramesInput.checked
-		});
-	}
+		function update() {
+			bgPage.singlefile.config.set({
+				removeHidden: removeHiddenInput.checked,
+				removeUnusedCSSRules: removeUnusedCSSRulesInput.checked,
+				removeFrames: removeFramesInput.checked
+			});
+		}
+	});
 
 })();
