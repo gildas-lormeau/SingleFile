@@ -23,6 +23,7 @@
 singlefile.core = (() => {
 
 	const browser = this.browser || this.chrome;
+	const TIMEOUT_PROCESS_START_MESSAGE = 3000;
 
 	return {
 		processTab(tab, processOptions = {}) {
@@ -30,17 +31,24 @@ singlefile.core = (() => {
 			Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
 			options.insertSingleFileComment = true;
 			options.insertFaviconLink = true;
-			if (options.removeFrames) {
-				processStart(tab, options);
-			} else {
-				FrameTree.initialize(tab.id)
-					.then(() => processStart(tab, options));
-			}
+			return new Promise((resolve, reject) => {
+				const errorTimeout = setTimeout(reject, TIMEOUT_PROCESS_START_MESSAGE);
+				const onMessageSent = () => {
+					clearTimeout(errorTimeout);
+					resolve();
+				};
+				if (options.removeFrames) {
+					processStart(tab, options).then(onMessageSent);
+				} else {
+					FrameTree.initialize(tab.id)
+						.then(() => processStart(tab, options)).then(onMessageSent);
+				}
+			});
 		}
 	};
 
 	function processStart(tab, options) {
-		browser.tabs.sendMessage(tab.id, { processStart: true, options });
+		return new Promise(resolve => browser.tabs.sendMessage(tab.id, { processStart: true, options }, resolve));
 	}
 
 })();

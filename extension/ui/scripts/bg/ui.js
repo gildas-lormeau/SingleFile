@@ -97,17 +97,31 @@ singlefile.ui = (() => {
 
 	function processTab(tab) {
 		const tabId = tab.id;
-		singlefile.core.processTab(tab);
-		tabs[tabId] = {
-			id: tabId,
-			text: "...",
-			color: DEFAULT_COLOR,
-			title: "initializing...",
-			path: DEFAULT_ICON_PATH,
-			progress: -1,
-			barProgress: -1
-		};
-		refreshBadge(tabId);
+		singlefile.core.processTab(tab)
+			.then(() => {
+				tabs[tabId] = {
+					id: tabId,
+					text: "...",
+					color: DEFAULT_COLOR,
+					title: "initializing...",
+					path: DEFAULT_ICON_PATH,
+					progress: -1,
+					barProgress: -1
+				};
+				refreshBadge(tabId);
+			})
+			.catch(() => {
+				tabs[tabId] = {
+					id: tabId,
+					text: "↻",
+					color: [255, 141, 1, 255],
+					title: "reload the page",
+					path: DEFAULT_ICON_PATH,
+					progress: -1,
+					barProgress: -1
+				};
+				refreshBadge(tabId);
+			});
 	}
 
 	function onError(tabId) {

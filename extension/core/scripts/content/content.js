@@ -28,11 +28,12 @@
 
 	let processing = false;
 
-	browser.runtime.onMessage.addListener(request => {
-		if (request.processStart && !processing) {
+	browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+		sendResponse({});
+		if (message.processStart && !processing) {
 			processing = true;
 			fixInlineScripts();
-			getOptions(request.options)
+			getOptions(message.options)
 				.then(options => SingleFile.initialize(options))
 				.then(process => {
 					singlefile.ui.init();
@@ -40,7 +41,7 @@
 				})
 				.then(page => {
 					const date = new Date();
-					page.filename = page.title + (request.options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
+					page.filename = page.title + (message.options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
 					page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 					downloadPage(page);
 					singlefile.ui.end();
