@@ -59,19 +59,19 @@ singlefile.ui = (() => {
 			});
 		}
 	});
-	browser.tabs.onActivated.addListener(activeInfo => browser.tabs.get(activeInfo.tabId, tab => onActive(tab.id, isAllowedURL(tab.url))));
-	browser.tabs.onCreated.addListener(tab => onActive(tab.id, isAllowedURL(tab.url)));
-	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onActive(tab.id, isAllowedURL(tab.url)));
-	browser.tabs.onRemoved.addListener(tabId => onRemoved(tabId));
+	browser.tabs.onActivated.addListener(activeInfo => browser.tabs.get(activeInfo.tabId, tab => onTabActivated(tab.id, isAllowedURL(tab.url))));
+	browser.tabs.onCreated.addListener(tab => onTabActivated(tab.id, isAllowedURL(tab.url)));
+	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabActivated(tab.id, isAllowedURL(tab.url)));
+	browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
 	browser.runtime.onMessage.addListener((request, sender) => {
 		if (request.processStart || request.processProgress) {
-			onProgress(sender.tab.id, request.index, request.maxIndex);
+			onTabProgress(sender.tab.id, request.index, request.maxIndex);
 		}
 		if (request.processEnd) {
-			onEnd(sender.tab.id);
+			onTabEnd(sender.tab.id);
 		}
 		if (request.processError) {
-			onError(sender.tab.id);
+			onTabError(sender.tab.id);
 		}
 		return false;
 	});
@@ -124,7 +124,7 @@ singlefile.ui = (() => {
 			});
 	}
 
-	function onError(tabId) {
+	function onTabError(tabId) {
 		const tabData = tabs[tabId];
 		tabData.text = "ERR";
 		tabData.color = [229, 4, 12, 255];
@@ -135,7 +135,7 @@ singlefile.ui = (() => {
 		refreshBadge(tabId);
 	}
 
-	function onEnd(tabId) {
+	function onTabEnd(tabId) {
 		const tabData = tabs[tabId];
 		tabData.text = "OK";
 		tabData.color = [4, 229, 36, 255];
@@ -146,7 +146,7 @@ singlefile.ui = (() => {
 		refreshBadge(tabId);
 	}
 
-	function onProgress(tabId, index, maxIndex) {
+	function onTabProgress(tabId, index, maxIndex) {
 		const tabData = tabs[tabId];
 		const progress = Math.max(Math.min(100, Math.floor((index / maxIndex) * 100)), 0);
 		if (tabData.progress != progress) {
@@ -163,11 +163,11 @@ singlefile.ui = (() => {
 		}
 	}
 
-	function onRemoved(tabId) {
+	function onTabRemoved(tabId) {
 		delete tabs[tabId];
 	}
 
-	function onActive(tabId, isActive) {
+	function onTabActivated(tabId, isActive) {
 		if (isActive) {
 			browser.browserAction.enable(tabId);
 		} else {
