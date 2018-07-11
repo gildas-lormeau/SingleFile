@@ -48,7 +48,7 @@
 					processing = false;
 				})
 				.catch(error => {
-					browser.runtime.sendMessage({ processError: true });
+					browser.runtime.sendMessage({ processError: true, error });
 					processing = false;
 					throw error;
 				});

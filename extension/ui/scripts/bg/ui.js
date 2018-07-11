@@ -71,6 +71,9 @@ singlefile.ui = (() => {
 			onTabEnd(sender.tab.id);
 		}
 		if (request.processError) {
+			if (request.error) {
+				console.error("Initialization error", request.error); // eslint-disable-line no-console
+			}
 			onTabError(sender.tab.id);
 		}
 		return false;
