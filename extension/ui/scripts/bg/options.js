@@ -31,6 +31,7 @@
 		const removeScriptsInput = document.getElementById("removeScriptsInput");
 		const saveRawPageInput = document.getElementById("saveRawPageInput");
 		const compressHTMLInput = document.getElementById("compressHTMLInput");
+		const compressCSSInput = document.getElementById("compressCSSInput");
 		const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 		const appendSaveDateInput = document.getElementById("appendSaveDateInput");
 		document.getElementById("resetButton").addEventListener("click", () => {
@@ -49,6 +50,7 @@
 			removeScriptsInput.checked = config.removeScripts;
 			saveRawPageInput.checked = config.saveRawPage;
 			compressHTMLInput.checked = config.compressHTML;
+			compressCSSInput.checked = config.compressCSS;
 			contextMenuEnabledInput.checked = config.contextMenuEnabled;
 			appendSaveDateInput.checked = config.appendSaveDate;
 		}
@@ -61,6 +63,7 @@
 				removeScripts: removeScriptsInput.checked,
 				saveRawPage: saveRawPageInput.checked,
 				compressHTML: compressHTMLInput.checked,
+				compressCSS: compressCSSInput.checked,
 				contextMenuEnabled: contextMenuEnabledInput.checked,
 				appendSaveDate: appendSaveDateInput.checked
 			});
