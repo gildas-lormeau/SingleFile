@@ -40,7 +40,7 @@
 				})
 				.then(page => {
 					const date = new Date();
-					page.filename = page.title + " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" + ".html";
+					page.filename = page.title + (request.options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
 					page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 					downloadPage(page);
 					singlefile.ui.end();

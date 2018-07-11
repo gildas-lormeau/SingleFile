@@ -36,6 +36,10 @@ singlefile.config = (() => {
 			config.contextMenuEnabled = true;
 			localStorage.config = JSON.stringify(config);
 		}
+		if (config.appendSaveDate == undefined) {
+			config.appendSaveDate = true;
+			localStorage.config = JSON.stringify(config);
+		}
 	}
 
 	return {
@@ -49,7 +53,8 @@ singlefile.config = (() => {
 				removeFrames: true,
 				removeScripts: true,
 				rawDocument: false,
-				compressHTML: true
+				compressHTML: true,
+				appendSaveDate: true
 			};
 		},
 		reset() {
