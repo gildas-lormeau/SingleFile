@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global document, addEventListener */
+/* global document */
 
 (() => {
 
