@@ -58,6 +58,7 @@ singlefile.config = (() => {
 				removeScripts: true,
 				rawDocument: false,
 				compressHTML: true,
+				compressCSS: true,
 				appendSaveDate: true
 			};
 		},
