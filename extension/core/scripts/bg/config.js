@@ -32,6 +32,10 @@ singlefile.config = (() => {
 			config.compressHTML = true;
 			localStorage.config = JSON.stringify(config);
 		}
+		if (config.contextMenuEnabled == undefined) {
+			config.contextMenuEnabled = true;
+			localStorage.config = JSON.stringify(config);
+		}
 	}
 
 	return {

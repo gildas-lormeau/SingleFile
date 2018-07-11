@@ -31,17 +31,11 @@
 		const removeScriptsInput = document.getElementById("removeScriptsInput");
 		const saveRawPageInput = document.getElementById("saveRawPageInput");
 		const compressHTMLInput = document.getElementById("compressHTMLInput");
+		const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 		document.getElementById("resetButton").addEventListener("click", () => {
 			bgPage.singlefile.config.reset();
 			refresh();
 			update();
-		}, false);
-		addEventListener("click", event => {
-			if (event.target.className == "question-mark") {
-				const tooltip = event.target.parentElement.parentElement.children[2];
-				tooltip.style.display = tooltip.style.display == "block" ? "none" : "block";
-				event.preventDefault();
-			}
 		}, false);
 		document.getElementById("popupContent").onchange = update;
 		refresh();
@@ -54,6 +48,7 @@
 			removeScriptsInput.checked = config.removeScripts;
 			saveRawPageInput.checked = config.saveRawPage;
 			compressHTMLInput.checked = config.compressHTML;
+			contextMenuEnabledInput.checked = config.contextMenuEnabled;
 		}
 
 		function update() {
@@ -63,8 +58,10 @@
 				removeFrames: removeFramesInput.checked,
 				removeScripts: removeScriptsInput.checked,
 				saveRawPage: saveRawPageInput.checked,
-				compressHTML: compressHTMLInput.checked
+				compressHTML: compressHTMLInput.checked,
+				contextMenuEnabled: contextMenuEnabledInput.checked
 			});
+			bgPage.singlefile.ui.update();
 		}
 	});
 

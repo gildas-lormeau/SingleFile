@@ -30,71 +30,133 @@ singlefile.ui = (() => {
 	const DEFAULT_COLOR = [2, 147, 20, 255];
 	const BADGE_PROPERTIES = [{ name: "text", browserActionMethod: "setBadgeText" }, { name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "title", browserActionMethod: "setTitle" }, { name: "path", browserActionMethod: "setIcon" }];
 	const RUNNING_IN_EDGE = navigator.userAgent.includes("Edge");
+	const STORE_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
+	const MENU_ID_SAVE_PAGE = "save-page";
+	const MENU_ID_SAVE_SELECTED = "save-selected";
 
 	const tabs = {};
 	const badgeTabs = {};
 	let badgeRefreshPending = [];
 
-	return {
-		init(tabId) {
-			tabs[tabId] = {
-				id: tabId,
-				text: "...",
-				color: DEFAULT_COLOR,
-				title: "initializing...",
-				path: DEFAULT_ICON_PATH,
-				progress: -1,
-				barProgress: -1
-			};
-			refreshBadge(tabId);
-		},
-		error(tabId) {
-			const tabData = tabs[tabId];
-			tabData.text = "ERR";
-			tabData.color = [229, 4, 12, 255];
-			tabData.title = DEFAULT_TITLE;
-			tabData.path = DEFAULT_ICON_PATH;
-			tabData.progress = -1;
-			tabData.barProgress = -1;
-			refreshBadge(tabId);
-		},
-		end(tabId) {
-			const tabData = tabs[tabId];
-			tabData.text = "OK";
-			tabData.color = [4, 229, 36, 255];
-			tabData.title = DEFAULT_TITLE;
-			tabData.path = DEFAULT_ICON_PATH;
-			tabData.progress = -1;
-			tabData.barProgress = -1;
-			refreshBadge(tabId);
-		},
-		progress(tabId, index, maxIndex) {
-			const tabData = tabs[tabId];
-			const progress = Math.max(Math.min(100, Math.floor((index / maxIndex) * 100)), 0);
-			if (tabData.progress != progress) {
-				tabData.progress = progress;
-				tabData.text = "";
-				tabData.title = "progress: " + Math.min(100, Math.floor((index / maxIndex) * 100)) + "%";
-				tabData.color = [4, 229, 36, 255];
-				const barProgress = Math.floor((index / maxIndex) * 15);
-				if (tabData.barProgress != barProgress) {
-					tabData.barProgress = barProgress;
-					tabData.path = WAIT_ICON_PATH_PREFIX + barProgress + ".png";
-				}
-				refreshBadge(tabId);
-			}
-		},
-		removed(tabId) {
-			delete tabs[tabId];
-		},
-		active(tabId, isActive) {
-			if (isActive) {
-				browser.browserAction.enable(tabId);
-			} else {
-				browser.browserAction.disable(tabId);
-			}
+	browser.runtime.onInstalled.addListener(refreshContextMenu);
+	browser.contextMenus.onClicked.addListener((event, tab) => {
+		if (event.menuItemId == MENU_ID_SAVE_PAGE) {
+			processTab(tab);
 		}
-	};
+		if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
+			processTab(tab, { selected: true });
+		}
+	});
+	browser.browserAction.onClicked.addListener(tab => {
+		if (isAllowedURL(tab.url)) {
+			browser.tabs.query({ currentWindow: true, highlighted: true }, tabs => tabs.forEach(processTab));
+		}
+	});
+	browser.tabs.onActivated.addListener(activeInfo => browser.tabs.get(activeInfo.tabId, tab => onActive(tab.id, isAllowedURL(tab.url))));
+	browser.tabs.onCreated.addListener(tab => onActive(tab.id, isAllowedURL(tab.url)));
+	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onActive(tab.id, isAllowedURL(tab.url)));
+	browser.tabs.onRemoved.addListener(tabId => onRemoved(tabId));
+	browser.runtime.onMessage.addListener((request, sender) => {
+		if (request.processStart || request.processProgress) {
+			onProgress(sender.tab.id, request.index, request.maxIndex);
+		}
+		if (request.processEnd) {
+			onEnd(sender.tab.id);
+		}
+		if (request.processError) {
+			onError(sender.tab.id);
+		}
+		return false;
+	});
+	return { update: refreshContextMenu };
+
+	function refreshContextMenu() {
+		const contextMenuEnabled = singlefile.config.get().contextMenuEnabled;
+		if (contextMenuEnabled) {
+			browser.contextMenus.create({
+				id: MENU_ID_SAVE_PAGE,
+				contexts: ["page"],
+				title: "Save page with SingleFile"
+			});
+			browser.contextMenus.create({
+				id: MENU_ID_SAVE_SELECTED,
+				contexts: ["selection"],
+				title: "Save selection with SingleFile"
+			});
+		} else {
+			browser.contextMenus.removeAll();
+		}
+	}
+
+	function processTab(tab) {
+		const tabId = tab.id;
+		singlefile.core.processTab(tab);
+		tabs[tabId] = {
+			id: tabId,
+			text: "...",
+			color: DEFAULT_COLOR,
+			title: "initializing...",
+			path: DEFAULT_ICON_PATH,
+			progress: -1,
+			barProgress: -1
+		};
+		refreshBadge(tabId);
+	}
+
+	function onError(tabId) {
+		const tabData = tabs[tabId];
+		tabData.text = "ERR";
+		tabData.color = [229, 4, 12, 255];
+		tabData.title = DEFAULT_TITLE;
+		tabData.path = DEFAULT_ICON_PATH;
+		tabData.progress = -1;
+		tabData.barProgress = -1;
+		refreshBadge(tabId);
+	}
+
+	function onEnd(tabId) {
+		const tabData = tabs[tabId];
+		tabData.text = "OK";
+		tabData.color = [4, 229, 36, 255];
+		tabData.title = DEFAULT_TITLE;
+		tabData.path = DEFAULT_ICON_PATH;
+		tabData.progress = -1;
+		tabData.barProgress = -1;
+		refreshBadge(tabId);
+	}
+
+	function onProgress(tabId, index, maxIndex) {
+		const tabData = tabs[tabId];
+		const progress = Math.max(Math.min(100, Math.floor((index / maxIndex) * 100)), 0);
+		if (tabData.progress != progress) {
+			tabData.progress = progress;
+			tabData.text = "";
+			tabData.title = "progress: " + Math.min(100, Math.floor((index / maxIndex) * 100)) + "%";
+			tabData.color = [4, 229, 36, 255];
+			const barProgress = Math.floor((index / maxIndex) * 15);
+			if (tabData.barProgress != barProgress) {
+				tabData.barProgress = barProgress;
+				tabData.path = WAIT_ICON_PATH_PREFIX + barProgress + ".png";
+			}
+			refreshBadge(tabId);
+		}
+	}
+
+	function onRemoved(tabId) {
+		delete tabs[tabId];
+	}
+
+	function onActive(tabId, isActive) {
+		if (isActive) {
+			browser.browserAction.enable(tabId);
+		} else {
+			browser.browserAction.disable(tabId);
+		}
+	}
+
+	function isAllowedURL(url) {
+		return (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !STORE_URLS.find(storeUrl => url.startsWith(storeUrl));
+	}
 
 	async function refreshBadge(tabId) {
 		await Promise.all(badgeRefreshPending);
