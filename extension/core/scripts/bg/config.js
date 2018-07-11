@@ -36,6 +36,10 @@ singlefile.config = (() => {
 			config.compressCSS = true;
 			localStorage.config = JSON.stringify(config);
 		}
+		if (config.lazyLoadImages === undefined) {
+			config.lazyLoadImages = true;
+			localStorage.config = JSON.stringify(config);
+		}		
 		if (config.contextMenuEnabled == undefined) {
 			config.contextMenuEnabled = true;
 			localStorage.config = JSON.stringify(config);
@@ -59,6 +63,7 @@ singlefile.config = (() => {
 				rawDocument: false,
 				compressHTML: true,
 				compressCSS: true,
+				lazyLoadImages: true,
 				appendSaveDate: true
 			};
 		},

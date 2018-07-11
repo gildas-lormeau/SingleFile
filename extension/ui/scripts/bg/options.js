@@ -32,6 +32,7 @@
 		const saveRawPageInput = document.getElementById("saveRawPageInput");
 		const compressHTMLInput = document.getElementById("compressHTMLInput");
 		const compressCSSInput = document.getElementById("compressCSSInput");
+		const lazyLoadImagesInput = document.getElementById("lazyLoadImagesInput");
 		const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 		const appendSaveDateInput = document.getElementById("appendSaveDateInput");
 		document.getElementById("resetButton").addEventListener("click", () => {
@@ -51,6 +52,7 @@
 			saveRawPageInput.checked = config.saveRawPage;
 			compressHTMLInput.checked = config.compressHTML;
 			compressCSSInput.checked = config.compressCSS;
+			lazyLoadImagesInput.checked = config.lazyLoadImages;
 			contextMenuEnabledInput.checked = config.contextMenuEnabled;
 			appendSaveDateInput.checked = config.appendSaveDate;
 		}
@@ -64,6 +66,7 @@
 				saveRawPage: saveRawPageInput.checked,
 				compressHTML: compressHTMLInput.checked,
 				compressCSS: compressCSSInput.checked,
+				lazyLoadImages: lazyLoadImagesInput.checked,
 				contextMenuEnabled: contextMenuEnabledInput.checked,
 				appendSaveDate: appendSaveDateInput.checked
 			});
