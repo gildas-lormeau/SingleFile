@@ -30,6 +30,7 @@
 		const removeFramesInput = document.getElementById("removeFramesInput");
 		const removeScriptsInput = document.getElementById("removeScriptsInput");
 		const saveRawPageInput = document.getElementById("saveRawPageInput");
+		const compressHTMLInput = document.getElementById("compressHTMLInput");
 		document.getElementById("resetButton").addEventListener("click", () => {
 			bgPage.singlefile.config.reset();
 			refresh();
@@ -52,6 +53,7 @@
 			removeFramesInput.checked = config.removeFrames;
 			removeScriptsInput.checked = config.removeScripts;
 			saveRawPageInput.checked = config.saveRawPage;
+			compressHTMLInput.checked = config.compressHTML;
 		}
 
 		function update() {
@@ -60,7 +62,8 @@
 				removeUnusedCSSRules: removeUnusedCSSRulesInput.checked,
 				removeFrames: removeFramesInput.checked,
 				removeScripts: removeScriptsInput.checked,
-				saveRawPage: saveRawPageInput.checked
+				saveRawPage: saveRawPageInput.checked,
+				compressHTML: compressHTMLInput.checked
 			});
 		}
 	});

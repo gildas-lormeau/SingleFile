@@ -28,6 +28,10 @@ singlefile.config = (() => {
 			config.removeScripts = true;
 			localStorage.config = JSON.stringify(config);
 		}
+		if (config.compressHTML === undefined) {
+			config.compressHTML = true;
+			localStorage.config = JSON.stringify(config);
+		}
 	}
 
 	return {
@@ -40,7 +44,8 @@ singlefile.config = (() => {
 				removeUnusedCSSRules: false,
 				removeFrames: true,
 				removeScripts: true,
-				rawDocument: false
+				rawDocument: false,
+				compressHTML: true
 			};
 		},
 		reset() {
