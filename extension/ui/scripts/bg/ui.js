@@ -50,8 +50,9 @@ singlefile.ui = (() => {
 	browser.browserAction.onClicked.addListener(tab => {
 		if (isAllowedURL(tab.url)) {
 			browser.tabs.query({ currentWindow: true, highlighted: true }, tabs => {
+				tabs = tabs.filter(tab => tab.highlighted);
 				if (!tabs.length) {
-					browser.tabs.query({ currentWindow: true, active: true }, tabs => tabs.forEach(processTab));
+					processTab(tab);
 				} else {
 					tabs.forEach(processTab);
 				}
@@ -161,7 +162,7 @@ singlefile.ui = (() => {
 	}
 
 	function isAllowedURL(url) {
-		return (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !STORE_URLS.find(storeUrl => url.startsWith(storeUrl));
+		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !STORE_URLS.find(storeUrl => url.startsWith(storeUrl));
 	}
 
 	async function refreshBadge(tabId) {
