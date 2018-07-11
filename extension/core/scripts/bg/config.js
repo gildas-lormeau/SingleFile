@@ -39,7 +39,7 @@ singlefile.config = (() => {
 		if (config.lazyLoadImages === undefined) {
 			config.lazyLoadImages = true;
 			localStorage.config = JSON.stringify(config);
-		}		
+		}
 		if (config.contextMenuEnabled == undefined) {
 			config.contextMenuEnabled = true;
 			localStorage.config = JSON.stringify(config);
@@ -64,7 +64,8 @@ singlefile.config = (() => {
 				compressHTML: true,
 				compressCSS: true,
 				lazyLoadImages: true,
-				appendSaveDate: true
+				appendSaveDate: true,
+				contextMenuEnabled: true
 			};
 		},
 		reset() {
