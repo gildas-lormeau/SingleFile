@@ -49,7 +49,13 @@ singlefile.ui = (() => {
 	});
 	browser.browserAction.onClicked.addListener(tab => {
 		if (isAllowedURL(tab.url)) {
-			browser.tabs.query({ currentWindow: true, highlighted: true }, tabs => tabs.forEach(processTab));
+			browser.tabs.query({ currentWindow: true, highlighted: true }, tabs => {
+				if (!tabs.length) {
+					browser.tabs.query({ currentWindow: true, active: true }, tabs => tabs.forEach(processTab));
+				} else {
+					tabs.forEach(processTab);
+				}
+			});
 		}
 	});
 	browser.tabs.onActivated.addListener(activeInfo => browser.tabs.get(activeInfo.tabId, tab => onActive(tab.id, isAllowedURL(tab.url))));
