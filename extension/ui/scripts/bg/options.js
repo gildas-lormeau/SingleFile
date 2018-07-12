@@ -36,6 +36,7 @@
 		const lazyLoadImagesInput = document.getElementById("lazyLoadImagesInput");
 		const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 		const appendSaveDateInput = document.getElementById("appendSaveDateInput");
+		const shadowEnabledInput = document.getElementById("shadowEnabledInput");
 		document.getElementById("resetButton").addEventListener("click", () => {
 			bgPage.singlefile.config.reset();
 			refresh();
@@ -57,6 +58,7 @@
 			lazyLoadImagesInput.checked = config.lazyLoadImages;
 			contextMenuEnabledInput.checked = config.contextMenuEnabled;
 			appendSaveDateInput.checked = config.appendSaveDate;
+			shadowEnabledInput.checked = config.shadowEnabled;
 		}
 
 		function update() {
@@ -71,7 +73,8 @@
 				compressCSS: compressCSSInput.checked,
 				lazyLoadImages: lazyLoadImagesInput.checked,
 				contextMenuEnabled: contextMenuEnabledInput.checked,
-				appendSaveDate: appendSaveDateInput.checked
+				appendSaveDate: appendSaveDateInput.checked,
+				shadowEnabled: shadowEnabledInput.checked
 			});
 			bgPage.singlefile.ui.update();
 		}

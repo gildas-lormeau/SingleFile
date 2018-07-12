@@ -52,6 +52,10 @@ singlefile.config = (() => {
 			config.removeImports = true;
 			localStorage.config = JSON.stringify(config);
 		}
+		if (config.shadowEnabled == undefined) {
+			config.shadowEnabled = true;
+			localStorage.config = JSON.stringify(config);
+		}		
 	}
 
 	return {
@@ -70,7 +74,8 @@ singlefile.config = (() => {
 				compressCSS: true,
 				lazyLoadImages: true,
 				appendSaveDate: true,
-				contextMenuEnabled: true
+				contextMenuEnabled: true,
+				shadowEnabled: true
 			};
 		},
 		reset() {

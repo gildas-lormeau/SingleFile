@@ -36,7 +36,9 @@
 			getOptions(message.options)
 				.then(options => SingleFile.initialize(options))
 				.then(process => {
-					singlefile.ui.init();
+					if (message.options.shadowEnabled) {
+						singlefile.ui.init();
+					}
 					return process();
 				})
 				.then(page => {
@@ -44,7 +46,9 @@
 					page.filename = page.title + (message.options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
 					page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 					downloadPage(page);
-					singlefile.ui.end();
+					if (message.options.shadowEnabled) {
+						singlefile.ui.end();
+					}
 					processing = false;
 				})
 				.catch(error => {
