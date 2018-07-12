@@ -25,8 +25,7 @@
         "open_in_tab": false
     },
     "browser_action": {
-        "default_icon": "extension/ui/resources/icon_19.png",
-        "default_title": "Save page"
+        "default_title": "save page"
     },
     "content_scripts": [
         {
