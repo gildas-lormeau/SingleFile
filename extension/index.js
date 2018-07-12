@@ -18,6 +18,6 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global window */
+/* global */
 
-window.singlefile = {};
+this.singlefile = {};
