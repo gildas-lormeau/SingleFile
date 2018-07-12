@@ -13,9 +13,9 @@
             "lib/frame-tree/bg/frame-tree.js",
             "lib/fetch/bg/fetch.js",
             "extension/index.js",
-            "extension/core/scripts/bg/config.js",
-            "extension/core/scripts/bg/bg.js",
-            "extension/ui/scripts/bg/ui.js"
+            "extension/core/bg/config.js",
+            "extension/core/bg/bg.js",
+            "extension/ui/bg/ui.js"
         ],
         "persistent": false
     },
@@ -35,14 +35,14 @@
             ],
             "js": [
                 "extension/index.js",
-                "extension/ui/scripts/content/ui.js",
+                "extension/ui/content/ui.js",
                 "lib/single-file/base64.js",
                 "lib/single-file/uglifycss.js",
                 "lib/single-file/parse-srcset.js",
                 "lib/single-file/single-file-core.js",
                 "lib/single-file/single-file-browser.js",
                 "lib/fetch/content/fetch.js",
-                "extension/core/scripts/content/content.js"
+                "extension/core/content/content.js"
             ],
             "run_at": "document_start",
             "all_frames": false
