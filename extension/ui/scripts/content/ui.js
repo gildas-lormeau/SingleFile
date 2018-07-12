@@ -18,9 +18,9 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global singlefile, document */
+/* global document */
 
-singlefile.ui = (() => {
+this.singlefile.ui = (() => {
 
 	const MASK_TAGNAME = "singlefile-mask";
 
