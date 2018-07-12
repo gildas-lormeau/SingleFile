@@ -25,6 +25,7 @@
 	const browser = this.browser || this.chrome;
 
 	const SELECTED_CONTENT_ATTRIBUTE_NAME = "data-single-file-selected-content";
+	const PROGRESS_LOADED_COEFFICIENT = 2;
 
 	let processing = false;
 
@@ -75,33 +76,17 @@
 		}
 		document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
 		options.jsEnabled = true;
-		let indexLoaded = 0;
-		let indexLoading = 0;
+		let indexLoaded = 0, indexLoading = 0;
 		options.onprogress = event => {
-			if (event.type == event.RESOURCES_INITIALIZED) {
-				browser.runtime.sendMessage({
-					processStart: true,
-					index: event.details.index,
-					maxIndex: event.details.max
-				});
-			}
-			if (event.type == event.RESOURCE_LOADED) {
-				indexLoaded = event.details.index;
-				browser.runtime.sendMessage({
-					processProgress: true,
-					index: (event.details.index * 2) + indexLoading,
-					maxIndex: event.details.max * 3
-				});
-			}
-			if (event.type == event.RESOURCE_LOADING) {
-				indexLoading = event.details.index;
-				browser.runtime.sendMessage({
-					processProgress: true,
-					index: event.details.index + (indexLoaded * 2),
-					maxIndex: event.details.max * 3
-				});
-			}
-			if (event.type == event.PAGE_ENDED) {
+			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED || event.type == event.RESOURCE_LOADING) {
+				if (event.type == event.RESOURCE_LOADED) {
+					indexLoaded = event.details.index;
+				}
+				if (event.type == event.RESOURCE_LOADING) {
+					indexLoading = event.details.index;
+				}
+				browser.runtime.sendMessage({ processProgress: true, index: (indexLoaded * PROGRESS_LOADED_COEFFICIENT) + indexLoading, maxIndex: event.details.max * (PROGRESS_LOADED_COEFFICIENT + 1) });
+			} else if (event.type == event.PAGE_ENDED) {
 				browser.runtime.sendMessage({ processEnd: true });
 			}
 		};
