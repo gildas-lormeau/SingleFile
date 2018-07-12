@@ -24,8 +24,8 @@ singlefile.ui = (() => {
 
 	const browser = this.browser || this.chrome;
 
-	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_19.png";
-	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_19_wait";
+	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_16.png";
+	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_16_wait";
 	const DEFAULT_TITLE = "Process this page with SingleFile";
 	const DEFAULT_COLOR = [2, 147, 20, 255];
 	const BADGE_PROPERTIES = [{ name: "text", browserActionMethod: "setBadgeText" }, { name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "title", browserActionMethod: "setTitle" }, { name: "path", browserActionMethod: "setIcon" }];
