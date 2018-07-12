@@ -10,6 +10,7 @@
         "iframes",
         "prefetch",
         "singlefile",
+        "srcdoc",
         "srcset",
         "substeps",
         "tokeniser",
