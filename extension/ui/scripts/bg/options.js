@@ -28,6 +28,7 @@
 		const removeHiddenInput = document.getElementById("removeHiddenInput");
 		const removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
 		const removeFramesInput = document.getElementById("removeFramesInput");
+		const removeImportsInput = document.getElementById("removeImportsInput");
 		const removeScriptsInput = document.getElementById("removeScriptsInput");
 		const saveRawPageInput = document.getElementById("saveRawPageInput");
 		const compressHTMLInput = document.getElementById("compressHTMLInput");
@@ -48,6 +49,7 @@
 			removeHiddenInput.checked = config.removeHidden;
 			removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
 			removeFramesInput.checked = config.removeFrames;
+			removeImportsInput.checked = config.removeImports;
 			removeScriptsInput.checked = config.removeScripts;
 			saveRawPageInput.checked = config.saveRawPage;
 			compressHTMLInput.checked = config.compressHTML;
@@ -62,6 +64,7 @@
 				removeHidden: removeHiddenInput.checked,
 				removeUnusedCSSRules: removeUnusedCSSRulesInput.checked,
 				removeFrames: removeFramesInput.checked,
+				removeImports: removeImportsInput.checked,
 				removeScripts: removeScriptsInput.checked,
 				saveRawPage: saveRawPageInput.checked,
 				compressHTML: compressHTMLInput.checked,

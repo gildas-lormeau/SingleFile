@@ -48,6 +48,10 @@ singlefile.config = (() => {
 			config.appendSaveDate = true;
 			localStorage.config = JSON.stringify(config);
 		}
+		if (config.removeImports == undefined) {
+			config.removeImports = true;
+			localStorage.config = JSON.stringify(config);
+		}
 	}
 
 	return {
@@ -59,6 +63,7 @@ singlefile.config = (() => {
 				removeHidden: false,
 				removeUnusedCSSRules: false,
 				removeFrames: true,
+				removeImports: true,
 				removeScripts: true,
 				rawDocument: false,
 				compressHTML: true,
