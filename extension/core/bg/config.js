@@ -101,6 +101,7 @@ singlefile.config = (() => {
 			return new Promise(resolve => browser.storage.local.get(config => resolve(Object.keys(config).length ? config : DEFAULT_CONFIG)));
 		},
 		async reset() {
+			await pendingUpgradePromise;
 			return new Promise(resolve => browser.storage.local.clear(resolve));
 		}
 	};
