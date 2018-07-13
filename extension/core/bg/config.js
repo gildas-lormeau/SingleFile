@@ -35,6 +35,7 @@ singlefile.config = (() => {
 		appendSaveDate: true,
 		contextMenuEnabled: true,
 		shadowEnabled: true,
+		maxResourceSizeEnabled: false,
 		maxResourceSize: 10
 	};
 
@@ -70,20 +71,23 @@ singlefile.config = (() => {
 		if (config.lazyLoadImages === undefined) {
 			config.lazyLoadImages = true;
 		}
-		if (config.contextMenuEnabled == undefined) {
+		if (config.contextMenuEnabled === undefined) {
 			config.contextMenuEnabled = true;
 		}
-		if (config.appendSaveDate == undefined) {
+		if (config.appendSaveDate === undefined) {
 			config.appendSaveDate = true;
 		}
-		if (config.removeImports == undefined) {
+		if (config.removeImports === undefined) {
 			config.removeImports = true;
 		}
-		if (config.shadowEnabled == undefined) {
+		if (config.shadowEnabled === undefined) {
 			config.shadowEnabled = true;
 		}
-		if (config.maxResourceSize == undefined) {
+		if (config.maxResourceSize === undefined) {
 			config.maxResourceSize = 10;
+		}
+		if (config.maxResourceSize === 0) {
+			config.maxResourceSize = 1;
 		}
 	}
 

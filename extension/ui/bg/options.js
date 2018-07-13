@@ -38,11 +38,13 @@
 		const appendSaveDateInput = document.getElementById("appendSaveDateInput");
 		const shadowEnabledInput = document.getElementById("shadowEnabledInput");
 		const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
+		const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
 		document.getElementById("resetButton").addEventListener("click", () => {
 			bgPage.singlefile.config.reset()
 				.then(refresh)
 				.then(update);
 		}, false);
+		maxResourceSizeEnabledInput.addEventListener("click", () => maxResourceSizeInput.disabled = !maxResourceSizeEnabledInput.checked, false);
 		document.getElementById("popupContent").onchange = update;
 		refresh();
 
@@ -60,7 +62,9 @@
 			contextMenuEnabledInput.checked = config.contextMenuEnabled;
 			appendSaveDateInput.checked = config.appendSaveDate;
 			shadowEnabledInput.checked = config.shadowEnabled;
+			maxResourceSizeEnabledInput.checked = config.maxResourceSizeEnabled;
 			maxResourceSizeInput.value = config.maxResourceSize;
+			maxResourceSizeInput.disabled = !config.maxResourceSizeEnabled;
 		}
 
 		async function update() {
@@ -77,6 +81,7 @@
 				contextMenuEnabled: contextMenuEnabledInput.checked,
 				appendSaveDate: appendSaveDateInput.checked,
 				shadowEnabled: shadowEnabledInput.checked,
+				maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
 				maxResourceSize: maxResourceSizeInput.value
 			});
 			await bgPage.singlefile.ui.update();
