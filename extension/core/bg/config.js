@@ -22,8 +22,42 @@
 
 singlefile.config = (() => {
 
-	if (localStorage.config) {
-		const config = JSON.parse(localStorage.config);
+	const DEFAULT_CONFIG = {
+		removeHidden: false,
+		removeUnusedCSSRules: false,
+		removeFrames: true,
+		removeImports: true,
+		removeScripts: true,
+		rawDocument: false,
+		compressHTML: true,
+		compressCSS: true,
+		lazyLoadImages: true,
+		appendSaveDate: true,
+		contextMenuEnabled: true,
+		shadowEnabled: true,
+		maxResourceSize: 10
+	};
+
+	const browser = this.browser || this.chrome;
+
+	let pendingUpgradePromise;
+	upgrade();
+
+	function upgrade() {
+		if (localStorage.config) {
+			const config = JSON.parse(localStorage.config);
+			upgradeConfig(config);
+			delete localStorage.config;
+			pendingUpgradePromise = new Promise(resolve => browser.storage.local.set(config, resolve));
+		} else {
+			pendingUpgradePromise = new Promise(resolve => browser.storage.local.get(config => {
+				upgradeConfig(config);
+				resolve();
+			}));
+		}
+	}
+
+	function upgradeConfig(config) {
 		if (config.removeScripts === undefined) {
 			config.removeScripts = true;
 			localStorage.config = JSON.stringify(config);
@@ -63,28 +97,16 @@ singlefile.config = (() => {
 	}
 
 	return {
-		set(config) {
-			localStorage.config = JSON.stringify(config);
+		async set(config) {
+			await pendingUpgradePromise;
+			return new Promise(resolve => browser.storage.local.set(config, resolve));
 		},
-		get() {
-			return localStorage.config ? JSON.parse(localStorage.config) : {
-				removeHidden: false,
-				removeUnusedCSSRules: false,
-				removeFrames: true,
-				removeImports: true,
-				removeScripts: true,
-				rawDocument: false,
-				compressHTML: true,
-				compressCSS: true,
-				lazyLoadImages: true,
-				appendSaveDate: true,
-				contextMenuEnabled: true,
-				shadowEnabled: true,
-				maxResourceSize: 10
-			};
+		async get() {
+			await pendingUpgradePromise;
+			return new Promise(resolve => browser.storage.local.get(config => resolve(Object.keys(config).length ? config : DEFAULT_CONFIG)));
 		},
-		reset() {
-			delete localStorage.config;
+		async reset() {
+			return new Promise(resolve => browser.storage.local.clear(resolve));
 		}
 	};
 

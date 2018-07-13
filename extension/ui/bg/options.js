@@ -39,15 +39,15 @@
 		const shadowEnabledInput = document.getElementById("shadowEnabledInput");
 		const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 		document.getElementById("resetButton").addEventListener("click", () => {
-			bgPage.singlefile.config.reset();
-			refresh();
-			update();
+			bgPage.singlefile.config.reset()
+				.then(refresh)
+				.then(update);
 		}, false);
 		document.getElementById("popupContent").onchange = update;
 		refresh();
 
-		function refresh() {
-			const config = bgPage.singlefile.config.get();
+		async function refresh() {
+			const config = await bgPage.singlefile.config.get();
 			removeHiddenInput.checked = config.removeHidden;
 			removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
 			removeFramesInput.checked = config.removeFrames;
@@ -63,8 +63,8 @@
 			maxResourceSizeInput.value = config.maxResourceSize;
 		}
 
-		function update() {
-			bgPage.singlefile.config.set({
+		async function update() {
+			await bgPage.singlefile.config.set({
 				removeHidden: removeHiddenInput.checked,
 				removeUnusedCSSRules: removeUnusedCSSRulesInput.checked,
 				removeFrames: removeFramesInput.checked,
@@ -79,7 +79,7 @@
 				shadowEnabled: shadowEnabledInput.checked,
 				maxResourceSize: maxResourceSizeInput.value
 			});
-			bgPage.singlefile.ui.update();
+			await bgPage.singlefile.ui.update();
 		}
 	});
 

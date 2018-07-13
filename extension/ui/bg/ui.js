@@ -81,21 +81,23 @@ singlefile.ui = (() => {
 	return { update: refreshContextMenu };
 
 	function refreshContextMenu() {
-		const contextMenuEnabled = singlefile.config.get().contextMenuEnabled;
-		if (contextMenuEnabled) {
-			browser.contextMenus.create({
-				id: MENU_ID_SAVE_PAGE,
-				contexts: ["page"],
-				title: "Save page"
+		singlefile.config.get()
+			.then(config => {
+				if (config.contextMenuEnabled) {
+					browser.contextMenus.create({
+						id: MENU_ID_SAVE_PAGE,
+						contexts: ["page"],
+						title: "Save page"
+					});
+					browser.contextMenus.create({
+						id: MENU_ID_SAVE_SELECTED,
+						contexts: ["selection"],
+						title: "Save selection"
+					});
+				} else {
+					browser.contextMenus.removeAll();
+				}
 			});
-			browser.contextMenus.create({
-				id: MENU_ID_SAVE_SELECTED,
-				contexts: ["selection"],
-				title: "Save selection"
-			});
-		} else {
-			browser.contextMenus.removeAll();
-		}
 	}
 
 	function processTab(tab) {

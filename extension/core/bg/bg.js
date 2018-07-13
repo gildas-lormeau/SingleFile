@@ -26,8 +26,8 @@ singlefile.core = (() => {
 	const TIMEOUT_PROCESS_START_MESSAGE = 3000;
 
 	return {
-		processTab(tab, processOptions = {}) {
-			const options = singlefile.config.get();
+		async processTab(tab, processOptions = {}) {
+			const options = await singlefile.config.get();
 			Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
 			options.insertSingleFileComment = true;
 			options.insertFaviconLink = true;
