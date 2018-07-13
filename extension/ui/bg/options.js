@@ -37,6 +37,7 @@
 		const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 		const appendSaveDateInput = document.getElementById("appendSaveDateInput");
 		const shadowEnabledInput = document.getElementById("shadowEnabledInput");
+		const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 		document.getElementById("resetButton").addEventListener("click", () => {
 			bgPage.singlefile.config.reset();
 			refresh();
@@ -59,6 +60,7 @@
 			contextMenuEnabledInput.checked = config.contextMenuEnabled;
 			appendSaveDateInput.checked = config.appendSaveDate;
 			shadowEnabledInput.checked = config.shadowEnabled;
+			maxResourceSizeInput.value = config.maxResourceSize;
 		}
 
 		function update() {
@@ -74,7 +76,8 @@
 				lazyLoadImages: lazyLoadImagesInput.checked,
 				contextMenuEnabled: contextMenuEnabledInput.checked,
 				appendSaveDate: appendSaveDateInput.checked,
-				shadowEnabled: shadowEnabledInput.checked
+				shadowEnabled: shadowEnabledInput.checked,
+				maxResourceSize: maxResourceSizeInput.value
 			});
 			bgPage.singlefile.ui.update();
 		}

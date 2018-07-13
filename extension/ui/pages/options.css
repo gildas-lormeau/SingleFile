@@ -31,6 +31,7 @@ button:active {
 #popupContent .option {
     display: flex;
     justify-content: space-between;
+    margin-top: 5px;
 }
 
 #popupContent .bottom {
@@ -39,6 +40,14 @@ button:active {
 
 input[type="checkbox"] {
     margin-left: 30px;
+    position: relative;
+    top: -2px;
+}
+
+input[type="number"] {
+    margin-left: 30px;
+    max-width: 40px;
+    text-align: right;
     position: relative;
     top: -2px;
 }

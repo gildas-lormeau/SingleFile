@@ -55,7 +55,11 @@ singlefile.config = (() => {
 		if (config.shadowEnabled == undefined) {
 			config.shadowEnabled = true;
 			localStorage.config = JSON.stringify(config);
-		}		
+		}
+		if (config.maxResourceSize == undefined) {
+			config.maxResourceSize = 10;
+			localStorage.config = JSON.stringify(config);
+		}
 	}
 
 	return {
@@ -75,7 +79,8 @@ singlefile.config = (() => {
 				lazyLoadImages: true,
 				appendSaveDate: true,
 				contextMenuEnabled: true,
-				shadowEnabled: true
+				shadowEnabled: true,
+				maxResourceSize: 10
 			};
 		},
 		reset() {
