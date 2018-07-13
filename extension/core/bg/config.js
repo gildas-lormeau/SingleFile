@@ -60,39 +60,30 @@ singlefile.config = (() => {
 	function upgradeConfig(config) {
 		if (config.removeScripts === undefined) {
 			config.removeScripts = true;
-			localStorage.config = JSON.stringify(config);
 		}
 		if (config.compressHTML === undefined) {
 			config.compressHTML = true;
-			localStorage.config = JSON.stringify(config);
 		}
 		if (config.compressCSS === undefined) {
 			config.compressCSS = true;
-			localStorage.config = JSON.stringify(config);
 		}
 		if (config.lazyLoadImages === undefined) {
 			config.lazyLoadImages = true;
-			localStorage.config = JSON.stringify(config);
 		}
 		if (config.contextMenuEnabled == undefined) {
 			config.contextMenuEnabled = true;
-			localStorage.config = JSON.stringify(config);
 		}
 		if (config.appendSaveDate == undefined) {
 			config.appendSaveDate = true;
-			localStorage.config = JSON.stringify(config);
 		}
 		if (config.removeImports == undefined) {
 			config.removeImports = true;
-			localStorage.config = JSON.stringify(config);
 		}
 		if (config.shadowEnabled == undefined) {
 			config.shadowEnabled = true;
-			localStorage.config = JSON.stringify(config);
 		}
 		if (config.maxResourceSize == undefined) {
 			config.maxResourceSize = 10;
-			localStorage.config = JSON.stringify(config);
 		}
 	}
 
