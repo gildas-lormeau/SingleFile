@@ -39,6 +39,7 @@
 		const shadowEnabledInput = document.getElementById("shadowEnabledInput");
 		const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 		const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
+		let pendingSave = Promise.resolve();
 		document.getElementById("resetButton").addEventListener("click", () => {
 			bgPage.singlefile.config.reset()
 				.then(refresh)
@@ -68,7 +69,8 @@
 		}
 
 		async function update() {
-			await bgPage.singlefile.config.set({
+			await pendingSave;
+			pendingSave = bgPage.singlefile.config.set({
 				removeHiddenElements: removeHiddenElementsInput.checked,
 				removeUnusedCSSRules: removeUnusedCSSRulesInput.checked,
 				removeFrames: removeFramesInput.checked,
@@ -84,6 +86,7 @@
 				maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
 				maxResourceSize: maxResourceSizeInput.value
 			});
+			await pendingSave;
 			await bgPage.singlefile.ui.update();
 		}
 	});
