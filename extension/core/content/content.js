@@ -34,8 +34,6 @@
 		sendResponse({});
 		if (message.processStart && !processing) {
 			processing = true;
-			fixInlineScripts();
-			fixHeadNoScripts();
 			processMessage(message)
 				.then(page => {
 					downloadPage(page);
@@ -51,6 +49,8 @@
 
 	async function processMessage(message) {
 		const options = await getOptions(message.options);
+		fixInlineScripts();
+		fixHeadNoScripts();
 		if (options.selected) {
 			selectSelectedContent();
 		}
