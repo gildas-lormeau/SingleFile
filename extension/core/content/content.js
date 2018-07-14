@@ -70,7 +70,7 @@
 	}
 
 	function hideHeadFrames() {
-		document.head.querySelectorAll("iframe").forEach(element => element.hidden = true);
+		document.head.querySelectorAll("iframe, frame, object[type=\"text/html\"][data]").forEach(element => element.hidden = true);
 	}
 
 	async function getOptions(options) {
