@@ -35,6 +35,7 @@
 		if (message.processStart && !processing) {
 			processing = true;
 			fixInlineScripts();
+			fixHeadNoScripts();
 			getOptions(message.options)
 				.then(options => {
 					if (options.selected) {
@@ -88,6 +89,10 @@
 
 	function hideHeadFrames() {
 		document.head.querySelectorAll("iframe, frame, object[type=\"text/html\"][data]").forEach(element => element.hidden = true);
+	}
+
+	function fixHeadNoScripts() {
+		document.head.querySelectorAll("noscript").forEach(noscriptElement => document.body.insertBefore(noscriptElement, document.body.firstChild));
 	}
 
 	function selectRemovedElements() {
