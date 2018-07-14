@@ -33,22 +33,21 @@ singlefile.core = (() => {
 			options.insertFaviconLink = true;
 			return new Promise((resolve, reject) => {
 				const errorTimeout = setTimeout(reject, TIMEOUT_PROCESS_START_MESSAGE);
-				const onMessageSent = () => {
-					clearTimeout(errorTimeout);
-					resolve();
-				};
-				if (options.removeFrames) {
-					processStart(tab, options).then(onMessageSent);
-				} else {
-					FrameTree.initialize(tab.id)
-						.then(() => processStart(tab, options)).then(onMessageSent);
-				}
+				processStart(tab, options)
+					.then(() => {
+						clearTimeout(errorTimeout);
+						resolve();
+					});
 			});
 		}
 	};
 
-	function processStart(tab, options) {
-		return new Promise(resolve => browser.tabs.sendMessage(tab.id, { processStart: true, options }, resolve));
+	async function processStart(tab, options) {
+		if (!options.removeFrames) {
+			await FrameTree.initialize(tab.id);
+
+		}
+		await new Promise(resolve => browser.tabs.sendMessage(tab.id, { processStart: true, options }, resolve));
 	}
 
 })();
