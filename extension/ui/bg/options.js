@@ -25,7 +25,7 @@
 	const browser = this.browser || this.chrome;
 
 	browser.runtime.getBackgroundPage(bgPage => {
-		const removeHiddenInput = document.getElementById("removeHiddenInput");
+		const removeHiddenElementsInput = document.getElementById("removeHiddenElementsInput");
 		const removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
 		const removeFramesInput = document.getElementById("removeFramesInput");
 		const removeImportsInput = document.getElementById("removeImportsInput");
@@ -50,7 +50,7 @@
 
 		async function refresh() {
 			const config = await bgPage.singlefile.config.get();
-			removeHiddenInput.checked = config.removeHidden;
+			removeHiddenElementsInput.checked = config.removeHiddenElements;
 			removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
 			removeFramesInput.checked = config.removeFrames;
 			removeImportsInput.checked = config.removeImports;
@@ -69,7 +69,7 @@
 
 		async function update() {
 			await bgPage.singlefile.config.set({
-				removeHidden: removeHiddenInput.checked,
+				removeHiddenElements: removeHiddenElementsInput.checked,
 				removeUnusedCSSRules: removeUnusedCSSRulesInput.checked,
 				removeFrames: removeFramesInput.checked,
 				removeImports: removeImportsInput.checked,
