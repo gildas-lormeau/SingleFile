@@ -35,7 +35,12 @@
 			processing = true;
 			fixInlineScripts();
 			getOptions(message.options)
-				.then(options => SingleFile.initialize(options))
+				.then(options => {
+					if (!options.removeFrames) {
+						hideHeadFrames();
+					}
+					return SingleFile.initialize(options);
+				})
 				.then(process => {
 					if (message.options.shadowEnabled) {
 						singlefile.ui.init();
@@ -62,6 +67,10 @@
 
 	function fixInlineScripts() {
 		document.querySelectorAll("script").forEach(element => element.textContent = element.textContent.replace(/<\/script>/gi, "<\\/script>"));
+	}
+
+	function hideHeadFrames() {
+		document.head.querySelectorAll("iframe").forEach(element => element.hidden = true);
 	}
 
 	async function getOptions(options) {
