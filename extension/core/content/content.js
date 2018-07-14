@@ -18,13 +18,14 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection */
+/* global SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle */
 
 (() => {
 
 	const browser = this.browser || this.chrome;
 
 	const SELECTED_CONTENT_ATTRIBUTE_NAME = "data-single-file-selected-content";
+	const REMOVED_CONTENT_ATTRIBUTE_NAME = "data-single-file-removed-content";
 	const PROGRESS_LOADED_COEFFICIENT = 2;
 
 	let processing = false;
@@ -39,20 +40,28 @@
 					if (!options.removeFrames) {
 						hideHeadFrames();
 					}
+					if (options.removeHiddenElements) {
+						selectRemovedElements();
+					}
 					return SingleFile.initialize(options);
 				})
 				.then(process => {
-					if (message.options.shadowEnabled) {
+					const options = message.options;
+					if (options.removeHiddenElements) {
+						unselectRemovedElements();
+					}
+					if (options.shadowEnabled) {
 						singlefile.ui.init();
 					}
 					return process();
 				})
 				.then(page => {
+					const options = message.options;
 					const date = new Date();
-					page.filename = page.title + (message.options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
+					page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
 					page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 					downloadPage(page);
-					if (message.options.shadowEnabled) {
+					if (options.shadowEnabled) {
 						singlefile.ui.end();
 					}
 					processing = false;
@@ -71,6 +80,19 @@
 
 	function hideHeadFrames() {
 		document.head.querySelectorAll("iframe, frame, object[type=\"text/html\"][data]").forEach(element => element.hidden = true);
+	}
+
+	function selectRemovedElements() {
+		document.querySelectorAll("html > body *:not(style):not(script):not(link)").forEach(element => {
+			const style = getComputedStyle(element);
+			if (element.hidden || style.display == "none" || ((style.opacity === 0 || style.visibility == "hidden") && !element.clientWidth && !element.clientHeight)) {
+				element.setAttribute(REMOVED_CONTENT_ATTRIBUTE_NAME, "");
+			}
+		});
+	}
+
+	function unselectRemovedElements() {
+		document.querySelectorAll("[" + REMOVED_CONTENT_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(REMOVED_CONTENT_ATTRIBUTE_NAME));
 	}
 
 	async function getOptions(options) {
