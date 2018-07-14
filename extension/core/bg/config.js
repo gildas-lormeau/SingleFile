@@ -24,7 +24,7 @@ singlefile.config = (() => {
 
 	const DEFAULT_CONFIG = {
 		removeHiddenElements: false,
-		removeUnusedCSSRules: false,
+		removeUnusedCSSRules: true,
 		removeFrames: true,
 		removeImports: true,
 		removeScripts: true,
@@ -88,6 +88,9 @@ singlefile.config = (() => {
 		}
 		if (config.maxResourceSize === 0) {
 			config.maxResourceSize = 1;
+		}
+		if (config.removeUnusedCSSRules === undefined) {
+			config.removeUnusedCSSRules = true;
 		}
 	}
 
