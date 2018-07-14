@@ -36,43 +36,9 @@
 			processing = true;
 			fixInlineScripts();
 			fixHeadNoScripts();
-			getOptions(message.options)
-				.then(options => {
-					if (options.selected) {
-						selectSelectedContent();
-					}
-					if (!options.removeFrames) {
-						hideHeadFrames();
-					}
-					if (options.removeHiddenElements) {
-						selectRemovedElements();
-					}
-					options.url = document.location.href;
-					options.content = getDoctype(document) + document.documentElement.outerHTML;
-					if (options.removeHiddenElements) {
-						unselectRemovedElements();
-					}
-					if (options.selected) {
-						unselectSelectedContent();
-					}
-					return SingleFile.initialize(options);
-				})
-				.then(process => {
-					const options = message.options;
-					if (options.shadowEnabled) {
-						singlefile.ui.init();
-					}
-					return process();
-				})
+			processMessage(message)
 				.then(page => {
-					const options = message.options;
-					const date = new Date();
-					page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
-					page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 					downloadPage(page);
-					if (options.shadowEnabled) {
-						singlefile.ui.end();
-					}
 					processing = false;
 				})
 				.catch(error => {
@@ -82,6 +48,41 @@
 				});
 		}
 	});
+
+	async function processMessage(message) {
+		const options = await getOptions(message.options);
+		if (options.selected) {
+			selectSelectedContent();
+		}
+		if (!options.removeFrames) {
+			hideHeadFrames();
+		}
+		if (options.removeHiddenElements) {
+			selectRemovedElements();
+		}
+		options.url = document.location.href;
+		options.content = getDoctype(document) + document.documentElement.outerHTML;
+		if (options.removeHiddenElements) {
+			unselectRemovedElements();
+		}
+		if (options.selected) {
+			unselectSelectedContent();
+		}
+		const processor = new SingleFile(options);
+		await processor.initialize();
+		if (options.shadowEnabled) {
+			singlefile.ui.init();
+		}
+		await processor.preparePageData();
+		const page = processor.getPageData();
+		const date = new Date();
+		page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
+		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" })); // TODO: revoke after download
+		if (options.shadowEnabled) {
+			singlefile.ui.end();
+		}
+		return page;
+	}
 
 	function fixInlineScripts() {
 		document.querySelectorAll("script").forEach(element => element.textContent = element.textContent.replace(/<\/script>/gi, "<\\/script>"));
