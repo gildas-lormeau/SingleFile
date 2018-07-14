@@ -37,19 +37,27 @@
 			fixInlineScripts();
 			getOptions(message.options)
 				.then(options => {
+					if (options.selected) {
+						selectSelectedContent();
+					}
 					if (!options.removeFrames) {
 						hideHeadFrames();
 					}
 					if (options.removeHiddenElements) {
 						selectRemovedElements();
 					}
+					options.url = document.location.href;
+					options.content = getDoctype(document) + document.documentElement.outerHTML;
+					if (options.removeHiddenElements) {
+						unselectRemovedElements();
+					}
+					if (options.selected) {
+						unselectSelectedContent();
+					}
 					return SingleFile.initialize(options);
 				})
 				.then(process => {
 					const options = message.options;
-					if (options.removeHiddenElements) {
-						unselectRemovedElements();
-					}
 					if (options.shadowEnabled) {
 						singlefile.ui.init();
 					}
@@ -95,17 +103,28 @@
 		document.querySelectorAll("[" + REMOVED_CONTENT_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(REMOVED_CONTENT_ATTRIBUTE_NAME));
 	}
 
-	async function getOptions(options) {
-		options.url = document.location.href;
-		if (options.selected) {
-			markSelectedContent();
+	function selectSelectedContent() {
+		const selection = getSelection();
+		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
+		let node;
+		if (range && range.startOffset != range.endOffset) {
+			node = range.commonAncestorContainer;
+			if (node.nodeType != node.ELEMENT_NODE) {
+				node = node.parentElement;
+			}
 		}
-		options.content = getDoctype(document) + document.documentElement.outerHTML;
+		node.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+	}
+
+	function unselectSelectedContent() {
+		document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
+	}
+
+	async function getOptions(options) {
 		options.canvasData = getCanvasData();
 		if (!options.removeFrames) {
 			options.framesData = await FrameTree.getFramesData();
 		}
-		document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
 		options.jsEnabled = true;
 		let indexLoaded = 0, indexLoading = 0;
 		options.onprogress = event => {
@@ -134,19 +153,6 @@
 			}
 		});
 		return canvasData;
-	}
-
-	function markSelectedContent() {
-		const selection = getSelection();
-		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
-		let node;
-		if (range && range.startOffset != range.endOffset) {
-			node = range.commonAncestorContainer;
-			if (node.nodeType != node.ELEMENT_NODE) {
-				node = node.parentElement;
-			}
-		}
-		node.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
 	}
 
 	function getDoctype(doc) {

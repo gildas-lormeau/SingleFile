@@ -100,9 +100,9 @@ singlefile.ui = (() => {
 			});
 	}
 
-	function processTab(tab) {
+	function processTab(tab, options) {
 		const tabId = tab.id;
-		singlefile.core.processTab(tab)
+		singlefile.core.processTab(tab, options)
 			.then(() => {
 				tabs[tabId] = {
 					id: tabId,
