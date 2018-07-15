@@ -33,6 +33,7 @@ singlefile.config = (() => {
 		compressCSS: true,
 		lazyLoadImages: true,
 		appendSaveDate: true,
+		confirmFilename: false,
 		contextMenuEnabled: true,
 		shadowEnabled: true,
 		maxResourceSizeEnabled: false,

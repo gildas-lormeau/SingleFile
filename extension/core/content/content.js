@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle */
+/* global SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle, prompt */
 
 (() => {
 
@@ -38,7 +38,7 @@
 			processing = true;
 			try {
 				const page = await processMessage(message);
-				downloadPage(page);
+				downloadPage(page, message.options);
 				revokeDownloadURL(page);
 			} catch (error) {
 				browser.runtime.sendMessage({ processError: true, error });
@@ -183,13 +183,18 @@
 		return "";
 	}
 
-	function downloadPage(page) {
-		const link = document.createElement("a");
-		document.body.appendChild(link);
-		link.download = page.filename;
-		link.href = page.url;
-		link.dispatchEvent(new MouseEvent("click"));
-		link.remove();
+	function downloadPage(page, options) {
+		if (options.confirmFilename) {
+			page.filename = prompt("File name", page.filename);
+		}
+		if (page.filename && page.filename.length) {
+			const link = document.createElement("a");
+			document.body.appendChild(link);
+			link.download = page.filename;
+			link.href = page.url;
+			link.dispatchEvent(new MouseEvent("click"));
+			link.remove();
+		}
 	}
 
 })();

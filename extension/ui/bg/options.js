@@ -39,6 +39,7 @@
 		const shadowEnabledInput = document.getElementById("shadowEnabledInput");
 		const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 		const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
+		const confirmFilenameInput = document.getElementById("confirmFilenameInput");
 		let pendingSave = Promise.resolve();
 		document.getElementById("resetButton").addEventListener("click", async () => {
 			await bgPage.singlefile.config.reset();
@@ -66,6 +67,7 @@
 			maxResourceSizeEnabledInput.checked = config.maxResourceSizeEnabled;
 			maxResourceSizeInput.value = config.maxResourceSize;
 			maxResourceSizeInput.disabled = !config.maxResourceSizeEnabled;
+			confirmFilenameInput.checked = config.confirmFilename;
 		}
 
 		async function update() {
@@ -84,7 +86,8 @@
 				appendSaveDate: appendSaveDateInput.checked,
 				shadowEnabled: shadowEnabledInput.checked,
 				maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
-				maxResourceSize: maxResourceSizeInput.value
+				maxResourceSize: maxResourceSizeInput.value,
+				confirmFilename: confirmFilenameInput.checked
 			});
 			await pendingSave;
 			await bgPage.singlefile.ui.update();
