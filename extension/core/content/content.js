@@ -39,6 +39,7 @@
 			try {
 				const page = await processMessage(message);
 				downloadPage(page);
+				revokeDownloadURL(page);
 			} catch (error) {
 				browser.runtime.sendMessage({ processError: true, error });
 			}
@@ -81,6 +82,10 @@
 			singlefile.ui.end();
 		}
 		return page;
+	}
+
+	function revokeDownloadURL(page) {
+		URL.revokeObjectURL(page.url);
 	}
 
 	function fixInlineScripts() {
