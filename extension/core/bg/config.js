@@ -25,7 +25,7 @@ singlefile.config = (() => {
 	const DEFAULT_CONFIG = {
 		removeHiddenElements: false,
 		removeUnusedCSSRules: true,
-		removeFrames: true,
+		removeFrames: false,
 		removeImports: true,
 		removeScripts: true,
 		rawDocument: false,
