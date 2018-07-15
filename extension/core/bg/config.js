@@ -29,8 +29,7 @@ singlefile.config = (() => {
 		removeImports: true,
 		removeScripts: true,
 		rawDocument: false,
-		compressHTML: true,
-		compressCSS: true,
+		compress: true,
 		lazyLoadImages: true,
 		appendSaveDate: true,
 		confirmFilename: false,
@@ -54,7 +53,7 @@ singlefile.config = (() => {
 		} else {
 			pendingUpgradePromise = new Promise(resolve => browser.storage.local.get(config => {
 				upgradeConfig(config);
-				resolve();
+				browser.storage.local.set(config, resolve);
 			}));
 		}
 	}
@@ -63,11 +62,8 @@ singlefile.config = (() => {
 		if (config.removeScripts === undefined) {
 			config.removeScripts = true;
 		}
-		if (config.compressHTML === undefined) {
-			config.compressHTML = true;
-		}
-		if (config.compressCSS === undefined) {
-			config.compressCSS = true;
+		if (config.compress === undefined) {
+			config.compress = true;
 		}
 		if (config.lazyLoadImages === undefined) {
 			config.lazyLoadImages = true;
