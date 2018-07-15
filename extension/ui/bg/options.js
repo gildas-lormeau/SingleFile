@@ -40,10 +40,10 @@
 		const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 		const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
 		let pendingSave = Promise.resolve();
-		document.getElementById("resetButton").addEventListener("click", () => {
-			bgPage.singlefile.config.reset()
-				.then(refresh)
-				.then(update);
+		document.getElementById("resetButton").addEventListener("click", async () => {
+			await bgPage.singlefile.config.reset();
+			await refresh();
+			await update();
 		}, false);
 		maxResourceSizeEnabledInput.addEventListener("click", () => maxResourceSizeInput.disabled = !maxResourceSizeEnabledInput.checked, false);
 		document.getElementById("popupContent").onchange = update;

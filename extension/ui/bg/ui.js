@@ -80,53 +80,50 @@ singlefile.ui = (() => {
 	});
 	return { update: refreshContextMenu };
 
-	function refreshContextMenu() {
-		singlefile.config.get()
-			.then(config => {
-				if (config.contextMenuEnabled) {
-					browser.contextMenus.create({
-						id: MENU_ID_SAVE_PAGE,
-						contexts: ["page"],
-						title: "Save page"
-					});
-					browser.contextMenus.create({
-						id: MENU_ID_SAVE_SELECTED,
-						contexts: ["selection"],
-						title: "Save selection"
-					});
-				} else {
-					browser.contextMenus.removeAll();
-				}
+	async function refreshContextMenu() {
+		const config = await singlefile.config.get();
+		if (config.contextMenuEnabled) {
+			browser.contextMenus.create({
+				id: MENU_ID_SAVE_PAGE,
+				contexts: ["page"],
+				title: "Save page"
 			});
+			browser.contextMenus.create({
+				id: MENU_ID_SAVE_SELECTED,
+				contexts: ["selection"],
+				title: "Save selection"
+			});
+		} else {
+			browser.contextMenus.removeAll();
+		}
 	}
 
-	function processTab(tab, options) {
+	async function processTab(tab, options) {
 		const tabId = tab.id;
-		singlefile.core.processTab(tab, options)
-			.then(() => {
-				tabs[tabId] = {
-					id: tabId,
-					text: "...",
-					color: DEFAULT_COLOR,
-					title: "initializing...",
-					path: DEFAULT_ICON_PATH,
-					progress: -1,
-					barProgress: -1
-				};
-				refreshBadge(tabId);
-			})
-			.catch(() => {
-				tabs[tabId] = {
-					id: tabId,
-					text: "↻",
-					color: [255, 141, 1, 255],
-					title: "reload the page",
-					path: DEFAULT_ICON_PATH,
-					progress: -1,
-					barProgress: -1
-				};
-				refreshBadge(tabId);
-			});
+		try {
+			await singlefile.core.processTab(tab, options);
+			tabs[tabId] = {
+				id: tabId,
+				text: "...",
+				color: DEFAULT_COLOR,
+				title: "initializing...",
+				path: DEFAULT_ICON_PATH,
+				progress: -1,
+				barProgress: -1
+			};
+			refreshBadge(tabId);
+		} catch (e) {
+			tabs[tabId] = {
+				id: tabId,
+				text: "↻",
+				color: [255, 141, 1, 255],
+				title: "reload the page",
+				path: DEFAULT_ICON_PATH,
+				progress: -1,
+				barProgress: -1
+			};
+			refreshBadge(tabId);
+		}
 	}
 
 	function onTabError(tabId) {
