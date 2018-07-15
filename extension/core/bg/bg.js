@@ -45,7 +45,6 @@ singlefile.core = (() => {
 	async function processStart(tab, options) {
 		if (!options.removeFrames) {
 			await FrameTree.initialize(tab.id);
-
 		}
 		await new Promise(resolve => browser.tabs.sendMessage(tab.id, { processStart: true, options }, resolve));
 	}
