@@ -32,20 +32,21 @@
 
 	browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		sendResponse({});
+		savePage(message);
+	});
+
+	async function savePage(message) {
 		if (message.processStart && !processing) {
 			processing = true;
-			processMessage(message)
-				.then(page => {
-					downloadPage(page);
-					processing = false;
-				})
-				.catch(error => {
-					browser.runtime.sendMessage({ processError: true, error });
-					processing = false;
-					throw error;
-				});
+			try {
+				const page = await processMessage(message);
+				downloadPage(page);
+			} catch (error) {
+				browser.runtime.sendMessage({ processError: true, error });
+			}
+			processing = false;
 		}
-	});
+	}
 
 	async function processMessage(message) {
 		const options = await getOptions(message.options);
