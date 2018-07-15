@@ -24,8 +24,6 @@
 
 	const browser = this.browser || this.chrome;
 
-	const SELECTED_CONTENT_ATTRIBUTE_NAME = "data-single-file-selected-content";
-	const REMOVED_CONTENT_ATTRIBUTE_NAME = "data-single-file-removed-content";
 	const PROGRESS_LOADED_COEFFICIENT = 2;
 
 	let processing = false;
@@ -50,26 +48,26 @@
 
 	async function processMessage(message) {
 		const options = await getOptions(message.options);
+		const processor = new SingleFile(options);
 		fixInlineScripts();
 		fixHeadNoScripts();
 		if (options.selected) {
-			selectSelectedContent();
+			selectSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME);
 		}
 		if (!options.removeFrames) {
 			hideHeadFrames();
 		}
 		if (options.removeHiddenElements) {
-			selectRemovedElements();
+			selectRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
 		}
 		options.url = document.location.href;
 		options.content = getDoctype(document) + document.documentElement.outerHTML;
 		if (options.removeHiddenElements) {
-			unselectRemovedElements();
+			unselectRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
 		}
 		if (options.selected) {
-			unselectSelectedContent();
+			unselectSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME);
 		}
-		const processor = new SingleFile(options);
 		await processor.initialize();
 		if (options.shadowEnabled) {
 			singlefile.ui.init();
@@ -97,7 +95,7 @@
 		document.head.querySelectorAll("noscript").forEach(noscriptElement => document.body.insertBefore(noscriptElement, document.body.firstChild));
 	}
 
-	function selectRemovedElements() {
+	function selectRemovedElements(REMOVED_CONTENT_ATTRIBUTE_NAME) {
 		document.querySelectorAll("html > body *:not(style):not(script):not(link)").forEach(element => {
 			const style = getComputedStyle(element);
 			if (element.hidden || style.display == "none" || ((style.opacity === 0 || style.visibility == "hidden") && !element.clientWidth && !element.clientHeight)) {
@@ -106,11 +104,11 @@
 		});
 	}
 
-	function unselectRemovedElements() {
+	function unselectRemovedElements(REMOVED_CONTENT_ATTRIBUTE_NAME) {
 		document.querySelectorAll("[" + REMOVED_CONTENT_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(REMOVED_CONTENT_ATTRIBUTE_NAME));
 	}
 
-	function selectSelectedContent() {
+	function selectSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME) {
 		const selection = getSelection();
 		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
 		let node;
@@ -123,7 +121,7 @@
 		node.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
 	}
 
-	function unselectSelectedContent() {
+	function unselectSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME) {
 		document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
 	}
 
