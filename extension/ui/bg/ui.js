@@ -150,11 +150,11 @@ singlefile.ui = (() => {
 
 	function onTabProgress(tabId, index, maxIndex) {
 		const tabData = tabs[tabId];
-		const progress = Math.max(Math.min(100, Math.floor((index / maxIndex) * 100)), 0);
+		const progress = Math.max(Math.min(20, Math.floor((index / maxIndex) * 20)), 0);
 		if (tabData.progress != progress) {
 			tabData.progress = progress;
 			tabData.text = "";
-			tabData.title = "progress: " + Math.min(100, Math.floor((index / maxIndex) * 100)) + "%";
+			tabData.title = "progress: " + (progress * 5) + "%";
 			tabData.color = [4, 229, 36, 255];
 			const barProgress = Math.floor((index / maxIndex) * 15);
 			if (tabData.barProgress != barProgress) {
