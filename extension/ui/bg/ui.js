@@ -64,7 +64,7 @@ singlefile.ui = (() => {
 	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabActivated(tab.id, isAllowedURL(tab.url)));
 	browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
 	browser.runtime.onMessage.addListener((request, sender) => {
-		if (request.processProgress) {
+		if (request.processProgress && request.maxIndex) {
 			onTabProgress(sender.tab.id, request.index, request.maxIndex);
 		}
 		if (request.processEnd) {
