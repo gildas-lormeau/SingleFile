@@ -26,7 +26,7 @@
     },
     "browser_action": {
         "default_icon": "extension/ui/resources/icon_16.png",
-        "default_title": "Save page"
+        "default_title": "Save page with SingleFile"
     },
     "content_scripts": [
         {

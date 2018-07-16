@@ -86,7 +86,7 @@ singlefile.ui = (() => {
 			browser.contextMenus.create({
 				id: MENU_ID_SAVE_PAGE,
 				contexts: ["page"],
-				title: "Save page"
+				title: "Save page with SingleFile"
 			});
 			browser.contextMenus.create({
 				id: MENU_ID_SAVE_SELECTED,
