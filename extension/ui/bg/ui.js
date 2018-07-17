@@ -18,18 +18,15 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global singlefile, navigator */
+/* global browser, singlefile */
 
 singlefile.ui = (() => {
-
-	const browser = this.browser || this.chrome;
 
 	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_16.png";
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_16_wait";
 	const DEFAULT_TITLE = "Process this page with SingleFile";
 	const DEFAULT_COLOR = [2, 147, 20, 255];
 	const BADGE_PROPERTIES = [{ name: "text", browserActionMethod: "setBadgeText" }, { name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "title", browserActionMethod: "setTitle" }, { name: "path", browserActionMethod: "setIcon" }];
-	const RUNNING_IN_EDGE = navigator.userAgent.includes("Edge");
 	const STORE_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_SAVE_SELECTED = "save-selected";
@@ -39,7 +36,7 @@ singlefile.ui = (() => {
 	let badgeRefreshPending = [];
 
 	browser.runtime.onInstalled.addListener(refreshContextMenu);
-	browser.contextMenus.onClicked.addListener((event, tab) => {
+	browser.menus.onClicked.addListener((event, tab) => {
 		if (event.menuItemId == MENU_ID_SAVE_PAGE) {
 			processTab(tab);
 		}
@@ -47,19 +44,20 @@ singlefile.ui = (() => {
 			processTab(tab, { selected: true });
 		}
 	});
-	browser.browserAction.onClicked.addListener(tab => {
+	browser.browserAction.onClicked.addListener(async tab => {
 		if (isAllowedURL(tab.url)) {
-			browser.tabs.query({ currentWindow: true, highlighted: true }, tabs => {
-				tabs = tabs.filter(tab => tab.highlighted);
-				if (!tabs.length) {
-					processTab(tab);
-				} else {
-					tabs.forEach(processTab);
-				}
-			});
+			const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
+			if (!tabs.length) {
+				processTab(tab);
+			} else {
+				tabs.forEach(processTab);
+			}
 		}
 	});
-	browser.tabs.onActivated.addListener(activeInfo => browser.tabs.get(activeInfo.tabId, tab => onTabActivated(tab.id, isAllowedURL(tab.url))));
+	browser.tabs.onActivated.addListener(async activeInfo => {
+		const tab = browser.tabs.get(activeInfo.tabId);
+		onTabActivated(tab.id, isAllowedURL(tab.url));
+	});
 	browser.tabs.onCreated.addListener(tab => onTabActivated(tab.id, isAllowedURL(tab.url)));
 	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabActivated(tab.id, isAllowedURL(tab.url)));
 	browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
@@ -76,25 +74,25 @@ singlefile.ui = (() => {
 			}
 			onTabError(sender.tab.id);
 		}
-		return false;
 	});
 	return { update: refreshContextMenu };
 
 	async function refreshContextMenu() {
 		const config = await singlefile.config.get();
 		if (config.contextMenuEnabled) {
-			browser.contextMenus.create({
+			await browser.menus.removeAll();
+			browser.menus.create({
 				id: MENU_ID_SAVE_PAGE,
 				contexts: ["page"],
 				title: "Save page with SingleFile"
 			});
-			browser.contextMenus.create({
+			browser.menus.create({
 				id: MENU_ID_SAVE_SELECTED,
 				contexts: ["selection"],
 				title: "Save selection"
 			});
 		} else {
-			browser.contextMenus.removeAll();
+			await browser.menus.removeAll();
 		}
 	}
 
@@ -204,14 +202,7 @@ singlefile.ui = (() => {
 		if (JSON.stringify(badgeTabs[tabId][property]) != JSON.stringify(value)) {
 			const browserActionParameter = { tabId };
 			badgeTabs[tabId][property] = browserActionParameter[property] = value;
-			return new Promise(resolve => {
-				if (RUNNING_IN_EDGE) {
-					browser.browserAction[browserActionMethod](browserActionParameter);
-					resolve();
-				} else {
-					browser.browserAction[browserActionMethod](browserActionParameter, resolve);
-				}
-			});
+			await browser.browserAction[browserActionMethod](browserActionParameter);
 		}
 	}
 

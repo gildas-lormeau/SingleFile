@@ -10,6 +10,7 @@
     "description": "Archive a complete page into a single HTML file",
     "background": {
         "scripts": [
+            "lib/browser-polyfill/custom-browser-polyfill.js",
             "lib/frame-tree/bg/frame-tree.js",
             "lib/fetch/bg/fetch.js",
             "extension/index.js",
@@ -34,6 +35,7 @@
                 "<all_urls>"
             ],
             "js": [
+                "lib/browser-polyfill/custom-browser-polyfill.js",
                 "extension/index.js",
                 "extension/ui/content/ui.js",
                 "lib/single-file/base64.js",
@@ -52,6 +54,7 @@
                 "<all_urls>"
             ],
             "js": [
+                "lib/browser-polyfill/custom-browser-polyfill.js",
                 "lib/frame-tree/content/frame-tree.js"
             ],
             "run_at": "document_start",
@@ -61,6 +64,7 @@
     "permissions": [
         "tabs",
         "contextMenus",
+        "menus",
         "storage",
         "http://*/*",
         "https://*/*"

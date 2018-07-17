@@ -7,6 +7,7 @@
         "gmail",
         "graytext",
         "iframes",
+        "polyfill",
         "prefetch",
         "singlefile",
         "srcdoc",

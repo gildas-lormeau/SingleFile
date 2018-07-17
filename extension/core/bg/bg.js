@@ -18,11 +18,10 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global singlefile, FrameTree */
+/* global browser, singlefile, FrameTree */
 
 singlefile.core = (() => {
 
-	const browser = this.browser || this.chrome;
 	const TIMEOUT_PROCESS_START_MESSAGE = 3000;
 
 	return {
@@ -31,13 +30,11 @@ singlefile.core = (() => {
 			Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
 			options.insertSingleFileComment = true;
 			options.insertFaviconLink = true;
-			return new Promise((resolve, reject) => {
+			return new Promise(async (resolve, reject) => {
 				const errorTimeout = setTimeout(reject, TIMEOUT_PROCESS_START_MESSAGE);
-				processStart(tab, options)
-					.then(() => {
-						clearTimeout(errorTimeout);
-						resolve();
-					});
+				await processStart(tab, options);
+				clearTimeout(errorTimeout);
+				resolve();
 			});
 		}
 	};
@@ -46,7 +43,7 @@ singlefile.core = (() => {
 		if (!options.removeFrames) {
 			await FrameTree.initialize(tab.id);
 		}
-		await new Promise(resolve => browser.tabs.sendMessage(tab.id, { processStart: true, options }, resolve));
+		await browser.tabs.sendMessage(tab.id, { processStart: true, options });
 	}
 
 })();

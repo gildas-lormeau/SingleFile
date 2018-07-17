@@ -18,19 +18,17 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle, prompt */
+/* global browser, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle, prompt */
 
 (() => {
-
-	const browser = this.browser || this.chrome;
 
 	const PROGRESS_LOADED_COEFFICIENT = 2;
 
 	let processing = false;
 
-	browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
-		sendResponse({});
+	browser.runtime.onMessage.addListener(async message => {
 		savePage(message);
+		return {};
 	});
 
 	async function savePage(message) {

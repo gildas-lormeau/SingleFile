@@ -18,77 +18,74 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global document */
+/* global browser, document */
 
-(() => {
+(async () => {
 
-	const browser = this.browser || this.chrome;
+	const bgPage = await browser.runtime.getBackgroundPage();
+	const removeHiddenElementsInput = document.getElementById("removeHiddenElementsInput");
+	const removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
+	const removeFramesInput = document.getElementById("removeFramesInput");
+	const removeImportsInput = document.getElementById("removeImportsInput");
+	const removeScriptsInput = document.getElementById("removeScriptsInput");
+	const saveRawPageInput = document.getElementById("saveRawPageInput");
+	const compressInput = document.getElementById("compressInput");
+	const lazyLoadImagesInput = document.getElementById("lazyLoadImagesInput");
+	const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
+	const appendSaveDateInput = document.getElementById("appendSaveDateInput");
+	const shadowEnabledInput = document.getElementById("shadowEnabledInput");
+	const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
+	const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
+	const confirmFilenameInput = document.getElementById("confirmFilenameInput");
+	let pendingSave = Promise.resolve();
+	document.getElementById("resetButton").addEventListener("click", async () => {
+		await bgPage.singlefile.config.reset();
+		await refresh();
+		await update();
+	}, false);
+	maxResourceSizeEnabledInput.addEventListener("click", () => maxResourceSizeInput.disabled = !maxResourceSizeEnabledInput.checked, false);
+	document.getElementById("popupContent").onchange = update;
+	refresh();
 
-	browser.runtime.getBackgroundPage(bgPage => {
-		const removeHiddenElementsInput = document.getElementById("removeHiddenElementsInput");
-		const removeUnusedCSSRulesInput = document.getElementById("removeUnusedCSSRulesInput");
-		const removeFramesInput = document.getElementById("removeFramesInput");
-		const removeImportsInput = document.getElementById("removeImportsInput");
-		const removeScriptsInput = document.getElementById("removeScriptsInput");
-		const saveRawPageInput = document.getElementById("saveRawPageInput");
-		const compressInput = document.getElementById("compressInput");
-		const lazyLoadImagesInput = document.getElementById("lazyLoadImagesInput");
-		const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
-		const appendSaveDateInput = document.getElementById("appendSaveDateInput");
-		const shadowEnabledInput = document.getElementById("shadowEnabledInput");
-		const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
-		const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
-		const confirmFilenameInput = document.getElementById("confirmFilenameInput");
-		let pendingSave = Promise.resolve();
-		document.getElementById("resetButton").addEventListener("click", async () => {
-			await bgPage.singlefile.config.reset();
-			await refresh();
-			await update();
-		}, false);
-		maxResourceSizeEnabledInput.addEventListener("click", () => maxResourceSizeInput.disabled = !maxResourceSizeEnabledInput.checked, false);
-		document.getElementById("popupContent").onchange = update;
-		refresh();
+	async function refresh() {
+		const config = await bgPage.singlefile.config.get();
+		removeHiddenElementsInput.checked = config.removeHiddenElements;
+		removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
+		removeFramesInput.checked = config.removeFrames;
+		removeImportsInput.checked = config.removeImports;
+		removeScriptsInput.checked = config.removeScripts;
+		saveRawPageInput.checked = config.saveRawPage;
+		compressInput.checked = config.compress;
+		lazyLoadImagesInput.checked = config.lazyLoadImages;
+		contextMenuEnabledInput.checked = config.contextMenuEnabled;
+		appendSaveDateInput.checked = config.appendSaveDate;
+		shadowEnabledInput.checked = config.shadowEnabled;
+		maxResourceSizeEnabledInput.checked = config.maxResourceSizeEnabled;
+		maxResourceSizeInput.value = config.maxResourceSize;
+		maxResourceSizeInput.disabled = !config.maxResourceSizeEnabled;
+		confirmFilenameInput.checked = config.confirmFilename;
+	}
 
-		async function refresh() {
-			const config = await bgPage.singlefile.config.get();
-			removeHiddenElementsInput.checked = config.removeHiddenElements;
-			removeUnusedCSSRulesInput.checked = config.removeUnusedCSSRules;
-			removeFramesInput.checked = config.removeFrames;
-			removeImportsInput.checked = config.removeImports;
-			removeScriptsInput.checked = config.removeScripts;
-			saveRawPageInput.checked = config.saveRawPage;
-			compressInput.checked = config.compress;
-			lazyLoadImagesInput.checked = config.lazyLoadImages;
-			contextMenuEnabledInput.checked = config.contextMenuEnabled;
-			appendSaveDateInput.checked = config.appendSaveDate;
-			shadowEnabledInput.checked = config.shadowEnabled;
-			maxResourceSizeEnabledInput.checked = config.maxResourceSizeEnabled;
-			maxResourceSizeInput.value = config.maxResourceSize;
-			maxResourceSizeInput.disabled = !config.maxResourceSizeEnabled;
-			confirmFilenameInput.checked = config.confirmFilename;
-		}
-
-		async function update() {
-			await pendingSave;
-			pendingSave = bgPage.singlefile.config.set({
-				removeHiddenElements: removeHiddenElementsInput.checked,
-				removeUnusedCSSRules: removeUnusedCSSRulesInput.checked,
-				removeFrames: removeFramesInput.checked,
-				removeImports: removeImportsInput.checked,
-				removeScripts: removeScriptsInput.checked,
-				saveRawPage: saveRawPageInput.checked,
-				compress: compressInput.checked,
-				lazyLoadImages: lazyLoadImagesInput.checked,
-				contextMenuEnabled: contextMenuEnabledInput.checked,
-				appendSaveDate: appendSaveDateInput.checked,
-				shadowEnabled: shadowEnabledInput.checked,
-				maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
-				maxResourceSize: maxResourceSizeInput.value,
-				confirmFilename: confirmFilenameInput.checked
-			});
-			await pendingSave;
-			await bgPage.singlefile.ui.update();
-		}
-	});
+	async function update() {
+		await pendingSave;
+		pendingSave = bgPage.singlefile.config.set({
+			removeHiddenElements: removeHiddenElementsInput.checked,
+			removeUnusedCSSRules: removeUnusedCSSRulesInput.checked,
+			removeFrames: removeFramesInput.checked,
+			removeImports: removeImportsInput.checked,
+			removeScripts: removeScriptsInput.checked,
+			saveRawPage: saveRawPageInput.checked,
+			compress: compressInput.checked,
+			lazyLoadImages: lazyLoadImagesInput.checked,
+			contextMenuEnabled: contextMenuEnabledInput.checked,
+			appendSaveDate: appendSaveDateInput.checked,
+			shadowEnabled: shadowEnabledInput.checked,
+			maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
+			maxResourceSize: maxResourceSizeInput.value,
+			confirmFilename: confirmFilenameInput.checked
+		});
+		await pendingSave;
+		await bgPage.singlefile.ui.update();
+	}
 
 })();

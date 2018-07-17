@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global singlefile, localStorage */
+/* global browser, singlefile, localStorage */
 
 singlefile.config = (() => {
 
@@ -39,22 +39,19 @@ singlefile.config = (() => {
 		maxResourceSize: 10
 	};
 
-	const browser = this.browser || this.chrome;
-
 	let pendingUpgradePromise;
 	upgrade();
 
-	function upgrade() {
+	async function upgrade() {
 		if (localStorage.config) {
 			const config = JSON.parse(localStorage.config);
 			upgradeConfig(config);
 			delete localStorage.config;
-			pendingUpgradePromise = new Promise(resolve => browser.storage.local.set(config, resolve));
+			pendingUpgradePromise = browser.storage.local.set(config);
 		} else {
-			pendingUpgradePromise = new Promise(resolve => browser.storage.local.get(config => {
-				upgradeConfig(config);
-				browser.storage.local.set(config, resolve);
-			}));
+			const config = await browser.storage.local.get();
+			upgradeConfig(config);
+			pendingUpgradePromise = browser.storage.local.set(config);
 		}
 	}
 
@@ -97,15 +94,16 @@ singlefile.config = (() => {
 	return {
 		async set(config) {
 			await pendingUpgradePromise;
-			return new Promise(resolve => browser.storage.local.set(config, resolve));
+			await browser.storage.local.set(config);
 		},
 		async get() {
 			await pendingUpgradePromise;
-			return new Promise(resolve => browser.storage.local.get(config => resolve(Object.keys(config).length ? config : DEFAULT_CONFIG)));
+			const config = await browser.storage.local.get();
+			return Object.keys(config).length ? config : DEFAULT_CONFIG;
 		},
 		async reset() {
 			await pendingUpgradePromise;
-			return new Promise(resolve => browser.storage.local.clear(resolve));
+			await browser.storage.local.clear();
 		}
 	};
 
