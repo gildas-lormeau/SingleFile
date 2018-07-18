@@ -30,6 +30,7 @@ singlefile.ui = (() => {
 	const STORE_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_SAVE_SELECTED = "save-selected";
+	const MENU_ID_SAVE_FRAME = "save-frame";
 
 	const tabs = {};
 	const badgeTabs = {};
@@ -42,6 +43,9 @@ singlefile.ui = (() => {
 		}
 		if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
 			processTab(tab, { selected: true });
+		}
+		if (event.menuItemId == MENU_ID_SAVE_FRAME) {
+			processTab(tab, { frameId: event.frameId });
 		}
 	});
 	browser.browserAction.onClicked.addListener(async tab => {
@@ -91,6 +95,11 @@ singlefile.ui = (() => {
 				contexts: ["selection"],
 				title: "Save selection"
 			});
+			browser.menus.create({
+				id: MENU_ID_SAVE_FRAME,
+				contexts: ["frame"],
+				title: "Save frame"
+			});
 		} else {
 			await browser.menus.removeAll();
 		}
@@ -110,17 +119,19 @@ singlefile.ui = (() => {
 				barProgress: -1
 			};
 			refreshBadge(tabId);
-		} catch (e) {
-			tabs[tabId] = {
-				id: tabId,
-				text: "↻",
-				color: [255, 141, 1, 255],
-				title: "reload the page",
-				path: DEFAULT_ICON_PATH,
-				progress: -1,
-				barProgress: -1
-			};
-			refreshBadge(tabId);
+		} catch (error) {
+			if (!error) {
+				tabs[tabId] = {
+					id: tabId,
+					text: "↻",
+					color: [255, 141, 1, 255],
+					title: "reload the page",
+					path: DEFAULT_ICON_PATH,
+					progress: -1,
+					barProgress: -1
+				};
+				refreshBadge(tabId);
+			}
 		}
 	}
 

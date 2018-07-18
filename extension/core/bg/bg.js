@@ -32,7 +32,11 @@ singlefile.core = (() => {
 			options.insertFaviconLink = true;
 			return new Promise(async (resolve, reject) => {
 				const errorTimeout = setTimeout(reject, TIMEOUT_PROCESS_START_MESSAGE);
-				await processStart(tab, options);
+				try {
+					await processStart(tab, options);
+				} catch (error) {
+					reject(error);
+				}
 				clearTimeout(errorTimeout);
 				resolve();
 			});
@@ -43,7 +47,11 @@ singlefile.core = (() => {
 		if (!options.removeFrames) {
 			await FrameTree.initialize(tab.id);
 		}
-		await browser.tabs.sendMessage(tab.id, { processStart: true, options });
+		if (options.frameId) {
+			await browser.tabs.sendMessage(tab.id, { processStart: true, options }, { frameId: options.frameId });
+		} else {
+			await browser.tabs.sendMessage(tab.id, { processStart: true, options });
+		}
 	}
 
 })();

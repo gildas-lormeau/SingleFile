@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle, prompt */
+/* global browser, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle, prompt, addEventListener */
 
 (() => {
 
@@ -31,14 +31,22 @@
 		return {};
 	});
 
+	addEventListener("message", event => {
+		if (typeof event.data === "string" && event.data.startsWith("__SingleFile__::")) {
+			const message = JSON.parse(event.data.substring("__SingleFile__".length + 2));
+			savePage(message);
+		}
+	});
+
 	async function savePage(message) {
-		if (message.processStart && !processing) {
+		if (message.processStart && !processing && !message.options.frameId) {
 			processing = true;
 			try {
 				const page = await processMessage(message);
 				downloadPage(page, message.options);
 				revokeDownloadURL(page);
 			} catch (error) {
+				console.error(error); // eslint-disable-line no-console
 				browser.runtime.sendMessage({ processError: true, error });
 			}
 			processing = false;
@@ -59,20 +67,20 @@
 		if (options.removeHiddenElements) {
 			selectRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
 		}
-		options.url = document.location.href;
-		options.content = getDoctype(document) + document.documentElement.outerHTML;
+		options.url = options.url || document.location.href;
+		options.content = options.content || getDoctype(document) + document.documentElement.outerHTML;
+		await processor.initialize();
 		if (options.removeHiddenElements) {
 			unselectRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
 		}
-		if (options.selected) {
-			unselectSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME);
-		}
-		await processor.initialize();
 		if (options.shadowEnabled) {
 			singlefile.ui.init();
 		}
 		await processor.preparePageData();
 		const page = processor.getPageData();
+		if (options.selected) {
+			unselectSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME);
+		}
 		const date = new Date();
 		page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" })); // TODO: revoke after download

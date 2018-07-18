@@ -55,7 +55,8 @@
             ],
             "js": [
                 "lib/browser-polyfill/custom-browser-polyfill.js",
-                "lib/frame-tree/content/frame-tree.js"
+                "lib/frame-tree/content/frame-tree.js",
+                "extension/core/content/content-frame.js"
             ],
             "run_at": "document_start",
             "all_frames": true
