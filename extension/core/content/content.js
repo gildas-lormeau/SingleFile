@@ -164,7 +164,7 @@
 		document.querySelectorAll("canvas").forEach(canvasElement => {
 			try {
 				canvasData.push({ dataURI: canvasElement.toDataURL("image/png", ""), width: canvasElement.clientWidth, height: canvasElement.clientHeight });
-			} catch (e) {
+			} catch (error) {
 				canvasData.push(null);
 			}
 		});
