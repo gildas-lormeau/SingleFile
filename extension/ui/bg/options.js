@@ -45,7 +45,7 @@
 		await update();
 	}, false);
 	maxResourceSizeEnabledInput.addEventListener("click", () => maxResourceSizeInput.disabled = !maxResourceSizeEnabledInput.checked, false);
-	document.getElementById("popupContent").onchange = update;
+	document.body.onchange = update;
 	refresh();
 
 	async function refresh() {

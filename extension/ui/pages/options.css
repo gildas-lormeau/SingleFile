@@ -1,14 +1,12 @@
 body {
     background-color: #fff;
-}
-
-body>div {
     margin-left: auto;
     margin-right: auto;
     padding: 10px;
     font-family: sans-serif;
     text-align: justify;
     max-width: 600px;
+    height: auto;
 }
 
 button {
@@ -17,25 +15,12 @@ button {
     border-style: solid;
     height: 25px;
     border-radius: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 button:active {
     border-color: rgb(237, 237, 237);
-}
-
-#popupContent {
-    height: auto;
-    padding-right: 5px;
-}
-
-#popupContent .option {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-}
-
-#popupContent .bottom {
-    padding-top: 15px;
 }
 
 input[type="checkbox"] {
@@ -52,19 +37,31 @@ input[type="number"] {
     top: -2px;
 }
 
-button {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-h2 {
-    margin-bottom: 14px;
-    margin-top: 14px;
-}
-
 h3 {
+    padding-left: 14px;
     margin-bottom: 10px;
     margin-top: 10px;
+}
+
+details {
+    padding-left: 12px;
+    padding-right: 12px;
+    border-top: gray 1px dashed;
+}
+
+details:last-of-type {
+    border-bottom: gray 1px dashed;
+}
+
+details>summary {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    min-width: 350px;
+    cursor: pointer;
+}
+
+details>summary:focus {
+    outline-width: 0px;
 }
 
 a {
@@ -72,11 +69,25 @@ a {
     padding-top: 5px;
 }
 
-#reloadButton {
-    background: lightGrey;
-    margin-left: 5px;
-}
-
 .option.second-level {
     margin-left: 10px;
+}
+
+.option {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding-left: 12px;
+}
+
+.option:last-of-type {
+    padding-bottom: 12px;
+}
+
+.option:first-of-type {
+    padding-top: 6px;
+}
+
+.option.bottom {
+    padding-top: 24px;
 }
