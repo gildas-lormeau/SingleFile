@@ -37,17 +37,19 @@ singlefile.ui = (() => {
 	let badgeRefreshPending = [];
 
 	browser.runtime.onInstalled.addListener(refreshContextMenu);
-	browser.menus.onClicked.addListener((event, tab) => {
-		if (event.menuItemId == MENU_ID_SAVE_PAGE) {
-			processTab(tab);
-		}
-		if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
-			processTab(tab, { selected: true });
-		}
-		if (event.menuItemId == MENU_ID_SAVE_FRAME) {
-			processTab(tab, { frameId: event.frameId });
-		}
-	});
+	if (browser.menus && browser.menus.onClicked) {
+		browser.menus.onClicked.addListener((event, tab) => {
+			if (event.menuItemId == MENU_ID_SAVE_PAGE) {
+				processTab(tab);
+			}
+			if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
+				processTab(tab, { selected: true });
+			}
+			if (event.menuItemId == MENU_ID_SAVE_FRAME) {
+				processTab(tab, { frameId: event.frameId });
+			}
+		});
+	}
 	browser.browserAction.onClicked.addListener(async tab => {
 		if (isAllowedURL(tab.url)) {
 			const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
@@ -83,25 +85,27 @@ singlefile.ui = (() => {
 
 	async function refreshContextMenu() {
 		const config = await singlefile.config.get();
-		if (config.contextMenuEnabled) {
-			await browser.menus.removeAll();
-			browser.menus.create({
-				id: MENU_ID_SAVE_PAGE,
-				contexts: ["page"],
-				title: "Save page with SingleFile"
-			});
-			browser.menus.create({
-				id: MENU_ID_SAVE_SELECTED,
-				contexts: ["selection"],
-				title: "Save selection"
-			});
-			browser.menus.create({
-				id: MENU_ID_SAVE_FRAME,
-				contexts: ["frame"],
-				title: "Save frame"
-			});
-		} else {
-			await browser.menus.removeAll();
+		if (browser.menus && browser.menus.removeAll && browser.menus.create) {
+			if (config.contextMenuEnabled) {
+				await browser.menus.removeAll();
+				browser.menus.create({
+					id: MENU_ID_SAVE_PAGE,
+					contexts: ["page"],
+					title: "Save page with SingleFile"
+				});
+				browser.menus.create({
+					id: MENU_ID_SAVE_SELECTED,
+					contexts: ["selection"],
+					title: "Save selection"
+				});
+				browser.menus.create({
+					id: MENU_ID_SAVE_FRAME,
+					contexts: ["frame"],
+					title: "Save frame"
+				});
+			} else {
+				await browser.menus.removeAll();
+			}
 		}
 	}
 
@@ -179,10 +183,12 @@ singlefile.ui = (() => {
 	}
 
 	function onTabActivated(tabId, isActive) {
-		if (isActive) {
-			browser.browserAction.enable(tabId);
-		} else {
-			browser.browserAction.disable(tabId);
+		if (browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
+			if (isActive) {
+				browser.browserAction.enable(tabId);
+			} else {
+				browser.browserAction.disable(tabId);
+			}
 		}
 	}
 
