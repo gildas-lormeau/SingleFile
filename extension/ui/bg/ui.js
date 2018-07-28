@@ -213,7 +213,7 @@ singlefile.ui = (() => {
 		if (JSON.stringify(badgeTabs[tabId][property]) != JSON.stringify(value)) {
 			const browserActionParameter = { tabId };
 			badgeTabs[tabId][property] = browserActionParameter[property] = value;
-			if (browser.browserAction[browserActionMethod]) {
+			if (browser.browserAction && browser.browserAction[browserActionMethod]) {
 				await browser.browserAction[browserActionMethod](browserActionParameter);
 			}
 		}
