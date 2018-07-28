@@ -29,7 +29,8 @@ singlefile.config = (() => {
 		removeImports: true,
 		removeScripts: true,
 		rawDocument: false,
-		compress: true,
+		compressHTML: true,
+		compressCSS: true,
 		lazyLoadImages: true,
 		appendSaveDate: true,
 		confirmFilename: false,
@@ -59,8 +60,12 @@ singlefile.config = (() => {
 		if (config.removeScripts === undefined) {
 			config.removeScripts = true;
 		}
-		if (config.compress === undefined) {
-			config.compress = true;
+		config.compressHTML = config.compressCSS = config.compress;
+		if (config.compressCSS === undefined) {
+			config.compressCSS = true;
+		}
+		if (config.compressHTML === undefined) {
+			config.compressHTML = true;
 		}
 		if (config.lazyLoadImages === undefined) {
 			config.lazyLoadImages = true;

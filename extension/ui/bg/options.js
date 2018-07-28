@@ -29,7 +29,8 @@
 	const removeImportsInput = document.getElementById("removeImportsInput");
 	const removeScriptsInput = document.getElementById("removeScriptsInput");
 	const saveRawPageInput = document.getElementById("saveRawPageInput");
-	const compressInput = document.getElementById("compressInput");
+	const compressHTMLInput = document.getElementById("compressHTMLInput");
+	const compressCSSInput = document.getElementById("compressCSSInput");
 	const lazyLoadImagesInput = document.getElementById("lazyLoadImagesInput");
 	const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 	const appendSaveDateInput = document.getElementById("appendSaveDateInput");
@@ -55,7 +56,8 @@
 		removeImportsInput.checked = config.removeImports;
 		removeScriptsInput.checked = config.removeScripts;
 		saveRawPageInput.checked = config.saveRawPage;
-		compressInput.checked = config.compress;
+		compressHTMLInput.checked = config.compressHTML;
+		compressCSSInput.checked = config.compressCSS;
 		lazyLoadImagesInput.checked = config.lazyLoadImages;
 		contextMenuEnabledInput.checked = config.contextMenuEnabled;
 		appendSaveDateInput.checked = config.appendSaveDate;
@@ -75,7 +77,8 @@
 			removeImports: removeImportsInput.checked,
 			removeScripts: removeScriptsInput.checked,
 			saveRawPage: saveRawPageInput.checked,
-			compress: compressInput.checked,
+			compressHTML: compressHTMLInput.checked,
+			compressCSS: compressCSSInput.checked,
 			lazyLoadImages: lazyLoadImagesInput.checked,
 			contextMenuEnabled: contextMenuEnabledInput.checked,
 			appendSaveDate: appendSaveDateInput.checked,
