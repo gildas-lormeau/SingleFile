@@ -24,6 +24,27 @@ singlefile.core = (() => {
 
 	const TIMEOUT_PROCESS_START_MESSAGE = 3000;
 
+	const initScriptFiles = [
+		"/lib/browser-polyfill/custom-browser-polyfill.js",
+		"/extension/index.js",
+		"/lib/frame-tree/content/frame-tree.js",
+		"/extension/core/content/content-frame.js"
+	];
+
+	const processScriptFiles = [
+		"/lib/browser-polyfill/custom-browser-polyfill.js",
+		"/extension/index.js",
+		"/extension/ui/content/ui.js",
+		"/lib/single-file/base64.js",
+		"/lib/single-file/uglifycss.js",
+		"/lib/single-file/htmlnano.js",
+		"/lib/single-file/parse-srcset.js",
+		"/lib/single-file/single-file-core.js",
+		"/lib/single-file/single-file-browser.js",
+		"/lib/fetch/content/fetch.js",
+		"/extension/core/content/content.js"
+	];
+
 	return {
 		async processTab(tab, processOptions = {}) {
 			const options = await singlefile.config.get();
@@ -31,9 +52,10 @@ singlefile.core = (() => {
 			options.insertSingleFileComment = true;
 			options.insertFaviconLink = true;
 			return new Promise(async (resolve, reject) => {
+				const processPromise = processStart(tab, options);
 				const errorTimeout = setTimeout(reject, TIMEOUT_PROCESS_START_MESSAGE);
 				try {
-					await processStart(tab, options);
+					await processPromise;
 				} catch (error) {
 					reject(error);
 				}
@@ -45,12 +67,21 @@ singlefile.core = (() => {
 
 	async function processStart(tab, options) {
 		if (!options.removeFrames) {
+			await executeScripts(tab.id, initScriptFiles, { allFrames: true, matchAboutBlank: true });
 			await FrameTree.initialize(tab.id);
 		}
+		await executeScripts(tab.id, processScriptFiles, { allFrames: false });
 		if (options.frameId) {
 			await browser.tabs.sendMessage(tab.id, { processStart: true, options }, { frameId: options.frameId });
 		} else {
 			await browser.tabs.sendMessage(tab.id, { processStart: true, options });
+		}
+	}
+
+	async function executeScripts(tabId, scriptFiles, details) {
+		for (let file of scriptFiles) {
+			details.file = file;
+			await browser.tabs.executeScript(tabId, details);
 		}
 	}
 

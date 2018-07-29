@@ -20,7 +20,7 @@
 
 /* global document */
 
-this.singlefile.ui = (() => {
+this.singlefile.ui = this.singlefile.ui || (() => {
 
 	const MASK_TAGNAME = "singlefile-mask";
 

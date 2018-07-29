@@ -20,7 +20,7 @@
 
 /* global browser, window, top, document */
 
-(() => {
+this.singlefile.frame = this.singlefile.frame || (() => {
 
 	if (window != top) {
 		browser.runtime.onMessage.addListener(async message => {
@@ -33,6 +33,7 @@
 			}
 		});
 	}
+	return true;
 
 	function getDoctype(doc) {
 		const docType = doc.doctype;

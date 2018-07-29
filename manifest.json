@@ -29,47 +29,12 @@
         "default_icon": "extension/ui/resources/icon_16.png",
         "default_title": "Save page with SingleFile"
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "lib/browser-polyfill/custom-browser-polyfill.js",
-                "extension/index.js",
-                "extension/ui/content/ui.js",
-                "lib/single-file/base64.js",
-                "lib/single-file/htmlnano.js",
-                "lib/single-file/uglifycss.js",
-                "lib/single-file/parse-srcset.js",
-                "lib/single-file/single-file-core.js",
-                "lib/single-file/single-file-browser.js",
-                "lib/fetch/content/fetch.js",
-                "extension/core/content/content.js"
-            ],
-            "run_at": "document_start",
-            "all_frames": false
-        },
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "lib/browser-polyfill/custom-browser-polyfill.js",
-                "lib/frame-tree/content/frame-tree.js",
-                "extension/core/content/content-frame.js"
-            ],
-            "run_at": "document_start",
-            "all_frames": true
-        }
-    ],
     "permissions": [
         "tabs",
         "contextMenus",
         "menus",
         "storage",
-        "http://*/*",
-        "https://*/*"
+        "<all_urls>"
     ],
     "applications": {
         "gecko": {

@@ -20,23 +20,22 @@
 
 /* global browser, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle, prompt, addEventListener */
 
-(() => {
+this.singlefile.top = this.singlefile.top || (() => {
 
 	const PROGRESS_LOADED_COEFFICIENT = 2;
 
 	let processing = false;
-
 	browser.runtime.onMessage.addListener(async message => {
 		savePage(message);
 		return {};
 	});
-
 	addEventListener("message", event => {
 		if (typeof event.data === "string" && event.data.startsWith("__SingleFile__::")) {
 			const message = JSON.parse(event.data.substring("__SingleFile__".length + 2));
 			savePage(message);
 		}
 	});
+	return true;
 
 	async function savePage(message) {
 		if (message.processStart && !processing && !message.options.frameId) {
@@ -55,7 +54,7 @@
 
 	async function processMessage(message) {
 		const options = await getOptions(message.options);
-		const processor = new SingleFile(options);
+		const processor = new (SingleFile.getClass())(options);
 		fixInlineScripts();
 		fixHeadNoScripts();
 		if (options.selected) {
