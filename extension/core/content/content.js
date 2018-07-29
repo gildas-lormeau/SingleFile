@@ -82,7 +82,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		}
 		const date = new Date();
 		page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
-		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" })); // TODO: revoke after download
+		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 		if (options.shadowEnabled) {
 			singlefile.ui.end();
 		}
