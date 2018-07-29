@@ -22,7 +22,7 @@
 
 singlefile.core = (() => {
 
-	const TIMEOUT_PROCESS_START_MESSAGE = 3000;
+	const TIMEOUT_PROCESS_START_MESSAGE = 10000;
 
 	const frameScriptFiles = [
 		"/lib/browser-polyfill/custom-browser-polyfill.js",
