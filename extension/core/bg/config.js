@@ -37,7 +37,9 @@ singlefile.config = (() => {
 		contextMenuEnabled: true,
 		shadowEnabled: true,
 		maxResourceSizeEnabled: false,
-		maxResourceSize: 10
+		maxResourceSize: 10,
+		removeAudioSrc: true,
+		removeVideoSrc: true
 	};
 
 	let pendingUpgradePromise;
@@ -93,6 +95,12 @@ singlefile.config = (() => {
 		}
 		if (config.removeFrames === undefined) {
 			config.removeFrames = true;
+		}
+		if (config.removeAudioSrc === undefined) {
+			config.removeAudioSrc = true;
+		}
+		if (config.removeVideoSrc === undefined) {
+			config.removeVideoSrc = true;
 		}
 	}
 
