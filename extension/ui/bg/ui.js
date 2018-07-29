@@ -124,7 +124,9 @@ singlefile.ui = (() => {
 			};
 			refreshBadge(tabId);
 		} catch (error) {
-			if (!error) {
+			if (error) {
+				onTabError(tabId);
+			} else {
 				tabs[tabId] = {
 					id: tabId,
 					text: "↻",
