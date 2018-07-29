@@ -37,6 +37,7 @@ singlefile.core = (() => {
 		"/extension/ui/content/ui.js",
 		"/lib/single-file/base64.js",
 		"/lib/single-file/uglifycss.js",
+		"/lib/single-file/rules-minifier.js",
 		"/lib/single-file/htmlnano.js",
 		"/lib/single-file/parse-srcset.js",
 		"/lib/single-file/single-file-core.js",
