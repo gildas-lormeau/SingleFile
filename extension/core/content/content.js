@@ -122,13 +122,15 @@ this.singlefile.top = this.singlefile.top || (() => {
 		const selection = getSelection();
 		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
 		let node;
-		if (range && range.startOffset != range.endOffset) {
+		if (range) {
 			node = range.commonAncestorContainer;
 			if (node.nodeType != node.ELEMENT_NODE) {
 				node = node.parentElement;
 			}
 		}
-		node.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+		if (node) {
+			node.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+		}
 	}
 
 	function unselectSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME) {
