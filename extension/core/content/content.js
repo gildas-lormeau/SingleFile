@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle, prompt, addEventListener */
+/* global browser, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle, prompt, addEventListener, Node */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
@@ -58,7 +58,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		fixInlineScripts();
 		fixHeadNoScripts();
 		if (options.selected) {
-			selectSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME);
+			selectSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
 		}
 		if (!options.removeFrames) {
 			hideHeadFrames();
@@ -78,7 +78,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		await processor.preparePageData();
 		const page = processor.getPageData();
 		if (options.selected) {
-			unselectSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME);
+			unselectSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
 		}
 		const date = new Date();
 		page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
@@ -118,23 +118,27 @@ this.singlefile.top = this.singlefile.top || (() => {
 		document.querySelectorAll("[" + REMOVED_CONTENT_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(REMOVED_CONTENT_ATTRIBUTE_NAME));
 	}
 
-	function selectSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME) {
+	function selectSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
 		const selection = getSelection();
 		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
-		let node;
-		if (range) {
-			node = range.commonAncestorContainer;
-			if (node.nodeType != node.ELEMENT_NODE) {
-				node = node.parentElement;
+		const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
+		let selectionFound = false;
+		const ancestorElement = range.commonAncestorContainer != Node.ELEMENT_NODE ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
+		ancestorElement.setAttribute(SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
+		while (treeWalker.nextNode() && treeWalker.currentNode != range.endContainer) {
+			if (treeWalker.currentNode == range.startContainer) {
+				selectionFound = true;
 			}
-		}
-		if (node) {
-			node.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+			if (selectionFound) {
+				const element = treeWalker.currentNode.nodeType == Node.ELEMENT_NODE ? treeWalker.currentNode : treeWalker.currentNode.parentElement;
+				element.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+			}
 		}
 	}
 
-	function unselectSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME) {
+	function unselectSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
 		document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
+		document.querySelectorAll("[" + SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME));
 	}
 
 	async function getOptions(options) {
