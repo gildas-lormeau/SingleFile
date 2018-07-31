@@ -7,7 +7,7 @@
         "128": "extension/ui/resources/icon_128.png"
     },
     "version": "1.2.22",
-    "description": "Archive a complete page into a single HTML file",
+    "description": "Save a complete page into a single HTML file",
     "background": {
         "scripts": [
             "lib/browser-polyfill/custom-browser-polyfill.js",
