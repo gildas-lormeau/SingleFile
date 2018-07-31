@@ -24,7 +24,7 @@ singlefile.ui = (() => {
 
 	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_16.png";
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_16_wait";
-	const DEFAULT_TITLE = "Process this page with SingleFile";
+	const DEFAULT_TITLE = "Save page with SingleFile";
 	const DEFAULT_COLOR = [2, 147, 20, 255];
 	const BADGE_PROPERTIES = [{ name: "text", browserActionMethod: "setBadgeText" }, { name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "title", browserActionMethod: "setTitle" }, { name: "path", browserActionMethod: "setIcon" }];
 	const STORE_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
@@ -91,17 +91,17 @@ singlefile.ui = (() => {
 				browser.menus.create({
 					id: MENU_ID_SAVE_PAGE,
 					contexts: ["page"],
-					title: "Save page with SingleFile"
+					title: DEFAULT_TITLE
 				});
 				browser.menus.create({
 					id: MENU_ID_SAVE_SELECTED,
 					contexts: ["selection"],
-					title: "Save selection"
+					title: "Save selection with SingleFile"
 				});
 				browser.menus.create({
 					id: MENU_ID_SAVE_FRAME,
 					contexts: ["frame"],
-					title: "Save frame"
+					title: "Save frame with SingleFile"
 				});
 			} else {
 				await browser.menus.removeAll();
@@ -117,7 +117,7 @@ singlefile.ui = (() => {
 				id: tabId,
 				text: "...",
 				color: DEFAULT_COLOR,
-				title: "initializing...",
+				title: "Initializing...",
 				path: DEFAULT_ICON_PATH,
 				progress: -1,
 				barProgress: -1
@@ -131,7 +131,7 @@ singlefile.ui = (() => {
 					id: tabId,
 					text: "↻",
 					color: [255, 141, 1, 255],
-					title: "reload the page",
+					title: "Reload the page",
 					path: DEFAULT_ICON_PATH,
 					progress: -1,
 					barProgress: -1
@@ -169,7 +169,7 @@ singlefile.ui = (() => {
 		if (tabData.progress != progress) {
 			tabData.progress = progress;
 			tabData.text = "";
-			tabData.title = "progress: " + (progress * 5) + "%";
+			tabData.title = "Save progress: " + (progress * 5) + "%";
 			tabData.color = [4, 229, 36, 255];
 			const barProgress = Math.floor((index / maxIndex) * 15);
 			if (tabData.barProgress != barProgress) {
