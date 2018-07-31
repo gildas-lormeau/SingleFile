@@ -145,13 +145,12 @@ this.singlefile.top = this.singlefile.top || (() => {
 			options.framesData = await FrameTree.getFramesData();
 		}
 		options.jsEnabled = true;
-		let indexLoaded = 0;
 		options.onprogress = event => {
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
-				if (event.type == event.RESOURCE_LOADED) {
-					indexLoaded = event.details.index;
+				browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max });
+				if (options.shadowEnabled) {
+					singlefile.ui.onprogress(event);
 				}
-				browser.runtime.sendMessage({ processProgress: true, index: indexLoaded, maxIndex: event.details.max });
 			} else if (event.type == event.PAGE_ENDED) {
 				browser.runtime.sendMessage({ processEnd: true });
 			}

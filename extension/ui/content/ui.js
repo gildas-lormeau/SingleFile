@@ -23,6 +23,7 @@
 this.singlefile.ui = this.singlefile.ui || (() => {
 
 	const MASK_TAGNAME = "singlefile-mask";
+	const PROGRESS_BAR_TAGNAME = "singlefile-progress-var";
 
 	return {
 		init() {
@@ -39,9 +40,28 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				maskElement.style.zIndex = 2147483647;
 				maskElement.style.opacity = 0;
 				maskElement.style.transition = "opacity 250ms";
-				document.body.appendChild(maskElement);
 				maskElement.offsetWidth;
 				maskElement.style.opacity = .3;
+				const progressBarElement = document.createElement(PROGRESS_BAR_TAGNAME);
+				progressBarElement.style.all = "unset";
+				progressBarElement.style.position = "fixed";
+				progressBarElement.style.top = "0px";
+				progressBarElement.style.left = "0px";
+				progressBarElement.style.height = "8px";
+				progressBarElement.style.width = "0%";
+				progressBarElement.style.backgroundColor = "white";
+				progressBarElement.style.transition = "width 50ms";
+				document.body.appendChild(maskElement);
+				maskElement.appendChild(progressBarElement);
+			}
+		},
+		onprogress(event) {
+			const progressBarElement = document.querySelector(PROGRESS_BAR_TAGNAME);
+			if (progressBarElement) {
+				const width = Math.floor((event.details.index / event.details.max) * 100) + "%";
+				if (progressBarElement.style.width != width) {
+					progressBarElement.style.width = Math.floor((event.details.index / event.details.max) * 100) + "%";
+				}
 			}
 		},
 		end() {
