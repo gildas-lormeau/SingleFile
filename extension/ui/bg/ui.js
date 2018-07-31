@@ -171,7 +171,7 @@ singlefile.ui = (() => {
 			tabData.text = "";
 			tabData.title = "Save progress: " + (progress * 5) + "%";
 			tabData.color = [4, 229, 36, 255];
-			const barProgress = Math.floor((index / maxIndex) * 15);
+			const barProgress = Math.floor((index / maxIndex) * 8);
 			if (tabData.barProgress != barProgress) {
 				tabData.barProgress = barProgress;
 				tabData.path = WAIT_ICON_PATH_PREFIX + barProgress + ".png";
