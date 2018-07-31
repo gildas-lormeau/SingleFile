@@ -22,8 +22,6 @@
 
 this.singlefile.top = this.singlefile.top || (() => {
 
-	const PROGRESS_LOADED_COEFFICIENT = 2;
-
 	let processing = false;
 	browser.runtime.onMessage.addListener(async message => {
 		savePage(message);
@@ -125,7 +123,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		let selectionFound = false;
 		const ancestorElement = range.commonAncestorContainer != Node.ELEMENT_NODE ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
 		ancestorElement.setAttribute(SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
-		while (treeWalker.nextNode() && treeWalker.currentNode != range.endContainer) {			
+		while (treeWalker.nextNode() && treeWalker.currentNode != range.endContainer) {
 			if (treeWalker.currentNode == range.startContainer) {
 				selectionFound = true;
 			}
@@ -147,16 +145,13 @@ this.singlefile.top = this.singlefile.top || (() => {
 			options.framesData = await FrameTree.getFramesData();
 		}
 		options.jsEnabled = true;
-		let indexLoaded = 0, indexLoading = 0;
+		let indexLoaded = 0;
 		options.onprogress = event => {
-			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED || event.type == event.RESOURCE_LOADING) {
+			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
 				if (event.type == event.RESOURCE_LOADED) {
 					indexLoaded = event.details.index;
 				}
-				if (event.type == event.RESOURCE_LOADING) {
-					indexLoading = event.details.index;
-				}
-				browser.runtime.sendMessage({ processProgress: true, index: (indexLoaded * PROGRESS_LOADED_COEFFICIENT) + indexLoading, maxIndex: event.details.max * (PROGRESS_LOADED_COEFFICIENT + 1) });
+				browser.runtime.sendMessage({ processProgress: true, index: indexLoaded, maxIndex: event.details.max });
 			} else if (event.type == event.PAGE_ENDED) {
 				browser.runtime.sendMessage({ processEnd: true });
 			}
