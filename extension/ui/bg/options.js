@@ -40,6 +40,7 @@
 	const confirmFilenameInput = document.getElementById("confirmFilenameInput");
 	const removeAudioSrcInput = document.getElementById("removeAudioSrcInput");
 	const removeVideoSrcInput = document.getElementById("removeVideoSrcInput");
+	const displayInfobarInput = document.getElementById("displayInfobarInput");
 	let pendingSave = Promise.resolve();
 	document.getElementById("resetButton").addEventListener("click", async () => {
 		await bgPage.singlefile.config.reset();
@@ -70,6 +71,7 @@
 		confirmFilenameInput.checked = config.confirmFilename;
 		removeAudioSrcInput.checked = config.removeAudioSrc;
 		removeVideoSrcInput.checked = config.removeVideoSrc;
+		displayInfobarInput.checked = config.displayInfobar;
 	}
 
 	async function update() {
@@ -91,7 +93,8 @@
 			maxResourceSize: maxResourceSizeInput.value,
 			confirmFilename: confirmFilenameInput.checked,
 			removeAudioSrc: removeAudioSrcInput.checked,
-			removeVideoSrc: removeVideoSrcInput.checked
+			removeVideoSrc: removeVideoSrcInput.checked,
+			displayInfobar: displayInfobarInput.checked
 		});
 		await pendingSave;
 		await bgPage.singlefile.ui.update();

@@ -39,7 +39,8 @@ singlefile.config = (() => {
 		maxResourceSizeEnabled: false,
 		maxResourceSize: 10,
 		removeAudioSrc: true,
-		removeVideoSrc: true
+		removeVideoSrc: true,
+		displayInfobar: true
 	};
 
 	let pendingUpgradePromise;
@@ -104,6 +105,9 @@ singlefile.config = (() => {
 		}
 		if (config.removeHiddenElements === undefined) {
 			config.removeHiddenElements = true;
+		}
+		if (config.displayInfobar === undefined) {
+			config.displayInfobar = true;
 		}
 	}
 

@@ -47,6 +47,12 @@ singlefile.core = (() => {
 		"/extension/core/content/content.js"
 	];
 
+	browser.runtime.onMessage.addListener(request => {
+		if (request.getConfig) {
+			return singlefile.config.get();
+		}
+	});
+
 	return {
 		async processTab(tab, processOptions = {}) {
 			const options = await singlefile.config.get();
