@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle, prompt, addEventListener, Node */
+/* global browser, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle, prompt, addEventListener, Node, HTMLElement */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
@@ -106,7 +106,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 	function selectRemovedElements(REMOVED_CONTENT_ATTRIBUTE_NAME) {
 		document.querySelectorAll("html > body *:not(style):not(script):not(link)").forEach(element => {
 			const style = getComputedStyle(element);
-			if (element.hidden || style.display == "none" || ((style.opacity === 0 || style.visibility == "hidden") && !element.clientWidth && !element.clientHeight)) {
+			if (element instanceof HTMLElement && (element.hidden || style.display == "none" || ((style.opacity === 0 || style.visibility == "hidden") && !element.clientWidth && !element.clientHeight))) {
 				element.setAttribute(REMOVED_CONTENT_ATTRIBUTE_NAME, "");
 			}
 		});
