@@ -32,9 +32,8 @@ singlefile.ui = (() => {
 	const MENU_ID_SAVE_SELECTED = "save-selected";
 	const MENU_ID_SAVE_FRAME = "save-frame";
 
-	const tabs = {};
 	const badgeTabs = {};
-	let badgeRefreshPending = [];
+	const badgeRefreshPending = {};
 
 	browser.runtime.onInstalled.addListener(refreshContextMenu);
 	if (browser.menus && browser.menus.onClicked) {
@@ -113,7 +112,7 @@ singlefile.ui = (() => {
 		const tabId = tab.id;
 		try {
 			await singlefile.core.processTab(tab, options);
-			tabs[tabId] = {
+			refreshBadge(tabId, {
 				id: tabId,
 				text: "...",
 				color: DEFAULT_COLOR,
@@ -121,13 +120,12 @@ singlefile.ui = (() => {
 				path: DEFAULT_ICON_PATH,
 				progress: -1,
 				barProgress: -1
-			};
-			refreshBadge(tabId);
+			});
 		} catch (error) {
 			if (error) {
 				onTabError(tabId);
 			} else {
-				tabs[tabId] = {
+				refreshBadge(tabId, {
 					id: tabId,
 					text: "↻",
 					color: [255, 141, 1, 255],
@@ -135,53 +133,48 @@ singlefile.ui = (() => {
 					path: DEFAULT_ICON_PATH,
 					progress: -1,
 					barProgress: -1
-				};
-				refreshBadge(tabId);
+				});
 			}
 		}
 	}
 
 	function onTabError(tabId) {
-		const tabData = tabs[tabId];
-		tabData.text = "ERR";
-		tabData.color = [229, 4, 12, 255];
-		tabData.title = DEFAULT_TITLE;
-		tabData.path = DEFAULT_ICON_PATH;
-		tabData.progress = -1;
-		tabData.barProgress = -1;
-		refreshBadge(tabId);
+		refreshBadge(tabId, {
+			text: "ERR",
+			color: [229, 4, 12, 255],
+			title: DEFAULT_TITLE,
+			path: DEFAULT_ICON_PATH,
+			progress: -1,
+			barProgress: -1
+		});
 	}
 
 	function onTabEnd(tabId) {
-		const tabData = tabs[tabId];
-		tabData.text = "OK";
-		tabData.color = [4, 229, 36, 255];
-		tabData.title = DEFAULT_TITLE;
-		tabData.path = DEFAULT_ICON_PATH;
-		tabData.progress = -1;
-		tabData.barProgress = -1;
-		refreshBadge(tabId);
+		refreshBadge(tabId, {
+			text: "OK",
+			color: [4, 229, 36, 255],
+			title: DEFAULT_TITLE,
+			path: DEFAULT_ICON_PATH,
+			progress: -1,
+			barProgress: -1
+		});
 	}
 
 	function onTabProgress(tabId, index, maxIndex) {
-		const tabData = tabs[tabId];
 		const progress = Math.max(Math.min(20, Math.floor((index / maxIndex) * 20)), 0);
-		if (tabData.progress != progress) {
-			tabData.progress = progress;
-			tabData.text = "";
-			tabData.title = "Save progress: " + (progress * 5) + "%";
-			tabData.color = [4, 229, 36, 255];
-			const barProgress = Math.floor((index / maxIndex) * 8);
-			if (tabData.barProgress != barProgress) {
-				tabData.barProgress = barProgress;
-				tabData.path = WAIT_ICON_PATH_PREFIX + barProgress + ".png";
-			}
-			refreshBadge(tabId);
-		}
+		const barProgress = Math.floor((index / maxIndex) * 8);
+		refreshBadge(tabId, {
+			progress,
+			text: "",
+			title: "Save progress: " + (progress * 5) + "%",
+			color: [4, 229, 36, 255],
+			barProgress,
+			path: WAIT_ICON_PATH_PREFIX + barProgress + ".png"
+		});
 	}
 
 	function onTabRemoved(tabId) {
-		delete tabs[tabId];
+		delete badgeTabs[tabId];
 	}
 
 	function onTabActivated(tabId, isActive) {
@@ -198,30 +191,37 @@ singlefile.ui = (() => {
 		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !STORE_URLS.find(storeUrl => url.startsWith(storeUrl));
 	}
 
-	async function refreshBadge(tabId) {
-		await Promise.all(badgeRefreshPending);
-		const promise = refreshBadgeAsync(tabId);
-		badgeRefreshPending.push(promise);
+	async function refreshBadge(tabId, tabData) {
+		if (!badgeRefreshPending[tabId]) {
+			badgeRefreshPending[tabId] = [];
+		}
+		let promise;
+		for (promise of badgeRefreshPending[tabId]) {
+			await promise;
+		}
+		promise = refreshBadgeAsync(tabId, tabData);
+		promise.tabData = tabData;
+		badgeRefreshPending[tabId].push(promise);
 		await promise;
-		badgeRefreshPending = badgeRefreshPending.filter(pending => pending != promise);
+		badgeRefreshPending[tabId].filter(pending => pending != promise);
 	}
 
-	async function refreshBadgeAsync(tabId) {
+	async function refreshBadgeAsync(tabId, tabData, lastTabData) {
 		for (let property of BADGE_PROPERTIES) {
-			await refreshBadgeProperty(tabId, property.name, property.browserActionMethod);
+			await refreshBadgeProperty(tabId, property.name, property.browserActionMethod, tabData, lastTabData);
 		}
 	}
 
-	async function refreshBadgeProperty(tabId, property, browserActionMethod) {
-		const tabData = tabs[tabId];
+	async function refreshBadgeProperty(tabId, property, browserActionMethod, tabData) {
 		const value = tabData[property];
-		if (!badgeTabs[tabId]) {
-			badgeTabs[tabId] = {};
-		}
-		if (JSON.stringify(badgeTabs[tabId][property]) != JSON.stringify(value)) {
-			const browserActionParameter = { tabId };
-			badgeTabs[tabId][property] = browserActionParameter[property] = value;
-			if (browser.browserAction && browser.browserAction[browserActionMethod]) {
+		const browserActionParameter = { tabId };
+		if (browser.browserAction && browser.browserAction[browserActionMethod]) {
+			browserActionParameter[property] = value;
+			if (!badgeTabs[tabId]) {
+				badgeTabs[tabId] = {};
+			}
+			if (JSON.stringify(badgeTabs[tabId][browserActionMethod]) != JSON.stringify(value)) {
+				badgeTabs[tabId][browserActionMethod] = value;
 				await browser.browserAction[browserActionMethod](browserActionParameter);
 			}
 		}
