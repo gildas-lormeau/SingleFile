@@ -200,7 +200,6 @@ singlefile.ui = (() => {
 			await promise;
 		}
 		promise = refreshBadgeAsync(tabId, tabData);
-		promise.tabData = tabData;
 		badgeRefreshPending[tabId].push(promise);
 		await promise;
 		badgeRefreshPending[tabId].filter(pending => pending != promise);
