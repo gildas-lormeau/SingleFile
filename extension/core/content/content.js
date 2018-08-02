@@ -145,14 +145,22 @@ this.singlefile.top = this.singlefile.top || (() => {
 			options.framesData = await FrameTree.getFramesData();
 		}
 		options.jsEnabled = true;
-		options.onprogress = event => {
+		options.onprogress = async event => {
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
-				browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max });
+				try {
+					await browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max });
+				} catch (error) {
+					// ignored
+				}
 				if (options.shadowEnabled) {
 					singlefile.ui.onprogress(event);
 				}
 			} else if (event.type == event.PAGE_ENDED) {
-				browser.runtime.sendMessage({ processEnd: true });
+				try {
+					await browser.runtime.sendMessage({ processEnd: true });
+				} catch (error) {
+					// ignored
+				}
 			}
 		};
 		return options;
