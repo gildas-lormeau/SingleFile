@@ -17,8 +17,12 @@
             "js": [
                 "lib/browser-polyfill/custom-browser-polyfill.js",
                 "extension/index.js",
-                "extension/ui/content/infobar.js"
-            ]
+                "extension/ui/content/infobar.js",
+                "lib/frame-tree/content/frame-tree.js",
+                "extension/core/content/content-frame.js"
+            ],
+            "all_frames": true,
+            "match_about_blank": true
         }
     ],
     "background": {

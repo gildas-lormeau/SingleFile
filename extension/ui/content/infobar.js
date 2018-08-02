@@ -26,17 +26,19 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	const LINK_ICON = "<svg style=\"vertical-align: middle\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"#9AA0A6\"><path d=\"M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z\"/></svg>";
 	const SINGLEFILE_COMMENT = "Archive processed by SingleFile";
 
-	document.addEventListener("DOMContentLoaded", async () => {
-		const singleFileComment = document.documentElement.childNodes[0];
-		if (singleFileComment.nodeType == Node.COMMENT_NODE && singleFileComment.textContent.includes(SINGLEFILE_COMMENT)) {
-			const info = singleFileComment.textContent.split("\n");
-			const [, , url, saveDate] = info;
-			const config = await browser.runtime.sendMessage({ getConfig: true });
-			if (config.displayInfobar) {
-				initInfobar(url, saveDate);
+	if (window == top) {
+		document.addEventListener("DOMContentLoaded", async () => {
+			const singleFileComment = document.documentElement.childNodes[0];
+			if (singleFileComment.nodeType == Node.COMMENT_NODE && singleFileComment.textContent.includes(SINGLEFILE_COMMENT)) {
+				const info = singleFileComment.textContent.split("\n");
+				const [, , url, saveDate] = info;
+				const config = await browser.runtime.sendMessage({ getConfig: true });
+				if (config.displayInfobar) {
+					initInfobar(url, saveDate);
+				}
 			}
-		}
-	});
+		});
+	}
 	return true;
 
 	function initInfobar(url, saveDate) {
