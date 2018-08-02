@@ -24,7 +24,7 @@ singlefile.core = (() => {
 
 	const TIMEOUT_PROCESS_START_MESSAGE = 10000;
 
-	const topScriptFiles = [
+	const contentScriptFiles = [
 		"/lib/browser-polyfill/custom-browser-polyfill.js",
 		"/extension/index.js",
 		"/extension/ui/content/ui.js",
@@ -70,7 +70,7 @@ singlefile.core = (() => {
 		if (!options.removeFrames) {
 			await FrameTree.initialize(tab.id);
 		}
-		await executeScripts(tab.id, topScriptFiles, { allFrames: false });
+		await executeScripts(tab.id, contentScriptFiles, { allFrames: false });
 		if (options.frameId) {
 			await browser.tabs.sendMessage(tab.id, { processStart: true, options }, { frameId: options.frameId });
 		} else {
