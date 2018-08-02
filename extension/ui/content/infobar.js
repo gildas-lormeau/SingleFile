@@ -18,12 +18,12 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, document, Node */
+/* global browser, document, Node, window, top */
 
 this.singlefile.infobar = this.singlefile.infobar || (() => {
 
 	const INFOBAR_TAGNAME = "singlefile-infobar";
-	const LINK_ICON = "<svg style=\"vertical-align: middle\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"#9AA0A6\"><path d=\"M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z\"/></svg>";
+	const LINK_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABmJLR0QABQDuAACS38mlAAAACXBIWXMAACfuAAAn7gExzuVDAAAAB3RJTUUH4ggCDDcMnYqGGAAAATtJREFUOMvNk19LwlAYxp+zhOoqpxJ1la3patFVINk/oRDBLuyreiPFMmcj/QQRSOOwpEINDCpwRr7d1HBMc4sufO7Oe877e5/zcA4wbWLDi8urGr2+vXsOFfJZdnPboDtuueoRcQEH6RQDgNBP8bxcpfvmA0QxPHF6u/MMInLVHFDP7kMUwyjks2xU8+ZGkgGAbtSp1e5gRhBc+0KQHHSjTg2TY0tVEItF/wYqV6+pYXKoiox0atvjOuQXYnILqiJj/ztceXUlGEirGGRyC0pCciDDmfm6mlYxiFtNKAkJmb0dV2OxpFGxpNFE0NmFTtxqQpbiHsgojQX1bBuyFMfR4S7zk+PYjE5PcizI0xD+6685jubnZvH41MJwgL+p233B8tKiF7SeXMPnYIB+/8OXg2hERO44wzC1+gJYGGpVbtoqiAAAAABJRU5ErkJggg==";
 	const SINGLEFILE_COMMENT = "Archive processed by SingleFile";
 
 	if (window == top) {
@@ -53,8 +53,8 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			infobarElement.style.top = "16px";
 			infobarElement.style.right = "16px";
 			infobarElement.style.height = "auto";
-			infobarElement.style.width = "32px";
-			infobarElement.style.lineHeight = "32px";
+			infobarElement.style.width = "36px";
+			infobarElement.style.lineHeight = "28px";
 			infobarElement.style.borderRadius = "16px";
 			infobarElement.style.border = "2px solid #737373";
 			infobarElement.style.zIndex = 2147483647;
@@ -64,13 +64,18 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			linkElement.style.all = "unset";
 			linkElement.style.display = "inline-block";
 			linkElement.style.paddingLeft = "8px";
-			linkElement.style.lineHeight = "32px";
+			linkElement.style.lineHeight = "28px";
 			linkElement.style.cursor = "pointer";
 			linkElement.target = "_blank";
 			linkElement.rel = "noopener noreferrer";
 			linkElement.title = "Open original page";
 			linkElement.href = url.split("url: ")[1];
-			linkElement.innerHTML = LINK_ICON;
+			const imgElement = document.createElement("img");
+			imgElement.style.all == "unset";
+			imgElement.style.verticalAlign = "middle";
+			imgElement.style.paddingBottom = "2px";
+			imgElement.src = LINK_ICON;
+			linkElement.appendChild(imgElement);
 			hideInfobar(infobarElement, linkElement, saveDate);
 			infobarElement.onmouseover = () => infobarElement.style.opacity = 1;
 			document.body.appendChild(infobarElement);
@@ -102,7 +107,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 		infobarElement.style.opacity = .7;
 		infobarElement.onmouseout = () => infobarElement.style.opacity = .7;
 		infobarElement.style.paddingLeft = infobarElement.style.paddingRight = "0px";
-		infobarElement.style.width = "32px";
+		infobarElement.style.width = "28px";
 		infobarElement.style.backgroundColor = "#737373";
 		infobarElement.style.cursor = "pointer";
 		infobarElement.textContent = "❔";
