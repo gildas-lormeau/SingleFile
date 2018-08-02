@@ -64,11 +64,17 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (options.removeHiddenElements) {
 			selectRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
 		}
+		if (options.compressHTML) {
+			selectPreserveElements(processor.PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME);
+		}
 		options.url = options.url || document.location.href;
 		options.content = options.content || getDoctype(document) + document.documentElement.outerHTML;
 		await processor.initialize();
 		if (options.removeHiddenElements) {
 			unselectRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
+		}
+		if (options.compressHTML) {
+			unselectPreserveElements(processor.PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME);
 		}
 		if (options.shadowEnabled) {
 			singlefile.ui.init();
@@ -101,6 +107,19 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	function fixHeadNoScripts() {
 		document.head.querySelectorAll("noscript").forEach(noscriptElement => document.body.insertBefore(noscriptElement, document.body.firstChild));
+	}
+
+	function selectPreserveElements(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME) {
+		document.querySelectorAll("*").forEach(element => {
+			const style = getComputedStyle(element);
+			if (style.whiteSpace.startsWith("pre")) {
+				element.setAttribute(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME, "");
+			}
+		});
+	}
+
+	function unselectPreserveElements(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME) {
+		document.querySelectorAll("[" + PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME));
 	}
 
 	function selectRemovedElements(REMOVED_CONTENT_ATTRIBUTE_NAME) {
