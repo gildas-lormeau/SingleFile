@@ -59,7 +59,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			selectSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
 		}
 		if (!options.removeFrames) {
-			hideHeadFrames();
+			hideElementFrames();
 		}
 		if (options.removeHiddenElements) {
 			selectRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
@@ -101,8 +101,8 @@ this.singlefile.top = this.singlefile.top || (() => {
 		document.querySelectorAll("script").forEach(element => element.textContent = element.textContent.replace(/<\/script>/gi, "<\\/script>"));
 	}
 
-	function hideHeadFrames() {
-		document.head.querySelectorAll("iframe, frame, object[type=\"text/html\"][data]").forEach(element => element.hidden = true);
+	function hideElementFrames() {
+		document.head.querySelectorAll("*:not(meta):not(title):not(link):not(style):not(script)").forEach(element => element.hidden = true);
 	}
 
 	function fixHeadNoScripts() {
