@@ -181,8 +181,14 @@ singlefile.ui = (() => {
 		if (browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
 			if (isActive) {
 				browser.browserAction.enable(tabId);
+				if (browser.runtime.lastError) {
+					/* ignored */
+				}
 			} else {
 				browser.browserAction.disable(tabId);
+				if (browser.runtime.lastError) {
+					/* ignored */
+				}
 			}
 		}
 	}
