@@ -40,7 +40,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			processing = true;
 			try {
 				const page = await processMessage(message);
-				downloadPage(page, message.options);
+				await downloadPage(page, message.options);
 				revokeDownloadURL(page);
 			} catch (error) {
 				console.error(error); // eslint-disable-line no-console
@@ -215,17 +215,20 @@ this.singlefile.top = this.singlefile.top || (() => {
 		return "";
 	}
 
-	function downloadPage(page, options) {
-		if (options.confirmFilename) {
-			page.filename = prompt("File name", page.filename);
-		}
-		if (page.filename && page.filename.length) {
-			const link = document.createElement("a");
-			document.body.appendChild(link);
-			link.download = page.filename;
-			link.href = page.url;
-			link.dispatchEvent(new MouseEvent("click"));
-			link.remove();
+	async function downloadPage(page, options) {
+		const response = await browser.runtime.sendMessage({ download: true, url: page.url, saveAs: options.confirmFilename, filename: page.filename });
+		if (response.notSupported) {
+			if (options.confirmFilename) {
+				page.filename = prompt("File name", page.filename);
+			}
+			if (page.filename && page.filename.length) {
+				const link = document.createElement("a");
+				document.body.appendChild(link);
+				link.download = page.filename;
+				link.href = page.url;
+				link.dispatchEvent(new MouseEvent("click"));
+				link.remove();
+			}
 		}
 	}
 

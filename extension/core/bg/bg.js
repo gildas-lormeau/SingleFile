@@ -44,6 +44,19 @@ singlefile.core = (() => {
 		if (request.getConfig) {
 			return singlefile.config.get();
 		}
+		if (request.download) {
+			try {
+				return browser.downloads.download({ url: request.url, saveAs: request.saveAs, filename: request.filename.replace(/[/?<>\\:*|"]/g, "_") })
+					.then(downloadId => new Promise(resolve => browser.downloads.onChanged.addListener(event => {
+						if (event.id == downloadId && event.state && event.state.current == "complete") {
+							resolve({});
+						}
+					})))
+					.catch(() => ({ notSupported: true }));
+			} catch (error) {
+				return Promise.resolve({ notSupported: true });
+			}
+		}
 	});
 
 	return {

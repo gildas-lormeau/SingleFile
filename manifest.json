@@ -47,10 +47,11 @@
         "default_title": "Save page with SingleFile"
     },
     "permissions": [
-        "tabs",
         "contextMenus",
+        "downloads",
         "menus",
         "storage",
+        "tabs",
         "<all_urls>"
     ],
     "applications": {
