@@ -47,11 +47,16 @@ singlefile.core = (() => {
 		if (request.download) {
 			try {
 				return browser.downloads.download({ url: request.url, saveAs: request.saveAs, filename: request.filename.replace(/[/?<>\\:*|"]/g, "_") })
-					.then(downloadId => new Promise(resolve => browser.downloads.onChanged.addListener(event => {
-						if (event.id == downloadId && event.state && event.state.current == "complete") {
-							resolve({});
+					.then(downloadId => new Promise(resolve => {
+						browser.downloads.onChanged.addListener(onChanged);
+
+						function onChanged(event) {
+							if (event.id == downloadId && event.state && event.state.current == "complete") {
+								resolve({});
+								browser.downloads.onChanged.removeListener(onChanged);
+							}
 						}
-					})))
+					}))
 					.catch(() => ({ notSupported: true }));
 			} catch (error) {
 				return Promise.resolve({ notSupported: true });
