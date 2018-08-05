@@ -39,7 +39,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (message.processStart && !processing && !message.options.frameId) {
 			processing = true;
 			try {
-				const page = await processMessage(message);
+				const page = await processPage(message.options);
 				await downloadPage(page, message.options);
 				revokeDownloadURL(page);
 			} catch (error) {
@@ -50,8 +50,8 @@ this.singlefile.top = this.singlefile.top || (() => {
 		}
 	}
 
-	async function processMessage(message) {
-		const options = await getOptions(message.options);
+	async function processPage(options) {
+		options = await getOptions(options);
 		const processor = new (SingleFile.getClass())(options);
 		fixInlineScripts();
 		fixHeadNoScripts();
