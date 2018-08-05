@@ -56,25 +56,25 @@ this.singlefile.top = this.singlefile.top || (() => {
 		fixInlineScripts();
 		fixHeadNoScripts();
 		if (options.selected) {
-			selectSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
+			markSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
 		}
 		if (!options.removeFrames) {
 			hideElementFrames();
 		}
 		if (options.removeHiddenElements) {
-			selectRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
+			markRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
 		}
 		if (options.compressHTML) {
-			selectPreserveElements(processor.PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME);
+			markPreserveElements(processor.PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME);
 		}
 		options.url = options.url || document.location.href;
 		options.content = options.content || getDoctype(document) + document.documentElement.outerHTML;
 		await processor.initialize();
 		if (options.removeHiddenElements) {
-			unselectRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
+			unmarkRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
 		}
 		if (options.compressHTML) {
-			unselectPreserveElements(processor.PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME);
+			unmarkPreserveElements(processor.PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME);
 		}
 		if (options.shadowEnabled) {
 			singlefile.ui.init();
@@ -85,7 +85,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		await processor.preparePageData();
 		const page = processor.getPageData();
 		if (options.selected) {
-			unselectSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
+			unmarkSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
 		}
 		const date = new Date();
 		page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
@@ -112,7 +112,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		document.head.querySelectorAll("noscript").forEach(noscriptElement => document.body.insertBefore(noscriptElement, document.body.firstChild));
 	}
 
-	function selectPreserveElements(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME) {
+	function markPreserveElements(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME) {
 		document.querySelectorAll("*").forEach(element => {
 			const style = getComputedStyle(element);
 			if (style.whiteSpace.startsWith("pre")) {
@@ -121,11 +121,11 @@ this.singlefile.top = this.singlefile.top || (() => {
 		});
 	}
 
-	function unselectPreserveElements(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME) {
+	function unmarkPreserveElements(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME) {
 		document.querySelectorAll("[" + PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME));
 	}
 
-	function selectRemovedElements(REMOVED_CONTENT_ATTRIBUTE_NAME) {
+	function markRemovedElements(REMOVED_CONTENT_ATTRIBUTE_NAME) {
 		document.querySelectorAll("html > body *:not(style):not(script):not(link):not(frame):not(iframe):not(object)").forEach(element => {
 			const style = getComputedStyle(element);
 			if (element instanceof HTMLElement && (element.hidden || style.display == "none" || ((style.opacity === 0 || style.visibility == "hidden") && !element.clientWidth && !element.clientHeight)) && !element.querySelector("iframe, frame, object[type=\"text/html\"][data]")) {
@@ -134,15 +134,11 @@ this.singlefile.top = this.singlefile.top || (() => {
 		});
 	}
 
-	function unselectRemovedElements(REMOVED_CONTENT_ATTRIBUTE_NAME) {
+	function unmarkRemovedElements(REMOVED_CONTENT_ATTRIBUTE_NAME) {
 		document.querySelectorAll("[" + REMOVED_CONTENT_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(REMOVED_CONTENT_ATTRIBUTE_NAME));
 	}
 
-	function removeWindowIdFrames(WIN_ID_ATTRIBUTE_NAME) {
-		document.querySelectorAll("[" + WIN_ID_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(WIN_ID_ATTRIBUTE_NAME));
-	}
-
-	function selectSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
+	function markSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
 		const selection = getSelection();
 		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
 		const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
@@ -160,9 +156,13 @@ this.singlefile.top = this.singlefile.top || (() => {
 		}
 	}
 
-	function unselectSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
+	function unmarkSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
 		document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
 		document.querySelectorAll("[" + SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME));
+	}
+
+	function removeWindowIdFrames(WIN_ID_ATTRIBUTE_NAME) {
+		document.querySelectorAll("[" + WIN_ID_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(WIN_ID_ATTRIBUTE_NAME));
 	}
 
 	async function getOptions(options) {
