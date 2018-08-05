@@ -70,14 +70,14 @@ this.singlefile.top = this.singlefile.top || (() => {
 		options.url = options.url || document.location.href;
 		options.content = options.content || getDoctype(document) + document.documentElement.outerHTML;
 		await processor.initialize();
+		if (options.shadowEnabled) {
+			singlefile.ui.init();
+		}
 		if (options.removeHiddenElements) {
 			unmarkRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
 		}
 		if (options.compressHTML) {
 			unmarkPreserveElements(processor.PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME);
-		}
-		if (options.shadowEnabled) {
-			singlefile.ui.init();
 		}
 		if (!options.removeFrames) {
 			removeWindowIdFrames(processor.WIN_ID_ATTRIBUTE_NAME);
