@@ -79,6 +79,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (options.shadowEnabled) {
 			singlefile.ui.init();
 		}
+		if (!options.removeFrames) {
+			removeWindowIdFrames(processor.WIN_ID_ATTRIBUTE_NAME);
+		}
 		await processor.preparePageData();
 		const page = processor.getPageData();
 		if (options.selected) {
@@ -133,6 +136,10 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	function unselectRemovedElements(REMOVED_CONTENT_ATTRIBUTE_NAME) {
 		document.querySelectorAll("[" + REMOVED_CONTENT_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(REMOVED_CONTENT_ATTRIBUTE_NAME));
+	}
+
+	function removeWindowIdFrames(WIN_ID_ATTRIBUTE_NAME) {
+		document.querySelectorAll("[" + WIN_ID_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(WIN_ID_ATTRIBUTE_NAME));
 	}
 
 	function selectSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
