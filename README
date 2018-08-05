@@ -4,7 +4,7 @@ Available on:
 
  - Firefox: https://addons.mozilla.org/en-US/firefox/addon/single-file
  - Chrome: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
- - Edge, Opera: The extension is not on the store yet, you must install it manually
+ - Edge, Opera: The extension is not on the store yet, you must download the [zip file](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and install it manually
 
 SingleFile is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
