@@ -40,7 +40,8 @@ singlefile.config = (() => {
 		maxResourceSize: 10,
 		removeAudioSrc: true,
 		removeVideoSrc: true,
-		displayInfobar: true
+		displayInfobar: true,
+		displayStats: false
 	};
 
 	let pendingUpgradePromise;

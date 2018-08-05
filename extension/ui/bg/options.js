@@ -41,6 +41,7 @@
 	const removeAudioSrcInput = document.getElementById("removeAudioSrcInput");
 	const removeVideoSrcInput = document.getElementById("removeVideoSrcInput");
 	const displayInfobarInput = document.getElementById("displayInfobarInput");
+	const displayStatsInput = document.getElementById("displayStatsInput");
 	let pendingSave = Promise.resolve();
 	document.getElementById("resetButton").addEventListener("click", async () => {
 		await bgPage.singlefile.config.reset();
@@ -72,6 +73,7 @@
 		removeAudioSrcInput.checked = config.removeAudioSrc;
 		removeVideoSrcInput.checked = config.removeVideoSrc;
 		displayInfobarInput.checked = config.displayInfobar;
+		displayStatsInput.checked = config.displayStats;
 	}
 
 	async function update() {
@@ -94,7 +96,8 @@
 			confirmFilename: confirmFilenameInput.checked,
 			removeAudioSrc: removeAudioSrcInput.checked,
 			removeVideoSrc: removeVideoSrcInput.checked,
-			displayInfobar: displayInfobarInput.checked
+			displayInfobar: displayInfobarInput.checked,
+			displayStats: displayStatsInput.checked
 		});
 		await pendingSave;
 		await bgPage.singlefile.ui.update();

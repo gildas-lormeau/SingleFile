@@ -93,6 +93,10 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (options.shadowEnabled) {
 			singlefile.ui.end();
 		}
+		if (options.displayStats) {
+			console.log("SingleFile stats"); // eslint-disable-line no-console
+			console.table(page.stats); // eslint-disable-line no-console
+		}
 		return page;
 	}
 
