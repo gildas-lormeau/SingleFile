@@ -34,6 +34,7 @@ singlefile.core = (() => {
 		"/lib/single-file/htmlmini.js",
 		"/lib/single-file/parse-srcset.js",
 		"/lib/single-file/lazy-loader.js",
+		"/lib/single-file/serializer.js",
 		"/lib/single-file/single-file-core.js",
 		"/lib/single-file/single-file-browser.js",
 		"/lib/fetch/content/fetch.js",
