@@ -44,8 +44,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	function initInfobar(url, saveDate) {
 		let infobarElement = document.querySelector(INFOBAR_TAGNAME);
 		if (!infobarElement) {
-			infobarElement = document.createElement(INFOBAR_TAGNAME);
-			infobarElement.style.all = "unset";
+			infobarElement = createElement(INFOBAR_TAGNAME);
 			infobarElement.style.display = "block";
 			infobarElement.style.fontSize = "15px";
 			infobarElement.style.color = "#9aa0a6";
@@ -56,12 +55,13 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			infobarElement.style.width = "36px";
 			infobarElement.style.lineHeight = "28px";
 			infobarElement.style.borderRadius = "16px";
-			infobarElement.style.border = "2px solid #737373";
+			infobarElement.style.border = infobarElement.style["-webkit-border-start"] = infobarElement.style["-webkit-border-end"] = infobarElement.style["-webkit-border-before"] = infobarElement.style["-webkit-border-after"] = "2px solid #737373";
 			infobarElement.style.zIndex = 2147483647;
 			infobarElement.style.textAlign = "center";
 			infobarElement.style.transition = "all 250ms";
-			const linkElement = document.createElement("a");
-			linkElement.style.all = "unset";
+			infobarElement.style.fontFamily = "Arial";
+			infobarElement.style.willChange = "opacity, padding-left, padding-right, width, background-color";
+			const linkElement = createElement("a");
 			linkElement.style.display = "inline-block";
 			linkElement.style.paddingLeft = "8px";
 			linkElement.style.lineHeight = "28px";
@@ -70,10 +70,10 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			linkElement.rel = "noopener noreferrer";
 			linkElement.title = "Open original page";
 			linkElement.href = url.split("url: ")[1];
-			const imgElement = document.createElement("img");
-			imgElement.style.all == "unset";
+			const imgElement = createElement("img");
 			imgElement.style.verticalAlign = "middle";
-			imgElement.style.paddingBottom = "2px";
+			imgElement.style.paddingBottom = imgElement.style["-webkit-padding-after"] = "2px";
+			imgElement.style.paddingLeft = imgElement.style["-webkit-padding-start"] = "2px";
 			imgElement.src = LINK_ICON;
 			linkElement.appendChild(imgElement);
 			hideInfobar(infobarElement, linkElement, saveDate);
@@ -94,7 +94,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	function displayInfobar(infobarElement, linkElement, saveDate) {
 		infobarElement.style.opacity = 1;
 		infobarElement.onmouseout = null;
-		infobarElement.style.paddingLeft = infobarElement.style.paddingRight = "16px";
+		infobarElement.style.paddingLeft = infobarElement.style.paddingRight = infobarElement.style["-webkit-padding-end"] = infobarElement.style["-webkit-padding-start"] = "16px";
 		infobarElement.textContent = saveDate.split("saved date: ")[1];
 		infobarElement.style.width = "auto";
 		infobarElement.style.backgroundColor = "#f9f9f9";
@@ -106,7 +106,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	function hideInfobar(infobarElement, linkElement, saveDate) {
 		infobarElement.style.opacity = .7;
 		infobarElement.onmouseout = () => infobarElement.style.opacity = .7;
-		infobarElement.style.paddingLeft = infobarElement.style.paddingRight = "0px";
+		infobarElement.style.paddingLeft = infobarElement.style.paddingRight = infobarElement.style["-webkit-padding-end"] = infobarElement.style["-webkit-padding-start"] = "0px";
 		infobarElement.style.width = "28px";
 		infobarElement.style.backgroundColor = "#737373";
 		infobarElement.style.cursor = "pointer";
@@ -117,6 +117,13 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 				return false;
 			}
 		};
+	}
+
+	function createElement(tagName) {
+		const element = document.createElement(tagName);
+		Object.keys(element.style).forEach(property => element.style[property] = "initial");
+		// element.style.all == "initial";
+		return element;
 	}
 
 })();
