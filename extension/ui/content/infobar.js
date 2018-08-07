@@ -122,7 +122,6 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	function createElement(tagName) {
 		const element = document.createElement(tagName);
 		Object.keys(element.style).forEach(property => element.style[property] = "initial");
-		// element.style.all == "initial";
 		return element;
 	}
 
