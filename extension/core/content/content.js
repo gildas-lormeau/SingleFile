@@ -28,7 +28,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		return {};
 	});
 	addEventListener("message", event => {
-		if (typeof event.data === "string" && event.data.startsWith("__SingleFile__::")) {
+		if (typeof event.data == "string" && event.data.startsWith("__SingleFile__::")) {
 			const message = JSON.parse(event.data.substring("__SingleFile__".length + 2));
 			savePage(message);
 		}
