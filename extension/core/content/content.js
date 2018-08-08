@@ -171,6 +171,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function getOptions(options) {
 		options.canvasData = getCanvasData();
+		options.emptyStylesRulesText = getEmptyStyleRulesText();
 		if (!options.removeFrames) {
 			options.framesData = await FrameTree.getFramesData();
 		}
@@ -194,6 +195,16 @@ this.singlefile.top = this.singlefile.top || (() => {
 			}
 		};
 		return options;
+	}
+
+	function getEmptyStyleRulesText() {
+		const textData = [];
+		document.querySelectorAll("style").forEach(styleElement => {
+			if (!styleElement.textContent) {
+				textData.push(Array.from(styleElement.sheet.cssRules).map(rule => rule.cssText).join("\n"));
+			}
+		});
+		return textData;
 	}
 
 	function getCanvasData() {
