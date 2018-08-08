@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, document, Node, window, top */
+/* global browser, document, Node, window, top, getComputedStyle */
 
 this.singlefile.infobar = this.singlefile.infobar || (() => {
 
@@ -121,7 +121,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 
 	function createElement(tagName) {
 		const element = document.createElement(tagName);
-		Object.keys(element.style).forEach(property => element.style[property] = "initial");
+		Array.from(getComputedStyle(element)).forEach(property => element.style[property] = "initial");
 		return element;
 	}
 
