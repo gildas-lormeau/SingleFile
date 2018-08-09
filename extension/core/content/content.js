@@ -171,7 +171,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function getOptions(options) {
 		options.canvasData = getCanvasData();
-		options.emptyStylesRulesText = getEmptyStyleRulesText();
+		options.emptyStyleRulesText = getEmptyStyleRulesText();
 		if (!options.removeFrames) {
 			options.framesData = await FrameTree.getFramesData();
 		}
