@@ -54,6 +54,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		options = await getOptions(options);
 		const processor = new (SingleFile.getClass())(options);
 		fixInlineScripts();
+		disableNoscriptTags();
 		if (options.selected) {
 			markSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
 		}
@@ -69,6 +70,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (options.shadowEnabled) {
 			singlefile.ui.init();
 		}
+		enableDisabledNoscriptTags();
 		if (options.removeHiddenElements) {
 			unmarkRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
 		}
@@ -98,6 +100,23 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	function revokeDownloadURL(page) {
 		URL.revokeObjectURL(page.url);
+	}
+
+	function disableNoscriptTags() {
+		document.head.querySelectorAll("noscript").forEach(element => {
+			const disabledNoscriptElement = document.createElement("disabled-noscript");
+			Array.from(element.childNodes).forEach(node => disabledNoscriptElement.appendChild(node));
+			disabledNoscriptElement.hidden = true;
+			element.parentElement.replaceChild(disabledNoscriptElement, element);
+		});
+	}
+
+	function enableDisabledNoscriptTags() {
+		document.head.querySelectorAll("disabled-noscript").forEach(element => {
+			const noscriptElement = document.createElement("noscript");
+			Array.from(element.childNodes).forEach(node => noscriptElement.appendChild(node));
+			element.parentElement.replaceChild(noscriptElement, element);
+		});
 	}
 
 	function fixInlineScripts() {
