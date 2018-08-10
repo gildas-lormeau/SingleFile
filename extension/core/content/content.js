@@ -108,8 +108,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 	async function getOptions(options) {
 		options.doc = document;
 		options.win = window;
-		options.canvasData = getCanvasData();
-		options.emptyStyleRulesText = getEmptyStyleRulesText();
 		if (!options.removeFrames) {
 			options.framesData = await FrameTree.getFramesData();
 		}
@@ -133,28 +131,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 			}
 		};
 		return options;
-	}
-
-	function getEmptyStyleRulesText() {
-		const textData = [];
-		document.querySelectorAll("style").forEach(styleElement => {
-			if (!styleElement.textContent) {
-				textData.push(Array.from(styleElement.sheet.cssRules).map(rule => rule.cssText).join("\n"));
-			}
-		});
-		return textData;
-	}
-
-	function getCanvasData() {
-		const canvasData = [];
-		document.querySelectorAll("canvas").forEach(canvasElement => {
-			try {
-				canvasData.push({ dataURI: canvasElement.toDataURL("image/png", ""), width: canvasElement.clientWidth, height: canvasElement.clientHeight });
-			} catch (error) {
-				canvasData.push(null);
-			}
-		});
-		return canvasData;
 	}
 
 	async function downloadPage(page, options) {
