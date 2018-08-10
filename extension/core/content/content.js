@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, getComputedStyle, prompt, addEventListener, Node, HTMLElement */
+/* global browser, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
@@ -53,34 +53,12 @@ this.singlefile.top = this.singlefile.top || (() => {
 	async function processPage(options) {
 		options = await getOptions(options);
 		const processor = new (SingleFile.getClass())(options);
-		fixInlineScripts();
-		disableNoscriptTags();
-		hideNonMetadataContents();
 		if (options.selected) {
 			markSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
 		}
-		if (options.removeHiddenElements) {
-			markRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
-		}
-		if (options.compressHTML) {
-			markPreserveElements(processor.PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME);
-		}
-		options.url = options.url || document.location.href;
-		options.content = options.content || getDoctype(document) + document.documentElement.outerHTML;
 		await processor.initialize();
 		if (options.shadowEnabled) {
 			singlefile.ui.init();
-		}
-		enableDisabledNoscriptTags();
-		displayHiddenNonMetadataContents();
-		if (options.removeHiddenElements) {
-			unmarkRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
-		}
-		if (options.compressHTML) {
-			unmarkPreserveElements(processor.PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME);
-		}
-		if (!options.removeFrames) {
-			removeWindowIdFrames(processor.WIN_ID_ATTRIBUTE_NAME);
 		}
 		await processor.preparePageData();
 		const page = processor.getPageData();
@@ -102,61 +80,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	function revokeDownloadURL(page) {
 		URL.revokeObjectURL(page.url);
-	}
-
-	function disableNoscriptTags() {
-		document.head.querySelectorAll("noscript").forEach(element => {
-			const disabledNoscriptElement = document.createElement("disabled-noscript");
-			Array.from(element.childNodes).forEach(node => disabledNoscriptElement.appendChild(node));
-			disabledNoscriptElement.hidden = true;
-			element.parentElement.replaceChild(disabledNoscriptElement, element);
-		});
-	}
-
-	function enableDisabledNoscriptTags() {
-		document.head.querySelectorAll("disabled-noscript").forEach(element => {
-			const noscriptElement = document.createElement("noscript");
-			Array.from(element.childNodes).forEach(node => noscriptElement.appendChild(node));
-			element.parentElement.replaceChild(noscriptElement, element);
-		});
-	}
-
-	function hideNonMetadataContents() {
-		document.head.querySelectorAll("*:not(base):not(link):not(meta):not(noscript):not(script):not(style):not(template):not(title)").forEach(element => element.hidden = true);
-	}
-
-	function displayHiddenNonMetadataContents() {
-		document.head.querySelectorAll("*:not(base):not(link):not(meta):not(noscript):not(script):not(style):not(template):not(title)").forEach(element => element.removeAttribute("hidden"));
-	}
-
-	function fixInlineScripts() {
-		document.querySelectorAll("script").forEach(element => element.textContent = element.textContent.replace(/<\/script>/gi, "<\\/script>"));
-	}
-
-	function markPreserveElements(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME) {
-		document.querySelectorAll("*").forEach(element => {
-			const style = getComputedStyle(element);
-			if (style.whiteSpace.startsWith("pre")) {
-				element.setAttribute(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME, "");
-			}
-		});
-	}
-
-	function unmarkPreserveElements(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME) {
-		document.querySelectorAll("[" + PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME));
-	}
-
-	function markRemovedElements(REMOVED_CONTENT_ATTRIBUTE_NAME) {
-		document.querySelectorAll("html > body *:not(style):not(script):not(link):not(frame):not(iframe):not(object)").forEach(element => {
-			const style = getComputedStyle(element);
-			if (element instanceof HTMLElement && (element.hidden || style.display == "none" || ((style.opacity === 0 || style.visibility == "hidden") && !element.clientWidth && !element.clientHeight)) && !element.querySelector("iframe, frame, object[type=\"text/html\"][data]")) {
-				element.setAttribute(REMOVED_CONTENT_ATTRIBUTE_NAME, "");
-			}
-		});
-	}
-
-	function unmarkRemovedElements(REMOVED_CONTENT_ATTRIBUTE_NAME) {
-		document.querySelectorAll("[" + REMOVED_CONTENT_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(REMOVED_CONTENT_ATTRIBUTE_NAME));
 	}
 
 	function markSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
@@ -182,11 +105,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 		document.querySelectorAll("[" + SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME));
 	}
 
-	function removeWindowIdFrames(WIN_ID_ATTRIBUTE_NAME) {
-		document.querySelectorAll("[" + WIN_ID_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(WIN_ID_ATTRIBUTE_NAME));
-	}
-
 	async function getOptions(options) {
+		options.doc = document;
+		options.win = window;
 		options.canvasData = getCanvasData();
 		options.emptyStyleRulesText = getEmptyStyleRulesText();
 		if (!options.removeFrames) {
@@ -234,24 +155,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 			}
 		});
 		return canvasData;
-	}
-
-	function getDoctype(doc) {
-		const docType = doc.doctype;
-		let docTypeString;
-		if (docType) {
-			docTypeString = "<!DOCTYPE " + docType.nodeName;
-			if (docType.publicId) {
-				docTypeString += " PUBLIC \"" + docType.publicId + "\"";
-				if (docType.systemId)
-					docTypeString += " \"" + docType.systemId + "\"";
-			} else if (docType.systemId)
-				docTypeString += " SYSTEM \"" + docType.systemId + "\"";
-			if (docType.internalSubset)
-				docTypeString += " [" + docType.internalSubset + "]";
-			return docTypeString + ">\n";
-		}
-		return "";
 	}
 
 	async function downloadPage(page, options) {
