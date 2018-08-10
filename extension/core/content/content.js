@@ -55,6 +55,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		const processor = new (SingleFile.getClass())(options);
 		fixInlineScripts();
 		disableNoscriptTags();
+		hideNonMetadataContents();
 		if (options.selected) {
 			markSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
 		}
@@ -71,6 +72,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			singlefile.ui.init();
 		}
 		enableDisabledNoscriptTags();
+		displayHiddenNonMetadataContents();
 		if (options.removeHiddenElements) {
 			unmarkRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
 		}
@@ -117,6 +119,14 @@ this.singlefile.top = this.singlefile.top || (() => {
 			Array.from(element.childNodes).forEach(node => noscriptElement.appendChild(node));
 			element.parentElement.replaceChild(noscriptElement, element);
 		});
+	}
+
+	function hideNonMetadataContents() {
+		document.head.querySelectorAll("*:not(base):not(link):not(meta):not(noscript):not(script):not(style):not(template):not(title)").forEach(element => element.hidden = true);
+	}
+
+	function displayHiddenNonMetadataContents() {
+		document.head.querySelectorAll("*:not(base):not(link):not(meta):not(noscript):not(script):not(style):not(template):not(title)").forEach(element => element.removeAttribute("hidden"));
 	}
 
 	function fixInlineScripts() {
