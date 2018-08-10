@@ -44,7 +44,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	function initInfobar(url, saveDate) {
 		let infobarElement = document.querySelector(INFOBAR_TAGNAME);
 		if (!infobarElement) {
-			infobarElement = createElement(INFOBAR_TAGNAME);
+			infobarElement = createElement(INFOBAR_TAGNAME, document.body);
 			infobarElement.style.display = "block";
 			infobarElement.style.fontSize = "15px";
 			infobarElement.style.color = "#9aa0a6";
@@ -61,7 +61,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			infobarElement.style.transition = "all 250ms";
 			infobarElement.style.fontFamily = "Arial";
 			infobarElement.style.willChange = "opacity, padding-left, padding-right, width, background-color";
-			const linkElement = createElement("a");
+			const linkElement = createElement("a", infobarElement);
 			linkElement.style.display = "inline-block";
 			linkElement.style.paddingLeft = "8px";
 			linkElement.style.lineHeight = "28px";
@@ -70,22 +70,23 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			linkElement.rel = "noopener noreferrer";
 			linkElement.title = "Open original page";
 			linkElement.href = url.split("url: ")[1];
-			const imgElement = createElement("img");
+			const imgElement = createElement("img", linkElement);
 			imgElement.style.verticalAlign = "middle";
 			imgElement.style.paddingBottom = imgElement.style["-webkit-padding-after"] = "2px";
 			imgElement.style.paddingLeft = imgElement.style["-webkit-padding-start"] = "2px";
+			imgElement.style.cursor = "pointer";
 			imgElement.src = LINK_ICON;
-			linkElement.appendChild(imgElement);
 			hideInfobar(infobarElement, linkElement, saveDate);
 			infobarElement.onmouseover = () => infobarElement.style.opacity = 1;
-			document.body.appendChild(infobarElement);
 			document.addEventListener("click", event => {
-				let element = event.target;
-				while (element && element != infobarElement) {
-					element = element.parentElement;
-				}
-				if (element != infobarElement) {
-					hideInfobar(infobarElement, linkElement, saveDate);
+				if (event.button === 0) {
+					let element = event.target;
+					while (element && element != infobarElement) {
+						element = element.parentElement;
+					}
+					if (element != infobarElement) {
+						hideInfobar(infobarElement, linkElement, saveDate);
+					}
 				}
 			});
 		}
@@ -119,8 +120,9 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 		};
 	}
 
-	function createElement(tagName) {
+	function createElement(tagName, parentElement) {
 		const element = document.createElement(tagName);
+		parentElement.appendChild(element);
 		Array.from(getComputedStyle(element)).forEach(property => element.style[property] = "initial");
 		return element;
 	}
