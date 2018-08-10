@@ -54,12 +54,8 @@ this.singlefile.top = this.singlefile.top || (() => {
 		options = await getOptions(options);
 		const processor = new (SingleFile.getClass())(options);
 		fixInlineScripts();
-		fixHeadNoScripts();
 		if (options.selected) {
 			markSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
-		}
-		if (!options.removeFrames) {
-			hideElementFrames();
 		}
 		if (options.removeHiddenElements) {
 			markRemovedElements(processor.REMOVED_CONTENT_ATTRIBUTE_NAME);
@@ -106,14 +102,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	function fixInlineScripts() {
 		document.querySelectorAll("script").forEach(element => element.textContent = element.textContent.replace(/<\/script>/gi, "<\\/script>"));
-	}
-
-	function hideElementFrames() {
-		document.head.querySelectorAll("*:not(meta):not(title):not(link):not(style):not(script)").forEach(element => element.hidden = true);
-	}
-
-	function fixHeadNoScripts() {
-		document.head.querySelectorAll("noscript").forEach(noscriptElement => document.body.insertBefore(noscriptElement, document.body.firstChild));
 	}
 
 	function markPreserveElements(PRESERVED_SPACE_ELEMENT_ATTRIBUTE_NAME) {
