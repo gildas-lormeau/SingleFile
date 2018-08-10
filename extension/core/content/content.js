@@ -117,7 +117,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 				try {
 					await browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max });
 				} catch (error) {
-					// ignored
+					/* ignored */
 				}
 				if (options.shadowEnabled) {
 					singlefile.ui.onprogress(event);
@@ -126,7 +126,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 				try {
 					await browser.runtime.sendMessage({ processEnd: true });
 				} catch (error) {
-					// ignored
+					/* ignored */
 				}
 			}
 		};
