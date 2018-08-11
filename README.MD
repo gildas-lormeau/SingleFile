@@ -1,5 +1,5 @@
 # SingleFile
-SingleFile is an Web Extension compatible with Chrome, Firefox (Desktop and Mobile), Opera, and Edge that helps you to save a complete web page into a single HTML file.
+SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobile), Opera, and Edge that helps you to save a complete web page into a single HTML file.
 
 ## Demo
 https://www.youtube.com/watch?v=RdV8DBW5b0g
@@ -46,4 +46,4 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
 
-SingleFile (c) 2018 Gildas Lormeau
+SingleFile (c) 2010-2018 Gildas Lormeau
