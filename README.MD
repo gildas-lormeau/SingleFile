@@ -1,16 +1,13 @@
-# Save a complete page into a single HTML file
-
-SingleFile is an extension for Chrome, Firefox (Desktop and Mobile), Opera, and Edge that helps you to save a complete page into a single HTML file.
-
-Available on:
-
- - Firefox: https://addons.mozilla.org/en-US/firefox/addon/single-file
- - Chrome: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
- - Edge, Opera: The extension is not on the store yet, you must download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and install it manually
+# SingleFile: save a complete web page into a single HTML file
+SingleFile is an Web Extension compatible with Chrome, Firefox (Desktop and Mobile), Opera, and Edge.
 
 ## Demo
-
 https://www.youtube.com/watch?v=RdV8DBW5b0g
+
+## Install
+ - Firefox Add-ons: https://addons.mozilla.org/en-US/firefox/addon/single-file
+ - Chrome web Store: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
+ - Edge, Opera: The extension is not on the store yet, you must download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and install it manually
 
 ## Instructions
 - wait until the page is fully loaded: you may need to scroll down the entire page to be sure all elements are loaded
@@ -27,8 +24,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 See the extension help in options page for more detailed information about options, technical notes and known issues.
 
 ## Issues
-If you find an unknown issue (i.e. frozen process, blank or altered document, tab crash...):
-- check known issues in SingleFile help page
+If you find an unknown issue:
 - reset options in SingleFile options page
 - disable all other extensions to see if there is a conflict
 - if there is a conflict, try to determine against which extension(s)
@@ -37,7 +33,6 @@ If you find an unknown issue (i.e. frozen process, blank or altered document, ta
 Suggestions are welcome :)
 
 ## License
-
 SingleFile is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
