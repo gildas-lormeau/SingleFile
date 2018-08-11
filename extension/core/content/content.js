@@ -51,15 +51,15 @@ this.singlefile.top = this.singlefile.top || (() => {
 	}
 
 	async function processPage(options) {
+		if (options.shadowEnabled) {
+			singlefile.ui.init();
+		}
 		options = await getOptions(options);
 		const processor = new (SingleFile.getClass())(options);
 		if (options.selected) {
 			markSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
 		}
-		await processor.initialize();
-		if (options.shadowEnabled) {
-			singlefile.ui.init();
-		}
+		await processor.initialize();		
 		await processor.preparePageData();
 		const page = processor.getPageData();
 		if (options.selected) {
