@@ -109,7 +109,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		options.doc = document;
 		options.win = window;
 		if (!options.removeFrames) {
-			options.framesData = await FrameTree.getFramesData();
+			options.framesData = await FrameTree.getFramesData(options);
 		}
 		options.jsEnabled = true;
 		options.onprogress = async event => {
