@@ -18,14 +18,14 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, window, top, document, common */
+/* global browser, window, top, document, docHelper */
 
 this.singlefile.frame = this.singlefile.frame || (() => {
 
 	if (window != top) {
 		browser.runtime.onMessage.addListener(async message => {
 			if (message.processStart) {
-				message.options.content = common.getDoctype(document) + document.documentElement.outerHTML;
+				message.options.content = docHelper.getDoctype(document) + document.documentElement.outerHTML;
 				message.options.frameId = null;
 				message.options.url = document.location.href;
 				top.postMessage("__SingleFile__::" + JSON.stringify(message), "*");
