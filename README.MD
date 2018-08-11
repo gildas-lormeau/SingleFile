@@ -6,7 +6,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 
 ## Install
  - Firefox Add-ons: https://addons.mozilla.org/en-US/firefox/addon/single-file
- - Chrome web Store: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
+ - Chrome Web Store: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
  - Edge, Opera: The extension is not on the store yet, you must download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and install it manually
 
 ## Instructions
