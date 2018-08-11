@@ -18,14 +18,14 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, window, top, document */
+/* global browser, window, top, document, common */
 
 this.singlefile.frame = this.singlefile.frame || (() => {
 
 	if (window != top) {
 		browser.runtime.onMessage.addListener(async message => {
 			if (message.processStart) {
-				message.options.content = getDoctype(document) + document.documentElement.outerHTML;
+				message.options.content = common.getDoctype(document) + document.documentElement.outerHTML;
 				message.options.frameId = null;
 				message.options.url = document.location.href;
 				top.postMessage("__SingleFile__::" + JSON.stringify(message), "*");
@@ -34,23 +34,5 @@ this.singlefile.frame = this.singlefile.frame || (() => {
 		});
 	}
 	return true;
-
-	function getDoctype(doc) {
-		const docType = doc.doctype;
-		let docTypeString;
-		if (docType) {
-			docTypeString = "<!DOCTYPE " + docType.nodeName;
-			if (docType.publicId) {
-				docTypeString += " PUBLIC \"" + docType.publicId + "\"";
-				if (docType.systemId)
-					docTypeString += " \"" + docType.systemId + "\"";
-			} else if (docType.systemId)
-				docTypeString += " SYSTEM \"" + docType.systemId + "\"";
-			if (docType.internalSubset)
-				docTypeString += " [" + docType.internalSubset + "]";
-			return docTypeString + ">\n";
-		}
-		return "";
-	}
 
 })();
