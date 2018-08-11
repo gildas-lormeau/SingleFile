@@ -111,12 +111,21 @@ singlefile.ui = (() => {
 	async function processTab(tab, options) {
 		const tabId = tab.id;
 		try {
-			await singlefile.core.processTab(tab, options);
 			refreshBadge(tabId, {
 				id: tabId,
 				text: "...",
 				color: DEFAULT_COLOR,
-				title: "Initializing...",
+				title: "Initializing SingleFile (1/2)",
+				path: DEFAULT_ICON_PATH,
+				progress: -1,
+				barProgress: -1
+			});
+			await singlefile.core.processTab(tab, options);
+			refreshBadge(tabId, {
+				id: tabId,
+				text: "...",
+				color: [4, 229, 36, 255],
+				title: "Initializing SingleFile (2/2)",
 				path: DEFAULT_ICON_PATH,
 				progress: -1,
 				barProgress: -1
