@@ -27,7 +27,7 @@ singlefile.ui = (() => {
 	const DEFAULT_TITLE = "Save page with SingleFile";
 	const DEFAULT_COLOR = [2, 147, 20, 255];
 	const BADGE_PROPERTIES = [{ name: "text", browserActionMethod: "setBadgeText" }, { name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "title", browserActionMethod: "setTitle" }, { name: "path", browserActionMethod: "setIcon" }];
-	const STORE_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
+	const FORBIDDEN_URLS = ["https://chrome.google.com", "https://addons.mozilla.org", "chrome://extensions", "about:"];
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_SAVE_SELECTED = "save-selected";
 	const MENU_ID_SAVE_FRAME = "save-frame";
@@ -203,7 +203,7 @@ singlefile.ui = (() => {
 	}
 
 	function isAllowedURL(url) {
-		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !STORE_URLS.find(storeUrl => url.startsWith(storeUrl));
+		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !FORBIDDEN_URLS.find(storeUrl => url.startsWith(storeUrl));
 	}
 
 	async function refreshBadge(tabId, tabData) {
