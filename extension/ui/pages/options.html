@@ -8,98 +8,101 @@
 </head>
 
 <body>
-	<details>
-		<summary>User interface</summary>
-		<div class="option">
-			<label for="contextMenuEnabledInput">add entry in the context menu</label>
-			<input type="checkbox" id="contextMenuEnabledInput">
+	<h3>Options</h3>
+	<main>
+		<details>
+			<summary>User interface</summary>
+			<div class="option">
+				<label for="contextMenuEnabledInput">add entry in the context menu</label>
+				<input type="checkbox" id="contextMenuEnabledInput">
+			</div>
+			<div class="option">
+				<label for="shadowEnabledInput">overlay a shadow on the page during processing</label>
+				<input type="checkbox" id="shadowEnabledInput">
+			</div>
+			<div class="option">
+				<label for="displayInfobarInput">display an infobar when viewing archives</label>
+				<input type="checkbox" id="displayInfobarInput">
+			</div>
+			<div class="option">
+				<label for="displayStatsInput">display stats in the console after processing</label>
+				<input type="checkbox" id="displayStatsInput">
+			</div>
+		</details>
+		<details>
+			<summary>File name</summary>
+			<div class="option">
+				<label for="appendSaveDateInput">append the save date to the file name</label>
+				<input type="checkbox" id="appendSaveDateInput">
+			</div>
+			<div class="option">
+				<label for="confirmFilenameInput">enter file name before saving the page</label>
+				<input type="checkbox" id="confirmFilenameInput">
+			</div>
+		</details>
+		<details>
+			<summary>Page content</summary>
+			<div class="option">
+				<label for="compressHTMLInput">compress HTML</label>
+				<input type="checkbox" id="compressHTMLInput">
+			</div>
+			<div class="option">
+				<label for="removeImportsInput">remove HTML imports</label>
+				<input type="checkbox" id="removeImportsInput">
+			</div>
+			<div class="option">
+				<label for="removeFramesInput">remove frames</label>
+				<input type="checkbox" id="removeFramesInput">
+			</div>
+			<div class="option">
+				<label for="removeHiddenElementsInput">remove hidden elements</label>
+				<input type="checkbox" id="removeHiddenElementsInput">
+			</div>
+			<div class="option">
+				<label for="saveRawPageInput">save raw page</label>
+				<input type="checkbox" id="saveRawPageInput">
+			</div>
+		</details>
+		<details>
+			<summary>Pages resources</summary>
+			<div class="option">
+				<label for="removeScriptsInput">remove scripts</label>
+				<input type="checkbox" id="removeScriptsInput">
+			</div>
+			<div class="option">
+				<label for="removeVideoSrcInput">remove video sources</label>
+				<input type="checkbox" id="removeVideoSrcInput">
+			</div>
+			<div class="option">
+				<label for="removeAudioSrcInput">remove audio sources</label>
+				<input type="checkbox" id="removeAudioSrcInput">
+			</div>
+			<div class="option">
+				<label for="compressCSSInput">compress CSS</label>
+				<input type="checkbox" id="compressCSSInput">
+			</div>
+			<div class="option">
+				<label for="removeUnusedCSSRulesInput">remove unused CSS rules</label>
+				<input type="checkbox" id="removeUnusedCSSRulesInput">
+			</div>
+			<div class="option">
+				<label for="lazyLoadImagesInput">save lazy loaded images</label>
+				<input type="checkbox" id="lazyLoadImagesInput">
+			</div>
+			<div class="option">
+				<label for="maxResourceSizeEnabledInput">set a maximum size for embedded resources</label>
+				<input type="checkbox" id="maxResourceSizeEnabledInput">
+			</div>
+			<div class="option second-level">
+				<label for="maxResourceSizeInput">maximum size (Mb)</label>
+				<input type="number" id="maxResourceSizeInput" min="1">
+			</div>
+		</details>
+		<div class="option bottom">
+			<a href="help.html" target="SingleFileHelpPage">help</a>
+			<button id="resetButton" title="Reset all the options to default values">Reset</button>
 		</div>
-		<div class="option">
-			<label for="shadowEnabledInput">overlay a shadow on the page during processing</label>
-			<input type="checkbox" id="shadowEnabledInput">
-		</div>
-		<div class="option">
-			<label for="displayInfobarInput">display an infobar when viewing archives</label>
-			<input type="checkbox" id="displayInfobarInput">
-		</div>
-		<div class="option">
-			<label for="displayStatsInput">display stats in the console after processing</label>
-			<input type="checkbox" id="displayStatsInput">
-		</div>
-	</details>
-	<details>
-		<summary>File name</summary>
-		<div class="option">
-			<label for="appendSaveDateInput">append the save date to the file name</label>
-			<input type="checkbox" id="appendSaveDateInput">
-		</div>
-		<div class="option">
-			<label for="confirmFilenameInput">enter file name before saving the page</label>
-			<input type="checkbox" id="confirmFilenameInput">
-		</div>
-	</details>
-	<details>
-		<summary>Page content</summary>
-		<div class="option">
-			<label for="compressHTMLInput">compress HTML</label>
-			<input type="checkbox" id="compressHTMLInput">
-		</div>
-		<div class="option">
-			<label for="removeImportsInput">remove HTML imports</label>
-			<input type="checkbox" id="removeImportsInput">
-		</div>
-		<div class="option">
-			<label for="removeFramesInput">remove frames</label>
-			<input type="checkbox" id="removeFramesInput">
-		</div>
-		<div class="option">
-			<label for="removeHiddenElementsInput">remove hidden elements</label>
-			<input type="checkbox" id="removeHiddenElementsInput">
-		</div>
-		<div class="option">
-			<label for="saveRawPageInput">save raw page</label>
-			<input type="checkbox" id="saveRawPageInput">
-		</div>
-	</details>
-	<details>
-		<summary>Pages resources</summary>
-		<div class="option">
-			<label for="removeScriptsInput">remove scripts</label>
-			<input type="checkbox" id="removeScriptsInput">
-		</div>
-		<div class="option">
-			<label for="removeVideoSrcInput">remove video sources</label>
-			<input type="checkbox" id="removeVideoSrcInput">
-		</div>
-		<div class="option">
-			<label for="removeAudioSrcInput">remove audio sources</label>
-			<input type="checkbox" id="removeAudioSrcInput">
-		</div>
-		<div class="option">
-			<label for="compressCSSInput">compress CSS</label>
-			<input type="checkbox" id="compressCSSInput">
-		</div>
-		<div class="option">
-			<label for="removeUnusedCSSRulesInput">remove unused CSS rules</label>
-			<input type="checkbox" id="removeUnusedCSSRulesInput">
-		</div>
-		<div class="option">
-			<label for="lazyLoadImagesInput">save lazy loaded images</label>
-			<input type="checkbox" id="lazyLoadImagesInput">
-		</div>
-		<div class="option">
-			<label for="maxResourceSizeEnabledInput">set a maximum size for embedded resources</label>
-			<input type="checkbox" id="maxResourceSizeEnabledInput">
-		</div>
-		<div class="option second-level">
-			<label for="maxResourceSizeInput">maximum size (Mb)</label>
-			<input type="number" id="maxResourceSizeInput" min="1">
-		</div>
-	</details>
-	<div class="option bottom">
-		<a href="help.html" target="SingleFileHelpPage">help</a>
-		<button id="resetButton" title="Reset all the options to default values">Reset</button>
-	</div>
+	</main>
 	<script type="text/javascript" src="/lib/browser-polyfill/custom-browser-polyfill.js"></script>
 	<script type="text/javascript" src="../bg/options.js"></script>
 </body>

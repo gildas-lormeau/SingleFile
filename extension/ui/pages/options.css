@@ -3,11 +3,14 @@ body {
     background-color: #fff;
     margin-left: auto;
     margin-right: auto;
-    padding: 10px;
     font-family: sans-serif;
     text-align: justify;
     max-width: 600px;
     height: auto;
+}
+
+main {
+    padding: 10px;
 }
 
 button {
