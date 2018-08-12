@@ -30,16 +30,17 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			let maskElement = document.querySelector(MASK_TAGNAME);
 			if (!maskElement) {
 				maskElement = createElement(MASK_TAGNAME, document.body);
+				maskElement.style.opacity = 0;
+				maskElement.style.backgroundColor = "transparent";
+				maskElement.offsetWidth;
 				maskElement.style.position = "fixed";
 				maskElement.style.top = "0px";
 				maskElement.style.left = "0px";
 				maskElement.style.height = "100%";
-				maskElement.style.width = "100%";
-				maskElement.style.backgroundColor = "black";
-				maskElement.style.zIndex = 2147483647;
-				maskElement.style.opacity = 0;
+				maskElement.style.width = "100%";				
+				maskElement.style.zIndex = 2147483647;				
 				maskElement.style.transition = "opacity 250ms";
-				maskElement.style.willChange = "opacity";
+				maskElement.style.willChange = "opacity background-color";
 				const progressBarElement = createElement(PROGRESS_BAR_TAGNAME, maskElement);
 				progressBarElement.style.position = "fixed";
 				progressBarElement.style.top = "0px";
@@ -50,6 +51,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				progressBarElement.style.transition = "width 50ms";
 				progressBarElement.style.willChange = "width";
 				maskElement.offsetWidth;
+				maskElement.style.backgroundColor = "black";
 				maskElement.style.opacity = .3;
 				document.body.offsetWidth;
 			}
