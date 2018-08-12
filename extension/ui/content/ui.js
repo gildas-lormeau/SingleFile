@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global document */
+/* global document, getComputedStyle */
 
 this.singlefile.ui = this.singlefile.ui || (() => {
 
@@ -29,8 +29,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		init() {
 			let maskElement = document.querySelector(MASK_TAGNAME);
 			if (!maskElement) {
-				maskElement = document.createElement(MASK_TAGNAME);
-				maskElement.style.all = "unset";
+				maskElement = createElement(MASK_TAGNAME, document.body);
 				maskElement.style.position = "fixed";
 				maskElement.style.top = "0px";
 				maskElement.style.left = "0px";
@@ -41,8 +40,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				maskElement.style.opacity = 0;
 				maskElement.style.transition = "opacity 250ms";
 				maskElement.style.willChange = "opacity";
-				const progressBarElement = document.createElement(PROGRESS_BAR_TAGNAME);
-				progressBarElement.style.all = "unset";
+				const progressBarElement = createElement(PROGRESS_BAR_TAGNAME, maskElement);
 				progressBarElement.style.position = "fixed";
 				progressBarElement.style.top = "0px";
 				progressBarElement.style.left = "0px";
@@ -51,18 +49,18 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				progressBarElement.style.backgroundColor = "white";
 				progressBarElement.style.transition = "width 50ms";
 				progressBarElement.style.willChange = "width";
-				document.body.appendChild(maskElement);
-				maskElement.appendChild(progressBarElement);
 				maskElement.offsetWidth;
 				maskElement.style.opacity = .3;
+				document.body.offsetWidth;
 			}
 		},
 		onprogress(event) {
 			const progressBarElement = document.querySelector(PROGRESS_BAR_TAGNAME);
-			if (progressBarElement) {
+			if (progressBarElement && event.details.max) {
 				const width = Math.floor((event.details.index / event.details.max) * 100) + "%";
 				if (progressBarElement.style.width != width) {
 					progressBarElement.style.width = Math.floor((event.details.index / event.details.max) * 100) + "%";
+					progressBarElement.offsetWidth;
 				}
 			}
 		},
@@ -73,5 +71,12 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			}
 		}
 	};
+
+	function createElement(tagName, parentElement) {
+		const element = document.createElement(tagName);
+		parentElement.appendChild(element);
+		Array.from(getComputedStyle(element)).forEach(property => element.style[property] = "initial");
+		return element;
+	}
 
 })();
