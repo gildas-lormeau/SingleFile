@@ -35,7 +35,7 @@ singlefile.ui = (() => {
 	const MENU_ID_SAVE_SELECTED_TABS = "save-selected-tabs";
 
 	const badgeTabs = {};
-	const badgeRefreshPending = {};
+	const badgeRefreshPromise = {};
 
 	browser.runtime.onInstalled.addListener(refreshContextMenu);
 	if (browser.menus && browser.menus.onClicked) {
@@ -204,6 +204,7 @@ singlefile.ui = (() => {
 
 	function onTabRemoved(tabId) {
 		delete badgeTabs[tabId];
+		delete badgeRefreshPromise[tabId];
 	}
 
 	function onTabActivated(tabId, isActive) {
@@ -227,17 +228,12 @@ singlefile.ui = (() => {
 	}
 
 	async function refreshBadge(tabId, tabData) {
-		if (!badgeRefreshPending[tabId]) {
-			badgeRefreshPending[tabId] = [];
+		if (!badgeRefreshPromise[tabId]) {
+			badgeRefreshPromise[tabId] = Promise.resolve();
+		} else {
+			badgeRefreshPromise[tabId].then(() => refreshBadgeAsync(tabId, tabData));
 		}
-		let promise;
-		for (promise of badgeRefreshPending[tabId]) {
-			await promise;
-		}
-		promise = refreshBadgeAsync(tabId, tabData);
-		badgeRefreshPending[tabId].push(promise);
-		await promise;
-		badgeRefreshPending[tabId].filter(pending => pending != promise);
+		await badgeRefreshPromise[tabId];
 	}
 
 	async function refreshBadgeAsync(tabId, tabData, lastTabData) {
