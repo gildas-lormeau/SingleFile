@@ -230,9 +230,8 @@ singlefile.ui = (() => {
 	async function refreshBadge(tabId, tabData) {
 		if (!badgeRefreshPromise[tabId]) {
 			badgeRefreshPromise[tabId] = Promise.resolve();
-		} else {
-			badgeRefreshPromise[tabId].then(() => refreshBadgeAsync(tabId, tabData));
 		}
+		badgeRefreshPromise[tabId].then(() => refreshBadgeAsync(tabId, tabData));
 		await badgeRefreshPromise[tabId];
 	}
 
