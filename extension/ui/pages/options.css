@@ -1,4 +1,5 @@
 body {
+    box-sizing: border-box;
     background-color: #fff;
     margin-left: auto;
     margin-right: auto;
