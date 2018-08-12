@@ -31,13 +31,15 @@ singlefile.ui = (() => {
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_SAVE_SELECTED = "save-selected";
 	const MENU_ID_SAVE_FRAME = "save-frame";
+	const MENU_ID_SAVE_TABS = "save-tabs";
+	const MENU_ID_SAVE_SELECTED_TABS = "save-selected-tabs";
 
 	const badgeTabs = {};
 	const badgeRefreshPending = {};
 
 	browser.runtime.onInstalled.addListener(refreshContextMenu);
 	if (browser.menus && browser.menus.onClicked) {
-		browser.menus.onClicked.addListener((event, tab) => {
+		browser.menus.onClicked.addListener(async (event, tab) => {
 			if (event.menuItemId == MENU_ID_SAVE_PAGE) {
 				processTab(tab);
 			}
@@ -47,6 +49,14 @@ singlefile.ui = (() => {
 			if (event.menuItemId == MENU_ID_SAVE_FRAME) {
 				processTab(tab, { frameId: event.frameId });
 			}
+			if (event.menuItemId == MENU_ID_SAVE_TABS) {
+				const tabs = await browser.tabs.query({ currentWindow: true });
+				tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
+			}
+			if (event.menuItemId == MENU_ID_SAVE_SELECTED_TABS) {
+				const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
+				tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
+			}
 		});
 	}
 	browser.browserAction.onClicked.addListener(async tab => {
@@ -55,7 +65,7 @@ singlefile.ui = (() => {
 			if (!tabs.length) {
 				processTab(tab);
 			} else {
-				tabs.forEach(processTab);
+				tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
 			}
 		}
 	});
@@ -93,14 +103,24 @@ singlefile.ui = (() => {
 					title: DEFAULT_TITLE
 				});
 				browser.menus.create({
+					id: MENU_ID_SAVE_TABS,
+					contexts: ["page"],
+					title: "Save all tabs"
+				});
+				browser.menus.create({
+					id: MENU_ID_SAVE_SELECTED_TABS,
+					contexts: ["page"],
+					title: "Save selected tabs"
+				});
+				browser.menus.create({
 					id: MENU_ID_SAVE_SELECTED,
 					contexts: ["selection"],
-					title: "Save selection with SingleFile"
+					title: "Save selection"
 				});
 				browser.menus.create({
 					id: MENU_ID_SAVE_FRAME,
 					contexts: ["frame"],
-					title: "Save frame with SingleFile"
+					title: "Save frame"
 				});
 			} else {
 				await browser.menus.removeAll();
