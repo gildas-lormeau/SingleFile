@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, singlefile, FrameTree */
+/* global browser, singlefile, FrameTree, Blob */
 
 singlefile.core = (() => {
 
@@ -47,8 +47,14 @@ singlefile.core = (() => {
 		}
 		if (request.download) {
 			try {
+				if (request.content) {
+					request.url = URL.createObjectURL(new Blob([request.content], { type: "text/html" }));
+				}
 				return browser.downloads.download({ url: request.url, saveAs: request.saveAs, filename: request.filename.replace(/[/?<>\\:*|"]/g, "_") })
 					.then(downloadId => new Promise(resolve => {
+						if (request.content) {
+							URL.revokeObjectURL(request.url);
+						}
 						browser.downloads.onChanged.addListener(onChanged);
 
 						function onChanged(event) {
