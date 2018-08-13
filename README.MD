@@ -16,7 +16,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 ## General notes
 - right-click on the SingleFile button and select "Options"/"Manage extension" to open the options page
 - to save multiple tabs, select them first and click on the SingleFile button
-- use the context menu to save a complete page, selected content or frame content
+- use the context menu to save a tab, all tabs, selected tabs, selected content, or frame content
 - saved files are compatible with all modern browsers *without installing any extension*
 - SingleFile uses "data URI" scheme to embed resources into the page: the resulting format is *not compatible* with MHT/MHTML.
 
