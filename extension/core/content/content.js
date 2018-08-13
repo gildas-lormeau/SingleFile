@@ -59,7 +59,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (options.selected) {
 			markSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
 		}
-		await processor.initialize();		
+		await processor.initialize();
 		await processor.preparePageData();
 		const page = processor.getPageData();
 		if (options.selected) {
