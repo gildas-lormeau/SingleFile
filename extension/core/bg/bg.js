@@ -75,8 +75,6 @@ singlefile.core = (() => {
 		async processTab(tab, processOptions = {}) {
 			const options = await singlefile.config.get();
 			Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
-			options.insertSingleFileComment = true;
-			options.insertFaviconLink = true;
 			return new Promise(async (resolve, reject) => {
 				const processPromise = processStart(tab, options);
 				const errorTimeout = setTimeout(reject, TIMEOUT_PROCESS_START_MESSAGE);

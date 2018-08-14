@@ -36,22 +36,27 @@ this.singlefile.top = this.singlefile.top || (() => {
 	return true;
 
 	async function savePage(message) {
-		if (message.processStart && !processing && !message.options.frameId) {
+		const options = message.options;
+		if (!processing) {
 			processing = true;
-			try {
-				const page = await processPage(message.options);
-				await downloadPage(page, message.options);
-				revokeDownloadURL(page);
-			} catch (error) {
-				console.error(error); // eslint-disable-line no-console
-				browser.runtime.sendMessage({ processError: true, error });
+			if (message.processStart && !options.frameId) {
+				try {
+					const page = await processPage(options);
+					await downloadPage(page, options);
+					revokeDownloadURL(page);
+				} catch (error) {
+					console.error(error); // eslint-disable-line no-console
+					browser.runtime.sendMessage({ processError: true, error });
+				}
 			}
 			processing = false;
 		}
 	}
 
 	async function processPage(options) {
-		if (options.shadowEnabled) {
+		options.insertSingleFileComment = true;
+		options.insertFaviconLink = true;
+		if (options.shadowEnabled && !options.autoSave) {
 			singlefile.ui.init();
 		}
 		options = await getOptions(options);
@@ -68,7 +73,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		const date = new Date();
 		page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
-		if (options.shadowEnabled) {
+		if (options.shadowEnabled && !options.autoSave) {
 			singlefile.ui.end();
 		}
 		if (options.displayStats) {
@@ -119,7 +124,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 				} catch (error) {
 					/* ignored */
 				}
-				if (options.shadowEnabled) {
+				if (options.shadowEnabled && !options.autoSave) {
 					singlefile.ui.onprogress(event);
 				}
 			} else if (event.type == event.PAGE_ENDED) {

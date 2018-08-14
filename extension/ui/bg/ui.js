@@ -33,6 +33,7 @@ singlefile.ui = (() => {
 	const MENU_ID_SAVE_FRAME = "save-frame";
 	const MENU_ID_SAVE_TABS = "save-tabs";
 	const MENU_ID_SAVE_SELECTED_TABS = "save-selected-tabs";
+	const MENU_ID_AUTO_SAVE = "auto-save";
 
 	const tabs = {};
 
@@ -56,6 +57,12 @@ singlefile.ui = (() => {
 				const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
 				tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
 			}
+			if (event.menuItemId == MENU_ID_AUTO_SAVE) {
+				if (!tabs[tab.id]) {
+					tabs[tab.id] = {};
+				}
+				tabs[tab.id].autoSave = event.checked;
+			}
 		});
 	}
 	browser.browserAction.onClicked.addListener(async tab => {
@@ -69,11 +76,18 @@ singlefile.ui = (() => {
 		}
 	});
 	browser.tabs.onActivated.addListener(async activeInfo => {
-		const tab = browser.tabs.get(activeInfo.tabId);
-		onTabActivated(tab.id, isAllowedURL(tab.url));
+		const tab = await browser.tabs.get(activeInfo.tabId);
+		onTabActivated(tab);
 	});
-	browser.tabs.onCreated.addListener(tab => onTabActivated(tab.id, isAllowedURL(tab.url)));
-	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabActivated(tab.id, isAllowedURL(tab.url)));
+	browser.tabs.onCreated.addListener(tab => onTabActivated(tab));
+	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+		if (tabs[tab.id] && tabs[tab.id].autoSave) {
+			if (changeInfo.status == "complete") {
+				processTab(tab, { autoSave: true });
+			}
+		}
+		onTabActivated(tab);
+	});
 	browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
 	browser.runtime.onMessage.addListener((request, sender) => {
 		if (request.processProgress && request.maxIndex) {
@@ -120,6 +134,18 @@ singlefile.ui = (() => {
 					id: MENU_ID_SAVE_FRAME,
 					contexts: ["frame"],
 					title: "Save frame"
+				});
+				browser.menus.create({
+					id: "separator",
+					contexts: ["all"],
+					type: "separator"
+				});
+				browser.menus.create({
+					id: MENU_ID_AUTO_SAVE,
+					type: "checkbox",
+					title: "Auto-save this tab",
+					contexts: ["all"],
+					checked: false
 				});
 			} else {
 				await browser.menus.removeAll();
@@ -180,7 +206,7 @@ singlefile.ui = (() => {
 	function onTabEnd(tabId) {
 		refreshBadge(tabId, {
 			text: "OK",
-			color: [4, 229, 36, 255],
+			color: tabs[tabId].autoSave ? [255, 141, 1, 255] : [4, 229, 36, 255],
 			title: DEFAULT_TITLE,
 			path: DEFAULT_ICON_PATH,
 			progress: -1,
@@ -205,15 +231,15 @@ singlefile.ui = (() => {
 		delete tabs[tabId];
 	}
 
-	function onTabActivated(tabId, isActive) {
-		if (browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
-			if (isActive) {
-				browser.browserAction.enable(tabId);
+	function onTabActivated(tab) {
+		if (isAllowedURL(tab.url) && browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
+			if (isAllowedURL(tab.url)) {
+				browser.browserAction.enable(tab.id);
 				if (browser.runtime.lastError) {
 					/* ignored */
 				}
 			} else {
-				browser.browserAction.disable(tabId);
+				browser.browserAction.disable(tab.id);
 				if (browser.runtime.lastError) {
 					/* ignored */
 				}
