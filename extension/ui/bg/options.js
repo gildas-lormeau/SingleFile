@@ -76,6 +76,7 @@
 		displayInfobarInput.checked = config.displayInfobar;
 		displayStatsInput.checked = config.displayStats;
 		backgroundSaveInput.checked = config.backgroundSave;
+		backgroundSaveInput.disabled = config.backgroundSaveDisabled;
 	}
 
 	async function update() {

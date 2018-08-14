@@ -51,17 +51,17 @@ singlefile.config = (() => {
 	async function upgrade() {
 		if (localStorage.config) {
 			const config = JSON.parse(localStorage.config);
-			upgradeConfig(config);
+			await upgradeConfig(config);
 			delete localStorage.config;
 			pendingUpgradePromise = browser.storage.local.set(config);
 		} else {
 			const config = await browser.storage.local.get();
-			upgradeConfig(config);
+			await upgradeConfig(config);
 			pendingUpgradePromise = browser.storage.local.set(config);
 		}
 	}
 
-	function upgradeConfig(config) {
+	async function upgradeConfig(config) {
 		if (config.removeScripts === undefined) {
 			config.removeScripts = true;
 		}
@@ -113,6 +113,11 @@ singlefile.config = (() => {
 		}
 		if (config.backgroundSave === undefined) {
 			config.backgroundSave = true;
+		}
+		const platformInfo = await browser.runtime.getPlatformInfo();
+		if (platformInfo.os == "android") {
+			config.backgroundSave = false;
+			config.backgroundSaveDisabled = true;
 		}
 	}
 
