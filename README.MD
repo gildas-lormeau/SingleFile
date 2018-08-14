@@ -13,8 +13,8 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 - Wait until the page is fully loaded: you may need to scroll down the entire page to be sure all elements are loaded.
 - Click on the SingleFile button in the extension toolbar.
 
-## General notes
--  Right-click on the SingleFile button and select "Options" to open the options page.
+## Additional notes
+- Right-click on the SingleFile button and select "Options" to open the options page.
 - To save multiple tabs, select them first and click on the SingleFile button .
 - Use the context menu to save a tab, all tabs, selected tabs, a selected content, or a frame content
 
