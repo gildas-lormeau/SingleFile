@@ -24,7 +24,7 @@ this.singlefile.frame = this.singlefile.frame || (() => {
 
 	if (window != top) {
 		browser.runtime.onMessage.addListener(async message => {
-			if (message.processStart) {
+			if (message.processStartFrame) {
 				message.options.content = docHelper.getDoctype(document) + document.documentElement.outerHTML;
 				message.options.frameId = null;
 				message.options.url = document.location.href;

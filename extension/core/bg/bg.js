@@ -95,7 +95,7 @@ singlefile.core = (() => {
 		}
 		await executeScripts(tab.id, contentScriptFiles, { allFrames: false });
 		if (options.frameId) {
-			await browser.tabs.sendMessage(tab.id, { processStart: true, options }, { frameId: options.frameId });
+			await browser.tabs.sendMessage(tab.id, { processStartFrame: true, options }, { frameId: options.frameId });
 		} else {
 			await browser.tabs.sendMessage(tab.id, { processStart: true, options });
 		}
