@@ -23,7 +23,7 @@ See the extension help in options page for more detailed information about the o
 
 ## Known Issues
 - All browsers:
- - After installing the extension, if you want to save a tab that was already opened then you need to refresh it first.
+  - After installing the extension, if you want to save a tab that was already opened then you need to refresh it first.
   - For security reasons, you cannot save pages hosted on https://chrome.google.com or https://addons.mozilla.org.
 - Chrome/Opera:
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
