@@ -134,6 +134,7 @@ singlefile.config = (() => {
 		async reset() {
 			await pendingUpgradePromise;
 			await browser.storage.local.clear();
+			await upgradeConfig({});
 		}
 	};
 
