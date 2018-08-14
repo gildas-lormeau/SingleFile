@@ -10,26 +10,35 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
  - Edge, Opera: The extension is not on the store yet, you must download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and install it manually
 
 ## Instructions
-- wait until the page is fully loaded: you may need to scroll down the entire page to be sure all elements are loaded
-- click on the SingleFile button in the extension toolbar to save the page
+- Wait until the page is fully loaded: you may need to scroll down the entire page to be sure all elements are loaded.
+- Click on the SingleFile button in the extension toolbar.
 
 ## General notes
-- right-click on the SingleFile button and select "Options"/"Manage extension" to open the options page
-- to save multiple tabs, select them first and click on the SingleFile button
-- use the context menu to save a tab, all tabs, selected tabs, selected content, or frame content
-- saved files are compatible with all modern browsers *without installing any extension*
-- SingleFile uses "data URI" scheme to embed resources into the page: the resulting format is *not compatible* with MHT/MHTML.
+-  Right-click on the SingleFile button and select "Options" to open the options page.
+- To save multiple tabs, select them first and click on the SingleFile button .
+- Use the context menu to save a tab, all tabs, selected tabs, a selected content, or a frame content
 
 ## More info
-See the extension help in options page for more detailed information about options, technical notes and known issues.
+See the extension help in options page for more detailed information about the options, and technical notes.
 
-## Issues
-If you find an unknown issue:
-- reset options in SingleFile options page
-- disable all other extensions to see if there is a conflict
-- if there is a conflict, try to determine against which extension(s)
-- report the issue with a short description describing how to reproduce it, browser version, OS name and version here: https://github.com/gildas-lormeau/SingleFile/issues
+## Known Issues
+- All browsers:
+ - After installing the extension, if you want to save a tab that was already opened then you need to refresh it first.
+  - For security reasons, you cannot save pages hosted on https://chrome.google.com or https://addons.mozilla.org.
+- Chrome/Opera:
+  - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
+  - If saved pages have file names like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1" instead of the title then it means another extension is conflicting with SingleFile. You can uncheck the option "save pages in background" to circumvent this issue.
+- Firefox:
+  - You cannot save selected tabs via the context menu since multiple tabs cannot be selected.
+- Edge:
+  - The file name looks like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1".
 
+## Troubleshooting unknown issues
+Please follow these steps if you find an unknown issue:
+- Reset SingleFile options.
+- If resetting options did not fix the issue, try to disable all other extensions to see if there is a conflict.
+- If there is a conflict then try to determine against which extension(s).
+- Please report the issue with a short description describing how to reproduce the issue, Browser version, OS name and version here: https://github.com/gildas-lormeau/SingleFile/issues.
 Suggestions are welcome :)
 
 ## License

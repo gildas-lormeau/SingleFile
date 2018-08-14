@@ -15,35 +15,42 @@
 		</div>
 		<span id="index">
 			<a href="#instructions">Instructions</a> -
+			<a href="#general-notes">Additional notes</a> -
 			<a href="#options">Options description</a> -
 			<a href="#notes">Technical notes</a> -
-			<a href="#unknownIssues">Unknown issues</a>
+			<a href="#known-issues">Known issues</a> -
+			<a href="#unknown-issues">Troubleshooting unknown issues</a>
 		</span>
 		<hr>
 		<ol>
 			<li>
 				<a id="instructions">Instructions</a>
 				<ul>
-					<li>wait until the page is fully loaded: you may need to scroll down the entire page to be sure all elements are loaded</li>
-					<li>click on the SingleFile button
-						<img src="../resources/icon_16.png" class="icon"> in the extension toolbar</li>
+					<li>Wait until the page is fully loaded: you may need to scroll down the entire page to be sure all elements are loaded.</li>
+					<li>Click on the SingleFile button
+						<img src="../resources/icon_16.png" class="icon"> in the extension toolbar.</li>
 				</ul>
-				<p>Additional notes:</p>
+			</li>
+			<li>
+				<a id="general-notes">Additional notes</a>
 				<ul>
-					<li>You can select multiple tabs and save them by clicking on the SingleFile button
-						<img src="../resources/icon_16.png" class="icon">.</li>
+					<li>Right-click on the SingleFile button and select "Options" to open the options page.</li>
+					<li>To save multiple tabs, select them first and click on the SingleFile button <img src="../resources/icon_16.png"
+						 class="icon">.</li>
+					<li>Use the context menu to save a tab, all tabs, selected tabs, a selected content, or a frame content</li>
 				</ul>
 			</li>
 			<li>
 				<a id="options">Options description</a>
-
-				<p>You can customize the way SingleFile process a document through the options page. Right-click on SingleFile button
-					<img src="../resources/icon_16.png" class="icon"> in the browser toolbar and select "Options" in the context menu to open the options page.</p>
-				<p>Details :</p>
+				<p>You can customize SingleFile through the options page. Right-click on SingleFile button
+					<img src="../resources/icon_16.png" class="icon"> in the browser toolbar and select "Options"/"Manage extension" in
+					the context menu to open the options page.</p>
+				<p>Option details :</p>
 				<ul>
 					<li>
 						<span class="option">add entry in the context menu</span>
-						<p>Check this option to display an entry in the context menu of the webpage to save the entire page or the selected part.
+						<p>Check this option to display an entry in the context menu of the webpage to save the entire page or the selected
+							part.
 						</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
@@ -51,8 +58,8 @@
 
 					<li>
 						<span class="option">overlay a shadow on the page during processing</span>
-						<p>Check this option to overlay a shadow on the page when SingleFile is retrieving page resources. This reminds you that
-							you should not close the tab.
+						<p>Check this option to overlay a shadow on the page when SingleFile is retrieving page resources. This reminds you
+							that you should not close the tab.
 						</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
@@ -69,8 +76,8 @@
 
 					<li>
 						<span class="option">display stats in the console after processing</span>
-						<p>Check this option to display stats about processing in the JavaScript developer tools of your browser. Checking this
-							option may increase the time needed to process a page.
+						<p>Check this option to display stats about processing in the JavaScript developer tools of your browser. Checking
+							this option may increase the time needed to process a page.
 						</p>
 						<p class="notice">It is recommended to
 							<u>uncheck</u> this option</p>
@@ -102,16 +109,16 @@
 
 					<li>
 						<span class="option">compress HTML</span>
-						<p>Check this option to remove all HTML comments, and unneeded spaces or returns. This helps to reduce the size of the
-							file without altering the document.</p>
+						<p>Check this option to remove all HTML comments, and unneeded spaces or returns. This helps to reduce the size of
+							the file without altering the document.</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
 					</li>
 
 					<li>
 						<span class="option">remove HTML import</span>
-						<p>Check this option to remove all link elements used to import HTML documents. This can reduce the size of the file without
-							altering the document most of the time.</p>
+						<p>Check this option to remove all link elements used to import HTML documents. This can reduce the size of the file
+							without altering the document most of the time.</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
 					</li>
@@ -126,8 +133,8 @@
 
 					<li>
 						<span class="option">remove hidden elements</span>
-						<p>Check this option to remove all hidden elements. This option can considerably reduce the size of the file without altering
-							the document most of the time.</p>
+						<p>Check this option to remove all hidden elements. This option can considerably reduce the size of the file without
+							altering the document most of the time.</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
 					</li>
@@ -177,8 +184,8 @@
 
 					<li>
 						<span class="option">save lazy loaded images</span>
-						<p>Check this option to save all the lazy loaded images that are not displayed. This may help to save all the images without
-							scrolling the page. This feature is not guaranteed to work on all sites.</p>
+						<p>Check this option to save all the lazy loaded images that are not displayed. This may help to save all the images
+							without scrolling the page. This feature is not guaranteed to work on all sites.</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
 					</li>
@@ -199,26 +206,67 @@
 			<li>
 				<a id="notes">Technical notes</a>
 				<ul>
-					<li>all images are converted into
-						<a href="http://en.wikipedia.org/wiki/Base64">base64</a>
+					<li>All images are converted into
+						<a href="http://en.wikipedia.org/wiki/Base64">base64</a>.
 					</li>
-					<li>resources are injected in the document using
-						<a href="http://en.wikipedia.org/wiki/Data_URI_scheme">data URI scheme</a>
+					<li>All resources except frame contents are injected in the document using
+						<a href="http://en.wikipedia.org/wiki/Data_URI_scheme">data URI scheme</a>.
 					</li>
-					<li>data URI scheme is supported by all modern browsers.</li>
+					<li>Frame contents are injected as text in the document by using the srcdoc attribute.
+					</li>
 				</ul>
 			</li>
 
 			<li>
-				<a id="unknownIssues">Unknown issues</a>
-				<p>If you find an unknown issue (i.e. frozen process, extra saved files, blank or altered document, tab crash...):</p>
+				<a id="known-issues">Known issues</a>
 				<ul>
-					<li>reset SingleFile options</li>
-					<li>if resetting options did not work, try to disable all other extensions to see if there is a conflict</li>
-					<li>if there is a conflict then try to determine against which extension(s)</li>
-					<li>please report the issue
-						<a href="https://github.com/gildas-lormeau/SingleFile/issues">here</a> with a short description describing how to reproduce the issue, Browser version, OS name and version.</li>
+					<li>
+						All browsers
+						<ul>
+							<li>After installing the extension, if you want to save a tab that was already opened then you need to refresh it
+								first.
+							</li>
+							<li>For security reasons, you cannot save pages hosted on https://chrome.google.com or https://addons.mozilla.org.</li>
+						</ul>
+					</li>
+					<li>
+						Chrome/Opera
+						<ul>
+							<li>You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing
+								a saved page, or to save a page stored on the filesystem.</li>
+							<li>If saved pages have file names like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1" instead of the title then it means
+								another extension is conflicting with SingleFile. You can uncheck the option "save pages in background" to circumvent
+								this issue.
+							</li>
+						</ul>
+					</li>
+					<li>
+						Firefox
+						<ul>
+							<li>You cannot save selected tabs via the context menu since multiple tabs cannot be selected.</li>
+						</ul>
+					</li>
+					<li>
+						Edge
+						<ul>
+							<li>The file name looks like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1".</li>
+						</ul>
+					</li>
 				</ul>
+			</li>
+
+			<li>
+				<a id="unknown-issues">Troubleshooting unknown issues</a>
+				<p>Please follow these steps if you find an unknown issue:</p>
+				<ul>
+					<li>Reset SingleFile options.</li>
+					<li>If resetting options did not fix the issue, try to disable all other extensions to see if there is a conflict.</li>
+					<li>If there is a conflict then try to determine against which extension(s).</li>
+					<li>Please report the issue
+						<a href="https://github.com/gildas-lormeau/SingleFile/issues">here</a> with a short description describing how to reproduce
+						the issue, Browser version, OS name and version.</li>
+				</ul>
+				<p>Suggestions are welcome :)</p>
 			</li>
 		</ol>
 	</div>
