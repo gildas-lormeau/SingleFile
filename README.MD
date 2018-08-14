@@ -19,7 +19,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 - Use the context menu to save a tab, all tabs, selected tabs, a selected content, or a frame content
 
 ## More info
-See the extension help in options page for more detailed information about the options, and technical notes.
+See the extension help in the options page for more detailed information about the options, and technical notes.
 
 ## Known Issues
 - All browsers:
