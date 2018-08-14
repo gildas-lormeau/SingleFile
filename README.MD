@@ -16,7 +16,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 ## Additional notes
 - Right-click on the SingleFile button and select "Options" to open the options page.
 - To save multiple tabs, select them first and click on the SingleFile button .
-- Use the context menu to save a tab, all tabs, selected tabs, a selected content, or a frame content
+- Use the context menu to save a tab, all tabs, selected tabs, a selected content, or a frame content. The context menu also allows activating automatic page saving.
 
 ## More info
 See the extension help in the options page for more detailed information about the options, and technical notes.
