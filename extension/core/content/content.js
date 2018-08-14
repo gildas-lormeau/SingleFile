@@ -134,22 +134,30 @@ this.singlefile.top = this.singlefile.top || (() => {
 	}
 
 	async function downloadPage(page, options) {
-		const response = await browser.runtime.sendMessage({ download: true, url: page.url, saveAs: options.confirmFilename, filename: page.filename });
-		if (response.notSupported) {
-			const response = await browser.runtime.sendMessage({ download: true, content: page.content, saveAs: options.confirmFilename, filename: page.filename });
+		if (options.backgroundSave) {
+			const response = await browser.runtime.sendMessage({ download: true, url: page.url, saveAs: options.confirmFilename, filename: page.filename });
 			if (response.notSupported) {
-				if (options.confirmFilename) {
-					page.filename = prompt("File name", page.filename);
-				}
-				if (page.filename && page.filename.length) {
-					const link = document.createElement("a");
-					document.body.appendChild(link);
-					link.download = page.filename;
-					link.href = page.url;
-					link.dispatchEvent(new MouseEvent("click"));
-					link.remove();
+				const response = await browser.runtime.sendMessage({ download: true, content: page.content, saveAs: options.confirmFilename, filename: page.filename });
+				if (response.notSupported) {
+					downloadPageFallback(page, options);
 				}
 			}
+		} else {
+			downloadPageFallback(page, options);
+		}
+	}
+
+	function downloadPageFallback(page, options) {
+		if (options.confirmFilename) {
+			page.filename = prompt("File name", page.filename);
+		}
+		if (page.filename && page.filename.length) {
+			const link = document.createElement("a");
+			document.body.appendChild(link);
+			link.download = page.filename;
+			link.href = page.url;
+			link.dispatchEvent(new MouseEvent("click"));
+			link.remove();
 		}
 	}
 

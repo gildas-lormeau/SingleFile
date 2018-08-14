@@ -41,7 +41,8 @@ singlefile.config = (() => {
 		removeAudioSrc: true,
 		removeVideoSrc: true,
 		displayInfobar: true,
-		displayStats: false
+		displayStats: false,
+		backgroundSave: true
 	};
 
 	let pendingUpgradePromise;
@@ -109,6 +110,9 @@ singlefile.config = (() => {
 		}
 		if (config.displayInfobar === undefined) {
 			config.displayInfobar = true;
+		}
+		if (config.backgroundSave === undefined) {
+			config.backgroundSave = true;
 		}
 	}
 
