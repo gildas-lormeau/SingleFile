@@ -34,8 +34,7 @@ singlefile.ui = (() => {
 	const MENU_ID_SAVE_TABS = "save-tabs";
 	const MENU_ID_SAVE_SELECTED_TABS = "save-selected-tabs";
 
-	const badgeTabs = {};
-	const badgeRefreshPromise = {};
+	const tabs = {};
 
 	browser.runtime.onInstalled.addListener(refreshContextMenu);
 	if (browser.menus && browser.menus.onClicked) {
@@ -203,8 +202,7 @@ singlefile.ui = (() => {
 	}
 
 	function onTabRemoved(tabId) {
-		delete badgeTabs[tabId];
-		delete badgeRefreshPromise[tabId];
+		delete tabs[tabId];
 	}
 
 	function onTabActivated(tabId, isActive) {
@@ -228,11 +226,14 @@ singlefile.ui = (() => {
 	}
 
 	async function refreshBadge(tabId, tabData) {
-		if (!badgeRefreshPromise[tabId]) {
-			badgeRefreshPromise[tabId] = Promise.resolve();
+		if (!tabs[tabId]) {
+			tabs[tabId] = {};
 		}
-		badgeRefreshPromise[tabId].then(() => refreshBadgeAsync(tabId, tabData));
-		await badgeRefreshPromise[tabId];
+		if (!tabs[tabId].pendingRefresh) {
+			tabs[tabId].pendingRefresh = Promise.resolve();
+		}
+		tabs[tabId].pendingRefresh = tabs[tabId].pendingRefresh.then(() => refreshBadgeAsync(tabId, tabData));
+		await tabs[tabId].pendingRefresh;
 	}
 
 	async function refreshBadgeAsync(tabId, tabData, lastTabData) {
@@ -246,11 +247,14 @@ singlefile.ui = (() => {
 		const browserActionParameter = { tabId };
 		if (browser.browserAction && browser.browserAction[browserActionMethod]) {
 			browserActionParameter[property] = value;
-			if (!badgeTabs[tabId]) {
-				badgeTabs[tabId] = {};
+			if (!tabs[tabId]) {
+				tabs[tabId] = {};
 			}
-			if (JSON.stringify(badgeTabs[tabId][browserActionMethod]) != JSON.stringify(value)) {
-				badgeTabs[tabId][browserActionMethod] = value;
+			if (!tabs[tabId].badge) {
+				tabs[tabId].badge = {};
+			}
+			if (JSON.stringify(tabs[tabId].badge[browserActionMethod]) != JSON.stringify(value)) {
+				tabs[tabId].badge[browserActionMethod] = value;
 				await browser.browserAction[browserActionMethod](browserActionParameter);
 			}
 		}
