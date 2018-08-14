@@ -31,9 +31,13 @@ singlefile.ui = (() => {
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_SAVE_SELECTED = "save-selected";
 	const MENU_ID_SAVE_FRAME = "save-frame";
-	const MENU_ID_SAVE_TABS = "save-tabs";
 	const MENU_ID_SAVE_SELECTED_TABS = "save-selected-tabs";
-	const MENU_ID_AUTO_SAVE = "auto-save";
+	const MENU_ID_SAVE_UNPINNED_TABS = "save-unpinned-tabs";
+	const MENU_ID_SAVE_ALL_TABS = "save-tabs";
+	const MENU_ID_AUTO_SAVE_DISABLED = "auto-save-disabled";
+	const MENU_ID_AUTO_SAVE_TAB = "auto-save-tab";
+	const MENU_ID_AUTO_SAVE_UNPINNED = "auto-save-unpinned";
+	const MENU_ID_AUTO_SAVE_ALL = "auto-save-all";
 
 	const tabs = {};
 
@@ -49,19 +53,29 @@ singlefile.ui = (() => {
 			if (event.menuItemId == MENU_ID_SAVE_FRAME) {
 				processTab(tab, { frameId: event.frameId });
 			}
-			if (event.menuItemId == MENU_ID_SAVE_TABS) {
-				const tabs = await browser.tabs.query({ currentWindow: true });
-				tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
-			}
 			if (event.menuItemId == MENU_ID_SAVE_SELECTED_TABS) {
 				const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
 				tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
 			}
-			if (event.menuItemId == MENU_ID_AUTO_SAVE) {
+			if (event.menuItemId == MENU_ID_SAVE_UNPINNED_TABS) {
+				const tabs = await browser.tabs.query({ currentWindow: true, pinned: false });
+				tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
+			}
+			if (event.menuItemId == MENU_ID_SAVE_ALL_TABS) {
+				const tabs = await browser.tabs.query({ currentWindow: true });
+				tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
+			}
+			if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
 				if (!tabs[tab.id]) {
 					tabs[tab.id] = {};
 				}
 				tabs[tab.id].autoSave = event.checked;
+			}
+			if (event.menuItemId == MENU_ID_AUTO_SAVE_ALL) {
+				tabs.autoSaveAll = event.checked;
+			}
+			if (event.menuItemId == MENU_ID_AUTO_SAVE_UNPINNED) {
+				tabs.autoSaveUnpinned = event.checked;
 			}
 		});
 	}
@@ -81,7 +95,7 @@ singlefile.ui = (() => {
 	});
 	browser.tabs.onCreated.addListener(tab => onTabActivated(tab));
 	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-		if (tabs[tab.id] && tabs[tab.id].autoSave) {
+		if (tabs.autoSaveAll || tabs[tab.id] && tabs[tab.id].autoSave || (tabs.autoSaveUnpinned && !tab.pinned)) {
 			if (changeInfo.status == "complete") {
 				processTab(tab, { autoSave: true });
 			}
@@ -116,14 +130,9 @@ singlefile.ui = (() => {
 					title: DEFAULT_TITLE
 				});
 				browser.menus.create({
-					id: MENU_ID_SAVE_TABS,
-					contexts: ["page"],
-					title: "Save all tabs"
-				});
-				browser.menus.create({
-					id: MENU_ID_SAVE_SELECTED_TABS,
-					contexts: ["page"],
-					title: "Save selected tabs"
+					id: "separator",
+					contexts: ["all"],
+					type: "separator"
 				});
 				browser.menus.create({
 					id: MENU_ID_SAVE_SELECTED,
@@ -136,14 +145,50 @@ singlefile.ui = (() => {
 					title: "Save frame"
 				});
 				browser.menus.create({
+					id: MENU_ID_SAVE_SELECTED_TABS,
+					contexts: ["page"],
+					title: "Save selected tabs"
+				});
+				browser.menus.create({
+					id: MENU_ID_SAVE_UNPINNED_TABS,
+					contexts: ["page"],
+					title: "Save unpinned tabs"
+				});
+				browser.menus.create({
+					id: MENU_ID_SAVE_ALL_TABS,
+					contexts: ["page"],
+					title: "Save all tabs"
+				});
+				browser.menus.create({
 					id: "separator",
 					contexts: ["all"],
 					type: "separator"
 				});
 				browser.menus.create({
-					id: MENU_ID_AUTO_SAVE,
-					type: "checkbox",
+					id: MENU_ID_AUTO_SAVE_DISABLED,
+					type: "radio",
+					title: "Disable Auto-save",
+					contexts: ["all"],
+					checked: true
+				});
+				browser.menus.create({
+					id: MENU_ID_AUTO_SAVE_TAB,
+					type: "radio",
 					title: "Auto-save this tab",
+					contexts: ["all"],
+					checked: false
+				});
+				browser.menus.create({
+					id: MENU_ID_AUTO_SAVE_UNPINNED,
+					type: "radio",
+					title: "Auto-save unpinned tabs",
+					contexts: ["all"],
+					checked: false
+				});
+				browser.menus.create({
+					id: MENU_ID_AUTO_SAVE_ALL,
+					type: "radio",
+					title: "Auto-save all tabs",
 					contexts: ["all"],
 					checked: false
 				});
@@ -206,7 +251,7 @@ singlefile.ui = (() => {
 	function onTabEnd(tabId) {
 		refreshBadge(tabId, {
 			text: "OK",
-			color: tabs[tabId].autoSave ? [255, 141, 1, 255] : [4, 229, 36, 255],
+			color: tabs.autoSaveAll || tabs.autoSaveUnpinned || tabs[tabId].autoSave ? [255, 141, 1, 255] : [4, 229, 36, 255],
 			title: DEFAULT_TITLE,
 			path: DEFAULT_ICON_PATH,
 			progress: -1,

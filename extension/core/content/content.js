@@ -23,6 +23,8 @@
 this.singlefile.top = this.singlefile.top || (() => {
 
 	let processing = false;
+	let autoSaveTimeout;
+
 	browser.runtime.onMessage.addListener(async message => {
 		savePage(message);
 		return {};
@@ -38,18 +40,23 @@ this.singlefile.top = this.singlefile.top || (() => {
 	async function savePage(message) {
 		const options = message.options;
 		if (!processing) {
-			processing = true;
 			if (message.processStart && !options.frameId) {
-				try {
-					const page = await processPage(options);
-					await downloadPage(page, options);
-					revokeDownloadURL(page);
-				} catch (error) {
-					console.error(error); // eslint-disable-line no-console
-					browser.runtime.sendMessage({ processError: true, error });
+				if (!autoSaveTimeout && options.autoSave && options.autoSaveDelay) {
+					autoSaveTimeout = setTimeout(() => savePage(message), options.autoSaveDelay * 1000);
+				} else {
+					autoSaveTimeout = null;
+					processing = true;
+					try {
+						const page = await processPage(options);
+						await downloadPage(page, options);
+						revokeDownloadURL(page);
+					} catch (error) {
+						console.error(error); // eslint-disable-line no-console
+						browser.runtime.sendMessage({ processError: true, error });
+					}
+					processing = false;
 				}
 			}
-			processing = false;
 		}
 	}
 

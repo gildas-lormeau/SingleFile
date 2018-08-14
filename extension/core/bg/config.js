@@ -42,7 +42,8 @@ singlefile.config = (() => {
 		removeVideoSrc: true,
 		displayInfobar: true,
 		displayStats: false,
-		backgroundSave: true
+		backgroundSave: true,
+		autoSaveDelay: 1
 	};
 
 	let pendingUpgradePromise;
@@ -114,10 +115,15 @@ singlefile.config = (() => {
 		if (config.backgroundSave === undefined) {
 			config.backgroundSave = true;
 		}
+		if (config.autoSaveDelay === undefined) {
+			config.autoSaveDelay = 1;
+		}
 		const platformInfo = await browser.runtime.getPlatformInfo();
 		if (platformInfo.os == "android") {
 			config.backgroundSave = false;
 			config.backgroundSaveDisabled = true;
+			config.autoSaveDelay = 0;
+			config.autoSaveDelayDisabled = true;
 		}
 	}
 
