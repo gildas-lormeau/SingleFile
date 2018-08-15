@@ -30,7 +30,7 @@ See the extension help in the options page for more detailed information about t
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
   - If saved pages have file names like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1" instead of the title then it means another extension is conflicting with SingleFile. You can uncheck the option "save pages in background" to circumvent this issue.
 - Firefox:
-  - You cannot save selected tabs via the context menu since multiple tabs cannot be selected.
+  - You cannot save selected tabs via the context menu because it is not possible to select multiple tabs.
 - Edge:
   - The file name looks like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1".
 
