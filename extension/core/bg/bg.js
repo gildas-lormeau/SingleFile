@@ -91,7 +91,7 @@ singlefile.core = (() => {
 
 	async function processStart(tab, options) {
 		if (!options.removeFrames) {
-			await FrameTree.initialize(tab.id);
+			await FrameTree.initialize(tab.id, options);
 		}
 		await executeScripts(tab.id, contentScriptFiles, { allFrames: false });
 		if (options.frameId) {
