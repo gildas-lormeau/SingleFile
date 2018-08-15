@@ -25,7 +25,7 @@ this.singlefile.frame = this.singlefile.frame || (() => {
 	if (window != top) {
 		browser.runtime.onMessage.addListener(async message => {
 			if (message.processStartFrame) {
-				message.options.content = docHelper.getDoctype(document) + document.documentElement.outerHTML;
+				message.options.content = docHelper.serialize(document);
 				message.processStartFrame = null;
 				message.options.frameId = null;
 				message.processStart = true;
