@@ -26,7 +26,9 @@ this.singlefile.frame = this.singlefile.frame || (() => {
 		browser.runtime.onMessage.addListener(async message => {
 			if (message.processStartFrame) {
 				message.options.content = docHelper.getDoctype(document) + document.documentElement.outerHTML;
+				message.processStartFrame = null;
 				message.options.frameId = null;
+				message.processStart = true;
 				message.options.url = document.location.href;
 				top.postMessage("__SingleFile__::" + JSON.stringify(message), "*");
 				return {};
