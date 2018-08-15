@@ -91,11 +91,15 @@ singlefile.ui = (() => {
 	});
 	browser.tabs.onActivated.addListener(async activeInfo => {
 		const tab = await browser.tabs.get(activeInfo.tabId);
+		await refreshContextMenuState(tab);
 		onTabActivated(tab);
 	});
-	browser.tabs.onCreated.addListener(tab => onTabActivated(tab));
+	browser.tabs.onCreated.addListener(async tab => {
+		await refreshContextMenuState(tab);
+		onTabActivated(tab);
+	});
 	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-		if (tabs.autoSaveAll || tabs[tab.id] && tabs[tab.id].autoSave || (tabs.autoSaveUnpinned && !tab.pinned)) {
+		if (tabs[tab.id] && tabs[tab.id].autoSave || tabs.autoSaveAll || (tabs.autoSaveUnpinned && !tab.pinned)) {
 			if (changeInfo.status == "complete") {
 				processTab(tab, { autoSave: true });
 			}
@@ -130,7 +134,7 @@ singlefile.ui = (() => {
 					title: DEFAULT_TITLE
 				});
 				browser.menus.create({
-					id: "separator",
+					id: "separator-1",
 					contexts: ["all"],
 					type: "separator"
 				});
@@ -160,7 +164,7 @@ singlefile.ui = (() => {
 					title: "Save all tabs"
 				});
 				browser.menus.create({
-					id: "separator",
+					id: "separator-2",
 					contexts: ["all"],
 					type: "separator"
 				});
@@ -196,6 +200,13 @@ singlefile.ui = (() => {
 				await browser.menus.removeAll();
 			}
 		}
+	}
+
+	async function refreshContextMenuState(tab) {
+		await browser.menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: !tabs[tab.id] || !tabs[tab.id].autoSave });
+		await browser.menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: tabs[tab.id] && tabs[tab.id].autoSave });
+		await browser.menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: tabs.autoSaveUnpinned });
+		await browser.menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: tabs.autoSaveAll });
 	}
 
 	async function processTab(tab, options) {
