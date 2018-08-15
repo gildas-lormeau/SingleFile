@@ -71,6 +71,10 @@ singlefile.ui = (() => {
 				}
 				tabs[tab.id].autoSave = event.checked;
 			}
+			if (event.menuItemId == MENU_ID_AUTO_SAVE_DISABLED) {
+				Object.keys(tabs).forEach(tabId => tabs[tabId].autoSave = false);
+				tabs.autoSaveUnpinned = tabs.autoSaveAll = false;
+			}
 			if (event.menuItemId == MENU_ID_AUTO_SAVE_ALL) {
 				tabs.autoSaveAll = event.checked;
 			}
