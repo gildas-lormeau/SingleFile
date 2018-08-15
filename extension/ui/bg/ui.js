@@ -203,10 +203,12 @@ singlefile.ui = (() => {
 	}
 
 	async function refreshContextMenuState(tab) {
-		await browser.menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: !tabs[tab.id] || !tabs[tab.id].autoSave });
-		await browser.menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: tabs[tab.id] && tabs[tab.id].autoSave });
-		await browser.menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: tabs.autoSaveUnpinned });
-		await browser.menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: tabs.autoSaveAll });
+		if (browser.menus && browser.menus.update) {
+			await browser.menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: !tabs[tab.id] || !tabs[tab.id].autoSave });
+			await browser.menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: tabs[tab.id] && tabs[tab.id].autoSave });
+			await browser.menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: tabs.autoSaveUnpinned });
+			await browser.menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: tabs.autoSaveAll });
+		}
 	}
 
 	async function processTab(tab, options) {
