@@ -11,7 +11,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 
 ## Instructions
 - Wait until the page is fully loaded, you may need to scroll down the entire page to be sure all elements are loaded.
-- Click on the SingleFile button in the extension toolbar.
+- Click on the SingleFile button in the extension toolbar to save the page.
 
 ## Additional notes
 - Right-click on the SingleFile button and select "Options" to open the options page.
