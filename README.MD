@@ -10,13 +10,14 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
  - Edge, Opera: The extension is not on the store yet, you must download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and install it manually
 
 ## Instructions
-- Wait until the page is fully loaded: you may need to scroll down the entire page to be sure all elements are loaded.
+- Wait until the page is fully loaded, you may need to scroll down the entire page to be sure all elements are loaded.
 - Click on the SingleFile button in the extension toolbar.
 
 ## Additional notes
 - Right-click on the SingleFile button and select "Options" to open the options page.
 - To save multiple tabs, select them first and click on the SingleFile button .
-- Use the context menu to save a tab, all tabs, selected tabs, a selected content, or a frame content. The context menu also allows activating automatic page saving.
+- Use the context menu to save a tab, a selected content, a frame content, unpinned tabs, selected tabs, or all tabs. The context menu also allows activating automatic page saving (i.e. "Auto-save") of a tab, unpinned tabs, or all tabs.
+- With auto-save active, the page will be automatically saved every time a new page is loaded.  The period of time to wait before saving the page can be configured in the options page.
 
 ## More info
 See the extension help in the options page for more detailed information about the options, and technical notes.
