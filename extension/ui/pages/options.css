@@ -1,5 +1,7 @@
 body {
     box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
     background-color: #fff;
     margin-left: auto;
     margin-right: auto;
@@ -7,10 +9,6 @@ body {
     text-align: justify;
     max-width: 600px;
     height: auto;
-}
-
-main {
-    padding: 10px;
 }
 
 button {
@@ -30,7 +28,7 @@ button:active {
 input[type="checkbox"] {
     margin-left: 30px;
     position: relative;
-    top: -2px;
+    align-self: flex-start;
 }
 
 input[type="number"] {
@@ -48,8 +46,8 @@ h3 {
 }
 
 details {
-    padding-left: 12px;
-    padding-right: 12px;
+    margin-left: 12px;
+    margin-right: 12px;
     border-top: gray 1px dashed;
 }
 
@@ -60,7 +58,7 @@ details:last-of-type {
 details>summary {
     margin-bottom: 10px;
     margin-top: 10px;
-    min-width: 350px;
+    min-width: 340px;
     cursor: pointer;
 }
 
@@ -81,7 +79,7 @@ a {
     display: flex;
     justify-content: space-between;
     margin-top: 5px;
-    padding-left: 12px;
+    padding-left: 12px;    
 }
 
 .option:last-of-type {
@@ -94,4 +92,5 @@ a {
 
 .option.bottom {
     padding-top: 24px;
+    padding-right: 12px;
 }
