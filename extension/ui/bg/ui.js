@@ -232,7 +232,7 @@ singlefile.ui = (() => {
 		}
 	}
 
-	async function processTab(tab, options) {
+	async function processTab(tab, options = {}) {
 		const tabId = tab.id;
 		try {
 			refreshBadge(tabId, {
@@ -256,7 +256,7 @@ singlefile.ui = (() => {
 			}, options);
 		} catch (error) {
 			if (error) {
-				onTabError(tabId);
+				onTabError(tabId, options);
 			} else {
 				refreshBadge(tabId, {
 					id: tabId,

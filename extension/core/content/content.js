@@ -54,7 +54,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 						revokeDownloadURL(page);
 					} catch (error) {
 						console.error(error); // eslint-disable-line no-console
-						browser.runtime.sendMessage({ processError: true, error, options });
+						browser.runtime.sendMessage({ processError: true, error, options: { autoSave: options.autoSave } });
 					}
 					if (!options.autoSave) {
 						processing = false;
@@ -131,7 +131,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		options.onprogress = async event => {
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
 				try {
-					await browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max, options });
+					await browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max, options: { autoSave: options.autoSave } });
 				} catch (error) {
 					/* ignored */
 				}
@@ -140,7 +140,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 				}
 			} else if (event.type == event.PAGE_ENDED) {
 				try {
-					await browser.runtime.sendMessage({ processEnd: true, options });
+					await browser.runtime.sendMessage({ processEnd: true, options: { autoSave: options.autoSave } });
 				} catch (error) {
 					/* ignored */
 				}
