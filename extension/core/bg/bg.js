@@ -106,18 +106,18 @@ singlefile.core = (() => {
 	}
 
 	async function downloadPage(page, options) {
-		return browser.downloads.download({ url: page.url, saveAs: options.confirmFilename, filename: page.filename.replace(/[/\\?%*:|"<>]+/g, "_") })
-			.then(downloadId => new Promise(resolve => {
-				URL.revokeObjectURL(page.url);
-				browser.downloads.onChanged.addListener(onChanged);
+		const downloadId = await browser.downloads.download({ url: page.url, saveAs: options.confirmFilename, filename: page.filename.replace(/[/\\?%*:|"<>]+/g, "_") });
+		return new Promise(resolve => {
+			URL.revokeObjectURL(page.url);
+			browser.downloads.onChanged.addListener(onChanged);
 
-				function onChanged(event) {
-					if (event.id == downloadId && event.state && event.state.current == "complete") {
-						resolve({});
-						browser.downloads.onChanged.removeListener(onChanged);
-					}
+			function onChanged(event) {
+				if (event.id == downloadId && event.state && event.state.current == "complete") {
+					resolve({});
+					browser.downloads.onChanged.removeListener(onChanged);
 				}
-			}));
+			}
+		});
 	}
 
 	async function processStart(tab, options) {
