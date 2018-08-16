@@ -288,13 +288,15 @@ singlefile.ui = (() => {
 		await refreshBadgeState(tab, { autoSave });
 		if (isAllowedURL(tab.url) && browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
 			if (isAllowedURL(tab.url)) {
-				browser.browserAction.enable(tab.id);
-				if (browser.runtime.lastError) {
+				try {
+					await browser.browserAction.enable(tab.id);
+				} catch (error) {
 					/* ignored */
 				}
 			} else {
-				browser.browserAction.disable(tab.id);
-				if (browser.runtime.lastError) {
+				try {
+					await browser.browserAction.disable(tab.id);
+				} catch (error) {
 					/* ignored */
 				}
 			}
