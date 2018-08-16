@@ -28,6 +28,7 @@ singlefile.ui = (() => {
 	const DEFAULT_COLOR = [2, 147, 20, 255];
 	const BADGE_PROPERTIES = [{ name: "text", browserActionMethod: "setBadgeText" }, { name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "title", browserActionMethod: "setTitle" }, { name: "path", browserActionMethod: "setIcon" }];
 	const FORBIDDEN_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
+	const BROWSER_MENUS_API_SUPPORTED = browser.menus && browser.menus.onClicked && browser.menus.create && browser.menus.update && browser.menus.removeAll;
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_SAVE_SELECTED = "save-selected";
 	const MENU_ID_SAVE_FRAME = "save-frame";
@@ -45,7 +46,7 @@ singlefile.ui = (() => {
 	getPersistentTabsData().then(tabsData => persistentTabsData = tabsData);
 
 	browser.runtime.onInstalled.addListener(refreshContextMenu);
-	if (browser.menus && browser.menus.onClicked) {
+	if (BROWSER_MENUS_API_SUPPORTED) {
 		browser.menus.onClicked.addListener(async (event, tab) => {
 			if (event.menuItemId == MENU_ID_SAVE_PAGE) {
 				processTab(tab);
@@ -141,7 +142,7 @@ singlefile.ui = (() => {
 
 	async function refreshContextMenu() {
 		const config = await singlefile.config.get();
-		if (browser.menus && browser.menus.removeAll && browser.menus.create) {
+		if (BROWSER_MENUS_API_SUPPORTED) {
 			if (config.contextMenuEnabled) {
 				await browser.menus.removeAll();
 				browser.menus.create({
@@ -220,7 +221,7 @@ singlefile.ui = (() => {
 
 	async function refreshContextMenuState(tab) {
 		const tabsData = await getPersistentTabsData();
-		if (browser.menus && browser.menus.update) {
+		if (BROWSER_MENUS_API_SUPPORTED) {
 			await browser.menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: Boolean(!tabsData[tab.id] || !tabsData[tab.id].autoSave) });
 			await browser.menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: Boolean(tabsData[tab.id] && tabsData[tab.id].autoSave) });
 			await browser.menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: Boolean(tabsData.autoSaveUnpinned) });
@@ -350,7 +351,7 @@ singlefile.ui = (() => {
 	async function refreshBadgeProperty(tabId, tabsData, property, browserActionMethod, tabData) {
 		const value = tabData[property];
 		const browserActionParameter = { tabId };
-		if (browser.browserAction && browser.browserAction[browserActionMethod]) {
+		if (browser.browserAction[browserActionMethod]) {
 			browserActionParameter[property] = value;
 			if (!tabsData[tabId]) {
 				tabsData[tabId] = {};
