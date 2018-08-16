@@ -39,7 +39,7 @@ singlefile.core = (() => {
 		"/extension/core/content/content.js"
 	];
 
-	browser.runtime.onMessage.addListener(request => {
+	browser.runtime.onMessage.addListener((request, sender) => {
 		if (request.getConfig) {
 			return singlefile.config.get();
 		}
@@ -55,7 +55,7 @@ singlefile.core = (() => {
 			}
 		}
 		if (request.processContent) {
-			processBackgroundTab(request.content, request.url);
+			processBackgroundTab(sender.tab.id, request.content, request.url);
 		}
 	});
 
@@ -77,7 +77,7 @@ singlefile.core = (() => {
 		}
 	};
 
-	async function processBackgroundTab(content, url) {
+	async function processBackgroundTab(tabId, content, url) {
 		const options = await singlefile.config.get();
 		options.content = content;
 		options.url = url;
@@ -85,6 +85,14 @@ singlefile.core = (() => {
 		options.insertFaviconLink = true;
 		options.removeFrames = true;
 		options.backgroundTab = true;
+		options.autoSave = true;
+		options.onprogress = async event => {
+			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
+				singlefile.ui.onTabProgress(tabId, event.details.index, event.details.max, { autoSave: true });
+			} else if (event.type == event.PAGE_ENDED) {
+				singlefile.ui.onTabEnd(tabId, { autoSave: true });
+			}
+		};
 		const processor = new (SingleFile.getClass())(options);
 		await processor.initialize();
 		await processor.preparePageData();
