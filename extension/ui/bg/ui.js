@@ -26,7 +26,7 @@ singlefile.ui = (() => {
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_16_wait";
 	const DEFAULT_TITLE = "Save page with SingleFile";
 	const DEFAULT_COLOR = [2, 147, 20, 255];
-	const BADGE_PROPERTIES = [{ name: "text", browserActionMethod: "setBadgeText" }, { name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "title", browserActionMethod: "setTitle" }, { name: "path", browserActionMethod: "setIcon" }];
+	const BADGE_PROPERTIES = [{ name: "text", browserActionMethod: "setBadgeText" }, { name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "title", browserActionMethod: "setTitle" }, { name: "path", browserActionMethod: "setIcon", mandatory: true }];
 	const FORBIDDEN_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
 	const BROWSER_MENUS_API_SUPPORTED = browser.menus && browser.menus.onClicked && browser.menus.create && browser.menus.update && browser.menus.removeAll;
 	const MENU_ID_SAVE_PAGE = "save-page";
@@ -126,16 +126,16 @@ singlefile.ui = (() => {
 	browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
 	browser.runtime.onMessage.addListener((request, sender) => {
 		if (request.processProgress && request.maxIndex) {
-			onTabProgress(sender.tab.id, request.index, request.maxIndex);
+			onTabProgress(sender.tab.id, request.index, request.maxIndex, request.options);
 		}
 		if (request.processEnd) {
-			onTabEnd(sender.tab.id);
+			onTabEnd(sender.tab.id, request.options);
 		}
 		if (request.processError) {
 			if (request.error) {
 				console.error("Initialization error", request.error); // eslint-disable-line no-console
 			}
-			onTabError(sender.tab.id);
+			onTabError(sender.tab.id, request.options);
 		}
 		if (request.isAutoSaveUnloadEnabled) {
 			return isAutoSaveUnloadEnabled(sender.tab.id);
@@ -243,7 +243,7 @@ singlefile.ui = (() => {
 				path: DEFAULT_ICON_PATH,
 				progress: -1,
 				barProgress: -1
-			});
+			}, options);
 			await singlefile.core.processTab(tab, options);
 			refreshBadge(tabId, {
 				id: tabId,
@@ -253,7 +253,7 @@ singlefile.ui = (() => {
 				path: DEFAULT_ICON_PATH,
 				progress: -1,
 				barProgress: -1
-			});
+			}, options);
 		} catch (error) {
 			if (error) {
 				onTabError(tabId);
@@ -266,12 +266,12 @@ singlefile.ui = (() => {
 					path: DEFAULT_ICON_PATH,
 					progress: -1,
 					barProgress: -1
-				});
+				}, options);
 			}
 		}
 	}
 
-	function onTabError(tabId) {
+	function onTabError(tabId, options) {
 		refreshBadge(tabId, {
 			text: "ERR",
 			color: [229, 4, 12, 255],
@@ -279,10 +279,10 @@ singlefile.ui = (() => {
 			path: DEFAULT_ICON_PATH,
 			progress: -1,
 			barProgress: -1
-		});
+		}, options);
 	}
 
-	async function onTabEnd(tabId) {
+	async function onTabEnd(tabId, options) {
 		refreshBadge(tabId, {
 			text: "OK",
 			color: [4, 229, 36, 255],
@@ -290,10 +290,10 @@ singlefile.ui = (() => {
 			path: DEFAULT_ICON_PATH,
 			progress: -1,
 			barProgress: -1
-		});
+		}, options);
 	}
 
-	function onTabProgress(tabId, index, maxIndex) {
+	function onTabProgress(tabId, index, maxIndex, options) {
 		const progress = Math.max(Math.min(20, Math.floor((index / maxIndex) * 20)), 0);
 		const barProgress = Math.floor((index / maxIndex) * 8);
 		refreshBadge(tabId, {
@@ -303,7 +303,7 @@ singlefile.ui = (() => {
 			color: [4, 229, 36, 255],
 			barProgress,
 			path: WAIT_ICON_PATH_PREFIX + barProgress + ".png"
-		});
+		}, options);
 	}
 
 	async function onTabRemoved(tabId) {
@@ -332,7 +332,7 @@ singlefile.ui = (() => {
 		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !FORBIDDEN_URLS.find(storeUrl => url.startsWith(storeUrl));
 	}
 
-	async function refreshBadge(tabId, tabData) {
+	async function refreshBadge(tabId, tabData, options) {
 		const tabsData = await getTemporaryTabsData();
 		if (!tabsData[tabId]) {
 			tabsData[tabId] = {};
@@ -340,13 +340,15 @@ singlefile.ui = (() => {
 		if (!tabsData[tabId].pendingRefresh) {
 			tabsData[tabId].pendingRefresh = Promise.resolve();
 		}
-		tabsData[tabId].pendingRefresh = tabsData[tabId].pendingRefresh.then(() => refreshBadgeAsync(tabId, tabsData, tabData));
+		tabsData[tabId].pendingRefresh = tabsData[tabId].pendingRefresh.then(() => refreshBadgeAsync(tabId, tabsData, tabData, options));
 		await tabsData[tabId].pendingRefresh;
 	}
 
-	async function refreshBadgeAsync(tabId, tabsData, tabData) {
+	async function refreshBadgeAsync(tabId, tabsData, tabData, options) {
 		for (let property of BADGE_PROPERTIES) {
-			await refreshBadgeProperty(tabId, tabsData, property.name, property.browserActionMethod, tabData);
+			if (!options.backgroundTab && (!options.autoSave || property.mandatory)) {
+				await refreshBadgeProperty(tabId, tabsData, property.name, property.browserActionMethod, tabData);
+			}
 		}
 	}
 

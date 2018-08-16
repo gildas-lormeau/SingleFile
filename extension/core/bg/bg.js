@@ -84,6 +84,7 @@ singlefile.core = (() => {
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		options.removeFrames = true;
+		options.backgroundTab = true;
 		const processor = new (SingleFile.getClass())(options);
 		await processor.initialize();
 		await processor.preparePageData();

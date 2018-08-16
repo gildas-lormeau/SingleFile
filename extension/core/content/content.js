@@ -39,22 +39,26 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function savePage(message) {
 		const options = message.options;
-		if (!processing) {
+		if (!processing || options.autoSave) {
 			if (message.processStart && !options.frameId) {
 				if (!autoSaveTimeout && options.autoSave && options.autoSaveDelay) {
 					autoSaveTimeout = setTimeout(() => savePage(message), options.autoSaveDelay * 1000);
 				} else {
 					autoSaveTimeout = null;
-					processing = true;
+					if (!options.autoSave) {
+						processing = true;
+					}
 					try {
 						const page = await processPage(options);
 						await downloadPage(page, options);
 						revokeDownloadURL(page);
 					} catch (error) {
 						console.error(error); // eslint-disable-line no-console
-						browser.runtime.sendMessage({ processError: true, error });
+						browser.runtime.sendMessage({ processError: true, error, options });
 					}
-					processing = false;
+					if (!options.autoSave) {
+						processing = false;
+					}
 				}
 			}
 		}
@@ -127,7 +131,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		options.onprogress = async event => {
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
 				try {
-					await browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max });
+					await browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max, options });
 				} catch (error) {
 					/* ignored */
 				}
@@ -136,7 +140,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 				}
 			} else if (event.type == event.PAGE_ENDED) {
 				try {
-					await browser.runtime.sendMessage({ processEnd: true });
+					await browser.runtime.sendMessage({ processEnd: true, options });
 				} catch (error) {
 					/* ignored */
 				}
