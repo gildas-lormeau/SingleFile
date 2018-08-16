@@ -18,15 +18,16 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, addEventListener, document, location, docHelper */
+/* global browser, window, addEventListener, document, location, docHelper */
 
-this.singlefile.autoSave = this.singlefile.autoSave || (() => {
+this.singlefile.autoSave = this.singlefile.autoSave || (async () => {
 
-	browser.runtime.sendMessage({ isAutoSaveUnloadEnabled: true }).then(isAutoSaveUnloadEnabled => {
-		if (isAutoSaveUnloadEnabled) {
-			addEventListener("unload", () => browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document), url: location.href }));
-		}
-	});
-	return true;
+	const [isAutoSaveUnloadEnabled, options] = await Promise.all([browser.runtime.sendMessage({ isAutoSaveUnloadEnabled: true }), browser.runtime.sendMessage({ getConfig: true })]);
+	if (isAutoSaveUnloadEnabled) {
+		addEventListener("unload", () => {
+			const docData = docHelper.preProcessDoc(document, window, options);
+			browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document), canvasData: docData.canvasData, emptyStyleRulesText: docData.emptyStyleRulesText, url: location.href });
+		});
+	}
 
 })();

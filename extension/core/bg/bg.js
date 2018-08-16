@@ -55,7 +55,7 @@ singlefile.core = (() => {
 			}
 		}
 		if (request.processContent) {
-			processBackgroundTab(sender.tab.id, request.content, request.url);
+			processBackgroundTab(sender.tab.id, request);
 		}
 	});
 
@@ -77,10 +77,12 @@ singlefile.core = (() => {
 		}
 	};
 
-	async function processBackgroundTab(tabId, content, url) {
+	async function processBackgroundTab(tabId, message) {
 		const options = await singlefile.config.get();
-		options.content = content;
-		options.url = url;
+		options.content = message.content;
+		options.url = message.url;
+		options.canvasData = message.canvasData;
+		options.emptyStyleRulesText = message.emptyStyleRulesText;
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		options.removeFrames = true;
