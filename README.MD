@@ -44,6 +44,7 @@ Please follow these steps if you find an unknown issue:
 Suggestions are welcome :)
 
 ## License
+```
 SingleFile is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -58,3 +59,4 @@ You should have received a copy of the GNU Lesser General Public License
 along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
 
 SingleFile (c) 2010-2018 Gildas Lormeau
+```
