@@ -378,7 +378,7 @@ singlefile.ui = (() => {
 			return persistentTabsData;
 		} else {
 			const config = await browser.storage.local.get();
-			persistentTabsData = config.tabsData;
+			persistentTabsData = config.tabsData || {};
 			await cleanupPersistentTabsData();
 			return persistentTabsData;
 		}
@@ -388,7 +388,7 @@ singlefile.ui = (() => {
 		if (persistentTabsData) {
 			const tabs = await browser.tabs.query({});
 			Object.keys(persistentTabsData).filter(tabId => !tabs.find(tab => tab.id == tabId)).forEach(tabId => delete persistentTabsData[tabId]);
-			await browser.storage.local.set({ persistentTabsData });
+			await browser.storage.local.set({ tabsData: persistentTabsData });
 		}
 	}
 
