@@ -283,10 +283,9 @@ singlefile.ui = (() => {
 	}
 
 	async function onTabEnd(tabId) {
-		const tabsData = await getPersistentTabsData();
 		refreshBadge(tabId, {
 			text: "OK",
-			color: tabsData.autoSaveAll || tabsData.autoSaveUnpinned || (tabsData[tabId] && tabsData[tabId].autoSave) ? [255, 141, 1, 255] : [4, 229, 36, 255],
+			color: [4, 229, 36, 255],
 			title: DEFAULT_TITLE,
 			path: DEFAULT_ICON_PATH,
 			progress: -1,
