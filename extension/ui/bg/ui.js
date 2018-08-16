@@ -42,6 +42,8 @@ singlefile.ui = (() => {
 	let persistentTabsData;
 	let temporaryTabsData;
 
+	getPersistentTabsData().then(tabsData => persistentTabsData = tabsData);
+
 	browser.runtime.onInstalled.addListener(refreshContextMenu);
 	if (browser.menus && browser.menus.onClicked) {
 		browser.menus.onClicked.addListener(async (event, tab) => {
