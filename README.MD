@@ -17,7 +17,8 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 - Right-click on the SingleFile button and select "Options" to open the options page.
 - To save multiple tabs, select them first and click on the SingleFile button .
 - Use the context menu to save a tab, a selected content, a frame content, unpinned tabs, selected tabs, or all tabs. The context menu also allows activating automatic page saving (i.e. "Auto-save") of a tab, unpinned tabs, or all tabs.
-- With auto-save active, pages will be automatically saved every time after being loaded. The period of time to wait before saving the page can be configured in the options page.
+- With auto-save active, pages will be automatically saved every time after being loaded by default. The period of time to wait before saving the page can be configured in the options page.
+- Check the option "auto-save on page unload" in the options pages to auto-save the page before being unloading instead of after being loaded.
 
 ## More info
 See the extension help in the options page for more detailed information about the options, and technical notes.
@@ -26,6 +27,7 @@ See the extension help in the options page for more detailed information about t
 - All browsers:
   - After installing the extension, if you want to save a tab that was already opened then you need to refresh it first.
   - For security reasons, you cannot save pages hosted on https://chrome.google.com or https://addons.mozilla.org.
+  - Frame contents cannot be saved when "auto-save on page unload" option is checked.
 - Chrome/Opera:
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
   - If saved pages have file names like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1" instead of the title then it means another extension is conflicting with SingleFile. You can uncheck the option "save pages in background" to circumvent this issue.

@@ -147,9 +147,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function downloadPage(page, options) {
 		if (options.backgroundSave) {
-			const response = await browser.runtime.sendMessage({ download: true, url: page.url, saveAs: options.confirmFilename, filename: page.filename });
+			const response = await browser.runtime.sendMessage({ download: true, url: page.url, confirmFilename: options.confirmFilename, filename: page.filename });
 			if (response.notSupported) {
-				const response = await browser.runtime.sendMessage({ download: true, content: page.content, saveAs: options.confirmFilename, filename: page.filename });
+				const response = await browser.runtime.sendMessage({ download: true, content: page.content, confirmFilename: options.confirmFilename, filename: page.filename });
 				if (response.notSupported) {
 					downloadPageFallback(page, options);
 				}

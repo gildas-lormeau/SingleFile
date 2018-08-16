@@ -23,10 +23,6 @@
 			<label for="displayInfobarInput">display an infobar when viewing archives</label>
 			<input type="checkbox" id="displayInfobarInput">
 		</div>
-		<div class="option">
-			<label for="displayStatsInput">display stats in the console after processing</label>
-			<input type="checkbox" id="displayStatsInput">
-		</div>
 	</details>
 	<details>
 		<summary>File name</summary>
@@ -98,14 +94,25 @@
 		</div>
 	</details>
 	<details>
+		<summary>Auto-save</summary>
+		<div class="option">
+			<label for="autoSaveUnloadInput">auto-save on page unload</label>
+			<input type="checkbox" id="autoSaveUnloadInput">
+		</div>
+		<div class="option">
+			<label for="autoSaveDelayInput">auto-save wait delay after load (sec.)</label>
+			<input type="number" id="autoSaveDelayInput" min="0">
+		</div>
+	</details>
+	<details>
 		<summary>Misc.</summary>
 		<div class="option">
 			<label for="backgroundSaveInput">save pages in background</label>
 			<input type="checkbox" id="backgroundSaveInput">
 		</div>
 		<div class="option">
-			<label for="autoSaveDelayInput">auto-save wait delay (sec.)</label>
-			<input type="number" id="autoSaveDelayInput" min="0">
+			<label for="displayStatsInput">display stats in the console after processing</label>
+			<input type="checkbox" id="displayStatsInput">
 		</div>
 	</details>
 	<div class="option bottom">

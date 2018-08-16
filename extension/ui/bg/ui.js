@@ -115,8 +115,8 @@ singlefile.ui = (() => {
 		onTabActivated(tab);
 	});
 	browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-		const tabsData = await getPersistentTabsData();
-		if (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave)) {
+		const [config, tabsData] = await Promise.all([singlefile.config.get(), getPersistentTabsData()]);
+		if (!config.autoSaveUnload && (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave))) {
 			if (changeInfo.status == "complete") {
 				processTab(tab, { autoSave: true });
 			}
@@ -136,6 +136,9 @@ singlefile.ui = (() => {
 				console.error("Initialization error", request.error); // eslint-disable-line no-console
 			}
 			onTabError(sender.tab.id);
+		}
+		if (request.isAutoSaveUnloadEnabled) {
+			return isAutoSaveUnloadEnabled(sender.tab.id);
 		}
 	});
 	return { update: refreshContextMenu };
@@ -364,6 +367,17 @@ singlefile.ui = (() => {
 				await browser.browserAction[browserActionMethod](browserActionParameter);
 			}
 		}
+	}
+
+	async function isAutoSaveUnloadEnabled(tabId) {
+		const config = await singlefile.config.get();
+		const autoSaveEnabled = await isAutoSaveEnabled(tabId);
+		return autoSaveEnabled && config.autoSaveUnload;
+	}
+
+	async function isAutoSaveEnabled(tabId) {
+		const tabsData = await getPersistentTabsData();
+		return tabsData.autoSaveAll || tabsData.autoSaveUnpinned || (tabsData[tabId] && tabsData[tabId].autoSave);
 	}
 
 	function getTemporaryTabsData() {

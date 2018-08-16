@@ -44,6 +44,7 @@
 	const displayStatsInput = document.getElementById("displayStatsInput");
 	const backgroundSaveInput = document.getElementById("backgroundSaveInput");
 	const autoSaveDelayInput = document.getElementById("autoSaveDelayInput");
+	const autoSaveUnloadInput = document.getElementById("autoSaveUnloadInput");
 	let pendingSave = Promise.resolve();
 	document.getElementById("resetButton").addEventListener("click", async () => {
 		await bgPage.singlefile.config.reset();
@@ -51,6 +52,7 @@
 		await update();
 	}, false);
 	maxResourceSizeEnabledInput.addEventListener("click", () => maxResourceSizeInput.disabled = !maxResourceSizeEnabledInput.checked, false);
+	autoSaveUnloadInput.addEventListener("click", () => autoSaveDelayInput.disabled = autoSaveUnloadInput.checked, false);
 	document.body.onchange = update;
 	refresh();
 
@@ -79,7 +81,9 @@
 		backgroundSaveInput.checked = config.backgroundSave;
 		backgroundSaveInput.disabled = config.backgroundSaveDisabled;
 		autoSaveDelayInput.value = config.autoSaveDelay;
-		autoSaveDelayInput.disabled = config.autoSaveDelayDisabled;
+		autoSaveDelayInput.disabled = config.autoSaveDelayDisabled || config.autoSaveUnload;
+		autoSaveUnloadInput.checked = config.autoSaveUnload;
+		autoSaveUnloadInput.disabled = config.autoSaveUnloadDisabled;
 	}
 
 	async function update() {
@@ -105,7 +109,8 @@
 			displayInfobar: displayInfobarInput.checked,
 			displayStats: displayStatsInput.checked,
 			backgroundSave: backgroundSaveInput.checked,
-			autoSaveDelay: autoSaveDelayInput.value
+			autoSaveDelay: autoSaveDelayInput.value,
+			autoSaveUnload: autoSaveUnloadInput.checked
 		});
 		await pendingSave;
 		await bgPage.singlefile.ui.update();

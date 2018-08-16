@@ -17,12 +17,23 @@
 			"js": [
 				"lib/browser-polyfill/custom-browser-polyfill.js",
 				"extension/index.js",
-				"extension/ui/content/infobar.js",
 				"lib/single-file/doc-helper.js",
 				"lib/single-file/frame-tree/content/frame-tree.js",
 				"extension/core/content/content-frame.js"
 			],
 			"all_frames": true,
+			"match_about_blank": true
+		},
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"run_at": "document_start",
+			"js": [
+				"extension/ui/content/infobar.js",
+				"extension/core/content/content-autosave-unload.js"
+			],
+			"all_frames": false,
 			"match_about_blank": true
 		}
 	],
@@ -34,7 +45,18 @@
 			"extension/index.js",
 			"extension/core/bg/config.js",
 			"extension/core/bg/bg.js",
-			"extension/ui/bg/ui.js"
+			"extension/ui/bg/ui.js",
+			"lib/single-file/doc-helper.js",
+			"lib/single-file/base64.js",
+			"lib/single-file/uglifycss.js",
+			"lib/single-file/rules-minifier.js",
+			"lib/single-file/htmlmini.js",
+			"lib/single-file/parse-srcset.js",
+			"lib/single-file/lazy-loader.js",
+			"lib/single-file/serializer.js",
+			"lib/single-file/single-file-core.js",
+			"lib/single-file/single-file-browser.js",
+			"lib/fetch/content/fetch.js"
 		],
 		"persistent": false
 	},

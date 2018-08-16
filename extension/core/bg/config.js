@@ -43,7 +43,8 @@ singlefile.config = (() => {
 		displayInfobar: true,
 		displayStats: false,
 		backgroundSave: true,
-		autoSaveDelay: 1
+		autoSaveDelay: 1,
+		autoSaveUnload: false
 	};
 
 	let pendingUpgradePromise;
@@ -124,6 +125,11 @@ singlefile.config = (() => {
 			config.backgroundSaveDisabled = true;
 			config.autoSaveDelay = 0;
 			config.autoSaveDelayDisabled = true;
+			config.autoSaveUnloadDisabled = true;
+		} else {
+			config.backgroundSaveDisabled = false;
+			config.autoSaveDelayDisabled = false;
+			config.autoSaveUnloadDisabled = false;
 		}
 	}
 

@@ -18,15 +18,13 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, singlefile, FrameTree, Blob */
+/* global browser, SingleFile, singlefile, FrameTree, Blob */
 
 singlefile.core = (() => {
 
 	const TIMEOUT_PROCESS_START_MESSAGE = 10000;
 
 	const contentScriptFiles = [
-		"/lib/browser-polyfill/custom-browser-polyfill.js",
-		"/extension/index.js",
 		"/extension/ui/content/ui.js",
 		"/lib/single-file/base64.js",
 		"/lib/single-file/uglifycss.js",
@@ -50,24 +48,14 @@ singlefile.core = (() => {
 				if (request.content) {
 					request.url = URL.createObjectURL(new Blob([request.content], { type: "text/html" }));
 				}
-				return browser.downloads.download({ url: request.url, saveAs: request.saveAs, filename: request.filename.replace(/[/\\?%*:|"<>]+/g, "_") })
-					.then(downloadId => new Promise(resolve => {
-						if (request.content) {
-							URL.revokeObjectURL(request.url);
-						}
-						browser.downloads.onChanged.addListener(onChanged);
-
-						function onChanged(event) {
-							if (event.id == downloadId && event.state && event.state.current == "complete") {
-								resolve({});
-								browser.downloads.onChanged.removeListener(onChanged);
-							}
-						}
-					}))
+				return downloadPage(request, { confirmFilename: request.confirmFilename })
 					.catch(() => ({ notSupported: true }));
 			} catch (error) {
 				return Promise.resolve({ notSupported: true });
 			}
+		}
+		if (request.processContent) {
+			processBackgroundTab(request.content, request.url);
 		}
 	});
 
@@ -88,6 +76,38 @@ singlefile.core = (() => {
 			});
 		}
 	};
+
+	async function processBackgroundTab(content, url) {
+		const options = await singlefile.config.get();
+		options.content = content;
+		options.url = url;
+		options.insertSingleFileComment = true;
+		options.insertFaviconLink = true;
+		options.removeFrames = true;
+		const processor = new (SingleFile.getClass())(options);
+		await processor.initialize();
+		await processor.preparePageData();
+		const page = processor.getPageData();
+		const date = new Date();
+		page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
+		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
+		return downloadPage(page, options);
+	}
+
+	async function downloadPage(page, options) {
+		return browser.downloads.download({ url: page.url, saveAs: options.confirmFilename, filename: page.filename.replace(/[/\\?%*:|"<>]+/g, "_") })
+			.then(downloadId => new Promise(resolve => {
+				URL.revokeObjectURL(page.url);
+				browser.downloads.onChanged.addListener(onChanged);
+
+				function onChanged(event) {
+					if (event.id == downloadId && event.state && event.state.current == "complete") {
+						resolve({});
+						browser.downloads.onChanged.removeListener(onChanged);
+					}
+				}
+			}));
+	}
 
 	async function processStart(tab, options) {
 		if (!options.removeFrames) {
