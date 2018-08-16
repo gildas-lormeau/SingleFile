@@ -116,7 +116,7 @@ singlefile.ui = (() => {
 	});
 	browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 		const tabsData = await getPersistentTabsData();
-		if (tabsData[tab.id] && tabsData[tab.id].autoSave || tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned)) {
+		if (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave)) {
 			if (changeInfo.status == "complete") {
 				processTab(tab, { autoSave: true });
 			}
@@ -283,7 +283,7 @@ singlefile.ui = (() => {
 		const tabsData = await getPersistentTabsData();
 		refreshBadge(tabId, {
 			text: "OK",
-			color: tabsData.autoSaveAll || tabsData.autoSaveUnpinned || tabsData[tabId].autoSave ? [255, 141, 1, 255] : [4, 229, 36, 255],
+			color: tabsData.autoSaveAll || tabsData.autoSaveUnpinned || (tabsData[tabId] && tabsData[tabId].autoSave) ? [255, 141, 1, 255] : [4, 229, 36, 255],
 			title: DEFAULT_TITLE,
 			path: DEFAULT_ICON_PATH,
 			progress: -1,
