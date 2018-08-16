@@ -39,7 +39,7 @@ singlefile.ui = (() => {
 	const MENU_ID_AUTO_SAVE_UNPINNED = "auto-save-unpinned";
 	const MENU_ID_AUTO_SAVE_ALL = "auto-save-all";
 
-	const tabs = {};
+	const tabsData = {};
 
 	browser.runtime.onInstalled.addListener(refreshContextMenu);
 	if (browser.menus && browser.menus.onClicked) {
@@ -66,20 +66,24 @@ singlefile.ui = (() => {
 				tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
 			}
 			if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
-				if (!tabs[tab.id]) {
-					tabs[tab.id] = {};
+				if (!tabsData[tab.id]) {
+					tabsData[tab.id] = {};
 				}
-				tabs[tab.id].autoSave = event.checked;
+				tabsData[tab.id].autoSave = event.checked;
+				await browser.storage.local.set({ tabsData });
 			}
 			if (event.menuItemId == MENU_ID_AUTO_SAVE_DISABLED) {
-				Object.keys(tabs).forEach(tabId => tabs[tabId].autoSave = false);
-				tabs.autoSaveUnpinned = tabs.autoSaveAll = false;
+				Object.keys(tabsData).forEach(tabId => tabsData[tabId].autoSave = false);
+				tabsData.autoSaveUnpinned = tabsData.autoSaveAll = false;
+				await browser.storage.local.set({ tabsData });
 			}
 			if (event.menuItemId == MENU_ID_AUTO_SAVE_ALL) {
-				tabs.autoSaveAll = event.checked;
+				tabsData.autoSaveAll = event.checked;
+				await browser.storage.local.set({ tabsData });
 			}
 			if (event.menuItemId == MENU_ID_AUTO_SAVE_UNPINNED) {
-				tabs.autoSaveUnpinned = event.checked;
+				tabsData.autoSaveUnpinned = event.checked;
+				await browser.storage.local.set({ tabsData });
 			}
 		});
 	}
@@ -102,8 +106,9 @@ singlefile.ui = (() => {
 		await refreshContextMenuState(tab);
 		onTabActivated(tab);
 	});
-	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-		if (tabs[tab.id] && tabs[tab.id].autoSave || tabs.autoSaveAll || (tabs.autoSaveUnpinned && !tab.pinned)) {
+	browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+		const { tabsData } = await browser.storage.local.get();
+		if (tabsData[tab.id] && tabsData[tab.id].autoSave || tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned)) {
 			if (changeInfo.status == "complete") {
 				processTab(tab, { autoSave: true });
 			}
@@ -207,11 +212,12 @@ singlefile.ui = (() => {
 	}
 
 	async function refreshContextMenuState(tab) {
+		const { tabsData } = await browser.storage.local.get();
 		if (browser.menus && browser.menus.update) {
-			await browser.menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: !tabs[tab.id] || !tabs[tab.id].autoSave });
-			await browser.menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: tabs[tab.id] && tabs[tab.id].autoSave });
-			await browser.menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: tabs.autoSaveUnpinned });
-			await browser.menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: tabs.autoSaveAll });
+			await browser.menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: !tabsData[tab.id] || !tabsData[tab.id].autoSave });
+			await browser.menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: tabsData[tab.id] && tabsData[tab.id].autoSave });
+			await browser.menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: tabsData.autoSaveUnpinned });
+			await browser.menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: tabsData.autoSaveAll });
 		}
 	}
 
@@ -265,10 +271,11 @@ singlefile.ui = (() => {
 		});
 	}
 
-	function onTabEnd(tabId) {
+	async function onTabEnd(tabId) {
+		const { tabsData } = await browser.storage.local.get();
 		refreshBadge(tabId, {
 			text: "OK",
-			color: tabs.autoSaveAll || tabs.autoSaveUnpinned || tabs[tabId].autoSave ? [255, 141, 1, 255] : [4, 229, 36, 255],
+			color: tabsData.autoSaveAll || tabsData.autoSaveUnpinned || tabsData[tabId].autoSave ? [255, 141, 1, 255] : [4, 229, 36, 255],
 			title: DEFAULT_TITLE,
 			path: DEFAULT_ICON_PATH,
 			progress: -1,
@@ -289,8 +296,10 @@ singlefile.ui = (() => {
 		});
 	}
 
-	function onTabRemoved(tabId) {
-		delete tabs[tabId];
+	async function onTabRemoved() {
+		const tabs = await browser.tabs.query({});
+		Object.keys(tabsData).filter(tabId => !tabs.find(tab => tab.id == tabId)).forEach(tabId => delete tabsData[tabId]);
+		await browser.storage.local.set({ tabsData });
 	}
 
 	function onTabActivated(tab) {
@@ -314,14 +323,15 @@ singlefile.ui = (() => {
 	}
 
 	async function refreshBadge(tabId, tabData) {
-		if (!tabs[tabId]) {
-			tabs[tabId] = {};
+		const { tabsData } = await browser.storage.local.get();
+		if (!tabsData[tabId]) {
+			tabsData[tabId] = {};
 		}
-		if (!tabs[tabId].pendingRefresh) {
-			tabs[tabId].pendingRefresh = Promise.resolve();
+		if (!tabsData[tabId].pendingRefresh) {
+			tabsData[tabId].pendingRefresh = Promise.resolve();
 		}
-		tabs[tabId].pendingRefresh = tabs[tabId].pendingRefresh.then(() => refreshBadgeAsync(tabId, tabData));
-		await tabs[tabId].pendingRefresh;
+		tabsData[tabId].pendingRefresh = tabsData[tabId].pendingRefresh.then(() => refreshBadgeAsync(tabId, tabData));
+		await tabsData[tabId].pendingRefresh;
 	}
 
 	async function refreshBadgeAsync(tabId, tabData, lastTabData) {
@@ -335,14 +345,14 @@ singlefile.ui = (() => {
 		const browserActionParameter = { tabId };
 		if (browser.browserAction && browser.browserAction[browserActionMethod]) {
 			browserActionParameter[property] = value;
-			if (!tabs[tabId]) {
-				tabs[tabId] = {};
+			if (!tabsData[tabId]) {
+				tabsData[tabId] = {};
 			}
-			if (!tabs[tabId].badge) {
-				tabs[tabId].badge = {};
+			if (!tabsData[tabId].badge) {
+				tabsData[tabId].badge = {};
 			}
-			if (JSON.stringify(tabs[tabId].badge[browserActionMethod]) != JSON.stringify(value)) {
-				tabs[tabId].badge[browserActionMethod] = value;
+			if (JSON.stringify(tabsData[tabId].badge[browserActionMethod]) != JSON.stringify(value)) {
+				tabsData[tabId].badge[browserActionMethod] = value;
 				await browser.browserAction[browserActionMethod](browserActionParameter);
 			}
 		}

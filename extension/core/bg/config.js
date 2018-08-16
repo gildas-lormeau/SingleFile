@@ -130,17 +130,22 @@ singlefile.config = (() => {
 	return {
 		async set(config) {
 			await pendingUpgradePromise;
+			config.tabsData = undefined;
 			await browser.storage.local.set(config);
 		},
 		async get() {
 			await pendingUpgradePromise;
 			const config = await browser.storage.local.get();
+			config.tabsData = undefined;
 			return Object.keys(config).length ? config : DEFAULT_CONFIG;
 		},
 		async reset() {
 			await pendingUpgradePromise;
+			const { tabsData } = await browser.storage.local.get();
 			await browser.storage.local.clear();
-			await upgradeConfig({});
+			const config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+			config.tabsData = tabsData;
+			await browser.storage.local.set(config);
 		}
 	};
 
