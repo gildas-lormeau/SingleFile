@@ -18,7 +18,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 - To save multiple tabs, select them first and click on the SingleFile button .
 - Use the context menu to save a tab, a selected content, a frame content, unpinned tabs, selected tabs, or all tabs. The context menu also allows activating automatic page saving (i.e. "Auto-save") of a tab, unpinned tabs, or all tabs.
 - With auto-save active, pages will be automatically saved every time after being loaded by default. The period of time to wait before saving the page can be configured in the options page.
-- Check the option "auto-save on page unload" in the options pages to auto-save the page before being unloading instead of after being loaded.
+- Check the option "auto-save on page unload" in the options page to auto-save the page before being unloading instead of after being loaded.
 
 ## More info
 See the extension help in the options page for more detailed information about the options, and technical notes.
