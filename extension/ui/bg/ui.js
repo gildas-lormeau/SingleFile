@@ -236,10 +236,14 @@ singlefile.ui = (() => {
 	async function refreshContextMenuState(tab) {
 		const tabsData = await getPersistentTabsData();
 		if (BROWSER_MENUS_API_SUPPORTED) {
-			await browser.menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: Boolean(!tabsData[tab.id] || !tabsData[tab.id].autoSave) });
-			await browser.menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: Boolean(tabsData[tab.id] && tabsData[tab.id].autoSave) });
-			await browser.menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: Boolean(tabsData.autoSaveUnpinned) });
-			await browser.menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: Boolean(tabsData.autoSaveAll) });
+			try {
+				await browser.menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: Boolean(!tabsData[tab.id] || !tabsData[tab.id].autoSave) });
+				await browser.menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: Boolean(tabsData[tab.id] && tabsData[tab.id].autoSave) });
+				await browser.menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: Boolean(tabsData.autoSaveUnpinned) });
+				await browser.menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: Boolean(tabsData.autoSaveAll) });
+			} catch (error) {
+				/* ignored */
+			}
 		}
 	}
 
