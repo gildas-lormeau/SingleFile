@@ -130,7 +130,6 @@ singlefile.config = (() => {
 	return {
 		async set(config) {
 			await pendingUpgradePromise;
-			config.tabsData = undefined;
 			await browser.storage.local.set(config);
 		},
 		async get() {
