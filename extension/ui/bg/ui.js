@@ -39,7 +39,8 @@ singlefile.ui = (() => {
 	const MENU_ID_AUTO_SAVE_UNPINNED = "auto-save-unpinned";
 	const MENU_ID_AUTO_SAVE_ALL = "auto-save-all";
 
-	let tabsData;
+	let persistentTabsData;
+	let temporaryTabsData;
 
 	browser.runtime.onInstalled.addListener(refreshContextMenu);
 	if (browser.menus && browser.menus.onClicked) {
@@ -66,7 +67,7 @@ singlefile.ui = (() => {
 				tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
 			}
 			if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
-				const tabsData = await getTabsData();
+				const tabsData = await getPersistentTabsData();
 				if (!tabsData[tab.id]) {
 					tabsData[tab.id] = {};
 				}
@@ -74,18 +75,18 @@ singlefile.ui = (() => {
 				await browser.storage.local.set({ tabsData });
 			}
 			if (event.menuItemId == MENU_ID_AUTO_SAVE_DISABLED) {
-				const tabsData = await getTabsData();
+				const tabsData = await getPersistentTabsData();
 				Object.keys(tabsData).forEach(tabId => tabsData[tabId].autoSave = false);
 				tabsData.autoSaveUnpinned = tabsData.autoSaveAll = false;
 				await browser.storage.local.set({ tabsData });
 			}
 			if (event.menuItemId == MENU_ID_AUTO_SAVE_ALL) {
-				const tabsData = await getTabsData();
+				const tabsData = await getPersistentTabsData();
 				tabsData.autoSaveAll = event.checked;
 				await browser.storage.local.set({ tabsData });
 			}
 			if (event.menuItemId == MENU_ID_AUTO_SAVE_UNPINNED) {
-				const tabsData = await getTabsData();
+				const tabsData = await getPersistentTabsData();
 				tabsData.autoSaveUnpinned = event.checked;
 				await browser.storage.local.set({ tabsData });
 			}
@@ -111,7 +112,7 @@ singlefile.ui = (() => {
 		onTabActivated(tab);
 	});
 	browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-		const tabsData = await getTabsData();
+		const tabsData = await getPersistentTabsData();
 		if (tabsData[tab.id] && tabsData[tab.id].autoSave || tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned)) {
 			if (changeInfo.status == "complete") {
 				processTab(tab, { autoSave: true });
@@ -216,7 +217,7 @@ singlefile.ui = (() => {
 	}
 
 	async function refreshContextMenuState(tab) {
-		const tabsData = await getTabsData();
+		const tabsData = await getPersistentTabsData();
 		if (browser.menus && browser.menus.update) {
 			await browser.menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: !tabsData[tab.id] || !tabsData[tab.id].autoSave });
 			await browser.menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: tabsData[tab.id] && tabsData[tab.id].autoSave });
@@ -276,7 +277,7 @@ singlefile.ui = (() => {
 	}
 
 	async function onTabEnd(tabId) {
-		const tabsData = await getTabsData();
+		const tabsData = await getPersistentTabsData();
 		refreshBadge(tabId, {
 			text: "OK",
 			color: tabsData.autoSaveAll || tabsData.autoSaveUnpinned || tabsData[tabId].autoSave ? [255, 141, 1, 255] : [4, 229, 36, 255],
@@ -300,9 +301,9 @@ singlefile.ui = (() => {
 		});
 	}
 
-	async function onTabRemoved() {
-		const tabsData = await getTabsData();
-		await cleanupTabsData();
+	async function onTabRemoved(tabId) {
+		const tabsData = await getPersistentTabsData();
+		delete tabsData[tabId];
 		await browser.storage.local.set({ tabsData });
 	}
 
@@ -327,24 +328,24 @@ singlefile.ui = (() => {
 	}
 
 	async function refreshBadge(tabId, tabData) {
-		const tabsData = await getTabsData();
+		const tabsData = await getTemporaryTabsData();
 		if (!tabsData[tabId]) {
 			tabsData[tabId] = {};
 		}
 		if (!tabsData[tabId].pendingRefresh) {
 			tabsData[tabId].pendingRefresh = Promise.resolve();
 		}
-		tabsData[tabId].pendingRefresh = tabsData[tabId].pendingRefresh.then(() => refreshBadgeAsync(tabId, tabData));
+		tabsData[tabId].pendingRefresh = tabsData[tabId].pendingRefresh.then(() => refreshBadgeAsync(tabId, tabsData, tabData));
 		await tabsData[tabId].pendingRefresh;
 	}
 
-	async function refreshBadgeAsync(tabId, tabData, lastTabData) {
+	async function refreshBadgeAsync(tabId, tabsData, tabData) {
 		for (let property of BADGE_PROPERTIES) {
-			await refreshBadgeProperty(tabId, property.name, property.browserActionMethod, tabData, lastTabData);
+			await refreshBadgeProperty(tabId, tabsData, property.name, property.browserActionMethod, tabData);
 		}
 	}
 
-	async function refreshBadgeProperty(tabId, property, browserActionMethod, tabData) {
+	async function refreshBadgeProperty(tabId, tabsData, property, browserActionMethod, tabData) {
 		const value = tabData[property];
 		const browserActionParameter = { tabId };
 		if (browser.browserAction && browser.browserAction[browserActionMethod]) {
@@ -362,22 +363,30 @@ singlefile.ui = (() => {
 		}
 	}
 
-	async function getTabsData() {
-		if (tabsData) {
-			return tabsData;
+	function getTemporaryTabsData() {
+		if (temporaryTabsData) {
+			return temporaryTabsData;
 		} else {
-			const config = await browser.storage.local.get();
-			tabsData = config.tabsData;
-			await cleanupTabsData();
-			return tabsData;
+			return {};
 		}
 	}
 
-	async function cleanupTabsData() {
-		if (tabsData) {
+	async function getPersistentTabsData() {
+		if (persistentTabsData) {
+			return persistentTabsData;
+		} else {
+			const config = await browser.storage.local.get();
+			persistentTabsData = config.tabsData;
+			await cleanupPersistentTabsData();
+			return persistentTabsData;
+		}
+	}
+
+	async function cleanupPersistentTabsData() {
+		if (persistentTabsData) {
 			const tabs = await browser.tabs.query({});
-			Object.keys(tabsData).filter(tabId => !tabs.find(tab => tab.id == tabId)).forEach(tabId => delete tabsData[tabId]);
-			await browser.storage.local.set({ tabsData });
+			Object.keys(persistentTabsData).filter(tabId => !tabs.find(tab => tab.id == tabId)).forEach(tabId => delete persistentTabsData[tabId]);
+			await browser.storage.local.set({ persistentTabsData });
 		}
 	}
 
