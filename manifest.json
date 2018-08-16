@@ -1,65 +1,65 @@
 {
-    "name": "SingleFile",
-    "author": "Gildas Lormeau",
-    "icons": {
-        "16": "extension/ui/resources/icon_16.png",
-        "48": "extension/ui/resources/icon_48.png",
-        "128": "extension/ui/resources/icon_128.png"
-    },
-    "version": "1.4.24",
-    "description": "Save a complete page into a single HTML file",
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "run_at": "document_start",
-            "js": [
-                "lib/browser-polyfill/custom-browser-polyfill.js",
-                "extension/index.js",
-                "extension/ui/content/infobar.js",
-                "lib/single-file/doc-helper.js",
-                "lib/single-file/frame-tree/content/frame-tree.js",
-                "extension/core/content/content-frame.js"
-            ],
-            "all_frames": true,
-            "match_about_blank": true
-        }
-    ],
-    "background": {
-        "scripts": [
-            "lib/browser-polyfill/custom-browser-polyfill.js",
-            "lib/single-file/frame-tree/bg/frame-tree.js",
-            "lib/fetch/bg/fetch.js",
-            "extension/index.js",
-            "extension/core/bg/config.js",
-            "extension/core/bg/bg.js",
-            "extension/ui/bg/ui.js"
-        ],
-        "persistent": false
-    },
-    "options_page": "extension/ui/pages/options.html",
-    "options_ui": {
-        "page": "extension/ui/pages/options.html",
-        "open_in_tab": false
-    },
-    "browser_action": {
-        "default_icon": "extension/ui/resources/icon_16.png",
-        "default_title": "Save page with SingleFile"
-    },
-    "permissions": [
-        "contextMenus",
-        "downloads",
-        "menus",
-        "storage",
-        "tabs",
-        "<all_urls>"
-    ],
-    "applications": {
-        "gecko": {
-            "id": "{531906d3-e22f-4a6c-a102-8057b88a1a63}"
-        }
-    },
-    "incognito": "spanning",
-    "manifest_version": 2
+	"name": "SingleFile",
+	"author": "Gildas Lormeau",
+	"icons": {
+		"16": "extension/ui/resources/icon_16.png",
+		"48": "extension/ui/resources/icon_48.png",
+		"128": "extension/ui/resources/icon_128.png"
+	},
+	"version": "1.4.25",
+	"description": "Save a complete page into a single HTML file",
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"run_at": "document_start",
+			"js": [
+				"lib/browser-polyfill/custom-browser-polyfill.js",
+				"extension/index.js",
+				"extension/ui/content/infobar.js",
+				"lib/single-file/doc-helper.js",
+				"lib/single-file/frame-tree/content/frame-tree.js",
+				"extension/core/content/content-frame.js"
+			],
+			"all_frames": true,
+			"match_about_blank": true
+		}
+	],
+	"background": {
+		"scripts": [
+			"lib/browser-polyfill/custom-browser-polyfill.js",
+			"lib/single-file/frame-tree/bg/frame-tree.js",
+			"lib/fetch/bg/fetch.js",
+			"extension/index.js",
+			"extension/core/bg/config.js",
+			"extension/core/bg/bg.js",
+			"extension/ui/bg/ui.js"
+		],
+		"persistent": false
+	},
+	"options_page": "extension/ui/pages/options.html",
+	"options_ui": {
+		"page": "extension/ui/pages/options.html",
+		"open_in_tab": false
+	},
+	"browser_action": {
+		"default_icon": "extension/ui/resources/icon_16.png",
+		"default_title": "Save page with SingleFile"
+	},
+	"permissions": [
+		"contextMenus",
+		"downloads",
+		"menus",
+		"storage",
+		"tabs",
+		"<all_urls>"
+	],
+	"applications": {
+		"gecko": {
+			"id": "{531906d3-e22f-4a6c-a102-8057b88a1a63}"
+		}
+	},
+	"incognito": "spanning",
+	"manifest_version": 2
 }
