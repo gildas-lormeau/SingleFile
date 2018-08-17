@@ -101,79 +101,78 @@ singlefile.ui = (() => {
 	async function refreshContextMenu() {
 		const config = await singlefile.config.get();
 		if (BROWSER_MENUS_API_SUPPORTED) {
-			if (config.contextMenuEnabled) {
-				await browser.menus.removeAll();
-				browser.menus.create({
-					id: MENU_ID_SAVE_PAGE,
-					contexts: ["page"],
-					title: DEFAULT_TITLE
-				});
-				browser.menus.create({
-					id: "separator-1",
-					contexts: ["all"],
-					type: "separator"
-				});
-				browser.menus.create({
-					id: MENU_ID_SAVE_SELECTED,
-					contexts: ["selection"],
-					title: "Save selection"
-				});
-				browser.menus.create({
-					id: MENU_ID_SAVE_FRAME,
-					contexts: ["frame"],
-					title: "Save frame"
-				});
-				browser.menus.create({
-					id: MENU_ID_SAVE_SELECTED_TABS,
-					contexts: ["page"],
-					title: "Save selected tabs"
-				});
-				browser.menus.create({
-					id: MENU_ID_SAVE_UNPINNED_TABS,
-					contexts: ["page"],
-					title: "Save unpinned tabs"
-				});
-				browser.menus.create({
-					id: MENU_ID_SAVE_ALL_TABS,
-					contexts: ["page"],
-					title: "Save all tabs"
-				});
-				browser.menus.create({
-					id: "separator-2",
-					contexts: ["all"],
-					type: "separator"
-				});
-				browser.menus.create({
-					id: MENU_ID_AUTO_SAVE_DISABLED,
-					type: "radio",
-					title: "Disable Auto-save",
-					contexts: ["all"],
-					checked: true
-				});
-				browser.menus.create({
-					id: MENU_ID_AUTO_SAVE_TAB,
-					type: "radio",
-					title: "Auto-save this tab",
-					contexts: ["all"],
-					checked: false
-				});
-				browser.menus.create({
-					id: MENU_ID_AUTO_SAVE_UNPINNED,
-					type: "radio",
-					title: "Auto-save unpinned tabs",
-					contexts: ["all"],
-					checked: false
-				});
-				browser.menus.create({
-					id: MENU_ID_AUTO_SAVE_ALL,
-					type: "radio",
-					title: "Auto-save all tabs",
-					contexts: ["all"],
-					checked: false
-				});
-			} else {
-				await browser.menus.removeAll();
-			}
+			const defaultContextsDisabled = ["browser_action"];
+			const defaultContextsEnabled = defaultContextsDisabled.concat("page", "frame", "image");
+			const defaultContexts = config.contextMenuEnabled ? defaultContextsEnabled : defaultContextsDisabled;
+			await browser.menus.removeAll();
+			browser.menus.create({
+				id: MENU_ID_SAVE_PAGE,
+				contexts: defaultContexts,
+				title: DEFAULT_TITLE
+			});
+			browser.menus.create({
+				id: "separator-1",
+				contexts: defaultContexts,
+				type: "separator"
+			});
+			browser.menus.create({
+				id: MENU_ID_SAVE_SELECTED,
+				contexts: ["selection"],
+				title: "Save selection"
+			});
+			browser.menus.create({
+				id: MENU_ID_SAVE_FRAME,
+				contexts: ["frame"],
+				title: "Save frame"
+			});
+			browser.menus.create({
+				id: MENU_ID_SAVE_SELECTED_TABS,
+				contexts: defaultContexts,
+				title: "Save selected tabs"
+			});
+			browser.menus.create({
+				id: MENU_ID_SAVE_UNPINNED_TABS,
+				contexts: defaultContexts,
+				title: "Save unpinned tabs"
+			});
+			browser.menus.create({
+				id: MENU_ID_SAVE_ALL_TABS,
+				contexts: defaultContexts,
+				title: "Save all tabs"
+			});
+			browser.menus.create({
+				id: "separator-2",
+				contexts: defaultContexts,
+				type: "separator"
+			});
+			browser.menus.create({
+				id: MENU_ID_AUTO_SAVE_DISABLED,
+				type: "radio",
+				title: "Disable Auto-save",
+				contexts: defaultContexts,
+				checked: true
+			});
+			browser.menus.create({
+				id: MENU_ID_AUTO_SAVE_TAB,
+				type: "radio",
+				title: "Auto-save this tab",
+				contexts: defaultContexts,
+				checked: false
+			});
+			browser.menus.create({
+				id: MENU_ID_AUTO_SAVE_UNPINNED,
+				type: "radio",
+				title: "Auto-save unpinned tabs",
+				contexts: defaultContexts,
+				checked: false
+			});
+			browser.menus.create({
+				id: MENU_ID_AUTO_SAVE_ALL,
+				type: "radio",
+				title: "Auto-save all tabs",
+				contexts: defaultContexts,
+				checked: false
+			});
 		}
 	}
 
