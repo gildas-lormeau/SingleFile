@@ -28,11 +28,11 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
   - or all tabs.						
  - With auto-save active, pages are automatically saved every time after being loaded. The period of time to wait before
 saving the page can be configured in the options page.
- - To save multiple tabs, select them first and click on the SingleFile button.
- - Right-click on the SingleFile button and select "Options" to open the options page.
  - Check the option "auto-save on page unload" in the options page to auto-save the page before being unloading instead
 of after being loaded.
-
+ - Right-click on the SingleFile button and select "Options" to open the options page.
+ - To save multiple tabs, select them first and click on the SingleFile button.
+ 
 ## More info
 See the extension help in the options page for more detailed information about the options, and technical notes.
 
