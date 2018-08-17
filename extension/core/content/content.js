@@ -28,12 +28,16 @@ this.singlefile.top = this.singlefile.top || (() => {
 	browser.runtime.onMessage.addListener(async message => {
 		if (message.processStart) {
 			savePage(message);
+			return {};
 		}
 	});
+
 	addEventListener("message", event => {
 		if (typeof event.data == "string" && event.data.startsWith("__SingleFile__::")) {
 			const message = JSON.parse(event.data.substring("__SingleFile__".length + 2));
-			savePage(message);
+			if (message.processStart) {
+				savePage(message);
+			}
 		}
 	});
 	return true;
@@ -127,22 +131,14 @@ this.singlefile.top = this.singlefile.top || (() => {
 			options.framesData = await FrameTree.getFramesData(options);
 		}
 		options.jsEnabled = true;
-		options.onprogress = async event => {
+		options.onprogress = event => {
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
-				try {
-					await browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max, options: { autoSave: options.autoSave } });
-				} catch (error) {
-					/* ignored */
-				}
+				browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max, options: { autoSave: options.autoSave } });
 				if (options.shadowEnabled && !options.autoSave) {
 					singlefile.ui.onprogress(event);
 				}
 			} else if (event.type == event.PAGE_ENDED) {
-				try {
-					await browser.runtime.sendMessage({ processEnd: true, options: { autoSave: options.autoSave } });
-				} catch (error) {
-					/* ignored */
-				}
+				browser.runtime.sendMessage({ processEnd: true, options: { autoSave: options.autoSave } });
 			}
 		};
 		return options;

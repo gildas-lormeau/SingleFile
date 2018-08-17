@@ -39,7 +39,7 @@ singlefile.core = (() => {
 		"/extension/core/content/content.js"
 	];
 
-	browser.runtime.onMessage.addListener((request, sender) => {
+	browser.runtime.onMessage.addListener(async (request, sender) => {
 		if (request.getConfig) {
 			return singlefile.config.get();
 		}
@@ -56,6 +56,7 @@ singlefile.core = (() => {
 		}
 		if (request.processContent) {
 			processBackgroundTab(sender.tab.id, request);
+			return {};
 		}
 	});
 
