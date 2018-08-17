@@ -98,69 +98,6 @@ singlefile.ui = (() => {
 		refreshAutoSaveUnload
 	};
 
-	async function initContextMenu() {
-		if (BROWSER_MENUS_API_SUPPORTED) {
-			browser.runtime.onInstalled.addListener(refreshContextMenu);
-			browser.menus.onClicked.addListener(async (event, tab) => {
-				if (event.menuItemId == MENU_ID_SAVE_PAGE) {
-					processTab(tab);
-				}
-				if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
-					processTab(tab, { selected: true });
-				}
-				if (event.menuItemId == MENU_ID_SAVE_FRAME) {
-					processTab(tab, { frameId: event.frameId });
-				}
-				if (event.menuItemId == MENU_ID_SAVE_SELECTED_TABS) {
-					const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
-					tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
-				}
-				if (event.menuItemId == MENU_ID_SAVE_UNPINNED_TABS) {
-					const tabs = await browser.tabs.query({ currentWindow: true, pinned: false });
-					tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
-				}
-				if (event.menuItemId == MENU_ID_SAVE_ALL_TABS) {
-					const tabs = await browser.tabs.query({ currentWindow: true });
-					tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
-				}
-				if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
-					const tabsData = await getPersistentTabsData();
-					if (!tabsData[tab.id]) {
-						tabsData[tab.id] = {};
-					}
-					tabsData[tab.id].autoSave = event.checked;
-					await browser.storage.local.set({ tabsData });
-					await refreshAutoSaveUnload();
-					refreshBadgeState(tab, { autoSave: true });
-				}
-				if (event.menuItemId == MENU_ID_AUTO_SAVE_DISABLED) {
-					const tabsData = await getPersistentTabsData();
-					Object.keys(tabsData).forEach(tabId => tabsData[tabId].autoSave = false);
-					tabsData.autoSaveUnpinned = tabsData.autoSaveAll = false;
-					await browser.storage.local.set({ tabsData });
-					await refreshAutoSaveUnload();
-					refreshBadgeState(tab, { autoSave: false });
-				}
-				if (event.menuItemId == MENU_ID_AUTO_SAVE_ALL) {
-					const tabsData = await getPersistentTabsData();
-					tabsData.autoSaveAll = event.checked;
-					await browser.storage.local.set({ tabsData });
-					await refreshAutoSaveUnload();
-					refreshBadgeState(tab, { autoSave: true });
-				}
-				if (event.menuItemId == MENU_ID_AUTO_SAVE_UNPINNED) {
-					const tabsData = await getPersistentTabsData();
-					tabsData.autoSaveUnpinned = event.checked;
-					await browser.storage.local.set({ tabsData });
-					await refreshAutoSaveUnload();
-					refreshBadgeState(tab, { autoSave: true });
-				}
-			});
-			const tabs = await browser.tabs.query({});
-			tabs.forEach(tab => refreshContextMenuState(tab));
-		}
-	}
-
 	async function refreshContextMenu() {
 		const config = await singlefile.config.get();
 		if (BROWSER_MENUS_API_SUPPORTED) {
@@ -237,6 +174,69 @@ singlefile.ui = (() => {
 			} else {
 				await browser.menus.removeAll();
 			}
+		}
+	}
+
+	async function initContextMenu() {
+		if (BROWSER_MENUS_API_SUPPORTED) {
+			browser.runtime.onInstalled.addListener(refreshContextMenu);
+			browser.menus.onClicked.addListener(async (event, tab) => {
+				if (event.menuItemId == MENU_ID_SAVE_PAGE) {
+					processTab(tab);
+				}
+				if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
+					processTab(tab, { selected: true });
+				}
+				if (event.menuItemId == MENU_ID_SAVE_FRAME) {
+					processTab(tab, { frameId: event.frameId });
+				}
+				if (event.menuItemId == MENU_ID_SAVE_SELECTED_TABS) {
+					const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
+					tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
+				}
+				if (event.menuItemId == MENU_ID_SAVE_UNPINNED_TABS) {
+					const tabs = await browser.tabs.query({ currentWindow: true, pinned: false });
+					tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
+				}
+				if (event.menuItemId == MENU_ID_SAVE_ALL_TABS) {
+					const tabs = await browser.tabs.query({ currentWindow: true });
+					tabs.forEach(tab => isAllowedURL(tab.url) && processTab(tab));
+				}
+				if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
+					const tabsData = await getPersistentTabsData();
+					if (!tabsData[tab.id]) {
+						tabsData[tab.id] = {};
+					}
+					tabsData[tab.id].autoSave = event.checked;
+					await browser.storage.local.set({ tabsData });
+					await refreshAutoSaveUnload();
+					refreshBadgeState(tab, { autoSave: true });
+				}
+				if (event.menuItemId == MENU_ID_AUTO_SAVE_DISABLED) {
+					const tabsData = await getPersistentTabsData();
+					Object.keys(tabsData).forEach(tabId => tabsData[tabId].autoSave = false);
+					tabsData.autoSaveUnpinned = tabsData.autoSaveAll = false;
+					await browser.storage.local.set({ tabsData });
+					await refreshAutoSaveUnload();
+					refreshBadgeState(tab, { autoSave: false });
+				}
+				if (event.menuItemId == MENU_ID_AUTO_SAVE_ALL) {
+					const tabsData = await getPersistentTabsData();
+					tabsData.autoSaveAll = event.checked;
+					await browser.storage.local.set({ tabsData });
+					await refreshAutoSaveUnload();
+					refreshBadgeState(tab, { autoSave: true });
+				}
+				if (event.menuItemId == MENU_ID_AUTO_SAVE_UNPINNED) {
+					const tabsData = await getPersistentTabsData();
+					tabsData.autoSaveUnpinned = event.checked;
+					await browser.storage.local.set({ tabsData });
+					await refreshAutoSaveUnload();
+					refreshBadgeState(tab, { autoSave: true });
+				}
+			});
+			const tabs = await browser.tabs.query({});
+			tabs.forEach(tab => refreshContextMenuState(tab));
 		}
 	}
 
