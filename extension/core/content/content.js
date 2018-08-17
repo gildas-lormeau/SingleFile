@@ -26,8 +26,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 	let autoSaveTimeout;
 
 	browser.runtime.onMessage.addListener(async message => {
-		savePage(message);
-		return {};
+		if (message.processStart) {
+			savePage(message);
+		}
 	});
 	addEventListener("message", event => {
 		if (typeof event.data == "string" && event.data.startsWith("__SingleFile__::")) {
@@ -39,26 +40,24 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function savePage(message) {
 		const options = message.options;
-		if (!processing || options.autoSave) {
-			if (message.processStart && !options.frameId) {
-				if (!autoSaveTimeout && options.autoSave && options.autoSaveDelay) {
-					autoSaveTimeout = setTimeout(() => savePage(message), options.autoSaveDelay * 1000);
-				} else {
-					autoSaveTimeout = null;
-					if (!options.autoSave) {
-						processing = true;
-					}
-					try {
-						const page = await processPage(options);
-						await downloadPage(page, options);
-						revokeDownloadURL(page);
-					} catch (error) {
-						console.error(error); // eslint-disable-line no-console
-						browser.runtime.sendMessage({ processError: true, error, options: { autoSave: options.autoSave } });
-					}
-					if (!options.autoSave) {
-						processing = false;
-					}
+		if ((!processing || options.autoSave) && !options.frameId) {
+			if (!autoSaveTimeout && options.autoSave && options.autoSaveDelay) {
+				autoSaveTimeout = setTimeout(() => savePage(message), options.autoSaveDelay * 1000);
+			} else {
+				autoSaveTimeout = null;
+				if (!options.autoSave) {
+					processing = true;
+				}
+				try {
+					const page = await processPage(options);
+					await downloadPage(page, options);
+					revokeDownloadURL(page);
+				} catch (error) {
+					console.error(error); // eslint-disable-line no-console
+					browser.runtime.sendMessage({ processError: true, error, options: { autoSave: options.autoSave } });
+				}
+				if (!options.autoSave) {
+					processing = false;
 				}
 			}
 		}
