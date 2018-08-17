@@ -92,9 +92,9 @@ singlefile.ui = (() => {
 		}
 	});
 	return {
-		update: refreshContextMenu,
 		onTabProgress,
 		onTabEnd,
+		refreshContextMenu,
 		refreshAutoSaveUnload
 	};
 

@@ -116,7 +116,7 @@
 			autoSaveUnload: autoSaveUnloadInput.checked
 		});
 		await pendingSave;
-		await bgPage.singlefile.ui.update();
+		await bgPage.singlefile.ui.refreshContextMenu();
 	}
 
 })();
