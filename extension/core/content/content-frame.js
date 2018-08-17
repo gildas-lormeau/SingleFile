@@ -23,7 +23,7 @@
 this.singlefile.frame = this.singlefile.frame || (() => {
 
 	if (window != top) {
-		browser.runtime.onMessage.addListener(async message => {
+		browser.runtime.onMessage.addListener(message => {
 			if (message.processStartFrame) {
 				message.options.content = docHelper.serialize(document);
 				message.processStartFrame = null;
@@ -31,7 +31,6 @@ this.singlefile.frame = this.singlefile.frame || (() => {
 				message.processStart = true;
 				message.options.url = document.location.href;
 				top.postMessage("__SingleFile__::" + JSON.stringify(message), "*");
-				return {};
 			}
 		});
 	}

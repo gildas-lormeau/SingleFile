@@ -25,10 +25,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 	let processing = false;
 	let autoSaveTimeout;
 
-	browser.runtime.onMessage.addListener(async message => {
+	browser.runtime.onMessage.addListener(message => {
 		if (message.processStart) {
 			savePage(message);
-			return {};
 		}
 	});
 

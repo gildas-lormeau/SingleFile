@@ -27,10 +27,9 @@ this.singlefile.autoSave = this.singlefile.autoSave || (async () => {
 
 	enableAutoSaveUnload(enabled);
 
-	browser.runtime.onMessage.addListener(async message => {
+	browser.runtime.onMessage.addListener(message => {
 		if (message.autoSaveUnloadEnabled) {
 			refreshAutoSaveUnload();
-			return {};
 		}
 	});
 

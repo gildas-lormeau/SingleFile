@@ -72,23 +72,20 @@ singlefile.ui = (() => {
 		await onTabActivated(tab);
 	});
 	browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
-	browser.runtime.onMessage.addListener(async (request, sender) => {
+	browser.runtime.onMessage.addListener((request, sender) => {
 		if (request.processProgress) {
 			if (request.maxIndex) {
 				onTabProgress(sender.tab.id, request.index, request.maxIndex, request.options);
 			}
-			return {};
 		}
 		if (request.processEnd) {
 			onTabEnd(sender.tab.id, request.options);
-			return {};
 		}
 		if (request.processError) {
 			if (request.error) {
 				console.error("Initialization error", request.error); // eslint-disable-line no-console
 			}
 			onTabError(sender.tab.id, request.options);
-			return {};
 		}
 		if (request.isAutoSaveUnloadEnabled) {
 			return isAutoSaveUnloadEnabled(sender.tab.id);
