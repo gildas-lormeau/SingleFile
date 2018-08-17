@@ -101,8 +101,9 @@ singlefile.ui = (() => {
 	async function refreshContextMenu() {
 		const config = await singlefile.config.get();
 		if (BROWSER_MENUS_API_SUPPORTED) {
+			const pageContextsEnabled = ["page", "frame", "image"];
 			const defaultContextsDisabled = ["browser_action"];
-			const defaultContextsEnabled = defaultContextsDisabled.concat("page", "frame", "image");
+			const defaultContextsEnabled = defaultContextsDisabled.concat(...pageContextsEnabled);
 			const defaultContexts = config.contextMenuEnabled ? defaultContextsEnabled : defaultContextsDisabled;
 			await browser.menus.removeAll();
 			browser.menus.create({
@@ -110,11 +111,13 @@ singlefile.ui = (() => {
 				contexts: defaultContexts,
 				title: DEFAULT_TITLE
 			});
-			browser.menus.create({
-				id: "separator-1",
-				contexts: defaultContexts,
-				type: "separator"
-			});
+			if (config.contextMenuEnabled) {
+				browser.menus.create({
+					id: "separator-1",
+					contexts: pageContextsEnabled,
+					type: "separator"
+				});
+			}
 			browser.menus.create({
 				id: MENU_ID_SAVE_SELECTED,
 				contexts: ["selection"],
@@ -140,11 +143,13 @@ singlefile.ui = (() => {
 				contexts: defaultContexts,
 				title: "Save all tabs"
 			});
-			browser.menus.create({
-				id: "separator-2",
-				contexts: defaultContexts,
-				type: "separator"
-			});
+			if (config.contextMenuEnabled) {
+				browser.menus.create({
+					id: "separator-2",
+					contexts: pageContextsEnabled,
+					type: "separator"
+				});
+			}
 			browser.menus.create({
 				id: MENU_ID_AUTO_SAVE_DISABLED,
 				type: "radio",
