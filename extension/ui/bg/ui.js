@@ -290,7 +290,7 @@ singlefile.ui = (() => {
 	function onTabProgress(tabId, index, maxIndex, options) {
 		const progress = Math.max(Math.min(20, Math.floor((index / maxIndex) * 20)), 0);
 		const barProgress = Math.floor((index / maxIndex) * 8);
-		refreshBadge(tabId, getBadgeProperties(tabId, options, "", [4, 229, 36, 255], "Save progress: " + (progress * 5) + "%", WAIT_ICON_PATH_PREFIX + barProgress + ".png", progress, barProgress));
+		refreshBadge(tabId, getBadgeProperties(tabId, options, "", [4, 229, 36, 255], "Save progress: " + (progress * 5) + "%", WAIT_ICON_PATH_PREFIX + barProgress + ".png", progress, barProgress, [128, 128, 128, 255]));
 	}
 
 	async function onTabRemoved(tabId) {
@@ -328,14 +328,14 @@ singlefile.ui = (() => {
 		await refreshBadge(tab.id, getBadgeProperties(tab.id, options));
 	}
 
-	function getBadgeProperties(tabId, options, text, color, title = DEFAULT_TITLE, path = DEFAULT_ICON_PATH, progress = -1, barProgress = -1) {
+	function getBadgeProperties(tabId, options, text, color, title = DEFAULT_TITLE, path = DEFAULT_ICON_PATH, progress = -1, barProgress = -1, autoColor = [208, 208, 208, 255]) {
 		return {
 			text: options.autoSave ? "[A]" : (text || ""),
-			color: options.autoSave ? [208, 208, 208, 255] : [4, 229, 36, 255],
-			title,
-			path,
-			progress,
-			barProgress
+			color: options.autoSave ? autoColor : color,
+			title: options.autoSave ? "Autosave in progress" : title,
+			path: options.autoSave ? DEFAULT_ICON_PATH : path,
+			progress: options.autoSave ? - 1 : progress,
+			barProgress: options.autoSave ? - 1 : barProgress
 		};
 	}
 
