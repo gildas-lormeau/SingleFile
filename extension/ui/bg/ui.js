@@ -75,8 +75,8 @@ singlefile.ui = (() => {
 	browser.runtime.onMessage.addListener(async (request, sender) => {
 		if (request.processProgress) {
 			if (request.maxIndex) {
-			onTabProgress(sender.tab.id, request.index, request.maxIndex, request.options);
-		}
+				onTabProgress(sender.tab.id, request.index, request.maxIndex, request.options);
+			}
 			return {};
 		}
 		if (request.processEnd) {
@@ -97,7 +97,8 @@ singlefile.ui = (() => {
 	return {
 		update: refreshContextMenu,
 		onTabProgress,
-		onTabEnd
+		onTabEnd,
+		refreshAutoSaveUnload
 	};
 
 	async function initContextMenu() {
@@ -132,6 +133,7 @@ singlefile.ui = (() => {
 					}
 					tabsData[tab.id].autoSave = event.checked;
 					await browser.storage.local.set({ tabsData });
+					await refreshAutoSaveUnload();
 					refreshBadgeState(tab, { autoSave: true });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_DISABLED) {
@@ -139,18 +141,21 @@ singlefile.ui = (() => {
 					Object.keys(tabsData).forEach(tabId => tabsData[tabId].autoSave = false);
 					tabsData.autoSaveUnpinned = tabsData.autoSaveAll = false;
 					await browser.storage.local.set({ tabsData });
+					await refreshAutoSaveUnload();
 					refreshBadgeState(tab, { autoSave: false });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_ALL) {
 					const tabsData = await getPersistentTabsData();
 					tabsData.autoSaveAll = event.checked;
 					await browser.storage.local.set({ tabsData });
+					await refreshAutoSaveUnload();
 					refreshBadgeState(tab, { autoSave: true });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_UNPINNED) {
 					const tabsData = await getPersistentTabsData();
 					tabsData.autoSaveUnpinned = event.checked;
 					await browser.storage.local.set({ tabsData });
+					await refreshAutoSaveUnload();
 					refreshBadgeState(tab, { autoSave: true });
 				}
 			});
@@ -250,6 +255,17 @@ singlefile.ui = (() => {
 				/* ignored */
 			}
 		}
+	}
+
+	async function refreshAutoSaveUnload() {
+		const tabs = await browser.tabs.query({});
+		return Promise.all(tabs.map(async tab => {
+			try {
+				await browser.tabs.sendMessage(tab.id, { autoSaveUnloadEnabled: true });
+			} catch (error) {
+				/* ignored */
+			}
+		}));
 	}
 
 	async function processTab(tab, options = {}) {

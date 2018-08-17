@@ -18,16 +18,42 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, window, addEventListener, document, location, docHelper */
+/* global browser, window, addEventListener, removeEventListener, document, location, docHelper */
 
 this.singlefile.autoSave = this.singlefile.autoSave || (async () => {
 
-	const [isAutoSaveUnloadEnabled, options] = await Promise.all([browser.runtime.sendMessage({ isAutoSaveUnloadEnabled: true }), browser.runtime.sendMessage({ getConfig: true })]);
-	if (isAutoSaveUnloadEnabled) {
-		addEventListener("unload", () => {
-			const docData = docHelper.preProcessDoc(document, window, options);
-			browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document), canvasData: docData.canvasData, emptyStyleRulesText: docData.emptyStyleRulesText, url: location.href });
-		});
+	let listenerAdded;
+	const [enabled, options] = await Promise.all([browser.runtime.sendMessage({ isAutoSaveUnloadEnabled: true }), browser.runtime.sendMessage({ getConfig: true })]);
+
+	enableAutoSaveUnload(enabled);
+
+	browser.runtime.onMessage.addListener(async message => {
+		if (message.autoSaveUnloadEnabled) {
+			refreshAutoSaveUnload();
+			return {};
+		}
+	});
+
+	async function refreshAutoSaveUnload() {
+		const enabled = await browser.runtime.sendMessage({ isAutoSaveUnloadEnabled: true });
+		enableAutoSaveUnload(enabled);
+	}
+
+	function enableAutoSaveUnload(enabled) {
+		if (enabled) {
+			if (!listenerAdded) {
+				addEventListener("unload", onUnload);
+				listenerAdded = true;
+			}
+		} else {
+			removeEventListener("unload", onUnload);
+			listenerAdded = false;
+		}
+	}
+
+	function onUnload() {
+		const docData = docHelper.preProcessDoc(document, window, options);
+		browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document), canvasData: docData.canvasData, emptyStyleRulesText: docData.emptyStyleRulesText, url: location.href });
 	}
 
 })();

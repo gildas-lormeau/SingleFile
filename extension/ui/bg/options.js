@@ -52,7 +52,10 @@
 		await update();
 	}, false);
 	maxResourceSizeEnabledInput.addEventListener("click", () => maxResourceSizeInput.disabled = !maxResourceSizeEnabledInput.checked, false);
-	autoSaveUnloadInput.addEventListener("click", () => autoSaveDelayInput.disabled = autoSaveUnloadInput.checked, false);
+	autoSaveUnloadInput.addEventListener("click", async () => {
+		autoSaveDelayInput.disabled = autoSaveUnloadInput.checked;
+		await bgPage.singlefile.ui.refreshAutoSaveUnload();
+	}, false);
 	document.body.onchange = update;
 	refresh();
 
