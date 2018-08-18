@@ -124,11 +124,11 @@ this.singlefile.top = this.singlefile.top || (() => {
 	}
 
 	async function getOptions(options) {
-		options.doc = document;
-		options.win = window;
 		if (!options.removeFrames) {
 			options.framesData = await FrameTree.getFramesData(options);
 		}
+		options.doc = document;
+		options.win = window;
 		options.jsEnabled = true;
 		options.onprogress = event => {
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {

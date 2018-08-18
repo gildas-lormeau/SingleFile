@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, FrameTree, Blob */
+/* global browser, SingleFile, singlefile, Blob */
 
 singlefile.core = (() => {
 
@@ -121,9 +121,6 @@ singlefile.core = (() => {
 	}
 
 	async function processStart(tab, options) {
-		if (!options.removeFrames) {
-			await FrameTree.initialize(tab.id, options);
-		}
 		await executeScripts(tab.id, contentScriptFiles, { allFrames: false });
 		if (options.frameId) {
 			await browser.tabs.sendMessage(tab.id, { processStartFrame: true, options }, { frameId: options.frameId });

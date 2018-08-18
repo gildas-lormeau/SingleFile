@@ -18,8 +18,8 @@
 				"lib/browser-polyfill/custom-browser-polyfill.js",
 				"extension/index.js",
 				"lib/single-file/doc-helper.js",
-				"lib/single-file/frame-tree/content/timeout.js",
-				"lib/single-file/frame-tree/content/frame-tree.js",
+				"lib/single-file/frame-tree/timeout.js",
+				"lib/single-file/frame-tree/frame-tree.js",
 				"extension/core/content/content-frame.js"
 			],
 			"all_frames": true,
@@ -41,7 +41,6 @@
 	"background": {
 		"scripts": [
 			"lib/browser-polyfill/custom-browser-polyfill.js",
-			"lib/single-file/frame-tree/bg/frame-tree.js",
 			"lib/fetch/bg/fetch.js",
 			"extension/index.js",
 			"extension/core/bg/config.js",
