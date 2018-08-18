@@ -35,6 +35,7 @@ singlefile.ui = (() => {
 	const MENU_ID_SAVE_SELECTED_TABS = "save-selected-tabs";
 	const MENU_ID_SAVE_UNPINNED_TABS = "save-unpinned-tabs";
 	const MENU_ID_SAVE_ALL_TABS = "save-tabs";
+	const MENU_ID_AUTO_SAVE = "auto-save";
 	const MENU_ID_AUTO_SAVE_DISABLED = "auto-save-disabled";
 	const MENU_ID_AUTO_SAVE_TAB = "auto-save-tab";
 	const MENU_ID_AUTO_SAVE_UNPINNED = "auto-save-unpinned";
@@ -151,32 +152,41 @@ singlefile.ui = (() => {
 				});
 			}
 			browser.menus.create({
+				id: MENU_ID_AUTO_SAVE,
+				contexts: defaultContexts,
+				title: "Auto-save"
+			});
+			browser.menus.create({
 				id: MENU_ID_AUTO_SAVE_DISABLED,
 				type: "radio",
-				title: "Disable Auto-save",
+				title: "Disabled",
 				contexts: defaultContexts,
-				checked: true
+				checked: true,
+				parentId: MENU_ID_AUTO_SAVE
 			});
 			browser.menus.create({
 				id: MENU_ID_AUTO_SAVE_TAB,
 				type: "radio",
 				title: "Auto-save this tab",
 				contexts: defaultContexts,
-				checked: false
+				checked: false,
+				parentId: MENU_ID_AUTO_SAVE
 			});
 			browser.menus.create({
 				id: MENU_ID_AUTO_SAVE_UNPINNED,
 				type: "radio",
 				title: "Auto-save unpinned tabs",
 				contexts: defaultContexts,
-				checked: false
+				checked: false,
+				parentId: MENU_ID_AUTO_SAVE
 			});
 			browser.menus.create({
 				id: MENU_ID_AUTO_SAVE_ALL,
 				type: "radio",
 				title: "Auto-save all tabs",
 				contexts: defaultContexts,
-				checked: false
+				checked: false,
+				parentId: MENU_ID_AUTO_SAVE
 			});
 		}
 	}
@@ -337,7 +347,7 @@ singlefile.ui = (() => {
 		return {
 			text: options.autoSave ? "[A]" : (text || ""),
 			color: options.autoSave ? autoColor : color,
-			title: options.autoSave ? "Autosave in progress" : title,
+			title: options.autoSave ? "Autosave active" : title,
 			path: options.autoSave ? DEFAULT_ICON_PATH : path,
 			progress: options.autoSave ? - 1 : progress,
 			barProgress: options.autoSave ? - 1 : barProgress
