@@ -15,16 +15,16 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 
 ## Additional notes
  - Open the context menu by right-clicking the SingleFile button in the extension toolbar or on the webpage. It allows you to:
-  - save a tab,
-  - or a selected content,
-  - or a frame content,
-  - or selected tabs,
-  - or unpinned tabs,
-  - or all tabs.
+   - save a tab,
+   - or a selected content,
+   - or a frame content,
+   - or selected tabs,
+   - or unpinned tabs,
+   - or all tabs.
  - The context menu also allows you to activate the auto-save of:
-  - the current tab,
-  - or unpinned tabs (only in the context menu of the webpage),
-  - or all tabs (only in the context menu of the webpage).
+   - the current tab,
+   - or unpinned tabs (only in the context menu of the webpage),
+   - or all tabs (only in the context menu of the webpage).
  - With auto-save active, pages are automatically saved every time after being loaded. The period of time to wait before
 saving the page can be configured in the options page.
  - Check the option "auto-save on page unload" in the options page to auto-save the page before being unloading instead
