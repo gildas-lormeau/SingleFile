@@ -25,10 +25,8 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
    - the current tab,
    - or unpinned tabs (only in the context menu of the webpage),
    - or all tabs (only in the context menu of the webpage).
- - With auto-save active, pages are automatically saved every time after being loaded. The period of time to wait before
-saving the page can be configured in the options page.
- - Check the option "auto-save on page unload" in the options page to auto-save the page before being unloading instead
-of after being loaded.
+ - With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not). The period of time to wait before saving the page can be configured in the options page.
+ - The options page allows you to auto-save the page after after being loaded or before being unloading only.
  - Right-click on the SingleFile button and select "Options" to open the options page.
  - To save multiple tabs, select them first and click on the SingleFile button.
 
