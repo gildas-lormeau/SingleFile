@@ -18,24 +18,23 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, window, addEventListener, removeEventListener, document, location, docHelper */
+/* global singlefile, browser, window, addEventListener, removeEventListener, document, location, docHelper */
 
-this.singlefile.autoSave = this.singlefile.autoSave || (async () => {
+this.singlefile.autoSaveUnload = this.singlefile.autoSaveUnload || (async () => {
 
-	let listenerAdded;
-	const [enabled, options] = await Promise.all([browser.runtime.sendMessage({ isAutoSaveUnloadEnabled: true }), browser.runtime.sendMessage({ getConfig: true })]);
-
-	enableAutoSaveUnload(enabled);
-
+	let listenerAdded, saveConfig;
+	refreshAutoSaveUnload();
 	browser.runtime.onMessage.addListener(message => {
 		if (message.autoSaveUnloadEnabled) {
 			refreshAutoSaveUnload();
 		}
 	});
+	return true;
 
 	async function refreshAutoSaveUnload() {
-		const enabled = await browser.runtime.sendMessage({ isAutoSaveUnloadEnabled: true });
-		enableAutoSaveUnload(enabled);
+		const [autoSaveEnabled, config] = await Promise.all([browser.runtime.sendMessage({ isAutoSaveEnabled: true }), browser.runtime.sendMessage({ getConfig: true })]);
+		saveConfig = config;
+		enableAutoSaveUnload(autoSaveEnabled && (config.autoSaveUnload || config.autoSaveLoadOrUnload));
 	}
 
 	function enableAutoSaveUnload(enabled) {
@@ -51,8 +50,10 @@ this.singlefile.autoSave = this.singlefile.autoSave || (async () => {
 	}
 
 	function onUnload() {
-		const docData = docHelper.preProcessDoc(document, window, options);
-		browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document), canvasData: docData.canvasData, emptyStyleRulesText: docData.emptyStyleRulesText, url: location.href });
+		if (!singlefile.pageAutoSaved) {
+			const docData = docHelper.preProcessDoc(document, window, saveConfig);
+			browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document), canvasData: docData.canvasData, emptyStyleRulesText: docData.emptyStyleRulesText, url: location.href });
+		}
 	}
 
 })();

@@ -64,7 +64,7 @@ singlefile.ui = (() => {
 	});
 	browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 		const [config, tabsData] = await Promise.all([singlefile.config.get(), getPersistentTabsData()]);
-		if (!config.autoSaveUnload && (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave))) {
+		if ((config.autoSaveLoad || config.autoSaveLoadOrUnload) && (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave))) {
 			if (changeInfo.status == "complete") {
 				processTab(tab, { autoSave: true });
 			}
@@ -87,8 +87,8 @@ singlefile.ui = (() => {
 			}
 			onTabError(sender.tab.id, request.options);
 		}
-		if (request.isAutoSaveUnloadEnabled) {
-			return isAutoSaveUnloadEnabled(sender.tab.id);
+		if (request.isAutoSaveEnabled) {
+			return isAutoSaveEnabled(sender.tab.id);
 		}
 	});
 	return {
@@ -378,12 +378,6 @@ singlefile.ui = (() => {
 				await browser.browserAction[browserActionMethod](browserActionParameter);
 			}
 		}
-	}
-
-	async function isAutoSaveUnloadEnabled(tabId) {
-		const config = await singlefile.config.get();
-		const autoSaveEnabled = await isAutoSaveEnabled(tabId);
-		return autoSaveEnabled && config.autoSaveUnload;
 	}
 
 	async function isAutoSaveEnabled(tabId) {

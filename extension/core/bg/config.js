@@ -44,7 +44,9 @@ singlefile.config = (() => {
 		displayStats: false,
 		backgroundSave: true,
 		autoSaveDelay: 1,
-		autoSaveUnload: false
+		autoSaveLoad: false,
+		autoSaveUnload: false,
+		autoSaveLoadOrUnload: true
 	};
 
 	let pendingUpgradePromise;
@@ -118,6 +120,11 @@ singlefile.config = (() => {
 		}
 		if (config.autoSaveDelay === undefined) {
 			config.autoSaveDelay = 1;
+		}
+		if (config.autoSaveLoadOrUnload === undefined && !config.autoSaveUnload) {
+			config.autoSaveLoadOrUnload = true;
+			config.autoSaveLoad = false;
+			config.autoSaveUnload = false;
 		}
 		const platformInfo = await browser.runtime.getPlatformInfo();
 		if (platformInfo.os == "android") {

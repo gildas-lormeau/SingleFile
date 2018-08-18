@@ -59,6 +59,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 					console.error(error); // eslint-disable-line no-console
 					browser.runtime.sendMessage({ processError: true, error, options: { autoSave: options.autoSave } });
 				}
+				if (options.autoSave && options.autoSaveLoadOrUnload) {
+					singlefile.pageAutoSaved = true;
+				}
 				if (!options.autoSave) {
 					processing = false;
 				}

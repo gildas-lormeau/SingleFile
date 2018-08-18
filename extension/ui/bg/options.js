@@ -44,7 +44,9 @@
 	const displayStatsInput = document.getElementById("displayStatsInput");
 	const backgroundSaveInput = document.getElementById("backgroundSaveInput");
 	const autoSaveDelayInput = document.getElementById("autoSaveDelayInput");
+	const autoSaveLoadInput = document.getElementById("autoSaveLoadInput");
 	const autoSaveUnloadInput = document.getElementById("autoSaveUnloadInput");
+	const autoSaveLoadOrUnloadInput = document.getElementById("autoSaveLoadOrUnloadInput");
 	let pendingSave = Promise.resolve();
 	document.getElementById("resetButton").addEventListener("click", async () => {
 		await bgPage.singlefile.config.reset();
@@ -54,6 +56,16 @@
 	maxResourceSizeEnabledInput.addEventListener("click", () => maxResourceSizeInput.disabled = !maxResourceSizeEnabledInput.checked, false);
 	autoSaveUnloadInput.addEventListener("click", async () => {
 		autoSaveDelayInput.disabled = autoSaveUnloadInput.checked;
+		await bgPage.singlefile.ui.refreshAutoSaveUnload();
+	}, false);
+	autoSaveLoadOrUnloadInput.addEventListener("click", async () => {
+		autoSaveUnloadInput.disabled = autoSaveLoadInput.disabled = autoSaveLoadOrUnloadInput.checked;
+		if (autoSaveLoadOrUnloadInput.checked) {
+			autoSaveUnloadInput.checked = autoSaveLoadInput.checked = false;
+		} else {
+			autoSaveUnloadInput.checked = false;
+			autoSaveLoadInput.checked = true;
+		}
 		await bgPage.singlefile.ui.refreshAutoSaveUnload();
 	}, false);
 	document.body.onchange = update;
@@ -85,8 +97,12 @@
 		backgroundSaveInput.disabled = config.backgroundSaveDisabled;
 		autoSaveDelayInput.value = config.autoSaveDelay;
 		autoSaveDelayInput.disabled = config.autoSaveDelayDisabled || config.autoSaveUnload;
-		autoSaveUnloadInput.checked = config.autoSaveUnload;
+		autoSaveLoadInput.checked = !config.autoSaveLoadOrUnload && config.autoSaveLoad;
+		autoSaveLoadOrUnloadInput.checked = config.autoSaveLoadOrUnload;
+		autoSaveUnloadInput.checked = !config.autoSaveLoadOrUnload && config.autoSaveUnload;
 		autoSaveUnloadInput.disabled = config.autoSaveUnloadDisabled;
+		autoSaveLoadInput.disabled = config.autoSaveLoadOrUnload;
+		autoSaveUnloadInput.disabled = config.autoSaveUnloadDisabled || config.autoSaveLoadOrUnload;
 	}
 
 	async function update() {
@@ -113,7 +129,9 @@
 			displayStats: displayStatsInput.checked,
 			backgroundSave: backgroundSaveInput.checked,
 			autoSaveDelay: autoSaveDelayInput.value,
-			autoSaveUnload: autoSaveUnloadInput.checked
+			autoSaveLoad: autoSaveLoadInput.checked,
+			autoSaveUnload: autoSaveUnloadInput.checked,
+			autoSaveLoadOrUnload: autoSaveLoadOrUnloadInput.checked
 		});
 		await pendingSave;
 		await bgPage.singlefile.ui.refreshContextMenu();

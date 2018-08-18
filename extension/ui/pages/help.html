@@ -68,7 +68,7 @@
 				<a id="options">Options description</a>
 				<p>You can customize SingleFile through the options page. Right-click on SingleFile button
 					<img src="../resources/icon_16.png" class="icon"> in the browser toolbar and select "Options"/"Manage extension" in the context menu to open the options page.</p>
-				<p>Option details :</p>
+				<p>User interface</p>
 				<ul>
 					<li>
 						<span class="option">add entry in the context menu of the webpage</span>
@@ -97,7 +97,9 @@
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
 					</li>
-
+				</ul>
+				<p>File name</p>
+				<ul>
 					<li>
 						<span class="option">append the save date to the file name</span>
 						<p>Check this option to append the save date of the webpage to the file name.
@@ -107,13 +109,16 @@
 					</li>
 
 					<li>
-						<span class="option">enter file name before saving the page</span>
-						<p>Check this option to display a prompt asking you to enter the file name of the saved page.
+						<span class="option">open the "Save as" dialog to confirm the file name</span>
+						<p>Check this option to display the "Save as" dialog in order to confirm the file name before saving the page. If the
+							option "save pages in background" is unchecked then a prompt dialog will be displayed instead of the "Save as" dialog.
 						</p>
 						<p class="notice">It is recommended to
 							<u>uncheck</u> this option</p>
 					</li>
-
+				</ul>
+				<p>Page content</p>
+				<ul>
 					<li>
 						<span class="option">compress HTML</span>
 						<p>Check this option to remove all HTML comments, and unneeded spaces or returns. This helps to reduce the size of the
@@ -152,7 +157,9 @@
 						<p class="notice">It is recommended to
 							<u>uncheck</u> this option</p>
 					</li>
-
+				</ul>
+				<p>Pages resources</p>
+				<ul>
 					<li>
 						<span class="option">remove scripts</span>
 						<p>Check this option to remove all scripts. Unchecking this option may alter the document.</p>
@@ -202,21 +209,44 @@
 						<p>Specify the maximum size of embedded resources (i.e. images, stylesheets, scripts and iframes) in megabytes.
 						</p>
 					</li>
+				</ul>
+				<p>Auto-save</p>
+				<ul>
+					<li>
+						<span class="option">auto-save on page load or on page unload as fallback</span>
+						<p>Check this option to auto-save pages after being loaded. If you browse to another page before the page is fully loaded
+							then the page will be saved just before being unloaded. With this option active, you are guaranteed pages will always
+							be saved. Pages saved before being unloaded will not contain frame contents (if you unchecked "remove frames").</p>
+					</li>
+					<p class="notice">It is recommended to
+						<u>check</u> this option</p>
+
+					<li>
+						<span class="option">auto-save on page load</span>
+						<p>Check this option to auto-save pages after being loaded.</p>
+					</li>
 
 					<li>
 						<span class="option">auto-save on page unload</span>
-						<p>Check this option to auto-save the page when it is unloaded instead of saving the page after it is loaded.</p>
+						<p>Check this option to auto-save pages before being unloaded instead of saving pages after being loaded. With this option
+							active, you are guaranteed pages will always be saved but they will never contain frame contents (if you unchecked
+							"remove frames").</p>
 					</li>
 
 					<li>
 						<span class="option">auto-save wait delay after load (sec.)</span>
-						<p>Specify the time to wait in seconds before saving a page after it is loaded.
+						<p>Specify the amount of time in seconds to wait before saving a page when the "auto-save on page load or on page unload
+							as fallback" or "auto-save on page load" is checked.
 						</p>
 					</li>
-
+				</ul>
+				<p>Misc.</p>
+				<ul>
 					<li>
 						<span class="option">save pages in background</span>
-						<p>Uncheck this option if you get invalid file names like "37bec68b-446a-46a5-8642-19a89c231b46.html" when saving pages.
+						<p>Uncheck this option if you get invalid file names like "37bec68b-446a-46a5-8642-19a89c231b46.html" when saving pages
+							or if you prefer to use the prompt dialog instead of the "Save as" dialog when "open the 'Save as' dialog to confirm
+							the file name" option is checked.
 						</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
@@ -225,14 +255,16 @@
 					<li>
 						<span class="option">display stats in the console after processing</span>
 						<p>Check this option to display stats about processing in the JavaScript developer tools of your browser. Checking this
-							option may increase the time needed to process a page.
+							option may increase the CPU consumption and the time needed to process a page.
 						</p>
 						<p class="notice">It is recommended to
 							<u>uncheck</u> this option</p>
 					</li>
-
+				</ul>
+				<p>Form buttons</p>
+				<ul>
 					<li>
-						<span class="option">Reset to default options</span>
+						<span class="option">Reset</span>
 						<p>Reset all the options to their default value.</p>
 					</li>
 				</ul>
