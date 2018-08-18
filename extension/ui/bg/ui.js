@@ -183,7 +183,7 @@ singlefile.ui = (() => {
 
 	async function initContextMenu() {
 		if (BROWSER_MENUS_API_SUPPORTED) {
-			browser.runtime.onInstalled.addListener(refreshContextMenu);
+			refreshContextMenu();
 			browser.menus.onClicked.addListener(async (event, tab) => {
 				if (event.menuItemId == MENU_ID_SAVE_PAGE) {
 					processTab(tab);
