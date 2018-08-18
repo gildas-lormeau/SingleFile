@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, FrameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window */
+/* global browser, SingleFile, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
@@ -125,7 +125,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function getOptions(options) {
 		if (!options.removeFrames) {
-			options.framesData = await FrameTree.getFramesData(options);
+			options.framesData = await frameTree.get(options);
 		}
 		options.doc = document;
 		options.win = window;
