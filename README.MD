@@ -9,7 +9,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
  - Chrome Web Store: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
  - Edge, Opera: The extension is not on the store yet, you must download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and install it manually
 
-## Instructions
+## Gettinsg started
 - Wait until the page is fully loaded, you may need to scroll down the entire page to be sure all elements are loaded.
 - Click on the SingleFile button in the extension toolbar to save the page.
 
