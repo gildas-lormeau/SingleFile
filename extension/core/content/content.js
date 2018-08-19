@@ -70,13 +70,28 @@ this.singlefile.top = this.singlefile.top || (() => {
 	}
 
 	async function processPage(options) {
-		options.insertSingleFileComment = true;
-		options.insertFaviconLink = true;
 		if (options.shadowEnabled && !options.autoSave) {
 			singlefile.ui.init();
 		}
-		options = await getOptions(options);
 		const processor = new (SingleFile.getClass())(options);
+		options.insertSingleFileComment = true;
+		options.insertFaviconLink = true;
+		options.jsEnabled = true;
+		if (!options.removeFrames) {
+			options.framesData = await frameTree.get(options);
+		}
+		options.doc = document;
+		options.win = window;
+		options.onprogress = event => {
+			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
+				browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max, options: { autoSave: options.autoSave } });
+				if (options.shadowEnabled && !options.autoSave) {
+					singlefile.ui.onprogress(event);
+				}
+			} else if (event.type == event.PAGE_ENDED) {
+				browser.runtime.sendMessage({ processEnd: true, options: { autoSave: options.autoSave } });
+			}
+		};
 		if (options.selected) {
 			markSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
 		}
@@ -124,26 +139,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 	function unmarkSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
 		document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
 		document.querySelectorAll("[" + SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME));
-	}
-
-	async function getOptions(options) {
-		if (!options.removeFrames) {
-			options.framesData = await frameTree.get(options);
-		}
-		options.doc = document;
-		options.win = window;
-		options.jsEnabled = true;
-		options.onprogress = event => {
-			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
-				browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max, options: { autoSave: options.autoSave } });
-				if (options.shadowEnabled && !options.autoSave) {
-					singlefile.ui.onprogress(event);
-				}
-			} else if (event.type == event.PAGE_ENDED) {
-				browser.runtime.sendMessage({ processEnd: true, options: { autoSave: options.autoSave } });
-			}
-		};
-		return options;
 	}
 
 	async function downloadPage(page, options) {
