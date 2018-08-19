@@ -363,7 +363,11 @@ singlefile.ui = (() => {
 			tabsData[tabId].pendingRefresh = Promise.resolve();
 		}
 		tabsData[tabId].pendingRefresh = tabsData[tabId].pendingRefresh.then(() => refreshBadgeAsync(tabId, tabsData, tabData));
-		await tabsData[tabId].pendingRefresh;
+		try {
+			await tabsData[tabId].pendingRefresh;
+		} catch (error) {
+			/* ignored */
+		}
 	}
 
 	async function refreshBadgeAsync(tabId, tabsData, tabData) {
