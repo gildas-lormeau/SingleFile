@@ -77,7 +77,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		options.jsEnabled = true;
-		if (!options.removeFrames) {
+		if (!options.removeFrames && this.frameTree) {
 			options.framesData = await frameTree.get(options);
 		}
 		options.doc = document;

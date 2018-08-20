@@ -35,7 +35,6 @@ See the extension help in the options page for more detailed information about t
 
 ## Known Issues
 - All browsers:
-  - After installing the extension, if you want to save a tab that was already opened then you need to refresh it first.
   - For security reasons, you cannot save pages hosted on https://chrome.google.com or https://addons.mozilla.org.
   - Frame contents cannot be saved when "auto-save on page unload" option is checked.
 - Chrome/Opera:

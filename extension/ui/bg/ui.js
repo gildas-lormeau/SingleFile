@@ -286,11 +286,7 @@ singlefile.ui = (() => {
 			await singlefile.core.processTab(tab, options);
 			refreshBadge(tabId, getBadgeProperties(tabId, options, "...", [4, 229, 36, 255], "Initializing SingleFile (2/2)"));
 		} catch (error) {
-			if (error) {
-				onTabError(tabId, options);
-			} else {
-				refreshBadge(tabId, getBadgeProperties(tabId, options, "↻", [255, 141, 1, 255]));
-			}
+			onTabError(tabId, options);
 		}
 	}
 

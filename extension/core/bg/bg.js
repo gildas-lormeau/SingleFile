@@ -22,9 +22,10 @@
 
 singlefile.core = (() => {
 
-	const TIMEOUT_PROCESS_START_MESSAGE = 10000;
-
 	const contentScriptFiles = [
+		"lib/browser-polyfill/custom-browser-polyfill.js",
+		"/extension/index.js",
+		"/lib/single-file/doc-helper.js",
 		"/extension/ui/content/ui.js",
 		"/lib/single-file/base64.js",
 		"/lib/single-file/uglifycss.js",
@@ -66,13 +67,11 @@ singlefile.core = (() => {
 			Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
 			return new Promise(async (resolve, reject) => {
 				const processPromise = processStart(tab, options);
-				const errorTimeout = setTimeout(reject, TIMEOUT_PROCESS_START_MESSAGE);
 				try {
 					await processPromise;
 				} catch (error) {
 					reject(error);
 				}
-				clearTimeout(errorTimeout);
 				resolve();
 			});
 		}
