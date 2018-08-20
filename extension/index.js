@@ -20,4 +20,6 @@
 
 /* global */
 
-this.singlefile = this.singlefile || {};
+if (!this.singlefile) {
+	this.singlefile = {};
+}
