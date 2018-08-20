@@ -286,6 +286,7 @@ singlefile.ui = (() => {
 			await singlefile.core.processTab(tab, options);
 			refreshBadge(tabId, getBadgeProperties(tabId, options, "...", [4, 229, 36, 255], "Initializing SingleFile (2/2)"));
 		} catch (error) {
+			console.log(error); // eslint-disable-line no-console
 			onTabError(tabId, options);
 		}
 	}
