@@ -107,11 +107,13 @@ singlefile.ui = (() => {
 			const defaultContextsEnabled = defaultContextsDisabled.concat(...pageContextsEnabled);
 			const defaultContexts = config.contextMenuEnabled ? defaultContextsEnabled : defaultContextsDisabled;
 			await browser.menus.removeAll();
-			browser.menus.create({
-				id: MENU_ID_SAVE_PAGE,
-				contexts: defaultContexts,
-				title: DEFAULT_TITLE
-			});
+			if (config.contextMenuEnabled) {
+				browser.menus.create({
+					id: MENU_ID_SAVE_PAGE,
+					contexts: pageContextsEnabled,
+					title: DEFAULT_TITLE
+				});
+			}
 			if (config.contextMenuEnabled) {
 				browser.menus.create({
 					id: "separator-1",
@@ -121,19 +123,21 @@ singlefile.ui = (() => {
 			}
 			browser.menus.create({
 				id: MENU_ID_SAVE_SELECTED,
-				contexts: ["selection"],
+				contexts: config.contextMenuEnabled ? defaultContextsDisabled.concat(["selection"]) : defaultContextsDisabled,
 				title: "Save selection"
 			});
-			browser.menus.create({
-				id: MENU_ID_SAVE_FRAME,
-				contexts: ["frame"],
-				title: "Save frame"
-			});
-			browser.menus.create({
-				id: MENU_ID_SAVE_SELECTED_TABS,
-				contexts: defaultContexts,
-				title: "Save selected tabs"
-			});
+			if (config.contextMenuEnabled) {
+				browser.menus.create({
+					id: MENU_ID_SAVE_FRAME,
+					contexts: ["frame"],
+					title: "Save frame"
+				});
+				browser.menus.create({
+					id: MENU_ID_SAVE_SELECTED_TABS,
+					contexts: pageContextsEnabled,
+					title: "Save selected tabs"
+				});
+			}
 			browser.menus.create({
 				id: MENU_ID_SAVE_UNPINNED_TABS,
 				contexts: defaultContexts,
