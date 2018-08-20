@@ -93,7 +93,10 @@ this.singlefile.top = this.singlefile.top || (() => {
 			}
 		};
 		if (options.selected) {
-			markSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
+			const selectionFound = markSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
+			if (!selectionFound) {
+				options.selected = false;
+			}
 		}
 		await processor.initialize();
 		await processor.preparePageData();
@@ -134,6 +137,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 				element.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
 			}
 		}
+		return selectionFound;
 	}
 
 	function unmarkSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
