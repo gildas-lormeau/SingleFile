@@ -47,6 +47,7 @@
 	const autoSaveLoadInput = document.getElementById("autoSaveLoadInput");
 	const autoSaveUnloadInput = document.getElementById("autoSaveUnloadInput");
 	const autoSaveLoadOrUnloadInput = document.getElementById("autoSaveLoadOrUnloadInput");
+	const removeAlternativeFontsInput = document.getElementById("removeAlternativeFontsInput");
 	let pendingSave = Promise.resolve();
 	document.getElementById("resetButton").addEventListener("click", async () => {
 		await bgPage.singlefile.config.reset();
@@ -103,6 +104,7 @@
 		autoSaveUnloadInput.disabled = config.autoSaveUnloadDisabled;
 		autoSaveLoadInput.disabled = config.autoSaveLoadOrUnload;
 		autoSaveUnloadInput.disabled = config.autoSaveUnloadDisabled || config.autoSaveLoadOrUnload;
+		removeAlternativeFontsInput.checked = config.removeAlternativeFonts;
 	}
 
 	async function update() {
@@ -131,7 +133,8 @@
 			autoSaveDelay: autoSaveDelayInput.value,
 			autoSaveLoad: autoSaveLoadInput.checked,
 			autoSaveUnload: autoSaveUnloadInput.checked,
-			autoSaveLoadOrUnload: autoSaveLoadOrUnloadInput.checked
+			autoSaveLoadOrUnload: autoSaveLoadOrUnloadInput.checked,
+			removeAlternativeFonts: removeAlternativeFontsInput.checked
 		});
 		await pendingSave;
 		await bgPage.singlefile.ui.refreshContextMenu();

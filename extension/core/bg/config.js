@@ -46,7 +46,8 @@ singlefile.config = (() => {
 		autoSaveDelay: 1,
 		autoSaveLoad: false,
 		autoSaveUnload: false,
-		autoSaveLoadOrUnload: true
+		autoSaveLoadOrUnload: true,
+		removeAlternativeFonts: true
 	};
 
 	let pendingUpgradePromise;
@@ -121,6 +122,9 @@ singlefile.config = (() => {
 		if (config.autoSaveDelay === undefined) {
 			config.autoSaveDelay = 1;
 		}
+		if (config.removeAlternativeFonts === undefined) {
+			config.removeAlternativeFonts = true;
+		}		
 		if (config.autoSaveLoadOrUnload === undefined && !config.autoSaveUnload) {
 			config.autoSaveLoadOrUnload = true;
 			config.autoSaveLoad = false;
