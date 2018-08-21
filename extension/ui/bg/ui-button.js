@@ -43,7 +43,7 @@ singlefile.ui.button = (() => {
 		await onTabActivated(tab);
 	});
 	browser.tabs.onCreated.addListener(onTabActivated);
-	browser.tabs.onUpdated.addListener(onTabActivated);
+	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabActivated(tab));
 	browser.runtime.onMessage.addListener((request, sender) => {
 		if (request.processProgress) {
 			if (request.maxIndex) {
@@ -65,7 +65,7 @@ singlefile.ui.button = (() => {
 		onProgress,
 		onEnd,
 		onError,
-		refresh: (tabId, options) => refresh(tabId, getProperties(tabId, options, "", DEFAULT_COLOR))
+		refresh: (tabId, options) => refresh(tabId, getProperties(tabId, options))
 	};
 
 	function onInitialize(tabId, options, step) {
@@ -88,7 +88,7 @@ singlefile.ui.button = (() => {
 
 	async function onTabActivated(tab) {
 		const autoSave = await singlefile.ui.autosave.isEnabled(tab.id);
-		await refresh(tab.id, getProperties(tab.id, { autoSave }, "", DEFAULT_COLOR));
+		await refresh(tab.id, getProperties(tab.id, { autoSave }));
 		if (singlefile.ui.isAllowedURL(tab.url) && browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
 			if (singlefile.ui.isAllowedURL(tab.url)) {
 				try {
@@ -109,7 +109,7 @@ singlefile.ui.button = (() => {
 	function getProperties(tabId, options, text, color, title = DEFAULT_TITLE, path = DEFAULT_ICON_PATH, progress = -1, barProgress = -1, autoColor = [208, 208, 208, 255]) {
 		return {
 			text: options.autoSave ? "[A]" : (text || ""),
-			color: options.autoSave ? autoColor : color,
+			color: options.autoSave ? autoColor : color || DEFAULT_COLOR,
 			title: options.autoSave ? "Autosave active" : title,
 			path: options.autoSave ? DEFAULT_ICON_PATH : path,
 			progress: options.autoSave ? - 1 : progress,
