@@ -69,7 +69,7 @@ singlefile.ui.button = (() => {
 	};
 
 	function onInitialize(tabId, options, step) {
-		refresh(tabId, getProperties(tabId, options, "...", step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], "Initializing SingleFile (" + step + "/2)"));
+		refresh(tabId, getProperties(tabId, options, "•••", step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], "Initializing SingleFile (" + step + "/2)"));
 	}
 
 	function onError(tabId, options) {
