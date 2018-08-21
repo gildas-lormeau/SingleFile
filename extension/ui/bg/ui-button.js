@@ -29,12 +29,12 @@ singlefile.ui.button = (() => {
 	const BUTTON_PROPERTIES = [{ name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "path", browserActionMethod: "setIcon" }, { name: "text", browserActionMethod: "setBadgeText" }, { name: "title", browserActionMethod: "setTitle" }];
 
 	browser.browserAction.onClicked.addListener(async tab => {
-		if (singlefile.ui.isAllowedURL(tab.url)) {
+		if (singlefile.core.isAllowedURL(tab.url)) {
 			const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
 			if (!tabs.length) {
 				singlefile.ui.processTab(tab);
 			} else {
-				tabs.forEach(tab => singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.processTab(tab));
+				tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.processTab(tab));
 			}
 		}
 	});
@@ -89,8 +89,8 @@ singlefile.ui.button = (() => {
 	async function onTabActivated(tab) {
 		const autoSave = await singlefile.ui.autosave.isEnabled(tab.id);
 		await refresh(tab.id, getProperties(tab.id, { autoSave }));
-		if (singlefile.ui.isAllowedURL(tab.url) && browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
-			if (singlefile.ui.isAllowedURL(tab.url)) {
+		if (singlefile.core.isAllowedURL(tab.url) && browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
+			if (singlefile.core.isAllowedURL(tab.url)) {
 				try {
 					await browser.browserAction.enable(tab.id);
 				} catch (error) {

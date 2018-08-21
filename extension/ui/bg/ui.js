@@ -22,11 +22,8 @@
 
 singlefile.ui = (() => {
 
-	const FORBIDDEN_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
-
 	return {
-		processTab,
-		isAllowedURL
+		processTab
 	};
 
 	async function processTab(tab, options = {}) {
@@ -39,10 +36,6 @@ singlefile.ui = (() => {
 			console.log(error); // eslint-disable-line no-console
 			singlefile.ui.button.onError(tabId, options);
 		}
-	}
-
-	function isAllowedURL(url) {
-		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !FORBIDDEN_URLS.find(storeUrl => url.startsWith(storeUrl));
 	}
 
 })();

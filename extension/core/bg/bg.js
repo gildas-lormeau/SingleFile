@@ -22,6 +22,8 @@
 
 singlefile.core = (() => {
 
+	const FORBIDDEN_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
+
 	const contentScriptFiles = [
 		"lib/browser-polyfill/custom-browser-polyfill.js",
 		"/extension/index.js",
@@ -64,7 +66,7 @@ singlefile.core = (() => {
 		const tabsData = await singlefile.storage.get();
 		delete tabsData[tabId];
 		await singlefile.storage.set(tabsData);
-	});	
+	});
 
 	return {
 		async processTab(tab, processOptions = {}) {
@@ -79,6 +81,9 @@ singlefile.core = (() => {
 				}
 				resolve();
 			});
+		},
+		isAllowedURL(url) {
+			return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !FORBIDDEN_URLS.find(storeUrl => url.startsWith(storeUrl));
 		}
 	};
 
