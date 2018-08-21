@@ -28,7 +28,7 @@ singlefile.core = (() => {
 		"lib/browser-polyfill/custom-browser-polyfill.js",
 		"/extension/index.js",
 		"/lib/single-file/doc-helper.js",
-		"/extension/ui/content/ui.js",
+		"/extension/ui/content/content-ui.js",
 		"/lib/single-file/base64.js",
 		"/lib/single-file/uglifycss.js",
 		"/lib/single-file/fonts-minifier.js",

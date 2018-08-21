@@ -46,7 +46,7 @@
 			"extension/core/bg/storage.js",
 			"extension/core/bg/config.js",
 			"extension/core/bg/bg.js",
-			"extension/ui/bg/ui.js",
+			"extension/ui/bg/bg-ui.js",
 			"extension/ui/bg/ui-menu.js",
 			"extension/ui/bg/ui-button.js",
 			"extension/ui/bg/ui-autosave.js",
