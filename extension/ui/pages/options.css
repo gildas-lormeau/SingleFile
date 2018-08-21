@@ -1,24 +1,23 @@
 body {
     box-sizing: border-box;
     padding: 0px;
-    margin: 0px;
-    background-color: #fff;
-    margin-left: auto;
-    margin-right: auto;
+    background-color: transparent;
     font-family: sans-serif;
     text-align: justify;
-    max-width: 600px;
+    max-width: 800px;
     height: auto;
 }
 
 button {
-    background: white;
+    background-color: transparent;
     border-color: rgb(191, 191, 191);
     border-style: solid;
-    height: 25px;
     border-radius: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-width: 1px;
 }
 
 button:active {
@@ -79,7 +78,7 @@ a {
     display: flex;
     justify-content: space-between;
     margin-top: 5px;
-    padding-left: 12px;    
+    padding-left: 12px;
 }
 
 .option:last-of-type {
