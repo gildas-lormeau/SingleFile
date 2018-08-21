@@ -42,7 +42,6 @@ singlefile.ui.menu = (() => {
 		await refreshState(tab);
 	});
 	browser.tabs.onCreated.addListener(refreshState);
-	browser.tabs.onUpdated.addListener(refreshState);
 	return {
 		refresh
 	};
@@ -212,8 +211,9 @@ singlefile.ui.menu = (() => {
 		const tabsData = await singlefile.ui.getPersistentTabsData();
 		if (BROWSER_MENUS_API_SUPPORTED) {
 			try {
-				await browser.menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: Boolean(!tabsData[tab.id] || !tabsData[tab.id].autoSave) });
-				await browser.menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: Boolean(tabsData[tab.id] && tabsData[tab.id].autoSave) });
+				const disabled = Boolean(!tabsData[tab.id] || !tabsData[tab.id].autoSave);
+				await browser.menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: disabled });
+				await browser.menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: !disabled });
 				await browser.menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: Boolean(tabsData.autoSaveUnpinned) });
 				await browser.menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: Boolean(tabsData.autoSaveAll) });
 			} catch (error) {
