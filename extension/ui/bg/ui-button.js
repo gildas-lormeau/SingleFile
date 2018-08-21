@@ -26,7 +26,7 @@ singlefile.ui.button = (() => {
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_16_wait";
 	const DEFAULT_TITLE = "Save page with SingleFile";
 	const DEFAULT_COLOR = [2, 147, 20, 255];
-	const BADGE_PROPERTIES = [{ name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "path", browserActionMethod: "setIcon" }, { name: "text", browserActionMethod: "setBadgeText" }, { name: "title", browserActionMethod: "setTitle" }];
+	const BUTTON_PROPERTIES = [{ name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "path", browserActionMethod: "setIcon" }, { name: "text", browserActionMethod: "setBadgeText" }, { name: "title", browserActionMethod: "setTitle" }];
 
 	browser.browserAction.onClicked.addListener(async tab => {
 		if (singlefile.ui.isAllowedURL(tab.url)) {
@@ -134,7 +134,7 @@ singlefile.ui.button = (() => {
 	}
 
 	async function refreshAsync(tabId, tabsData, tabData) {
-		for (let property of BADGE_PROPERTIES) {
+		for (let property of BUTTON_PROPERTIES) {
 			await refreshProperty(tabId, tabsData, property.name, property.browserActionMethod, tabData);
 		}
 	}
@@ -147,11 +147,11 @@ singlefile.ui.button = (() => {
 			if (!tabsData[tabId]) {
 				tabsData[tabId] = {};
 			}
-			if (!tabsData[tabId].badge) {
-				tabsData[tabId].badge = {};
+			if (!tabsData[tabId].button) {
+				tabsData[tabId].button = {};
 			}
-			if (JSON.stringify(tabsData[tabId].badge[browserActionMethod]) != JSON.stringify(value)) {
-				tabsData[tabId].badge[browserActionMethod] = value;
+			if (JSON.stringify(tabsData[tabId].button[browserActionMethod]) != JSON.stringify(value)) {
+				tabsData[tabId].button[browserActionMethod] = value;
 				await browser.browserAction[browserActionMethod](browserActionParameter);
 			}
 		}
