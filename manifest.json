@@ -43,6 +43,7 @@
 			"lib/browser-polyfill/custom-browser-polyfill.js",
 			"lib/fetch/bg/fetch.js",
 			"extension/index.js",
+			"extension/core/bg/storage.js",
 			"extension/core/bg/config.js",
 			"extension/core/bg/bg.js",
 			"extension/ui/bg/ui.js",

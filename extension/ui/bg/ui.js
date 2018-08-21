@@ -24,22 +24,14 @@ singlefile.ui = (() => {
 
 	const FORBIDDEN_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
 
-	let persistentTabsData;
-	let temporaryTabsData;
-
-	getPersistentTabsData().then(tabsData => persistentTabsData = tabsData);
-
 	browser.tabs.onRemoved.addListener(async tabId => {
-		const tabsData = await getPersistentTabsData();
+		const tabsData = await singlefile.storage.get();
 		delete tabsData[tabId];
-		await browser.storage.local.set({ tabsData });
+		await singlefile.storage.set(tabsData);
 	});
 	return {
 		processTab,
-		isAllowedURL,
-		getTemporaryTabsData,
-		getPersistentTabsData,
-		setPersistentData
+		isAllowedURL
 	};
 
 	async function processTab(tab, options = {}) {
@@ -56,37 +48,6 @@ singlefile.ui = (() => {
 
 	function isAllowedURL(url) {
 		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !FORBIDDEN_URLS.find(storeUrl => url.startsWith(storeUrl));
-	}
-
-	function getTemporaryTabsData() {
-		if (temporaryTabsData) {
-			return temporaryTabsData;
-		} else {
-			return {};
-		}
-	}
-
-	async function setPersistentData(tabsData) {
-		await browser.storage.local.set({ tabsData });
-	}
-
-	async function getPersistentTabsData() {
-		if (persistentTabsData) {
-			return persistentTabsData;
-		} else {
-			const config = await browser.storage.local.get();
-			persistentTabsData = config.tabsData || {};
-			await cleanupPersistentTabsData();
-			return persistentTabsData;
-		}
-	}
-
-	async function cleanupPersistentTabsData() {
-		if (persistentTabsData) {
-			const tabs = await browser.tabs.query({});
-			Object.keys(persistentTabsData).filter(tabId => !tabs.find(tab => tab.id == tabId)).forEach(tabId => delete persistentTabsData[tabId]);
-			await browser.storage.local.set({ tabsData: persistentTabsData });
-		}
 	}
 
 })();

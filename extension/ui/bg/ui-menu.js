@@ -168,32 +168,31 @@ singlefile.ui.menu = (() => {
 					tabs.forEach(tab => singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.processTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
-					const tabsData = await singlefile.ui.getPersistentTabsData();
+					const tabsData = await singlefile.storage.get();
 					if (!tabsData[tab.id]) {
 						tabsData[tab.id] = {};
 					}
 					tabsData[tab.id].autoSave = event.checked;
-					await singlefile.ui.setPersistentData(tabsData);
-					await singlefile.ui.autosave.refresh();
-					singlefile.ui.button.refresh(tab.id, { autoSave: true });
+					await singlefile.storage.set(tabsData);
+					refreshExternalComponents(tab.id, { autoSave: true });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_DISABLED) {
-					const tabsData = await singlefile.ui.getPersistentTabsData();
+					const tabsData = await singlefile.storage.get();
 					Object.keys(tabsData).forEach(tabId => tabsData[tabId].autoSave = false);
 					tabsData.autoSaveUnpinned = tabsData.autoSaveAll = false;
-					await singlefile.ui.setPersistentData(tabsData);
+					await singlefile.storage.set(tabsData);
 					refreshExternalComponents(tab.id, { autoSave: false });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_ALL) {
-					const tabsData = await singlefile.ui.getPersistentTabsData();
+					const tabsData = await singlefile.storage.get();
 					tabsData.autoSaveAll = event.checked;
-					await singlefile.ui.setPersistentData(tabsData);
+					await singlefile.storage.set(tabsData);
 					refreshExternalComponents(tab.id, { autoSave: true });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_UNPINNED) {
-					const tabsData = await singlefile.ui.getPersistentTabsData();
+					const tabsData = await singlefile.storage.get();
 					tabsData.autoSaveUnpinned = event.checked;
-					await singlefile.ui.setPersistentData(tabsData);
+					await singlefile.storage.set(tabsData);
 					refreshExternalComponents(tab.id, { autoSave: true });
 				}
 			});
@@ -208,7 +207,7 @@ singlefile.ui.menu = (() => {
 	}
 
 	async function refreshState(tab) {
-		const tabsData = await singlefile.ui.getPersistentTabsData();
+		const tabsData = await singlefile.storage.get();
 		if (BROWSER_MENUS_API_SUPPORTED) {
 			try {
 				const disabled = Boolean(!tabsData[tab.id] || !tabsData[tab.id].autoSave);

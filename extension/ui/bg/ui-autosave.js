@@ -23,7 +23,7 @@
 singlefile.ui.autosave = (() => {
 
 	browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-		const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.ui.getPersistentTabsData()]);
+		const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.storage.get()]);
 		if ((config.autoSaveLoad || config.autoSaveLoadOrUnload) && (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave))) {
 			if (changeInfo.status == "complete") {
 				singlefile.ui.processTab(tab, { autoSave: true });
@@ -52,7 +52,7 @@ singlefile.ui.autosave = (() => {
 	}
 
 	async function isEnabled(tabId) {
-		const tabsData = await singlefile.ui.getPersistentTabsData();
+		const tabsData = await singlefile.storage.get();
 		return tabsData.autoSaveAll || tabsData.autoSaveUnpinned || (tabsData[tabId] && tabsData[tabId].autoSave);
 	}
 

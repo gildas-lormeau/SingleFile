@@ -118,7 +118,7 @@ singlefile.ui.button = (() => {
 	}
 
 	async function refresh(tabId, tabData) {
-		const tabsData = await singlefile.ui.getTemporaryTabsData();
+		const tabsData = await singlefile.storage.getTemporary();
 		if (!tabsData[tabId]) {
 			tabsData[tabId] = {};
 		}
