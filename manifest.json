@@ -32,7 +32,7 @@
 			"run_at": "document_start",
 			"js": [
 				"extension/ui/content/infobar.js",
-				"extension/core/content/content-autosave-unload.js"
+				"extension/core/content/content-autosave.js"
 			],
 			"all_frames": false,
 			"match_about_blank": true
