@@ -57,7 +57,7 @@
 	maxResourceSizeEnabledInput.addEventListener("click", () => maxResourceSizeInput.disabled = !maxResourceSizeEnabledInput.checked, false);
 	autoSaveUnloadInput.addEventListener("click", async () => {
 		autoSaveDelayInput.disabled = autoSaveUnloadInput.checked;
-		await bgPage.singlefile.ui.refreshAutoSaveUnload();
+		await bgPage.singlefile.ui.autosave.refresh();
 	}, false);
 	autoSaveLoadOrUnloadInput.addEventListener("click", async () => {
 		autoSaveUnloadInput.disabled = autoSaveLoadInput.disabled = autoSaveLoadOrUnloadInput.checked;
@@ -67,7 +67,7 @@
 			autoSaveUnloadInput.checked = false;
 			autoSaveLoadInput.checked = true;
 		}
-		await bgPage.singlefile.ui.refreshAutoSaveUnload();
+		await bgPage.singlefile.ui.autosave.refresh();
 	}, false);
 	document.body.onchange = update;
 	refresh();
@@ -137,7 +137,7 @@
 			removeAlternativeFonts: removeAlternativeFontsInput.checked
 		});
 		await pendingSave;
-		await bgPage.singlefile.ui.refreshContextMenu();
+		await bgPage.singlefile.ui.menu.refresh();
 	}
 
 })();

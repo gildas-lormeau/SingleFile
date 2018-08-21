@@ -90,9 +90,9 @@ singlefile.core = (() => {
 		options.autoSave = true;
 		options.onprogress = async event => {
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
-				singlefile.ui.onTabProgress(tabId, event.details.index, event.details.max, { autoSave: true });
+				singlefile.ui.button.onProgress(tabId, event.details.index, event.details.max, { autoSave: true });
 			} else if (event.type == event.PAGE_ENDED) {
-				singlefile.ui.onTabEnd(tabId, { autoSave: true });
+				singlefile.ui.button.onEnd(tabId, { autoSave: true });
 			}
 		};
 		const processor = new (SingleFile.getClass())(options);

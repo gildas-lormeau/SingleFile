@@ -20,24 +20,24 @@
 
 /* global singlefile, frameTree, browser, window, addEventListener, removeEventListener, document, location, docHelper */
 
-this.singlefile.autoSaveUnload = this.singlefile.autoSaveUnload || (async () => {
+this.singlefile.autosave = this.singlefile.autosave || (async () => {
 
 	let listenerAdded, options;
-	refreshAutoSaveUnload();
+	refresh();
 	browser.runtime.onMessage.addListener(message => {
 		if (message.autoSaveUnloadEnabled) {
-			refreshAutoSaveUnload();
+			refresh();
 		}
 	});
-	return true;
+	return {};
 
-	async function refreshAutoSaveUnload() {
+	async function refresh() {
 		const [autoSaveEnabled, config] = await Promise.all([browser.runtime.sendMessage({ isAutoSaveEnabled: true }), browser.runtime.sendMessage({ getConfig: true })]);
 		options = config;
-		enableAutoSaveUnload(autoSaveEnabled && (config.autoSaveUnload || config.autoSaveLoadOrUnload));
+		enable(autoSaveEnabled && (config.autoSaveUnload || config.autoSaveLoadOrUnload));
 	}
 
-	function enableAutoSaveUnload(enabled) {
+	function enable(enabled) {
 		if (enabled) {
 			if (!listenerAdded) {
 				addEventListener("unload", onUnload);
