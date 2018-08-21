@@ -23,19 +23,17 @@
 singlefile.ui = (() => {
 
 	return {
-		processTab
-	};
-
-	async function processTab(tab, options = {}) {
-		const tabId = tab.id;
-		try {
-			singlefile.ui.button.onInitialize(tabId, options, 1);
-			await singlefile.core.processTab(tab, options);
-			singlefile.ui.button.onInitialize(tabId, options, 2);
-		} catch (error) {
-			console.log(error); // eslint-disable-line no-console
-			singlefile.ui.button.onError(tabId, options);
+		async processTab(tab, options = {}) {
+			const tabId = tab.id;
+			try {
+				singlefile.ui.button.onInitialize(tabId, options, 1);
+				await singlefile.core.processTab(tab, options);
+				singlefile.ui.button.onInitialize(tabId, options, 2);
+			} catch (error) {
+				console.log(error); // eslint-disable-line no-console
+				singlefile.ui.button.onError(tabId, options);
+			}
 		}
-	}
+	};
 
 })();
