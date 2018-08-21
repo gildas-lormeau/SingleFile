@@ -14,11 +14,12 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 - Click on the SingleFile button in the extension toolbar to save the page.
 
 ## Additional notes
- - Open the context menu by right-clicking the SingleFile button in the extension toolbar or on the webpage. It allows you to:
-   - save a tab,
-   - or a selected content,
-   - or a frame content,
-   - or selected tabs,
+ - Open the context menu by right-clicking the SingleFile button in the extension toolbar or on the webpage. It allows you to save:
+   - the current tab,
+   - or the selected content,
+   - or the selected frame.
+ - You can also process multiple tabs in one click and save:
+   - selected tabs,
    - or unpinned tabs,
    - or all tabs.
  - The context menu also allows you to activate the auto-save of:
