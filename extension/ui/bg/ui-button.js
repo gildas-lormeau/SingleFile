@@ -125,8 +125,8 @@ singlefile.ui.button = (() => {
 		if (!tabsData[tabId].pendingRefresh) {
 			tabsData[tabId].pendingRefresh = Promise.resolve();
 		}
-		tabsData[tabId].pendingRefresh = tabsData[tabId].pendingRefresh.then(() => refreshAsync(tabId, tabsData, tabData));
 		try {
+			tabsData[tabId].pendingRefresh = tabsData[tabId].pendingRefresh.then(() => refreshAsync(tabId, tabsData, tabData));
 			await tabsData[tabId].pendingRefresh;
 		} catch (error) {
 			/* ignored */
