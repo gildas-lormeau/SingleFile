@@ -60,6 +60,11 @@ singlefile.core = (() => {
 			processBackgroundTab(sender.tab.id, request);
 		}
 	});
+	browser.tabs.onRemoved.addListener(async tabId => {
+		const tabsData = await singlefile.storage.get();
+		delete tabsData[tabId];
+		await singlefile.storage.set(tabsData);
+	});	
 
 	return {
 		async processTab(tab, processOptions = {}) {

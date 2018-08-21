@@ -18,17 +18,12 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, singlefile */
+/* global singlefile */
 
 singlefile.ui = (() => {
 
 	const FORBIDDEN_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
 
-	browser.tabs.onRemoved.addListener(async tabId => {
-		const tabsData = await singlefile.storage.get();
-		delete tabsData[tabId];
-		await singlefile.storage.set(tabsData);
-	});
 	return {
 		processTab,
 		isAllowedURL
