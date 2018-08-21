@@ -81,11 +81,11 @@ singlefile.core = (() => {
 		const options = await singlefile.config.get();
 		options.content = message.content;
 		options.url = message.url;
+		options.framesData = message.framesData;
 		options.canvasData = message.canvasData;
 		options.emptyStyleRulesText = message.emptyStyleRulesText;
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
-		options.removeFrames = true;
 		options.backgroundTab = true;
 		options.autoSave = true;
 		options.onprogress = async event => {

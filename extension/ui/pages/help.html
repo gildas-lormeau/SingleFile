@@ -220,10 +220,12 @@
 				<p>Auto-save</p>
 				<ul>
 					<li>
-						<span class="option">auto-save on page load or on page unload as fallback</span>
+						<span class="option">auto-save on page load or on page </span>
 						<p>Check this option to auto-save pages after being loaded. If you browse to another page before the page is fully loaded
 							then the page will be saved just before being unloaded. With this option active, you are guaranteed pages will always
-							be saved. Pages saved before being unloaded will not contain frame contents (if you unchecked "remove frames").</p>
+							be saved but some frame contents may be missing (if you unchecked "remove frames") when pages are saved before being
+							unloaded.
+						</p>
 					</li>
 					<p class="notice">It is recommended to
 						<u>check</u> this option</p>
@@ -236,14 +238,15 @@
 					<li>
 						<span class="option">auto-save on page unload</span>
 						<p>Check this option to auto-save pages before being unloaded instead of saving pages after being loaded. With this option
-							active, you are guaranteed pages will always be saved but they will never contain frame contents (if you unchecked
-							"remove frames").</p>
+							active, you are guaranteed pages will always be saved but some frame contents may be missing (if you unchecked "remove
+							frames").
+						</p>
 					</li>
 
 					<li>
 						<span class="option">auto-save wait delay after load (sec.)</span>
-						<p>Specify the amount of time in seconds to wait before saving a page when the "auto-save on page load or on page unload
-							as fallback" or "auto-save on page load" is checked.
+						<p>Specify the amount of time in seconds to wait before saving a page when the "auto-save on page load or on page unload"
+							or "auto-save on page load" is checked.
 						</p>
 					</li>
 				</ul>
