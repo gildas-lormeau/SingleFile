@@ -25,7 +25,7 @@ singlefile.core = (() => {
 	const FORBIDDEN_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
 
 	const contentScriptFiles = [
-		"lib/browser-polyfill/custom-browser-polyfill.js",
+		"/lib/browser-polyfill/custom-browser-polyfill.js",
 		"/extension/index.js",
 		"/lib/single-file/doc-helper.js",
 		"/extension/ui/content/content-ui.js",
