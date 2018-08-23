@@ -53,6 +53,7 @@
 			"lib/single-file/doc-helper.js",
 			"lib/single-file/base64.js",
 			"lib/single-file/uglifycss.js",
+			"lib/single-file/css-what.js",
 			"lib/single-file/fonts-minifier.js",
 			"lib/single-file/rules-minifier.js",
 			"lib/single-file/htmlmini.js",
