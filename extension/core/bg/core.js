@@ -68,7 +68,13 @@ singlefile.core = (() => {
 					request.url = URL.createObjectURL(new Blob([request.content], { type: "text/html" }));
 				}
 				return downloadPage(request, { confirmFilename: request.confirmFilename, incognito: sender.tab.incognito })
-					.catch(() => ({ notSupported: true }));
+					.catch(error => {
+						if (error.message && error.message.indexOf("'incognito'")) {
+							return downloadPage(request, { confirmFilename: request.confirmFilename })
+						} else {
+							return { notSupported: true };
+						}
+					});
 			} catch (error) {
 				return Promise.resolve({ notSupported: true });
 			}
@@ -132,12 +138,15 @@ singlefile.core = (() => {
 	}
 
 	async function downloadPage(page, options) {
-		const downloadId = await browser.downloads.download({
+		const downloadInfo = {
 			url: page.url,
 			saveAs: options.confirmFilename,
-			filename: page.filename.replace(/[/\\?%*:|"<>]+/g, "_"),
-			incognito: options.incognito
-		});
+			filename: page.filename.replace(/[/\\?%*:|"<>]+/g, "_")
+		};
+		if (options.incognito) {
+			downloadInfo.incognito = true;
+		}
+		const downloadId = await browser.downloads.download(downloadInfo);
 		return new Promise(resolve => {
 			URL.revokeObjectURL(page.url);
 			browser.downloads.onChanged.addListener(onChanged);
