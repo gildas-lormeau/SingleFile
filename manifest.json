@@ -7,7 +7,7 @@
 		"48": "extension/ui/resources/icon_48.png",
 		"128": "extension/ui/resources/icon_128.png"
 	},
-	"version": "1.4.56",
+	"version": "1.4.57",
 	"description": "Save a complete page into a single HTML file",
 	"content_scripts": [
 		{
