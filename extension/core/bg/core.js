@@ -70,7 +70,7 @@ singlefile.core = (() => {
 				return downloadPage(request, { confirmFilename: request.confirmFilename, incognito: sender.tab.incognito })
 					.catch(error => {
 						if (error.message && error.message.indexOf("'incognito'")) {
-							return downloadPage(request, { confirmFilename: request.confirmFilename })
+							return downloadPage(request, { confirmFilename: request.confirmFilename });
 						} else {
 							return { notSupported: true };
 						}
