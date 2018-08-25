@@ -14,6 +14,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 - Click on the SingleFile button in the extension toolbar to save the page.
 
 ## Additional notes
+ - To save multiple tabs, select them first and click on the SingleFile button.
  - Open the context menu by right-clicking the SingleFile button in the extension toolbar or on the webpage. It allows you to save:
    - the current tab,
    - or the selected content,
@@ -26,10 +27,8 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
    - the current tab,
    - or unpinned tabs,
    - or all tabs.
- - With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not). The period of time to wait before saving the page can be configured in the options page.
- - The options page allows you to auto-save the page after after being loaded or before being unloading only.
+ - With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not).
  - Right-click on the SingleFile button and select "Options" to open the options page.
- - To save multiple tabs, select them first and click on the SingleFile button.
 
 ## More info
 See the extension help in the options page for more detailed information about the options, and technical notes.
