@@ -78,6 +78,15 @@
 		"default_icon": "extension/ui/resources/icon_16.png",
 		"default_title": "Save page with SingleFile"
 	},
+	"commands": {
+		"_execute_browser_action": {
+			"suggested_key": {
+				"windows": "Ctrl+Shift+X",
+				"mac": "Command+Shift+X",
+				"linux": "Ctrl+Shift+X"
+			}
+		}
+	},
 	"permissions": [
 		"contextMenus",
 		"downloads",
