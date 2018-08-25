@@ -29,6 +29,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
    - or all tabs.
  - With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not).
  - Right-click on the SingleFile button and select "Options" to open the options page.
+ - You can use the shortcut Ctrl+Shift+X to save a page in Chrome. Go to chrome://extensions/shortcuts to change it.
 
 ## More info
 See the extension help in the options page for more detailed information about the options, and technical notes.
