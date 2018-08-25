@@ -26,24 +26,37 @@ singlefile.core = (() => {
 
 	const contentScriptFiles = [
 		"/lib/browser-polyfill/custom-browser-polyfill.js",
-		"/extension/index.js",
 		"/lib/single-file/doc-helper.js",
-		"/extension/ui/content/content-ui.js",
 		"/lib/single-file/base64.js",
-		"/lib/single-file/uglifycss.js",
-		"/lib/single-file/css-what.js",
-		"/lib/single-file/parse-css.js",
-		"/lib/single-file/fonts-minifier.js",
-		"/lib/single-file/css-minifier.js",
-		"/lib/single-file/htmlmini.js",
 		"/lib/single-file/parse-srcset.js",
-		"/lib/single-file/lazy-loader.js",
-		"/lib/single-file/serializer.js",
+		"/lib/fetch/content/fetch.js",
 		"/lib/single-file/single-file-core.js",
 		"/lib/single-file/single-file-browser.js",
-		"/lib/fetch/content/fetch.js",
+		"/extension/index.js",
+		"/extension/ui/content/content-ui.js",
 		"/extension/core/content/content.js"
 	];
+
+	const optionalContentScriptFiles = {
+		compressHTML: [
+			"/lib/single-file/htmlmini.js",
+			"/lib/single-file/serializer.js"
+		],
+		compressCSS: [
+			"/lib/single-file/uglifycss.js"
+		],
+		removeAlternativeFonts: [
+			"/lib/single-file/fonts-minifier.js"
+		],
+		removeUnusedStyles: [
+			"/lib/single-file/css-what.js",
+			"/lib/single-file/parse-css.js",
+			"/lib/single-file/css-minifier.js"
+		],
+		lazyLoadImages: [
+			"/lib/single-file/lazy-loader.js",
+		]
+	};
 
 	browser.runtime.onMessage.addListener((request, sender) => {
 		if (request.getConfig) {
@@ -133,7 +146,7 @@ singlefile.core = (() => {
 	}
 
 	async function processStart(tab, options) {
-		await executeScripts(tab.id, contentScriptFiles, { allFrames: false });
+		await executeScripts(tab.id, getContentScriptFiles(options), { allFrames: false });
 		if (options.frameId) {
 			await browser.tabs.sendMessage(tab.id, { processStartFrame: true, options }, { frameId: options.frameId });
 		} else {
@@ -146,6 +159,16 @@ singlefile.core = (() => {
 			details.file = file;
 			await browser.tabs.executeScript(tabId, details);
 		}
+	}
+
+	function getContentScriptFiles(options) {
+		let files = contentScriptFiles;
+		Object.keys(optionalContentScriptFiles).forEach(option => {
+			if (options[option]) {
+				files = optionalContentScriptFiles[option].concat(files);
+			}
+		});
+		return files;
 	}
 
 })();
