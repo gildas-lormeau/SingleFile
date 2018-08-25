@@ -1,6 +1,7 @@
 {
 	"name": "SingleFile",
 	"author": "Gildas Lormeau",
+	"homepage_url": "https://github.com/gildas-lormeau/SingleFile",
 	"icons": {
 		"16": "extension/ui/resources/icon_16.png",
 		"48": "extension/ui/resources/icon_48.png",
@@ -69,6 +70,7 @@
 	},
 	"options_page": "extension/ui/pages/options.html",
 	"options_ui": {
+		"browser_style": true,
 		"page": "extension/ui/pages/options.html",
 		"open_in_tab": false
 	},
