@@ -67,14 +67,14 @@ singlefile.core = (() => {
 				if (request.content) {
 					request.url = URL.createObjectURL(new Blob([request.content], { type: "text/html" }));
 				}
-				return downloadPage(request, { confirmFilename: request.confirmFilename })
+				return downloadPage(request, { confirmFilename: request.confirmFilename, incognito: sender.tab.incognito })
 					.catch(() => ({ notSupported: true }));
 			} catch (error) {
 				return Promise.resolve({ notSupported: true });
 			}
 		}
 		if (request.processContent) {
-			processBackgroundTab(sender.tab.id, request);
+			processBackgroundTab(sender.tab, request);
 		}
 	});
 	browser.tabs.onRemoved.addListener(async tabId => {
@@ -102,7 +102,7 @@ singlefile.core = (() => {
 		}
 	};
 
-	async function processBackgroundTab(tabId, message) {
+	async function processBackgroundTab(tab, message) {
 		const options = await singlefile.config.get();
 		options.content = message.content;
 		options.url = message.url;
@@ -113,11 +113,12 @@ singlefile.core = (() => {
 		options.insertFaviconLink = true;
 		options.backgroundTab = true;
 		options.autoSave = true;
+		options.incognito = tab.incognito;
 		options.onprogress = async event => {
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
-				singlefile.ui.button.onProgress(tabId, event.details.index, event.details.max, { autoSave: true });
+				singlefile.ui.button.onProgress(tab.id, event.details.index, event.details.max, { autoSave: true });
 			} else if (event.type == event.PAGE_ENDED) {
-				singlefile.ui.button.onEnd(tabId, { autoSave: true });
+				singlefile.ui.button.onEnd(tab.id, { autoSave: true });
 			}
 		};
 		const processor = new (SingleFile.getClass())(options);
@@ -131,7 +132,12 @@ singlefile.core = (() => {
 	}
 
 	async function downloadPage(page, options) {
-		const downloadId = await browser.downloads.download({ url: page.url, saveAs: options.confirmFilename, filename: page.filename.replace(/[/\\?%*:|"<>]+/g, "_") });
+		const downloadId = await browser.downloads.download({
+			url: page.url,
+			saveAs: options.confirmFilename,
+			filename: page.filename.replace(/[/\\?%*:|"<>]+/g, "_"),
+			incognito: options.incognito
+		});
 		return new Promise(resolve => {
 			URL.revokeObjectURL(page.url);
 			browser.downloads.onChanged.addListener(onChanged);
