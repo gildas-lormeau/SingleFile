@@ -141,7 +141,7 @@ singlefile.core = (() => {
 		const downloadInfo = {
 			url: page.url,
 			saveAs: options.confirmFilename,
-			filename: page.filename.replace(/[/\\?%*:|"<>]+/g, "_")
+			filename: page.filename.replace(/[/\\?%*:|"<>\x7F]+/g, "_")
 		};
 		if (options.incognito) {
 			downloadInfo.incognito = true;
