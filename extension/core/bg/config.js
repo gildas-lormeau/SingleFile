@@ -23,7 +23,7 @@
 singlefile.config = (() => {
 
 	const DEFAULT_CONFIG = {
-		removeHiddenElements: true,
+		removeHiddenElements: false,
 		removeUnusedStyles: true,
 		removeFrames: true,
 		removeImports: true,
@@ -109,9 +109,6 @@ singlefile.config = (() => {
 		}
 		if (config.removeVideoSrc === undefined) {
 			config.removeVideoSrc = true;
-		}
-		if (config.removeHiddenElements === undefined) {
-			config.removeHiddenElements = true;
 		}
 		if (config.displayInfobar === undefined) {
 			config.displayInfobar = true;
