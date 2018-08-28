@@ -51,6 +51,7 @@ singlefile.core = (() => {
 		removeUnusedStyles: [
 			"/lib/single-file/css-what.js",
 			"/lib/single-file/parse-css.js",
+			"/lib/single-file/rules-matcher.js",
 			"/lib/single-file/css-minifier.js"
 		],
 		lazyLoadImages: [

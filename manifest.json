@@ -57,6 +57,7 @@
 			"lib/single-file/css-what.js",
 			"lib/single-file/parse-css.js",
 			"lib/single-file/fonts-minifier.js",
+			"lib/single-file/rules-matcher.js",
 			"lib/single-file/css-minifier.js",
 			"lib/single-file/htmlmini.js",
 			"lib/single-file/parse-srcset.js",
