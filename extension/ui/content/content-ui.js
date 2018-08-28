@@ -37,8 +37,8 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				maskElement.style.top = "0px";
 				maskElement.style.left = "0px";
 				maskElement.style.height = "100%";
-				maskElement.style.width = "100%";				
-				maskElement.style.zIndex = 2147483647;				
+				maskElement.style.width = "100%";
+				maskElement.style.zIndex = 2147483647;
 				maskElement.style.transition = "opacity 250ms";
 				maskElement.style.willChange = "opacity background-color";
 				const progressBarElement = createElement(PROGRESS_BAR_TAGNAME, maskElement);
@@ -77,7 +77,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	function createElement(tagName, parentElement) {
 		const element = document.createElement(tagName);
 		parentElement.appendChild(element);
-		Array.from(getComputedStyle(element)).forEach(property => element.style[property] = "initial");
+		Array.from(getComputedStyle(element)).forEach(property => element.style.setProperty(property, "initial", "important"));
 		return element;
 	}
 
