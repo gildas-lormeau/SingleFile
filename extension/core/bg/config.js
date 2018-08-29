@@ -127,18 +127,6 @@ singlefile.config = (() => {
 			config.autoSaveLoad = false;
 			config.autoSaveUnload = false;
 		}
-		const platformInfo = await browser.runtime.getPlatformInfo();
-		if (platformInfo.os == "android") {
-			config.backgroundSave = false;
-			config.backgroundSaveDisabled = true;
-			config.autoSaveDelay = 0;
-			config.autoSaveDelayDisabled = true;
-			config.autoSaveUnloadDisabled = true;
-		} else {
-			config.backgroundSaveDisabled = false;
-			config.autoSaveDelayDisabled = false;
-			config.autoSaveUnloadDisabled = false;
-		}
 	}
 
 	return {

@@ -95,15 +95,13 @@
 		displayInfobarInput.checked = config.displayInfobar;
 		displayStatsInput.checked = config.displayStats;
 		backgroundSaveInput.checked = config.backgroundSave;
-		backgroundSaveInput.disabled = config.backgroundSaveDisabled;
 		autoSaveDelayInput.value = config.autoSaveDelay;
-		autoSaveDelayInput.disabled = config.autoSaveDelayDisabled || config.autoSaveUnload;
+		autoSaveDelayInput.disabled = config.autoSaveUnload;
 		autoSaveLoadInput.checked = !config.autoSaveLoadOrUnload && config.autoSaveLoad;
 		autoSaveLoadOrUnloadInput.checked = config.autoSaveLoadOrUnload;
 		autoSaveUnloadInput.checked = !config.autoSaveLoadOrUnload && config.autoSaveUnload;
-		autoSaveUnloadInput.disabled = config.autoSaveUnloadDisabled;
 		autoSaveLoadInput.disabled = config.autoSaveLoadOrUnload;
-		autoSaveUnloadInput.disabled = config.autoSaveUnloadDisabled || config.autoSaveLoadOrUnload;
+		autoSaveUnloadInput.disabled = config.autoSaveLoadOrUnload;
 		removeAlternativeFontsInput.checked = config.removeAlternativeFonts;
 	}
 

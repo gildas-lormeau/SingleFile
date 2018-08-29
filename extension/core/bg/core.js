@@ -149,11 +149,11 @@ singlefile.core = (() => {
 		}
 		const downloadId = await browser.downloads.download(downloadInfo);
 		return new Promise(resolve => {
-			URL.revokeObjectURL(page.url);
 			browser.downloads.onChanged.addListener(onChanged);
 
 			function onChanged(event) {
 				if (event.id == downloadId && event.state && event.state.current == "complete") {
+					URL.revokeObjectURL(page.url);
 					resolve({});
 					browser.downloads.onChanged.removeListener(onChanged);
 				}
