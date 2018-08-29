@@ -162,7 +162,7 @@ singlefile.core = (() => {
 	}
 
 	async function processStart(tab, options) {
-		await executeScripts(tab.id, getContentScriptFiles(options), { allFrames: false });
+		await executeScripts(tab.id, getContentScriptFiles(options), false);
 		if (options.frameId) {
 			await browser.tabs.sendMessage(tab.id, { processStartFrame: true, options }, { frameId: options.frameId });
 		} else {
@@ -170,11 +170,8 @@ singlefile.core = (() => {
 		}
 	}
 
-	async function executeScripts(tabId, scriptFiles, details) {
-		for (let file of scriptFiles) {
-			details.file = file;
-			await browser.tabs.executeScript(tabId, details);
-		}
+	async function executeScripts(tabId, scriptFiles, allFrames) {
+		return Promise.all(scriptFiles.map(file => browser.tabs.executeScript(tabId, { file, allFrames })));
 	}
 
 	function getContentScriptFiles(options) {
