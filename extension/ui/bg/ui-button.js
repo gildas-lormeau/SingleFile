@@ -60,6 +60,17 @@ singlefile.ui.button = (() => {
 			onError(sender.tab.id, request.options);
 		}
 	});
+	if (browser.runtime.onMessageExternal) {
+		browser.runtime.onMessageExternal.addListener(async message => {
+			if (message.method == "enableAutoSave") {
+				setAutoSaveActiveTabEnabled(message.enabled);
+			}
+			if (message.method == "isAutoSaveEnabled") {
+				return isAutoSaveEnabled();
+			}
+		});
+	}
+
 	return {
 		onInitialize,
 		onProgress,
@@ -67,6 +78,32 @@ singlefile.ui.button = (() => {
 		onError,
 		refresh: (tabId, options) => refresh(tabId, getProperties(tabId, options))
 	};
+
+	async function setAutoSaveActiveTabEnabled(enabled) {
+		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
+		const tab = tabs[0];
+		if (tab) {
+			const tabId = tab.id;
+			const tabsData = await singlefile.storage.get();
+			if (!tabsData[tabId]) {
+				tabsData[tabId] = {};
+			}
+			tabsData[tabId].autoSave = enabled;
+			await singlefile.storage.set(tabsData);
+			refresh(tabId, getProperties(tabId, { autoSave: enabled }));
+		}
+	}
+
+	async function isAutoSaveEnabled() {
+		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
+		const tab = tabs[0];
+		if (tab && singlefile.core.isAllowedURL(tab.url)) {
+			const tabId = tab.id;
+			const tabsData = await singlefile.storage.get();
+			return tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tabId] && tabsData[tabId].autoSave);
+		}
+		return false;
+	}
 
 	function onInitialize(tabId, options, step) {
 		refresh(tabId, getProperties(tabId, options, "•••", step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], "Initializing SingleFile (" + step + "/2)"));

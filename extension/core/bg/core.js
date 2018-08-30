@@ -83,31 +83,32 @@ singlefile.core = (() => {
 		if (request.processContent) {
 			processBackgroundTab(sender.tab, request);
 		}
-	});
+	});	
 	browser.tabs.onRemoved.addListener(async tabId => {
 		const tabsData = await singlefile.storage.get();
 		delete tabsData[tabId];
 		await singlefile.storage.set(tabsData);
 	});
 
-	return {
-		async processTab(tab, processOptions = {}) {
-			const options = await singlefile.config.get();
-			Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
-			return new Promise(async (resolve, reject) => {
-				const processPromise = processStart(tab, options);
-				try {
-					await processPromise;
-				} catch (error) {
-					reject(error);
-				}
-				resolve();
-			});
-		},
-		isAllowedURL(url) {
-			return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !FORBIDDEN_URLS.find(storeUrl => url.startsWith(storeUrl));
-		}
-	};
+	return { processTab, isAllowedURL };	
+
+	async function processTab(tab, processOptions) {
+		const options = await singlefile.config.get();
+		Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
+		return new Promise(async (resolve, reject) => {
+			const processPromise = processStart(tab, options);
+			try {
+				await processPromise;
+			} catch (error) {
+				reject(error);
+			}
+			resolve();
+		});
+	}
+
+	function isAllowedURL(url) {
+		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !FORBIDDEN_URLS.find(storeUrl => url.startsWith(storeUrl));
+	}
 
 	async function processBackgroundTab(tab, message) {
 		const options = await singlefile.config.get();
