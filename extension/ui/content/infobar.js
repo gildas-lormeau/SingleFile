@@ -58,9 +58,10 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			infobarElement.style.border = infobarElement.style["-webkit-border-start"] = infobarElement.style["-webkit-border-end"] = infobarElement.style["-webkit-border-before"] = infobarElement.style["-webkit-border-after"] = "2px solid #737373";
 			infobarElement.style.zIndex = 2147483647;
 			infobarElement.style.textAlign = "center";
-			infobarElement.style.transition = "all 250ms";
+			infobarElement.style.transitionProperty = "opacity, padding-left, padding-right, width, background-color, color";
+			infobarElement.style.transitionDuration = "250ms";
 			infobarElement.style.fontFamily = "Arial";
-			infobarElement.style.willChange = "opacity, padding-left, padding-right, width, background-color";
+			infobarElement.style.willChange = "opacity, padding-left, padding-right, width, background-color, color";
 			const linkElement = createElement("a", infobarElement);
 			linkElement.style.display = "inline-block";
 			linkElement.style.paddingLeft = "8px";
@@ -93,15 +94,17 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	}
 
 	function displayInfobar(infobarElement, linkElement, saveDate) {
+		infobarElement.style.fontSize = "15px";
 		infobarElement.style.opacity = 1;
-		infobarElement.onmouseout = null;
-		infobarElement.style.paddingLeft = infobarElement.style.paddingRight = infobarElement.style["-webkit-padding-end"] = infobarElement.style["-webkit-padding-start"] = "16px";
-		infobarElement.textContent = saveDate.split("saved date: ")[1];
 		infobarElement.style.width = "auto";
 		infobarElement.style.backgroundColor = "#f9f9f9";
 		infobarElement.style.cursor = "auto";
+		infobarElement.style.color = "#9aa0a6";
+		infobarElement.style.paddingLeft = infobarElement.style.paddingRight = infobarElement.style["-webkit-padding-end"] = infobarElement.style["-webkit-padding-start"] = "16px";
+		infobarElement.textContent = saveDate.split("saved date: ")[1];
 		infobarElement.appendChild(linkElement);
 		infobarElement.onclick = null;
+		infobarElement.onmouseout = null;
 	}
 
 	function hideInfobar(infobarElement, linkElement, saveDate) {
@@ -111,7 +114,9 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 		infobarElement.style.width = "28px";
 		infobarElement.style.backgroundColor = "#737373";
 		infobarElement.style.cursor = "pointer";
-		infobarElement.textContent = "❔";
+		infobarElement.style.color = "white";
+		infobarElement.style.fontSize = "24px";
+		infobarElement.textContent = "ℹ";
 		infobarElement.onclick = event => {
 			if (event.button === 0) {
 				displayInfobar(infobarElement, linkElement, saveDate);
