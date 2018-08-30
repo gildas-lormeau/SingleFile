@@ -24,11 +24,11 @@ this.singlefile.frame = this.singlefile.frame || (() => {
 
 	if (window != top) {
 		browser.runtime.onMessage.addListener(message => {
-			if (message.processStartFrame) {
+			if (message.saveFrame) {
 				message.options.content = docHelper.serialize(document);
-				message.processStartFrame = null;
+				message.saveFrameFrame = null;
 				message.options.frameId = null;
-				message.processStart = true;
+				message.savePage = true;
 				message.options.url = document.location.href;
 				top.postMessage("__SingleFile__::" + JSON.stringify(message), "*");
 			}

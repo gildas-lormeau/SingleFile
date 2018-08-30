@@ -32,9 +32,9 @@ singlefile.ui.button = (() => {
 		if (singlefile.core.isAllowedURL(tab.url)) {
 			const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
 			if (!tabs.length) {
-				singlefile.ui.processTab(tab);
+				singlefile.ui.saveTab(tab);
 			} else {
-				tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.processTab(tab));
+				tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
 			}
 		}
 	});

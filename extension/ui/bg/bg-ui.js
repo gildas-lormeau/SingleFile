@@ -23,11 +23,15 @@
 singlefile.ui = (() => {
 
 	return {
-		async processTab(tab, options = {}) {
+		async saveTab(tab, options = {}) {
 			const tabId = tab.id;
 			try {
 				singlefile.ui.button.onInitialize(tabId, options, 1);
-				await singlefile.core.processTab(tab, options);
+				if (options.autoSave) {
+					await singlefile.core.autoSaveTab(tab, options);
+				} else {
+					await singlefile.core.saveTab(tab, options);
+				}
 				singlefile.ui.button.onInitialize(tabId, options, 2);
 			} catch (error) {
 				console.log(error); // eslint-disable-line no-console

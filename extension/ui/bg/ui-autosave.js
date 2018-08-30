@@ -21,15 +21,15 @@
 /* global browser, singlefile */
 
 singlefile.ui.autosave = (() => {
-
+	
 	browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 		const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.storage.get()]);
 		if ((config.autoSaveLoad || config.autoSaveLoadOrUnload) && (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave))) {
 			if (changeInfo.status == "complete") {
-				singlefile.ui.processTab(tab, { autoSave: true });
+				singlefile.ui.saveTab(tab, { autoSave: true });
 			}
 		}
-	});
+	});	
 	browser.runtime.onMessage.addListener((request, sender) => {
 		if (request.isAutoSaveEnabled) {
 			return isEnabled(sender.tab.id);

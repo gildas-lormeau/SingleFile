@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window */
+/* global browser, SingleFile, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window, docHelper, location */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
@@ -26,53 +26,62 @@ this.singlefile.top = this.singlefile.top || (() => {
 	let autoSaveTimeout;
 
 	browser.runtime.onMessage.addListener(message => {
-		if (message.processStart) {
+		if (message.savePage) {
 			savePage(message);
+		}
+		if (message.autoSavePage) {
+			autoSavePage();
 		}
 	});
 
 	addEventListener("message", event => {
 		if (typeof event.data == "string" && event.data.startsWith("__SingleFile__::")) {
 			const message = JSON.parse(event.data.substring("__SingleFile__".length + 2));
-			if (message.processStart) {
+			if (message.savePage) {
 				savePage(message);
 			}
 		}
 	});
 	return true;
 
-	async function savePage(message) {
-		const options = message.options;
-		if ((!processing || options.autoSave) && !options.frameId) {
-			if (!autoSaveTimeout && options.autoSave && options.autoSaveDelay) {
-				autoSaveTimeout = setTimeout(() => savePage(message), options.autoSaveDelay * 1000);
+	async function autoSavePage() {
+		const [autoSaveEnabled, options] = await Promise.all([browser.runtime.sendMessage({ isAutoSaveEnabled: true }), browser.runtime.sendMessage({ getConfig: true })]);
+		if (autoSaveEnabled) {
+			if (options.autoSaveDelay && !autoSaveTimeout) {
+				autoSaveTimeout = setTimeout(() => {
+					autoSavePage();
+				}, options.autoSaveDelay * 1000);
 			} else {
-				autoSaveTimeout = null;
-				if (!options.autoSave) {
-					processing = true;
+				const docData = docHelper.preProcessDoc(document, window, options);
+				let framesData = [];
+				if (!options.removeFrames && this.frameTree) {
+					framesData = await frameTree.getAsync(options);
 				}
-				try {
-					const page = await processPage(options);
-					await downloadPage(page, options);
-					revokeDownloadURL(page);
-				} catch (error) {
-					console.error(error); // eslint-disable-line no-console
-					browser.runtime.sendMessage({ processError: true, error, options: { autoSave: options.autoSave } });
-				}
-				if (options.autoSave && options.autoSaveLoadOrUnload) {
-					singlefile.pageAutoSaved = true;
-				}
-				if (!options.autoSave) {
-					processing = false;
-				}
+				browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document, false), canvasData: docData.canvasData, emptyStyleRulesText: docData.emptyStyleRulesText, framesData, url: location.href });
+				docHelper.postProcessDoc(document, window);
+				singlefile.pageAutoSaved = true;
 			}
 		}
 	}
 
-	async function processPage(options) {
-		if (options.shadowEnabled && !options.autoSave) {
-			singlefile.ui.init();
+	async function savePage(message) {
+		const options = message.options;
+		if (!processing && !options.frameId) {
+			processing = true;
+			try {
+				const page = await processPage(options);
+				await downloadPage(page, options);
+				revokeDownloadURL(page);
+			} catch (error) {
+				console.error(error); // eslint-disable-line no-console
+				browser.runtime.sendMessage({ processError: true, error, options: { autoSave: false } });
+			}
+			processing = false;
 		}
+	}
+
+	async function processPage(options) {
+		singlefile.ui.init();
 		const processor = new (SingleFile.getClass())(options);
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
@@ -84,12 +93,12 @@ this.singlefile.top = this.singlefile.top || (() => {
 		options.win = window;
 		options.onprogress = event => {
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
-				browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max, options: { autoSave: options.autoSave } });
-				if (options.shadowEnabled && !options.autoSave) {
+				browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max, options: { autoSave: false } });
+				if (options.shadowEnabled) {
 					singlefile.ui.onprogress(event);
 				}
 			} else if (event.type == event.PAGE_ENDED) {
-				browser.runtime.sendMessage({ processEnd: true, options: { autoSave: options.autoSave } });
+				browser.runtime.sendMessage({ processEnd: true, options: { autoSave: false } });
 			}
 		};
 		if (options.selected) {
@@ -107,7 +116,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		const date = new Date();
 		page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
-		if (options.shadowEnabled && !options.autoSave) {
+		if (options.shadowEnabled) {
 			singlefile.ui.end();
 		}
 		if (options.displayStats) {

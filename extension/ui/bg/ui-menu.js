@@ -147,25 +147,25 @@ singlefile.ui.menu = (() => {
 			refresh();
 			browser.menus.onClicked.addListener(async (event, tab) => {
 				if (event.menuItemId == MENU_ID_SAVE_PAGE) {
-					singlefile.ui.processTab(tab);
+					singlefile.ui.saveTab(tab);
 				}
 				if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
-					singlefile.ui.processTab(tab, { selected: true });
+					singlefile.ui.saveTab(tab, { selected: true });
 				}
 				if (event.menuItemId == MENU_ID_SAVE_FRAME) {
-					singlefile.ui.processTab(tab, { frameId: event.frameId });
+					singlefile.ui.saveTab(tab, { frameId: event.frameId });
 				}
 				if (event.menuItemId == MENU_ID_SAVE_SELECTED_TABS) {
 					const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
-					tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.processTab(tab));
+					tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_SAVE_UNPINNED_TABS) {
 					const tabs = await browser.tabs.query({ currentWindow: true, pinned: false });
-					tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.processTab(tab));
+					tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_SAVE_ALL_TABS) {
 					const tabs = await browser.tabs.query({ currentWindow: true });
-					tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.processTab(tab));
+					tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
 					const tabsData = await singlefile.storage.get();

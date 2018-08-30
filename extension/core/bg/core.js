@@ -83,20 +83,33 @@ singlefile.core = (() => {
 		if (request.processContent) {
 			processBackgroundTab(sender.tab, request);
 		}
-	});	
+	});
 	browser.tabs.onRemoved.addListener(async tabId => {
 		const tabsData = await singlefile.storage.get();
 		delete tabsData[tabId];
 		await singlefile.storage.set(tabsData);
 	});
 
-	return { processTab, isAllowedURL };	
+	return { saveTab, autoSaveTab, isAllowedURL };
 
-	async function processTab(tab, processOptions) {
+	async function saveTab(tab, processOptions) {
 		const options = await singlefile.config.get();
 		Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
 		return new Promise(async (resolve, reject) => {
-			const processPromise = processStart(tab, options);
+			const processPromise = saveStart(tab, options);
+			try {
+				await processPromise;
+			} catch (error) {
+				reject(error);
+			}
+			resolve();
+		});
+	}
+
+	async function autoSaveTab(tab) {
+		const options = await singlefile.config.get();
+		return new Promise(async (resolve, reject) => {
+			const processPromise = autoSaveStart(tab, options);
 			try {
 				await processPromise;
 			} catch (error) {
@@ -162,13 +175,18 @@ singlefile.core = (() => {
 		});
 	}
 
-	async function processStart(tab, options) {
+	async function saveStart(tab, options) {
 		await executeScripts(tab.id, getContentScriptFiles(options), false);
 		if (options.frameId) {
-			await browser.tabs.sendMessage(tab.id, { processStartFrame: true, options }, { frameId: options.frameId });
+			await browser.tabs.sendMessage(tab.id, { saveFrame: true, options }, { frameId: options.frameId });
 		} else {
-			await browser.tabs.sendMessage(tab.id, { processStart: true, options });
+			await browser.tabs.sendMessage(tab.id, { savePage: true, options });
 		}
+	}
+
+	async function autoSaveStart(tab, options) {
+		await executeScripts(tab.id, getContentScriptFiles(options), false);
+		await browser.tabs.sendMessage(tab.id, { autoSavePage: true, options });
 	}
 
 	async function executeScripts(tabId, scriptFiles, allFrames) {
