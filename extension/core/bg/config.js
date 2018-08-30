@@ -99,7 +99,12 @@ singlefile.config = (() => {
 			config.maxResourceSize = 1;
 		}
 		if (config.removeUnusedCSSRules === undefined || config.removeUnusedCSSRules) {
-			config.removeUnusedStyles = true;
+			const platformInfo = await browser.runtime.getPlatformInfo();
+			if (platformInfo.os == "android") {
+				config.removeUnusedStyles = false;
+			} else {
+				config.removeUnusedStyles = true;
+			}
 		}
 		if (config.removeFrames === undefined) {
 			config.removeFrames = true;
@@ -121,7 +126,7 @@ singlefile.config = (() => {
 		}
 		if (config.removeAlternativeFonts === undefined) {
 			config.removeAlternativeFonts = true;
-		}		
+		}
 		if (config.autoSaveLoadOrUnload === undefined && !config.autoSaveUnload) {
 			config.autoSaveLoadOrUnload = true;
 			config.autoSaveLoad = false;
