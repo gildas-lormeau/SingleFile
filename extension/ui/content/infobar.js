@@ -61,8 +61,6 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			infobarElement.style.setProperty("-webkit-border-after", "2px solid #737373", "important");
 			infobarElement.style.setProperty("z-index", 2147483647, "important");
 			infobarElement.style.setProperty("text-align", "center", "important");
-			infobarElement.style.setProperty("transition-property", "opacity, padding-left, padding-right, width, background-color, color", "important");
-			infobarElement.style.setProperty("transition-duration", "250ms", "important");
 			infobarElement.style.setProperty("font-family", "Arial", "important");
 			infobarElement.style.setProperty("will-change", "opacity, padding-left, padding-right, width, background-color, color", "important");
 			const linkElement = createElement("a", infobarElement);
@@ -94,6 +92,10 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 						hideInfobar(infobarElement, linkElement, saveDate);
 					}
 				}
+			});
+			setTimeout(() => {
+				infobarElement.style.setProperty("transition-property", "opacity, padding-left, padding-right, width, background-color, color", "important");
+				infobarElement.style.setProperty("transition-duration", "250ms", "important");
 			});
 		}
 	}
