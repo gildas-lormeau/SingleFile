@@ -30,29 +30,29 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			let maskElement = document.querySelector(MASK_TAGNAME);
 			if (!maskElement) {
 				maskElement = createElement(MASK_TAGNAME, document.body);
-				maskElement.style.opacity = 0;
-				maskElement.style.backgroundColor = "transparent";
+				maskElement.style.setProperty("opacity", 0, "important");
+				maskElement.style.setProperty("background-color", "transparent", "important");
 				maskElement.offsetWidth;
-				maskElement.style.position = "fixed";
-				maskElement.style.top = "0px";
-				maskElement.style.left = "0px";
-				maskElement.style.height = "100%";
-				maskElement.style.width = "100%";
-				maskElement.style.zIndex = 2147483647;
-				maskElement.style.transition = "opacity 250ms";
-				maskElement.style.willChange = "opacity background-color";
+				maskElement.style.setProperty("position", "fixed", "important");
+				maskElement.style.setProperty("top", "0", "important");
+				maskElement.style.setProperty("left", "0", "important");
+				maskElement.style.setProperty("width", "100%", "important");
+				maskElement.style.setProperty("height", "100%", "important");
+				maskElement.style.setProperty("z-index", 2147483647, "important");
+				maskElement.style.setProperty("transition", "opacity 250ms", "important");
+				maskElement.style.setProperty("will-change", "opacity, background-color", "important");
 				const progressBarElement = createElement(PROGRESS_BAR_TAGNAME, maskElement);
-				progressBarElement.style.position = "fixed";
-				progressBarElement.style.top = "0px";
-				progressBarElement.style.left = "0px";
-				progressBarElement.style.height = "8px";
-				progressBarElement.style.width = "0%";
-				progressBarElement.style.backgroundColor = "white";
-				progressBarElement.style.transition = "width 50ms";
-				progressBarElement.style.willChange = "width";
+				progressBarElement.style.setProperty("background-color", "white", "important");
+				progressBarElement.style.setProperty("position", "fixed", "important");
+				progressBarElement.style.setProperty("top", "0", "important");
+				progressBarElement.style.setProperty("left", "0", "important");
+				progressBarElement.style.setProperty("width", "0", "important");
+				progressBarElement.style.setProperty("height", "8px", "important");
+				progressBarElement.style.setProperty("transition", "width 10ms", "important");
+				progressBarElement.style.setProperty("will-change", "width", "important");
 				maskElement.offsetWidth;
-				maskElement.style.backgroundColor = "black";
-				maskElement.style.opacity = .3;
+				maskElement.style.setProperty("background-color", "black", "important");
+				maskElement.style.setProperty("opacity", .3, "important");
 				document.body.offsetWidth;
 			}
 		},
@@ -61,7 +61,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			if (progressBarElement && event.details.max) {
 				const width = Math.floor((event.details.index / event.details.max) * 100) + "%";
 				if (progressBarElement.style.width != width) {
-					progressBarElement.style.width = Math.floor((event.details.index / event.details.max) * 100) + "%";
+					progressBarElement.style.setProperty("width", Math.floor((event.details.index / event.details.max) * 100) + "%", "important");
 					progressBarElement.offsetWidth;
 				}
 			}
