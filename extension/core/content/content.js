@@ -85,7 +85,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 		const processor = new (SingleFile.getClass())(options);
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
-		options.jsEnabled = true;
 		if (!options.removeFrames && this.frameTree) {
 			options.framesData = await frameTree.getAsync(options);
 		}
