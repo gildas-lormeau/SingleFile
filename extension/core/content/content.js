@@ -57,7 +57,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 				if (!options.removeFrames && this.frameTree) {
 					framesData = await frameTree.getAsync(options);
 				}
-				browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document, false), canvasData: docData.canvasData, emptyStyleRulesText: docData.emptyStyleRulesText, framesData, url: location.href });
+				browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document, false), canvasData: docData.canvasData, stylesheetContents: docData.stylesheetContents, framesData, url: location.href });
 				docHelper.postProcessDoc(document, window);
 				singlefile.pageAutoSaved = true;
 			}

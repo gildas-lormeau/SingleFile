@@ -52,7 +52,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 	function onUnload() {
 		if (!singlefile.pageAutoSaved) {
 			const docData = docHelper.preProcessDoc(document, window, options);
-			browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document), canvasData: docData.canvasData, emptyStyleRulesText: docData.emptyStyleRulesText, framesData: this.frameTree && !options.removeFrames && frameTree.getSync(options), url: location.href });
+			browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document), canvasData: docData.canvasData, stylesheetContents: docData.stylesheetContents, framesData: this.frameTree && !options.removeFrames && frameTree.getSync(options), url: location.href });
 		}
 	}
 

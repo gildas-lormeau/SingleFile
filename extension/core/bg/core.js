@@ -129,7 +129,7 @@ singlefile.core = (() => {
 		options.url = message.url;
 		options.framesData = message.framesData;
 		options.canvasData = message.canvasData;
-		options.emptyStyleRulesText = message.emptyStyleRulesText;
+		options.stylesheetContents = message.stylesheetContents;
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		options.backgroundTab = true;
