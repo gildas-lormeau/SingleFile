@@ -62,7 +62,9 @@
 							<li>or all tabs.</li>
 						</ul>
 					</li>
-					<li>With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not).</li>
+					<li>With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if
+						not).
+					</li>
 					<li>Right-click on the SingleFile button and select "Options" to open the options page.</li>
 					<li>You can use the shortcut Ctrl+Shift+X to save current or selected tabs in Chrome. Go to
 						<a href="chrome://extensions/shortcuts">chrome://extensions/shortcuts</a> to change it.</li>
@@ -71,14 +73,16 @@
 			<li>
 				<a id="options">Options description</a>
 				<p>You can customize SingleFile through the options page. Right-click on SingleFile button
-					<img src="../resources/icon_16.png" class="icon"> in the browser toolbar and select "Options"/"Manage extension" in the context menu to open the options page.</p>
+					<img src="../resources/icon_16.png" class="icon"> in the browser toolbar and select "Options"/"Manage extension" in
+					the context menu to open the options page.</p>
 				<p>User interface</p>
 				<ul>
 					<li>
 						<span class="option">add entry in the context menu of the webpage</span>
-						<p>Check this option to display an entry for SingleFile in the context menu of the webpage. The context menu of the SingleFile
-							button
-							<img src="../resources/icon_16.png" class="icon"> in the extension toolbar is displayed wether this option is checked or not.
+						<p>Check this option to display an entry for SingleFile in the context menu of the webpage. The context menu of the
+							SingleFile button
+							<img src="../resources/icon_16.png" class="icon"> in the extension toolbar is displayed wether this option is checked
+							or not.
 						</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
@@ -86,8 +90,8 @@
 
 					<li>
 						<span class="option">overlay a shadow on the page during processing</span>
-						<p>Check this option to overlay a shadow on the page when SingleFile is retrieving page resources. This reminds you that
-							you should not close the tab.
+						<p>Check this option to overlay a shadow on the page when SingleFile is retrieving page resources. This reminds you
+							that you should not close the tab.
 						</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
@@ -125,16 +129,16 @@
 				<ul>
 					<li>
 						<span class="option">compress HTML</span>
-						<p>Check this option to remove all HTML comments, and unneeded spaces or returns. This helps to reduce the size of the
-							file without altering the document.</p>
+						<p>Check this option to remove all HTML comments, and unneeded spaces or returns. This helps to reduce the size of
+							the file without altering the document.</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
 					</li>
 
 					<li>
 						<span class="option">remove HTML import</span>
-						<p>Check this option to remove all link elements used to import HTML documents. This can reduce the size of the file without
-							altering the document most of the time.</p>
+						<p>Check this option to remove all link elements used to import HTML documents. This can reduce the size of the file
+							without altering the document most of the time.</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
 					</li>
@@ -149,8 +153,8 @@
 
 					<li>
 						<span class="option">remove hidden elements</span>
-						<p>Check this option to remove all hidden elements. This option can considerably reduce the size of the file without altering
-							the document most of the time.</p>
+						<p>Check this option to remove all hidden elements. This option can considerably reduce the size of the file without
+							altering the document most of the time.</p>
 					</li>
 
 					<li>
@@ -200,17 +204,18 @@
 					</li>
 
 					<li>
-						<span class="option">remove alternative fonts to woff and unused font rules</span>
-						<p>Check this option to remove fonts that are alternatives to the Web Open Font Format and CSS font rules that are not
-							used. Checking this this option should not alter the document and can considerably reduce the size of the file.</p>
+						<span class="option">remove alternative fonts to woff/otf and unused font rules</span>
+						<p>Check this option to remove fonts that are alternatives to the Web Open Font or OpenType formats, and CSS font rules
+							that are not used. Checking this this option should not alter the document and can considerably reduce the size of
+							the file.</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
 					</li>
 
 					<li>
 						<span class="option">save lazy loaded images</span>
-						<p>Check this option to save all the lazy loaded images that are not displayed. This may help to save all the images without
-							scrolling the page. This feature is not guaranteed to work on all sites.</p>
+						<p>Check this option to save all the lazy loaded images that are not displayed. This may help to save all the images
+							without scrolling the page. This feature is not guaranteed to work on all sites.</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
 					</li>
@@ -225,10 +230,10 @@
 				<ul>
 					<li>
 						<span class="option">auto-save on page load or on page </span>
-						<p>Check this option to auto-save pages after being loaded. If you browse to another page before the page is fully loaded
-							then the page will be saved just before being unloaded. With this option active, you are guaranteed pages will always
-							be saved but some frame contents may be missing (if you unchecked "remove frames") when pages are saved before being
-							unloaded.
+						<p>Check this option to auto-save pages after being loaded. If you browse to another page before the page is fully
+							loaded then the page will be saved just before being unloaded. With this option active, you are guaranteed pages will
+							always be saved but some frame contents may be missing (if you unchecked "remove frames") when pages are saved before
+							being unloaded.
 						</p>
 					</li>
 					<p class="notice">It is recommended to
@@ -241,9 +246,9 @@
 
 					<li>
 						<span class="option">auto-save on page unload</span>
-						<p>Check this option to auto-save pages before being unloaded instead of saving pages after being loaded. With this option
-							active, you are guaranteed pages will always be saved but some frame contents may be missing (if you unchecked "remove
-							frames").
+						<p>Check this option to auto-save pages before being unloaded instead of saving pages after being loaded. With this
+							option active, you are guaranteed pages will always be saved but some frame contents may be missing (if you unchecked
+							"remove frames").
 						</p>
 					</li>
 
@@ -268,8 +273,8 @@
 
 					<li>
 						<span class="option">display stats in the console after processing</span>
-						<p>Check this option to display stats about processing in the JavaScript developer tools of your browser. Checking this
-							option may increase the CPU consumption and the time needed to process a page.
+						<p>Check this option to display stats about processing in the JavaScript developer tools of your browser. Checking
+							this option may increase the CPU consumption and the time needed to process a page.
 						</p>
 						<p class="notice">It is recommended to
 							<u>uncheck</u> this option</p>
@@ -310,11 +315,11 @@
 					<li>
 						Chrome/Opera
 						<ul>
-							<li>You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a
-								saved page, or to save a page stored on the filesystem.</li>
-							<li>If saved pages have file names like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1" instead of the title then it means another
-								extension is conflicting with SingleFile. You can uncheck the option "save pages in background" to circumvent this
-								issue.
+							<li>You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing
+								a saved page, or to save a page stored on the filesystem.</li>
+							<li>If saved pages have file names like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1" instead of the title then it means
+								another extension is conflicting with SingleFile. You can uncheck the option "save pages in background" to circumvent
+								this issue.
 							</li>
 						</ul>
 					</li>
@@ -341,7 +346,8 @@
 					<li>If resetting options did not fix the issue, try to disable all other extensions to see if there is a conflict.</li>
 					<li>If there is a conflict then try to determine against which extension(s).</li>
 					<li>Please report the issue
-						<a href="https://github.com/gildas-lormeau/SingleFile/issues">here</a> with a short description describing how to reproduce the issue, Browser version, OS name and version.</li>
+						<a href="https://github.com/gildas-lormeau/SingleFile/issues">here</a> with a short description describing how to reproduce
+						the issue, Browser version, OS name and version.</li>
 				</ul>
 				<p>Suggestions are welcome :)</p>
 			</li>
