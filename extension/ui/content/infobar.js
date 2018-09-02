@@ -28,8 +28,8 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 
 	if (window == top) {
 		document.addEventListener("DOMContentLoaded", async () => {
-			const singleFileComment = document.documentElement.childNodes[0];
-			if (singleFileComment.nodeType == Node.COMMENT_NODE && singleFileComment.textContent.includes(SINGLEFILE_COMMENT)) {
+			const singleFileComment = findSingleFileComment();
+			if (singleFileComment) {
 				const info = singleFileComment.textContent.split("\n");
 				const [, , url, saveDate] = info;
 				const config = await browser.runtime.sendMessage({ getConfig: true });
@@ -40,6 +40,10 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 		});
 	}
 	return true;
+
+	function findSingleFileComment(node = document.documentElement) {
+		return node.childNodes && node.childNodes.length ? Array.from(node.childNodes).find(findSingleFileComment) : node.nodeType == Node.COMMENT_NODE && node.textContent.includes(SINGLEFILE_COMMENT);
+	}
 
 	function initInfobar(url, saveDate) {
 		let infobarElement = document.querySelector(INFOBAR_TAGNAME);
