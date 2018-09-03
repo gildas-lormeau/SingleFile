@@ -38,8 +38,7 @@ See the extension help in the options page for more detailed information about t
 - All browsers:
   - For security reasons, you cannot save pages hosted on https://chrome.google.com or https://addons.mozilla.org.
 - Chrome/Opera:
-  - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
-  - If saved pages have file names like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1" instead of the title then it means another extension is conflicting with SingleFile. You can uncheck the option "save pages in background" to circumvent this issue.
+  - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.  
 - Firefox:
   - You cannot save selected tabs via the context menu because it is not possible to select multiple tabs.
 - Edge:
