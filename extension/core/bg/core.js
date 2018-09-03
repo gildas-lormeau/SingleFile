@@ -36,6 +36,14 @@ singlefile.core = (() => {
 		"/extension/ui/content/content-ui.js",
 		"/extension/core/content/content.js"
 	];
+	const frameScriptFiles = [
+		"/lib/browser-polyfill/custom-browser-polyfill.js",
+		"/extension/index.js",
+		"/lib/single-file/doc-helper.js",
+		"/lib/single-file/timeout.js",
+		"/lib/single-file/frame-tree.js",
+		"/extension/core/content/content-frame.js"
+	];
 
 	const optionalContentScriptFiles = {
 		compressHTML: [
@@ -183,6 +191,9 @@ singlefile.core = (() => {
 	}
 
 	async function saveStart(tab, options) {
+		if (!options.removeFrames) {
+			await executeScripts(tab.id, frameScriptFiles, true);
+		}
 		await executeScripts(tab.id, getContentScriptFiles(options), false);
 		if (options.frameId) {
 			await browser.tabs.sendMessage(tab.id, { saveFrame: true, options }, { frameId: options.frameId });
