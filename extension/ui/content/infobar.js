@@ -27,22 +27,35 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	const SINGLEFILE_COMMENT = "Archive processed by SingleFile";
 
 	if (window == top) {
-		document.addEventListener("DOMContentLoaded", async () => {
-			const singleFileComment = findSingleFileComment();
-			if (singleFileComment) {
-				const info = singleFileComment.textContent.split("\n");
-				const [, , url, saveDate] = info;
-				const config = await browser.runtime.sendMessage({ getConfig: true });
-				if (config.displayInfobar) {
-					initInfobar(url, saveDate);
-				}
-			}
-		});
+		if (document.readyState == "loading") {
+			document.addEventListener("DOMContentLoaded", displayIcon, false);
+		} else {
+			displayIcon();
+		}
 	}
 	return true;
 
+	async function displayIcon() {
+		let singleFileComment = document.documentElement.childNodes[0];
+		if (!isInfobar(singleFileComment)) {
+			singleFileComment = findSingleFileComment();
+		}
+		if (singleFileComment) {
+			const info = singleFileComment.textContent.split("\n");
+			const [, , url, saveDate] = info;
+			const config = await browser.runtime.sendMessage({ getConfig: true });
+			if (config.displayInfobar) {
+				initInfobar(url, saveDate);
+			}
+		}
+	}
+
 	function findSingleFileComment(node = document.documentElement) {
-		return node.childNodes && node.childNodes.length ? Array.from(node.childNodes).find(findSingleFileComment) : node.nodeType == Node.COMMENT_NODE && node.textContent.includes(SINGLEFILE_COMMENT);
+		return node.childNodes && node.childNodes.length ? Array.from(node.childNodes).find(findSingleFileComment) : isInfobar(node);
+	}
+
+	function isInfobar(node) {
+		return node.nodeType == Node.COMMENT_NODE && node.textContent.includes(SINGLEFILE_COMMENT);
 	}
 
 	function initInfobar(url, saveDate) {
