@@ -93,3 +93,9 @@ a {
     padding-top: 24px;
     padding-right: 12px;
 }
+
+@media (max-width:400px) {
+    body {
+        font-size: 11px;
+    }
+}
