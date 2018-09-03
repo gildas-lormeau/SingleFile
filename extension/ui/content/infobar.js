@@ -37,7 +37,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 
 	async function displayIcon() {
 		let singleFileComment = document.documentElement.childNodes[0];
-		if (!isInfobar(singleFileComment)) {
+		if (!isSingleFileComment(singleFileComment)) {
 			singleFileComment = findSingleFileComment();
 		}
 		if (singleFileComment) {
@@ -51,10 +51,10 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	}
 
 	function findSingleFileComment(node = document.documentElement) {
-		return node.childNodes && node.childNodes.length ? Array.from(node.childNodes).find(findSingleFileComment) : isInfobar(node);
+		return node.childNodes && node.childNodes.length ? Array.from(node.childNodes).find(findSingleFileComment) : isSingleFileComment(node);
 	}
 
-	function isInfobar(node) {
+	function isSingleFileComment(node) {
 		return node.nodeType == Node.COMMENT_NODE && node.textContent.includes(SINGLEFILE_COMMENT);
 	}
 
