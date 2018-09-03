@@ -47,7 +47,8 @@ singlefile.config = (() => {
 		autoSaveLoad: false,
 		autoSaveUnload: false,
 		autoSaveLoadOrUnload: true,
-		removeAlternativeFonts: true
+		removeAlternativeFonts: true,
+		removeSrcSet: false
 	};
 
 	let pendingUpgradePromise;
