@@ -71,11 +71,6 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			infobarElement.style.setProperty("height", "auto", "important");
 			infobarElement.style.setProperty("line-height", "28px", "important");
 			infobarElement.style.setProperty("border-radius", "16px", "important");
-			infobarElement.style.setProperty("border", "2px solid #737373", "important");
-			infobarElement.style.setProperty("-webkit-border-start", "2px solid #737373", "important");
-			infobarElement.style.setProperty("-webkit-border-before", "2px solid #737373", "important");
-			infobarElement.style.setProperty("-webkit-border-end", "2px solid #737373", "important");
-			infobarElement.style.setProperty("-webkit-border-after", "2px solid #737373", "important");
 			infobarElement.style.setProperty("z-index", 2147483647, "important");
 			infobarElement.style.setProperty("text-align", "center", "important");
 			infobarElement.style.setProperty("font-family", "Arial", "important");
@@ -128,6 +123,11 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 		infobarElement.style.setProperty("padding-right", "16px", "important");
 		infobarElement.style.setProperty("-webkit-padding-start", "16px", "important");
 		infobarElement.style.setProperty("-webkit-padding-end", "16px", "important");
+		infobarElement.style.setProperty("border", "2px solid #555", "important");
+		infobarElement.style.setProperty("-webkit-border-start", "2px solid #555", "important");
+		infobarElement.style.setProperty("-webkit-border-before", "2px solid #555", "important");
+		infobarElement.style.setProperty("-webkit-border-end", "2px solid #555", "important");
+		infobarElement.style.setProperty("-webkit-border-after", "2px solid #555", "important");
 		infobarElement.textContent = saveDate.split("saved date: ")[1];
 		infobarElement.appendChild(linkElement);
 		infobarElement.onclick = null;
@@ -146,6 +146,11 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 		infobarElement.style.setProperty("padding-right", 0, "important");
 		infobarElement.style.setProperty("-webkit-padding-start", 0, "important");
 		infobarElement.style.setProperty("-webkit-padding-end", 0, "important");
+		infobarElement.style.setProperty("border", "2px solid #eee", "important");
+		infobarElement.style.setProperty("-webkit-border-start", "2px solid #eee", "important");
+		infobarElement.style.setProperty("-webkit-border-before", "2px solid #eee", "important");
+		infobarElement.style.setProperty("-webkit-border-end", "2px solid #eee", "important");
+		infobarElement.style.setProperty("-webkit-border-after", "2px solid #eee", "important");
 		infobarElement.textContent = "ℹ";
 		infobarElement.onclick = event => {
 			if (event.button === 0) {
