@@ -162,14 +162,21 @@ singlefile.core = (() => {
 			downloadInfo.incognito = true;
 		}
 		const downloadId = await browser.downloads.download(downloadInfo);
-		return new Promise(resolve => {
+		return new Promise((resolve, reject) => {
 			browser.downloads.onChanged.addListener(onChanged);
 
 			function onChanged(event) {
-				if (event.id == downloadId && event.state && event.state.current == "complete") {
-					URL.revokeObjectURL(page.url);
-					resolve({});
-					browser.downloads.onChanged.removeListener(onChanged);
+				if (event.id == downloadId && event.state) {
+					if (event.state.current == "complete") {
+						URL.revokeObjectURL(page.url);
+						resolve({});
+						browser.downloads.onChanged.removeListener(onChanged);
+					}
+					if (event.state.current == "interrupted") {
+						URL.revokeObjectURL(page.url);
+						reject(new Error(event.state.current));
+						browser.downloads.onChanged.removeListener(onChanged);
+					}
 				}
 			}
 		});
