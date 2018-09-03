@@ -22,22 +22,45 @@
 
 this.singlefile.autosave = this.singlefile.autosave || (async () => {
 
-	let listenerAdded, options;
+	let listenerAdded, options, autoSaveTimeout;
 	refresh();
 	browser.runtime.onMessage.addListener(message => {
+		if (message.autoSavePage) {
+			autoSavePage();
+		}
 		if (message.autoSaveUnloadEnabled) {
 			refresh();
 		}
 	});
 	return {};
 
+	async function autoSavePage() {
+		const [autoSaveEnabled, options] = await Promise.all([browser.runtime.sendMessage({ isAutoSaveEnabled: true }), browser.runtime.sendMessage({ getConfig: true })]);
+		if (autoSaveEnabled) {
+			if (options.autoSaveDelay && !autoSaveTimeout) {
+				autoSaveTimeout = setTimeout(() => {
+					autoSavePage();
+				}, options.autoSaveDelay * 1000);
+			} else {
+				const docData = docHelper.preProcessDoc(document, window, options);
+				let framesData = [];
+				if (!options.removeFrames && this.frameTree) {
+					framesData = await frameTree.getAsync(options);
+				}
+				browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document, false), canvasData: docData.canvasData, stylesheetContents: docData.stylesheetContents, framesData, url: location.href });
+				docHelper.postProcessDoc(document, window);
+				singlefile.pageAutoSaved = true;
+			}
+		}
+	}
+
 	async function refresh() {
 		const [autoSaveEnabled, config] = await Promise.all([browser.runtime.sendMessage({ isAutoSaveEnabled: true }), browser.runtime.sendMessage({ getConfig: true })]);
 		options = config;
-		enable(autoSaveEnabled && (config.autoSaveUnload || config.autoSaveLoadOrUnload));
+		enableAutoSaveUnload(autoSaveEnabled && (config.autoSaveUnload || config.autoSaveLoadOrUnload));
 	}
 
-	function enable(enabled) {
+	function enableAutoSaveUnload(enabled) {
 		if (enabled) {
 			if (!listenerAdded) {
 				addEventListener("unload", onUnload);

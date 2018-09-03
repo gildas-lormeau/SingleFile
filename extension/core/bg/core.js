@@ -203,7 +203,6 @@ singlefile.core = (() => {
 	}
 
 	async function autoSaveStart(tab, options) {
-		await executeScripts(tab.id, getContentScriptFiles(options), false);
 		await browser.tabs.sendMessage(tab.id, { autoSavePage: true, options });
 	}
 

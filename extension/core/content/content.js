@@ -18,19 +18,15 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window, docHelper, location */
+/* global browser, SingleFile, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
 	let processing = false;
-	let autoSaveTimeout;
 
 	browser.runtime.onMessage.addListener(message => {
 		if (message.savePage) {
 			savePage(message);
-		}
-		if (message.autoSavePage) {
-			autoSavePage();
 		}
 	});
 
@@ -43,26 +39,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 		}
 	});
 	return true;
-
-	async function autoSavePage() {
-		const [autoSaveEnabled, options] = await Promise.all([browser.runtime.sendMessage({ isAutoSaveEnabled: true }), browser.runtime.sendMessage({ getConfig: true })]);
-		if (autoSaveEnabled) {
-			if (options.autoSaveDelay && !autoSaveTimeout) {
-				autoSaveTimeout = setTimeout(() => {
-					autoSavePage();
-				}, options.autoSaveDelay * 1000);
-			} else {
-				const docData = docHelper.preProcessDoc(document, window, options);
-				let framesData = [];
-				if (!options.removeFrames && this.frameTree) {
-					framesData = await frameTree.getAsync(options);
-				}
-				browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document, false), canvasData: docData.canvasData, stylesheetContents: docData.stylesheetContents, framesData, url: location.href });
-				docHelper.postProcessDoc(document, window);
-				singlefile.pageAutoSaved = true;
-			}
-		}
-	}
 
 	async function savePage(message) {
 		const options = message.options;
