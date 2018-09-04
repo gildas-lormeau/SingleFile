@@ -47,7 +47,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 				if (!options.removeFrames && this.frameTree) {
 					framesData = await frameTree.getAsync(options);
 				}
-				browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document, false), canvasData: docData.canvasData, stylesheetContents: docData.stylesheetContents, framesData, url: location.href });
+				browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document, false), canvasData: docData.canvasData, stylesheetContents: docData.stylesheetContents, currentSrcImages: docData.currentSrcImages, framesData, url: location.href });
 				docHelper.postProcessDoc(document, window);
 				singlefile.pageAutoSaved = true;
 			}
@@ -75,7 +75,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 	function onUnload() {
 		if (!singlefile.pageAutoSaved) {
 			const docData = docHelper.preProcessDoc(document, window, options);
-			browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document), canvasData: docData.canvasData, stylesheetContents: docData.stylesheetContents, framesData: this.frameTree && !options.removeFrames && frameTree.getSync(options), url: location.href });
+			browser.runtime.sendMessage({ processContent: true, content: docHelper.serialize(document), canvasData: docData.canvasData, stylesheetContents: docData.stylesheetContents, currentSrcImages: docData.currentSrcImages, framesData: this.frameTree && !options.removeFrames && frameTree.getSync(options), url: location.href });
 		}
 	}
 
