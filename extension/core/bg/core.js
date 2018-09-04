@@ -138,7 +138,7 @@ singlefile.core = (() => {
 		options.framesData = message.framesData;
 		options.canvasData = message.canvasData;
 		options.stylesheetContents = message.stylesheetContents;
-		options.currentSrcImages = message.currentSrcImages;
+		options.imageData = message.imageData;
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		options.backgroundTab = true;
