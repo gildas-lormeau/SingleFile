@@ -82,6 +82,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 				options.selected = false;
 			}
 		}
+		if (options.lazyLoadImages) {
+			await lazyLoadResources();
+		}
 		await processor.initialize();
 		await processor.preparePageData();
 		const page = processor.getPageData();
@@ -99,6 +102,21 @@ this.singlefile.top = this.singlefile.top || (() => {
 			console.table(page.stats); // eslint-disable-line no-console
 		}
 		return page;
+	}
+
+	async function lazyLoadResources() {
+		const scriptURL = browser.runtime.getURL("lib/single-file/lazy-loader-before.js");
+		const scriptElement = document.createElement("script");
+		scriptElement.src = scriptURL;
+		document.body.appendChild(scriptElement);
+		const promise = new Promise(resolve => scriptElement.onload = () => setTimeout(() => {
+			const scriptURL = browser.runtime.getURL("lib/single-file/lazy-loader-after.js");
+			const scriptElement = document.createElement("script");
+			scriptElement.src = scriptURL;
+			document.body.appendChild(scriptElement);
+			resolve();
+		}, 100));
+		return promise;
 	}
 
 	function revokeDownloadURL(page) {
