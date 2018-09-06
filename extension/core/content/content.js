@@ -109,13 +109,16 @@ this.singlefile.top = this.singlefile.top || (() => {
 		const scriptElement = document.createElement("script");
 		scriptElement.src = scriptURL;
 		document.body.appendChild(scriptElement);
-		const promise = new Promise(resolve => scriptElement.onload = () => setTimeout(() => {
-			const scriptURL = browser.runtime.getURL("lib/single-file/lazy-loader-after.js");
-			const scriptElement = document.createElement("script");
-			scriptElement.src = scriptURL;
-			document.body.appendChild(scriptElement);
-			resolve();
-		}, 100));
+		const promise = new Promise(resolve => {
+			scriptElement.onerror = resolve;
+			scriptElement.onload = () => setTimeout(() => {
+				const scriptURL = browser.runtime.getURL("lib/single-file/lazy-loader-after.js");
+				const scriptElement = document.createElement("script");
+				scriptElement.src = scriptURL;
+				document.body.appendChild(scriptElement);
+				resolve();
+			}, 100);
+		});
 		return promise;
 	}
 
