@@ -56,12 +56,12 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				document.body.offsetWidth;
 			}
 		},
-		onprogress(event) {
+		onprogress(index, maxIndex) {
 			const progressBarElement = document.querySelector(PROGRESS_BAR_TAGNAME);
-			if (progressBarElement && event.details.max) {
-				const width = Math.floor((event.details.index / event.details.max) * 100) + "%";
+			if (progressBarElement && maxIndex) {
+				const width = Math.floor((index / maxIndex) * 100) + "%";
 				if (progressBarElement.style.width != width) {
-					progressBarElement.style.setProperty("width", Math.floor((event.details.index / event.details.max) * 100) + "%", "important");
+					progressBarElement.style.setProperty("width", Math.floor((index / maxIndex) * 100) + "%", "important");
 					progressBarElement.offsetWidth;
 				}
 			}

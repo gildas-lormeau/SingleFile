@@ -144,9 +144,14 @@ singlefile.core = (() => {
 		options.backgroundTab = true;
 		options.autoSave = true;
 		options.incognito = tab.incognito;
+		let index = 0, maxIndex = 0;
 		options.onprogress = async event => {
+			if (event.type == event.RESOURCES_INITIALIZED) {
+				maxIndex = event.details.max;
+			}
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
-				singlefile.ui.button.onProgress(tab.id, event.details.index, event.details.max, { autoSave: true });
+				index++;
+				singlefile.ui.button.onProgress(tab.id, index, maxIndex, { autoSave: true });
 			} else if (event.type == event.PAGE_ENDED) {
 				singlefile.ui.button.onEnd(tab.id, { autoSave: true });
 			}

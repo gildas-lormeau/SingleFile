@@ -66,11 +66,16 @@ this.singlefile.top = this.singlefile.top || (() => {
 		}
 		options.doc = document;
 		options.win = window;
+		let index = 0, maxIndex = 0;
 		options.onprogress = event => {
+			if (event.type == event.RESOURCES_INITIALIZED) {
+				maxIndex = event.details.max;
+			}
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
-				browser.runtime.sendMessage({ processProgress: true, index: event.details.index, maxIndex: event.details.max, options: { autoSave: false } });
+				index++;
+				browser.runtime.sendMessage({ processProgress: true, index, maxIndex, options: { autoSave: false } });
 				if (options.shadowEnabled) {
-					singlefile.ui.onprogress(event);
+					singlefile.ui.onprogress(index, maxIndex);
 				}
 			} else if (event.type == event.PAGE_ENDED) {
 				browser.runtime.sendMessage({ processEnd: true, options: { autoSave: false } });
