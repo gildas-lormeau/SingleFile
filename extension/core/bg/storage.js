@@ -24,6 +24,11 @@ singlefile.storage = (() => {
 
 	let persistentData;
 	let temporaryData;
+	browser.tabs.onRemoved.addListener(async tabId => {
+		const tabsData = await singlefile.storage.get();
+		delete tabsData[tabId];
+		await singlefile.storage.set(tabsData);
+	});
 	getPersistent().then(tabsData => persistentData = tabsData);
 	return {
 		getTemporary,

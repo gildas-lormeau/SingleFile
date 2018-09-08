@@ -52,6 +52,11 @@ singlefile.config = (() => {
 	};
 
 	let pendingUpgradePromise;
+	browser.runtime.onMessage.addListener(request => {
+		if (request.getConfig) {
+			return getConfig();
+		}
+	});
 	upgrade();
 
 	async function upgrade() {
@@ -135,16 +140,20 @@ singlefile.config = (() => {
 		}
 	}
 
+	async function getConfig() {
+		await pendingUpgradePromise;
+		const config = await browser.storage.local.get();
+		config.tabsData = undefined;
+		return Object.keys(config).length ? config : DEFAULT_CONFIG;
+	}
+
 	return {
 		async set(config) {
 			await pendingUpgradePromise;
 			await browser.storage.local.set(config);
 		},
 		async get() {
-			await pendingUpgradePromise;
-			const config = await browser.storage.local.get();
-			config.tabsData = undefined;
-			return Object.keys(config).length ? config : DEFAULT_CONFIG;
+			return getConfig();
 		},
 		async reset() {
 			await pendingUpgradePromise;
