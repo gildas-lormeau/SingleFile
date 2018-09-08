@@ -26,7 +26,7 @@ singlefile.scriptLoader = (() => {
 		"/lib/browser-polyfill/custom-browser-polyfill.js",
 		"/lib/single-file/doc-helper.js",
 		"/lib/single-file/base64.js",
-		"/lib/single-file/parse-srcset.js",
+		"/lib/single-file/css-srcset-parser.js",
 		"/lib/fetch/content/fetch.js",
 		"/lib/single-file/single-file-core.js",
 		"/lib/single-file/single-file-browser.js",
@@ -45,19 +45,19 @@ singlefile.scriptLoader = (() => {
 
 	const optionalContentScriptFiles = {
 		compressHTML: [
-			"/lib/single-file/htmlmini.js",
-			"/lib/single-file/serializer.js"
+			"/lib/single-file/html-minifier.js",
+			"/lib/single-file/html-serializer.js"
 		],
 		compressCSS: [
-			"/lib/single-file/uglifycss.js"
+			"/lib/single-file/css-uglifycss.js"
 		],
 		removeAlternativeFonts: [
-			"/lib/single-file/fonts-minifier.js"
+			"/lib/single-file/css-fonts-minifier.js"
 		],
 		removeUnusedStyles: [
 			"/lib/single-file/css-what.js",
-			"/lib/single-file/parse-css.js",
-			"/lib/single-file/rules-matcher.js",
+			"/lib/single-file/css-declarations-parser.js",
+			"/lib/single-file/css-rules-matcher.js",
 			"/lib/single-file/css-minifier.js"
 		],
 		lazyLoadImages: [
