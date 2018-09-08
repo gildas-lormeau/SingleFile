@@ -27,7 +27,6 @@ singlefile.processor = (() => {
 			saveContent(request, sender.tab.id, sender.tab.incognito);
 		}
 	});
-
 	return true;
 
 	async function saveContent(message, tabId, incognito) {
