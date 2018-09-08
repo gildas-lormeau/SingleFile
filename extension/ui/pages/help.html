@@ -125,7 +125,7 @@
 							<u>uncheck</u> this option</p>
 					</li>
 				</ul>
-				<p>Page content</p>
+				<p>HTML content</p>
 				<ul>
 					<li>
 						<span class="option">compress HTML</span>
@@ -157,15 +157,8 @@
 						<p>Check this option to remove all hidden elements. This option can considerably reduce the size of the file without
 							altering the document most of the time.</p>
 					</li>
-
-					<li>
-						<span class="option">save raw page</span>
-						<p>Check this option to save the page without interpreting JavaScript. Checking this option may alter the document.</p>
-						<p class="notice">It is recommended to
-							<u>uncheck</u> this option</p>
-					</li>
 				</ul>
-				<p>Pages resources</p>
+				<p>Images</p>
 				<ul>
 					<li>
 						<span class="option">save lazy loaded images</span>
@@ -176,26 +169,15 @@
 					</li>
 
 					<li>
-						<span class="option">remove scripts</span>
-						<p>Check this option to remove all scripts. Unchecking this option may alter the document.</p>
+						<span class="option">remove alternative images in other resolutions</span>
+						<p>Check this option to remove images that are alternatives in lower and/or higher resolutions to the ones displayed
+							by default. Checking this this option can considerably reduce the size of the file in some cases.</p>
 						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
+							<u>uncheck</u> this option</p>
 					</li>
-
-					<li>
-						<span class="option">remove video sources</span>
-						<p>Check this option to empty the "src" attribute of all video elements.</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
-					</li>
-
-					<li>
-						<span class="option">remove audio sources</span>
-						<p>Check this option to empty the "src" attribute of all audio elements.</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
-					</li>
-
+				</ul>
+				<p>Stylesheets</p>
+				<ul>
 					<li>
 						<span class="option">compress CSS</span>
 						<p>Check this option to minify CSS stylesheets. This helps to reduce the size of the file without altering the document. 
@@ -224,31 +206,48 @@
 					</li>
 
 					<li>
-						<span class="option">remove alternative images in other resolutions</span>
-						<p>Check this option to remove images that are alternatives in lower and/or higher resolutions to the ones displayed
-							by default. Checking this this option can considerably reduce the size of the file in some cases.</p>
+						<span class="option">remove stylesheets for alternative devices</span>
+						<p>Check this option to remove stylesheets that are not used for the screen display like stylesheets for print preview 
+							and speech synthesizers. Checking this this option can reduce the size of the file.</p>
 						<p class="notice">It is recommended to
-							<u>uncheck</u> this option</p>
+							<u>check</u> this option</p>
+					</li>
+				</ul>
+				<p>Other resources</p>
+				<ul>
+					<li>
+						<span class="option">remove scripts</span>
+						<p>Check this option to remove all scripts. Unchecking this option may alter the document.</p>
+						<p class="notice">It is recommended to
+							<u>check</u> this option</p>
 					</li>
 
 					<li>
-						<span class="option">set a maximum size for embedded resources (Mb)</span>
-						<p>Specify the maximum size of embedded resources (i.e. images, stylesheets, scripts and iframes) in megabytes.
-						</p>
+						<span class="option">remove video sources</span>
+						<p>Check this option to empty the "src" attribute of all video elements.</p>
+						<p class="notice">It is recommended to
+							<u>check</u> this option</p>
+					</li>
+
+					<li>
+						<span class="option">remove audio sources</span>
+						<p>Check this option to empty the "src" attribute of all audio elements.</p>
+						<p class="notice">It is recommended to
+							<u>check</u> this option</p>
 					</li>
 				</ul>
 				<p>Auto-save</p>
 				<ul>
 					<li>
-						<span class="option">auto-save on page load or on page </span>
+						<span class="option">auto-save on page load or unload</span>
 						<p>Check this option to auto-save pages after being loaded. If you browse to another page before the page is fully
 							loaded then the page will be saved just before being unloaded. With this option active, you are guaranteed pages will
 							always be saved but some frame contents may be missing (if you unchecked "remove frames") when pages are saved before
 							being unloaded.
 						</p>
+						<p class="notice">It is recommended to
+							<u>check</u> this option</p>
 					</li>
-					<p class="notice">It is recommended to
-						<u>check</u> this option</p>
 
 					<li>
 						<span class="option">auto-save on page load</span>
@@ -274,9 +273,9 @@
 				<ul>
 					<li>
 						<span class="option">save pages in background</span>
-						<p>Uncheck this option if you get invalid file names like "37bec68b-446a-46a5-8642-19a89c231b46.html" when saving pages
-							or if you prefer to use the prompt dialog instead of the "Save as" dialog when "open the 'Save as' dialog to confirm
-							the file name" option is checked.
+						<p>Uncheck this option if you get invalid file names like "37bec68b-446a-46a5-8642-19a89c231b46.html" or interupted downloads 
+							when saving pages or if you prefer to use the prompt dialog instead of the "Save as" dialog when "open the 'Save as' dialog
+							to confirm the file name" option is checked.
 						</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
@@ -287,6 +286,19 @@
 						<p>Check this option to display stats about processing in the JavaScript developer tools of your browser. Checking
 							this option may increase the CPU consumption and the time needed to save a page.
 						</p>
+						<p class="notice">It is recommended to
+							<u>uncheck</u> this option</p>
+					</li>
+
+					<li>
+						<span class="option">set a maximum size for embedded resources (Mb)</span>
+						<p>Specify the maximum size of embedded resources (i.e. images, stylesheets, scripts and iframes) in megabytes.
+						</p>
+					</li>
+
+					<li>
+						<span class="option">save raw page</span>
+						<p>Check this option to save the page without interpreting JavaScript. Checking this option may alter the document.</p>
 						<p class="notice">It is recommended to
 							<u>uncheck</u> this option</p>
 					</li>

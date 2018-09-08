@@ -48,6 +48,7 @@ singlefile.config = (() => {
 		autoSaveUnload: false,
 		autoSaveLoadOrUnload: true,
 		removeAlternativeFonts: true,
+		removeAlternativeMedias: true,
 		removeSrcSet: false
 	};
 
@@ -132,6 +133,9 @@ singlefile.config = (() => {
 		}
 		if (config.removeAlternativeFonts === undefined) {
 			config.removeAlternativeFonts = true;
+		}
+		if (config.removeAlternativeMedias === undefined) {
+			config.removeAlternativeMedias = true;
 		}
 		if (config.autoSaveLoadOrUnload === undefined && !config.autoSaveUnload) {
 			config.autoSaveLoadOrUnload = true;

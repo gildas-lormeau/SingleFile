@@ -36,7 +36,7 @@
 		</div>
 	</details>
 	<details>
-		<summary>Page content</summary>
+		<summary>HTML content</summary>
 		<div class="option">
 			<label for="compressHTMLInput">compress HTML</label>
 			<input type="checkbox" id="compressHTMLInput">
@@ -53,29 +53,20 @@
 			<label for="removeHiddenElementsInput">remove hidden elements</label>
 			<input type="checkbox" id="removeHiddenElementsInput">
 		</div>
-		<div class="option">
-			<label for="saveRawPageInput">save raw page</label>
-			<input type="checkbox" id="saveRawPageInput">
-		</div>
 	</details>
 	<details>
-		<summary>Pages resources</summary>
+		<summary>Images</summary>
 		<div class="option">
 			<label for="lazyLoadImagesInput">save lazy loaded images</label>
 			<input type="checkbox" id="lazyLoadImagesInput">
 		</div>
 		<div class="option">
-			<label for="removeScriptsInput">remove scripts</label>
-			<input type="checkbox" id="removeScriptsInput">
+			<label for="removeSrcSetInput">remove alternative images in other resolutions</label>
+			<input type="checkbox" id="removeSrcSetInput">
 		</div>
-		<div class="option">
-			<label for="removeVideoSrcInput">remove video sources</label>
-			<input type="checkbox" id="removeVideoSrcInput">
-		</div>
-		<div class="option">
-			<label for="removeAudioSrcInput">remove audio sources</label>
-			<input type="checkbox" id="removeAudioSrcInput">
-		</div>
+	</details>
+	<details>
+		<summary>Stylesheets</summary>
 		<div class="option">
 			<label for="compressCSSInput">compress CSS</label>
 			<input type="checkbox" id="compressCSSInput">
@@ -89,16 +80,23 @@
 			<input type="checkbox" id="removeAlternativeFontsInput">
 		</div>
 		<div class="option">
-			<label for="removeSrcSetInput">remove alternative images in other resolutions</label>
-			<input type="checkbox" id="removeSrcSetInput">
+			<label for="removeAlternativeFontsInput">remove stylesheets for alternative devices</label>
+			<input type="checkbox" id="removeAlternativeMediasInput">
+		</div>
+	</details>
+	<details>
+		<summary>Other resources</summary>
+		<div class="option">
+			<label for="removeScriptsInput">remove scripts</label>
+			<input type="checkbox" id="removeScriptsInput">
 		</div>
 		<div class="option">
-			<label for="maxResourceSizeEnabledInput">set a maximum size for embedded resources</label>
-			<input type="checkbox" id="maxResourceSizeEnabledInput">
+			<label for="removeVideoSrcInput">remove video sources</label>
+			<input type="checkbox" id="removeVideoSrcInput">
 		</div>
-		<div class="option second-level">
-			<label for="maxResourceSizeInput">maximum size (Mb)</label>
-			<input type="number" id="maxResourceSizeInput" min="1">
+		<div class="option">
+			<label for="removeAudioSrcInput">remove audio sources</label>
+			<input type="checkbox" id="removeAudioSrcInput">
 		</div>
 	</details>
 	<details>
@@ -129,6 +127,18 @@
 		<div class="option">
 			<label for="displayStatsInput">display stats in the console after processing</label>
 			<input type="checkbox" id="displayStatsInput">
+		</div>
+		<div class="option">
+			<label for="maxResourceSizeEnabledInput">set a maximum size for embedded resources</label>
+			<input type="checkbox" id="maxResourceSizeEnabledInput">
+		</div>
+		<div class="option second-level">
+			<label for="maxResourceSizeInput">maximum size (Mb)</label>
+			<input type="number" id="maxResourceSizeInput" min="1">
+		</div>
+		<div class="option">
+			<label for="saveRawPageInput">save raw page</label>
+			<input type="checkbox" id="saveRawPageInput">
 		</div>
 	</details>
 	<div class="option bottom">

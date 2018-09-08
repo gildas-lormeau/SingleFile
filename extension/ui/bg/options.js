@@ -49,6 +49,7 @@
 	const autoSaveLoadOrUnloadInput = document.getElementById("autoSaveLoadOrUnloadInput");
 	const removeAlternativeFontsInput = document.getElementById("removeAlternativeFontsInput");
 	const removeSrcSetInput = document.getElementById("removeSrcSetInput");
+	const removeAlternativeMediasInput = document.getElementById("removeAlternativeMediasInput");
 	let pendingSave = Promise.resolve();
 	document.getElementById("resetButton").addEventListener("click", async () => {
 		await bgPage.singlefile.config.reset();
@@ -105,6 +106,7 @@
 		autoSaveUnloadInput.disabled = config.autoSaveLoadOrUnload;
 		removeAlternativeFontsInput.checked = config.removeAlternativeFonts;
 		removeSrcSetInput.checked = config.removeSrcSet;
+		removeAlternativeMediasInput.checked = config.removeAlternativeMedias;
 	}
 
 	async function update() {
@@ -135,7 +137,8 @@
 			autoSaveUnload: autoSaveUnloadInput.checked,
 			autoSaveLoadOrUnload: autoSaveLoadOrUnloadInput.checked,
 			removeAlternativeFonts: removeAlternativeFontsInput.checked,
-			removeSrcSet: removeSrcSetInput.checked
+			removeSrcSet: removeSrcSetInput.checked,
+			removeAlternativeMedias: removeAlternativeMediasInput.checked
 		});
 		await pendingSave;
 		await bgPage.singlefile.ui.menu.refresh();
