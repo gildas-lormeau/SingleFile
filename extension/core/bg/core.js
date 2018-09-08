@@ -42,10 +42,7 @@ singlefile.core = (() => {
 
 	async function autoSaveTab(tab) {
 		const options = await singlefile.config.get();
-		return new Promise(async resolve => {
-			await browser.tabs.sendMessage(tab.id, { autoSavePage: true, options });
-			resolve();
-		});
+		await browser.tabs.sendMessage(tab.id, { autoSavePage: true, options });
 	}
 
 	function isAllowedURL(url) {
