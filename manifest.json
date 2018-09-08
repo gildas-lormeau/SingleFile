@@ -45,6 +45,7 @@
 			"lib/fetch/bg/fetch.js",
 			"extension/index.js",
 			"extension/core/bg/storage.js",
+			"extension/core/bg/download.js",
 			"extension/core/bg/config.js",
 			"extension/core/bg/core.js",
 			"extension/ui/bg/bg-ui.js",

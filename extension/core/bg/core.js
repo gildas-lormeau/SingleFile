@@ -71,23 +71,6 @@ singlefile.core = (() => {
 		if (request.getConfig) {
 			return singlefile.config.get();
 		}
-		if (request.download) {
-			try {
-				if (request.content) {
-					request.url = URL.createObjectURL(new Blob([request.content], { type: "text/html" }));
-				}
-				return downloadPage(request, { confirmFilename: request.confirmFilename, incognito: sender.tab.incognito })
-					.catch(error => {
-						if (error.message && error.message.includes("'incognito'")) {
-							return downloadPage(request, { confirmFilename: request.confirmFilename });
-						} else {
-							return { notSupported: true };
-						}
-					});
-			} catch (error) {
-				return Promise.resolve({ notSupported: true });
-			}
-		}
 		if (request.processContent) {
 			processBackgroundTab(sender.tab, request);
 		}
@@ -163,37 +146,7 @@ singlefile.core = (() => {
 		const date = new Date();
 		page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
-		return downloadPage(page, options);
-	}
-
-	async function downloadPage(page, options) {
-		const downloadInfo = {
-			url: page.url,
-			saveAs: options.confirmFilename,
-			filename: page.filename.replace(/[/\\?%*:|"<>\x7F]+/g, "_")
-		};
-		if (options.incognito) {
-			downloadInfo.incognito = true;
-		}
-		const downloadId = await browser.downloads.download(downloadInfo);
-		return new Promise((resolve, reject) => {
-			browser.downloads.onChanged.addListener(onChanged);
-
-			function onChanged(event) {
-				if (event.id == downloadId && event.state) {
-					if (event.state.current == "complete") {
-						URL.revokeObjectURL(page.url);
-						resolve({});
-						browser.downloads.onChanged.removeListener(onChanged);
-					}
-					if (event.state.current == "interrupted") {
-						URL.revokeObjectURL(page.url);
-						reject(new Error(event.state.current));
-						browser.downloads.onChanged.removeListener(onChanged);
-					}
-				}
-			}
-		});
+		return singlefile.download.downloadPage(page, options);
 	}
 
 	async function saveStart(tab, options) {
