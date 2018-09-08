@@ -43,6 +43,7 @@
 		"scripts": [
 			"lib/browser-polyfill/custom-browser-polyfill.js",
 			"lib/fetch/bg/fetch.js",
+			"lib/fetch/content/fetch.js",
 			"extension/index.js",
 			"extension/core/bg/storage.js",
 			"extension/core/bg/download.js",
@@ -67,8 +68,7 @@
 			"lib/single-file/html-serializer.js",
 			"lib/single-file/lazy-loader.js",
 			"lib/single-file/single-file-core.js",
-			"lib/single-file/single-file-browser.js",
-			"lib/fetch/content/fetch.js"
+			"lib/single-file/single-file-browser.js"
 		],
 		"persistent": false
 	},
