@@ -34,6 +34,7 @@ singlefile.scriptLoader = (() => {
 		"/extension/ui/content/content-ui.js",
 		"/extension/core/content/content.js"
 	];
+
 	const frameScriptFiles = [
 		"/lib/browser-polyfill/custom-browser-polyfill.js",
 		"/extension/index.js",
@@ -49,21 +50,21 @@ singlefile.scriptLoader = (() => {
 			"/lib/single-file/html-serializer.js"
 		],
 		compressCSS: [
-			"/lib/single-file/css-uglifycss.js"
+			"/lib/single-file/css-minifier.js"
 		],
 		removeAlternativeFonts: [
 			"/lib/single-file/css-fonts-minifier.js"
 		],
 		removeUnusedStyles: [
-			"/lib/single-file/css-what.js",
+			"/lib/single-file/css-selector-parser.js",
 			"/lib/single-file/css-declarations-parser.js",
 			"/lib/single-file/css-rules-matcher.js",
 			"/lib/single-file/css-media-query-parser.js",
 			"/lib/single-file/css-medias-minifier.js",
-			"/lib/single-file/css-minifier.js"
+			"/lib/single-file/css-rules-minifier.js"
 		],
 		lazyLoadImages: [
-			"/lib/single-file/lazy-loader.js",
+			"/lib/single-file/lazy-loader.js"
 		]
 	};
 
