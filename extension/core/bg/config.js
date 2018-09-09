@@ -49,7 +49,7 @@ singlefile.config = (() => {
 		autoSaveLoadOrUnload: true,
 		removeAlternativeFonts: true,
 		removeAlternativeMedias: true,
-		removeSrcSet: false
+		removeSrcSet: true
 	};
 
 	let pendingUpgradePromise;
@@ -136,6 +136,9 @@ singlefile.config = (() => {
 		}
 		if (config.removeAlternativeMedias === undefined) {
 			config.removeAlternativeMedias = true;
+		}
+		if (config.removeSrcSet === undefined) {
+			config.removeSrcSet = true;
 		}
 		if (config.autoSaveLoadOrUnload === undefined && !config.autoSaveUnload) {
 			config.autoSaveLoadOrUnload = true;
