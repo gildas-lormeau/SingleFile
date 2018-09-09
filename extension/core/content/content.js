@@ -111,16 +111,18 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function lazyLoadResources() {
 		const scriptURL = browser.runtime.getURL("lib/single-file/lazy-loader-before.js");
-		const scriptElement = document.createElement("script");
-		scriptElement.src = scriptURL;
-		document.body.appendChild(scriptElement);
+		const scriptBeforeElement = document.createElement("script");
+		scriptBeforeElement.src = scriptURL;
+		document.body.appendChild(scriptBeforeElement);
 		const promise = new Promise(resolve => {
-			scriptElement.onerror = resolve;
-			scriptElement.onload = () => setTimeout(() => {
+			scriptBeforeElement.onerror = resolve;
+			scriptBeforeElement.onload = () => setTimeout(() => {
+				scriptBeforeElement.remove();
 				const scriptURL = browser.runtime.getURL("lib/single-file/lazy-loader-after.js");
-				const scriptElement = document.createElement("script");
-				scriptElement.src = scriptURL;
-				document.body.appendChild(scriptElement);
+				const scriptAfterElement = document.createElement("script");
+				scriptAfterElement.src = scriptURL;
+				document.body.appendChild(scriptAfterElement);
+				scriptAfterElement.onload = () => scriptAfterElement.remove();
 				resolve();
 			}, 100);
 		});
