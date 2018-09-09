@@ -47,7 +47,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 			try {
 				const page = await processPage(options);
 				await downloadPage(page, options);
-				revokeDownloadURL(page);
 			} catch (error) {
 				console.error(error); // eslint-disable-line no-console
 				browser.runtime.sendMessage({ processError: true, error, options: { autoSave: false } });
@@ -129,10 +128,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 		return promise;
 	}
 
-	function revokeDownloadURL(page) {
-		URL.revokeObjectURL(page.url);
-	}
-
 	function markSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
 		const selection = getSelection();
 		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
@@ -165,6 +160,8 @@ this.singlefile.top = this.singlefile.top || (() => {
 				if (response.notSupported) {
 					downloadPageFallback(page, options);
 				}
+			} else {
+				URL.revokeObjectURL(page.url);
 			}
 		} else {
 			downloadPageFallback(page, options);
@@ -182,6 +179,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			link.href = page.url;
 			link.dispatchEvent(new MouseEvent("click"));
 			link.remove();
+			URL.revokeObjectURL(page.url);
 		}
 	}
 
