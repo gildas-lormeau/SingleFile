@@ -22,6 +22,8 @@
 
 this.singlefile.top = this.singlefile.top || (() => {
 
+	const MESSAGE_PREFIX = "__SingleFile__::";
+
 	let processing = false;
 
 	browser.runtime.onMessage.addListener(message => {
@@ -31,8 +33,8 @@ this.singlefile.top = this.singlefile.top || (() => {
 	});
 
 	addEventListener("message", event => {
-		if (typeof event.data == "string" && event.data.startsWith("__SingleFile__::")) {
-			const message = JSON.parse(event.data.substring("__SingleFile__".length + 2));
+		if (typeof event.data == "string" && event.data.startsWith(MESSAGE_PREFIX)) {
+			const message = JSON.parse(event.data.substring(MESSAGE_PREFIX.length));
 			if (message.savePage) {
 				savePage(message);
 			}
