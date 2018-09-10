@@ -105,7 +105,7 @@ singlefile.config = (() => {
 		if (config.maxResourceSize === 0) {
 			config.maxResourceSize = 1;
 		}
-		if (config.removeUnusedCSSRules === undefined || config.removeUnusedCSSRules) {
+		if (config.removeUnusedStyles === undefined || config.removeUnusedCSSRules) {
 			delete config.removeUnusedCSSRules;
 			config.removeUnusedStyles = true;
 		}
