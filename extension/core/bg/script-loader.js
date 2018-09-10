@@ -55,11 +55,14 @@ singlefile.scriptLoader = (() => {
 		removeAlternativeFonts: [
 			"/lib/single-file/css-fonts-minifier.js"
 		],
+		removeAlternativeMedias: [
+			"/lib/single-file/css-media-query-parser.js",
+			"/lib/single-file/css-medias-minifier.js"
+		],
 		removeUnusedStyles: [
 			"/lib/single-file/css-selector-parser.js",
 			"/lib/single-file/css-declarations-parser.js",
 			"/lib/single-file/css-rules-matcher.js",
-			"/lib/single-file/css-media-query-parser.js",
 			"/lib/single-file/css-medias-minifier.js",
 			"/lib/single-file/css-rules-minifier.js"
 		],
