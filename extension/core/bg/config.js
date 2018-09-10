@@ -106,12 +106,8 @@ singlefile.config = (() => {
 			config.maxResourceSize = 1;
 		}
 		if (config.removeUnusedCSSRules === undefined || config.removeUnusedCSSRules) {
-			const platformInfo = await browser.runtime.getPlatformInfo();
-			if (platformInfo.os == "android") {
-				config.removeUnusedStyles = false;
-			} else {
-				config.removeUnusedStyles = true;
-			}
+			delete config.removeUnusedCSSRules;
+			config.removeUnusedStyles = true;
 		}
 		if (config.removeFrames === undefined) {
 			config.removeFrames = true;
