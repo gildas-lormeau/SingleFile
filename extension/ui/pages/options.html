@@ -8,142 +8,142 @@
 </head>
 
 <body>
-	<h3>Options</h3>
+	<h3 id="titleLabel"></h3>
 	<details>
-		<summary>User interface</summary>
+		<summary id="userInterfaceLabel"></summary>
 		<div class="option">
-			<label for="contextMenuEnabledInput">add entry in the context menu of the webpage</label>
+			<label for="contextMenuEnabledInput" id="addMenuEntryLabel"></label>
 			<input type="checkbox" id="contextMenuEnabledInput">
 		</div>
 		<div class="option">
-			<label for="shadowEnabledInput">overlay a shadow on the page during processing</label>
+			<label for="shadowEnabledInput" id="shadowEnabledLabel"></label>
 			<input type="checkbox" id="shadowEnabledInput">
 		</div>
 		<div class="option">
-			<label for="displayInfobarInput">display an infobar when viewing archives</label>
+			<label for="displayInfobarInput" id="displayInfobarLabel"></label>
 			<input type="checkbox" id="displayInfobarInput">
 		</div>
 	</details>
 	<details>
-		<summary>File name</summary>
+		<summary id="filenameLabel"></summary>
 		<div class="option">
-			<label for="appendSaveDateInput">append the save date to the file name</label>
+			<label for="appendSaveDateInput" id="appendSaveDateLabel"></label>
 			<input type="checkbox" id="appendSaveDateInput">
 		</div>
 		<div class="option">
-			<label for="confirmFilenameInput">open the "Save as" dialog to confirm the file name</label>
+			<label for="confirmFilenameInput" id="confirmFilenameLabel"></label>
 			<input type="checkbox" id="confirmFilenameInput">
 		</div>
 	</details>
 	<details>
-		<summary>HTML content</summary>
+		<summary id="htmlContentLabel"></summary>
 		<div class="option">
-			<label for="compressHTMLInput">compress HTML</label>
+			<label for="compressHTMLInput" id="compressHTMLLabel"></label>
 			<input type="checkbox" id="compressHTMLInput">
 		</div>
 		<div class="option">
-			<label for="removeImportsInput">remove HTML imports</label>
+			<label for="removeImportsInput" id="removeImportsLabel"></label>
 			<input type="checkbox" id="removeImportsInput">
 		</div>
 		<div class="option">
-			<label for="removeFramesInput">remove frames</label>
+			<label for="removeFramesInput" id="removeFramesLabel"></label>
 			<input type="checkbox" id="removeFramesInput">
 		</div>
 		<div class="option">
-			<label for="removeHiddenElementsInput">remove hidden elements</label>
+			<label for="removeHiddenElementsInput" id="removeHiddenElementsLabel"></label>
 			<input type="checkbox" id="removeHiddenElementsInput">
 		</div>
 	</details>
 	<details>
-		<summary>Images</summary>
+		<summary id="imagesLabel"></summary>
 		<div class="option">
-			<label for="lazyLoadImagesInput">save lazy loaded images</label>
+			<label for="lazyLoadImagesInput" id="lazyLoadImagesLabel"></label>
 			<input type="checkbox" id="lazyLoadImagesInput">
 		</div>
 		<div class="option">
-			<label for="removeSrcSetInput">remove images for alternative resolutions</label>
+			<label for="removeSrcSetInput" id="removeAlternativeImagesLabel"></label>
 			<input type="checkbox" id="removeSrcSetInput">
 		</div>
 	</details>
 	<details>
-		<summary>Stylesheets</summary>
+		<summary id="stylesheetsLabel"></summary>
 		<div class="option">
-			<label for="compressCSSInput">compress CSS</label>
+			<label for="compressCSSInput" id="compressCSSLabel"></label>
 			<input type="checkbox" id="compressCSSInput">
 		</div>
 		<div class="option">
-			<label for="removeUnusedStylesInput">remove unused styles</label>
+			<label for="removeUnusedStylesInput" id="removeUnusedStylesLabel"></label>
 			<input type="checkbox" id="removeUnusedStylesInput">
 		</div>
 		<div class="option">
-			<label for="removeAlternativeFontsInput">remove alternative fonts to woff/otf and unused font rules</label>
+			<label for="removeAlternativeFontsInput" id="removeAlternativeFontsLabel"></label>
 			<input type="checkbox" id="removeAlternativeFontsInput">
 		</div>
 		<div class="option">
-			<label for="removeAlternativeFontsInput">remove stylesheets for alternative devices</label>
+			<label for="removeAlternativeMediasInput" id="removeAlternativeMediasLabel"></label>
 			<input type="checkbox" id="removeAlternativeMediasInput">
 		</div>
 	</details>
 	<details>
-		<summary>Other resources</summary>
+		<summary id="otherResourcesLabel"></summary>
 		<div class="option">
-			<label for="removeScriptsInput">remove scripts</label>
+			<label for="removeScriptsInput" id="removeScriptsLabel"></label>
 			<input type="checkbox" id="removeScriptsInput">
 		</div>
 		<div class="option">
-			<label for="removeVideoSrcInput">remove video sources</label>
+			<label for="removeVideoSrcInput" id="removeVideoLabel"></label>
 			<input type="checkbox" id="removeVideoSrcInput">
 		</div>
 		<div class="option">
-			<label for="removeAudioSrcInput">remove audio sources</label>
+			<label for="removeAudioSrcInput" id="removeAudioLabel"></label>
 			<input type="checkbox" id="removeAudioSrcInput">
 		</div>
 	</details>
 	<details>
-		<summary>Auto-save</summary>
+		<summary id="autoSaveLabel"></summary>
 		<div class="option">
-			<label for="autoSaveLoadInput">auto-save on page load or on page unload</label>
+			<label for="autoSaveLoadOrUnloadInput" id="autoSaveLoadOrUnloadLabel"></label>
 			<input type="checkbox" id="autoSaveLoadOrUnloadInput">
 		</div>
 		<div class="option">
-			<label for="autoSaveLoadInput">auto-save on page load</label>
+			<label for="autoSaveLoadInput" id="autoSaveLoadLabel"></label>
 			<input type="checkbox" id="autoSaveLoadInput">
 		</div>
 		<div class="option">
-			<label for="autoSaveUnloadInput">auto-save on page unload</label>
+			<label for="autoSaveUnloadInput" id="autoSaveUnloadLabel"></label>
 			<input type="checkbox" id="autoSaveUnloadInput">
 		</div>
 		<div class="option">
-			<label for="autoSaveDelayInput">auto-save wait delay after load (sec.)</label>
+			<label for="autoSaveDelayInput" id="autoSaveDelayLabel"></label>
 			<input type="number" id="autoSaveDelayInput" min="0">
 		</div>
 	</details>
 	<details>
-		<summary>Misc.</summary>
+		<summary id="miscLabel"></summary>
 		<div class="option">
-			<label for="backgroundSaveInput">save pages in background</label>
+			<label for="backgroundSaveInput" id="backgroundSaveLabel"></label>
 			<input type="checkbox" id="backgroundSaveInput">
 		</div>
 		<div class="option">
-			<label for="displayStatsInput">display stats in the console after processing</label>
+			<label for="displayStatsInput" id="displayStatsLabel"></label>
 			<input type="checkbox" id="displayStatsInput">
 		</div>
 		<div class="option">
-			<label for="maxResourceSizeEnabledInput">set a maximum size for embedded resources</label>
+			<label for="maxResourceSizeEnabledInput" id="setMaxResourceSizeLabel"></label>
 			<input type="checkbox" id="maxResourceSizeEnabledInput">
 		</div>
 		<div class="option second-level">
-			<label for="maxResourceSizeInput">maximum size (Mb)</label>
+			<label for="maxResourceSizeInput" id="maxResourceSizeLabel"></label>
 			<input type="number" id="maxResourceSizeInput" min="1">
 		</div>
 		<div class="option">
-			<label for="saveRawPageInput">save raw page</label>
+			<label for="saveRawPageInput" id="saveRawPageLabel"></label>
 			<input type="checkbox" id="saveRawPageInput">
 		</div>
 	</details>
 	<div class="option bottom">
-		<a href="help.html" target="SingleFileHelpPage">help</a>
-		<button id="resetButton" title="Reset all the options to default values">Reset</button>
+		<a href="help.html" target="SingleFileHelpPage" id="helpLabel"></a>
+		<button id="resetButton"></button>
 	</div>
 	<script type="text/javascript" src="/lib/browser-polyfill/custom-browser-polyfill.js"></script>
 	<script type="text/javascript" src="../bg/options.js"></script>

@@ -22,7 +22,6 @@
 
 singlefile.ui.menu = (() => {
 
-	const DEFAULT_TITLE = "Save page with SingleFile";
 	const BROWSER_MENUS_API_SUPPORTED = browser.menus && browser.menus.onClicked && browser.menus.create && browser.menus.update && browser.menus.removeAll;
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_SAVE_SELECTED = "save-selected";
@@ -58,7 +57,7 @@ singlefile.ui.menu = (() => {
 				browser.menus.create({
 					id: MENU_ID_SAVE_PAGE,
 					contexts: pageContextsEnabled,
-					title: DEFAULT_TITLE
+					title: browser.i18n.getMessage("menuSavePage")
 				});
 			}
 			if (config.contextMenuEnabled) {
@@ -71,29 +70,29 @@ singlefile.ui.menu = (() => {
 			browser.menus.create({
 				id: MENU_ID_SAVE_SELECTED,
 				contexts: config.contextMenuEnabled ? defaultContextsDisabled.concat(["selection"]) : defaultContextsDisabled,
-				title: "Save selection"
+				title: browser.i18n.getMessage("menuSaveSelection")
 			});
 			if (config.contextMenuEnabled) {
 				browser.menus.create({
 					id: MENU_ID_SAVE_FRAME,
 					contexts: ["frame"],
-					title: "Save frame"
+					title: browser.i18n.getMessage("menuSaveFrame")
 				});
 				browser.menus.create({
 					id: MENU_ID_SAVE_SELECTED_TABS,
 					contexts: pageContextsEnabled,
-					title: "Save selected tabs"
+					title: browser.i18n.getMessage("menuSaveSelectedTabs")
 				});
 			}
 			browser.menus.create({
 				id: MENU_ID_SAVE_UNPINNED_TABS,
 				contexts: defaultContexts,
-				title: "Save unpinned tabs"
+				title: browser.i18n.getMessage("menuUnpinnedTabs")
 			});
 			browser.menus.create({
 				id: MENU_ID_SAVE_ALL_TABS,
 				contexts: defaultContexts,
-				title: "Save all tabs"
+				title: browser.i18n.getMessage("menuAllTabs")
 			});
 			if (config.contextMenuEnabled) {
 				browser.menus.create({
@@ -105,12 +104,12 @@ singlefile.ui.menu = (() => {
 			browser.menus.create({
 				id: MENU_ID_AUTO_SAVE,
 				contexts: defaultContexts,
-				title: "Auto-save"
+				title: browser.i18n.getMessage("menuAutoSave")
 			});
 			browser.menus.create({
 				id: MENU_ID_AUTO_SAVE_DISABLED,
 				type: "radio",
-				title: "Disabled",
+				title: browser.i18n.getMessage("menuAutoSaveDisabled"),
 				contexts: defaultContexts,
 				checked: true,
 				parentId: MENU_ID_AUTO_SAVE
@@ -118,7 +117,7 @@ singlefile.ui.menu = (() => {
 			browser.menus.create({
 				id: MENU_ID_AUTO_SAVE_TAB,
 				type: "radio",
-				title: "Auto-save this tab",
+				title: browser.i18n.getMessage("menuAutoSaveTab"),
 				contexts: defaultContexts,
 				checked: false,
 				parentId: MENU_ID_AUTO_SAVE
@@ -126,7 +125,7 @@ singlefile.ui.menu = (() => {
 			browser.menus.create({
 				id: MENU_ID_AUTO_SAVE_UNPINNED,
 				type: "radio",
-				title: "Auto-save unpinned tabs",
+				title: browser.i18n.getMessage("menuAutoSaveUnpinnedTabs"),
 				contexts: defaultContexts,
 				checked: false,
 				parentId: MENU_ID_AUTO_SAVE
@@ -134,7 +133,7 @@ singlefile.ui.menu = (() => {
 			browser.menus.create({
 				id: MENU_ID_AUTO_SAVE_ALL,
 				type: "radio",
-				title: "Auto-save all tabs",
+				title: browser.i18n.getMessage("menuAutoSaveAllTabs"),
 				contexts: defaultContexts,
 				checked: false,
 				parentId: MENU_ID_AUTO_SAVE

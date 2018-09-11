@@ -1,0 +1,238 @@
+{
+    "extensionDescription": {
+        "message": "Save a complete page into a single HTML file",
+        "description": "Description of the extension."
+    },
+    "menuSavePage": {
+        "message": "Save page with SingleFile",
+        "description": "Menu entry: 'Save page with SingleFile'"
+    },
+    "menuSaveSelection": {
+        "message": "Save selection",
+        "description": "Menu entry: 'Save selection'"
+    },
+    "menuSaveFrame": {
+        "message": "Save frame",
+        "description": "Menu entry: 'Save frame'"
+    },
+    "menuSaveSelectedTabs": {
+        "message": "Save selected tabs",
+        "description": "Menu entry: 'Save selected tabs'"
+    },
+    "menuUnpinnedTabs": {
+        "message": "Save unpinned tabs",
+        "description": "Menu entry: 'Save unpinned tabs'"
+    },
+    "menuAllTabs": {
+        "message": "Save all tabs",
+        "description": "Menu entry: 'Save all tabs'"
+    },
+    "menuAutoSave": {
+        "message": "Auto-save",
+        "description": "Menu entry: 'Auto-save'"
+    },
+    "menuAutoSaveDisabled": {
+        "message": "Disabled",
+        "description": "Menu entry: 'Auto-save' > Disabled'"
+    },
+    "menuAutoSaveTab": {
+        "message": "Auto-save this tab",
+        "description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+    },
+    "menuAutoSaveUnpinnedTabs": {
+        "message": "Auto-save unpinned tabs",
+        "description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+    },
+    "menuAutoSaveAllTabs": {
+        "message": "Auto-save all tabs",
+        "description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+    },
+    "buttonDefaultTooltip": {
+        "message": "Save page with SingleFile",
+        "description": "Button title: 'Save page with SingleFile'"
+    },
+    "buttonInitializingTooltip": {
+        "message": "Initializing SingleFile",
+        "description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
+    },
+    "buttonInitializingBadge": {
+        "message": "•••",
+        "description": "Badge label during initialization: '•••'"
+    },
+    "buttonSaveProgressTooltip": {
+        "message": "Save progress: ",
+        "description": "Button title during save: 'Save progress: xx%'"
+    },
+    "buttonOKBadge": {
+        "message": "OK",
+        "description": "Badge label: 'OK'"
+    },
+    "buttonErrorBadge": {
+        "message": "ERR",
+        "description": "Badge label for unexpected errors"
+    },
+    "buttonAutoSaveActiveTooltip": {
+        "message": "Auto-save active",
+        "description": "Button title: 'Auto-save active'"
+    },
+    "buttonAutoSaveActiveBadge": {
+        "message": "[A]",
+        "description": "Badge label when auto-save is active"
+    },
+    "optionsTitle": {
+        "message": "Options",
+        "description": "Options page title"
+    },
+    "optionsUserInterfaceSubTitle": {
+        "message": "User interface",
+        "description": "Options sub-title: 'User interface'"
+    },
+    "optionAddMenuEntry": {
+        "message": "add entry in the context menu of the webpage",
+        "description": "Options page label: 'add entry in the context menu of the webpage'"
+    },
+    "optionDisplayInfobar": {
+        "message": "display an infobar when viewing a saved page",
+        "description": "Options page label: 'display an infobar when viewing a saved page'"
+    },
+    "optionDisplayShadow": {
+        "message": "overlay a shadow on the page during processing",
+        "description": "Options page label: 'overlay a shadow on the page during processing'"
+    },
+    "optionsFileNameSubTitle": {
+        "message": "File name",
+        "description": "Options sub-title: 'File name'"
+    },
+    "optionAppendSaveDate": {
+        "message": "append the save date to the file name",
+        "description": "Options page label: 'append the save date to the file name'"
+    },
+    "optionConfirmFilename": {
+        "message": "open the \"Save as\" dialog to confirm the file name",
+        "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
+    },
+    "optionsHTMLContentSubTitle": {
+        "message": "HTML content",
+        "description": "Options sub-title: 'HTML content'"
+    },
+    "optionCompressHTML": {
+        "message": "compress HTML content",
+        "description": "Options page label: 'compress HTML content'"
+    },
+    "optionRemoveImports": {
+        "message": "remove HTML imports",
+        "description": "Options page label: 'remove HTML imports'"
+    },
+    "optionRemoveFrames": {
+        "message": "remove frames",
+        "description": "Options page label: 'remove frames'"
+    },
+    "optionRemoveHiddenElements": {
+        "message": "remove hidden elements",
+        "description": "Options page label: 'remove hidden elements'"
+    },
+    "optionsImagesSubTitle": {
+        "message": "Images",
+        "description": "Options sub-title: 'Images'"
+    },
+    "optionLazyLoadImages": {
+        "message": "save deferred images",
+        "description": "Options page label: 'save deferred images'"
+    },
+    "optionRemoveAlternativeImages": {
+        "message": "remove images for alternative screen resolutions",
+        "description": "Options page label: 'remove images for alternative screen resolutions'"
+    },
+    "optionsStylesheetsSubTitle": {
+        "message": "Stylesheets",
+        "description": "Options sub-title: 'Stylesheets'"
+    },
+    "optionCompressCSS": {
+        "message": "compress CSS content",
+        "description": "Options page label: 'compress CSS content'"
+    },
+    "optionRemoveUnusedStyles": {
+        "message": "remove unused styles",
+        "description": "Options page label: 'remove unused styles'"
+    },
+    "optionRemoveAlternativeFonts": {
+        "message": "remove alternative fonts to woff/otf and unused fonts",
+        "description": "Options page label: 'remove alternative fonts to woff/otf and unused fonts'"
+    },
+    "optionRemoveAlternativeMedias": {
+        "message": "remove stylesheets for alternative devices to screens",
+        "description": "Options page label: 'remove stylesheets for alternative devices to screens'"
+    },
+    "optionsOtherResourcesSubTitle": {
+        "message": "Other resources",
+        "description": "Options sub-title: 'Other resources'"
+    },
+    "optionRemoveScripts": {
+        "message": "remove scripts",
+        "description": "Options page label: 'remove scripts'"
+    },
+    "optionRemoveVideo": {
+        "message": "remove video sources",
+        "description": "Options page label: 'remove video sources'"
+    },
+    "optionRemoveAudio": {
+        "message": "remove audio sources",
+        "description": "Options page label: 'remove audio sources'"
+    },
+    "optionsAutoSaveSubTitle": {
+        "message": "Auto-save",
+        "description": "Options sub-title: 'Auto-save'"
+    },
+    "optionAutoSaveLoadOrUnload": {
+        "message": "auto-save after page load or on page unload",
+        "description": "auto-save after page load or on page unload"
+    },
+    "optionAutoSaveLoad": {
+        "message": "auto-save after page load",
+        "description": "Options page label: 'auto-save after page load'"
+    },
+    "optionAutoSaveUnload": {
+        "message": "auto-save on page unload",
+        "description": "Options page label: 'auto-save on page unload'"
+    },
+    "optionAutoSaveDelay": {
+        "message": "auto-save waiting delay after page load (sec.)",
+        "description": "Options page label: 'auto-save waiting delay after page load (sec.)'"
+    },
+    "optionsMiscSubTitle": {
+        "message": "Misc.",
+        "description": "Options sub-title: 'Misc.'"
+    },
+    "optionBackgroundSave": {
+        "message": "save pages in background",
+        "description": "Options page label: 'save pages in background'"
+    },
+    "optionDisplayStats": {
+        "message": "display stats in the console after processing",
+        "description": "Options page label: 'display stats in the console after processing'"
+    },
+    "optionSetMaxResourceSize": {
+        "message": "set a maximum size for embedded resources",
+        "description": "Options page label: 'set a maximum size for embedded resources'"
+    },
+    "optionMaxResourceSize": {
+        "message": "maximum size (Mb)",
+        "description": "Options page label: 'maximum size (Mb)'"
+    },
+    "optionSaveRawPage": {
+        "message": "save raw page",
+        "description": "Options page label: 'save raw page'"
+    },
+    "optionsHelpLink": {
+        "message": "help",
+        "description": "Options help link"
+    },
+    "optionsResetButton": {
+        "message": "Reset",
+        "description": "Options button: 'Reset'"
+    },
+    "optionsResetTooltip": {
+        "message": "Reset all options to their default values",
+        "description": "Options 'Reset' button tooltip"
+    }
+}

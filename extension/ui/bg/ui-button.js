@@ -24,7 +24,7 @@ singlefile.ui.button = (() => {
 
 	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_16.png";
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_16_wait";
-	const DEFAULT_TITLE = "Save page with SingleFile";
+	const DEFAULT_TITLE = browser.i18n.getMessage("buttonDefaultTooltip");
 	const DEFAULT_COLOR = [2, 147, 20, 255];
 	const BUTTON_PROPERTIES = [{ name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "path", browserActionMethod: "setIcon" }, { name: "text", browserActionMethod: "setBadgeText" }, { name: "title", browserActionMethod: "setTitle" }];
 
@@ -106,21 +106,21 @@ singlefile.ui.button = (() => {
 	}
 
 	function onInitialize(tabId, options, step) {
-		refresh(tabId, getProperties(tabId, options, "•••", step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], "Initializing SingleFile (" + step + "/2)"));
+		refresh(tabId, getProperties(tabId, options, browser.i18n.getMessage("buttonInitializingBadge"), step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], browser.i18n.getMessage("buttonInitializingTooltip") + " (" + step + "/2)"));
 	}
 
 	function onError(tabId, options) {
-		refresh(tabId, getProperties(tabId, options, "ERR", [229, 4, 12, 255]));
+		refresh(tabId, getProperties(tabId, options, browser.i18n.getMessage("buttonErrorBadge"), [229, 4, 12, 255]));
 	}
 
 	async function onEnd(tabId, options) {
-		refresh(tabId, getProperties(tabId, options, "OK", [4, 229, 36, 255]));
+		refresh(tabId, getProperties(tabId, options, browser.i18n.getMessage("buttonOKBadge"), [4, 229, 36, 255]));
 	}
 
 	function onProgress(tabId, index, maxIndex, options) {
 		const progress = Math.max(Math.min(20, Math.floor((index / maxIndex) * 20)), 0);
 		const barProgress = Math.floor((index / maxIndex) * 8);
-		refresh(tabId, getProperties(tabId, options, "", [4, 229, 36, 255], "Save progress: " + (progress * 5) + "%", WAIT_ICON_PATH_PREFIX + barProgress + ".png", progress, barProgress, [128, 128, 128, 255]));
+		refresh(tabId, getProperties(tabId, options, "", [4, 229, 36, 255], browser.i18n.getMessage("buttonSaveProgressTooltip") + (progress * 5) + "%", WAIT_ICON_PATH_PREFIX + barProgress + ".png", progress, barProgress, [128, 128, 128, 255]));
 	}
 
 	async function onTabActivated(tab) {
@@ -145,9 +145,9 @@ singlefile.ui.button = (() => {
 
 	function getProperties(tabId, options, text, color, title = DEFAULT_TITLE, path = DEFAULT_ICON_PATH, progress = -1, barProgress = -1, autoColor = [208, 208, 208, 255]) {
 		return {
-			text: options.autoSave ? "[A]" : (text || ""),
+			text: options.autoSave ? browser.i18n.getMessage("buttonAutoSaveActiveBadge") : (text || ""),
 			color: options.autoSave ? autoColor : color || DEFAULT_COLOR,
-			title: options.autoSave ? "Autosave active" : title,
+			title: options.autoSave ? browser.i18n.getMessage("buttonAutoSaveActiveTooltip") : title,
 			path: options.autoSave ? DEFAULT_ICON_PATH : path,
 			progress: options.autoSave ? - 1 : progress,
 			barProgress: options.autoSave ? - 1 : barProgress

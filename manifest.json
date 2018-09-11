@@ -8,7 +8,7 @@
 		"128": "extension/ui/resources/icon_128.png"
 	},
 	"version": "1.5.31",
-	"description": "Save a complete page into a single HTML file",
+	"description": "__MSG_extensionDescription__",
 	"content_scripts": [
 		{
 			"matches": [
@@ -82,7 +82,7 @@
 	},
 	"browser_action": {
 		"default_icon": "extension/ui/resources/icon_16.png",
-		"default_title": "Save page with SingleFile"
+		"default_title": "__MSG_buttonDefaultTooltip__"
 	},
 	"commands": {
 		"_execute_browser_action": {
@@ -111,5 +111,6 @@
 		"lib/single-file/lazy-loader-before.js",
 		"lib/single-file/lazy-loader-after.js"
 	],
-	"manifest_version": 2
+	"manifest_version": 2,
+	"default_locale": "en"
 }
