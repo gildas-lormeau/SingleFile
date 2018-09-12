@@ -52,7 +52,8 @@ Please follow these steps if you find an unknown issue:
 - Please report the issue with a short description describing how to reproduce the issue, Browser version, OS name and version here: https://github.com/gildas-lormeau/SingleFile/issues.
 
 ## Contributors
--  Japanese translation done by Shitennouji （四天王寺)
+- Japanese translation done by Shitennouji （四天王寺)
+- Polish translation done by xesarni (https://github.com/xesarni)
 
 Suggestions are welcome :)
 
