@@ -1,0 +1,238 @@
+{
+    "extensionDescription": {
+        "message": "完全なページを単一の HTML ファイルに保存する",
+        "description": "拡張機能の説明。"
+    },
+    "menuSavePage": {
+        "message": "SingleFile でページを保存",
+        "description": "メニュー項目: 'SingleFile でページを保存'"
+    },
+    "menuSaveSelection": {
+        "message": "選択を保存",
+        "description": "メニュー項目: '選択を保存'"
+    },
+    "menuSaveFrame": {
+        "message": "フレームを保存",
+        "description": "メニュー項目: 'フレームを保存'"
+    },
+    "menuSaveSelectedTabs": {
+        "message": "選択したタブを保存",
+        "description": "メニュー項目: '選択したタブを保存'"
+    },
+    "menuUnpinnedTabs": {
+        "message": "固定解除されたタブを保存する",
+        "description": "メニュー項目: '固定解除されたタブを保存する'"
+    },
+    "menuAllTabs": {
+        "message": "すべてのタブを保存",
+        "description": "メニュー項目: 'すべてのタブを保存'"
+    },
+    "menuAutoSave": {
+        "message": "自動保存",
+        "description": "メニュー項目: '自動保存'"
+    },
+    "menuAutoSaveDisabled": {
+        "message": "無効",
+        "description": "メニュー項目: '自動保存' > 無効'"
+    },
+    "menuAutoSaveTab": {
+        "message": "このタブを自動保存する",
+        "description": "メニュー項目: '自動保存' > このタブを自動保存する'"
+    },
+    "menuAutoSaveUnpinnedTabs": {
+        "message": "固定解除されたタブの自動保存",
+        "description": "メニュー項目: '自動保存' > 固定解除されたタブの自動保存'"
+    },
+    "menuAutoSaveAllTabs": {
+        "message": "すべてのタブを自動的に保存する",
+        "description": "メニュー項目: '自動保存' > すべてのタブを自動的に保存する'"
+    },
+    "buttonDefaultTooltip": {
+        "message": "SingleFile でページを保存",
+        "description": "ボタンのタイトル: 'SingleFile でページを保存'"
+    },
+    "buttonInitializingTooltip": {
+        "message": "SingleFile の初期化",
+        "description": "初期化中のボタンのタイトル: 'SingleFile の初期化 (x/2)'"
+    },
+    "buttonInitializingBadge": {
+        "message": "•••",
+        "description": "初期化中のバッジラベル: '•••'"
+    },
+    "buttonSaveProgressTooltip": {
+        "message": "進行状況を保存: ",
+        "description": "保存中のボタンのタイトル: '進行状況を保存: xx%'"
+    },
+    "buttonOKBadge": {
+        "message": "OK",
+        "description": "バッジラベル: 'OK'"
+    },
+    "buttonErrorBadge": {
+        "message": "エラー",
+        "description": "予期しないエラーのバッジラベル"
+    },
+    "buttonAutoSaveActiveTooltip": {
+        "message": "有効な自動保存",
+        "description": "ボタンのタイトル: '有効な自動保存'"
+    },
+    "buttonAutoSaveActiveBadge": {
+        "message": "[A]",
+        "description": "自動保存が有効な場合のバッジラベル"
+    },
+    "optionsTitle": {
+        "message": "オプション（設定）",
+        "description": "オプションのページタイトル"
+    },
+    "optionsUserInterfaceSubTitle": {
+        "message": "ユーザーインターフェイス（表示）",
+        "description": "オプションのサブタイトル: 'ユーザーインターフェイス（表示）'"
+    },
+    "optionAddMenuEntry": {
+        "message": "ウェブページのコンテキストメニューにエントリを追加する",
+        "description": "オプションのページラベル: 'ウェブページのコンテキストメニューにエントリを追加する'"
+    },
+    "optionDisplayInfobar": {
+        "message": "保存したページを表示するときに情報バーを表示する",
+        "description": "オプションのページラベル: '保存したページを表示するときに情報バーを表示する'"
+    },
+    "optionDisplayShadow": {
+        "message": "処理中のページに影を重ねる",
+        "description": "オプションのページラベル: '処理中のページに影を重ねる'"
+    },
+    "optionsFileNameSubTitle": {
+        "message": "ファイル名",
+        "description": "オプションのサブタイトル: 'ファイル名'"
+    },
+    "optionAppendSaveDate": {
+        "message": "ファイル名に保存日を追加する",
+        "description": "オプションのページラベル: 'ファイル名に保存日を追加する'"
+    },
+    "optionConfirmFilename": {
+        "message": "を開く（として保存する：ファイル名を確認するためのダイアログ）",
+        "description": "オプションのページラベル: 'を開く（として保存する：ファイル名を確認するためのダイアログ）'"
+    },
+    "optionsHTMLContentSubTitle": {
+        "message": "HTML コンテンツ",
+        "description": "オプションのサブタイトル: 'HTML コンテンツ'"
+    },
+    "optionCompressHTML": {
+        "message": "HTML コンテンツを圧縮する",
+        "description": "オプションのページラベル: 'HTML コンテンツを圧縮する'"
+    },
+    "optionRemoveImports": {
+        "message": "取り込んだ HTML を削除する",
+        "description": "オプションのページラベル: '取り込んだ HTML を削除する'"
+    },
+    "optionRemoveFrames": {
+        "message": "フレームを削除する",
+        "description": "オプションのページラベル: 'フレームを削除する'"
+    },
+    "optionRemoveHiddenElements": {
+        "message": "隠された要素を削除する",
+        "description": "オプションのページラベル: '隠された要素を削除する'"
+    },
+    "optionsImagesSubTitle": {
+        "message": "画像",
+        "description": "オプションのサブタイトル: '画像'"
+    },
+    "optionLazyLoadImages": {
+        "message": "遅延画像を保存する",
+        "description": "オプションのページラベル: '遅延画像を保存する'"
+    },
+    "optionRemoveAlternativeImages": {
+        "message": "代替画面解像度用の画像を削除します",
+        "description": "オプションのページラベル: '代替画面解像度用の画像を削除します'"
+    },
+    "optionsStylesheetsSubTitle": {
+        "message": "スタイルシート",
+        "description": "オプションのサブタイトル: 'スタイルシート'"
+    },
+    "optionCompressCSS": {
+        "message": "CSS コンテンツを圧縮する",
+        "description": "オプションのページラベル: 'CSS コンテンツを圧縮する'"
+    },
+    "optionRemoveUnusedStyles": {
+        "message": "未使用のスタイルを削除する",
+        "description": "オプションのページラベル: '未使用のスタイルを削除する'"
+    },
+    "optionRemoveAlternativeFonts": {
+        "message": "未使用のフォントと woff / otf への代替フォントを削除する",
+        "description": "オプションのページラベル: '未使用のフォントと woff / otf への代替フォントを削除する'"
+    },
+    "optionRemoveAlternativeMedias": {
+        "message": "代替デバイス用のスタイルシートを画面に表示しない",
+        "description": "オプションのページラベル: '代替デバイス用のスタイルシートを画面に表示しない'"
+    },
+    "optionsOtherResourcesSubTitle": {
+        "message": "その他の要素",
+        "description": "オプションのサブタイトル: 'その他の要素'"
+    },
+    "optionRemoveScripts": {
+        "message": "スクリプトを削除する",
+        "description": "オプションのページラベル: 'スクリプトを削除する'"
+    },
+    "optionRemoveVideo": {
+        "message": "ビデオソースを削除する",
+        "description": "オプションのページラベル: 'ビデオソースを削除する'"
+    },
+    "optionRemoveAudio": {
+        "message": "オーディオソースを削除する",
+        "description": "オプションのページラベル: 'オーディオソースを削除する'"
+    },
+    "optionsAutoSaveSubTitle": {
+        "message": "自動保存",
+        "description": "オプションのサブタイトル: '自動保存'"
+    },
+    "optionAutoSaveLoadOrUnload": {
+        "message": "ページの読み込み後またはページの非読み込み時に自動保存",
+        "description": "ページの読み込み後またはページの非読み込み時に自動保存"
+    },
+    "optionAutoSaveLoad": {
+        "message": "ページ読み込み後の自動保存",
+        "description": "オプションのページラベル: 'ページ読み込み後の自動保存'"
+    },
+    "optionAutoSaveUnload": {
+        "message": "ページの非読み込み時に自動保存",
+        "description": "オプションのページラベル: 'ページの非読み込み時に自動保存'"
+    },
+    "optionAutoSaveDelay": {
+        "message": "ページ読み込み後の自動保存待ち時間（秒）",
+        "description": "オプションのページラベル: 'ページ読み込み後の自動保存待ち時間（秒）'"
+    },
+    "optionsMiscSubTitle": {
+        "message": "その他",
+        "description": "オプションのサブタイトル: 'その他'"
+    },
+    "optionBackgroundSave": {
+        "message": "バックグラウンドでページを保存する",
+        "description": "オプションのページラベル: 'バックグラウンドでページを保存する'"
+    },
+    "optionDisplayStats": {
+        "message": "処理後、コンソールに統計情報を表示する",
+        "description": "オプションのページラベル: '処理後、コンソールに統計情報を表示する'"
+    },
+    "optionSetMaxResourceSize": {
+        "message": "埋め込み要素の最大サイズを設定する",
+        "description": "オプションのページラベル: '埋め込み要素の最大サイズを設定する'"
+    },
+    "optionMaxResourceSize": {
+        "message": "最大サイズ（Mb）",
+        "description": "オプションのページラベル: '最大サイズ（Mb）'"
+    },
+    "optionSaveRawPage": {
+        "message": "生のページを保存",
+        "description": "オプションのページラベル: '生のページを保存'"
+    },
+    "optionsHelpLink": {
+        "message": "ヘルプ",
+        "description": "オプションの「ヘルプ」リンク"
+    },
+    "optionsResetButton": {
+        "message": "リセット",
+        "description": "オプションボタン: 'リセット'"
+    },
+    "optionsResetTooltip": {
+        "message": "すべてのオプションを規定値にリセットする",
+        "description": "オプション 'リセット'ボタンのツールチップ"
+    }
+}
