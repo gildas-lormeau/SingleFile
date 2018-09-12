@@ -1,0 +1,238 @@
+{
+    "extensionDescription": {
+        "message": "Zapisuj kompletną stronę w pojedynczym pliku HTML.",
+        "description": "Description of the extension."
+    },
+    "menuSavePage": {
+        "message": "Zapsz stronę z SingleFile",
+        "description": "Menu entry: 'Save page with SingleFile'"
+    },
+    "menuSaveSelection": {
+        "message": "Zapisz wybór",
+        "description": "Menu entry: 'Save selection'"
+    },
+    "menuSaveFrame": {
+        "message": "Zapisz ramkę",
+        "description": "Menu entry: 'Save frame'"
+    },
+    "menuSaveSelectedTabs": {
+        "message": "Zapisz wybrane karty",
+        "description": "Menu entry: 'Save selected tabs'"
+    },
+    "menuUnpinnedTabs": {
+        "message": "Zapisz odpięte karty",
+        "description": "Menu entry: 'Save unpinned tabs'"
+    },
+    "menuAllTabs": {
+        "message": "Zapisz wszystkie karty",
+        "description": "Menu entry: 'Save all tabs'"
+    },
+    "menuAutoSave": {
+        "message": "Automatyczny zapis",
+        "description": "Menu entry: 'Auto-save'"
+    },
+    "menuAutoSaveDisabled": {
+        "message": "Wyłączony",
+        "description": "Menu entry: 'Auto-save' > Disabled'"
+    },
+    "menuAutoSaveTab": {
+        "message": "Automatycznie zapisz tę kartę",
+        "description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+    },
+    "menuAutoSaveUnpinnedTabs": {
+        "message": "Automatycznie zapisz odpięte karty",
+        "description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+    },
+    "menuAutoSaveAllTabs": {
+        "message": "Automatycznie zapisz wszystkie karty",
+        "description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+    },
+    "buttonDefaultTooltip": {
+        "message": "Zapisz stronę z SingleFile",
+        "description": "Button title: 'Save page with SingleFile'"
+    },
+    "buttonInitializingTooltip": {
+        "message": "Inicjowanie SingleFile",
+        "description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
+    },
+    "buttonInitializingBadge": {
+        "message": "•••",
+        "description": "Badge label during initialization: '•••'"
+    },
+    "buttonSaveProgressTooltip": {
+        "message": "Postęp zapisywania: ",
+        "description": "Button title during save: '  xx%'"
+    },
+    "buttonOKBadge": {
+        "message": "OK",
+        "description": "Badge label: 'OK'"
+    },
+    "buttonErrorBadge": {
+        "message": "ERR",
+        "description": "Badge label for unexpected errors"
+    },
+    "buttonAutoSaveActiveTooltip": {
+        "message": "Automatyczy zapis aktywny",
+        "description": "Button title: 'Auto-save active'"
+    },
+    "buttonAutoSaveActiveBadge": {
+        "message": "[A]",
+        "description": "Badge label when auto-save is active"
+    },
+    "optionsTitle": {
+        "message": "Opcje",
+        "description": "Options page title"
+    },
+    "optionsUserInterfaceSubTitle": {
+        "message": "Interfejs użytkownika",
+        "description": "Options sub-title: 'User interface'"
+    },
+    "optionAddMenuEntry": {
+        "message": "dodawaj wpis w menu kontekstowym strony",
+        "description": "Options page label: 'add entry in the context menu of the webpage'"
+    },
+    "optionDisplayInfobar": {
+        "message": "wyświetlaj pasek informacyjny podczas przeglądania zapisanej strony",
+        "description": "Options page label: 'display an infobar when viewing a saved page'"
+    },
+    "optionDisplayShadow": {
+        "message": "nakładaj cień na stronę podczas przetwarzania",
+        "description": "Options page label: 'overlay a shadow on the page during processing'"
+    },
+    "optionsFileNameSubTitle": {
+        "message": "Nazwa pliku",
+        "description": "Options sub-title: 'File name'"
+    },
+    "optionAppendSaveDate": {
+        "message": "dołączaj datę zapisu do nazwy pliku",
+        "description": "Options page label: 'append the save date to the file name'"
+    },
+    "optionConfirmFilename": {
+        "message": "otwieraj okno \"Zapisz jako\", aby potwierdzić nazwę pliku",
+        "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
+    },
+    "optionsHTMLContentSubTitle": {
+        "message": "Zawartość HTML",
+        "description": "Options sub-title: 'HTML content'"
+    },
+    "optionCompressHTML": {
+        "message": "kompresuj zawartość HTML",
+        "description": "Options page label: 'compress HTML content'"
+    },
+    "optionRemoveImports": {
+        "message": "usuwaj importy HTML",
+        "description": "Options page label: 'remove HTML imports'"
+    },
+    "optionRemoveFrames": {
+        "message": "usuwaj ramki",
+        "description": "Options page label: 'remove frames'"
+    },
+    "optionRemoveHiddenElements": {
+        "message": "usuwaj ukryte elementy",
+        "description": "Options page label: 'remove hidden elements'"
+    },
+    "optionsImagesSubTitle": {
+        "message": "Obrazy",
+        "description": "Options sub-title: 'Images'"
+    },
+    "optionLazyLoadImages": {
+        "message": "zapisuj odroczone obrazy",
+        "description": "Options page label: 'save deferred images'"
+    },
+    "optionRemoveAlternativeImages": {
+        "message": "usuwaj obrazy dla alternatywnych rozdzielczości ekranu",
+        "description": "Options page label: 'remove images for alternative screen resolutions'"
+    },
+    "optionsStylesheetsSubTitle": {
+        "message": "Arkusze stylów",
+        "description": "Options sub-title: 'Stylesheets'"
+    },
+    "optionCompressCSS": {
+        "message": "kompresuj zawartość CSS",
+        "description": "Options page label: 'compress CSS content'"
+    },
+    "optionRemoveUnusedStyles": {
+        "message": "usuwaj nieużywane style",
+        "description": "Options page label: 'remove unused styles'"
+    },
+    "optionRemoveAlternativeFonts": {
+        "message": "usuń czcionki inne niż woff/otf oraz nieużywane czcionki",
+        "description": "Options page label: 'remove alternative fonts to woff/otf and unused fonts'"
+    },
+    "optionRemoveAlternativeMedias": {
+        "message": "usuwaj arkusze stylów dla urządzeń innych niż ekrany",
+        "description": "Options page label: 'remove stylesheets for alternative devices to screens'"
+    },
+    "optionsOtherResourcesSubTitle": {
+        "message": "Inne zasoby",
+        "description": "Options sub-title: 'Other resources'"
+    },
+    "optionRemoveScripts": {
+        "message": "usuwaj skrypty",
+        "description": "Options page label: 'remove scripts'"
+    },
+    "optionRemoveVideo": {
+        "message": "usuwaj źródła wideo",
+        "description": "Options page label: 'remove video sources'"
+    },
+    "optionRemoveAudio": {
+        "message": "usuwaj źródła audio",
+        "description": "Options page label: 'remove audio sources'"
+    },
+    "optionsAutoSaveSubTitle": {
+        "message": "Automatyczny zapis",
+        "description": "Options sub-title: 'Auto-save'"
+    },
+    "optionAutoSaveLoadOrUnload": {
+        "message": "automatycznie zapisuj po załadowaniu lub przy wyładowaniu strony",
+        "description": "auto-save after page load or on page unload"
+    },
+    "optionAutoSaveLoad": {
+        "message": "automatycznie zapisuj po załadowaniu strony",
+        "description": "Options page label: 'auto-save after page load'"
+    },
+    "optionAutoSaveUnload": {
+        "message": "automatycznie zapisuj przy wyładowaniu strony",
+        "description": "Options page label: 'auto-save on page unload'"
+    },
+    "optionAutoSaveDelay": {
+        "message": "opóźnienie oczekiwania automatycznego zapisywania po załadowaniu strony (s.)",
+        "description": "Options page label: 'auto-save waiting delay after page load (sec.)'"
+    },
+    "optionsMiscSubTitle": {
+        "message": "Różne",
+        "description": "Options sub-title: 'Misc.'"
+    },
+    "optionBackgroundSave": {
+        "message": "zapisuj strony w tle",
+        "description": "Options page label: 'save pages in background'"
+    },
+    "optionDisplayStats": {
+        "message": "wyświetlaj statystyki w konsoli po przetworzeniu",
+        "description": "Options page label: 'display stats in the console after processing'"
+    },
+    "optionSetMaxResourceSize": {
+        "message": "ustaw maksymalny rozmiar dla zasobów osadzonych",
+        "description": "Options page label: 'set a maximum size for embedded resources'"
+    },
+    "optionMaxResourceSize": {
+        "message": "maksymalny rozmiar (MB)",
+        "description": "Options page label: 'maximum size (Mb)'"
+    },
+    "optionSaveRawPage": {
+        "message": "zapisuj surową stronę",
+        "description": "Options page label: 'save raw page'"
+    },
+    "optionsHelpLink": {
+        "message": "pomoc (w języku angielskim)",
+        "description": "Options help link"
+    },
+    "optionsResetButton": {
+        "message": "Resetuj",
+        "description": "Options button: 'Reset'"
+    },
+    "optionsResetTooltip": {
+        "message": "Zresetuj wszystkie opcje do ich wartości domyślnych",
+        "description": "Options 'Reset' button tooltip"
+    }
+}
