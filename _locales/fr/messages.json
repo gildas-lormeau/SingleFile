@@ -24,7 +24,7 @@
         "description": "Menu entry: 'Save unpinned tabs'"
     },
     "menuAllTabs": {
-        "message": "Save tous les onglets",
+        "message": "Sauver tous les onglets",
         "description": "Menu entry: 'Save all tabs'"
     },
     "menuAutoSave": {
