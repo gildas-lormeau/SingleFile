@@ -1,0 +1,238 @@
+{
+    "extensionDescription": {
+        "message": "Сохранить полную страницу в одном HTML-файле",
+        "description": "Description of the extension."
+    },
+    "menuSavePage": {
+        "message": "Сохранить страницу с помощью SingleFile",
+        "description": "Menu entry: 'Save page with SingleFile'"
+    },
+    "menuSaveSelection": {
+        "message": "Сохранить выделенное",
+        "description": "Menu entry: 'Save selection'"
+    },
+    "menuSaveFrame": {
+        "message": "Сохранить фрейм",
+        "description": "Menu entry: 'Save frame'"
+    },
+    "menuSaveSelectedTabs": {
+        "message": "Сохранить выбранные вкладки",
+        "description": "Menu entry: 'Save selected tabs'"
+    },
+    "menuUnpinnedTabs": {
+        "message": "Сохранить незакрепленные вкладки",
+        "description": "Menu entry: 'Save unpinned tabs'"
+    },
+    "menuAllTabs": {
+        "message": "Сохранить все вкладки",
+        "description": "Menu entry: 'Save all tabs'"
+    },
+    "menuAutoSave": {
+        "message": "Автосохранение",
+        "description": "Menu entry: 'Auto-save'"
+    },
+    "menuAutoSaveDisabled": {
+        "message": "Отключено",
+        "description": "Menu entry: 'Auto-save' > Disabled'"
+    },
+    "menuAutoSaveTab": {
+        "message": "Автосохранение этой вкладки",
+        "description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+    },
+    "menuAutoSaveUnpinnedTabs": {
+        "message": "Автосохранение незакрепленных вкладок",
+        "description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+    },
+    "menuAutoSaveAllTabs": {
+        "message": "Автосохранение всех вкладок",
+        "description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+    },
+    "buttonDefaultTooltip": {
+        "message": "Сохранить страницу с помощью SingleFile",
+        "description": "Button title: 'Save page with SingleFile'"
+    },
+    "buttonInitializingTooltip": {
+        "message": "Инициализация SingleFile",
+        "description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
+    },
+    "buttonInitializingBadge": {
+        "message": "•••",
+        "description": "Badge label during initialization: '•••'"
+    },
+    "buttonSaveProgressTooltip": {
+        "message": "Прогресс сохранения: ",
+        "description": "Button title during save: 'Save progress: xx%'"
+    },
+    "buttonOKBadge": {
+        "message": "OK",
+        "description": "Badge label: 'OK'"
+    },
+    "buttonErrorBadge": {
+        "message": "ERR",
+        "description": "Badge label for unexpected errors"
+    },
+    "buttonAutoSaveActiveTooltip": {
+        "message": "Автосохранение активно",
+        "description": "Button title: 'Auto-save active'"
+    },
+    "buttonAutoSaveActiveBadge": {
+        "message": "[A]",
+        "description": "Badge label when auto-save is active"
+    },
+    "optionsTitle": {
+        "message": "Параметры",
+        "description": "Options page title"
+    },
+    "optionsUserInterfaceSubTitle": {
+        "message": "Пользовательский интерфейс",
+        "description": "Options sub-title: 'User interface'"
+    },
+    "optionAddMenuEntry": {
+        "message": "добавить пункт в контекстное меню веб-страницы",
+        "description": "Options page label: 'add entry in the context menu of the webpage'"
+    },
+    "optionDisplayInfobar": {
+        "message": "отображать информационную панель при просмотре сохраненной страницы",
+        "description": "Options page label: 'display an infobar when viewing a saved page'"
+    },
+    "optionDisplayShadow": {
+        "message": "накладывать тень на страницу во время обработки",
+        "description": "Options page label: 'overlay a shadow on the page during processing'"
+    },
+    "optionsFileNameSubTitle": {
+        "message": "Имя файла",
+        "description": "Options sub-title: 'File name'"
+    },
+    "optionAppendSaveDate": {
+        "message": "добавить дату сохранения в имя файла",
+        "description": "Options page label: 'append the save date to the file name'"
+    },
+    "optionConfirmFilename": {
+        "message": "открывать диалоговое окно \"Сохранить как\" для подтверждения имени файла",
+        "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
+    },
+    "optionsHTMLContentSubTitle": {
+        "message": "HTML-контент",
+        "description": "Options sub-title: 'HTML content'"
+    },
+    "optionCompressHTML": {
+        "message": "сжать HTML-контент",
+        "description": "Options page label: 'compress HTML content'"
+    },
+    "optionRemoveImports": {
+        "message": "удалить HTML-импорт",
+        "description": "Options page label: 'remove HTML imports'"
+    },
+    "optionRemoveFrames": {
+        "message": "удалить фреймы",
+        "description": "Options page label: 'remove frames'"
+    },
+    "optionRemoveHiddenElements": {
+        "message": "удалить скрытые элементы",
+        "description": "Options page label: 'remove hidden elements'"
+    },
+    "optionsImagesSubTitle": {
+        "message": "Изображения",
+        "description": "Options sub-title: 'Images'"
+    },
+    "optionLazyLoadImages": {
+        "message": "сохранить отложенные изображения",
+        "description": "Options page label: 'save deferred images'"
+    },
+    "optionRemoveAlternativeImages": {
+        "message": "удалить изображения для альтернативных разрешений экрана",
+        "description": "Options page label: 'remove images for alternative screen resolutions'"
+    },
+    "optionsStylesheetsSubTitle": {
+        "message": "Таблицы стилей",
+        "description": "Options sub-title: 'Stylesheets'"
+    },
+    "optionCompressCSS": {
+        "message": "сжать содержимое CSS",
+        "description": "Options page label: 'compress CSS content'"
+    },
+    "optionRemoveUnusedStyles": {
+        "message": "удалить неиспользуемые стили",
+        "description": "Options page label: 'remove unused styles'"
+    },
+    "optionRemoveAlternativeFonts": {
+        "message": "удалить альтернативные шрифты в woff/otf и неиспользуемые шрифты",
+        "description": "Options page label: 'remove alternative fonts to woff/otf and unused fonts'"
+    },
+    "optionRemoveAlternativeMedias": {
+        "message": "удалить таблицы стилей для экранов альтернативных устройств",
+        "description": "Options page label: 'remove stylesheets for alternative devices to screens'"
+    },
+    "optionsOtherResourcesSubTitle": {
+        "message": "Другие ресурсы",
+        "description": "Options sub-title: 'Other resources'"
+    },
+    "optionRemoveScripts": {
+        "message": "удалить скрипты",
+        "description": "Options page label: 'remove scripts'"
+    },
+    "optionRemoveVideo": {
+        "message": "удалить источники видео",
+        "description": "Options page label: 'remove video sources'"
+    },
+    "optionRemoveAudio": {
+        "message": "удалить источники аудио",
+        "description": "Options page label: 'remove audio sources'"
+    },
+    "optionsAutoSaveSubTitle": {
+        "message": "Автосохранение",
+        "description": "Options sub-title: 'Auto-save'"
+    },
+    "optionAutoSaveLoadOrUnload": {
+        "message": "автосохранение после загрузки или выгрузки страницы",
+        "description": "auto-save after page load or on page unload"
+    },
+    "optionAutoSaveLoad": {
+        "message": "автосохранение после загрузки страницы",
+        "description": "Options page label: 'auto-save after page load'"
+    },
+    "optionAutoSaveUnload": {
+        "message": "автосохранение после выгрузки страницы",
+        "description": "Options page label: 'auto-save on page unload'"
+    },
+    "optionAutoSaveDelay": {
+        "message": "задержка автосохранения после загрузки страницы (сек.)",
+        "description": "Options page label: 'auto-save waiting delay after page load (sec.)'"
+    },
+    "optionsMiscSubTitle": {
+        "message": "Разное",
+        "description": "Options sub-title: 'Misc.'"
+    },
+    "optionBackgroundSave": {
+        "message": "сохранять страницы в фоновом режиме",
+        "description": "Options page label: 'save pages in background'"
+    },
+    "optionDisplayStats": {
+        "message": "отображать статистику в консоли после обработки",
+        "description": "Options page label: 'display stats in the console after processing'"
+    },
+    "optionSetMaxResourceSize": {
+        "message": "установить максимальный размер для встроенных ресурсов",
+        "description": "Options page label: 'set a maximum size for embedded resources'"
+    },
+    "optionMaxResourceSize": {
+        "message": "максимальный размер (Мб)",
+        "description": "Options page label: 'maximum size (Mb)'"
+    },
+    "optionSaveRawPage": {
+        "message": "сохранить исходную страницу",
+        "description": "Options page label: 'save raw page'"
+    },
+    "optionsHelpLink": {
+        "message": "помощь",
+        "description": "Options help link"
+    },
+    "optionsResetButton": {
+        "message": "Сброс",
+        "description": "Options button: 'Reset'"
+    },
+    "optionsResetTooltip": {
+        "message": "Сбросить все параметры к значениям по умолчанию",
+        "description": "Options 'Reset' button tooltip"
+    }
+}
