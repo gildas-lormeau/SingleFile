@@ -54,6 +54,7 @@ Please follow these steps if you find an unknown issue:
 ## Contributors
 - Japanese translation done by Shitennouji （四天王寺)
 - Polish translation done by xesarni (https://github.com/xesarni)
+- Russian translation done by rstp14 (https://github.com/rstp14)
 
 Suggestions are welcome :)
 
