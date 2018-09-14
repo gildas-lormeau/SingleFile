@@ -20,13 +20,13 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
    - or the selected content,
    - or the selected frame.
  - You can also process multiple tabs in one click and save:
-   - selected tabs,
-   - or unpinned tabs,
-   - or all tabs.
+   - the selected tabs,
+   - or the unpinned tabs,
+   - or all the tabs.
  - The context menu also allows you to activate the auto-save of:
    - the current tab,
-   - or unpinned tabs,
-   - or all tabs.
+   - or the unpinned tabs,
+   - or all the tabs.
  - With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not).
  - Right-click on the SingleFile button and select "Options" to open the options page.
  - You can use the shortcut Ctrl+Shift+X to save current or selected tabs in Chrome. Go to chrome://extensions/shortcuts to change it.
