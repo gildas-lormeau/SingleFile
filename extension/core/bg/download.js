@@ -45,7 +45,7 @@ singlefile.download = (() => {
 	return { downloadPage };
 
 	async function downloadPage(page, options) {
-		let filename = page.filename.replace(/[/\\?%*:|"<>\x7F]+/g, "_");
+		let filename = page.filename.replace(/[~/\\?%*:|"<>\x00-\x1f\x7F]+/g, "_");
 		if (filename.length > 128) {
 			filename = filename.replace(/\.html?$/, "").substring(0, 122) + "….html";
 		}
