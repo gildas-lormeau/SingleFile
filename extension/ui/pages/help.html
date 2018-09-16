@@ -122,7 +122,12 @@
 						<p>The template allows you to customize the file name of saved pages. You can use any valid character and "/" to
 							create sub-folders. You can also use the variables in the list below anywhere in the template.</p>
 						<ul>
-							<li><code>{page-title}</code>: the title of the page or the last segment if not found</li>
+							<li><code>{page-title}</code>: the title of the page</li>
+							<li><code>{page-language}</code>: the language of the page</li>
+							<li><code>{page-description}</code>: the description of the page</li>
+							<li><code>{page-author}</code>: the author of the page</li>
+							<li><code>{page-creator}</code>: the creator of the page</li>
+							<li><code>{page-publisher}</code>: the publisher of the page</li>
 							<li><code>{datetime-iso}</code>: the save date and time in the ISO format (e.g. "2018-09-15T22_38_26_317Z")</li>
 							<li><code>{datetime-utc}</code>: the save date and time in UTC format (e.g. "Sat, 15 Sep 2018 22_38_26 GMT")</li>
 							<li><code>{datetime-locale}</code>: the localized value of the date and time (e.g. "9_16_2018, 12_54_31 AM")</li>
@@ -138,7 +143,7 @@
 							<li><code>{year-locale}</code>: the localized value of the year (e.g. "2018")</li>
 							<li><code>{url-href}</code>: the URL of the page (e.g. "http_example.com")</li>
 							<li><code>{url-pathname}</code>: the path name of the URL (e.g. "category_index.html")</li>
-							<li><code>{url-last-segment}</code>: the last part of the pathname without the extension or the host if not
+							<li><code>{url-last-segment}</code>: the last part of the pathname (without the extension) or the host if not
 								found (e.g. "index")</li>
 							<li><code>{url-protocol}</code>: the protocol of the URL (e.g. "https")</li>
 							<li><code>{url-host}</code>: the host name + the port of the URL (e.g. "example.com_8080")</li>
@@ -148,7 +153,7 @@
 							<li><code>{url-password}</code>: the password of the URL (e.g. "qwerty123")</li>
 							<li><code>{url-search}</code>: the search string of the URL (e.g. "filter-date=today")</li>
 							<li><code>{url-hash}</code>: the hash of the URL (e.g. "chapter-2")</li>
-							<li><code>{tab-id}</code>: the id of the tab (e.g. "326")</li>
+							<li><code>{tab-id}</code>: the unique identifier of the tab (e.g. "326")</li>
 							<li><code>{digest-sha-256}</code>: the SHA-256 hash value of the entire page content (e.g.
 								e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855)</li>
 							<li><code>{digest-sha-384}</code>: the SHA-384 hash value of the entire page content</li>
