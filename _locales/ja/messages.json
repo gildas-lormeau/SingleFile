@@ -104,7 +104,7 @@
         "description": "オプションのサブタイトル: 'ファイル名'"
     },
     "optionFilenameTemplate": {
-        "message": "",
+        "message": "template",
         "description": "Options page label: 'template'"
     },
     "optionConfirmFilename": {
