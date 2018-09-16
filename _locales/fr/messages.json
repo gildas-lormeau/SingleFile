@@ -104,8 +104,8 @@
         "description": "Options sub-title: 'File name'"
     },
     "optionAppendSaveDate": {
-        "message": "ajouter la date de sauvegarde à la fin du nom de fichier",
-        "description": "Options page label: 'append the save date to the file name'"
+        "message": "modèle",
+        "description": "Options page label: 'template'"
     },
     "optionConfirmFilename": {
         "message": "ouvrir la boite de dialogue \"Sauver sous\" pour confimer le nom de fichier",

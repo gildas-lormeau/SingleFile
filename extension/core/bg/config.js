@@ -32,7 +32,7 @@ singlefile.config = (() => {
 		compressHTML: true,
 		compressCSS: true,
 		lazyLoadImages: true,
-		appendSaveDate: true,
+		filenameTemplate: "{title} ({iso-date} {locale-time}).html",
 		confirmFilename: false,
 		contextMenuEnabled: true,
 		shadowEnabled: true,
@@ -90,8 +90,13 @@ singlefile.config = (() => {
 		if (config.contextMenuEnabled === undefined) {
 			config.contextMenuEnabled = true;
 		}
-		if (config.appendSaveDate === undefined) {
-			config.appendSaveDate = true;
+		if (config.filenameTemplate === undefined) {
+			if (config.appendSaveDate || config.appendSaveDate === undefined) {
+				config.filenameTemplate = "{title} ({iso-date} {locale-time}).html";
+			} else {
+				config.filenameTemplate = "{title}.html";
+			}
+			delete config.appendSaveDate;
 		}
 		if (config.removeImports === undefined) {
 			config.removeImports = true;

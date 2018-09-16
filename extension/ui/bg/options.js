@@ -33,7 +33,7 @@
 	const compressCSSLabel = document.getElementById("compressCSSLabel");
 	const lazyLoadImagesLabel = document.getElementById("lazyLoadImagesLabel");
 	const addMenuEntryLabel = document.getElementById("addMenuEntryLabel");
-	const appendSaveDateLabel = document.getElementById("appendSaveDateLabel");
+	const filenameTemplateLabel = document.getElementById("filenameTemplateLabel");
 	const shadowEnabledLabel = document.getElementById("shadowEnabledLabel");
 	const setMaxResourceSizeLabel = document.getElementById("setMaxResourceSizeLabel");
 	const maxResourceSizeLabel = document.getElementById("maxResourceSizeLabel");
@@ -72,7 +72,7 @@
 	const compressCSSInput = document.getElementById("compressCSSInput");
 	const lazyLoadImagesInput = document.getElementById("lazyLoadImagesInput");
 	const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
-	const appendSaveDateInput = document.getElementById("appendSaveDateInput");
+	const filenameTemplateInput = document.getElementById("filenameTemplateInput");
 	const shadowEnabledInput = document.getElementById("shadowEnabledInput");
 	const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 	const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
@@ -130,7 +130,7 @@
 	compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
 	lazyLoadImagesLabel.textContent = browser.i18n.getMessage("optionLazyLoadImages");
 	addMenuEntryLabel.textContent = browser.i18n.getMessage("optionAddMenuEntry");
-	appendSaveDateLabel.textContent = browser.i18n.getMessage("optionAppendSaveDate");
+	filenameTemplateLabel.textContent = browser.i18n.getMessage("optionFilenameTemplate");
 	shadowEnabledLabel.textContent = browser.i18n.getMessage("optionDisplayShadow");
 	setMaxResourceSizeLabel.textContent = browser.i18n.getMessage("optionSetMaxResourceSize");
 	maxResourceSizeLabel.textContent = browser.i18n.getMessage("optionMaxResourceSize");
@@ -157,7 +157,7 @@
 	autoSaveLabel.textContent = browser.i18n.getMessage("optionsAutoSaveSubTitle");
 	miscLabel.textContent = browser.i18n.getMessage("optionsMiscSubTitle");
 	helpLabel.textContent = browser.i18n.getMessage("optionsHelpLink");
-	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");	
+	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
 	resetButton.title = browser.i18n.getMessage("optionsResetTooltip");
 
 	refresh();
@@ -174,7 +174,7 @@
 		compressCSSInput.checked = config.compressCSS;
 		lazyLoadImagesInput.checked = config.lazyLoadImages;
 		contextMenuEnabledInput.checked = config.contextMenuEnabled;
-		appendSaveDateInput.checked = config.appendSaveDate;
+		filenameTemplateInput.value = config.filenameTemplate;
 		shadowEnabledInput.checked = config.shadowEnabled;
 		maxResourceSizeEnabledInput.checked = config.maxResourceSizeEnabled;
 		maxResourceSizeInput.value = config.maxResourceSize;
@@ -210,7 +210,7 @@
 			compressCSS: compressCSSInput.checked,
 			lazyLoadImages: lazyLoadImagesInput.checked,
 			contextMenuEnabled: contextMenuEnabledInput.checked,
-			appendSaveDate: appendSaveDateInput.checked,
+			filenameTemplate: filenameTemplateInput.value,
 			shadowEnabled: shadowEnabledInput.checked,
 			maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
 			maxResourceSize: maxResourceSizeInput.value,

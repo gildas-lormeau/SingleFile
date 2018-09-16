@@ -25,6 +25,7 @@ singlefile.ui = (() => {
 	return {
 		async saveTab(tab, options = {}) {
 			const tabId = tab.id;
+			options.tabId = tabId;
 			try {
 				singlefile.ui.button.onInitialize(tabId, options, 1);
 				if (options.autoSave) {

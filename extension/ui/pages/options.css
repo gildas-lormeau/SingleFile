@@ -1,11 +1,7 @@
 body {
-    box-sizing: border-box;
-    padding: 0px;
     background-color: transparent;
     font-family: sans-serif;
-    text-align: justify;
     max-width: 800px;
-    height: auto;
 }
 
 button {
@@ -24,18 +20,23 @@ button:active {
     border-color: rgb(237, 237, 237);
 }
 
-input[type="checkbox"] {
-    margin-left: 30px;
-    position: relative;
-    align-self: flex-start;
+input {
+    margin-left: 5px;
+}
+
+label,
+input {
+    align-self: center;
+}
+
+input[type="text"] {
+    min-width: 70%;
+    text-align: right;
 }
 
 input[type="number"] {
-    margin-left: 30px;
     max-width: 40px;
     text-align: right;
-    position: relative;
-    top: -2px;
 }
 
 h3 {
@@ -57,7 +58,6 @@ details:last-of-type {
 details>summary {
     margin-bottom: 10px;
     margin-top: 10px;
-    min-width: 340px;
     cursor: pointer;
 }
 
@@ -79,6 +79,7 @@ a {
     justify-content: space-between;
     margin-top: 5px;
     padding-left: 12px;
+    min-height: 24px;
 }
 
 .option:last-of-type {
@@ -119,5 +120,9 @@ a {
 @media (max-width:400px) {
     body {
         font-size: 11px;
+    }
+    body,
+    input {
+        font-size: 12px;
     }
 }

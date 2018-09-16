@@ -118,13 +118,58 @@
 				<p>File name</p>
 				<ul>
 					<li>
-						<span class="option">append the save date to the file name</span>
-						<p>Check this option to append the save date of the webpage to the file name.
-						</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
+						<span class="option">template</span>
+						<p>The template allows you to customize the file name of saved pages. You can use any valid character and "/" to
+							create sub-folders. You can also use the variables in the list below anywhere in the template.</p>
+						<ul>
+							<li><code>{title}</code>: the title of the page or the last segment if not found</li>
+							<li><code>{iso-datetime}</code>: the date and time in the ISO format (e.g. "2018-09-15T22_38_26_317Z")</li>
+							<li><code>{iso-date}</code>: the date in the ISO format (e.g. "2018-09-15")</li>
+							<li><code>{iso-time}</code>: the time in the ISO format (e.g. "22_38_26_317")</li>
+							<li><code>{utc-datetime}</code>: the date and time in UTC format (e.g. "Sat, 15 Sep 2018 22_38_26 GMT")</li>
+							<li><code>{utc-day}</code>: the day in UTC format (e.g. "15")</li>
+							<li><code>{utc-month}</code>: the the month in UTC format (e.g. "9")</li>
+							<li><code>{utc-year}</code>: the year in UTC format (e.g. "2018")</li>
+							<li><code>{locale-date}</code>: the localized value of the date (e.g. "16_09_2018")</li>
+							<li><code>{locale-time}</code>: the localized value of the time (e.g. "00_38_26")</li>
+							<li><code>{locale-day}</code>: the localized value of the day (e.g. "15")</li>
+							<li><code>{locale-month}</code>: the localized value of the month (e.g. "9")</li>
+							<li><code>{locale-year}</code>: the localized value of the year (e.g. "2018")</li>
+							<li><code>{locale-datetime}</code>: the localized value of the date and time (e.g. "9_16_2018, 12_54_31 AM")</li>
+							<li><code>{url-href}</code>: the URL of the page (e.g. "http_example.com")</li>
+							<li><code>{url-pathname}</code>: the path name of the URL (e.g. "category_index.html")</li>
+							<li><code>{url-last-segment}</code>: the last part of the pathname without the extension or the host if not
+								found
+								(e.g. "index")</li>
+							<li><code>{url-protocol}</code>: the protocol of the URL (e.g. "https")</li>
+							<li><code>{url-host}</code>: the host name + the port of the URL (e.g. "example.com_8080")</li>
+							<li><code>{url-hostname}</code>: the host name of the URL (e.g. "example.com")</li>
+							<li><code>{url-port}</code>: the port of the URL (e.g. "8080")</li>
+							<li><code>{url-username}</code>: the user name of the URL (e.g. "john_doe")</li>
+							<li><code>{url-password}</code>: the password of the URL (e.g. "qwerty123")</li>
+							<li><code>{url-search}</code>: the search string of the URL (e.g. "filter-date=today")</li>
+							<li><code>{url-hash}</code>: the hash of the URL (e.g. "chapter-2")</li>
+							<li><code>{tab-id}</code>: the id of the tab (e.g. "326")</li>
+							<li><code>{digest-sha-256}</code>: the SHA-256 hash value of the entire page content (e.g.
+								e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855)</li>
+							<li><code>{digest-sha-384}</code>: the SHA-384 hash value of the entire page content</li>
+							<li><code>{digest-sha-512}</code>: the SHA-512 hash value of the entire page content</li>
+						</ul>
+						<p>Note that invalid characters are automatically transformed and collapsed to underscores. File names cannot
+							exceed 192 characters and are truncated if longer. The invalid characters are: [, ~, \, ?, %, *, :, |, ", &lt;,
+							&gt;, and control characters from 0 to 31 in the ASCII table.</p>
+						<p>Template Examples</p>
+						<ul>
+							<li><code>{title} ({iso-date} {locale-time}).html</code> will produce filenames like "Introduction to SingleFile
+								(2018-09-15
+								11_06_03 PM).html" for a page having "Introduction to SingleFile" as title.</li>
+							<li><code>{url-last-segment} - {iso-date}</code> will produce filenames like "welcome - " for a page hosted on
+								https://example.com/welcome.html.</li>
+							<li><code>archives/{locale-year}/{locale-month}/{locale-day}/{title}</code> will produce filenames like
+								"Introduction to SingleFile" stored into 3 sub-directories in the "archives" folder, one for each part of the
+								date.</li>
+						</ul>
 					</li>
-
 					<li>
 						<span class="option">open the "Save as" dialog to confirm the file name</span>
 						<p>Check this option to display the "Save as" dialog in order to confirm the file name before saving the page. If

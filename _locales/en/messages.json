@@ -103,9 +103,9 @@
         "message": "File name",
         "description": "Options sub-title: 'File name'"
     },
-    "optionAppendSaveDate": {
-        "message": "append the save date to the file name",
-        "description": "Options page label: 'append the save date to the file name'"
+    "optionFilenameTemplate": {
+        "message": "template",
+        "description": "Options page label: 'template'"
     },
     "optionConfirmFilename": {
         "message": "open the \"Save as\" dialog to confirm the file name",

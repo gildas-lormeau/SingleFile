@@ -93,12 +93,10 @@ this.singlefile.top = this.singlefile.top || (() => {
 		}
 		await processor.initialize();
 		await processor.preparePageData();
-		const page = processor.getPageData();
+		const page = await processor.getPageData();
 		if (options.selected) {
 			unmarkSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
 		}
-		const date = new Date();
-		page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 		if (options.shadowEnabled) {
 			singlefile.ui.end();

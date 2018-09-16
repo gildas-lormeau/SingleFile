@@ -42,6 +42,7 @@ singlefile.processor = (() => {
 		options.backgroundTab = true;
 		options.autoSave = true;
 		options.incognito = incognito;
+		options.tabId = tabId;
 		let index = 0, maxIndex = 0;
 		options.onprogress = async event => {
 			if (event.type == event.RESOURCES_INITIALIZED) {
@@ -57,9 +58,7 @@ singlefile.processor = (() => {
 		const processor = new (SingleFile.getClass())(options);
 		await processor.initialize();
 		await processor.preparePageData();
-		const page = processor.getPageData();
-		const date = new Date();
-		page.filename = page.title + (options.appendSaveDate ? " (" + date.toISOString().split("T")[0] + " " + date.toLocaleTimeString() + ")" : "") + ".html";
+		const page = await processor.getPageData();
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 		return singlefile.download.downloadPage(page, options);
 	}
