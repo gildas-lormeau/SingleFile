@@ -39,7 +39,7 @@ input[type="number"] {
 }
 
 h3 {
-    padding-left: 14px;
+    padding-left: 8px;
     margin-bottom: 10px;
     margin-top: 10px;
 }
@@ -92,6 +92,28 @@ a {
 .option.bottom {
     padding-top: 24px;
     padding-right: 12px;
+}
+
+#expandAllButton {
+    opacity: .3;
+    transition: opacity 250ms;
+    cursor: pointer;
+    font-size: .9em;
+    margin-right: 1px;
+}
+
+#expandAllButton::after {
+    content: '▷';    
+}
+
+#expandAllButton.opened::after {
+    content: '▽';
+    position: relative;
+    top: 1px;    
+}
+
+#expandAllButton:hover {
+    opacity: 1;
 }
 
 @media (max-width:400px) {

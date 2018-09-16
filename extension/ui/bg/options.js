@@ -89,6 +89,7 @@
 	const removeAlternativeFontsInput = document.getElementById("removeAlternativeFontsInput");
 	const removeSrcSetInput = document.getElementById("removeSrcSetInput");
 	const removeAlternativeMediasInput = document.getElementById("removeAlternativeMediasInput");
+	const expandAllButton = document.getElementById("expandAllButton");
 	let pendingSave = Promise.resolve();
 	resetButton.addEventListener("click", async () => {
 		await bgPage.singlefile.config.reset();
@@ -110,8 +111,15 @@
 		}
 		await bgPage.singlefile.ui.autosave.refresh();
 	}, false);
+	expandAllButton.addEventListener("click", () => {
+		if (expandAllButton.className) {
+			expandAllButton.className = "";
+		} else {
+			expandAllButton.className = "opened";
+		}
+		document.querySelectorAll("details").forEach(detailElement => detailElement.open = Boolean(expandAllButton.className));
+	}, false);
 	document.body.onchange = update;
-
 	removeHiddenElementsLabel.textContent = browser.i18n.getMessage("optionRemoveHiddenElements");
 	removeUnusedStylesLabel.textContent = browser.i18n.getMessage("optionRemoveUnusedStyles");
 	removeFramesLabel.textContent = browser.i18n.getMessage("optionRemoveFrames");
