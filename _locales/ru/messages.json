@@ -104,7 +104,7 @@
         "description": "Options sub-title: 'File name'"
     },
     "optionFilenameTemplate": {
-        "message": "",
+        "message": "шаблон",
         "description": "Options page label: 'template'"
     },
     "optionConfirmFilename": {
