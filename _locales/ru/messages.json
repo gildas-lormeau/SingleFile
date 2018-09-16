@@ -103,9 +103,9 @@
         "message": "Имя файла",
         "description": "Options sub-title: 'File name'"
     },
-    "optionAppendSaveDate": {
-        "message": "добавить дату сохранения в имя файла",
-        "description": "Options page label: 'append the save date to the file name'"
+    "optionFilenameTemplate": {
+        "message": "",
+        "description": "Options page label: 'template'"
     },
     "optionConfirmFilename": {
         "message": "открывать диалоговое окно \"Сохранить как\" для подтверждения имени файла",

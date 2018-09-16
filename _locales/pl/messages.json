@@ -103,9 +103,9 @@
         "message": "Nazwa pliku",
         "description": "Options sub-title: 'File name'"
     },
-    "optionAppendSaveDate": {
-        "message": "dołączaj datę zapisu do nazwy pliku",
-        "description": "Options page label: 'append the save date to the file name'"
+    "optionFilenameTemplate": {
+        "message": "",
+        "description": "Options page label: 'template'"
     },
     "optionConfirmFilename": {
         "message": "otwieraj okno \"Zapisz jako\", aby potwierdzić nazwę pliku",

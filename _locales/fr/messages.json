@@ -103,7 +103,7 @@
         "message": "Nom de fichier",
         "description": "Options sub-title: 'File name'"
     },
-    "optionAppendSaveDate": {
+    "optionFilenameTemplate": {
         "message": "modèle",
         "description": "Options page label: 'template'"
     },
