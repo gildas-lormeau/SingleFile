@@ -104,8 +104,8 @@
         "description": "オプションのサブタイトル: 'ファイル名'"
     },
     "optionFilenameTemplate": {
-        "message": "template",
-        "description": "Options page label: 'template'"
+        "message": "保存時の定形書式",
+        "description": "オプションのページラベル: '保存時の定形書式'"
     },
     "optionConfirmFilename": {
         "message": "を開く（として保存する：ファイル名を確認するためのダイアログ）",
