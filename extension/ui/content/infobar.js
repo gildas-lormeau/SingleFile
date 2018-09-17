@@ -24,6 +24,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 
 	const INFOBAR_TAGNAME = "singlefile-infobar";
 	const LINK_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABmJLR0QABQDuAACS38mlAAAACXBIWXMAACfuAAAn7gExzuVDAAAAB3RJTUUH4ggCDDcMnYqGGAAAATtJREFUOMvNk19LwlAYxp+zhOoqpxJ1la3patFVINk/oRDBLuyreiPFMmcj/QQRSOOwpEINDCpwRr7d1HBMc4sufO7Oe877e5/zcA4wbWLDi8urGr2+vXsOFfJZdnPboDtuueoRcQEH6RQDgNBP8bxcpfvmA0QxPHF6u/MMInLVHFDP7kMUwyjks2xU8+ZGkgGAbtSp1e5gRhBc+0KQHHSjTg2TY0tVEItF/wYqV6+pYXKoiox0atvjOuQXYnILqiJj/ztceXUlGEirGGRyC0pCciDDmfm6mlYxiFtNKAkJmb0dV2OxpFGxpNFE0NmFTtxqQpbiHsgojQX1bBuyFMfR4S7zk+PYjE5PcizI0xD+6685jubnZvH41MJwgL+p233B8tKiF7SeXMPnYIB+/8OXg2hERO44wzC1+gJYGGpVbtoqiAAAAABJRU5ErkJggg==";
+	const IMAGE_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABIUlEQVQ4y+2TsarCMBSGvxTBRdqiUZAWOrhJB9EXcPKFfCvfQYfulUKHDqXg4CYUJSioYO4mSDX3ttzt3n87fMlHTpIjlsulxpDZbEYYhgghSNOUOI5Ny2mZYBAELBYLer0eAJ7ncTweKYri4x7LJJRS0u12n7XrukgpjSc0CpVSXK/XZ32/31FKNW85z3PW6zXT6RSAJEnIsqy5UGvNZrNhu90CcDqd+C6tT6J+v//2Th+PB2VZ1hN2Oh3G4zGTyQTbtl/YbrdjtVpxu91+Ljyfz0RRhG3bzOfzF+Y4TvNXvlwuaK2pE4tfzr/wzwsty0IIURlL0998KxRCMBqN8H2/wlzXJQxD2u12vVkeDoeUZUkURRU+GAw4HA7s9/sK+wK6CWHasQ/S/wAAAABJRU5ErkJggg==";
 	const SINGLEFILE_COMMENT = "Archive processed by SingleFile";
 
 	if (window == top) {
@@ -63,23 +64,30 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 		if (!infobarElement) {
 			infobarElement = createElement(INFOBAR_TAGNAME, document.body);
 			infobarElement.style.setProperty("background-color", "#f9f9f9", "important");
-			infobarElement.style.setProperty("color", "#9aa0a6", "important");
 			infobarElement.style.setProperty("display", "block", "important");
 			infobarElement.style.setProperty("position", "fixed", "important");
 			infobarElement.style.setProperty("top", "16px", "important");
 			infobarElement.style.setProperty("right", "16px", "important");
 			infobarElement.style.setProperty("height", "auto", "important");
+			infobarElement.style.setProperty("min-height", "28px", "important");
+			infobarElement.style.setProperty("min-width", "28px", "important");
+			infobarElement.style.setProperty("background-position", "center", "important");
+			infobarElement.style.setProperty("background-repeat", "no-repeat", "important");
 			infobarElement.style.setProperty("line-height", "28px", "important");
 			infobarElement.style.setProperty("border-radius", "16px", "important");
 			infobarElement.style.setProperty("z-index", 2147483647, "important");
 			infobarElement.style.setProperty("text-align", "center", "important");
-			infobarElement.style.setProperty("font-family", "Arial", "important");
 			infobarElement.style.setProperty("will-change", "opacity, padding-left, padding-right, width, background-color, color", "important");
+			const infoElement = createElement("span", infobarElement);
+			infoElement.style.setProperty("font-family", "Arial", "important");
+			infoElement.style.setProperty("color", "#9aa0a6", "important");
+			infoElement.textContent = saveDate.split("saved date: ")[1];
 			const linkElement = createElement("a", infobarElement);
 			linkElement.style.setProperty("display", "inline-block", "important");
 			linkElement.style.setProperty("padding-left", "8px", "important");
 			linkElement.style.setProperty("line-height", "28px", "important");
 			linkElement.style.setProperty("cursor", "pointer", "important");
+			linkElement.style.setProperty("user-select", "none", "important");
 			linkElement.target = "_blank";
 			linkElement.rel = "noopener noreferrer";
 			linkElement.title = "Open original page";
@@ -92,7 +100,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			imgElement.style.setProperty("-webkit-padding-start", "2px", "important");
 			imgElement.style.setProperty("cursor", "pointer", "important");
 			imgElement.src = LINK_ICON;
-			hideInfobar(infobarElement, linkElement, saveDate);
+			hideInfobar(infobarElement, linkElement, infoElement, saveDate);
 			infobarElement.onmouseover = () => infobarElement.style.setProperty("opacity", 1, "important");
 			document.addEventListener("click", event => {
 				if (event.button === 0) {
@@ -101,18 +109,18 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 						element = element.parentElement;
 					}
 					if (element != infobarElement) {
-						hideInfobar(infobarElement, linkElement, saveDate);
+						hideInfobar(infobarElement, linkElement, infoElement, saveDate);
 					}
 				}
 			});
 			setTimeout(() => {
-				infobarElement.style.setProperty("transition-property", "opacity, padding-left, padding-right, width, background-color, color", "important");
+				infobarElement.style.setProperty("transition-property", "opacity", "important");
 				infobarElement.style.setProperty("transition-duration", "250ms", "important");
 			});
 		}
 	}
 
-	function displayInfobar(infobarElement, linkElement, saveDate) {
+	function displayInfobar(infobarElement, linkElement, infoElement) {
 		infobarElement.style.setProperty("font-size", "15px", "important");
 		infobarElement.style.setProperty("opacity", 1, "important");
 		infobarElement.style.setProperty("width", "auto", "important");
@@ -128,13 +136,14 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 		infobarElement.style.setProperty("-webkit-border-before", "2px solid #555", "important");
 		infobarElement.style.setProperty("-webkit-border-end", "2px solid #555", "important");
 		infobarElement.style.setProperty("-webkit-border-after", "2px solid #555", "important");
-		infobarElement.textContent = saveDate.split("saved date: ")[1];
-		infobarElement.appendChild(linkElement);
+		infobarElement.style.setProperty("background-image", "none");
+		infoElement.style.setProperty("display", "inline-block", "important");
+		linkElement.style.setProperty("display", "inline-block", "important");
 		infobarElement.onclick = null;
 		infobarElement.onmouseout = null;
 	}
 
-	function hideInfobar(infobarElement, linkElement, saveDate) {
+	function hideInfobar(infobarElement, linkElement, infoElement) {
 		infobarElement.style.opacity = .7;
 		infobarElement.onmouseout = () => infobarElement.style.opacity = .7;
 		infobarElement.style.setProperty("font-size", "24px", "important");
@@ -151,10 +160,12 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 		infobarElement.style.setProperty("-webkit-border-before", "2px solid #eee", "important");
 		infobarElement.style.setProperty("-webkit-border-end", "2px solid #eee", "important");
 		infobarElement.style.setProperty("-webkit-border-after", "2px solid #eee", "important");
-		infobarElement.textContent = "ℹ";
+		infobarElement.style.setProperty("background-image", "url(" + IMAGE_ICON + ")");
+		linkElement.style.setProperty("display", "none", "important");
+		infoElement.style.setProperty("display", "none", "important");
 		infobarElement.onclick = event => {
 			if (event.button === 0) {
-				displayInfobar(infobarElement, linkElement, saveDate);
+				displayInfobar(infobarElement, linkElement, infoElement);
 				return false;
 			}
 		};
