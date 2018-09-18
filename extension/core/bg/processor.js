@@ -47,8 +47,9 @@ singlefile.processor = (() => {
 		options.onprogress = async event => {
 			if (event.type == event.RESOURCES_INITIALIZED) {
 				maxIndex = event.details.max;
+				singlefile.ui.button.onProgress(tabId, index, maxIndex, { autoSave: true });
 			}
-			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
+			if (event.type == event.RESOURCE_LOADED) {
 				index++;
 				singlefile.ui.button.onProgress(tabId, index, maxIndex, { autoSave: true });
 			} else if (event.type == event.PAGE_ENDED) {

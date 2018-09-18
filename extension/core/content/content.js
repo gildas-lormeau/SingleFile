@@ -73,7 +73,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 				maxIndex = event.details.max;
 			}
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
-				index++;
+				if (event.type == event.RESOURCE_LOADED) {
+					index++;
+				}
 				browser.runtime.sendMessage({ processProgress: true, index, maxIndex, options: { autoSave: false } });
 				if (options.shadowEnabled) {
 					singlefile.ui.onprogress(index, maxIndex);

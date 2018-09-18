@@ -106,7 +106,7 @@ singlefile.ui.button = (() => {
 	}
 
 	function onInitialize(tabId, options, step) {
-		refresh(tabId, getProperties(tabId, options, browser.i18n.getMessage("buttonInitializingBadge"), step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], browser.i18n.getMessage("buttonInitializingTooltip") + " (" + step + "/2)"));
+		refresh(tabId, getProperties(tabId, options, browser.i18n.getMessage("buttonInitializingBadge"), step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], browser.i18n.getMessage("buttonInitializingTooltip") + " (" + step + "/2)", WAIT_ICON_PATH_PREFIX + "0.png"));
 	}
 
 	function onError(tabId, options) {
