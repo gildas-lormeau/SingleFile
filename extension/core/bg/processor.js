@@ -35,6 +35,7 @@ singlefile.processor = (() => {
 		options.url = message.url;
 		options.framesData = message.framesData;
 		options.canvasData = message.canvasData;
+		options.fontsData = message.fontsData;
 		options.stylesheetContents = message.stylesheetContents;
 		options.imageData = message.imageData;
 		options.insertSingleFileComment = true;

@@ -47,7 +47,16 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 				if (!options.removeFrames && this.frameTree) {
 					framesData = await frameTree.getAsync(options);
 				}
-				browser.runtime.sendMessage({ saveContent: true, content: docHelper.serialize(document, false), canvasData: docData.canvasData, stylesheetContents: docData.stylesheetContents, imageData: docData.imageData, framesData, url: location.href });
+				browser.runtime.sendMessage({
+					saveContent: true,
+					content: docHelper.serialize(document, false),
+					canvasData: docData.canvasData,
+					fontsData: docData.fontsData,
+					stylesheetContents: docData.stylesheetContents,
+					imageData: docData.imageData,
+					framesData,
+					url: location.href
+				});
 				docHelper.postProcessDoc(document, window);
 				singlefile.pageAutoSaved = true;
 			}
@@ -75,7 +84,16 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 	function onUnload() {
 		if (!singlefile.pageAutoSaved) {
 			const docData = docHelper.preProcessDoc(document, window, options);
-			browser.runtime.sendMessage({ saveContent: true, content: docHelper.serialize(document), canvasData: docData.canvasData, stylesheetContents: docData.stylesheetContents, imageData: docData.imageData, framesData: this.frameTree && !options.removeFrames && frameTree.getSync(options), url: location.href });
+			browser.runtime.sendMessage({
+				saveContent: true,
+				content: docHelper.serialize(document),
+				canvasData: docData.canvasData,
+				fontsData: docData.fontsData,
+				stylesheetContents: docData.stylesheetContents,
+				imageData: docData.imageData,
+				framesData: this.frameTree && !options.removeFrames && frameTree.getSync(options),
+				url: location.href
+			});
 		}
 	}
 

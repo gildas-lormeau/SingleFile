@@ -17,6 +17,7 @@
 			"run_at": "document_start",
 			"js": [
 				"lib/browser-polyfill/custom-browser-polyfill.js",
+				"lib/single-file/font-face-proxy.js",
 				"extension/index.js",
 				"lib/single-file/doc-helper.js",
 				"lib/single-file/timeout.js",
