@@ -38,6 +38,7 @@ singlefile.processor = (() => {
 		options.fontsData = message.fontsData;
 		options.stylesheetContents = message.stylesheetContents;
 		options.imageData = message.imageData;
+		options.postersData = message.postersData;
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		options.backgroundTab = true;

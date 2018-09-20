@@ -54,6 +54,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 					fontsData: docData.fontsData,
 					stylesheetContents: docData.stylesheetContents,
 					imageData: docData.imageData,
+					postersData: docData.postersData,
 					framesData,
 					url: location.href
 				});
@@ -91,6 +92,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 				fontsData: docData.fontsData,
 				stylesheetContents: docData.stylesheetContents,
 				imageData: docData.imageData,
+				postersData: docData.postersData,
 				framesData: this.frameTree && !options.removeFrames && frameTree.getSync(options),
 				url: location.href
 			});
