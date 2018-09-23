@@ -48,8 +48,7 @@ singlefile.scriptLoader = (() => {
 	const optionalContentScriptFiles = {
 		compressHTML: [
 			"/lib/single-file/html-minifier.js",
-			"/lib/single-file/html-serializer.js",
-			"lib/single-file/html-images-minifier.js"
+			"/lib/single-file/html-serializer.js"
 		],
 		compressCSS: [
 			"/lib/single-file/css-minifier.js"
@@ -69,6 +68,9 @@ singlefile.scriptLoader = (() => {
 		],
 		lazyLoadImages: [
 			"/lib/single-file/lazy-loader.js"
+		],
+		groupDuplicateImages: [
+			"lib/single-file/html-images-minifier.js"
 		]
 	};
 

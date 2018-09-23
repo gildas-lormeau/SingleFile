@@ -135,6 +135,10 @@
         "message": "Images",
         "description": "Options sub-title: 'Images'"
     },
+    "optionGroupDuplicateImages": {
+        "message": "regrouper les images dupliquées",
+        "description": "Options page label: 'group duplicate images together'"
+    },
     "optionLazyLoadImages": {
         "message": "sauver les images chargées de manière différées",
         "description": "Options page label: 'save deferred images'"

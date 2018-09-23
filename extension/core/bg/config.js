@@ -49,7 +49,8 @@ singlefile.config = (() => {
 		autoSaveLoadOrUnload: true,
 		removeAlternativeFonts: true,
 		removeAlternativeMedias: true,
-		removeSrcSet: true
+		removeSrcSet: true,
+		groupDuplicateImages: true
 	};
 
 	let pendingUpgradePromise;
@@ -140,6 +141,9 @@ singlefile.config = (() => {
 		}
 		if (config.removeSrcSet === undefined) {
 			config.removeSrcSet = true;
+		}
+		if (config.groupDuplicateImages === undefined) {
+			config.groupDuplicateImages = true;
 		}
 		if (config.autoSaveLoadOrUnload === undefined && !config.autoSaveUnload) {
 			config.autoSaveLoadOrUnload = true;

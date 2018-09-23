@@ -135,6 +135,10 @@
         "message": "画像",
         "description": "オプションのサブタイトル: '画像'"
     },
+    "optionGroupDuplicateImages": {
+        "message": "group duplicate images together",
+        "description": "Options page label: 'group duplicate images together'"
+    },
     "optionLazyLoadImages": {
         "message": "遅延画像を保存する",
         "description": "オプションのページラベル: '遅延画像を保存する'"

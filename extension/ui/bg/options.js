@@ -58,6 +58,7 @@
 	const stylesheetsLabel = document.getElementById("stylesheetsLabel");
 	const otherResourcesLabel = document.getElementById("otherResourcesLabel");
 	const autoSaveLabel = document.getElementById("autoSaveLabel");
+	const groupDuplicateImagesLabel = document.getElementById("groupDuplicateImagesLabel");
 	const miscLabel = document.getElementById("miscLabel");
 	const helpLabel = document.getElementById("helpLabel");
 	const resetButton = document.getElementById("resetButton");
@@ -89,6 +90,7 @@
 	const removeAlternativeFontsInput = document.getElementById("removeAlternativeFontsInput");
 	const removeSrcSetInput = document.getElementById("removeSrcSetInput");
 	const removeAlternativeMediasInput = document.getElementById("removeAlternativeMediasInput");
+	const groupDuplicateImagesInput = document.getElementById("groupDuplicateImagesInput");
 	const expandAllButton = document.getElementById("expandAllButton");
 	let pendingSave = Promise.resolve();
 	resetButton.addEventListener("click", async () => {
@@ -147,6 +149,7 @@
 	removeAlternativeFontsLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeFonts");
 	removeAlternativeImagesLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeImages");
 	removeAlternativeMediasLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeMedias");
+	groupDuplicateImagesLabel.textContent = browser.i18n.getMessage("optionGroupDuplicateImages");
 	titleLabel.textContent = browser.i18n.getMessage("optionsTitle");
 	userInterfaceLabel.textContent = browser.i18n.getMessage("optionsUserInterfaceSubTitle");
 	filenameLabel.textContent = browser.i18n.getMessage("optionsFileNameSubTitle");
@@ -156,7 +159,7 @@
 	otherResourcesLabel.textContent = browser.i18n.getMessage("optionsOtherResourcesSubTitle");
 	autoSaveLabel.textContent = browser.i18n.getMessage("optionsAutoSaveSubTitle");
 	miscLabel.textContent = browser.i18n.getMessage("optionsMiscSubTitle");
-	helpLabel.textContent = browser.i18n.getMessage("optionsHelpLink");
+	helpLabel.textContent = browser.i18n.getMessage("optionsHelpLink");	
 	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
 	resetButton.title = browser.i18n.getMessage("optionsResetTooltip");
 
@@ -194,6 +197,7 @@
 		autoSaveUnloadInput.disabled = config.autoSaveLoadOrUnload;
 		removeAlternativeFontsInput.checked = config.removeAlternativeFonts;
 		removeSrcSetInput.checked = config.removeSrcSet;
+		groupDuplicateImagesInput.checked = config.groupDuplicateImages;
 		removeAlternativeMediasInput.checked = config.removeAlternativeMedias;
 	}
 
@@ -226,7 +230,8 @@
 			autoSaveLoadOrUnload: autoSaveLoadOrUnloadInput.checked,
 			removeAlternativeFonts: removeAlternativeFontsInput.checked,
 			removeSrcSet: removeSrcSetInput.checked,
-			removeAlternativeMedias: removeAlternativeMediasInput.checked
+			removeAlternativeMedias: removeAlternativeMediasInput.checked,
+			groupDuplicateImages: groupDuplicateImagesInput.checked
 		});
 		await pendingSave;
 		await bgPage.singlefile.ui.menu.refresh();
