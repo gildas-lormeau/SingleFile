@@ -37,6 +37,7 @@ singlefile.processor = (() => {
 		options.canvasData = message.canvasData;
 		options.fontsData = message.fontsData;
 		options.stylesheetContents = message.stylesheetContents;
+		options.responsiveImageData = message.responsiveImageData;
 		options.imageData = message.imageData;
 		options.postersData = message.postersData;
 		options.insertSingleFileComment = true;
