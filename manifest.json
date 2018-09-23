@@ -68,6 +68,7 @@
 			"lib/single-file/css-rules-minifier.js",
 			"lib/single-file/css-srcset-parser.js",
 			"lib/single-file/html-minifier.js",
+			"lib/single-file/html-images-minifier.js",
 			"lib/single-file/html-serializer.js",
 			"lib/single-file/lazy-loader.js",
 			"lib/single-file/single-file-core.js",
