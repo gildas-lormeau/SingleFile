@@ -136,7 +136,7 @@
         "description": "オプションのサブタイトル: '画像'"
     },
     "optionGroupDuplicateImages": {
-        "message": "group duplicate images together",
+        "message": "オプション重複画像のグループ化",
         "description": "Options page label: 'group duplicate images together'"
     },
     "optionLazyLoadImages": {
