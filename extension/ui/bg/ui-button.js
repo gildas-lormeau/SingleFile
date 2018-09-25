@@ -119,7 +119,7 @@ singlefile.ui.button = (() => {
 
 	function onProgress(tabId, index, maxIndex, options) {
 		const progress = Math.max(Math.min(20, Math.floor((index / maxIndex) * 20)), 0);
-		const barProgress = Math.floor((index / maxIndex) * 8);
+		const barProgress = Math.min(Math.floor((index / maxIndex) * 8), 8);
 		refresh(tabId, getProperties(tabId, options, "", [4, 229, 36, 255], browser.i18n.getMessage("buttonSaveProgressTooltip") + (progress * 5) + "%", WAIT_ICON_PATH_PREFIX + barProgress + ".png", progress, barProgress, [128, 128, 128, 255]));
 	}
 
