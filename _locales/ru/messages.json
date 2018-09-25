@@ -136,7 +136,7 @@
         "description": "Options sub-title: 'Images'"
     },
     "optionGroupDuplicateImages": {
-        "message": "group duplicate images together",
+        "message": "группировать дубликаты изображений",
         "description": "Options page label: 'group duplicate images together'"
     },
     "optionLazyLoadImages": {
