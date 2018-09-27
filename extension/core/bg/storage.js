@@ -40,6 +40,7 @@ singlefile.storage = (() => {
 		if (temporaryData) {
 			return temporaryData;
 		} else {
+			temporaryData = {};
 			return {};
 		}
 	}
