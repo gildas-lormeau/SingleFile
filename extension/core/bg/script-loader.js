@@ -27,7 +27,6 @@ singlefile.scriptLoader = (() => {
 		"/lib/single-file/doc-helper.js",
 		"/lib/single-file/base64.js",
 		"/lib/single-file/css-srcset-parser.js",
-		"/lib/single-file/css-rules-matcher.js",
 		"/lib/fetch/content/fetch.js",
 		"/lib/single-file/single-file-core.js",
 		"/lib/single-file/single-file-browser.js",
@@ -64,6 +63,7 @@ singlefile.scriptLoader = (() => {
 			"/lib/single-file/css-selector-parser.js",
 			"/lib/single-file/css-declarations-parser.js",
 			"/lib/single-file/css-medias-minifier.js",
+			"/lib/single-file/css-rules-matcher.js",
 			"/lib/single-file/css-rules-minifier.js"
 		],
 		lazyLoadImages: [
