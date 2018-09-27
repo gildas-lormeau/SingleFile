@@ -68,9 +68,6 @@ singlefile.scriptLoader = (() => {
 		],
 		lazyLoadImages: [
 			"/lib/single-file/lazy-loader.js"
-		],
-		groupDuplicateImages: [
-			"lib/single-file/html-images-minifier.js"
 		]
 	};
 
