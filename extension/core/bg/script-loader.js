@@ -26,7 +26,7 @@ singlefile.scriptLoader = (() => {
 		"/lib/browser-polyfill/custom-browser-polyfill.js",
 		"/lib/single-file/doc-helper.js",
 		"/lib/single-file/base64.js",
-		"/lib/single-file/css-srcset-parser.js",
+		"/lib/single-file/html-srcset-parser.js",
 		"/lib/fetch/content/fetch.js",
 		"/lib/single-file/single-file-core.js",
 		"/lib/single-file/single-file-browser.js",
