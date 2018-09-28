@@ -62,6 +62,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	function initInfobar(url, saveDate) {
 		let infobarElement = document.querySelector(INFOBAR_TAGNAME);
 		if (!infobarElement) {
+			url = url.split("url: ")[1];
 			infobarElement = createElement(INFOBAR_TAGNAME, document.body);
 			infobarElement.style.setProperty("background-color", "#f9f9f9", "important");
 			infobarElement.style.setProperty("display", "block", "important");
@@ -73,7 +74,6 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			infobarElement.style.setProperty("min-width", "28px", "important");
 			infobarElement.style.setProperty("background-position", "center", "important");
 			infobarElement.style.setProperty("background-repeat", "no-repeat", "important");
-			infobarElement.style.setProperty("line-height", "28px", "important");
 			infobarElement.style.setProperty("border-radius", "16px", "important");
 			infobarElement.style.setProperty("z-index", 2147483647, "important");
 			infobarElement.style.setProperty("text-align", "center", "important");
@@ -91,8 +91,8 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			linkElement.style.setProperty("user-select", "none", "important");
 			linkElement.target = "_blank";
 			linkElement.rel = "noopener noreferrer";
-			linkElement.title = "Open original page";
-			linkElement.href = url.split("url: ")[1];
+			linkElement.title = "Open source URL: " + url;
+			linkElement.href = url;
 			const imgElement = createElement("img", linkElement);
 			imgElement.style.setProperty("vertical-align", "middle", "important");
 			imgElement.style.setProperty("padding-bottom", "2px", "important");
