@@ -81,6 +81,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			const infoElement = createElement("span", infobarElement);
 			infoElement.style.setProperty("font-family", "Arial", "important");
 			infoElement.style.setProperty("color", "#9aa0a6", "important");
+			infoElement.style.setProperty("line-height", "28px", "important");
 			infoElement.textContent = saveDate.split("saved date: ")[1];
 			const linkElement = createElement("a", infobarElement);
 			linkElement.style.setProperty("display", "inline-block", "important");
