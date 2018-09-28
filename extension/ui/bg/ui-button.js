@@ -105,7 +105,13 @@ singlefile.ui.button = (() => {
 		return false;
 	}
 
-	function onInitialize(tabId, options, step) {
+	async function onInitialize(tabId, options, step) {
+		if (step == 1) {
+			const tabsData = await singlefile.storage.getTemporary();
+			if (tabsData[tabId]) {
+				tabsData[tabId].button = null;
+			}
+		}
 		refresh(tabId, getProperties(tabId, options, browser.i18n.getMessage("buttonInitializingBadge"), step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], browser.i18n.getMessage("buttonInitializingTooltip") + " (" + step + "/2)", WAIT_ICON_PATH_PREFIX + "0.png"));
 	}
 
