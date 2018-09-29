@@ -31,12 +31,10 @@ input {
 
 input[type="text"] {
     min-width: 70%;
-    text-align: right;
 }
 
 input[type="number"] {
     max-width: 40px;
-    text-align: right;
 }
 
 h3 {
