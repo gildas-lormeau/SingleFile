@@ -131,7 +131,7 @@ singlefile.ui.button = (() => {
 
 	async function onTabActivated(tab) {
 		const autoSave = await singlefile.ui.autosave.isEnabled(tab.id);
-		await refresh(tab.id, getProperties(tab.id, { autoSave }));
+		await refresh(tab.id, getProperties(tab.id, { autoSave }), true);
 		if (singlefile.core.isAllowedURL(tab.url) && browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
 			if (singlefile.core.isAllowedURL(tab.url)) {
 				try {
@@ -160,7 +160,7 @@ singlefile.ui.button = (() => {
 		};
 	}
 
-	async function refresh(tabId, tabData) {
+	async function refresh(tabId, tabData, force) {
 		const tabsData = await singlefile.storage.getTemporary();
 		if (!tabsData[tabId]) {
 			tabsData[tabId] = {};
@@ -169,20 +169,20 @@ singlefile.ui.button = (() => {
 			tabsData[tabId].pendingRefresh = Promise.resolve();
 		}
 		try {
-			tabsData[tabId].pendingRefresh = tabsData[tabId].pendingRefresh.then(() => refreshAsync(tabId, tabsData, tabData));
+			tabsData[tabId].pendingRefresh = tabsData[tabId].pendingRefresh.then(() => refreshAsync(tabId, tabsData, tabData, force));
 			await tabsData[tabId].pendingRefresh;
 		} catch (error) {
 			/* ignored */
 		}
 	}
 
-	async function refreshAsync(tabId, tabsData, tabData) {
+	async function refreshAsync(tabId, tabsData, tabData, force) {
 		for (let property of BUTTON_PROPERTIES) {
-			await refreshProperty(tabId, tabsData, property.name, property.browserActionMethod, tabData);
+			await refreshProperty(tabId, tabsData, property.name, property.browserActionMethod, tabData, force);
 		}
 	}
 
-	async function refreshProperty(tabId, tabsData, property, browserActionMethod, tabData) {
+	async function refreshProperty(tabId, tabsData, property, browserActionMethod, tabData, force) {
 		const value = tabData[property];
 		const browserActionParameter = { tabId };
 		if (browser.browserAction[browserActionMethod]) {
@@ -193,7 +193,7 @@ singlefile.ui.button = (() => {
 			if (!tabsData[tabId].button) {
 				tabsData[tabId].button = {};
 			}
-			if (JSON.stringify(tabsData[tabId].button[browserActionMethod]) != JSON.stringify(value)) {
+			if (force || JSON.stringify(tabsData[tabId].button[browserActionMethod]) != JSON.stringify(value)) {
 				tabsData[tabId].button[browserActionMethod] = value;
 				await browser.browserAction[browserActionMethod](browserActionParameter);
 			}
