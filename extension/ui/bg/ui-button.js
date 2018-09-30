@@ -131,7 +131,8 @@ singlefile.ui.button = (() => {
 
 	async function onTabActivated(tab) {
 		const autoSave = await singlefile.ui.autosave.isEnabled(tab.id);
-		await refresh(tab.id, getProperties(tab.id, { autoSave }), true);
+		const properties = await getCurrentProperties(tab.id, { autoSave });
+		await refresh(tab.id, properties, true);
 		if (singlefile.core.isAllowedURL(tab.url) && browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
 			if (singlefile.core.isAllowedURL(tab.url)) {
 				try {
@@ -145,6 +146,20 @@ singlefile.ui.button = (() => {
 				} catch (error) {
 					/* ignored */
 				}
+			}
+		}
+	}
+
+	async function getCurrentProperties(tabId, options) {
+		if (options.autoSave) {
+			return getProperties(tabId, options);
+		} else {
+			const tabsData = await singlefile.storage.getTemporary();
+			const tabData = tabsData[tabId] && tabsData[tabId].button;
+			if (tabData) {
+				return getProperties(tabId, options, tabData.setBadgeText, tabData.setBadgeBackgroundColor, tabData.setTitle, tabData.setIcon);
+			} else {
+				return getProperties(tabId, options);
 			}
 		}
 	}
