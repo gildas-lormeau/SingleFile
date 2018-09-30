@@ -43,7 +43,7 @@ singlefile.ui.button = (() => {
 		await onTabActivated(tab);
 	});
 	browser.tabs.onCreated.addListener(onTabActivated);
-	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabActivated(tab));
+	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabActivated(tab, changeInfo.status == "loading"));
 	browser.runtime.onMessage.addListener((request, sender) => {
 		if (request.processProgress) {
 			if (request.maxIndex) {
@@ -129,8 +129,12 @@ singlefile.ui.button = (() => {
 		refresh(tabId, getProperties(tabId, options, "", [4, 229, 36, 255], browser.i18n.getMessage("buttonSaveProgressTooltip") + (progress * 5) + "%", WAIT_ICON_PATH_PREFIX + barProgress + ".png", progress, barProgress, [128, 128, 128, 255]));
 	}
 
-	async function onTabActivated(tab) {
+	async function onTabActivated(tab, reset) {
 		const autoSave = await singlefile.ui.autosave.isEnabled(tab.id);
+		if (reset) {
+			const tabsData = await singlefile.storage.getTemporary();
+			tabsData[tab.id].button = null;
+		}
 		const properties = await getCurrentProperties(tab.id, { autoSave });
 		await refresh(tab.id, properties, true);
 		if (singlefile.core.isAllowedURL(tab.url) && browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
