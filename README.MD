@@ -29,6 +29,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
    - or all the tabs.
  - With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not).
  - Right-click on the SingleFile button and select "Options" to open the options page.
+ - The default save folder is the download folder configured in your browser, cf. about:preferences in Firefox and chrome://settings in Chrome.
  - You can use the shortcut Ctrl+Shift+X to save current or selected tabs in Chrome. Go to chrome://extensions/shortcuts to change it.
 
 ## More info
