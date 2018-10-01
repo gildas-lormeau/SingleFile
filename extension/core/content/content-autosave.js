@@ -59,7 +59,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 					framesData,
 					url: location.href
 				});
-				docHelper.postProcessDoc(document, window);
+				docHelper.postProcessDoc(document, options);
 				singlefile.pageAutoSaved = true;
 			}
 		}
