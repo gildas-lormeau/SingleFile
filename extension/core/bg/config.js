@@ -23,7 +23,7 @@
 singlefile.config = (() => {
 
 	const DEFAULT_CONFIG = {
-		removeHiddenElements: false,
+		removeHiddenElements: true,
 		removeUnusedStyles: true,
 		removeFrames: false,
 		removeImports: true,
@@ -141,6 +141,9 @@ singlefile.config = (() => {
 		}
 		if (config.groupDuplicateImages === undefined) {
 			config.groupDuplicateImages = true;
+		}
+		if (config.removeHiddenElements === undefined) {
+			config.removeHiddenElements = true;
 		}
 		if (config.autoSaveLoadOrUnload === undefined && !config.autoSaveUnload) {
 			config.autoSaveLoadOrUnload = true;
