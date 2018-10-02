@@ -86,6 +86,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 	function onUnload() {
 		if (!singlefile.pageAutoSaved) {
 			const docData = docHelper.preProcessDoc(document, window, options);
+			const framesData = (typeof frameTree != "undefined") && !options.removeFrames && frameTree.getSync(options)
 			browser.runtime.sendMessage({
 				saveContent: true,
 				content: docHelper.serialize(document),
@@ -95,7 +96,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 				responsiveImageData: docData.responsiveImageData,
 				imageData: docData.imageData,
 				postersData: docData.postersData,
-				framesData: this.frameTree && !options.removeFrames && frameTree.getSync(options),
+				framesData,
 				url: location.href
 			});
 		}
