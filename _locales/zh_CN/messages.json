@@ -1,0 +1,304 @@
+{
+    "extensionDescription": {
+        "message": "将完整的页面保存到一个 HTML 文件中",
+        "description": "Description of the extension.",
+        "hash": "d5e0518d1dedc4948dcd0865ff72b5ea"
+    },
+    "menuSavePage": {
+        "message": "用 SingleFile 保存页面",
+        "description": "Menu entry: 'Save page with SingleFile'",
+        "hash": "20dfae7179adf8ca32841ae80f316038"
+    },
+    "menuSaveSelection": {
+        "message": "保存选中部分",
+        "description": "Menu entry: 'Save selection'",
+        "hash": "37eaf36158e9b4dbcf06dc7659f2492c"
+    },
+    "menuSaveFrame": {
+        "message": "保存框架",
+        "description": "Menu entry: 'Save frame'",
+        "hash": "4cb6aa67d950b32cdcaad6c4ac77b7f1"
+    },
+    "menuSaveSelectedTabs": {
+        "message": "保存选中标签页",
+        "description": "Menu entry: 'Save selected tabs'",
+        "hash": "9d9b596c413a76ccb0c9e3f2224133a4"
+    },
+    "menuUnpinnedTabs": {
+        "message": "保存非固定标签页",
+        "description": "Menu entry: 'Save unpinned tabs'",
+        "hash": "4c3bc243cf9bc3b694949e3a7f206215"
+    },
+    "menuAllTabs": {
+        "message": "保存所有标签页",
+        "description": "Menu entry: 'Save all tabs'",
+        "hash": "d500be3420a3cd7ed5ce7ca6626401a8"
+    },
+    "menuAutoSave": {
+        "message": "自动保存",
+        "description": "Menu entry: 'Auto-save'",
+        "hash": "fa75feaf017d45a0d1154798b2cce078"
+    },
+    "menuAutoSaveDisabled": {
+        "message": "禁用",
+        "description": "Menu entry: 'Auto-save' > Disabled'",
+        "hash": "624dcfb216e1ef66dcac7893dbe10821"
+    },
+    "menuAutoSaveTab": {
+        "message": "自动保存此标签页",
+        "description": "Menu entry: 'Auto-save' > Auto-save this tab'",
+        "hash": "bfb18e9a3b728a1e07cdb73b381c4268"
+    },
+    "menuAutoSaveUnpinnedTabs": {
+        "message": "自动保存非固定标签页",
+        "description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'",
+        "hash": "6a5b1a7c8dc70f4f8fc317052c8143fd"
+    },
+    "menuAutoSaveAllTabs": {
+        "message": "自动保存所有标签页",
+        "description": "Menu entry: 'Auto-save' > Auto-save all tabs'",
+        "hash": "afeef85698d2cba9747e06e866a61da1"
+    },
+    "buttonDefaultTooltip": {
+        "message": "用 SingleFile 保存页面",
+        "description": "Button title: 'Save page with SingleFile'",
+        "hash": "20dfae7179adf8ca32841ae80f316038"
+    },
+    "buttonInitializingTooltip": {
+        "message": "正在初始化 SingleFile",
+        "description": "Button title during initialization: 'Initializing SingleFile (x/2)'",
+        "hash": "460c640c1b1fe9ab8b06523428acf1eb"
+    },
+    "buttonInitializingBadge": {
+        "message": "•••",
+        "description": "Badge label during initialization: '•••'",
+        "hash": "c043bd3d7a66f0d795020e9c2651cec6"
+    },
+    "buttonSaveProgressTooltip": {
+        "message": "保存进度：",
+        "description": "Button title during save: 'Save progress: xx%'",
+        "hash": "91725f0ddb3334bbcf200a0027b395bb"
+    },
+    "buttonOKBadge": {
+        "message": "确定",
+        "description": "Badge label: 'OK'",
+        "hash": "d2702da8185dd5d533913d767bddc05d"
+    },
+    "buttonErrorBadge": {
+        "message": "错误",
+        "description": "Badge label for unexpected errors",
+        "hash": "ff0d0358124ef0c4b930dbb92a7f5d0a"
+    },
+    "buttonAutoSaveActiveTooltip": {
+        "message": "自动保存动作",
+        "description": "Button title: 'Auto-save active'",
+        "hash": "5a48cac35adebdd330ba5d64bd8c4148"
+    },
+    "buttonAutoSaveActiveBadge": {
+        "message": "[自]",
+        "description": "Badge label when auto-save is active",
+        "hash": "1e1afcd99ca4e1fde33fdfc06a12a617"
+    },
+    "optionsTitle": {
+        "message": "选项",
+        "description": "Options page title",
+        "hash": "531dad0078a72193602b18495f0ad4e9"
+    },
+    "optionsUserInterfaceSubTitle": {
+        "message": "用户界面",
+        "description": "Options sub-title: 'User interface'",
+        "hash": "a39fcce32d3f45c6b28daa5c3e8fc742"
+    },
+    "optionAddMenuEntry": {
+        "message": "添加菜单到页面的右键菜单",
+        "description": "Options page label: 'add entry in the context menu of the webpage'",
+        "hash": "d0bed5abfc70cbf72e55f5ec86a03271"
+    },
+    "optionDisplayInfobar": {
+        "message": "查看一个已保存的页面时显示信息栏",
+        "description": "Options page label: 'display an infobar when viewing a saved page'",
+        "hash": "413b9b29a94cdc06ba81da5b95946d9d"
+    },
+    "optionDisplayShadow": {
+        "message": "处理过程中阴影遮盖页面",
+        "description": "Options page label: 'overlay a shadow on the page during processing'",
+        "hash": "6fea186d3241b66cb5c78c6b30f903e0"
+    },
+    "optionsFileNameSubTitle": {
+        "message": "文件名",
+        "description": "Options sub-title: 'File name'",
+        "hash": "2104359ac1d69afb9bc611c2719860ab"
+    },
+    "optionFilenameTemplate": {
+        "message": "模板",
+        "description": "Options page label: 'template'",
+        "hash": "0704538d0522463179e70d7ea3ce7de8"
+    },
+    "optionConfirmFilename": {
+        "message": "打开“另存为”对话框以确认文件名",
+        "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'",
+        "hash": "657d4121a16feda0216b489abfd61e2d"
+    },
+    "optionsHTMLContentSubTitle": {
+        "message": "HTML 内容",
+        "description": "Options sub-title: 'HTML content'",
+        "hash": "eadbe2cf518a3d8cb2fad480170d96ea"
+    },
+    "optionCompressHTML": {
+        "message": "完整 HTML 内容",
+        "description": "Options page label: 'compress HTML content'",
+        "hash": "f5b61b2087dd5e6ed9b1c3eb62d30402"
+    },
+    "optionRemoveImports": {
+        "message": "移除 HTML 导入",
+        "description": "Options page label: 'remove HTML imports'",
+        "hash": "07b64fbf716a83bd62206f362e3a14a0"
+    },
+    "optionRemoveFrames": {
+        "message": "移除框架",
+        "description": "Options page label: 'remove frames'",
+        "hash": "dc48b75970ce29a067d9ddc3fde9de99"
+    },
+    "optionRemoveHiddenElements": {
+        "message": "移除隐藏元素",
+        "description": "Options page label: 'remove hidden elements'",
+        "hash": "0100620632d21e722028977fdcc7fadc"
+    },
+    "optionsImagesSubTitle": {
+        "message": "图像",
+        "description": "Options sub-title: 'Images'",
+        "hash": "08d27491a6346d3f963377498c0f235b"
+    },
+    "optionGroupDuplicateImages": {
+        "message": "重复图像合并",
+        "description": "Options page label: 'group duplicate images together'",
+        "hash": "c8fbae1de78f689b3209ef522e7fe9cc"
+    },
+    "optionLazyLoadImages": {
+        "message": "保存延迟加载的图像",
+        "description": "Options page label: 'save deferred images'",
+        "hash": "5f4eed2da3b26bbeec69d425849a83ab"
+    },
+    "optionRemoveAlternativeImages": {
+        "message": "移除备用分辨率的图像",
+        "description": "Options page label: 'remove images for alternative screen resolutions'",
+        "hash": "d3b8988909c0d52fddd494bb2b4ef588"
+    },
+    "optionsStylesheetsSubTitle": {
+        "message": "样式表",
+        "description": "Options sub-title: 'Stylesheets'",
+        "hash": "6876b04e29d4aedac19646efd582f590"
+    },
+    "optionCompressCSS": {
+        "message": "压缩 CSS 内容",
+        "description": "Options page label: 'compress CSS content'",
+        "hash": "009a4d6801f8bdbf2132bb1a6e1bfd16"
+    },
+    "optionRemoveUnusedStyles": {
+        "message": "移除未使用的样式",
+        "description": "Options page label: 'remove unused styles'",
+        "hash": "828a7d181cabbafec4f7087f5dd30f40"
+    },
+    "optionRemoveAlternativeFonts": {
+        "message": "移除 woff/otf 备用字体以及未使用的字体",
+        "description": "Options page label: 'remove alternative fonts to woff/otf and unused fonts'",
+        "hash": "2a6c32d2367c272630a011478c69c930"
+    },
+    "optionRemoveAlternativeMedias": {
+        "message": "移除其他设备分辨率的样式表",
+        "description": "Options page label: 'remove stylesheets for alternative devices to screens'",
+        "hash": "b83e4d17282cb9b7e4927ca7c1977a00"
+    },
+    "optionsOtherResourcesSubTitle": {
+        "message": "其他资源",
+        "description": "Options sub-title: 'Other resources'",
+        "hash": "0f782ecaf4c01fd7e0e9a70bc5a8b448"
+    },
+    "optionRemoveScripts": {
+        "message": "移除脚本",
+        "description": "Options page label: 'remove scripts'",
+        "hash": "dc59e7e8bdacc72c22c2dfdc5b7b1fa7"
+    },
+    "optionRemoveVideo": {
+        "message": "移除视频嵌入",
+        "description": "Options page label: 'remove video sources'",
+        "hash": "11e292816de05f3380f87296d95f0c23"
+    },
+    "optionRemoveAudio": {
+        "message": "移除音频嵌入",
+        "description": "Options page label: 'remove audio sources'",
+        "hash": "588f78dbe22b614d491544cd50360d7e"
+    },
+    "optionsAutoSaveSubTitle": {
+        "message": "自动保存",
+        "description": "Options sub-title: 'Auto-save'",
+        "hash": "fa75feaf017d45a0d1154798b2cce078"
+    },
+    "optionAutoSaveLoadOrUnload": {
+        "message": "页面加载或页面卸载后自动保存",
+        "description": "auto-save after page load or on page unload",
+        "hash": "001895ec999062970b55402e85d724c2"
+    },
+    "optionAutoSaveLoad": {
+        "message": "页面加载后自动保存",
+        "description": "Options page label: 'auto-save after page load'",
+        "hash": "cdb7a9f549e17f455a92c4819f3e3f4b"
+    },
+    "optionAutoSaveUnload": {
+        "message": "页面卸载时自动保存",
+        "description": "Options page label: 'auto-save on page unload'",
+        "hash": "729f1be0863d3cdb0f73a744a3196678"
+    },
+    "optionAutoSaveDelay": {
+        "message": "页面加载后自动保存的延时（秒）",
+        "description": "Options page label: 'auto-save waiting delay after page load (sec.)'",
+        "hash": "3aa5a085f8ed0e5d16d01ceb772919cd"
+    },
+    "optionsMiscSubTitle": {
+        "message": "其他",
+        "description": "Options sub-title: 'Misc.'",
+        "hash": "de3c4b777a0c9cc604b7355d9cb902e2"
+    },
+    "optionBackgroundSave": {
+        "message": "在后台保存页面",
+        "description": "Options page label: 'save pages in background'",
+        "hash": "439cb69fd97c011fa77ed3a2063a76b2"
+    },
+    "optionDisplayStats": {
+        "message": "处理后在控制台消息中显示统计",
+        "description": "Options page label: 'display stats in the console after processing'",
+        "hash": "95d2821edee58d72c8d762b424ac6583"
+    },
+    "optionSetMaxResourceSize": {
+        "message": "设定嵌入式资源的最大大小",
+        "description": "Options page label: 'set a maximum size for embedded resources'",
+        "hash": "278e5b9204c2ec85ad08cf4e1e5ee819"
+    },
+    "optionMaxResourceSize": {
+        "message": "最大大小（Mb）",
+        "description": "Options page label: 'maximum size (Mb)'",
+        "hash": "1f28962b62b491fafef2ec46544abbb4"
+    },
+    "optionSaveRawPage": {
+        "message": "保存原始页面",
+        "description": "Options page label: 'save raw page'",
+        "hash": "ce31a22bba93f592e9e0e830a80e1b4d"
+    },
+    "optionsHelpLink": {
+        "message": "帮助",
+        "description": "Options help link",
+        "hash": "e5cd579a468bda68ab6ee1522929d0ed"
+    },
+    "optionsResetButton": {
+        "message": "重置",
+        "description": "Options button: 'Reset'",
+        "hash": "0d25968a7dfc21f95043a86dd5373b81"
+    },
+    "optionsResetTooltip": {
+        "message": "重置所有选项为默认值",
+        "description": "Options 'Reset' button tooltip",
+        "hash": "4e8ef324894a6ed91b686843cacb2118"
+    },
+
+    "__WET_LOCALE__": { "message": "zh-cn" }
+}
