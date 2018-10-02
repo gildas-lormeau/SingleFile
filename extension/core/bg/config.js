@@ -140,7 +140,7 @@ singlefile.config = (() => {
 			if (config.removeAlternativeImages === undefined) {
 				config.removeAlternativeImages = true;
 			} else {
-				config.removeAlternativeImages = config.removeAlternativeImages;
+				config.removeAlternativeImages = config.removeSrcSet;
 			}
 		}
 		if (config.groupDuplicateImages === undefined) {
