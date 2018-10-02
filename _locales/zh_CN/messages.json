@@ -275,8 +275,8 @@
         "hash": "278e5b9204c2ec85ad08cf4e1e5ee819"
     },
     "optionMaxResourceSize": {
-        "message": "最大大小（Mb）",
-        "description": "Options page label: 'maximum size (Mb)'",
+        "message": "最大大小（MB）",
+        "description": "Options page label: 'maximum size (MB)'",
         "hash": "1f28962b62b491fafef2ec46544abbb4"
     },
     "optionSaveRawPage": {

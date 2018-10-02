@@ -221,7 +221,7 @@
     },
     "optionMaxResourceSize": {
         "message": "максимальный размер (Мб)",
-        "description": "Options page label: 'maximum size (Mb)'"
+        "description": "Options page label: 'maximum size (MB)'"
     },
     "optionSaveRawPage": {
         "message": "сохранить исходную страницу",

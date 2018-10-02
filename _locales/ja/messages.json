@@ -220,8 +220,8 @@
         "description": "オプションのページラベル: '埋め込み要素の最大サイズを設定する'"
     },
     "optionMaxResourceSize": {
-        "message": "最大サイズ（Mb）",
-        "description": "オプションのページラベル: '最大サイズ（Mb）'"
+        "message": "最大サイズ（MB）",
+        "description": "オプションのページラベル: '最大サイズ（MB）'"
     },
     "optionSaveRawPage": {
         "message": "生のページを保存",

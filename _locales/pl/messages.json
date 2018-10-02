@@ -221,7 +221,7 @@
     },
     "optionMaxResourceSize": {
         "message": "maksymalny rozmiar (MB)",
-        "description": "Options page label: 'maximum size (Mb)'"
+        "description": "Options page label: 'maximum size (MB)'"
     },
     "optionSaveRawPage": {
         "message": "zapisuj surową stronę",
