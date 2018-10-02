@@ -196,7 +196,7 @@ singlefile.ui.button = (() => {
 	}
 
 	async function refreshAsync(tabId, tabsData, tabData, force) {
-		for (let property of BUTTON_PROPERTIES) {
+		for (const property of BUTTON_PROPERTIES) {
 			await refreshProperty(tabId, tabsData, property.name, property.browserActionMethod, tabData, force);
 		}
 	}
