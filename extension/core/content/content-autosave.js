@@ -86,7 +86,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 	function onUnload() {
 		if (!singlefile.pageAutoSaved) {
 			const docData = docHelper.preProcessDoc(document, window, options);
-			const framesData = (typeof frameTree != "undefined") && !options.removeFrames && frameTree.getSync(options)
+			const framesData = (typeof frameTree != "undefined") && !options.removeFrames && frameTree.getSync(options);
 			browser.runtime.sendMessage({
 				saveContent: true,
 				content: docHelper.serialize(document),
