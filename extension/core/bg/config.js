@@ -49,7 +49,7 @@ singlefile.config = (() => {
 		autoSaveLoadOrUnload: true,
 		removeAlternativeFonts: true,
 		removeAlternativeMedias: true,
-		removeSrcSet: true,
+		removeAlternativeImages: true,
 		groupDuplicateImages: true
 	};
 
@@ -136,8 +136,12 @@ singlefile.config = (() => {
 		if (config.removeAlternativeMedias === undefined) {
 			config.removeAlternativeMedias = true;
 		}
-		if (config.removeSrcSet === undefined) {
-			config.removeSrcSet = true;
+		if (config.removeAlternativeImages === undefined) {
+			if (config.removeAlternativeImages === undefined) {
+				config.removeAlternativeImages = true;
+			} else {
+				config.removeAlternativeImages = config.removeAlternativeImages;
+			}
 		}
 		if (config.groupDuplicateImages === undefined) {
 			config.groupDuplicateImages = true;

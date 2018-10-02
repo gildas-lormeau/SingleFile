@@ -88,7 +88,7 @@
 	const autoSaveUnloadInput = document.getElementById("autoSaveUnloadInput");
 	const autoSaveLoadOrUnloadInput = document.getElementById("autoSaveLoadOrUnloadInput");
 	const removeAlternativeFontsInput = document.getElementById("removeAlternativeFontsInput");
-	const removeSrcSetInput = document.getElementById("removeSrcSetInput");
+	const removeAlternativeImagesInput = document.getElementById("removeAlternativeImagesInput");
 	const removeAlternativeMediasInput = document.getElementById("removeAlternativeMediasInput");
 	const groupDuplicateImagesInput = document.getElementById("groupDuplicateImagesInput");
 	const expandAllButton = document.getElementById("expandAllButton");
@@ -196,7 +196,7 @@
 		autoSaveLoadInput.disabled = config.autoSaveLoadOrUnload;
 		autoSaveUnloadInput.disabled = config.autoSaveLoadOrUnload;
 		removeAlternativeFontsInput.checked = config.removeAlternativeFonts;
-		removeSrcSetInput.checked = config.removeSrcSet;
+		removeAlternativeImagesInput.checked = config.removeAlternativeImages;
 		groupDuplicateImagesInput.checked = config.groupDuplicateImages;
 		removeAlternativeMediasInput.checked = config.removeAlternativeMedias;
 	}
@@ -229,7 +229,7 @@
 			autoSaveUnload: autoSaveUnloadInput.checked,
 			autoSaveLoadOrUnload: autoSaveLoadOrUnloadInput.checked,
 			removeAlternativeFonts: removeAlternativeFontsInput.checked,
-			removeSrcSet: removeSrcSetInput.checked,
+			removeAlternativeImages: removeAlternativeImagesInput.checked,
 			removeAlternativeMedias: removeAlternativeMediasInput.checked,
 			groupDuplicateImages: groupDuplicateImagesInput.checked
 		});
