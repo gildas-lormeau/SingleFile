@@ -220,7 +220,7 @@
         "description": "Options page label: 'set a maximum size for embedded resources'"
     },
     "optionMaxResourceSize": {
-        "message": "максимальный размер (Мб)",
+        "message": "максимальный размер (МБ)",
         "description": "Options page label: 'maximum size (MB)'"
     },
     "optionSaveRawPage": {
