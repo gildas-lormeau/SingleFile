@@ -46,6 +46,7 @@ singlefile.processor = (() => {
 		options.autoSave = true;
 		options.incognito = incognito;
 		options.tabId = tabId;
+		options.sessionId = 0;
 		let index = 0, maxIndex = 0;
 		options.onprogress = async event => {
 			if (event.type == event.RESOURCES_INITIALIZED) {
