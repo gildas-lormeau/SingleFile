@@ -133,7 +133,9 @@ singlefile.ui.button = (() => {
 		const autoSave = await singlefile.ui.autosave.isEnabled(tab.id);
 		if (reset) {
 			const tabsData = await singlefile.storage.getTemporary();
-			tabsData[tab.id].button = null;
+			if (tabsData[tab.id]) {
+				tabsData[tab.id].button = null;
+			}
 		}
 		const properties = await getCurrentProperties(tab.id, { autoSave });
 		await refresh(tab.id, properties, true);
