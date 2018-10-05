@@ -37,6 +37,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 	async function autoSavePage() {
 		const [autoSaveEnabled, options] = await Promise.all([browser.runtime.sendMessage({ isAutoSaveEnabled: true }), browser.runtime.sendMessage({ getConfig: true })]);
 		if (autoSaveEnabled) {
+			options.sessionId = 0;
 			if (options.autoSaveDelay && !autoSaveTimeout) {
 				autoSaveTimeout = setTimeout(() => {
 					autoSavePage();
