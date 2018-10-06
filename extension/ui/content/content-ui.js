@@ -18,12 +18,15 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global document, getComputedStyle, requestAnimationFrame */
+/* global document, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, scrollX, scrollY */
 
 this.singlefile.ui = this.singlefile.ui || (() => {
 
 	const MASK_TAGNAME = "singlefile-mask";
 	const PROGRESS_BAR_TAGNAME = "singlefile-progress-var";
+	const SELECT_PX_THRESHOLD = 8;
+
+	let selectedAreaElement;
 
 	return {
 		init() {
@@ -72,8 +75,120 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			if (maskElement) {
 				requestAnimationFrame(() => maskElement.remove());
 			}
-		}
+		},
+		getSelectedArea
 	};
+
+	function getSelectedArea() {
+		return new Promise(resolve => {
+			addEventListener("mousemove", mousemoveListener, true);
+			addEventListener("click", clickListener, true);
+			addEventListener("keyup", keypressListener, true);
+
+			function mousemoveListener(event) {
+				const targetElement = getTarget(event);
+				if (targetElement) {
+					selectedAreaElement = targetElement;
+					moveAreaSelector(targetElement);
+				}
+			}
+
+			function clickListener(event) {
+				select(selectedAreaElement);
+				event.preventDefault();
+				event.stopPropagation();
+			}
+
+			function keypressListener(event) {
+				if (event.key == "Escape") {
+					select();
+				}
+			}
+
+			function select(selectedElement) {
+				removeEventListener("mousemove", mousemoveListener, true);
+				removeEventListener("click", clickListener, true);
+				removeEventListener("keyup", keypressListener, true);
+				getAreaSelector().remove();
+				resolve(selectedElement);
+				selectedAreaElement = null;
+			}
+		});
+	}
+
+	function getTarget(event) {
+		let newTarget, target = event.target, boundingRect = target.getBoundingClientRect();
+		newTarget = determineTargetElement(target, event.clientX - boundingRect.left, getMatchedParents(target, "left"));
+		if (newTarget == target) {
+			newTarget = determineTargetElement(target, boundingRect.left + boundingRect.width - event.clientX, getMatchedParents(target, "right"));
+		}
+		if (newTarget == target) {
+			newTarget = determineTargetElement(target, event.clientY - boundingRect.top, getMatchedParents(target, "top"));
+		}
+		if (newTarget == target) {
+			newTarget = determineTargetElement(target, boundingRect.top + boundingRect.height - event.clientY, getMatchedParents(target, "bottom"));
+		}
+		target = newTarget;
+		while (target && target.clientWidth <= SELECT_PX_THRESHOLD && target.clientHeight <= SELECT_PX_THRESHOLD) {
+			target = target.parentElement;
+		}
+		return target;
+	}
+
+	function moveAreaSelector(target) {
+		const selectorElement = getAreaSelector();
+		const boundingRect = target.getBoundingClientRect();
+		selectorElement.style.setProperty("top", (scrollY + boundingRect.top - 10) + "px");
+		selectorElement.style.setProperty("left", (scrollX + boundingRect.left - 10) + "px");
+		selectorElement.style.setProperty("width", (boundingRect.width + 20) + "px");
+		selectorElement.style.setProperty("height", (boundingRect.height + 20) + "px");
+	}
+
+	function getAreaSelector() {
+		let selectorElement = document.querySelector("single-file-selection-zone");
+		if (!selectorElement) {
+			selectorElement = createElement("single-file-selection-zone", document.body);
+			selectorElement.style.setProperty("box-sizing", "border-box", "important");
+			selectorElement.style.setProperty("background-color", "#3ea9d7", "important");
+			selectorElement.style.setProperty("border", "10px solid #0b4892", "important");
+			selectorElement.style.setProperty("border-radius", "2px", "important");
+			selectorElement.style.setProperty("opacity", ".25", "important");
+			selectorElement.style.setProperty("pointer-events", "none", "important");
+			selectorElement.style.setProperty("position", "absolute", "important");
+			selectorElement.style.setProperty("transition", "all 100ms", "important");
+			selectorElement.style.setProperty("cursor", "pointer", "important");
+			selectorElement.style.setProperty("z-index", "2147483647", "important");
+		}
+		return selectorElement;
+	}
+
+	function getMatchedParents(target, property) {
+		let element = target, matchedParent, parents = [];
+		do {
+			const boundingRect = element.getBoundingClientRect();
+			if (element.parentElement) {
+				const parentBoundingRect = element.parentElement.getBoundingClientRect();
+				matchedParent = Math.abs(parentBoundingRect[property] - boundingRect[property]) <= SELECT_PX_THRESHOLD;
+				if (matchedParent) {
+					if (element.parentElement.clientWidth > SELECT_PX_THRESHOLD && element.parentElement.clientHeight > SELECT_PX_THRESHOLD &&
+						((element.parentElement.clientWidth - element.clientWidth > SELECT_PX_THRESHOLD) || (element.parentElement.clientHeight - element.clientHeight > SELECT_PX_THRESHOLD))) {
+						parents.push(element.parentElement);
+					}
+					element = element.parentElement;
+				}
+			} else {
+				matchedParent = false;
+			}
+		} while (matchedParent && element);
+		return parents;
+	}
+
+	function determineTargetElement(target, widthDistance, parents) {
+		if (Math.floor(widthDistance / SELECT_PX_THRESHOLD) <= parents.length) {
+			target = parents[parents.length - Math.floor(widthDistance / SELECT_PX_THRESHOLD) - 1];
+		}
+		return target;
+	}
 
 	function createElement(tagName, parentElement) {
 		const element = document.createElement(tagName);

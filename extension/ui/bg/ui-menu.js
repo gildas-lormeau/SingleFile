@@ -69,7 +69,7 @@ singlefile.ui.menu = (() => {
 			}
 			browser.menus.create({
 				id: MENU_ID_SAVE_SELECTED,
-				contexts: config.contextMenuEnabled ? defaultContextsDisabled.concat(["selection"]) : defaultContextsDisabled,
+				contexts: config.contextMenuEnabled ? defaultContextsDisabled.concat("selection", "page", "image") : defaultContextsDisabled,
 				title: browser.i18n.getMessage("menuSaveSelection")
 			});
 			if (config.contextMenuEnabled) {

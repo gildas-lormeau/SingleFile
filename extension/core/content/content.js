@@ -23,6 +23,7 @@
 this.singlefile.top = this.singlefile.top || (() => {
 
 	const MESSAGE_PREFIX = "__SingleFile__::";
+	const SingleFileClass = SingleFile.getClass();
 
 	let processing = false;
 
@@ -45,21 +46,43 @@ this.singlefile.top = this.singlefile.top || (() => {
 	async function savePage(message) {
 		const options = message.options;
 		if (!processing && !options.frameId) {
-			processing = true;
-			try {
-				const page = await processPage(options);
-				await downloadPage(page, options);
-			} catch (error) {
-				console.error(error); // eslint-disable-line no-console
-				browser.runtime.sendMessage({ processError: true, error, options: { autoSave: false } });
+			let selectionFound;
+			if (options.selected) {
+				selectionFound = await markSelection();
+			}
+			if (!options.selected || selectionFound) {
+				processing = true;
+				try {
+					const page = await processPage(options);
+					await downloadPage(page, options);
+				} catch (error) {
+					console.error(error); // eslint-disable-line no-console
+					browser.runtime.sendMessage({ processError: true, error, options: { autoSave: false } });
+				}
+			} else {
+				browser.runtime.sendMessage({ processCancelled: true, options: { autoSave: false } });
 			}
 			processing = false;
 		}
 	}
 
+	async function markSelection() {
+		let selectionFound = markSelectedContent();
+		if (selectionFound) {
+			return selectionFound;
+		} else {
+			const selectedArea = await singlefile.ui.getSelectedArea();
+			if (selectedArea) {
+				markSelectedArea(selectedArea);
+				selectionFound = true;
+			}
+			return selectionFound;
+		}
+	}
+
 	async function processPage(options) {
 		singlefile.ui.init();
-		const processor = new (SingleFile.getClass())(options);
+		const processor = new SingleFileClass(options);
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		if (!options.removeFrames && this.frameTree) {
@@ -84,12 +107,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 				browser.runtime.sendMessage({ processEnd: true, options: { autoSave: false } });
 			}
 		};
-		if (options.selected) {
-			const selectionFound = markSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
-			if (!selectionFound) {
-				options.selected = false;
-			}
-		}
 		if (options.lazyLoadImages) {
 			await lazyLoadResources();
 		}
@@ -97,7 +114,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		await processor.preparePageData();
 		const page = await processor.getPageData();
 		if (options.selected) {
-			unmarkSelectedContent(processor.SELECTED_CONTENT_ATTRIBUTE_NAME, processor.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME);
+			unmarkSelectedContent();
 		}
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 		if (options.shadowEnabled) {
@@ -130,30 +147,37 @@ this.singlefile.top = this.singlefile.top || (() => {
 		return promise;
 	}
 
-	function markSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
+	function markSelectedContent() {
 		const selection = getSelection();
 		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
-		const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
 		let selectionFound = false;
-		const ancestorElement = range.commonAncestorContainer != Node.ELEMENT_NODE ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
-		while (treeWalker.nextNode() && treeWalker.currentNode != range.endContainer) {
-			if (treeWalker.currentNode == range.startContainer) {
-				selectionFound = true;
+		if (range && range.commonAncestorContainer) {
+			const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
+			const ancestorElement = range.commonAncestorContainer != Node.ELEMENT_NODE ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
+			while (treeWalker.nextNode() && treeWalker.currentNode != range.endContainer) {
+				if (treeWalker.currentNode == range.startContainer) {
+					selectionFound = true;
+				}
+				if (selectionFound) {
+					const element = treeWalker.currentNode.nodeType == Node.ELEMENT_NODE ? treeWalker.currentNode : treeWalker.currentNode.parentElement;
+					element.setAttribute(SingleFileClass.SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+				}
 			}
 			if (selectionFound) {
-				const element = treeWalker.currentNode.nodeType == Node.ELEMENT_NODE ? treeWalker.currentNode : treeWalker.currentNode.parentElement;
-				element.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+				ancestorElement.setAttribute(SingleFileClass.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
 			}
-		}
-		if (selectionFound) {
-			ancestorElement.setAttribute(SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
 		}
 		return selectionFound;
 	}
 
-	function unmarkSelectedContent(SELECTED_CONTENT_ATTRIBUTE_NAME, SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME) {
-		document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
-		document.querySelectorAll("[" + SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME));
+	function markSelectedArea(selectedAreaElement) {
+		selectedAreaElement.setAttribute(SingleFileClass.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
+		selectedAreaElement.querySelectorAll("*").forEach(element => element.setAttribute(SingleFileClass.SELECTED_CONTENT_ATTRIBUTE_NAME, ""));
+	}
+
+	function unmarkSelectedContent() {
+		document.querySelectorAll("[" + SingleFileClass.SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SingleFileClass.SELECTED_CONTENT_ATTRIBUTE_NAME));
+		document.querySelectorAll("[" + SingleFileClass.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SingleFileClass.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME));
 	}
 
 	async function downloadPage(page, options) {
