@@ -59,6 +59,9 @@ singlefile.ui.button = (() => {
 			}
 			onError(sender.tab.id, request.options);
 		}
+		if (request.processCancelled) {
+			onCancelled(sender.tab.id, request.options);
+		}
 	});
 	if (browser.runtime.onMessageExternal) {
 		browser.runtime.onMessageExternal.addListener(async message => {
@@ -117,6 +120,10 @@ singlefile.ui.button = (() => {
 
 	function onError(tabId, options) {
 		refresh(tabId, getProperties(tabId, options, browser.i18n.getMessage("buttonErrorBadge"), [229, 4, 12, 255]));
+	}
+
+	function onCancelled(tabId, options) {
+		refresh(tabId, getProperties(tabId, options, "", DEFAULT_COLOR, DEFAULT_TITLE));
 	}
 
 	async function onEnd(tabId, options) {
