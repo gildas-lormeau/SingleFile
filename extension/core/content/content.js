@@ -136,7 +136,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 		const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
 		let selectionFound = false;
 		const ancestorElement = range.commonAncestorContainer != Node.ELEMENT_NODE ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
-		ancestorElement.setAttribute(SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
 		while (treeWalker.nextNode() && treeWalker.currentNode != range.endContainer) {
 			if (treeWalker.currentNode == range.startContainer) {
 				selectionFound = true;
@@ -145,6 +144,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 				const element = treeWalker.currentNode.nodeType == Node.ELEMENT_NODE ? treeWalker.currentNode : treeWalker.currentNode.parentElement;
 				element.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
 			}
+		}
+		if (selectionFound) {
+			ancestorElement.setAttribute(SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
 		}
 		return selectionFound;
 	}
