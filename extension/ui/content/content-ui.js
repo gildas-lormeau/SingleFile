@@ -164,6 +164,8 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			selectorElement.style.removeProperty("block-size");
 			selectorElement.style.removeProperty("inset-block-start");
 			selectorElement.style.removeProperty("inset-inline-end");
+			selectorElement.style.removeProperty("inset-block-end");
+			selectorElement.style.removeProperty("inset-inline-start");
 		}
 		return selectorElement;
 	}
