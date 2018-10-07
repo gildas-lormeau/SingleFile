@@ -118,12 +118,14 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	}
 
 	function moveAreaSelector(target) {
-		const selectorElement = createAreaSelector();
-		const boundingRect = target.getBoundingClientRect();
-		selectorElement.style.setProperty("top", (scrollY + boundingRect.top - 10) + "px");
-		selectorElement.style.setProperty("left", (scrollX + boundingRect.left - 10) + "px");
-		selectorElement.style.setProperty("width", (boundingRect.width + 20) + "px");
-		selectorElement.style.setProperty("height", (boundingRect.height + 20) + "px");
+		requestAnimationFrame(() => {
+			const selectorElement = createAreaSelector();
+			const boundingRect = target.getBoundingClientRect();
+			selectorElement.style.setProperty("top", (scrollY + boundingRect.top - 10) + "px");
+			selectorElement.style.setProperty("left", (scrollX + boundingRect.left - 10) + "px");
+			selectorElement.style.setProperty("width", (boundingRect.width + 20) + "px");
+			selectorElement.style.setProperty("height", (boundingRect.height + 20) + "px");
+		});
 	}
 
 	function createAreaSelector() {
