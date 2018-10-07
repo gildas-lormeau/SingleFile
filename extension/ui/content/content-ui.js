@@ -158,6 +158,12 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			selectorElement.style.setProperty("transition", "all 100ms", "important");
 			selectorElement.style.setProperty("cursor", "pointer", "important");
 			selectorElement.style.setProperty("z-index", "2147483647", "important");
+			selectorElement.style.removeProperty("border-inline-end");
+			selectorElement.style.removeProperty("border-inline-start");
+			selectorElement.style.removeProperty("inline-size");
+			selectorElement.style.removeProperty("block-size");
+			selectorElement.style.removeProperty("inset-block-start");
+			selectorElement.style.removeProperty("inset-inline-end");
 		}
 		return selectorElement;
 	}
