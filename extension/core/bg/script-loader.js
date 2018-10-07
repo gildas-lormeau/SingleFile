@@ -88,7 +88,9 @@ singlefile.scriptLoader = (() => {
 	}
 
 	async function executeContentScripts(tabId, scriptFiles, allFrames) {
-		return Promise.all(scriptFiles.map(file => browser.tabs.executeScript(tabId, { file, allFrames })));
+		for (const file of scriptFiles) {
+			await browser.tabs.executeScript(tabId, { file, allFrames });
+		}
 	}
 
 	function getContentScriptFiles(options) {
