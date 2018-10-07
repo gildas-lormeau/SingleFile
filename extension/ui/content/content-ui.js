@@ -24,6 +24,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	const MASK_TAGNAME = "singlefile-mask";
 	const PROGRESS_BAR_TAGNAME = "singlefile-progress-var";
+	const SELECTION_ZONE_TAGNAME = "single-file-selection-zone";
 	const SELECT_PX_THRESHOLD = 8;
 
 	let selectedAreaElement;
@@ -33,27 +34,8 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			let maskElement = document.querySelector(MASK_TAGNAME);
 			if (!maskElement) {
 				requestAnimationFrame(() => {
-					maskElement = createElement(MASK_TAGNAME, document.body);
-					maskElement.style.setProperty("opacity", 0, "important");
-					maskElement.style.setProperty("background-color", "transparent", "important");
-					maskElement.offsetWidth;
-					maskElement.style.setProperty("position", "fixed", "important");
-					maskElement.style.setProperty("top", "0", "important");
-					maskElement.style.setProperty("left", "0", "important");
-					maskElement.style.setProperty("width", "100%", "important");
-					maskElement.style.setProperty("height", "100%", "important");
-					maskElement.style.setProperty("z-index", 2147483647, "important");
-					maskElement.style.setProperty("transition", "opacity 250ms", "important");
-					maskElement.style.setProperty("will-change", "opacity, background-color", "important");
-					const progressBarElement = createElement(PROGRESS_BAR_TAGNAME, maskElement);
-					progressBarElement.style.setProperty("background-color", "white", "important");
-					progressBarElement.style.setProperty("position", "fixed", "important");
-					progressBarElement.style.setProperty("top", "0", "important");
-					progressBarElement.style.setProperty("left", "0", "important");
-					progressBarElement.style.setProperty("width", "0", "important");
-					progressBarElement.style.setProperty("height", "8px", "important");
-					progressBarElement.style.setProperty("transition", "width 100ms", "important");
-					progressBarElement.style.setProperty("will-change", "width", "important");
+					const maskElement = createMaskElement();
+					createProgressBarElement(maskElement);
 					maskElement.offsetWidth;
 					maskElement.style.setProperty("background-color", "black", "important");
 					maskElement.style.setProperty("opacity", .3, "important");
@@ -109,7 +91,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				removeEventListener("mousemove", mousemoveListener, true);
 				removeEventListener("click", clickListener, true);
 				removeEventListener("keyup", keypressListener, true);
-				getAreaSelector().remove();
+				createAreaSelector().remove();
 				resolve(selectedElement);
 				selectedAreaElement = null;
 			}
@@ -136,7 +118,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	}
 
 	function moveAreaSelector(target) {
-		const selectorElement = getAreaSelector();
+		const selectorElement = createAreaSelector();
 		const boundingRect = target.getBoundingClientRect();
 		selectorElement.style.setProperty("top", (scrollY + boundingRect.top - 10) + "px");
 		selectorElement.style.setProperty("left", (scrollX + boundingRect.left - 10) + "px");
@@ -144,10 +126,10 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		selectorElement.style.setProperty("height", (boundingRect.height + 20) + "px");
 	}
 
-	function getAreaSelector() {
-		let selectorElement = document.querySelector("single-file-selection-zone");
+	function createAreaSelector() {
+		let selectorElement = document.querySelector(SELECTION_ZONE_TAGNAME);
 		if (!selectorElement) {
-			selectorElement = createElement("single-file-selection-zone", document.body);
+			selectorElement = createElement(SELECTION_ZONE_TAGNAME, document.body);
 			selectorElement.style.setProperty("box-sizing", "border-box", "important");
 			selectorElement.style.setProperty("background-color", "#3ea9d7", "important");
 			selectorElement.style.setProperty("border", "10px solid #0b4892", "important");
@@ -168,6 +150,40 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			selectorElement.style.removeProperty("inset-inline-start");
 		}
 		return selectorElement;
+	}
+
+	function createMaskElement() {
+		let maskElement = document.querySelector(MASK_TAGNAME);
+		if (!maskElement) {
+			maskElement = createElement(MASK_TAGNAME, document.body);
+			maskElement.style.setProperty("opacity", 0, "important");
+			maskElement.style.setProperty("background-color", "transparent", "important");
+			maskElement.offsetWidth;
+			maskElement.style.setProperty("position", "fixed", "important");
+			maskElement.style.setProperty("top", "0", "important");
+			maskElement.style.setProperty("left", "0", "important");
+			maskElement.style.setProperty("width", "100%", "important");
+			maskElement.style.setProperty("height", "100%", "important");
+			maskElement.style.setProperty("z-index", 2147483647, "important");
+			maskElement.style.setProperty("transition", "opacity 250ms", "important");
+		}
+		return maskElement;
+	}
+
+	function createProgressBarElement(maskElement) {
+		let progressBarElement = document.querySelector(PROGRESS_BAR_TAGNAME);
+		if (!progressBarElement) {
+			progressBarElement = createElement(PROGRESS_BAR_TAGNAME, maskElement);
+			progressBarElement.style.setProperty("background-color", "white", "important");
+			progressBarElement.style.setProperty("position", "fixed", "important");
+			progressBarElement.style.setProperty("top", "0", "important");
+			progressBarElement.style.setProperty("left", "0", "important");
+			progressBarElement.style.setProperty("width", "0", "important");
+			progressBarElement.style.setProperty("height", "8px", "important");
+			progressBarElement.style.setProperty("transition", "width 100ms", "important");
+			progressBarElement.style.setProperty("will-change", "width", "important");
+		}
+		return progressBarElement;
 	}
 
 	function getMatchedParents(target, property) {
