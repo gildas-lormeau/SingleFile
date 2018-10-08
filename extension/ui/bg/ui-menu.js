@@ -48,7 +48,7 @@ singlefile.ui.menu = (() => {
 	async function refresh() {
 		const config = await singlefile.config.get();
 		if (BROWSER_MENUS_API_SUPPORTED) {
-			const pageContextsEnabled = ["page", "frame", "image"];
+			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio"];
 			const defaultContextsDisabled = ["browser_action"];
 			const defaultContextsEnabled = defaultContextsDisabled.concat(...pageContextsEnabled);
 			const defaultContexts = config.contextMenuEnabled ? defaultContextsEnabled : defaultContextsDisabled;
@@ -69,7 +69,7 @@ singlefile.ui.menu = (() => {
 			}
 			browser.menus.create({
 				id: MENU_ID_SAVE_SELECTED,
-				contexts: config.contextMenuEnabled ? defaultContextsDisabled.concat("selection", "page", "image") : defaultContextsDisabled,
+				contexts: defaultContexts,
 				title: browser.i18n.getMessage("menuSaveSelection")
 			});
 			if (config.contextMenuEnabled) {
