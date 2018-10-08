@@ -62,7 +62,11 @@ singlefile.storage = (() => {
 	async function cleanup() {
 		if (persistentData) {
 			const tabs = await browser.tabs.query({});
-			Object.keys(persistentData).filter(tabId => !tabs.find(tab => tab.id == tabId)).forEach(tabId => delete persistentData[tabId]);
+			Object.keys(persistentData).filter(key => {
+				if (key != "autoSaveAll" && key != "autoSaveUnpinned") {
+					return !tabs.find(tab => tab.id == key);
+				}
+			}).forEach(tabId => delete persistentData[tabId]);
 			await browser.storage.local.set({ tabsData: persistentData });
 		}
 	}
