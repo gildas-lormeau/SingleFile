@@ -142,7 +142,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 				document.body.appendChild(scriptAfterElement);
 				scriptAfterElement.onload = () => scriptAfterElement.remove();
 				resolve();
-			}, 100);
+			}, 250);
 		});
 		return promise;
 	}
