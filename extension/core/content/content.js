@@ -18,11 +18,12 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window */
+/* global browser, SingleFile, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window, timeout, MutationObserver */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
 	const MESSAGE_PREFIX = "__SingleFile__::";
+	const TIMEOUT_LAZY_LOADING = 500;
 	const SingleFileClass = SingleFile.getClass();
 
 	let processing = false;
@@ -132,19 +133,32 @@ this.singlefile.top = this.singlefile.top || (() => {
 		const scriptBeforeElement = document.createElement("script");
 		scriptBeforeElement.src = scriptURL;
 		document.body.appendChild(scriptBeforeElement);
+		let timeoutId;
 		const promise = new Promise(resolve => {
-			scriptBeforeElement.onerror = resolve;
-			scriptBeforeElement.onload = () => setTimeout(() => {
-				scriptBeforeElement.remove();
-				const scriptURL = browser.runtime.getURL("lib/single-file/lazy-loader-after.js");
-				const scriptAfterElement = document.createElement("script");
-				scriptAfterElement.src = scriptURL;
-				document.body.appendChild(scriptAfterElement);
-				scriptAfterElement.onload = () => scriptAfterElement.remove();
-				resolve();
-			}, 250);
+			scriptBeforeElement.onload = () => scriptBeforeElement.remove();
+			var observer = new MutationObserver(mutationsList => {
+				mutationsList.forEach(mutation => {
+					if (mutation.attributeName == "src" || mutation.attributeName == "srcset") {
+						timeoutId = deferLazyLoadEnd(timeoutId, resolve);
+					}
+				});
+			});
+			observer.observe(document, { attributes: true, childList: true, subtree: true });
+			timeoutId = deferLazyLoadEnd(resolve);
 		});
 		return promise;
+	}
+
+	function deferLazyLoadEnd(timeoutId, resolve) {
+		timeout.clear(timeoutId);
+		return timeout.set(() => {
+			resolve();
+			const scriptURL = browser.runtime.getURL("lib/single-file/lazy-loader-after.js");
+			const scriptAfterElement = document.createElement("script");
+			scriptAfterElement.src = scriptURL;
+			document.body.appendChild(scriptAfterElement);
+			scriptAfterElement.onload = () => scriptAfterElement.remove();
+		}, TIMEOUT_LAZY_LOADING);
 	}
 
 	function markSelectedContent() {
