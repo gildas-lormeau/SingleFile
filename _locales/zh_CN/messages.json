@@ -1,11 +1,11 @@
 {
     "extensionDescription": {
         "message": "将完整的页面保存到一个 HTML 文件中",
-        "description": "Description of the extension.",
+        "description": "扩展描述。",
         "hash": "d5e0518d1dedc4948dcd0865ff72b5ea"
     },
     "menuSavePage": {
-        "message": "用 SingleFile 保存页面",
+        "message": "使用 SingleFile 保存页面",
         "description": "Menu entry: 'Save page with SingleFile'",
         "hash": "20dfae7179adf8ca32841ae80f316038"
     },
@@ -270,7 +270,7 @@
         "hash": "95d2821edee58d72c8d762b424ac6583"
     },
     "optionSetMaxResourceSize": {
-        "message": "设定嵌入式资源的最大大小",
+        "message": "设定嵌入的资源的最大大小",
         "description": "Options page label: 'set a maximum size for embedded resources'",
         "hash": "278e5b9204c2ec85ad08cf4e1e5ee819"
     },
