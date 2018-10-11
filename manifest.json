@@ -115,8 +115,8 @@
 	},
 	"incognito": "spanning",
 	"web_accessible_resources": [
-		"lib/lazy/lazy-loader-before.js",
-		"lib/lazy/lazy-loader-after.js"
+		"lib/lazy/web-lazy-loader-before.js",
+		"lib/lazy/web-lazy-loader-after.js"
 	],
 	"manifest_version": 2,
 	"default_locale": "en"
