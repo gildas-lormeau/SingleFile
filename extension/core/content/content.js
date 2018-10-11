@@ -136,10 +136,10 @@ this.singlefile.top = this.singlefile.top || (() => {
 		let timeoutId;
 		const promise = new Promise(resolve => {
 			scriptBeforeElement.onload = () => scriptBeforeElement.remove();
-			var observer = new MutationObserver(mutationsList => {
+			const observer = new MutationObserver(mutationsList => {
 				mutationsList.forEach(mutation => {
 					if (mutation.attributeName == "src" || mutation.attributeName == "srcset") {
-						timeoutId = deferLazyLoadEnd(timeoutId, resolve);
+						timeoutId = deferLazyLoadEnd(timeoutId, observer, resolve);
 					}
 				});
 			});
@@ -149,7 +149,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		return promise;
 	}
 
-	function deferLazyLoadEnd(timeoutId, resolve) {
+	function deferLazyLoadEnd(timeoutId, observer, resolve) {
 		timeout.clear(timeoutId);
 		return timeout.set(() => {
 			resolve();
@@ -158,6 +158,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			scriptAfterElement.src = scriptURL;
 			document.body.appendChild(scriptAfterElement);
 			scriptAfterElement.onload = () => scriptAfterElement.remove();
+			observer.disconnect();
 		}, TIMEOUT_LAZY_LOADING);
 	}
 
