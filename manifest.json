@@ -75,7 +75,6 @@
 			"lib/single-file/html-srcset-parser.js",
 			"lib/single-file/html-minifier.js",
 			"lib/single-file/html-serializer.js",
-			"lib/single-file/lazy-loader.js",
 			"lib/single-file/html-alt-images.js",
 			"lib/single-file/single-file-core.js",
 			"lib/single-file/single-file-browser.js"
