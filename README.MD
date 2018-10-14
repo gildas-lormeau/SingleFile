@@ -35,8 +35,11 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 ## More info
 See the extension help in the options page for more detailed information about the options, and technical notes.
 
+## Optimizations applied to web pages
+See https://github.com/gildas-lormeau/SingleFile/wiki/Optimizations-applied-to-web-pages
+
 ## Statistics (Firefox)
-https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=90
+See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=90
 
 ## Known Issues
 - All browsers:
