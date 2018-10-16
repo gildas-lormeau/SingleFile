@@ -66,6 +66,12 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			addEventListener("mousemove", mousemoveListener, true);
 			addEventListener("click", clickListener, true);
 			addEventListener("keyup", keypressListener, true);
+			document.addEventListener("contextmenu", contextmenuListener, true);
+
+			function contextmenuListener(event) {
+				select();
+				event.preventDefault();
+			}
 
 			function mousemoveListener(event) {
 				const targetElement = getTarget(event);
@@ -76,7 +82,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			}
 
 			function clickListener(event) {
-				select(selectedAreaElement);
+				select(event.button === 0 ? selectedAreaElement : null);
 				event.preventDefault();
 				event.stopPropagation();
 			}
@@ -94,6 +100,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				createAreaSelector().remove();
 				resolve(selectedElement);
 				selectedAreaElement = null;
+				setTimeout(() => document.removeEventListener("contextmenu", contextmenuListener, true), 0);
 			}
 		});
 	}
