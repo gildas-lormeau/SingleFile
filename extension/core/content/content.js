@@ -83,10 +83,14 @@ this.singlefile.top = this.singlefile.top || (() => {
 	async function processPage(options) {
 		singlefile.ui.init();
 		const processor = new SingleFileClass(options);
+		const preInitializationPromises = [];
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		if (!options.removeFrames && this.frameTree) {
-			options.framesData = await frameTree.getAsync(options);
+			preInitializationPromises.push(frameTree.getAsync(options));
+		}
+		if (options.lazyLoadImages) {
+			preInitializationPromises.push(lazyLoader.process());
 		}
 		options.doc = document;
 		options.win = window;
@@ -107,9 +111,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 				browser.runtime.sendMessage({ processEnd: true, options: { autoSave: false } });
 			}
 		};
-		if (options.lazyLoadImages) {
-			await lazyLoader.process();
-		}
+		[options.framesData] = await Promise.all(preInitializationPromises);
 		await processor.initialize();
 		await processor.preparePageData();
 		const page = await processor.getPageData();
