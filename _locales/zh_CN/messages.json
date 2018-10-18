@@ -145,8 +145,8 @@
         "hash": "eadbe2cf518a3d8cb2fad480170d96ea"
     },
     "optionCompressHTML": {
-        "message": "完整 HTML 内容",
-        "description": "选项页标签: '完整 HTML 内容'",
+        "message": "压缩 HTML 内容",
+        "description": "选项页标签: '压缩 HTML 内容'",
         "hash": "f5b61b2087dd5e6ed9b1c3eb62d30402"
     },
     "optionRemoveImports": {
