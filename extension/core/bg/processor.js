@@ -40,6 +40,7 @@ singlefile.processor = (() => {
 		options.responsiveImageData = message.responsiveImageData;
 		options.imageData = message.imageData;
 		options.postersData = message.postersData;
+		options.usedFonts = message.usedFonts;
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		options.backgroundTab = true;

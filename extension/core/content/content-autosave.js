@@ -57,6 +57,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 					responsiveImageData: docData.responsiveImageData,
 					imageData: docData.imageData,
 					postersData: docData.postersData,
+					usedFonts: docData.usedFonts,
 					framesData,
 					url: location.href
 				});
@@ -97,6 +98,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 				responsiveImageData: docData.responsiveImageData,
 				imageData: docData.imageData,
 				postersData: docData.postersData,
+				usedFonts: docData.usedFonts,
 				framesData,
 				url: location.href
 			});
