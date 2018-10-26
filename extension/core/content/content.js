@@ -113,7 +113,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		};
 		[options.framesData] = await Promise.all(preInitializationPromises);
 		await processor.initialize();
-		await processor.preparePageData();
+		await processor.run();
 		const page = await processor.getPageData();
 		if (options.selected) {
 			unmarkSelectedContent();
