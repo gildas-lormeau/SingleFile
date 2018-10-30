@@ -70,7 +70,8 @@ singlefile.scriptLoader = (() => {
 			"/lib/single-file/css-declarations-parser.js",
 			"/lib/single-file/css-medias-minifier.js",
 			"/lib/single-file/css-rules-matcher.js",
-			"/lib/single-file/css-rules-minifier.js"
+			"/lib/single-file/css-rules-minifier.js",
+			"/lib/single-file/css-fonts-minifier.js"
 		],
 		lazyLoadImages: [
 			"/lib/lazy/content-lazy-loader.js"
