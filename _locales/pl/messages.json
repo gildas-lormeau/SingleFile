@@ -61,7 +61,7 @@
     },
     "buttonSaveProgressTooltip": {
         "message": "Postęp zapisywania: ",
-        "description": "Button title during save: '  xx%'"
+        "description": "Button title during save: 'Save progress: xx%'"
     },
     "buttonOKBadge": {
         "message": "OK",
@@ -100,11 +100,11 @@
         "description": "Options page label: 'display an infobar when viewing a saved page'"
     },
     "optionInfobarTemplate": {
-        "message": "template of the infobar content",
+        "message": "szablon zawartości paska informacyjnego",
         "description": "Options page label: 'template of the infobar content'"
     },
     "optionConfirmInfobar": {
-        "message": "open a prompt dialog to edit the infobar content",
+        "message": "otwieraj okno dialogowe z monitem, aby edytować zawartość paska informacyjnego",
         "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
     },
     "optionsFileNameSubTitle": {
