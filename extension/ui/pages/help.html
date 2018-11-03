@@ -19,6 +19,7 @@
 			<a href="#general-notes">Additional notes</a> -
 			<a href="#options">Options description</a> -
 			<a href="#notes">Technical notes</a> -
+			<a href="#template-variables">Template variables</a> -
 			<a href="#known-issues">Known issues</a> -
 			<a href="#unknown-issues">Troubleshooting unknown issues</a> -
 			<a href="#contributors">Contributors</a>
@@ -117,58 +118,30 @@
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
 					</li>
+
+					<li>
+						<span class="option">template of the infobar content</span>
+						<p>The template allows you to customize the content displayed in the infobar. You can use any valid character,
+							"\n" for new lines or "\t" for tabs. You can also use any variables from <a href="template-variables">this list</a>
+							anywhere in the template. If the template or the resulting content is empty, the infobar will display the saved
+							date by default.
+						</p>
+					</li>
+
+					<li>
+						<span class="option">open a prompt dialog to edit the infobar content</span>
+						<p>Check this option to display a prompt dialog in order to confirm the infobar content before saving the page.
+						</p>
+					</li>
 				</ul>
 				<p>File name</p>
 				<ul>
 					<li>
 						<span class="option">template</span>
 						<p>The template allows you to customize the file name of saved pages. You can use any valid character and "/" to
-							create sub-folders (with the option "save pages in background" active). You can also use the variables in
-							the list below anywhere in the template.</p>
-						<ul>
-							<li><code>{page-title}</code>: the title of the page</li>
-							<li><code>{page-language}</code>: the language of the page</li>
-							<li><code>{page-description}</code>: the description of the page</li>
-							<li><code>{page-author}</code>: the author of the page</li>
-							<li><code>{page-creator}</code>: the creator of the page</li>
-							<li><code>{page-publisher}</code>: the publisher of the page</li>
-							<li><code>{datetime-iso}</code>: the save date and time in the ISO format (e.g. "2018-09-15T22_38_26_317Z")</li>
-							<li><code>{datetime-utc}</code>: the save date and time in UTC format (e.g. "Sat, 15 Sep 2018 22_38_26 GMT")</li>
-							<li><code>{datetime-locale}</code>: the localized value of the date and time (e.g. "9_16_2018, 12_54_31 AM")</li>
-							<li><code>{date-iso}</code>: the save date in the ISO format (e.g. "2018-09-15")</li>
-							<li><code>{date-locale}</code>: the localized value of the save date (e.g. "16_09_2018")</li>
-							<li><code>{time-iso}</code>: the save time in the ISO format (e.g. "22_38_26_317")</li>
-							<li><code>{time-locale}</code>: the localized value of the save time (e.g. "00_38_26")</li>
-							<li><code>{day-utc}</code>: the day of the save date in UTC format (e.g. "15")</li>
-							<li><code>{day-locale}</code>: the localized value of the day (e.g. "15")</li>
-							<li><code>{month-utc}</code>: the month of the save date in UTC format (e.g. "09")</li>
-							<li><code>{month-locale}</code>: the localized value of the month (e.g. "09")</li>
-							<li><code>{year-utc}</code>: the year of the save date in UTC format (e.g. "2018")</li>
-							<li><code>{year-locale}</code>: the localized value of the year (e.g. "2018")</li>
-							<li><code>{hours-utc}</code>: the hour of the save date in UTC format (e.g. "20")</li>
-							<li><code>{hours-locale}</code>: the localized value of the hour (e.g. "22")</li>
-							<li><code>{minutes-utc}</code>: the minutes of the save date in UTC format (e.g. "38")</li>
-							<li><code>{minutes-locale}</code>: the localized value of the minutes (e.g. "38")</li>
-							<li><code>{seconds-utc}</code>: the seconds of the save date in UTC format (e.g. "31")</li>
-							<li><code>{seconds-locale}</code>: the localized value of the seconds (e.g. "31")</li>
-							<li><code>{url-href}</code>: the URL of the page (e.g. "http_example.com")</li>
-							<li><code>{url-pathname}</code>: the path name of the URL (e.g. "category_index.html")</li>
-							<li><code>{url-last-segment}</code>: the last part of the pathname (without the extension) or the host if not
-								found (e.g. "index")</li>
-							<li><code>{url-protocol}</code>: the protocol of the URL (e.g. "https")</li>
-							<li><code>{url-host}</code>: the host name + the port of the URL (e.g. "example.com_8080")</li>
-							<li><code>{url-hostname}</code>: the host name of the URL (e.g. "example.com")</li>
-							<li><code>{url-port}</code>: the port of the URL (e.g. "8080")</li>
-							<li><code>{url-username}</code>: the user name of the URL (e.g. "john_doe")</li>
-							<li><code>{url-password}</code>: the password of the URL (e.g. "qwerty123")</li>
-							<li><code>{url-search}</code>: the search string of the URL (e.g. "filter-date=today")</li>
-							<li><code>{url-hash}</code>: the hash of the URL (e.g. "chapter-2")</li>
-							<li><code>{tab-id}</code>: the unique identifier of the tab (e.g. "326")</li>
-							<li><code>{digest-sha-256}</code>: the SHA-256 hash value of the entire page content (e.g.
-								e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855)</li>
-							<li><code>{digest-sha-384}</code>: the SHA-384 hash value of the entire page content</li>
-							<li><code>{digest-sha-512}</code>: the SHA-512 hash value of the entire page content</li>
-						</ul>
+							create sub-folders (with the option "save pages in background" active). You can also use any variables from
+							<a href="template-variables">this list</a> anywhere in the template.</p>
+
 						<p>Note that invalid characters are automatically transformed and collapsed to underscores. File names cannot
 							exceed 192 characters and are truncated if longer. The invalid characters are: [, ~, \, ?, %, *, :, |, ", &lt;,
 							&gt;, and control characters from 0 to 31 in the ASCII table.</p>
@@ -398,6 +371,54 @@
 						<span class="option">Reset</span>
 						<p>Reset all options to their default values.</p>
 					</li>
+				</ul>
+			</li>
+
+			<li>
+				<a id="template-variables">Template variables</a>
+				<ul>
+					<li><code>{page-title}</code>: the title of the page</li>
+					<li><code>{page-language}</code>: the language of the page</li>
+					<li><code>{page-description}</code>: the description of the page</li>
+					<li><code>{page-author}</code>: the author of the page</li>
+					<li><code>{page-creator}</code>: the creator of the page</li>
+					<li><code>{page-publisher}</code>: the publisher of the page</li>
+					<li><code>{datetime-iso}</code>: the save date and time in the ISO format (e.g. "2018-09-15T22_38_26_317Z")</li>
+					<li><code>{datetime-utc}</code>: the save date and time in UTC format (e.g. "Sat, 15 Sep 2018 22_38_26 GMT")</li>
+					<li><code>{datetime-locale}</code>: the localized value of the date and time (e.g. "9_16_2018, 12_54_31 AM")</li>
+					<li><code>{date-iso}</code>: the save date in the ISO format (e.g. "2018-09-15")</li>
+					<li><code>{date-locale}</code>: the localized value of the save date (e.g. "16_09_2018")</li>
+					<li><code>{time-iso}</code>: the save time in the ISO format (e.g. "22_38_26_317")</li>
+					<li><code>{time-locale}</code>: the localized value of the save time (e.g. "00_38_26")</li>
+					<li><code>{day-utc}</code>: the day of the save date in UTC format (e.g. "15")</li>
+					<li><code>{day-locale}</code>: the localized value of the day (e.g. "15")</li>
+					<li><code>{month-utc}</code>: the month of the save date in UTC format (e.g. "09")</li>
+					<li><code>{month-locale}</code>: the localized value of the month (e.g. "09")</li>
+					<li><code>{year-utc}</code>: the year of the save date in UTC format (e.g. "2018")</li>
+					<li><code>{year-locale}</code>: the localized value of the year (e.g. "2018")</li>
+					<li><code>{hours-utc}</code>: the hour of the save date in UTC format (e.g. "20")</li>
+					<li><code>{hours-locale}</code>: the localized value of the hour (e.g. "22")</li>
+					<li><code>{minutes-utc}</code>: the minutes of the save date in UTC format (e.g. "38")</li>
+					<li><code>{minutes-locale}</code>: the localized value of the minutes (e.g. "38")</li>
+					<li><code>{seconds-utc}</code>: the seconds of the save date in UTC format (e.g. "31")</li>
+					<li><code>{seconds-locale}</code>: the localized value of the seconds (e.g. "31")</li>
+					<li><code>{url-href}</code>: the URL of the page (e.g. "http_example.com")</li>
+					<li><code>{url-pathname}</code>: the path name of the URL (e.g. "category_index.html")</li>
+					<li><code>{url-last-segment}</code>: the last part of the pathname (without the extension) or the host if not
+						found (e.g. "index")</li>
+					<li><code>{url-protocol}</code>: the protocol of the URL (e.g. "https")</li>
+					<li><code>{url-host}</code>: the host name + the port of the URL (e.g. "example.com_8080")</li>
+					<li><code>{url-hostname}</code>: the host name of the URL (e.g. "example.com")</li>
+					<li><code>{url-port}</code>: the port of the URL (e.g. "8080")</li>
+					<li><code>{url-username}</code>: the user name of the URL (e.g. "john_doe")</li>
+					<li><code>{url-password}</code>: the password of the URL (e.g. "qwerty123")</li>
+					<li><code>{url-search}</code>: the search string of the URL (e.g. "filter-date=today")</li>
+					<li><code>{url-hash}</code>: the hash of the URL (e.g. "chapter-2")</li>
+					<li><code>{tab-id}</code>: the unique identifier of the tab (e.g. "326")</li>
+					<li><code>{digest-sha-256}</code>: the SHA-256 hash value of the entire page content (e.g.
+						e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855)</li>
+					<li><code>{digest-sha-384}</code>: the SHA-384 hash value of the entire page content</li>
+					<li><code>{digest-sha-512}</code>: the SHA-512 hash value of the entire page content</li>
 				</ul>
 			</li>
 

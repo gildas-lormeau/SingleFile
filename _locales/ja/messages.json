@@ -91,13 +91,21 @@
         "message": "ウェブページのコンテキストメニューにエントリを追加する",
         "description": "オプションのページラベル: 'ウェブページのコンテキストメニューにエントリを追加する'"
     },
+    "optionDisplayShadow": {
+        "message": "処理中のページに影を重ねる",
+        "description": "オプションのページラベル: '処理中のページに影を重ねる'"
+    },
     "optionDisplayInfobar": {
         "message": "保存したページを表示するときに情報バーを表示する",
         "description": "オプションのページラベル: '保存したページを表示するときに情報バーを表示する'"
     },
-    "optionDisplayShadow": {
-        "message": "処理中のページに影を重ねる",
-        "description": "オプションのページラベル: '処理中のページに影を重ねる'"
+    "optionInfobarTemplate": {
+        "message": "template of the infobar content",
+        "description": "Options page label: 'template of the infobar content'"
+    },
+    "optionConfirmInfobar": {
+        "message": "open a prompt dialog to edit the infobar content",
+        "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
     },
     "optionsFileNameSubTitle": {
         "message": "ファイル名",

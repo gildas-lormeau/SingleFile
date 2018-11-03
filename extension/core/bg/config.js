@@ -33,6 +33,8 @@ singlefile.config = (() => {
 		compressCSS: true,
 		lazyLoadImages: true,
 		filenameTemplate: "{page-title} ({date-iso} {time-locale}).html",
+		infobarTemplate: "",
+		confirmInfobar: false,
 		confirmFilename: false,
 		contextMenuEnabled: true,
 		shadowEnabled: true,
@@ -98,6 +100,9 @@ singlefile.config = (() => {
 				config.filenameTemplate = "{page-title}.html";
 			}
 			delete config.appendSaveDate;
+		}
+		if (config.infobarTemplate === undefined) {
+			config.infobarTemplate = "";
 		}
 		if (config.removeImports === undefined) {
 			config.removeImports = true;

@@ -59,6 +59,8 @@
 	const otherResourcesLabel = document.getElementById("otherResourcesLabel");
 	const autoSaveLabel = document.getElementById("autoSaveLabel");
 	const groupDuplicateImagesLabel = document.getElementById("groupDuplicateImagesLabel");
+	const confirmInfobarLabel = document.getElementById("confirmInfobarLabel");
+	const infobarTemplateLabel = document.getElementById("infobarTemplateLabel");
 	const miscLabel = document.getElementById("miscLabel");
 	const helpLabel = document.getElementById("helpLabel");
 	const resetButton = document.getElementById("resetButton");
@@ -91,6 +93,8 @@
 	const removeAlternativeImagesInput = document.getElementById("removeAlternativeImagesInput");
 	const removeAlternativeMediasInput = document.getElementById("removeAlternativeMediasInput");
 	const groupDuplicateImagesInput = document.getElementById("groupDuplicateImagesInput");
+	const infobarTemplateInput = document.getElementById("infobarTemplateInput");
+	const confirmInfobarInput = document.getElementById("confirmInfobarInput");
 	const expandAllButton = document.getElementById("expandAllButton");
 	let pendingSave = Promise.resolve();
 	resetButton.addEventListener("click", async () => {
@@ -159,7 +163,9 @@
 	otherResourcesLabel.textContent = browser.i18n.getMessage("optionsOtherResourcesSubTitle");
 	autoSaveLabel.textContent = browser.i18n.getMessage("optionsAutoSaveSubTitle");
 	miscLabel.textContent = browser.i18n.getMessage("optionsMiscSubTitle");
-	helpLabel.textContent = browser.i18n.getMessage("optionsHelpLink");	
+	helpLabel.textContent = browser.i18n.getMessage("optionsHelpLink");
+	infobarTemplateLabel.textContent = browser.i18n.getMessage("optionInfobarTemplate");
+	confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
 	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
 	resetButton.title = browser.i18n.getMessage("optionsResetTooltip");
 
@@ -199,6 +205,8 @@
 		removeAlternativeImagesInput.checked = config.removeAlternativeImages;
 		groupDuplicateImagesInput.checked = config.groupDuplicateImages;
 		removeAlternativeMediasInput.checked = config.removeAlternativeMedias;
+		infobarTemplateInput.value = config.infobarTemplate;
+		confirmInfobarInput.checked = config.confirmInfobar;
 	}
 
 	async function update() {
@@ -231,7 +239,9 @@
 			removeAlternativeFonts: removeAlternativeFontsInput.checked,
 			removeAlternativeImages: removeAlternativeImagesInput.checked,
 			removeAlternativeMedias: removeAlternativeMediasInput.checked,
-			groupDuplicateImages: groupDuplicateImagesInput.checked
+			groupDuplicateImages: groupDuplicateImagesInput.checked,
+			infobarTemplate: infobarTemplateInput.value,
+			confirmInfobar: confirmInfobarInput.checked
 		});
 		await pendingSave;
 		await bgPage.singlefile.ui.menu.refresh();

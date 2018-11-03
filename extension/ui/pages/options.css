@@ -80,6 +80,20 @@ a {
     min-height: 24px;
 }
 
+.option.vertical {
+    flex-direction: column;
+}
+
+.option.vertical label {
+    align-self: flex-start;
+}
+
+.option.vertical input {
+    margin-top: 3px;
+    align-self: flex-end;
+    width: calc(100% - 3px);
+}
+
 .option:last-of-type {
     padding-bottom: 12px;
 }
@@ -102,13 +116,13 @@ a {
 }
 
 #expandAllButton::after {
-    content: '▷';    
+    content: '▷';
 }
 
 #expandAllButton.opened::after {
     content: '▽';
     position: relative;
-    top: 1px;    
+    top: 1px;
 }
 
 #expandAllButton:hover {

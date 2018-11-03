@@ -91,13 +91,21 @@
         "message": "ajouter une entrée dans le menu contextuel de la page web",
         "description": "Options page label: 'add entry in the context menu of the webpage'"
     },
+    "optionDisplayShadow": {
+        "message": "assombrir la page pendant la sauvegarde",
+        "description": "Options page label: 'overlay a shadow on the page during processing'"
+    },
     "optionDisplayInfobar": {
         "message": "afficher une barre d'information quand une sauvegarde est affichée",
         "description": "Options page label: 'display an infobar when viewing a saved page'"
     },
-    "optionDisplayShadow": {
-        "message": "assombrir la page pendant la sauvegarde",
-        "description": "Options page label: 'overlay a shadow on the page during processing'"
+    "optionInfobarTemplate": {
+        "message": "modèle du contenu de la barre d'information",
+        "description": "Options page label: 'template of the infobar content'"
+    },
+    "optionConfirmInfobar": {
+        "message": "ouvrir une boite de dialogue pour éditer le contenu de la barre d'information",
+        "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
     },
     "optionsFileNameSubTitle": {
         "message": "Nom de fichier",

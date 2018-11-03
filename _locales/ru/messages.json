@@ -91,13 +91,21 @@
         "message": "добавить пункт в контекстное меню веб-страницы",
         "description": "Options page label: 'add entry in the context menu of the webpage'"
     },
+    "optionDisplayShadow": {
+        "message": "накладывать тень на страницу во время обработки",
+        "description": "Options page label: 'overlay a shadow on the page during processing'"
+    },
     "optionDisplayInfobar": {
         "message": "отображать информационную панель при просмотре сохраненной страницы",
         "description": "Options page label: 'display an infobar when viewing a saved page'"
     },
-    "optionDisplayShadow": {
-        "message": "накладывать тень на страницу во время обработки",
-        "description": "Options page label: 'overlay a shadow on the page during processing'"
+    "optionInfobarTemplate": {
+        "message": "template of the infobar content",
+        "description": "Options page label: 'template of the infobar content'"
+    },
+    "optionConfirmInfobar": {
+        "message": "open a prompt dialog to edit the infobar content",
+        "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
     },
     "optionsFileNameSubTitle": {
         "message": "Имя файла",

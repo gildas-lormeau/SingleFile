@@ -91,13 +91,21 @@
         "message": "dodawaj wpis w menu kontekstowym strony",
         "description": "Options page label: 'add entry in the context menu of the webpage'"
     },
+    "optionDisplayShadow": {
+        "message": "nakładaj cień na stronę podczas przetwarzania",
+        "description": "Options page label: 'overlay a shadow on the page during processing'"
+    },
     "optionDisplayInfobar": {
         "message": "wyświetlaj pasek informacyjny podczas przeglądania zapisanej strony",
         "description": "Options page label: 'display an infobar when viewing a saved page'"
     },
-    "optionDisplayShadow": {
-        "message": "nakładaj cień na stronę podczas przetwarzania",
-        "description": "Options page label: 'overlay a shadow on the page during processing'"
+    "optionInfobarTemplate": {
+        "message": "template of the infobar content",
+        "description": "Options page label: 'template of the infobar content'"
+    },
+    "optionConfirmInfobar": {
+        "message": "open a prompt dialog to edit the infobar content",
+        "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
     },
     "optionsFileNameSubTitle": {
         "message": "Nazwa pliku",

@@ -91,13 +91,21 @@
         "message": "add entry in the context menu of the webpage",
         "description": "Options page label: 'add entry in the context menu of the webpage'"
     },
+    "optionDisplayShadow": {
+        "message": "overlay a shadow on the page during processing",
+        "description": "Options page label: 'overlay a shadow on the page during processing'"
+    },
     "optionDisplayInfobar": {
         "message": "display an infobar when viewing a saved page",
         "description": "Options page label: 'display an infobar when viewing a saved page'"
     },
-    "optionDisplayShadow": {
-        "message": "overlay a shadow on the page during processing",
-        "description": "Options page label: 'overlay a shadow on the page during processing'"
+    "optionInfobarTemplate": {
+        "message": "template of the infobar content",
+        "description": "Options page label: 'template of the infobar content'"
+    },
+    "optionConfirmInfobar": {
+        "message": "open a prompt dialog to edit the infobar content",
+        "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
     },
     "optionsFileNameSubTitle": {
         "message": "File name",

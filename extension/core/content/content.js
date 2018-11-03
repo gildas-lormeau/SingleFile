@@ -114,6 +114,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 		[options.framesData] = await Promise.all(preInitializationPromises);
 		await processor.initialize();
 		await processor.run();
+		if (options.confirmInfobar) {
+			options.infobarContent = prompt("Infobar content", options.infobarContent) || "";
+		}
 		const page = await processor.getPageData();
 		if (options.selected) {
 			unmarkSelectedContent();
