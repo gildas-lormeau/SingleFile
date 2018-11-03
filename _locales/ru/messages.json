@@ -100,11 +100,11 @@
         "description": "Options page label: 'display an infobar when viewing a saved page'"
     },
     "optionInfobarTemplate": {
-        "message": "template of the infobar content",
+        "message": "шаблон содержимого информационной панели",
         "description": "Options page label: 'template of the infobar content'"
     },
     "optionConfirmInfobar": {
-        "message": "open a prompt dialog to edit the infobar content",
+        "message": "открывать диалоговое окно для редактирования содержимого информационной панели",
         "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
     },
     "optionsFileNameSubTitle": {
