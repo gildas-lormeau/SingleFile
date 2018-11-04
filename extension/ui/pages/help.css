@@ -6,7 +6,7 @@ body>div {
     position: relative;
     background-color: #fff;
     font-family: sans-serif;
-    max-width: 800px;
+    max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
     border-width: 1px;
@@ -53,8 +53,16 @@ a[id] {
     font-weight: bold;
 }
 
+ol>li>ul {
+    padding-left: 25px;
+}
+
 ol>li>ul>li {
     padding-top: .5em;
+}
+
+ol>li>ul>li>ul {
+    padding-left: 25px;
 }
 
 .icon {
