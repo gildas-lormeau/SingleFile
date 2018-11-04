@@ -122,10 +122,17 @@
 					<li>
 						<span class="option">template of the infobar content</span>
 						<p>The template allows you to customize the content displayed in the infobar. You can use any valid character,
-							"\n" for new lines or "\t" for tabs. You can also use any variables from <a href="template-variables">this list</a>
-							anywhere in the template. If the template or the resulting content is empty, the infobar will display the saved
-							date by default.
+							<code>\n</code> for new lines or <code>\t</code> for tabs. You can also use any variables from <a href="#template-variables">this
+								list</a> anywhere in the template. If the template or the resulting content is empty, the infobar will display
+							the saved date by default.
 						</p>
+						<p>Template Examples</p>
+						<ul>
+							<li><code>{url-href} ({date-iso})</code> will produce contents like "https://www.example.com (2018-09-15 11 06
+								03 PM)".</li>
+							<li><code>Title: {page-title}</code> will produce contents like "Title: Example Domain" for a page having
+								"Example Domain" as title.</li>
+						</ul>
 					</li>
 
 					<li>
@@ -140,8 +147,7 @@
 						<span class="option">template</span>
 						<p>The template allows you to customize the file name of saved pages. You can use any valid character and "/" to
 							create sub-folders (with the option "save pages in background" active). You can also use any variables from
-							<a href="template-variables">this list</a> anywhere in the template.</p>
-
+							<a href="#template-variables">this list</a> anywhere in the template.</p>
 						<p>Note that invalid characters are automatically transformed and collapsed to underscores. File names cannot
 							exceed 192 characters and are truncated if longer. The invalid characters are: [, ~, \, ?, %, *, :, |, ", &lt;,
 							&gt;, and control characters from 0 to 31 in the ASCII table.</p>
@@ -376,6 +382,8 @@
 
 			<li>
 				<a id="template-variables">Template variables</a>
+				<p>The template variables are used to customize the infobar content or the file name of a saved page. They help to
+					insert dynamic values like the save date or the page title.</p>
 				<ul>
 					<li><code>{page-title}</code>: the title of the page</li>
 					<li><code>{page-language}</code>: the language of the page</li>
