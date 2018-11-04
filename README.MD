@@ -1,5 +1,5 @@
 # SingleFile
-SingleFile is a WebExtension compatible with Chrome, Firefox (Desktop and Mobile), Opera, and Edge that helps you to save a complete web page into a single HTML file.
+SingleFile is a WebExtension compatible with Chrome, Firefox (Desktop and Mobile), and Opera that helps you to save a complete web page into a single HTML file.
 
 ## Demo
 https://www.youtube.com/watch?v=RdV8DBW5b0g
@@ -7,7 +7,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 ## Install
  - Firefox Add-ons: https://addons.mozilla.org/en-US/firefox/addon/single-file
  - Chrome Web Store: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
- - Edge, Opera: The extension is not on the store yet, you must download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and install it manually
+ - Opera: The extension is not on the store yet, you must download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and install it manually
 
 ## Getting started
 - Wait until the page is fully loaded, you may need to scroll down the entire page to be sure all elements are loaded.
@@ -46,8 +46,6 @@ See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.  
 - Firefox:
   - You cannot save selected tabs via the context menu because it is not possible to select multiple tabs.
-- Edge:
-  - The file name looks like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1".
 
 ## Troubleshooting unknown issues
 Please follow these steps if you find an unknown issue:
