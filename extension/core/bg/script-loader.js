@@ -82,9 +82,9 @@ singlefile.scriptLoader = (() => {
 
 	async function executeScripts(tab, options) {
 		if (!options.removeFrames) {
-			await executeContentScripts(tab.id, frameScriptFiles, true);
+			await executeContentScripts(tab.id, frameScriptFiles, true, "document_start");
 		}
-		await executeContentScripts(tab.id, getContentScriptFiles(options), false);
+		await executeContentScripts(tab.id, getContentScriptFiles(options), false, "document_idle");
 		if (options.frameId) {
 			await browser.tabs.sendMessage(tab.id, { saveFrame: true, options }, { frameId: options.frameId });
 		} else {
@@ -92,9 +92,9 @@ singlefile.scriptLoader = (() => {
 		}
 	}
 
-	async function executeContentScripts(tabId, scriptFiles, allFrames) {
+	async function executeContentScripts(tabId, scriptFiles, allFrames, runAt) {
 		for (const file of scriptFiles) {
-			await browser.tabs.executeScript(tabId, { file, allFrames });
+			await browser.tabs.executeScript(tabId, { file, allFrames, runAt });
 		}
 	}
 
