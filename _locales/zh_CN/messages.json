@@ -70,8 +70,8 @@
         "hash": "460c640c1b1fe9ab8b06523428acf1eb"
     },
     "buttonInitializingBadge": {
-        "message": "•••",
-        "description": "初始化时候的徽标标签: '•••'",
+        "message": "…",
+        "description": "初始化时候的徽标标签: '…'",
         "hash": "c043bd3d7a66f0d795020e9c2651cec6"
     },
     "buttonSaveProgressTooltip": {
@@ -114,16 +114,24 @@
         "description": "选项页标签: '添加菜单项到页面的右键菜单'",
         "hash": "d0bed5abfc70cbf72e55f5ec86a03271"
     },
-    "optionDisplayInfobar": {
-        "message": "查看一个已保存的页面时显示信息栏",
-        "description": "选项页标签: '查看一个已保存的页面时显示信息栏'",
-        "hash": "413b9b29a94cdc06ba81da5b95946d9d"
-    },
     "optionDisplayShadow": {
         "message": "处理过程中以阴影遮盖页面",
         "description": "选项页标签: '处理过程中以阴影遮盖页面'",
         "hash": "6fea186d3241b66cb5c78c6b30f903e0"
     },
+    "optionDisplayInfobar": {
+        "message": "查看一个已保存的页面时显示信息栏",
+        "description": "选项页标签: '查看一个已保存的页面时显示信息栏'",
+        "hash": "413b9b29a94cdc06ba81da5b95946d9d"
+    },
+    "optionInfobarTemplate": {
+        "message": "信息栏内容模板",
+        "description": "选项页标签: '信息栏内容模板'"
+    },
+    "optionConfirmInfobar": {
+        "message": "打开一个提示窗口以编辑信息栏内容",
+        "description": "选项页标签: '打开一个提示窗口以编辑信息栏内容'"
+},
     "optionsFileNameSubTitle": {
         "message": "文件名",
         "description": "选项页副标题: '文件名'",
