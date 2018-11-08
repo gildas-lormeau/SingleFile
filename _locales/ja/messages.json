@@ -100,12 +100,12 @@
         "description": "オプションのページラベル: '保存したページを表示するときに情報バーを表示する'"
     },
     "optionInfobarTemplate": {
-        "message": "template of the infobar content",
-        "description": "Options page label: 'template of the infobar content'"
+        "message": "infobar コンテンツのテンプレート",
+        "description": "オプションのページラベル: 'infobar コンテンツのテンプレート'"
     },
     "optionConfirmInfobar": {
-        "message": "open a prompt dialog to edit the infobar content",
-        "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
+        "message": "infobar のコンテンツを編集するためのプロンプトダイアログを開く",
+        "description": "オプションのページラベル: 'infobar のコンテンツを編集するためのプロンプトダイアログを開く'"
     },
     "optionsFileNameSubTitle": {
         "message": "ファイル名",
