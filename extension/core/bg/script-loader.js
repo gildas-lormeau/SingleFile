@@ -25,8 +25,9 @@ singlefile.scriptLoader = (() => {
 	const contentScriptFiles = [
 		"/lib/browser-polyfill/custom-browser-polyfill.js",
 		"/lib/single-file/doc-helper.js",
-		"/lib/single-file/timeout.js",
-		"/lib/single-file/base64.js",
+		"/lib/single-file/util/timeout.js",
+		"/lib/single-file/util/base64.js",
+		"/lib/single-file/css-tree.js",
 		"/lib/single-file/html-srcset-parser.js",
 		"/lib/fetch/content/fetch.js",
 		"/lib/single-file/single-file-core.js",
@@ -41,7 +42,7 @@ singlefile.scriptLoader = (() => {
 		"/lib/single-file/font-face-proxy.js",
 		"/extension/index.js",
 		"/lib/single-file/doc-helper.js",
-		"/lib/single-file/timeout.js",
+		"/lib/single-file/util/timeout.js",
 		"/lib/fetch/content/fetch.js",
 		"/lib/single-file/frame-tree.js",
 		"/extension/core/content/content-frame.js"
@@ -63,13 +64,11 @@ singlefile.scriptLoader = (() => {
 			"/lib/single-file/css-medias-minifier.js"
 		],
 		removeAlternativeImages: [
-			"/lib/single-file/html-alt-images.js"
+			"/lib/single-file/html-images-minifier.js"
 		],
 		removeUnusedStyles: [
-			"/lib/single-file/css-selector-parser.js",
-			"/lib/single-file/css-declarations-parser.js",
 			"/lib/single-file/css-medias-minifier.js",
-			"/lib/single-file/css-rules-matcher.js",
+			"/lib/single-file/css-matched-rules.js",
 			"/lib/single-file/css-rules-minifier.js",
 			"/lib/single-file/css-fonts-minifier.js"
 		],
