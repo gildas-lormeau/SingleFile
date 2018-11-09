@@ -24,11 +24,11 @@ singlefile.scriptLoader = (() => {
 
 	const contentScriptFiles = [
 		"/lib/browser-polyfill/custom-browser-polyfill.js",
-		"/lib/single-file/doc-helper.js",
 		"/lib/single-file/util/timeout.js",
-		"/lib/single-file/util/base64.js",
-		"/lib/single-file/css-tree.js",
-		"/lib/single-file/html-srcset-parser.js",
+		"/lib/single-file/vendor/base64.js",
+		"/lib/single-file/vendor/css-tree.js",
+		"/lib/single-file/vendor/html-srcset-parser.js",
+		"/lib/single-file/doc-helper.js",
 		"/lib/fetch/content/fetch.js",
 		"/lib/single-file/single-file-core.js",
 		"/lib/single-file/single-file-browser.js",
@@ -54,13 +54,13 @@ singlefile.scriptLoader = (() => {
 			"/lib/single-file/html-serializer.js"
 		],
 		compressCSS: [
-			"/lib/single-file/css-minifier.js"
+			"/lib/single-file/vendor/css-minifier.js"
 		],
 		removeAlternativeFonts: [
 			"/lib/single-file/css-fonts-minifier.js"
 		],
 		removeAlternativeMedias: [
-			"/lib/single-file/css-media-query-parser.js",
+			"/lib/single-file/vendor/css-media-query-parser.js",
 			"/lib/single-file/css-medias-minifier.js"
 		],
 		removeAlternativeImages: [
