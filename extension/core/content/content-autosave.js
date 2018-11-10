@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global singlefile, frameTree, browser, window, addEventListener, removeEventListener, document, location, docHelper */
+/* global singlefile, frameTree, browser, window, addEventListener, removeEventListener, document, location, docHelper, setTimeout */
 
 this.singlefile.autosave = this.singlefile.autosave || (async () => {
 
@@ -57,6 +57,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 					imageData: docData.imageData,
 					postersData: docData.postersData,
 					usedFonts: docData.usedFonts,
+					shadowRootContents: docData.shadowRootContents,
 					framesData,
 					url: location.href
 				});
@@ -95,8 +96,9 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 				fontsData: docData.fontsData,
 				stylesheetContents: docData.stylesheetContents,
 				imageData: docData.imageData,
-				postersData: docData.postersData,
+				postersData: docData.postersData,				
 				usedFonts: docData.usedFonts,
+				shadowRootContents: docData.shadowRootContents,
 				framesData,
 				url: location.href
 			});
