@@ -26,6 +26,8 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 	refresh();
 	browser.runtime.onMessage.addListener(message => {
 		if (message.autoSavePage) {
+			autoSavingPage = false;
+			singlefile.pageAutoSaved = false;
 			autoSavePage();
 		}
 		if (message.autoSaveUnloadEnabled) {
