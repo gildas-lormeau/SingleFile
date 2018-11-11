@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window, lazyLoader */
+/* global browser, SingleFile, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window, lazyLoader, URL */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
