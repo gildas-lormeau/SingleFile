@@ -62,7 +62,6 @@
 			"extension/ui/bg/ui-menu.js",
 			"extension/ui/bg/ui-button.js",
 			"extension/ui/bg/ui-autosave.js",
-			"lib/single-file/vendor/base64.js",
 			"lib/single-file/vendor/css-minifier.js",
 			"lib/single-file/vendor/css-tree.js",
 			"lib/single-file/vendor/css-media-query-parser.js",

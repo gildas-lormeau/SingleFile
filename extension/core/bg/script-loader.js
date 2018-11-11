@@ -25,7 +25,6 @@ singlefile.scriptLoader = (() => {
 	const contentScriptFiles = [
 		"/lib/browser-polyfill/custom-browser-polyfill.js",
 		"/lib/single-file/util/timeout.js",
-		"/lib/single-file/vendor/base64.js",
 		"/lib/single-file/vendor/css-tree.js",
 		"/lib/single-file/vendor/html-srcset-parser.js",
 		"/lib/single-file/doc-helper.js",
