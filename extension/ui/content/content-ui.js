@@ -30,6 +30,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	let selectedAreaElement;
 
 	return {
+		getSelectedArea,
 		init() {
 			let maskElement = document.querySelector(MASK_TAGNAME);
 			if (!maskElement) {
@@ -43,7 +44,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				});
 			}
 		},
-		onResourceProgress(index, maxIndex) {
+		onLoadResource(index, maxIndex) {
 			const progressBarElement = document.querySelector(PROGRESS_BAR_TAGNAME);
 			if (progressBarElement && maxIndex) {
 				const width = Math.floor((index / maxIndex) * 100) + "%";
@@ -52,13 +53,12 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				}
 			}
 		},
-		end() {
+		onEndPage() {
 			const maskElement = document.querySelector(MASK_TAGNAME);
 			if (maskElement) {
 				requestAnimationFrame(() => maskElement.remove());
 			}
 		},
-		getSelectedArea,
 		onLoadingDeferResources() {
 			// TODO
 		},
@@ -74,19 +74,19 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		onPageLoading() {
 			// TODO
 		},
-		onPageLoad() {
+		onLoadPage() {
 			// TODO
 		},
-		onStageStart(step) {
+		onStartStage(step) {
 			// TODO
 		},
-		onStageEnd(step) {
+		onEndStage(step) {
 			// TODO
 		},
-		onStageTaskStart(step, task) {
+		onStartStageTask(step, task) {
 			// TODO
 		},
-		onStageTaskEnd(step, task) {
+		onEndStageTask(step, task) {
 			// TODO
 		}
 	};

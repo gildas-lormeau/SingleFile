@@ -111,7 +111,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 				}
 				browser.runtime.sendMessage({ processProgress: true, index, maxIndex, options: { autoSave: false } });
 				if (options.shadowEnabled) {
-					singlefile.ui.onResourceProgress(index, maxIndex);
+					singlefile.ui.onLoadResource(index, maxIndex);
 				}
 			} if (event.type == event.PAGE_ENDED) {
 				browser.runtime.sendMessage({ processEnd: true, options: { autoSave: false } });
@@ -119,15 +119,15 @@ this.singlefile.top = this.singlefile.top || (() => {
 				if (event.type == event.PAGE_LOADING) {
 					singlefile.ui.onPageLoading();
 				} else if (event.type == event.PAGE_LOADED) {
-					singlefile.ui.onPageLoad();
+					singlefile.ui.onLoadPage();
 				} else if (event.type == event.STAGE_STARTED) {
-					singlefile.ui.onStageStart(event.detail.step);
+					singlefile.ui.onStartStage(event.detail.step);
 				} else if (event.type == event.STAGE_ENDED) {
-					singlefile.ui.onStageEnd(event.detail.step);
+					singlefile.ui.onEndStage(event.detail.step);
 				} else if (event.type == event.STAGE_TASK_STARTED) {
-					singlefile.ui.onStageTaskStart(event.detail.step, event.detail.task);
+					singlefile.ui.onStartStageTask(event.detail.step, event.detail.task);
 				} else if (event.type == event.STAGE_TASK_ENDED) {
-					singlefile.ui.onStageTaskEnd(event.detail.step, event.detail.task);
+					singlefile.ui.onEndStageTask(event.detail.step, event.detail.task);
 				}
 			}
 		};
@@ -143,7 +143,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		}
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 		if (options.shadowEnabled) {
-			singlefile.ui.end();
+			singlefile.ui.onEndPage();
 		}
 		if (options.displayStats) {
 			console.log("SingleFile stats"); // eslint-disable-line no-console
