@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, Blob */
+/* global browser, SingleFile, singlefile, Blob, URL */
 
 singlefile.processor = (() => {
 
@@ -40,7 +40,7 @@ singlefile.processor = (() => {
 		options.imageData = message.imageData;
 		options.postersData = message.postersData;
 		options.usedFonts = message.usedFonts;
-		options.shadowRootContents = message.shadowRootContents
+		options.shadowRootContents = message.shadowRootContents;
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		options.backgroundTab = true;
@@ -51,7 +51,7 @@ singlefile.processor = (() => {
 		let index = 0, maxIndex = 0;
 		options.onprogress = async event => {
 			if (event.type == event.RESOURCES_INITIALIZED) {
-				maxIndex = event.details.max;
+				maxIndex = event.detail.max;
 				singlefile.ui.button.onProgress(tabId, index, maxIndex, { autoSave: true });
 			}
 			if (event.type == event.RESOURCE_LOADED) {

@@ -43,7 +43,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				});
 			}
 		},
-		onprogress(index, maxIndex) {
+		onResourceProgress(index, maxIndex) {
 			const progressBarElement = document.querySelector(PROGRESS_BAR_TAGNAME);
 			if (progressBarElement && maxIndex) {
 				const width = Math.floor((index / maxIndex) * 100) + "%";
@@ -58,7 +58,37 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				requestAnimationFrame(() => maskElement.remove());
 			}
 		},
-		getSelectedArea
+		getSelectedArea,
+		onLoadingDeferResources() {
+			// TODO
+		},
+		onLoadDeferResources() {
+			// TODO
+		},
+		onLoadingFrames() {
+			// TODO
+		},
+		onLoadFrames() {
+			// TODO
+		},
+		onPageLoading() {
+			// TODO
+		},
+		onPageLoad() {
+			// TODO
+		},
+		onStageStart(step) {
+			// TODO
+		},
+		onStageEnd(step) {
+			// TODO
+		},
+		onStageTaskStart(step, task) {
+			// TODO
+		},
+		onStageTaskEnd(step, task) {
+			// TODO
+		}
 	};
 
 	function getSelectedArea() {

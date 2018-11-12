@@ -87,17 +87,23 @@ this.singlefile.top = this.singlefile.top || (() => {
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		if (!options.removeFrames && this.frameTree) {
-			preInitializationPromises.push(frameTree.getAsync(options));
+			const frameTreePromise = frameTree.getAsync(options);
+			singlefile.ui.onLoadingFrames();
+			frameTreePromise.then(() => singlefile.ui.onLoadFrames());
+			preInitializationPromises.push(frameTreePromise);
 		}
 		if (options.lazyLoadImages) {
-			preInitializationPromises.push(lazyLoader.process());
+			const lazyLoadPromise = lazyLoader.process();
+			singlefile.ui.onLoadingDeferResources();
+			lazyLoadPromise.then(() => singlefile.ui.onLoadDeferResources());
+			preInitializationPromises.push(lazyLoadPromise);
 		}
 		options.doc = document;
 		options.win = window;
 		let index = 0, maxIndex = 0;
 		options.onprogress = event => {
 			if (event.type == event.RESOURCES_INITIALIZED) {
-				maxIndex = event.details.max;
+				maxIndex = event.detail.max;
 			}
 			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
 				if (event.type == event.RESOURCE_LOADED) {
@@ -105,10 +111,24 @@ this.singlefile.top = this.singlefile.top || (() => {
 				}
 				browser.runtime.sendMessage({ processProgress: true, index, maxIndex, options: { autoSave: false } });
 				if (options.shadowEnabled) {
-					singlefile.ui.onprogress(index, maxIndex);
+					singlefile.ui.onResourceProgress(index, maxIndex);
 				}
-			} else if (event.type == event.PAGE_ENDED) {
+			} if (event.type == event.PAGE_ENDED) {
 				browser.runtime.sendMessage({ processEnd: true, options: { autoSave: false } });
+			} else if (options.shadowEnabled && !event.detail.frame) {
+				if (event.type == event.PAGE_LOADING) {
+					singlefile.ui.onPageLoading();
+				} else if (event.type == event.PAGE_LOADED) {
+					singlefile.ui.onPageLoad();
+				} else if (event.type == event.STAGE_STARTED) {
+					singlefile.ui.onStageStart(event.detail.step);
+				} else if (event.type == event.STAGE_ENDED) {
+					singlefile.ui.onStageEnd(event.detail.step);
+				} else if (event.type == event.STAGE_TASK_STARTED) {
+					singlefile.ui.onStageTaskStart(event.detail.step, event.detail.task);
+				} else if (event.type == event.STAGE_TASK_ENDED) {
+					singlefile.ui.onStageTaskEnd(event.detail.step, event.detail.task);
+				}
 			}
 		};
 		[options.framesData] = await Promise.all(preInitializationPromises);
