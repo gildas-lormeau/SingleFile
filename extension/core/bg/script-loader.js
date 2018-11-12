@@ -56,7 +56,7 @@ singlefile.scriptLoader = (() => {
 			"/lib/single-file/vendor/css-minifier.js"
 		],
 		removeAlternativeFonts: [
-			"/lib/single-file/css-fonts-minifier.js"
+			"/lib/single-file/css-fonts-alt-minifier.js"
 		],
 		removeAlternativeMedias: [
 			"/lib/single-file/vendor/css-media-query-parser.js",
