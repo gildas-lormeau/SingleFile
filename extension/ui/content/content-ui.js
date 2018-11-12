@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global document, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, scrollX, scrollY */
+/* global document, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, scrollX, scrollY, setTimeout */
 
 this.singlefile.ui = this.singlefile.ui || (() => {
 

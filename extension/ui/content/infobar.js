@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, document, Node, window, top, getComputedStyle, location */
+/* global browser, document, Node, window, top, getComputedStyle, location, setTimeout */
 
 this.singlefile.infobar = this.singlefile.infobar || (() => {
 
