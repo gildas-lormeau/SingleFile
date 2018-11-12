@@ -81,7 +81,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 	}
 
 	async function processPage(options) {
-		singlefile.ui.init();
+		singlefile.ui.onStartPage();
 		const processor = new SingleFileClass(options);
 		const preInitializationPromises = [];
 		options.insertSingleFileComment = true;

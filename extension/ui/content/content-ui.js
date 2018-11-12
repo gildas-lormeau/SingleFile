@@ -31,7 +31,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	return {
 		getSelectedArea,
-		init() {
+		onStartPage() {
 			let maskElement = document.querySelector(MASK_TAGNAME);
 			if (!maskElement) {
 				requestAnimationFrame(() => {
@@ -44,6 +44,12 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				});
 			}
 		},
+		onEndPage() {
+			const maskElement = document.querySelector(MASK_TAGNAME);
+			if (maskElement) {
+				requestAnimationFrame(() => maskElement.remove());
+			}
+		},
 		onLoadResource(index, maxIndex) {
 			const progressBarElement = document.querySelector(PROGRESS_BAR_TAGNAME);
 			if (progressBarElement && maxIndex) {
@@ -51,12 +57,6 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				if (progressBarElement.style.width != width) {
 					requestAnimationFrame(() => progressBarElement.style.setProperty("width", Math.floor((index / maxIndex) * 100) + "%", "important"));
 				}
-			}
-		},
-		onEndPage() {
-			const maskElement = document.querySelector(MASK_TAGNAME);
-			if (maskElement) {
-				requestAnimationFrame(() => maskElement.remove());
 			}
 		},
 		onLoadingDeferResources() {
