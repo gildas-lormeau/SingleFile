@@ -67,22 +67,22 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			}
 		},
 		onLoadingDeferResources() {
-			appendLog(browser.i18n.getMessage("logPanelDeferredImages"), "…");
+			updateLog("load-deferred-images", browser.i18n.getMessage("logPanelDeferredImages"), "…");
 		},
 		onLoadDeferResources() {
-			appendLog(browser.i18n.getMessage("logPanelDeferredImages"), "✓");
+			updateLog("load-deferred-images", browser.i18n.getMessage("logPanelDeferredImages"), "✓");
 		},
 		onLoadingFrames() {
-			appendLog(browser.i18n.getMessage("logPanelFrameContents"), "…");
+			updateLog("load-frames", browser.i18n.getMessage("logPanelFrameContents"), "…");
 		},
 		onLoadFrames() {
-			appendLog(browser.i18n.getMessage("logPanelFrameContents"), "✓");
+			updateLog("load-frames", browser.i18n.getMessage("logPanelFrameContents"), "✓");
 		},
 		onStartStage(step) {
-			appendLog(`${browser.i18n.getMessage("logPanelStep")} ${step + 1} / 4`, "…");
+			updateLog("step-" + step, `${browser.i18n.getMessage("logPanelStep")} ${step + 1} / 3`, "…");
 		},
 		onEndStage(step) {
-			appendLog(`${browser.i18n.getMessage("logPanelStep")} ${step + 1} / 4`, "✓");
+			updateLog("step-" + step, `${browser.i18n.getMessage("logPanelStep")} ${step + 1} / 3`, "✓");
 		},
 		onPageLoading() { },
 		onLoadPage() { },
@@ -90,24 +90,33 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		onEndStageTask() { }
 	};
 
-	function appendLog(textContent, textStatus) {
-		const lineElement = createElement("div", logsWindowElement);
-		lineElement.style.setProperty("display", "flex");
-		lineElement.style.setProperty("justify-content", "space-between");
-		const textElement = createElement("span", lineElement);
-		textElement.style.setProperty("font-size", "13px", "important");
-		textElement.style.setProperty("font-family", "arial, sans-serif", "important");
-		textElement.style.setProperty("color", "black", "important");
-		textElement.style.setProperty("background-color", "white", "important");
-		textElement.textContent = textContent;
-		const statusElement = createElement("span", lineElement);
-		statusElement.style.setProperty("font-size", "13px", "important");
-		statusElement.style.setProperty("font-family", "arial, sans-serif", "important");
-		statusElement.style.setProperty("color", "black", "important");
-		statusElement.style.setProperty("background-color", "white", "important");
-		statusElement.style.setProperty("min-width", "15px", "important");
-		statusElement.style.setProperty("text-align", "center", "important");
-		statusElement.textContent = textStatus;
+	function updateLog(id, textContent, textStatus) {
+		let lineElement = logsWindowElement.querySelector("[data-id='" + id + "']");
+		if (!lineElement) {
+			lineElement = createElement("div", logsWindowElement);
+			lineElement.setAttribute("data-id", id);
+			lineElement.style.setProperty("display", "flex");
+			lineElement.style.setProperty("justify-content", "space-between");
+			const textElement = createElement("span", lineElement);
+			textElement.style.setProperty("font-size", "13px", "important");
+			textElement.style.setProperty("font-family", "arial, sans-serif", "important");
+			textElement.style.setProperty("color", "black", "important");
+			textElement.style.setProperty("background-color", "white", "important");
+			textElement.textContent = textContent;
+			const statusElement = createElement("span", lineElement);
+			statusElement.style.setProperty("font-size", "13px", "important");
+			statusElement.style.setProperty("font-family", "arial, sans-serif", "important");
+			statusElement.style.setProperty("color", "black", "important");
+			statusElement.style.setProperty("background-color", "white", "important");
+			statusElement.style.setProperty("min-width", "15px", "important");
+			statusElement.style.setProperty("text-align", "center", "important");
+		}
+		updateLogLine(lineElement, textContent, textStatus);
+	}
+
+	function updateLogLine(lineElement, textContent, textStatus) {
+		lineElement.childNodes[0].textContent = textContent;
+		lineElement.childNodes[1].textContent = textStatus;
 	}
 
 	function clearLogs() {

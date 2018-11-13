@@ -127,7 +127,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 				} else if (event.type == event.STAGE_TASK_STARTED) {
 					singlefile.ui.onStartStageTask(event.detail.step, event.detail.task);
 				} else if (event.type == event.STAGE_TASK_ENDED) {
-					singlefile.ui.onEndStageTask(event.detail.step, event.detail.task);
+					if (event.detail.step < 3) {
+						singlefile.ui.onEndStageTask(event.detail.step, event.detail.task);
+					}
 				}
 			}
 		};
