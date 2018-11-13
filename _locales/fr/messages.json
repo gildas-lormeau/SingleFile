@@ -252,7 +252,7 @@
         "description": "Options 'Reset' button tooltip"
     },
     "logPanelDeferredImages": {
-        "message": "Image différées",
+        "message": "Images différées",
         "description": "Label 'Deferred images' in the log panel"
     },
     "logPanelFrameContents": {
