@@ -103,20 +103,23 @@
 		await refresh();
 		await update();
 	}, false);
-	maxResourceSizeEnabledInput.addEventListener("click", () => maxResourceSizeInput.disabled = !maxResourceSizeEnabledInput.checked, false);
 	autoSaveUnloadInput.addEventListener("click", async () => {
-		autoSaveDelayInput.disabled = autoSaveUnloadInput.checked;
-		await bgPage.singlefile.ui.autosave.refresh();
+		if (!autoSaveLoadInput.checked && !autoSaveUnloadInput.checked) {
+			autoSaveLoadOrUnloadInput.checked = true;
+		}
+	}, false);
+	autoSaveLoadInput.addEventListener("click", async () => {
+		if (!autoSaveLoadInput.checked && !autoSaveUnloadInput.checked) {
+			autoSaveLoadOrUnloadInput.checked = true;
+		}
 	}, false);
 	autoSaveLoadOrUnloadInput.addEventListener("click", async () => {
-		autoSaveUnloadInput.disabled = autoSaveLoadInput.disabled = autoSaveLoadOrUnloadInput.checked;
 		if (autoSaveLoadOrUnloadInput.checked) {
 			autoSaveUnloadInput.checked = autoSaveLoadInput.checked = false;
 		} else {
 			autoSaveUnloadInput.checked = false;
 			autoSaveLoadInput.checked = true;
 		}
-		await bgPage.singlefile.ui.autosave.refresh();
 	}, false);
 	expandAllButton.addEventListener("click", () => {
 		if (expandAllButton.className) {
@@ -126,8 +129,10 @@
 		}
 		document.querySelectorAll("details").forEach(detailElement => detailElement.open = Boolean(expandAllButton.className));
 	}, false);
-	lazyLoadImagesInput.addEventListener("click", () => maxLazyLoadImagesIdleTimeInput.disabled = !lazyLoadImagesInput.checked, false);
-	document.body.onchange = update;
+	document.body.onchange = async () => {
+		await update();
+		await refresh();
+	};
 	removeHiddenElementsLabel.textContent = browser.i18n.getMessage("optionRemoveHiddenElements");
 	removeUnusedStylesLabel.textContent = browser.i18n.getMessage("optionRemoveUnusedStyles");
 	removeFramesLabel.textContent = browser.i18n.getMessage("optionRemoveFrames");
@@ -200,7 +205,7 @@
 		displayStatsInput.checked = config.displayStats;
 		backgroundSaveInput.checked = config.backgroundSave;
 		autoSaveDelayInput.value = config.autoSaveDelay;
-		autoSaveDelayInput.disabled = config.autoSaveUnload;
+		autoSaveDelayInput.disabled = !config.autoSaveLoadOrUnload && !config.autoSaveLoad;
 		autoSaveLoadInput.checked = !config.autoSaveLoadOrUnload && config.autoSaveLoad;
 		autoSaveLoadOrUnloadInput.checked = config.autoSaveLoadOrUnload;
 		autoSaveUnloadInput.checked = !config.autoSaveLoadOrUnload && config.autoSaveUnload;

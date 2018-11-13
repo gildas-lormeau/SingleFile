@@ -95,7 +95,8 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 	}
 
 	function onUnload() {
-		if (!singlefile.pageAutoSaved) {
+		if (!singlefile.pageAutoSaved || options.autoSaveUnload) {
+			options.sessionId = 0;
 			const docData = docHelper.preProcessDoc(document, window, options);
 			const framesData = (typeof frameTree != "undefined") && !options.removeFrames && frameTree.getSync(options);
 			browser.runtime.sendMessage({
