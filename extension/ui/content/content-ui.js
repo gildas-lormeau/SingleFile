@@ -30,7 +30,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	let selectedAreaElement;
 
-	const logsWindowElement = createLogsWindowElement();
+	let logsWindowElement = createLogsWindowElement();
 
 	return {
 		getSelectedArea,
@@ -111,7 +111,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	}
 
 	function clearLogs() {
-		logsWindowElement.childNodes.forEach(node => node.remove());
+		logsWindowElement = createLogsWindowElement();
 	}
 
 	function getSelectedArea() {
