@@ -66,7 +66,7 @@ Please follow these steps if you find an unknown issue:
 - UglifyCSS: https://github.com/fmarcia/UglifyCSS
 - parse-srcset: https://github.com/albell/parse-srcset
 
-# License
+## License
 SingleFile is licensed under AGPL and GPL. Code derived from third-party projects is licensed under MIT. Please contact me at gildas.lormeau &lt;at&gt; gmail.com if you are interested in licensing the SingleFile code for a commercial service or product.
 
 Suggestions are welcome :)
