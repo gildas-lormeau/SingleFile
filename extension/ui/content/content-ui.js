@@ -23,11 +23,14 @@
 this.singlefile.ui = this.singlefile.ui || (() => {
 
 	const MASK_TAGNAME = "singlefile-mask";
-	const PROGRESS_BAR_TAGNAME = "singlefile-progress-var";
+	const PROGRESS_BAR_TAGNAME = "singlefile-progress-bar";
 	const SELECTION_ZONE_TAGNAME = "single-file-selection-zone";
+	const LOGS_WINDOW_TAGNAME = "singlefile-logs-window";
 	const SELECT_PX_THRESHOLD = 8;
 
 	let selectedAreaElement;
+
+	const logsWindowElement = createLogsWindowElement();
 
 	return {
 		getSelectedArea,
@@ -37,6 +40,8 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				requestAnimationFrame(() => {
 					const maskElement = createMaskElement();
 					createProgressBarElement(maskElement);
+					document.body.appendChild(logsWindowElement);
+					setLogsWindowStyle();
 					maskElement.offsetWidth;
 					maskElement.style.setProperty("background-color", "black", "important");
 					maskElement.style.setProperty("opacity", .3, "important");
@@ -46,6 +51,8 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		},
 		onEndPage() {
 			const maskElement = document.querySelector(MASK_TAGNAME);
+			logsWindowElement.remove();
+			clearLogs();
 			if (maskElement) {
 				requestAnimationFrame(() => maskElement.remove());
 			}
@@ -60,36 +67,52 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			}
 		},
 		onLoadingDeferResources() {
-			// TODO
+			appendLog("Deferred images", "…");
 		},
 		onLoadDeferResources() {
-			// TODO
+			appendLog("Deferred images", "✓");
 		},
 		onLoadingFrames() {
-			// TODO
+			appendLog("Frame contents", "…");
 		},
 		onLoadFrames() {
-			// TODO
-		},
-		onPageLoading() {
-			// TODO
-		},
-		onLoadPage() {
-			// TODO
+			appendLog("Frame contents", "✓");
 		},
 		onStartStage(step) {
-			// TODO
+			appendLog(`Step ${step + 1} / 4`, "…");
 		},
 		onEndStage(step) {
-			// TODO
+			appendLog(`Step ${step + 1} / 4`, "✓");
 		},
-		onStartStageTask(step, task) {
-			// TODO
-		},
-		onEndStageTask(step, task) {
-			// TODO
-		}
+		onPageLoading() { },
+		onLoadPage() { },
+		onStartStageTask() { },
+		onEndStageTask() { }
 	};
+
+	function appendLog(textContent, textStatus) {
+		const lineElement = createElement("div", logsWindowElement);
+		lineElement.style.setProperty("display", "flex");
+		lineElement.style.setProperty("justify-content", "space-between");
+		const textElement = createElement("span", lineElement);
+		textElement.style.setProperty("font-size", "13px", "important");
+		textElement.style.setProperty("font-family", "arial, sans-serif", "important");
+		textElement.style.setProperty("color", "black", "important");
+		textElement.style.setProperty("background-color", "white", "important");
+		textElement.textContent = textContent;
+		const statusElement = createElement("span", lineElement);
+		statusElement.style.setProperty("font-size", "13px", "important");
+		statusElement.style.setProperty("font-family", "arial, sans-serif", "important");
+		statusElement.style.setProperty("color", "black", "important");
+		statusElement.style.setProperty("background-color", "white", "important");
+		statusElement.style.setProperty("min-width", "15px", "important");
+		statusElement.style.setProperty("text-align", "center", "important");
+		statusElement.textContent = textStatus;
+	}
+
+	function clearLogs() {
+		logsWindowElement.childNodes.forEach(node => node.remove());
+	}
 
 	function getSelectedArea() {
 		return new Promise(resolve => {
@@ -203,7 +226,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			maskElement.style.setProperty("left", "0", "important");
 			maskElement.style.setProperty("width", "100%", "important");
 			maskElement.style.setProperty("height", "100%", "important");
-			maskElement.style.setProperty("z-index", 2147483647, "important");
+			maskElement.style.setProperty("z-index", 2147483646, "important");
 			maskElement.style.setProperty("transition", "opacity 250ms", "important");
 		}
 		return maskElement;
@@ -223,6 +246,29 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			progressBarElement.style.setProperty("will-change", "width", "important");
 		}
 		return progressBarElement;
+	}
+
+	function createLogsWindowElement() {
+		let logsWindowElement = document.querySelector(LOGS_WINDOW_TAGNAME);
+		if (!logsWindowElement) {
+			logsWindowElement = document.createElement(LOGS_WINDOW_TAGNAME);
+		}
+		return logsWindowElement;
+	}
+
+	function setLogsWindowStyle() {
+		initStyle(logsWindowElement);
+		logsWindowElement.style.setProperty("opacity", "0.9", "important");
+		logsWindowElement.style.setProperty("padding", "4px", "important");
+		logsWindowElement.style.setProperty("position", "fixed", "important");
+		logsWindowElement.style.setProperty("bottom", "8px", "important");
+		logsWindowElement.style.setProperty("left", "8px", "important");
+		logsWindowElement.style.setProperty("z-index", 2147483647, "important");
+		logsWindowElement.style.setProperty("background-color", "white", "important");
+		logsWindowElement.style.setProperty("min-width", "120px", "important");
+		logsWindowElement.style.setProperty("min-height", "16px", "important");
+		logsWindowElement.style.setProperty("transition", "height 100ms", "important");
+		logsWindowElement.style.setProperty("will-change", "height", "important");
 	}
 
 	function getMatchedParents(target, property) {
@@ -263,8 +309,12 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	function createElement(tagName, parentElement) {
 		const element = document.createElement(tagName);
 		parentElement.appendChild(element);
-		Array.from(getComputedStyle(element)).forEach(property => element.style.setProperty(property, "initial", "important"));
+		initStyle(element);
 		return element;
+	}
+
+	function initStyle(element) {
+		Array.from(getComputedStyle(element)).forEach(property => element.style.setProperty(property, "initial", "important"));
 	}
 
 })();
