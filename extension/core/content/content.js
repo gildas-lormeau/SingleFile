@@ -93,7 +93,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			preInitializationPromises.push(frameTreePromise);
 		}
 		if (options.lazyLoadImages) {
-			const lazyLoadPromise = lazyLoader.process();
+			const lazyLoadPromise = lazyLoader.process(options);
 			singlefile.ui.onLoadingDeferResources();
 			lazyLoadPromise.then(() => singlefile.ui.onLoadDeferResources());
 			preInitializationPromises.push(lazyLoadPromise);

@@ -37,6 +37,10 @@ input[type="number"] {
     max-width: 40px;
 }
 
+input.large-input {
+    min-width: 60px;
+}
+
 h3 {
     padding-left: 8px;
     margin-bottom: 10px;

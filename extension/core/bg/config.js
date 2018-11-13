@@ -32,6 +32,7 @@ singlefile.config = (() => {
 		compressHTML: true,
 		compressCSS: true,
 		lazyLoadImages: true,
+		maxLazyLoadImagesIdleTime: 1000,
 		filenameTemplate: "{page-title} ({date-iso} {time-locale}).html",
 		infobarTemplate: "",
 		confirmInfobar: false,
@@ -158,6 +159,9 @@ singlefile.config = (() => {
 			config.autoSaveLoadOrUnload = true;
 			config.autoSaveLoad = false;
 			config.autoSaveUnload = false;
+		}
+		if (config.maxLazyLoadImagesIdleTime === undefined) {
+			config.maxLazyLoadImagesIdleTime = 1000;
 		}
 	}
 

@@ -151,6 +151,10 @@
         "message": "zapisuj odroczone obrazy",
         "description": "Options page label: 'save deferred images'"
     },
+    "optionMaxLazyLoadImagesIdleTime": {
+        "message": "maximum idle time (ms)",
+        "description": "Options page label: 'maximum idle time (ms)'"
+    },
     "optionRemoveAlternativeImages": {
         "message": "usuwaj obrazy dla alternatywnych rozdzielczości ekranu",
         "description": "Options page label: 'remove images for alternative screen resolutions'"
@@ -246,5 +250,21 @@
     "optionsResetTooltip": {
         "message": "Zresetuj wszystkie opcje do ich wartości domyślnych",
         "description": "Options 'Reset' button tooltip"
+    },
+    "logPanelDeferredImages": {
+        "message": "Deferred images",
+        "description": "Label 'Deferred images' in the log panel"
+    },
+    "logPanelFrameContents": {
+        "message": "Frame contents",
+        "description": "Label 'Frame contents' in the log panel"
+    },
+    "logPanelStep": {
+        "message": "Step",
+        "description": "Label 'Step' (for 'Step x / 4') in the log panel"
+    },
+    "logPanelWidth": {
+        "message": "120px",
+        "description": "Width of the log panel"
     }
 }

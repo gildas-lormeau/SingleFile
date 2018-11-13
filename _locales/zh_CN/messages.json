@@ -131,7 +131,7 @@
     "optionConfirmInfobar": {
         "message": "打开一个提示窗口以编辑信息栏内容",
         "description": "选项页标签: '打开一个提示窗口以编辑信息栏内容'"
-},
+    },
     "optionsFileNameSubTitle": {
         "message": "文件名",
         "description": "选项页副标题: '文件名'",
@@ -186,6 +186,10 @@
         "message": "保存延迟加载的图像",
         "description": "选项页标签: '保存延迟加载的图像'",
         "hash": "5f4eed2da3b26bbeec69d425849a83ab"
+    },
+    "optionMaxLazyLoadImagesIdleTime": {
+        "message": "maximum idle time (ms)",
+        "description": "Options page label: 'maximum idle time (ms)'"
     },
     "optionRemoveAlternativeImages": {
         "message": "移除备用分辨率的图像",
@@ -307,6 +311,23 @@
         "description": "选项按钮'重置'的提示",
         "hash": "4e8ef324894a6ed91b686843cacb2118"
     },
-
-    "__WET_LOCALE__": { "message": "zh-cn" }
+    "logPanelDeferredImages": {
+        "message": "Deferred images",
+        "description": "Label 'Deferred images' in the log panel"
+    },
+    "logPanelFrameContents": {
+        "message": "Frame contents",
+        "description": "Label 'Frame contents' in the log panel"
+    },
+    "logPanelStep": {
+        "message": "Step",
+        "description": "Label 'Step' (for 'Step x / 4') in the log panel"
+    },
+    "logPanelWidth": {
+        "message": "120px",
+        "description": "Width of the log panel"
+    },
+    "__WET_LOCALE__": {
+        "message": "zh-cn"
+    }
 }

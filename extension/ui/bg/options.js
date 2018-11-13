@@ -32,6 +32,7 @@
 	const compressHTMLLabel = document.getElementById("compressHTMLLabel");
 	const compressCSSLabel = document.getElementById("compressCSSLabel");
 	const lazyLoadImagesLabel = document.getElementById("lazyLoadImagesLabel");
+	const maxLazyLoadImagesIdleTimeLabel = document.getElementById("maxLazyLoadImagesIdleTimeLabel");
 	const addMenuEntryLabel = document.getElementById("addMenuEntryLabel");
 	const filenameTemplateLabel = document.getElementById("filenameTemplateLabel");
 	const shadowEnabledLabel = document.getElementById("shadowEnabledLabel");
@@ -64,7 +65,6 @@
 	const miscLabel = document.getElementById("miscLabel");
 	const helpLabel = document.getElementById("helpLabel");
 	const resetButton = document.getElementById("resetButton");
-
 	const removeHiddenElementsInput = document.getElementById("removeHiddenElementsInput");
 	const removeUnusedStylesInput = document.getElementById("removeUnusedStylesInput");
 	const removeFramesInput = document.getElementById("removeFramesInput");
@@ -74,6 +74,7 @@
 	const compressHTMLInput = document.getElementById("compressHTMLInput");
 	const compressCSSInput = document.getElementById("compressCSSInput");
 	const lazyLoadImagesInput = document.getElementById("lazyLoadImagesInput");
+	const maxLazyLoadImagesIdleTimeInput = document.getElementById("maxLazyLoadImagesIdleTimeInput");
 	const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 	const filenameTemplateInput = document.getElementById("filenameTemplateInput");
 	const shadowEnabledInput = document.getElementById("shadowEnabledInput");
@@ -125,6 +126,7 @@
 		}
 		document.querySelectorAll("details").forEach(detailElement => detailElement.open = Boolean(expandAllButton.className));
 	}, false);
+	lazyLoadImagesInput.addEventListener("click", () => maxLazyLoadImagesIdleTimeInput.disabled = !lazyLoadImagesInput.checked, false);
 	document.body.onchange = update;
 	removeHiddenElementsLabel.textContent = browser.i18n.getMessage("optionRemoveHiddenElements");
 	removeUnusedStylesLabel.textContent = browser.i18n.getMessage("optionRemoveUnusedStyles");
@@ -135,6 +137,7 @@
 	compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
 	compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
 	lazyLoadImagesLabel.textContent = browser.i18n.getMessage("optionLazyLoadImages");
+	maxLazyLoadImagesIdleTimeLabel.textContent = browser.i18n.getMessage("optionMaxLazyLoadImagesIdleTime");
 	addMenuEntryLabel.textContent = browser.i18n.getMessage("optionAddMenuEntry");
 	filenameTemplateLabel.textContent = browser.i18n.getMessage("optionFilenameTemplate");
 	shadowEnabledLabel.textContent = browser.i18n.getMessage("optionDisplayShadow");
@@ -182,6 +185,8 @@
 		compressHTMLInput.checked = config.compressHTML;
 		compressCSSInput.checked = config.compressCSS;
 		lazyLoadImagesInput.checked = config.lazyLoadImages;
+		maxLazyLoadImagesIdleTimeInput.value = config.maxLazyLoadImagesIdleTime;
+		maxLazyLoadImagesIdleTimeInput.disabled = !config.lazyLoadImages;
 		contextMenuEnabledInput.checked = config.contextMenuEnabled;
 		filenameTemplateInput.value = config.filenameTemplate;
 		shadowEnabledInput.checked = config.shadowEnabled;
@@ -221,18 +226,19 @@
 			compressHTML: compressHTMLInput.checked,
 			compressCSS: compressCSSInput.checked,
 			lazyLoadImages: lazyLoadImagesInput.checked,
+			maxLazyLoadImagesIdleTime: Math.max(maxLazyLoadImagesIdleTimeInput.value, 0),
 			contextMenuEnabled: contextMenuEnabledInput.checked,
 			filenameTemplate: filenameTemplateInput.value,
 			shadowEnabled: shadowEnabledInput.checked,
 			maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
-			maxResourceSize: maxResourceSizeInput.value,
+			maxResourceSize: Math.max(maxResourceSizeInput.value, 0),
 			confirmFilename: confirmFilenameInput.checked,
 			removeAudioSrc: removeAudioSrcInput.checked,
 			removeVideoSrc: removeVideoSrcInput.checked,
 			displayInfobar: displayInfobarInput.checked,
 			displayStats: displayStatsInput.checked,
 			backgroundSave: backgroundSaveInput.checked,
-			autoSaveDelay: autoSaveDelayInput.value,
+			autoSaveDelay: Math.max(autoSaveDelayInput.value, 0),
 			autoSaveLoad: autoSaveLoadInput.checked,
 			autoSaveUnload: autoSaveUnloadInput.checked,
 			autoSaveLoadOrUnload: autoSaveLoadOrUnloadInput.checked,

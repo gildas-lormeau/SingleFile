@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global document, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, scrollX, scrollY, setTimeout */
+/* global browser, document, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, scrollX, scrollY, setTimeout */
 
 this.singlefile.ui = this.singlefile.ui || (() => {
 
@@ -67,22 +67,22 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			}
 		},
 		onLoadingDeferResources() {
-			appendLog("Deferred images", "…");
+			appendLog(browser.i18n.getMessage("logPanelDeferredImages"), "…");
 		},
 		onLoadDeferResources() {
-			appendLog("Deferred images", "✓");
+			appendLog(browser.i18n.getMessage("logPanelDeferredImages"), "✓");
 		},
 		onLoadingFrames() {
-			appendLog("Frame contents", "…");
+			appendLog(browser.i18n.getMessage("logPanelFrameContents"), "…");
 		},
 		onLoadFrames() {
-			appendLog("Frame contents", "✓");
+			appendLog(browser.i18n.getMessage("logPanelFrameContents"), "✓");
 		},
 		onStartStage(step) {
-			appendLog(`Step ${step + 1} / 4`, "…");
+			appendLog(`${browser.i18n.getMessage("logPanelStep")} ${step + 1} / 4`, "…");
 		},
 		onEndStage(step) {
-			appendLog(`Step ${step + 1} / 4`, "✓");
+			appendLog(`${browser.i18n.getMessage("logPanelStep")} ${step + 1} / 4`, "✓");
 		},
 		onPageLoading() { },
 		onLoadPage() { },
@@ -261,11 +261,11 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		logsWindowElement.style.setProperty("opacity", "0.9", "important");
 		logsWindowElement.style.setProperty("padding", "4px", "important");
 		logsWindowElement.style.setProperty("position", "fixed", "important");
-		logsWindowElement.style.setProperty("bottom", "8px", "important");
+		logsWindowElement.style.setProperty("bottom", "24px", "important");
 		logsWindowElement.style.setProperty("left", "8px", "important");
 		logsWindowElement.style.setProperty("z-index", 2147483647, "important");
 		logsWindowElement.style.setProperty("background-color", "white", "important");
-		logsWindowElement.style.setProperty("min-width", "120px", "important");
+		logsWindowElement.style.setProperty("min-width", browser.i18n.getMessage("logPanelWidth"), "important");
 		logsWindowElement.style.setProperty("min-height", "16px", "important");
 		logsWindowElement.style.setProperty("transition", "height 100ms", "important");
 		logsWindowElement.style.setProperty("will-change", "height", "important");
