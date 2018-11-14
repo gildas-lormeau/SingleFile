@@ -116,7 +116,9 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	function updateLogLine(lineElement, textContent, textStatus) {
 		lineElement.childNodes[0].textContent = textContent;
-		lineElement.childNodes[1].textContent = textStatus;
+		const statusElement = lineElement.childNodes[1];
+		statusElement.style.setProperty("color", textStatus == "✓" ? "#055000" : "black", "important");
+		statusElement.textContent = textStatus;
 	}
 
 	function clearLogs() {
