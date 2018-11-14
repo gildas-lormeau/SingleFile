@@ -35,7 +35,6 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 		}
 	});
 	if (document instanceof HTMLDocument) {
-		console.warn("SingleFile is hooking the history.pushState API to detect navigation."); // eslint-disable-line no-console		
 		const scriptElement = document.createElement("script");
 		scriptElement.textContent = `(${hookPushState.toString()})()`;
 		document.documentElement.appendChild(scriptElement);
@@ -125,6 +124,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 	}
 
 	function hookPushState() {
+		console.warn("SingleFile is hooking the history.pushState API to detect navigation."); // eslint-disable-line no-console
 		const pushState = history.pushState;
 		history.pushState = function (state, title, url) {
 			dispatchEvent(new CustomEvent("single-file-push-state", { detail: { state, title, url } }));
