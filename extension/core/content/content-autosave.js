@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global singlefile, frameTree, browser, window, addEventListener, removeEventListener, document, location, docHelper, setTimeout */
+/* global singlefile, frameTree, browser, window, history, HTMLDocument, dispatchEvent, CustomEvent, addEventListener, removeEventListener, document, location, docHelper, setTimeout */
 
 this.singlefile.autosave = this.singlefile.autosave || (async () => {
 
@@ -34,6 +34,13 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 			refresh();
 		}
 	});
+	if (document instanceof HTMLDocument) {
+		console.warn("SingleFile is hooking The history.pushState to detect navigation."); // eslint-disable-line no-console		
+		const scriptElement = document.createElement("script");
+		scriptElement.textContent = `(${hookPushState.toString()})()`;
+		document.documentElement.appendChild(scriptElement);
+		scriptElement.remove();
+	}
 	return {};
 
 	async function autoSavePage() {
@@ -86,10 +93,12 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 		if (enabled) {
 			if (!listenerAdded) {
 				addEventListener("unload", onUnload);
+				addEventListener("single-file-push-state", onUnload);
 				listenerAdded = true;
 			}
 		} else {
 			removeEventListener("unload", onUnload);
+			removeEventListener("single-file-push-state", onUnload);
 			listenerAdded = false;
 		}
 	}
@@ -113,6 +122,14 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 				url: location.href
 			});
 		}
+	}
+
+	function hookPushState() {
+		const pushState = history.pushState;
+		history.pushState = function (state, title, url) {
+			dispatchEvent(new CustomEvent("single-file-push-state", { detail: { state, title, url } }));
+			pushState.call(history, state, title, url);
+		};
 	}
 
 })();
