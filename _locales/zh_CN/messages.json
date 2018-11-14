@@ -1,128 +1,103 @@
 {
     "extensionDescription": {
         "message": "将完整的页面保存到一个 HTML 文件中",
-        "description": "扩展描述。",
-        "hash": "d5e0518d1dedc4948dcd0865ff72b5ea"
+        "description": "扩展描述。"
     },
     "menuSavePage": {
         "message": "使用 SingleFile 保存页面",
-        "description": "菜单项: '使用 SingleFile 保存页面'",
-        "hash": "20dfae7179adf8ca32841ae80f316038"
+        "description": "菜单项: '使用 SingleFile 保存页面'"
     },
     "menuSaveSelection": {
         "message": "保存选中部分",
-        "description": "菜单项: '保存选中部分'",
-        "hash": "37eaf36158e9b4dbcf06dc7659f2492c"
+        "description": "菜单项: '保存选中部分'"
     },
     "menuSaveFrame": {
         "message": "保存框架",
-        "description": "菜单项: '保存框架'",
-        "hash": "4cb6aa67d950b32cdcaad6c4ac77b7f1"
+        "description": "菜单项: '保存框架'"
     },
     "menuSaveSelectedTabs": {
         "message": "保存选中标签页",
-        "description": "菜单项: '保存选中标签页'",
-        "hash": "9d9b596c413a76ccb0c9e3f2224133a4"
+        "description": "菜单项: '保存选中标签页'"
     },
     "menuUnpinnedTabs": {
         "message": "保存非固定标签页",
-        "description": "菜单项: '保存非固定标签页'",
-        "hash": "4c3bc243cf9bc3b694949e3a7f206215"
+        "description": "菜单项: '保存非固定标签页'"
     },
     "menuAllTabs": {
         "message": "保存所有标签页",
-        "description": "菜单项: '保存所有标签页'",
-        "hash": "d500be3420a3cd7ed5ce7ca6626401a8"
+        "description": "菜单项: '保存所有标签页'"
     },
     "menuAutoSave": {
         "message": "自动保存",
-        "description": "菜单项: '自动保存'",
-        "hash": "fa75feaf017d45a0d1154798b2cce078"
+        "description": "菜单项: '自动保存'"
     },
     "menuAutoSaveDisabled": {
         "message": "禁用",
-        "description": "菜单项: '自动保存' > '禁用'",
-        "hash": "624dcfb216e1ef66dcac7893dbe10821"
+        "description": "菜单项: '自动保存' > '禁用'"
     },
     "menuAutoSaveTab": {
         "message": "自动保存此标签页",
-        "description": "菜单项: '自动保存' > '自动保存此标签页'",
-        "hash": "bfb18e9a3b728a1e07cdb73b381c4268"
+        "description": "菜单项: '自动保存' > '自动保存此标签页'"
     },
     "menuAutoSaveUnpinnedTabs": {
         "message": "自动保存非固定标签页",
-        "description": "菜单项: '自动保存' > '自动保存非固定标签页'",
-        "hash": "6a5b1a7c8dc70f4f8fc317052c8143fd"
+        "description": "菜单项: '自动保存' > '自动保存非固定标签页'"
     },
     "menuAutoSaveAllTabs": {
         "message": "自动保存所有标签页",
-        "description": "菜单项: '自动保存' > '自动保存所有标签页'",
-        "hash": "afeef85698d2cba9747e06e866a61da1"
+        "description": "菜单项: '自动保存' > '自动保存所有标签页'"
     },
     "buttonDefaultTooltip": {
         "message": "使用 SingleFile 保存页面",
-        "description": "按钮标题: '使用 SingleFile 保存页面'",
-        "hash": "20dfae7179adf8ca32841ae80f316038"
+        "description": "按钮标题: '使用 SingleFile 保存页面'"
     },
     "buttonInitializingTooltip": {
         "message": "正在初始化 SingleFile",
-        "description": "保存时候的按钮标题: '正在初始化 SingleFile (x/2)'",
-        "hash": "460c640c1b1fe9ab8b06523428acf1eb"
+        "description": "保存时候的按钮标题: '正在初始化 SingleFile (x/2)'"
     },
     "buttonInitializingBadge": {
-        "message": "…",
-        "description": "初始化时候的徽标标签: '…'",
-        "hash": "c043bd3d7a66f0d795020e9c2651cec6"
+        "message": "•••",
+        "description": "初始化时候的徽标标签: '•••'"
     },
     "buttonSaveProgressTooltip": {
         "message": "保存进度：",
-        "description": "保存时候的按钮标题: '保存进度：xx%'",
-        "hash": "91725f0ddb3334bbcf200a0027b395bb"
+        "description": "保存时候的按钮标题: '保存进度：xx%'"
     },
     "buttonOKBadge": {
         "message": "确定",
-        "description": "徽标标签: 'OK'",
-        "hash": "d2702da8185dd5d533913d767bddc05d"
+        "description": "徽标标签: 'OK'"
     },
     "buttonErrorBadge": {
         "message": "错误",
-        "description": "出现意外错误时候的徽标标签",
-        "hash": "ff0d0358124ef0c4b930dbb92a7f5d0a"
+        "description": "出现意外错误时候的徽标标签"
     },
     "buttonAutoSaveActiveTooltip": {
         "message": "自动保存动作",
-        "description": "按钮标题: '自动保存动作'",
-        "hash": "5a48cac35adebdd330ba5d64bd8c4148"
+        "description": "按钮标题: '自动保存动作'"
     },
     "buttonAutoSaveActiveBadge": {
         "message": "[自动]",
-        "description": "自动保存激活时候的徽标标签",
-        "hash": "1e1afcd99ca4e1fde33fdfc06a12a617"
+        "description": "自动保存激活时候的徽标标签"
     },
     "optionsTitle": {
         "message": "选项",
-        "description": "选项页标题",
-        "hash": "531dad0078a72193602b18495f0ad4e9"
+        "description": "选项页标题"
     },
     "optionsUserInterfaceSubTitle": {
         "message": "用户界面",
-        "description": "选项页副标题: '用户界面'",
-        "hash": "a39fcce32d3f45c6b28daa5c3e8fc742"
+        "description": "选项页副标题: '用户界面'"
     },
     "optionAddMenuEntry": {
         "message": "添加菜单项到页面的右键菜单",
-        "description": "选项页标签: '添加菜单项到页面的右键菜单'",
-        "hash": "d0bed5abfc70cbf72e55f5ec86a03271"
+        "description": "选项页标签: '添加菜单项到页面的右键菜单'"
     },
     "optionDisplayShadow": {
         "message": "处理过程中以阴影遮盖页面",
-        "description": "选项页标签: '处理过程中以阴影遮盖页面'",
-        "hash": "6fea186d3241b66cb5c78c6b30f903e0"
+        "description": "选项页标签: '处理过程中以阴影遮盖页面'"
     },
     "optionDisplayInfobar": {
         "message": "查看一个已保存的页面时显示信息栏",
-        "description": "选项页标签: '查看一个已保存的页面时显示信息栏'",
-        "hash": "413b9b29a94cdc06ba81da5b95946d9d"
+        "description": "选项页标签: '查看一个已保存的页面时显示信息栏'"
     },
     "optionInfobarTemplate": {
         "message": "信息栏内容模板",
@@ -134,197 +109,162 @@
     },
     "optionsFileNameSubTitle": {
         "message": "文件名",
-        "description": "选项页副标题: '文件名'",
-        "hash": "2104359ac1d69afb9bc611c2719860ab"
+        "description": "选项页副标题: '文件名'"
     },
     "optionFilenameTemplate": {
         "message": "模板",
-        "description": "选项页标签: '模板'",
-        "hash": "0704538d0522463179e70d7ea3ce7de8"
+        "description": "选项页标签: '模板'"
     },
     "optionConfirmFilename": {
         "message": "打开“另存为”对话框以确认文件名",
-        "description": "选项页标签: '打开“另存为”对话框以确认文件名'",
-        "hash": "657d4121a16feda0216b489abfd61e2d"
+        "description": "选项页标签: '打开“另存为”对话框以确认文件名'"
     },
     "optionsHTMLContentSubTitle": {
         "message": "HTML 内容",
-        "description": "选项页副标题: 'HTML 内容'",
-        "hash": "eadbe2cf518a3d8cb2fad480170d96ea"
+        "description": "选项页副标题: 'HTML 内容'"
     },
     "optionCompressHTML": {
         "message": "压缩 HTML 内容",
-        "description": "选项页标签: '压缩 HTML 内容'",
-        "hash": "f5b61b2087dd5e6ed9b1c3eb62d30402"
+        "description": "选项页标签: '压缩 HTML 内容'"
     },
     "optionRemoveImports": {
         "message": "移除 HTML 导入",
-        "description": "选项页标签: '移除 HTML 导入'",
-        "hash": "07b64fbf716a83bd62206f362e3a14a0"
+        "description": "选项页标签: '移除 HTML 导入'"
     },
     "optionRemoveFrames": {
         "message": "移除框架",
-        "description": "选项页标签: '移除框架'",
-        "hash": "dc48b75970ce29a067d9ddc3fde9de99"
+        "description": "选项页标签: '移除框架'"
     },
     "optionRemoveHiddenElements": {
         "message": "移除隐藏元素",
-        "description": "选项页标签: '移除隐藏元素'",
-        "hash": "0100620632d21e722028977fdcc7fadc"
+        "description": "选项页标签: '移除隐藏元素'"
     },
     "optionsImagesSubTitle": {
         "message": "图像",
-        "description": "选项页副标题: '图像'",
-        "hash": "08d27491a6346d3f963377498c0f235b"
+        "description": "选项页副标题: '图像'"
     },
     "optionGroupDuplicateImages": {
         "message": "重复图像合并",
-        "description": "选项页标签: '重复图像合并'",
-        "hash": "c8fbae1de78f689b3209ef522e7fe9cc"
+        "description": "选项页标签: '重复图像合并'"
     },
     "optionLazyLoadImages": {
         "message": "保存延迟加载的图像",
-        "description": "选项页标签: '保存延迟加载的图像'",
-        "hash": "5f4eed2da3b26bbeec69d425849a83ab"
+        "description": "选项页标签: '保存延迟加载的图像'"
     },
     "optionMaxLazyLoadImagesIdleTime": {
-        "message": "maximum idle time (ms)",
+        "message": "最长空转时间（毫秒）",
         "description": "Options page label: 'maximum idle time (ms)'"
     },
     "optionRemoveAlternativeImages": {
         "message": "移除备用分辨率的图像",
-        "description": "选项页标签: '移除备用分辨率的图像'",
-        "hash": "d3b8988909c0d52fddd494bb2b4ef588"
+        "description": "选项页标签: '移除备用分辨率的图像'"
     },
     "optionsStylesheetsSubTitle": {
         "message": "样式表",
-        "description": "选项页副标题: '样式表'",
-        "hash": "6876b04e29d4aedac19646efd582f590"
+        "description": "选项页副标题: '样式表'"
     },
     "optionCompressCSS": {
         "message": "压缩 CSS 内容",
-        "description": "选项页标签: '压缩 CSS 内容'",
-        "hash": "009a4d6801f8bdbf2132bb1a6e1bfd16"
+        "description": "选项页标签: '压缩 CSS 内容'"
     },
     "optionRemoveUnusedStyles": {
         "message": "移除未使用的样式",
-        "description": "选项页标签: '移除未使用的样式'",
-        "hash": "828a7d181cabbafec4f7087f5dd30f40"
+        "description": "选项页标签: '移除未使用的样式'"
     },
     "optionRemoveAlternativeFonts": {
         "message": "移除 woff/otf 备用字体以及未使用的字体",
-        "description": "选项页标签: '移除 woff/otf 备用字体以及未使用的字体'",
-        "hash": "2a6c32d2367c272630a011478c69c930"
+        "description": "选项页标签: '移除 woff/otf 备用字体以及未使用的字体'"
     },
     "optionRemoveAlternativeMedias": {
         "message": "移除其他设备分辨率的样式表",
-        "description": "选项页标签: '移除其他设备分辨率的样式表'",
-        "hash": "b83e4d17282cb9b7e4927ca7c1977a00"
+        "description": "选项页标签: '移除其他设备分辨率的样式表'"
     },
     "optionsOtherResourcesSubTitle": {
         "message": "其他资源",
-        "description": "选项页副标题: '其他资源'",
-        "hash": "0f782ecaf4c01fd7e0e9a70bc5a8b448"
+        "description": "选项页副标题: '其他资源'"
     },
     "optionRemoveScripts": {
         "message": "移除脚本",
-        "description": "选项页标签: '移除脚本'",
-        "hash": "dc59e7e8bdacc72c22c2dfdc5b7b1fa7"
+        "description": "选项页标签: '移除脚本'"
     },
     "optionRemoveVideo": {
         "message": "移除视频嵌入",
-        "description": "选项页标签: '移除视频嵌入'",
-        "hash": "11e292816de05f3380f87296d95f0c23"
+        "description": "选项页标签: '移除视频嵌入'"
     },
     "optionRemoveAudio": {
         "message": "移除音频嵌入",
-        "description": "选项页标签: '移除音频嵌入'",
-        "hash": "588f78dbe22b614d491544cd50360d7e"
+        "description": "选项页标签: '移除音频嵌入'"
     },
     "optionsAutoSaveSubTitle": {
         "message": "自动保存",
-        "description": "选项页副标题: '自动保存'",
-        "hash": "fa75feaf017d45a0d1154798b2cce078"
+        "description": "选项页副标题: '自动保存'"
     },
     "optionAutoSaveLoadOrUnload": {
         "message": "页面加载或页面卸载后自动保存",
-        "description": "页面加载或页面卸载后自动保存",
-        "hash": "001895ec999062970b55402e85d724c2"
+        "description": "页面加载或页面卸载后自动保存"
     },
     "optionAutoSaveLoad": {
         "message": "页面加载后自动保存",
-        "description": "选项页标签: '页面加载后自动保存'",
-        "hash": "cdb7a9f549e17f455a92c4819f3e3f4b"
+        "description": "选项页标签: '页面加载后自动保存'"
     },
     "optionAutoSaveUnload": {
         "message": "页面卸载时自动保存",
-        "description": "选项页标签: '页面卸载时自动保存'",
-        "hash": "729f1be0863d3cdb0f73a744a3196678"
+        "description": "选项页标签: '页面卸载时自动保存'"
     },
     "optionAutoSaveDelay": {
         "message": "页面加载后自动保存的延时（秒）",
-        "description": "选项页标签: '页面加载后自动保存的延时（秒）'",
-        "hash": "3aa5a085f8ed0e5d16d01ceb772919cd"
+        "description": "选项页标签: '页面加载后自动保存的延时（秒）'"
     },
     "optionsMiscSubTitle": {
         "message": "其他",
-        "description": "选项页副标题: '其他'",
-        "hash": "de3c4b777a0c9cc604b7355d9cb902e2"
+        "description": "选项页副标题: '其他'"
     },
     "optionBackgroundSave": {
         "message": "在后台保存页面",
-        "description": "选项页标签: '在后台保存页面'",
-        "hash": "439cb69fd97c011fa77ed3a2063a76b2"
+        "description": "选项页标签: '在后台保存页面'"
     },
     "optionDisplayStats": {
         "message": "处理后在控制台消息中显示统计",
-        "description": "选项页标签: '处理后在控制台消息中显示统计'",
-        "hash": "95d2821edee58d72c8d762b424ac6583"
+        "description": "选项页标签: '处理后在控制台消息中显示统计'"
     },
     "optionSetMaxResourceSize": {
         "message": "设定嵌入的资源的最大体积",
-        "description": "选项页标签: '设定嵌入的资源的最大体积'",
-        "hash": "278e5b9204c2ec85ad08cf4e1e5ee819"
+        "description": "选项页标签: '设定嵌入的资源的最大体积'"
     },
     "optionMaxResourceSize": {
         "message": "最大体积（MB）",
-        "description": "选项页标签: '最大体积（MB）'",
-        "hash": "1f28962b62b491fafef2ec46544abbb4"
+        "description": "选项页标签: '最大体积（MB）'"
     },
     "optionSaveRawPage": {
         "message": "保存原始页面",
-        "description": "选项页标签: '保存原始页面'",
-        "hash": "ce31a22bba93f592e9e0e830a80e1b4d"
+        "description": "选项页标签: '保存原始页面'"
     },
     "optionsHelpLink": {
         "message": "帮助",
-        "description": "选项页帮助链接",
-        "hash": "e5cd579a468bda68ab6ee1522929d0ed"
+        "description": "选项页帮助链接"
     },
     "optionsResetButton": {
         "message": "重置",
-        "description": "选项按钮: '重置'",
-        "hash": "0d25968a7dfc21f95043a86dd5373b81"
+        "description": "选项按钮: '重置'"
     },
     "optionsResetTooltip": {
         "message": "重置所有选项为默认值",
-        "description": "选项按钮'重置'的提示",
-        "hash": "4e8ef324894a6ed91b686843cacb2118"
+        "description": "选项按钮'重置'的提示"
     },
     "logPanelDeferredImages": {
-        "message": "Deferred images",
+        "message": "延迟加载的图像",
         "description": "Label 'Deferred images' in the log panel"
     },
     "logPanelFrameContents": {
-        "message": "Frame contents",
+        "message": "框架内容",
         "description": "Label 'Frame contents' in the log panel"
     },
     "logPanelStep": {
-        "message": "Step",
+        "message": "步",
         "description": "Label 'Step' (for 'Step x / 4') in the log panel"
     },
     "logPanelWidth": {
-        "message": "120px",
+        "message": "115px",
         "description": "Width of the log panel"
     },
     "__WET_LOCALE__": {
