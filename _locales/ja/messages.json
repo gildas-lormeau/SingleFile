@@ -152,7 +152,7 @@
         "description": "オプションのページラベル: '遅延画像を保存する'"
     },
     "optionMaxLazyLoadImagesIdleTime": {
-        "message": "maximum idle time (ms)",
+        "message": "最大アイドル時間（秒）",
         "description": "Options page label: 'maximum idle time (ms)'"
     },
     "optionRemoveAlternativeImages": {
@@ -252,19 +252,19 @@
         "description": "オプション 'リセット'ボタンのツールチップ"
     },
     "logPanelDeferredImages": {
-        "message": "Deferred images",
+        "message": "遅延画像",
         "description": "Label 'Deferred images' in the log panel"
     },
     "logPanelFrameContents": {
-        "message": "Frame contents",
+        "message": "フレームの内容",
         "description": "Label 'Frame contents' in the log panel"
     },
     "logPanelStep": {
-        "message": "Step",
+        "message": "ステップ",
         "description": "Label 'Step' (for 'Step x / 4') in the log panel"
     },
     "logPanelWidth": {
-        "message": "120px",
+        "message": "110px",
         "description": "Width of the log panel"
     }
 }
