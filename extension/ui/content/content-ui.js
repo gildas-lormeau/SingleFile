@@ -250,6 +250,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		if (!progressBarElement) {
 			progressBarElement = createElement(PROGRESS_BAR_TAGNAME, maskElement);
 			progressBarElement.style.setProperty("background-color", "white", "important");
+			progressBarElement.style.setProperty("background-image", "linear-gradient( -45deg, rgba(0, 0, 0, .2) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .2) 50%, rgba(0, 0, 0, .2) 75%, transparent 75%, transparent )", "important");
 			progressBarElement.style.setProperty("position", "fixed", "important");
 			progressBarElement.style.setProperty("top", "0", "important");
 			progressBarElement.style.setProperty("left", "0", "important");
@@ -257,6 +258,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			progressBarElement.style.setProperty("height", "8px", "important");
 			progressBarElement.style.setProperty("transition", "width 100ms", "important");
 			progressBarElement.style.setProperty("will-change", "width", "important");
+			progressBarElement.style.setProperty("animation", "single-file-progress 2s linear infinite");
 		}
 		return progressBarElement;
 	}
