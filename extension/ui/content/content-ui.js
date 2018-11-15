@@ -31,6 +31,8 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	let selectedAreaElement;
 
 	let logsWindowElement = createLogsWindowElement();
+	const allProperties = new Set();
+	Array.from(getComputedStyle(document.body)).forEach(property => allProperties.add(property));
 
 	return {
 		getSelectedArea,
@@ -325,7 +327,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	}
 
 	function initStyle(element) {
-		Array.from(getComputedStyle(element)).forEach(property => element.style.setProperty(property, "initial", "important"));
+		allProperties.forEach(property => element.style.setProperty(property, "initial", "important"));
 	}
 
 })();
