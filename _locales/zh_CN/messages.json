@@ -152,7 +152,7 @@
         "description": "选项页标签: '保存延迟加载的图像'"
     },
     "optionMaxLazyLoadImagesIdleTime": {
-        "message": "最长空转时间（毫秒）",
+        "message": "最大アイドル時間 (ミリ秒)",
         "description": "Options page label: 'maximum idle time (ms)'"
     },
     "optionRemoveAlternativeImages": {
