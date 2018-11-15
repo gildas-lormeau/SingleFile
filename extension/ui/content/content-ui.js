@@ -104,6 +104,8 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			textElement.style.setProperty("font-family", "arial, sans-serif", "important");
 			textElement.style.setProperty("color", "black", "important");
 			textElement.style.setProperty("background-color", "white", "important");
+			textElement.style.setProperty("opacity", "1", "important");
+			textElement.style.setProperty("transition", "opacity 200ms", "important");
 			textElement.textContent = textContent;
 			const statusElement = createElement("span", lineElement);
 			statusElement.style.setProperty("font-size", "13px", "important");
@@ -117,9 +119,13 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	}
 
 	function updateLogLine(lineElement, textContent, textStatus) {
-		lineElement.childNodes[0].textContent = textContent;
+		const textElement = lineElement.childNodes[0];
 		const statusElement = lineElement.childNodes[1];
+		textElement.textContent = textContent;
 		statusElement.style.setProperty("color", textStatus == "✓" ? "#055000" : "black", "important");
+		if (textStatus == "✓") {
+			textElement.style.setProperty("opacity", ".5", "important");
+		}
 		statusElement.textContent = textStatus;
 	}
 
@@ -256,7 +262,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			progressBarElement.style.setProperty("left", "0", "important");
 			progressBarElement.style.setProperty("width", "0", "important");
 			progressBarElement.style.setProperty("height", "8px", "important");
-			progressBarElement.style.setProperty("transition", "width 100ms", "important");
+			progressBarElement.style.setProperty("transition", "width 50ms", "important");
 			progressBarElement.style.setProperty("will-change", "width", "important");
 			progressBarElement.style.setProperty("animation", "single-file-progress 2s linear infinite");
 		}
