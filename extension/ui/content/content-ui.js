@@ -235,6 +235,9 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		if (!logsWindowElement) {
 			logsWindowElement = document.createElement(LOGS_WINDOW_TAGNAME);
 		}
+		const styleElement = document.createElement("style");
+		logsWindowElement.appendChild(styleElement);
+		styleElement.textContent = "@keyframes single-file-pulse { 0% { opacity: .5 } 100% { opacity: 1 }";
 		return logsWindowElement;
 	}
 
@@ -275,6 +278,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			statusElement.style.setProperty("background-color", "white", "important");
 			statusElement.style.setProperty("min-width", "15px", "important");
 			statusElement.style.setProperty("text-align", "center", "important");
+			statusElement.style.setProperty("will-change", "opacity", "important");
 		}
 		updateLogLine(lineElement, textContent, textStatus);
 	}
@@ -286,6 +290,10 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		statusElement.style.setProperty("color", textStatus == "✓" ? "#055000" : "black", "important");
 		if (textStatus == "✓") {
 			textElement.style.setProperty("opacity", ".5", "important");
+			statusElement.style.setProperty("animation", "none", "important");
+		} else {
+			statusElement.style.setProperty("opacity", ".5", "important");
+			statusElement.style.setProperty("animation", "single-file-pulse 1s linear infinite alternate", "important");
 		}
 		statusElement.textContent = textStatus;
 	}
