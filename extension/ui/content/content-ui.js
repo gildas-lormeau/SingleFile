@@ -92,47 +92,6 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		onEndStageTask() { }
 	};
 
-	function updateLog(id, textContent, textStatus) {
-		let lineElement = logsWindowElement.querySelector("[data-id='" + id + "']");
-		if (!lineElement) {
-			lineElement = createElement("div", logsWindowElement);
-			lineElement.setAttribute("data-id", id);
-			lineElement.style.setProperty("display", "flex");
-			lineElement.style.setProperty("justify-content", "space-between");
-			const textElement = createElement("span", lineElement);
-			textElement.style.setProperty("font-size", "13px", "important");
-			textElement.style.setProperty("font-family", "arial, sans-serif", "important");
-			textElement.style.setProperty("color", "black", "important");
-			textElement.style.setProperty("background-color", "white", "important");
-			textElement.style.setProperty("opacity", "1", "important");
-			textElement.style.setProperty("transition", "opacity 200ms", "important");
-			textElement.textContent = textContent;
-			const statusElement = createElement("span", lineElement);
-			statusElement.style.setProperty("font-size", "13px", "important");
-			statusElement.style.setProperty("font-family", "arial, sans-serif", "important");
-			statusElement.style.setProperty("color", "black", "important");
-			statusElement.style.setProperty("background-color", "white", "important");
-			statusElement.style.setProperty("min-width", "15px", "important");
-			statusElement.style.setProperty("text-align", "center", "important");
-		}
-		updateLogLine(lineElement, textContent, textStatus);
-	}
-
-	function updateLogLine(lineElement, textContent, textStatus) {
-		const textElement = lineElement.childNodes[0];
-		const statusElement = lineElement.childNodes[1];
-		textElement.textContent = textContent;
-		statusElement.style.setProperty("color", textStatus == "✓" ? "#055000" : "black", "important");
-		if (textStatus == "✓") {
-			textElement.style.setProperty("opacity", ".5", "important");
-		}
-		statusElement.textContent = textStatus;
-	}
-
-	function clearLogs() {
-		logsWindowElement = createLogsWindowElement();
-	}
-
 	function getSelectedArea() {
 		return new Promise(resolve => {
 			addEventListener("mousemove", mousemoveListener, true);
@@ -292,6 +251,47 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		logsWindowElement.style.setProperty("min-height", "18px", "important");
 		logsWindowElement.style.setProperty("transition", "height 100ms", "important");
 		logsWindowElement.style.setProperty("will-change", "height", "important");
+	}
+
+	function updateLog(id, textContent, textStatus) {
+		let lineElement = logsWindowElement.querySelector("[data-id='" + id + "']");
+		if (!lineElement) {
+			lineElement = createElement("div", logsWindowElement);
+			lineElement.setAttribute("data-id", id);
+			lineElement.style.setProperty("display", "flex");
+			lineElement.style.setProperty("justify-content", "space-between");
+			const textElement = createElement("span", lineElement);
+			textElement.style.setProperty("font-size", "13px", "important");
+			textElement.style.setProperty("font-family", "arial, sans-serif", "important");
+			textElement.style.setProperty("color", "black", "important");
+			textElement.style.setProperty("background-color", "white", "important");
+			textElement.style.setProperty("opacity", "1", "important");
+			textElement.style.setProperty("transition", "opacity 200ms", "important");
+			textElement.textContent = textContent;
+			const statusElement = createElement("span", lineElement);
+			statusElement.style.setProperty("font-size", "13px", "important");
+			statusElement.style.setProperty("font-family", "arial, sans-serif", "important");
+			statusElement.style.setProperty("color", "black", "important");
+			statusElement.style.setProperty("background-color", "white", "important");
+			statusElement.style.setProperty("min-width", "15px", "important");
+			statusElement.style.setProperty("text-align", "center", "important");
+		}
+		updateLogLine(lineElement, textContent, textStatus);
+	}
+
+	function updateLogLine(lineElement, textContent, textStatus) {
+		const textElement = lineElement.childNodes[0];
+		const statusElement = lineElement.childNodes[1];
+		textElement.textContent = textContent;
+		statusElement.style.setProperty("color", textStatus == "✓" ? "#055000" : "black", "important");
+		if (textStatus == "✓") {
+			textElement.style.setProperty("opacity", ".5", "important");
+		}
+		statusElement.textContent = textStatus;
+	}
+
+	function clearLogs() {
+		logsWindowElement = createLogsWindowElement();
 	}
 
 	function getMatchedParents(target, property) {
