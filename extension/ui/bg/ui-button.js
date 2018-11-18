@@ -34,7 +34,7 @@ singlefile.ui.button = (() => {
 			if (!tabs.length) {
 				singlefile.ui.saveTab(tab);
 			} else {
-				tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
+				tabs.forEach(tab => (tab.active || tab.highlighted) && singlefile.core.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
 			}
 		}
 	});
