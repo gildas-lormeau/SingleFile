@@ -22,7 +22,7 @@
 				"lib/single-file/doc-helper.js",
 				"lib/single-file/util/timeout.js",
 				"lib/fetch/content/fetch.js",
-				"/lib/lazy/content-lazy-loader.js",
+				"/lib/lazy/content/content-lazy-loader.js",
 				"lib/single-file/frame-tree.js",
 				"extension/core/content/content-frame.js"
 			],
@@ -63,6 +63,7 @@
 			"extension/ui/bg/ui-menu.js",
 			"extension/ui/bg/ui-button.js",
 			"extension/ui/bg/ui-autosave.js",
+			"lib/lazy/bg/lazy-timeout.js",
 			"lib/single-file/vendor/css-minifier.js",
 			"lib/single-file/vendor/css-tree.js",
 			"lib/single-file/vendor/css-media-query-parser.js",
@@ -115,8 +116,8 @@
 	},
 	"incognito": "spanning",
 	"web_accessible_resources": [
-		"lib/lazy/web-lazy-loader-before.js",
-		"lib/lazy/web-lazy-loader-after.js"
+		"lib/lazy/web/web-lazy-loader-before.js",
+		"lib/lazy/web/web-lazy-loader-after.js"
 	],
 	"manifest_version": 2,
 	"default_locale": "en"

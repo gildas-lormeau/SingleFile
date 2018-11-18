@@ -29,7 +29,7 @@ singlefile.scriptLoader = (() => {
 		"/lib/single-file/vendor/html-srcset-parser.js",
 		"/lib/single-file/doc-helper.js",
 		"/lib/fetch/content/fetch.js",
-		"/lib/lazy/content-lazy-loader.js",
+		"/lib/lazy/content/content-lazy-loader.js",
 		"/lib/single-file/single-file-core.js",
 		"/lib/single-file/single-file-browser.js",
 		"/extension/index.js",
@@ -44,7 +44,7 @@ singlefile.scriptLoader = (() => {
 		"/lib/single-file/doc-helper.js",
 		"/lib/single-file/util/timeout.js",
 		"/lib/fetch/content/fetch.js",
-		"/lib/lazy/content-lazy-loader.js",
+		"/lib/lazy/content/content-lazy-loader.js",
 		"/lib/single-file/frame-tree.js",
 		"/extension/core/content/content-frame.js"
 	];
