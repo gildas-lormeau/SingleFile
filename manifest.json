@@ -22,7 +22,7 @@
 				"lib/single-file/doc-helper.js",
 				"lib/single-file/util/timeout.js",
 				"lib/fetch/content/fetch.js",
-				"/lib/lazy/content/content-lazy-loader.js",
+				"lib/lazy/content/content-lazy-loader.js",
 				"lib/frame-tree/frame-tree.js",
 				"extension/core/content/content-frame.js"
 			],
