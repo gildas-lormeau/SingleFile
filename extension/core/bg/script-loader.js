@@ -51,27 +51,27 @@ singlefile.scriptLoader = (() => {
 
 	const optionalContentScriptFiles = {
 		compressHTML: [
-			"/lib/single-file/html-minifier.js",
-			"/lib/single-file/html-serializer.js"
+			"/lib/single-file/modules/html-minifier.js",
+			"/lib/single-file/modules/html-serializer.js"
 		],
 		compressCSS: [
 			"/lib/single-file/vendor/css-minifier.js"
 		],
 		removeAlternativeFonts: [
-			"/lib/single-file/css-fonts-alt-minifier.js"
+			"/lib/single-file/modules/css-fonts-alt-minifier.js"
 		],
 		removeAlternativeMedias: [
 			"/lib/single-file/vendor/css-media-query-parser.js",
-			"/lib/single-file/css-medias-minifier.js"
+			"/lib/single-file/modules/css-medias-minifier.js"
 		],
 		removeAlternativeImages: [
-			"/lib/single-file/html-images-alt-minifier.js"
+			"/lib/single-file/modules/html-images-alt-minifier.js"
 		],
 		removeUnusedStyles: [
-			"/lib/single-file/css-medias-minifier.js",
-			"/lib/single-file/css-matched-rules.js",
-			"/lib/single-file/css-rules-minifier.js",
-			"/lib/single-file/css-fonts-minifier.js"
+			"/lib/single-file/modules/css-medias-minifier.js",
+			"/lib/single-file/modules/css-matched-rules.js",
+			"/lib/single-file/modules/css-rules-minifier.js",
+			"/lib/single-file/modules/css-fonts-minifier.js"
 		]
 	};
 
