@@ -26,6 +26,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	const PROGRESS_BAR_TAGNAME = "singlefile-progress-bar";
 	const SELECTION_ZONE_TAGNAME = "single-file-selection-zone";
 	const LOGS_WINDOW_TAGNAME = "singlefile-logs-window";
+	const SINGLE_FILE_UI_ELEMENT_CLASS = "single-file-ui-element";
 	const SELECT_PX_THRESHOLD = 8;
 
 	let selectedAreaElement;
@@ -234,6 +235,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		let logsWindowElement = document.querySelector(LOGS_WINDOW_TAGNAME);
 		if (!logsWindowElement) {
 			logsWindowElement = document.createElement(LOGS_WINDOW_TAGNAME);
+			logsWindowElement.className = SINGLE_FILE_UI_ELEMENT_CLASS;
 		}
 		const styleElement = document.createElement("style");
 		logsWindowElement.appendChild(styleElement);
@@ -339,6 +341,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	function createElement(tagName, parentElement) {
 		const element = document.createElement(tagName);
+		element.className = SINGLE_FILE_UI_ELEMENT_CLASS;
 		parentElement.appendChild(element);
 		initStyle(element);
 		return element;
