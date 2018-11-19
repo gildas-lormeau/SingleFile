@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, Blob, URL */
+/* global browser, SingleFileBrowser, singlefile, Blob, URL */
 
 singlefile.processor = (() => {
 
@@ -61,7 +61,7 @@ singlefile.processor = (() => {
 				singlefile.ui.button.onEnd(tabId, { autoSave: true });
 			}
 		};
-		const processor = new (SingleFile.getClass())(options);
+		const processor = new (SingleFileBrowser.getClass())(options);
 		await processor.initialize();
 		await processor.run();
 		const page = await processor.getPageData();

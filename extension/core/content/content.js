@@ -18,12 +18,12 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFile, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window, lazyLoader, URL */
+/* global browser, SingleFileBrowser, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window, lazyLoader, URL */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
 	const MESSAGE_PREFIX = "__SingleFile__::";
-	const SingleFileClass = SingleFile.getClass();
+	const SingleFile = SingleFileBrowser.getClass();
 
 	let processing = false;
 
@@ -82,7 +82,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function processPage(options) {
 		singlefile.ui.onStartPage();
-		const processor = new SingleFileClass(options);
+		const processor = new SingleFile(options);
 		const preInitializationPromises = [];
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
@@ -167,24 +167,24 @@ this.singlefile.top = this.singlefile.top || (() => {
 				}
 				if (selectionFound) {
 					const element = treeWalker.currentNode.nodeType == Node.ELEMENT_NODE ? treeWalker.currentNode : treeWalker.currentNode.parentElement;
-					element.setAttribute(SingleFileClass.SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+					element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, "");
 				}
 			}
 			if (selectionFound) {
-				ancestorElement.setAttribute(SingleFileClass.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
+				ancestorElement.setAttribute(SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
 			}
 		}
 		return selectionFound;
 	}
 
 	function markSelectedArea(selectedAreaElement) {
-		selectedAreaElement.setAttribute(SingleFileClass.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
-		selectedAreaElement.querySelectorAll("*").forEach(element => element.setAttribute(SingleFileClass.SELECTED_CONTENT_ATTRIBUTE_NAME, ""));
+		selectedAreaElement.setAttribute(SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
+		selectedAreaElement.querySelectorAll("*").forEach(element => element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, ""));
 	}
 
 	function unmarkSelectedContent() {
-		document.querySelectorAll("[" + SingleFileClass.SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SingleFileClass.SELECTED_CONTENT_ATTRIBUTE_NAME));
-		document.querySelectorAll("[" + SingleFileClass.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SingleFileClass.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME));
+		document.querySelectorAll("[" + SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME));
+		document.querySelectorAll("[" + SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME));
 	}
 
 	async function downloadPage(page, options) {
