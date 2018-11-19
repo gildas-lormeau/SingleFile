@@ -45,7 +45,7 @@ singlefile.scriptLoader = (() => {
 		"/lib/single-file/util/timeout.js",
 		"/lib/fetch/content/fetch.js",
 		"/lib/lazy/content/content-lazy-loader.js",
-		"/lib/single-file/frame-tree.js",
+		"/lib/frame-tree/frame-tree.js",
 		"/extension/core/content/content-frame.js"
 	];
 
