@@ -1,5 +1,6 @@
 {
-	"name": "SingleFile",
+	"name": "SingleFile | Save a page into a single HTML file",
+	"short_name": "SingleFile",
 	"author": "Gildas Lormeau",
 	"homepage_url": "https://github.com/gildas-lormeau/SingleFile",
 	"icons": {
