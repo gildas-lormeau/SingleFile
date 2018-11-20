@@ -39,7 +39,7 @@ singlefile.scriptLoader = (() => {
 
 	const frameScriptFiles = [
 		"/lib/browser-polyfill/custom-browser-polyfill.js",
-		"/lib/font-face/font-face-proxy.js",
+		"/lib/hooks/hooks.js",
 		"/extension/index.js",
 		"/lib/single-file/util/doc-helper.js",
 		"/lib/single-file/util/timeout.js",
