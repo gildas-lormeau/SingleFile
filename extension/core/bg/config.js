@@ -32,7 +32,7 @@ singlefile.config = (() => {
 		compressHTML: true,
 		compressCSS: true,
 		lazyLoadImages: true,
-		maxLazyLoadImagesIdleTime: 1000,
+		maxLazyLoadImagesIdleTime: 1500,
 		filenameTemplate: "{page-title} ({date-iso} {time-locale}).html",
 		infobarTemplate: "",
 		confirmInfobar: false,
