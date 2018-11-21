@@ -274,7 +274,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			textElement.style.setProperty("transition", "opacity 200ms", "important");
 			textElement.textContent = textContent;
 			const statusElement = createElement("span", lineElement);
-			statusElement.style.setProperty("font-size", "13px", "important");
+			statusElement.style.setProperty("font-size", "11px", "important");
 			statusElement.style.setProperty("font-family", "arial, sans-serif", "important");
 			statusElement.style.setProperty("color", "black", "important");
 			statusElement.style.setProperty("background-color", "white", "important");
