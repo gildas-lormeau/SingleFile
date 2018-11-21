@@ -20,15 +20,10 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - OS: [e.g. Win10 Pro, Ubuntu 18.04.1, Android 6]
+**Environment:**
+ - OS: [e.g. Win10 Pro, Ubuntu 18.04.1, Android 7.1.2]
  - Browser [e.g. Chrome, Firefox]
- - Version [e.g. 22]
+ - Version [e.g. 64]
 
 **Additional context**
 Add any other context about the problem here.
