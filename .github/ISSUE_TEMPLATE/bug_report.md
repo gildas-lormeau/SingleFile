@@ -20,7 +20,7 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Environment:**
+**Environment**
  - OS: [e.g. Win10 Pro, Ubuntu 18.04.1, Android 7.1.2]
  - Browser [e.g. Chrome, Firefox]
  - Version [e.g. 64]
