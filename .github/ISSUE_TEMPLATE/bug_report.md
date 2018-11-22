@@ -22,8 +22,8 @@ If applicable, add screenshots to help explain your problem.
 
 **Environment**
  - OS: [e.g. Win10 Pro, Ubuntu 18.04.1, Android 7.1.2]
- - Browser [e.g. Chrome, Firefox]
- - Version [e.g. 64]
+ - Browser: [e.g. Chrome, Firefox]
+ - Version: [e.g. 64]
 
 **Additional context**
 Add any other context about the problem here.
