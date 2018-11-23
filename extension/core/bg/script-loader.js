@@ -62,7 +62,7 @@ singlefile.scriptLoader = (() => {
 		],
 		removeAlternativeMedias: [
 			"/lib/single-file/vendor/css-media-query-parser.js",
-			"/lib/single-file/modules/css-medias-minifier.js"
+			"/lib/single-file/modules/css-medias-alt-minifier.js"
 		],
 		removeAlternativeImages: [
 			"/lib/single-file/modules/html-images-alt-minifier.js"
