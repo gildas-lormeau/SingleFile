@@ -120,19 +120,19 @@
         "description": "オプションのページラベル: 'を開く（として保存する：ファイル名を確認するためのダイアログ）'"
     },
     "optionConflictAction": {
-        "message": "file name conflict resolution",
+        "message": "ファイル名の競合を解決する",
         "description": "Options page label: 'filename conflict resolution'"
     },
     "optionConflictActionUniquify": {
-        "message": "create a unique name",
+        "message": "独自の名前を作成する",
         "description": "Value for 'filename conflict resolution' option: 'create a unique name'"
     },
     "optionConflictActionOverwrite": {
-        "message": "overwrite the existing file",
+        "message": "既存のファイルを上書きする",
         "description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
     },
     "optionConflictActionPrompt": {
-        "message": "prompt for a name",
+        "message": "名前を求めるプロンプト",
         "description": "Value for 'name conflict resolution' option: 'prompt for a name'"
     },
     "optionsHTMLContentSubTitle": {
