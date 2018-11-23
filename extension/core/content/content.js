@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFileBrowser, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window, lazyLoader, URL */
+/* global browser, SingleFileBrowser, singlefile, frameTree, document, Blob, MouseEvent, getSelection, prompt, addEventListener, Node, window, lazyLoader, URL, timeout */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
@@ -87,7 +87,12 @@ this.singlefile.top = this.singlefile.top || (() => {
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		if (!options.removeFrames && this.frameTree) {
-			const frameTreePromise = frameTree.getAsync(options);
+			let frameTreePromise;
+			if (options.lazyLoadImages) {
+				frameTreePromise = new Promise(resolve => timeout.set(() => resolve(frameTree.getAsync(options)), options.maxLazyLoadImagesIdleTime - frameTree.TIMEOUT_INIT_REQUEST_MESSAGE));
+			} else {
+				frameTreePromise = frameTree.getAsync(options);
+			}
 			singlefile.ui.onLoadingFrames();
 			frameTreePromise.then(() => singlefile.ui.onLoadFrames());
 			preInitializationPromises.push(frameTreePromise);
@@ -98,8 +103,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 			lazyLoadPromise.then(() => singlefile.ui.onLoadDeferResources());
 			preInitializationPromises.push(lazyLoadPromise);
 		}
-		options.doc = document;
-		options.win = window;
 		let index = 0, maxIndex = 0;
 		options.onprogress = event => {
 			if (event.type == event.RESOURCES_INITIALIZED) {
@@ -134,6 +137,8 @@ this.singlefile.top = this.singlefile.top || (() => {
 			}
 		};
 		[options.framesData] = await Promise.all(preInitializationPromises);
+		options.doc = document;
+		options.win = window;
 		await processor.initialize();
 		await processor.run();
 		if (options.confirmInfobar) {
