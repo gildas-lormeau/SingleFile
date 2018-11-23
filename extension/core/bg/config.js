@@ -163,6 +163,9 @@ singlefile.config = (() => {
 		if (config.maxLazyLoadImagesIdleTime === undefined) {
 			config.maxLazyLoadImagesIdleTime = 1000;
 		}
+		if (config.confirmFilename === undefined) {
+			config.confirmFilename = false;
+		}
 	}
 
 	async function getConfig() {
