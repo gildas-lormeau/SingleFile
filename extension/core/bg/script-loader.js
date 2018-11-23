@@ -68,7 +68,6 @@ singlefile.scriptLoader = (() => {
 			"/lib/single-file/modules/html-images-alt-minifier.js"
 		],
 		removeUnusedStyles: [
-			"/lib/single-file/modules/css-medias-minifier.js",
 			"/lib/single-file/modules/css-matched-rules.js",
 			"/lib/single-file/modules/css-rules-minifier.js",
 			"/lib/single-file/modules/css-fonts-minifier.js"
