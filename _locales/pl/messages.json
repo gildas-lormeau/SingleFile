@@ -120,19 +120,19 @@
         "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
     },
     "optionConflictAction": {
-        "message": "file name conflict resolution",
+        "message": "rozwiązywanie konfliktu nazwy pliku",
         "description": "Options page label: 'filename conflict resolution'"
     },
     "optionConflictActionUniquify": {
-        "message": "create a unique name",
+        "message": "stwórz unikalną nazwę pliku",
         "description": "Value for 'filename conflict resolution' option: 'create a unique name'"
     },
     "optionConflictActionOverwrite": {
-        "message": "overwrite the existing file",
+        "message": "nadpisz istniejący plik",
         "description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
     },
     "optionConflictActionPrompt": {
-        "message": "prompt for a name",
+        "message": "zapytaj o nazwę",
         "description": "Value for 'name conflict resolution' option: 'prompt for a name'"
     },
     "optionsHTMLContentSubTitle": {
