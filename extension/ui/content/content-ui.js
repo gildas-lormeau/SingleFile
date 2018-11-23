@@ -217,7 +217,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			progressBarElement = createElement(PROGRESS_BAR_TAGNAME, maskElement);
 			const styleElement = document.createElement("style");
 			maskElement.appendChild(styleElement);
-			styleElement.textContent = "@keyframes single-file-progress { 0% { background-position: 0 0 } 100% { background-position: 50px 50px }";
+			styleElement.textContent = "@keyframes single-file-progress { 0% { left: -50px; margin-left: 50px } 100% { left: 0px; margin-left: 0px }";
 			progressBarElement.style.setProperty("background", "white linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent) repeat scroll 0% 0% / 50px 50px padding-box border-box", "important");
 			progressBarElement.style.setProperty("position", "fixed", "important");
 			progressBarElement.style.setProperty("top", "0", "important");
