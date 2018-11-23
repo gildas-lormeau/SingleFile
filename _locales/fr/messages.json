@@ -119,6 +119,22 @@
         "message": "ouvrir la boite de dialogue \"Sauver sous\" pour confimer le nom de fichier",
         "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
     },
+    "optionConflictAction": {
+        "message": "résolution de conflit de noms",
+        "description": "Options page label: 'filename conflict resolution'"
+    },
+    "optionConflictActionUniquify": {
+        "message": "créer un nom unique",
+        "description": "Value for 'filename conflict resolution' option: 'create a unique filename'"
+    },
+    "optionConflictActionOverwrite": {
+        "message": "écraser le fichier existant",
+        "description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+    },
+    "optionConflictActionPrompt": {
+        "message": "demander un nom de fichier",
+        "description": "Value for 'filename conflict resolution' option: 'prompt for a filename'"
+    },
     "optionsHTMLContentSubTitle": {
         "message": "Contenu HTML",
         "description": "Options sub-title: 'HTML content'"

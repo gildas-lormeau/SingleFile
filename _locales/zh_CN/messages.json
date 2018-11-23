@@ -119,6 +119,22 @@
         "message": "打开“另存为”对话框以确认文件名",
         "description": "选项页标签: '打开“另存为”对话框以确认文件名'"
     },
+    "optionConflictAction": {
+        "message": "file name conflict resolution",
+        "description": "Options page label: 'filename conflict resolution'"
+    },
+    "optionConflictActionUniquify": {
+        "message": "create a unique name",
+        "description": "Value for 'filename conflict resolution' option: 'create a unique name'"
+    },
+    "optionConflictActionOverwrite": {
+        "message": "overwrite the existing file",
+        "description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+    },
+    "optionConflictActionPrompt": {
+        "message": "prompt for a name",
+        "description": "Value for 'name conflict resolution' option: 'prompt for a name'"
+    },
     "optionsHTMLContentSubTitle": {
         "message": "HTML 内容",
         "description": "选项页副标题: 'HTML 内容'"

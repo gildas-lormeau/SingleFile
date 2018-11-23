@@ -37,6 +37,7 @@ singlefile.config = (() => {
 		infobarTemplate: "",
 		confirmInfobar: false,
 		confirmFilename: false,
+		conflictAction: "uniquify",
 		contextMenuEnabled: true,
 		shadowEnabled: true,
 		maxResourceSizeEnabled: false,
@@ -165,6 +166,9 @@ singlefile.config = (() => {
 		}
 		if (config.confirmFilename === undefined) {
 			config.confirmFilename = false;
+		}
+		if (config.conflictAction === undefined) {
+			config.conflictAction = "uniquify";
 		}
 	}
 

@@ -28,10 +28,10 @@ singlefile.download = (() => {
 				if (request.content) {
 					request.url = URL.createObjectURL(new Blob([request.content], { type: "text/html" }));
 				}
-				return downloadPage(request, { confirmFilename: request.confirmFilename, incognito: sender.tab.incognito })
+				return downloadPage(request, { confirmFilename: request.confirmFilename, incognito: sender.tab.incognito, conflictAction: request.conflictAction })
 					.catch(error => {
 						if (error.message && error.message.includes("'incognito'")) {
-							return downloadPage(request, { confirmFilename: request.confirmFilename });
+							return downloadPage(request, { confirmFilename: request.confirmFilename, conflictAction: request.conflictAction });
 						} else {
 							return { notSupported: true };
 						}
@@ -48,7 +48,8 @@ singlefile.download = (() => {
 		const downloadInfo = {
 			url: page.url,
 			saveAs: options.confirmFilename,
-			filename: page.filename
+			filename: page.filename,
+			conflictAction: options.conflictAction
 		};
 		if (options.incognito) {
 			downloadInfo.incognito = true;

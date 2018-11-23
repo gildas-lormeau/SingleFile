@@ -119,6 +119,22 @@
         "message": "открывать диалоговое окно \"Сохранить как\" для подтверждения имени файла",
         "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
     },
+    "optionConflictAction": {
+        "message": "file name conflict resolution",
+        "description": "Options page label: 'filename conflict resolution'"
+    },
+    "optionConflictActionUniquify": {
+        "message": "create a unique name",
+        "description": "Value for 'filename conflict resolution' option: 'create a unique name'"
+    },
+    "optionConflictActionOverwrite": {
+        "message": "overwrite the existing file",
+        "description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+    },
+    "optionConflictActionPrompt": {
+        "message": "prompt for a name",
+        "description": "Value for 'name conflict resolution' option: 'prompt for a name'"
+    },
     "optionsHTMLContentSubTitle": {
         "message": "HTML-контент",
         "description": "Options sub-title: 'HTML content'"

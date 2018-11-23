@@ -39,6 +39,10 @@
 	const setMaxResourceSizeLabel = document.getElementById("setMaxResourceSizeLabel");
 	const maxResourceSizeLabel = document.getElementById("maxResourceSizeLabel");
 	const confirmFilenameLabel = document.getElementById("confirmFilenameLabel");
+	const conflictActionLabel = document.getElementById("conflictActionLabel");
+	const conflictActionUniquifyLabel = document.getElementById("conflictActionUniquifyLabel");
+	const conflictActionOverwriteLabel = document.getElementById("conflictActionOverwriteLabel");
+	const conflictActionPromptLabel = document.getElementById("conflictActionPromptLabel");
 	const removeAudioLabel = document.getElementById("removeAudioLabel");
 	const removeVideoLabel = document.getElementById("removeVideoLabel");
 	const displayInfobarLabel = document.getElementById("displayInfobarLabel");
@@ -81,6 +85,7 @@
 	const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 	const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
 	const confirmFilenameInput = document.getElementById("confirmFilenameInput");
+	const conflictActionInput = document.getElementById("conflictActionInput");
 	const removeAudioSrcInput = document.getElementById("removeAudioSrcInput");
 	const removeVideoSrcInput = document.getElementById("removeVideoSrcInput");
 	const displayInfobarInput = document.getElementById("displayInfobarInput");
@@ -149,6 +154,10 @@
 	setMaxResourceSizeLabel.textContent = browser.i18n.getMessage("optionSetMaxResourceSize");
 	maxResourceSizeLabel.textContent = browser.i18n.getMessage("optionMaxResourceSize");
 	confirmFilenameLabel.textContent = browser.i18n.getMessage("optionConfirmFilename");
+	conflictActionLabel.textContent = browser.i18n.getMessage("optionConflictAction");
+	conflictActionUniquifyLabel.textContent = browser.i18n.getMessage("optionConflictActionUniquify");
+	conflictActionOverwriteLabel.textContent = browser.i18n.getMessage("optionConflictActionOverwrite");
+	conflictActionPromptLabel.textContent = browser.i18n.getMessage("optionConflictActionPrompt");
 	removeAudioLabel.textContent = browser.i18n.getMessage("optionRemoveAudio");
 	removeVideoLabel.textContent = browser.i18n.getMessage("optionRemoveVideo");
 	displayInfobarLabel.textContent = browser.i18n.getMessage("optionDisplayInfobar");
@@ -199,6 +208,7 @@
 		maxResourceSizeInput.value = config.maxResourceSize;
 		maxResourceSizeInput.disabled = !config.maxResourceSizeEnabled;
 		confirmFilenameInput.checked = config.confirmFilename;
+		conflictActionInput.value = config.conflictAction;
 		removeAudioSrcInput.checked = config.removeAudioSrc;
 		removeVideoSrcInput.checked = config.removeVideoSrc;
 		displayInfobarInput.checked = config.displayInfobar;
@@ -238,6 +248,7 @@
 			maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
 			maxResourceSize: Math.max(maxResourceSizeInput.value, 0),
 			confirmFilename: confirmFilenameInput.checked,
+			conflictAction: conflictActionInput.value,
 			removeAudioSrc: removeAudioSrcInput.checked,
 			removeVideoSrc: removeVideoSrcInput.checked,
 			displayInfobar: displayInfobarInput.checked,
