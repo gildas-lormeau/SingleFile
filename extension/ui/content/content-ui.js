@@ -212,24 +212,30 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	}
 
 	function createProgressBarElement(maskElement) {
-		let progressBarElement = document.querySelector(PROGRESS_BAR_TAGNAME);
-		if (!progressBarElement) {
-			progressBarElement = createElement(PROGRESS_BAR_TAGNAME, maskElement);
+		let progressBarElementContainer = document.querySelector(PROGRESS_BAR_TAGNAME);
+		if (!progressBarElementContainer) {
+			progressBarElementContainer = createElement(PROGRESS_BAR_TAGNAME, maskElement);
 			const styleElement = document.createElement("style");
-			styleElement.textContent = "@keyframes single-file-progress { 0% { left: -50px; margin-left: 50px } 100% { left: 0px; margin-left: 0px }";
+			styleElement.textContent = "@keyframes single-file-progress { 0% { left: -50px } 100% { left: 0 }";
 			maskElement.appendChild(styleElement);
-			progressBarElement.style.setProperty("background", "white linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent) repeat scroll 0% 0% / 50px 50px padding-box border-box", "important");
-			progressBarElement.style.setProperty("position", "fixed", "important");
-			progressBarElement.style.setProperty("top", "0px", "important");
-			progressBarElement.style.setProperty("left", "-50px", "important");
-			progressBarElement.style.setProperty("margin-left", "50px", "important");
-			progressBarElement.style.setProperty("width", "0", "important");
-			progressBarElement.style.setProperty("height", "8px", "important");
-			progressBarElement.style.setProperty("transition", "width 50ms", "important");
-			progressBarElement.style.setProperty("will-change", "width, left, margin-left", "important");
+			progressBarElementContainer.style.setProperty("position", "fixed", "important");
+			progressBarElementContainer.style.setProperty("top", "0", "important");
+			progressBarElementContainer.style.setProperty("left", "0", "important");
+			progressBarElementContainer.style.setProperty("width", "0", "important");
+			progressBarElementContainer.style.setProperty("height", "8px", "important");
+			progressBarElementContainer.style.setProperty("overflow", "hidden", "important");
+			progressBarElementContainer.style.setProperty("will-change", "width", "important");
+			const progressBarElement = createElement("div", progressBarElementContainer);
+			progressBarElement.style.setProperty("position", "absolute", "important");
+			progressBarElement.style.setProperty("left", "0");
 			progressBarElement.style.setProperty("animation", "single-file-progress 5s linear infinite reverse", "important");
+			progressBarElement.style.setProperty("background", "white linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent) repeat scroll 0% 0% / 50px 50px padding-box border-box", "important");
+			progressBarElement.style.setProperty("transition", "width 50ms", "important");
+			progressBarElement.style.setProperty("width", "calc(100% + 50px)", "important");
+			progressBarElement.style.setProperty("height", "100%", "important");
+			progressBarElement.style.setProperty("inset-inline-start", "auto");
 		}
-		return progressBarElement;
+		return progressBarElementContainer;
 	}
 
 	function createLogsWindowElement() {
