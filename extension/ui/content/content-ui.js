@@ -216,16 +216,17 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		if (!progressBarElement) {
 			progressBarElement = createElement(PROGRESS_BAR_TAGNAME, maskElement);
 			const styleElement = document.createElement("style");
-			maskElement.appendChild(styleElement);
 			styleElement.textContent = "@keyframes single-file-progress { 0% { left: -50px; margin-left: 50px } 100% { left: 0px; margin-left: 0px }";
+			maskElement.appendChild(styleElement);
 			progressBarElement.style.setProperty("background", "white linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent) repeat scroll 0% 0% / 50px 50px padding-box border-box", "important");
 			progressBarElement.style.setProperty("position", "fixed", "important");
-			progressBarElement.style.setProperty("top", "0", "important");
-			progressBarElement.style.setProperty("left", "0", "important");
+			progressBarElement.style.setProperty("top", "0px", "important");
+			progressBarElement.style.setProperty("left", "-50px", "important");
+			progressBarElement.style.setProperty("margin-left", "50px", "important");
 			progressBarElement.style.setProperty("width", "0", "important");
 			progressBarElement.style.setProperty("height", "8px", "important");
 			progressBarElement.style.setProperty("transition", "width 50ms", "important");
-			progressBarElement.style.setProperty("will-change", "width, background-position", "important");
+			progressBarElement.style.setProperty("will-change", "width, left, margin-left", "important");
 			progressBarElement.style.setProperty("animation", "single-file-progress 5s linear infinite reverse", "important");
 		}
 		return progressBarElement;
