@@ -80,8 +80,8 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			infobarElement.style.setProperty("top", "16px", "important");
 			infobarElement.style.setProperty("right", "16px", "important");
 			infobarElement.style.setProperty("height", "auto", "important");
-			infobarElement.style.setProperty("min-height", "28px", "important");
-			infobarElement.style.setProperty("min-width", "28px", "important");
+			infobarElement.style.setProperty("min-height", "24px", "important");
+			infobarElement.style.setProperty("min-width", "24px", "important");
 			infobarElement.style.setProperty("background-position", "center", "important");
 			infobarElement.style.setProperty("background-repeat", "no-repeat", "important");
 			infobarElement.style.setProperty("border-radius", "16px", "important");
@@ -92,14 +92,15 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			const infoElement = createElement("span", infobarElement);
 			infoElement.style.setProperty("font-family", "Arial", "important");
 			infoElement.style.setProperty("color", "#9aa0a6", "important");
-			infoElement.style.setProperty("line-height", "28px", "important");
+			infoElement.style.setProperty("font-size", "14px", "important");
+			infoElement.style.setProperty("line-height", "24px", "important");
 			infoElement.style.setProperty("word-break", "break-word", "important");
 			infoElement.style.setProperty("white-space", "pre-wrap", "important");
 			infoElement.textContent = infoData;
 			const linkElement = createElement("a", infobarElement);
 			linkElement.style.setProperty("display", "inline-block", "important");
 			linkElement.style.setProperty("padding-left", "8px", "important");
-			linkElement.style.setProperty("line-height", "28px", "important");
+			linkElement.style.setProperty("line-height", "24px", "important");
 			linkElement.style.setProperty("cursor", "pointer", "important");
 			linkElement.style.setProperty("user-select", "none", "important");
 			linkElement.target = "_blank";
@@ -136,16 +137,16 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	}
 
 	function displayInfobar(infobarElement, linkElement, infoElement) {
-		infobarElement.style.setProperty("font-size", "15px", "important");
+		infobarElement.style.setProperty("font-size", "13px", "important");
 		infobarElement.style.setProperty("opacity", 1, "important");
 		infobarElement.style.setProperty("width", "auto", "important");
 		infobarElement.style.setProperty("background-color", "#f9f9f9", "important");
 		infobarElement.style.setProperty("cursor", "auto", "important");
 		infobarElement.style.setProperty("color", "#9aa0a6", "important");
-		infobarElement.style.setProperty("padding-left", "16px", "important");
-		infobarElement.style.setProperty("padding-right", "16px", "important");
-		infobarElement.style.setProperty("-webkit-padding-start", "16px", "important");
-		infobarElement.style.setProperty("-webkit-padding-end", "16px", "important");
+		infobarElement.style.setProperty("padding-left", "12px", "important");
+		infobarElement.style.setProperty("padding-right", "12px", "important");
+		infobarElement.style.setProperty("-webkit-padding-start", "12px", "important");
+		infobarElement.style.setProperty("-webkit-padding-end", "12px", "important");
 		infobarElement.style.setProperty("border", "2px solid #555", "important");
 		infobarElement.style.setProperty("-webkit-border-start", "2px solid #555", "important");
 		infobarElement.style.setProperty("-webkit-border-before", "2px solid #555", "important");
@@ -161,8 +162,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	function hideInfobar(infobarElement, linkElement, infoElement) {
 		infobarElement.style.opacity = .7;
 		infobarElement.onmouseout = () => infobarElement.style.opacity = .7;
-		infobarElement.style.setProperty("font-size", "24px", "important");
-		infobarElement.style.setProperty("width", "28px", "important");
+		infobarElement.style.setProperty("width", "24px", "important");
 		infobarElement.style.setProperty("background-color", "#737373", "important");
 		infobarElement.style.setProperty("cursor", "pointer", "important");
 		infobarElement.style.setProperty("color", "white", "important");
@@ -176,6 +176,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 		infobarElement.style.setProperty("-webkit-border-end", "2px solid #eee", "important");
 		infobarElement.style.setProperty("-webkit-border-after", "2px solid #eee", "important");
 		infobarElement.style.setProperty("background-image", "url(" + IMAGE_ICON + ")");
+		infobarElement.style.setProperty("background-size", "70% 70%", "important");
 		linkElement.style.setProperty("display", "none", "important");
 		infoElement.style.setProperty("display", "none", "important");
 		infobarElement.onclick = event => {
