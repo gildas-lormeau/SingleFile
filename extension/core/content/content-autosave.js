@@ -34,7 +34,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 			refresh();
 		}
 	});
-	if (document instanceof HTMLDocument) {
+	if (location.href.startsWith("http") && document instanceof HTMLDocument) {
 		const scriptElement = document.createElement("script");
 		scriptElement.textContent = `(${hookPushState.toString()})()`;
 		document.documentElement.appendChild(scriptElement);
