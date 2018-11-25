@@ -24,8 +24,11 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	const MASK_TAGNAME = "singlefile-mask";
 	const PROGRESS_BAR_TAGNAME = "singlefile-progress-bar";
+	const PROGRESS_CURSOR_TAGNAME = "singlefile-progress-cursor";
 	const SELECTION_ZONE_TAGNAME = "single-file-selection-zone";
 	const LOGS_WINDOW_TAGNAME = "singlefile-logs-window";
+	const LOGS_LINE_TAGNAME = "singlefile-logs-line";
+	const LOGS_LINE_ELEMENT_TAGNAME = "singlefile-logs-element";
 	const SINGLE_FILE_UI_ELEMENT_CLASS = "single-file-ui-element";
 	const SELECT_PX_THRESHOLD = 8;
 
@@ -225,7 +228,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			progressBarElementContainer.style.setProperty("height", "8px", "important");
 			progressBarElementContainer.style.setProperty("overflow", "hidden", "important");
 			progressBarElementContainer.style.setProperty("will-change", "width", "important");
-			const progressBarElement = createElement("div", progressBarElementContainer);
+			const progressBarElement = createElement(PROGRESS_CURSOR_TAGNAME, progressBarElementContainer);
 			progressBarElement.style.setProperty("position", "absolute", "important");
 			progressBarElement.style.setProperty("left", "0");
 			progressBarElement.style.setProperty("animation", "single-file-progress 5s linear infinite reverse", "important");
@@ -268,11 +271,11 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	function updateLog(id, textContent, textStatus) {
 		let lineElement = logsWindowElement.querySelector("[data-id='" + id + "']");
 		if (!lineElement) {
-			lineElement = createElement("div", logsWindowElement);
+			lineElement = createElement(LOGS_LINE_TAGNAME, logsWindowElement);
 			lineElement.setAttribute("data-id", id);
 			lineElement.style.setProperty("display", "flex");
 			lineElement.style.setProperty("justify-content", "space-between");
-			const textElement = createElement("span", lineElement);
+			const textElement = createElement(LOGS_LINE_ELEMENT_TAGNAME, lineElement);
 			textElement.style.setProperty("font-size", "13px", "important");
 			textElement.style.setProperty("font-family", "arial, sans-serif", "important");
 			textElement.style.setProperty("color", "black", "important");
@@ -280,7 +283,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			textElement.style.setProperty("opacity", "1", "important");
 			textElement.style.setProperty("transition", "opacity 200ms", "important");
 			textElement.textContent = textContent;
-			const statusElement = createElement("span", lineElement);
+			const statusElement = createElement(LOGS_LINE_ELEMENT_TAGNAME, lineElement);
 			statusElement.style.setProperty("font-size", "11px", "important");
 			statusElement.style.setProperty("font-family", "arial, sans-serif", "important");
 			statusElement.style.setProperty("color", "black", "important");
