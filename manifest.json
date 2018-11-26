@@ -62,7 +62,7 @@
 			"extension/ui/bg/bg-ui.js",
 			"extension/ui/bg/ui-menu.js",
 			"extension/ui/bg/ui-button.js",
-			"extension/ui/bg/ui-bootstrap.js",
+			"extension/ui/bg/ui-autosave.js",
 			"lib/lazy/bg/bg-lazy-timeout.js",
 			"lib/single-file/vendor/css-minifier.js",
 			"lib/single-file/vendor/css-tree.js",
