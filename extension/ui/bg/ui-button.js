@@ -196,10 +196,10 @@ singlefile.ui.button = (() => {
 		}
 		try {
 			await tabData.pendingRefresh;
-			tabData.pendingRefresh = refreshAsync(tabId, tabData, oldTabData);
 		} catch (error) {
 			/* ignored */
 		}
+		tabData.pendingRefresh = refreshAsync(tabId, tabData, oldTabData);
 	}
 
 	async function refreshAsync(tabId, tabData, oldTabData) {
