@@ -263,7 +263,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		logsWindowElement.style.setProperty("z-index", 2147483647, "important");
 		logsWindowElement.style.setProperty("background-color", "white", "important");
 		logsWindowElement.style.setProperty("min-width", browser.i18n.getMessage("logPanelWidth") + "px", "important");
-		logsWindowElement.style.setProperty("min-height", "18px", "important");
+		logsWindowElement.style.setProperty("min-height", "16px", "important");
 		logsWindowElement.style.setProperty("transition", "height 100ms", "important");
 		logsWindowElement.style.setProperty("will-change", "height", "important");
 	}
