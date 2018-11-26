@@ -26,7 +26,6 @@ singlefile.ui.button = (() => {
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_16_wait";
 	const DEFAULT_TITLE = browser.i18n.getMessage("buttonDefaultTooltip");
 	const DEFAULT_COLOR = [2, 147, 20, 255];
-	const BUTTON_PROPERTIES = [{ name: "color", browserActionMethod: "setBadgeBackgroundColor" }, { name: "path", browserActionMethod: "setIcon" }, { name: "text", browserActionMethod: "setBadgeText" }, { name: "title", browserActionMethod: "setTitle" }];
 
 	browser.browserAction.onClicked.addListener(async tab => {
 		if (singlefile.core.isAllowedURL(tab.url)) {
@@ -43,8 +42,11 @@ singlefile.ui.button = (() => {
 		await onTabActivated(tab);
 	});
 	browser.tabs.onCreated.addListener(onTabActivated);
-	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabActivated(tab, changeInfo.status == "loading"));
+	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabActivated(tab));
 	browser.runtime.onMessage.addListener((request, sender) => {
+		if (request.processReset) {
+			onReset(sender.tab.id);
+		}
 		if (request.processProgress) {
 			if (request.maxIndex) {
 				onProgress(sender.tab.id, request.index, request.maxIndex, request.options);
@@ -79,7 +81,7 @@ singlefile.ui.button = (() => {
 		onProgress,
 		onEnd,
 		onError,
-		refresh: (tabId, options) => refresh(tabId, getProperties(tabId, options))
+		refresh: (tabId, options) => refresh(tabId, getProperties(options))
 	};
 
 	async function setAutoSaveActiveTabEnabled(enabled) {
@@ -93,7 +95,7 @@ singlefile.ui.button = (() => {
 			}
 			tabsData[tabId].autoSave = enabled;
 			await singlefile.storage.set(tabsData);
-			refresh(tabId, getProperties(tabId, { autoSave: enabled }));
+			refresh(tabId, getProperties({ autoSave: enabled }));
 		}
 	}
 
@@ -108,45 +110,41 @@ singlefile.ui.button = (() => {
 		return false;
 	}
 
-	async function onInitialize(tabId, options, step) {
+	function onReset(tabId) {
+		refresh(tabId, getProperties({}, "", DEFAULT_COLOR, DEFAULT_TITLE));
+	}
+
+	function onInitialize(tabId, options, step) {
 		if (step == 1) {
-			const tabsData = await singlefile.storage.getTemporary();
-			if (tabsData[tabId]) {
-				tabsData[tabId].button = null;
-			}
+			onReset(tabId);
 		}
-		refresh(tabId, getProperties(tabId, options, browser.i18n.getMessage("buttonInitializingBadge"), step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], browser.i18n.getMessage("buttonInitializingTooltip") + " (" + step + "/2)", WAIT_ICON_PATH_PREFIX + "0.png"));
+		refresh(tabId, getProperties(options, browser.i18n.getMessage("buttonInitializingBadge"), step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], browser.i18n.getMessage("buttonInitializingTooltip") + " (" + step + "/2)", WAIT_ICON_PATH_PREFIX + "0.png"));
 	}
 
 	function onError(tabId, options) {
-		refresh(tabId, getProperties(tabId, options, browser.i18n.getMessage("buttonErrorBadge"), [229, 4, 12, 255]));
+		refresh(tabId, getProperties(options, browser.i18n.getMessage("buttonErrorBadge"), [229, 4, 12, 255]));
 	}
 
 	function onCancelled(tabId, options) {
-		refresh(tabId, getProperties(tabId, options, "", DEFAULT_COLOR, DEFAULT_TITLE));
+		refresh(tabId, getProperties(options, "", DEFAULT_COLOR, DEFAULT_TITLE));
 	}
 
-	async function onEnd(tabId, options) {
-		refresh(tabId, getProperties(tabId, options, browser.i18n.getMessage("buttonOKBadge"), [4, 229, 36, 255]));
+	function onEnd(tabId, options) {
+		refresh(tabId, getProperties(options, browser.i18n.getMessage("buttonOKBadge"), [4, 229, 36, 255]));
 	}
 
 	function onProgress(tabId, index, maxIndex, options) {
 		const progress = Math.max(Math.min(20, Math.floor((index / maxIndex) * 20)), 0);
 		const barProgress = Math.min(Math.floor((index / maxIndex) * 8), 8);
-		refresh(tabId, getProperties(tabId, options, "", [4, 229, 36, 255], browser.i18n.getMessage("buttonSaveProgressTooltip") + (progress * 5) + "%", WAIT_ICON_PATH_PREFIX + barProgress + ".png", progress, barProgress, [128, 128, 128, 255]));
+		const path = WAIT_ICON_PATH_PREFIX + barProgress + ".png";
+		refresh(tabId, getProperties(options, "", [4, 229, 36, 255], browser.i18n.getMessage("buttonSaveProgressTooltip") + (progress * 5) + "%", path, [128, 128, 128, 255]));
 	}
 
-	async function onTabActivated(tab, reset) {
+	async function onTabActivated(tab) {
 		const autoSave = await singlefile.ui.autosave.isEnabled(tab.id);
-		if (reset) {
-			const tabsData = await singlefile.storage.getTemporary();
-			if (tabsData[tab.id]) {
-				tabsData[tab.id].button = null;
-			}
-		}
-		const properties = await getCurrentProperties(tab.id, { autoSave });
+		const properties = getCurrentProperties(tab.id, { autoSave });
 		await refresh(tab.id, properties, true);
-		if (singlefile.core.isAllowedURL(tab.url) && browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
+		if (browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
 			if (singlefile.core.isAllowedURL(tab.url)) {
 				try {
 					await browser.browserAction.enable(tab.id);
@@ -163,68 +161,59 @@ singlefile.ui.button = (() => {
 		}
 	}
 
-	async function getCurrentProperties(tabId, options) {
+	function getCurrentProperties(tabId, options) {
 		if (options.autoSave) {
-			return getProperties(tabId, options);
+			return getProperties(options);
 		} else {
-			const tabsData = await singlefile.storage.getTemporary();
+			const tabsData = singlefile.storage.getTemporary();
 			const tabData = tabsData[tabId] && tabsData[tabId].button;
 			if (tabData) {
-				return getProperties(tabId, options, tabData.setBadgeText, tabData.setBadgeBackgroundColor, tabData.setTitle, tabData.setIcon);
+				return tabData;
 			} else {
-				return getProperties(tabId, options);
+				return getProperties(options);
 			}
 		}
 	}
 
-	function getProperties(tabId, options, text, color, title = DEFAULT_TITLE, path = DEFAULT_ICON_PATH, progress = -1, barProgress = -1, autoColor = [208, 208, 208, 255]) {
+	function getProperties(options, text, color, title = DEFAULT_TITLE, path = DEFAULT_ICON_PATH, autoColor = [208, 208, 208, 255]) {
 		return {
-			text: options.autoSave ? browser.i18n.getMessage("buttonAutoSaveActiveBadge") : (text || ""),
-			color: options.autoSave ? autoColor : color || DEFAULT_COLOR,
-			title: options.autoSave ? browser.i18n.getMessage("buttonAutoSaveActiveTooltip") : title,
-			path: options.autoSave ? DEFAULT_ICON_PATH : path,
-			progress: options.autoSave ? - 1 : progress,
-			barProgress: options.autoSave ? - 1 : barProgress
+			setBadgeText: { text: options.autoSave ? browser.i18n.getMessage("buttonAutoSaveActiveBadge") : (text || "") },
+			setBadgeBackgroundColor: { color: options.autoSave ? autoColor : color || DEFAULT_COLOR },
+			setTitle: { title: options.autoSave ? browser.i18n.getMessage("buttonAutoSaveActiveTooltip") : title },
+			setIcon: { path: options.autoSave ? DEFAULT_ICON_PATH : path }
 		};
 	}
 
-	async function refresh(tabId, tabData, force) {
-		const tabsData = await singlefile.storage.getTemporary();
+	async function refresh(tabId, tabData) {
+		const tabsData = singlefile.storage.getTemporary();
 		if (!tabsData[tabId]) {
 			tabsData[tabId] = {};
 		}
-		if (!tabsData[tabId].pendingRefresh) {
-			tabsData[tabId].pendingRefresh = Promise.resolve();
+		const oldTabData = tabsData[tabId].button || {};
+		tabsData[tabId].button = tabData;
+		if (!tabData.pendingRefresh) {
+			tabData.pendingRefresh = Promise.resolve();
 		}
 		try {
-			tabsData[tabId].pendingRefresh = tabsData[tabId].pendingRefresh.then(() => refreshAsync(tabId, tabsData, tabData, force));
-			await tabsData[tabId].pendingRefresh;
+			await tabData.pendingRefresh;
+			tabData.pendingRefresh = refreshAsync(tabId, tabData, oldTabData);
 		} catch (error) {
 			/* ignored */
 		}
 	}
 
-	async function refreshAsync(tabId, tabsData, tabData, force) {
-		for (const property of BUTTON_PROPERTIES) {
-			await refreshProperty(tabId, tabsData, property.name, property.browserActionMethod, tabData, force);
+	async function refreshAsync(tabId, tabData, oldTabData) {
+		for (const browserActionMethod of Object.keys(tabData)) {
+			if (!oldTabData[browserActionMethod] || JSON.stringify(oldTabData[browserActionMethod]) != JSON.stringify(tabData[browserActionMethod])) {
+				tabData[browserActionMethod].tabId = tabId;
+				await refreshProperty(browserActionMethod, tabData[browserActionMethod]);
+			}
 		}
 	}
 
-	async function refreshProperty(tabId, tabsData, property, browserActionMethod, tabData, force) {
-		const value = tabData[property];
-		const browserActionParameter = { tabId };
+	async function refreshProperty(browserActionMethod, browserActionParameter) {
 		if (browser.browserAction[browserActionMethod]) {
-			browserActionParameter[property] = value;
-			if (!tabsData[tabId]) {
-				tabsData[tabId] = {};
-			}
-			if (!tabsData[tabId].button) {
-				tabsData[tabId].button = {};
-			}
-			if (force || JSON.stringify(tabsData[tabId].button[browserActionMethod]) != JSON.stringify(value)) {
-				tabsData[tabId].button[browserActionMethod] = value;
-				await browser.browserAction[browserActionMethod](browserActionParameter);
-			}
+			await browser.browserAction[browserActionMethod](browserActionParameter);
 		}
 	}
 

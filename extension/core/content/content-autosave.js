@@ -40,6 +40,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 		document.documentElement.appendChild(scriptElement);
 		scriptElement.remove();
 	}
+	browser.runtime.sendMessage({ processReset: true });
 	return {};
 
 	async function autoSavePage() {
