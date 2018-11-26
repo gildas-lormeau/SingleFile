@@ -205,14 +205,14 @@ singlefile.ui.button = (() => {
 	async function refreshAsync(tabId, tabData, oldTabData) {
 		for (const browserActionMethod of Object.keys(tabData)) {
 			if (!oldTabData[browserActionMethod] || JSON.stringify(oldTabData[browserActionMethod]) != JSON.stringify(tabData[browserActionMethod])) {
-				tabData[browserActionMethod].tabId = tabId;
-				await refreshProperty(browserActionMethod, tabData[browserActionMethod]);
+				await refreshProperty(tabId, browserActionMethod, tabData[browserActionMethod]);
 			}
 		}
 	}
 
-	async function refreshProperty(browserActionMethod, browserActionParameter) {
+	async function refreshProperty(tabId, browserActionMethod, browserActionParameter) {
 		if (browser.browserAction[browserActionMethod]) {
+			browserActionParameter.tabId = tabId;
 			await browser.browserAction[browserActionMethod](browserActionParameter);
 		}
 	}
