@@ -63,6 +63,7 @@ Please follow these steps if you find an unknown issue:
 - postcss-media-query-parser: https://github.com/dryoma/postcss-media-query-parser
 - UglifyCSS: https://github.com/fmarcia/UglifyCSS
 - parse-srcset: https://github.com/albell/parse-srcset
+- parse-css-font: https://github.com/jedmao/parse-css-font
 
 ## License
 SingleFile is licensed under AGPL and GPL. Code derived from third-party projects is licensed under MIT. Please contact me at gildas.lormeau &lt;at&gt; gmail.com if you are interested in licensing the SingleFile code for a commercial service or product.
