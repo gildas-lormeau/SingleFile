@@ -142,15 +142,15 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	function getTarget(event) {
 		let newTarget, target = event.target, boundingRect = target.getBoundingClientRect();
-		newTarget = determineTargetElementFloor(target, event.clientX - boundingRect.left, getMatchedParents(target, "left"));
+		newTarget = determineTargetElement("floor", target, event.clientX - boundingRect.left, getMatchedParents(target, "left"));
 		if (newTarget == target) {
-			newTarget = determineTargetElementCeil(target, boundingRect.left + boundingRect.width - event.clientX, getMatchedParents(target, "right"));
+			newTarget = determineTargetElement("ceil", target, boundingRect.left + boundingRect.width - event.clientX, getMatchedParents(target, "right"));
 		}
 		if (newTarget == target) {
-			newTarget = determineTargetElementFloor(target, event.clientY - boundingRect.top, getMatchedParents(target, "top"));
+			newTarget = determineTargetElement("floor", target, event.clientY - boundingRect.top, getMatchedParents(target, "top"));
 		}
 		if (newTarget == target) {
-			newTarget = determineTargetElementCeil(target, boundingRect.top + boundingRect.height - event.clientY, getMatchedParents(target, "bottom"));
+			newTarget = determineTargetElement("ceil", target, boundingRect.top + boundingRect.height - event.clientY, getMatchedParents(target, "bottom"));
 		}
 		target = newTarget;
 		while (target && target.clientWidth <= SELECT_PX_THRESHOLD && target.clientHeight <= SELECT_PX_THRESHOLD) {
@@ -335,16 +335,9 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		return parents;
 	}
 
-	function determineTargetElementCeil(target, widthDistance, parents) {
-		if (Math.ceil(widthDistance / SELECT_PX_THRESHOLD) <= parents.length) {
-			target = parents[parents.length - Math.ceil(widthDistance / SELECT_PX_THRESHOLD) - 1];
-		}
-		return target;
-	}
-
-	function determineTargetElementFloor(target, widthDistance, parents) {
-		if (Math.floor(widthDistance / SELECT_PX_THRESHOLD) <= parents.length) {
-			target = parents[parents.length - Math.floor(widthDistance / SELECT_PX_THRESHOLD) - 1];
+	function determineTargetElement(roundingMethod, target, widthDistance, parents) {
+		if (Math[roundingMethod](widthDistance / SELECT_PX_THRESHOLD) <= parents.length) {
+			target = parents[parents.length - Math[roundingMethod](widthDistance / SELECT_PX_THRESHOLD) - 1];
 		}
 		return target;
 	}
