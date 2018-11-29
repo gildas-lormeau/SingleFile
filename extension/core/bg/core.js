@@ -29,15 +29,7 @@ singlefile.core = (() => {
 	async function saveTab(tab, processOptions) {
 		const options = await singlefile.config.get();
 		Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
-		return new Promise(async (resolve, reject) => {
-			const processPromise = singlefile.scriptLoader.executeScripts(tab, options);
-			try {
-				await processPromise;
-			} catch (error) {
-				reject(error);
-			}
-			resolve();
-		});
+		return singlefile.scriptLoader.executeScripts(tab, options);
 	}
 
 	async function autoSaveTab(tab) {
