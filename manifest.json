@@ -16,8 +16,8 @@
 			],
 			"run_at": "document_start",
 			"js": [
+				"lib/hooks/hooks-frame.js",
 				"lib/browser-polyfill/custom-browser-polyfill.js",
-				"lib/hooks/hooks.js",
 				"extension/index.js",
 				"lib/single-file/util/doc-helper.js",
 				"lib/single-file/util/timeout.js",
@@ -43,6 +43,7 @@
 			],
 			"run_at": "document_start",
 			"js": [
+				"lib/hooks/hooks.js",
 				"extension/core/content/content-bootstrap.js"
 			]
 		}

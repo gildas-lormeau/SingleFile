@@ -23,6 +23,7 @@
 singlefile.scriptLoader = (() => {
 
 	const contentScriptFiles = [
+		"/lib/hooks/hooks.js",
 		"/lib/browser-polyfill/custom-browser-polyfill.js",
 		"/lib/single-file/vendor/css-tree.js",
 		"/lib/single-file/vendor/html-srcset-parser.js",
@@ -38,8 +39,8 @@ singlefile.scriptLoader = (() => {
 	];
 
 	const frameScriptFiles = [
+		"/lib/hooks/hooks-frame.js",
 		"/lib/browser-polyfill/custom-browser-polyfill.js",
-		"/lib/hooks/hooks.js",
 		"/extension/index.js",
 		"/lib/single-file/util/doc-helper.js",
 		"/lib/single-file/util/timeout.js",
