@@ -18,9 +18,11 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, document, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, setTimeout */
+/* global SingleFileBrowser, browser, document, prompt, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, setTimeout, getSelection, Node */
 
 this.singlefile.ui = this.singlefile.ui || (() => {
+
+	const SingleFile = SingleFileBrowser.getClass();
 
 	const MASK_TAGNAME = "singlefile-mask";
 	const PROGRESS_BAR_TAGNAME = "singlefile-progress-bar";
@@ -39,7 +41,11 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	Array.from(getComputedStyle(document.body)).forEach(property => allProperties.add(property));
 
 	return {
-		getSelectedArea,
+		markSelection,
+		unmarkSelection,
+		prompt(message, defaultValue) {
+			return prompt(message, defaultValue);
+		},
 		onStartPage() {
 			let maskElement = document.querySelector(MASK_TAGNAME);
 			if (!maskElement) {
@@ -95,6 +101,53 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		onStartStageTask() { },
 		onEndStageTask() { }
 	};
+
+	async function markSelection() {
+		let selectionFound = markSelectedContent();
+		if (selectionFound) {
+			return selectionFound;
+		} else {
+			const selectedArea = await getSelectedArea();
+			if (selectedArea) {
+				markSelectedArea(selectedArea);
+				selectionFound = true;
+			}
+			return selectionFound;
+		}
+	}
+
+	function markSelectedContent() {
+		const selection = getSelection();
+		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
+		let selectionFound = false;
+		if (range && range.commonAncestorContainer) {
+			const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
+			const ancestorElement = range.commonAncestorContainer != Node.ELEMENT_NODE ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
+			while (treeWalker.nextNode() && treeWalker.currentNode != range.endContainer) {
+				if (treeWalker.currentNode == range.startContainer) {
+					selectionFound = true;
+				}
+				if (selectionFound) {
+					const element = treeWalker.currentNode.nodeType == Node.ELEMENT_NODE ? treeWalker.currentNode : treeWalker.currentNode.parentElement;
+					element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+				}
+			}
+			if (selectionFound) {
+				ancestorElement.setAttribute(SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
+			}
+		}
+		return selectionFound;
+	}
+
+	function markSelectedArea(selectedAreaElement) {
+		selectedAreaElement.setAttribute(SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
+		selectedAreaElement.querySelectorAll("*").forEach(element => element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, ""));
+	}
+
+	function unmarkSelection() {
+		document.querySelectorAll("[" + SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME));
+		document.querySelectorAll("[" + SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME));
+	}
 
 	function getSelectedArea() {
 		return new Promise(resolve => {
