@@ -110,15 +110,17 @@ this.singlefile.top = this.singlefile.top || (() => {
 				} else if (event.type == event.PAGE_LOADED) {
 					singlefile.ui.onLoadPage();
 				} else if (event.type == event.STAGE_STARTED) {
-					singlefile.ui.onStartStage(event.detail.step);
+					if (event.detail.step < 3) {
+						singlefile.ui.onStartStage(event.detail.step);
+					}
 				} else if (event.type == event.STAGE_ENDED) {
-					singlefile.ui.onEndStage(event.detail.step);
+					if (event.detail.step < 3) {
+						singlefile.ui.onEndStage(event.detail.step);
+					}
 				} else if (event.type == event.STAGE_TASK_STARTED) {
 					singlefile.ui.onStartStageTask(event.detail.step, event.detail.task);
 				} else if (event.type == event.STAGE_TASK_ENDED) {
-					if (event.detail.step < 3) {
-						singlefile.ui.onEndStageTask(event.detail.step, event.detail.task);
-					}
+					singlefile.ui.onEndStageTask(event.detail.step, event.detail.task);
 				}
 			}
 		};
