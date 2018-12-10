@@ -17,7 +17,7 @@
 			"run_at": "document_start",
 			"js": [
 				"lib/hooks/hooks-frame.js",
-				"lib/browser-polyfill/custom-browser-polyfill.js",
+				"lib/browser-polyfill/chrome-browser-polyfill.js",
 				"extension/index.js",
 				"lib/single-file/util/doc-helper.js",
 				"lib/single-file/util/timeout.js",
@@ -50,7 +50,7 @@
 	],
 	"background": {
 		"scripts": [
-			"lib/browser-polyfill/custom-browser-polyfill.js",
+			"lib/browser-polyfill/chrome-browser-polyfill.js",
 			"lib/fetch/bg/fetch.js",
 			"lib/fetch/content/fetch.js",
 			"extension/index.js",
