@@ -20,7 +20,7 @@
 
 /* global browser, singlefile */
 
-singlefile.scriptLoader = (() => {
+singlefile.runner = (() => {
 
 	const contentScriptFiles = [
 		"/lib/hooks/hooks.js",
@@ -76,9 +76,9 @@ singlefile.scriptLoader = (() => {
 		]
 	};
 
-	return { executeScripts };
+	return { saveTab };
 
-	async function executeScripts(tab, options) {
+	async function saveTab(tab, options) {
 		if (!options.removeFrames) {
 			await executeContentScripts(tab.id, frameScriptFiles, true, "document_start");
 		}

@@ -56,7 +56,7 @@
 			"extension/index.js",
 			"extension/core/bg/tabs-data.js",
 			"extension/core/bg/download.js",
-			"extension/core/bg/script-loader.js",
+			"extension/core/bg/runner.js",
 			"extension/core/bg/processor.js",
 			"extension/core/bg/autosave.js",
 			"extension/core/bg/config.js",
