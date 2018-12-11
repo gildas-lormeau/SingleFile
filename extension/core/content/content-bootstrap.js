@@ -60,7 +60,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 					framesData = await frameTree.getAsync(options);
 				}
 				browser.runtime.sendMessage({
-					saveContent: true,
+					autoSaveContent: true,
 					content: docHelper.serialize(document, false),
 					canvasData: docData.canvasData,
 					fontsData: docData.fontsData,
@@ -99,7 +99,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 			const docData = docHelper.preProcessDoc(document, window, options);
 			const framesData = (typeof frameTree != "undefined") && !options.removeFrames && frameTree.getSync(options);
 			browser.runtime.sendMessage({
-				saveContent: true,
+				autoSaveContent: true,
 				content: docHelper.serialize(document),
 				canvasData: docData.canvasData,
 				fontsData: docData.fontsData,

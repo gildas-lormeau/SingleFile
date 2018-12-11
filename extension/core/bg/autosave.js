@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, singlefile */
+/* global browser, singlefile, SingleFileBrowser, URL, Blob */
 
 singlefile.autosave = (() => {
 
@@ -33,6 +33,9 @@ singlefile.autosave = (() => {
 	browser.runtime.onMessage.addListener((message, sender) => {
 		if (message.isAutoSaveEnabled) {
 			return isAutoSaveEnabled(sender.tab.id);
+		}
+		if (message.autoSaveContent) {
+			saveContent(message, sender.tab.id, sender.tab.incognito);
 		}
 	});
 
@@ -58,6 +61,46 @@ singlefile.autosave = (() => {
 		enabled,
 		refresh
 	};
+
+	async function saveContent(message, tabId, incognito) {
+		const options = await singlefile.config.getDefaultConfig();
+		options.content = message.content;
+		options.url = message.url;
+		options.framesData = message.framesData;
+		options.canvasData = message.canvasData;
+		options.fontsData = message.fontsData;
+		options.stylesheetContents = message.stylesheetContents;
+		options.imageData = message.imageData;
+		options.postersData = message.postersData;
+		options.usedFonts = message.usedFonts;
+		options.shadowRootContents = message.shadowRootContents;
+		options.insertSingleFileComment = true;
+		options.insertFaviconLink = true;
+		options.backgroundTab = true;
+		options.autoSave = true;
+		options.incognito = incognito;
+		options.tabId = tabId;
+		options.sessionId = 0;
+		let index = 0, maxIndex = 0;
+		options.onprogress = async event => {
+			if (event.type == event.RESOURCES_INITIALIZED) {
+				maxIndex = event.detail.max;
+				singlefile.ui.onProgress(tabId, index, maxIndex, { autoSave: true });
+			}
+			if (event.type == event.RESOURCE_LOADED) {
+				index++;
+				singlefile.ui.onProgress(tabId, index, maxIndex, { autoSave: true });
+			} else if (event.type == event.PAGE_ENDED) {
+				singlefile.ui.onEnd(tabId, { autoSave: true });
+			}
+		};
+		const processor = new (SingleFileBrowser.getClass())(options);
+		await processor.initialize();
+		await processor.run();
+		const page = await processor.getPageData();
+		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
+		return singlefile.download.downloadPage(page, options);
+	}
 
 	async function enableActiveTab(enabled) {
 		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
