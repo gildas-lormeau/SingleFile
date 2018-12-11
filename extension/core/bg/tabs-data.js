@@ -20,13 +20,13 @@
 
 /* global browser, singlefile */
 
-singlefile.storage = (() => {
+singlefile.tabsData = (() => {
 
 	let persistentData, temporaryData;
 	browser.tabs.onRemoved.addListener(async tabId => {
-		const tabsData = await singlefile.storage.get();
+		const tabsData = await getPersistent();
 		delete tabsData[tabId];
-		await singlefile.storage.set(tabsData);
+		await setPersistent(tabsData);
 	});
 	getPersistent().then(tabsData => persistentData = tabsData);
 	return {

@@ -28,12 +28,12 @@ singlefile.ui.button = (() => {
 	const DEFAULT_COLOR = [2, 147, 20, 255];
 
 	browser.browserAction.onClicked.addListener(async tab => {
-		if (singlefile.core.isAllowedURL(tab.url)) {
+		if (singlefile.ui.isAllowedURL(tab.url)) {
 			const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
 			if (!tabs.length) {
 				singlefile.ui.saveTab(tab);
 			} else {
-				tabs.forEach(tab => (tab.active || tab.highlighted) && singlefile.core.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
+				tabs.forEach(tab => (tab.active || tab.highlighted) && singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
 			}
 		}
 	});
@@ -65,16 +65,6 @@ singlefile.ui.button = (() => {
 			onCancelled(sender.tab.id, request.options);
 		}
 	});
-	if (browser.runtime.onMessageExternal) {
-		browser.runtime.onMessageExternal.addListener(async message => {
-			if (message.method == "enableAutoSave") {
-				setAutoSaveActiveTabEnabled(message.enabled);
-			}
-			if (message.method == "isAutoSaveEnabled") {
-				return isAutoSaveEnabled();
-			}
-		});
-	}
 
 	return {
 		onInitialize,
@@ -83,32 +73,6 @@ singlefile.ui.button = (() => {
 		onError,
 		refresh: (tabId, options) => refresh(tabId, getProperties(options))
 	};
-
-	async function setAutoSaveActiveTabEnabled(enabled) {
-		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
-		const tab = tabs[0];
-		if (tab) {
-			const tabId = tab.id;
-			const tabsData = await singlefile.storage.get();
-			if (!tabsData[tabId]) {
-				tabsData[tabId] = {};
-			}
-			tabsData[tabId].autoSave = enabled;
-			await singlefile.storage.set(tabsData);
-			refresh(tabId, getProperties({ autoSave: enabled }));
-		}
-	}
-
-	async function isAutoSaveEnabled() {
-		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
-		const tab = tabs[0];
-		if (tab && singlefile.core.isAllowedURL(tab.url)) {
-			const tabId = tab.id;
-			const tabsData = await singlefile.storage.get();
-			return tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tabId] && tabsData[tabId].autoSave);
-		}
-		return false;
-	}
 
 	function onReset(tabId) {
 		refresh(tabId, getProperties({}, "", DEFAULT_COLOR, DEFAULT_TITLE));
@@ -141,11 +105,11 @@ singlefile.ui.button = (() => {
 	}
 
 	async function onTabActivated(tab) {
-		const autoSave = await singlefile.ui.autosave.isEnabled(tab.id);
+		const autoSave = await singlefile.autosave.enabled(tab.id);
 		const properties = getCurrentProperties(tab.id, { autoSave });
 		await refresh(tab.id, properties, true);
 		if (browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
-			if (singlefile.core.isAllowedURL(tab.url)) {
+			if (singlefile.ui.isAllowedURL(tab.url)) {
 				try {
 					await browser.browserAction.enable(tab.id);
 				} catch (error) {
@@ -165,7 +129,7 @@ singlefile.ui.button = (() => {
 		if (options.autoSave) {
 			return getProperties(options);
 		} else {
-			const tabsData = singlefile.storage.getTemporary();
+			const tabsData = singlefile.tabsData.getTemporary();
 			const tabData = tabsData[tabId] && tabsData[tabId].button;
 			if (tabData) {
 				return tabData;
@@ -185,7 +149,7 @@ singlefile.ui.button = (() => {
 	}
 
 	async function refresh(tabId, tabData) {
-		const tabsData = singlefile.storage.getTemporary();
+		const tabsData = singlefile.tabsData.getTemporary();
 		if (!tabsData[tabId]) {
 			tabsData[tabId] = {};
 		}

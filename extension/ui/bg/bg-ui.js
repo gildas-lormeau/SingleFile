@@ -38,6 +38,9 @@ singlefile.ui = (() => {
 				console.log(error); // eslint-disable-line no-console
 				singlefile.ui.button.onError(tabId, options);
 			}
+		},
+		isAllowedURL(url) {
+			return singlefile.core.isAllowedURL(url);
 		}
 	};
 

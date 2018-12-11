@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, singlefile, localStorage */
+/* global browser, singlefile */
 
 singlefile.config = (() => {
 
@@ -54,31 +54,34 @@ singlefile.config = (() => {
 		removeAlternativeFonts: true,
 		removeAlternativeMedias: true,
 		removeAlternativeImages: true,
-		groupDuplicateImages: true
+		groupDuplicateImages: true,
+		saveRawPage: false
 	};
 
-	let pendingUpgradePromise;
+	let pendingUpgradePromise = upgrade();
 	browser.runtime.onMessage.addListener(request => {
 		if (request.getConfig) {
 			return getConfig();
 		}
 	});
-	upgrade();
 
 	async function upgrade() {
-		if (localStorage.config) {
-			const config = JSON.parse(localStorage.config);
-			await upgradeConfig(config);
-			delete localStorage.config;
-			pendingUpgradePromise = browser.storage.local.set(config);
+		const config = await browser.storage.local.get();
+		const defaultConfig = config;
+		if (!config.profiles) {
+			delete defaultConfig.tabsData;
+			applyUpgrade(defaultConfig);
+			const config = { profiles: {}, defaultProfile: "default" };
+			config.profiles[config.defaultProfile] = defaultConfig;
+			browser.storage.local.remove(Object.keys(DEFAULT_CONFIG));
+			return browser.storage.local.set(config);
 		} else {
-			const config = await browser.storage.local.get();
-			await upgradeConfig(config);
-			pendingUpgradePromise = browser.storage.local.set(config);
+			Object.keys(config.profiles).forEach(profileName => applyUpgrade(config.profiles[profileName]));
+			return browser.storage.local.set({ profiles: config.profiles });
 		}
 	}
 
-	async function upgradeConfig(config) {
+	function applyUpgrade(config) {
 		if (config.removeScripts === undefined) {
 			config.removeScripts = true;
 		}
@@ -97,7 +100,7 @@ singlefile.config = (() => {
 		}
 		if (config.filenameTemplate === undefined) {
 			if (config.appendSaveDate || config.appendSaveDate === undefined) {
-				config.filenameTemplate = "{page-title} ({date-iso} {time-locale}).html";
+				config.filenameTemplate = DEFAULT_CONFIG.filenameTemplate;
 			} else {
 				config.filenameTemplate = "{page-title}.html";
 			}
@@ -113,7 +116,7 @@ singlefile.config = (() => {
 			config.shadowEnabled = true;
 		}
 		if (config.maxResourceSize === undefined) {
-			config.maxResourceSize = 10;
+			config.maxResourceSize = DEFAULT_CONFIG.maxResourceSize;
 		}
 		if (config.maxResourceSize === 0) {
 			config.maxResourceSize = 1;
@@ -135,7 +138,7 @@ singlefile.config = (() => {
 			config.backgroundSave = true;
 		}
 		if (config.autoSaveDelay === undefined) {
-			config.autoSaveDelay = 1;
+			config.autoSaveDelay = DEFAULT_CONFIG.autoSaveDelay;
 		}
 		if (config.removeAlternativeFonts === undefined) {
 			config.removeAlternativeFonts = true;
@@ -162,38 +165,42 @@ singlefile.config = (() => {
 			config.autoSaveUnload = false;
 		}
 		if (config.maxLazyLoadImagesIdleTime === undefined) {
-			config.maxLazyLoadImagesIdleTime = 1000;
+			config.maxLazyLoadImagesIdleTime = DEFAULT_CONFIG.maxLazyLoadImagesIdleTime;
 		}
 		if (config.confirmFilename === undefined) {
 			config.confirmFilename = false;
 		}
 		if (config.conflictAction === undefined) {
-			config.conflictAction = "uniquify";
+			config.conflictAction = DEFAULT_CONFIG.conflictAction;
 		}
 	}
 
 	async function getConfig() {
 		await pendingUpgradePromise;
-		const config = await browser.storage.local.get();
-		config.tabsData = undefined;
-		return Object.keys(config).length ? config : DEFAULT_CONFIG;
+		return await browser.storage.local.get(["profiles", "defaultProfile"]);
 	}
 
 	return {
-		async set(config) {
+		async set(profiles) {
 			await pendingUpgradePromise;
-			await browser.storage.local.set(config);
+			await browser.storage.local.set({ profiles });
 		},
 		async get() {
 			return getConfig();
 		},
+		async getDefaultConfig() {
+			const config = await getConfig();
+			return config.profiles[config.defaultProfile];
+		},
+		async setDefaultConfig(defaultConfig) {
+			const config = await getConfig();
+			config[config.defaultProfile] = defaultConfig;
+			await this.set(config);
+		},
 		async reset() {
 			await pendingUpgradePromise;
-			const { tabsData } = await browser.storage.local.get();
-			await browser.storage.local.clear();
-			const config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
-			config.tabsData = tabsData;
-			await browser.storage.local.set(config);
+			await browser.storage.local.remove(["profiles", "defaultProfile"]);
+			await browser.storage.local.set({ profiles: { default: DEFAULT_CONFIG }, defaultProfile: "default" });
 		}
 	};
 

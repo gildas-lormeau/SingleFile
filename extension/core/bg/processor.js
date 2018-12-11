@@ -30,7 +30,7 @@ singlefile.processor = (() => {
 	return true;
 
 	async function saveContent(message, tabId, incognito) {
-		const options = await singlefile.config.get();
+		const options = await singlefile.config.getDefaultConfig();
 		options.content = message.content;
 		options.url = message.url;
 		options.framesData = message.framesData;

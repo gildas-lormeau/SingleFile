@@ -38,29 +38,29 @@ singlefile.ui.menu = (() => {
 	initialize();
 	browser.tabs.onActivated.addListener(async activeInfo => {
 		const tab = await browser.tabs.get(activeInfo.tabId);
-		await refreshState(tab);
+		await refreshTab(tab);
 	});
-	browser.tabs.onCreated.addListener(refreshState);
+	browser.tabs.onCreated.addListener(refreshTab);
 	return {
 		refresh
 	};
 
 	async function refresh() {
-		const config = await singlefile.config.get();
+		const options = await singlefile.config.getDefaultConfig();
 		if (BROWSER_MENUS_API_SUPPORTED) {
 			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio"];
 			const defaultContextsDisabled = ["browser_action"];
 			const defaultContextsEnabled = defaultContextsDisabled.concat(...pageContextsEnabled);
-			const defaultContexts = config.contextMenuEnabled ? defaultContextsEnabled : defaultContextsDisabled;
+			const defaultContexts = options.contextMenuEnabled ? defaultContextsEnabled : defaultContextsDisabled;
 			await browser.menus.removeAll();
-			if (config.contextMenuEnabled) {
+			if (options.contextMenuEnabled) {
 				browser.menus.create({
 					id: MENU_ID_SAVE_PAGE,
 					contexts: pageContextsEnabled,
 					title: browser.i18n.getMessage("menuSavePage")
 				});
 			}
-			if (config.contextMenuEnabled) {
+			if (options.contextMenuEnabled) {
 				browser.menus.create({
 					id: "separator-1",
 					contexts: pageContextsEnabled,
@@ -72,7 +72,7 @@ singlefile.ui.menu = (() => {
 				contexts: defaultContexts,
 				title: browser.i18n.getMessage("menuSaveSelection")
 			});
-			if (config.contextMenuEnabled) {
+			if (options.contextMenuEnabled) {
 				browser.menus.create({
 					id: MENU_ID_SAVE_FRAME,
 					contexts: ["frame"],
@@ -94,7 +94,7 @@ singlefile.ui.menu = (() => {
 				contexts: defaultContexts,
 				title: browser.i18n.getMessage("menuAllTabs")
 			});
-			if (config.contextMenuEnabled) {
+			if (options.contextMenuEnabled) {
 				browser.menus.create({
 					id: "separator-2",
 					contexts: pageContextsEnabled,
@@ -156,57 +156,57 @@ singlefile.ui.menu = (() => {
 				}
 				if (event.menuItemId == MENU_ID_SAVE_SELECTED_TABS) {
 					const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
-					tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
+					tabs.forEach(tab => singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_SAVE_UNPINNED_TABS) {
 					const tabs = await browser.tabs.query({ currentWindow: true, pinned: false });
-					tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
+					tabs.forEach(tab => singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_SAVE_ALL_TABS) {
 					const tabs = await browser.tabs.query({ currentWindow: true });
-					tabs.forEach(tab => singlefile.core.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
+					tabs.forEach(tab => singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
-					const tabsData = await singlefile.storage.get();
+					const tabsData = await singlefile.tabsData.get();
 					if (!tabsData[tab.id]) {
 						tabsData[tab.id] = {};
 					}
 					tabsData[tab.id].autoSave = event.checked;
-					await singlefile.storage.set(tabsData);
+					await singlefile.tabsData.set(tabsData);
 					refreshExternalComponents(tab.id, { autoSave: true });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_DISABLED) {
-					const tabsData = await singlefile.storage.get();
+					const tabsData = await singlefile.tabsData.get();
 					Object.keys(tabsData).forEach(tabId => tabsData[tabId].autoSave = false);
 					tabsData.autoSaveUnpinned = tabsData.autoSaveAll = false;
-					await singlefile.storage.set(tabsData);
+					await singlefile.tabsData.set(tabsData);
 					refreshExternalComponents(tab.id, { autoSave: false });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_ALL) {
-					const tabsData = await singlefile.storage.get();
+					const tabsData = await singlefile.tabsData.get();
 					tabsData.autoSaveAll = event.checked;
-					await singlefile.storage.set(tabsData);
+					await singlefile.tabsData.set(tabsData);
 					refreshExternalComponents(tab.id, { autoSave: true });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_UNPINNED) {
-					const tabsData = await singlefile.storage.get();
+					const tabsData = await singlefile.tabsData.get();
 					tabsData.autoSaveUnpinned = event.checked;
-					await singlefile.storage.set(tabsData);
+					await singlefile.tabsData.set(tabsData);
 					refreshExternalComponents(tab.id, { autoSave: true });
 				}
 			});
 			const tabs = await browser.tabs.query({});
-			tabs.forEach(tab => refreshState(tab));
+			tabs.forEach(tab => refreshTab(tab));
 		}
 	}
 
 	async function refreshExternalComponents(tabId, tabData) {
-		await singlefile.ui.autosave.refresh();
+		await singlefile.autosave.refresh();
 		singlefile.ui.button.refresh(tabId, tabData);
 	}
 
-	async function refreshState(tab) {
-		const tabsData = await singlefile.storage.get();
+	async function refreshTab(tab) {
+		const tabsData = await singlefile.tabsData.get();
 		if (BROWSER_MENUS_API_SUPPORTED) {
 			try {
 				const disabled = Boolean(!tabsData[tab.id] || !tabsData[tab.id].autoSave);

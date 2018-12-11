@@ -189,49 +189,49 @@
 	refresh();
 
 	async function refresh() {
-		const config = await bgPage.singlefile.config.get();
-		removeHiddenElementsInput.checked = config.removeHiddenElements;
-		removeUnusedStylesInput.checked = config.removeUnusedStyles;
-		removeFramesInput.checked = config.removeFrames;
-		removeImportsInput.checked = config.removeImports;
-		removeScriptsInput.checked = config.removeScripts;
-		saveRawPageInput.checked = config.saveRawPage;
-		compressHTMLInput.checked = config.compressHTML;
-		compressCSSInput.checked = config.compressCSS;
-		lazyLoadImagesInput.checked = config.lazyLoadImages;
-		maxLazyLoadImagesIdleTimeInput.value = config.maxLazyLoadImagesIdleTime;
-		maxLazyLoadImagesIdleTimeInput.disabled = !config.lazyLoadImages;
-		contextMenuEnabledInput.checked = config.contextMenuEnabled;
-		filenameTemplateInput.value = config.filenameTemplate;
-		shadowEnabledInput.checked = config.shadowEnabled;
-		maxResourceSizeEnabledInput.checked = config.maxResourceSizeEnabled;
-		maxResourceSizeInput.value = config.maxResourceSize;
-		maxResourceSizeInput.disabled = !config.maxResourceSizeEnabled;
-		confirmFilenameInput.checked = config.confirmFilename;
-		conflictActionInput.value = config.conflictAction;
-		removeAudioSrcInput.checked = config.removeAudioSrc;
-		removeVideoSrcInput.checked = config.removeVideoSrc;
-		displayInfobarInput.checked = config.displayInfobar;
-		displayStatsInput.checked = config.displayStats;
-		backgroundSaveInput.checked = config.backgroundSave;
-		autoSaveDelayInput.value = config.autoSaveDelay;
-		autoSaveDelayInput.disabled = !config.autoSaveLoadOrUnload && !config.autoSaveLoad;
-		autoSaveLoadInput.checked = !config.autoSaveLoadOrUnload && config.autoSaveLoad;
-		autoSaveLoadOrUnloadInput.checked = config.autoSaveLoadOrUnload;
-		autoSaveUnloadInput.checked = !config.autoSaveLoadOrUnload && config.autoSaveUnload;
-		autoSaveLoadInput.disabled = config.autoSaveLoadOrUnload;
-		autoSaveUnloadInput.disabled = config.autoSaveLoadOrUnload;
-		removeAlternativeFontsInput.checked = config.removeAlternativeFonts;
-		removeAlternativeImagesInput.checked = config.removeAlternativeImages;
-		groupDuplicateImagesInput.checked = config.groupDuplicateImages;
-		removeAlternativeMediasInput.checked = config.removeAlternativeMedias;
-		infobarTemplateInput.value = config.infobarTemplate;
-		confirmInfobarInput.checked = config.confirmInfobar;
+		const options = await bgPage.singlefile.config.getDefaultConfig();
+		removeHiddenElementsInput.checked = options.removeHiddenElements;
+		removeUnusedStylesInput.checked = options.removeUnusedStyles;
+		removeFramesInput.checked = options.removeFrames;
+		removeImportsInput.checked = options.removeImports;
+		removeScriptsInput.checked = options.removeScripts;
+		saveRawPageInput.checked = options.saveRawPage;
+		compressHTMLInput.checked = options.compressHTML;
+		compressCSSInput.checked = options.compressCSS;
+		lazyLoadImagesInput.checked = options.lazyLoadImages;
+		maxLazyLoadImagesIdleTimeInput.value = options.maxLazyLoadImagesIdleTime;
+		maxLazyLoadImagesIdleTimeInput.disabled = !options.lazyLoadImages;
+		contextMenuEnabledInput.checked = options.contextMenuEnabled;
+		filenameTemplateInput.value = options.filenameTemplate;
+		shadowEnabledInput.checked = options.shadowEnabled;
+		maxResourceSizeEnabledInput.checked = options.maxResourceSizeEnabled;
+		maxResourceSizeInput.value = options.maxResourceSize;
+		maxResourceSizeInput.disabled = !options.maxResourceSizeEnabled;
+		confirmFilenameInput.checked = options.confirmFilename;
+		conflictActionInput.value = options.conflictAction;
+		removeAudioSrcInput.checked = options.removeAudioSrc;
+		removeVideoSrcInput.checked = options.removeVideoSrc;
+		displayInfobarInput.checked = options.displayInfobar;
+		displayStatsInput.checked = options.displayStats;
+		backgroundSaveInput.checked = options.backgroundSave;
+		autoSaveDelayInput.value = options.autoSaveDelay;
+		autoSaveDelayInput.disabled = !options.autoSaveLoadOrUnload && !options.autoSaveLoad;
+		autoSaveLoadInput.checked = !options.autoSaveLoadOrUnload && options.autoSaveLoad;
+		autoSaveLoadOrUnloadInput.checked = options.autoSaveLoadOrUnload;
+		autoSaveUnloadInput.checked = !options.autoSaveLoadOrUnload && options.autoSaveUnload;
+		autoSaveLoadInput.disabled = options.autoSaveLoadOrUnload;
+		autoSaveUnloadInput.disabled = options.autoSaveLoadOrUnload;
+		removeAlternativeFontsInput.checked = options.removeAlternativeFonts;
+		removeAlternativeImagesInput.checked = options.removeAlternativeImages;
+		groupDuplicateImagesInput.checked = options.groupDuplicateImages;
+		removeAlternativeMediasInput.checked = options.removeAlternativeMedias;
+		infobarTemplateInput.value = options.infobarTemplate;
+		confirmInfobarInput.checked = options.confirmInfobar;
 	}
 
 	async function update() {
 		await pendingSave;
-		pendingSave = bgPage.singlefile.config.set({
+		pendingSave = bgPage.singlefile.config.setDefaultConfig({
 			removeHiddenElements: removeHiddenElementsInput.checked,
 			removeUnusedStyles: removeUnusedStylesInput.checked,
 			removeFrames: removeFramesInput.checked,

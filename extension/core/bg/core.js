@@ -27,14 +27,16 @@ singlefile.core = (() => {
 	return { saveTab, autoSaveTab, isAllowedURL };
 
 	async function saveTab(tab, processOptions) {
-		const options = await singlefile.config.get();
+		const options = await singlefile.config.getDefaultConfig();
 		Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
 		return singlefile.scriptLoader.executeScripts(tab, options);
 	}
 
 	async function autoSaveTab(tab) {
-		const options = await singlefile.config.get();
-		await browser.tabs.sendMessage(tab.id, { autoSavePage: true, options });
+		let options = await singlefile.config.getDefaultConfig();
+		if (singlefile.autosave.enabled(tab.id)) {
+			await browser.tabs.sendMessage(tab.id, { autoSavePage: true, options });
+		}
 	}
 
 	function isAllowedURL(url) {
