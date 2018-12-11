@@ -71,7 +71,11 @@ singlefile.ui.button = (() => {
 		onProgress,
 		onEnd,
 		onError,
-		refresh: (tabId, options) => refresh(tabId, getProperties(options))
+		refresh: async (tabId, options) => {
+			if (tabId) {
+				await refresh(tabId, getProperties(options));
+			}
+		}
 	};
 
 	function onReset(tabId) {

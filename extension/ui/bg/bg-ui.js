@@ -41,6 +41,15 @@ singlefile.ui = (() => {
 		},
 		isAllowedURL(url) {
 			return singlefile.core.isAllowedURL(url);
+		},
+		refresh(tabId, options) {
+			return Promise.all([singlefile.ui.menu.refresh(), singlefile.ui.button.refresh(tabId, options)]);
+		},
+		onProgress(tabId, index, maxIndex, options) {
+			singlefile.ui.button.onProgress(tabId, index, maxIndex, options);
+		},
+		onEnd(tabId, options) {
+			singlefile.ui.button.onEnd(tabId, options);
 		}
 	};
 

@@ -70,7 +70,7 @@ singlefile.autosave = (() => {
 			}
 			tabsData[tabId].autoSave = enabled;
 			await singlefile.tabsData.set(tabsData);
-			singlefile.ui.button.refresh(tabId, { autoSave: enabled });
+			singlefile.ui.refresh(tabId, { autoSave: enabled });
 		}
 	}
 

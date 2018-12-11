@@ -52,13 +52,13 @@ singlefile.processor = (() => {
 		options.onprogress = async event => {
 			if (event.type == event.RESOURCES_INITIALIZED) {
 				maxIndex = event.detail.max;
-				singlefile.ui.button.onProgress(tabId, index, maxIndex, { autoSave: true });
+				singlefile.ui.onProgress(tabId, index, maxIndex, { autoSave: true });
 			}
 			if (event.type == event.RESOURCE_LOADED) {
 				index++;
-				singlefile.ui.button.onProgress(tabId, index, maxIndex, { autoSave: true });
+				singlefile.ui.onProgress(tabId, index, maxIndex, { autoSave: true });
 			} else if (event.type == event.PAGE_ENDED) {
-				singlefile.ui.button.onEnd(tabId, { autoSave: true });
+				singlefile.ui.onEnd(tabId, { autoSave: true });
 			}
 		};
 		const processor = new (SingleFileBrowser.getClass())(options);
