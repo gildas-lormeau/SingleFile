@@ -26,10 +26,10 @@ singlefile.core = (() => {
 
 	return { saveTab, autoSaveTab, isAllowedURL };
 
-	async function saveTab(tab, processOptions) {
-		const options = await singlefile.config.getDefaultConfig();
-		Object.keys(processOptions).forEach(key => options[key] = processOptions[key]);
-		return singlefile.runner.saveTab(tab, options);
+	async function saveTab(tab, options) {
+		const config = await singlefile.config.getDefaultConfig();
+		Object.keys(options).forEach(key => config[key] = options[key]);
+		return singlefile.runner.saveTab(tab, config);
 	}
 
 	async function autoSaveTab(tab) {
