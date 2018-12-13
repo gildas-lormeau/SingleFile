@@ -181,8 +181,9 @@ singlefile.ui.button = (() => {
 
 	async function refreshProperty(tabId, browserActionMethod, browserActionParameter) {
 		if (browser.browserAction[browserActionMethod]) {
-			browserActionParameter.tabId = tabId;
-			await browser.browserAction[browserActionMethod](browserActionParameter);
+			const parameter = JSON.parse(JSON.stringify(browserActionParameter));
+			parameter.tabId = tabId;
+			await browser.browserAction[browserActionMethod](parameter);
 		}
 	}
 
