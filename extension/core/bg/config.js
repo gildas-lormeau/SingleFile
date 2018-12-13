@@ -22,7 +22,7 @@
 
 singlefile.config = (() => {
 
-	const DEFAULT_PROFILE_NAME = "Default settings";
+	const DEFAULT_PROFILE_NAME = browser.i18n.getMessage("profileDefaultSettingsLabel");
 
 	const DEFAULT_CONFIG = {
 		removeHiddenElements: true,
