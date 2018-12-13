@@ -268,7 +268,7 @@
         "description": "Options button: 'Reset'"
     },
     "optionsResetTooltip": {
-        "message": "Remet toutes les options à leur valeur par défaut",
+        "message": "Remettre toutes les options à leur valeur par défaut",
         "description": "Options 'Reset' button tooltip"
     },
     "optionsResetConfirm": {
