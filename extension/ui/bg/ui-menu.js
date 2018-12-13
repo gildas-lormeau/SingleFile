@@ -110,15 +110,25 @@ singlefile.ui.menu = (() => {
 					title: browser.i18n.getMessage("menuSelectProfile"),
 					contexts: defaultContexts,
 				});
+				browser.menus.create({
+					id: MENU_ID_SELECT_PROFILE_PREFIX + "default",
+					type: "radio",
+					contexts: defaultContexts,
+					title: browser.i18n.getMessage("profileDefaultSettingsLabel"),
+					checked: tabsData.profileName == singlefile.config.DEFAULT_PROFILE_NAME,
+					parentId: MENU_ID_SELECT_PROFILE
+				});
 				Object.keys(config.profiles).forEach((profileName, profileIndex) => {
-					browser.menus.create({
-						id: MENU_ID_SELECT_PROFILE_PREFIX + profileIndex,
-						type: "radio",
-						contexts: defaultContexts,
-						title: profileName == singlefile.config.DEFAULT_PROFILE_NAME ? browser.i18n.getMessage("profileDefaultSettingsLabel") : profileName,
-						checked: tabsData.profileName ? tabsData.profileName == profileName : profileName == singlefile.config.DEFAULT_PROFILE_NAME,
-						parentId: MENU_ID_SELECT_PROFILE
-					});
+					if (profileName != singlefile.config.DEFAULT_PROFILE_NAME) {
+						browser.menus.create({
+							id: MENU_ID_SELECT_PROFILE_PREFIX + profileIndex,
+							type: "radio",
+							contexts: defaultContexts,
+							title: profileName,
+							checked: tabsData.profileName == profileName,
+							parentId: MENU_ID_SELECT_PROFILE
+						});
+					}
 				});
 			}
 			browser.menus.create({
@@ -216,9 +226,15 @@ singlefile.ui.menu = (() => {
 				}
 				if (event.menuItemId.startsWith(MENU_ID_SELECT_PROFILE_PREFIX)) {
 					const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get()]);
-					const profileIndex = Number(event.menuItemId.split(MENU_ID_SELECT_PROFILE_PREFIX)[1]);
-					tabsData.profileName = Object.keys(config.profiles)[profileIndex];
+					const profileId = event.menuItemId.split(MENU_ID_SELECT_PROFILE_PREFIX)[1];
+					if (profileId == "default") {
+						tabsData.profileName = singlefile.core.DEFAULT_PROFILE_NAME;
+					} else {
+						const profileIndex = Number(profileId);
+						tabsData.profileName = Object.keys(config.profiles)[profileIndex];
+					}
 					await singlefile.tabsData.set(tabsData);
+					refresh();
 					refreshExternalComponents(tab.id, { autoSave: tabsData.autoSaveAll || tabsData.autoSaveUnpinned || (tabsData[tab.id] && tabsData[tab.id].autoSave) });
 				}
 			});

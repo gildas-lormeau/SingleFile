@@ -243,11 +243,16 @@
 		profileNamesInput.childNodes.forEach(node => node.remove());
 		const profileNames = Object.keys(options.profiles);
 		profileNamesInput.options.length = 0;
+		const optionElement = document.createElement("option");
+		optionElement.value = singlefile.config.DEFAULT_PROFILE_NAME;
+		optionElement.textContent = browser.i18n.getMessage("profileDefaultSettingsLabel");
+		profileNamesInput.appendChild(optionElement);
 		profileNames.forEach(profileName => {
-			const optionElement = document.createElement("option");
-			optionElement.value = profileName;
-			optionElement.textContent = profileName == singlefile.config.DEFAULT_PROFILE_NAME ? browser.i18n.getMessage("profileDefaultSettingsLabel") : profileName;
-			profileNamesInput.appendChild(optionElement);
+			if (profileName != singlefile.config.DEFAULT_PROFILE_NAME) {
+				const optionElement = document.createElement("option");
+				optionElement.value = optionElement.textContent = profileName;
+				profileNamesInput.appendChild(optionElement);
+			}
 		});
 		profileNamesInput.value = selectedProfileName;
 		renameProfileButton.disabled = deleteProfileButton.disabled = profileNamesInput.value == singlefile.config.DEFAULT_PROFILE_NAME;
