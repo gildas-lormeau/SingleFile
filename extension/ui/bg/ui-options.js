@@ -148,7 +148,7 @@
 	resetButton.addEventListener("click", async () => {
 		if (confirm(browser.i18n.getMessage("optionsResetConfirm"))) {
 			await singlefile.config.reset();
-			await Promise.all([refresh(), singlefile.ui.menu.refresh()]);
+			await Promise.all([refresh(singlefile.config.DEFAULT_PROFILE_NAME), singlefile.ui.menu.refresh()]);
 			await update();
 		}
 	}, false);
