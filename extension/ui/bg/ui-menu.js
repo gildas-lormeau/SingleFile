@@ -115,7 +115,7 @@ singlefile.ui.menu = (() => {
 						id: MENU_ID_SELECT_PROFILE_PREFIX + profileIndex,
 						type: "radio",
 						contexts: defaultContexts,
-						title: profileName,
+						title: profileName == singlefile.config.DEFAULT_PROFILE_NAME ? browser.i18n.getMessage("profileDefaultSettingsLabel") : profileName,
 						checked: tabsData.profileName ? tabsData.profileName == profileName : profileName == singlefile.config.DEFAULT_PROFILE_NAME,
 						parentId: MENU_ID_SELECT_PROFILE
 					});

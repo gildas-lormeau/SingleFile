@@ -245,7 +245,8 @@
 		profileNamesInput.options.length = 0;
 		profileNames.forEach(profileName => {
 			const optionElement = document.createElement("option");
-			optionElement.value = optionElement.textContent = profileName;
+			optionElement.value = profileName;
+			optionElement.textContent = profileName == singlefile.config.DEFAULT_PROFILE_NAME ? browser.i18n.getMessage("profileDefaultSettingsLabel") : profileName;
 			profileNamesInput.appendChild(optionElement);
 		});
 		profileNamesInput.value = selectedProfileName;
