@@ -104,7 +104,7 @@ singlefile.ui.menu = (() => {
 					type: "separator"
 				});
 			}
-			if (config.profiles.length > 1) {
+			if (Object.keys(config.profiles).length > 1) {
 				browser.menus.create({
 					id: MENU_ID_SELECT_PROFILE,
 					title: browser.i18n.getMessage("menuSelectProfile"),
