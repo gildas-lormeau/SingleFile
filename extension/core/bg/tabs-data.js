@@ -63,7 +63,7 @@ singlefile.tabsData = (() => {
 		if (persistentData) {
 			const tabs = await browser.tabs.query({});
 			Object.keys(persistentData).filter(key => {
-				if (key != "autoSaveAll" && key != "autoSaveUnpinned") {
+				if (key != "autoSaveAll" && key != "autoSaveUnpinned" && key != "profileName") {
 					return !tabs.find(tab => tab.id == key);
 				}
 			}).forEach(tabId => delete persistentData[tabId]);
