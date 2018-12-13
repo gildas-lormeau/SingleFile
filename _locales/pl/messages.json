@@ -292,7 +292,7 @@
         "description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
     },
     "profileDefaultSettingsLabel": {
-        "message": "Default settings",
+        "message": "Ustawienia domyślne",
         "description": "Label 'Default settings' of the default settings in the options page"
     },
     "profileAddButtonTooltip": {
