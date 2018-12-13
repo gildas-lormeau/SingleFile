@@ -55,6 +55,8 @@ h3 {
 .profiles {
     float: right;
     margin-right: 12px;
+    position: relative;
+    top: -3px;
 }
 
 .profiles button {
@@ -68,6 +70,10 @@ h3 {
 .profiles select {
     height: 22px;
     vertical-align: top;
+}
+
+.profiles select {
+    max-width: 180px;
 }
 
 .profiles button:disabled {
