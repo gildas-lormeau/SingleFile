@@ -8,7 +8,7 @@
         "description": "メニュー項目: 'SingleFile でページを保存'"
     },
     "menuSelectProfile": {
-        "message": "Select profile",
+        "message": "プロファイルを選択",
         "description": "Menu entry: 'Select profile'"
     },
     "menuSaveSelection": {
@@ -272,7 +272,7 @@
         "description": "オプション 'リセット'ボタンのツールチップ"
     },
     "optionsResetConfirm": {
-        "message": "Confirm the reset of all options",
+        "message": "すべてのオプションのリセットを確認する",
         "description": "Popup text 'Confirm the reset of all options' in the options page"
     },
     "logPanelDeferredImages": {
@@ -292,31 +292,31 @@
         "description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
     },
     "profileDefaultSettingsLabel": {
-        "message": "Default settings",
+        "message": "デフォルトの設定",
         "description": "Label 'Default settings' of the default settings in the options page"
     },
     "profileAddButtonTooltip": {
-        "message": "Add a new profile",
+        "message": "新しいプロファイルを追加します",
         "description": "Tooltip 'Add a new profile' in the options page"
     },
     "profileRenameButtonTooltip": {
-        "message": "Rename the profile",
+        "message": "プロファイルの名前を変更する",
         "description": "Tooltip 'Rename the profile' in the options page"
     },
     "profileDeleteButtonTooltip": {
-        "message": "Delete the profile",
+        "message": "プロファイルを削除する",
         "description": "Tooltip 'Delete the profile' in the options page"
     },
     "profileAddPrompt": {
-        "message": "Enter a name for this new profile",
+        "message": "この新しいプロファイルの名前を入力します。",
         "description": "Popup text 'Enter a name for this new profile' in the options page"
     },
     "profileDeleteConfirm": {
-        "message": "Confirm deletion of the selected profile",
+        "message": "選択したプロファイルの削除を確認する",
         "description": "Popup text 'Confirm deletion of the selected profile' in the options page"
     },
     "profileRenamePrompt": {
-        "message": "Enter a new name for the selected profile",
+        "message": "選択したプロファイルの新しい名前を入力します。",
         "description": "Popup text 'Enter a new name for the selected profile' in the options page"
     }
 }
