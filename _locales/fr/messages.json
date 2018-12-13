@@ -7,6 +7,10 @@
         "message": "Sauver la page avec SingleFile",
         "description": "Menu entry: 'Save page with SingleFile'"
     },
+    "menuSelectProfile": {
+        "message": "Sélectionner le profil",
+        "description": "Menu entry: 'Select profile'"
+    },
     "menuSaveSelection": {
         "message": "Sauver la sélection",
         "description": "Menu entry: 'Save selection'"
@@ -267,6 +271,10 @@
         "message": "Remet toutes les options à leur valeur par défaut",
         "description": "Options 'Reset' button tooltip"
     },
+    "optionsResetConfirm": {
+        "message": "Confirmez la remise à zéro de toutes les options",
+        "description": "Popup text 'Confirm the reset of all options' in the options page"
+    },
     "logPanelDeferredImages": {
         "message": "Images différées",
         "description": "Label 'Deferred images' in the log panel"
@@ -282,5 +290,29 @@
     "logPanelWidth": {
         "message": "130",
         "description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+    },
+    "profileAddButtonTooltip": {
+        "message": "Ajouter un nouveau profil",
+        "description": "Tooltip 'Add a new profile' in the options page"
+    },
+    "profileRenameButtonTooltip": {
+        "message": "Renommer le profil",
+        "description": "Tooltip 'Rename the profile' in the options page"
+    },
+    "profileDeleteButtonTooltip": {
+        "message": "Supprimer le profil",
+        "description": "Tooltip 'Delete the profile' in the options page"
+    },
+    "profileAddPrompt": {
+        "message": "Saisissez un nom pour ce nouveau profil",
+        "description": "Popup text 'Enter a name for this new profile' in the options page"
+    },
+    "profileDeleteConfirm": {
+        "message": "Confirmez la suppression du profil selectionné",
+        "description": "Popup text 'Confirm deletion of the selected profile' in the options page"
+    },
+    "profileRenamePrompt": {
+        "message": "Saisissez un nouveau nom pour le profil sélectionné",
+        "description": "Popup text 'Enter a new name for the selected profile' in the options page"
     }
 }

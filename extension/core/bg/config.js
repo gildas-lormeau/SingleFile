@@ -22,6 +22,8 @@
 
 singlefile.config = (() => {
 
+	const DEFAULT_PROFILE_NAME = "Default settings";
+
 	const DEFAULT_CONFIG = {
 		removeHiddenElements: true,
 		removeUnusedStyles: true,
@@ -71,7 +73,7 @@ singlefile.config = (() => {
 		if (!config.profiles) {
 			delete defaultConfig.tabsData;
 			applyUpgrade(defaultConfig);
-			const config = { profiles: {}, defaultProfile: "default" };
+			const config = { profiles: {}, defaultProfile: DEFAULT_PROFILE_NAME };
 			config.profiles[config.defaultProfile] = defaultConfig;
 			browser.storage.local.remove(Object.keys(DEFAULT_CONFIG));
 			return browser.storage.local.set(config);
@@ -181,26 +183,67 @@ singlefile.config = (() => {
 	}
 
 	return {
-		async set(profiles) {
-			await pendingUpgradePromise;
-			await browser.storage.local.set({ profiles });
+		DEFAULT_PROFILE_NAME,
+		async create(profileName) {
+			const config = await getConfig();
+			if (Object.keys(config.profiles).includes(profileName)) {
+				throw new Error("Duplicate profile name");
+			}
+			config.profiles[profileName] = DEFAULT_CONFIG;
+			await browser.storage.local.set({ profiles: config.profiles, defaultProfile: DEFAULT_PROFILE_NAME });
 		},
 		async get() {
 			return getConfig();
 		},
-		async getDefaultConfig() {
+		async update(profileName, data) {
 			const config = await getConfig();
-			return config.profiles[config.defaultProfile];
+			if (!Object.keys(config.profiles).includes(profileName)) {
+				throw new Error("Profile not found");
+			}
+			config.profiles[profileName] = data;
+			await browser.storage.local.set({ profiles: config.profiles });
 		},
-		async setDefaultConfig(defaultConfig) {
-			const config = await getConfig();
-			config[config.defaultProfile] = defaultConfig;
-			await this.set(config);
+		async rename(oldProfileName, profileName) {
+			const [config, tabsData] = await Promise.all([getConfig(), singlefile.tabsData.get()]);
+			if (!Object.keys(config.profiles).includes(oldProfileName)) {
+				throw new Error("Profile not found");
+			}
+			if (Object.keys(config.profiles).includes(profileName)) {
+				throw new Error("Duplicate profile name");
+			}
+			if (oldProfileName == DEFAULT_PROFILE_NAME) {
+				throw new Error("Default settings cannot be renamed");
+			}
+			if (tabsData.profileName == oldProfileName) {
+				tabsData.profileName = profileName;
+				await singlefile.tabsData.set(tabsData);
+			}
+			config.profiles[profileName] = config.profiles[oldProfileName];
+			delete config.profiles[oldProfileName];
+			await browser.storage.local.set({ profiles: config.profiles });
+		},
+		async delete(profileName) {
+			const [config, tabsData] = await Promise.all([getConfig(), singlefile.tabsData.get()]);
+			if (!Object.keys(config.profiles).includes(profileName)) {
+				throw new Error("Profile not found");
+			}
+			if (profileName == DEFAULT_PROFILE_NAME) {
+				throw new Error("Default settings cannot be deleted");
+			}
+			if (tabsData.profileName == profileName) {
+				delete tabsData.profileName;
+				await singlefile.tabsData.set(tabsData);
+			}
+			delete config.profiles[profileName];
+			await browser.storage.local.set({ profiles: config.profiles });
 		},
 		async reset() {
 			await pendingUpgradePromise;
+			const tabsData = await singlefile.tabsData.get();
+			delete tabsData.profileName;
+			await singlefile.tabsData.set(tabsData);
 			await browser.storage.local.remove(["profiles", "defaultProfile"]);
-			await browser.storage.local.set({ profiles: { default: DEFAULT_CONFIG }, defaultProfile: "default" });
+			await browser.storage.local.set({ profiles: { [DEFAULT_PROFILE_NAME]: DEFAULT_CONFIG }, defaultProfile: DEFAULT_PROFILE_NAME });
 		}
 	};
 

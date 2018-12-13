@@ -42,8 +42,8 @@ singlefile.ui = (() => {
 		isAllowedURL(url) {
 			return singlefile.core.isAllowedURL(url);
 		},
-		refresh(tabId, options) {
-			return Promise.all([singlefile.ui.menu.refresh(), singlefile.ui.button.refresh(tabId, options)]);
+		refresh(tabId) {
+			return Promise.all([singlefile.ui.menu.refresh(), singlefile.ui.button.refresh(tabId)]);
 		},
 		onProgress(tabId, index, maxIndex, options) {
 			singlefile.ui.button.onProgress(tabId, index, maxIndex, options);

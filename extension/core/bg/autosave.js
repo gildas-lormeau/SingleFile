@@ -23,7 +23,8 @@
 singlefile.autosave = (() => {
 
 	browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-		const [options, tabsData] = await Promise.all([singlefile.config.getDefaultConfig(), singlefile.tabsData.get()]);
+		const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get()]);
+		const options = config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
 		if ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave))) {
 			if (changeInfo.status == "complete") {
 				singlefile.ui.saveTab(tab, { autoSave: true });
@@ -63,7 +64,8 @@ singlefile.autosave = (() => {
 	};
 
 	async function saveContent(message, tabId, incognito) {
-		const options = await singlefile.config.getDefaultConfig();
+		const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get()]);
+		const options = config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
 		options.content = message.content;
 		options.url = message.url;
 		options.framesData = message.framesData;
@@ -113,12 +115,13 @@ singlefile.autosave = (() => {
 			}
 			tabsData[tabId].autoSave = enabled;
 			await singlefile.tabsData.set(tabsData);
-			singlefile.ui.refresh(tabId, { autoSave: enabled });
+			singlefile.ui.refresh(tabId);
 		}
 	}
 
 	async function isAutoSaveEnabled(tabId) {
-		const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getDefaultConfig(), enabled(tabId)]);
+		const [config, tabsData, autoSaveEnabled] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get(), enabled(tabId)]);
+		const options = config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
 		return { autoSaveEnabled, options };
 	}
 
@@ -131,7 +134,8 @@ singlefile.autosave = (() => {
 		const tabs = await browser.tabs.query({});
 		return Promise.all(tabs.map(async tab => {
 			try {
-				const [autoSaveEnabled, options] = await Promise.all([enabled(tab.id), singlefile.config.getDefaultConfig()]);
+				const [config, tabsData, autoSaveEnabled] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get(), enabled(tab.id)]);
+				const options = config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
 				await browser.tabs.sendMessage(tab.id, { autoSaveUnloadEnabled: true, autoSaveEnabled, options });
 			} catch (error) {
 				/* ignored */

@@ -7,6 +7,10 @@
         "message": "SingleFile でページを保存",
         "description": "メニュー項目: 'SingleFile でページを保存'"
     },
+    "menuSelectProfile": {
+        "message": "Select profile",
+        "description": "Menu entry: 'Select profile'"
+    },
     "menuSaveSelection": {
         "message": "選択を保存",
         "description": "メニュー項目: '選択を保存'"
@@ -267,6 +271,10 @@
         "message": "すべてのオプションを規定値にリセットする",
         "description": "オプション 'リセット'ボタンのツールチップ"
     },
+    "optionsResetConfirm": {
+        "message": "Confirm the reset of all options",
+        "description": "Popup text 'Confirm the reset of all options' in the options page"
+    },
     "logPanelDeferredImages": {
         "message": "遅延画像",
         "description": "Label 'Deferred images' in the log panel"
@@ -282,5 +290,29 @@
     "logPanelWidth": {
         "message": "110",
         "description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+    },
+    "profileAddButtonTooltip": {
+        "message": "Add a new profile",
+        "description": "Tooltip 'Add a new profile' in the options page"
+    },
+    "profileRenameButtonTooltip": {
+        "message": "Rename the profile",
+        "description": "Tooltip 'Rename the profile' in the options page"
+    },
+    "profileDeleteButtonTooltip": {
+        "message": "Delete the profile",
+        "description": "Tooltip 'Delete the profile' in the options page"
+    },
+    "profileAddPrompt": {
+        "message": "Enter a name for this new profile",
+        "description": "Popup text 'Enter a name for this new profile' in the options page"
+    },
+    "profileDeleteConfirm": {
+        "message": "Confirm deletion of the selected profile",
+        "description": "Popup text 'Confirm deletion of the selected profile' in the options page"
+    },
+    "profileRenamePrompt": {
+        "message": "Enter a new name for the selected profile",
+        "description": "Popup text 'Enter a new name for the selected profile' in the options page"
     }
 }

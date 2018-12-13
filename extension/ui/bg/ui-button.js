@@ -71,9 +71,10 @@ singlefile.ui.button = (() => {
 		onProgress,
 		onEnd,
 		onError,
-		refresh: async (tabId, options) => {
+		refresh: async tabId => {
 			if (tabId) {
-				await refresh(tabId, getProperties(options));
+				const tabsData = await singlefile.tabsData.get();
+				await refresh(tabId, getProperties({ autoSave: tabsData.autoSaveAll || tabsData.autoSaveUnpinned || (tabsData[tabId] && tabsData[tabId].autoSave) }));
 			}
 		}
 	};

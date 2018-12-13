@@ -18,11 +18,16 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, document */
+/* global browser, window, document */
 
 (async () => {
 
-	const bgPage = await browser.runtime.getBackgroundPage();
+	const CHROME_BROWSER_NAME = "Chrome";
+
+	const [bgPage, browserInfo] = await Promise.all([browser.runtime.getBackgroundPage(), browser.runtime.getBrowserInfo()]);
+	const singlefile = bgPage.singlefile;
+	const prompt = browserInfo.name == CHROME_BROWSER_NAME ? (message, defaultMessage) => bgPage.prompt(message, defaultMessage) : (message, defaultMessage) => window.prompt(message, defaultMessage);
+	const confirm = browserInfo.name == CHROME_BROWSER_NAME ? message => bgPage.confirm(message) : message => window.confirm(message);
 	const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsLabel");
 	const removeUnusedStylesLabel = document.getElementById("removeUnusedStylesLabel");
 	const removeFramesLabel = document.getElementById("removeFramesLabel");
@@ -68,7 +73,11 @@
 	const infobarTemplateLabel = document.getElementById("infobarTemplateLabel");
 	const miscLabel = document.getElementById("miscLabel");
 	const helpLabel = document.getElementById("helpLabel");
+	const addProfileButton = document.getElementById("addProfileButton");
+	const deleteProfileButton = document.getElementById("deleteProfileButton");
+	const renameProfileButton = document.getElementById("renameProfileButton");
 	const resetButton = document.getElementById("resetButton");
+	const profileNamesInput = document.getElementById("profileNamesInput");
 	const removeHiddenElementsInput = document.getElementById("removeHiddenElementsInput");
 	const removeUnusedStylesInput = document.getElementById("removeUnusedStylesInput");
 	const removeFramesInput = document.getElementById("removeFramesInput");
@@ -103,10 +112,45 @@
 	const confirmInfobarInput = document.getElementById("confirmInfobarInput");
 	const expandAllButton = document.getElementById("expandAllButton");
 	let pendingSave = Promise.resolve();
+	addProfileButton.addEventListener("click", async () => {
+		const profileName = prompt(browser.i18n.getMessage("profileAddPrompt"));
+		if (profileName) {
+			try {
+				await singlefile.config.create(profileName);
+				await await Promise.all([refresh(profileName), singlefile.ui.menu.refresh()]);
+			} catch (error) {
+				// ignored
+			}
+		}
+	}, false);
+	deleteProfileButton.addEventListener("click", async () => {
+		if (confirm(browser.i18n.getMessage("profileDeleteConfirm"))) {
+			try {
+				await singlefile.config.delete(profileNamesInput.value);
+				profileNamesInput.value = null;
+				await Promise.all([refresh(), singlefile.ui.menu.refresh()]);
+			} catch (error) {
+				// ignored
+			}
+		}
+	}, false);
+	renameProfileButton.addEventListener("click", async () => {
+		const profileName = prompt(browser.i18n.getMessage("profileRenamePrompt"), profileNamesInput.value);
+		if (profileName) {
+			try {
+				await singlefile.config.rename(profileNamesInput.value, profileName);
+				await Promise.all([refresh(profileName), singlefile.ui.menu.refresh()]);
+			} catch (error) {
+				// ignored
+			}
+		}
+	}, false);
 	resetButton.addEventListener("click", async () => {
-		await bgPage.singlefile.config.reset();
-		await refresh();
-		await update();
+		if (confirm(browser.i18n.getMessage("optionsResetConfirm"))) {
+			await singlefile.config.reset();
+			await Promise.all([refresh(), singlefile.ui.menu.refresh()]);
+			await update();
+		}
 	}, false);
 	autoSaveUnloadInput.addEventListener("click", async () => {
 		if (!autoSaveLoadInput.checked && !autoSaveUnloadInput.checked) {
@@ -134,10 +178,15 @@
 		}
 		document.querySelectorAll("details").forEach(detailElement => detailElement.open = Boolean(expandAllButton.className));
 	}, false);
-	document.body.onchange = async () => {
-		await update();
+	document.body.onchange = async event => {
+		if (event.target != profileNamesInput) {
+			await update();
+		}
 		await refresh();
 	};
+	addProfileButton.title = browser.i18n.getMessage("profileAddButtonTooltip");
+	deleteProfileButton.title = browser.i18n.getMessage("profileDeleteButtonTooltip");
+	renameProfileButton.title = browser.i18n.getMessage("profileRenameButtonTooltip");
 	removeHiddenElementsLabel.textContent = browser.i18n.getMessage("optionRemoveHiddenElements");
 	removeUnusedStylesLabel.textContent = browser.i18n.getMessage("optionRemoveUnusedStyles");
 	removeFramesLabel.textContent = browser.i18n.getMessage("optionRemoveFrames");
@@ -188,50 +237,62 @@
 
 	refresh();
 
-	async function refresh() {
-		const options = await bgPage.singlefile.config.getDefaultConfig();
-		removeHiddenElementsInput.checked = options.removeHiddenElements;
-		removeUnusedStylesInput.checked = options.removeUnusedStyles;
-		removeFramesInput.checked = options.removeFrames;
-		removeImportsInput.checked = options.removeImports;
-		removeScriptsInput.checked = options.removeScripts;
-		saveRawPageInput.checked = options.saveRawPage;
-		compressHTMLInput.checked = options.compressHTML;
-		compressCSSInput.checked = options.compressCSS;
-		lazyLoadImagesInput.checked = options.lazyLoadImages;
-		maxLazyLoadImagesIdleTimeInput.value = options.maxLazyLoadImagesIdleTime;
-		maxLazyLoadImagesIdleTimeInput.disabled = !options.lazyLoadImages;
-		contextMenuEnabledInput.checked = options.contextMenuEnabled;
-		filenameTemplateInput.value = options.filenameTemplate;
-		shadowEnabledInput.checked = options.shadowEnabled;
-		maxResourceSizeEnabledInput.checked = options.maxResourceSizeEnabled;
-		maxResourceSizeInput.value = options.maxResourceSize;
-		maxResourceSizeInput.disabled = !options.maxResourceSizeEnabled;
-		confirmFilenameInput.checked = options.confirmFilename;
-		conflictActionInput.value = options.conflictAction;
-		removeAudioSrcInput.checked = options.removeAudioSrc;
-		removeVideoSrcInput.checked = options.removeVideoSrc;
-		displayInfobarInput.checked = options.displayInfobar;
-		displayStatsInput.checked = options.displayStats;
-		backgroundSaveInput.checked = options.backgroundSave;
-		autoSaveDelayInput.value = options.autoSaveDelay;
-		autoSaveDelayInput.disabled = !options.autoSaveLoadOrUnload && !options.autoSaveLoad;
-		autoSaveLoadInput.checked = !options.autoSaveLoadOrUnload && options.autoSaveLoad;
-		autoSaveLoadOrUnloadInput.checked = options.autoSaveLoadOrUnload;
-		autoSaveUnloadInput.checked = !options.autoSaveLoadOrUnload && options.autoSaveUnload;
-		autoSaveLoadInput.disabled = options.autoSaveLoadOrUnload;
-		autoSaveUnloadInput.disabled = options.autoSaveLoadOrUnload;
-		removeAlternativeFontsInput.checked = options.removeAlternativeFonts;
-		removeAlternativeImagesInput.checked = options.removeAlternativeImages;
-		groupDuplicateImagesInput.checked = options.groupDuplicateImages;
-		removeAlternativeMediasInput.checked = options.removeAlternativeMedias;
-		infobarTemplateInput.value = options.infobarTemplate;
-		confirmInfobarInput.checked = options.confirmInfobar;
+	async function refresh(profileName) {
+		const options = await bgPage.singlefile.config.get();
+		const selectedProfileName = profileName || profileNamesInput.value || options.defaultProfile;
+		profileNamesInput.childNodes.forEach(node => node.remove());
+		const profileNames = Object.keys(options.profiles);
+		profileNamesInput.options.length = 0;
+		profileNames.forEach(profileName => {
+			const optionElement = document.createElement("option");
+			optionElement.value = optionElement.textContent = profileName;
+			profileNamesInput.appendChild(optionElement);
+		});
+		profileNamesInput.value = selectedProfileName;
+		renameProfileButton.disabled = deleteProfileButton.disabled = profileNamesInput.value == singlefile.config.DEFAULT_PROFILE_NAME;
+		const profileOptions = options.profiles[selectedProfileName];
+		removeHiddenElementsInput.checked = profileOptions.removeHiddenElements;
+		removeUnusedStylesInput.checked = profileOptions.removeUnusedStyles;
+		removeFramesInput.checked = profileOptions.removeFrames;
+		removeImportsInput.checked = profileOptions.removeImports;
+		removeScriptsInput.checked = profileOptions.removeScripts;
+		saveRawPageInput.checked = profileOptions.saveRawPage;
+		compressHTMLInput.checked = profileOptions.compressHTML;
+		compressCSSInput.checked = profileOptions.compressCSS;
+		lazyLoadImagesInput.checked = profileOptions.lazyLoadImages;
+		maxLazyLoadImagesIdleTimeInput.value = profileOptions.maxLazyLoadImagesIdleTime;
+		maxLazyLoadImagesIdleTimeInput.disabled = !profileOptions.lazyLoadImages;
+		contextMenuEnabledInput.checked = profileOptions.contextMenuEnabled;
+		filenameTemplateInput.value = profileOptions.filenameTemplate;
+		shadowEnabledInput.checked = profileOptions.shadowEnabled;
+		maxResourceSizeEnabledInput.checked = profileOptions.maxResourceSizeEnabled;
+		maxResourceSizeInput.value = profileOptions.maxResourceSize;
+		maxResourceSizeInput.disabled = !profileOptions.maxResourceSizeEnabled;
+		confirmFilenameInput.checked = profileOptions.confirmFilename;
+		conflictActionInput.value = profileOptions.conflictAction;
+		removeAudioSrcInput.checked = profileOptions.removeAudioSrc;
+		removeVideoSrcInput.checked = profileOptions.removeVideoSrc;
+		displayInfobarInput.checked = profileOptions.displayInfobar;
+		displayStatsInput.checked = profileOptions.displayStats;
+		backgroundSaveInput.checked = profileOptions.backgroundSave;
+		autoSaveDelayInput.value = profileOptions.autoSaveDelay;
+		autoSaveDelayInput.disabled = !profileOptions.autoSaveLoadOrUnload && !profileOptions.autoSaveLoad;
+		autoSaveLoadInput.checked = !profileOptions.autoSaveLoadOrUnload && profileOptions.autoSaveLoad;
+		autoSaveLoadOrUnloadInput.checked = profileOptions.autoSaveLoadOrUnload;
+		autoSaveUnloadInput.checked = !profileOptions.autoSaveLoadOrUnload && profileOptions.autoSaveUnload;
+		autoSaveLoadInput.disabled = profileOptions.autoSaveLoadOrUnload;
+		autoSaveUnloadInput.disabled = profileOptions.autoSaveLoadOrUnload;
+		removeAlternativeFontsInput.checked = profileOptions.removeAlternativeFonts;
+		removeAlternativeImagesInput.checked = profileOptions.removeAlternativeImages;
+		groupDuplicateImagesInput.checked = profileOptions.groupDuplicateImages;
+		removeAlternativeMediasInput.checked = profileOptions.removeAlternativeMedias;
+		infobarTemplateInput.value = profileOptions.infobarTemplate;
+		confirmInfobarInput.checked = profileOptions.confirmInfobar;
 	}
 
 	async function update() {
 		await pendingSave;
-		pendingSave = bgPage.singlefile.config.setDefaultConfig({
+		pendingSave = bgPage.singlefile.config.update(profileNamesInput.value, {
 			removeHiddenElements: removeHiddenElementsInput.checked,
 			removeUnusedStyles: removeUnusedStylesInput.checked,
 			removeFrames: removeFramesInput.checked,

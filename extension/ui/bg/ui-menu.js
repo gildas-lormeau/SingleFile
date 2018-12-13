@@ -24,6 +24,8 @@ singlefile.ui.menu = (() => {
 
 	const BROWSER_MENUS_API_SUPPORTED = browser.menus && browser.menus.onClicked && browser.menus.create && browser.menus.update && browser.menus.removeAll;
 	const MENU_ID_SAVE_PAGE = "save-page";
+	const MENU_ID_SELECT_PROFILE = "select-profile";
+	const MENU_ID_SELECT_PROFILE_PREFIX = "select-profile-";
 	const MENU_ID_SAVE_SELECTED = "save-selected";
 	const MENU_ID_SAVE_FRAME = "save-frame";
 	const MENU_ID_SAVE_SELECTED_TABS = "save-selected-tabs";
@@ -46,7 +48,8 @@ singlefile.ui.menu = (() => {
 	};
 
 	async function refresh() {
-		const options = await singlefile.config.getDefaultConfig();
+		const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get()]);
+		const options = config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
 		if (BROWSER_MENUS_API_SUPPORTED) {
 			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio"];
 			const defaultContextsDisabled = ["browser_action"];
@@ -101,6 +104,21 @@ singlefile.ui.menu = (() => {
 					type: "separator"
 				});
 			}
+			browser.menus.create({
+				id: MENU_ID_SELECT_PROFILE,
+				title: browser.i18n.getMessage("menuSelectProfile"),
+				contexts: defaultContexts,
+			});
+			Object.keys(config.profiles).forEach((profileName, profileIndex) => {
+				browser.menus.create({
+					id: MENU_ID_SELECT_PROFILE_PREFIX + profileIndex,
+					type: "radio",
+					contexts: defaultContexts,
+					title: profileName,
+					checked: tabsData.profileName ? tabsData.profileName == profileName : profileName == singlefile.config.DEFAULT_PROFILE_NAME,
+					parentId: MENU_ID_SELECT_PROFILE
+				});
+			});
 			browser.menus.create({
 				id: MENU_ID_AUTO_SAVE,
 				contexts: defaultContexts,
@@ -194,15 +212,22 @@ singlefile.ui.menu = (() => {
 					await singlefile.tabsData.set(tabsData);
 					refreshExternalComponents(tab.id, { autoSave: true });
 				}
+				if (event.menuItemId.startsWith(MENU_ID_SELECT_PROFILE_PREFIX)) {
+					const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get()]);
+					const profileIndex = Number(event.menuItemId.split(MENU_ID_SELECT_PROFILE_PREFIX)[1]);
+					tabsData.profileName = Object.keys(config.profiles)[profileIndex];
+					await singlefile.tabsData.set(tabsData);
+					refreshExternalComponents(tab.id, { autoSave: tabsData.autoSaveAll || tabsData.autoSaveUnpinned || (tabsData[tab.id] && tabsData[tab.id].autoSave) });
+				}
 			});
 			const tabs = await browser.tabs.query({});
 			tabs.forEach(tab => refreshTab(tab));
 		}
 	}
 
-	async function refreshExternalComponents(tabId, tabData) {
+	async function refreshExternalComponents(tabId) {
 		await singlefile.autosave.refresh();
-		singlefile.ui.button.refresh(tabId, tabData);
+		singlefile.ui.button.refresh(tabId);
 	}
 
 	async function refreshTab(tab) {

@@ -5,14 +5,19 @@ body {
 }
 
 button {
-    background-color: transparent;
-    border-color: rgb(191, 191, 191);
-    border-style: solid;
-    border-radius: 2px;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 15px;
     padding-right: 15px;
+    border-width: 1px;
+}
+
+button,
+select {
+    background-color: transparent;
+    border-color: rgb(191, 191, 191);
+    border-style: solid;
+    border-radius: 2px;
     border-width: 1px;
 }
 
@@ -45,6 +50,41 @@ h3 {
     padding-left: 8px;
     margin-bottom: 10px;
     margin-top: 10px;
+}
+
+.profiles {
+    float: right;
+    margin-right: 12px;
+}
+
+.profiles button {
+    padding: 0;
+    margin: 0;
+    width: 22px;
+    text-align: center;
+}
+
+.profiles button,
+.profiles select {
+    height: 22px;
+    vertical-align: top;
+}
+
+.profiles button:disabled {
+    opacity: .25;
+}
+
+.profiles button>img {
+    width: 14px;
+    height: auto;
+    vertical-align: middle;
+    padding: 2px;
+}
+
+#profilesLabel {
+    font-weight: normal;
+    padding-top: 5px;
+    margin-right: 5px;
 }
 
 details {
@@ -116,7 +156,9 @@ a {
     transition: opacity 250ms;
     cursor: pointer;
     font-size: .9em;
-    margin-right: 1px;
+    position: relative;
+    top: -1px;
+    left: -3px;
 }
 
 #expandAllButton::after {
