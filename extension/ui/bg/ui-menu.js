@@ -228,7 +228,7 @@ singlefile.ui.menu = (() => {
 					const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get()]);
 					const profileId = event.menuItemId.split(MENU_ID_SELECT_PROFILE_PREFIX)[1];
 					if (profileId == "default") {
-						tabsData.profileName = singlefile.core.DEFAULT_PROFILE_NAME;
+						tabsData.profileName = singlefile.config.DEFAULT_PROFILE_NAME;
 					} else {
 						const profileIndex = Number(profileId);
 						tabsData.profileName = Object.keys(config.profiles)[profileIndex];
