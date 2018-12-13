@@ -104,21 +104,23 @@ singlefile.ui.menu = (() => {
 					type: "separator"
 				});
 			}
-			browser.menus.create({
-				id: MENU_ID_SELECT_PROFILE,
-				title: browser.i18n.getMessage("menuSelectProfile"),
-				contexts: defaultContexts,
-			});
-			Object.keys(config.profiles).forEach((profileName, profileIndex) => {
+			if (config.profiles.length > 1) {
 				browser.menus.create({
-					id: MENU_ID_SELECT_PROFILE_PREFIX + profileIndex,
-					type: "radio",
+					id: MENU_ID_SELECT_PROFILE,
+					title: browser.i18n.getMessage("menuSelectProfile"),
 					contexts: defaultContexts,
-					title: profileName,
-					checked: tabsData.profileName ? tabsData.profileName == profileName : profileName == singlefile.config.DEFAULT_PROFILE_NAME,
-					parentId: MENU_ID_SELECT_PROFILE
 				});
-			});
+				Object.keys(config.profiles).forEach((profileName, profileIndex) => {
+					browser.menus.create({
+						id: MENU_ID_SELECT_PROFILE_PREFIX + profileIndex,
+						type: "radio",
+						contexts: defaultContexts,
+						title: profileName,
+						checked: tabsData.profileName ? tabsData.profileName == profileName : profileName == singlefile.config.DEFAULT_PROFILE_NAME,
+						parentId: MENU_ID_SELECT_PROFILE
+					});
+				});
+			}
 			browser.menus.create({
 				id: MENU_ID_AUTO_SAVE,
 				contexts: defaultContexts,
