@@ -8,7 +8,7 @@
         "description": "菜单项: '使用 SingleFile 保存页面'"
     },
     "menuSelectProfile": {
-        "message": "Select profile",
+        "message": "选择配置文件",
         "description": "Menu entry: 'Select profile'"
     },
     "menuSaveSelection": {
@@ -272,7 +272,7 @@
         "description": "选项按钮'重置'的提示"
     },
     "optionsResetConfirm": {
-        "message": "Confirm the reset of all options",
+        "message": "确认重置所有选项",
         "description": "Popup text 'Confirm the reset of all options' in the options page"
     },
     "logPanelDeferredImages": {
@@ -296,27 +296,27 @@
         "description": "Label 'Default settings' of the default settings in the options page"
     },
     "profileAddButtonTooltip": {
-        "message": "Add a new profile",
+        "message": "添加一个新配置文件",
         "description": "Tooltip 'Add a new profile' in the options page"
     },
     "profileRenameButtonTooltip": {
-        "message": "Rename the profile",
+        "message": "重命名配置文件",
         "description": "Tooltip 'Rename the profile' in the options page"
     },
     "profileDeleteButtonTooltip": {
-        "message": "Delete the profile",
+        "message": "移除配置文件",
         "description": "Tooltip 'Delete the profile' in the options page"
     },
     "profileAddPrompt": {
-        "message": "Enter a name for this new profile",
+        "message": "为新配置文件输入名字",
         "description": "Popup text 'Enter a name for this new profile' in the options page"
     },
     "profileDeleteConfirm": {
-        "message": "Confirm deletion of the selected profile",
+        "message": "确认移除所选配置文件",
         "description": "Popup text 'Confirm deletion of the selected profile' in the options page"
     },
     "profileRenamePrompt": {
-        "message": "Enter a new name for the selected profile",
+        "message": "为所选配置文件输入新名字",
         "description": "Popup text 'Enter a new name for the selected profile' in the options page"
     },
     "__WET_LOCALE__": {
