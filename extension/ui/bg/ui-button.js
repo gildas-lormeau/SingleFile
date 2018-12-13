@@ -41,7 +41,10 @@ singlefile.ui.button = (() => {
 		const tab = await browser.tabs.get(activeInfo.tabId);
 		await onTabActivated(tab);
 	});
-	browser.tabs.onCreated.addListener(onTabActivated);
+	browser.tabs.onCreated.addListener(async tab => {
+		await refreshProperty(tab.id, "setBadgeBackgroundColor", DEFAULT_COLOR);
+		await onTabActivated(tab);
+	});
 	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabActivated(tab));
 	browser.runtime.onMessage.addListener((request, sender) => {
 		if (request.processReset) {
@@ -173,7 +176,7 @@ singlefile.ui.button = (() => {
 
 	async function refreshAsync(tabId, tabData, oldTabData) {
 		for (const browserActionMethod of Object.keys(tabData)) {
-			if (!oldTabData[browserActionMethod] || JSON.stringify(oldTabData[browserActionMethod]) != JSON.stringify(tabData[browserActionMethod])) {
+			if (browserActionMethod == "setBadgeBackgroundColor" || !oldTabData[browserActionMethod] || JSON.stringify(oldTabData[browserActionMethod]) != JSON.stringify(tabData[browserActionMethod])) {
 				await refreshProperty(tabId, browserActionMethod, tabData[browserActionMethod]);
 			}
 		}
