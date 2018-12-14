@@ -184,7 +184,7 @@ singlefile.config = (() => {
 
 	async function getConfig() {
 		await pendingUpgradePromise;
-		return await browser.storage.local.get(["profiles", "defaultProfile"]);
+		return browser.storage.local.get(["profiles", "defaultProfile"]);
 	}
 
 	return {
