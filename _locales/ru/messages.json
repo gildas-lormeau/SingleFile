@@ -8,7 +8,7 @@
         "description": "Menu entry: 'Save page with SingleFile'"
     },
     "menuSelectProfile": {
-        "message": "Select profile",
+        "message": "Выберите профиль",
         "description": "Menu entry: 'Select profile'"
     },
     "menuSaveSelection": {
@@ -272,7 +272,7 @@
         "description": "Options 'Reset' button tooltip"
     },
     "optionsResetConfirm": {
-        "message": "Confirm the reset of all options",
+        "message": "Подтвердите сброс всех параметров",
         "description": "Popup text 'Confirm the reset of all options' in the options page"
     },
     "logPanelDeferredImages": {
@@ -292,31 +292,31 @@
         "description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
     },
     "profileDefaultSettingsLabel": {
-        "message": "Default settings",
+        "message": "Настройки по умолчанию",
         "description": "Label 'Default settings' of the default settings in the options page"
     },
     "profileAddButtonTooltip": {
-        "message": "Add a new profile",
+        "message": "Добавить профиль",
         "description": "Tooltip 'Add a new profile' in the options page"
     },
     "profileRenameButtonTooltip": {
-        "message": "Rename the profile",
+        "message": "Переименовать профиль",
         "description": "Tooltip 'Rename the profile' in the options page"
     },
     "profileDeleteButtonTooltip": {
-        "message": "Delete the profile",
+        "message": "Удалить профиль",
         "description": "Tooltip 'Delete the profile' in the options page"
     },
     "profileAddPrompt": {
-        "message": "Enter a name for this new profile",
+        "message": "Введите имя для этого профиля",
         "description": "Popup text 'Enter a name for this new profile' in the options page"
     },
     "profileDeleteConfirm": {
-        "message": "Confirm deletion of the selected profile",
+        "message": "Подтвердите удаление выбранного профиля",
         "description": "Popup text 'Confirm deletion of the selected profile' in the options page"
     },
     "profileRenamePrompt": {
-        "message": "Enter a new name for the selected profile",
+        "message": "Введите новое имя для выбранного профиля",
         "description": "Popup text 'Enter a new name for the selected profile' in the options page"
     }
 }
