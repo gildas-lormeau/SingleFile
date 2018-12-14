@@ -26,8 +26,8 @@
 
 	const [bgPage, browserInfo] = await Promise.all([browser.runtime.getBackgroundPage(), browser.runtime.getBrowserInfo()]);
 	const singlefile = bgPage.singlefile;
-	const prompt = browserInfo.name == CHROME_BROWSER_NAME ? (message, defaultMessage) => bgPage.prompt(message, defaultMessage) : (message, defaultMessage) => window.prompt(message, defaultMessage);
-	const confirm = browserInfo.name == CHROME_BROWSER_NAME ? message => bgPage.confirm(message) : message => window.confirm(message);
+	const prompt = browserInfo.name == CHROME_BROWSER_NAME ? (message, defaultMessage) => bgPage.prompt(message, defaultMessage) : (message, defaultMessage) => { document.body.style.opacity = 0; const value = window.prompt(message, defaultMessage); document.body.style.opacity = 1; return value; };
+	const confirm = browserInfo.name == CHROME_BROWSER_NAME ? message => bgPage.confirm(message) : message => { document.body.style.opacity = 0; const value = window.confirm(message); document.body.style.opacity = 1; return value; };
 	const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsLabel");
 	const removeUnusedStylesLabel = document.getElementById("removeUnusedStylesLabel");
 	const removeFramesLabel = document.getElementById("removeFramesLabel");
