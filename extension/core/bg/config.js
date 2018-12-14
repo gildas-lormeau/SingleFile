@@ -62,8 +62,8 @@ singlefile.config = (() => {
 
 	let pendingUpgradePromise = upgrade();
 	browser.runtime.onMessage.addListener(request => {
-		if (request.getConfig) {
-			return getConfig();
+		if (request.getOptions) {
+			return getOptions();
 		}
 	});
 
@@ -175,6 +175,11 @@ singlefile.config = (() => {
 		if (config.conflictAction === undefined) {
 			config.conflictAction = DEFAULT_CONFIG.conflictAction;
 		}
+	}
+
+	async function getOptions() {
+		const [config, tabsData] = await Promise.all([getConfig(), singlefile.tabsData.get()]);
+		return config.profiles[tabsData.profileName || DEFAULT_PROFILE_NAME];
 	}
 
 	async function getConfig() {

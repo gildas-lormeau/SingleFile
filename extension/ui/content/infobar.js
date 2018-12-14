@@ -44,8 +44,8 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 		if (singleFileComment) {
 			const info = singleFileComment.textContent.split("\n");
 			const [, , url, saveDate, ...infoData] = info;
-			const config = await browser.runtime.sendMessage({ getConfig: true });
-			if (config.displayInfobar) {
+			const options = await browser.runtime.sendMessage({ getOptions: true });
+			if (options.displayInfobar) {
 				initInfobar(url, saveDate, infoData);
 			}
 		}
