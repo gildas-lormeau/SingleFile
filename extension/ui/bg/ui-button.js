@@ -42,7 +42,7 @@ singlefile.ui.button = (() => {
 		await onTabActivated(tab);
 	});
 	browser.tabs.onCreated.addListener(async tab => {
-		await refreshProperty(tab.id, "setBadgeBackgroundColor", DEFAULT_COLOR);
+		await refreshProperty(tab.id, "setBadgeBackgroundColor", { color: DEFAULT_COLOR });
 		await onTabActivated(tab);
 	});
 	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabActivated(tab));
