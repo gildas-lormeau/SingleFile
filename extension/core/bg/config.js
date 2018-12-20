@@ -209,7 +209,7 @@ singlefile.config = (() => {
 		},
 		async getOptions(profileName, url, autoSave) {
 			const config = await getConfig();
-			const urlRule = config.rules.find(rule => url && url.includes(rule.url));
+			const urlRule = config.rules.sort((ruleLeft, ruleRight) => ruleRight.url.length - ruleLeft.url.length).find(rule => url && url.includes(rule.url));
 			return urlRule ? config.profiles[urlRule[autoSave ? "autoSaveProfile" : "profile"]] : config.profiles[profileName || singlefile.config.DEFAULT_PROFILE_NAME];
 		},
 		async updateProfile(profileName, profile) {
