@@ -323,6 +323,14 @@
         "message": "Подтвердите сброс всех параметров",
         "description": "Popup text 'Confirm the reset of all options' in the options page"
     },
+    "optionsExportButton": {
+        "message": "Экспорт",
+        "description": "Options button: 'Export'"
+    },
+    "optionsImportButton": {
+        "message": "Импорт",
+        "description": "Options button: 'Import'"
+    },
     "logPanelDeferredImages": {
         "message": "Отложенные изображения",
         "description": "Label 'Deferred images' in the log panel"

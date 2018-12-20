@@ -83,6 +83,9 @@
 	const deleteProfileButton = document.getElementById("deleteProfileButton");
 	const renameProfileButton = document.getElementById("renameProfileButton");
 	const resetButton = document.getElementById("resetButton");
+	const exportButton = document.getElementById("exportButton");
+	const importButton = document.getElementById("importButton");
+	const fileInput = document.getElementById("fileInput");
 	const profileNamesInput = document.getElementById("profileNamesInput");
 	const removeHiddenElementsInput = document.getElementById("removeHiddenElementsInput");
 	const removeUnusedStylesInput = document.getElementById("removeUnusedStylesInput");
@@ -202,6 +205,18 @@
 			await update();
 		}
 	}, false);
+	exportButton.addEventListener("click", async () => {
+		await singlefile.config.export();
+	}, false);
+	importButton.addEventListener("click", () => {
+		fileInput.onchange = async () => {
+			if (fileInput.files.length) {
+				await singlefile.config.import(fileInput.files[0]);
+				await refresh(singlefile.config.DEFAULT_PROFILE_NAME);
+			}
+		};
+		fileInput.click();
+	}, false);
 	autoSaveUnloadInput.addEventListener("click", async () => {
 		if (!autoSaveLoadInput.checked && !autoSaveUnloadInput.checked) {
 			autoSaveLoadOrUnloadInput.checked = true;
@@ -290,6 +305,8 @@
 	infobarTemplateLabel.textContent = browser.i18n.getMessage("optionInfobarTemplate");
 	confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
 	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
+	exportButton.textContent = browser.i18n.getMessage("optionsExportButton");
+	importButton.textContent = browser.i18n.getMessage("optionsImportButton");
 	resetButton.title = browser.i18n.getMessage("optionsResetTooltip");
 	autoSettingsLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsSubTitle");
 	autoSettingsUrlLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsUrl");

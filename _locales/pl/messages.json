@@ -323,6 +323,14 @@
         "message": "Potwierdź reset wszystkich opcji",
         "description": "Popup text 'Confirm the reset of all options' in the options page"
     },
+    "optionsExportButton": {
+        "message": "Eksport",
+        "description": "Options button: 'Export'"
+    },
+    "optionsImportButton": {
+        "message": "Import",
+        "description": "Options button: 'Import'"
+    },
     "logPanelDeferredImages": {
         "message": "Odroczone obrazy",
         "description": "Label 'Deferred images' in the log panel"

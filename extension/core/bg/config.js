@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, singlefile */
+/* global browser, singlefile, URL, Blob, FileReader */
 
 singlefile.config = (() => {
 
@@ -178,7 +178,7 @@ singlefile.config = (() => {
 		if (config.filenameConflictAction === undefined) {
 			config.filenameConflictAction = config.conflictAction || DEFAULT_CONFIG.filenameConflictAction;
 			delete config.conflictAction;
-	}
+		}
 		if (config.loadDeferredImages === undefined) {
 			config.loadDeferredImages = config.lazyLoadImages || true;
 			delete config.lazyLoadImages;
@@ -328,6 +328,45 @@ singlefile.config = (() => {
 			await singlefile.tabsData.set(tabsData);
 			await browser.storage.local.remove(["profiles", "rules"]);
 			await browser.storage.local.set({ profiles: { [DEFAULT_PROFILE_NAME]: DEFAULT_CONFIG }, rules: [] });
+		},
+		async export() {
+			const config = await getConfig();
+			const url = URL.createObjectURL(new Blob([JSON.stringify({ profiles: config.profiles, rules: config.rules }, null, 2)], { type: "text/json" }));
+			const downloadInfo = {
+				url,
+				filename: "singlefile-settings.json",
+				saveAs: true
+			};
+			const downloadId = await browser.downloads.download(downloadInfo);
+			return new Promise((resolve, reject) => {
+				browser.downloads.onChanged.addListener(onChanged);
+
+				function onChanged(event) {
+					if (event.id == downloadId && event.state) {
+						if (event.state.current == "complete") {
+							URL.revokeObjectURL(url);
+							resolve({});
+							browser.downloads.onChanged.removeListener(onChanged);
+						}
+						if (event.state.current == "interrupted" && (!event.error || event.error.current != "USER_CANCELED")) {
+							URL.revokeObjectURL(url);
+							reject(new Error(event.state.current));
+							browser.downloads.onChanged.removeListener(onChanged);
+						}
+					}
+				}
+			});
+		},
+		async import(file) {
+			const reader = new FileReader();
+			reader.readAsText(file);
+			const serializedConfig = await new Promise((resolve, reject) => {
+				reader.addEventListener("load", () => resolve(reader.result), false);
+				reader.addEventListener("error", reject, false);
+			});
+			const config = JSON.parse(serializedConfig);
+			await browser.storage.local.remove(["profiles", "rules"]);
+			await browser.storage.local.set({ profiles: config.profiles, rules: config.rules });
 		}
 	};
 

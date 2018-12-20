@@ -230,7 +230,7 @@
     "optionsAutoSettingsUrlPlaceholder": {
         "message": "Type a complete or partial URL (e.g. example.com)",
         "description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
-    },    
+    },
     "optionsAutoSettingsProfile": {
         "message": "Profile",
         "description": "Options label in the Auto-settings rules: 'Profile'"
@@ -322,6 +322,14 @@
     "optionsResetConfirm": {
         "message": "Confirm the reset of all options",
         "description": "Popup text 'Confirm the reset of all options' in the options page"
+    },
+    "optionsExportButton": {
+        "message": "Export",
+        "description": "Options button: 'Export'"
+    },
+    "optionsImportButton": {
+        "message": "Import",
+        "description": "Options button: 'Import'"
     },
     "logPanelDeferredImages": {
         "message": "Deferred images",

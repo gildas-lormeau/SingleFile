@@ -214,13 +214,18 @@
 			<input type="checkbox" id="showAllProfilesInput">
 		</div>
 		<div class="option">
-				<label for="showAutoSaveProfileInput" id="showAutoSaveProfileLabel"></label>
-				<input type="checkbox" id="showAutoSaveProfileInput">
-			</div>
+			<label for="showAutoSaveProfileInput" id="showAutoSaveProfileLabel"></label>
+			<input type="checkbox" id="showAutoSaveProfileInput">
+		</div>
 	</details>
 	<div class="option bottom">
 		<a href="help.html" target="SingleFileHelpPage" id="helpLabel"></a>
-		<button id="resetButton"></button>
+		<div>
+			<button id="importButton"></button>
+			<button id="exportButton"></button>
+			<button id="resetButton"></button>
+			<input type="file" id="fileInput" hidden>
+		</div>
 	</div>
 	<script type="text/javascript" src="/lib/browser-polyfill/chrome-browser-polyfill.js"></script>
 	<script type="text/javascript" src="../bg/ui-options.js"></script>

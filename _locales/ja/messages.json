@@ -323,6 +323,14 @@
         "message": "すべてのオプションのリセットを確認する",
         "description": "Popup text 'Confirm the reset of all options' in the options page"
     },
+    "optionsExportButton": {
+        "message": "エクスポート",
+        "description": "Options button: 'Export'"
+    },
+    "optionsImportButton": {
+        "message": "インポート",
+        "description": "Options button: 'Import'"
+    },
     "logPanelDeferredImages": {
         "message": "遅延画像",
         "description": "Label 'Deferred images' in the log panel"

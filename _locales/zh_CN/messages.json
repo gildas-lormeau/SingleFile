@@ -323,6 +323,14 @@
         "message": "确认重置所有选项",
         "description": "Popup text 'Confirm the reset of all options' in the options page"
     },
+    "optionsExportButton": {
+        "message": "导出",
+        "description": "Options button: 'Export'"
+    },
+    "optionsImportButton": {
+        "message": "导入",
+        "description": "Options button: 'Import'"
+    },
     "logPanelDeferredImages": {
         "message": "延迟加载的图像",
         "description": "Label 'Deferred images' in the log panel"
