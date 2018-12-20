@@ -123,19 +123,19 @@
         "message": "を開く（として保存する：ファイル名を確認するためのダイアログ）",
         "description": "オプションのページラベル: 'を開く（として保存する：ファイル名を確認するためのダイアログ）'"
     },
-    "optionConflictAction": {
+    "optionFilenameConflictAction": {
         "message": "ファイル名の競合を解決する",
         "description": "Options page label: 'filename conflict resolution'"
     },
-    "optionConflictActionUniquify": {
+    "optionFilenameConflictActionUniquify": {
         "message": "独自の名前を作成する",
         "description": "Value for 'filename conflict resolution' option: 'create a unique name'"
     },
-    "optionConflictActionOverwrite": {
+    "optionFilenameConflictActionOverwrite": {
         "message": "既存のファイルを上書きする",
         "description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
     },
-    "optionConflictActionPrompt": {
+    "optionFilenameConflictActionPrompt": {
         "message": "名前を求めるプロンプト",
         "description": "Value for 'name conflict resolution' option: 'prompt for a name'"
     },
@@ -167,11 +167,11 @@
         "message": "オプション重複画像のグループ化",
         "description": "Options page label: 'group duplicate images together'"
     },
-    "optionLazyLoadImages": {
+    "optionLoadDeferredImages": {
         "message": "遅延画像を保存する",
         "description": "オプションのページラベル: '遅延画像を保存する'"
     },
-    "optionMaxLazyLoadImagesIdleTime": {
+    "optionLoadDeferredImagesMaxIdle": {
         "message": "最大アイドル時間（秒）",
         "description": "Options page label: 'maximum idle time (ms)'"
     },

@@ -36,18 +36,18 @@
 	const saveRawPageLabel = document.getElementById("saveRawPageLabel");
 	const compressHTMLLabel = document.getElementById("compressHTMLLabel");
 	const compressCSSLabel = document.getElementById("compressCSSLabel");
-	const lazyLoadImagesLabel = document.getElementById("lazyLoadImagesLabel");
-	const maxLazyLoadImagesIdleTimeLabel = document.getElementById("maxLazyLoadImagesIdleTimeLabel");
+	const loadDeferredImagesLabel = document.getElementById("loadDeferredImagesLabel");
+	const loadDeferredImagesMaxIdleTimeLabel = document.getElementById("loadDeferredImagesMaxIdleTimeLabel");
 	const addMenuEntryLabel = document.getElementById("addMenuEntryLabel");
 	const filenameTemplateLabel = document.getElementById("filenameTemplateLabel");
 	const shadowEnabledLabel = document.getElementById("shadowEnabledLabel");
 	const setMaxResourceSizeLabel = document.getElementById("setMaxResourceSizeLabel");
 	const maxResourceSizeLabel = document.getElementById("maxResourceSizeLabel");
 	const confirmFilenameLabel = document.getElementById("confirmFilenameLabel");
-	const conflictActionLabel = document.getElementById("conflictActionLabel");
-	const conflictActionUniquifyLabel = document.getElementById("conflictActionUniquifyLabel");
-	const conflictActionOverwriteLabel = document.getElementById("conflictActionOverwriteLabel");
-	const conflictActionPromptLabel = document.getElementById("conflictActionPromptLabel");
+	const filenameConflictActionLabel = document.getElementById("filenameConflictActionLabel");
+	const filenameConflictActionUniquifyLabel = document.getElementById("filenameConflictActionUniquifyLabel");
+	const filenameConflictActionOverwriteLabel = document.getElementById("filenameConflictActionOverwriteLabel");
+	const filenameConflictActionPromptLabel = document.getElementById("filenameConflictActionPromptLabel");
 	const removeAudioLabel = document.getElementById("removeAudioLabel");
 	const removeVideoLabel = document.getElementById("removeVideoLabel");
 	const displayInfobarLabel = document.getElementById("displayInfobarLabel");
@@ -92,15 +92,15 @@
 	const saveRawPageInput = document.getElementById("saveRawPageInput");
 	const compressHTMLInput = document.getElementById("compressHTMLInput");
 	const compressCSSInput = document.getElementById("compressCSSInput");
-	const lazyLoadImagesInput = document.getElementById("lazyLoadImagesInput");
-	const maxLazyLoadImagesIdleTimeInput = document.getElementById("maxLazyLoadImagesIdleTimeInput");
+	const loadDeferredImagesInput = document.getElementById("loadDeferredImagesInput");
+	const loadDeferredImagesMaxIdleTimeInput = document.getElementById("loadDeferredImagesMaxIdleTimeInput");
 	const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 	const filenameTemplateInput = document.getElementById("filenameTemplateInput");
 	const shadowEnabledInput = document.getElementById("shadowEnabledInput");
 	const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 	const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
 	const confirmFilenameInput = document.getElementById("confirmFilenameInput");
-	const conflictActionInput = document.getElementById("conflictActionInput");
+	const filenameConflictActionInput = document.getElementById("filenameConflictActionInput");
 	const removeAudioSrcInput = document.getElementById("removeAudioSrcInput");
 	const removeVideoSrcInput = document.getElementById("removeVideoSrcInput");
 	const displayInfobarInput = document.getElementById("displayInfobarInput");
@@ -252,18 +252,18 @@
 	saveRawPageLabel.textContent = browser.i18n.getMessage("optionSaveRawPage");
 	compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
 	compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
-	lazyLoadImagesLabel.textContent = browser.i18n.getMessage("optionLazyLoadImages");
-	maxLazyLoadImagesIdleTimeLabel.textContent = browser.i18n.getMessage("optionMaxLazyLoadImagesIdleTime");
+	loadDeferredImagesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImages");
+	loadDeferredImagesMaxIdleTimeLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesMaxIdleTime");
 	addMenuEntryLabel.textContent = browser.i18n.getMessage("optionAddMenuEntry");
 	filenameTemplateLabel.textContent = browser.i18n.getMessage("optionFilenameTemplate");
 	shadowEnabledLabel.textContent = browser.i18n.getMessage("optionDisplayShadow");
 	setMaxResourceSizeLabel.textContent = browser.i18n.getMessage("optionSetMaxResourceSize");
 	maxResourceSizeLabel.textContent = browser.i18n.getMessage("optionMaxResourceSize");
 	confirmFilenameLabel.textContent = browser.i18n.getMessage("optionConfirmFilename");
-	conflictActionLabel.textContent = browser.i18n.getMessage("optionConflictAction");
-	conflictActionUniquifyLabel.textContent = browser.i18n.getMessage("optionConflictActionUniquify");
-	conflictActionOverwriteLabel.textContent = browser.i18n.getMessage("optionConflictActionOverwrite");
-	conflictActionPromptLabel.textContent = browser.i18n.getMessage("optionConflictActionPrompt");
+	filenameConflictActionLabel.textContent = browser.i18n.getMessage("optionFilenameConflictAction");
+	filenameConflictActionUniquifyLabel.textContent = browser.i18n.getMessage("optionFilenameConflictActionUniquify");
+	filenameConflictActionOverwriteLabel.textContent = browser.i18n.getMessage("optionFilenameConflictActionOverwrite");
+	filenameConflictActionPromptLabel.textContent = browser.i18n.getMessage("optionFilenameConflictActionPrompt");
 	removeAudioLabel.textContent = browser.i18n.getMessage("optionRemoveAudio");
 	removeVideoLabel.textContent = browser.i18n.getMessage("optionRemoveVideo");
 	displayInfobarLabel.textContent = browser.i18n.getMessage("optionDisplayInfobar");
@@ -394,9 +394,9 @@
 		saveRawPageInput.checked = profileOptions.saveRawPage;
 		compressHTMLInput.checked = profileOptions.compressHTML;
 		compressCSSInput.checked = profileOptions.compressCSS;
-		lazyLoadImagesInput.checked = profileOptions.lazyLoadImages;
-		maxLazyLoadImagesIdleTimeInput.value = profileOptions.maxLazyLoadImagesIdleTime;
-		maxLazyLoadImagesIdleTimeInput.disabled = !profileOptions.lazyLoadImages;
+		loadDeferredImagesInput.checked = profileOptions.loadDeferredImages;
+		loadDeferredImagesMaxIdleTimeInput.value = profileOptions.loadDeferredImagesMaxIdleTime;
+		loadDeferredImagesMaxIdleTimeInput.disabled = !profileOptions.loadDeferredImages;
 		contextMenuEnabledInput.checked = profileOptions.contextMenuEnabled;
 		filenameTemplateInput.value = profileOptions.filenameTemplate;
 		shadowEnabledInput.checked = profileOptions.shadowEnabled;
@@ -404,7 +404,7 @@
 		maxResourceSizeInput.value = profileOptions.maxResourceSize;
 		maxResourceSizeInput.disabled = !profileOptions.maxResourceSizeEnabled;
 		confirmFilenameInput.checked = profileOptions.confirmFilename;
-		conflictActionInput.value = profileOptions.conflictAction;
+		filenameConflictActionInput.value = profileOptions.filenameConflictAction;
 		removeAudioSrcInput.checked = profileOptions.removeAudioSrc;
 		removeVideoSrcInput.checked = profileOptions.removeVideoSrc;
 		displayInfobarInput.checked = profileOptions.displayInfobar;
@@ -422,7 +422,7 @@
 		groupDuplicateImagesInput.checked = profileOptions.groupDuplicateImages;
 		removeAlternativeMediasInput.checked = profileOptions.removeAlternativeMedias;
 		infobarTemplateInput.value = profileOptions.infobarTemplate;
-		confirmInfobarInput.checked = profileOptions.confirmInfobar;
+		confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
 	}
 
 	function getProfileText(profileName) {
@@ -440,15 +440,15 @@
 			saveRawPage: saveRawPageInput.checked,
 			compressHTML: compressHTMLInput.checked,
 			compressCSS: compressCSSInput.checked,
-			lazyLoadImages: lazyLoadImagesInput.checked,
-			maxLazyLoadImagesIdleTime: Math.max(maxLazyLoadImagesIdleTimeInput.value, 0),
+			loadDeferredImages: loadDeferredImagesInput.checked,
+			loadDeferredImagesMaxIdleTime: Math.max(loadDeferredImagesMaxIdleTimeInput.value, 0),
 			contextMenuEnabled: contextMenuEnabledInput.checked,
 			filenameTemplate: filenameTemplateInput.value,
 			shadowEnabled: shadowEnabledInput.checked,
 			maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
 			maxResourceSize: Math.max(maxResourceSizeInput.value, 0),
 			confirmFilename: confirmFilenameInput.checked,
-			conflictAction: conflictActionInput.value,
+			filenameConflictAction: filenameConflictActionInput.value,
 			removeAudioSrc: removeAudioSrcInput.checked,
 			removeVideoSrc: removeVideoSrcInput.checked,
 			displayInfobar: displayInfobarInput.checked,
@@ -463,7 +463,7 @@
 			removeAlternativeMedias: removeAlternativeMediasInput.checked,
 			groupDuplicateImages: groupDuplicateImagesInput.checked,
 			infobarTemplate: infobarTemplateInput.value,
-			confirmInfobar: confirmInfobarInput.checked
+			confirmInfobarContent: confirmInfobarInput.checked
 		});
 		await pendingSave;
 		await singlefile.ui.menu.refresh();

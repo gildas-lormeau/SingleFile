@@ -123,19 +123,19 @@
         "message": "open the \"Save as\" dialog to confirm the file name",
         "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
     },
-    "optionConflictAction": {
+    "optionFilenameConflictAction": {
         "message": "file name conflict resolution",
         "description": "Options page label: 'filename conflict resolution'"
     },
-    "optionConflictActionUniquify": {
+    "optionFilenameConflictActionUniquify": {
         "message": "create a unique name",
         "description": "Value for 'filename conflict resolution' option: 'create a unique name'"
     },
-    "optionConflictActionOverwrite": {
+    "optionFilenameConflictActionOverwrite": {
         "message": "overwrite the existing file",
         "description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
     },
-    "optionConflictActionPrompt": {
+    "optionFilenameConflictActionPrompt": {
         "message": "prompt for a name",
         "description": "Value for 'name conflict resolution' option: 'prompt for a name'"
     },
@@ -167,11 +167,11 @@
         "message": "group duplicate images together",
         "description": "Options page label: 'group duplicate images together'"
     },
-    "optionLazyLoadImages": {
+    "optionLoadDeferredImages": {
         "message": "save deferred images",
         "description": "Options page label: 'save deferred images'"
     },
-    "optionMaxLazyLoadImagesIdleTime": {
+    "optionLoadDeferredImagesMaxIdle": {
         "message": "maximum idle time (ms)",
         "description": "Options page label: 'maximum idle time (ms)'"
     },

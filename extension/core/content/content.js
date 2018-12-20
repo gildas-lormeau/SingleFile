@@ -75,8 +75,8 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (!options.saveRawPage) {
 			if (!options.removeFrames && this.frameTree) {
 				let frameTreePromise;
-				if (options.lazyLoadImages) {
-					frameTreePromise = new Promise(resolve => timeout.set(() => resolve(frameTree.getAsync(options)), options.maxLazyLoadImagesIdleTime - frameTree.TIMEOUT_INIT_REQUEST_MESSAGE));
+				if (options.loadDeferredImages) {
+					frameTreePromise = new Promise(resolve => timeout.set(() => resolve(frameTree.getAsync(options)), options.loadDeferredImagesMaxIdleTime - frameTree.TIMEOUT_INIT_REQUEST_MESSAGE));
 				} else {
 					frameTreePromise = frameTree.getAsync(options);
 				}
@@ -84,7 +84,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 				frameTreePromise.then(() => singlefile.ui.onLoadFrames());
 				preInitializationPromises.push(frameTreePromise);
 			}
-			if (options.lazyLoadImages && options.shadowEnabled) {
+			if (options.loadDeferredImages && options.shadowEnabled) {
 				const lazyLoadPromise = lazyLoader.process(options);
 				singlefile.ui.onLoadingDeferResources();
 				lazyLoadPromise.then(() => singlefile.ui.onLoadDeferResources());
@@ -131,7 +131,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		options.win = window;
 		await processor.initialize();
 		await processor.run();
-		if (options.confirmInfobar) {
+		if (options.confirmInfobarContent) {
 			options.infobarContent = singlefile.ui.prompt("Infobar content", options.infobarContent) || "";
 		}
 		const page = await processor.getPageData();
@@ -151,9 +151,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function downloadPage(page, options) {
 		if (options.backgroundSave) {
-			const response = await browser.runtime.sendMessage({ download: true, url: page.url, confirmFilename: options.confirmFilename, conflictAction: options.conflictAction, filename: page.filename });
+			const response = await browser.runtime.sendMessage({ download: true, url: page.url, confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename });
 			if (response.notSupported) {
-				const response = await browser.runtime.sendMessage({ download: true, content: page.content, confirmFilename: options.confirmFilename, conflictAction: options.conflictAction, filename: page.filename });
+				const response = await browser.runtime.sendMessage({ download: true, content: page.content, confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename });
 				if (response.notSupported) {
 					downloadPageFallback(page, options);
 				}

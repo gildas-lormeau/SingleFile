@@ -34,13 +34,13 @@ singlefile.config = (() => {
 		rawDocument: false,
 		compressHTML: true,
 		compressCSS: true,
-		lazyLoadImages: true,
-		maxLazyLoadImagesIdleTime: 1500,
+		loadDeferredImages: true,
+		loadDeferredImagesMaxIdleTime: 1500,
 		filenameTemplate: "{page-title} ({date-iso} {time-locale}).html",
 		infobarTemplate: "",
-		confirmInfobar: false,
+		confirmInfobarContent: false,
 		confirmFilename: false,
-		conflictAction: "uniquify",
+		filenameConflictAction: "uniquify",
 		contextMenuEnabled: true,
 		shadowEnabled: true,
 		maxResourceSizeEnabled: false,
@@ -98,9 +98,6 @@ singlefile.config = (() => {
 		}
 		if (config.compressHTML === undefined) {
 			config.compressHTML = true;
-		}
-		if (config.lazyLoadImages === undefined) {
-			config.lazyLoadImages = true;
 		}
 		if (config.contextMenuEnabled === undefined) {
 			config.contextMenuEnabled = true;
@@ -171,14 +168,24 @@ singlefile.config = (() => {
 			config.autoSaveLoad = false;
 			config.autoSaveUnload = false;
 		}
-		if (config.maxLazyLoadImagesIdleTime === undefined) {
-			config.maxLazyLoadImagesIdleTime = DEFAULT_CONFIG.maxLazyLoadImagesIdleTime;
-		}
 		if (config.confirmFilename === undefined) {
 			config.confirmFilename = false;
 		}
-		if (config.conflictAction === undefined) {
-			config.conflictAction = DEFAULT_CONFIG.conflictAction;
+		if (config.confirmInfobarContent === undefined) {
+			config.confirmInfobarContent = config.confirmInfobar;
+			delete config.confirmInfobar;
+		}
+		if (config.filenameConflictAction === undefined) {
+			config.filenameConflictAction = config.conflictAction || DEFAULT_CONFIG.filenameConflictAction;
+			delete config.conflictAction;
+	}
+		if (config.loadDeferredImages === undefined) {
+			config.loadDeferredImages = config.lazyLoadImages || true;
+			delete config.lazyLoadImages;
+		}
+		if (config.loadDeferredImagesMaxIdleTime === undefined) {
+			config.loadDeferredImagesMaxIdleTime = config.maxLazyLoadImagesIdleTime || DEFAULT_CONFIG.loadDeferredImagesMaxIdleTime;
+			delete config.maxLazyLoadImagesIdleTime;
 		}
 	}
 

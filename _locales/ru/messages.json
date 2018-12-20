@@ -123,19 +123,19 @@
         "message": "открывать диалоговое окно \"Сохранить как\" для подтверждения имени файла",
         "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
     },
-    "optionConflictAction": {
+    "optionFilenameConflictAction": {
         "message": "разрешение конфликтов имен файлов",
         "description": "Options page label: 'filename conflict resolution'"
     },
-    "optionConflictActionUniquify": {
+    "optionFilenameConflictActionUniquify": {
         "message": "создать уникальное имя",
         "description": "Value for 'filename conflict resolution' option: 'create a unique name'"
     },
-    "optionConflictActionOverwrite": {
+    "optionFilenameConflictActionOverwrite": {
         "message": "перезаписать существующий файл",
         "description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
     },
-    "optionConflictActionPrompt": {
+    "optionFilenameConflictActionPrompt": {
         "message": "запросить имя",
         "description": "Value for 'name conflict resolution' option: 'prompt for a name'"
     },
@@ -167,11 +167,11 @@
         "message": "группировать дубликаты изображений",
         "description": "Options page label: 'group duplicate images together'"
     },
-    "optionLazyLoadImages": {
+    "optionLoadDeferredImages": {
         "message": "сохранить отложенные изображения",
         "description": "Options page label: 'save deferred images'"
     },
-    "optionMaxLazyLoadImagesIdleTime": {
+    "optionLoadDeferredImagesMaxIdle": {
         "message": "максимальное время простоя (мс)",
         "description": "Options page label: 'maximum idle time (ms)'"
     },

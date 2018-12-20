@@ -28,10 +28,10 @@ singlefile.download = (() => {
 				if (request.content) {
 					request.url = URL.createObjectURL(new Blob([request.content], { type: "text/html" }));
 				}
-				return downloadPage(request, { confirmFilename: request.confirmFilename, incognito: sender.tab.incognito, conflictAction: request.conflictAction })
+				return downloadPage(request, { confirmFilename: request.confirmFilename, incognito: sender.tab.incognito, conflictAction: request.filenameConflictAction })
 					.catch(error => {
 						if (error.message && error.message.includes("'incognito'")) {
-							return downloadPage(request, { confirmFilename: request.confirmFilename, conflictAction: request.conflictAction });
+							return downloadPage(request, { confirmFilename: request.confirmFilename, conflictAction: request.filenameConflictAction });
 						} else {
 							return { notSupported: true };
 						}
@@ -49,7 +49,7 @@ singlefile.download = (() => {
 			url: page.url,
 			saveAs: options.confirmFilename,
 			filename: page.filename,
-			conflictAction: options.conflictAction
+			conflictAction: options.filenameConflictAction
 		};
 		if (options.incognito) {
 			downloadInfo.incognito = true;

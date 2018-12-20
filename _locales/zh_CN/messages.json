@@ -123,19 +123,19 @@
         "message": "打开“另存为”对话框以确认文件名",
         "description": "选项页标签: '打开“另存为”对话框以确认文件名'"
     },
-    "optionConflictAction": {
+    "optionFilenameConflictAction": {
         "message": "文件名冲突解决",
         "description": "Options page label: 'filename conflict resolution'"
     },
-    "optionConflictActionUniquify": {
+    "optionFilenameConflictActionUniquify": {
         "message": "创建为不冲突的名称",
         "description": "Value for 'filename conflict resolution' option: 'create a unique name'"
     },
-    "optionConflictActionOverwrite": {
+    "optionFilenameConflictActionOverwrite": {
         "message": "覆盖现有的文件",
         "description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
     },
-    "optionConflictActionPrompt": {
+    "optionFilenameConflictActionPrompt": {
         "message": "询问新名称",
         "description": "Value for 'name conflict resolution' option: 'prompt for a name'"
     },
@@ -167,11 +167,11 @@
         "message": "重复图像合并",
         "description": "选项页标签: '重复图像合并'"
     },
-    "optionLazyLoadImages": {
+    "optionLoadDeferredImages": {
         "message": "保存延迟加载的图像",
         "description": "选项页标签: '保存延迟加载的图像'"
     },
-    "optionMaxLazyLoadImagesIdleTime": {
+    "optionLoadDeferredImagesMaxIdle": {
         "message": "最长空闲时间（毫秒）",
         "description": "Options page label: 'maximum idle time (ms)'"
     },

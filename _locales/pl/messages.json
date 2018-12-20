@@ -123,19 +123,19 @@
         "message": "otwieraj okno \"Zapisz jako\", aby potwierdzić nazwę pliku",
         "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
     },
-    "optionConflictAction": {
+    "optionFilenameConflictAction": {
         "message": "rozwiązywanie konfliktu nazwy pliku",
         "description": "Options page label: 'filename conflict resolution'"
     },
-    "optionConflictActionUniquify": {
+    "optionFilenameConflictActionUniquify": {
         "message": "stwórz unikalną nazwę pliku",
         "description": "Value for 'filename conflict resolution' option: 'create a unique name'"
     },
-    "optionConflictActionOverwrite": {
+    "optionFilenameConflictActionOverwrite": {
         "message": "nadpisz istniejący plik",
         "description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
     },
-    "optionConflictActionPrompt": {
+    "optionFilenameConflictActionPrompt": {
         "message": "zapytaj o nazwę",
         "description": "Value for 'name conflict resolution' option: 'prompt for a name'"
     },
@@ -167,11 +167,11 @@
         "message": "grupuj zduplikowane obrazy razem",
         "description": "Options page label: 'group duplicate images together'"
     },
-    "optionLazyLoadImages": {
+    "optionLoadDeferredImages": {
         "message": "zapisuj odroczone obrazy",
         "description": "Options page label: 'save deferred images'"
     },
-    "optionMaxLazyLoadImagesIdleTime": {
+    "optionLoadDeferredImagesMaxIdle": {
         "message": "maksymalny czas bezczynności (ms)",
         "description": "Options page label: 'maximum idle time (ms)'"
     },
