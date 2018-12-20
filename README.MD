@@ -51,7 +51,7 @@ Please follow these steps if you find an unknown issue:
 - If saving page in incognito did not fix the issue, reset SingleFile options.
 - If resetting options did not fix the issue, try to disable all other extensions to see if there is a conflict.
 - If there is a conflict then try to determine against which extension(s).
-- Please report the issue with a short description describing how to reproduce the issue, Browser version, OS name and version here: https://github.com/gildas-lormeau/SingleFile/issues.
+- Please report the issue with a short description on how to reproduce the issue here: https://github.com/gildas-lormeau/SingleFile/issues.
 
 ## Contributors
 - Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad)
