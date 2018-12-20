@@ -121,7 +121,7 @@ h3 {
     scrollbar-width: thin;
 }
 
-.rules-data::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 6px;
     background-color: #cdcdcd;
 }
