@@ -72,22 +72,24 @@ this.singlefile.top = this.singlefile.top || (() => {
 		const preInitializationPromises = [];
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
-		if (!options.removeFrames && this.frameTree) {
-			let frameTreePromise;
-			if (options.lazyLoadImages) {
-				frameTreePromise = new Promise(resolve => timeout.set(() => resolve(frameTree.getAsync(options)), options.maxLazyLoadImagesIdleTime - frameTree.TIMEOUT_INIT_REQUEST_MESSAGE));
-			} else {
-				frameTreePromise = frameTree.getAsync(options);
+		if (!options.saveRawPage) {
+			if (!options.removeFrames && this.frameTree) {
+				let frameTreePromise;
+				if (options.lazyLoadImages) {
+					frameTreePromise = new Promise(resolve => timeout.set(() => resolve(frameTree.getAsync(options)), options.maxLazyLoadImagesIdleTime - frameTree.TIMEOUT_INIT_REQUEST_MESSAGE));
+				} else {
+					frameTreePromise = frameTree.getAsync(options);
+				}
+				singlefile.ui.onLoadingFrames();
+				frameTreePromise.then(() => singlefile.ui.onLoadFrames());
+				preInitializationPromises.push(frameTreePromise);
 			}
-			singlefile.ui.onLoadingFrames();
-			frameTreePromise.then(() => singlefile.ui.onLoadFrames());
-			preInitializationPromises.push(frameTreePromise);
-		}
-		if (options.lazyLoadImages && options.shadowEnabled) {
-			const lazyLoadPromise = lazyLoader.process(options);
-			singlefile.ui.onLoadingDeferResources();
-			lazyLoadPromise.then(() => singlefile.ui.onLoadDeferResources());
-			preInitializationPromises.push(lazyLoadPromise);
+			if (options.lazyLoadImages && options.shadowEnabled) {
+				const lazyLoadPromise = lazyLoader.process(options);
+				singlefile.ui.onLoadingDeferResources();
+				lazyLoadPromise.then(() => singlefile.ui.onLoadDeferResources());
+				preInitializationPromises.push(lazyLoadPromise);
+			}
 		}
 		let index = 0, maxIndex = 0;
 		options.onprogress = event => {
