@@ -136,6 +136,7 @@
 			ruleUrlInput.value = "";
 			ruleProfileInput.value = ruleAutoSaveProfileInput.value = singlefile.config.DEFAULT_PROFILE_NAME;
 			await refresh();
+			ruleUrlInput.focus();
 		} catch (error) {
 			// ignored
 		}
