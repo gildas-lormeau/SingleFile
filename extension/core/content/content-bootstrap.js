@@ -20,7 +20,7 @@
 
 /* global singlefile, frameTree, browser, window, addEventListener, removeEventListener, document, location, docHelper, setTimeout */
 
-this.singlefile.autosave = this.singlefile.autosave || (async () => {
+this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 
 	let listenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage;
 	browser.runtime.sendMessage({ isAutoSaveEnabled: true }).then(message => {
