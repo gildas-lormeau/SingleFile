@@ -148,6 +148,13 @@
 			ruleAddButton.disabled = true;
 		}
 	};
+	ruleEditUrlInput.onclick = ruleEditUrlInput.onkeyup = ruleEditUrlInput.onchange = async () => {
+		ruleEditButton.disabled = !ruleEditUrlInput.value;
+		const rules = await singlefile.config.getRules();
+		if (rules.find(rule => rule.url == ruleEditUrlInput.value)) {
+			ruleEditButton.disabled = true;
+		}
+	};
 	showAutoSaveProfileInput.addEventListener("click", () => {
 		if (showAutoSaveProfileInput.checked) {
 			rulesContainerElement.classList.remove("compact");
