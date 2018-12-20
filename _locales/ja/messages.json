@@ -219,6 +219,54 @@
         "message": "自動保存",
         "description": "オプションのサブタイトル: '自動保存'"
     },
+    "optionsAutoSettingsSubTitle": {
+        "message": "Auto-settings rules",
+        "description": "Options sub-title: 'Auto-settings rules'"
+    },
+    "optionsAutoSettingsUrl": {
+        "message": "URL",
+        "description": "Options label in the auto-settings rules: 'URL'"
+    },
+    "optionsAutoSettingsUrlPlaceholder": {
+        "message": "Entrer une URL partielle ou complète (e.g. example.com)",
+        "description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
+    },
+    "optionsAutoSettingsProfile": {
+        "message": "Profile",
+        "description": "Options label in the Auto-settings rules: 'Profile'"
+    },
+    "optionsAutoSettingsAutoSaveProfile": {
+        "message": "Auto-save profile",
+        "description": "Options label in the Auto-settings rules: 'Auto-save profile'"
+    },
+    "optionsAutoSettingsShowAllProfiles": {
+        "message": "display all profiles",
+        "description": "Options label in the Auto-settings rules: 'display all profiles'"
+    },
+    "optionsAutoSettingsShowAutoSaveProfile": {
+        "message": "display 'Auto-save profile' column",
+        "description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
+    },
+    "optionsUpdateRuleTooltip": {
+        "message": "Update the rule",
+        "description": "Popup text 'Update the rule' in the options page"
+    },
+    "optionsDeleteRuleTooltip": {
+        "message": "Delete the rule",
+        "description": "Popup text 'Delete the rule' in the options page"
+    },
+    "optionsAddRuleTooltip": {
+        "message": "Add the rule",
+        "description": "Popup text 'Delete the rule' in the options page"
+    },
+    "optionsValidateChangesTooltip": {
+        "message": "Validate changes",
+        "description": "Popup text 'Validate changes' in the options page"
+    },
+    "optionsDeleteRuleConfirm": {
+        "message": "Confirm deletion of the selected rule",
+        "description": "Popup text 'Confirm deletion of the selected rule' in the options page"
+    },
     "optionAutoSaveLoadOrUnload": {
         "message": "ページの読み込み後またはページの非読み込み時に自動保存",
         "description": "ページの読み込み後またはページの非読み込み時に自動保存"
@@ -291,9 +339,13 @@
         "message": "110",
         "description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
     },
-    "profileDefaultSettingsLabel": {
+    "profileDefaultSettings": {
         "message": "デフォルトの設定",
         "description": "Label 'Default settings' of the default settings in the options page"
+    },
+    "profileDisabled": {
+        "message": "Disabled",
+        "description": "Label 'Disabled' of the disabled profile name in the options page"
     },
     "profileAddButtonTooltip": {
         "message": "新しいプロファイルを追加します",

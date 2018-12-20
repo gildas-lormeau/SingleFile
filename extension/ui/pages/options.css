@@ -13,7 +13,8 @@ button {
 }
 
 button,
-select {
+select,
+input[type=text] {
     background-color: transparent;
     border-color: rgb(191, 191, 191);
     border-style: solid;
@@ -57,9 +58,76 @@ h3 {
     margin-right: 12px;
     position: relative;
     top: -3px;
+    max-width: calc(100% - 100px);
 }
 
-.profiles button {
+.rules-table-container {
+    width: 100%;
+    border-spacing: 0;
+    border-color: rgb(191, 191, 191);
+    border-style: solid;
+    border-width: 1px;
+    margin-top: 24px;
+}
+
+.rules-table-container .tr {
+    height: 26px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 56px;
+}
+
+.rules-table-container.compact .tr {
+    grid-template-columns: 1fr 1fr 56px;
+}
+
+.rules-table-container.compact .tr .rule-autosave-profile {
+    display: none;
+}
+
+.rules-table-container .tr[hidden] {
+    display: none;
+}
+
+.rules-table-container .th {
+    text-align: left;
+    border-color: rgb(225, 225, 225);
+    border-style: solid;
+    border-width: 0;
+    border-bottom-width: 1px;
+}
+
+.rules-table-container .th,
+.rules-table-container .td {
+    padding: 4px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    align-self: center;
+}
+
+.rules-table .td:first-of-type {
+    padding-right: 8px;
+}
+
+.rules-table .td:last-of-type {
+    text-align: right;
+}
+
+.rules-data {
+    max-height: 552px;
+    overflow-y: auto;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    scrollbar-width: thin;
+}
+
+.rules-data::-webkit-scrollbar {
+    width: 6px;
+    background-color: #cdcdcd;
+}
+
+.profiles button,
+.rules-table button {
     padding: 0;
     margin: 0;
     width: 22px;
@@ -67,24 +135,52 @@ h3 {
 }
 
 .profiles button,
-.profiles select {
+.profiles select,
+.rules-table button,
+.rules-table select,
+.rules-table input {
     height: 22px;
     vertical-align: top;
 }
 
-.profiles select {
-    max-width: 180px;
+.rules-table input {
+    width: 100%;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
-.profiles button:disabled {
+.rules-table .rule-create {
+    margin-top: 8px;
+}
+
+.profiles select {
+    max-width: calc(100% - 78px);
+}
+
+.rules-table select {
+    max-width: 100%;
+}
+
+.profiles button:disabled,
+.rules-table-container button:disabled {
     opacity: .25;
 }
 
-.profiles button>img {
+.profiles button>img,
+.rules-table button>img {
     width: 14px;
     height: auto;
     vertical-align: middle;
     padding: 2px;
+}
+
+.rules-table-container+.option label,
+.rules-table-container+.option+.option label {
+    text-align: right;
+    width: 100%;
 }
 
 #profilesLabel {

@@ -80,7 +80,7 @@ this.singlefile.autosave = this.singlefile.autosave || (async () => {
 	}
 
 	async function refresh() {
-		if (autoSaveEnabled && (options.autoSaveUnload || options.autoSaveLoadOrUnload)) {
+		if (autoSaveEnabled && options && (options.autoSaveUnload || options.autoSaveLoadOrUnload)) {
 			if (!listenerAdded) {
 				addEventListener("unload", onUnload);
 				addEventListener("single-file-push-state", onUnload);

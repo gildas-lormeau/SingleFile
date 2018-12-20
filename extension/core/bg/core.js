@@ -27,15 +27,15 @@ singlefile.core = (() => {
 	return { saveTab, autoSaveTab, isAllowedURL };
 
 	async function saveTab(tab, options) {
-		const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get()]);
-		const mergedOptions = config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
+		const tabsData = await singlefile.tabsData.get();
+		const mergedOptions = await singlefile.config.getOptions(tabsData.profileName, tab.url);
 		Object.keys(options).forEach(key => mergedOptions[key] = options[key]);
 		return singlefile.runner.saveTab(tab, mergedOptions);
 	}
 
 	async function autoSaveTab(tab) {
-		const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get()]);
-		const options = config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
+		const tabsData = await singlefile.tabsData.get();
+		const options = await singlefile.config.getOptions(tabsData.profileName, tab.url, true);
 		if (singlefile.autosave.enabled(tab.id)) {
 			await browser.tabs.sendMessage(tab.id, { autoSavePage: true, options });
 		}

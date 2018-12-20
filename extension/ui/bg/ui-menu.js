@@ -47,9 +47,9 @@ singlefile.ui.menu = (() => {
 		refresh
 	};
 
-	async function refresh() {
-		const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get()]);
-		const options = config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
+	async function refresh(tab) {
+		const [profiles, tabsData] = await Promise.all([singlefile.config.getProfiles(), singlefile.tabsData.get()]);
+		const options = await singlefile.config.getOptions(tabsData.profileName, tab && tab.url, true);
 		if (BROWSER_MENUS_API_SUPPORTED) {
 			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio"];
 			const defaultContextsDisabled = ["browser_action"];
@@ -104,7 +104,7 @@ singlefile.ui.menu = (() => {
 					type: "separator"
 				});
 			}
-			if (Object.keys(config.profiles).length > 1) {
+			if (Object.keys(profiles).length > 1) {
 				browser.menus.create({
 					id: MENU_ID_SELECT_PROFILE,
 					title: browser.i18n.getMessage("menuSelectProfile"),
@@ -114,11 +114,11 @@ singlefile.ui.menu = (() => {
 					id: MENU_ID_SELECT_PROFILE_PREFIX + "default",
 					type: "radio",
 					contexts: defaultContexts,
-					title: browser.i18n.getMessage("profileDefaultSettingsLabel"),
+					title: browser.i18n.getMessage("profileDefaultSettings"),
 					checked: !tabsData.profileName || tabsData.profileName == singlefile.config.DEFAULT_PROFILE_NAME,
 					parentId: MENU_ID_SELECT_PROFILE
 				});
-				Object.keys(config.profiles).forEach((profileName, profileIndex) => {
+				Object.keys(profiles).forEach((profileName, profileIndex) => {
 					if (profileName != singlefile.config.DEFAULT_PROFILE_NAME) {
 						browser.menus.create({
 							id: MENU_ID_SELECT_PROFILE_PREFIX + profileIndex,
@@ -225,13 +225,13 @@ singlefile.ui.menu = (() => {
 					refreshExternalComponents(tab.id, { autoSave: true });
 				}
 				if (event.menuItemId.startsWith(MENU_ID_SELECT_PROFILE_PREFIX)) {
-					const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get()]);
+					const [profiles, tabsData] = await Promise.all([singlefile.config.getProfiles(), singlefile.tabsData.get()]);
 					const profileId = event.menuItemId.split(MENU_ID_SELECT_PROFILE_PREFIX)[1];
 					if (profileId == "default") {
 						tabsData.profileName = singlefile.config.DEFAULT_PROFILE_NAME;
 					} else {
 						const profileIndex = Number(profileId);
-						tabsData.profileName = Object.keys(config.profiles)[profileIndex];
+						tabsData.profileName = Object.keys(profiles)[profileIndex];
 					}
 					await singlefile.tabsData.set(tabsData);
 					refresh();

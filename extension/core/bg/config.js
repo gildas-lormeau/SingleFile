@@ -23,6 +23,7 @@
 singlefile.config = (() => {
 
 	const DEFAULT_PROFILE_NAME = "__Default_Settings__";
+	const DISABLED_PROFILE_NAME = "__Disabled_Settings__";
 
 	const DEFAULT_CONFIG = {
 		removeHiddenElements: true,
@@ -73,13 +74,17 @@ singlefile.config = (() => {
 		if (!config.profiles) {
 			delete defaultConfig.tabsData;
 			applyUpgrade(defaultConfig);
-			const config = { profiles: {}, defaultProfile: DEFAULT_PROFILE_NAME };
-			config.profiles[config.defaultProfile] = defaultConfig;
+			const config = { profiles: {}, rules: [] };
+			config.profiles[DEFAULT_PROFILE_NAME] = defaultConfig;
 			browser.storage.local.remove(Object.keys(DEFAULT_CONFIG));
 			return browser.storage.local.set(config);
 		} else {
+			if (!config.rules) {
+				config.rules = [];
+			}
 			Object.keys(config.profiles).forEach(profileName => applyUpgrade(config.profiles[profileName]));
-			return browser.storage.local.set({ profiles: config.profiles });
+			await browser.storage.local.remove(["profiles", "defaultProfile", "rules"]);
+			return browser.storage.local.set({ profiles: config.profiles, rules: config.rules });
 		}
 	}
 
@@ -184,31 +189,38 @@ singlefile.config = (() => {
 
 	async function getConfig() {
 		await pendingUpgradePromise;
-		return browser.storage.local.get(["profiles", "defaultProfile"]);
+		return browser.storage.local.get(["profiles", "rules"]);
 	}
 
 	return {
+		DISABLED_PROFILE_NAME,
 		DEFAULT_PROFILE_NAME,
-		async create(profileName) {
+		async createProfile(profileName) {
 			const config = await getConfig();
 			if (Object.keys(config.profiles).includes(profileName)) {
 				throw new Error("Duplicate profile name");
 			}
 			config.profiles[profileName] = DEFAULT_CONFIG;
-			await browser.storage.local.set({ profiles: config.profiles, defaultProfile: DEFAULT_PROFILE_NAME });
+			await browser.storage.local.set({ profiles: config.profiles });
 		},
-		async get() {
-			return getConfig();
+		async getProfiles() {
+			const config = await getConfig();
+			return config.profiles;
 		},
-		async update(profileName, data) {
+		async getOptions(profileName, url, autoSave) {
+			const config = await getConfig();
+			const urlRule = config.rules.find(rule => url && url.includes(rule.url));
+			return urlRule ? config.profiles[urlRule[autoSave ? "autoSaveProfile" : "profile"]] : config.profiles[profileName || singlefile.config.DEFAULT_PROFILE_NAME];
+		},
+		async updateProfile(profileName, profile) {
 			const config = await getConfig();
 			if (!Object.keys(config.profiles).includes(profileName)) {
 				throw new Error("Profile not found");
 			}
-			config.profiles[profileName] = data;
+			config.profiles[profileName] = profile;
 			await browser.storage.local.set({ profiles: config.profiles });
 		},
-		async rename(oldProfileName, profileName) {
+		async renameProfile(oldProfileName, profileName) {
 			const [config, tabsData] = await Promise.all([getConfig(), singlefile.tabsData.get()]);
 			if (!Object.keys(config.profiles).includes(oldProfileName)) {
 				throw new Error("Profile not found");
@@ -224,10 +236,18 @@ singlefile.config = (() => {
 				await singlefile.tabsData.set(tabsData);
 			}
 			config.profiles[profileName] = config.profiles[oldProfileName];
+			config.rules.forEach(rule => {
+				if (rule.profile == oldProfileName) {
+					rule.profile = profileName;
+				}
+				if (rule.autoSaveProfile == oldProfileName) {
+					rule.autoSaveProfile = profileName;
+				}
+			});
 			delete config.profiles[oldProfileName];
-			await browser.storage.local.set({ profiles: config.profiles });
+			await browser.storage.local.set({ profiles: config.profiles, rules: config.rules });
 		},
-		async delete(profileName) {
+		async deleteProfile(profileName) {
 			const [config, tabsData] = await Promise.all([getConfig(), singlefile.tabsData.get()]);
 			if (!Object.keys(config.profiles).includes(profileName)) {
 				throw new Error("Profile not found");
@@ -239,16 +259,68 @@ singlefile.config = (() => {
 				delete tabsData.profileName;
 				await singlefile.tabsData.set(tabsData);
 			}
+			config.rules.forEach(rule => {
+				if (rule.profile == profileName) {
+					rule.profile = DEFAULT_PROFILE_NAME;
+				}
+				if (rule.autoSaveProfile == profileName) {
+					rule.autoSaveProfile = DEFAULT_PROFILE_NAME;
+				}
+			});
 			delete config.profiles[profileName];
-			await browser.storage.local.set({ profiles: config.profiles });
+			await browser.storage.local.set({ profiles: config.profiles, rules: config.rules });
+		},
+		async getRules() {
+			const config = await getConfig();
+			return config.rules;
+		},
+		async addRule(url, profile, autoSaveProfile) {
+			if (!url) {
+				throw new Error("URL is empty");
+			}
+			const config = await getConfig();
+			if (config.rules.find(rule => rule.url == url)) {
+				throw new Error("URL already exists");
+			}
+			config.rules.push({
+				url,
+				profile,
+				autoSaveProfile
+			});
+			await browser.storage.local.set({ rules: config.rules });
+		},
+		async deleteRule(url) {
+			if (!url) {
+				throw new Error("URL is empty");
+			}
+			const config = await getConfig();
+			config.rules = config.rules.filter(rule => rule.url != url);
+			await browser.storage.local.set({ rules: config.rules });
+		},
+		async updateRule(url, newURL, profile, autoSaveProfile) {
+			if (!url || !newURL) {
+				throw new Error("URL is empty");
+			}
+			const config = await getConfig();
+			const urlConfig = config.rules.find(rule => rule.url == url);
+			if (!urlConfig) {
+				throw new Error("URL not found");
+			}
+			if (config.rules.find(rule => rule.url == newURL && rule.url != url)) {
+				throw new Error("New URL already exists");
+			}
+			urlConfig.url = newURL;
+			urlConfig.profile = profile;
+			urlConfig.autoSaveProfile = autoSaveProfile;
+			await browser.storage.local.set({ rules: config.rules });
 		},
 		async reset() {
 			await pendingUpgradePromise;
 			const tabsData = await singlefile.tabsData.get();
 			delete tabsData.profileName;
 			await singlefile.tabsData.set(tabsData);
-			await browser.storage.local.remove(["profiles", "defaultProfile"]);
-			await browser.storage.local.set({ profiles: { [DEFAULT_PROFILE_NAME]: DEFAULT_CONFIG }, defaultProfile: DEFAULT_PROFILE_NAME });
+			await browser.storage.local.remove(["profiles", "rules"]);
+			await browser.storage.local.set({ profiles: { [DEFAULT_PROFILE_NAME]: DEFAULT_CONFIG }, rules: [] });
 		}
 	};
 

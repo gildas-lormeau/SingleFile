@@ -219,6 +219,54 @@
         "message": "Auto-sauvegarde",
         "description": "Options sub-title: 'Auto-save'"
     },
+    "optionsAutoSettingsSubTitle": {
+        "message": "Règles d'auto-configuration",
+        "description": "Options sub-title: 'Auto-settings rules'"
+    },
+    "optionsAutoSettingsUrl": {
+        "message": "URL",
+        "description": "Options label in the auto-settings rules: 'URL'"
+    },
+    "optionsAutoSettingsUrlPlaceholder": {
+        "message": "Entrer une URL partielle ou complète (e.g. example.com)",
+        "description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
+    },
+    "optionsAutoSettingsProfile": {
+        "message": "Profil",
+        "description": "Options label in the auto-settings rules: 'Profile'"
+    },
+    "optionsAutoSettingsAutoSaveProfile": {
+        "message": "Profil auto-sauvegarde",
+        "description": "Options label in the auto-settings rules: 'Auto-save profile'"
+    },
+    "optionsAutoSettingsShowAllProfiles": {
+        "message": "afficher tous les profils",
+        "description": "Options label in the Auto-settings rules: 'display all profiles'"
+    },
+    "optionsAutoSettingsShowAutoSaveProfile": {
+        "message": "afficher la colonne 'Profil auto-sauvegarde'",
+        "description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
+    },
+    "optionsUpdateRuleTooltip": {
+        "message": "Mettre à jour la règle",
+        "description": "Popup text 'Update the rule' in the options page"
+    },
+    "optionsDeleteRuleTooltip": {
+        "message": "Supprimer la règle",
+        "description": "Popup text 'Delete the rule' in the options page"
+    },
+    "optionsAddRuleTooltip": {
+        "message": "Ajouter la règle",
+        "description": "Popup text 'Delete the rule' in the options page"
+    },
+    "optionsValidateChangesTooltip": {
+        "message": "Valider les changements",
+        "description": "Popup text 'Valider les changements' in the options page"
+    },
+    "optionsDeleteRuleConfirm": {
+        "message": "Confimer la suppression de la règle selectionnée",
+        "description": "Popup text 'Confirm deletion of the selected rule' in the options page"
+    },
     "optionAutoSaveLoadOrUnload": {
         "message": "auto-sauvegarder après le chargement de la page ou au déchargement",
         "description": "auto-save after page load or on page unload"
@@ -291,9 +339,13 @@
         "message": "130",
         "description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
     },
-    "profileDefaultSettingsLabel": {
+    "profileDefaultSettings": {
         "message": "Configuration par défaut",
         "description": "Label 'Default settings' of the default settings in the options page"
+    },
+    "profileDisabled": {
+        "message": "Désactivé",
+        "description": "Label 'Disabled' of the disabled profile name in the options page"
     },
     "profileAddButtonTooltip": {
         "message": "Ajouter un nouveau profil",

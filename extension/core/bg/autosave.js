@@ -23,9 +23,9 @@
 singlefile.autosave = (() => {
 
 	browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-		const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get()]);
-		const options = config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
-		if ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave))) {
+		const tabsData = await singlefile.tabsData.get();
+		const options = await singlefile.config.getOptions(tabsData.profileName, tab.url, true);
+		if (options && ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave)))) {
 			if (changeInfo.status == "complete") {
 				singlefile.ui.saveTab(tab, { autoSave: true });
 			}
@@ -33,10 +33,10 @@ singlefile.autosave = (() => {
 	});
 	browser.runtime.onMessage.addListener((message, sender) => {
 		if (message.isAutoSaveEnabled) {
-			return isAutoSaveEnabled(sender.tab.id);
+			return isAutoSaveEnabled(sender.tab);
 		}
 		if (message.autoSaveContent) {
-			saveContent(message, sender.tab.id, sender.tab.incognito);
+			saveContent(message, sender.tab);
 		}
 	});
 
@@ -63,9 +63,10 @@ singlefile.autosave = (() => {
 		refresh
 	};
 
-	async function saveContent(message, tabId, incognito) {
-		const [config, tabsData] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get()]);
-		const options = config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
+	async function saveContent(message, tab) {
+		const tabsData = await singlefile.tabsData.get();
+		const options = await singlefile.config.getOptions(tabsData.profileName, tab.url, true);
+		const tabId = tab.id;
 		options.content = message.content;
 		options.url = message.url;
 		options.framesData = message.framesData;
@@ -80,7 +81,7 @@ singlefile.autosave = (() => {
 		options.insertFaviconLink = true;
 		options.backgroundTab = true;
 		options.autoSave = true;
-		options.incognito = incognito;
+		options.incognito = tab.incognito;
 		options.tabId = tabId;
 		options.sessionId = 0;
 		let index = 0, maxIndex = 0;
@@ -115,13 +116,13 @@ singlefile.autosave = (() => {
 			}
 			tabsData[tabId].autoSave = enabled;
 			await singlefile.tabsData.set(tabsData);
-			singlefile.ui.refresh(tabId);
+			singlefile.ui.refresh(tab);
 		}
 	}
 
-	async function isAutoSaveEnabled(tabId) {
-		const [config, tabsData, autoSaveEnabled] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get(), enabled(tabId)]);
-		const options = config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
+	async function isAutoSaveEnabled(tab) {
+		const tabsData = await singlefile.tabsData.get();
+		const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(tabsData.profileName, tab.url, true), enabled(tab.id)]);
 		return { autoSaveEnabled, options };
 	}
 
@@ -134,8 +135,8 @@ singlefile.autosave = (() => {
 		const tabs = await browser.tabs.query({});
 		return Promise.all(tabs.map(async tab => {
 			try {
-				const [config, tabsData, autoSaveEnabled] = await Promise.all([singlefile.config.get(), singlefile.tabsData.get(), enabled(tab.id)]);
-				const options = config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
+				const tabsData = await singlefile.tabsData.get();
+				const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(tabsData.profileName, tab.url, true), enabled(tab.id)]);
 				await browser.tabs.sendMessage(tab.id, { autoSaveUnloadEnabled: true, autoSaveEnabled, options });
 			} catch (error) {
 				/* ignored */

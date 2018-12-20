@@ -68,6 +68,12 @@
 	const stylesheetsLabel = document.getElementById("stylesheetsLabel");
 	const otherResourcesLabel = document.getElementById("otherResourcesLabel");
 	const autoSaveLabel = document.getElementById("autoSaveLabel");
+	const autoSettingsLabel = document.getElementById("autoSettingsLabel");
+	const autoSettingsUrlLabel = document.getElementById("autoSettingsUrlLabel");
+	const autoSettingsProfileLabel = document.getElementById("autoSettingsProfileLabel");
+	const autoSettingsAutoSaveProfileLabel = document.getElementById("autoSettingsAutoSaveProfileLabel");
+	const showAllProfilesLabel = document.getElementById("showAllProfilesLabel");
+	const showAutoSaveProfileLabel = document.getElementById("showAutoSaveProfileLabel");
 	const groupDuplicateImagesLabel = document.getElementById("groupDuplicateImagesLabel");
 	const confirmInfobarLabel = document.getElementById("confirmInfobarLabel");
 	const infobarTemplateLabel = document.getElementById("infobarTemplateLabel");
@@ -111,13 +117,49 @@
 	const infobarTemplateInput = document.getElementById("infobarTemplateInput");
 	const confirmInfobarInput = document.getElementById("confirmInfobarInput");
 	const expandAllButton = document.getElementById("expandAllButton");
+	const ruleUrlInput = document.getElementById("ruleUrlInput");
+	const ruleProfileInput = document.getElementById("ruleProfileInput");
+	const ruleAutoSaveProfileInput = document.getElementById("ruleAutoSaveProfileInput");
+	const ruleEditProfileInput = document.getElementById("ruleEditProfileInput");
+	const ruleEditAutoSaveProfileInput = document.getElementById("ruleEditAutoSaveProfileInput");
+	const ruleAddButton = document.getElementById("ruleAddButton");
+	const rulesElement = document.querySelector(".rules-table");
+	const rulesContainerElement = document.querySelector(".rules-table-container");
+	const ruleEditUrlInput = document.getElementById("ruleEditUrlInput");
+	const ruleEditButton = document.getElementById("ruleEditButton");
+	const showAllProfilesInput = document.getElementById("showAllProfilesInput");
+	const showAutoSaveProfileInput = document.getElementById("showAutoSaveProfileInput");
 	let pendingSave = Promise.resolve();
+	ruleAddButton.addEventListener("click", async () => {
+		try {
+			await singlefile.config.addRule(ruleUrlInput.value, ruleProfileInput.value, ruleAutoSaveProfileInput.value);
+			ruleUrlInput.value = "";
+			ruleProfileInput.value = ruleAutoSaveProfileInput.value = singlefile.config.DEFAULT_PROFILE_NAME;
+			await refresh();
+		} catch (error) {
+			// ignored
+		}
+	}, false);
+	ruleUrlInput.onclick = ruleUrlInput.onkeyup = ruleUrlInput.onchange = async () => {
+		ruleAddButton.disabled = !ruleUrlInput.value;
+		const rules = await singlefile.config.getRules();
+		if (rules.find(rule => rule.url == ruleUrlInput.value)) {
+			ruleAddButton.disabled = true;
+		}
+	};
+	showAutoSaveProfileInput.addEventListener("click", () => {
+		if (showAutoSaveProfileInput.checked) {
+			rulesContainerElement.classList.remove("compact");
+		} else {
+			rulesContainerElement.classList.add("compact");
+		}
+	}, false);
 	addProfileButton.addEventListener("click", async () => {
 		const profileName = prompt(browser.i18n.getMessage("profileAddPrompt"));
 		if (profileName) {
 			try {
-				await singlefile.config.create(profileName);
-				await await Promise.all([refresh(profileName), singlefile.ui.menu.refresh()]);
+				await singlefile.config.createProfile(profileName);
+				await Promise.all([refresh(profileName), singlefile.ui.menu.refresh()]);
 			} catch (error) {
 				// ignored
 			}
@@ -126,7 +168,7 @@
 	deleteProfileButton.addEventListener("click", async () => {
 		if (confirm(browser.i18n.getMessage("profileDeleteConfirm"))) {
 			try {
-				await singlefile.config.delete(profileNamesInput.value);
+				await singlefile.config.deleteProfile(profileNamesInput.value);
 				profileNamesInput.value = null;
 				await Promise.all([refresh(), singlefile.ui.menu.refresh()]);
 			} catch (error) {
@@ -138,7 +180,7 @@
 		const profileName = prompt(browser.i18n.getMessage("profileRenamePrompt"), profileNamesInput.value);
 		if (profileName) {
 			try {
-				await singlefile.config.rename(profileNamesInput.value, profileName);
+				await singlefile.config.renameProfile(profileNamesInput.value, profileName);
 				await Promise.all([refresh(profileName), singlefile.ui.menu.refresh()]);
 			} catch (error) {
 				// ignored
@@ -179,10 +221,17 @@
 		document.querySelectorAll("details").forEach(detailElement => detailElement.open = Boolean(expandAllButton.className));
 	}, false);
 	document.body.onchange = async event => {
-		if (event.target != profileNamesInput) {
-			await update();
+		let target = event.target;
+		if (target != ruleUrlInput && target != ruleProfileInput && target != ruleAutoSaveProfileInput && target != ruleEditUrlInput && target != ruleEditProfileInput && target != ruleEditAutoSaveProfileInput && target != showAutoSaveProfileInput) {
+			if (target != profileNamesInput && target != showAllProfilesInput) {
+				await update();
+			}
+			if (target == profileNamesInput) {
+				await refresh(profileNamesInput.value);
+			} else {
+				await refresh();
+			}
 		}
-		await refresh();
 	};
 	addProfileButton.title = browser.i18n.getMessage("profileAddButtonTooltip");
 	deleteProfileButton.title = browser.i18n.getMessage("profileDeleteButtonTooltip");
@@ -234,29 +283,101 @@
 	confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
 	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
 	resetButton.title = browser.i18n.getMessage("optionsResetTooltip");
+	autoSettingsLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsSubTitle");
+	autoSettingsUrlLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsUrl");
+	autoSettingsProfileLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsProfile");
+	autoSettingsAutoSaveProfileLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsAutoSaveProfile");
+	ruleAddButton.title = browser.i18n.getMessage("optionsAddRuleTooltip");
+	ruleEditButton.title = browser.i18n.getMessage("optionsValidateChangesTooltip");
+	showAllProfilesLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsShowAllProfiles");
+	showAutoSaveProfileLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsShowAutoSaveProfile");
+	ruleUrlInput.placeholder = ruleEditUrlInput.placeholder = browser.i18n.getMessage("optionsAutoSettingsUrlPlaceholder");
 
 	refresh();
 
 	async function refresh(profileName) {
-		const options = await bgPage.singlefile.config.get();
-		const selectedProfileName = profileName || profileNamesInput.value || options.defaultProfile;
-		profileNamesInput.childNodes.forEach(node => node.remove());
-		const profileNames = Object.keys(options.profiles);
+		const [profiles, rules] = await Promise.all([singlefile.config.getProfiles(), singlefile.config.getRules()]);
+		const selectedProfileName = profileName || profileNamesInput.value || singlefile.config.DEFAULT_PROFILE_NAME;
+		Array.from(profileNamesInput.childNodes).forEach(node => node.remove());
+		const profileNames = Object.keys(profiles);
 		profileNamesInput.options.length = 0;
-		const optionElement = document.createElement("option");
+		ruleProfileInput.options.length = 0;
+		ruleAutoSaveProfileInput.options.length = 0;
+		ruleEditProfileInput.options.length = 0;
+		ruleEditAutoSaveProfileInput.options.length = 0;
+		let optionElement = document.createElement("option");
 		optionElement.value = singlefile.config.DEFAULT_PROFILE_NAME;
-		optionElement.textContent = browser.i18n.getMessage("profileDefaultSettingsLabel");
+		optionElement.textContent = browser.i18n.getMessage("profileDefaultSettings");
 		profileNamesInput.appendChild(optionElement);
+		ruleProfileInput.appendChild(optionElement.cloneNode(true));
+		ruleAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
+		ruleEditProfileInput.appendChild(optionElement.cloneNode(true));
+		ruleEditAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
 		profileNames.forEach(profileName => {
 			if (profileName != singlefile.config.DEFAULT_PROFILE_NAME) {
 				const optionElement = document.createElement("option");
 				optionElement.value = optionElement.textContent = profileName;
 				profileNamesInput.appendChild(optionElement);
+				ruleProfileInput.appendChild(optionElement.cloneNode(true));
+				ruleAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
+				ruleEditProfileInput.appendChild(optionElement.cloneNode(true));
+				ruleEditAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
 			}
 		});
+		optionElement = document.createElement("option");
+		optionElement.value = singlefile.config.DISABLED_PROFILE_NAME;
+		optionElement.textContent = browser.i18n.getMessage("profileDisabled");
+		ruleAutoSaveProfileInput.appendChild(optionElement);
+		ruleEditAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
+		const rulesDataElement = rulesElement.querySelector(".rules-data");
+		Array.from(rulesDataElement.childNodes).forEach(node => node.remove());
+		const editURLElement = rulesElement.querySelector(".rule-edit");
+		const createURLElement = rulesElement.querySelector(".rule-create");
+		createURLElement.hidden = false;
+		editURLElement.hidden = true;
+		rules.forEach(rule => {
+			if (showAllProfilesInput.checked || selectedProfileName == rule.profile || selectedProfileName == rule.autoSaveProfile) {
+				const ruleElement = rulesElement.querySelector(".rule-view").cloneNode(true);
+				const ruleUrlElement = ruleElement.querySelector(".rule-url");
+				const ruleProfileElement = ruleElement.querySelector(".rule-profile");
+				const ruleAutoSaveProfileElement = ruleElement.querySelector(".rule-autosave-profile");
+				ruleUrlElement.textContent = ruleUrlElement.title = rule.url;
+				ruleProfileElement.textContent = ruleProfileElement.title = getProfileText(rule.profile);
+				ruleAutoSaveProfileElement.textContent = ruleAutoSaveProfileElement.title = getProfileText(rule.autoSaveProfile);
+				ruleElement.hidden = false;
+				ruleElement.className = "tr data";
+				rulesDataElement.appendChild(ruleElement);
+				const ruleDeleteButton = ruleElement.querySelector(".rule-delete-button");
+				const ruleUpdateButton = ruleElement.querySelector(".rule-update-button");
+				ruleDeleteButton.title = browser.i18n.getMessage("optionsDeleteRuleTooltip");
+				ruleDeleteButton.addEventListener("click", async () => {
+					if (confirm(browser.i18n.getMessage("optionsDeleteRuleConfirm"))) {
+						await singlefile.config.deleteRule(rule.url);
+						await refresh();
+					}
+				}, false);
+				ruleUpdateButton.title = browser.i18n.getMessage("optionsUpdateRuleTooltip");
+				ruleUpdateButton.addEventListener("click", async () => {
+					if (editURLElement.hidden) {
+						createURLElement.hidden = true;
+						editURLElement.hidden = false;
+						rulesDataElement.replaceChild(editURLElement, ruleElement);
+						ruleEditUrlInput.value = rule.url;
+						ruleEditProfileInput.value = rule.profile;
+						ruleEditAutoSaveProfileInput.value = rule.autoSaveProfile;
+						ruleEditButton.onclick = async () => {
+							rulesElement.appendChild(editURLElement);
+							await singlefile.config.updateRule(rule.url, ruleEditUrlInput.value, ruleEditProfileInput.value, ruleEditAutoSaveProfileInput.value);
+							await refresh();
+						};
+					}
+				}, false);
+			}
+		});
+		rulesElement.appendChild(createURLElement);
 		profileNamesInput.value = selectedProfileName;
 		renameProfileButton.disabled = deleteProfileButton.disabled = profileNamesInput.value == singlefile.config.DEFAULT_PROFILE_NAME;
-		const profileOptions = options.profiles[selectedProfileName];
+		const profileOptions = profiles[selectedProfileName];
 		removeHiddenElementsInput.checked = profileOptions.removeHiddenElements;
 		removeUnusedStylesInput.checked = profileOptions.removeUnusedStyles;
 		removeFramesInput.checked = profileOptions.removeFrames;
@@ -296,9 +417,13 @@
 		confirmInfobarInput.checked = profileOptions.confirmInfobar;
 	}
 
+	function getProfileText(profileName) {
+		return profileName == singlefile.config.DEFAULT_PROFILE_NAME ? browser.i18n.getMessage("profileDefaultSettings") : profileName == singlefile.config.DISABLED_PROFILE_NAME ? browser.i18n.getMessage("profileDisabled") : profileName;
+	}
+
 	async function update() {
 		await pendingSave;
-		pendingSave = bgPage.singlefile.config.update(profileNamesInput.value, {
+		pendingSave = singlefile.config.updateProfile(profileNamesInput.value, {
 			removeHiddenElements: removeHiddenElementsInput.checked,
 			removeUnusedStyles: removeUnusedStylesInput.checked,
 			removeFrames: removeFramesInput.checked,
@@ -333,7 +458,7 @@
 			confirmInfobar: confirmInfobarInput.checked
 		});
 		await pendingSave;
-		await bgPage.singlefile.ui.menu.refresh();
+		await singlefile.ui.menu.refresh();
 	}
 
 })();

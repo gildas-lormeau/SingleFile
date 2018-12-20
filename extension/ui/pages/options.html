@@ -5,6 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>SingleFile options</title>
 	<link rel="stylesheet" href="options.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 
 <body>
@@ -172,6 +173,50 @@
 			<label for="saveRawPageInput" id="saveRawPageLabel"></label>
 			<input type="checkbox" id="saveRawPageInput">
 		</div>
+	</details>
+	<details>
+		<summary id="autoSettingsLabel"></summary>
+		<div class="rules-table-container compact">
+			<div class="thead">
+				<div class="tr">
+					<span class="th" id="autoSettingsUrlLabel"></span>
+					<span class="th" id="autoSettingsProfileLabel"></span>
+					<span class="th rule-autosave-profile" id="autoSettingsAutoSaveProfileLabel"></span>
+					<span class="th">&nbsp;</span>
+				</div>
+			</div>
+			<div class="rules-table">
+				<div class="rules-data">
+				</div>
+				<div hidden class="tr rule-view">
+					<span class="td rule-url"></span>
+					<span class="td rule-profile"></span>
+					<span class="td rule-autosave-profile"></span>
+					<span class="td"><button class="rule-update-button"><img src="../resources/button_edit.png"></button> <button
+						 class="rule-delete-button"><img src="../resources/button_delete.png"></button></span>
+				</div>
+				<div class="tr rule-create">
+					<span class="td rule-url"><input type="text" id="ruleUrlInput" placeholder="Type a complete or partial URL (e.g. example.com)"></span>
+					<span class="td rule-profile"><select id="ruleProfileInput"></select></span>
+					<span class="td rule-autosave-profile"><select id="ruleAutoSaveProfileInput"></select></span>
+					<span class="td"><button id="ruleAddButton" disabled><img src="../resources/button_new.png"></button></span>
+				</div>
+				<div hidden class="tr rule-edit">
+					<span class="td rule-url"><input type="text" id="ruleEditUrlInput"></span>
+					<span class="td rule-profile"><select id="ruleEditProfileInput"></select></span>
+					<span class="td rule-autosave-profile"><select id="ruleEditAutoSaveProfileInput"></select></span>
+					<span class="td"><button id="ruleEditButton"><img src="../resources/button_ok.png"></button></span>
+				</div>
+			</div>
+		</div>
+		<div class="option">
+			<label for="showAllProfilesInput" id="showAllProfilesLabel"></label>
+			<input type="checkbox" id="showAllProfilesInput">
+		</div>
+		<div class="option">
+				<label for="showAutoSaveProfileInput" id="showAutoSaveProfileLabel"></label>
+				<input type="checkbox" id="showAutoSaveProfileInput">
+			</div>
 	</details>
 	<div class="option bottom">
 		<a href="help.html" target="SingleFileHelpPage" id="helpLabel"></a>
