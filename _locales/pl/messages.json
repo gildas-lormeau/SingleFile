@@ -228,7 +228,7 @@
         "description": "Options label in the auto-settings rules: 'URL'"
     },
     "optionsAutoSettingsUrlPlaceholder": {
-        "message": "Entrer une URL partielle ou complète (e.g. example.com)",
+        "message": "Type a complete or partial URL (e.g. example.com)",
         "description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
     },
     "optionsAutoSettingsProfile": {
