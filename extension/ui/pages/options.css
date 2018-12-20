@@ -278,11 +278,8 @@ a {
 }
 
 @media (max-width:400px) {
-    body {
-        font-size: 11px;
-    }
     body,
     input {
-        font-size: 12px;
+        font-size: 11px;
     }
 }
