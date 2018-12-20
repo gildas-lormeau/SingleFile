@@ -220,7 +220,7 @@
         "description": "オプションのサブタイトル: '自動保存'"
     },
     "optionsAutoSettingsSubTitle": {
-        "message": "Auto-settings rules",
+        "message": "自動設定のルール",
         "description": "Options sub-title: 'Auto-settings rules'"
     },
     "optionsAutoSettingsUrl": {
@@ -228,43 +228,43 @@
         "description": "Options label in the auto-settings rules: 'URL'"
     },
     "optionsAutoSettingsUrlPlaceholder": {
-        "message": "Type a complete or partial URL (e.g. example.com)",
+        "message": "完全または部分的な URL を入力します (例 example.com)",
         "description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
     },
     "optionsAutoSettingsProfile": {
-        "message": "Profile",
+        "message": "プロファイル",
         "description": "Options label in the Auto-settings rules: 'Profile'"
     },
     "optionsAutoSettingsAutoSaveProfile": {
-        "message": "Auto-save profile",
+        "message": "プロファイルの自動保存",
         "description": "Options label in the Auto-settings rules: 'Auto-save profile'"
     },
     "optionsAutoSettingsShowAllProfiles": {
-        "message": "display all profiles",
+        "message": "すべてのプロファイルを表示します",
         "description": "Options label in the Auto-settings rules: 'display all profiles'"
     },
     "optionsAutoSettingsShowAutoSaveProfile": {
-        "message": "display 'Auto-save profile' column",
+        "message": "「プロファイルの自動保存」列を表示する",
         "description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
     },
     "optionsUpdateRuleTooltip": {
-        "message": "Update the rule",
+        "message": "ルールを更新する",
         "description": "Popup text 'Update the rule' in the options page"
     },
     "optionsDeleteRuleTooltip": {
-        "message": "Delete the rule",
+        "message": "ルールを削除する",
         "description": "Popup text 'Delete the rule' in the options page"
     },
     "optionsAddRuleTooltip": {
-        "message": "Add the rule",
+        "message": "ルールを追加する",
         "description": "Popup text 'Delete the rule' in the options page"
     },
     "optionsValidateChangesTooltip": {
-        "message": "Validate changes",
+        "message": "変更内容を検証します",
         "description": "Popup text 'Validate changes' in the options page"
     },
     "optionsDeleteRuleConfirm": {
-        "message": "Confirm deletion of the selected rule",
+        "message": "選択したルールの削除を確認する",
         "description": "Popup text 'Confirm deletion of the selected rule' in the options page"
     },
     "optionAutoSaveLoadOrUnload": {
@@ -344,7 +344,7 @@
         "description": "Label 'Default settings' of the default settings in the options page"
     },
     "profileDisabled": {
-        "message": "Disabled",
+        "message": "無効",
         "description": "Label 'Disabled' of the disabled profile name in the options page"
     },
     "profileAddButtonTooltip": {
