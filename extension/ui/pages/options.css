@@ -280,7 +280,8 @@ a {
 @media (max-width:400px) {
     body,
     input,
-    select {
+    select,
+    button {
         font-size: 11px;
     }
 }
