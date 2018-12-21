@@ -171,7 +171,7 @@
         "message": "保存延迟加载的图像",
         "description": "选项页标签: '保存延迟加载的图像'"
     },
-    "optionLoadDeferredImagesMaxIdle": {
+    "optionLoadDeferredImagesMaxIdleTime": {
         "message": "最长空闲时间（毫秒）",
         "description": "Options page label: 'maximum idle time (ms)'"
     },

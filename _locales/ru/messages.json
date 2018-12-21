@@ -171,7 +171,7 @@
         "message": "сохранить отложенные изображения",
         "description": "Options page label: 'save deferred images'"
     },
-    "optionLoadDeferredImagesMaxIdle": {
+    "optionLoadDeferredImagesMaxIdleTime": {
         "message": "максимальное время простоя (мс)",
         "description": "Options page label: 'maximum idle time (ms)'"
     },

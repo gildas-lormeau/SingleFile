@@ -171,7 +171,7 @@
         "message": "遅延画像を保存する",
         "description": "オプションのページラベル: '遅延画像を保存する'"
     },
-    "optionLoadDeferredImagesMaxIdle": {
+    "optionLoadDeferredImagesMaxIdleTime": {
         "message": "最大アイドル時間（秒）",
         "description": "Options page label: 'maximum idle time (ms)'"
     },
