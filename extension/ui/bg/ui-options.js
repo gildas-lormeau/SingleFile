@@ -213,6 +213,7 @@
 			if (fileInput.files.length) {
 				await singlefile.config.import(fileInput.files[0]);
 				await refresh(singlefile.config.DEFAULT_PROFILE_NAME);
+				fileInput.value = "";
 			}
 		};
 		fileInput.click();
