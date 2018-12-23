@@ -70,122 +70,59 @@ singlefile.config = (() => {
 
 	async function upgrade() {
 		const config = await browser.storage.local.get();
-		const defaultConfig = config;
 		if (!config.profiles) {
+			const defaultConfig = config;
 			delete defaultConfig.tabsData;
 			applyUpgrade(defaultConfig);
-			const config = { profiles: {}, rules: [] };
-			config.profiles[DEFAULT_PROFILE_NAME] = defaultConfig;
+			const newConfig = { profiles: {}, rules: [] };
+			newConfig.profiles[DEFAULT_PROFILE_NAME] = defaultConfig;
 			browser.storage.local.remove(Object.keys(DEFAULT_CONFIG));
-			return browser.storage.local.set(config);
+			await browser.storage.local.set(newConfig);
 		} else {
 			if (!config.rules) {
 				config.rules = [];
 			}
 			Object.keys(config.profiles).forEach(profileName => applyUpgrade(config.profiles[profileName]));
 			await browser.storage.local.remove(["profiles", "defaultProfile", "rules"]);
-			return browser.storage.local.set({ profiles: config.profiles, rules: config.rules });
+			await browser.storage.local.set({ profiles: config.profiles, rules: config.rules });
 		}
 	}
 
 	function applyUpgrade(config) {
-		if (config.removeScripts === undefined) {
-			config.removeScripts = true;
-		}
-		config.compressHTML = config.compressCSS = config.compress;
-		if (config.compressCSS === undefined) {
-			config.compressCSS = true;
-		}
-		if (config.compressHTML === undefined) {
-			config.compressHTML = true;
-		}
-		if (config.contextMenuEnabled === undefined) {
-			config.contextMenuEnabled = true;
-		}
-		if (config.filenameTemplate === undefined) {
-			if (config.appendSaveDate || config.appendSaveDate === undefined) {
-				config.filenameTemplate = DEFAULT_CONFIG.filenameTemplate;
-			} else {
-				config.filenameTemplate = "{page-title}.html";
-			}
-			delete config.appendSaveDate;
-		}
-		if (config.infobarTemplate === undefined) {
-			config.infobarTemplate = "";
-		}
-		if (config.removeImports === undefined) {
-			config.removeImports = true;
-		}
-		if (config.shadowEnabled === undefined) {
-			config.shadowEnabled = true;
-		}
-		if (config.maxResourceSize === undefined) {
-			config.maxResourceSize = DEFAULT_CONFIG.maxResourceSize;
-		}
-		if (config.maxResourceSize === 0) {
-			config.maxResourceSize = 1;
-		}
-		if (config.removeUnusedStyles === undefined || config.removeUnusedCSSRules) {
-			delete config.removeUnusedCSSRules;
-			config.removeUnusedStyles = true;
-		}
-		if (config.removeAudioSrc === undefined) {
-			config.removeAudioSrc = true;
-		}
-		if (config.removeVideoSrc === undefined) {
-			config.removeVideoSrc = true;
-		}
-		if (config.displayInfobar === undefined) {
-			config.displayInfobar = true;
-		}
-		if (config.backgroundSave === undefined) {
-			config.backgroundSave = true;
-		}
-		if (config.autoSaveDelay === undefined) {
-			config.autoSaveDelay = DEFAULT_CONFIG.autoSaveDelay;
-		}
-		if (config.removeAlternativeFonts === undefined) {
-			config.removeAlternativeFonts = true;
-		}
-		if (config.removeAlternativeMedias === undefined) {
-			config.removeAlternativeMedias = true;
-		}
-		if (config.removeAlternativeImages === undefined) {
-			if (config.removeAlternativeImages === undefined) {
-				config.removeAlternativeImages = true;
-			} else {
-				config.removeAlternativeImages = config.removeSrcSet;
-			}
-		}
-		if (config.groupDuplicateImages === undefined) {
-			config.groupDuplicateImages = true;
-		}
-		if (config.removeHiddenElements === undefined) {
-			config.removeHiddenElements = true;
-		}
-		if (config.autoSaveLoadOrUnload === undefined && !config.autoSaveUnload) {
+		if (config.autoSaveLoadOrUnload === undefined && !config.autoSaveUnload && !config.autoSaveLoad) {
 			config.autoSaveLoadOrUnload = true;
 			config.autoSaveLoad = false;
 			config.autoSaveUnload = false;
 		}
-		if (config.confirmFilename === undefined) {
-			config.confirmFilename = false;
+		if (!config.maxResourceSize) {
+			config.maxResourceSize = 1;
 		}
-		if (config.confirmInfobarContent === undefined) {
-			config.confirmInfobarContent = config.confirmInfobar;
-			delete config.confirmInfobar;
+		if (config.appendSaveDate !== undefined) {
+			delete config.appendSaveDate;
 		}
-		if (config.filenameConflictAction === undefined) {
-			config.filenameConflictAction = config.conflictAction || DEFAULT_CONFIG.filenameConflictAction;
-			delete config.conflictAction;
+		if ((config.compressHTML === undefined || config.compressCSS === undefined) && config.compress !== undefined) {
+			config.compressHTML = config.compressCSS = config.compress;
+			delete config.compress;
 		}
-		if (config.loadDeferredImages === undefined) {
-			config.loadDeferredImages = config.lazyLoadImages || true;
-			delete config.lazyLoadImages;
+		upgradeOldConfig(config, "removeUnusedStyles", "removeUnusedCSSRules");
+		upgradeOldConfig(config, "removeAlternativeImages", "removeSrcSet");
+		upgradeOldConfig(config, "confirmInfobarContent", "confirmInfobar");
+		upgradeOldConfig(config, "filenameConflictAction", "conflictAction");
+		upgradeOldConfig(config, "loadDeferredImages", "lazyLoadImages");
+		upgradeOldConfig(config, "loadDeferredImagesMaxIdleTime", "maxLazyLoadImagesIdleTime");
+		Object.keys(DEFAULT_CONFIG).forEach(configKey => upgradeConfig(config, configKey));
+	}
+
+	function upgradeOldConfig(config, newKey, oldKey) {
+		if (config[newKey] === undefined && config[oldKey] !== undefined) {
+			config[newKey] = config[oldKey];
+			delete config[oldKey];
 		}
-		if (config.loadDeferredImagesMaxIdleTime === undefined) {
-			config.loadDeferredImagesMaxIdleTime = config.maxLazyLoadImagesIdleTime || DEFAULT_CONFIG.loadDeferredImagesMaxIdleTime;
-			delete config.maxLazyLoadImagesIdleTime;
+	}
+
+	function upgradeConfig(config, key) {
+		if (config[key] === undefined) {
+			config[key] = DEFAULT_CONFIG[key];
 		}
 	}
 
@@ -367,6 +304,7 @@ singlefile.config = (() => {
 			const config = JSON.parse(serializedConfig);
 			await browser.storage.local.remove(["profiles", "rules"]);
 			await browser.storage.local.set({ profiles: config.profiles, rules: config.rules });
+			await upgrade();
 		}
 	};
 
