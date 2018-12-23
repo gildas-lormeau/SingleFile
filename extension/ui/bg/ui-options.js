@@ -133,11 +133,21 @@
 	const showAllProfilesInput = document.getElementById("showAllProfilesInput");
 	const showAutoSaveProfileInput = document.getElementById("showAutoSaveProfileInput");
 	let pendingSave = Promise.resolve();
+	let autoSaveProfileChanged;
+	ruleProfileInput.onchange = () => {
+		if (!autoSaveProfileChanged) {
+			ruleAutoSaveProfileInput.value = ruleProfileInput.value;
+		}
+	};
+	ruleAutoSaveProfileInput.onchange = () => {
+		autoSaveProfileChanged = true;
+	};
 	ruleAddButton.addEventListener("click", async () => {
 		try {
 			await singlefile.config.addRule(ruleUrlInput.value, ruleProfileInput.value, ruleAutoSaveProfileInput.value);
 			ruleUrlInput.value = "";
 			ruleProfileInput.value = ruleAutoSaveProfileInput.value = singlefile.config.DEFAULT_PROFILE_NAME;
+			autoSaveProfileChanged = false;
 			await refresh();
 			ruleUrlInput.focus();
 		} catch (error) {
