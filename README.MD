@@ -49,7 +49,8 @@ See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=
 Please follow these steps if you find an unknown issue:
 - Save the page in incognito.
 - If saving page in incognito did not fix the issue, reset SingleFile options.
-- If resetting options did not fix the issue, try to disable all other extensions to see if there is a conflict.
+- If resetting options did not fix the issue, restart the browser.
+- If restarting the browser did not fix the issue, try to disable all other extensions to see if there is a conflict.
 - If there is a conflict then try to determine against which extension(s).
 - Please report the issue with a short description on how to reproduce it here: https://github.com/gildas-lormeau/SingleFile/issues.
 
