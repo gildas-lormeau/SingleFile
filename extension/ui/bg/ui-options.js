@@ -372,6 +372,7 @@
 		const editURLElement = rulesElement.querySelector(".rule-edit");
 		createURLElement.hidden = false;
 		editURLElement.hidden = true;
+		ruleProfileInput.value = ruleAutoSaveProfileInput.value = selectedProfileName;
 		rules.forEach(rule => {
 			if (showAllProfilesInput.checked || selectedProfileName == rule.profile || selectedProfileName == rule.autoSaveProfile) {
 				const ruleElement = rulesElement.querySelector(".rule-view").cloneNode(true);
