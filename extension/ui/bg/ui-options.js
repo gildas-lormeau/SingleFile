@@ -120,6 +120,7 @@
 	const infobarTemplateInput = document.getElementById("infobarTemplateInput");
 	const confirmInfobarInput = document.getElementById("confirmInfobarInput");
 	const expandAllButton = document.getElementById("expandAllButton");
+	const rulesDeleteAllButton = document.getElementById("rulesDeleteAllButton");
 	const ruleUrlInput = document.getElementById("ruleUrlInput");
 	const ruleProfileInput = document.getElementById("ruleProfileInput");
 	const ruleAutoSaveProfileInput = document.getElementById("ruleAutoSaveProfileInput");
@@ -143,6 +144,12 @@
 	ruleAutoSaveProfileInput.onchange = () => {
 		autoSaveProfileChanged = true;
 	};
+	rulesDeleteAllButton.addEventListener("click", async () => {
+		if (confirm(browser.i18n.getMessage("optionsDeleteDisplayedRulesConfirm"))) {
+			await singlefile.config.deleteRules(!showAllProfilesInput.checked && profileNamesInput.value);
+			await refresh();
+		}
+	}, false);
 	createURLElement.onsubmit = async event => {
 		event.preventDefault();
 		try {
@@ -327,6 +334,7 @@
 	autoSettingsAutoSaveProfileLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsAutoSaveProfile");
 	ruleAddButton.title = browser.i18n.getMessage("optionsAddRuleTooltip");
 	ruleEditButton.title = browser.i18n.getMessage("optionsValidateChangesTooltip");
+	rulesDeleteAllButton.title = browser.i18n.getMessage("optionsDeleteRulesTooltip");
 	showAllProfilesLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsShowAllProfiles");
 	showAutoSaveProfileLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsShowAutoSaveProfile");
 	ruleUrlInput.placeholder = ruleEditUrlInput.placeholder = browser.i18n.getMessage("optionsAutoSettingsUrlPlaceholder");
@@ -373,8 +381,10 @@
 		createURLElement.hidden = false;
 		editURLElement.hidden = true;
 		ruleProfileInput.value = ruleAutoSaveProfileInput.value = selectedProfileName;
+		let rulesDisplayed;
 		rules.forEach(rule => {
 			if (showAllProfilesInput.checked || selectedProfileName == rule.profile || selectedProfileName == rule.autoSaveProfile) {
+				rulesDisplayed = true;
 				const ruleElement = rulesElement.querySelector(".rule-view").cloneNode(true);
 				const ruleUrlElement = ruleElement.querySelector(".rule-url");
 				const ruleProfileElement = ruleElement.querySelector(".rule-profile");
@@ -415,6 +425,7 @@
 				}, false);
 			}
 		});
+		rulesDeleteAllButton.disabled = !rulesDisplayed;
 		rulesElement.appendChild(createURLElement);
 		profileNamesInput.value = selectedProfileName;
 		renameProfileButton.disabled = deleteProfileButton.disabled = profileNamesInput.value == singlefile.config.DEFAULT_PROFILE_NAME;

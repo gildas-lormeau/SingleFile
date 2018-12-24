@@ -223,6 +223,14 @@
         "message": "Règles d'auto-configuration",
         "description": "Options sub-title: 'Auto-settings rules'"
     },
+    "optionsDeleteDisplayedRulesConfirm": {
+        "message": "Confirmez la suppression de toutes les règles affichées",
+        "description": "Popup text 'Confirm deletion of all displayed rules'"
+    },
+    "optionsDeleteRulesTooltip": {
+        "message": "Supprimer toutes les règles affichées",
+        "description": "Popup text 'Delete all displayed rules'"
+    },
     "optionsAutoSettingsUrl": {
         "message": "URL",
         "description": "Options label in the auto-settings rules: 'URL'"

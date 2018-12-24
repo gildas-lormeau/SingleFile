@@ -219,6 +219,14 @@
         "message": "自动保存",
         "description": "选项页副标题: '自动保存'"
     },
+    "optionsDeleteDisplayedRulesConfirm": {
+        "message": "Confirm deletion of all displayed rules",
+        "description": "Popup text 'Confirm deletion of all displayed rules'"
+    },
+    "optionsDeleteRulesTooltip": {
+        "message": "Delete all displayed rules",
+        "description": "Popup text 'Delete all displayed rules'"
+    },
     "optionsAutoSettingsSubTitle": {
         "message": "自动设置",
         "description": "Options sub-title: 'Auto-settings rules'"

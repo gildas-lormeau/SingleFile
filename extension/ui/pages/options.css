@@ -131,23 +131,36 @@ h3 {
 }
 
 .profiles button,
-.rules-table button {
+.rules-table-container button {
     padding: 0;
     margin: 0;
     width: 22px;
     text-align: center;
 }
 
+.rules-table-container .thead .tr {
+    min-height: 32px;
+}
+
+.rules-table-container .thead .th:last-of-type {
+    text-align: right;
+    padding-right: 4px;
+}
+
+.rules-table-container .thead .th {
+    min-height: 22px;
+}
+
 .profiles button,
 .profiles select,
-.rules-table button,
-.rules-table select,
-.rules-table input {
+.rules-table-container button,
+.rules-table-container select,
+.rules-table-container input {
     height: 22px;
     vertical-align: top;
 }
 
-.rules-table input {
+.rules-table-container input {
     width: 100%;
     height: 20px;
     margin: 0;
@@ -156,7 +169,7 @@ h3 {
     padding-right: 2px;
 }
 
-.rules-table .rule-create {
+.rules-table-container .rule-create {
     margin-top: 8px;
     margin-bottom: 3px;
 }
@@ -165,7 +178,7 @@ h3 {
     max-width: calc(100% - 78px);
 }
 
-.rules-table select {
+.rules-table-container select {
     max-width: 100%;
 }
 
@@ -175,7 +188,7 @@ h3 {
 }
 
 .profiles button>img,
-.rules-table button>img {
+.rules-table-container button>img {
     width: 14px;
     height: auto;
     vertical-align: middle;
