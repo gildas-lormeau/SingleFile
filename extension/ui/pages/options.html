@@ -195,18 +195,18 @@
 					<span class="td"><button class="rule-update-button"><img src="../resources/button_edit.png"></button> <button
 						 class="rule-delete-button"><img src="../resources/button_delete.png"></button></span>
 				</div>
-				<div class="tr rule-create">
+				<form class="tr rule-create">
 					<span class="td rule-url"><input type="text" id="ruleUrlInput" placeholder="Type a complete or partial URL (e.g. example.com)"></span>
 					<span class="td rule-profile"><select id="ruleProfileInput"></select></span>
 					<span class="td rule-autosave-profile"><select id="ruleAutoSaveProfileInput"></select></span>
-					<span class="td"><button id="ruleAddButton" disabled><img src="../resources/button_new.png"></button></span>
-				</div>
-				<div hidden class="tr rule-edit">
+					<span class="td"><button id="ruleAddButton" disabled type="submit"><img src="../resources/button_new.png"></button></span>
+				</form>
+				<form hidden class="tr rule-edit">
 					<span class="td rule-url"><input type="text" id="ruleEditUrlInput"></span>
 					<span class="td rule-profile"><select id="ruleEditProfileInput"></select></span>
 					<span class="td rule-autosave-profile"><select id="ruleEditAutoSaveProfileInput"></select></span>
-					<span class="td"><button id="ruleEditButton"><img src="../resources/button_ok.png"></button></span>
-				</div>
+					<span class="td"><button id="ruleEditButton" type="submit"><img src="../resources/button_ok.png"></button></span>
+				</form>
 			</div>
 		</div>
 		<div class="option">

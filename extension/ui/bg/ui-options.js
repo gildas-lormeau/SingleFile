@@ -130,6 +130,7 @@
 	const rulesContainerElement = document.querySelector(".rules-table-container");
 	const ruleEditUrlInput = document.getElementById("ruleEditUrlInput");
 	const ruleEditButton = document.getElementById("ruleEditButton");
+	const createURLElement = rulesElement.querySelector(".rule-create");
 	const showAllProfilesInput = document.getElementById("showAllProfilesInput");
 	const showAutoSaveProfileInput = document.getElementById("showAutoSaveProfileInput");
 	let pendingSave = Promise.resolve();
@@ -142,7 +143,8 @@
 	ruleAutoSaveProfileInput.onchange = () => {
 		autoSaveProfileChanged = true;
 	};
-	ruleAddButton.addEventListener("click", async () => {
+	createURLElement.onsubmit = async event => {
+		event.preventDefault();
 		try {
 			await singlefile.config.addRule(ruleUrlInput.value, ruleProfileInput.value, ruleAutoSaveProfileInput.value);
 			ruleUrlInput.value = "";
@@ -153,7 +155,7 @@
 		} catch (error) {
 			// ignored
 		}
-	}, false);
+	};
 	ruleUrlInput.onclick = ruleUrlInput.onkeyup = ruleUrlInput.onchange = async () => {
 		ruleAddButton.disabled = !ruleUrlInput.value;
 		const rules = await singlefile.config.getRules();
@@ -368,7 +370,6 @@
 		const rulesDataElement = rulesElement.querySelector(".rules-data");
 		Array.from(rulesDataElement.childNodes).forEach(node => node.remove());
 		const editURLElement = rulesElement.querySelector(".rule-edit");
-		const createURLElement = rulesElement.querySelector(".rule-create");
 		createURLElement.hidden = false;
 		editURLElement.hidden = true;
 		rules.forEach(rule => {
@@ -401,10 +402,13 @@
 						ruleEditUrlInput.value = rule.url;
 						ruleEditProfileInput.value = rule.profile;
 						ruleEditAutoSaveProfileInput.value = rule.autoSaveProfile;
-						ruleEditButton.onclick = async () => {
+						ruleEditUrlInput.focus();
+						editURLElement.onsubmit = async event => {
+							event.preventDefault();
 							rulesElement.appendChild(editURLElement);
 							await singlefile.config.updateRule(rule.url, ruleEditUrlInput.value, ruleEditProfileInput.value, ruleEditAutoSaveProfileInput.value);
 							await refresh();
+							ruleUrlInput.focus();
 						};
 					}
 				}, false);
