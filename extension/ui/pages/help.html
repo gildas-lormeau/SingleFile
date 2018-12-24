@@ -401,9 +401,14 @@
 				<p>Auto-settings rules.</p>
 				<ul>
 					<li>
-						The auto-settings rules allow you to associate a complete or partial URL with a profile. It also allows to
-						associate a specific profile for the auto-save, or to disable it (check "display 'Auto-save profile' column").
-						When two or more rules match a URL of a page to save, the rule with the longest URL will be chosen.
+						The auto-settings rules let you associate a complete or partial URL with a profile. It also allows to associate a
+						specific profile for the auto-save, or to disable it (check "display 'Auto-save profile' column"). When two or
+						more rules match a URL of a page to save, the rule with the longest URL will be chosen.
+					</li>
+					<li>
+						You can use regular expressions by prefixing the URL with "regexp:" (e.g. "regexp:.*\.com" to match all URLs
+						containing ".com"). When one or more rules based on URLs and one or more rules based on regular expressions match
+						a URL, the longest rule based on regular expression will be chosen.
 					</li>
 				</ul>
 				<p>Form buttons</p>

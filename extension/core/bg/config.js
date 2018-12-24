@@ -24,6 +24,7 @@ singlefile.config = (() => {
 
 	const DEFAULT_PROFILE_NAME = "__Default_Settings__";
 	const DISABLED_PROFILE_NAME = "__Disabled_Settings__";
+	const REGEXP_RULE_PREFIX = "regexp:";
 
 	const DEFAULT_CONFIG = {
 		removeHiddenElements: true,
@@ -136,6 +137,14 @@ singlefile.config = (() => {
 		return browser.storage.local.get(["profiles", "rules"]);
 	}
 
+	function sortRules(ruleLeft, ruleRight) {
+		ruleRight.url.length - ruleLeft.url.length;
+	}
+
+	function testRegExpRule(rule) {
+		return rule.url.toLowerCase().startsWith(REGEXP_RULE_PREFIX);
+	}
+
 	return {
 		DISABLED_PROFILE_NAME,
 		DEFAULT_PROFILE_NAME,
@@ -153,8 +162,13 @@ singlefile.config = (() => {
 		},
 		async getOptions(profileName, url, autoSave) {
 			const config = await getConfig();
-			const urlRule = config.rules.sort((ruleLeft, ruleRight) => ruleRight.url.length - ruleLeft.url.length).find(rule => url && url.includes(rule.url));
-			return urlRule ? config.profiles[urlRule[autoSave ? "autoSaveProfile" : "profile"]] : config.profiles[profileName || singlefile.config.DEFAULT_PROFILE_NAME];
+			const regExpRules = config.rules.filter(rule => testRegExpRule(rule));
+			let rule = regExpRules.sort(sortRules).find(rule => url && url.match(new RegExp(rule.url.split(REGEXP_RULE_PREFIX)[1])));
+			if (!rule) {
+				const normalRules = config.rules.filter(rule => !testRegExpRule(rule));
+				rule = normalRules.sort(sortRules).find(rule => url && url.includes(rule.url));
+			}
+			return rule ? config.profiles[rule[autoSave ? "autoSaveProfile" : "profile"]] : config.profiles[profileName || singlefile.config.DEFAULT_PROFILE_NAME];
 		},
 		async updateProfile(profileName, profile) {
 			const config = await getConfig();
