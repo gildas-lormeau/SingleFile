@@ -368,7 +368,7 @@
 		ruleAutoSaveProfileInput.appendChild(optionElement);
 		ruleEditAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
 		const rulesDataElement = rulesElement.querySelector(".rules-data");
-		Array.from(rulesDataElement.childNodes).forEach(node => node.remove());
+		Array.from(rulesDataElement.childNodes).forEach(node => (!node.className || !node.className.includes("rule-edit")) && node.remove());
 		const editURLElement = rulesElement.querySelector(".rule-edit");
 		createURLElement.hidden = false;
 		editURLElement.hidden = true;
