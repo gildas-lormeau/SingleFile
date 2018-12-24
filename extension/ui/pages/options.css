@@ -12,6 +12,10 @@ button {
     border-width: 1px;
 }
 
+button:not([disabled]):hover {
+    background-color: #ebebeb;
+}
+
 button,
 select,
 input[type=text] {
