@@ -32,7 +32,6 @@ singlefile.config = (() => {
 		removeFrames: false,
 		removeImports: true,
 		removeScripts: true,
-		rawDocument: false,
 		compressHTML: true,
 		compressCSS: true,
 		loadDeferredImages: true,
@@ -96,7 +95,7 @@ singlefile.config = (() => {
 			config.autoSaveUnload = false;
 		}
 		if (!config.maxResourceSize) {
-			config.maxResourceSize = 1;
+			config.maxResourceSize = DEFAULT_CONFIG.maxResourceSize;
 		}
 		if (config.appendSaveDate !== undefined) {
 			delete config.appendSaveDate;
@@ -253,6 +252,11 @@ singlefile.config = (() => {
 			}
 			const config = await getConfig();
 			config.rules = config.rules.filter(rule => rule.url != url);
+			await browser.storage.local.set({ rules: config.rules });
+		},
+		async deleteRules(profileName) {
+			const config = await getConfig();
+			config.rules = config.rules = profileName ? config.rules.filter(rule => rule.autoSaveProfile != profileName && rule.profile != profileName) : [];
 			await browser.storage.local.set({ rules: config.rules });
 		},
 		async updateRule(url, newURL, profile, autoSaveProfile) {
