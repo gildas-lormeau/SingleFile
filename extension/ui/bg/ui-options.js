@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, window, document */
+/* global browser, window, document, localStorage */
 
 (async () => {
 
@@ -180,11 +180,27 @@
 			ruleEditButton.disabled = true;
 		}
 	};
+	if (localStorage.getItem("optionShowAutoSaveProfile")) {
+		showAutoSaveProfileInput.checked = true;
+		rulesContainerElement.classList.remove("compact");
+	}
 	showAutoSaveProfileInput.addEventListener("click", () => {
 		if (showAutoSaveProfileInput.checked) {
+			localStorage.setItem("optionShowAutoSaveProfile", 1);
 			rulesContainerElement.classList.remove("compact");
 		} else {
+			localStorage.setItem("optionShowAutoSaveProfile", 0);
 			rulesContainerElement.classList.add("compact");
+		}
+	}, false);
+	if (localStorage.getItem("optionShowAllProfiles")) {
+		showAllProfilesInput.checked = true;
+	}
+	showAllProfilesInput.addEventListener("click", () => {
+		if (showAllProfilesInput.checked) {
+			localStorage.setItem("optionShowAllProfiles", 1);
+		} else {
+			localStorage.setItem("optionShowAllProfiles", 0);
 		}
 	}, false);
 	addProfileButton.addEventListener("click", async () => {
