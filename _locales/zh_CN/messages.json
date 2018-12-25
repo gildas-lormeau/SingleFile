@@ -179,6 +179,18 @@
         "message": "移除备用分辨率的图像",
         "description": "选项页标签: '移除备用分辨率的图像'"
     },
+    "fontsSubTitle": {
+        "message": "Fonts",
+        "description": "Options sub-title: 'Fonts'"
+    },
+    "optionRemoveUnusedFonts": {
+        "message": "remove unused fonts",
+        "description": "Options page label: 'remove unused fonts'"
+    },
+    "optionRemoveAlternativeFonts": {
+        "message": "remove alternative fonts",
+        "description": "Options page label: 'remove alternative fonts'"
+    },
     "optionsStylesheetsSubTitle": {
         "message": "样式表",
         "description": "选项页副标题: '样式表'"
@@ -190,10 +202,6 @@
     "optionRemoveUnusedStyles": {
         "message": "移除未使用的样式",
         "description": "选项页标签: '移除未使用的样式'"
-    },
-    "optionRemoveAlternativeFonts": {
-        "message": "移除 woff/otf 备用字体以及未使用的字体",
-        "description": "选项页标签: '移除 woff/otf 备用字体以及未使用的字体'"
     },
     "optionRemoveAlternativeMedias": {
         "message": "移除其他设备分辨率的样式表",

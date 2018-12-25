@@ -179,6 +179,18 @@
         "message": "usuwaj obrazy dla alternatywnych rozdzielczości ekranu",
         "description": "Options page label: 'remove images for alternative screen resolutions'"
     },
+    "fontsSubTitle": {
+        "message": "Fonts",
+        "description": "Options sub-title: 'Fonts'"
+    },
+    "optionRemoveUnusedFonts": {
+        "message": "remove unused fonts",
+        "description": "Options page label: 'remove unused fonts'"
+    },
+    "optionRemoveAlternativeFonts": {
+        "message": "remove alternative fonts",
+        "description": "Options page label: 'remove alternative fonts'"
+    },
     "optionsStylesheetsSubTitle": {
         "message": "Arkusze stylów",
         "description": "Options sub-title: 'Stylesheets'"
@@ -190,10 +202,6 @@
     "optionRemoveUnusedStyles": {
         "message": "usuwaj nieużywane style",
         "description": "Options page label: 'remove unused styles'"
-    },
-    "optionRemoveAlternativeFonts": {
-        "message": "usuń czcionki inne niż woff/otf oraz nieużywane czcionki",
-        "description": "Options page label: 'remove alternative fonts to woff/otf and unused fonts'"
     },
     "optionRemoveAlternativeMedias": {
         "message": "usuwaj arkusze stylów dla urządzeń innych niż ekrany",

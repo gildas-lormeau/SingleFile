@@ -179,6 +179,18 @@
         "message": "supprimer les images pour des résolutions d'écran alternatives",
         "description": "Options page label: 'remove images for alternative screen resolutions'"
     },
+    "fontsSubTitle": {
+        "message": "Polices de caractère",
+        "description": "Options sub-title: 'Fonts'"
+    },
+    "optionRemoveUnusedFonts": {
+        "message": "supprimer les polices de caractère inutilisées",
+        "description": "Options page label: 'remove unused fonts'"
+    },
+    "optionRemoveAlternativeFonts": {
+        "message": "supprimer les polices de caractère alternatives",
+        "description": "Options page label: 'remove alternative fonts'"
+    },
     "optionsStylesheetsSubTitle": {
         "message": "Feuilles de style",
         "description": "Options sub-title: 'Stylesheets'"
@@ -190,10 +202,6 @@
     "optionRemoveUnusedStyles": {
         "message": "supprimer les styles inutilisés",
         "description": "Options page label: 'remove unused styles'"
-    },
-    "optionRemoveAlternativeFonts": {
-        "message": "supprimer les polices de caractère autres que woff/otf et les polices inutilisées",
-        "description": "Options page label: 'remove alternative fonts to woff/otf and unused fonts'"
     },
     "optionRemoveAlternativeMedias": {
         "message": "supprimer les feuilles de styles pour les appareils autres que des écrans",

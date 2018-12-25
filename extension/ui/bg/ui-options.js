@@ -30,6 +30,7 @@
 	const confirm = browserInfo.name == CHROME_BROWSER_NAME ? message => bgPage.confirm(message) : message => { document.body.style.opacity = 0; const value = window.confirm(message); document.body.style.opacity = 1; return value; };
 	const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsLabel");
 	const removeUnusedStylesLabel = document.getElementById("removeUnusedStylesLabel");
+	const removeUnusedFontsLabel = document.getElementById("removeUnusedFontsLabel");
 	const removeFramesLabel = document.getElementById("removeFramesLabel");
 	const removeImportsLabel = document.getElementById("removeImportsLabel");
 	const removeScriptsLabel = document.getElementById("removeScriptsLabel");
@@ -66,6 +67,7 @@
 	const htmlContentLabel = document.getElementById("htmlContentLabel");
 	const imagesLabel = document.getElementById("imagesLabel");
 	const stylesheetsLabel = document.getElementById("stylesheetsLabel");
+	const fontsLabel = document.getElementById("fontsLabel");
 	const otherResourcesLabel = document.getElementById("otherResourcesLabel");
 	const autoSaveLabel = document.getElementById("autoSaveLabel");
 	const autoSettingsLabel = document.getElementById("autoSettingsLabel");
@@ -89,6 +91,7 @@
 	const profileNamesInput = document.getElementById("profileNamesInput");
 	const removeHiddenElementsInput = document.getElementById("removeHiddenElementsInput");
 	const removeUnusedStylesInput = document.getElementById("removeUnusedStylesInput");
+	const removeUnusedFontsInput = document.getElementById("removeUnusedFontsInput");
 	const removeFramesInput = document.getElementById("removeFramesInput");
 	const removeImportsInput = document.getElementById("removeImportsInput");
 	const removeScriptsInput = document.getElementById("removeScriptsInput");
@@ -281,6 +284,7 @@
 	renameProfileButton.title = browser.i18n.getMessage("profileRenameButtonTooltip");
 	removeHiddenElementsLabel.textContent = browser.i18n.getMessage("optionRemoveHiddenElements");
 	removeUnusedStylesLabel.textContent = browser.i18n.getMessage("optionRemoveUnusedStyles");
+	removeUnusedFontsLabel.textContent = browser.i18n.getMessage("optionRemoveUnusedFonts");
 	removeFramesLabel.textContent = browser.i18n.getMessage("optionRemoveFrames");
 	removeImportsLabel.textContent = browser.i18n.getMessage("optionRemoveImports");
 	removeScriptsLabel.textContent = browser.i18n.getMessage("optionRemoveScripts");
@@ -318,6 +322,7 @@
 	htmlContentLabel.textContent = browser.i18n.getMessage("optionsHTMLContentSubTitle");
 	imagesLabel.textContent = browser.i18n.getMessage("optionsImagesSubTitle");
 	stylesheetsLabel.textContent = browser.i18n.getMessage("optionsStylesheetsSubTitle");
+	fontsLabel.textContent = browser.i18n.getMessage("fontsSubTitle");
 	otherResourcesLabel.textContent = browser.i18n.getMessage("optionsOtherResourcesSubTitle");
 	autoSaveLabel.textContent = browser.i18n.getMessage("optionsAutoSaveSubTitle");
 	miscLabel.textContent = browser.i18n.getMessage("optionsMiscSubTitle");
@@ -432,6 +437,7 @@
 		const profileOptions = profiles[selectedProfileName];
 		removeHiddenElementsInput.checked = profileOptions.removeHiddenElements;
 		removeUnusedStylesInput.checked = profileOptions.removeUnusedStyles;
+		removeUnusedFontsInput.checked = profileOptions.removeUnusedFonts;
 		removeFramesInput.checked = profileOptions.removeFrames;
 		removeImportsInput.checked = profileOptions.removeImports;
 		removeScriptsInput.checked = profileOptions.removeScripts;
@@ -478,6 +484,7 @@
 		pendingSave = singlefile.config.updateProfile(profileNamesInput.value, {
 			removeHiddenElements: removeHiddenElementsInput.checked,
 			removeUnusedStyles: removeUnusedStylesInput.checked,
+			removeUnusedFonts: removeUnusedFontsInput.checked,
 			removeFrames: removeFramesInput.checked,
 			removeImports: removeImportsInput.checked,
 			removeScripts: removeScriptsInput.checked,

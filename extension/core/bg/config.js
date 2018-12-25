@@ -29,6 +29,7 @@ singlefile.config = (() => {
 	const DEFAULT_CONFIG = {
 		removeHiddenElements: true,
 		removeUnusedStyles: true,
+		removeUnusedFonts: true,
 		removeFrames: false,
 		removeImports: true,
 		removeScripts: true,
@@ -104,6 +105,7 @@ singlefile.config = (() => {
 			config.compressHTML = config.compressCSS = config.compress;
 			delete config.compress;
 		}
+		upgradeOldConfig(config, "removeUnusedFonts", "removeUnusedStyles");
 		upgradeOldConfig(config, "removeUnusedStyles", "removeUnusedCSSRules");
 		upgradeOldConfig(config, "removeAlternativeImages", "removeSrcSet");
 		upgradeOldConfig(config, "confirmInfobarContent", "confirmInfobar");

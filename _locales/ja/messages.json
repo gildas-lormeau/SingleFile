@@ -179,6 +179,18 @@
         "message": "代替画面解像度用の画像を削除します",
         "description": "オプションのページラベル: '代替画面解像度用の画像を削除します'"
     },
+    "fontsSubTitle": {
+        "message": "Fonts",
+        "description": "Options sub-title: 'Fonts'"
+    },
+    "optionRemoveUnusedFonts": {
+        "message": "remove unused fonts",
+        "description": "Options page label: 'remove unused fonts'"
+    },
+    "optionRemoveAlternativeFonts": {
+        "message": "remove alternative fonts",
+        "description": "Options page label: 'remove alternative fonts'"
+    },
     "optionsStylesheetsSubTitle": {
         "message": "スタイルシート",
         "description": "オプションのサブタイトル: 'スタイルシート'"
@@ -189,11 +201,7 @@
     },
     "optionRemoveUnusedStyles": {
         "message": "未使用のスタイルを削除する",
-        "description": "オプションのページラベル: '未使用のスタイルを削除する'"
-    },
-    "optionRemoveAlternativeFonts": {
-        "message": "未使用のフォントと woff / otf への代替フォントを削除する",
-        "description": "オプションのページラベル: '未使用のフォントと woff / otf への代替フォントを削除する'"
+        "description": "Options page label: 'remove unused styles'"
     },
     "optionRemoveAlternativeMedias": {
         "message": "代替デバイス用のスタイルシートを画面に表示しない",

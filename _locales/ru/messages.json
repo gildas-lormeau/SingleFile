@@ -179,6 +179,18 @@
         "message": "удалить изображения для альтернативных разрешений экрана",
         "description": "Options page label: 'remove images for alternative screen resolutions'"
     },
+    "fontsSubTitle": {
+        "message": "Fonts",
+        "description": "Options sub-title: 'Fonts'"
+    },
+    "optionRemoveUnusedFonts": {
+        "message": "remove unused fonts",
+        "description": "Options page label: 'remove unused fonts'"
+    },
+    "optionRemoveAlternativeFonts": {
+        "message": "remove alternative fonts",
+        "description": "Options page label: 'remove alternative fonts'"
+    },
     "optionsStylesheetsSubTitle": {
         "message": "Таблицы стилей",
         "description": "Options sub-title: 'Stylesheets'"
@@ -190,10 +202,6 @@
     "optionRemoveUnusedStyles": {
         "message": "удалить неиспользуемые стили",
         "description": "Options page label: 'remove unused styles'"
-    },
-    "optionRemoveAlternativeFonts": {
-        "message": "удалить альтернативные шрифты в woff/otf и неиспользуемые шрифты",
-        "description": "Options page label: 'remove alternative fonts to woff/otf and unused fonts'"
     },
     "optionRemoveAlternativeMedias": {
         "message": "удалить таблицы стилей для экранов альтернативных устройств",
