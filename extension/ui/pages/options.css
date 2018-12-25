@@ -57,6 +57,10 @@ h3 {
     margin-top: 10px;
 }
 
+.buttons {
+    white-space: nowrap;
+}
+
 .profiles {
     float: right;
     margin-right: 12px;
@@ -77,11 +81,11 @@ h3 {
 .rules-table-container .tr {
     height: 26px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 56px;
+    grid-template-columns: 1fr 1fr 1fr 58px;
 }
 
 .rules-table-container.compact .tr {
-    grid-template-columns: 1fr 1fr 56px;
+    grid-template-columns: 1fr 1fr 58px;
 }
 
 .rules-table-container.compact .tr .rule-autosave-profile {
@@ -92,7 +96,7 @@ h3 {
     display: none;
 }
 
-.rules-table-container .th {
+.rules-table-container .thead {
     text-align: left;
     border-color: rgb(225, 225, 225);
     border-style: solid;
@@ -144,11 +148,6 @@ h3 {
 
 .rules-table-container .thead .th:last-of-type {
     text-align: right;
-    padding-right: 4px;
-}
-
-.rules-table-container .thead .th {
-    min-height: 22px;
 }
 
 .profiles button,
