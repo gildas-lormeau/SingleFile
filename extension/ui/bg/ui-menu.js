@@ -124,7 +124,7 @@ singlefile.ui.menu = (() => {
 				});
 				menus.create({
 					id: MENU_ID_ASSOCIATE_WITH_PROFILE,
-					title: browser.i18n.getMessage("menuAssociateWithProfile"),
+					title: browser.i18n.getMessage("menuCreateDomainRule"),
 					contexts: defaultContexts,
 				});
 				let rule;
@@ -286,6 +286,7 @@ singlefile.ui.menu = (() => {
 					if (rule) {
 						await singlefile.config.updateRule(rule.url, rule.url, profileName, profileName);
 					} else {
+						await menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE, { title: browser.i18n.getMessage("menuUpdateRule") });
 						await singlefile.config.addRule(new URL(tab.url).hostname, profileName, profileName);
 					}
 				}
@@ -311,14 +312,17 @@ singlefile.ui.menu = (() => {
 				await menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: Boolean(tabsData.autoSaveAll) });
 				if (tab && tab.url) {
 					let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
+					let title = browser.i18n.getMessage("menuCreateDomainRule");
 					const rule = await singlefile.config.getRule(tab.url);
 					if (rule) {
 						const profileIndex = profileIndexes.get(rule.profile);
 						if (profileIndex) {
 							selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
+							title = browser.i18n.getMessage("menuUpdateRule");
 						}
 					}
 					await menus.update(selectedEntryId, { checked: true });
+					await menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE, { title });
 				}
 			} catch (error) {
 				/* ignored */

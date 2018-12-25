@@ -11,9 +11,13 @@
         "message": "Select the default profile",
         "description": "Menu entry: 'Select the default profile'"
     },
-    "menuAssociateWithProfile": {
-        "message": "Select the profile of the current auto-settings rule",
-        "description": "Menu entry: 'Select the profile of the current auto-settings rule'"
+    "menuUpdateRule": {
+        "message": "Select the profile of the current rule",
+        "description": "Menu entry: 'Select the profile of the current rule'"
+    },
+    "menuCreateDomainRule": {
+        "message": "Select the profile of the current domain",
+        "description": "Menu entry: 'Select the profile of the current domain'"
     },
     "menuSaveSelection": {
         "message": "Save selection",

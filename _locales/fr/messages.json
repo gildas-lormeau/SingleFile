@@ -11,9 +11,13 @@
         "message": "Sélectionner le profil par défaut",
         "description": "Menu entry: 'Select the default profile'"
     },
-    "menuAssociateWithProfile": {
-        "message": "Sélectionner le profil de la règle d'auto-configuration courante",
-        "description": "Menu entry: 'Select the profile of the current auto-settings rule'"
+    "menuUpdateRule": {
+        "message": "Sélectionner le profil de la règle courante",
+        "description": "Menu entry: 'Select the profile of the current rule'"
+    },
+    "menuCreateDomainRule": {
+        "message": "Selectionner le profil du domaine courant",
+        "description": "Menu entry: 'Select the profile of the current domain'"
     },
     "menuSaveSelection": {
         "message": "Sauver la sélection",
