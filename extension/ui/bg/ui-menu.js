@@ -22,7 +22,8 @@
 
 singlefile.ui.menu = (() => {
 
-	const BROWSER_MENUS_API_SUPPORTED = browser.menus && browser.menus.onClicked && browser.menus.create && browser.menus.update && browser.menus.removeAll;
+	const menus = browser.menus || browser.contextMenus;
+	const BROWSER_MENUS_API_SUPPORTED = menus && menus.onClicked && menus.create && menus.update && menus.removeAll;
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_SELECT_PROFILE = "select-profile";
 	const MENU_ID_SELECT_PROFILE_PREFIX = "select-profile-";
@@ -58,62 +59,62 @@ singlefile.ui.menu = (() => {
 			const defaultContextsDisabled = ["browser_action"];
 			const defaultContextsEnabled = defaultContextsDisabled.concat(...pageContextsEnabled);
 			const defaultContexts = options.contextMenuEnabled ? defaultContextsEnabled : defaultContextsDisabled;
-			await browser.menus.removeAll();
+			await menus.removeAll();
 			if (options.contextMenuEnabled) {
-				browser.menus.create({
+				menus.create({
 					id: MENU_ID_SAVE_PAGE,
 					contexts: pageContextsEnabled,
 					title: browser.i18n.getMessage("menuSavePage")
 				});
 			}
 			if (options.contextMenuEnabled) {
-				browser.menus.create({
+				menus.create({
 					id: "separator-1",
 					contexts: pageContextsEnabled,
 					type: "separator"
 				});
 			}
-			browser.menus.create({
+			menus.create({
 				id: MENU_ID_SAVE_SELECTED,
 				contexts: defaultContexts,
 				title: browser.i18n.getMessage("menuSaveSelection")
 			});
 			if (options.contextMenuEnabled) {
-				browser.menus.create({
+				menus.create({
 					id: MENU_ID_SAVE_FRAME,
 					contexts: ["frame"],
 					title: browser.i18n.getMessage("menuSaveFrame")
 				});
-				browser.menus.create({
+				menus.create({
 					id: MENU_ID_SAVE_SELECTED_TABS,
 					contexts: pageContextsEnabled,
 					title: browser.i18n.getMessage("menuSaveSelectedTabs")
 				});
 			}
-			browser.menus.create({
+			menus.create({
 				id: MENU_ID_SAVE_UNPINNED_TABS,
 				contexts: defaultContexts,
 				title: browser.i18n.getMessage("menuUnpinnedTabs")
 			});
-			browser.menus.create({
+			menus.create({
 				id: MENU_ID_SAVE_ALL_TABS,
 				contexts: defaultContexts,
 				title: browser.i18n.getMessage("menuAllTabs")
 			});
 			if (options.contextMenuEnabled) {
-				browser.menus.create({
+				menus.create({
 					id: "separator-2",
 					contexts: pageContextsEnabled,
 					type: "separator"
 				});
 			}
 			if (Object.keys(profiles).length > 1) {
-				browser.menus.create({
+				menus.create({
 					id: MENU_ID_SELECT_PROFILE,
 					title: browser.i18n.getMessage("menuSelectProfile"),
 					contexts: defaultContexts,
 				});
-				browser.menus.create({
+				menus.create({
 					id: MENU_ID_SELECT_PROFILE_PREFIX + "default",
 					type: "radio",
 					contexts: defaultContexts,
@@ -121,7 +122,7 @@ singlefile.ui.menu = (() => {
 					checked: !tabsData.profileName || tabsData.profileName == singlefile.config.DEFAULT_PROFILE_NAME,
 					parentId: MENU_ID_SELECT_PROFILE
 				});
-				browser.menus.create({
+				menus.create({
 					id: MENU_ID_ASSOCIATE_WITH_PROFILE,
 					title: browser.i18n.getMessage("menuAssociateWithProfile"),
 					contexts: defaultContexts,
@@ -130,7 +131,7 @@ singlefile.ui.menu = (() => {
 				if (tab && tab.url) {
 					rule = await singlefile.config.getRule(tab.url);
 				}
-				browser.menus.create({
+				menus.create({
 					id: MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default",
 					type: "radio",
 					contexts: defaultContexts,
@@ -141,7 +142,7 @@ singlefile.ui.menu = (() => {
 				profileIndexes = new Map();
 				Object.keys(profiles).forEach((profileName, profileIndex) => {
 					if (profileName != singlefile.config.DEFAULT_PROFILE_NAME) {
-						browser.menus.create({
+						menus.create({
 							id: MENU_ID_SELECT_PROFILE_PREFIX + profileIndex,
 							type: "radio",
 							contexts: defaultContexts,
@@ -149,7 +150,7 @@ singlefile.ui.menu = (() => {
 							checked: options.profileName == profileName,
 							parentId: MENU_ID_SELECT_PROFILE
 						});
-						browser.menus.create({
+						menus.create({
 							id: MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex,
 							type: "radio",
 							contexts: defaultContexts,
@@ -160,18 +161,18 @@ singlefile.ui.menu = (() => {
 						profileIndexes.set(profileName, profileIndex);
 					}
 				});
-				browser.menus.create({
+				menus.create({
 					id: "separator-3",
 					contexts: defaultContexts,
 					type: "separator"
 				});
 			}
-			browser.menus.create({
+			menus.create({
 				id: MENU_ID_AUTO_SAVE,
 				contexts: defaultContexts,
 				title: browser.i18n.getMessage("menuAutoSave")
 			});
-			browser.menus.create({
+			menus.create({
 				id: MENU_ID_AUTO_SAVE_DISABLED,
 				type: "radio",
 				title: browser.i18n.getMessage("menuAutoSaveDisabled"),
@@ -179,7 +180,7 @@ singlefile.ui.menu = (() => {
 				checked: true,
 				parentId: MENU_ID_AUTO_SAVE
 			});
-			browser.menus.create({
+			menus.create({
 				id: MENU_ID_AUTO_SAVE_TAB,
 				type: "radio",
 				title: browser.i18n.getMessage("menuAutoSaveTab"),
@@ -187,7 +188,7 @@ singlefile.ui.menu = (() => {
 				checked: false,
 				parentId: MENU_ID_AUTO_SAVE
 			});
-			browser.menus.create({
+			menus.create({
 				id: MENU_ID_AUTO_SAVE_UNPINNED,
 				type: "radio",
 				title: browser.i18n.getMessage("menuAutoSaveUnpinnedTabs"),
@@ -195,7 +196,7 @@ singlefile.ui.menu = (() => {
 				checked: false,
 				parentId: MENU_ID_AUTO_SAVE
 			});
-			browser.menus.create({
+			menus.create({
 				id: MENU_ID_AUTO_SAVE_ALL,
 				type: "radio",
 				title: browser.i18n.getMessage("menuAutoSaveAllTabs"),
@@ -209,7 +210,7 @@ singlefile.ui.menu = (() => {
 	async function initialize() {
 		if (BROWSER_MENUS_API_SUPPORTED) {
 			refresh();
-			browser.menus.onClicked.addListener(async (event, tab) => {
+			menus.onClicked.addListener(async (event, tab) => {
 				if (event.menuItemId == MENU_ID_SAVE_PAGE) {
 					singlefile.ui.saveTab(tab);
 				}
@@ -304,10 +305,10 @@ singlefile.ui.menu = (() => {
 			const tabsData = await singlefile.tabsData.get();
 			try {
 				const disabled = Boolean(!tabsData[tab.id] || !tabsData[tab.id].autoSave);
-				await browser.menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: disabled });
-				await browser.menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: !disabled });
-				await browser.menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: Boolean(tabsData.autoSaveUnpinned) });
-				await browser.menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: Boolean(tabsData.autoSaveAll) });
+				await menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: disabled });
+				await menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: !disabled });
+				await menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: Boolean(tabsData.autoSaveUnpinned) });
+				await menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: Boolean(tabsData.autoSaveAll) });
 				if (tab && tab.url) {
 					let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 					const rule = await singlefile.config.getRule(tab.url);
@@ -317,7 +318,7 @@ singlefile.ui.menu = (() => {
 							selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
 						}
 					}
-					await browser.menus.update(selectedEntryId, { checked: true });
+					await menus.update(selectedEntryId, { checked: true });
 				}
 			} catch (error) {
 				/* ignored */
