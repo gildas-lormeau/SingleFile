@@ -8,15 +8,15 @@
         "description": "Menu entry: 'Save page with SingleFile'"
     },
     "menuSelectProfile": {
-        "message": "Select the default profile",
+        "message": "Wybierz profil domyślny",
         "description": "Menu entry: 'Select the default profile'"
     },
     "menuUpdateRule": {
-        "message": "Select the profile of the current rule",
+        "message": "Wybierz profil bieżącej reguły",
         "description": "Menu entry: 'Select the profile of the current rule'"
     },
     "menuCreateDomainRule": {
-        "message": "Select the profile of the current domain",
+        "message": "Wybierz profil bieżącej domeny",
         "description": "Menu entry: 'Select the profile of the current domain'"
     },
     "menuSaveSelection": {
@@ -188,15 +188,15 @@
         "description": "Options page label: 'remove images for alternative screen resolutions'"
     },
     "fontsSubTitle": {
-        "message": "Fonts",
+        "message": "Czcionki",
         "description": "Options sub-title: 'Fonts'"
     },
     "optionRemoveUnusedFonts": {
-        "message": "remove unused fonts",
+        "message": "usuwaj nieużywane czcionki",
         "description": "Options page label: 'remove unused fonts'"
     },
     "optionRemoveAlternativeFonts": {
-        "message": "remove alternative fonts",
+        "message": "usuwaj alternatywne czcionki",
         "description": "Options page label: 'remove alternative fonts'"
     },
     "optionsStylesheetsSubTitle": {
@@ -240,11 +240,11 @@
         "description": "Options sub-title: 'Auto-settings rules'"
     },
     "optionsDeleteDisplayedRulesConfirm": {
-        "message": "Confirm deletion of all displayed rules",
+        "message": "Potwierdź usunięcie wszystkich wyświetlanych reguł",
         "description": "Popup text 'Confirm deletion of all displayed rules'"
     },
     "optionsDeleteRulesTooltip": {
-        "message": "Delete all displayed rules",
+        "message": "Usuń wszystkie wyświetlane reguły",
         "description": "Popup text 'Delete all displayed rules'"
     },
     "optionsAutoSettingsUrl": {
@@ -348,11 +348,11 @@
         "description": "Popup text 'Confirm the reset of all options' in the options page"
     },
     "optionsExportButton": {
-        "message": "Eksport",
+        "message": "Eksportuj",
         "description": "Options button: 'Export'"
     },
     "optionsImportButton": {
-        "message": "Import",
+        "message": "Importuj",
         "description": "Options button: 'Import'"
     },
     "logPanelDeferredImages": {
