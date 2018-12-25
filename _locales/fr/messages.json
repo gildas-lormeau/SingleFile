@@ -16,7 +16,7 @@
         "description": "Menu entry: 'Select the profile of the current rule'"
     },
     "menuCreateDomainRule": {
-        "message": "Selectionner le profil du domaine courant",
+        "message": "Sélectionner le profil du domaine courant",
         "description": "Menu entry: 'Select the profile of the current domain'"
     },
     "menuSaveSelection": {
