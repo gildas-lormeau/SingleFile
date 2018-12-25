@@ -161,7 +161,7 @@ singlefile.config = (() => {
 			const config = await getConfig();
 			return config.profiles;
 		},
-		async getOptions(profileName, url, autoSave) {
+		async getRule(url) {
 			const config = await getConfig();
 			const regExpRules = config.rules.filter(rule => testRegExpRule(rule));
 			let rule = regExpRules.sort(sortRules).find(rule => url && url.match(new RegExp(rule.url.split(REGEXP_RULE_PREFIX)[1])));
@@ -169,6 +169,11 @@ singlefile.config = (() => {
 				const normalRules = config.rules.filter(rule => !testRegExpRule(rule));
 				rule = normalRules.sort(sortRules).find(rule => url && url.includes(rule.url));
 			}
+			return rule;
+		},
+		async getOptions(profileName, url, autoSave) {
+			const config = await getConfig();
+			const rule = await this.getRule(url);
 			return rule ? config.profiles[rule[autoSave ? "autoSaveProfile" : "profile"]] : config.profiles[profileName || singlefile.config.DEFAULT_PROFILE_NAME];
 		},
 		async updateProfile(profileName, profile) {

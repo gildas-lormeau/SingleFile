@@ -8,8 +8,12 @@
         "description": "Menu entry: 'Save page with SingleFile'"
     },
     "menuSelectProfile": {
-        "message": "Sélectionner le profil",
-        "description": "Menu entry: 'Select profile'"
+        "message": "Sélectionner le profil par défaut",
+        "description": "Menu entry: 'Select the default profile'"
+    },
+    "menuAssociateWithProfile": {
+        "message": "Sélectionner le profil de la règle d'auto-configuration courante",
+        "description": "Menu entry: 'Select the profile of the current auto-settings rule'"
     },
     "menuSaveSelection": {
         "message": "Sauver la sélection",

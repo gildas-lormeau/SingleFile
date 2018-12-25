@@ -8,8 +8,12 @@
         "description": "Menu entry: 'Save page with SingleFile'"
     },
     "menuSelectProfile": {
-        "message": "Выберите профиль",
-        "description": "Menu entry: 'Select profile'"
+        "message": "Select the default profile",
+        "description": "Menu entry: 'Select the default profile'"
+    },
+    "menuAssociateWithProfile": {
+        "message": "Select the profile of the current auto-settings rule",
+        "description": "Menu entry: 'Select the profile of the current auto-settings rule'"
     },
     "menuSaveSelection": {
         "message": "Сохранить выделенное",
