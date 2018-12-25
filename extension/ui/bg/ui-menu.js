@@ -313,7 +313,7 @@ singlefile.ui.menu = (() => {
 				if (tab && tab.url) {
 					let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 					let title = browser.i18n.getMessage("menuCreateDomainRule");
-					const rule = await singlefile.config.getRule(tab.url);
+					const [profiles, rule] = await Promise.all([singlefile.config.getProfiles(), singlefile.config.getRule(tab.url)]);
 					if (rule) {
 						const profileIndex = profileIndexes.get(rule.profile);
 						if (profileIndex) {
@@ -321,7 +321,13 @@ singlefile.ui.menu = (() => {
 							title = browser.i18n.getMessage("menuUpdateRule");
 						}
 					}
-					await menus.update(selectedEntryId, { checked: true });
+					Object.keys(profiles).forEach((profileName, profileIndex) => {
+						if (profileName == singlefile.config.DEFAULT_PROFILE_NAME) {
+							menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default", { checked: selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default" });
+						} else {
+							menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex, { checked: selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex });
+						}
+					});
 					await menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE, { title });
 				}
 			} catch (error) {
