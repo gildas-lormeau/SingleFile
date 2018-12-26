@@ -8,15 +8,15 @@
         "description": "Menu entry: 'Save page with SingleFile'"
     },
     "menuSelectProfile": {
-        "message": "Select the default profile",
+        "message": "Выберите профиль по умолчанию",
         "description": "Menu entry: 'Select the default profile'"
     },
     "menuUpdateRule": {
-        "message": "Select the profile of the current rule",
+        "message": "Выберите профиль текущего правила",
         "description": "Menu entry: 'Select the profile of the current rule'"
     },
     "menuCreateDomainRule": {
-        "message": "Select the profile of the current domain",
+        "message": "Выберите профиль текущего домена",
         "description": "Menu entry: 'Select the profile of the current domain'"
     },
     "menuSaveSelection": {
@@ -188,15 +188,15 @@
         "description": "Options page label: 'remove images for alternative screen resolutions'"
     },
     "fontsSubTitle": {
-        "message": "Fonts",
+        "message": "Шрифты",
         "description": "Options sub-title: 'Fonts'"
     },
     "optionRemoveUnusedFonts": {
-        "message": "remove unused fonts",
+        "message": "удалить неиспользуемые шрифты",
         "description": "Options page label: 'remove unused fonts'"
     },
     "optionRemoveAlternativeFonts": {
-        "message": "remove alternative fonts",
+        "message": "удалить альтернативные шрифты",
         "description": "Options page label: 'remove alternative fonts'"
     },
     "optionsStylesheetsSubTitle": {
@@ -240,11 +240,11 @@
         "description": "Options sub-title: 'Auto-settings rules'"
     },
     "optionsDeleteDisplayedRulesConfirm": {
-        "message": "Confirm deletion of all displayed rules",
+        "message": "Подтвердите удаление всех отображаемых правил",
         "description": "Popup text 'Confirm deletion of all displayed rules'"
     },
     "optionsDeleteRulesTooltip": {
-        "message": "Delete all displayed rules",
+        "message": "Удалить все отображаемые правила",
         "description": "Popup text 'Delete all displayed rules'"
     },
     "optionsAutoSettingsUrl": {
@@ -252,7 +252,7 @@
         "description": "Options label in the auto-settings rules: 'URL'"
     },
     "optionsAutoSettingsUrlPlaceholder": {
-        "message": "Введите полный или частичный URL (например, example.com)",
+        "message": "Введите полный или частичный URL (т.к. example.com)",
         "description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
     },
     "optionsAutoSettingsProfile": {
@@ -260,7 +260,7 @@
         "description": "Options label in the Auto-settings rules: 'Profile'"
     },
     "optionsAutoSettingsAutoSaveProfile": {
-        "message": "Автосохранение профиля",
+        "message": "Профиль автосохранения",
         "description": "Options label in the Auto-settings rules: 'Auto-save profile'"
     },
     "optionsAutoSettingsShowAllProfiles": {
@@ -268,7 +268,7 @@
         "description": "Options label in the Auto-settings rules: 'display all profiles'"
     },
     "optionsAutoSettingsShowAutoSaveProfile": {
-        "message": "отобразить столбец 'Автосохранение профиля'",
+        "message": "отобразить столбец 'Профиль автосохранения'",
         "description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
     },
     "optionsUpdateRuleTooltip": {
