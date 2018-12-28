@@ -8,15 +8,15 @@
         "description": "メニュー項目: 'SingleFile でページを保存'"
     },
     "menuSelectProfile": {
-        "message": "Select the default profile",
+        "message": "規定（default）のプロファイルを選択",
         "description": "Menu entry: 'Select the default profile'"
     },
     "menuUpdateRule": {
-        "message": "Select the profile of the current rule",
+        "message": "現在のルールのプロファイルを選択",
         "description": "Menu entry: 'Select the profile of the current rule'"
     },
     "menuCreateDomainRule": {
-        "message": "Select the profile of the current domain",
+        "message": "現在のドメインのプロファイルを選択",
         "description": "Menu entry: 'Select the profile of the current domain'"
     },
     "menuSaveSelection": {
@@ -188,15 +188,15 @@
         "description": "オプションのページラベル: '代替画面解像度用の画像を削除します'"
     },
     "fontsSubTitle": {
-        "message": "Fonts",
+        "message": "フォント",
         "description": "Options sub-title: 'Fonts'"
     },
     "optionRemoveUnusedFonts": {
-        "message": "remove unused fonts",
+        "message": "未使用のフォントを削除する",
         "description": "Options page label: 'remove unused fonts'"
     },
     "optionRemoveAlternativeFonts": {
-        "message": "remove alternative fonts",
+        "message": "代替フォントを削除する",
         "description": "Options page label: 'remove alternative fonts'"
     },
     "optionsStylesheetsSubTitle": {
@@ -240,11 +240,11 @@
         "description": "Options sub-title: 'Auto-settings rules'"
     },
     "optionsDeleteDisplayedRulesConfirm": {
-        "message": "Confirm deletion of all displayed rules",
+        "message": "表示されているすべてのルールの削除を確認します",
         "description": "Popup text 'Confirm deletion of all displayed rules'"
     },
     "optionsDeleteRulesTooltip": {
-        "message": "Delete all displayed rules",
+        "message": "表示されているすべてのルールを削除する",
         "description": "Popup text 'Delete all displayed rules'"
     },
     "optionsAutoSettingsUrl": {
