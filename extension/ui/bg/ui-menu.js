@@ -304,12 +304,13 @@ singlefile.ui.menu = (() => {
 	async function refreshTab(tab) {
 		if (BROWSER_MENUS_API_SUPPORTED) {
 			const tabsData = await singlefile.tabsData.get();
+			const promises = [];
 			try {
 				const disabled = Boolean(!tabsData[tab.id] || !tabsData[tab.id].autoSave);
-				await menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: disabled });
-				await menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: !disabled });
-				await menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: Boolean(tabsData.autoSaveUnpinned) });
-				await menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: Boolean(tabsData.autoSaveAll) });
+				promises.push(menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: disabled }));
+				promises.push(menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: !disabled }));
+				promises.push(menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: Boolean(tabsData.autoSaveUnpinned) }));
+				promises.push(menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: Boolean(tabsData.autoSaveAll) }));
 				if (tab && tab.url) {
 					let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 					let title = browser.i18n.getMessage("menuCreateDomainRule");
@@ -323,13 +324,14 @@ singlefile.ui.menu = (() => {
 					}
 					Object.keys(profiles).forEach((profileName, profileIndex) => {
 						if (profileName == singlefile.config.DEFAULT_PROFILE_NAME) {
-							menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default", { checked: selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default" });
+							promises.push(menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default", { checked: selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default" }));
 						} else {
-							menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex, { checked: selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex });
+							promises.push(menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex, { checked: selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex }));
 						}
 					});
-					await menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE, { title });
+					promises.push(menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE, { title }));
 				}
+				await Promise.all(promises);
 			} catch (error) {
 				/* ignored */
 			}
