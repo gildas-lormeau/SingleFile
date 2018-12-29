@@ -8,15 +8,15 @@
         "description": "菜单项: '使用 SingleFile 保存页面'"
     },
     "menuSelectProfile": {
-        "message": "Select the default profile",
+        "message": "选择默认配置文件",
         "description": "Menu entry: 'Select the default profile'"
     },
     "menuUpdateRule": {
-        "message": "Select the profile of the current rule",
+        "message": "选择当前规则的配置",
         "description": "Menu entry: 'Select the profile of the current rule'"
     },
     "menuCreateDomainRule": {
-        "message": "Select the profile of the current domain",
+        "message": "选择当前域名的配置",
         "description": "Menu entry: 'Select the profile of the current domain'"
     },
     "menuSaveSelection": {
@@ -188,15 +188,15 @@
         "description": "选项页标签: '移除备用分辨率的图像'"
     },
     "fontsSubTitle": {
-        "message": "Fonts",
+        "message": "字体",
         "description": "Options sub-title: 'Fonts'"
     },
     "optionRemoveUnusedFonts": {
-        "message": "remove unused fonts",
+        "message": "移除未使用的字体",
         "description": "Options page label: 'remove unused fonts'"
     },
     "optionRemoveAlternativeFonts": {
-        "message": "remove alternative fonts",
+        "message": "移除备用的字体",
         "description": "Options page label: 'remove alternative fonts'"
     },
     "optionsStylesheetsSubTitle": {
@@ -236,11 +236,11 @@
         "description": "选项页副标题: '自动保存'"
     },
     "optionsDeleteDisplayedRulesConfirm": {
-        "message": "Confirm deletion of all displayed rules",
+        "message": "确认移除所有已显示规则",
         "description": "Popup text 'Confirm deletion of all displayed rules'"
     },
     "optionsDeleteRulesTooltip": {
-        "message": "Delete all displayed rules",
+        "message": "移除所有已显示规则",
         "description": "Popup text 'Delete all displayed rules'"
     },
     "optionsAutoSettingsSubTitle": {
