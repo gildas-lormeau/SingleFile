@@ -23,6 +23,7 @@
 this.singlefile.top = this.singlefile.top || (() => {
 
 	const MESSAGE_PREFIX = "__SingleFile__::";
+	const MAX_CONTENT_SIZE = 64 * (1024 * 1024);
 	const SingleFile = SingleFileBrowser.getClass();
 
 	let processing = false;
@@ -153,7 +154,18 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (options.backgroundSave) {
 			const response = await browser.runtime.sendMessage({ download: true, url: page.url, confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename });
 			if (response.notSupported) {
-				const response = await browser.runtime.sendMessage({ download: true, content: page.content, confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename });
+				let response;
+				for (let blockIndex = 0; (!response || !response.notSupported) && (blockIndex * MAX_CONTENT_SIZE < page.content.length); blockIndex++) {
+					const message = { download: true, confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename };
+					message.truncated = page.content.length > MAX_CONTENT_SIZE;
+					if (message.truncated) {
+						message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > page.content.length;
+						message.content = page.content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+					} else {
+						message.content = page.content;
+					}
+					response = await browser.runtime.sendMessage(message);
+				}
 				if (response.notSupported) {
 					downloadPageFallback(page, options);
 				}
