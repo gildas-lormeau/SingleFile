@@ -187,7 +187,7 @@
         "message": "usuwaj obrazy dla alternatywnych rozdzielczości ekranu",
         "description": "Options page label: 'remove images for alternative screen resolutions'"
     },
-    "fontsSubTitle": {
+    "optionsFontsSubTitle": {
         "message": "Czcionki",
         "description": "Options sub-title: 'Fonts'"
     },

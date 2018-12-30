@@ -338,7 +338,7 @@
 	htmlContentLabel.textContent = browser.i18n.getMessage("optionsHTMLContentSubTitle");
 	imagesLabel.textContent = browser.i18n.getMessage("optionsImagesSubTitle");
 	stylesheetsLabel.textContent = browser.i18n.getMessage("optionsStylesheetsSubTitle");
-	fontsLabel.textContent = browser.i18n.getMessage("fontsSubTitle");
+	fontsLabel.textContent = browser.i18n.getMessage("optionsFontsSubTitle");
 	otherResourcesLabel.textContent = browser.i18n.getMessage("optionsOtherResourcesSubTitle");
 	autoSaveLabel.textContent = browser.i18n.getMessage("optionsAutoSaveSubTitle");
 	miscLabel.textContent = browser.i18n.getMessage("optionsMiscSubTitle");

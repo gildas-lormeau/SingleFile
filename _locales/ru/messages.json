@@ -187,7 +187,7 @@
         "message": "удалить изображения для альтернативных разрешений экрана",
         "description": "Options page label: 'remove images for alternative screen resolutions'"
     },
-    "fontsSubTitle": {
+    "optionsFontsSubTitle": {
         "message": "Шрифты",
         "description": "Options sub-title: 'Fonts'"
     },

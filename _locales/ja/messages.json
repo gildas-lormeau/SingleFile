@@ -187,7 +187,7 @@
         "message": "代替画面解像度用の画像を削除します",
         "description": "オプションのページラベル: '代替画面解像度用の画像を削除します'"
     },
-    "fontsSubTitle": {
+    "optionsFontsSubTitle": {
         "message": "フォント",
         "description": "Options sub-title: 'Fonts'"
     },
