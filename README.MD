@@ -33,7 +33,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
  - You can use the shortcut Ctrl+Shift+X to save current or selected tabs in Chrome. Go to chrome://extensions/shortcuts to change it.
 
 ## More info
-See the extension help in the options page for more detailed information about the options, and technical notes. See https://github.com/gildas-lormeau/SingleFile/wiki/Optimizations-applied-to-web-pages for some info about the optimizations applied to web pages.
+See the extension help in the options page for more detailed information about the options and technical notes.
 
 ## Statistics (Firefox)
 See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=90
@@ -41,7 +41,7 @@ See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=
 ## Known Issues
 - All browsers:
   - For security reasons, you cannot save pages hosted on https://chrome.google.com or https://addons.mozilla.org.
-  - The last saved path cannot be remembered by default. To circumvent this limitation, disable the option "Save pages in background".
+  - The last saved path cannot be remembered by default. To circumvent this limitation, disable the option "Misc > Save pages in background".
 - Chrome/Opera:
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.  
 
