@@ -49,16 +49,14 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		onStartPage() {
 			let maskElement = document.querySelector(MASK_TAGNAME);
 			if (!maskElement) {
-				requestAnimationFrame(() => {
-					const maskElement = createMaskElement();
-					createProgressBarElement(maskElement);
-					document.body.appendChild(logsWindowElement);
-					setLogsWindowStyle();
-					maskElement.offsetWidth;
-					maskElement.style.setProperty("background-color", "black", "important");
-					maskElement.style.setProperty("opacity", .3, "important");
-					document.body.offsetWidth;
-				});
+				const maskElement = createMaskElement();
+				createProgressBarElement(maskElement);
+				document.body.appendChild(logsWindowElement);
+				setLogsWindowStyle();
+				maskElement.offsetWidth;
+				maskElement.style.setProperty("background-color", "black", "important");
+				maskElement.style.setProperty("opacity", .3, "important");
+				document.body.offsetWidth;
 			}
 		},
 		onEndPage() {
@@ -66,7 +64,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			logsWindowElement.remove();
 			clearLogs();
 			if (maskElement) {
-				requestAnimationFrame(() => maskElement.remove());
+				maskElement.remove();
 			}
 		},
 		onLoadResource(index, maxIndex) {
