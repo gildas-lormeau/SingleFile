@@ -41,7 +41,7 @@ See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=
 ## Known Issues
 - All browsers:
   - For security reasons, you cannot save pages hosted on https://chrome.google.com or https://addons.mozilla.org.
-  - The last saved path cannot be remembered by default. To circumvent this limitation, disable the option "Save pages in background".
+  - The last saved path cannot be remembered by default. To circumvent this limitation, disable the option "Misc > Save pages in background".
 - Chrome/Opera:
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.  
 
