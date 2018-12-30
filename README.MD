@@ -33,7 +33,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
  - You can use the shortcut Ctrl+Shift+X to save current or selected tabs in Chrome. Go to chrome://extensions/shortcuts to change it.
 
 ## More info
-See the extension help in the options page for more detailed information about the options, and technical notes. See https://github.com/gildas-lormeau/SingleFile/wiki/Optimizations-applied-to-web-pages for some info about the optimizations applied to web pages.
+See the extension help in the options page for more detailed information about the options, and technical notes.
 
 ## Statistics (Firefox)
 See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=90
