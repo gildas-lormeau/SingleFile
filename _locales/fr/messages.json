@@ -364,7 +364,7 @@
         "description": "Label 'Frame contents' in the log panel"
     },
     "logPanelStep": {
-        "message": "Etape",
+        "message": "Étape",
         "description": "Label 'Step' (for 'Step x / 4') in the log panel"
     },
     "logPanelWidth": {
