@@ -84,27 +84,33 @@
 					<img src="../resources/icon_16.png" class="icon"> in the browser toolbar and select "Options"/"Manage extension"
 					in
 					the context menu to open the options page.</p>
-				<p>User interface</p>
+				<p>Profiles</p>
 				<ul>
 					<li>
-						<span class="option">Profiles</span>
 						<p>A profile is a set of user-defined options associated to a unique name.</p>
 						<p>
 							The drop-down list in the upper right of the options page allows you to select a profile and modify the
 							associated options. The buttons next to the drop-down list allows you respectively to create, delete and rename
 							a profile.
 						</p>
+					</li>
+					<li>
 						<p>
 							You can select the default profile through the context menu of SingleFile. The selection is persistent and
 							applied to all tabs.
 						</p>
-						<p>
-							You can also override the default profile by associating a profile to a complete or partial URL. See the
-							description of the <a href="#auto-settings-rules">auto-settings rules</a> feature for more info.
-						</p>
 					</li>
 					<li>
-						<span class="option">add entry in the context menu of the webpage</span>
+						<p>
+							You can also override the default profile by associating a profile to a complete or partial URL. See the
+							description of the <a href="#auto-settings-rules">Auto-settings rules</a> feature for more info.
+						</p>
+					</li>
+				</ul>
+				<p>User interface</p>
+				<ul>
+					<li>
+						<span class="option">Option: add entry in the context menu of the webpage</span>
 						<p>Check this option to display an entry for SingleFile in the context menu of the webpage. The context menu of
 							the
 							SingleFile button
@@ -117,7 +123,7 @@
 					</li>
 
 					<li>
-						<span class="option">overlay a shadow on the page during processing</span>
+						<span class="option">Option: overlay a shadow on the page during processing</span>
 						<p>Check this option to overlay a shadow on the page when SingleFile is retrieving page resources. This reminds
 							you
 							that you should not close the tab.
@@ -127,7 +133,7 @@
 					</li>
 
 					<li>
-						<span class="option">display an infobar when viewing a saved page</span>
+						<span class="option">Option: display an infobar when viewing a saved page</span>
 						<p>Check this option to display the ℹ button at the top right of the page when viewing a saved page. By clicking
 							this
 							icon, you can get more information about the saved date and open the original URL.
@@ -137,7 +143,7 @@
 					</li>
 
 					<li>
-						<span class="option">template of the infobar content</span>
+						<span class="option">Option: template of the infobar content</span>
 						<p>The template allows you to customize the content displayed in the infobar. You can use any valid character,
 							<code>\n</code> for new lines or <code>\t</code> for tabs. You can also use any variables from <a href="#template-variables">this
 								list</a> anywhere in the template. If the template or the resulting content is empty, the infobar will display
@@ -153,7 +159,7 @@
 					</li>
 
 					<li>
-						<span class="option">open a prompt dialog to edit the infobar content</span>
+						<span class="option">Option: open a prompt dialog to edit the infobar content</span>
 						<p>Check this option to display a prompt dialog in order to confirm the infobar content before saving the page.
 						</p>
 					</li>
@@ -161,7 +167,7 @@
 				<p>File name</p>
 				<ul>
 					<li>
-						<span class="option">template</span>
+						<span class="option">Option: template</span>
 						<p>The template allows you to customize the file name of saved pages. You can use any valid character and "/" to
 							create sub-folders (with the option "save pages in background" active). You can also use any variables from
 							<a href="#template-variables">this list</a> anywhere in the template.</p>
@@ -181,7 +187,7 @@
 						</ul>
 					</li>
 					<li>
-						<span class="option">open the "Save as" dialog to confirm the file name</span>
+						<span class="option">Option: open the "Save as" dialog to confirm the file name</span>
 						<p>Check this option to display the "Save as" dialog in order to confirm the file name before saving the page. If
 							the
 							option "save pages in background" is unchecked then a prompt dialog will be displayed instead of the "Save as"
@@ -191,7 +197,7 @@
 							<u>uncheck</u> this option</p>
 					</li>
 					<li>
-						<span class="option">file name conflict resolution</span>
+						<span class="option">Option: file name conflict resolution</span>
 						<p>Choose the most appropriate action when a the filename of the saved page is conflicting with existing ones on
 							the filesystem.</p>
 					</li>
@@ -199,7 +205,7 @@
 				<p>HTML content</p>
 				<ul>
 					<li>
-						<span class="option">compress HTML content</span>
+						<span class="option">Option: compress HTML content</span>
 						<p>Check this option to remove all HTML comments, and unneeded spaces or returns. This helps to reduce the size
 							of
 							the file without altering the document.</p>
@@ -208,7 +214,7 @@
 					</li>
 
 					<li>
-						<span class="option">remove HTML imports</span>
+						<span class="option">Option: remove HTML imports</span>
 						<p>Check this option to remove all link elements used to import HTML documents. This can help to reduce the size
 							of the
 							file
@@ -218,7 +224,7 @@
 					</li>
 
 					<li>
-						<span class="option">remove hidden elements</span>
+						<span class="option">Option: remove hidden elements</span>
 						<p>Check this option to remove all hidden elements. This option can help to reduce the size of the file
 							without altering the document.</p>
 						<p class="notice">It is recommended to
@@ -226,7 +232,7 @@
 					</li>
 
 					<li>
-						<span class="option">remove frames</span>
+						<span class="option">Option: remove frames</span>
 						<p>Check this option to remove all frame and iframe elements. This can considerably reduce the size of the file
 							without altering the document most of the time. Checking this option may also decrease the time needed to save a
 							page</p>
@@ -235,14 +241,14 @@
 				<p>Stylesheets</p>
 				<ul>
 					<li>
-						<span class="option">compress CSS content</span>
+						<span class="option">Option: compress CSS content</span>
 						<p>Check this option to minify CSS stylesheets. This the size of the file without altering the document.
 						</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 
 					<li>
-						<span class="option">remove unused styles</span>
+						<span class="option">Option: remove unused styles</span>
 						<p>Check this option to remove all CSS rules and styles that do not match any element. Checking this option
 							will not alter the document and can considerably reduce the size of the file. Checking this option will
 							also increase the CPU consumption and the time needed to save a page.</p>
@@ -250,7 +256,7 @@
 					</li>
 
 					<li>
-						<span class="option">remove stylesheets for alternative devices to screens</span>
+						<span class="option">Option: remove stylesheets for alternative devices to screens</span>
 						<p>Check this option to remove stylesheets that are not used for the screen display like stylesheets for print
 							preview and speech synthesizers. Checking this this option can help to reduce the size of the file.</p>
 					</li>
@@ -258,7 +264,7 @@
 				<p>Images</p>
 				<ul>
 					<li>
-						<span class="option">group duplicate images together</span>
+						<span class="option">Option: group duplicate images together</span>
 						<p>Check this option to avoid saving multiple times duplicate images. Checking this this option should not alter
 							the document in modern browsers and can considerably reduce the size of the file. Checking this this option
 							option may also increase the CPU consumption and the time needed to save a page</p>
@@ -267,7 +273,7 @@
 					</li>
 
 					<li>
-						<span class="option">save deferred images</span>
+						<span class="option">Option: save deferred images</span>
 						<p>Check this option to save all the deferred images that are not displayed. This may help to save all the
 							images without scrolling the page. This feature does its best effort and is not guaranteed to work on all sites.</p>
 						<p class="notice">It is recommended to
@@ -275,13 +281,13 @@
 					</li>
 
 					<li>
-						<span class="option">maximum idle time (ms)</span>
+						<span class="option">Option: maximum idle time (ms)</span>
 						<p>Specify the maximum delay of time to wait for deferred images. You can increase this value if for example the
 							network or system conditions are degraded. You can also decrease this value otherwise.</p>
 					</li>
 
 					<li>
-						<span class="option">remove images for alternative screen resolutions</span>
+						<span class="option">Option: remove images for alternative screen resolutions</span>
 						<p>Check this option to remove images that are alternatives in lower and/or higher resolutions to the ones
 							displayed
 							by default. Checking this this option can considerably reduce the size of the file in some cases.</p>
@@ -290,13 +296,13 @@
 				<p>Fonts</p>
 				<ul>
 					<li>
-						<span class="option">remove unused fonts</span>
+						<span class="option">Option: remove unused fonts</span>
 						<p>Check this option to remove all Fonts rules that do not match any content. Checking this option should not
 							alter the document and can considerably reduce the size of the file.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 					<li>
-						<span class="option">remove alternative fonts</span>
+						<span class="option">Option: remove alternative fonts</span>
 						<p>Check this option to remove fonts that are alternatives to the ones used. Checking this this option should not
 							alter the document and can considerably reduce the size of the file.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
@@ -305,7 +311,7 @@
 				<p>Other resources</p>
 				<ul>
 					<li>
-						<span class="option">remove scripts</span>
+						<span class="option">Option: remove scripts</span>
 						<p>Check this option to remove all scripts. Unchecking this option may alter the document and lead to security
 							issues.</p>
 						<p class="notice">It is recommended to
@@ -313,14 +319,14 @@
 					</li>
 
 					<li>
-						<span class="option">remove video sources</span>
+						<span class="option">Option: remove video sources</span>
 						<p>Check this option to empty the "src" attribute of all video elements.</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
 					</li>
 
 					<li>
-						<span class="option">remove audio sources</span>
+						<span class="option">Option: remove audio sources</span>
 						<p>Check this option to empty the "src" attribute of all audio elements.</p>
 						<p class="notice">It is recommended to
 							<u>check</u> this option</p>
@@ -329,7 +335,7 @@
 				<p>Auto-save</p>
 				<ul>
 					<li>
-						<span class="option">auto-save after page load or on page unload</span>
+						<span class="option">Option: auto-save after page load or on page unload</span>
 						<p>Check this option to auto-save pages after being loaded. If you browse to another page before the page is
 							fully
 							loaded then the page will be saved just before being unloaded. With this option active, you are guaranteed pages
@@ -341,12 +347,12 @@
 					</li>
 
 					<li>
-						<span class="option">auto-save after page load</span>
+						<span class="option">Option: auto-save after page load</span>
 						<p>Check this option to auto-save pages after being loaded.</p>
 					</li>
 
 					<li>
-						<span class="option">auto-save on page unload</span>
+						<span class="option">Option: auto-save on page unload</span>
 						<p>Check this option to auto-save pages before being unloaded instead of saving pages after being loaded. With
 							this
 							option active, you are guaranteed pages will always be saved but some frame contents may be missing (if you
@@ -356,7 +362,7 @@
 					</li>
 
 					<li>
-						<span class="option">auto-save waiting delay after load (sec.)</span>
+						<span class="option">Option: auto-save waiting delay after load (sec.)</span>
 						<p>Specify the amount of time in seconds to wait before saving a page when the "auto-save on page load or on page
 							unload"
 							or "auto-save on page load" is checked.
@@ -366,7 +372,7 @@
 				<p>Misc.</p>
 				<ul>
 					<li>
-						<span class="option">save pages in background</span>
+						<span class="option">Option: save pages in background</span>
 						<p>Uncheck this option if you get invalid file names like "37bec68b-446a-46a5-8642-19a89c231b46.html" or
 							interrupted downloads when saving pages. Unchecking this option prevent saving files in sub-directories.
 						</p>
@@ -375,7 +381,7 @@
 					</li>
 
 					<li>
-						<span class="option">display stats in the console after processing</span>
+						<span class="option">Option: display stats in the console after processing</span>
 						<p>Check this option to display stats about processing in the JavaScript developer tools of your browser.
 							Checking
 							this option may increase the CPU consumption and the time needed to save a page.
@@ -385,21 +391,21 @@
 					</li>
 
 					<li>
-						<span class="option">set a maximum size for embedded resources (MB)</span>
+						<span class="option">Option: set a maximum size for embedded resources (MB)</span>
 						<p>Specify the maximum size of each embedded resources (i.e. images, stylesheets, scripts and iframes) in
 							megabytes.
 						</p>
 					</li>
 
 					<li>
-						<span class="option">save raw page</span>
+						<span class="option">Option: save raw page</span>
 						<p>Check this option to save the page without interpreting JavaScript. Checking this option may alter the
 							document.</p>
 						<p class="notice">It is recommended to
 							<u>uncheck</u> this option</p>
 					</li>
 				</ul>
-				<p id="auto-settings-rules">Auto-settings rules.</p>
+				<p id="auto-settings-rules">Auto-settings rules</p>
 				<ul>
 					<li>
 						The auto-settings rules let you associate a complete or partial URL with a profile. It also allows to associate a
