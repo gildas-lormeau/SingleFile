@@ -88,18 +88,19 @@
 				<ul>
 					<li>
 						<span class="option">Profiles</span>
-						<p>A profile is a set of user-defined options different from the default settings associated to a custom name.</p>
+						<p>A profile is a set of user-defined options associated to a unique name.</p>
 						<p>
-							The drop-down list in the upper right of the options page allows you to select a profile and modify its set of
-							options. The buttons next to the drop-down list allows you respectively to create, delete and rename a profile.
+							The drop-down list in the upper right of the options page allows you to select a profile and modify the
+							associated options. The buttons next to the drop-down list allows you respectively to create, delete and rename
+							a profile.
 						</p>
 						<p>
-							The context menu of SingleFile allows you to switch from one profile to another one. The profile
-							selected in the context menu is persistent.
+							You can select the default profile through the context menu of SingleFile. The selection is persistent and
+							applied to all tabs.
 						</p>
 						<p>
-							It is also possible to use profiles in the auto-settings rules in order to automatically associate a profile to
-							a complete or partial URL.
+							You can also override the default profile by associating a profile to a complete or partial URL. See the
+							description of the <a href="#auto-settings-rules">auto-settings rules</a> feature for more info.
 						</p>
 					</li>
 					<li>
@@ -398,7 +399,7 @@
 							<u>uncheck</u> this option</p>
 					</li>
 				</ul>
-				<p>Auto-settings rules.</p>
+				<p id="auto-settings-rules">Auto-settings rules.</p>
 				<ul>
 					<li>
 						The auto-settings rules let you associate a complete or partial URL with a profile. It also allows to associate a
@@ -407,8 +408,8 @@
 					</li>
 					<li>
 						You can use regular expressions by prefixing the URL with "regexp:" (e.g. "regexp:.*\.com" to match all URLs
-						containing ".com"). When one or more rules based on URLs and one or more rules based on regular expressions match
-						a URL, the longest rule based on regular expression will be chosen.
+						containing ".com"). When zero or more rules based on URLs and one or more rules based on regular expressions
+						match a URL, the longest rule based on regular expression will be chosen.
 					</li>
 				</ul>
 				<p>Form buttons</p>
