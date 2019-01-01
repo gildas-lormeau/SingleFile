@@ -65,7 +65,7 @@ singlefile.config = (() => {
 	let pendingUpgradePromise = upgrade();
 	browser.runtime.onMessage.addListener(request => {
 		if (request.getOptions) {
-			return getOptions();
+			return getUrlOptions(request.url);
 		}
 	});
 
@@ -128,9 +128,21 @@ singlefile.config = (() => {
 		}
 	}
 
-	async function getOptions() {
+	async function getUrlOptions(url) {
 		const [config, tabsData] = await Promise.all([getConfig(), singlefile.tabsData.get()]);
-		return config.profiles[tabsData.profileName || DEFAULT_PROFILE_NAME];
+		const rule = await getRule(url);
+		return rule ? config.profiles[rule["profile"]] : config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
+	}
+
+	async function getRule(url) {
+		const config = await getConfig();
+		const regExpRules = config.rules.filter(rule => testRegExpRule(rule));
+		let rule = regExpRules.sort(sortRules).find(rule => url && url.match(new RegExp(rule.url.split(REGEXP_RULE_PREFIX)[1])));
+		if (!rule) {
+			const normalRules = config.rules.filter(rule => !testRegExpRule(rule));
+			rule = normalRules.sort(sortRules).find(rule => url && url.includes(rule.url));
+		}
+		return rule;
 	}
 
 	async function getConfig() {
@@ -162,18 +174,10 @@ singlefile.config = (() => {
 			return config.profiles;
 		},
 		async getRule(url) {
-			const config = await getConfig();
-			const regExpRules = config.rules.filter(rule => testRegExpRule(rule));
-			let rule = regExpRules.sort(sortRules).find(rule => url && url.match(new RegExp(rule.url.split(REGEXP_RULE_PREFIX)[1])));
-			if (!rule) {
-				const normalRules = config.rules.filter(rule => !testRegExpRule(rule));
-				rule = normalRules.sort(sortRules).find(rule => url && url.includes(rule.url));
-			}
-			return rule;
+			return getRule(url);
 		},
 		async getOptions(profileName, url, autoSave) {
-			const config = await getConfig();
-			const rule = await this.getRule(url);
+			const [config, rule] = await Promise.all([getConfig(), getRule(url)]);
 			return rule ? config.profiles[rule[autoSave ? "autoSaveProfile" : "profile"]] : config.profiles[profileName || singlefile.config.DEFAULT_PROFILE_NAME];
 		},
 		async updateProfile(profileName, profile) {
