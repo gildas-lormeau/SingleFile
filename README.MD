@@ -1,6 +1,19 @@
 # SingleFile
 SingleFile is a WebExtension compatible with Chrome, Firefox (Desktop and Mobile), and Opera that helps you to save a complete web page into a single HTML file.
 
+## Table of Contents
+ - [Demo](#demo)
+ - [Install](#install)
+ - [Getting started](#getting-started)
+ - [Additional notes](#additional-notes)
+ - [More info](#more-info)
+ - [Statistics (Firefox)](#statistics-firefox)
+ - [Known issues](#known-issues)
+ - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
+ - [Contributors](#contributors)
+ - [Code derived from third party projects](#code-derived-from-third-party-projects)
+ - [License](#license)
+
 ## Demo
 https://www.youtube.com/watch?v=RdV8DBW5b0g
 
@@ -60,7 +73,7 @@ Please follow these steps if you find an unknown issue:
 - Polish translation done by xesarni (https://github.com/xesarni)
 - Russian translation done by rstp14 (https://github.com/rstp14)
 
-## Code derived from third party projects used in SingleFile
+## Code derived from third party projects
 - csstree: https://github.com/csstree/csstree
 - postcss-media-query-parser: https://github.com/dryoma/postcss-media-query-parser
 - UglifyCSS: https://github.com/fmarcia/UglifyCSS
