@@ -24,7 +24,7 @@
         "description": "Menu entry: 'Save selection'"
     },
     "menuSaveFrame": {
-        "message": "Sauver la frame",
+        "message": "Sauver le cadre",
         "description": "Menu entry: 'Save frame'"
     },
     "menuSaveSelectedTabs": {
@@ -360,7 +360,7 @@
         "description": "Label 'Deferred images' in the log panel"
     },
     "logPanelFrameContents": {
-        "message": "Contenus de frame",
+        "message": "Contenus des cadres",
         "description": "Label 'Frame contents' in the log panel"
     },
     "logPanelStep": {
