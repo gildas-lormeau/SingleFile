@@ -489,6 +489,8 @@
 		removeAlternativeMediasInput.checked = profileOptions.removeAlternativeMedias;
 		infobarTemplateInput.value = profileOptions.infobarTemplate;
 		confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
+		removeFramesInput.disabled = saveRawPageInput.checked;
+		loadDeferredImagesInput.disabled = saveRawPageInput.checked;
 	}
 
 	function getProfileText(profileName) {
