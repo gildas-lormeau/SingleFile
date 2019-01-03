@@ -43,6 +43,8 @@ singlefile.ui.menu = (() => {
 	const MENU_ID_AUTO_SAVE_TAB = "auto-save-tab";
 	const MENU_ID_AUTO_SAVE_UNPINNED = "auto-save-unpinned";
 	const MENU_ID_AUTO_SAVE_ALL = "auto-save-all";
+	const createDomainRuleTitle = browser.i18n.getMessage("menuCreateDomainRule");
+	const updateRuleTitle = browser.i18n.getMessage("menuUpdateRule");
 
 	const menusCheckedState = new Map();
 	const menusTitleState = new Map();
@@ -160,10 +162,10 @@ singlefile.ui.menu = (() => {
 				menusCheckedState.set(defaultProfileId, defaultProfileChecked);
 				menus.create({
 					id: MENU_ID_ASSOCIATE_WITH_PROFILE,
-					title: browser.i18n.getMessage("menuCreateDomainRule"),
+					title: createDomainRuleTitle,
 					contexts: defaultContexts,
 				});
-				menusTitleState.set(MENU_ID_ASSOCIATE_WITH_PROFILE, browser.i18n.getMessage("menuCreateDomainRule"));
+				menusTitleState.set(MENU_ID_ASSOCIATE_WITH_PROFILE, createDomainRuleTitle);
 				let rule;
 				if (tab && tab.url) {
 					rule = await singlefile.config.getRule(tab.url);
@@ -335,7 +337,7 @@ singlefile.ui.menu = (() => {
 					if (rule) {
 						await singlefile.config.updateRule(rule.url, rule.url, profileName, profileName);
 					} else {
-						await updateTitleValue(MENU_ID_ASSOCIATE_WITH_PROFILE, browser.i18n.getMessage("menuUpdateRule"));
+						await updateTitleValue(MENU_ID_ASSOCIATE_WITH_PROFILE, updateRuleTitle);
 						await singlefile.config.addRule(new URL(tab.url).hostname, profileName, profileName);
 					}
 				}
@@ -362,13 +364,13 @@ singlefile.ui.menu = (() => {
 				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(tabsData.autoSaveAll)));
 				if (tab && tab.url) {
 					let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
-					let title = browser.i18n.getMessage("menuCreateDomainRule");
+					let title = createDomainRuleTitle;
 					const [profiles, rule] = await Promise.all([singlefile.config.getProfiles(), singlefile.config.getRule(tab.url)]);
 					if (rule) {
 						const profileIndex = profileIndexes.get(rule.profile);
 						if (profileIndex) {
 							selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
-							title = browser.i18n.getMessage("menuUpdateRule");
+							title = updateRuleTitle;
 						}
 					}
 					Object.keys(profiles).forEach((profileName, profileIndex) => {
