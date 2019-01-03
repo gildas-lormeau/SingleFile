@@ -31,9 +31,13 @@ singlefile.ui.menu = (() => {
 	const MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX = "associate-with-profile-";
 	const MENU_ID_SAVE_SELECTED = "save-selected";
 	const MENU_ID_SAVE_FRAME = "save-frame";
+	const MENU_ID_SAVE_TABS = "save-tabs";
 	const MENU_ID_SAVE_SELECTED_TABS = "save-selected-tabs";
 	const MENU_ID_SAVE_UNPINNED_TABS = "save-unpinned-tabs";
-	const MENU_ID_SAVE_ALL_TABS = "save-tabs";
+	const MENU_ID_SAVE_ALL_TABS = "save-all-tabs";
+	const MENU_ID_BUTTON_SAVE_SELECTED_TABS = "button-" + MENU_ID_SAVE_SELECTED_TABS;
+	const MENU_ID_BUTTON_SAVE_UNPINNED_TABS = "button-" + MENU_ID_SAVE_UNPINNED_TABS;
+	const MENU_ID_BUTTON_SAVE_ALL_TABS = "button-" + MENU_ID_SAVE_ALL_TABS;
 	const MENU_ID_AUTO_SAVE = "auto-save";
 	const MENU_ID_AUTO_SAVE_DISABLED = "auto-save-disabled";
 	const MENU_ID_AUTO_SAVE_TAB = "auto-save-tab";
@@ -85,22 +89,47 @@ singlefile.ui.menu = (() => {
 					contexts: ["frame"],
 					title: browser.i18n.getMessage("menuSaveFrame")
 				});
+			}
+			menus.create({
+				id: MENU_ID_SAVE_TABS,
+				contexts: defaultContextsDisabled,
+				title: browser.i18n.getMessage("menuSaveTabs")
+			});
+			menus.create({
+				id: MENU_ID_BUTTON_SAVE_SELECTED_TABS,
+				contexts: defaultContextsDisabled,
+				title: browser.i18n.getMessage("menuSaveSelectedTabs"),
+				parentId: MENU_ID_SAVE_TABS
+			});
+			menus.create({
+				id: MENU_ID_BUTTON_SAVE_UNPINNED_TABS,
+				contexts: defaultContextsDisabled,
+				title: browser.i18n.getMessage("menuSaveUnpinnedTabs"),
+				parentId: MENU_ID_SAVE_TABS
+			});
+			menus.create({
+				id: MENU_ID_BUTTON_SAVE_ALL_TABS,
+				contexts: defaultContextsDisabled,
+				title: browser.i18n.getMessage("menuSaveAllTabs"),
+				parentId: MENU_ID_SAVE_TABS
+			});
+			if (options.contextMenuEnabled) {
 				menus.create({
 					id: MENU_ID_SAVE_SELECTED_TABS,
 					contexts: pageContextsEnabled,
 					title: browser.i18n.getMessage("menuSaveSelectedTabs")
 				});
+				menus.create({
+					id: MENU_ID_SAVE_UNPINNED_TABS,
+					contexts: pageContextsEnabled,
+					title: browser.i18n.getMessage("menuSaveUnpinnedTabs")
+				});
+				menus.create({
+					id: MENU_ID_SAVE_ALL_TABS,
+					contexts: pageContextsEnabled,
+					title: browser.i18n.getMessage("menuSaveAllTabs")
+				});
 			}
-			menus.create({
-				id: MENU_ID_SAVE_UNPINNED_TABS,
-				contexts: defaultContexts,
-				title: browser.i18n.getMessage("menuUnpinnedTabs")
-			});
-			menus.create({
-				id: MENU_ID_SAVE_ALL_TABS,
-				contexts: defaultContexts,
-				title: browser.i18n.getMessage("menuAllTabs")
-			});
 			if (options.contextMenuEnabled) {
 				menus.create({
 					id: "separator-2",
@@ -161,11 +190,13 @@ singlefile.ui.menu = (() => {
 						profileIndexes.set(profileName, profileIndex);
 					}
 				});
-				menus.create({
-					id: "separator-3",
-					contexts: defaultContexts,
-					type: "separator"
-				});
+				if (options.contextMenuEnabled) {
+					menus.create({
+						id: "separator-3",
+						contexts: pageContextsEnabled,
+						type: "separator"
+					});
+				}
 			}
 			menus.create({
 				id: MENU_ID_AUTO_SAVE,
@@ -220,15 +251,15 @@ singlefile.ui.menu = (() => {
 				if (event.menuItemId == MENU_ID_SAVE_FRAME) {
 					singlefile.ui.saveTab(tab, { frameId: event.frameId });
 				}
-				if (event.menuItemId == MENU_ID_SAVE_SELECTED_TABS) {
+				if (event.menuItemId == MENU_ID_SAVE_SELECTED_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_SELECTED_TABS) {
 					const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
 					tabs.forEach(tab => singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
 				}
-				if (event.menuItemId == MENU_ID_SAVE_UNPINNED_TABS) {
+				if (event.menuItemId == MENU_ID_SAVE_UNPINNED_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_UNPINNED_TABS) {
 					const tabs = await browser.tabs.query({ currentWindow: true, pinned: false });
 					tabs.forEach(tab => singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
 				}
-				if (event.menuItemId == MENU_ID_SAVE_ALL_TABS) {
+				if (event.menuItemId == MENU_ID_SAVE_ALL_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_ALL_TABS) {
 					const tabs = await browser.tabs.query({ currentWindow: true });
 					tabs.forEach(tab => singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
 				}

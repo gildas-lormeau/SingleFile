@@ -19,6 +19,10 @@
         "message": "Sélectionner le profil du domaine courant",
         "description": "Menu entry: 'Select the profile of the current domain'"
     },
+    "menuSaveTabs": {
+        "message": "Save les onglets",
+        "description": "Menu entry (SingleFile button only): 'Save tabs'"
+    },
     "menuSaveSelection": {
         "message": "Sauver la sélection",
         "description": "Menu entry: 'Save selection'"
@@ -31,11 +35,11 @@
         "message": "Sauver les onglets sélectionnés",
         "description": "Menu entry: 'Save selected tabs'"
     },
-    "menuUnpinnedTabs": {
+    "menuSaveUnpinnedTabs": {
         "message": "Sauver les onglets non épinglés",
         "description": "Menu entry: 'Save unpinned tabs'"
     },
-    "menuAllTabs": {
+    "menuSaveAllTabs": {
         "message": "Sauver tous les onglets",
         "description": "Menu entry: 'Save all tabs'"
     },

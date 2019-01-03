@@ -27,15 +27,19 @@
         "message": "Zapisz ramkę",
         "description": "Menu entry: 'Save frame'"
     },
+    "menuSaveTabs": {
+        "message": "Zapisz karty",
+        "description": "Menu entry (SingleFile button only): 'Save tabs'"
+    },
     "menuSaveSelectedTabs": {
         "message": "Zapisz wybrane karty",
         "description": "Menu entry: 'Save selected tabs'"
     },
-    "menuUnpinnedTabs": {
+    "menuSaveUnpinnedTabs": {
         "message": "Zapisz odpięte karty",
         "description": "Menu entry: 'Save unpinned tabs'"
     },
-    "menuAllTabs": {
+    "menuSaveAllTabs": {
         "message": "Zapisz wszystkie karty",
         "description": "Menu entry: 'Save all tabs'"
     },

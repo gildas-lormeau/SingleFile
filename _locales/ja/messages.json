@@ -19,6 +19,10 @@
         "message": "現在のドメインのプロファイルを選択",
         "description": "Menu entry: 'Select the profile of the current domain'"
     },
+    "menuSaveTabs": {
+        "message": "タブを保存",
+        "description": "Menu entry (SingleFile button only): 'Save tabs'"
+    },
     "menuSaveSelection": {
         "message": "選択を保存",
         "description": "メニュー項目: '選択を保存'"
@@ -31,11 +35,11 @@
         "message": "選択したタブを保存",
         "description": "メニュー項目: '選択したタブを保存'"
     },
-    "menuUnpinnedTabs": {
+    "menuSaveUnpinnedTabs": {
         "message": "固定解除されたタブを保存する",
         "description": "メニュー項目: '固定解除されたタブを保存する'"
     },
-    "menuAllTabs": {
+    "menuSaveAllTabs": {
         "message": "すべてのタブを保存",
         "description": "メニュー項目: 'すべてのタブを保存'"
     },

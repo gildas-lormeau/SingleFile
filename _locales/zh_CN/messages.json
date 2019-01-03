@@ -27,15 +27,19 @@
         "message": "保存框架",
         "description": "菜单项: '保存框架'"
     },
+    "menuSaveTabs": {
+        "message": "保存标签页",
+        "description": "Menu entry (SingleFile button only): 'Save tabs'"
+    },
     "menuSaveSelectedTabs": {
         "message": "保存选中标签页",
         "description": "菜单项: '保存选中标签页'"
     },
-    "menuUnpinnedTabs": {
+    "menuSaveUnpinnedTabs": {
         "message": "保存非固定标签页",
         "description": "菜单项: '保存非固定标签页'"
     },
-    "menuAllTabs": {
+    "menuSaveAllTabs": {
         "message": "保存所有标签页",
         "description": "菜单项: '保存所有标签页'"
     },

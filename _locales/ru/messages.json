@@ -27,15 +27,19 @@
         "message": "Сохранить фрейм",
         "description": "Menu entry: 'Save frame'"
     },
+    "menuSaveTabs": {
+        "message": "Сохранить вкладки",
+        "description": "Menu entry (SingleFile button only): 'Save tabs'"
+    },
     "menuSaveSelectedTabs": {
         "message": "Сохранить выбранные вкладки",
         "description": "Menu entry: 'Save selected tabs'"
     },
-    "menuUnpinnedTabs": {
+    "menuSaveUnpinnedTabs": {
         "message": "Сохранить незакрепленные вкладки",
         "description": "Menu entry: 'Save unpinned tabs'"
     },
-    "menuAllTabs": {
+    "menuSaveAllTabs": {
         "message": "Сохранить все вкладки",
         "description": "Menu entry: 'Save all tabs'"
     },

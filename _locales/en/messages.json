@@ -27,15 +27,19 @@
         "message": "Save frame",
         "description": "Menu entry: 'Save frame'"
     },
+    "menuSaveTabs": {
+        "message": "Save tabs",
+        "description": "Menu entry (SingleFile button only): 'Save tabs'"
+    },
     "menuSaveSelectedTabs": {
         "message": "Save selected tabs",
         "description": "Menu entry: 'Save selected tabs'"
     },
-    "menuUnpinnedTabs": {
+    "menuSaveUnpinnedTabs": {
         "message": "Save unpinned tabs",
         "description": "Menu entry: 'Save unpinned tabs'"
     },
-    "menuAllTabs": {
+    "menuSaveAllTabs": {
         "message": "Save all tabs",
         "description": "Menu entry: 'Save all tabs'"
     },
