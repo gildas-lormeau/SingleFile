@@ -54,14 +54,14 @@ singlefile.ui.menu = (() => {
 		onTabCreated: refreshTab,
 		onTabActivated: refreshTab,
 		onTabUpdated: onTabUpdated,
-		refresh
+		refresh: createMenus
 	};
 
 	function onTabUpdated(tabId, changeInfo, tab) {
 		refreshTab(tab);
 	}
 
-	async function refresh(tab) {
+	async function createMenus(tab) {
 		const [profiles, tabsData] = await Promise.all([singlefile.config.getProfiles(), singlefile.tabsData.get()]);
 		const options = await singlefile.config.getOptions(tabsData.profileName, tab && tab.url, true);
 		if (BROWSER_MENUS_API_SUPPORTED) {
@@ -260,7 +260,7 @@ singlefile.ui.menu = (() => {
 
 	async function initialize() {
 		if (BROWSER_MENUS_API_SUPPORTED) {
-			refresh();
+			createMenus();
 			menus.onClicked.addListener(async (event, tab) => {
 				if (event.menuItemId == MENU_ID_SAVE_PAGE) {
 					singlefile.ui.saveTab(tab);
@@ -321,7 +321,6 @@ singlefile.ui.menu = (() => {
 						tabsData.profileName = Object.keys(profiles)[profileIndex];
 					}
 					await singlefile.tabsData.set(tabsData);
-					refresh();
 					refreshExternalComponents(tab.id, { autoSave: tabsData.autoSaveAll || tabsData.autoSaveUnpinned || (tabsData[tab.id] && tabsData[tab.id].autoSave) });
 				}
 				if (event.menuItemId.startsWith(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX)) {
