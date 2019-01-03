@@ -173,7 +173,7 @@ singlefile.ui.menu = (() => {
 				defaultProfileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 				defaultProfileChecked = !rule || rule.profile == singlefile.config.DEFAULT_PROFILE_NAME;
 				menus.create({
-					id: MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default",
+					id: defaultProfileId,
 					type: "radio",
 					contexts: defaultContexts,
 					title: browser.i18n.getMessage("profileDefaultSettings"),
