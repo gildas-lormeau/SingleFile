@@ -22,15 +22,7 @@
 
 singlefile.autosave = (() => {
 
-	browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-		const tabsData = await singlefile.tabsData.get();
-		const options = await singlefile.config.getOptions(tabsData.profileName, tab.url, true);
-		if (options && ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave)))) {
-			if (changeInfo.status == "complete") {
-				singlefile.ui.saveTab(tab, { autoSave: true });
-			}
-		}
-	});
+	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabUpdated(tabId, changeInfo, tab));
 	browser.runtime.onMessage.addListener((message, sender) => {
 		if (message.isAutoSaveEnabled) {
 			return isAutoSaveEnabled(sender.tab);
@@ -39,7 +31,6 @@ singlefile.autosave = (() => {
 			saveContent(message, sender.tab);
 		}
 	});
-
 	if (browser.runtime.onMessageExternal) {
 		browser.runtime.onMessageExternal.addListener(async message => {
 			if (message.method == "enableAutoSave") {
@@ -62,6 +53,16 @@ singlefile.autosave = (() => {
 		enabled,
 		refresh
 	};
+
+	async function onTabUpdated(tabId, changeInfo, tab) {
+		const tabsData = await singlefile.tabsData.get();
+		const options = await singlefile.config.getOptions(tabsData.profileName, tab.url, true);
+		if (options && ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave)))) {
+			if (changeInfo.status == "complete") {
+				singlefile.ui.saveTab(tab, { autoSave: true });
+			}
+		}
+	}
 
 	async function saveContent(message, tab) {
 		const tabsData = await singlefile.tabsData.get();

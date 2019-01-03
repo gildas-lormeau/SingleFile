@@ -23,17 +23,19 @@
 singlefile.tabsData = (() => {
 
 	let persistentData, temporaryData;
-	browser.tabs.onRemoved.addListener(async tabId => {
-		const tabsData = await getPersistent();
-		delete tabsData[tabId];
-		await setPersistent(tabsData);
-	});
+	browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
 	getPersistent().then(tabsData => persistentData = tabsData);
 	return {
 		getTemporary,
 		get: getPersistent,
 		set: setPersistent
 	};
+
+	async function onTabRemoved(tabId) {
+		const tabsData = await getPersistent();
+		delete tabsData[tabId];
+		setPersistent(tabsData);
+	}
 
 	function getTemporary() {
 		if (temporaryData) {

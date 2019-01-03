@@ -46,14 +46,16 @@ singlefile.ui.menu = (() => {
 
 	let profileIndexes = new Map();
 	initialize();
-	browser.tabs.onActivated.addListener(async activeInfo => {
-		const tab = await browser.tabs.get(activeInfo.tabId);
-		await refreshTab(tab);
-	});
-	browser.tabs.onCreated.addListener(refreshTab);
+	browser.tabs.onActivated.addListener(activeInfo => onTabActivated(activeInfo));
+	browser.tabs.onCreated.addListener(tab => refreshTab(tab));
 	return {
 		refresh
 	};
+
+	async function onTabActivated(activeInfo) {
+		const tab = await browser.tabs.get(activeInfo.tabId);
+		refreshTab(tab);
+	}
 
 	async function refresh(tab) {
 		const [profiles, tabsData] = await Promise.all([singlefile.config.getProfiles(), singlefile.tabsData.get()]);
