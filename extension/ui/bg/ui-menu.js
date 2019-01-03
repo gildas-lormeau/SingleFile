@@ -184,16 +184,19 @@ singlefile.ui.menu = (() => {
 				profileIndexes = new Map();
 				Object.keys(profiles).forEach((profileName, profileIndex) => {
 					if (profileName != singlefile.config.DEFAULT_PROFILE_NAME) {
+						let profileId = MENU_ID_SELECT_PROFILE_PREFIX + profileIndex;
+						let profileChecked = options.profileName == profileName;
 						menus.create({
-							id: MENU_ID_SELECT_PROFILE_PREFIX + profileIndex,
+							id: profileId,
 							type: "radio",
 							contexts: defaultContexts,
 							title: profileName,
-							checked: options.profileName == profileName,
+							checked: profileChecked,
 							parentId: MENU_ID_SELECT_PROFILE
 						});
-						const profileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
-						const profileChecked = rule && rule.profile == profileName;
+						menusCheckedState.set(profileId, profileChecked);
+						profileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
+						profileChecked = rule && rule.profile == profileName;
 						menus.create({
 							id: profileId,
 							type: "radio",
