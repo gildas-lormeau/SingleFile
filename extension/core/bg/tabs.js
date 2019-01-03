@@ -39,7 +39,7 @@ singlefile.tabs = (() => {
 
 	function onTabUpdated(tabId, changeInfo, tab) {
 		singlefile.autosave.onTabUpdated(tabId, changeInfo, tab);
-		singlefile.ui.menu.onTabActivated(tabId, changeInfo, tab);
+		singlefile.ui.menu.onTabUpdated(tabId, changeInfo, tab);
 	}
 
 	function onTabRemoved(tabId) {
