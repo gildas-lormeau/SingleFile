@@ -44,6 +44,8 @@ singlefile.ui.menu = (() => {
 	const MENU_ID_AUTO_SAVE_UNPINNED = "auto-save-unpinned";
 	const MENU_ID_AUTO_SAVE_ALL = "auto-save-all";
 
+	const menusCheckedState = new Map();
+	const menusTitleState = new Map();
 	let profileIndexes = new Map();
 	initialize();
 	return {
@@ -145,31 +147,38 @@ singlefile.ui.menu = (() => {
 					title: browser.i18n.getMessage("menuSelectProfile"),
 					contexts: defaultContexts,
 				});
+				let defaultProfileId = MENU_ID_SELECT_PROFILE_PREFIX + "default";
+				let defaultProfileChecked = !tabsData.profileName || tabsData.profileName == singlefile.config.DEFAULT_PROFILE_NAME;
 				menus.create({
-					id: MENU_ID_SELECT_PROFILE_PREFIX + "default",
+					id: defaultProfileId,
 					type: "radio",
 					contexts: defaultContexts,
 					title: browser.i18n.getMessage("profileDefaultSettings"),
-					checked: !tabsData.profileName || tabsData.profileName == singlefile.config.DEFAULT_PROFILE_NAME,
+					checked: defaultProfileChecked,
 					parentId: MENU_ID_SELECT_PROFILE
 				});
+				menusCheckedState.set(defaultProfileId, defaultProfileChecked);
 				menus.create({
 					id: MENU_ID_ASSOCIATE_WITH_PROFILE,
 					title: browser.i18n.getMessage("menuCreateDomainRule"),
 					contexts: defaultContexts,
 				});
+				menusTitleState.set(MENU_ID_ASSOCIATE_WITH_PROFILE, browser.i18n.getMessage("menuCreateDomainRule"));
 				let rule;
 				if (tab && tab.url) {
 					rule = await singlefile.config.getRule(tab.url);
 				}
+				defaultProfileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
+				defaultProfileChecked = !rule || rule.profile == singlefile.config.DEFAULT_PROFILE_NAME;
 				menus.create({
 					id: MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default",
 					type: "radio",
 					contexts: defaultContexts,
 					title: browser.i18n.getMessage("profileDefaultSettings"),
-					checked: !rule || rule.profile == singlefile.config.DEFAULT_PROFILE_NAME,
+					checked: defaultProfileChecked,
 					parentId: MENU_ID_ASSOCIATE_WITH_PROFILE
 				});
+				menusCheckedState.set(defaultProfileId, defaultProfileChecked);
 				profileIndexes = new Map();
 				Object.keys(profiles).forEach((profileName, profileIndex) => {
 					if (profileName != singlefile.config.DEFAULT_PROFILE_NAME) {
@@ -181,14 +190,17 @@ singlefile.ui.menu = (() => {
 							checked: options.profileName == profileName,
 							parentId: MENU_ID_SELECT_PROFILE
 						});
+						const profileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
+						const profileChecked = rule && rule.profile == profileName;
 						menus.create({
-							id: MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex,
+							id: profileId,
 							type: "radio",
 							contexts: defaultContexts,
 							title: profileName,
-							checked: rule && rule.profile == profileName,
+							checked: profileChecked,
 							parentId: MENU_ID_ASSOCIATE_WITH_PROFILE
 						});
+						menusCheckedState.set(profileId, profileChecked);
 						profileIndexes.set(profileName, profileIndex);
 					}
 				});
@@ -213,6 +225,7 @@ singlefile.ui.menu = (() => {
 				checked: true,
 				parentId: MENU_ID_AUTO_SAVE
 			});
+			menusCheckedState.set(MENU_ID_AUTO_SAVE_DISABLED, true);
 			menus.create({
 				id: MENU_ID_AUTO_SAVE_TAB,
 				type: "radio",
@@ -221,6 +234,7 @@ singlefile.ui.menu = (() => {
 				checked: false,
 				parentId: MENU_ID_AUTO_SAVE
 			});
+			menusCheckedState.set(MENU_ID_AUTO_SAVE_TAB, false);
 			menus.create({
 				id: MENU_ID_AUTO_SAVE_UNPINNED,
 				type: "radio",
@@ -229,6 +243,7 @@ singlefile.ui.menu = (() => {
 				checked: false,
 				parentId: MENU_ID_AUTO_SAVE
 			});
+			menusCheckedState.set(MENU_ID_AUTO_SAVE_UNPINNED, false);
 			menus.create({
 				id: MENU_ID_AUTO_SAVE_ALL,
 				type: "radio",
@@ -237,6 +252,7 @@ singlefile.ui.menu = (() => {
 				checked: false,
 				parentId: MENU_ID_AUTO_SAVE
 			});
+			menusCheckedState.set(MENU_ID_AUTO_SAVE_ALL, false);
 		}
 	}
 
@@ -319,7 +335,7 @@ singlefile.ui.menu = (() => {
 					if (rule) {
 						await singlefile.config.updateRule(rule.url, rule.url, profileName, profileName);
 					} else {
-						await menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE, { title: browser.i18n.getMessage("menuUpdateRule") });
+						await updateTitleValue(MENU_ID_ASSOCIATE_WITH_PROFILE, browser.i18n.getMessage("menuUpdateRule"));
 						await singlefile.config.addRule(new URL(tab.url).hostname, profileName, profileName);
 					}
 				}
@@ -340,10 +356,10 @@ singlefile.ui.menu = (() => {
 			const promises = [];
 			try {
 				const disabled = Boolean(!tabsData[tab.id] || !tabsData[tab.id].autoSave);
-				promises.push(menus.update(MENU_ID_AUTO_SAVE_DISABLED, { checked: disabled }));
-				promises.push(menus.update(MENU_ID_AUTO_SAVE_TAB, { checked: !disabled }));
-				promises.push(menus.update(MENU_ID_AUTO_SAVE_UNPINNED, { checked: Boolean(tabsData.autoSaveUnpinned) }));
-				promises.push(menus.update(MENU_ID_AUTO_SAVE_ALL, { checked: Boolean(tabsData.autoSaveAll) }));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, disabled));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, !disabled));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(tabsData.autoSaveUnpinned)));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(tabsData.autoSaveAll)));
 				if (tab && tab.url) {
 					let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 					let title = browser.i18n.getMessage("menuCreateDomainRule");
@@ -357,17 +373,37 @@ singlefile.ui.menu = (() => {
 					}
 					Object.keys(profiles).forEach((profileName, profileIndex) => {
 						if (profileName == singlefile.config.DEFAULT_PROFILE_NAME) {
-							promises.push(menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default", { checked: selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default" }));
+							promises.push(updateCheckedValue(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default", selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default"));
 						} else {
-							promises.push(menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex, { checked: selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex }));
+							promises.push(updateCheckedValue(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex, selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex));
 						}
 					});
-					promises.push(menus.update(MENU_ID_ASSOCIATE_WITH_PROFILE, { title }));
+					promises.push(updateTitleValue(MENU_ID_ASSOCIATE_WITH_PROFILE, title));
 				}
 				await Promise.all(promises);
 			} catch (error) {
 				/* ignored */
 			}
+		}
+	}
+
+	function updateTitleValue(id, title) {
+		const lastTitleValue = menusTitleState.get(id);
+		menusTitleState.set(id, title);
+		if (lastTitleValue === undefined) {
+			return menus.update(id, { title });
+		} else if (lastTitleValue != title) {
+			return menus.update(id, { title });
+		}
+	}
+
+	function updateCheckedValue(id, checked) {
+		const lastCheckedValue = menusCheckedState.get(id);
+		menusCheckedState.set(id, checked);
+		if (lastCheckedValue === undefined) {
+			return menus.update(id, { checked });
+		} else if (lastCheckedValue != checked) {
+			return menus.update(id, { checked });
 		}
 	}
 
