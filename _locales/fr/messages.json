@@ -20,7 +20,7 @@
         "description": "Menu entry: 'Select the profile of the current domain'"
     },
     "menuSaveTabs": {
-        "message": "Save les onglets",
+        "message": "Sauver les onglets",
         "description": "Menu entry (SingleFile button only): 'Save tabs'"
     },
     "menuSaveSelection": {
