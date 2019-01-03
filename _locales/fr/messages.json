@@ -164,7 +164,7 @@
         "description": "Options page label: 'remove HTML imports'"
     },
     "optionRemoveFrames": {
-        "message": "supprimer les frames",
+        "message": "supprimer les cadres",
         "description": "Options page label: 'remove frames'"
     },
     "optionRemoveHiddenElements": {
