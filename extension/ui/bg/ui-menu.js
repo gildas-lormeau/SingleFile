@@ -46,14 +46,14 @@ singlefile.ui.menu = (() => {
 
 	let profileIndexes = new Map();
 	initialize();
-	browser.tabs.onActivated.addListener(activeInfo => onTabActivated(activeInfo));
-	browser.tabs.onCreated.addListener(tab => refreshTab(tab));
 	return {
+		onTabCreated: refreshTab,
+		onTabActivated: refreshTab,
+		onTabUpdated: onTabUpdated,
 		refresh
 	};
 
-	async function onTabActivated(activeInfo) {
-		const tab = await browser.tabs.get(activeInfo.tabId);
+	function onTabUpdated(tabId, changeInfo, tab) {
 		refreshTab(tab);
 	}
 

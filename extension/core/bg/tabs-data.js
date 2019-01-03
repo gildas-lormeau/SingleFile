@@ -23,9 +23,9 @@
 singlefile.tabsData = (() => {
 
 	let persistentData, temporaryData;
-	browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
 	getPersistent().then(tabsData => persistentData = tabsData);
 	return {
+		onTabRemoved,
 		getTemporary,
 		get: getPersistent,
 		set: setPersistent

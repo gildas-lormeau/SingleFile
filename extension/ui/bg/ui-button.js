@@ -37,9 +37,6 @@ singlefile.ui.button = (() => {
 			}
 		}
 	});
-	browser.tabs.onActivated.addListener(activeInfo => onTabActivated(activeInfo));
-	browser.tabs.onCreated.addListener(tab => onTabCreated(tab));
-	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabActivated(tab));
 	browser.runtime.onMessage.addListener((request, sender) => {
 		if (request.processReset) {
 			onReset(sender.tab.id);
@@ -64,6 +61,8 @@ singlefile.ui.button = (() => {
 	});
 
 	return {
+		onTabCreated,
+		onTabUpdated,
 		onInitialize,
 		onProgress,
 		onEnd,
@@ -76,14 +75,13 @@ singlefile.ui.button = (() => {
 		}
 	};
 
-	async function onTabActivated(activeInfo) {
-		const tab = await browser.tabs.get(activeInfo.tabId);
-		onActivated(tab);
+	function onTabUpdated(tabId, changeInfo, tab) {
+		refreshTab(tab);
 	}
 
 	async function onTabCreated(tab) {
 		await refreshProperty(tab.id, "setBadgeBackgroundColor", { color: DEFAULT_COLOR });
-		onActivated(tab);
+		refreshTab(tab);
 	}
 
 	function onReset(tabId) {
@@ -116,7 +114,7 @@ singlefile.ui.button = (() => {
 		refresh(tabId, getProperties(options, "", [4, 229, 36, 255], browser.i18n.getMessage("buttonSaveProgressTooltip") + (progress * 5) + "%", path, [128, 128, 128, 255]));
 	}
 
-	async function onActivated(tab) {
+	async function refreshTab(tab) {
 		const autoSave = await singlefile.autosave.enabled(tab.id);
 		const properties = getCurrentProperties(tab.id, { autoSave });
 		await refresh(tab.id, properties, true);

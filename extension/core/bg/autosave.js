@@ -22,7 +22,6 @@
 
 singlefile.autosave = (() => {
 
-	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabUpdated(tabId, changeInfo, tab));
 	browser.runtime.onMessage.addListener((message, sender) => {
 		if (message.isAutoSaveEnabled) {
 			return isAutoSaveEnabled(sender.tab);
@@ -50,6 +49,7 @@ singlefile.autosave = (() => {
 	}
 
 	return {
+		onTabUpdated,
 		enabled,
 		refresh
 	};
