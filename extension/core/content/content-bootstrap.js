@@ -97,7 +97,7 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 		if (!singlefile.pageAutoSaved || options.autoSaveUnload) {
 			options.sessionId = 0;
 			const docData = docHelper.preProcessDoc(document, window, options);
-			const framesData = (typeof frameTree != "undefined") && !options.removeFrames && frameTree.getSync(options);
+			const framesData = this.frameTree && !options.removeFrames && frameTree.getSync(options);
 			browser.runtime.sendMessage({
 				autoSaveContent: true,
 				content: docHelper.serialize(document),
