@@ -2,6 +2,7 @@ body {
     background-color: transparent;
     font-family: sans-serif;
     max-width: 800px;
+    margin: 0;
 }
 
 button {
@@ -13,7 +14,7 @@ button {
 }
 
 button:not([disabled]):hover {
-    background-color: #ebebeb;
+    background-color: #ededed;
 }
 
 button,
@@ -207,18 +208,27 @@ h3 {
 }
 
 details {
-    margin-left: 12px;
+    color: #555;
+    margin-left: 6px;
     margin-right: 12px;
-    border-top: gray 1px dashed;
+    border-top: #bfbfbf 1px dashed;
 }
 
 details:last-of-type {
-    border-bottom: gray 1px dashed;
+    border-bottom: #bfbfbf 1px dashed;
 }
 
 details>summary {
-    margin-bottom: 10px;
-    margin-top: 10px;
+    color: black;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    padding-left: 6px;
+    cursor: pointer;
+}
+
+details[open]>summary {
     cursor: pointer;
 }
 
@@ -271,23 +281,26 @@ a {
 }
 
 #expandAllButton {
-    opacity: .3;
+    font-family: monospace;
+    display: inline-block;
+    min-width: 7px;
+    max-width: 7px;
+    margin-left: 5px;
+    opacity: .4;
     transition: opacity 250ms;
     cursor: pointer;
-    font-size: .9em;
+    font-size: 1.1em;
     position: relative;
     top: -1px;
-    left: -3px;
+    left: -2px;
 }
 
 #expandAllButton::after {
-    content: '▷';
+    content: '+';
 }
 
 #expandAllButton.opened::after {
-    content: '▽';
-    position: relative;
-    top: 1px;
+    content: '-';
 }
 
 #expandAllButton:hover {
