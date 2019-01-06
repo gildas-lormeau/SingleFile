@@ -35,6 +35,7 @@ singlefile.tabs = (() => {
 	async function onTabActivated(activeInfo) {
 		const tab = await browser.tabs.get(activeInfo.tabId);
 		singlefile.ui.menu.onTabActivated(tab, activeInfo);
+		singlefile.ui.button.onTabActivated(tab);
 	}
 
 	function onTabUpdated(tabId, changeInfo, tab) {
