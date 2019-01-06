@@ -62,6 +62,7 @@ singlefile.ui.button = (() => {
 
 	return {
 		onTabCreated,
+		onTabActivated,
 		onTabUpdated,
 		onInitialize,
 		onProgress,
@@ -81,6 +82,10 @@ singlefile.ui.button = (() => {
 
 	async function onTabCreated(tab) {
 		await refreshProperty(tab.id, "setBadgeBackgroundColor", { color: DEFAULT_COLOR });
+		refreshTab(tab);
+	}
+
+	async function onTabActivated(tab) {
 		refreshTab(tab);
 	}
 
