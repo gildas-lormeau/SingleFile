@@ -189,7 +189,7 @@
 			localStorage.setItem("optionShowAutoSaveProfile", 1);
 			rulesContainerElement.classList.remove("compact");
 		} else {
-			localStorage.setItem("optionShowAutoSaveProfile", 0);
+			localStorage.removeItem("optionShowAutoSaveProfile");
 			rulesContainerElement.classList.add("compact");
 		}
 	}, false);
@@ -200,7 +200,7 @@
 		if (showAllProfilesInput.checked) {
 			localStorage.setItem("optionShowAllProfiles", 1);
 		} else {
-			localStorage.setItem("optionShowAllProfiles", 0);
+			localStorage.removeItem("optionShowAllProfiles");
 		}
 	}, false);
 	addProfileButton.addEventListener("click", async () => {
