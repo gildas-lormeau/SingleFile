@@ -41,6 +41,7 @@
 			],
 			"run_at": "document_start",
 			"js": [
+				"extension/index.js",
 				"lib/hooks/hooks.js",
 				"extension/core/content/content-bootstrap.js"
 			]
