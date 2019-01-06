@@ -32,6 +32,7 @@
 				"<all_urls>"
 			],
 			"js": [
+				"extension/index.js",
 				"extension/ui/content/infobar.js"
 			]
 		},
