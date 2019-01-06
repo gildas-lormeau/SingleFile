@@ -282,6 +282,12 @@
 		}
 		document.querySelectorAll("details").forEach(detailElement => detailElement.open = Boolean(expandAllButton.className));
 	}, false);
+	removeScriptsInput.addEventListener("click", () => {
+		if (!removeScriptsInput.checked) {
+			removeHiddenElementsInput.checked = false;
+			removeUnusedStylesInput.checked = false;
+		}
+	}, false);
 	document.body.onchange = async event => {
 		let target = event.target;
 		if (target != ruleUrlInput && target != ruleProfileInput && target != ruleAutoSaveProfileInput && target != ruleEditUrlInput && target != ruleEditProfileInput && target != ruleEditAutoSaveProfileInput && target != showAutoSaveProfileInput) {
