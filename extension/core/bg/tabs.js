@@ -26,22 +26,28 @@ singlefile.tabs = (() => {
 	browser.tabs.onActivated.addListener(activeInfo => onTabActivated(activeInfo));
 	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabUpdated(tabId, changeInfo, tab));
 	browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
+	return {
+		onMessage,
+		get: options => browser.tabs.query(options),
+		sendMessage: (tabId, message) => browser.tabs.sendMessage(tabId, message)
+	};
+
+	async function onMessage(message) {
+		return singlefile.config.getOptions(message.url);
+	}
 
 	function onTabCreated(tab) {
-		singlefile.ui.button.onTabCreated(tab);
-		singlefile.ui.menu.onTabCreated(tab);
+		singlefile.ui.onTabCreated(tab);
 	}
 
 	async function onTabActivated(activeInfo) {
 		const tab = await browser.tabs.get(activeInfo.tabId);
-		singlefile.ui.menu.onTabActivated(tab, activeInfo);
-		singlefile.ui.button.onTabActivated(tab);
+		singlefile.ui.onTabActivated(tab, activeInfo);
 	}
 
 	function onTabUpdated(tabId, changeInfo, tab) {
 		singlefile.autosave.onTabUpdated(tabId, changeInfo, tab);
-		singlefile.ui.menu.onTabUpdated(tabId, changeInfo, tab);
-		singlefile.ui.button.onTabUpdated(tabId, changeInfo, tab);
+		singlefile.ui.onTabUpdated(tabId, changeInfo, tab);
 	}
 
 	function onTabRemoved(tabId) {

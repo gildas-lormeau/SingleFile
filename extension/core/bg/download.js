@@ -24,40 +24,41 @@ singlefile.download = (() => {
 
 	const partialContents = new Map();
 
-	browser.runtime.onMessage.addListener((request, sender) => {
-		if (request.download) {
-			try {
-				if (request.truncated) {
-					let partialContent = partialContents.get(sender.tab.id);
-					if (!partialContent) {
-						partialContent = [];
-						partialContents.set(sender.tab.id, partialContent);
-					}
-					partialContent.push(request.content);
-					if (request.finished) {
-						partialContents.delete(sender.tab.id);
-						request.url = URL.createObjectURL(new Blob(partialContent, { type: "text/html" }));
-					} else {
-						return Promise.resolve({});
-					}
-				} else if (request.content) {
-					request.url = URL.createObjectURL(new Blob([request.content], { type: "text/html" }));
-				}
-				return downloadPage(request, { confirmFilename: request.confirmFilename, incognito: sender.tab.incognito, conflictAction: request.filenameConflictAction })
-					.catch(error => {
-						if (error.message && error.message.includes("'incognito'")) {
-							return downloadPage(request, { confirmFilename: request.confirmFilename, conflictAction: request.filenameConflictAction });
-						} else {
-							return { notSupported: true };
-						}
-					});
-			} catch (error) {
-				return Promise.resolve({ notSupported: true });
-			}
-		}
-	});
+	return {
+		onMessage,
+		downloadPage
+	};
 
-	return { downloadPage };
+	function onMessage(message, sender) {
+		try {
+			if (message.truncated) {
+				let partialContent = partialContents.get(sender.tab.id);
+				if (!partialContent) {
+					partialContent = [];
+					partialContents.set(sender.tab.id, partialContent);
+				}
+				partialContent.push(message.content);
+				if (message.finished) {
+					partialContents.delete(sender.tab.id);
+					message.url = URL.createObjectURL(new Blob(partialContent, { type: "text/html" }));
+				} else {
+					return Promise.resolve({});
+				}
+			} else if (message.content) {
+				message.url = URL.createObjectURL(new Blob([message.content], { type: "text/html" }));
+			}
+			return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, conflictAction: message.filenameConflictAction })
+				.catch(error => {
+					if (error.message && error.message.includes("'incognito'")) {
+						return downloadPage(message, { confirmFilename: message.confirmFilename, conflictAction: message.filenameConflictAction });
+					} else {
+						return { notSupported: true };
+					}
+				});
+		} catch (error) {
+			return Promise.resolve({ notSupported: true });
+		}
+	}
 
 	async function downloadPage(page, options) {
 		const downloadInfo = {

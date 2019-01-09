@@ -23,33 +23,29 @@
 singlefile.ui = (() => {
 
 	return {
-		async saveTab(tab, options = {}) {
-			const tabId = tab.id;
-			options.tabId = tabId;
-			try {
-				singlefile.ui.button.onInitialize(tabId, options, 1);
-				if (options.autoSave) {
-					await singlefile.core.autoSaveTab(tab, options);
-				} else {
-					await singlefile.core.saveTab(tab, options);
-				}
-				singlefile.ui.button.onInitialize(tabId, options, 2);
-			} catch (error) {
-				console.log(error); // eslint-disable-line no-console
-				singlefile.ui.button.onError(tabId, options);
-			}
-		},
-		isAllowedURL(url) {
-			return singlefile.core.isAllowedURL(url);
+		onMessage(message, sender) {
+			return singlefile.ui.button.onMessage(message, sender);
 		},
 		refresh(tab) {
-			return Promise.all([singlefile.ui.menu.refresh(tab), singlefile.ui.button.refresh(tab.id)]);
+			return Promise.all([singlefile.ui.menu.refresh(tab), singlefile.ui.button.refresh(tab)]);
 		},
 		onProgress(tabId, index, maxIndex, options) {
 			singlefile.ui.button.onProgress(tabId, index, maxIndex, options);
 		},
 		onEnd(tabId, options) {
 			singlefile.ui.button.onEnd(tabId, options);
+		},
+		onTabCreated(tab) {
+			singlefile.ui.button.onTabCreated(tab);
+			singlefile.ui.menu.onTabCreated(tab);
+		},
+		onTabActivated(tab, activeInfo) {
+			singlefile.ui.menu.onTabActivated(tab, activeInfo);
+			singlefile.ui.button.onTabActivated(tab);
+		},
+		onTabUpdated(tabId, changeInfo, tab) {
+			singlefile.ui.menu.onTabUpdated(tabId, changeInfo, tab);
+			singlefile.ui.button.onTabUpdated(tabId, changeInfo, tab);
 		}
 	};
 

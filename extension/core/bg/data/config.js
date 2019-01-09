@@ -63,11 +63,6 @@ singlefile.config = (() => {
 	};
 
 	let pendingUpgradePromise = upgrade();
-	browser.runtime.onMessage.addListener(request => {
-		if (request.getOptions) {
-			return getUrlOptions(request.url);
-		}
-	});
 
 	async function upgrade() {
 		const config = await browser.storage.local.get();
@@ -128,12 +123,6 @@ singlefile.config = (() => {
 		}
 	}
 
-	async function getUrlOptions(url) {
-		const [config, tabsData] = await Promise.all([getConfig(), singlefile.tabsData.get()]);
-		const rule = await getRule(url);
-		return rule ? config.profiles[rule["profile"]] : config.profiles[tabsData.profileName || singlefile.config.DEFAULT_PROFILE_NAME];
-	}
-
 	async function getRule(url) {
 		const config = await getConfig();
 		const regExpRules = config.rules.filter(rule => testRegExpRule(rule));
@@ -176,8 +165,9 @@ singlefile.config = (() => {
 		async getRule(url) {
 			return getRule(url);
 		},
-		async getOptions(profileName, url, autoSave) {
-			const [config, rule] = await Promise.all([getConfig(), getRule(url)]);
+		async getOptions(url, autoSave) {
+			const [config, rule, tabsData] = await Promise.all([getConfig(), getRule(url), singlefile.tabsData.get()]);
+			const profileName = tabsData.profileName;
 			return rule ? config.profiles[rule[autoSave ? "autoSaveProfile" : "profile"]] : config.profiles[profileName || singlefile.config.DEFAULT_PROFILE_NAME];
 		},
 		async updateProfile(profileName, profile) {

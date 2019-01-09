@@ -18,55 +18,68 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, singlefile, SingleFileBrowser, URL, Blob */
+/* global singlefile, SingleFileBrowser, URL, Blob */
 
 singlefile.autosave = (() => {
 
-	browser.runtime.onMessage.addListener((message, sender) => {
-		if (message.isAutoSaveEnabled) {
-			return isAutoSaveEnabled(sender.tab);
-		}
-		if (message.autoSaveContent) {
-			saveContent(message, sender.tab);
-		}
-	});
-	if (browser.runtime.onMessageExternal) {
-		browser.runtime.onMessageExternal.addListener(async message => {
-			if (message.method == "enableAutoSave") {
-				enableActiveTab(message.enabled);
-			}
-			if (message.method == "isAutoSaveEnabled") {
-				const tabs = await browser.tabs.query({ currentWindow: true, active: true });
-				const tab = tabs[0];
-				if (tab && singlefile.core.isAllowedURL(tab.url)) {
-					const tabId = tab.id;
-					const tabsData = await singlefile.tabsData.get();
-					return tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tabId] && tabsData[tabId].autoSave);
-				}
-				return false;
-			}
-		});
-	}
-
 	return {
+		onMessage,
+		onMessageExternal,
 		onTabUpdated,
-		enabled,
-		refresh
+		isEnabled,
+		refreshTabs
 	};
 
+	async function onMessage(message, sender) {
+		if (message.initAutoSave) {
+			const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(sender.tab.url, true), isEnabled(sender.tab)]);
+			return { options, autoSaveEnabled };
+		}
+		if (message.autoSaveContent) {
+			return saveContent(message, sender.tab);
+		}
+	}
+
+	async function onMessageExternal(message, currentTab) {
+		if (message.method == "enableAutoSave") {
+			const tabsData = await singlefile.tabsData.get(currentTab.id);
+			tabsData[currentTab.id].autoSave = message.enabled;
+			await singlefile.tabsData.set(tabsData);
+			singlefile.ui.refresh(currentTab);
+		}
+		if (message.method == "isAutoSaveEnabled") {
+			return await isEnabled(currentTab);
+		}
+	}
+
 	async function onTabUpdated(tabId, changeInfo, tab) {
-		const tabsData = await singlefile.tabsData.get();
-		const options = await singlefile.config.getOptions(tabsData.profileName, tab.url, true);
-		if (options && ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && (tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave)))) {
+		const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(tab.url, true), isEnabled(tab)]);
+		if (options && ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && autoSaveEnabled)) {
 			if (changeInfo.status == "complete") {
-				singlefile.ui.saveTab(tab, { autoSave: true });
+				singlefile.core.saveTab(tab, { autoSave: true });
 			}
 		}
+	}
+
+	async function isEnabled(tab) {
+		const [tabsData, rule] = await Promise.all([singlefile.tabsData.get(), singlefile.config.getRule(tab.url)]);
+		return singlefile.util.isAllowedURL(tab.url) && Boolean(tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || tabsData[tab.id].autoSave) && (!rule || rule.autoSaveProfile != singlefile.config.DISABLED_PROFILE_NAME);
+	}
+
+	async function refreshTabs() {
+		const tabs = await singlefile.tabs.get({});
+		return Promise.all(tabs.map(async tab => {
+			try {
+				const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(tab.url, true), isEnabled(tab)]);
+				await singlefile.tabs.sendMessage(tab.id, { initAutoSave: true, autoSaveEnabled, options });
+			} catch (error) {
+				/* ignored */
+			}
+		}));
 	}
 
 	async function saveContent(message, tab) {
-		const tabsData = await singlefile.tabsData.get();
-		const options = await singlefile.config.getOptions(tabsData.profileName, tab.url, true);
+		const options = await singlefile.config.getOptions(tab.url, true);
 		const tabId = tab.id;
 		options.content = message.content;
 		options.url = message.url;
@@ -104,45 +117,6 @@ singlefile.autosave = (() => {
 		const page = await processor.getPageData();
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 		return singlefile.download.downloadPage(page, options);
-	}
-
-	async function enableActiveTab(enabled) {
-		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
-		const tab = tabs[0];
-		if (tab) {
-			const tabId = tab.id;
-			const tabsData = await singlefile.tabsData.get();
-			if (!tabsData[tabId]) {
-				tabsData[tabId] = {};
-			}
-			tabsData[tabId].autoSave = enabled;
-			await singlefile.tabsData.set(tabsData);
-			singlefile.ui.refresh(tab);
-		}
-	}
-
-	async function isAutoSaveEnabled(tab) {
-		const tabsData = await singlefile.tabsData.get();
-		const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(tabsData.profileName, tab.url, true), enabled(tab.id)]);
-		return { autoSaveEnabled, options };
-	}
-
-	async function enabled(tabId) {
-		const tabsData = await singlefile.tabsData.get();
-		return Boolean(tabsData.autoSaveAll || tabsData.autoSaveUnpinned || (tabsData[tabId] && tabsData[tabId].autoSave));
-	}
-
-	async function refresh() {
-		const tabs = await browser.tabs.query({});
-		return Promise.all(tabs.map(async tab => {
-			try {
-				const tabsData = await singlefile.tabsData.get();
-				const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(tabsData.profileName, tab.url, true), enabled(tab.id)]);
-				await browser.tabs.sendMessage(tab.id, { autoSaveUnloadEnabled: true, autoSaveEnabled, options });
-			} catch (error) {
-				/* ignored */
-			}
-		}));
 	}
 
 })();

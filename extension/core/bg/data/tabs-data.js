@@ -37,27 +37,30 @@ singlefile.tabsData = (() => {
 		setPersistent(tabsData);
 	}
 
-	function getTemporary() {
-		if (temporaryData) {
-			return temporaryData;
-		} else {
+	function getTemporary(tabId) {
+		if (!temporaryData) {
 			temporaryData = {};
-			return {};
 		}
+		if (tabId !== undefined && !temporaryData[tabId]) {
+			temporaryData[tabId] = {};
+		}
+		return temporaryData;
 	}
 
-	async function getPersistent() {
-		if (persistentData) {
-			return persistentData;
-		} else {
+	async function getPersistent(tabId) {
+		if (!persistentData) {
 			const config = await browser.storage.local.get();
 			persistentData = config.tabsData || {};
-			await cleanup();
-			return persistentData;
+			cleanup();
 		}
+		if (tabId !== undefined && !persistentData[tabId]) {
+			persistentData[tabId] = {};
+		}
+		return persistentData;
 	}
 
 	async function setPersistent(tabsData) {
+		persistentData = tabsData;
 		await browser.storage.local.set({ tabsData });
 	}
 

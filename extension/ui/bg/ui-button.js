@@ -28,39 +28,16 @@ singlefile.ui.button = (() => {
 	const DEFAULT_COLOR = [2, 147, 20, 255];
 
 	browser.browserAction.onClicked.addListener(async tab => {
-		if (singlefile.ui.isAllowedURL(tab.url)) {
-			const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
-			if (!tabs.length) {
-				singlefile.ui.saveTab(tab);
-			} else {
-				tabs.forEach(tab => (tab.active || tab.highlighted) && singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
-			}
-		}
-	});
-	browser.runtime.onMessage.addListener((request, sender) => {
-		if (request.processReset) {
-			onReset(sender.tab.id);
-		}
-		if (request.processProgress) {
-			if (request.maxIndex) {
-				onProgress(sender.tab.id, request.index, request.maxIndex, request.options);
-			}
-		}
-		if (request.processEnd) {
-			onEnd(sender.tab.id, request.options);
-		}
-		if (request.processError) {
-			if (request.error) {
-				console.error("Initialization error", request.error); // eslint-disable-line no-console
-			}
-			onError(sender.tab.id, request.options);
-		}
-		if (request.processCancelled) {
-			onCancelled(sender.tab.id, request.options);
+		const tabs = await singlefile.tabs.get({ currentWindow: true, highlighted: true });
+		if (!tabs.length) {
+			singlefile.core.saveTab(tab);
+		} else {
+			tabs.forEach(tab => (tab.active || tab.highlighted) && singlefile.core.saveTab(tab));
 		}
 	});
 
 	return {
+		onMessage,
 		onTabCreated,
 		onTabActivated,
 		onTabUpdated,
@@ -68,13 +45,35 @@ singlefile.ui.button = (() => {
 		onProgress,
 		onEnd,
 		onError,
-		refresh: async tabId => {
-			if (tabId) {
-				const tabsData = await singlefile.tabsData.get();
-				await refresh(tabId, getProperties({ autoSave: tabsData.autoSaveAll || tabsData.autoSaveUnpinned || (tabsData[tabId] && tabsData[tabId].autoSave) }));
+		refresh: async tab => {
+			if (tab.id) {
+				await refresh(tab.id, getProperties({ autoSave: await singlefile.autosave.isEnabled(tab) }));
 			}
 		}
 	};
+
+	function onMessage(message, sender) {
+		if (message.loadURL) {
+			onLoad(sender.tab.id);
+		}
+		if (message.processProgress) {
+			if (message.maxIndex) {
+				onProgress(sender.tab.id, message.index, message.maxIndex, message.options);
+			}
+		}
+		if (message.processEnd) {
+			onEnd(sender.tab.id, message.options);
+		}
+		if (message.processError) {
+			if (message.error) {
+				console.error("Initialization error", message.error); // eslint-disable-line no-console
+			}
+			onError(sender.tab.id, message.options);
+		}
+		if (message.processCancelled) {
+			onCancelled(sender.tab.id, message.options);
+		}
+	}
 
 	function onTabUpdated(tabId, changeInfo, tab) {
 		refreshTab(tab);
@@ -89,13 +88,13 @@ singlefile.ui.button = (() => {
 		refreshTab(tab);
 	}
 
-	function onReset(tabId) {
+	function onLoad(tabId) {
 		refresh(tabId, getProperties({}, "", DEFAULT_COLOR, DEFAULT_TITLE));
 	}
 
 	function onInitialize(tabId, options, step) {
 		if (step == 1) {
-			onReset(tabId);
+			onLoad(tabId);
 		}
 		refresh(tabId, getProperties(options, browser.i18n.getMessage("buttonInitializingBadge"), step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], browser.i18n.getMessage("buttonInitializingTooltip") + " (" + step + "/2)", WAIT_ICON_PATH_PREFIX + "0.png"));
 	}
@@ -120,11 +119,10 @@ singlefile.ui.button = (() => {
 	}
 
 	async function refreshTab(tab) {
-		const autoSave = await singlefile.autosave.enabled(tab.id);
-		const properties = getCurrentProperties(tab.id, { autoSave });
+		const properties = getCurrentProperties(tab.id, { autoSave: await singlefile.autosave.isEnabled(tab) });
 		await refresh(tab.id, properties, true);
 		if (browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
-			if (singlefile.ui.isAllowedURL(tab.url)) {
+			if (singlefile.util.isAllowedURL(tab.url)) {
 				try {
 					await browser.browserAction.enable(tab.id);
 				} catch (error) {
@@ -144,8 +142,8 @@ singlefile.ui.button = (() => {
 		if (options.autoSave) {
 			return getProperties(options);
 		} else {
-			const tabsData = singlefile.tabsData.getTemporary();
-			const tabData = tabsData[tabId] && tabsData[tabId].button;
+			const tabsData = singlefile.tabsData.getTemporary(tabId);
+			const tabData = tabsData[tabId].button;
 			if (tabData) {
 				return tabData;
 			} else {
@@ -164,10 +162,7 @@ singlefile.ui.button = (() => {
 	}
 
 	async function refresh(tabId, tabData) {
-		const tabsData = singlefile.tabsData.getTemporary();
-		if (!tabsData[tabId]) {
-			tabsData[tabId] = {};
-		}
+		const tabsData = singlefile.tabsData.getTemporary(tabId);
 		const oldTabData = tabsData[tabId].button || {};
 		tabsData[tabId].button = tabData;
 		if (!tabData.pendingRefresh) {

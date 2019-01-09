@@ -58,10 +58,10 @@ this.singlefile.top = this.singlefile.top || (() => {
 					await downloadPage(page, options);
 				} catch (error) {
 					console.error(error); // eslint-disable-line no-console
-					browser.runtime.sendMessage({ processError: true, error, options: { autoSave: false } });
+					browser.runtime.sendMessage({ processError: true, error, options: {} });
 				}
 			} else {
-				browser.runtime.sendMessage({ processCancelled: true, options: { autoSave: false } });
+				browser.runtime.sendMessage({ processCancelled: true, options: {} });
 			}
 			processing = false;
 		}
@@ -101,12 +101,12 @@ this.singlefile.top = this.singlefile.top || (() => {
 				if (event.type == event.RESOURCE_LOADED) {
 					index++;
 				}
-				browser.runtime.sendMessage({ processProgress: true, index, maxIndex, options: { autoSave: false } });
+				browser.runtime.sendMessage({ processProgress: true, index, maxIndex, options: {} });
 				if (options.shadowEnabled) {
 					singlefile.ui.onLoadResource(index, maxIndex);
 				}
 			} if (event.type == event.PAGE_ENDED) {
-				browser.runtime.sendMessage({ processEnd: true, options: { autoSave: false } });
+				browser.runtime.sendMessage({ processEnd: true, options: {} });
 			} else if (options.shadowEnabled && !event.detail.frame) {
 				if (event.type == event.PAGE_LOADING) {
 					singlefile.ui.onPageLoading();

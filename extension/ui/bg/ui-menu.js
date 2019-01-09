@@ -63,7 +63,7 @@ singlefile.ui.menu = (() => {
 
 	async function createMenus(tab) {
 		const [profiles, tabsData] = await Promise.all([singlefile.config.getProfiles(), singlefile.tabsData.get()]);
-		const options = await singlefile.config.getOptions(tabsData.profileName, tab && tab.url, true);
+		const options = await singlefile.config.getOptions(tab && tab.url, true);
 		if (BROWSER_MENUS_API_SUPPORTED) {
 			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio"];
 			const defaultContextsDisabled = ["browser_action"];
@@ -266,53 +266,50 @@ singlefile.ui.menu = (() => {
 			createMenus();
 			menus.onClicked.addListener(async (event, tab) => {
 				if (event.menuItemId == MENU_ID_SAVE_PAGE) {
-					singlefile.ui.saveTab(tab);
+					singlefile.core.saveTab(tab);
 				}
 				if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
-					singlefile.ui.saveTab(tab, { selected: true });
+					singlefile.core.saveTab(tab, { selected: true });
 				}
 				if (event.menuItemId == MENU_ID_SAVE_FRAME) {
-					singlefile.ui.saveTab(tab, { frameId: event.frameId });
+					singlefile.core.saveTab(tab, { frameId: event.frameId });
 				}
 				if (event.menuItemId == MENU_ID_SAVE_SELECTED_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_SELECTED_TABS) {
-					const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
-					tabs.forEach(tab => singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
+					const tabs = await singlefile.tabs.get({ currentWindow: true, highlighted: true });
+					tabs.forEach(tab => singlefile.core.saveTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_SAVE_UNPINNED_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_UNPINNED_TABS) {
-					const tabs = await browser.tabs.query({ currentWindow: true, pinned: false });
-					tabs.forEach(tab => singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
+					const tabs = await singlefile.tabs.get({ currentWindow: true, pinned: false });
+					tabs.forEach(tab => singlefile.core.saveTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_SAVE_ALL_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_ALL_TABS) {
-					const tabs = await browser.tabs.query({ currentWindow: true });
-					tabs.forEach(tab => singlefile.ui.isAllowedURL(tab.url) && singlefile.ui.saveTab(tab));
+					const tabs = await singlefile.tabs.get({ currentWindow: true });
+					tabs.forEach(tab => singlefile.core.saveTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
-					const tabsData = await singlefile.tabsData.get();
-					if (!tabsData[tab.id]) {
-						tabsData[tab.id] = {};
-					}
+					const tabsData = await singlefile.tabsData.get(tab.id);
 					tabsData[tab.id].autoSave = event.checked;
 					await singlefile.tabsData.set(tabsData);
-					refreshExternalComponents(tab.id, { autoSave: true });
+					refreshExternalComponents(tab, { autoSave: true });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_DISABLED) {
 					const tabsData = await singlefile.tabsData.get();
 					Object.keys(tabsData).forEach(tabId => tabsData[tabId].autoSave = false);
 					tabsData.autoSaveUnpinned = tabsData.autoSaveAll = false;
 					await singlefile.tabsData.set(tabsData);
-					refreshExternalComponents(tab.id, { autoSave: false });
+					refreshExternalComponents(tab, {});
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_ALL) {
 					const tabsData = await singlefile.tabsData.get();
 					tabsData.autoSaveAll = event.checked;
 					await singlefile.tabsData.set(tabsData);
-					refreshExternalComponents(tab.id, { autoSave: true });
+					refreshExternalComponents(tab, { autoSave: true });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_UNPINNED) {
 					const tabsData = await singlefile.tabsData.get();
 					tabsData.autoSaveUnpinned = event.checked;
 					await singlefile.tabsData.set(tabsData);
-					refreshExternalComponents(tab.id, { autoSave: true });
+					refreshExternalComponents(tab, { autoSave: true });
 				}
 				if (event.menuItemId.startsWith(MENU_ID_SELECT_PROFILE_PREFIX)) {
 					const [profiles, tabsData] = await Promise.all([singlefile.config.getProfiles(), singlefile.tabsData.get()]);
@@ -324,7 +321,7 @@ singlefile.ui.menu = (() => {
 						tabsData.profileName = Object.keys(profiles)[profileIndex];
 					}
 					await singlefile.tabsData.set(tabsData);
-					refreshExternalComponents(tab.id, { autoSave: tabsData.autoSaveAll || tabsData.autoSaveUnpinned || (tabsData[tab.id] && tabsData[tab.id].autoSave) });
+					refreshExternalComponents(tab, { autoSave: await singlefile.autosave.isEnabled() });
 				}
 				if (event.menuItemId.startsWith(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX)) {
 					const [profiles, rule] = await Promise.all([singlefile.config.getProfiles(), singlefile.config.getRule(tab.url)]);
@@ -344,24 +341,22 @@ singlefile.ui.menu = (() => {
 					}
 				}
 			});
-			const tabs = await browser.tabs.query({});
-			tabs.forEach(tab => refreshTab(tab));
+			(await singlefile.tabs.get({})).forEach(tab => refreshTab(tab));
 		}
 	}
 
-	async function refreshExternalComponents(tabId) {
-		await singlefile.autosave.refresh();
-		singlefile.ui.button.refresh(tabId);
+	async function refreshExternalComponents(tab) {
+		await singlefile.autosave.refreshTabs();
+		singlefile.ui.button.refresh(tab);
 	}
 
 	async function refreshTab(tab) {
 		if (BROWSER_MENUS_API_SUPPORTED) {
-			const tabsData = await singlefile.tabsData.get();
+			const tabsData = await singlefile.tabsData.get(tab.id);
 			const promises = [];
 			try {
-				const disabled = Boolean(!tabsData[tab.id] || !tabsData[tab.id].autoSave);
-				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, disabled));
-				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, !disabled));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, !tabsData[tab.id].autoSave));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, tabsData[tab.id].autoSave));
 				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(tabsData.autoSaveUnpinned)));
 				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(tabsData.autoSaveAll)));
 				if (tab && tab.url) {

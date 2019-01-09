@@ -23,7 +23,7 @@
 this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 
 	let unloadListenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage;
-	browser.runtime.sendMessage({ isAutoSaveEnabled: true }).then(message => {
+	browser.runtime.sendMessage({ initAutoSave: true }).then(message => {
 		options = message.options;
 		autoSaveEnabled = message.autoSaveEnabled;
 		refresh();
@@ -35,13 +35,13 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 			options = message.options;
 			autoSavePage();
 		}
-		if (message.autoSaveUnloadEnabled) {
+		if (message.initAutoSave) {
 			options = message.options;
 			autoSaveEnabled = message.autoSaveEnabled;
 			refresh();
 		}
 	});
-	browser.runtime.sendMessage({ processReset: true });
+	browser.runtime.sendMessage({ loadURL: true });
 	return {};
 
 	async function autoSavePage() {

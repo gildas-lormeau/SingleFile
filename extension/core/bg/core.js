@@ -22,27 +22,111 @@
 
 singlefile.core = (() => {
 
-	const FORBIDDEN_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
+	const contentScriptFiles = [
+		"/lib/hooks/hooks.js",
+		"/lib/browser-polyfill/chrome-browser-polyfill.js",
+		"/lib/single-file/vendor/css-tree.js",
+		"/lib/single-file/vendor/html-srcset-parser.js",
+		"/lib/single-file/util/timeout.js",
+		"/lib/single-file/util/doc-helper.js",
+		"/lib/fetch/content/fetch.js",
+		"/lib/single-file/single-file-core.js",
+		"/lib/single-file/single-file-browser.js",
+		"/extension/index.js",
+		"/extension/ui/content/content-ui.js",
+		"/extension/core/content/content.js"
+	];
 
-	return { saveTab, autoSaveTab, isAllowedURL };
+	const frameScriptFiles = [
+		"/lib/hooks/hooks-frame.js",
+		"/lib/browser-polyfill/chrome-browser-polyfill.js",
+		"/extension/index.js",
+		"/lib/single-file/util/doc-helper.js",
+		"/lib/single-file/util/timeout.js",
+		"/lib/fetch/content/fetch.js",
+		"/lib/frame-tree/frame-tree.js",
+		"/extension/core/content/content-frame.js"
+	];
 
-	async function saveTab(tab, options) {
-		const tabsData = await singlefile.tabsData.get();
-		const mergedOptions = await singlefile.config.getOptions(tabsData.profileName, tab.url);
-		Object.keys(options).forEach(key => mergedOptions[key] = options[key]);
-		return singlefile.runner.saveTab(tab, mergedOptions);
-	}
+	const optionalContentScriptFiles = {
+		compressHTML: [
+			"/lib/single-file/modules/html-minifier.js",
+			"/lib/single-file/modules/html-serializer.js"
+		],
+		compressCSS: [
+			"/lib/single-file/vendor/css-minifier.js"
+		],
+		loadDeferredImages: [
+			"/lib/lazy/content/content-lazy-loader.js"
+		],
+		removeAlternativeImages: [
+			"/lib/single-file/modules/html-images-alt-minifier.js"
+		],
+		removeUnusedFonts: [
+			"/lib/single-file/vendor/css-font-property-parser.js",
+			"/lib/single-file/modules/css-fonts-minifier.js"
+		],
+		removeAlternativeFonts: [
+			"/lib/single-file/modules/css-fonts-alt-minifier.js"
+		],
+		removeUnusedStyles: [
+			"/lib/single-file/modules/css-matched-rules.js",
+			"/lib/single-file/modules/css-rules-minifier.js"
+		],
+		removeAlternativeMedias: [
+			"/lib/single-file/vendor/css-media-query-parser.js",
+			"/lib/single-file/modules/css-medias-alt-minifier.js"
+		]
+	};
 
-	async function autoSaveTab(tab) {
-		const tabsData = await singlefile.tabsData.get();
-		const options = await singlefile.config.getOptions(tabsData.profileName, tab.url, true);
-		if (singlefile.autosave.enabled(tab.id)) {
-			await browser.tabs.sendMessage(tab.id, { autoSavePage: true, options });
+	return { saveTab };
+
+	async function saveTab(tab, options = {}) {
+		if (singlefile.util.isAllowedURL(tab.url)) {
+			const tabId = tab.id;
+			options.tabId = tabId;
+			try {
+				singlefile.ui.button.onInitialize(tabId, options, 1);
+				if (options.autoSave) {
+					const options = await singlefile.config.getOptions(tab.url, true);
+					if (singlefile.autosave.isEnabled(tab)) {
+						await singlefile.tabs.sendMessage(tab.id, { autoSavePage: true, options });
+					}
+				} else {
+					const mergedOptions = await singlefile.config.getOptions(tab.url);
+					Object.keys(options).forEach(key => mergedOptions[key] = options[key]);
+					if (!mergedOptions.removeFrames) {
+						await executeContentScripts(tab.id, frameScriptFiles, true, "document_start");
+					}
+					await executeContentScripts(tab.id, getContentScriptFiles(mergedOptions), false, "document_idle");
+					if (mergedOptions.frameId) {
+						await singlefile.tabs.sendMessage(tab.id, { saveFrame: true, options: mergedOptions }, { frameId: mergedOptions.frameId });
+					} else {
+						await singlefile.tabs.sendMessage(tab.id, { savePage: true, options: mergedOptions });
+					}
+				}
+				singlefile.ui.button.onInitialize(tabId, options, 2);
+			} catch (error) {
+				console.log(error); // eslint-disable-line no-console
+				singlefile.ui.button.onError(tabId, options);
+			}
 		}
 	}
 
-	function isAllowedURL(url) {
-		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !FORBIDDEN_URLS.find(storeUrl => url.startsWith(storeUrl));
+	async function executeContentScripts(tabId, scriptFiles, allFrames, runAt) {
+		for (const file of scriptFiles) {
+			await browser.tabs.executeScript(tabId, { file, allFrames, runAt });
+		}
+	}
+
+	function getContentScriptFiles(options) {
+		let files = contentScriptFiles;
+		Object.keys(optionalContentScriptFiles).forEach(option => {
+			if (options[option]) {
+				files = optionalContentScriptFiles[option].concat(files);
+			}
+		});
+		return files;
 	}
 
 })();
