@@ -31,28 +31,20 @@ const SCRIPTS = [
 ];
 
 SCRIPTS.forEach(scriptPath => eval(fs.readFileSync(scriptPath).toString()));
+const docHelper = this.docHelper;
 const modules = {
-	docHelper: this.docHelper,
+	docHelper: docHelper,
 	srcsetParser: this.srcsetParser,
 	cssMinifier: this.cssMinifier,
 	htmlMinifier: this.htmlMinifier,
-	fontsMinifier: this.fontsMinifier,
-	fontsAltMinifier: this.fontsAltMinifier,
-	cssRulesMinifier: this.cssRulesMinifier,
-	matchedRules: this.matchedRules,
-	mediasMinifier: this.mediasMinifier,
-	imagesAltMinifier: this.imagesAltMinifier,
-	serializer: this.serializer
+	serializer: this.serializer,
+	fontsMinifier: this.fontsMinifier.getInstance(this.cssTree, this.fontPropertyParser, docHelper),
+	fontsAltMinifier: this.fontsAltMinifier.getInstance(this.cssTree),
+	cssRulesMinifier: this.cssRulesMinifier.getInstance(this.cssTree),
+	matchedRules: this.matchedRules.getInstance(this.cssTree),
+	mediasMinifier: this.mediasMinifier.getInstance(this.cssTree, this.mediaQueryParser),
+	imagesAltMinifier: this.imagesAltMinifier.getInstance(this.srcsetParser)
 };
-modules.fontsAltMinifier.cssTree = this.cssTree;
-modules.fontsMinifier.cssTree = this.cssTree;
-modules.fontsMinifier.fontPropertyParser = this.fontPropertyParser;
-modules.fontsMinifier.docHelper = this.docHelper;
-modules.matchedRules.cssTree = this.cssTree;
-modules.mediasMinifier.cssTree = this.cssTree;
-modules.mediasMinifier.mediaQueryParser = this.mediaQueryParser;
-modules.cssRulesMinifier.cssTree = this.cssTree;
-modules.imagesAltMinifier.srcsetParser = this.srcsetParser;
 const domUtil = {
 	getContent,
 	parseDocContent,
@@ -132,7 +124,7 @@ async function getContent(resourceURL, options) {
 		if (charsetValue) {
 			const matchCharset = charsetValue.match(/^charset=(.*)/);
 			if (matchCharset && matchCharset[1]) {
-				charset = this.docHelper.removeQuotes(matchCharset[1].trim());
+				charset = docHelper.removeQuotes(matchCharset[1].trim());
 			}
 		}
 	}
