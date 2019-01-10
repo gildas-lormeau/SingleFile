@@ -88,7 +88,6 @@ async function digestText(/* algo, text */) {
 }
 
 function getContentSize(content) {
-	// TODO: check
 	return Buffer.byteLength(content, "utf-8");
 }
 
