@@ -13,11 +13,13 @@ const ONE_MB = 1024 * 1024;
 const PREFIX_CONTENT_TYPE_TEXT = "text/";
 const SCRIPTS = [
 	"./lib/single-file/util/doc-util-core.js",
-	"./lib/single-file/single-file-core.js",
-	"./lib/single-file/vendor/css-tree.js",
 	"./lib/single-file/util/doc-helper.js",
+	"./lib/single-file/vendor/css-tree.js",
 	"./lib/single-file/vendor/html-srcset-parser.js",
 	"./lib/single-file/vendor/css-minifier.js",
+	"./lib/single-file/vendor/css-font-property-parser.js",
+	"./lib/single-file/vendor/css-media-query-parser.js",
+	"./lib/single-file/single-file-core.js",
 	"./lib/single-file/modules/html-minifier.js",
 	"./lib/single-file/modules/css-fonts-minifier.js",
 	"./lib/single-file/modules/css-fonts-alt-minifier.js",
@@ -26,8 +28,6 @@ const SCRIPTS = [
 	"./lib/single-file/modules/css-rules-minifier.js",
 	"./lib/single-file/modules/html-images-alt-minifier.js",
 	"./lib/single-file/modules/html-serializer.js",
-	"./lib/single-file/vendor/css-font-property-parser.js",
-	"./lib/single-file/vendor/css-media-query-parser.js"
 ];
 
 SCRIPTS.forEach(scriptPath => eval(fs.readFileSync(scriptPath).toString()));
@@ -53,9 +53,13 @@ modules.mediasMinifier.cssTree = this.cssTree;
 modules.mediasMinifier.mediaQueryParser = this.mediaQueryParser;
 modules.cssRulesMinifier.cssTree = this.cssTree;
 modules.imagesAltMinifier.srcsetParser = this.srcsetParser;
-
 const domUtil = {
-	getContent, parseDocContent, parseSVGContent, isValidFontUrl, getContentSize, digestText
+	getContent,
+	parseDocContent,
+	parseSVGContent,
+	isValidFontUrl,
+	getContentSize,
+	digestText
 };
 
 exports.getClass = () => {
