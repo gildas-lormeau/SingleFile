@@ -12,6 +12,6 @@
 		"jsdom": "*",
 		"strong-data-uri": "*",
 		"iconv-lite": "*",
-		"request": "*"
+		"request-promise-native": "*"
 	}
 }
