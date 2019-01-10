@@ -2,7 +2,7 @@
 	"name": "single-file-jsdom",
 	"version": "0.0.1",
 	"description": "SingleFile for Node.js/jsdom | Save a page into a single HTML file",
-	"main": "./node-jsdom/single-file-node.js",
+	"main": "./node-jsdom/single-file-jsdom.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},

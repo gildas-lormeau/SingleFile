@@ -5,7 +5,7 @@ const fs = require("fs");
 const jsdom = require("jsdom");
 const request = require("request-promise-native");
 
-const SingleFileNode = require("./single-file-node.js");
+const SingleFileNode = require("./single-file-jsdom.js");
 
 run({
 	url: "https://github.com/gildas-lormeau/SingleFile",
