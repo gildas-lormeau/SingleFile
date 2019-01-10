@@ -8,6 +8,8 @@ const iconv = require("iconv-lite");
 const request = require("request-promise-native");
 const { JSDOM } = jsdom;
 
+const ONE_MB = 1024 * 1024;
+const PREFIX_CONTENT_TYPE_TEXT = "text/";
 const SCRIPTS = [
 	"./lib/single-file/util/doc-util-core.js",
 	"./lib/single-file/single-file-core.js",
@@ -112,25 +114,47 @@ async function getContent(resourceURL, options) {
 	} catch (e) {
 		return options.asDataURI ? "data:base64," : "";
 	}
-	const contentType = resourceContent.headers["content-type"];
+	let contentType = resourceContent.headers["content-type"];
+	let charset;
+	if (contentType) {
+		const matchContentType = contentType.toLowerCase().split(";");
+		contentType = matchContentType[0].trim();
+		if (!contentType.includes("/")) {
+			contentType = null;
+		}
+		const charsetValue = matchContentType[1] && matchContentType[1].trim();
+		if (charsetValue) {
+			const matchCharset = charsetValue.match(/^charset=(.*)/);
+			if (matchCharset && matchCharset[1]) {
+				charset = this.docHelper.removeQuotes(matchCharset[1].trim());
+			}
+		}
+	}
+	if (!charset && options.charset) {
+		charset = options.charset;
+	}
 	if (options && options.asDataURI) {
 		try {
-			return { data: dataUri.encode(resourceContent.body, contentType), resourceURL };
+			const buffer = resourceContent.body;
+			if (options.maxResourceSizeEnabled && buffer.byteLength > options.maxResourceSize * ONE_MB) {
+				return { data: "data:base64,", resourceURL };
+			} else {
+				return { data: dataUri.encode(buffer, contentType), resourceURL };
+			}
 		} catch (e) {
 			return { data: "data:base64,", resourceURL };
 		}
 	} else {
-		const matchCharset = contentType && contentType.match(/\s*;\s*charset\s*=\s*(.*)(;|$)/i);
-		let charset = "utf-8";
-		if (matchCharset && matchCharset[1]) {
-			charset = matchCharset[1];
-			try {
-				return { data: iconv.decode(resourceContent.body, charset), charset };
-			} catch (e) {
-				return { data: resourceContent.body.toString("utf8"), charset: "utf8" };
-			}
-		} else {
-			return { data: resourceContent.body.toString("utf8"), charset };
+		if (resourceContent.statusCode >= 400 || (options.validateTextContentType && contentType && !contentType.startsWith(PREFIX_CONTENT_TYPE_TEXT))) {
+			return { data: "", resourceURL };
+		}
+		if (!charset) {
+			charset = "utf-8";
+		}
+		try {
+			return { data: iconv.decode(resourceContent.body, charset), charset };
+		} catch (e) {
+			return { data: resourceContent.body.toString("utf8"), charset: "utf8" };
 		}
 	}
 }
