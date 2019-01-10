@@ -8,44 +8,56 @@ const iconv = require("iconv-lite");
 const request = require("request-promise-native");
 const { JSDOM } = jsdom;
 
-const USER_AGENT = "";
+const SCRIPTS = [
+	"./lib/single-file/util/doc-util-core.js",
+	"./lib/single-file/single-file-core.js",
+	"./lib/single-file/vendor/css-tree.js",
+	"./lib/single-file/util/doc-helper.js",
+	"./lib/single-file/vendor/html-srcset-parser.js",
+	"./lib/single-file/vendor/css-minifier.js",
+	"./lib/single-file/modules/html-minifier.js",
+	"./lib/single-file/modules/css-fonts-minifier.js",
+	"./lib/single-file/modules/css-fonts-alt-minifier.js",
+	"./lib/single-file/modules/css-matched-rules.js",
+	"./lib/single-file/modules/css-medias-alt-minifier.js",
+	"./lib/single-file/modules/css-rules-minifier.js",
+	"./lib/single-file/modules/html-images-alt-minifier.js",
+	"./lib/single-file/modules/html-serializer.js",
+	"./lib/single-file/vendor/css-font-property-parser.js",
+	"./lib/single-file/vendor/css-media-query-parser.js"
+];
 
-const DocUtilCore = eval(fs.readFileSync("./lib/single-file/util/doc-util-core.js").toString());
-const SingleFileCore = eval(fs.readFileSync("./lib/single-file/single-file-core.js").toString());
-const cssTree = eval(fs.readFileSync("./lib/single-file/vendor/css-tree.js").toString());
-const docHelper = eval(fs.readFileSync("./lib/single-file/util/doc-helper.js").toString());
-const srcsetParser = eval(fs.readFileSync("./lib/single-file/vendor/html-srcset-parser.js").toString());
-
+SCRIPTS.forEach(scriptPath => eval(fs.readFileSync(scriptPath).toString()));
 const modules = {
-	docHelper: docHelper,
-	srcsetParser: srcsetParser,
-	cssMinifier: eval(fs.readFileSync("./lib/single-file/vendor/css-minifier.js").toString()),
-	htmlMinifier: eval(fs.readFileSync("./lib/single-file/modules/html-minifier.js").toString()),
-	fontsMinifier: eval(fs.readFileSync("./lib/single-file/modules/css-fonts-minifier.js").toString()),
-	fontsAltMinifier: eval(fs.readFileSync("./lib/single-file/modules/css-fonts-alt-minifier.js").toString()),
-	cssRulesMinifier: eval(fs.readFileSync("./lib/single-file/modules/css-rules-minifier.js").toString()),
-	matchedRules: eval(fs.readFileSync("./lib/single-file/modules/css-matched-rules.js").toString()),
-	mediasMinifier: eval(fs.readFileSync("./lib/single-file/modules/css-medias-alt-minifier.js").toString()),
-	imagesAltMinifier: eval(fs.readFileSync("./lib/single-file/modules/html-images-alt-minifier.js").toString()),
-	serializer: eval(fs.readFileSync("./lib/single-file/modules/html-serializer.js").toString())
+	docHelper: this.docHelper,
+	srcsetParser: this.srcsetParser,
+	cssMinifier: this.cssMinifier,
+	htmlMinifier: this.htmlMinifier,
+	fontsMinifier: this.fontsMinifier,
+	fontsAltMinifier: this.fontsAltMinifier,
+	cssRulesMinifier: this.cssRulesMinifier,
+	matchedRules: this.matchedRules,
+	mediasMinifier: this.mediasMinifier,
+	imagesAltMinifier: this.imagesAltMinifier,
+	serializer: this.serializer
 };
-modules.fontsAltMinifier.cssTree = cssTree;
-modules.fontsMinifier.cssTree = cssTree;
-modules.fontsMinifier.fontPropertyParser = eval(fs.readFileSync("./lib/single-file/vendor/css-font-property-parser.js").toString());
-modules.fontsMinifier.docHelper = docHelper;
-modules.matchedRules.cssTree = cssTree;
-modules.mediasMinifier.cssTree = cssTree;
-modules.mediasMinifier.mediaQueryParser = eval(fs.readFileSync("./lib/single-file/vendor/css-media-query-parser.js").toString());
-modules.cssRulesMinifier.cssTree = cssTree;
-modules.imagesAltMinifier.srcsetParser = srcsetParser;
+modules.fontsAltMinifier.cssTree = this.cssTree;
+modules.fontsMinifier.cssTree = this.cssTree;
+modules.fontsMinifier.fontPropertyParser = this.fontPropertyParser;
+modules.fontsMinifier.docHelper = this.docHelper;
+modules.matchedRules.cssTree = this.cssTree;
+modules.mediasMinifier.cssTree = this.cssTree;
+modules.mediasMinifier.mediaQueryParser = this.mediaQueryParser;
+modules.cssRulesMinifier.cssTree = this.cssTree;
+modules.imagesAltMinifier.srcsetParser = this.srcsetParser;
 
 const domUtil = {
 	getContent, parseDocContent, parseSVGContent, isValidFontUrl, getContentSize, digestText
 };
 
 exports.getClass = () => {
-	const DocUtil = DocUtilCore.getClass(modules, domUtil);
-	return SingleFileCore.getClass(DocUtil, cssTree);
+	const DocUtil = this.DocUtilCore.getClass(modules, domUtil);
+	return this.SingleFileCore.getClass(DocUtil, this.cssTree);
 };
 
 function parseDocContent(content, baseURI) {
@@ -92,7 +104,7 @@ async function getContent(resourceURL, options) {
 		resolveWithFullResponse: true,
 		encoding: null,
 		headers: {
-			"User-Agent": USER_AGENT
+			"User-Agent": options.userAgent
 		}
 	};
 	let resourceContent;
