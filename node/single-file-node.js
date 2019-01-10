@@ -1,6 +1,7 @@
 /* global require, exports, Buffer */
 
 const fs = require("fs");
+const crypto = require("crypto");
 
 const jsdom = require("jsdom");
 const dataUri = require("strong-data-uri");
@@ -84,9 +85,10 @@ function parseSVGContent(content) {
 	})).window.document;
 }
 
-async function digestText(/* algo, text */) {
-	// TODO
-	return 0;
+async function digestText(algo, text) {
+	const hash = crypto.createHash(algo.replace("-", "").toLowerCase());
+	hash.update(text, "utf-8");
+	return hash.digest("hex");
 }
 
 function getContentSize(content) {
