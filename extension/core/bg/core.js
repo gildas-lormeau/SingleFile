@@ -29,7 +29,7 @@ singlefile.core = (() => {
 		"/lib/single-file/vendor/html-srcset-parser.js",
 		"/lib/single-file/util/timeout.js",
 		"/lib/single-file/util/doc-helper.js",
-		"/lib/single-file/util/doc-util-core.js",
+		"/lib/single-file/util/doc-util.js",
 		"/lib/fetch/content/fetch.js",
 		"/lib/single-file/single-file-core.js",
 		"/lib/single-file/single-file-browser.js",

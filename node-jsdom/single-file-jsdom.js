@@ -33,7 +33,7 @@ const iconv = require("iconv-lite");
 const request = require("request-promise-native");
 
 const SCRIPTS = [
-	"./lib/single-file/util/doc-util-core.js",
+	"./lib/single-file/util/doc-util.js",
 	"./lib/single-file/util/doc-helper.js",
 	"./lib/single-file/vendor/css-tree.js",
 	"./lib/single-file/vendor/html-srcset-parser.js",
@@ -75,8 +75,7 @@ const domUtil = {
 	digestText,
 	parseURL
 };
-const DocUtil = this.DocUtilCore.getClass(modules, domUtil);
-const SingleFile = this.SingleFileCore.getClass(DocUtil, this.cssTree);
+const SingleFile = this.SingleFileCore.getClass(this.docUtil.getInstance(modules, domUtil), this.cssTree);
 exports.getClass = () => SingleFile;
 exports.getPageData = async options => {
 	const pageContent = (await request({
