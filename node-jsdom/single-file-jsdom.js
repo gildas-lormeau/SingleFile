@@ -110,8 +110,7 @@ function isValidFontUrl(/* urlFunction */) {
 }
 
 async function getResourceContent(resourceURL, options) {
-	let resourceContent;
-	resourceContent = await request({
+	const resourceContent = await request({
 		method: "GET",
 		uri: resourceURL,
 		resolveWithFullResponse: true,
