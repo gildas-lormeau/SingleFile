@@ -76,11 +76,9 @@ const domUtil = {
 	digestText,
 	parseURL
 };
+const DocUtil = this.DocUtilCore.getClass(modules, domUtil);
 
-exports.getClass = () => {
-	const DocUtil = this.DocUtilCore.getClass(modules, domUtil);
-	return this.SingleFileCore.getClass(DocUtil, this.cssTree);
-};
+exports.getClass = () => this.SingleFileCore.getClass(DocUtil, this.cssTree);
 
 function parseDocContent(content) {
 	return (new JSDOM(content, {
