@@ -27,7 +27,7 @@ const fs = require("fs");
 const crypto = require("crypto");
 
 const jsdom = require("jsdom");
-const { URL } = require('url');
+const { URL } = require("url");
 const dataUri = require("strong-data-uri");
 const iconv = require("iconv-lite");
 const request = require("request-promise-native");
