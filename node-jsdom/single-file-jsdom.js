@@ -49,7 +49,7 @@ const SCRIPTS = [
 	"./lib/single-file/modules/css-medias-alt-minifier.js",
 	"./lib/single-file/modules/css-rules-minifier.js",
 	"./lib/single-file/modules/html-images-alt-minifier.js",
-	"./lib/single-file/modules/html-serializer.js",
+	"./lib/single-file/modules/html-serializer.js"
 ];
 
 SCRIPTS.forEach(scriptPath => eval(fs.readFileSync(scriptPath).toString()));
