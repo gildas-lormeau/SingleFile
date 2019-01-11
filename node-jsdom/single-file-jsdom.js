@@ -130,8 +130,7 @@ async function getResourceContent(resourceURL, options) {
 	});
 	return {
 		getUrl() {
-			// TODO
-			return resourceURL;
+			return resourceContent.request.href;
 		},
 		getContentType() {
 			return resourceContent.headers["content-type"];
