@@ -79,6 +79,25 @@ const domUtil = {
 const DocUtil = this.DocUtilCore.getClass(modules, domUtil);
 
 exports.getClass = () => this.SingleFileCore.getClass(DocUtil, this.cssTree);
+exports.getPageData = async options => {
+	const pageContent = (await request({
+		method: "GET",
+		uri: options.url,
+		resolveWithFullResponse: true,
+		encoding: null,
+		headers: {
+			"User-Agent": options.userAgent
+		}
+	})).body.toString();
+	const dom = new jsdom.JSDOM(pageContent, { url: options.url, virtualConsole: new jsdom.VirtualConsole(), userAgent: options.userAgent });
+	options.win = dom.window;
+	options.doc = dom.window.document;
+	options.saveRawPage = true;
+	const processor = new (this.getClass())(options);
+	await processor.initialize();
+	await processor.run();
+	return processor.getPageData();
+};
 
 function parseDocContent(content) {
 	return (new JSDOM(content, {
