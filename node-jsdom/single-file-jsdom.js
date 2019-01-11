@@ -27,6 +27,7 @@ const fs = require("fs");
 const crypto = require("crypto");
 
 const jsdom = require("jsdom");
+const { URL } = require('url');
 const dataUri = require("strong-data-uri");
 const iconv = require("iconv-lite");
 const request = require("request-promise-native");
@@ -72,7 +73,8 @@ const domUtil = {
 	parseSVGContent,
 	isValidFontUrl,
 	getContentSize,
-	digestText
+	digestText,
+	parseURL
 };
 
 exports.getClass = () => {
@@ -148,4 +150,8 @@ async function getResourceContent(resourceURL, options) {
 			return dataUri.encode(resourceContent.body, contentType || this.getContentType());
 		}
 	};
+}
+
+function parseURL(resourceURL, baseURI) {
+	return new URL(resourceURL, baseURI);
 }
