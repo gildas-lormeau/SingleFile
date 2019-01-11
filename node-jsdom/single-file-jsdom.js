@@ -26,12 +26,11 @@
 const fs = require("fs");
 const crypto = require("crypto");
 
-const jsdom = require("jsdom");
+const { JSDOM, VirtualConsole } = require("jsdom");
 const { URL } = require("url");
 const dataUri = require("strong-data-uri");
 const iconv = require("iconv-lite");
 const request = require("request-promise-native");
-const { JSDOM } = jsdom;
 
 const SCRIPTS = [
 	"./lib/single-file/util/doc-util-core.js",
@@ -89,7 +88,7 @@ exports.getPageData = async options => {
 			"User-Agent": options.userAgent
 		}
 	})).body.toString();
-	const dom = new jsdom.JSDOM(pageContent, { url: options.url, virtualConsole: new jsdom.VirtualConsole(), userAgent: options.userAgent });
+	const dom = new JSDOM(pageContent, { url: options.url, virtualConsole: new VirtualConsole(), userAgent: options.userAgent });
 	options.win = dom.window;
 	options.doc = dom.window.document;
 	options.saveRawPage = true;
