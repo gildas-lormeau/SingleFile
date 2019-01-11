@@ -82,20 +82,10 @@ exports.getClass = () => {
 	return this.SingleFileCore.getClass(DocUtil, this.cssTree);
 };
 
-function parseDocContent(content, baseURI) {
-	const doc = (new JSDOM(content, {
+function parseDocContent(content) {
+	return (new JSDOM(content, {
 		contentType: "text/html"
 	})).window.document;
-	let baseElement = doc.querySelector("base");
-	if (!baseElement || !baseElement.getAttribute("href")) {
-		if (baseElement) {
-			baseElement.remove();
-		}
-		baseElement = doc.createElement("base");
-		baseElement.setAttribute("href", baseURI);
-		doc.head.insertBefore(baseElement, doc.head.firstChild);
-	}
-	return doc;
 }
 
 function parseSVGContent(content) {
