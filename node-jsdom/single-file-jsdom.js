@@ -92,6 +92,7 @@ exports.getPageData = async options => {
 	options.win = dom.window;
 	options.doc = dom.window.document;
 	options.saveRawPage = true;
+	options.loadDeferredImages = false;
 	const processor = new (this.getClass())(options);
 	await processor.initialize();
 	await processor.run();
