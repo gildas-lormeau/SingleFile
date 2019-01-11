@@ -76,8 +76,8 @@ const domUtil = {
 	parseURL
 };
 const DocUtil = this.DocUtilCore.getClass(modules, domUtil);
-
-exports.getClass = () => this.SingleFileCore.getClass(DocUtil, this.cssTree);
+const SingleFile = this.SingleFileCore.getClass(DocUtil, this.cssTree);
+exports.getClass = () => SingleFile;
 exports.getPageData = async options => {
 	const pageContent = (await request({
 		method: "GET",
