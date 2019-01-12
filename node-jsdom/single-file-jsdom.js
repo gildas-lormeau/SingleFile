@@ -92,10 +92,10 @@ exports.getPageData = async options => {
 	options.doc = dom.window.document;
 	options.saveRawPage = true;
 	options.loadDeferredImages = false;
-	const processor = new (this.getClass())(options);
-	await processor.initialize();
-	await processor.run();
-	return processor.getPageData();
+	const singleFile = new SingleFile(options);
+	await singleFile.initialize();
+	await singleFile.run();
+	return singleFile.getPageData();
 };
 
 function parseDocContent(content) {
