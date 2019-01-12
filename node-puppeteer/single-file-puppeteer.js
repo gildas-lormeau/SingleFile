@@ -62,7 +62,7 @@ exports.getPageData = async options => {
 		waitUntil: options.puppeteerWaitUntil || "networkidle0"
 	});
 	await Promise.all(SCRIPTS.map(scriptPath => page.evaluate(fs.readFileSync(scriptPath).toString())));
-	const pageData = await page.evaluate(async options => {
+	return page.evaluate(async options => {
 		options.removeFrames = true;
 		const SingleFile = SingleFileBrowser.getClass();
 		const singleFile = new SingleFile(options);
@@ -70,5 +70,4 @@ exports.getPageData = async options => {
 		await singleFile.run();
 		return singleFile.getPageData();
 	}, options);
-	return pageData;
 };
