@@ -27,23 +27,23 @@ const fs = require("fs");
 const puppeteer = require("puppeteer-core");
 
 const SCRIPTS = [
-	"./lib/single-file/util/doc-util.js",
-	"./lib/single-file/util/doc-helper.js",
-	"./lib/single-file/vendor/css-tree.js",
-	"./lib/single-file/vendor/html-srcset-parser.js",
-	"./lib/single-file/vendor/css-minifier.js",
-	"./lib/single-file/vendor/css-font-property-parser.js",
-	"./lib/single-file/vendor/css-media-query-parser.js",
-	"./lib/single-file/modules/html-minifier.js",
-	"./lib/single-file/modules/css-fonts-minifier.js",
-	"./lib/single-file/modules/css-fonts-alt-minifier.js",
-	"./lib/single-file/modules/css-matched-rules.js",
-	"./lib/single-file/modules/css-medias-alt-minifier.js",
-	"./lib/single-file/modules/css-rules-minifier.js",
-	"./lib/single-file/modules/html-images-alt-minifier.js",
-	"./lib/single-file/modules/html-serializer.js",
-	"./lib/single-file/single-file-core.js",
-	"./lib/single-file/single-file-browser.js"
+	"../lib/single-file/util/doc-util.js",
+	"../lib/single-file/util/doc-helper.js",
+	"../lib/single-file/vendor/css-tree.js",
+	"../lib/single-file/vendor/html-srcset-parser.js",
+	"../lib/single-file/vendor/css-minifier.js",
+	"../lib/single-file/vendor/css-font-property-parser.js",
+	"../lib/single-file/vendor/css-media-query-parser.js",
+	"../lib/single-file/modules/html-minifier.js",
+	"../lib/single-file/modules/css-fonts-minifier.js",
+	"../lib/single-file/modules/css-fonts-alt-minifier.js",
+	"../lib/single-file/modules/css-matched-rules.js",
+	"../lib/single-file/modules/css-medias-alt-minifier.js",
+	"../lib/single-file/modules/css-rules-minifier.js",
+	"../lib/single-file/modules/html-images-alt-minifier.js",
+	"../lib/single-file/modules/html-serializer.js",
+	"../lib/single-file/single-file-core.js",
+	"../lib/single-file/single-file-browser.js"
 ];
 
 exports.getPageData = async options => {
@@ -61,9 +61,9 @@ exports.getPageData = async options => {
 	await page.setBypassCSP(true);
 	await page.goto(options.url, {
 		waitUntil: options.puppeteerWaitUntil || "networkidle0"
-	});	
-	await Promise.all(SCRIPTS.map(scriptPath => page.evaluate(fs.readFileSync(scriptPath).toString())));
-	return page.evaluate(async options => {
+	});
+	await Promise.all(SCRIPTS.map(scriptPath => page.evaluate(fs.readFileSync(require.resolve(scriptPath)).toString())));
+	const pageData = await page.evaluate(async options => {
 		options.removeFrames = true;
 		const SingleFile = SingleFileBrowser.getClass();
 		const singleFile = new SingleFile(options);
@@ -71,4 +71,6 @@ exports.getPageData = async options => {
 		await singleFile.run();
 		return singleFile.getPageData();
 	}, options);
+	page.close();
+	return pageData;
 };
