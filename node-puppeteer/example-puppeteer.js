@@ -25,7 +25,7 @@
 
 const fs = require("fs");
 
-const SingleFile = require("./single-file-puppeteer.js");
+const SingleFile = require("../node-index.js").puppeteer;
 
 SingleFile.getPageData({
 	url: "https://github.com/gildas-lormeau/SingleFile",
