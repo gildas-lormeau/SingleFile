@@ -1,5 +1,5 @@
 {
-	"name": "single-file-jsdom",
+	"name": "single-file",
 	"version": "0.0.1",
 	"description": "SingleFile for Node.js",
 	"main": "./node-index.js",
