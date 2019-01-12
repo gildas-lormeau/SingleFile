@@ -28,7 +28,7 @@ const fs = require("fs");
 const SingleFile = require("./single-file-puppeteer.js");
 
 SingleFile.getPageData({
-	url: "https://fr.wikipedia.org/wiki/Data_URI_scheme",
+	url: "https://github.com/gildas-lormeau/SingleFile",
 	// puppeteerExecutablePath: "C:/Users/Gildas/AppData/Local/Google/Chrome SxS/Application/chrome.exe",
 	// puppeteerWaitUntil: "networkidle0",
 	// puppeteerHeadless: false,

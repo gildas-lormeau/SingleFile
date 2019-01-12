@@ -58,9 +58,10 @@ exports.getPageData = async options => {
 	if (options.userAgent) {
 		await page.setUserAgent(options.userAgent);
 	}
+	await page.setBypassCSP(true);
 	await page.goto(options.url, {
 		waitUntil: options.puppeteerWaitUntil || "networkidle0"
-	});
+	});	
 	await Promise.all(SCRIPTS.map(scriptPath => page.evaluate(fs.readFileSync(scriptPath).toString())));
 	return page.evaluate(async options => {
 		options.removeFrames = true;
