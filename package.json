@@ -9,9 +9,10 @@
 	"author": "Gildas Lormeau",
 	"license": "AGPL-3.0-or-later",
 	"dependencies": {
-		"jsdom": "*",
-		"strong-data-uri": "*",
 		"iconv-lite": "*",
-		"request-promise-native": "*"
+		"jsdom": "*",
+		"puppeteer-core": "*",
+		"request-promise-native": "*",
+		"strong-data-uri": "*"
 	}
 }

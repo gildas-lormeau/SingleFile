@@ -91,7 +91,7 @@ exports.getPageData = async options => {
 	options.win = dom.window;
 	options.doc = dom.window.document;
 	options.saveRawPage = true;
-	options.loadDeferredImages = false;
+	options.removeFrames = true;
 	const singleFile = new SingleFile(options);
 	await singleFile.initialize();
 	await singleFile.run();

@@ -25,11 +25,14 @@
 
 const fs = require("fs");
 
-const SingleFile = require("./single-file-jsdom.js");
+const SingleFile = require("./single-file-puppeteer.js");
 
 SingleFile.getPageData({
-	url: "https://github.com/gildas-lormeau/SingleFile",
-	userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:65.0) Gecko Firefox AppleWebKit (KHTML, like Gecko) Chrome Safari",
+	url: "https://fr.wikipedia.org/wiki/Data_URI_scheme",
+	// puppeteerExecutablePath: "C:/Users/Gildas/AppData/Local/Google/Chrome SxS/Application/chrome.exe",
+	// puppeteerWaitUntil: "networkidle0",
+	// puppeteerHeadless: false,
+	// userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Gecko Firefox AppleWebKit (KHTML, like Gecko) Chrome Safari",
 	removeHiddenElements: true,
 	removeUnusedStyles: true,
 	removeUnusedFonts: true,
