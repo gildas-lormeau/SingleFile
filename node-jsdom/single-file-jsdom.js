@@ -63,7 +63,7 @@ const modules = {
 	fontsAltMinifier: this.fontsAltMinifier.getInstance(this.cssTree),
 	cssRulesMinifier: this.cssRulesMinifier.getInstance(this.cssTree),
 	matchedRules: this.matchedRules.getInstance(this.cssTree),
-	mediasMinifier: this.mediasMinifier.getInstance(this.cssTree, this.mediaQueryParser),
+	mediasAltMinifier: this.mediasAltMinifier.getInstance(this.cssTree, this.mediaQueryParser),
 	imagesAltMinifier: this.imagesAltMinifier.getInstance(this.srcsetParser)
 };
 const domUtil = {
