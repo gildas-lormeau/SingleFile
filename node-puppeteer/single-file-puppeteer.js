@@ -74,17 +74,11 @@ exports.getPageData = async options => {
 			waitUntil: options.puppeteerWaitUntil || "networkidle0"
 		});
 		const pageData = await page.evaluate(async options => {
-			const preInitializationPromises = [];
 			options.insertSingleFileComment = true;
 			options.insertFaviconLink = true;
-			if (!options.saveRawPage) {
-				if (!options.removeFrames) {
-					let frameTreePromise;
-					frameTreePromise = frameTree.getAsync(options);
-					preInitializationPromises.push(frameTreePromise);
-				}
+			if (!options.saveRawPage && !options.removeFrames) {
+				options.framesData = await frameTree.getAsync(options);
 			}
-			[options.framesData] = await Promise.all(preInitializationPromises);
 			options.doc = document;
 			options.win = window;
 			const SingleFile = SingleFileBrowser.getClass();
