@@ -54,23 +54,29 @@ exports.getPageData = async options => {
 		browserOptions.executablePath = options.puppeteerExecutablePath;
 	}
 	const browser = await puppeteer.launch(browserOptions);
-	const page = await browser.newPage();
-	if (options.userAgent) {
-		await page.setUserAgent(options.userAgent);
+	let page;
+	try {
+		page = await browser.newPage();
+		if (options.userAgent) {
+			await page.setUserAgent(options.userAgent);
+		}
+		await page.setBypassCSP(true);
+		await page.goto(options.url, {
+			waitUntil: options.puppeteerWaitUntil || "networkidle0"
+		});
+		await Promise.all(SCRIPTS.map(scriptPath => page.evaluate(fs.readFileSync(require.resolve(scriptPath)).toString())));
+		const pageData = await page.evaluate(async options => {
+			options.removeFrames = true;
+			const SingleFile = SingleFileBrowser.getClass();
+			const singleFile = new SingleFile(options);
+			await singleFile.initialize();
+			await singleFile.run();
+			return singleFile.getPageData();
+		}, options);
+		return pageData;
+	} finally {
+		if (page) {
+			page.close();
+		}
 	}
-	await page.setBypassCSP(true);
-	await page.goto(options.url, {
-		waitUntil: options.puppeteerWaitUntil || "networkidle0"
-	});
-	await Promise.all(SCRIPTS.map(scriptPath => page.evaluate(fs.readFileSync(require.resolve(scriptPath)).toString())));
-	const pageData = await page.evaluate(async options => {
-		options.removeFrames = true;
-		const SingleFile = SingleFileBrowser.getClass();
-		const singleFile = new SingleFile(options);
-		await singleFile.initialize();
-		await singleFile.run();
-		return singleFile.getPageData();
-	}, options);
-	page.close();
-	return pageData;
 };
