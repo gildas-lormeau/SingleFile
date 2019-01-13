@@ -21,14 +21,18 @@
  *   Source.
  */
 
-/* global require, exports, SingleFileBrowser */
+/* global require, exports, SingleFileBrowser, frameTree, document, window */
+
 const fs = require("fs");
 
 const puppeteer = require("puppeteer-core");
 
 const SCRIPTS = [
+	"../lib/hooks/hooks-frame.js",
+	"../lib/frame-tree/frame-tree.js",
 	"../lib/single-file/util/doc-util.js",
 	"../lib/single-file/util/doc-helper.js",
+	"../lib/single-file/util/timeout.js",
 	"../lib/single-file/vendor/css-tree.js",
 	"../lib/single-file/vendor/html-srcset-parser.js",
 	"../lib/single-file/vendor/css-minifier.js",
@@ -48,7 +52,8 @@ const SCRIPTS = [
 
 exports.getPageData = async options => {
 	const browserOptions = {
-		headless: options.puppeteerHeadless === undefined ? true : options.puppeteerHeadless
+		headless: options.puppeteerHeadless === undefined ? true : options.puppeteerHeadless,
+		"args": ["--disable-web-security"]
 	};
 	if (options.puppeteerExecutablePath) {
 		browserOptions.executablePath = options.puppeteerExecutablePath;
@@ -61,12 +66,24 @@ exports.getPageData = async options => {
 			await page.setUserAgent(options.userAgent);
 		}
 		await page.setBypassCSP(true);
+		await Promise.all(SCRIPTS.map(scriptPath => page.evaluateOnNewDocument(fs.readFileSync(require.resolve(scriptPath)).toString())));
 		await page.goto(options.url, {
 			waitUntil: options.puppeteerWaitUntil || "networkidle0"
 		});
-		await Promise.all(SCRIPTS.map(scriptPath => page.evaluate(fs.readFileSync(require.resolve(scriptPath)).toString())));
 		const pageData = await page.evaluate(async options => {
-			options.removeFrames = true;
+			const preInitializationPromises = [];
+			options.insertSingleFileComment = true;
+			options.insertFaviconLink = true;
+			if (!options.saveRawPage) {
+				if (!options.removeFrames) {
+					let frameTreePromise;
+					frameTreePromise = frameTree.getAsync(options);
+					preInitializationPromises.push(frameTreePromise);
+				}
+			}
+			[options.framesData] = await Promise.all(preInitializationPromises);
+			options.doc = document;
+			options.win = window;
 			const SingleFile = SingleFileBrowser.getClass();
 			const singleFile = new SingleFile(options);
 			await singleFile.initialize();
