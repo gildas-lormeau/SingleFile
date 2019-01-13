@@ -28,8 +28,10 @@ const chrome = require("selenium-webdriver/chrome");
 const { Builder } = require("selenium-webdriver");
 
 const SCRIPTS = [
+	"../lib/frame-tree/frame-tree.js",
 	"../lib/single-file/util/doc-util.js",
 	"../lib/single-file/util/doc-helper.js",
+	"../lib/single-file/util/timeout.js",
 	"../lib/single-file/vendor/css-tree.js",
 	"../lib/single-file/vendor/html-srcset-parser.js",
 	"../lib/single-file/vendor/css-minifier.js",
@@ -51,14 +53,30 @@ exports.getPageData = async options => {
 	let driver;
 	try {
 		const builder = new Builder();
-		builder.setChromeOptions(new chrome.Options().headless().addArguments("--disable-web-security"));
+		const chromeOptions = new chrome.Options();
+		if (options.browserHeadless === undefined || options.browserHeadless) {
+			chromeOptions.headless();
+		}
+		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
+			chromeOptions.addArguments("--disable-web-security");
+		}
+		if (options.userAgent) {
+			await chromeOptions.addArguments("--user-agent=" + JSON.stringify(options.userAgent));
+		}
+		builder.setChromeOptions(chromeOptions);
 		driver = await builder.forBrowser("chrome").build();
 		await driver.get(options.url);
+		let scripts = (await Promise.all(SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()))).join("\n");
 		if (options.loadDeferredImages) {
-			SCRIPTS.unshift("../lib/lazy/web/web-lazy-loader-before");
+			scripts += "\ntry {\n" + fs.readFileSync(require.resolve("../lib/lazy/web/web-lazy-loader-before")) + "\n} catch (error) {}";
 		}
-		const scripts = await Promise.all(SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()));
-		driver.executeScript(scripts.join("\n"));
+		const mainWindowHandle = driver.getWindowHandle();
+		const windowHandles = await driver.getAllWindowHandles();
+		await Promise.all(windowHandles.map(async windowHandle => {
+			await driver.switchTo().window(windowHandle);
+			driver.executeScript(scripts);
+		}));
+		await driver.switchTo().window(mainWindowHandle);
 		const pageData = await driver.executeAsyncScript(getPageDataScript(), options);
 		return pageData;
 	} finally {
@@ -75,8 +93,10 @@ function getPageDataScript() {
 
 	async function getPageData() {
 		options.insertSingleFileComment = true;
-		options.insertFaviconLink = true;		
-		options.removeFrames = true;
+		options.insertFaviconLink = true;
+		if (!options.saveRawPage && !options.removeFrames) {
+			options.framesData = await frameTree.getAsync(options);
+		}	
 		options.doc = document;
 		options.win = window;
 		const SingleFile = SingleFileBrowser.getClass();

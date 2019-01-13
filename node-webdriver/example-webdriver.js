@@ -30,6 +30,7 @@ const SingleFile = require("../node-index.js").webdriver;
 SingleFile.getPageData({
 	url: "https://github.com/gildas-lormeau/SingleFile",
 	// userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Gecko Firefox AppleWebKit (KHTML, like Gecko) Chrome Safari",
+	// browserHeadless: false,
 	removeHiddenElements: true,
 	removeUnusedStyles: true,
 	removeUnusedFonts: true,

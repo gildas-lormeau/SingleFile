@@ -29,10 +29,9 @@ const SingleFile = require("../node-index.js").puppeteer;
 
 SingleFile.getPageData({
 	url: "https://github.com/gildas-lormeau/SingleFile",
-	// puppeteerExecutablePath: "C:/Users/Gildas/AppData/Local/Google/Chrome SxS/Application/chrome.exe",
-	// puppeteerWaitUntil: "networkidle0",
-	// puppeteerHeadless: false,
+	// browserExecutablePath: "C:/Users/Gildas/AppData/Local/Google/Chrome SxS/Application/chrome.exe",
 	// userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Gecko Firefox AppleWebKit (KHTML, like Gecko) Chrome Safari",
+	// browserHeadless: false,
 	removeHiddenElements: true,
 	removeUnusedStyles: true,
 	removeUnusedFonts: true,

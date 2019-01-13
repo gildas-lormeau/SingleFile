@@ -51,12 +51,15 @@ const SCRIPTS = [
 ];
 
 exports.getPageData = async options => {
-	const browserOptions = {
-		headless: options.puppeteerHeadless === undefined ? true : options.puppeteerHeadless,
-		"args": ["--disable-web-security"]
-	};
-	if (options.puppeteerExecutablePath) {
-		browserOptions.executablePath = options.puppeteerExecutablePath;
+	const browserOptions = {};
+	if (options.browserHeadless !== undefined) {
+		browserOptions.headless = options.browserHeadless;
+	}
+	if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
+		browserOptions.args = ["--disable-web-security"];
+	}
+	if (options.browserExecutablePath) {
+		browserOptions.executablePath = options.browserExecutablePath;
 	}
 	const browser = await puppeteer.launch(browserOptions);
 	let page;
@@ -65,15 +68,17 @@ exports.getPageData = async options => {
 		if (options.userAgent) {
 			await page.setUserAgent(options.userAgent);
 		}
-		await page.setBypassCSP(true);
+		if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
+			await page.setBypassCSP(true);
+		}
 		if (options.loadDeferredImages) {
 			SCRIPTS.unshift("../lib/lazy/web/web-lazy-loader-before");
 		}
 		await Promise.all(SCRIPTS.map(scriptPath => page.evaluateOnNewDocument(fs.readFileSync(require.resolve(scriptPath)).toString())));
 		await page.goto(options.url, {
-			waitUntil: options.puppeteerWaitUntil || "networkidle0"
+			waitUntil: "networkidle0"
 		});
-		const pageData = await page.evaluate(async options => {
+		return page.evaluate(async options => {
 			options.insertSingleFileComment = true;
 			options.insertFaviconLink = true;
 			if (!options.saveRawPage && !options.removeFrames) {
@@ -87,7 +92,6 @@ exports.getPageData = async options => {
 			await singleFile.run();
 			return singleFile.getPageData();
 		}, options);
-		return pageData;
 	} finally {
 		if (page) {
 			page.close();
