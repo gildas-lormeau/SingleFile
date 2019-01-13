@@ -66,6 +66,9 @@ exports.getPageData = async options => {
 			await page.setUserAgent(options.userAgent);
 		}
 		await page.setBypassCSP(true);
+		if (options.loadDeferredImages) {
+			SCRIPTS.unshift("../lib/lazy/web/web-lazy-loader-before");
+		}
 		await Promise.all(SCRIPTS.map(scriptPath => page.evaluateOnNewDocument(fs.readFileSync(require.resolve(scriptPath)).toString())));
 		await page.goto(options.url, {
 			waitUntil: options.puppeteerWaitUntil || "networkidle0"
