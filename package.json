@@ -13,6 +13,7 @@
 		"jsdom": "*",
 		"puppeteer-core": "*",
 		"request-promise-native": "*",
+		"selenium-webdriver": "*",
 		"strong-data-uri": "*"
 	}
 }
