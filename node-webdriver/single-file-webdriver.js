@@ -24,6 +24,7 @@
 /* global require, exports */
 const fs = require("fs");
 
+const chrome = require("selenium-webdriver/chrome");
 const { Builder } = require("selenium-webdriver");
 
 const SCRIPTS = [
@@ -49,9 +50,15 @@ const SCRIPTS = [
 exports.getPageData = async options => {
 	let driver;
 	try {
-		driver = await new Builder().forBrowser(options.webdriverBrowser).build();
+		const builder = new Builder();
+		builder.setChromeOptions(new chrome.Options().headless().addArguments("--disable-web-security"));
+		driver = await builder.forBrowser("chrome").build();
 		await driver.get(options.url);
-		await Promise.all(SCRIPTS.map(scriptPath => driver.executeScript(fs.readFileSync(require.resolve(scriptPath)).toString())));
+		if (options.loadDeferredImages) {
+			SCRIPTS.unshift("../lib/lazy/web/web-lazy-loader-before");
+		}
+		const scripts = await Promise.all(SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()));
+		driver.executeScript(scripts.join("\n"));
 		const pageData = await driver.executeAsyncScript(getPageDataScript(), options);
 		return pageData;
 	} finally {
@@ -67,13 +74,16 @@ function getPageDataScript() {
 	getPageData().then(pageData => callback(pageData))
 
 	async function getPageData() {
+		options.insertSingleFileComment = true;
+		options.insertFaviconLink = true;		
 		options.removeFrames = true;
+		options.doc = document;
+		options.win = window;
 		const SingleFile = SingleFileBrowser.getClass();
 		const singleFile = new SingleFile(options);
 		await singleFile.initialize();
 		await singleFile.run();
-		const pageData = await singleFile.getPageData();
-		return pageData;
+		return singleFile.getPageData();			
 	}
 	`;
 }
