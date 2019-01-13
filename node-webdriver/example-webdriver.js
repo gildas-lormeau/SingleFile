@@ -21,8 +21,29 @@
  *   Source.
  */
 
-/* global require, exports */
+/* global require */
 
-exports.puppeteer = require("./node-puppeteer/single-file-puppeteer.js");
-exports.jsdom = require("./node-jsdom/single-file-jsdom.js");
-exports.webdriver = require("./node-webdriver/single-file-webdriver.js");
+const fs = require("fs");
+
+const SingleFile = require("../node-index.js").webdriver;
+
+SingleFile.getPageData({
+	url: "https://github.com/gildas-lormeau/SingleFile",
+	// webdriverBrowser: "Chrome",
+	// userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Gecko Firefox AppleWebKit (KHTML, like Gecko) Chrome Safari",
+	removeHiddenElements: true,
+	removeUnusedStyles: true,
+	removeUnusedFonts: true,
+	removeFrames: true,
+	removeImports: true,
+	removeScripts: true,
+	compressHTML: true,
+	compressCSS: true,
+	filenameTemplate: "{page-title} ({date-iso} {time-locale}).html",
+	removeAudioSrc: true,
+	removeVideoSrc: true,
+	removeAlternativeFonts: true,
+	removeAlternativeMedias: true,
+	removeAlternativeImages: true,
+	groupDuplicateImages: true
+}).then(pageData => fs.writeFileSync(pageData.filename, pageData.content));
