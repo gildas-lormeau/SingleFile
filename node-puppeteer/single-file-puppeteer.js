@@ -90,7 +90,7 @@ exports.getPageData = async options => {
 			const singleFile = new SingleFile(options);
 			await singleFile.initialize();
 			await singleFile.run();
-			return singleFile.getPageData();
+			return await singleFile.getPageData();
 		}, options);
 	} finally {
 		if (browser) {
