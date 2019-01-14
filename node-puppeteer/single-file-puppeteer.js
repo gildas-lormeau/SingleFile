@@ -78,7 +78,7 @@ exports.getPageData = async options => {
 		await page.goto(options.url, {
 			waitUntil: "networkidle0"
 		});
-		return page.evaluate(async options => {
+		return await page.evaluate(async options => {
 			options.insertSingleFileComment = true;
 			options.insertFaviconLink = true;
 			if (!options.saveRawPage && !options.removeFrames) {
@@ -94,7 +94,8 @@ exports.getPageData = async options => {
 		}, options);
 	} finally {
 		if (page) {
-			page.close();
+			await page.close();
+			await browser.close();
 		}
 	}
 };
