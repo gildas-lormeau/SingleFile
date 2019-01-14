@@ -1,11 +1,7 @@
 {
 	"name": "single-file",
 	"version": "0.0.1",
-	"description": "SingleFile for Node.js",
-	"main": "./node-index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
+	"description": "SingleFile",
 	"author": "Gildas Lormeau",
 	"license": "AGPL-3.0-or-later",
 	"dependencies": {
@@ -14,6 +10,7 @@
 		"puppeteer-core": "*",
 		"request-promise-native": "*",
 		"selenium-webdriver": "*",
-		"strong-data-uri": "*"
+		"strong-data-uri": "*",
+		"yargs": "*"
 	}
 }
