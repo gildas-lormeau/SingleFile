@@ -61,10 +61,10 @@ exports.getPageData = async options => {
 	if (options.browserExecutablePath) {
 		browserOptions.executablePath = options.browserExecutablePath;
 	}
-	const browser = await puppeteer.launch(browserOptions);
-	let page;
+	let browser;
 	try {
-		page = await browser.newPage();
+		browser = await puppeteer.launch(browserOptions);
+		const page = await browser.newPage();
 		if (options.userAgent) {
 			await page.setUserAgent(options.userAgent);
 		}
@@ -93,8 +93,7 @@ exports.getPageData = async options => {
 			return singleFile.getPageData();
 		}, options);
 	} finally {
-		if (page) {
-			await page.close();
+		if (browser) {
 			await browser.close();
 		}
 	}
