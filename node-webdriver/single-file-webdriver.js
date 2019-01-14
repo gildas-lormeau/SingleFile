@@ -77,8 +77,10 @@ exports.getPageData = async options => {
 			driver.executeScript(scripts);
 		}));
 		await driver.switchTo().window(mainWindowHandle);
-		const pageData = await driver.executeAsyncScript(getPageDataScript(), options);
-		return pageData;
+		if (options.loadDeferredImages) {
+			await driver.sleep(options.loadDeferredImagesMaxIdleTime || 1500);
+		}
+		return await driver.executeAsyncScript(getPageDataScript(), options);
 	} finally {
 		if (driver) {
 			driver.quit();
@@ -103,7 +105,7 @@ function getPageDataScript() {
 		const singleFile = new SingleFile(options);
 		await singleFile.initialize();
 		await singleFile.run();
-		return singleFile.getPageData();			
+		return await singleFile.getPageData();
 	}
 	`;
 }
