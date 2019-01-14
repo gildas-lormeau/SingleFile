@@ -28,25 +28,25 @@ const chrome = require("selenium-webdriver/chrome");
 const { Builder } = require("selenium-webdriver");
 
 const SCRIPTS = [
-	"../lib/frame-tree/frame-tree.js",
-	"../lib/single-file/util/doc-util.js",
-	"../lib/single-file/util/doc-helper.js",
-	"../lib/single-file/util/timeout.js",
-	"../lib/single-file/vendor/css-tree.js",
-	"../lib/single-file/vendor/html-srcset-parser.js",
-	"../lib/single-file/vendor/css-minifier.js",
-	"../lib/single-file/vendor/css-font-property-parser.js",
-	"../lib/single-file/vendor/css-media-query-parser.js",
-	"../lib/single-file/modules/html-minifier.js",
-	"../lib/single-file/modules/css-fonts-minifier.js",
-	"../lib/single-file/modules/css-fonts-alt-minifier.js",
-	"../lib/single-file/modules/css-matched-rules.js",
-	"../lib/single-file/modules/css-medias-alt-minifier.js",
-	"../lib/single-file/modules/css-rules-minifier.js",
-	"../lib/single-file/modules/html-images-alt-minifier.js",
-	"../lib/single-file/modules/html-serializer.js",
-	"../lib/single-file/single-file-core.js",
-	"../lib/single-file/single-file-browser.js"
+	"../../lib/frame-tree/frame-tree.js",
+	"../../lib/single-file/util/doc-util.js",
+	"../../lib/single-file/util/doc-helper.js",
+	"../../lib/single-file/util/timeout.js",
+	"../../lib/single-file/vendor/css-tree.js",
+	"../../lib/single-file/vendor/html-srcset-parser.js",
+	"../../lib/single-file/vendor/css-minifier.js",
+	"../../lib/single-file/vendor/css-font-property-parser.js",
+	"../../lib/single-file/vendor/css-media-query-parser.js",
+	"../../lib/single-file/modules/html-minifier.js",
+	"../../lib/single-file/modules/css-fonts-minifier.js",
+	"../../lib/single-file/modules/css-fonts-alt-minifier.js",
+	"../../lib/single-file/modules/css-matched-rules.js",
+	"../../lib/single-file/modules/css-medias-alt-minifier.js",
+	"../../lib/single-file/modules/css-rules-minifier.js",
+	"../../lib/single-file/modules/html-images-alt-minifier.js",
+	"../../lib/single-file/modules/html-serializer.js",
+	"../../lib/single-file/single-file-core.js",
+	"../../lib/single-file/single-file-browser.js"
 ];
 
 exports.getPageData = async options => {
@@ -68,7 +68,7 @@ exports.getPageData = async options => {
 		await driver.get(options.url);
 		let scripts = (await Promise.all(SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()))).join("\n");
 		if (options.loadDeferredImages) {
-			scripts += "\ntry {\n" + fs.readFileSync(require.resolve("../lib/lazy/web/web-lazy-loader-before")) + "\n} catch (error) {}";
+			scripts += "\ntry {\n" + fs.readFileSync(require.resolve("../../lib/lazy/web/web-lazy-loader-before")) + "\n} catch (error) {}";
 		}
 		const mainWindowHandle = driver.getWindowHandle();
 		const windowHandles = await driver.getAllWindowHandles();

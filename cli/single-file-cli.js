@@ -102,9 +102,9 @@ const args = require("yargs")
 	.argv;
 
 const backEnds = {
-	jsdom: "./single-file-jsdom.js",
-	puppeteer: "./single-file-puppeteer.js",
-	webdriver: "./single-file-webdriver.js"
+	jsdom: "./back-ends/jsdom.js",
+	puppeteer: "./back-ends/puppeteer.js",
+	webdriver: "./back-ends/webdriver.js"
 };
 require(backEnds[args.backEnd]).getPageData(args).then(pageData => {
 	if (args.output) {

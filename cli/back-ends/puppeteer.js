@@ -28,26 +28,26 @@ const fs = require("fs");
 const puppeteer = require("puppeteer-core");
 
 const SCRIPTS = [
-	"../lib/hooks/hooks-frame.js",
-	"../lib/frame-tree/frame-tree.js",
-	"../lib/single-file/util/doc-util.js",
-	"../lib/single-file/util/doc-helper.js",
-	"../lib/single-file/util/timeout.js",
-	"../lib/single-file/vendor/css-tree.js",
-	"../lib/single-file/vendor/html-srcset-parser.js",
-	"../lib/single-file/vendor/css-minifier.js",
-	"../lib/single-file/vendor/css-font-property-parser.js",
-	"../lib/single-file/vendor/css-media-query-parser.js",
-	"../lib/single-file/modules/html-minifier.js",
-	"../lib/single-file/modules/css-fonts-minifier.js",
-	"../lib/single-file/modules/css-fonts-alt-minifier.js",
-	"../lib/single-file/modules/css-matched-rules.js",
-	"../lib/single-file/modules/css-medias-alt-minifier.js",
-	"../lib/single-file/modules/css-rules-minifier.js",
-	"../lib/single-file/modules/html-images-alt-minifier.js",
-	"../lib/single-file/modules/html-serializer.js",
-	"../lib/single-file/single-file-core.js",
-	"../lib/single-file/single-file-browser.js"
+	"../../lib/hooks/hooks-frame.js",
+	"../../lib/frame-tree/frame-tree.js",
+	"../../lib/single-file/util/doc-util.js",
+	"../../lib/single-file/util/doc-helper.js",
+	"../../lib/single-file/util/timeout.js",
+	"../../lib/single-file/vendor/css-tree.js",
+	"../../lib/single-file/vendor/html-srcset-parser.js",
+	"../../lib/single-file/vendor/css-minifier.js",
+	"../../lib/single-file/vendor/css-font-property-parser.js",
+	"../../lib/single-file/vendor/css-media-query-parser.js",
+	"../../lib/single-file/modules/html-minifier.js",
+	"../../lib/single-file/modules/css-fonts-minifier.js",
+	"../../lib/single-file/modules/css-fonts-alt-minifier.js",
+	"../../lib/single-file/modules/css-matched-rules.js",
+	"../../lib/single-file/modules/css-medias-alt-minifier.js",
+	"../../lib/single-file/modules/css-rules-minifier.js",
+	"../../lib/single-file/modules/html-images-alt-minifier.js",
+	"../../lib/single-file/modules/html-serializer.js",
+	"../../lib/single-file/single-file-core.js",
+	"../../lib/single-file/single-file-browser.js"
 ];
 
 exports.getPageData = async options => {
@@ -72,7 +72,7 @@ exports.getPageData = async options => {
 			await page.setBypassCSP(true);
 		}
 		if (options.loadDeferredImages) {
-			SCRIPTS.unshift("../lib/lazy/web/web-lazy-loader-before");
+			SCRIPTS.unshift("../../lib/lazy/web/web-lazy-loader-before");
 		}
 		await Promise.all(SCRIPTS.map(scriptPath => page.evaluateOnNewDocument(fs.readFileSync(require.resolve(scriptPath)).toString())));
 		await page.goto(options.url, {
