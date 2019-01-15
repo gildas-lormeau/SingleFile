@@ -33,8 +33,10 @@ const iconv = require("iconv-lite");
 const request = require("request-promise-native");
 
 const SCRIPTS = [
+	"../../lib/frame-tree/frame-tree.js",
 	"../../lib/single-file/util/doc-util.js",
 	"../../lib/single-file/util/doc-helper.js",
+	"../../lib/single-file/util/timeout.js",
 	"../../lib/single-file/vendor/css-tree.js",
 	"../../lib/single-file/vendor/html-srcset-parser.js",
 	"../../lib/single-file/vendor/css-minifier.js",
@@ -51,32 +53,6 @@ const SCRIPTS = [
 	"../../lib/single-file/single-file-core.js"
 ];
 
-SCRIPTS.forEach(scriptPath => eval(fs.readFileSync(require.resolve(scriptPath)).toString()));
-const docHelper = this.docHelper;
-const modules = {
-	docHelper: docHelper,
-	srcsetParser: this.srcsetParser,
-	cssMinifier: this.cssMinifier,
-	htmlMinifier: this.htmlMinifier,
-	serializer: this.serializer,
-	fontsMinifier: this.fontsMinifier.getInstance(this.cssTree, this.fontPropertyParser, docHelper),
-	fontsAltMinifier: this.fontsAltMinifier.getInstance(this.cssTree),
-	cssRulesMinifier: this.cssRulesMinifier.getInstance(this.cssTree),
-	matchedRules: this.matchedRules.getInstance(this.cssTree),
-	mediasAltMinifier: this.mediasAltMinifier.getInstance(this.cssTree, this.mediaQueryParser),
-	imagesAltMinifier: this.imagesAltMinifier.getInstance(this.srcsetParser)
-};
-const domUtil = {
-	getResourceContent,
-	parseDocContent,
-	parseSVGContent,
-	isValidFontUrl,
-	getContentSize,
-	digestText,
-	parseURL
-};
-const SingleFile = this.SingleFileCore.getClass(this.docUtil.getInstance(modules, domUtil), this.cssTree);
-exports.getClass = () => SingleFile;
 exports.getPageData = async options => {
 	const pageContent = (await request({
 		method: "GET",
@@ -90,7 +66,10 @@ exports.getPageData = async options => {
 	const jsdomOptions = {
 		url: options.url,
 		virtualConsole: new VirtualConsole(),
-		userAgent: options.userAgent
+		userAgent: options.userAgent,
+		pretendToBeVisual: true,
+		runScripts: "outside-only",
+		resources: "usable"
 	};
 	if (options.browserWidth && options.browserHeight) {
 		jsdomOptions.beforeParse = function (window) {
@@ -98,16 +77,74 @@ exports.getPageData = async options => {
 			window.outerHeight = window.innerHeight = options.browserHeight;
 		};
 	}
-	const dom = new JSDOM(pageContent, jsdomOptions);
-	options.win = dom.window;
-	options.doc = dom.window.document;
-	options.saveRawPage = true;
-	options.removeFrames = true;
-	const singleFile = new SingleFile(options);
-	await singleFile.initialize();
-	await singleFile.run();
-	return singleFile.getPageData();
+	let dom;
+	try {
+		dom = new JSDOM(pageContent, jsdomOptions);
+		const win = dom.window;
+		const doc = win.document;
+		const scripts = (await Promise.all(SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()))).join("\n");
+		dom.window.eval(scripts);
+		if (dom.window.document.readyState == "loading") {
+			await new Promise(resolve => win.document.onload = resolve);
+		}
+		win.Element.prototype.getBoundingClientRect = undefined;
+		executeFrameScripts(doc, scripts);
+		if (!options.saveRawPage && !options.removeFrames) {
+			options.framesData = await win.frameTree.getAsync(options);
+		}
+		options.win = win;
+		options.doc = doc;
+		const SingleFile = getSingleFileClass(win);
+		const singleFile = new SingleFile(options);
+		await singleFile.initialize();
+		await singleFile.run();
+		return singleFile.getPageData();
+	} finally {
+		if (dom && dom.window) {
+			dom.window.close();
+		}
+	}
 };
+
+function executeFrameScripts(doc, scripts) {
+	const frameElements = doc.querySelectorAll("iframe, frame");
+	frameElements.forEach(frameElement => {
+		try {
+			frameElement.contentWindow.Element.prototype.getBoundingClientRect = undefined;
+			frameElement.contentWindow.eval(scripts);
+			executeFrameScripts(frameElement.contentDocument, scripts);
+		} catch (error) {
+			// ignored
+		}
+	});
+}
+
+function getSingleFileClass(win) {
+	const docHelper = win.docHelper;
+	const modules = {
+		docHelper: docHelper,
+		srcsetParser: win.srcsetParser,
+		cssMinifier: win.cssMinifier,
+		htmlMinifier: win.htmlMinifier,
+		serializer: win.serializer,
+		fontsMinifier: win.fontsMinifier.getInstance(win.cssTree, win.fontPropertyParser, docHelper),
+		fontsAltMinifier: win.fontsAltMinifier.getInstance(win.cssTree),
+		cssRulesMinifier: win.cssRulesMinifier.getInstance(win.cssTree),
+		matchedRules: win.matchedRules.getInstance(win.cssTree),
+		mediasAltMinifier: win.mediasAltMinifier.getInstance(win.cssTree, win.mediaQueryParser),
+		imagesAltMinifier: win.imagesAltMinifier.getInstance(win.srcsetParser)
+	};
+	const domUtil = {
+		getResourceContent,
+		parseDocContent,
+		parseSVGContent,
+		isValidFontUrl,
+		getContentSize,
+		digestText,
+		parseURL
+	};
+	return win.SingleFileCore.getClass(win.docUtil.getInstance(modules, domUtil), win.cssTree);
+}
 
 function parseDocContent(content) {
 	return (new JSDOM(content, {
