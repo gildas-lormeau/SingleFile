@@ -87,7 +87,18 @@ exports.getPageData = async options => {
 			"User-Agent": options.userAgent
 		}
 	})).body.toString();
-	const dom = new JSDOM(pageContent, { url: options.url, virtualConsole: new VirtualConsole(), userAgent: options.userAgent });
+	const jsdomOptions = {
+		url: options.url,
+		virtualConsole: new VirtualConsole(),
+		userAgent: options.userAgent
+	};
+	if (options.browserWidth && options.browserHeight) {
+		jsdomOptions.beforeParse = function (window) {
+			window.outerWidth = window.innerWidth = options.browserWidth;
+			window.outerHeight = window.innerHeight = options.browserHeight;
+		};
+	}
+	const dom = new JSDOM(pageContent, jsdomOptions);
 	options.win = dom.window;
 	options.doc = dom.window.document;
 	options.saveRawPage = true;

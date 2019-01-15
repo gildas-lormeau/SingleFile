@@ -65,6 +65,14 @@ exports.getPageData = async options => {
 		}
 		builder.setChromeOptions(chromeOptions);
 		driver = await builder.forBrowser("chrome").build();
+		if (options.browserWidth && options.browserHeight) {
+			const window = driver.manage().window();
+			if (window.setRect) {
+				window.setRect(options.browserHeight, options.browserWidth);
+			} else if (window.setSize) {
+				window.setSize(options.browserWidth, options.browserHeight);
+			}
+		}
 		await driver.get(options.url);
 		let scripts = (await Promise.all(SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()))).join("\n");
 		if (options.loadDeferredImages) {

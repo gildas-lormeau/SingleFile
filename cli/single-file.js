@@ -35,6 +35,8 @@ const args = require("yargs")
 		"back-end": "puppeteer",
 		"browser-headless": true,
 		"browser-executable-path": "chrome",
+		"browser-width": 1280,
+		"browser-height": 720,
 		"compress-CSS": true,
 		"compress-HTML": true,
 		"group-duplicate-images": true,
@@ -61,6 +63,10 @@ const args = require("yargs")
 	.boolean("browser-headless")
 	.options("browser-executable-path", { description: "Path to chrome/chromium executable (puppeteer)" })
 	.string("browser-executable-path")
+	.options("browser-width", { description: "Width of the browser viewport in pixels" })
+	.number("browser-width")
+	.options("browser-height", { description: "Height of the browser viewport in pixels" })
+	.number("browser-height")
 	.options("compress-CSS", { description: "Compress CSS stylesheets" })
 	.boolean("compress-CSS")
 	.options("compress-HTML", { description: "Compress HTML content" })

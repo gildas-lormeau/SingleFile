@@ -68,6 +68,12 @@ exports.getPageData = async options => {
 		if (options.userAgent) {
 			await page.setUserAgent(options.userAgent);
 		}
+		if (options.browserWidth && options.browserHeight) {
+			await page.setViewport({
+				width: options.browserWidth,
+				height: options.browserHeight
+			});
+		}
 		if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
 			await page.setBypassCSP(true);
 		}
