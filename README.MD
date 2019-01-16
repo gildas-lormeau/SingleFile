@@ -58,6 +58,7 @@ See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=
   - The last saved path cannot be remembered by default. To circumvent this limitation, disable the option "Misc > Save pages in background".
 - Chrome/Opera:
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.  
+  - The following characters are replaced with _ in filenames: ~, \, ?, %, *, :, |, ", <, >
 
 ## Troubleshooting unknown issues
 Please follow these steps if you find an unknown issue:
