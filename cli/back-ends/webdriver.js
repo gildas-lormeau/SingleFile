@@ -89,9 +89,6 @@ exports.getPageData = async options => {
 			driver.executeScript(scripts);
 		}));
 		await driver.switchTo().window(mainWindowHandle);
-		if (options.loadDeferredImages) {
-			await driver.sleep(options.loadDeferredImagesMaxIdleTime || 1500);
-		}
 		return await driver.executeAsyncScript(getPageDataScript(), options);
 	} finally {
 		if (driver) {
