@@ -28,6 +28,7 @@ const chrome = require("selenium-webdriver/chrome");
 const { Builder } = require("selenium-webdriver");
 
 const SCRIPTS = [
+	"../../lib/hooks/hooks-frame.js",
 	"../../lib/frame-tree/frame-tree.js",
 	"../../lib/lazy/content/content-lazy-loader.js",
 	"../../lib/single-file/util/doc-util.js",
