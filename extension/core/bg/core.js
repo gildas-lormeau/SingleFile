@@ -58,7 +58,8 @@ singlefile.core = (() => {
 			"/lib/single-file/vendor/css-minifier.js"
 		],
 		loadDeferredImages: [
-			"/lib/lazy/content/content-lazy-loader.js"
+			"/lib/lazy/content/content-lazy-loader.js",
+			() => this.lazyLoader.getScriptPath = path => browser.runtime.getURL(path)
 		],
 		removeAlternativeImages: [
 			"/lib/single-file/modules/html-images-alt-minifier.js"
@@ -115,8 +116,12 @@ singlefile.core = (() => {
 	}
 
 	async function executeContentScripts(tabId, scriptFiles, allFrames, runAt) {
-		for (const file of scriptFiles) {
-			await browser.tabs.executeScript(tabId, { file, allFrames, runAt });
+		for (const script of scriptFiles) {
+			if (typeof script == "function") {
+				await browser.tabs.executeScript(tabId, { code: "(" + script.toString() + ")()", allFrames, runAt });
+			} else {
+				await browser.tabs.executeScript(tabId, { file: script, allFrames, runAt });
+			}
 		}
 	}
 

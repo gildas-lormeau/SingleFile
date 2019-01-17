@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global require, exports, SingleFileBrowser, frameTree, document, window */
+/* global require, exports, SingleFileBrowser, frameTree, lazyLoader, document, window */
 
 const fs = require("fs");
 
@@ -30,6 +30,7 @@ const puppeteer = require("puppeteer-core");
 const SCRIPTS = [
 	"../../lib/hooks/hooks-frame.js",
 	"../../lib/frame-tree/frame-tree.js",
+	"../../lib/lazy/content/content-lazy-loader.js",
 	"../../lib/single-file/util/doc-util.js",
 	"../../lib/single-file/util/doc-helper.js",
 	"../../lib/single-file/util/timeout.js",
@@ -51,6 +52,10 @@ const SCRIPTS = [
 ];
 
 exports.getPageData = async options => {
+	const RESOLVED_CONTENTS = {
+		"lib/lazy/web/web-lazy-loader-before.js": fs.readFileSync(require.resolve("../../lib/lazy/web/web-lazy-loader-before.js")).toString(),
+		"lib/lazy/web/web-lazy-loader-after.js": fs.readFileSync(require.resolve("../../lib/lazy/web/web-lazy-loader-after.js")).toString()
+	};
 	const browserOptions = {};
 	if (options.browserHeadless !== undefined) {
 		browserOptions.headless = options.browserHeadless;
@@ -77,19 +82,25 @@ exports.getPageData = async options => {
 		if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
 			await page.setBypassCSP(true);
 		}
-		if (options.loadDeferredImages) {
-			SCRIPTS.unshift("../../lib/lazy/web/web-lazy-loader-before");
-		}
-		await Promise.all(SCRIPTS.map(scriptPath => page.evaluateOnNewDocument(fs.readFileSync(require.resolve(scriptPath)).toString())));
+		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
+		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
+		await page.evaluateOnNewDocument(scripts);
 		await page.goto(options.url, {
 			waitUntil: "networkidle0"
 		});
 		return await page.evaluate(async options => {
 			options.insertSingleFileComment = true;
 			options.insertFaviconLink = true;
-			if (!options.saveRawPage && !options.removeFrames) {
-				options.framesData = await frameTree.getAsync(options);
+			const preInitializationPromises = [];
+			if (!options.saveRawPage) {
+				if (!options.removeFrames) {
+					preInitializationPromises.push(frameTree.getAsync(options));
+				}
+				if (options.loadDeferredImages) {
+					preInitializationPromises.push(lazyLoader.process(options));
+				}
 			}
+			[options.framesData] = await Promise.all(preInitializationPromises);
 			options.doc = document;
 			options.win = window;
 			const SingleFile = SingleFileBrowser.getClass();

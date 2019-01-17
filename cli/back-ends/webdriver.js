@@ -29,6 +29,7 @@ const { Builder } = require("selenium-webdriver");
 
 const SCRIPTS = [
 	"../../lib/frame-tree/frame-tree.js",
+	"../../lib/lazy/content/content-lazy-loader.js",
 	"../../lib/single-file/util/doc-util.js",
 	"../../lib/single-file/util/doc-helper.js",
 	"../../lib/single-file/util/timeout.js",
@@ -50,6 +51,10 @@ const SCRIPTS = [
 ];
 
 exports.getPageData = async options => {
+	const RESOLVED_CONTENTS = {
+		"lib/lazy/web/web-lazy-loader-before.js": fs.readFileSync(require.resolve("../../lib/lazy/web/web-lazy-loader-before.js")).toString(),
+		"lib/lazy/web/web-lazy-loader-after.js": fs.readFileSync(require.resolve("../../lib/lazy/web/web-lazy-loader-after.js")).toString()
+	};
 	let driver;
 	try {
 		const builder = new Builder();
@@ -75,9 +80,7 @@ exports.getPageData = async options => {
 		}
 		await driver.get(options.url);
 		let scripts = (await Promise.all(SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()))).join("\n");
-		if (options.loadDeferredImages) {
-			scripts += "\ntry {\n" + fs.readFileSync(require.resolve("../../lib/lazy/web/web-lazy-loader-before")) + "\n} catch (error) {}";
-		}
+		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
 		const mainWindowHandle = driver.getWindowHandle();
 		const windowHandles = await driver.getAllWindowHandles();
 		await Promise.all(windowHandles.map(async windowHandle => {
@@ -104,9 +107,16 @@ function getPageDataScript() {
 	async function getPageData() {
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
-		if (!options.saveRawPage && !options.removeFrames) {
-			options.framesData = await frameTree.getAsync(options);
-		}	
+		const preInitializationPromises = [];
+		if (!options.saveRawPage) {
+			if (!options.removeFrames) {
+				preInitializationPromises.push(frameTree.getAsync(options));
+			}
+			if (options.loadDeferredImages) {
+				preInitializationPromises.push(lazyLoader.process(options));
+			}
+		}
+		[options.framesData] = await Promise.all(preInitializationPromises);
 		options.doc = document;
 		options.win = window;
 		const SingleFile = SingleFileBrowser.getClass();

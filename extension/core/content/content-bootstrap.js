@@ -97,21 +97,21 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 		if (!singlefile.pageAutoSaved || options.autoSaveUnload) {
 			options.sessionId = 0;
 			const docData = docHelper.preProcessDoc(document, window, options);
-			const framesData = this.frameTree && !options.removeFrames && frameTree.getSync(options);
-			browser.runtime.sendMessage({
-				autoSaveContent: true,
-				content: docHelper.serialize(document),
-				canvasData: docData.canvasData,
-				fontsData: docData.fontsData,
-				stylesheetContents: docData.stylesheetContents,
-				imageData: docData.imageData,
-				postersData: docData.postersData,
-				usedFonts: docData.usedFonts,
-				shadowRootContents: docData.shadowRootContents,
-				framesData,
-				url: location.href
-			});
+			if (this.frameTree && !options.removeFrames) {
+				browser.runtime.sendMessage({
+					autoSaveContent: true,
+					content: docHelper.serialize(document),
+					canvasData: docData.canvasData,
+					fontsData: docData.fontsData,
+					stylesheetContents: docData.stylesheetContents,
+					imageData: docData.imageData,
+					postersData: docData.postersData,
+					usedFonts: docData.usedFonts,
+					shadowRootContents: docData.shadowRootContents,
+					framesData: frameTree.getSync(options),
+					url: location.href
+				});
+			}
 		}
 	}
-
 })();
