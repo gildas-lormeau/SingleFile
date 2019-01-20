@@ -76,20 +76,16 @@ singlefile.ui.menu = (() => {
 					contexts: pageContextsEnabled,
 					title: browser.i18n.getMessage("menuSavePage")
 				});
-			}
-			if (options.contextMenuEnabled) {
 				menus.create({
 					id: "separator-1",
 					contexts: pageContextsEnabled,
 					type: "separator"
 				});
-			}
-			menus.create({
-				id: MENU_ID_SAVE_SELECTED,
-				contexts: defaultContexts,
-				title: browser.i18n.getMessage("menuSaveSelection")
-			});
-			if (options.contextMenuEnabled) {
+				menus.create({
+					id: MENU_ID_SAVE_SELECTED,
+					contexts: defaultContexts.concat("selection"),
+					title: browser.i18n.getMessage("menuSaveSelection")
+				});
 				menus.create({
 					id: MENU_ID_SAVE_FRAME,
 					contexts: ["frame"],
@@ -135,8 +131,6 @@ singlefile.ui.menu = (() => {
 					contexts: pageContextsEnabled,
 					title: browser.i18n.getMessage("menuSaveAllTabs")
 				});
-			}
-			if (options.contextMenuEnabled) {
 				menus.create({
 					id: "separator-2",
 					contexts: pageContextsEnabled,
