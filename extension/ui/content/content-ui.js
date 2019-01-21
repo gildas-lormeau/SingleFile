@@ -117,7 +117,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	function markSelectedContent() {
 		const selection = getSelection();
 		for (let indexRange = 0; indexRange < selection.rangeCount; indexRange++) {
-			let selectionFound = true;;
+			let selectionFound = false;
 			let range = selection.getRangeAt(indexRange);
 			if (range && range.commonAncestorContainer) {
 				const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
