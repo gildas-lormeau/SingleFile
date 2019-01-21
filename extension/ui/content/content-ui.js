@@ -121,6 +121,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			let range = selection.getRangeAt(indexRange);
 			if (range && range.commonAncestorContainer) {
 				const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
+				markSelectedParents(treeWalker.currentNode);
 				if (treeWalker.currentNode == range.endContainer) {
 					selectionFound = true;
 					markSelectedNode(treeWalker.currentNode);
@@ -144,8 +145,12 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	function markSelectedNode(node) {
 		const element = node.nodeType == Node.ELEMENT_NODE ? node : node.parentElement;
 		element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+	}
+
+	function markSelectedParents(node) {
 		if (node.parentElement) {
-			markSelectedNode(node.parentElement);
+			markSelectedNode(node);
+			markSelectedParents(node.parentElement);
 		}
 	}
 
