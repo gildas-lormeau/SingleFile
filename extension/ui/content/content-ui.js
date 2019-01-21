@@ -118,13 +118,13 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		const selection = getSelection();
 		let selectionFound;
 		for (let indexRange = 0; indexRange < selection.rangeCount; indexRange++) {
-			let rangeSelectionFound = false;
 			let range = selection.getRangeAt(indexRange);
 			if (range && range.commonAncestorContainer) {
 				const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
 				if (treeWalker.currentNode == range.endContainer) {
 					markSelectedNode(treeWalker.currentNode);
 				} else {
+					let rangeSelectionFound = false;
 					while (treeWalker.currentNode != range.endContainer) {
 						if (rangeSelectionFound || treeWalker.currentNode == range.startContainer || treeWalker.currentNode == range.endContainer) {
 							rangeSelectionFound = true;
