@@ -156,6 +156,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	function markSelectedArea(selectedAreaElement) {
 		selectedAreaElement.querySelectorAll("*").forEach(element => markSelectedNode(element));
+		markSelectedParents(selectedAreaElement);
 	}
 
 	function unmarkSelection() {
