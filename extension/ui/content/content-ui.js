@@ -122,22 +122,31 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			if (range && range.commonAncestorContainer) {
 				const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
 				const ancestorElement = range.commonAncestorContainer != Node.ELEMENT_NODE ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
-				while (treeWalker.nextNode() && treeWalker.currentNode != range.endContainer) {
-					if (treeWalker.currentNode == range.startContainer) {
+				if (treeWalker.currentNode == range.endContainer) {
+					selectionFound = true;
+					markSelectedNode(treeWalker.currentNode);
+				}
+				while (treeWalker.currentNode != range.endContainer) {
+					if (treeWalker.currentNode == range.startContainer || treeWalker.currentNode == range.endContainer) {
 						selectionFound = true;
 					}
 					if (selectionFound) {
-						const element = treeWalker.currentNode.nodeType == Node.ELEMENT_NODE ? treeWalker.currentNode : treeWalker.currentNode.parentElement;
-						element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+						markSelectedNode(treeWalker.currentNode);
 					}
+					treeWalker.nextNode();
 				}
-				if (selectionFound || treeWalker.currentNode == range.endContainer) {
+				if (selectionFound) {
 					ancestorElement.setAttribute(SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
 					contentSelected = true;
 				}
 			}
 		}
 		return contentSelected;
+	}
+
+	function markSelectedNode(node) {
+		const element = node.nodeType == Node.ELEMENT_NODE ? node : node.parentElement;
+		element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, "");
 	}
 
 	function markSelectedArea(selectedAreaElement) {
