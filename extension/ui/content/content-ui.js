@@ -116,8 +116,9 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	function markSelectedContent() {
 		const selection = getSelection();
+		let selectionFound;
 		for (let indexRange = 0; indexRange < selection.rangeCount; indexRange++) {
-			let selectionFound = false;
+			let rangeSelectionFound = false;
 			let range = selection.getRangeAt(indexRange);
 			if (range && range.commonAncestorContainer) {
 				const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
@@ -125,7 +126,8 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 					markSelectedNode(treeWalker.currentNode);
 				} else {
 					while (treeWalker.currentNode != range.endContainer) {
-						if (selectionFound || treeWalker.currentNode == range.startContainer || treeWalker.currentNode == range.endContainer) {
+						if (rangeSelectionFound || treeWalker.currentNode == range.startContainer || treeWalker.currentNode == range.endContainer) {
+							rangeSelectionFound = true;
 							selectionFound = true;
 							markSelectedNode(treeWalker.currentNode);
 						}
@@ -134,7 +136,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				}
 			}
 		}
-		return Boolean(selection.rangeCount);
+		return selectionFound;
 	}
 
 	function markSelectedNode(node) {
@@ -146,7 +148,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	}
 
 	function markSelectedArea(selectedAreaElement) {
-		selectedAreaElement.querySelectorAll("*").forEach(element => element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, ""));
+		selectedAreaElement.querySelectorAll("*").forEach(element => markSelectedNode(element));
 	}
 
 	function unmarkSelection() {
