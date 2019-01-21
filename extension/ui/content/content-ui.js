@@ -116,25 +116,28 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	function markSelectedContent() {
 		const selection = getSelection();
-		const range = selection.rangeCount ? selection.getRangeAt(0) : null;
-		let selectionFound = false;
-		if (range && range.commonAncestorContainer) {
-			const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
-			const ancestorElement = range.commonAncestorContainer != Node.ELEMENT_NODE ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
-			while (treeWalker.nextNode() && treeWalker.currentNode != range.endContainer) {
-				if (treeWalker.currentNode == range.startContainer) {
-					selectionFound = true;
+		let contentSelected = false;
+		for (let indexRange = 0, selectionFound = false, range; indexRange < selection.rangeCount; indexRange++) {
+			range = selection.getRangeAt(indexRange);
+			if (range && range.commonAncestorContainer) {
+				const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
+				const ancestorElement = range.commonAncestorContainer != Node.ELEMENT_NODE ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
+				while (treeWalker.nextNode() && treeWalker.currentNode != range.endContainer) {
+					if (treeWalker.currentNode == range.startContainer) {
+						selectionFound = true;
+					}
+					if (selectionFound) {
+						const element = treeWalker.currentNode.nodeType == Node.ELEMENT_NODE ? treeWalker.currentNode : treeWalker.currentNode.parentElement;
+						element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+					}
 				}
-				if (selectionFound) {
-					const element = treeWalker.currentNode.nodeType == Node.ELEMENT_NODE ? treeWalker.currentNode : treeWalker.currentNode.parentElement;
-					element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+				if (selectionFound || treeWalker.currentNode == range.endContainer) {
+					ancestorElement.setAttribute(SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
+					contentSelected = true;
 				}
-			}
-			if (selectionFound) {
-				ancestorElement.setAttribute(SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
 			}
 		}
-		return selectionFound;
+		return contentSelected;
 	}
 
 	function markSelectedArea(selectedAreaElement) {
