@@ -116,31 +116,25 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	function markSelectedContent() {
 		const selection = getSelection();
-		let contentSelected = false;
-		for (let indexRange = 0, selectionFound = false, range; indexRange < selection.rangeCount; indexRange++) {
-			range = selection.getRangeAt(indexRange);
+		for (let indexRange = 0; indexRange < selection.rangeCount; indexRange++) {
+			let selectionFound = true;;
+			let range = selection.getRangeAt(indexRange);
 			if (range && range.commonAncestorContainer) {
 				const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
 				if (treeWalker.currentNode == range.endContainer) {
-					selectionFound = true;
 					markSelectedNode(treeWalker.currentNode);
 				} else {
 					while (treeWalker.currentNode != range.endContainer) {
-						if (treeWalker.currentNode == range.startContainer || treeWalker.currentNode == range.endContainer) {
+						if (selectionFound || treeWalker.currentNode == range.startContainer || treeWalker.currentNode == range.endContainer) {
 							selectionFound = true;
-						}
-						if (selectionFound) {
 							markSelectedNode(treeWalker.currentNode);
 						}
 						treeWalker.nextNode();
 					}
 				}
-				if (selectionFound) {
-					contentSelected = true;
-				}
 			}
 		}
-		return contentSelected;
+		return Boolean(selection.rangeCount);
 	}
 
 	function markSelectedNode(node) {
