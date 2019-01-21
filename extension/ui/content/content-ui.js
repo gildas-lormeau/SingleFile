@@ -122,7 +122,9 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			if (range && range.commonAncestorContainer) {
 				const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
 				if (treeWalker.currentNode == range.endContainer) {
+					selectionFound = true;
 					markSelectedNode(treeWalker.currentNode);
+					treeWalker.currentNode.querySelectorAll("*").forEach(descendantElement => markSelectedNode(descendantElement));
 				} else {
 					let rangeSelectionFound = false;
 					while (treeWalker.currentNode != range.endContainer) {
