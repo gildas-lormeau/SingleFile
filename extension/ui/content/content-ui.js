@@ -121,22 +121,22 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			range = selection.getRangeAt(indexRange);
 			if (range && range.commonAncestorContainer) {
 				const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
-				const ancestorElement = range.commonAncestorContainer != Node.ELEMENT_NODE ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
+				// const ancestorElement = range.commonAncestorContainer != Node.ELEMENT_NODE ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
 				if (treeWalker.currentNode == range.endContainer) {
 					selectionFound = true;
 					markSelectedNode(treeWalker.currentNode);
-				}
-				while (treeWalker.currentNode != range.endContainer) {
-					if (treeWalker.currentNode == range.startContainer || treeWalker.currentNode == range.endContainer) {
-						selectionFound = true;
+				} else {
+					while (treeWalker.currentNode != range.endContainer) {
+						if (treeWalker.currentNode == range.startContainer || treeWalker.currentNode == range.endContainer) {
+							selectionFound = true;
+						}
+						if (selectionFound) {
+							markSelectedNode(treeWalker.currentNode);
+						}
+						treeWalker.nextNode();
 					}
-					if (selectionFound) {
-						markSelectedNode(treeWalker.currentNode);
-					}
-					treeWalker.nextNode();
 				}
 				if (selectionFound) {
-					ancestorElement.setAttribute(SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
 					contentSelected = true;
 				}
 			}
@@ -147,16 +147,17 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	function markSelectedNode(node) {
 		const element = node.nodeType == Node.ELEMENT_NODE ? node : node.parentElement;
 		element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+		if (node.parentElement) {
+			markSelectedNode(node.parentElement);
+		}
 	}
 
 	function markSelectedArea(selectedAreaElement) {
-		selectedAreaElement.setAttribute(SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME, "");
 		selectedAreaElement.querySelectorAll("*").forEach(element => element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, ""));
 	}
 
 	function unmarkSelection() {
 		document.querySelectorAll("[" + SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME));
-		document.querySelectorAll("[" + SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SingleFile.SELECTED_CONTENT_ROOT_ATTRIBUTE_NAME));
 	}
 
 	function getSelectedArea() {
