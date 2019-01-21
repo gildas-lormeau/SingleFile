@@ -121,7 +121,6 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			range = selection.getRangeAt(indexRange);
 			if (range && range.commonAncestorContainer) {
 				const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
-				// const ancestorElement = range.commonAncestorContainer != Node.ELEMENT_NODE ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
 				if (treeWalker.currentNode == range.endContainer) {
 					selectionFound = true;
 					markSelectedNode(treeWalker.currentNode);
