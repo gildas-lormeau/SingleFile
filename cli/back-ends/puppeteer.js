@@ -86,7 +86,7 @@ exports.getPageData = async options => {
 		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
 		await page.evaluateOnNewDocument(scripts);
 		await page.goto(options.url, {
-			waitUntil: "networkidle0"
+			waitUntil: options.browserWaitUntil || "networkidle0"
 		});
 		return await page.evaluate(async options => {
 			options.insertSingleFileComment = true;

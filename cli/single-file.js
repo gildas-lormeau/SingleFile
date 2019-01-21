@@ -37,6 +37,7 @@ const args = require("yargs")
 		"browser-executable-path": "chrome",
 		"browser-width": 1280,
 		"browser-height": 720,
+		"browser-wait-until": "networkidle0",
 		"compress-CSS": true,
 		"compress-HTML": true,
 		"group-duplicate-images": true,
@@ -67,6 +68,8 @@ const args = require("yargs")
 	.number("browser-width")
 	.options("browser-height", { description: "Height of the browser viewport in pixels" })
 	.number("browser-height")
+	.options("browser-wait-until", { description: "When to consider the page is loaded (puppeteer)" })
+	.choices("browser-wait-until", ["networkidle0", "networkidle2", "load", "domcontentloaded"])
 	.options("compress-CSS", { description: "Compress CSS stylesheets" })
 	.boolean("compress-CSS")
 	.options("compress-HTML", { description: "Compress HTML content" })
