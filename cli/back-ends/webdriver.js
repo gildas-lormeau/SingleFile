@@ -104,7 +104,6 @@ function getPageDataScript() {
 
 	async function getPageData() {
 		options.insertSingleFileComment = true;
-		options.insertFaviconLink = true;
 		const preInitializationPromises = [];
 		if (!options.saveRawPage) {
 			if (!options.removeFrames) {

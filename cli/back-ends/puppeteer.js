@@ -90,7 +90,6 @@ exports.getPageData = async options => {
 		});
 		return await page.evaluate(async options => {
 			options.insertSingleFileComment = true;
-			options.insertFaviconLink = true;
 			const preInitializationPromises = [];
 			if (!options.saveRawPage) {
 				if (!options.removeFrames) {

@@ -72,7 +72,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 		const processor = new SingleFile(options);
 		const preInitializationPromises = [];
 		options.insertSingleFileComment = true;
-		options.insertFaviconLink = true;
 		if (!options.saveRawPage) {
 			if (!options.removeFrames && this.frameTree) {
 				let frameTreePromise;
