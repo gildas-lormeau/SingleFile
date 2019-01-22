@@ -2,7 +2,7 @@
 
 ## Introduction
 
-SingleFile can be launched from the command line by running it into a (headless) browser. It is run as a standalone script injected into the page to save.
+SingleFile can be launched from the command line by running it into a (headless) browser. It runs as a standalone script injected into the page to save instead of being embedded into a WebExtension.
 
 It supports:
 
