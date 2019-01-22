@@ -1,4 +1,4 @@
-# SingleFile (command-line mode)
+# SingleFile (Command Line Interface)
 
 ## Introduction
 
