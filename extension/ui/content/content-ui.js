@@ -121,21 +121,25 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			let range = selection.getRangeAt(indexRange);
 			if (range && range.commonAncestorContainer) {
 				const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
-				markSelectedParents(treeWalker.currentNode);
-				if (treeWalker.currentNode == range.endContainer) {
-					selectionFound = true;
-					markSelectedNode(treeWalker.currentNode);
-					treeWalker.currentNode.querySelectorAll("*").forEach(descendantElement => markSelectedNode(descendantElement));
-				} else {
-					let rangeSelectionFound = false;
-					while (treeWalker.currentNode != range.endContainer) {
-						if (rangeSelectionFound || treeWalker.currentNode == range.startContainer || treeWalker.currentNode == range.endContainer) {
-							rangeSelectionFound = true;
-							selectionFound = true;
-							markSelectedNode(treeWalker.currentNode);
-						}
+				let rangeSelectionFound = false;
+				let finished = false;
+				while (!finished) {
+					if (rangeSelectionFound || treeWalker.currentNode == range.startContainer || treeWalker.currentNode == range.endContainer) {
+						rangeSelectionFound = true;
+						selectionFound = true;
+						markSelectedNode(treeWalker.currentNode);
+					}
+					if (treeWalker.currentNode == range.startContainer) {
+						markSelectedParents(treeWalker.currentNode);
+					}
+					if (treeWalker.currentNode == range.endContainer) {
+						finished = true;
+					} else {
 						treeWalker.nextNode();
 					}
+				}
+				if (treeWalker.currentNode == range.endContainer && treeWalker.currentNode.querySelectorAll) {
+					treeWalker.currentNode.querySelectorAll("*").forEach(descendantElement => markSelectedNode(descendantElement));
 				}
 			}
 		}
