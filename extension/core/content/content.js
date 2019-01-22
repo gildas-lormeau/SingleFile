@@ -129,7 +129,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 		[options.framesData] = await Promise.all(preInitializationPromises);
 		options.doc = document;
 		options.win = window;
-		await processor.initialize();
 		await processor.run();
 		if (options.confirmInfobarContent) {
 			options.infobarContent = singlefile.ui.prompt("Infobar content", options.infobarContent) || "";

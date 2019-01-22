@@ -96,7 +96,6 @@ exports.getPageData = async options => {
 		options.doc = doc;
 		const SingleFile = getSingleFileClass(win);
 		const singleFile = new SingleFile(options);
-		await singleFile.initialize();
 		await singleFile.run();
 		return singleFile.getPageData();
 	} finally {

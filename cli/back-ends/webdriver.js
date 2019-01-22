@@ -118,7 +118,6 @@ function getPageDataScript() {
 		options.win = window;
 		const SingleFile = SingleFileBrowser.getClass();
 		const singleFile = new SingleFile(options);
-		await singleFile.initialize();
 		await singleFile.run();
 		return await singleFile.getPageData();
 	}

@@ -112,7 +112,6 @@ singlefile.autosave = (() => {
 			}
 		};
 		const processor = new (SingleFileBrowser.getClass())(options);
-		await processor.initialize();
 		await processor.run();
 		const page = await processor.getPageData();
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
