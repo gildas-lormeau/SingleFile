@@ -8,6 +8,7 @@ SingleFile is a WebExtension compatible with Chrome, Firefox (Desktop and Mobile
  - [Additional notes](#additional-notes)
  - [More info](#more-info)
  - [Statistics (Firefox)](#statistics-firefox)
+ - [Command Line Interface](#command-line-interface)
  - [Known issues](#known-issues)
  - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
  - [Contributors](#contributors)
@@ -51,6 +52,9 @@ See the extension help in the options page for more detailed information about t
 
 ## Statistics (Firefox)
 See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=90
+
+## Command Line Interface
+See https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD
 
 ## Known Issues
 - All browsers:
