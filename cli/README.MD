@@ -12,13 +12,13 @@ It supports:
 
 This is a **work in progress**.
 
-# Run SingleFile
+## Run SingleFile
 
-## Prerequisites
+### Prerequisites
 - [Chrome/Chromium](https://www.google.com/chrome/) and [Node.js](https://nodejs.org) must be installed first. It is recommended that Chrome/Chromium executable can be found through the `PATH` environment variable. Otherwise you will need to use the `--browser-executable-path` option to help SingleFile locating the executable.
 - By default SingleFile will use Puppeteer to connect to the browser. If you want to use Selenium WebDriver instead, you must install it first and ensure the executable can be found through the `PATH` environment variable.
 
-## Install
+### Install
 - Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk.
 
   `$ unzip master.zip .`
@@ -35,7 +35,7 @@ This is a **work in progress**.
 
   `$ chmod +x single-file.js`
 
-## Run
+### Run
 - Display help
 
   `$ ./single-file.js --help` (Linux/Unix)
