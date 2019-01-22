@@ -42,4 +42,10 @@ This is a **work in progress**.
   `$ ./single-file.js https://www.wikipedia.org wikipedia.html` (Linux/Unix/BSD etc.)
   
   `> node single-file.js https://www.wikipedia.org wikipedia.html` (Windows)
+
+- Saving https://www.wikipedia.org into `wikipedia.html` with jsdom instead of Puppeteer
+
+  `$ ./single-file.js https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Linux/Unix/BSD etc.)
+  
+  `> node single-file.js https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Windows)
  
