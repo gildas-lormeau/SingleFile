@@ -47,7 +47,6 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 	async function autoSavePage() {
 		if ((!autoSavingPage || autoSaveTimeout) && !singlefile.pageAutoSaved) {
 			autoSavingPage = true;
-			options.sessionId = 0;
 			if (options.autoSaveDelay && !autoSaveTimeout) {
 				autoSaveTimeout = setTimeout(() => {
 					autoSavePage();
@@ -95,7 +94,6 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 
 	function onUnload() {
 		if (!singlefile.pageAutoSaved || options.autoSaveUnload) {
-			options.sessionId = 0;
 			const docData = docHelper.preProcessDoc(document, window, options);
 			if (this.frameTree && !options.removeFrames) {
 				browser.runtime.sendMessage({
