@@ -2,7 +2,7 @@
 
 ## Introduction
 
-SingleFile can be launched from the command line by running it into a (headless) browser. It runs through Node.js as a standalone script injected into the page to save instead of being embedded into a WebExtension. To connect to the browser, it can use [Puppeteer](https://github.com/GoogleChrome/puppeteer) or [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver). Alternatively, it can also emulate a browser in Node.js with [jsdom](https://github.com/jsdom/jsdom).
+SingleFile can be launched from the command line by running it into a (headless) browser. It runs through Node.js as a standalone script injected into the page to save instead of being embedded into a WebExtension. To connect to the browser, it can use [Puppeteer](https://github.com/GoogleChrome/puppeteer) or [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver). Alternatively, it can also emulate a browser with JavaScript disabled by using [jsdom](https://github.com/jsdom/jsdom).
 
 This is a **work in progress**.
 
