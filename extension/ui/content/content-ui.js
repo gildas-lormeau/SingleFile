@@ -105,12 +105,10 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		if (selectionFound) {
 			return selectionFound;
 		} else {
-			const selectedArea = await getSelectedArea();
-			if (selectedArea) {
-				markSelectedArea(selectedArea);
-				selectionFound = true;
+			selectionFound = await selectArea();
+			if (selectionFound) {
+				return markSelectedContent();
 			}
-			return selectionFound;
 		}
 	}
 
@@ -160,23 +158,21 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		}
 	}
 
-	function markSelectedArea(selectedAreaElement) {
-		selectedAreaElement.querySelectorAll("*").forEach(element => markSelectedNode(element));
-		markSelectedParents(selectedAreaElement);
-	}
-
 	function unmarkSelection() {
 		document.querySelectorAll("[" + SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME));
 	}
 
-	function getSelectedArea() {
+	function selectArea() {
 		return new Promise(resolve => {
+			let contentSelected;
 			addEventListener("mousemove", mousemoveListener, true);
 			addEventListener("click", clickListener, true);
 			addEventListener("keyup", keypressListener, true);
 			document.addEventListener("contextmenu", contextmenuListener, true);
+			getSelection().removeAllRanges();
 
 			function contextmenuListener(event) {
+				contentSelected = false;
 				select();
 				event.preventDefault();
 			}
@@ -190,24 +186,51 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			}
 
 			function clickListener(event) {
-				select(event.button === 0 ? selectedAreaElement : null);
+				if (event.button == 0) {
+					select(selectedAreaElement, event.ctrlKey);
+				} else {
+					cancel();
+				}
 				event.preventDefault();
 				event.stopPropagation();
+				event.stopImmediatePropagation();
 			}
 
 			function keypressListener(event) {
 				if (event.key == "Escape") {
-					select();
+					cancel();
 				}
 			}
 
-			function select(selectedElement) {
+			function cancel() {
+				if (contentSelected) {
+					getSelection().removeAllRanges();
+				}
+				contentSelected = false;
+				cleanupAndResolve();
+			}
+
+			function select(selectedElement, multiSelect) {
+				if (selectedElement) {
+					contentSelected = true;
+					const range = document.createRange();
+					range.selectNodeContents(selectedElement);
+					getSelection().addRange(range);
+					if (!multiSelect) {
+						cleanupAndResolve();
+					}
+				} else {
+					cleanupAndResolve();
+				}
+			}
+
+			function cleanupAndResolve() {
+				getAreaSelector().remove();
 				removeEventListener("mousemove", mousemoveListener, true);
 				removeEventListener("click", clickListener, true);
 				removeEventListener("keyup", keypressListener, true);
-				createAreaSelector().remove();
-				resolve(selectedElement);
 				selectedAreaElement = null;
+				resolve(contentSelected);
 				setTimeout(() => document.removeEventListener("contextmenu", contextmenuListener, true), 0);
 			}
 		});
@@ -234,7 +257,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	function moveAreaSelector(target) {
 		requestAnimationFrame(() => {
-			const selectorElement = createAreaSelector();
+			const selectorElement = getAreaSelector();
 			const boundingRect = target.getBoundingClientRect();
 			selectorElement.style.setProperty("top", (document.documentElement.scrollTop + boundingRect.top - 10) + "px");
 			selectorElement.style.setProperty("left", (document.documentElement.scrollLeft + boundingRect.left - 10) + "px");
@@ -243,7 +266,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		});
 	}
 
-	function createAreaSelector() {
+	function getAreaSelector() {
 		let selectorElement = document.querySelector(SELECTION_ZONE_TAGNAME);
 		if (!selectorElement) {
 			selectorElement = createElement(SELECTION_ZONE_TAGNAME, document.body);
