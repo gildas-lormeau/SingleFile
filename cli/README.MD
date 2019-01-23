@@ -48,4 +48,6 @@ This is a **work in progress**.
   `$ ./single-file.js https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Linux/Unix/BSD etc.)
   
   `> node single-file.js https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Windows)
- 
+  
+## License
+SingleFile is licensed under AGPL and GPL. Code derived from third-party projects is licensed under MIT. Please contact me at gildas.lormeau &lt;at&gt; gmail.com if you are interested in licensing the SingleFile code for a commercial service or product.
