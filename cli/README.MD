@@ -14,7 +14,7 @@ This is a **work in progress**.
 - By default SingleFile will use Puppeteer to connect to the browser. If you want to use Selenium WebDriver instead, you must install it first and ensure the executable can be found through the `PATH` environment variable.
 
 ### Install
-- Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk.
+- Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk in an empty folder.
 
   `$ unzip master.zip .`
   
