@@ -215,12 +215,24 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 					contentSelected = true;
 					const range = document.createRange();
 					range.selectNodeContents(selectedElement);
+					cleanupSelectionRanges();
 					getSelection().addRange(range);
 					if (!multiSelect) {
 						cleanupAndResolve();
 					}
 				} else {
 					cleanupAndResolve();
+				}
+			}
+
+			function cleanupSelectionRanges() {
+				const selection = getSelection();
+				for (let indexRange = selection.rangeCount - 1; indexRange >= 0; indexRange--) {
+					const range = selection.getRangeAt(indexRange);
+					if (range.startOffset == range.endOffset) {
+						selection.removeRange(range);
+						indexRange--;
+					}
 				}
 			}
 
