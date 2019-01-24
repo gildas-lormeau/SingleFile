@@ -249,10 +249,8 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			}
 
 			function restoreSelectedRanges() {
-				if (selectedRanges.length) {
-					getSelection().removeAllRanges();
-					selectedRanges.forEach(range => getSelection().addRange(range));
-				}
+				getSelection().removeAllRanges();
+				selectedRanges.forEach(range => getSelection().addRange(range));
 			}
 
 			function saveSelectedRanges() {
