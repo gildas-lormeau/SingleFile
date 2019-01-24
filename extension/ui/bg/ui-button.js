@@ -22,8 +22,8 @@
 
 singlefile.ui.button = (() => {
 
-	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_16.png";
-	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_16_wait";
+	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_128.png";
+	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_128_wait";
 	const DEFAULT_TITLE = browser.i18n.getMessage("buttonDefaultTooltip");
 	const DEFAULT_COLOR = [2, 147, 20, 255];
 
