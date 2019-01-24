@@ -6,7 +6,6 @@ SingleFile is a WebExtension compatible with Chrome, Firefox (Desktop and Mobile
  - [Install](#install)
  - [Getting started](#getting-started)
  - [Additional notes](#additional-notes)
- - [More info](#more-info)
  - [Statistics (Firefox)](#statistics-firefox)
  - [Command Line Interface](#command-line-interface)
  - [Known issues](#known-issues)
@@ -47,9 +46,7 @@ SingleFile can be installed on:
  - Right-click on the SingleFile button and select "Options"/"Manage extension" to open the options page.
  - The default save folder is the download folder configured in your browser, cf. about:preferences in Firefox and chrome://settings in Chrome.
  - You can use the shortcut Ctrl+Shift+Y to save the current tab or selected tabs. Go to chrome://extensions/shortcuts to change it in Chrome.
-
-## More info
-See the extension help in the options page for more detailed information about the options and technical notes.
+ - See the extension help in the options page for more detailed information about the options and technical notes.
 
 ## Statistics (Firefox)
 See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=90
