@@ -126,10 +126,10 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 						rangeSelectionFound = true;
 						if (range.startOffset != range.endOffset) {
 							selectionFound = true;
+							markSelectedNode(treeWalker.currentNode);
 						}
-						markSelectedNode(treeWalker.currentNode);
 					}
-					if (treeWalker.currentNode == range.startContainer) {
+					if (selectionFound && treeWalker.currentNode == range.startContainer) {
 						markSelectedParents(treeWalker.currentNode);
 					}
 					if (treeWalker.currentNode == range.endContainer) {
@@ -138,7 +138,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 						treeWalker.nextNode();
 					}
 				}
-				if (treeWalker.currentNode == range.endContainer && treeWalker.currentNode.querySelectorAll) {
+				if (selectionFound && treeWalker.currentNode == range.endContainer && treeWalker.currentNode.querySelectorAll) {
 					treeWalker.currentNode.querySelectorAll("*").forEach(descendantElement => markSelectedNode(descendantElement));
 				}
 			}
