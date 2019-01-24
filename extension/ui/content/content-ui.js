@@ -164,7 +164,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 
 	function selectArea() {
 		return new Promise(resolve => {
-			let contentSelected;
+			let selectedRanges = [];
 			addEventListener("mousemove", mousemoveListener, true);
 			addEventListener("click", clickListener, true);
 			addEventListener("keyup", keypressListener, true);
@@ -172,7 +172,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			getSelection().removeAllRanges();
 
 			function contextmenuListener(event) {
-				contentSelected = false;
+				selectedRanges = [];
 				select();
 				event.preventDefault();
 			}
@@ -186,14 +186,13 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			}
 
 			function clickListener(event) {
+				event.preventDefault();
+				event.stopPropagation();
 				if (event.button == 0) {
 					select(selectedAreaElement, event.ctrlKey);
 				} else {
 					cancel();
 				}
-				event.preventDefault();
-				event.stopPropagation();
-				event.stopImmediatePropagation();
 			}
 
 			function keypressListener(event) {
@@ -203,20 +202,23 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			}
 
 			function cancel() {
-				if (contentSelected) {
+				if (selectedRanges.length) {
 					getSelection().removeAllRanges();
 				}
-				contentSelected = false;
+				selectedRanges = [];
 				cleanupAndResolve();
 			}
 
 			function select(selectedElement, multiSelect) {
 				if (selectedElement) {
-					contentSelected = true;
+					if (!multiSelect) {
+						restoreSelectedRanges();
+					}
 					const range = document.createRange();
 					range.selectNodeContents(selectedElement);
 					cleanupSelectionRanges();
 					getSelection().addRange(range);
+					saveSelectedRanges();
 					if (!multiSelect) {
 						cleanupAndResolve();
 					}
@@ -242,8 +244,23 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				removeEventListener("click", clickListener, true);
 				removeEventListener("keyup", keypressListener, true);
 				selectedAreaElement = null;
-				resolve(contentSelected);
+				resolve(Boolean(selectedRanges.length));
 				setTimeout(() => document.removeEventListener("contextmenu", contextmenuListener, true), 0);
+			}
+
+			function restoreSelectedRanges() {
+				if (selectedRanges.length) {
+					getSelection().removeAllRanges();
+					selectedRanges.forEach(range => getSelection().addRange(range));
+				}
+			}
+
+			function saveSelectedRanges() {
+				selectedRanges = [];
+				for (let indexRange = 0; indexRange < getSelection().rangeCount; indexRange++) {
+					const range = getSelection().getRangeAt(indexRange);
+					selectedRanges.push(range);
+				}
 			}
 		});
 	}
