@@ -89,7 +89,12 @@ exports.getPageData = async options => {
 			driver.executeScript(scripts);
 		}));
 		await driver.switchTo().window(mainWindowHandle);
-		return await driver.executeAsyncScript(getPageDataScript(), options);
+		const result = await driver.executeAsyncScript(getPageDataScript(), options);
+		if (result.error) {
+			throw result.error;
+		} else {
+			return result.pageData;
+		}
 	} finally {
 		if (driver) {
 			driver.quit();
@@ -100,7 +105,9 @@ exports.getPageData = async options => {
 function getPageDataScript() {
 	return `
 	const [options, callback] = arguments;
-	getPageData().then(pageData => callback(pageData))
+	getPageData()
+		.then(pageData => callback({ pageData }))
+		.catch(error => callback({ error: error.toString() }));
 
 	async function getPageData() {
 		options.insertSingleFileComment = true;
