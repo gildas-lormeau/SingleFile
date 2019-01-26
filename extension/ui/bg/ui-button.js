@@ -179,7 +179,11 @@ singlefile.ui.button = (() => {
 	async function refreshAsync(tabId, tabData, oldTabData) {
 		for (const browserActionMethod of Object.keys(tabData)) {
 			if (browserActionMethod == "setBadgeBackgroundColor" || !oldTabData[browserActionMethod] || JSON.stringify(oldTabData[browserActionMethod]) != JSON.stringify(tabData[browserActionMethod])) {
-				await refreshProperty(tabId, browserActionMethod, tabData[browserActionMethod]);
+				try {
+					await refreshProperty(tabId, browserActionMethod, tabData[browserActionMethod]);
+				} catch (error) {
+					/* ignored */
+				}
 			}
 		}
 	}
