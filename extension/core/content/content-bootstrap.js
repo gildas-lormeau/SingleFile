@@ -68,6 +68,7 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 					postersData: docData.postersData,
 					usedFonts: docData.usedFonts,
 					shadowRootContents: docData.shadowRootContents,
+					referrer: docData.referrer,
 					framesData,
 					url: location.href
 				});
@@ -106,6 +107,7 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 					postersData: docData.postersData,
 					usedFonts: docData.usedFonts,
 					shadowRootContents: docData.shadowRootContents,
+					referrer: docData.referrer,
 					framesData: frameTree.getSync(options),
 					url: location.href
 				});
