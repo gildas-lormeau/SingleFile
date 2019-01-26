@@ -130,6 +130,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 		options.doc = document;
 		options.win = window;
 		await processor.run();
+		if (!options.saveRawPage && !options.removeFrames && this.frameTree) {
+			this.frameTree.cleanup(options);
+		}
 		if (options.confirmInfobarContent) {
 			options.infobarContent = singlefile.ui.prompt("Infobar content", options.infobarContent) || "";
 		}
