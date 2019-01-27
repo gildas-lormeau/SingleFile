@@ -47,12 +47,12 @@ singlefile.download = (() => {
 			} else if (message.content) {
 				message.url = URL.createObjectURL(new Blob([message.content], { type: "text/html" }));
 			}
-			return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, conflictAction: message.filenameConflictAction })
+			return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction })
 				.catch(error => {
 					if (error.message) {
 						if (!error.message.toLowerCase().includes("canceled")) {
 							if (error.message.includes("'incognito'")) {
-								return downloadPage(message, { confirmFilename: message.confirmFilename, conflictAction: message.filenameConflictAction });
+								return downloadPage(message, { confirmFilename: message.confirmFilename, filenameConflictAction: message.filenameConflictAction });
 							} else {
 								return { notSupported: true };
 							}
