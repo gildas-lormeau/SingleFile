@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global require, exports, Buffer */
+/* global require, exports */
 
 const { URL } = require("url");
 const fs = require("fs");
@@ -138,7 +138,6 @@ function getSingleFileClass(win) {
 		parseDocContent,
 		parseSVGContent,
 		isValidFontUrl,
-		getContentSize,
 		digestText,
 		parseURL
 	};
@@ -161,10 +160,6 @@ async function digestText(algo, text) {
 	const hash = crypto.createHash(algo.replace("-", "").toLowerCase());
 	hash.update(text, "utf-8");
 	return hash.digest("hex");
-}
-
-function getContentSize(content) {
-	return Buffer.byteLength(content, "utf-8");
 }
 
 function isValidFontUrl(/* urlFunction */) {
