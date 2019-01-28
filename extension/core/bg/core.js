@@ -121,17 +121,14 @@ singlefile.core = (() => {
 	}
 
 	async function initScripts() {
-		if (!contentScript) {
-			contentScript = await getScript(contentScriptFiles);
-		}
-		if (!frameScript) {
-			frameScript = await getScript(frameScriptFiles);
-		}
-		if (!optionalContentScript) {
+		if (!contentScript && !frameScript && !optionalContentScript) {
 			optionalContentScript = {};
-			await Promise.all(Object.keys(optionalContentScriptFiles).map(async option => {
-				optionalContentScript[option] = await getScript(optionalContentScriptFiles[option]);
-			}));
+			[contentScript, frameScript] = await Promise.all([
+				getScript(contentScriptFiles),
+				getScript(frameScriptFiles),
+				Promise.all(Object.keys(optionalContentScriptFiles)
+					.map(async option => optionalContentScript[option] = await getScript(optionalContentScriptFiles[option])))
+			]);
 		}
 	}
 
