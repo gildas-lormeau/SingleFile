@@ -18,9 +18,11 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, singlefile */
+/* global browser, singlefile, fetch, TextDecoder */
 
 singlefile.core = (() => {
+
+	let contentScript, frameScript, optionalContentScript;
 
 	const contentScriptFiles = [
 		"/lib/hooks/hooks.js",
@@ -80,11 +82,13 @@ singlefile.core = (() => {
 			"/lib/single-file/modules/css-medias-alt-minifier.js"
 		]
 	};
+	initScripts();
 
 	return { saveTab };
 
 	async function saveTab(tab, options = {}) {
 		if (singlefile.util.isAllowedURL(tab.url)) {
+			await initScripts();
 			const tabId = tab.id;
 			options.tabId = tabId;
 			try {
@@ -98,9 +102,10 @@ singlefile.core = (() => {
 					const mergedOptions = await singlefile.config.getOptions(tab.url);
 					Object.keys(options).forEach(key => mergedOptions[key] = options[key]);
 					if (!mergedOptions.removeFrames) {
-						await executeContentScripts(tab.id, frameScriptFiles, true, "document_start");
+						await browser.tabs.executeScript(tab.id, { code: frameScript, allFrames: true, runAt: "document_start" });
 					}
-					await executeContentScripts(tab.id, getContentScriptFiles(mergedOptions), false, "document_idle");
+					const code = await getContentScript(mergedOptions);
+					await browser.tabs.executeScript(tab.id, { code, allFrames: false, runAt: "document_idle" });
 					if (mergedOptions.frameId) {
 						await singlefile.tabs.sendMessage(tab.id, { saveFrame: true, options: mergedOptions }, { frameId: mergedOptions.frameId });
 					} else {
@@ -115,24 +120,48 @@ singlefile.core = (() => {
 		}
 	}
 
-	async function executeContentScripts(tabId, scriptFiles, allFrames, runAt) {
-		for (const script of scriptFiles) {
-			if (typeof script == "function") {
-				await browser.tabs.executeScript(tabId, { code: "(" + script.toString() + ")()", allFrames, runAt });
-			} else {
-				await browser.tabs.executeScript(tabId, { file: script, allFrames, runAt });
-			}
+	async function initScripts() {
+		if (!contentScript) {
+			contentScript = await getScript(contentScriptFiles);
+		}
+		if (!frameScript) {
+			frameScript = await getScript(frameScriptFiles);
+		}
+		if (!optionalContentScript) {
+			optionalContentScript = {};
+			await Promise.all(Object.keys(optionalContentScriptFiles).map(async option => {
+				optionalContentScript[option] = await getScript(optionalContentScriptFiles[option]);
+			}));
 		}
 	}
 
-	function getContentScriptFiles(options) {
-		let files = contentScriptFiles;
+	async function getContentScript(options) {
+		await initScripts();
+		let script = "";
 		Object.keys(optionalContentScriptFiles).forEach(option => {
 			if (options[option]) {
-				files = optionalContentScriptFiles[option].concat(files);
+				script += optionalContentScript[option] + "\n";
 			}
 		});
-		return files;
+		return script + "\n" + contentScript;
+	}
+
+	async function getScript(scriptFiles) {
+		return (async () => {
+			const scriptsPromises = scriptFiles.map(async scriptFile => {
+				if (typeof scriptFile == "function") {
+					return "(" + scriptFile.toString() + ")();";
+				} else {
+					const scriptResource = await fetch(browser.runtime.getURL(scriptFile));
+					return new TextDecoder().decode(await scriptResource.arrayBuffer());
+				}
+			});
+			let content = "";
+			for (const scriptPromise of scriptsPromises) {
+				content += await scriptPromise;
+			}
+			return content;
+		})();
 	}
 
 })();
