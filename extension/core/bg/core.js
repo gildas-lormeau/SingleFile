@@ -147,21 +147,19 @@ singlefile.core = (() => {
 	}
 
 	async function getScript(scriptFiles) {
-		return (async () => {
-			const scriptsPromises = scriptFiles.map(async scriptFile => {
-				if (typeof scriptFile == "function") {
-					return "(" + scriptFile.toString() + ")();";
-				} else {
-					const scriptResource = await fetch(browser.runtime.getURL(scriptFile));
-					return new TextDecoder().decode(await scriptResource.arrayBuffer());
-				}
-			});
-			let content = "";
-			for (const scriptPromise of scriptsPromises) {
-				content += await scriptPromise;
+		const scriptsPromises = scriptFiles.map(async scriptFile => {
+			if (typeof scriptFile == "function") {
+				return "(" + scriptFile.toString() + ")();";
+			} else {
+				const scriptResource = await fetch(browser.runtime.getURL(scriptFile));
+				return new TextDecoder().decode(await scriptResource.arrayBuffer());
 			}
-			return content;
-		})();
+		});
+		let content = "";
+		for (const scriptPromise of scriptsPromises) {
+			content += await scriptPromise;
+		}
+		return content;
 	}
 
 })();
