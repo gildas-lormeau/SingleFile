@@ -10,7 +10,7 @@ SingleFile is a WebExtension compatible with Chrome, Firefox (Desktop and Mobile
  - [Command Line Interface](#command-line-interface)
  - [Known issues](#known-issues)
  - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
- - [Release notes](#release_notes)
+ - [Release notes](#release-notes)
  - [Contributors](#contributors)
  - [Icons](#icons)
  - [Code derived from third party projects](#code-derived-from-third-party-projects)
