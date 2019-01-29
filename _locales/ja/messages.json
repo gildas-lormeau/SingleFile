@@ -348,15 +348,15 @@
         "description": "オプション 'リセット'ボタンのツールチップ"
     },
     "optionsResetConfirm": {
-        "message": "Confirm the reset of all options or the current profile",
+        "message": "すべてのオプションまたは現在のプロファイルのリセットを確認します",
         "description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
     },
     "optionsResetAllButton": {
-        "message": "Reset all options",
+        "message": "すべてのオプションをリセットする",
         "description": "Options confirm button: 'Reset all options'"
     },
     "optionsResetCurrentButton": {
-        "message": "Reset the current profile",
+        "message": "現在のプロファイルをリセットする",
         "description": "Options confirm button: 'Reset current profile'"
     },
     "optionsOKButton": {
