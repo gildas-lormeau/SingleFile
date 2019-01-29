@@ -10,6 +10,7 @@ SingleFile is a WebExtension compatible with Chrome, Firefox (Desktop and Mobile
  - [Command Line Interface](#command-line-interface)
  - [Known issues](#known-issues)
  - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
+ _ [Release notes](#release_notes)
  - [Contributors](#contributors)
  - [Icons](#icons)
  - [Code derived from third party projects](#code-derived-from-third-party-projects)
@@ -71,6 +72,9 @@ Please follow these steps if you find an unknown issue:
 - If restarting the browser did not fix the issue, try to disable all other extensions to see if there is a conflict.
 - If there is a conflict then try to determine against which extension(s).
 - Please report the issue with a short description on how to reproduce it here: https://github.com/gildas-lormeau/SingleFile/issues.
+
+## Release notes
+See https://addons.mozilla.org/en-US/firefox/addon/single-file/versions
 
 ## Contributors
 - Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad)
