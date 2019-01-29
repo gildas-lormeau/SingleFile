@@ -10,8 +10,8 @@ This is a **work in progress**.
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org) must be installed first. To use Puppeteer or Selenium WebDriver, [Chrome/Chromium](https://www.google.com/chrome/) must also be installed. It is recommended that Chrome/Chromium executable can be found through the `PATH` environment variable. Otherwise you will need to add the `--browser-executable-path` option to help SingleFile locating the executable.
-- By default SingleFile will use Puppeteer to connect to the browser. If you prefer Selenium WebDriver, you must install it first and ensure the executable can be found through the `PATH` environment variable.
+- [Node.js](https://nodejs.org) must be installed first. With Puppeteer (by default), [Chrome/Chromium](https://www.google.com/chrome/) must also be installed. Alternatively, with Selenium WebDriver, you can use [Firefox](https://www.mozilla.org/en/firefox/new/) instead. It is recommended that Chrome/Firefox binaries can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating the executable.
+- By default SingleFile will use Puppeteer to connect to the browser. If you prefer using Selenium WebDriver, you must install it first and ensure the executable can be found through the `PATH` environment variable or the current folder.
 
 ### Install
 - Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk in an empty folder.
@@ -36,14 +36,22 @@ This is a **work in progress**.
   `$ ./single-file.js --help` (Linux/Unix/BSD etc.)
 
   `> node single-file.js --help` (Windows)
-  
-- Saving https://www.wikipedia.org into `wikipedia.html`
+
+- Examples
+
+  - Dump the processed content of https://www.wikipedia.org into the console
+
+  `$ ./single-file.js https://www.wikipedia.org` (Linux/Unix/BSD etc.)
+
+  `> node single-file.js https://www.wikipedia.org` (Windows)
+
+  - Save https://www.wikipedia.org into `wikipedia.html`
 
   `$ ./single-file.js https://www.wikipedia.org wikipedia.html` (Linux/Unix/BSD etc.)
   
   `> node single-file.js https://www.wikipedia.org wikipedia.html` (Windows)
 
-- Saving https://www.wikipedia.org into `wikipedia.html` with jsdom instead of Puppeteer
+  - Save https://www.wikipedia.org into `wikipedia.html` with jsdom instead of Puppeteer
 
   `$ ./single-file.js https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Linux/Unix/BSD etc.)
   
