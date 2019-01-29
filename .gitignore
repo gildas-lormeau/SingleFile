@@ -1,2 +1,4 @@
 /node_modules/
 /.vscode/
+/cli/chromedriver.exe
+/cli/geckodriver.exe
