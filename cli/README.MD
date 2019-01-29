@@ -31,6 +31,12 @@ This is a **work in progress**.
   `$ chmod +x single-file.js`
 
 ### Run
+- Syntax
+ 
+  `$ ./single-file.js <url> [output] [options ...]` (Linux/Unix/BSD etc.)
+
+  `> node single-file.js <url> [output] [options ...]` (Windows)    
+
 - Display help
 
   `$ ./single-file.js --help` (Linux/Unix/BSD etc.)
