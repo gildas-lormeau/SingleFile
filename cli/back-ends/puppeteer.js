@@ -64,7 +64,7 @@ exports.getPageData = async options => {
 		browserOptions.args = ["--disable-web-security"];
 	}
 	if (options.browserExecutablePath) {
-		browserOptions.executablePath = options.browserExecutablePath;
+		browserOptions.executablePath = options.browserExecutablePath || "chrome";
 	}
 	let browser;
 	try {

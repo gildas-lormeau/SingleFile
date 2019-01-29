@@ -24,7 +24,7 @@
 /* global require, exports */
 const fs = require("fs");
 
-const chrome = require("selenium-webdriver/chrome");
+const firefox = require("selenium-webdriver/firefox");
 const { Builder } = require("selenium-webdriver");
 
 const SCRIPTS = [
@@ -59,18 +59,23 @@ exports.getPageData = async options => {
 	let driver;
 	try {
 		const builder = new Builder();
-		const chromeOptions = new chrome.Options();
+		const firefoxOptions = new firefox.Options();
 		if (options.browserHeadless === undefined || options.browserHeadless) {
-			chromeOptions.headless();
+			firefoxOptions.headless();
+		}
+		if (options.browserExecutablePath) {
+			firefoxOptions.setBinary(options.browserExecutablePath);
 		}
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
-			chromeOptions.addArguments("--disable-web-security");
+			// not supported
 		}
 		if (options.userAgent) {
-			await chromeOptions.addArguments("--user-agent=" + JSON.stringify(options.userAgent));
+			const profile = new firefox.Profile();
+			profile.setPreference("general.useragent.override", options.userAgent);
+			firefoxOptions.setProfile(profile);
 		}
-		builder.setChromeOptions(chromeOptions);
-		driver = await builder.forBrowser("chrome").build();
+		builder.setFirefoxOptions(firefoxOptions);
+		driver = await builder.forBrowser("firefox").build();
 		if (options.browserWidth && options.browserHeight) {
 			const window = driver.manage().window();
 			if (window.setRect) {
@@ -80,7 +85,7 @@ exports.getPageData = async options => {
 			}
 		}
 		await driver.get(options.url);
-		let scripts = (await Promise.all(SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()))).join("\n");
+		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString().replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")).join("\n");
 		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
 		const mainWindowHandle = driver.getWindowHandle();
 		const windowHandles = await driver.getAllWindowHandles();
@@ -89,6 +94,7 @@ exports.getPageData = async options => {
 			driver.executeScript(scripts);
 		}));
 		await driver.switchTo().window(mainWindowHandle);
+		driver.executeScript(scripts);
 		const result = await driver.executeAsyncScript(getPageDataScript(), options);
 		if (result.error) {
 			throw result.error;

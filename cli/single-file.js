@@ -34,7 +34,7 @@ const args = require("yargs")
 	.default({
 		"back-end": "puppeteer",
 		"browser-headless": true,
-		"browser-executable-path": "chrome",
+		"browser-executable-path": "",
 		"browser-width": 1280,
 		"browser-height": 720,
 		"browser-wait-until": "networkidle0",
@@ -59,7 +59,7 @@ const args = require("yargs")
 		"save-raw-page": false
 	})
 	.options("back-end", { description: "Back-end to use" })
-	.choices("back-end", ["jsdom", "puppeteer", "webdriver"])
+	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chrome", "webdriver-firefox"])
 	.options("browser-headless", { description: "Run the browser in headless mode (puppeteer, webdriver)" })
 	.boolean("browser-headless")
 	.options("browser-executable-path", { description: "Path to chrome/chromium executable (puppeteer)" })
@@ -113,7 +113,8 @@ const args = require("yargs")
 const backEnds = {
 	jsdom: "./back-ends/jsdom.js",
 	puppeteer: "./back-ends/puppeteer.js",
-	webdriver: "./back-ends/webdriver.js"
+	"webdriver-chrome": "./back-ends/webdriver-chrome.js",
+	"webdriver-firefox": "./back-ends/webdriver-firefox.js"
 };
 require(backEnds[args.backEnd]).getPageData(args).then(pageData => {
 	if (args.output) {
