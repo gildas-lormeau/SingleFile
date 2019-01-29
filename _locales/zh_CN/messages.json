@@ -348,15 +348,15 @@
         "description": "选项按钮'重置'的提示"
     },
     "optionsResetConfirm": {
-        "message": "Confirm the reset of all options or the current profile",
+        "message": "确认重置所有选项或当前配置",
         "description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
     },
     "optionsResetAllButton": {
-        "message": "Reset all options",
+        "message": "重置所有选项",
         "description": "Options confirm button: 'Reset all options'"
     },
     "optionsResetCurrentButton": {
-        "message": "Reset the current profile",
+        "message": "重置当前配置",
         "description": "Options confirm button: 'Reset current profile'"
     },
     "optionsOKButton": {
