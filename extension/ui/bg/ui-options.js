@@ -22,12 +22,8 @@
 
 (async () => {
 
-	const CHROME_BROWSER_NAME = "Chrome";
-
-	const [bgPage, browserInfo] = await Promise.all([browser.runtime.getBackgroundPage(), browser.runtime.getBrowserInfo()]);
+	const bgPage = await browser.runtime.getBackgroundPage();
 	const singlefile = bgPage.singlefile;
-	const prompt = browserInfo.name == CHROME_BROWSER_NAME ? (message, defaultMessage) => bgPage.prompt(message, defaultMessage) : (message, defaultMessage) => { document.body.style.opacity = 0; const value = window.prompt(message, defaultMessage); document.body.style.opacity = 1; return value; };
-	const confirm = browserInfo.name == CHROME_BROWSER_NAME ? message => bgPage.confirm(message) : message => { document.body.style.opacity = 0; const value = window.confirm(message); document.body.style.opacity = 1; return value; };
 	const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsLabel");
 	const removeUnusedStylesLabel = document.getElementById("removeUnusedStylesLabel");
 	const removeUnusedFontsLabel = document.getElementById("removeUnusedFontsLabel");
@@ -137,6 +133,15 @@
 	const createURLElement = rulesElement.querySelector(".rule-create");
 	const showAllProfilesInput = document.getElementById("showAllProfilesInput");
 	const showAutoSaveProfileInput = document.getElementById("showAutoSaveProfileInput");
+	const resetAllButton = document.getElementById("resetAllButton");
+	const resetCurrentButton = document.getElementById("resetCurrentButton");
+	const resetCancelButton = document.getElementById("resetCancelButton");
+	const confirmButton = document.getElementById("confirmButton");
+	const cancelButton = document.getElementById("cancelButton");
+	const promptInput = document.getElementById("promptInput");
+	const promptCancelButton = document.getElementById("promptCancelButton");
+	const promptConfirmButton = document.getElementById("promptConfirmButton");
+
 	let pendingSave = Promise.resolve();
 	let autoSaveProfileChanged;
 	ruleProfileInput.onchange = () => {
@@ -148,7 +153,7 @@
 		autoSaveProfileChanged = true;
 	};
 	rulesDeleteAllButton.addEventListener("click", async () => {
-		if (confirm(browser.i18n.getMessage("optionsDeleteDisplayedRulesConfirm"))) {
+		if (await confirm(browser.i18n.getMessage("optionsDeleteDisplayedRulesConfirm"))) {
 			await singlefile.config.deleteRules(!showAllProfilesInput.checked && profileNamesInput.value);
 			await refresh();
 		}
@@ -204,7 +209,7 @@
 		}
 	}, false);
 	addProfileButton.addEventListener("click", async () => {
-		const profileName = prompt(browser.i18n.getMessage("profileAddPrompt"));
+		const profileName = await prompt(browser.i18n.getMessage("profileAddPrompt"));
 		if (profileName) {
 			try {
 				await singlefile.config.createProfile(profileName);
@@ -215,7 +220,7 @@
 		}
 	}, false);
 	deleteProfileButton.addEventListener("click", async () => {
-		if (confirm(browser.i18n.getMessage("profileDeleteConfirm"))) {
+		if (await confirm(browser.i18n.getMessage("profileDeleteConfirm"))) {
 			try {
 				await singlefile.config.deleteProfile(profileNamesInput.value);
 				profileNamesInput.value = null;
@@ -226,7 +231,7 @@
 		}
 	}, false);
 	renameProfileButton.addEventListener("click", async () => {
-		const profileName = prompt(browser.i18n.getMessage("profileRenamePrompt"), profileNamesInput.value);
+		const profileName = await prompt(browser.i18n.getMessage("profileRenamePrompt"), profileNamesInput.value);
 		if (profileName) {
 			try {
 				await singlefile.config.renameProfile(profileNamesInput.value, profileName);
@@ -237,9 +242,16 @@
 		}
 	}, false);
 	resetButton.addEventListener("click", async () => {
-		if (confirm(browser.i18n.getMessage("optionsResetConfirm"))) {
-			await singlefile.config.reset();
-			await Promise.all([refresh(singlefile.config.DEFAULT_PROFILE_NAME), singlefile.ui.menu.refresh()]);
+		const choice = await reset();
+		if (choice) {
+			if (choice == "all") {
+				await singlefile.config.resetProfiles();
+				await Promise.all([refresh(singlefile.config.DEFAULT_PROFILE_NAME), singlefile.ui.menu.refresh()]);
+			}
+			if (choice == "current") {
+				await singlefile.config.resetProfile(profileNamesInput.value);
+				await refresh();
+			}
 			await update();
 		}
 	}, false);
@@ -365,7 +377,11 @@
 	showAllProfilesLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsShowAllProfiles");
 	showAutoSaveProfileLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsShowAutoSaveProfile");
 	ruleUrlInput.placeholder = ruleEditUrlInput.placeholder = browser.i18n.getMessage("optionsAutoSettingsUrlPlaceholder");
-
+	resetAllButton.textContent = browser.i18n.getMessage("optionsResetAllButton");
+	resetCurrentButton.textContent = browser.i18n.getMessage("optionsResetCurrentButton");
+	resetCancelButton.textContent = promptCancelButton.textContent = cancelButton.textContent = browser.i18n.getMessage("optionsCancelButton");
+	confirmButton.textContent = promptConfirmButton.textContent = browser.i18n.getMessage("optionsOKButton");
+	document.getElementById("resetConfirmLabel").textContent = browser.i18n.getMessage("optionsResetConfirm");
 	refresh();
 
 	async function refresh(profileName) {
@@ -426,7 +442,7 @@
 				const ruleUpdateButton = ruleElement.querySelector(".rule-update-button");
 				ruleDeleteButton.title = browser.i18n.getMessage("optionsDeleteRuleTooltip");
 				ruleDeleteButton.addEventListener("click", async () => {
-					if (confirm(browser.i18n.getMessage("optionsDeleteRuleConfirm"))) {
+					if (await confirm(browser.i18n.getMessage("optionsDeleteRuleConfirm"))) {
 						await singlefile.config.deleteRule(rule.url);
 						await refresh();
 					}
@@ -542,6 +558,76 @@
 		});
 		await pendingSave;
 		await singlefile.ui.menu.refresh();
+	}
+
+	async function confirm(message) {
+		document.getElementById("confirmLabel").textContent = message;
+		document.getElementById("formConfirmContainer").hidden = false;
+		confirmButton.focus();
+		document.body.style.overflowY = "hidden";
+		return new Promise(resolve => {
+			confirmButton.onclick = event => hideAndResolve(event, true);
+			cancelButton.onclick = event => hideAndResolve(event);
+			window.onkeyup = event => {
+				if (event.key == "Escape") {
+					hideAndResolve(event);
+				}
+			};
+
+			function hideAndResolve(event, value) {
+				event.preventDefault();
+				document.getElementById("formConfirmContainer").hidden = true;
+				document.body.style.overflowY = "";
+				resolve(value);
+			}
+		});
+	}
+
+	async function reset() {
+		document.getElementById("formResetContainer").hidden = false;
+		resetCancelButton.focus();
+		document.body.style.overflowY = "hidden";
+		return new Promise(resolve => {
+			resetAllButton.onclick = event => hideAndResolve(event, "all");
+			resetCurrentButton.onclick = event => hideAndResolve(event, "current");
+			resetCancelButton.onclick = event => hideAndResolve(event);
+			window.onkeyup = event => {
+				if (event.key == "Escape") {
+					hideAndResolve(event);
+				}
+			};
+
+			function hideAndResolve(event, value) {
+				event.preventDefault();
+				document.getElementById("formResetContainer").hidden = true;
+				document.body.style.overflowY = "";
+				resolve(value);
+			}
+		});
+	}
+
+	async function prompt(message, defaultValue = "") {
+		document.getElementById("promptLabel").textContent = message;
+		document.getElementById("formPromptContainer").hidden = false;
+		promptInput.value = defaultValue;
+		promptInput.focus();
+		document.body.style.overflowY = "hidden";
+		return new Promise(resolve => {
+			promptConfirmButton.onclick = event => hideAndResolve(event, promptInput.value);
+			promptCancelButton.onclick = event => hideAndResolve(event);
+			window.onkeyup = event => {
+				if (event.key == "Escape") {
+					hideAndResolve(event);
+				}
+			};
+
+			function hideAndResolve(event, value) {
+				event.preventDefault();
+				document.getElementById("formPromptContainer").hidden = true;
+				document.body.style.overflowY = "";
+				resolve(value);
+			}
+		});
 	}
 
 })();

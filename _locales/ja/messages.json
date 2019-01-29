@@ -348,8 +348,24 @@
         "description": "オプション 'リセット'ボタンのツールチップ"
     },
     "optionsResetConfirm": {
-        "message": "すべてのオプションのリセットを確認する",
-        "description": "Popup text 'Confirm the reset of all options' in the options page"
+        "message": "Confirm the reset of all options or the current profile",
+        "description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+    },
+    "optionsResetAllButton": {
+        "message": "Reset all options",
+        "description": "Options confirm button: 'Reset all options'"
+    },
+    "optionsResetCurrentButton": {
+        "message": "Reset the current profile",
+        "description": "Options confirm button: 'Reset current profile'"
+    },
+    "optionsOKButton": {
+        "message": "OK",
+        "description": "Options confirm button: 'OK'"
+    },
+    "optionsCancelButton": {
+        "message": "キャンセル",
+        "description": "Options confirm button: 'Cancel'"
     },
     "optionsExportButton": {
         "message": "エクスポート",

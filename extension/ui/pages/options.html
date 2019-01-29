@@ -235,6 +235,41 @@
 			<input type="file" id="fileInput" hidden>
 		</div>
 	</div>
+	<div id="formResetContainer" class="popup" hidden>
+		<form class="popup-content">
+			<header>
+				<span id="resetConfirmLabel"></span>
+			</header>
+			<footer>
+				<button type="submit" id="resetAllButton"></button>
+				<button id="resetCurrentButton"></button>
+				<button id="resetCancelButton"></button>
+			</footer>
+		</form>
+	</div>
+	<div id="formConfirmContainer" class="popup" hidden>
+		<form class="popup-content">
+			<header>
+				<span id="confirmLabel"></span>
+			</header>
+			<footer>
+				<button type="submit" id="confirmButton"></button>
+				<button id="cancelButton"></button>
+			</footer>
+		</form>
+	</div>
+	<div id="formPromptContainer" class="popup" hidden>
+		<form class="popup-content">
+			<header>
+				<span id="promptLabel"></span>
+			</header>
+			<main><input id="promptInput" type="text"></main>
+			<footer>
+				<button type="submit" id="promptConfirmButton"></button>
+				<button id="promptCancelButton"></button>
+			</footer>
+		</form>
+	</div>
 	<script type="text/javascript" src="/lib/browser-polyfill/chrome-browser-polyfill.js"></script>
 	<script type="text/javascript" src="../bg/ui-options.js"></script>
 </body>

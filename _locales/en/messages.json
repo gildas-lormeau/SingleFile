@@ -244,8 +244,8 @@
         "description": "Options sub-title: 'Auto-settings rules'"
     },
     "optionsDeleteDisplayedRulesConfirm": {
-        "message": "Confirm deletion of all displayed rules",
-        "description": "Popup text 'Confirm deletion of all displayed rules'"
+        "message": "Confirm the deletion of all displayed rules",
+        "description": "Popup text 'Confirm the deletion of all displayed rules'"
     },
     "optionsDeleteRulesTooltip": {
         "message": "Delete all displayed rules",
@@ -292,8 +292,8 @@
         "description": "Popup text 'Validate changes' in the options page"
     },
     "optionsDeleteRuleConfirm": {
-        "message": "Confirm deletion of the selected rule",
-        "description": "Popup text 'Confirm deletion of the selected rule' in the options page"
+        "message": "Confirm the deletion of the selected rule",
+        "description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
     },
     "optionAutoSaveLoadOrUnload": {
         "message": "auto-save after page load or on page unload",
@@ -348,8 +348,24 @@
         "description": "Options 'Reset' button tooltip"
     },
     "optionsResetConfirm": {
-        "message": "Confirm the reset of all options",
-        "description": "Popup text 'Confirm the reset of all options' in the options page"
+        "message": "Confirm the reset of all options or the current profile",
+        "description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+    },
+    "optionsResetAllButton": {
+        "message": "Reset all options",
+        "description": "Options confirm button: 'Reset all options'"
+    },
+    "optionsResetCurrentButton": {
+        "message": "Reset the current profile",
+        "description": "Options confirm button: 'Reset current profile'"
+    },
+    "optionsOKButton": {
+        "message": "OK",
+        "description": "Options confirm button: 'OK'"
+    },
+    "optionsCancelButton": {
+        "message": "Cancel",
+        "description": "Options confirm button: 'Cancel'"
     },
     "optionsExportButton": {
         "message": "Export",
@@ -400,8 +416,8 @@
         "description": "Popup text 'Enter a name for this new profile' in the options page"
     },
     "profileDeleteConfirm": {
-        "message": "Confirm deletion of the selected profile",
-        "description": "Popup text 'Confirm deletion of the selected profile' in the options page"
+        "message": "Confirm the deletion of the selected profile",
+        "description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
     },
     "profileRenamePrompt": {
         "message": "Enter a new name for the selected profile",

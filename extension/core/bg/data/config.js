@@ -277,13 +277,21 @@ singlefile.config = (() => {
 			urlConfig.autoSaveProfile = autoSaveProfile;
 			await browser.storage.local.set({ rules: config.rules });
 		},
-		async reset() {
+		async resetProfiles() {
 			await pendingUpgradePromise;
 			const tabsData = await singlefile.tabsData.get();
 			delete tabsData.profileName;
 			await singlefile.tabsData.set(tabsData);
 			await browser.storage.local.remove(["profiles", "rules"]);
 			await browser.storage.local.set({ profiles: { [DEFAULT_PROFILE_NAME]: DEFAULT_CONFIG }, rules: [] });
+		},
+		async resetProfile(profileName) {
+			const config = await getConfig();
+			if (!Object.keys(config.profiles).includes(profileName)) {
+				throw new Error("Profile not found");
+			}
+			config.profiles[profileName] = DEFAULT_CONFIG;
+			await browser.storage.local.set({ profiles: config.profiles });
 		},
 		async export() {
 			const config = await getConfig();

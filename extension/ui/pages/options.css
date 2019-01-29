@@ -2,7 +2,10 @@ body {
     background-color: transparent;
     font-family: sans-serif;
     max-width: 800px;
+    width: 100%;
     margin: 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 button {
@@ -31,6 +34,11 @@ button:active {
     border-color: rgb(237, 237, 237);
 }
 
+button:focus {
+    border-color: black;
+    background-color: #fefefe;
+}
+
 input {
     margin-left: 5px;
 }
@@ -54,8 +62,12 @@ input.large-input {
 
 h3 {
     padding-left: 8px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    padding-top: 10px;
+    margin-top: 4px;
+}
+
+h3 a {
+    padding-left: 5px;
 }
 
 .buttons {
@@ -66,7 +78,7 @@ h3 {
     float: right;
     margin-right: 12px;
     position: relative;
-    top: -3px;
+    top: 0;
     max-width: calc(100% - 100px);
 }
 
@@ -278,6 +290,7 @@ a {
 .option.bottom {
     padding-top: 24px;
     padding-right: 12px;
+    padding-bottom: 12px;
 }
 
 #expandAllButton {
@@ -305,6 +318,58 @@ a {
 
 #expandAllButton:hover {
     opacity: 1;
+}
+
+.popup {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(191, 191, 191, .75);
+}
+
+.popup-content {
+    width: 90%;
+    max-width: 320px;
+    margin-top: 50vh;
+    transform: translateY(-50%);
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    box-shadow: 5px 5px #ababab;
+}
+
+.popup-content header {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.popup-content main {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.popup-content main input {
+    margin-bottom: 10px;
+    padding: 2px;
+    font-size: 13px;
+    margin-left: 0px;
+    width: calc(100% - 16px);
+}
+
+.popup-content footer {
+    text-align: right;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.popup-content footer button {
+    margin-bottom: 10px;
 }
 
 @media (max-width:400px) {

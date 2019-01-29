@@ -348,8 +348,24 @@
         "description": "Options 'Reset' button tooltip"
     },
     "optionsResetConfirm": {
-        "message": "Confirmez la remise à zéro de toutes les options",
-        "description": "Popup text 'Confirm the reset of all options' in the options page"
+        "message": "Confirmer la remise à zéro de toutes les options ou la remise à zéro du profil courant",
+        "description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+    },
+    "optionsResetAllButton": {
+        "message": "Remettre à zéro toutes les options",
+        "description": "Options confirm button: 'Reset all options'"
+    },
+    "optionsResetCurrentButton": {
+        "message": "Remettre à zéro le profil courant",
+        "description": "Options confirm button: 'Reset current profile'"
+    },
+    "optionsOKButton": {
+        "message": "OK",
+        "description": "Options confirm button: 'OK'"
+    },
+    "optionsCancelButton": {
+        "message": "Annuler",
+        "description": "Options confirm button: 'Cancel'"
     },
     "optionsExportButton": {
         "message": "Exporter",
