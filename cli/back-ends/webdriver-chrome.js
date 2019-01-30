@@ -67,7 +67,7 @@ exports.getPageData = async options => {
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
 			chromeOptions.addArguments("--disable-web-security");
 		}
-		if (!optionHeadless && options.browserBypassCSP === undefined || options.browserBypassCSP) {
+		if (!optionHeadless && (options.browserBypassCSP === undefined || options.browserBypassCSP)) {
 			chromeOptions.addExtensions([require.resolve("./extensions/signed/bypass_csp-0.0.2-fx.xpi")]);
 		}
 		if (options.userAgent) {
