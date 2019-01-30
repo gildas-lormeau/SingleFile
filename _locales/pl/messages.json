@@ -348,15 +348,15 @@
         "description": "Options 'Reset' button tooltip"
     },
     "optionsResetConfirm": {
-        "message": "Confirm the reset of all options or the current profile",
+        "message": "Potwierdź zresetowanie wszystkich opcji lub bieżącego profilu",
         "description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
     },
     "optionsResetAllButton": {
-        "message": "Reset all options",
+        "message": "Zresetuj wszystkie opcje",
         "description": "Options confirm button: 'Reset all options'"
     },
     "optionsResetCurrentButton": {
-        "message": "Reset the current profile",
+        "message": "Zresetuj bieżący profil",
         "description": "Options confirm button: 'Reset current profile'"
     },
     "optionsOKButton": {
