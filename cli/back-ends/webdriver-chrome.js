@@ -60,13 +60,14 @@ exports.getPageData = async options => {
 	try {
 		const builder = new Builder();
 		const chromeOptions = new chrome.Options();
-		if (options.browserHeadless === undefined || options.browserHeadless) {
+		const optionHeadless = options.browserHeadless === undefined || options.browserHeadless;
+		if (optionHeadless) {
 			chromeOptions.headless();
 		}
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
 			chromeOptions.addArguments("--disable-web-security");
 		}
-		if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
+		if (!optionHeadless && options.browserBypassCSP === undefined || options.browserBypassCSP) {
 			chromeOptions.addExtensions([require.resolve("./extensions/signed/bypass_csp-0.0.2-fx.xpi")]);
 		}
 		if (options.userAgent) {
