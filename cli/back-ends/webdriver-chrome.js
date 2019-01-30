@@ -77,7 +77,7 @@ exports.getPageData = async options => {
 		}
 		builder.setChromeOptions(chromeOptions);
 		driver = await builder.forBrowser("chrome").build();
-		driver.manage().timeouts().implicitlyWait(Number.MAX_VALUE);
+		driver.manage().setTimeouts({ script: null, pageLoad: null, implicit: null });
 		if (options.browserWidth && options.browserHeight) {
 			const window = driver.manage().window();
 			if (window.setRect) {

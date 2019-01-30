@@ -81,7 +81,7 @@ exports.getPageData = async options => {
 		}
 		builder.setFirefoxOptions(firefoxOptions);
 		driver = await builder.forBrowser("firefox").build();
-		driver.manage().timeouts().implicitlyWait(Infinity);
+		driver.manage().setTimeouts({ script: null, pageLoad: null, implicit: null });
 		if (options.browserWidth && options.browserHeight) {
 			const window = driver.manage().window();
 			if (window.setRect) {
