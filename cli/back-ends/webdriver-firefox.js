@@ -90,17 +90,19 @@ exports.getPageData = async options => {
 				window.setSize(options.browserWidth, options.browserHeight);
 			}
 		}
-		await driver.get(options.url);
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString().replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")).join("\n");
 		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
-		const mainWindowHandle = driver.getWindowHandle();
-		const windowHandles = await driver.getAllWindowHandles();
-		await Promise.all(windowHandles.map(async windowHandle => {
-			await driver.switchTo().window(windowHandle);
-			driver.executeScript(scripts);
-		}));
-		await driver.switchTo().window(mainWindowHandle);
+		const loadPromise = driver.get(options.url);
 		driver.executeScript(scripts);
+		await loadPromise;
+		if (!options.removeFrames) {
+			const windowHandles = await driver.getAllWindowHandles();
+			await Promise.all(windowHandles.map(async windowHandle => {
+				await driver.switchTo().window(windowHandle);
+				driver.executeScript(scripts);
+			}));
+			await driver.switchTo().window(driver.getWindowHandle());
+		}
 		const result = await driver.executeAsyncScript(getPageDataScript(), options);
 		if (result.error) {
 			throw result.error;
