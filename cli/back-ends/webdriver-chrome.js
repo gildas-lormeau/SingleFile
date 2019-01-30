@@ -87,7 +87,7 @@ exports.getPageData = async options => {
 			}
 		}
 		await driver.get(options.url);
-		let scripts = (await Promise.all(SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()))).join("\n");
+		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
 		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
 		const mainWindowHandle = driver.getWindowHandle();
 		const windowHandles = await driver.getAllWindowHandles();
