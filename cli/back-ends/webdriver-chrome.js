@@ -66,6 +66,9 @@ exports.getPageData = async options => {
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
 			chromeOptions.addArguments("--disable-web-security");
 		}
+		if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
+			chromeOptions.addExtensions([require.resolve("./extensions/signed/bypass_csp-0.0.2-fx.xpi")]);
+		}
 		if (options.userAgent) {
 			await chromeOptions.addArguments("--user-agent=" + JSON.stringify(options.userAgent));
 		}
@@ -74,7 +77,7 @@ exports.getPageData = async options => {
 		}
 		builder.setChromeOptions(chromeOptions);
 		driver = await builder.forBrowser("chrome").build();
-		driver.manage().timeouts().implicitlyWait(Infinity);
+		driver.manage().timeouts().implicitlyWait(Number.MAX_VALUE);
 		if (options.browserWidth && options.browserHeight) {
 			const window = driver.manage().window();
 			if (window.setRect) {
