@@ -53,7 +53,7 @@ SingleFile can be installed on:
 See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=90
 
 ## Command Line Interface
-See https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD
+You can save web pages or convert MAFF files to HTML from the command line interface. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD.
 
 ## Known Issues
 - All browsers:
