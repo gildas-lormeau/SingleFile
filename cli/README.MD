@@ -10,8 +10,12 @@ This is a **work in progress**.
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org) must be installed first. With Puppeteer (by default), [Chrome/Chromium](https://www.google.com/chrome/) must also be installed. Alternatively, with Selenium WebDriver, you can use [Firefox](https://www.mozilla.org/en/firefox/new/) instead. It is recommended that Chrome/Firefox binaries can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating the executable.
+- [Node.js](https://nodejs.org) must be installed. 
 - By default SingleFile will use Puppeteer to connect to the browser. If you prefer using Selenium WebDriver, you must install it first and ensure the executable can be found through the `PATH` environment variable or the current folder.
+- With Puppeteer (by default), [Chrome/Chromium](https://www.google.com/chrome/) must also be installed. 
+- With Selenium WebDriver, you can use [Firefox](https://www.mozilla.org/en/firefox/new/) instead. 
+- It is recommended that Chrome/Firefox binaries can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating the binary file.
+- To convert MAFF files to HTML, you will need to install [Firefox 56.0.2](https://ftp.mozilla.org/pub/firefox/releases/56.0.2/) and [geckodriver 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1). See the last example for more info about the options to set.
 
 ### Install
 - Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk in an empty folder.
@@ -62,6 +66,12 @@ This is a **work in progress**.
   `$ ./single-file.js https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Linux/Unix/BSD etc.)
   
   `> node single-file.js https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Windows)
+
+  - Convert a MAFF file (e.g. `wikipedia.maff`) into `wikipedia.html`
+
+  `$ ./single-file.js file:///home/gildas/wikipedia.maff wikipedia.html --enable-MAFF --back-end=webdriver-firefox --browser-executable-path=~/firefox-56.0.2/firefox` (Linux/Unix/BSD etc.)
+  
+  `> node single-file.js file:///C:/Users/Gildas/wikipedia.maff wikipedia.html --enable-MAFF --back-end=webdriver-firefox --back-end=webdriver-firefox --browser-executable-path="C:\Program Files\Mozilla Firefox 56.0.2\firefox"` (Windows)
   
 ## License
 SingleFile is licensed under AGPL and GPL. Code derived from third-party projects is licensed under MIT. Please contact me at gildas.lormeau &lt;at&gt; gmail.com if you are interested in licensing the SingleFile code for a commercial service or product.

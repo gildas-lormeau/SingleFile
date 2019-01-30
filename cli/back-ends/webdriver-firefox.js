@@ -66,7 +66,7 @@ exports.getPageData = async options => {
 		if (options.browserExecutablePath) {
 			firefoxOptions.setBinary(options.browserExecutablePath);
 		}
-		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity || options.browserBypassCSP === undefined || options.browserBypassCSP || options.userAgent) {
+		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity || options.browserBypassCSP === undefined || options.browserBypassCSP || options.userAgent || options.enableMaff) {
 			const profile = new firefox.Profile();
 			if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
 				profile.addExtension(require.resolve("./extensions/signed/disable_web_security-0.0.2-fx.xpi"));
@@ -76,6 +76,9 @@ exports.getPageData = async options => {
 			}
 			if (options.userAgent) {
 				profile.setPreference("general.useragent.override", options.userAgent);
+			}
+			if (options.enableMaff) {
+				profile.addExtension(require.resolve("./extensions/signed/mozilla_archive_format_with_mht_and_faithful_save-5.2.1-fx+sm.xpi"));
 			}
 			firefoxOptions.setProfile(profile);
 		}
