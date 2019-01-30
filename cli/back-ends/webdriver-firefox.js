@@ -66,16 +66,22 @@ exports.getPageData = async options => {
 		if (options.browserExecutablePath) {
 			firefoxOptions.setBinary(options.browserExecutablePath);
 		}
-		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
-			// not supported
-		}
-		if (options.userAgent) {
+		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity || options.browserBypassCSP === undefined || options.browserBypassCSP || options.userAgent) {
 			const profile = new firefox.Profile();
-			profile.setPreference("general.useragent.override", options.userAgent);
+			if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
+				profile.addExtension(require.resolve("./extensions/signed/disable_web_security-0.0.2-fx.xpi"));
+			}
+			if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
+				profile.addExtension(require.resolve("./extensions/signed/bypass_csp-0.0.2-fx.xpi"));
+			}
+			if (options.userAgent) {
+				profile.setPreference("general.useragent.override", options.userAgent);
+			}
 			firefoxOptions.setProfile(profile);
 		}
 		builder.setFirefoxOptions(firefoxOptions);
 		driver = await builder.forBrowser("firefox").build();
+		driver.manage().timeouts().implicitlyWait(Infinity);
 		if (options.browserWidth && options.browserHeight) {
 			const window = driver.manage().window();
 			if (window.setRect) {
