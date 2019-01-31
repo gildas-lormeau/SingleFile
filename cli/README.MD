@@ -11,11 +11,11 @@ This is a **work in progress**.
 ### Prerequisites
 
 - [Node.js](https://nodejs.org) must be installed. 
-- By default SingleFile will use Puppeteer to connect to the browser. If you prefer using Selenium WebDriver, you must install it first and ensure the executable can be found through the `PATH` environment variable or the current folder.
-- With Puppeteer (by default), [Chrome/Chromium](https://www.google.com/chrome/) must also be installed. 
-- With Selenium WebDriver, you can use [Firefox](https://www.mozilla.org/en/firefox/new/) instead. 
-- It is recommended that Chrome/Firefox binaries can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating the binary file.
-- To convert MAFF files to HTML, you will need to install [Firefox 56.0.2](https://ftp.mozilla.org/pub/firefox/releases/56.0.2/) and [geckodriver 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1) for Selenium. See the last example for more info about the options to set.
+- By default SingleFile will use Puppeteer to connect to [Chrome/Chromium](https://www.google.com/chrome/). With Puppeteer, Chrome/Chromium must also be installed. 
+- If you use Selenium WebDriver instead of Puppeteer, you must install it first and ensure the executable (e.g. `geckodriver` or `chromedriver`) can be found through the `PATH` environment variable or the current folder.
+- With Selenium WebDriver, you can use [Firefox](https://www.mozilla.org/en/firefox/new/) or Chrome/Chromium. 
+- It is recommended that the browser binaries can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating the binary file.
+- To convert MAFF files to HTML, you will need to install [Firefox version 56.0.2](https://ftp.mozilla.org/pub/firefox/releases/56.0.2/) and [Selenium geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1). See the last example for more info about the options to set.
 
 ### Install
 - Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk in an empty folder.
