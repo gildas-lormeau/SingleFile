@@ -21,11 +21,11 @@
  *   Source.
  */
 
-/* global browser */
-
 const removedHeaders = ["content-security-policy"];
 
-browser.webRequest.onHeadersReceived.addListener(
+const browserAPI = this.browser || this.chrome;
+
+browserAPI.webRequest.onHeadersReceived.addListener(
 	function (details) {
 		let responseHeaders = details.responseHeaders;
 		responseHeaders = responseHeaders.filter(responseHeader => !removedHeaders.includes(responseHeader.name.toLowerCase()));

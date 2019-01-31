@@ -21,12 +21,11 @@
  *   Source.
  */
 
-/* global browser */
-
 const removedHeaders = ["access-control-allow-methods", "access-control-allow-headers"];
 const updatedHeaders = { "access-control-allow-origin": "*", "access-control-allow-credentials": "true" };
+const browserAPI = this.browser || this.chrome;
 
-browser.webRequest.onHeadersReceived.addListener(
+browserAPI.webRequest.onHeadersReceived.addListener(
 	function (details) {
 		let responseHeaders = details.responseHeaders;
 		let processedHeaders = [];
