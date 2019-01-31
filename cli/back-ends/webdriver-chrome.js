@@ -68,7 +68,7 @@ exports.getPageData = async options => {
 			chromeOptions.addArguments("--disable-web-security");
 		}
 		if (!optionHeadless && (options.browserBypassCSP === undefined || options.browserBypassCSP)) {
-			chromeOptions.addExtensions([require.resolve("./extensions/signed/bypass_csp-0.0.2-fx.xpi")]);
+			chromeOptions.addExtensions([require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi")]);
 		}
 		if (options.userAgent) {
 			await chromeOptions.addArguments("--user-agent=" + JSON.stringify(options.userAgent));

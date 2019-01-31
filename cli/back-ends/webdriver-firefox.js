@@ -69,10 +69,10 @@ exports.getPageData = async options => {
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity || options.browserBypassCSP === undefined || options.browserBypassCSP || options.userAgent || options.enableMaff) {
 			const profile = new firefox.Profile();
 			if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
-				profile.addExtension(require.resolve("./extensions/signed/disable_web_security-0.0.2-fx.xpi"));
+				profile.addExtension(require.resolve("./extensions/signed/disable_web_security-0.0.3-an+fx.xpi"));
 			}
 			if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
-				profile.addExtension(require.resolve("./extensions/signed/bypass_csp-0.0.2-fx.xpi"));
+				profile.addExtension(require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi"));
 			}
 			if (options.userAgent) {
 				profile.setPreference("general.useragent.override", options.userAgent);
