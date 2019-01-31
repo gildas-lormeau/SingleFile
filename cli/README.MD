@@ -69,9 +69,9 @@ This is a **work in progress**.
 
   - Convert a MAFF file (e.g. `wikipedia.maff`) into `wikipedia.html`
 
-  `$ ./single-file.js file:///home/gildas/wikipedia.maff wikipedia.html --enable-MAFF --back-end=webdriver-firefox --browser-executable-path=~/firefox-56.0.2/firefox` (Linux/Unix/BSD etc.)
+  `$ ./single-file.js file:///home/gildas/wikipedia.maff wikipedia.html --enable-MAFF  --load-deferred-images=false --back-end=webdriver-firefox --browser-executable-path=~/firefox-56.0.2/firefox` (Linux/Unix/BSD etc.)
   
-  `> node single-file.js file:///C:/Users/Gildas/wikipedia.maff wikipedia.html --enable-MAFF --back-end=webdriver-firefox --browser-executable-path="C:\Program Files\Mozilla Firefox 56.0.2\firefox"` (Windows)
+  `> node single-file.js file:///C:/Users/Gildas/wikipedia.maff wikipedia.html --enable-MAFF  --load-deferred-images=false --back-end=webdriver-firefox --browser-executable-path="C:\Program Files\Mozilla Firefox 56.0.2\firefox"` (Windows)
   
 ## License
 SingleFile is licensed under AGPL and GPL. Code derived from third-party projects is licensed under MIT. Please contact me at gildas.lormeau &lt;at&gt; gmail.com if you are interested in licensing the SingleFile code for a commercial service or product.
