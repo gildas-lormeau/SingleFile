@@ -12,7 +12,7 @@ This is a **work in progress**.
 
 - [Node.js](https://nodejs.org) must be installed. 
 - By default SingleFile will use Puppeteer to connect to [Chrome/Chromium](https://www.google.com/chrome/). With Puppeteer, Chrome/Chromium must also be installed. 
-- If you use [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) instead of Puppeteer, you must download the component (e.g. `geckodriver` or `chromedriver`) for your browser and ensure it can be found through the `PATH` environment variable or the current folder.
+- If you use [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) instead of Puppeteer, you must only download the component (e.g. `geckodriver` or `chromedriver`) for your browser and ensure it can be found through the `PATH` environment variable or the current folder.
 - With Selenium WebDriver, you can use [Firefox](https://www.mozilla.org/en/firefox/new/) or Chrome/Chromium. 
 - It is recommended that the browser binaries can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating the binary file.
 - To convert MAFF files to HTML, you will need to install [Firefox version 56.0.2](https://ftp.mozilla.org/pub/firefox/releases/56.0.2/) and [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1). See the last example for more info about the options to set.
