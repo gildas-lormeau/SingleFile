@@ -2,7 +2,7 @@
 
 ## Introduction
 
-SingleFile can be launched from the command line by running it into a (headless) browser. It runs through Node.js as a standalone script injected into the page to save instead of being embedded into a WebExtension. To connect to the browser, it can use [Puppeteer](https://github.com/GoogleChrome/puppeteer) or [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver). Alternatively, it can also emulate a browser with JavaScript disabled by using [jsdom](https://github.com/jsdom/jsdom).
+SingleFile can be launched from the command line by running it into a (headless) browser. It runs through Node.js as a standalone script injected into the web page instead of being embedded into a WebExtension. To connect to the browser, it can use [Puppeteer](https://github.com/GoogleChrome/puppeteer) or [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver). Alternatively, it can also emulate a browser with JavaScript disabled by using [jsdom](https://github.com/jsdom/jsdom).
 
 This is a **work in progress**.
 
@@ -12,10 +12,10 @@ This is a **work in progress**.
 
 - [Node.js](https://nodejs.org) must be installed. 
 - By default SingleFile will use Puppeteer to connect to [Chrome/Chromium](https://www.google.com/chrome/). With Puppeteer, Chrome/Chromium must also be installed. 
-- If you use [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) instead of Puppeteer, you must download the component (e.g. `geckodriver` or `chromedriver`) for your browser and ensure it can be found through the `PATH` environment variable or the current folder.
 - With Selenium WebDriver, you can use [Firefox](https://www.mozilla.org/en/firefox/new/) or Chrome/Chromium. 
+- If you use [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) instead of Puppeteer, you must only download the component (e.g. `geckodriver` or `chromedriver`) for your browser and ensure it can be found through the `PATH` environment variable or the current folder.
 - It is recommended that the browser binaries can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating the binary file.
-- To convert MAFF files to HTML, you will need to install [Firefox version 56.0.2](https://ftp.mozilla.org/pub/firefox/releases/56.0.2/) and [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1). See the last example for more info about the options to set.
+- To convert MAFF files to HTML, you must use specific versions of Firefox and Selenium WebDriver component. You must install respectively [Firefox version 56.0.2](https://ftp.mozilla.org/pub/firefox/releases/56.0.2/) and [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1). See the last example for more info about the options to set.
 
 ### Install
 - Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk in an empty folder.
