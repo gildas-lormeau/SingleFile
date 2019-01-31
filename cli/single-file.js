@@ -40,6 +40,7 @@ const args = require("yargs")
 		"browser-wait-until": "networkidle0",
 		"compress-CSS": true,
 		"compress-HTML": true,
+		"enable-MAFF": false,
 		"group-duplicate-images": true,
 		"load-deferred-images": true,
 		"load-deferred-images-max-idle-time": 1500,
