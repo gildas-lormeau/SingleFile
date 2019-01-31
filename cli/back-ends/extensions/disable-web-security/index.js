@@ -23,6 +23,7 @@
 
 const removedHeaders = ["access-control-allow-methods", "access-control-allow-headers"];
 const updatedHeaders = { "access-control-allow-origin": "*", "access-control-allow-credentials": "true" };
+
 const browserAPI = this.browser || this.chrome;
 
 browserAPI.webRequest.onHeadersReceived.addListener(
