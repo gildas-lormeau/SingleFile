@@ -58,7 +58,7 @@ exports.getPageData = async options => {
 	};
 	let driver;
 	try {
-		const builder = new Builder().withCapabilities({ "pageLoadStrategy": "none" });
+		const builder = new Builder().withCapabilities({ "pageLoadStrategy": "eager" });
 		const firefoxOptions = new firefox.Options();
 		if (options.browserHeadless === undefined || options.browserHeadless) {
 			firefoxOptions.headless();
@@ -97,7 +97,6 @@ exports.getPageData = async options => {
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString().replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")).join("\n");
 		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
 		await driver.get(options.url);
-		await driver.wait(() => driver.executeScript("return location.href != \"about:blank\""));
 		if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0") {
 			await driver.executeAsyncScript(scripts + "\naddEventListener(\"single-file-network-idle-0\", () => arguments[0](), true)");
 		} else if (options.browserWaitUntil == "networkidle2") {
