@@ -58,7 +58,7 @@ exports.getPageData = async options => {
 	};
 	let driver;
 	try {
-		const builder = new Builder();
+		const builder = new Builder().withCapabilities({ "pageLoadStrategy": "none" });
 		const firefoxOptions = new firefox.Options();
 		if (options.browserHeadless === undefined || options.browserHeadless) {
 			firefoxOptions.headless();
@@ -66,22 +66,23 @@ exports.getPageData = async options => {
 		if (options.browserExecutablePath) {
 			firefoxOptions.setBinary(options.browserExecutablePath);
 		}
-		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity || options.browserBypassCSP === undefined || options.browserBypassCSP || options.userAgent || options.enableMaff) {
-			const profile = new firefox.Profile();
-			if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
-				profile.addExtension(require.resolve("./extensions/signed/disable_web_security-0.0.3-an+fx.xpi"));
-			}
-			if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
-				profile.addExtension(require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi"));
-			}
-			if (options.userAgent) {
-				profile.setPreference("general.useragent.override", options.userAgent);
-			}
-			if (options.enableMaff) {
-				profile.addExtension(require.resolve("./extensions/signed/mozilla_archive_format_with_mht_and_faithful_save-5.2.1-fx+sm.xpi"));
-			}
-			firefoxOptions.setProfile(profile);
+		const profile = new firefox.Profile();
+		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
+			profile.addExtension(require.resolve("./extensions/signed/disable_web_security-0.0.3-an+fx.xpi"));
 		}
+		if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
+			profile.addExtension(require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi"));
+		}
+		if (options.userAgent) {
+			profile.setPreference("general.useragent.override", options.userAgent);
+		}
+		if (options.enableMaff) {
+			profile.addExtension(require.resolve("./extensions/signed/mozilla_archive_format_with_mht_and_faithful_save-5.2.1-fx+sm.xpi"));
+		}
+		if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0" || options.browserWaitUntil == "networkidle2") {
+			profile.addExtension(require.resolve("./extensions/signed/network_idle-0.0.2-an+fx.xpi"));
+		}
+		firefoxOptions.setProfile(profile);
 		builder.setFirefoxOptions(firefoxOptions);
 		driver = await builder.forBrowser("firefox").build();
 		driver.manage().setTimeouts({ script: null, pageLoad: null, implicit: null });
@@ -95,9 +96,17 @@ exports.getPageData = async options => {
 		}
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString().replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")).join("\n");
 		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
-		const loadPromise = driver.get(options.url);
-		driver.executeScript(scripts);
-		await loadPromise;
+		await driver.get(options.url);
+		await driver.wait(() => driver.executeScript("return location.href != \"about:blank\""));
+		if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0") {
+			await driver.executeAsyncScript(scripts + "\naddEventListener(\"single-file-network-idle-0\", () => arguments[0](), true)");
+		} else if (options.browserWaitUntil == "networkidle2") {
+			await driver.executeAsyncScript(scripts + "\naddEventListener(\"single-file-network-idle-2\", () => arguments[0](), true)");
+		} else if (options.browserWaitUntil == "load") {
+			await driver.executeAsyncScript(scripts + "\nif (document.readyState == \"loading\") { document.addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
+		} else {
+			await driver.executeScript(scripts);
+		}
 		if (!options.removeFrames) {
 			const windowHandles = await driver.getAllWindowHandles();
 			await Promise.all(windowHandles.map(async windowHandle => {
