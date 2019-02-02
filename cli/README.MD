@@ -67,7 +67,7 @@ This is a **work in progress**.
   
   `> node single-file.js https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Windows)
 
-  - Convert a MAFF file (e.g. `wikipedia.maff`) into `wikipedia.html`
+  - Convert a MAFF file (e.g. `wikipedia.maff`) into `wikipedia.html` with firefox installed in the folder "~/firefox-56.0.2" (Linux/Unix/BSD etc.) or "C:\Program Files\Mozilla Firefox 56.0.2\" (Windows)
 
   `$ ./single-file.js file:///home/gildas/wikipedia.maff wikipedia.html --enable-MAFF  --load-deferred-images=false --back-end=webdriver-firefox --browser-executable-path=~/firefox-56.0.2/firefox` (Linux/Unix/BSD etc.)
   
