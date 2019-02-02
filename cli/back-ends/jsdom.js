@@ -136,6 +136,7 @@ function getSingleFileClass(win) {
 	const domUtil = {
 		getResourceContent,
 		parseDocContent,
+		parseXMLContent,
 		parseSVGContent,
 		isValidFontUrl,
 		digestText,
@@ -147,6 +148,12 @@ function getSingleFileClass(win) {
 function parseDocContent(content) {
 	return (new JSDOM(content, {
 		contentType: "text/html"
+	})).window.document;
+}
+
+function parseXMLContent(content) {
+	return (new JSDOM(content, {
+		contentType: "text/xml"
 	})).window.document;
 }
 
