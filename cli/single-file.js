@@ -57,7 +57,8 @@ const args = require("yargs")
 		"remove-alternative-fonts": true,
 		"remove-alternative-medias": true,
 		"remove-alternative-images": true,
-		"save-raw-page": false
+		"save-raw-page": false,
+		"web-driver-executable-path": ""
 	})
 	.options("back-end", { description: "Back-end to use" })
 	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chrome", "webdriver-firefox"])
@@ -111,6 +112,8 @@ const args = require("yargs")
 	.number("remove-alternative-images")
 	.options("save-raw-page", { description: "Save the original page without interpreting it into the browser (puppeteer, webdriver-firefox, webdriver-chrome)" })
 	.number("save-raw-page")
+	.options("web-driver-executable-path", { description: "Path to Selenium WebDriver executable (webdriver-firefox, webdriver-chrome)" })
+	.string("web-driver-executable-path")
 	.argv;
 
 const backEnds = {

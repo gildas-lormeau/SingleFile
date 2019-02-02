@@ -21,7 +21,8 @@
  *   Source.
  */
 
-/* global require, exports */
+/* global require, exports, process */
+
 const fs = require("fs");
 
 const chrome = require("selenium-webdriver/chrome");
@@ -66,6 +67,9 @@ exports.getPageData = async options => {
 		}
 		if (options.browserExecutablePath) {
 			chromeOptions.setChromeBinaryPath(options.browserExecutablePath);
+		}
+		if (options.webDriverExecutablePath) {
+			process.env["webdriver.chrome.driver"] = options.webDriverExecutablePath;
 		}
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
 			chromeOptions.addArguments("--disable-web-security");

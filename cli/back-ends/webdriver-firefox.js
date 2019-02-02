@@ -21,7 +21,8 @@
  *   Source.
  */
 
-/* global require, exports */
+/* global require, exports, process */
+
 const fs = require("fs");
 
 const firefox = require("selenium-webdriver/firefox");
@@ -65,6 +66,9 @@ exports.getPageData = async options => {
 		}
 		if (options.browserExecutablePath) {
 			firefoxOptions.setBinary(options.browserExecutablePath);
+		}
+		if (options.webDriverExecutablePath) {
+			process.env["webdriver.gecko.driver"] = options.webDriverExecutablePath;
 		}
 		const profile = new firefox.Profile();
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
