@@ -61,7 +61,7 @@ exports.getPageData = async options => {
 		browserOptions.headless = options.browserHeadless;
 	}
 	if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
-		browserOptions.args = ["--disable-web-security"];
+		browserOptions.args = ["--disable-web-security", "--no-pings"];
 	}
 	if (options.browserExecutablePath) {
 		browserOptions.executablePath = options.browserExecutablePath || "chrome";

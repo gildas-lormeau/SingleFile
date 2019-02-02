@@ -69,6 +69,7 @@ exports.getPageData = async options => {
 		}
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
 			chromeOptions.addArguments("--disable-web-security");
+			chromeOptions.addArguments("--no-pings");
 		}
 		if (!optionHeadless) {
 			const extensions = [];
