@@ -60,21 +60,28 @@ exports.getPageData = async options => {
 	try {
 		const builder = new Builder();
 		const chromeOptions = new chrome.Options();
-		const optionHeadless = options.browserHeadless === undefined || options.browserHeadless;
+		const optionHeadless = false; options.browserHeadless === undefined || options.browserHeadless;
 		if (optionHeadless) {
 			chromeOptions.headless();
+		}
+		if (options.browserExecutablePath) {
+			chromeOptions.setChromeBinaryPath(options.browserExecutablePath);
 		}
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
 			chromeOptions.addArguments("--disable-web-security");
 		}
-		if (!optionHeadless && (options.browserBypassCSP === undefined || options.browserBypassCSP)) {
-			chromeOptions.addExtensions([require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi")]);
+		if (!optionHeadless) {
+			const extensions = [];
+			if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
+				extensions.push(require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi"));
+			}
+			if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0" || options.browserWaitUntil == "networkidle2") {
+				extensions.push(require.resolve("./extensions/signed/network_idle-0.0.2-an+fx.xpi"));
+			}
+			chromeOptions.addExtensions(extensions);
 		}
 		if (options.userAgent) {
 			await chromeOptions.addArguments("--user-agent=" + JSON.stringify(options.userAgent));
-		}
-		if (options.browserExecutablePath) {
-			chromeOptions.setChromeBinaryPath(options.browserExecutablePath);
 		}
 		builder.setChromeOptions(chromeOptions);
 		driver = await builder.forBrowser("chrome").build();
@@ -89,9 +96,16 @@ exports.getPageData = async options => {
 		}
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
 		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
-		const loadPromise = driver.get(options.url);
-		driver.executeScript(scripts);
-		await loadPromise;
+		await driver.get(options.url);
+		if (!optionHeadless && (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0")) {
+			await driver.executeAsyncScript(scripts + "\naddEventListener(\"single-file-network-idle-0\", () => arguments[0](), true)");
+		} else if (!optionHeadless && options.browserWaitUntil == "networkidle2") {
+			await driver.executeAsyncScript(scripts + "\naddEventListener(\"single-file-network-idle-2\", () => arguments[0](), true)");
+		} else if (options.browserWaitUntil == "load") {
+			await driver.executeAsyncScript(scripts + "\nif (document.readyState == \"loading\") { document.addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
+		} else {
+			await driver.executeScript(scripts);
+		}
 		if (!options.removeFrames) {
 			const windowHandles = await driver.getAllWindowHandles();
 			await Promise.all(windowHandles.map(async windowHandle => {
