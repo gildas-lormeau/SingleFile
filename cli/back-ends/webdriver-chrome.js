@@ -102,7 +102,7 @@ exports.getPageData = async options => {
 		} else if (!optionHeadless && options.browserWaitUntil == "networkidle2") {
 			await driver.executeAsyncScript(scripts + "\naddEventListener(\"single-file-network-idle-2\", () => arguments[0](), true)");
 		} else if (optionHeadless || options.browserWaitUntil == "load") {
-			await driver.executeAsyncScript(scripts + "\nif (document.readyState == \"loading\") { document.addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
+			await driver.executeAsyncScript(scripts + "\nif (document.readyState == \"loading\" || document.readyState == \"interactive\") { document.addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
 		} else {
 			await driver.executeScript(scripts);
 		}
