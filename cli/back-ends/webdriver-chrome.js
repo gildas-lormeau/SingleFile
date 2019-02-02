@@ -60,7 +60,7 @@ exports.getPageData = async options => {
 	try {
 		const builder = new Builder();
 		const chromeOptions = new chrome.Options();
-		const optionHeadless = false; options.browserHeadless === undefined || options.browserHeadless;
+		const optionHeadless = options.browserHeadless === undefined || options.browserHeadless;
 		if (optionHeadless) {
 			chromeOptions.headless();
 		}
