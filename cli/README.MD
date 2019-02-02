@@ -18,6 +18,7 @@ This is a **work in progress**.
 - To convert MAFF files to HTML, you must use specific versions of Firefox and Selenium WebDriver component. You must install respectively [Firefox version 56.0.2](https://ftp.mozilla.org/pub/firefox/releases/56.0.2/) and [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1). See the last example for more info about the options to set.
 
 ### Install
+
 - Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk in an empty folder.
 
   `$ unzip master.zip .`
@@ -35,6 +36,7 @@ This is a **work in progress**.
   `$ chmod +x single-file.js`
 
 ### Run
+
 - Syntax
  
   `$ ./single-file.js <url> [output] [options ...]` (Linux/Unix/BSD etc.)
@@ -74,4 +76,5 @@ This is a **work in progress**.
   `> node single-file.js file:///C:/Users/Gildas/wikipedia.maff wikipedia.html --enable-MAFF  --load-deferred-images=false --back-end=webdriver-firefox --browser-executable-path="C:\Program Files\Mozilla Firefox 56.0.2\firefox"` (Windows)
   
 ## License
+
 SingleFile is licensed under AGPL and GPL. Code derived from third-party projects is licensed under MIT. Please contact me at gildas.lormeau &lt;at&gt; gmail.com if you are interested in licensing the SingleFile code for a commercial service or product.
