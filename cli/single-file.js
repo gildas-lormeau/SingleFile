@@ -41,6 +41,7 @@ const args = require("yargs")
 		"compress-CSS": true,
 		"compress-HTML": true,
 		"enable-MAFF": false,
+		"filename-template": "",
 		"group-duplicate-images": true,
 		"load-deferred-images": true,
 		"load-deferred-images-max-idle-time": 1500,
@@ -78,6 +79,8 @@ const args = require("yargs")
 	.boolean("compress-CSS")
 	.options("compress-HTML", { description: "Compress HTML content" })
 	.boolean("compress-HTML")
+	.options("filename-template", { description: "Template used to generate the output filename (see help page of the extension for more info)" })
+	.string("filename-template")
 	.options("group-duplicate-images", { description: "Group duplicate images into CSS custom properties" })
 	.boolean("compress-HTML")
 	.options("load-deferred-images", { description: "Load deferred (a.k.a. lazy-loaded) images (puppeteer, webdriver-firefox, webdriver-chrome)" })
@@ -126,6 +129,10 @@ require(backEnds[args.backEnd]).getPageData(args).then(pageData => {
 	if (args.output) {
 		require("fs").writeFileSync(args.output, pageData.content);
 	} else {
-		console.log(pageData.content); // eslint-disable-line no-console
+		if (args.filenameTemplate) {
+			require("fs").writeFileSync(pageData.filename, pageData.content);
+		} else {
+			console.log(pageData.content); // eslint-disable-line no-console			
+		}
 	}
 });
