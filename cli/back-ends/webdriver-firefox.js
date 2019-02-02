@@ -73,14 +73,14 @@ exports.getPageData = async options => {
 		if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
 			profile.addExtension(require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi"));
 		}
+		if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0" || options.browserWaitUntil == "networkidle2") {
+			profile.addExtension(require.resolve("./extensions/signed/network_idle-0.0.2-an+fx.xpi"));
+		}
 		if (options.userAgent) {
 			profile.setPreference("general.useragent.override", options.userAgent);
 		}
 		if (options.enableMaff) {
 			profile.addExtension(require.resolve("./extensions/signed/mozilla_archive_format_with_mht_and_faithful_save-5.2.1-fx+sm.xpi"));
-		}
-		if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0" || options.browserWaitUntil == "networkidle2") {
-			profile.addExtension(require.resolve("./extensions/signed/network_idle-0.0.2-an+fx.xpi"));
 		}
 		firefoxOptions.setProfile(profile);
 		builder.setFirefoxOptions(firefoxOptions);
