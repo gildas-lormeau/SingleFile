@@ -131,9 +131,16 @@ function getPageDataScript() {
 
 	async function getPageData() {
 		options.insertSingleFileComment = true;
-		if (!options.saveRawPage && options.loadDeferredImages) {
-			await lazyLoader.process(options);
+		const preInitializationPromises = [];
+		if (!options.saveRawPage) {
+			if (!options.removeFrames) {
+				preInitializationPromises.push(frameTree.getAsync(options));
+			}
+			if (options.loadDeferredImages) {
+				preInitializationPromises.push(lazyLoader.process(options));
+			}
 		}
+		[options.framesData] = await Promise.all(preInitializationPromises);
 		options.doc = document;
 		options.win = window;
 		const SingleFile = SingleFileBrowser.getClass();
