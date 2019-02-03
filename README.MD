@@ -63,7 +63,7 @@ See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=
   - The following characters are replaced with _ in filenames: ~, \\, ?, %, *, :, |, ", <, >  
 - Chrome/Opera:
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
-  - If the filename of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3", disable the option "Misc > Save pages in background". Reinstalling Chrome may also fix this issue.
+  - If the filename of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3", disable the option "Misc > Save pages in background". Reinstalling the browser may also fix this issue.
 
 ## Troubleshooting unknown issues
 Please follow these steps if you find an unknown issue:
