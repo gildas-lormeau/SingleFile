@@ -9,9 +9,9 @@ SingleFile can be launched from the command line to convert MAFF files into HTML
 ### Prerequisites
 
 - [Node.js](https://nodejs.org) must be installed. 
-- You must use specific versions of Firefox and Selenium WebDriver component. You must install respectively [Firefox version 56.0.2](https://ftp.mozilla.org/pub/firefox/releases/56.0.2/) and [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1).
-- It is recommended that the Firefox binary can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--browser-executable-path` option..
-- It is also recommended that the Mozilla geckodriver binary can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--web-driver-executable-path` option.
+- You must also install [Firefox version 56.0.2](https://ftp.mozilla.org/pub/firefox/releases/56.0.2/) and [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1).
+- It is recommended that the Firefox binary can be found through the `PATH` environment variable or the `maff2html` folder. Otherwise you will need to set the `--browser-executable-path` option..
+- It is also recommended that the Mozilla geckodriver binary can be found through the `PATH` environment variable or the `maff2html` folder. Otherwise you will need to set the `--web-driver-executable-path` option.
 
 ### Install
 
@@ -47,7 +47,13 @@ SingleFile can be launched from the command line to convert MAFF files into HTML
 
 - Examples
 
-  - Convert a MAFF file (e.g. `wikipedia.maff`) into `wikipedia.html` with Firefox installed in the folder "~/firefox-56.0.2/" (Linux/Unix/BSD etc.) or "C:\Program Files\Mozilla Firefox 56.0.2\" (Windows)
+  - Convert `wikipedia.maff` (located in the user directory) into `wikipedia.html`
+
+  `$ ./single-file.js file:///home/gildas/wikipedia.maff wikipedia.html` (Linux/Unix/BSD etc.)
+  
+  `> node single-file.js file:///C:/Users/Gildas/wikipedia.maff wikipedia.html` (Windows)
+
+  - Convert `wikipedia.maff` (located in the user directory) into `wikipedia.html` with Firefox installed in the folder "~/firefox-56.0.2/" (Linux/Unix/BSD etc.) or "C:\Program Files\Mozilla Firefox 56.0.2\" (Windows)
 
   `$ ./single-file.js file:///home/gildas/wikipedia.maff wikipedia.html --browser-executable-path=~/firefox-56.0.2/firefox` (Linux/Unix/BSD etc.)
   
