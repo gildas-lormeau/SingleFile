@@ -47,7 +47,7 @@ SingleFile can be launched from the command line to convert MAFF files into HTML
 
 - Examples
 
-  - Convert a MAFF file (e.g. `wikipedia.maff`) into `wikipedia.html` with Firefox installed in the folder "~/firefox-56.0.2/" (Linux/Unix/BSD etc.) or "C:\Program Files\Mozilla Firefox 56.0.2\" (Windows)
+  - Convert `wikipedia.maff` (located in the user directory) into `wikipedia.html` with Firefox installed in the folder "~/firefox-56.0.2/" (Linux/Unix/BSD etc.) or "C:\Program Files\Mozilla Firefox 56.0.2\" (Windows)
 
   `$ ./single-file.js file:///home/gildas/wikipedia.maff wikipedia.html --browser-executable-path=~/firefox-56.0.2/firefox` (Linux/Unix/BSD etc.)
   
