@@ -9,8 +9,7 @@
 		"jsdom": "*",
 		"puppeteer-core": "*",
 		"request-promise-native": "*",
-		"selenium-webdriver": "4.0.0-alpha.1",
-		"selenium-webdriver-legacy": "selenium-webdriver:*",
+		"selenium-webdriver": "3.*",
 		"strong-data-uri": "*",
 		"yargs": "*"
 	}

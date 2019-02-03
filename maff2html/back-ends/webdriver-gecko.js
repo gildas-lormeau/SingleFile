@@ -25,7 +25,7 @@
 
 const fs = require("fs");
 
-const chrome = require("selenium-webdriver/chrome");
+const firefox = require("selenium-webdriver/firefox");
 const { Builder } = require("selenium-webdriver");
 
 const SCRIPTS = [
@@ -59,37 +59,35 @@ exports.getPageData = async options => {
 	};
 	let driver;
 	try {
-		const builder = new Builder();
-		const chromeOptions = new chrome.Options();
-		const optionHeadless = options.browserHeadless === undefined || options.browserHeadless;
-		if (optionHeadless) {
-			chromeOptions.headless();
+		const builder = new Builder().withCapabilities({ "pageLoadStrategy": "eager" });
+		const firefoxOptions = new firefox.Options();
+		options.enableMaff = true;
+		if (options.browserHeadless === undefined || options.browserHeadless) {
+			firefoxOptions.headless();
 		}
 		if (options.browserExecutablePath) {
-			chromeOptions.setChromeBinaryPath(options.browserExecutablePath);
+			firefoxOptions.setBinary(options.browserExecutablePath);
 		}
 		if (options.webDriverExecutablePath) {
-			process.env["webdriver.chrome.driver"] = options.webDriverExecutablePath;
+			process.env["webdriver.gecko.driver"] = options.webDriverExecutablePath;
 		}
+		const profile = new firefox.Profile();
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
-			chromeOptions.addArguments("--disable-web-security");
-			chromeOptions.addArguments("--no-pings");
+			profile.addExtension(require.resolve("./extensions/signed/disable_web_security-0.0.3-an+fx.xpi"));
 		}
-		if (!optionHeadless) {
-			const extensions = [];
-			if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
-				extensions.push(require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi"));
-			}
-			if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0" || options.browserWaitUntil == "networkidle2") {
-				extensions.push(require.resolve("./extensions/signed/network_idle-0.0.2-an+fx.xpi"));
-			}
-			chromeOptions.addExtensions(extensions);
+		if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
+			profile.addExtension(require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi"));
+		}
+		if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0" || options.browserWaitUntil == "networkidle2") {
+			profile.addExtension(require.resolve("./extensions/signed/network_idle-0.0.2-an+fx.xpi"));
 		}
 		if (options.userAgent) {
-			await chromeOptions.addArguments("--user-agent=" + JSON.stringify(options.userAgent));
+			profile.setPreference("general.useragent.override", options.userAgent);
 		}
-		builder.setChromeOptions(chromeOptions);
-		driver = await builder.forBrowser("chrome").build();
+		profile.addExtension(require.resolve("./extensions/signed/mozilla_archive_format_with_mht_and_faithful_save-5.2.1-fx+sm.xpi"));
+		firefoxOptions.setProfile(profile);
+		builder.setFirefoxOptions(firefoxOptions);
+		driver = await builder.forBrowser("firefox").build();
 		driver.manage().setTimeouts({ script: null, pageLoad: null, implicit: null });
 		if (options.browserWidth && options.browserHeight) {
 			const window = driver.manage().window();
@@ -99,14 +97,14 @@ exports.getPageData = async options => {
 				window.setSize(options.browserWidth, options.browserHeight);
 			}
 		}
-		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
+		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString().replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")).join("\n");
 		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
 		await driver.get(options.url);
-		if (!optionHeadless && (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0")) {
+		if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0") {
 			await driver.executeAsyncScript(scripts + "\naddEventListener(\"single-file-network-idle-0\", () => arguments[0](), true)");
-		} else if (!optionHeadless && options.browserWaitUntil == "networkidle2") {
+		} else if (options.browserWaitUntil == "networkidle2") {
 			await driver.executeAsyncScript(scripts + "\naddEventListener(\"single-file-network-idle-2\", () => arguments[0](), true)");
-		} else if (optionHeadless || options.browserWaitUntil == "load") {
+		} else if (options.browserWaitUntil == "load") {
 			await driver.executeAsyncScript(scripts + "\nif (document.readyState == \"loading\" || document.readyState == \"interactive\") { document.addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
 		} else {
 			await driver.executeScript(scripts);

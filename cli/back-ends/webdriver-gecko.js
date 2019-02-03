@@ -70,23 +70,22 @@ exports.getPageData = async options => {
 		if (options.webDriverExecutablePath) {
 			process.env["webdriver.gecko.driver"] = options.webDriverExecutablePath;
 		}
-		const profile = new firefox.Profile();
+		const extensions = [];
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
-			profile.addExtension(require.resolve("./extensions/signed/disable_web_security-0.0.3-an+fx.xpi"));
+			extensions.push(require.resolve("./extensions/signed/disable_web_security-0.0.3-an+fx.xpi"));
 		}
 		if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
-			profile.addExtension(require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi"));
+			extensions.push(require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi"));
 		}
 		if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0" || options.browserWaitUntil == "networkidle2") {
-			profile.addExtension(require.resolve("./extensions/signed/network_idle-0.0.2-an+fx.xpi"));
+			extensions.push(require.resolve("./extensions/signed/network_idle-0.0.2-an+fx.xpi"));
+		}
+		if (extensions.length) {
+			firefoxOptions.addExtensions(extensions);
 		}
 		if (options.userAgent) {
-			profile.setPreference("general.useragent.override", options.userAgent);
+			firefoxOptions.setPreference("general.useragent.override", options.userAgent);
 		}
-		if (options.enableMaff) {
-			profile.addExtension(require.resolve("./extensions/signed/mozilla_archive_format_with_mht_and_faithful_save-5.2.1-fx+sm.xpi"));
-		}
-		firefoxOptions.setProfile(profile);
 		builder.setFirefoxOptions(firefoxOptions);
 		driver = await builder.forBrowser("firefox").build();
 		driver.manage().setTimeouts({ script: null, pageLoad: null, implicit: null });
@@ -111,12 +110,7 @@ exports.getPageData = async options => {
 			await driver.executeScript(scripts);
 		}
 		if (!options.removeFrames) {
-			const windowHandles = await driver.getAllWindowHandles();
-			await Promise.all(windowHandles.map(async windowHandle => {
-				await driver.switchTo().window(windowHandle);
-				driver.executeScript(scripts);
-			}));
-			await driver.switchTo().window(driver.getWindowHandle());
+			await executeScriptInFrames(driver, scripts);
 		}
 		const result = await driver.executeAsyncScript(getPageDataScript(), options);
 		if (result.error) {
@@ -130,6 +124,23 @@ exports.getPageData = async options => {
 		}
 	}
 };
+
+async function executeScriptInFrames(driver, scripts) {
+	let finished = false, indexFrame = 0;
+	while (!finished) {
+		try {
+			await driver.switchTo().frame(indexFrame);
+		} catch (error) {
+			finished = true;
+		}
+		if (!finished) {
+			await driver.executeScript(scripts);
+			await executeScriptInFrames(driver, scripts);
+			indexFrame++;
+			await driver.switchTo().parentFrame();
+		}
+	}
+}
 
 function getPageDataScript() {
 	return `

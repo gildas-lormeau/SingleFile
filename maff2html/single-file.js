@@ -32,7 +32,6 @@ const args = require("yargs")
 		yargs.positional("output", { description: "Output filename", type: "string" });
 	})
 	.default({
-		"back-end": "puppeteer",
 		"browser-headless": true,
 		"browser-executable-path": "",
 		"browser-width": 1280,
@@ -60,17 +59,15 @@ const args = require("yargs")
 		"save-raw-page": false,
 		"web-driver-executable-path": ""
 	})
-	.options("back-end", { description: "Back-end to use" })
-	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chromium", "webdriver-gecko"])
-	.options("browser-headless", { description: "Run the browser in headless mode (puppeteer, webdriver-gecko, webdriver-chromium)" })
+	.options("browser-headless", { description: "Run the browser in headless mode" })
 	.boolean("browser-headless")
-	.options("browser-executable-path", { description: "Path to chrome/chromium executable (puppeteer, webdriver-gecko, webdriver-chromium)" })
+	.options("browser-executable-path", { description: "Path to chrome/chromium executable" })
 	.string("browser-executable-path")
 	.options("browser-width", { description: "Width of the browser viewport in pixels" })
 	.number("browser-width")
 	.options("browser-height", { description: "Height of the browser viewport in pixels" })
 	.number("browser-height")
-	.options("browser-wait-until", { description: "When to consider the page is loaded (puppeteer, webdriver-gecko, webdriver-chromium)" })
+	.options("browser-wait-until", { description: "When to consider the page is loaded" })
 	.choices("browser-wait-until", ["networkidle0", "networkidle2", "load", "domcontentloaded"])
 	.options("compress-CSS", { description: "Compress CSS stylesheets" })
 	.boolean("compress-CSS")
@@ -80,9 +77,9 @@ const args = require("yargs")
 	.string("filename-template")
 	.options("group-duplicate-images", { description: "Group duplicate images into CSS custom properties" })
 	.boolean("compress-HTML")
-	.options("load-deferred-images", { description: "Load deferred (a.k.a. lazy-loaded) images (puppeteer, webdriver-gecko, webdriver-chromium)" })
+	.options("load-deferred-images", { description: "Load deferred (a.k.a. lazy-loaded) images" })
 	.boolean("load-deferred-images")
-	.options("load-deferred-images-max-idle-time", { description: "Maximum delay of time to wait for deferred images (puppeteer, webdriver-gecko, webdriver-chromium)" })
+	.options("load-deferred-images-max-idle-time", { description: "Maximum delay of time to wait for deferred images" })
 	.number("load-deferred-images")
 	.options("max-resource-size-enabled", { description: "Enable removal of embedded resources exceeding a given size" })
 	.boolean("max-resource-size-enabled")
@@ -94,7 +91,7 @@ const args = require("yargs")
 	.number("remove-unused-styles")
 	.options("remove-unused-fonts", { description: "Remove unused CSS font rules" })
 	.number("remove-unused-fonts")
-	.options("remove-frames", { description: "Remove frames (puppeteer, webdriver-gecko, webdriver-chromium)" })
+	.options("remove-frames", { description: "Remove frames" })
 	.number("remove-frames")
 	.options("remove-imports", { description: "Remove HTML imports" })
 	.number("remove-imports")
@@ -110,19 +107,13 @@ const args = require("yargs")
 	.number("remove-alternative-medias")
 	.options("remove-alternative-images", { description: "Remove images for alternative sizes of screen" })
 	.number("remove-alternative-images")
-	.options("save-raw-page", { description: "Save the original page without interpreting it into the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
+	.options("save-raw-page", { description: "Save the original page without interpreting it into the browser" })
 	.number("save-raw-page")
-	.options("web-driver-executable-path", { description: "Path to Selenium WebDriver executable (webdriver-gecko, webdriver-chromium)" })
+	.options("web-driver-executable-path", { description: "Path to Selenium WebDriver executable" })
 	.string("web-driver-executable-path")
 	.argv;
 
-const backEnds = {
-	jsdom: "./back-ends/jsdom.js",
-	puppeteer: "./back-ends/puppeteer.js",
-	"webdriver-chromium": "./back-ends/webdriver-chromium.js",
-	"webdriver-gecko": "./back-ends/webdriver-gecko.js"
-};
-require(backEnds[args.backEnd]).getPageData(args).then(pageData => {
+require("./back-ends/webdriver-gecko.js").getPageData(args).then(pageData => {
 	if (args.output) {
 		require("fs").writeFileSync(args.output, pageData.content);
 	} else {
