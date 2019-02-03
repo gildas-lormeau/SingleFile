@@ -13,8 +13,8 @@ This is a **work in progress**.
 - [Node.js](https://nodejs.org) must be installed. 
 - By default SingleFile will use Puppeteer to connect to [Chrome/Chromium](https://www.google.com/chrome/). With Puppeteer, Chrome/Chromium must also be installed. 
 - With Selenium WebDriver, you can use [Firefox](https://www.mozilla.org/en/firefox/new/) or Chrome/Chromium. At least one of them must be installed. 
-- If you use [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) instead of Puppeteer, you only need to download the component (e.g. `geckodriver` or `chromedriver`) for your browser and ensure it can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--web-driver-executable-path` option to help SingleFile locating the binary file.
-- It is recommended that the browser binaries can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating the binary file.
+- If you use [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) instead of Puppeteer, you only need to download the component (e.g. `geckodriver` or `chromedriver`) for your browser and ensure it can be found through the `PATH` environment variable or the `cli` folder. Otherwise you will need to set the `--web-driver-executable-path` option to help SingleFile locating the binary file.
+- It is recommended that the browser binaries can be found through the `PATH` environment variable or the `cli` folder. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating the binary file.
  - You can also convert MAFF pages to HTML. For this, you must use specific versions of SingleFile CLI and Firefox. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/maff2html/README.MD.
 
 ### Install
