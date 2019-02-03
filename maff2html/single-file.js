@@ -48,7 +48,6 @@ const args = require("yargs")
 		"remove-hidden-elements": true,
 		"remove-unused-styles": true,
 		"remove-unused-fonts": true,
-		"remove-frames": false,
 		"remove-imports": true,
 		"remove-scripts": true,
 		"remove-audio-src": true,
@@ -91,8 +90,6 @@ const args = require("yargs")
 	.number("remove-unused-styles")
 	.options("remove-unused-fonts", { description: "Remove unused CSS font rules" })
 	.number("remove-unused-fonts")
-	.options("remove-frames", { description: "Remove frames" })
-	.number("remove-frames")
 	.options("remove-imports", { description: "Remove HTML imports" })
 	.number("remove-imports")
 	.options("remove-scripts", { description: "Remove JavaScript scripts" })
