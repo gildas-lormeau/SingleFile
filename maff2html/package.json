@@ -5,12 +5,7 @@
 	"author": "Gildas Lormeau",
 	"license": "AGPL-3.0-or-later",
 	"dependencies": {
-		"iconv-lite": "*",
-		"jsdom": "*",
-		"puppeteer-core": "*",
-		"request-promise-native": "*",
 		"selenium-webdriver": "3.*",
-		"strong-data-uri": "*",
 		"yargs": "*"
 	}
 }
