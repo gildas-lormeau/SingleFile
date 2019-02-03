@@ -10,8 +10,8 @@ SingleFile can be launched from the command line to convert MAFF files into HTML
 
 - [Node.js](https://nodejs.org) must be installed. 
 - You must also install [Firefox version 56.0.2](https://ftp.mozilla.org/pub/firefox/releases/56.0.2/) and [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1).
-- It is recommended that the Firefox binary can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--browser-executable-path` option..
-- It is also recommended that the Mozilla geckodriver binary can be found through the `PATH` environment variable or the current folder. Otherwise you will need to set the `--web-driver-executable-path` option.
+- It is recommended that the Firefox binary can be found through the `PATH` environment variable or the `maff2html` folder. Otherwise you will need to set the `--browser-executable-path` option..
+- It is also recommended that the Mozilla geckodriver binary can be found through the `PATH` environment variable or the `maff2html` folder. Otherwise you will need to set the `--web-driver-executable-path` option.
 
 ### Install
 
