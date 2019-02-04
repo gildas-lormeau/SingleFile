@@ -88,6 +88,11 @@ exports.getPageData = async options => {
 		if (options.userAgent) {
 			await chromeOptions.addArguments("--user-agent=" + JSON.stringify(options.userAgent));
 		}
+		if (options.browserMobileEmulation) {
+			chromeOptions.setMobileEmulation({
+				deviceName: options.browserMobileEmulation
+			});
+		}
 		builder.setChromeOptions(chromeOptions);
 		driver = await builder.forBrowser("chrome").build();
 		driver.manage().setTimeouts({ script: null, pageLoad: null, implicit: null });
