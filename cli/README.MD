@@ -62,11 +62,11 @@ This is a **work in progress**.
   
   `> single-file https://www.wikipedia.org wikipedia.html` (Windows)
 
-  - Save https://www.wikipedia.org into `wikipedia.html` with jsdom instead of Puppeteer
+  - Save https://www.wikipedia.org into `wikipedia.html` with Firefox instead of Chrome
 
-  `$ ./single-file https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Linux/Unix/BSD etc.)
+  `$ ./single-file https://www.wikipedia.org wikipedia.html --back-end=webdriver-gecko` (Linux/Unix/BSD etc.)
   
-  `> single-file https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Windows)
+  `> single-file https://www.wikipedia.org wikipedia.html --back-end=webdriver-gecko` (Windows)
   
 ## License
 
