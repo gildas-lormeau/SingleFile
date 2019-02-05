@@ -22,12 +22,29 @@
 
 singlefile.util = (() => {
 
-	const FORBIDDEN_URLS = ["https://chrome.google.com", "https://addons.mozilla.org"];
+	const FORBIDDEN_DOMAINS = [
+		"chrome.google.com/webstore/",
+		"accounts-static.cdn.mozilla.net",
+		"accounts.firefox.com",
+		"addons.cdn.mozilla.net",
+		"addons.mozilla.org",
+		"api.accounts.firefox.com",
+		"content.cdn.mozilla.net",
+		"content.cdn.mozilla.net",
+		"discovery.addons.mozilla.org",
+		"input.mozilla.org",
+		"install.mozilla.org",
+		"oauth.accounts.firefox.com",
+		"profile.accounts.firefox.com",
+		"support.mozilla.org",
+		"sync.services.mozilla.com",
+		"testpilot.firefox.com"
+	];
 
 	return { isAllowedURL };
 
 	function isAllowedURL(url) {
-		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !FORBIDDEN_URLS.find(storeUrl => url.startsWith(storeUrl));
+		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !FORBIDDEN_DOMAINS.find(domain => url.startsWith("https://" + domain) || url.startsWith("http://" + domain));
 	}
 
 })();
