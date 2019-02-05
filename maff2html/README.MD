@@ -6,9 +6,7 @@ SingleFile can be launched from the command line to convert MAFF files to HTML f
 
 This is a **work in progress**.
 
-## Convert MAFF to HTML
-
-### Install
+## Install
 
 - Install [Firefox version 56.0.2](https://ftp.mozilla.org/pub/firefox/releases/56.0.2/)
 
@@ -34,7 +32,7 @@ This is a **work in progress**.
 
 - Download the [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1) component.  Make sure it can be found through the `PATH` environment variable or the `maff2html` folder. Otherwise you will need to set the `--web-driver-executable-path` option to help SingleFile locating the executable.
 
-### Run
+## Run
 
 - Syntax
  
