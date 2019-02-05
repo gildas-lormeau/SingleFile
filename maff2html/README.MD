@@ -1,4 +1,4 @@
-# SingleFile (MAFF to HTML)
+# Convert MAFF to HTML with SingleFile
 
 ## Introduction
 
