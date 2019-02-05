@@ -18,7 +18,7 @@ This is a **work in progress**.
 
   `$ unzip master.zip .`
 
-- Go into the `maff2html` directory.
+- Go into the `maff2html` folder.
 
   `$ cd maff2html`
   
@@ -48,7 +48,7 @@ This is a **work in progress**.
 
 - Examples
 
-  - Convert `wikipedia.maff` (located in the user directory) to `wikipedia.html`
+  - Convert `wikipedia.maff` (located in the user folder) to `wikipedia.html`
 
   `$ ./single-file file:///home/gildas/wikipedia.maff wikipedia.html` (Linux/Unix/BSD etc.)
   
