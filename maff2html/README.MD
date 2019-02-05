@@ -2,7 +2,7 @@
 
 ## Introduction
 
-SingleFile can be launched from the command line to convert MAFF files into HTML files by running it into Firefox. It runs through Node.js as a standalone script injected into the web page instead of being embedded into a WebExtension. It uses [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) to connect Node.js to Firefox.
+SingleFile can be launched from the command line to convert MAFF files to HTML files by running it into Firefox. It runs through Node.js as a standalone script injected into the web page instead of being embedded into a WebExtension. It uses [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) to connect Node.js to Firefox.
 
 This is a **work in progress**.
 
@@ -56,7 +56,7 @@ This is a **work in progress**.
   
   `> single-file file:///C:/Users/Gildas/wikipedia.maff wikipedia.html` (Windows)
 
-  - Convert `wikipedia.maff` (located in the user directory) into `wikipedia.html` with Firefox installed in the folder "~/firefox-56.0.2/" (Linux/Unix/BSD etc.) or "C:\Program Files\Mozilla Firefox 56.0.2\" (Windows)
+  - Convert `wikipedia.maff` to `wikipedia.html` with Firefox installed in the folder "~/firefox-56.0.2/" (Linux/Unix/BSD etc.) or "C:\Program Files\Mozilla Firefox 56.0.2\" (Windows)
 
   `$ ./single-file file:///home/gildas/wikipedia.maff wikipedia.html --browser-executable-path=~/firefox-56.0.2/firefox` (Linux/Unix/BSD etc.)
   
