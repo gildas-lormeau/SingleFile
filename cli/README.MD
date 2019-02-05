@@ -31,43 +31,43 @@ This is a **work in progress**.
 
   `$ npm install`
   
-- Make `single-file.js` executable (Linux/Unix/BSD etc.).
+- Make `single-file` executable (Linux/Unix/BSD etc.).
 
-  `$ chmod +x single-file.js`
+  `$ chmod +x single-file`
 
 ### Run
 
 - Syntax
  
-  `$ ./single-file.js <url> [output] [options ...]` (Linux/Unix/BSD etc.)
+  `$ ./single-file <url> [output] [options ...]` (Linux/Unix/BSD etc.)
 
-  `> node single-file.js <url> [output] [options ...]` (Windows)    
+  `> single-file <url> [output] [options ...]` (Windows)    
 
 - Display help
 
-  `$ ./single-file.js --help` (Linux/Unix/BSD etc.)
+  `$ ./single-file --help` (Linux/Unix/BSD etc.)
 
-  `> node single-file.js --help` (Windows)
+  `> single-file --help` (Windows)
 
 - Examples
 
   - Dump the processed content of https://www.wikipedia.org into the console
 
-  `$ ./single-file.js https://www.wikipedia.org` (Linux/Unix/BSD etc.)
+  `$ ./single-file https://www.wikipedia.org` (Linux/Unix/BSD etc.)
 
-  `> node single-file.js https://www.wikipedia.org` (Windows)
+  `> single-file https://www.wikipedia.org` (Windows)
 
   - Save https://www.wikipedia.org into `wikipedia.html`
 
-  `$ ./single-file.js https://www.wikipedia.org wikipedia.html` (Linux/Unix/BSD etc.)
+  `$ ./single-file https://www.wikipedia.org wikipedia.html` (Linux/Unix/BSD etc.)
   
-  `> node single-file.js https://www.wikipedia.org wikipedia.html` (Windows)
+  `> single-file https://www.wikipedia.org wikipedia.html` (Windows)
 
   - Save https://www.wikipedia.org into `wikipedia.html` with jsdom instead of Puppeteer
 
-  `$ ./single-file.js https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Linux/Unix/BSD etc.)
+  `$ ./single-file https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Linux/Unix/BSD etc.)
   
-  `> node single-file.js https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Windows)
+  `> single-file https://www.wikipedia.org wikipedia.html --back-end=jsdom` (Windows)
   
 ## License
 

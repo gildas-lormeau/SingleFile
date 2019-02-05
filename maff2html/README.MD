@@ -27,37 +27,37 @@ SingleFile can be launched from the command line to convert MAFF files into HTML
 
   `$ npm install`
   
-- Make `single-file.js` executable (Linux/Unix/BSD etc.).
+- Make `single-file` executable (Linux/Unix/BSD etc.).
 
-  `$ chmod +x single-file.js`
+  `$ chmod +x single-file`
 
 ### Run
 
 - Syntax
  
-  `$ ./single-file.js <url> [output] [options ...]` (Linux/Unix/BSD etc.)
+  `$ ./single-file <url> [output] [options ...]` (Linux/Unix/BSD etc.)
 
-  `> node single-file.js <url> [output] [options ...]` (Windows)    
+  `> single-file <url> [output] [options ...]` (Windows)    
 
 - Display help
 
-  `$ ./single-file.js --help` (Linux/Unix/BSD etc.)
+  `$ ./single-file --help` (Linux/Unix/BSD etc.)
 
-  `> node single-file.js --help` (Windows)
+  `> single-file --help` (Windows)
 
 - Examples
 
   - Convert `wikipedia.maff` (located in the user directory) into `wikipedia.html`
 
-  `$ ./single-file.js file:///home/gildas/wikipedia.maff wikipedia.html` (Linux/Unix/BSD etc.)
+  `$ ./single-file file:///home/gildas/wikipedia.maff wikipedia.html` (Linux/Unix/BSD etc.)
   
-  `> node single-file.js file:///C:/Users/Gildas/wikipedia.maff wikipedia.html` (Windows)
+  `> single-file file:///C:/Users/Gildas/wikipedia.maff wikipedia.html` (Windows)
 
   - Convert `wikipedia.maff` (located in the user directory) into `wikipedia.html` with Firefox installed in the folder "~/firefox-56.0.2/" (Linux/Unix/BSD etc.) or "C:\Program Files\Mozilla Firefox 56.0.2\" (Windows)
 
-  `$ ./single-file.js file:///home/gildas/wikipedia.maff wikipedia.html --browser-executable-path=~/firefox-56.0.2/firefox` (Linux/Unix/BSD etc.)
+  `$ ./single-file file:///home/gildas/wikipedia.maff wikipedia.html --browser-executable-path=~/firefox-56.0.2/firefox` (Linux/Unix/BSD etc.)
   
-  `> node single-file.js file:///C:/Users/Gildas/wikipedia.maff wikipedia.html --browser-executable-path="C:\Program Files\Mozilla Firefox 56.0.2\firefox"` (Windows)
+  `> single-file file:///C:/Users/Gildas/wikipedia.maff wikipedia.html --browser-executable-path="C:\Program Files\Mozilla Firefox 56.0.2\firefox"` (Windows)
   
 ## License
 
