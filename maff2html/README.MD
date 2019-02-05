@@ -30,7 +30,7 @@ This is a **work in progress**.
 
   `$ chmod +x single-file`
 
-- Download the [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1) component.  Make sure it can be found through the `PATH` environment variable or the `maff2html` folder. Otherwise you will need to set the `--web-driver-executable-path` option to help SingleFile locating the executable.
+- Copy the [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1) in the `maff2html` folder.
 
 ## Run
 
