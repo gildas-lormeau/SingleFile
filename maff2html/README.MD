@@ -50,7 +50,7 @@ This is a **work in progress**.
 
 - Examples
 
-  - Convert `wikipedia.maff` (located in the user directory) into `wikipedia.html`
+  - Convert `wikipedia.maff` (located in the user directory) to `wikipedia.html`
 
   `$ ./single-file file:///home/gildas/wikipedia.maff wikipedia.html` (Linux/Unix/BSD etc.)
   
