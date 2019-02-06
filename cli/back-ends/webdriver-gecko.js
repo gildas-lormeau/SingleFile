@@ -113,7 +113,7 @@ exports.getPageData = async options => {
 			}
 			let cancelTimeout;
 			const timeoutPromise = new Promise(resolve => {
-				let timeoutId = setTimeout(resolve, NETWORK_IDLE_MAX_DELAY);
+				const timeoutId = setTimeout(resolve, NETWORK_IDLE_MAX_DELAY);
 				cancelTimeout = () => {
 					clearTimeout(timeoutId);
 					resolve();
