@@ -23,7 +23,6 @@
 
 /* global require, exports */
 
-const { URL } = require("url");
 const fs = require("fs");
 const crypto = require("crypto");
 
@@ -94,6 +93,7 @@ exports.getPageData = async options => {
 		}
 		options.win = win;
 		options.doc = doc;
+		options.removeHiddenElements = false;
 		const SingleFile = getSingleFileClass(win);
 		const singleFile = new SingleFile(options);
 		await singleFile.run();
@@ -135,32 +135,10 @@ function getSingleFileClass(win) {
 	};
 	const domUtil = {
 		getResourceContent,
-		parseDocContent,
-		parseXMLContent,
-		parseSVGContent,
 		isValidFontUrl,
-		digestText,
-		parseURL
+		digestText
 	};
 	return win.SingleFileCore.getClass(win.docUtil.getInstance(modules, domUtil), win.cssTree);
-}
-
-function parseDocContent(content) {
-	return (new JSDOM(content, {
-		contentType: "text/html"
-	})).window.document;
-}
-
-function parseXMLContent(content) {
-	return (new JSDOM(content, {
-		contentType: "text/xml"
-	})).window.document;
-}
-
-function parseSVGContent(content) {
-	return (new JSDOM(content, {
-		contentType: "image/svg+xml"
-	})).window.document;
 }
 
 async function digestText(algo, text) {
@@ -204,8 +182,4 @@ async function getResourceContent(resourceURL, options) {
 			return dataUri.encode(resourceContent.body, contentType || this.getContentType());
 		}
 	};
-}
-
-function parseURL(resourceURL, baseURI) {
-	return new URL(resourceURL, baseURI);
 }
