@@ -122,6 +122,8 @@ const backEnds = {
 	"webdriver-chromium": "./back-ends/webdriver-chromium.js",
 	"webdriver-gecko": "./back-ends/webdriver-gecko.js"
 };
+args.compressCSS = args.compressCss;
+args.compressHTML = args.compressHtml;
 require(backEnds[args.backEnd]).getPageData(args).then(pageData => {
 	if (args.output) {
 		require("fs").writeFileSync(args.output, pageData.content);

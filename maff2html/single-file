@@ -112,6 +112,8 @@ const args = require("yargs")
 	.string("web-driver-executable-path")
 	.argv;
 
+args.compressCSS = args.compressCss;
+args.compressHTML = args.compressHtml;
 require("./back-ends/webdriver-gecko.js").getPageData(args).then(pageData => {
 	if (args.output) {
 		require("fs").writeFileSync(args.output, pageData.content);
