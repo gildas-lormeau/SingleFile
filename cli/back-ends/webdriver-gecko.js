@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global require, exports, process, setTimeout */
+/* global require, exports, process, setTimeout, clearTimeout */
 
 const fs = require("fs");
 
@@ -111,7 +111,16 @@ exports.getPageData = async options => {
 			} else if (options.browserWaitUntil == "load") {
 				scriptPromise = driver.executeAsyncScript("if (document.readyState == \"loading\" || document.readyState == \"interactive\") { document.addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
 			}
-			await Promise.race([scriptPromise, new Promise(resolve => setTimeout(resolve, NETWORK_IDLE_MAX_DELAY))]);
+			let cancelTimeout;
+			const timeoutPromise = new Promise(resolve => {
+				let timeoutId = setTimeout(resolve, NETWORK_IDLE_MAX_DELAY);
+				cancelTimeout = () => {
+					clearTimeout(timeoutId);
+					resolve();
+				};
+			});
+			await Promise.race([scriptPromise, timeoutPromise]);
+			cancelTimeout();
 		}
 		if (!options.removeFrames) {
 			await executeScriptInFrames(driver, scripts);
