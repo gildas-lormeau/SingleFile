@@ -30,7 +30,7 @@ This is a **work in progress**.
 
   `$ chmod +x single-file`
 
-- Copy the [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1) in the `maff2html` folder.
+- Extract and copy the [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1) executable in the `maff2html` folder.
 
 ## Run
 
