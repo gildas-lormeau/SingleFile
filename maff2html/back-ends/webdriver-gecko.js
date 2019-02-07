@@ -109,7 +109,7 @@ exports.getPageData = async options => {
 			} else if (options.browserWaitUntil == "networkidle2") {
 				scriptPromise = driver.executeAsyncScript("addEventListener(\"single-file-network-idle-2\", () => arguments[0](), true)");
 			} else if (options.browserWaitUntil == "load") {
-				scriptPromise = driver.executeAsyncScript("if (document.readyState == \"loading\" || document.readyState == \"interactive\") { document.addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
+				scriptPromise = driver.executeAsyncScript("if (document.readyState == \"loading\") { document.addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
 			}
 			let cancelTimeout;
 			const timeoutPromise = new Promise(resolve => {
