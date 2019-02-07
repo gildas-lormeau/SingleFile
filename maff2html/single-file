@@ -36,7 +36,7 @@ const args = require("yargs")
 		"browser-executable-path": "",
 		"browser-width": 1280,
 		"browser-height": 720,
-		"browser-wait-until": "networkidle0",
+		"browser-wait-until": "load",
 		"compress-CSS": true,
 		"compress-HTML": true,
 		"filename-template": "",
