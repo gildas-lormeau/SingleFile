@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global require, exports, process */
+/* global require, exports, process, setTimeout, clearTimeout */
 
 const fs = require("fs");
 
@@ -95,7 +95,7 @@ exports.getPageData = async options => {
 		}
 		builder.setChromeOptions(chromeOptions);
 		driver = await builder.forBrowser("chrome").build();
-		driver.manage().setTimeouts({ script: null, pageLoad: null, implicit: null });
+		driver.manage().setTimeouts({ script: options.browserLoadMaxTime, pageLoad: options.browserLoadMaxTime, implicit: options.browserLoadMaxTime });
 		if (options.browserWidth && options.browserHeight) {
 			const window = driver.manage().window();
 			if (window.setRect) {
@@ -107,14 +107,26 @@ exports.getPageData = async options => {
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
 		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
 		await driver.get(options.url);
-		if (!optionHeadless && (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0")) {
-			await driver.executeAsyncScript(scripts + "\naddEventListener(\"single-file-network-idle-0\", () => arguments[0](), true)");
-		} else if (!optionHeadless && options.browserWaitUntil == "networkidle2") {
-			await driver.executeAsyncScript(scripts + "\naddEventListener(\"single-file-network-idle-2\", () => arguments[0](), true)");
-		} else if (optionHeadless || options.browserWaitUntil == "load") {
-			await driver.executeAsyncScript(scripts + "\nif (document.readyState == \"loading\" || document.readyState == \"interactive\") { document.addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
-		} else {
-			await driver.executeScript(scripts);
+		await driver.executeScript(scripts);
+		if (options.browserWaitUntil != "domcontentloaded") {
+			let scriptPromise;
+			if (!optionHeadless && (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0")) {
+				scriptPromise = driver.executeAsyncScript("addEventListener(\"single-file-network-idle-0\", () => arguments[0](), true)");
+			} else if (!optionHeadless && options.browserWaitUntil == "networkidle2") {
+				scriptPromise = driver.executeAsyncScript("addEventListener(\"single-file-network-idle-2\", () => arguments[0](), true)");
+			} else if (optionHeadless || options.browserWaitUntil == "load") {
+				scriptPromise = driver.executeAsyncScript("if (document.readyState == \"loading\" || document.readyState == \"interactive\") { document.addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
+			}
+			let cancelTimeout;
+			const timeoutPromise = new Promise(resolve => {
+				const timeoutId = setTimeout(resolve, Math.max(0, options.browserLoadMaxTime - 5000));
+				cancelTimeout = () => {
+					clearTimeout(timeoutId);
+					resolve();
+				};
+			});
+			await Promise.race([scriptPromise, timeoutPromise]);
+			cancelTimeout();
 		}
 		const result = await driver.executeAsyncScript(getPageDataScript(), options);
 		if (result.error) {
