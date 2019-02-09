@@ -51,7 +51,6 @@ const SCRIPTS = [
 	"../../lib/single-file/single-file-core.js",
 	"../../lib/single-file/single-file-browser.js"
 ];
-const NETWORK_IDLE_MAX_DELAY = 60000;
 
 exports.getPageData = async options => {
 	const RESOLVED_CONTENTS = {
@@ -89,7 +88,7 @@ exports.getPageData = async options => {
 		firefoxOptions.setProfile(profile);
 		builder.setFirefoxOptions(firefoxOptions);
 		driver = await builder.forBrowser("firefox").build();
-		driver.manage().setTimeouts({ script: 2 * NETWORK_IDLE_MAX_DELAY, pageLoad: 2 * NETWORK_IDLE_MAX_DELAY, implicit: 2 * NETWORK_IDLE_MAX_DELAY });
+		driver.manage().setTimeouts({ script: options.browserLoadMaxTime, pageLoad: options.browserLoadMaxTime, implicit: options.browserLoadMaxTime });
 		if (options.browserWidth && options.browserHeight) {
 			const window = driver.manage().window();
 			if (window.setRect) {
@@ -113,7 +112,7 @@ exports.getPageData = async options => {
 			}
 			let cancelTimeout;
 			const timeoutPromise = new Promise(resolve => {
-				const timeoutId = setTimeout(resolve, NETWORK_IDLE_MAX_DELAY);
+				const timeoutId = setTimeout(resolve, Math.max(0, options.browserLoadMaxTime - 5000));
 				cancelTimeout = () => {
 					clearTimeout(timeoutId);
 					resolve();

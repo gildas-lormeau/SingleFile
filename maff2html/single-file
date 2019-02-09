@@ -36,6 +36,7 @@ const args = require("yargs")
 		"browser-executable-path": "",
 		"browser-width": 1280,
 		"browser-height": 720,
+		"browser-load-max-time": 60000,
 		"browser-wait-until": "load",
 		"compress-CSS": true,
 		"compress-HTML": true,
@@ -66,6 +67,8 @@ const args = require("yargs")
 	.number("browser-width")
 	.options("browser-height", { description: "Height of the browser viewport in pixels" })
 	.number("browser-height")
+	.options("browser-load-max-time", { description: "Maximum delay of time to wait for page loading (in ms)" })
+	.number("browser-load-max-time")
 	.options("browser-wait-until", { description: "When to consider the page is loaded" })
 	.choices("browser-wait-until", ["networkidle0", "networkidle2", "load", "domcontentloaded"])
 	.options("compress-CSS", { description: "Compress CSS stylesheets" })
@@ -78,11 +81,11 @@ const args = require("yargs")
 	.boolean("group-duplicate-images")
 	.options("load-deferred-images", { description: "Load deferred (a.k.a. lazy-loaded) images" })
 	.boolean("load-deferred-images")
-	.options("load-deferred-images-max-idle-time", { description: "Maximum delay of time to wait for deferred images" })
-	.number("load-deferred-images-max-idle-time")
+	.options("load-deferred-images-max-idle-time", { description: "Maximum delay of time to wait for deferred images (in ms)" })
+	.number("load-deferred-images-max-idle-time")	
 	.options("max-resource-size-enabled", { description: "Enable removal of embedded resources exceeding a given size" })
 	.boolean("max-resource-size-enabled")
-	.options("max-resource-size", { description: "Maximum size of embedded resources (i.e. images, stylesheets, scripts and iframes)" })
+	.options("max-resource-size", { description: "Maximum size of embedded resources (i.e. images, stylesheets, scripts and iframes) (in MB)" })
 	.number("max-resource-size")
 	.options("remove-frames", { description: "Remove frames (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("remove-frames")
