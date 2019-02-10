@@ -58,10 +58,15 @@ exports.getPageData = async options => {
 	};
 	const browserOptions = {};
 	if (options.browserHeadless !== undefined) {
-		browserOptions.headless = options.browserHeadless;
+		browserOptions.headless = options.browserHeadless && !options.browserDebug;
 	}
+	browserOptions.args = [];
 	if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
-		browserOptions.args = ["--disable-web-security", "--no-pings"];
+		browserOptions.args.push("--disable-web-security");
+		browserOptions.args.push("--no-pings");
+	}
+	if (!options.browserHeadless && options.browserDebug) {
+		browserOptions.args.push("--auto-open-devtools-for-tabs");
 	}
 	if (options.browserExecutablePath) {
 		browserOptions.executablePath = options.browserExecutablePath || "chrome";
@@ -85,6 +90,9 @@ exports.getPageData = async options => {
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
 		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
 		await page.evaluateOnNewDocument(scripts);
+		if (options.browserDebug) {
+			await page.waitFor(3000);
+		}
 		await page.goto(options.url, {
 			waitUntil: options.browserWaitUntil || "networkidle0"
 		});
@@ -108,7 +116,7 @@ exports.getPageData = async options => {
 			return await singleFile.getPageData();
 		}, options);
 	} finally {
-		if (browser) {
+		if (browser && !options.browserDebug) {
 			await browser.close();
 		}
 	}

@@ -38,6 +38,7 @@ const args = require("yargs")
 		"browser-height": 720,
 		"browser-load-max-time": 60000,
 		"browser-wait-until": "load",
+		"browser-debug": false,
 		"compress-CSS": true,
 		"compress-HTML": true,
 		"filename-template": "",
@@ -71,6 +72,8 @@ const args = require("yargs")
 	.number("browser-load-max-time")
 	.options("browser-wait-until", { description: "When to consider the page is loaded" })
 	.choices("browser-wait-until", ["networkidle0", "networkidle2", "load", "domcontentloaded"])
+	.options("browser-debug", { description: "Enable debug mode" })
+	.boolean("browser-debug")
 	.options("compress-CSS", { description: "Compress CSS stylesheets" })
 	.boolean("compress-CSS")
 	.options("compress-HTML", { description: "Compress HTML content" })

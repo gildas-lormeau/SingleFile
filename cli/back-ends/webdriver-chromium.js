@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global require, exports, process, setTimeout, clearTimeout */
+/* global require, exports, process, setTimeout, clearTimeout, Buffer */
 
 const fs = require("fs");
 
@@ -61,7 +61,7 @@ exports.getPageData = async options => {
 	try {
 		const builder = new Builder();
 		const chromeOptions = new chrome.Options();
-		const optionHeadless = options.browserHeadless === undefined || options.browserHeadless;
+		const optionHeadless = (options.browserHeadless === undefined || options.browserHeadless) && !options.browserDebug;
 		if (optionHeadless) {
 			chromeOptions.headless();
 		}
@@ -76,6 +76,9 @@ exports.getPageData = async options => {
 			chromeOptions.addArguments("--no-pings");
 		}
 		if (!optionHeadless) {
+			if (options.browserDebug) {
+				chromeOptions.addArguments("--auto-open-devtools-for-tabs");
+			}
 			const extensions = [];
 			if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
 				extensions.push(encode(require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi")));
@@ -106,6 +109,9 @@ exports.getPageData = async options => {
 		}
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
 		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
+		if (options.browserDebug) {
+			await driver.sleep(3000);
+		}
 		await driver.get(options.url);
 		await driver.executeScript(scripts);
 		if (options.browserWaitUntil != "domcontentloaded") {
@@ -135,7 +141,7 @@ exports.getPageData = async options => {
 			return result.pageData;
 		}
 	} finally {
-		if (driver) {
+		if (driver && !options.browserDebug) {
 			driver.quit();
 		}
 	}

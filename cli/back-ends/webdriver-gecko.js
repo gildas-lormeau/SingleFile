@@ -26,7 +26,7 @@
 const fs = require("fs");
 
 const firefox = require("selenium-webdriver/firefox");
-const { Builder } = require("selenium-webdriver");
+const { Builder, By, Key } = require("selenium-webdriver");
 
 const SCRIPTS = [
 	"../../lib/hooks/hooks-frame.js",
@@ -61,7 +61,7 @@ exports.getPageData = async options => {
 	try {
 		const builder = new Builder().withCapabilities({ "pageLoadStrategy": "none" });
 		const firefoxOptions = new firefox.Options();
-		if (options.browserHeadless === undefined || options.browserHeadless) {
+		if ((options.browserHeadless === undefined || options.browserHeadless) && !options.browserDebug) {
 			firefoxOptions.headless();
 		}
 		if (options.browserExecutablePath) {
@@ -99,6 +99,10 @@ exports.getPageData = async options => {
 		}
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString().replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")).join("\n");
 		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
+		if (options.browserDebug) {
+			await driver.findElement(By.css("html")).sendKeys(Key.SHIFT + Key.F5);
+			await driver.sleep(3000);
+		}
 		await driver.get(options.url);
 		await driver.executeScript(scripts);
 		if (options.browserWaitUntil != "domcontentloaded") {
@@ -131,7 +135,7 @@ exports.getPageData = async options => {
 			return result.pageData;
 		}
 	} finally {
-		if (driver) {
+		if (driver && !options.browserDebug) {
 			driver.quit();
 		}
 	}
