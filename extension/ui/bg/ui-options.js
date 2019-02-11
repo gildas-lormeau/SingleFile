@@ -18,12 +18,11 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, window, document, localStorage */
+/* global browser, window, document, localStorage, FileReader */
 
 (async () => {
 
-	const bgPage = await browser.runtime.getBackgroundPage();
-	const singlefile = bgPage.singlefile;
+	const { DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME } = await browser.runtime.sendMessage({ getConfigConstants: true });
 	const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsLabel");
 	const removeUnusedStylesLabel = document.getElementById("removeUnusedStylesLabel");
 	const removeUnusedFontsLabel = document.getElementById("removeUnusedFontsLabel");
@@ -154,16 +153,16 @@
 	};
 	rulesDeleteAllButton.addEventListener("click", async () => {
 		if (await confirm(browser.i18n.getMessage("optionsDeleteDisplayedRulesConfirm"))) {
-			await singlefile.config.deleteRules(!showAllProfilesInput.checked && profileNamesInput.value);
+			await browser.runtime.sendMessage({ deleteRules: true, profileName: !showAllProfilesInput.checked && profileNamesInput.value });
 			await refresh();
 		}
 	}, false);
 	createURLElement.onsubmit = async event => {
 		event.preventDefault();
 		try {
-			await singlefile.config.addRule(ruleUrlInput.value, ruleProfileInput.value, ruleAutoSaveProfileInput.value);
+			await browser.runtime.sendMessage({ addRule: true, url: ruleUrlInput.value, profileName: ruleProfileInput.value, autoSaveProfileName: ruleAutoSaveProfileInput.value });
 			ruleUrlInput.value = "";
-			ruleProfileInput.value = ruleAutoSaveProfileInput.value = singlefile.config.DEFAULT_PROFILE_NAME;
+			ruleProfileInput.value = ruleAutoSaveProfileInput.value = DEFAULT_PROFILE_NAME;
 			autoSaveProfileChanged = false;
 			await refresh();
 			ruleUrlInput.focus();
@@ -173,14 +172,14 @@
 	};
 	ruleUrlInput.onclick = ruleUrlInput.onkeyup = ruleUrlInput.onchange = async () => {
 		ruleAddButton.disabled = !ruleUrlInput.value;
-		const rules = await singlefile.config.getRules();
+		const rules = await browser.runtime.sendMessage({ getRules: true });
 		if (rules.find(rule => rule.url == ruleUrlInput.value)) {
 			ruleAddButton.disabled = true;
 		}
 	};
 	ruleEditUrlInput.onclick = ruleEditUrlInput.onkeyup = ruleEditUrlInput.onchange = async () => {
 		ruleEditButton.disabled = !ruleEditUrlInput.value;
-		const rules = await singlefile.config.getRules();
+		const rules = await browser.runtime.sendMessage({ getRules: true });
 		if (rules.find(rule => rule.url == ruleEditUrlInput.value)) {
 			ruleEditButton.disabled = true;
 		}
@@ -212,8 +211,8 @@
 		const profileName = await prompt(browser.i18n.getMessage("profileAddPrompt"));
 		if (profileName) {
 			try {
-				await singlefile.config.createProfile(profileName);
-				await Promise.all([refresh(profileName), singlefile.ui.menu.refresh()]);
+				await browser.runtime.sendMessage({ createProfile: true, profileName });
+				await Promise.all([refresh(profileName), browser.runtime.sendMessage({ refreshMenu: true })]);
 			} catch (error) {
 				// ignored
 			}
@@ -222,9 +221,9 @@
 	deleteProfileButton.addEventListener("click", async () => {
 		if (await confirm(browser.i18n.getMessage("profileDeleteConfirm"))) {
 			try {
-				await singlefile.config.deleteProfile(profileNamesInput.value);
+				await browser.runtime.sendMessage({ deleteProfile: true, profileName: profileNamesInput.value });
 				profileNamesInput.value = null;
-				await Promise.all([refresh(), singlefile.ui.menu.refresh()]);
+				await Promise.all([refresh(), browser.runtime.sendMessage({ refreshMenu: true })]);
 			} catch (error) {
 				// ignored
 			}
@@ -234,8 +233,8 @@
 		const profileName = await prompt(browser.i18n.getMessage("profileRenamePrompt"), profileNamesInput.value);
 		if (profileName) {
 			try {
-				await singlefile.config.renameProfile(profileNamesInput.value, profileName);
-				await Promise.all([refresh(profileName), singlefile.ui.menu.refresh()]);
+				await browser.runtime.sendMessage({ renameProfile: true, profileName: profileNamesInput.value, newProfileName: profileName });
+				await Promise.all([refresh(profileName), browser.runtime.sendMessage({ refreshMenu: true })]);
 			} catch (error) {
 				// ignored
 			}
@@ -245,24 +244,31 @@
 		const choice = await reset();
 		if (choice) {
 			if (choice == "all") {
-				await singlefile.config.resetProfiles();
-				await Promise.all([refresh(singlefile.config.DEFAULT_PROFILE_NAME), singlefile.ui.menu.refresh()]);
+				await browser.runtime.sendMessage({ resetProfiles: true });
+				await Promise.all([refresh(DEFAULT_PROFILE_NAME), browser.runtime.sendMessage({ refreshMenu: true })]);
 			}
 			if (choice == "current") {
-				await singlefile.config.resetProfile(profileNamesInput.value);
+				await browser.runtime.sendMessage({ resetProfile: true, profileName: profileNamesInput.value });
 				await refresh();
 			}
 			await update();
 		}
 	}, false);
 	exportButton.addEventListener("click", async () => {
-		await singlefile.config.export();
+		await browser.runtime.sendMessage({ exportConfig: true });
 	}, false);
 	importButton.addEventListener("click", () => {
 		fileInput.onchange = async () => {
 			if (fileInput.files.length) {
-				await singlefile.config.import(fileInput.files[0]);
-				await refresh(singlefile.config.DEFAULT_PROFILE_NAME);
+				const reader = new FileReader();
+				reader.readAsText(fileInput.files[0]);
+				const serializedConfig = await new Promise((resolve, reject) => {
+					reader.addEventListener("load", () => resolve(reader.result), false);
+					reader.addEventListener("error", reject, false);
+				});
+				const config = JSON.parse(serializedConfig);
+				await browser.runtime.sendMessage({ importConfig: true, config });
+				await refresh(DEFAULT_PROFILE_NAME);
 				fileInput.value = "";
 			}
 		};
@@ -385,8 +391,8 @@
 	refresh();
 
 	async function refresh(profileName) {
-		const [profiles, rules] = await Promise.all([singlefile.config.getProfiles(), singlefile.config.getRules()]);
-		const selectedProfileName = profileName || profileNamesInput.value || singlefile.config.DEFAULT_PROFILE_NAME;
+		const [profiles, rules] = await Promise.all([browser.runtime.sendMessage({ getProfiles: true }), browser.runtime.sendMessage({ getRules: true })]);
+		const selectedProfileName = profileName || profileNamesInput.value || DEFAULT_PROFILE_NAME;
 		Array.from(profileNamesInput.childNodes).forEach(node => node.remove());
 		const profileNames = Object.keys(profiles);
 		profileNamesInput.options.length = 0;
@@ -395,7 +401,7 @@
 		ruleEditProfileInput.options.length = 0;
 		ruleEditAutoSaveProfileInput.options.length = 0;
 		let optionElement = document.createElement("option");
-		optionElement.value = singlefile.config.DEFAULT_PROFILE_NAME;
+		optionElement.value = DEFAULT_PROFILE_NAME;
 		optionElement.textContent = browser.i18n.getMessage("profileDefaultSettings");
 		profileNamesInput.appendChild(optionElement);
 		ruleProfileInput.appendChild(optionElement.cloneNode(true));
@@ -403,7 +409,7 @@
 		ruleEditProfileInput.appendChild(optionElement.cloneNode(true));
 		ruleEditAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
 		profileNames.forEach(profileName => {
-			if (profileName != singlefile.config.DEFAULT_PROFILE_NAME) {
+			if (profileName != DEFAULT_PROFILE_NAME) {
 				const optionElement = document.createElement("option");
 				optionElement.value = optionElement.textContent = profileName;
 				profileNamesInput.appendChild(optionElement);
@@ -414,7 +420,7 @@
 			}
 		});
 		optionElement = document.createElement("option");
-		optionElement.value = singlefile.config.DISABLED_PROFILE_NAME;
+		optionElement.value = DISABLED_PROFILE_NAME;
 		optionElement.textContent = browser.i18n.getMessage("profileDisabled");
 		ruleAutoSaveProfileInput.appendChild(optionElement);
 		ruleEditAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
@@ -443,7 +449,7 @@
 				ruleDeleteButton.title = browser.i18n.getMessage("optionsDeleteRuleTooltip");
 				ruleDeleteButton.addEventListener("click", async () => {
 					if (await confirm(browser.i18n.getMessage("optionsDeleteRuleConfirm"))) {
-						await singlefile.config.deleteRule(rule.url);
+						await browser.runtime.sendMessage({ deleteRule: true, url: rule.url });
 						await refresh();
 					}
 				}, false);
@@ -460,7 +466,7 @@
 						editURLElement.onsubmit = async event => {
 							event.preventDefault();
 							rulesElement.appendChild(editURLElement);
-							await singlefile.config.updateRule(rule.url, ruleEditUrlInput.value, ruleEditProfileInput.value, ruleEditAutoSaveProfileInput.value);
+							await browser.runtime.sendMessage({ updateRule: true, url: rule.url, newUrl: ruleEditUrlInput.value, profileName: ruleEditProfileInput.value, autoSaveProfileName: ruleEditAutoSaveProfileInput.value });
 							await refresh();
 							ruleUrlInput.focus();
 						};
@@ -471,7 +477,7 @@
 		rulesDeleteAllButton.disabled = !rulesDisplayed;
 		rulesElement.appendChild(createURLElement);
 		profileNamesInput.value = selectedProfileName;
-		renameProfileButton.disabled = deleteProfileButton.disabled = profileNamesInput.value == singlefile.config.DEFAULT_PROFILE_NAME;
+		renameProfileButton.disabled = deleteProfileButton.disabled = profileNamesInput.value == DEFAULT_PROFILE_NAME;
 		const profileOptions = profiles[selectedProfileName];
 		removeHiddenElementsInput.checked = profileOptions.removeHiddenElements;
 		removeUnusedStylesInput.checked = profileOptions.removeUnusedStyles;
@@ -516,48 +522,52 @@
 	}
 
 	function getProfileText(profileName) {
-		return profileName == singlefile.config.DEFAULT_PROFILE_NAME ? browser.i18n.getMessage("profileDefaultSettings") : profileName == singlefile.config.DISABLED_PROFILE_NAME ? browser.i18n.getMessage("profileDisabled") : profileName;
+		return profileName == DEFAULT_PROFILE_NAME ? browser.i18n.getMessage("profileDefaultSettings") : profileName == DISABLED_PROFILE_NAME ? browser.i18n.getMessage("profileDisabled") : profileName;
 	}
 
 	async function update() {
 		await pendingSave;
-		pendingSave = singlefile.config.updateProfile(profileNamesInput.value, {
-			removeHiddenElements: removeHiddenElementsInput.checked,
-			removeUnusedStyles: removeUnusedStylesInput.checked,
-			removeUnusedFonts: removeUnusedFontsInput.checked,
-			removeFrames: removeFramesInput.checked,
-			removeImports: removeImportsInput.checked,
-			removeScripts: removeScriptsInput.checked,
-			saveRawPage: saveRawPageInput.checked,
-			compressHTML: compressHTMLInput.checked,
-			compressCSS: compressCSSInput.checked,
-			loadDeferredImages: loadDeferredImagesInput.checked,
-			loadDeferredImagesMaxIdleTime: Math.max(loadDeferredImagesMaxIdleTimeInput.value, 0),
-			contextMenuEnabled: contextMenuEnabledInput.checked,
-			filenameTemplate: filenameTemplateInput.value,
-			shadowEnabled: shadowEnabledInput.checked,
-			maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
-			maxResourceSize: Math.max(maxResourceSizeInput.value, 0),
-			confirmFilename: confirmFilenameInput.checked,
-			filenameConflictAction: filenameConflictActionInput.value,
-			removeAudioSrc: removeAudioSrcInput.checked,
-			removeVideoSrc: removeVideoSrcInput.checked,
-			displayInfobar: displayInfobarInput.checked,
-			displayStats: displayStatsInput.checked,
-			backgroundSave: backgroundSaveInput.checked,
-			autoSaveDelay: Math.max(autoSaveDelayInput.value, 0),
-			autoSaveLoad: autoSaveLoadInput.checked,
-			autoSaveUnload: autoSaveUnloadInput.checked,
-			autoSaveLoadOrUnload: autoSaveLoadOrUnloadInput.checked,
-			removeAlternativeFonts: removeAlternativeFontsInput.checked,
-			removeAlternativeImages: removeAlternativeImagesInput.checked,
-			removeAlternativeMedias: removeAlternativeMediasInput.checked,
-			groupDuplicateImages: groupDuplicateImagesInput.checked,
-			infobarTemplate: infobarTemplateInput.value,
-			confirmInfobarContent: confirmInfobarInput.checked
+		pendingSave = browser.runtime.sendMessage({
+			updateProfile: true,
+			profileName: profileNamesInput.value,
+			profile: {
+				removeHiddenElements: removeHiddenElementsInput.checked,
+				removeUnusedStyles: removeUnusedStylesInput.checked,
+				removeUnusedFonts: removeUnusedFontsInput.checked,
+				removeFrames: removeFramesInput.checked,
+				removeImports: removeImportsInput.checked,
+				removeScripts: removeScriptsInput.checked,
+				saveRawPage: saveRawPageInput.checked,
+				compressHTML: compressHTMLInput.checked,
+				compressCSS: compressCSSInput.checked,
+				loadDeferredImages: loadDeferredImagesInput.checked,
+				loadDeferredImagesMaxIdleTime: Math.max(loadDeferredImagesMaxIdleTimeInput.value, 0),
+				contextMenuEnabled: contextMenuEnabledInput.checked,
+				filenameTemplate: filenameTemplateInput.value,
+				shadowEnabled: shadowEnabledInput.checked,
+				maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
+				maxResourceSize: Math.max(maxResourceSizeInput.value, 0),
+				confirmFilename: confirmFilenameInput.checked,
+				filenameConflictAction: filenameConflictActionInput.value,
+				removeAudioSrc: removeAudioSrcInput.checked,
+				removeVideoSrc: removeVideoSrcInput.checked,
+				displayInfobar: displayInfobarInput.checked,
+				displayStats: displayStatsInput.checked,
+				backgroundSave: backgroundSaveInput.checked,
+				autoSaveDelay: Math.max(autoSaveDelayInput.value, 0),
+				autoSaveLoad: autoSaveLoadInput.checked,
+				autoSaveUnload: autoSaveUnloadInput.checked,
+				autoSaveLoadOrUnload: autoSaveLoadOrUnloadInput.checked,
+				removeAlternativeFonts: removeAlternativeFontsInput.checked,
+				removeAlternativeImages: removeAlternativeImagesInput.checked,
+				removeAlternativeMedias: removeAlternativeMediasInput.checked,
+				groupDuplicateImages: groupDuplicateImagesInput.checked,
+				infobarTemplate: infobarTemplateInput.value,
+				confirmInfobarContent: confirmInfobarInput.checked
+			}
 		});
 		await pendingSave;
-		await singlefile.ui.menu.refresh();
+		await browser.runtime.sendMessage({ refreshMenu: true });
 	}
 
 	async function confirm(message) {

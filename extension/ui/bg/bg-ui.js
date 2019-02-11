@@ -29,6 +29,9 @@ singlefile.ui = (() => {
 		refresh(tab) {
 			return Promise.all([singlefile.ui.menu.refresh(tab), singlefile.ui.button.refresh(tab)]);
 		},
+		refreshMenu() {
+			return singlefile.ui.menu.refresh();
+		},
 		onProgress(tabId, index, maxIndex, options) {
 			singlefile.ui.button.onProgress(tabId, index, maxIndex, options);
 		},

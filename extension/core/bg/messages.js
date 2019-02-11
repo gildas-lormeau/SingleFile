@@ -32,8 +32,13 @@ singlefile.messages = (() => {
 		if (message.initAutoSave || message.autoSaveContent) {
 			return singlefile.autosave.onMessage(message, sender);
 		}
-		if (message.loadURL || message.processProgress || message.processEnd || message.processError || message.processCancelled) {
+		if (message.loadURL || message.processProgress || message.processEnd || message.processError || message.processCancelled || message.refreshMenu) {
 			return singlefile.ui.onMessage(message, sender);
+		}
+		if (message.getConfigConstants || message.deleteRules || message.deleteRule || message.addRule || message.getRules ||
+			message.createProfile || message.renameProfile || message.deleteProfile || message.resetProfiles || message.getProfiles ||
+			message.resetProfile || message.exportConfig || message.importConfig || message.updateProfile || message.updateRule) {
+			return singlefile.config.onMessage(message, sender);
 		}
 	});
 	if (browser.runtime.onMessageExternal) {
