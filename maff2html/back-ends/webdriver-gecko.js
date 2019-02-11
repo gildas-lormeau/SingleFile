@@ -21,9 +21,10 @@
  *   Source.
  */
 
-/* global require, exports, process, setTimeout, clearTimeout */
+/* global __dirname, require, exports, process, setTimeout, clearTimeout */
 
 const fs = require("fs");
+const path = require("path");
 
 const firefox = require("selenium-webdriver/firefox");
 const { Builder, By, Key } = require("selenium-webdriver");
@@ -80,6 +81,9 @@ exports.getPageData = async options => {
 		}
 		if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0" || options.browserWaitUntil == "networkidle2") {
 			profile.addExtension(require.resolve("./extensions/signed/network_idle-0.0.2-an+fx.xpi"));
+		}
+		if (options.browserExtensions && options.browserExtensions.length) {
+			options.browserExtensions.forEach(extensionPath => profile.addExtension(path.resolve(__dirname, "..", extensionPath)));
 		}
 		if (options.userAgent) {
 			profile.setPreference("general.useragent.override", options.userAgent);
