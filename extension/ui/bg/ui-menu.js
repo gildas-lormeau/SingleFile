@@ -64,7 +64,7 @@ singlefile.ui.menu = (() => {
 	async function createMenus(tab) {
 		const [profiles, tabsData] = await Promise.all([singlefile.config.getProfiles(), singlefile.tabsData.get()]);
 		const options = await singlefile.config.getOptions(tab && tab.url, true);
-		if (BROWSER_MENUS_API_SUPPORTED) {
+		if (BROWSER_MENUS_API_SUPPORTED && options) {
 			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio"];
 			const defaultContextsDisabled = ["browser_action"];
 			const defaultContextsEnabled = defaultContextsDisabled.concat(...pageContextsEnabled);
