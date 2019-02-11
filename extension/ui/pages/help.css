@@ -89,11 +89,16 @@ ol>li>ul>li>ul {
 #index {
     padding-left: 10px;
     font-size: .9em;
+    display: inline-block;
+    line-height: 150%;
+}
+
+#index a {
+    white-space: nowrap;
 }
 
 h2,
 h4 {
-    padding-left: .3em;
     margin-bottom: 0px;
 }
 
