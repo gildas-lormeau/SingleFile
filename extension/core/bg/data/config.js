@@ -69,7 +69,9 @@ singlefile.config = (() => {
 		getRule,
 		getOptions,
 		getProfiles,
-		onMessage
+		onMessage,
+		updateRule,
+		addRule
 	};
 
 	async function upgrade() {
