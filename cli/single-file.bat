@@ -1,2 +1,2 @@
 @echo off
-node single-file %*
+node %~dp0\single-file %*
