@@ -64,6 +64,8 @@ singlefile.config = (() => {
 
 	let pendingUpgradePromise = upgrade();
 	return {
+		DEFAULT_PROFILE_NAME,
+		DISABLED_PROFILE_NAME,
 		getRule,
 		getOptions,
 		getProfiles,
