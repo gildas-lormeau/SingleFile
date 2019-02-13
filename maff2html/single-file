@@ -40,6 +40,7 @@ const args = require("yargs")
 		"browser-wait-until": "load",
 		"browser-debug": false,
 		"browser-extensions": [],
+		"browser-scripts": [],
 		"compress-CSS": true,
 		"compress-HTML": true,
 		"filename-template": "",
@@ -75,7 +76,7 @@ const args = require("yargs")
 	.choices("browser-wait-until", ["networkidle0", "networkidle2", "load", "domcontentloaded"])
 	.options("browser-debug", { description: "Enable debug mode" })
 	.boolean("browser-debug")
-	.options("browser-extensions", { description: "Extension paths separated by a space" })
+	.options("browser-extensions", { description: "List of extension paths separated by a space and relative to maff2html folder" })
 	.array("browser-extensions")
 	.options("compress-CSS", { description: "Compress CSS stylesheets" })
 	.boolean("compress-CSS")
