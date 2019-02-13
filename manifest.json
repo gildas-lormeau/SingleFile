@@ -126,10 +126,6 @@
 		}
 	},
 	"incognito": "spanning",
-	"web_accessible_resources": [
-		"lib/lazy/web/web-lazy-loader-before.js",
-		"lib/lazy/web/web-lazy-loader-after.js"
-	],
 	"manifest_version": 2,
 	"default_locale": "en"
 }

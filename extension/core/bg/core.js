@@ -60,8 +60,7 @@ singlefile.core = (() => {
 			"/lib/single-file/vendor/css-minifier.js"
 		],
 		loadDeferredImages: [
-			"/lib/lazy/content/content-lazy-loader.js",
-			function () { this.lazyLoader.getScriptPath = path => browser.runtime.getURL(path); }
+			"/lib/lazy/content/content-lazy-loader.js"
 		],
 		removeAlternativeImages: [
 			"/lib/single-file/modules/html-images-alt-minifier.js"

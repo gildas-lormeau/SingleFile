@@ -54,10 +54,6 @@ const SCRIPTS = [
 ];
 
 exports.getPageData = async options => {
-	const RESOLVED_CONTENTS = {
-		"lib/lazy/web/web-lazy-loader-before.js": fs.readFileSync(require.resolve("../../lib/lazy/web/web-lazy-loader-before.js")).toString(),
-		"lib/lazy/web/web-lazy-loader-after.js": fs.readFileSync(require.resolve("../../lib/lazy/web/web-lazy-loader-after.js")).toString()
-	};
 	let driver;
 	try {
 		const builder = new Builder().withCapabilities({ "pageLoadStrategy": "eager" });
@@ -102,7 +98,6 @@ exports.getPageData = async options => {
 			}
 		}
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString().replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")).join("\n");
-		scripts += "\nlazyLoader.getScriptContent = " + (function (path) { return (RESOLVED_CONTENTS)[path]; }).toString().replace("RESOLVED_CONTENTS", JSON.stringify(RESOLVED_CONTENTS)) + ";";
 		if (options.browserDebug) {
 			await driver.findElement(By.css("html")).sendKeys(Key.SHIFT + Key.F5);
 			await driver.sleep(3000);
