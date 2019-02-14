@@ -47,7 +47,7 @@ singlefile.core = (() => {
 		"/lib/single-file/util/doc-helper.js",
 		"/lib/single-file/util/timeout.js",
 		"/lib/fetch/content/fetch.js",
-		"/lib/frame-tree/frame-tree.js",
+		"/lib/frame-tree/content/content-frame-tree.js",
 		"/extension/core/content/content-frame.js"
 	];
 

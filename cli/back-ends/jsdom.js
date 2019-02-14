@@ -32,7 +32,7 @@ const iconv = require("iconv-lite");
 const request = require("request-promise-native");
 
 const SCRIPTS = [
-	"../../lib/frame-tree/frame-tree.js",
+	"../../lib/frame-tree/content/content-frame-tree.js",
 	"../../lib/single-file/util/doc-util.js",
 	"../../lib/single-file/util/doc-helper.js",
 	"../../lib/single-file/util/timeout.js",

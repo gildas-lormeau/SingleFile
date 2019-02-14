@@ -31,7 +31,7 @@ const { Builder } = require("selenium-webdriver");
 
 const SCRIPTS = [
 	"../../lib/hooks/hooks-frame.js",
-	"../../lib/frame-tree/frame-tree.js",
+	"../../lib/frame-tree/content/content-frame-tree.js",
 	"../../lib/lazy/content/content-lazy-loader.js",
 	"../../lib/single-file/util/doc-util.js",
 	"../../lib/single-file/util/doc-helper.js",
