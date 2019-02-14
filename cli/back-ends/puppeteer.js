@@ -33,7 +33,6 @@ const SCRIPTS = [
 	"../../lib/lazy/content/content-lazy-loader.js",
 	"../../lib/single-file/util/doc-util.js",
 	"../../lib/single-file/util/doc-helper.js",
-	"../../lib/single-file/util/timeout.js",
 	"../../lib/single-file/vendor/css-tree.js",
 	"../../lib/single-file/vendor/html-srcset-parser.js",
 	"../../lib/single-file/vendor/css-minifier.js",

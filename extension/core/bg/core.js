@@ -29,7 +29,6 @@ singlefile.core = (() => {
 		"/lib/browser-polyfill/chrome-browser-polyfill.js",
 		"/lib/single-file/vendor/css-tree.js",
 		"/lib/single-file/vendor/html-srcset-parser.js",
-		"/lib/single-file/util/timeout.js",
 		"/lib/single-file/util/doc-helper.js",
 		"/lib/single-file/util/doc-util.js",
 		"/lib/fetch/content/fetch.js",
@@ -45,7 +44,6 @@ singlefile.core = (() => {
 		"/lib/browser-polyfill/chrome-browser-polyfill.js",
 		"/extension/index.js",
 		"/lib/single-file/util/doc-helper.js",
-		"/lib/single-file/util/timeout.js",
 		"/lib/fetch/content/fetch.js",
 		"/lib/frame-tree/content/content-frame-tree.js",
 		"/extension/core/content/content-frame.js"

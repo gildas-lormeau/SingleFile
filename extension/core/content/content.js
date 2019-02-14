@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFileBrowser, singlefile, frameTree, document, Blob, MouseEvent, addEventListener, window, lazyLoader, URL, timeout */
+/* global browser, SingleFileBrowser, singlefile, frameTree, document, Blob, MouseEvent, addEventListener, window, lazyLoader, URL, setTimeout */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
@@ -76,7 +76,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			if (!options.removeFrames && this.frameTree) {
 				let frameTreePromise;
 				if (options.loadDeferredImages) {
-					frameTreePromise = new Promise(resolve => timeout.set(() => resolve(frameTree.getAsync(options)), options.loadDeferredImagesMaxIdleTime - frameTree.TIMEOUT_INIT_REQUEST_MESSAGE));
+					frameTreePromise = new Promise(resolve => setTimeout(() => resolve(frameTree.getAsync(options)), options.loadDeferredImagesMaxIdleTime - frameTree.TIMEOUT_INIT_REQUEST_MESSAGE));
 				} else {
 					frameTreePromise = frameTree.getAsync(options);
 				}
