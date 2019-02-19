@@ -124,7 +124,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 				while (!finished) {
 					if (rangeSelectionFound || treeWalker.currentNode == range.startContainer || treeWalker.currentNode == range.endContainer) {
 						rangeSelectionFound = true;
-						if (range.startOffset != range.endOffset) {
+						if (range.startContainer != range.endContainer || range.startOffset != range.endOffset) {
 							selectionFound = true;
 							markSelectedNode(treeWalker.currentNode);
 						}
