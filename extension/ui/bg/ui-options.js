@@ -574,7 +574,7 @@
 		document.getElementById("confirmLabel").textContent = message;
 		document.getElementById("formConfirmContainer").hidden = false;
 		confirmButton.focus();
-		document.body.style.overflowY = "hidden";
+		document.body.style.setProperty("overflow-y", "hidden");
 		return new Promise(resolve => {
 			confirmButton.onclick = event => hideAndResolve(event, true);
 			cancelButton.onclick = event => hideAndResolve(event);
@@ -587,7 +587,7 @@
 			function hideAndResolve(event, value) {
 				event.preventDefault();
 				document.getElementById("formConfirmContainer").hidden = true;
-				document.body.style.overflowY = "";
+				document.body.setProperty("overflow-y", "");
 				resolve(value);
 			}
 		});
@@ -596,7 +596,7 @@
 	async function reset() {
 		document.getElementById("formResetContainer").hidden = false;
 		resetCancelButton.focus();
-		document.body.style.overflowY = "hidden";
+		document.body.style.setProperty("overflow-y", "hidden");
 		return new Promise(resolve => {
 			resetAllButton.onclick = event => hideAndResolve(event, "all");
 			resetCurrentButton.onclick = event => hideAndResolve(event, "current");
@@ -610,7 +610,7 @@
 			function hideAndResolve(event, value) {
 				event.preventDefault();
 				document.getElementById("formResetContainer").hidden = true;
-				document.body.style.overflowY = "";
+				document.body.style.setProperty("overflow-y", "");
 				resolve(value);
 			}
 		});
@@ -621,7 +621,7 @@
 		document.getElementById("formPromptContainer").hidden = false;
 		promptInput.value = defaultValue;
 		promptInput.focus();
-		document.body.style.overflowY = "hidden";
+		document.body.style.setProperty("overflow-y", "hidden");
 		return new Promise(resolve => {
 			promptConfirmButton.onclick = event => hideAndResolve(event, promptInput.value);
 			promptCancelButton.onclick = event => hideAndResolve(event);
@@ -634,7 +634,7 @@
 			function hideAndResolve(event, value) {
 				event.preventDefault();
 				document.getElementById("formPromptContainer").hidden = true;
-				document.body.style.overflowY = "";
+				document.body.style.setProperty("overflow-y", "");
 				resolve(value);
 			}
 		});

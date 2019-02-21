@@ -160,8 +160,8 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 	}
 
 	function hideInfobar(infobarElement, linkElement, infoElement) {
-		infobarElement.style.opacity = .7;
-		infobarElement.onmouseout = () => infobarElement.style.opacity = .7;
+		infobarElement.style.setProperty("opacity", .7);
+		infobarElement.onmouseout = () => infobarElement.style.setProperty("opacity", .7);
 		infobarElement.style.setProperty("width", "24px", "important");
 		infobarElement.style.setProperty("background-color", "#737373", "important");
 		infobarElement.style.setProperty("cursor", "pointer", "important");

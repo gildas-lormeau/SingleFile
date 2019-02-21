@@ -71,7 +71,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			const progressBarElement = document.querySelector(PROGRESS_BAR_TAGNAME);
 			if (progressBarElement && maxIndex) {
 				const width = Math.floor((index / maxIndex) * 100) + "%";
-				if (progressBarElement.style.width != width) {
+				if (progressBarElement.style.getPropertyValue("width") != width) {
 					requestAnimationFrame(() => progressBarElement.style.setProperty("width", Math.floor((index / maxIndex) * 100) + "%", "important"));
 				}
 			}
