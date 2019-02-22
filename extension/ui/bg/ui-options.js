@@ -518,7 +518,12 @@
 		infobarTemplateInput.value = profileOptions.infobarTemplate;
 		confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
 		removeFramesInput.disabled = saveRawPageInput.checked;
+		removeFramesInput.checked = removeFramesInput.checked || saveRawPageInput.checked;
 		loadDeferredImagesInput.disabled = saveRawPageInput.checked;
+		loadDeferredImagesMaxIdleTimeInput.disabled = saveRawPageInput.checked;
+		if (saveRawPageInput.checked) {
+			loadDeferredImagesInput.checked = false;
+		}
 	}
 
 	function getProfileText(profileName) {
