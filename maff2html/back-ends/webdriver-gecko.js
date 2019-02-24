@@ -144,6 +144,8 @@ function getPageDataScript() {
 		.catch(error => callback({ error: error.toString() }));
 
 	async function getPageData() {
+		docHelper.initDoc(document);
+		options.insertSingleFileComment = true;
 		options.insertSingleFileComment = true;
 		const preInitializationPromises = [];
 		if (!options.saveRawPage) {

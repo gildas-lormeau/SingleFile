@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global require, exports, SingleFileBrowser, frameTree, lazyLoader, document, window */
+/* global require, exports, SingleFileBrowser, frameTree, lazyLoader, docHelper, document, window */
 
 const fs = require("fs");
 
@@ -91,6 +91,7 @@ exports.getPageData = async options => {
 			waitUntil: options.browserWaitUntil || "networkidle0"
 		});
 		return await page.evaluate(async options => {
+			docHelper.initDoc(document);
 			options.insertSingleFileComment = true;
 			const preInitializationPromises = [];
 			if (!options.saveRawPage) {

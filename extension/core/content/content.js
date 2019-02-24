@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFileBrowser, singlefile, frameTree, document, Blob, MouseEvent, addEventListener, window, lazyLoader, URL, setTimeout */
+/* global browser, SingleFileBrowser, singlefile, frameTree, document, Blob, MouseEvent, addEventListener, window, lazyLoader, URL, setTimeout, docHelper */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
@@ -68,6 +68,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 	}
 
 	async function processPage(options) {
+		docHelper.initDoc(document);
 		singlefile.ui.onStartPage();
 		const processor = new SingleFile(options);
 		const preInitializationPromises = [];
