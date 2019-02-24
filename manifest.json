@@ -108,7 +108,8 @@
 			"suggested_key": {
 				"windows": "Ctrl+Shift+Y",
 				"mac": "Command+Shift+Y",
-				"linux": "Ctrl+Shift+Y"
+				"linux": "Ctrl+Shift+Y",
+				"chromeos": "Ctrl+Shift+U"
 			}
 		}
 	},
