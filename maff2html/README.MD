@@ -50,15 +50,15 @@ This is a **work in progress**.
 
   - Convert `wikipedia.maff` (located in the user folder) to `wikipedia.html`
 
-  `$ ./single-file file:///home/gildas/wikipedia.maff wikipedia.html` (Linux/Unix/BSD etc.)
+  `$ ./single-file /home/gildas/wikipedia.maff wikipedia.html` (Linux/Unix/BSD etc.)
   
-  `> single-file file:///C:/Users/Gildas/wikipedia.maff wikipedia.html` (Windows)
+  `> single-file "C:\Users\Gildas\wikipedia.maff" wikipedia.html` (Windows)
 
   - Convert `wikipedia.maff` to `wikipedia.html` with Firefox installed in the folder "~/firefox-56.0.2/" (Linux/Unix/BSD etc.) or "C:\Program Files\Mozilla Firefox 56.0.2\" (Windows)
 
-  `$ ./single-file file:///home/gildas/wikipedia.maff wikipedia.html --browser-executable-path=~/firefox-56.0.2/firefox` (Linux/Unix/BSD etc.)
+  `$ ./single-file /home/gildas/wikipedia.maff wikipedia.html --browser-executable-path=~/firefox-56.0.2/firefox` (Linux/Unix/BSD etc.)
   
-  `> single-file file:///C:/Users/Gildas/wikipedia.maff wikipedia.html --browser-executable-path="C:\Program Files\Mozilla Firefox 56.0.2\firefox"` (Windows)
+  `> single-file "C:\Users\Gildas\wikipedia.maff" wikipedia.html --browser-executable-path="C:\Program Files\Mozilla Firefox 56.0.2\firefox"` (Windows)
   
 ## License
 
