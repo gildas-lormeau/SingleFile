@@ -380,3 +380,11 @@ a {
         font-size: 11px;
     }
 }
+
+@media (min-width:640px) {
+    body {
+        margin-top: 8px;
+        border: solid 1px rgb(191, 191, 191);
+        font-size: 75%;
+    }
+}
