@@ -6,6 +6,7 @@
 	"license": "AGPL-3.0-or-later",
 	"dependencies": {
 		"selenium-webdriver": "3.*",
-		"yargs": "*"
+		"yargs": "12.*",
+		"file-url": "2.0"
 	}
 }

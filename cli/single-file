@@ -25,10 +25,11 @@
 
 /* global require */
 
+const fileUrl = require("file-url");
 const args = require("yargs")
 	.wrap(null)
 	.command("$0 <url> [output]", "Save a page into a single HTML file.", yargs => {
-		yargs.positional("url", { description: "URL of the page to save", type: "string" });
+		yargs.positional("url", { description: "URL or path on the filesystem of the page to save", type: "string" });
 		yargs.positional("output", { description: "Output filename", type: "string" });
 	})
 	.default({
@@ -133,6 +134,9 @@ const backEnds = {
 };
 args.compressCSS = args.compressCss;
 args.compressHTML = args.compressHtml;
+if (!/^(https?|file):\/\//.test(args.url)) {
+	args.url = fileUrl(args.url);
+}
 require(backEnds[args.backEnd]).getPageData(args).then(pageData => {
 	if (args.output) {
 		require("fs").writeFileSync(args.output, pageData.content);
