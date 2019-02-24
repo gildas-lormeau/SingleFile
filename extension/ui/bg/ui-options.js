@@ -592,7 +592,7 @@
 			function hideAndResolve(event, value) {
 				event.preventDefault();
 				document.getElementById("formConfirmContainer").hidden = true;
-				document.body.setProperty("overflow-y", "");
+				document.body.style.setProperty("overflow-y", "");
 				resolve(value);
 			}
 		});
