@@ -1,6 +1,7 @@
 body {
     background-color: transparent;
     font-family: sans-serif;
+    font-size: 12px;
     max-width: 800px;
     width: 100%;
     margin: 0;
@@ -382,9 +383,8 @@ a {
 }
 
 @media (min-width:640px) {
-    body {
-        margin-top: 8px;
+    main {
+        margin: 8px;
         border: solid 1px rgb(191, 191, 191);
-        font-size: 75%;
     }
 }

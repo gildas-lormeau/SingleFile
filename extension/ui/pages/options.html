@@ -9,267 +9,276 @@
 </head>
 
 <body>
-	<h3>
-		<span id="expandAllButton"></span> <span id="titleLabel"></span>
-		<a href="options.html" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg=="></a>
-		<span class="profiles">
-			<select id="profileNamesInput"></select>
-			<button id="addProfileButton"><img src="../resources/button_new.png"></button>
-			<button id="deleteProfileButton"><img src="../resources/button_delete.png"></button>
-			<button id="renameProfileButton"><img src="../resources/button_edit.png"></button>
-		</span>
-	</h3>
-	<details>
-		<summary id="userInterfaceLabel"></summary>
-		<div class="option">
-			<label for="contextMenuEnabledInput" id="addMenuEntryLabel"></label>
-			<input type="checkbox" id="contextMenuEnabledInput">
-		</div>
-		<div class="option">
-			<label for="shadowEnabledInput" id="shadowEnabledLabel"></label>
-			<input type="checkbox" id="shadowEnabledInput">
-		</div>
-		<div class="option">
-			<label for="displayInfobarInput" id="displayInfobarLabel"></label>
-			<input type="checkbox" id="displayInfobarInput">
-		</div>
-		<div class="option vertical">
-			<label for="infobarTemplateInput" id="infobarTemplateLabel"></label>
-			<input type="text" id="infobarTemplateInput">
-		</div>
-		<div class="option">
-			<label for="confirmInfobarInput" id="confirmInfobarLabel"></label>
-			<input type="checkbox" id="confirmInfobarInput">
-		</div>
-	</details>
-	<details>
-		<summary id="filenameLabel"></summary>
-		<div class="option vertical">
-			<label for="filenameTemplateInput" id="filenameTemplateLabel"></label>
-			<input type="text" id="filenameTemplateInput">
-		</div>
-		<div class="option">
-			<label for="confirmFilenameInput" id="confirmFilenameLabel"></label>
-			<input type="checkbox" id="confirmFilenameInput">
-		</div>
-		<div class="option">
-			<label for="filenameConflictActionInput" id="filenameConflictActionLabel"></label>
-			<select id="filenameConflictActionInput">
-				<option id="filenameConflictActionUniquifyLabel" value="uniquify"></option>
-				<option id="filenameConflictActionOverwriteLabel" value="overwrite"></option>
-				<option id="filenameConflictActionPromptLabel" value="prompt"></option>
-			</select>
-		</div>
-	</details>
-	<details>
-		<summary id="htmlContentLabel"></summary>
-		<div class="option">
-			<label for="compressHTMLInput" id="compressHTMLLabel"></label>
-			<input type="checkbox" id="compressHTMLInput">
-		</div>
-		<div class="option">
-			<label for="removeImportsInput" id="removeImportsLabel"></label>
-			<input type="checkbox" id="removeImportsInput">
-		</div>
-		<div class="option">
-			<label for="removeHiddenElementsInput" id="removeHiddenElementsLabel"></label>
-			<input type="checkbox" id="removeHiddenElementsInput">
-		</div>
-		<div class="option">
-			<label for="removeFramesInput" id="removeFramesLabel"></label>
-			<input type="checkbox" id="removeFramesInput">
-		</div>
-	</details>
-	<details>
-		<summary id="stylesheetsLabel"></summary>
-		<div class="option">
-			<label for="compressCSSInput" id="compressCSSLabel"></label>
-			<input type="checkbox" id="compressCSSInput">
-		</div>
-		<div class="option">
-			<label for="removeUnusedStylesInput" id="removeUnusedStylesLabel"></label>
-			<input type="checkbox" id="removeUnusedStylesInput">
-		</div>
-		<div class="option">
-			<label for="removeAlternativeMediasInput" id="removeAlternativeMediasLabel"></label>
-			<input type="checkbox" id="removeAlternativeMediasInput">
-		</div>
-	</details>
-	<details>
-		<summary id="imagesLabel"></summary>
-		<div class="option">
-			<label for="groupDuplicateImagesInput" id="groupDuplicateImagesLabel"></label>
-			<input type="checkbox" id="groupDuplicateImagesInput">
-		</div>
-		<div class="option">
-			<label for="loadDeferredImagesInput" id="loadDeferredImagesLabel"></label>
-			<input type="checkbox" id="loadDeferredImagesInput">
-		</div>
-		<div class="option second-level">
-			<label for="loadDeferredImagesMaxIdleTimeInput" id="loadDeferredImagesMaxIdleTimeLabel"></label>
-			<input type="number" class="large-input" id="loadDeferredImagesMaxIdleTimeInput" step="100">
-		</div>
-		<div class="option">
-			<label for="removeAlternativeImagesInput" id="removeAlternativeImagesLabel"></label>
-			<input type="checkbox" id="removeAlternativeImagesInput">
-		</div>
-	</details>
-	<details>
-		<summary id="fontsLabel"></summary>
-		<div class="option">
-			<label for="removeUnusedFontsInput" id="removeUnusedFontsLabel"></label>
-			<input type="checkbox" id="removeUnusedFontsInput">
-		</div>
-		<div class="option">
-			<label for="removeAlternativeFontsInput" id="removeAlternativeFontsLabel"></label>
-			<input type="checkbox" id="removeAlternativeFontsInput">
-		</div>
-	</details>
-	<details>
-		<summary id="otherResourcesLabel"></summary>
-		<div class="option">
-			<label for="removeScriptsInput" id="removeScriptsLabel"></label>
-			<input type="checkbox" id="removeScriptsInput">
-		</div>
-		<div class="option">
-			<label for="removeVideoSrcInput" id="removeVideoLabel"></label>
-			<input type="checkbox" id="removeVideoSrcInput">
-		</div>
-		<div class="option">
-			<label for="removeAudioSrcInput" id="removeAudioLabel"></label>
-			<input type="checkbox" id="removeAudioSrcInput">
-		</div>
-	</details>
-	<details>
-		<summary id="autoSaveLabel"></summary>
-		<div class="option">
-			<label for="autoSaveLoadOrUnloadInput" id="autoSaveLoadOrUnloadLabel"></label>
-			<input type="checkbox" id="autoSaveLoadOrUnloadInput">
-		</div>
-		<div class="option">
-			<label for="autoSaveLoadInput" id="autoSaveLoadLabel"></label>
-			<input type="checkbox" id="autoSaveLoadInput">
-		</div>
-		<div class="option">
-			<label for="autoSaveUnloadInput" id="autoSaveUnloadLabel"></label>
-			<input type="checkbox" id="autoSaveUnloadInput">
-		</div>
-		<div class="option">
-			<label for="autoSaveDelayInput" id="autoSaveDelayLabel"></label>
-			<input type="number" id="autoSaveDelayInput" min="0">
-		</div>
-	</details>
-	<details>
-		<summary id="miscLabel"></summary>
-		<div class="option">
-			<label for="backgroundSaveInput" id="backgroundSaveLabel"></label>
-			<input type="checkbox" id="backgroundSaveInput">
-		</div>
-		<div class="option">
-			<label for="displayStatsInput" id="displayStatsLabel"></label>
-			<input type="checkbox" id="displayStatsInput">
-		</div>
-		<div class="option">
-			<label for="maxResourceSizeEnabledInput" id="setMaxResourceSizeLabel"></label>
-			<input type="checkbox" id="maxResourceSizeEnabledInput">
-		</div>
-		<div class="option second-level">
-			<label for="maxResourceSizeInput" id="maxResourceSizeLabel"></label>
-			<input type="number" id="maxResourceSizeInput" min="1">
-		</div>
-		<div class="option">
-			<label for="saveRawPageInput" id="saveRawPageLabel"></label>
-			<input type="checkbox" id="saveRawPageInput">
-		</div>
-	</details>
-	<details>
-		<summary id="autoSettingsLabel"></summary>
-		<div class="rules-table-container compact">
-			<div class="thead">
-				<div class="tr">
-					<span class="th" id="autoSettingsUrlLabel"></span>
-					<span class="th" id="autoSettingsProfileLabel"></span>
-					<span class="th rule-autosave-profile" id="autoSettingsAutoSaveProfileLabel"></span>
-					<span class="th"><button id="rulesDeleteAllButton"><img src="../resources/button_delete_all.png"></button></span>
+	<main>
+		<h3>
+			<span id="expandAllButton"></span> <span id="titleLabel"></span>
+			<a href="options.html" target="_blank"><img
+					src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg=="></a>
+			<span class="profiles">
+				<select id="profileNamesInput"></select>
+				<button id="addProfileButton"><img src="../resources/button_new.png"></button>
+				<button id="deleteProfileButton"><img src="../resources/button_delete.png"></button>
+				<button id="renameProfileButton"><img src="../resources/button_edit.png"></button>
+			</span>
+		</h3>
+		<details>
+			<summary id="userInterfaceLabel"></summary>
+			<div class="option">
+				<label for="contextMenuEnabledInput" id="addMenuEntryLabel"></label>
+				<input type="checkbox" id="contextMenuEnabledInput">
+			</div>
+			<div class="option">
+				<label for="shadowEnabledInput" id="shadowEnabledLabel"></label>
+				<input type="checkbox" id="shadowEnabledInput">
+			</div>
+			<div class="option">
+				<label for="displayInfobarInput" id="displayInfobarLabel"></label>
+				<input type="checkbox" id="displayInfobarInput">
+			</div>
+			<div class="option vertical">
+				<label for="infobarTemplateInput" id="infobarTemplateLabel"></label>
+				<input type="text" id="infobarTemplateInput">
+			</div>
+			<div class="option">
+				<label for="confirmInfobarInput" id="confirmInfobarLabel"></label>
+				<input type="checkbox" id="confirmInfobarInput">
+			</div>
+		</details>
+		<details>
+			<summary id="filenameLabel"></summary>
+			<div class="option vertical">
+				<label for="filenameTemplateInput" id="filenameTemplateLabel"></label>
+				<input type="text" id="filenameTemplateInput">
+			</div>
+			<div class="option">
+				<label for="confirmFilenameInput" id="confirmFilenameLabel"></label>
+				<input type="checkbox" id="confirmFilenameInput">
+			</div>
+			<div class="option">
+				<label for="filenameConflictActionInput" id="filenameConflictActionLabel"></label>
+				<select id="filenameConflictActionInput">
+					<option id="filenameConflictActionUniquifyLabel" value="uniquify"></option>
+					<option id="filenameConflictActionOverwriteLabel" value="overwrite"></option>
+					<option id="filenameConflictActionPromptLabel" value="prompt"></option>
+				</select>
+			</div>
+		</details>
+		<details>
+			<summary id="htmlContentLabel"></summary>
+			<div class="option">
+				<label for="compressHTMLInput" id="compressHTMLLabel"></label>
+				<input type="checkbox" id="compressHTMLInput">
+			</div>
+			<div class="option">
+				<label for="removeImportsInput" id="removeImportsLabel"></label>
+				<input type="checkbox" id="removeImportsInput">
+			</div>
+			<div class="option">
+				<label for="removeHiddenElementsInput" id="removeHiddenElementsLabel"></label>
+				<input type="checkbox" id="removeHiddenElementsInput">
+			</div>
+			<div class="option">
+				<label for="removeFramesInput" id="removeFramesLabel"></label>
+				<input type="checkbox" id="removeFramesInput">
+			</div>
+		</details>
+		<details>
+			<summary id="stylesheetsLabel"></summary>
+			<div class="option">
+				<label for="compressCSSInput" id="compressCSSLabel"></label>
+				<input type="checkbox" id="compressCSSInput">
+			</div>
+			<div class="option">
+				<label for="removeUnusedStylesInput" id="removeUnusedStylesLabel"></label>
+				<input type="checkbox" id="removeUnusedStylesInput">
+			</div>
+			<div class="option">
+				<label for="removeAlternativeMediasInput" id="removeAlternativeMediasLabel"></label>
+				<input type="checkbox" id="removeAlternativeMediasInput">
+			</div>
+		</details>
+		<details>
+			<summary id="imagesLabel"></summary>
+			<div class="option">
+				<label for="groupDuplicateImagesInput" id="groupDuplicateImagesLabel"></label>
+				<input type="checkbox" id="groupDuplicateImagesInput">
+			</div>
+			<div class="option">
+				<label for="loadDeferredImagesInput" id="loadDeferredImagesLabel"></label>
+				<input type="checkbox" id="loadDeferredImagesInput">
+			</div>
+			<div class="option second-level">
+				<label for="loadDeferredImagesMaxIdleTimeInput" id="loadDeferredImagesMaxIdleTimeLabel"></label>
+				<input type="number" class="large-input" id="loadDeferredImagesMaxIdleTimeInput" step="100">
+			</div>
+			<div class="option">
+				<label for="removeAlternativeImagesInput" id="removeAlternativeImagesLabel"></label>
+				<input type="checkbox" id="removeAlternativeImagesInput">
+			</div>
+		</details>
+		<details>
+			<summary id="fontsLabel"></summary>
+			<div class="option">
+				<label for="removeUnusedFontsInput" id="removeUnusedFontsLabel"></label>
+				<input type="checkbox" id="removeUnusedFontsInput">
+			</div>
+			<div class="option">
+				<label for="removeAlternativeFontsInput" id="removeAlternativeFontsLabel"></label>
+				<input type="checkbox" id="removeAlternativeFontsInput">
+			</div>
+		</details>
+		<details>
+			<summary id="otherResourcesLabel"></summary>
+			<div class="option">
+				<label for="removeScriptsInput" id="removeScriptsLabel"></label>
+				<input type="checkbox" id="removeScriptsInput">
+			</div>
+			<div class="option">
+				<label for="removeVideoSrcInput" id="removeVideoLabel"></label>
+				<input type="checkbox" id="removeVideoSrcInput">
+			</div>
+			<div class="option">
+				<label for="removeAudioSrcInput" id="removeAudioLabel"></label>
+				<input type="checkbox" id="removeAudioSrcInput">
+			</div>
+		</details>
+		<details>
+			<summary id="autoSaveLabel"></summary>
+			<div class="option">
+				<label for="autoSaveLoadOrUnloadInput" id="autoSaveLoadOrUnloadLabel"></label>
+				<input type="checkbox" id="autoSaveLoadOrUnloadInput">
+			</div>
+			<div class="option">
+				<label for="autoSaveLoadInput" id="autoSaveLoadLabel"></label>
+				<input type="checkbox" id="autoSaveLoadInput">
+			</div>
+			<div class="option">
+				<label for="autoSaveUnloadInput" id="autoSaveUnloadLabel"></label>
+				<input type="checkbox" id="autoSaveUnloadInput">
+			</div>
+			<div class="option">
+				<label for="autoSaveDelayInput" id="autoSaveDelayLabel"></label>
+				<input type="number" id="autoSaveDelayInput" min="0">
+			</div>
+		</details>
+		<details>
+			<summary id="miscLabel"></summary>
+			<div class="option">
+				<label for="backgroundSaveInput" id="backgroundSaveLabel"></label>
+				<input type="checkbox" id="backgroundSaveInput">
+			</div>
+			<div class="option">
+				<label for="displayStatsInput" id="displayStatsLabel"></label>
+				<input type="checkbox" id="displayStatsInput">
+			</div>
+			<div class="option">
+				<label for="maxResourceSizeEnabledInput" id="setMaxResourceSizeLabel"></label>
+				<input type="checkbox" id="maxResourceSizeEnabledInput">
+			</div>
+			<div class="option second-level">
+				<label for="maxResourceSizeInput" id="maxResourceSizeLabel"></label>
+				<input type="number" id="maxResourceSizeInput" min="1">
+			</div>
+			<div class="option">
+				<label for="saveRawPageInput" id="saveRawPageLabel"></label>
+				<input type="checkbox" id="saveRawPageInput">
+			</div>
+		</details>
+		<details>
+			<summary id="autoSettingsLabel"></summary>
+			<div class="rules-table-container compact">
+				<div class="thead">
+					<div class="tr">
+						<span class="th" id="autoSettingsUrlLabel"></span>
+						<span class="th" id="autoSettingsProfileLabel"></span>
+						<span class="th rule-autosave-profile" id="autoSettingsAutoSaveProfileLabel"></span>
+						<span class="th"><button id="rulesDeleteAllButton"><img
+									src="../resources/button_delete_all.png"></button></span>
+					</div>
+				</div>
+				<div class="rules-table">
+					<div class="rules-data">
+					</div>
+					<div hidden class="tr rule-view">
+						<span class="td rule-url"></span>
+						<span class="td rule-profile"></span>
+						<span class="td rule-autosave-profile"></span>
+						<span class="td"><button class="rule-update-button"><img
+									src="../resources/button_edit.png"></button> <button class="rule-delete-button"><img
+									src="../resources/button_delete.png"></button></span>
+					</div>
+					<form class="tr rule-create">
+						<span class="td rule-url"><input type="text" id="ruleUrlInput"
+								placeholder="Type a complete or partial URL (e.g. example.com)"></span>
+						<span class="td rule-profile"><select id="ruleProfileInput"></select></span>
+						<span class="td rule-autosave-profile"><select id="ruleAutoSaveProfileInput"></select></span>
+						<span class="td"><button id="ruleAddButton" disabled type="submit"><img
+									src="../resources/button_new.png"></button></span>
+					</form>
+					<form hidden class="tr rule-edit">
+						<span class="td rule-url"><input type="text" id="ruleEditUrlInput"></span>
+						<span class="td rule-profile"><select id="ruleEditProfileInput"></select></span>
+						<span class="td rule-autosave-profile"><select
+								id="ruleEditAutoSaveProfileInput"></select></span>
+						<span class="td"><button id="ruleEditButton" type="submit"><img
+									src="../resources/button_ok.png"></button></span>
+					</form>
 				</div>
 			</div>
-			<div class="rules-table">
-				<div class="rules-data">
-				</div>
-				<div hidden class="tr rule-view">
-					<span class="td rule-url"></span>
-					<span class="td rule-profile"></span>
-					<span class="td rule-autosave-profile"></span>
-					<span class="td"><button class="rule-update-button"><img src="../resources/button_edit.png"></button> <button
-						 class="rule-delete-button"><img src="../resources/button_delete.png"></button></span>
-				</div>
-				<form class="tr rule-create">
-					<span class="td rule-url"><input type="text" id="ruleUrlInput" placeholder="Type a complete or partial URL (e.g. example.com)"></span>
-					<span class="td rule-profile"><select id="ruleProfileInput"></select></span>
-					<span class="td rule-autosave-profile"><select id="ruleAutoSaveProfileInput"></select></span>
-					<span class="td"><button id="ruleAddButton" disabled type="submit"><img src="../resources/button_new.png"></button></span>
-				</form>
-				<form hidden class="tr rule-edit">
-					<span class="td rule-url"><input type="text" id="ruleEditUrlInput"></span>
-					<span class="td rule-profile"><select id="ruleEditProfileInput"></select></span>
-					<span class="td rule-autosave-profile"><select id="ruleEditAutoSaveProfileInput"></select></span>
-					<span class="td"><button id="ruleEditButton" type="submit"><img src="../resources/button_ok.png"></button></span>
-				</form>
+			<div class="option">
+				<label for="showAllProfilesInput" id="showAllProfilesLabel"></label>
+				<input type="checkbox" id="showAllProfilesInput">
+			</div>
+			<div class="option">
+				<label for="showAutoSaveProfileInput" id="showAutoSaveProfileLabel"></label>
+				<input type="checkbox" id="showAutoSaveProfileInput">
+			</div>
+		</details>
+		<div class="option bottom">
+			<a href="help.html" target="SingleFileHelpPage" id="helpLabel"></a>
+			<div class="buttons">
+				<button id="importButton"></button>
+				<button id="exportButton"></button>
+				<button id="resetButton"></button>
+				<input type="file" id="fileInput" hidden>
 			</div>
 		</div>
-		<div class="option">
-			<label for="showAllProfilesInput" id="showAllProfilesLabel"></label>
-			<input type="checkbox" id="showAllProfilesInput">
+		<div id="formResetContainer" class="popup" hidden>
+			<form class="popup-content">
+				<header>
+					<span id="resetConfirmLabel"></span>
+				</header>
+				<footer>
+					<button type="submit" id="resetAllButton"></button>
+					<button id="resetCurrentButton"></button>
+					<button id="resetCancelButton"></button>
+				</footer>
+			</form>
 		</div>
-		<div class="option">
-			<label for="showAutoSaveProfileInput" id="showAutoSaveProfileLabel"></label>
-			<input type="checkbox" id="showAutoSaveProfileInput">
+		<div id="formConfirmContainer" class="popup" hidden>
+			<form class="popup-content">
+				<header>
+					<span id="confirmLabel"></span>
+				</header>
+				<footer>
+					<button type="submit" id="confirmButton"></button>
+					<button id="cancelButton"></button>
+				</footer>
+			</form>
 		</div>
-	</details>
-	<div class="option bottom">
-		<a href="help.html" target="SingleFileHelpPage" id="helpLabel"></a>
-		<div class="buttons">
-			<button id="importButton"></button>
-			<button id="exportButton"></button>
-			<button id="resetButton"></button>
-			<input type="file" id="fileInput" hidden>
+		<div id="formPromptContainer" class="popup" hidden>
+			<form class="popup-content">
+				<header>
+					<span id="promptLabel"></span>
+				</header>
+				<main><input id="promptInput" type="text"></main>
+				<footer>
+					<button type="submit" id="promptConfirmButton"></button>
+					<button id="promptCancelButton"></button>
+				</footer>
+			</form>
 		</div>
-	</div>
-	<div id="formResetContainer" class="popup" hidden>
-		<form class="popup-content">
-			<header>
-				<span id="resetConfirmLabel"></span>
-			</header>
-			<footer>
-				<button type="submit" id="resetAllButton"></button>
-				<button id="resetCurrentButton"></button>
-				<button id="resetCancelButton"></button>
-			</footer>
-		</form>
-	</div>
-	<div id="formConfirmContainer" class="popup" hidden>
-		<form class="popup-content">
-			<header>
-				<span id="confirmLabel"></span>
-			</header>
-			<footer>
-				<button type="submit" id="confirmButton"></button>
-				<button id="cancelButton"></button>
-			</footer>
-		</form>
-	</div>
-	<div id="formPromptContainer" class="popup" hidden>
-		<form class="popup-content">
-			<header>
-				<span id="promptLabel"></span>
-			</header>
-			<main><input id="promptInput" type="text"></main>
-			<footer>
-				<button type="submit" id="promptConfirmButton"></button>
-				<button id="promptCancelButton"></button>
-			</footer>
-		</form>
-	</div>
+	</main>
 	<script type="text/javascript" src="/lib/browser-polyfill/chrome-browser-polyfill.js"></script>
 	<script type="text/javascript" src="../bg/ui-options.js"></script>
 </body>
