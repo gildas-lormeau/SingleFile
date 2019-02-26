@@ -262,7 +262,7 @@ a {
     display: flex;
     justify-content: space-between;
     margin-top: 5px;
-    padding-left: 12px;
+    padding-left: 8px;
     min-height: 24px;
 }
 
@@ -382,7 +382,7 @@ a {
     }
 }
 
-@media (min-width:640px) {
+@media (min-width:800px) {
     main {
         margin: 8px;
         border: solid 1px rgb(191, 191, 191);
