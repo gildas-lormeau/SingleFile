@@ -22,7 +22,7 @@
 
 singlefile.core = (() => {
 
-	let contentScript, frameScript, optionalContentScript;
+	let contentScript, frameScript, modulesScript;
 
 	const contentScriptFiles = [
 		"/lib/hooks/hooks.js",
@@ -49,36 +49,21 @@ singlefile.core = (() => {
 		"/extension/core/content/content-frame.js"
 	];
 
-	const optionalContentScriptFiles = {
-		compressHTML: [
-			"/lib/single-file/modules/html-minifier.js",
-			"/lib/single-file/modules/html-serializer.js"
-		],
-		compressCSS: [
-			"/lib/single-file/vendor/css-minifier.js"
-		],
-		loadDeferredImages: [
-			"/lib/lazy/content/content-lazy-loader.js"
-		],
-		removeAlternativeImages: [
-			"/lib/single-file/modules/html-images-alt-minifier.js"
-		],
-		removeUnusedFonts: [
-			"/lib/single-file/vendor/css-font-property-parser.js",
-			"/lib/single-file/modules/css-fonts-minifier.js"
-		],
-		removeAlternativeFonts: [
-			"/lib/single-file/modules/css-fonts-alt-minifier.js"
-		],
-		removeUnusedStyles: [
-			"/lib/single-file/modules/css-matched-rules.js",
-			"/lib/single-file/modules/css-rules-minifier.js"
-		],
-		removeAlternativeMedias: [
-			"/lib/single-file/vendor/css-media-query-parser.js",
-			"/lib/single-file/modules/css-medias-alt-minifier.js"
-		]
-	};
+	const modulesScriptFiles = [
+		"/lib/single-file/modules/html-minifier.js",
+		"/lib/single-file/modules/html-serializer.js",
+		"/lib/single-file/vendor/css-minifier.js",
+		"/lib/lazy/content/content-lazy-loader.js",
+		"/lib/single-file/modules/html-images-alt-minifier.js",
+		"/lib/single-file/vendor/css-font-property-parser.js",
+		"/lib/single-file/modules/css-fonts-minifier.js",
+		"/lib/single-file/modules/css-fonts-alt-minifier.js",
+		"/lib/single-file/modules/css-matched-rules.js",
+		"/lib/single-file/modules/css-rules-minifier.js",
+		"/lib/single-file/vendor/css-media-query-parser.js",
+		"/lib/single-file/modules/css-medias-alt-minifier.js"
+	];
+
 	initScripts();
 
 	return { saveTab };
@@ -118,26 +103,18 @@ singlefile.core = (() => {
 	}
 
 	async function initScripts() {
-		if (!contentScript && !frameScript && !optionalContentScript) {
-			optionalContentScript = {};
-			[contentScript, frameScript] = await Promise.all([
+		if (!contentScript && !frameScript && !modulesScript) {
+			[contentScript, frameScript, modulesScript] = await Promise.all([
 				getScript(contentScriptFiles),
 				getScript(frameScriptFiles),
-				Promise.all(Object.keys(optionalContentScriptFiles)
-					.map(async option => optionalContentScript[option] = await getScript(optionalContentScriptFiles[option])))
+				getScript(modulesScriptFiles)
 			]);
 		}
 	}
 
-	async function getContentScript(options) {
+	async function getContentScript() {
 		await initScripts();
-		let script = "";
-		Object.keys(optionalContentScriptFiles).forEach(option => {
-			if (options[option]) {
-				script += optionalContentScript[option] + "\n";
-			}
-		});
-		return script + "\n" + contentScript;
+		return modulesScript + "\n" + contentScript;
 	}
 
 	async function getScript(scriptFiles) {
