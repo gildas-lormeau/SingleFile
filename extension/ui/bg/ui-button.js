@@ -24,7 +24,14 @@ singlefile.ui.button = (() => {
 
 	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_128.png";
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_128_wait";
-	const DEFAULT_TITLE = browser.i18n.getMessage("buttonDefaultTooltip");
+	const BUTTON_DEFAULT_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonDefaultTooltip");
+	const BUTTON_INITIALIZING_BADGE_MESSAGE = browser.i18n.getMessage("buttonInitializingBadge");
+	const BUTTON_INITIALIZING_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonInitializingTooltip");
+	const BUTTON_ERROR_BADGE_MESSAGE = browser.i18n.getMessage("buttonErrorBadge");
+	const BUTTON_OK_BADGE_MESSAGE = browser.i18n.getMessage("buttonOKBadge");
+	const BUTTON_SAVE_PROGRESS_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonSaveProgressTooltip");
+	const BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE = browser.i18n.getMessage("buttonAutoSaveActiveBadge");
+	const BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonAutoSaveActiveTooltip");
 	const DEFAULT_COLOR = [2, 147, 20, 255];
 
 	browser.browserAction.onClicked.addListener(async tab => {
@@ -89,33 +96,33 @@ singlefile.ui.button = (() => {
 	}
 
 	function onLoad(tabId) {
-		refresh(tabId, getProperties({}, "", DEFAULT_COLOR, DEFAULT_TITLE));
+		refresh(tabId, getProperties({}, "", DEFAULT_COLOR, BUTTON_DEFAULT_TOOLTIP_MESSAGE));
 	}
 
 	function onInitialize(tabId, options, step) {
 		if (step == 1) {
 			onLoad(tabId);
 		}
-		refresh(tabId, getProperties(options, browser.i18n.getMessage("buttonInitializingBadge"), step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], browser.i18n.getMessage("buttonInitializingTooltip") + " (" + step + "/2)", WAIT_ICON_PATH_PREFIX + "0.png"));
+		refresh(tabId, getProperties(options, BUTTON_INITIALIZING_BADGE_MESSAGE, step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], BUTTON_INITIALIZING_TOOLTIP_MESSAGE + " (" + step + "/2)", WAIT_ICON_PATH_PREFIX + "0.png"));
 	}
 
 	function onError(tabId, options) {
-		refresh(tabId, getProperties(options, browser.i18n.getMessage("buttonErrorBadge"), [229, 4, 12, 255]));
+		refresh(tabId, getProperties(options, BUTTON_ERROR_BADGE_MESSAGE, [229, 4, 12, 255]));
 	}
 
 	function onCancelled(tabId, options) {
-		refresh(tabId, getProperties(options, "", DEFAULT_COLOR, DEFAULT_TITLE));
+		refresh(tabId, getProperties(options, "", DEFAULT_COLOR, BUTTON_DEFAULT_TOOLTIP_MESSAGE));
 	}
 
 	function onEnd(tabId, options) {
-		refresh(tabId, getProperties(options, browser.i18n.getMessage("buttonOKBadge"), [4, 229, 36, 255]));
+		refresh(tabId, getProperties(options, BUTTON_OK_BADGE_MESSAGE, [4, 229, 36, 255]));
 	}
 
 	function onProgress(tabId, index, maxIndex, options) {
 		const progress = Math.max(Math.min(20, Math.floor((index / maxIndex) * 20)), 0);
 		const barProgress = Math.min(Math.floor((index / maxIndex) * 8), 8);
 		const path = WAIT_ICON_PATH_PREFIX + barProgress + ".png";
-		refresh(tabId, getProperties(options, "", [4, 229, 36, 255], browser.i18n.getMessage("buttonSaveProgressTooltip") + (progress * 5) + "%", path, [128, 128, 128, 255]));
+		refresh(tabId, getProperties(options, "", [4, 229, 36, 255], BUTTON_SAVE_PROGRESS_TOOLTIP_MESSAGE + (progress * 5) + "%", path, [128, 128, 128, 255]));
 	}
 
 	async function refreshTab(tab) {
@@ -152,11 +159,11 @@ singlefile.ui.button = (() => {
 		}
 	}
 
-	function getProperties(options, text, color, title = DEFAULT_TITLE, path = DEFAULT_ICON_PATH, autoColor = [208, 208, 208, 255]) {
+	function getProperties(options, text, color, title = BUTTON_DEFAULT_TOOLTIP_MESSAGE, path = DEFAULT_ICON_PATH, autoColor = [208, 208, 208, 255]) {
 		return {
-			setBadgeText: { text: options.autoSave ? browser.i18n.getMessage("buttonAutoSaveActiveBadge") : (text || "") },
+			setBadgeText: { text: options.autoSave ? BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE : (text || "") },
 			setBadgeBackgroundColor: { color: options.autoSave ? autoColor : color || DEFAULT_COLOR },
-			setTitle: { title: options.autoSave ? browser.i18n.getMessage("buttonAutoSaveActiveTooltip") : title },
+			setTitle: { title: options.autoSave ? BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE : title },
 			setIcon: { path: options.autoSave ? DEFAULT_ICON_PATH : path }
 		};
 	}
