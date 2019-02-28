@@ -33,6 +33,10 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 	const LOGS_LINE_ELEMENT_TAGNAME = "singlefile-logs-element";
 	const SINGLE_FILE_UI_ELEMENT_CLASS = "single-file-ui-element";
 	const SELECT_PX_THRESHOLD = 8;
+	const LOG_PANEL_DEFERRED_IMAGES_MESSAGE = browser.i18n.getMessage("logPanelDeferredImages");
+	const LOG_PANEL_FRAME_CONTENTS_MESSAGE = browser.i18n.getMessage("logPanelFrameContents");
+	const LOG_PANEL_STEP_MESSAGE = browser.i18n.getMessage("logPanelStep");
+	const LOG_PANEL_WIDTH = browser.i18n.getMessage("logPanelWidth");
 
 	let selectedAreaElement;
 
@@ -77,22 +81,22 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			}
 		},
 		onLoadingDeferResources() {
-			updateLog("load-deferred-images", browser.i18n.getMessage("logPanelDeferredImages"), "…");
+			updateLog("load-deferred-images", LOG_PANEL_DEFERRED_IMAGES_MESSAGE, "…");
 		},
 		onLoadDeferResources() {
-			updateLog("load-deferred-images", browser.i18n.getMessage("logPanelDeferredImages"), "✓");
+			updateLog("load-deferred-images", LOG_PANEL_DEFERRED_IMAGES_MESSAGE, "✓");
 		},
 		onLoadingFrames() {
-			updateLog("load-frames", browser.i18n.getMessage("logPanelFrameContents"), "…");
+			updateLog("load-frames", LOG_PANEL_FRAME_CONTENTS_MESSAGE, "…");
 		},
 		onLoadFrames() {
-			updateLog("load-frames", browser.i18n.getMessage("logPanelFrameContents"), "✓");
+			updateLog("load-frames", LOG_PANEL_FRAME_CONTENTS_MESSAGE, "✓");
 		},
 		onStartStage(step) {
-			updateLog("step-" + step, `${browser.i18n.getMessage("logPanelStep")} ${step + 1} / 3`, "…");
+			updateLog("step-" + step, `${LOG_PANEL_STEP_MESSAGE} ${step + 1} / 3`, "…");
 		},
 		onEndStage(step) {
-			updateLog("step-" + step, `${browser.i18n.getMessage("logPanelStep")} ${step + 1} / 3`, "✓");
+			updateLog("step-" + step, `${LOG_PANEL_STEP_MESSAGE} ${step + 1} / 3`, "✓");
 		},
 		onPageLoading() { },
 		onLoadPage() { },
@@ -385,7 +389,7 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		logsWindowElement.style.setProperty("left", "8px", "important");
 		logsWindowElement.style.setProperty("z-index", 2147483647, "important");
 		logsWindowElement.style.setProperty("background-color", "white", "important");
-		logsWindowElement.style.setProperty("min-width", browser.i18n.getMessage("logPanelWidth") + "px", "important");
+		logsWindowElement.style.setProperty("min-width", LOG_PANEL_WIDTH + "px", "important");
 		logsWindowElement.style.setProperty("min-height", "16px", "important");
 		logsWindowElement.style.setProperty("transition", "height 100ms", "important");
 		logsWindowElement.style.setProperty("will-change", "height", "important");
