@@ -54,7 +54,7 @@ input[type="text"] {
 }
 
 input[type="number"] {
-    max-width: 40px;
+    max-width: 50px;
 }
 
 input.large-input {
