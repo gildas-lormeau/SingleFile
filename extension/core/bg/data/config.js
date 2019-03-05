@@ -97,32 +97,10 @@ singlefile.config = (() => {
 	}
 
 	function applyUpgrade(config) {
-		if (config.autoSaveLoadOrUnload === undefined && !config.autoSaveUnload && !config.autoSaveLoad) {
-			config.autoSaveLoadOrUnload = true;
-			config.autoSaveLoad = false;
-			config.autoSaveUnload = false;
-		}
-		if (!config.maxResourceSize) {
-			config.maxResourceSize = DEFAULT_CONFIG.maxResourceSize;
-		}
-		if (config.appendSaveDate !== undefined) {
-			delete config.appendSaveDate;
-		}
-		if ((config.compressHTML === undefined || config.compressCSS === undefined) && config.compress !== undefined) {
-			config.compressHTML = config.compressCSS = config.compress;
-			delete config.compress;
-		}
-		upgradeOldConfig(config, "removeUnusedFonts", "removeUnusedStyles");
-		upgradeOldConfig(config, "removeUnusedStyles", "removeUnusedCSSRules");
-		upgradeOldConfig(config, "removeAlternativeImages", "removeSrcSet");
-		upgradeOldConfig(config, "confirmInfobarContent", "confirmInfobar");
-		upgradeOldConfig(config, "filenameConflictAction", "conflictAction");
-		upgradeOldConfig(config, "loadDeferredImages", "lazyLoadImages");
-		upgradeOldConfig(config, "loadDeferredImagesMaxIdleTime", "maxLazyLoadImagesIdleTime");
 		Object.keys(DEFAULT_CONFIG).forEach(configKey => upgradeConfig(config, configKey));
 	}
 
-	function upgradeOldConfig(config, newKey, oldKey) {
+	function upgradeOldConfig(config, newKey, oldKey) { // eslint-disable-line no-unused-vars
 		if (config[newKey] === undefined && config[oldKey] !== undefined) {
 			config[newKey] = config[oldKey];
 			delete config[oldKey];
