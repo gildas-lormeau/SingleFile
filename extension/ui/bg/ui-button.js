@@ -112,7 +112,7 @@ singlefile.ui.button = (() => {
 	}
 
 	function onForbiddenDomain(tabId, options) {
-		refresh(tabId, getProperties(options, "🛇", [255, 65, 34, 255], "This page cannot be saved by SingleFile"));
+		refresh(tabId, getProperties(options, "🛇", [224, 89, 0, 255], BUTTON_BLOCKED_TOOLTIP_MESSAGE));
 	}
 
 	function onCancelled(tabId, options) {
