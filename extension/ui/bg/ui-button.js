@@ -131,7 +131,7 @@ singlefile.ui.button = (() => {
 	}
 
 	async function refreshTab(tab) {
-		const options = { autoSave: await singlefile.autosave.isEnabled(tab) }
+		const options = { autoSave: await singlefile.autosave.isEnabled(tab) };
 		const properties = getCurrentProperties(tab.id, options);
 		await refresh(tab.id, properties, true);
 		if (!singlefile.util.isAllowedURL(tab.url)) {
@@ -197,7 +197,6 @@ singlefile.ui.button = (() => {
 		if (browser.browserAction[browserActionMethod]) {
 			const parameter = JSON.parse(JSON.stringify(browserActionParameter));
 			parameter.tabId = tabId;
-			console.log(browserActionMethod, parameter);
 			await browser.browserAction[browserActionMethod](parameter);
 		}
 	}
