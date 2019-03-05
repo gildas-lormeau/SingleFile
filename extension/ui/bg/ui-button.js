@@ -25,9 +25,11 @@ singlefile.ui.button = (() => {
 	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_128.png";
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_128_wait";
 	const BUTTON_DEFAULT_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonDefaultTooltip");
+	const BUTTON_BLOCKED_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonBlockedTooltip");
 	const BUTTON_INITIALIZING_BADGE_MESSAGE = browser.i18n.getMessage("buttonInitializingBadge");
 	const BUTTON_INITIALIZING_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonInitializingTooltip");
 	const BUTTON_ERROR_BADGE_MESSAGE = browser.i18n.getMessage("buttonErrorBadge");
+	const BUTTON_BLOCKED_BADGE_MESSAGE = browser.i18n.getMessage("buttonBlockedBadge");
 	const BUTTON_OK_BADGE_MESSAGE = browser.i18n.getMessage("buttonOKBadge");
 	const BUTTON_SAVE_PROGRESS_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonSaveProgressTooltip");
 	const BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE = browser.i18n.getMessage("buttonAutoSaveActiveBadge");
@@ -112,7 +114,7 @@ singlefile.ui.button = (() => {
 	}
 
 	function onForbiddenDomain(tabId, options) {
-		refresh(tabId, getProperties(options, "🛇", [224, 89, 0, 255], BUTTON_BLOCKED_TOOLTIP_MESSAGE));
+		refresh(tabId, getProperties(options, BUTTON_BLOCKED_BADGE_MESSAGE, [224, 89, 0, 255], BUTTON_BLOCKED_TOOLTIP_MESSAGE));
 	}
 
 	function onCancelled(tabId, options) {

@@ -67,6 +67,14 @@
         "message": "使用 SingleFile 保存页面",
         "description": "按钮标题: '使用 SingleFile 保存页面'"
     },
+    "buttonBlockedBadge": {
+        "message": "🛇",
+        "description": "Button badge when the page is blacked: '🛇'"
+    },
+    "buttonBlockedTooltip": {
+        "message": "This page cannot be saved with SingleFile",
+        "description": "Button title: 'This page cannot be saved with SingleFile'"
+    },
     "buttonInitializingTooltip": {
         "message": "正在初始化 SingleFile",
         "description": "保存时候的按钮标题: '正在初始化 SingleFile (x/2)'"

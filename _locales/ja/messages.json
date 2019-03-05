@@ -67,6 +67,14 @@
         "message": "SingleFile でページを保存",
         "description": "ボタンのタイトル: 'SingleFile でページを保存'"
     },
+    "buttonBlockedBadge": {
+        "message": "🛇",
+        "description": "Button badge when the page is blacked: '🛇'"
+    },
+    "buttonBlockedTooltip": {
+        "message": "This page cannot be saved with SingleFile",
+        "description": "Button title: 'This page cannot be saved with SingleFile'"
+    },
     "buttonInitializingTooltip": {
         "message": "SingleFile の初期化",
         "description": "初期化中のボタンのタイトル: 'SingleFile の初期化 (x/2)'"

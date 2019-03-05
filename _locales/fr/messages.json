@@ -67,6 +67,14 @@
         "message": "Sauver la page avec SingleFile",
         "description": "Button title: 'Save page with SingleFile'"
     },
+    "buttonBlockedBadge": {
+        "message": "🛇",
+        "description": "Button badge when the page is blacked: '🛇'"
+    },
+    "buttonBlockedTooltip": {
+        "message": "Cette page ne peut pas être sauvée avec SingleFile",
+        "description": "Button title: 'This page cannot be saved with SingleFile'"
+    },
     "buttonInitializingTooltip": {
         "message": "Initialisation de SingleFile",
         "description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
