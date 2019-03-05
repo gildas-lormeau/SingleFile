@@ -74,27 +74,37 @@ singlefile.core = (() => {
 			const tabId = tab.id;
 			options.tabId = tabId;
 			try {
-				singlefile.ui.button.onInitialize(tabId, options, 1);
 				if (options.autoSave) {
 					const options = await singlefile.config.getOptions(tab.url, true);
 					if (singlefile.autosave.isEnabled(tab)) {
 						await singlefile.tabs.sendMessage(tab.id, { autoSavePage: true, options });
 					}
 				} else {
+					singlefile.ui.button.onInitialize(tabId, options, 1);
 					const mergedOptions = await singlefile.config.getOptions(tab.url);
 					Object.keys(options).forEach(key => mergedOptions[key] = options[key]);
+					let scriptsInjected;
 					if (!mergedOptions.removeFrames) {
-						await browser.tabs.executeScript(tab.id, { code: frameScript, allFrames: true, runAt: "document_start" });
+						try {
+							await browser.tabs.executeScript(tab.id, { code: frameScript, allFrames: true, runAt: "document_start" });
+							const code = await getContentScript(mergedOptions);
+							await browser.tabs.executeScript(tab.id, { code, allFrames: false, runAt: "document_idle" });
+							scriptsInjected = true;
+						} catch (error) {
+							// ignored
+						}
 					}
-					const code = await getContentScript(mergedOptions);
-					await browser.tabs.executeScript(tab.id, { code, allFrames: false, runAt: "document_idle" });
-					if (mergedOptions.frameId) {
-						await singlefile.tabs.sendMessage(tab.id, { saveFrame: true, options: mergedOptions }, { frameId: mergedOptions.frameId });
+					if (scriptsInjected) {
+						if (mergedOptions.frameId) {
+							await singlefile.tabs.sendMessage(tab.id, { saveFrame: true, options: mergedOptions }, { frameId: mergedOptions.frameId });
+						} else {
+							await singlefile.tabs.sendMessage(tab.id, { savePage: true, options: mergedOptions });
+						}
+						singlefile.ui.button.onInitialize(tabId, options, 2);
 					} else {
-						await singlefile.tabs.sendMessage(tab.id, { savePage: true, options: mergedOptions });
+						singlefile.ui.button.onForbiddenDomain(tabId, options);
 					}
 				}
-				singlefile.ui.button.onInitialize(tabId, options, 2);
 			} catch (error) {
 				console.log(error); // eslint-disable-line no-console
 				singlefile.ui.button.onError(tabId, options);

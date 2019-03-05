@@ -51,6 +51,7 @@ singlefile.ui.button = (() => {
 		onInitialize,
 		onProgress,
 		onEnd,
+		onForbiddenDomain,
 		onError,
 		refresh: async tab => {
 			if (tab.id) {
@@ -110,6 +111,10 @@ singlefile.ui.button = (() => {
 		refresh(tabId, getProperties(options, BUTTON_ERROR_BADGE_MESSAGE, [229, 4, 12, 255]));
 	}
 
+	function onForbiddenDomain(tabId, options) {
+		refresh(tabId, getProperties(options, "🛇", [255, 65, 34, 255], "This page cannot be saved by SingleFile"));
+	}
+
 	function onCancelled(tabId, options) {
 		refresh(tabId, getProperties(options, "", DEFAULT_COLOR, BUTTON_DEFAULT_TOOLTIP_MESSAGE));
 	}
@@ -126,21 +131,14 @@ singlefile.ui.button = (() => {
 	}
 
 	async function refreshTab(tab) {
-		const properties = getCurrentProperties(tab.id, { autoSave: await singlefile.autosave.isEnabled(tab) });
+		const options = { autoSave: await singlefile.autosave.isEnabled(tab) }
+		const properties = getCurrentProperties(tab.id, options);
 		await refresh(tab.id, properties, true);
-		if (browser.browserAction && browser.browserAction.enable && browser.browserAction.disable) {
-			if (singlefile.util.isAllowedURL(tab.url)) {
-				try {
-					await browser.browserAction.enable(tab.id);
-				} catch (error) {
-					/* ignored */
-				}
-			} else {
-				try {
-					await browser.browserAction.disable(tab.id);
-				} catch (error) {
-					/* ignored */
-				}
+		if (!singlefile.util.isAllowedURL(tab.url)) {
+			try {
+				await onForbiddenDomain(tab.id, options);
+			} catch (error) {
+				/* ignored */
 			}
 		}
 	}
@@ -199,6 +197,7 @@ singlefile.ui.button = (() => {
 		if (browser.browserAction[browserActionMethod]) {
 			const parameter = JSON.parse(JSON.stringify(browserActionParameter));
 			parameter.tabId = tabId;
+			console.log(browserActionMethod, parameter);
 			await browser.browserAction[browserActionMethod](parameter);
 		}
 	}
