@@ -53,6 +53,8 @@
 	const autoSaveLoadLabel = document.getElementById("autoSaveLoadLabel");
 	const autoSaveUnloadLabel = document.getElementById("autoSaveUnloadLabel");
 	const autoSaveLoadOrUnloadLabel = document.getElementById("autoSaveLoadOrUnloadLabel");
+	const autoSaveRepeatLabel = document.getElementById("autoSaveRepeatLabel");
+	const autoSaveRepeatDelayLabel = document.getElementById("autoSaveRepeatDelayLabel");
 	const removeAlternativeFontsLabel = document.getElementById("removeAlternativeFontsLabel");
 	const removeAlternativeImagesLabel = document.getElementById("removeAlternativeImagesLabel");
 	const removeAlternativeMediasLabel = document.getElementById("removeAlternativeMediasLabel");
@@ -111,6 +113,8 @@
 	const autoSaveLoadInput = document.getElementById("autoSaveLoadInput");
 	const autoSaveUnloadInput = document.getElementById("autoSaveUnloadInput");
 	const autoSaveLoadOrUnloadInput = document.getElementById("autoSaveLoadOrUnloadInput");
+	const autoSaveRepeatInput = document.getElementById("autoSaveRepeatInput");
+	const autoSaveRepeatDelayInput = document.getElementById("autoSaveRepeatDelayInput");
 	const removeAlternativeFontsInput = document.getElementById("removeAlternativeFontsInput");
 	const removeAlternativeImagesInput = document.getElementById("removeAlternativeImagesInput");
 	const removeAlternativeMediasInput = document.getElementById("removeAlternativeMediasInput");
@@ -352,6 +356,8 @@
 	autoSaveLoadLabel.textContent = browser.i18n.getMessage("optionAutoSaveLoad");
 	autoSaveUnloadLabel.textContent = browser.i18n.getMessage("optionAutoSaveUnload");
 	autoSaveLoadOrUnloadLabel.textContent = browser.i18n.getMessage("optionAutoSaveLoadOrUnload");
+	autoSaveRepeatLabel.textContent = browser.i18n.getMessage("optionAutoSaveRepeat");
+	autoSaveRepeatDelayLabel.textContent = browser.i18n.getMessage("optionAutoSaveRepeatDelay");
 	removeAlternativeFontsLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeFonts");
 	removeAlternativeImagesLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeImages");
 	removeAlternativeMediasLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeMedias");
@@ -511,6 +517,10 @@
 		autoSaveUnloadInput.checked = !profileOptions.autoSaveLoadOrUnload && profileOptions.autoSaveUnload;
 		autoSaveLoadInput.disabled = profileOptions.autoSaveLoadOrUnload;
 		autoSaveUnloadInput.disabled = profileOptions.autoSaveLoadOrUnload;
+		autoSaveRepeatInput.checked = profileOptions.autoSaveRepeat;
+		autoSaveRepeatInput.disabled = !profileOptions.autoSaveLoadOrUnload && !profileOptions.autoSaveLoad;
+		autoSaveRepeatDelayInput.value = profileOptions.autoSaveRepeatDelay;
+		autoSaveRepeatDelayInput.disabled = !profileOptions.autoSaveRepeat;
 		removeAlternativeFontsInput.checked = profileOptions.removeAlternativeFonts;
 		removeAlternativeImagesInput.checked = profileOptions.removeAlternativeImages;
 		groupDuplicateImagesInput.checked = profileOptions.groupDuplicateImages;
@@ -563,6 +573,8 @@
 				autoSaveLoad: autoSaveLoadInput.checked,
 				autoSaveUnload: autoSaveUnloadInput.checked,
 				autoSaveLoadOrUnload: autoSaveLoadOrUnloadInput.checked,
+				autoSaveRepeat: autoSaveRepeatInput.checked,
+				autoSaveRepeatDelay: Math.max(autoSaveRepeatDelayInput.value, 1),
 				removeAlternativeFonts: removeAlternativeFontsInput.checked,
 				removeAlternativeImages: removeAlternativeImagesInput.checked,
 				removeAlternativeMedias: removeAlternativeMediasInput.checked,

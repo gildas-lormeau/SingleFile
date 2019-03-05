@@ -311,6 +311,14 @@
         "message": "页面加载后自动保存的延时（秒）",
         "description": "选项页标签: '页面加载后自动保存的延时（秒）'"
     },
+    "optionAutoSaveRepeat": {
+        "message": "auto-save periodically",
+        "description": "Options page label: 'auto-save periodically'"
+    },
+    "optionAutoSaveRepeatDelay": {
+        "message": "period (sec.)",
+        "description": "Options page label: 'period (sec.)'"
+    },
     "optionsMiscSubTitle": {
         "message": "其他",
         "description": "选项页副标题: '其他'"

@@ -55,6 +55,8 @@ singlefile.config = (() => {
 		autoSaveLoad: false,
 		autoSaveUnload: false,
 		autoSaveLoadOrUnload: true,
+		autoSaveRepeat: false,
+		autoSaveRepeatDelay: 10,
 		removeAlternativeFonts: true,
 		removeAlternativeMedias: true,
 		removeAlternativeImages: true,

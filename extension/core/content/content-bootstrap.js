@@ -28,21 +28,26 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 		autoSaveEnabled = message.autoSaveEnabled;
 		refresh();
 	});
-	browser.runtime.onMessage.addListener(message => {
+	browser.runtime.onMessage.addListener(message => onMessage(message));
+	browser.runtime.sendMessage({ loadURL: true });
+	return {};
+
+	async function onMessage(message) {
 		if (message.autoSavePage) {
 			autoSavingPage = false;
 			singlefile.pageAutoSaved = false;
 			options = message.options;
-			autoSavePage();
+			await autoSavePage();
+			if (options.autoSaveRepeat) {
+				setTimeout(() => onMessage(message), options.autoSaveRepeatDelay * 1000);
+			}
 		}
 		if (message.initAutoSave) {
 			options = message.options;
 			autoSaveEnabled = message.autoSaveEnabled;
 			refresh();
 		}
-	});
-	browser.runtime.sendMessage({ loadURL: true });
-	return {};
+	}
 
 	async function autoSavePage() {
 		if ((!autoSavingPage || autoSaveTimeout) && !singlefile.pageAutoSaved) {

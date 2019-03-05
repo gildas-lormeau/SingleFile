@@ -311,6 +311,14 @@
         "message": "auto-save waiting delay after page load (sec.)",
         "description": "Options page label: 'auto-save waiting delay after page load (sec.)'"
     },
+    "optionAutoSaveRepeat": {
+        "message": "auto-save periodically",
+        "description": "Options page label: 'auto-save periodically'"
+    },
+    "optionAutoSaveRepeatDelay": {
+        "message": "period (sec.)",
+        "description": "Options page label: 'period (sec.)'"
+    },
     "optionsMiscSubTitle": {
         "message": "Misc.",
         "description": "Options sub-title: 'Misc.'"

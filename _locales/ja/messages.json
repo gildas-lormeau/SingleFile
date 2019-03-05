@@ -311,6 +311,14 @@
         "message": "ページ読み込み後の自動保存待ち時間（秒）",
         "description": "オプションのページラベル: 'ページ読み込み後の自動保存待ち時間（秒）'"
     },
+    "optionAutoSaveRepeat": {
+        "message": "auto-save periodically",
+        "description": "Options page label: 'auto-save periodically'"
+    },
+    "optionAutoSaveRepeatDelay": {
+        "message": "period (sec.)",
+        "description": "Options page label: 'period (sec.)'"
+    },
     "optionsMiscSubTitle": {
         "message": "その他",
         "description": "オプションのサブタイトル: 'その他'"
