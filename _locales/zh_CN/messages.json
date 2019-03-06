@@ -72,7 +72,7 @@
         "description": "Button badge when the page is blacked: '🛇'"
     },
     "buttonBlockedTooltip": {
-        "message": "This page cannot be saved with SingleFile",
+        "message": "SingleFile 无法保存这个页面",
         "description": "Button title: 'This page cannot be saved with SingleFile'"
     },
     "buttonInitializingTooltip": {
@@ -320,11 +320,11 @@
         "description": "选项页标签: '页面加载后自动保存的延时（秒）'"
     },
     "optionAutoSaveRepeat": {
-        "message": "auto-save periodically",
+        "message": "定期自动保存",
         "description": "Options page label: 'auto-save periodically'"
     },
     "optionAutoSaveRepeatDelay": {
-        "message": "period (sec.)",
+        "message": "定期自动保存单位（秒）",
         "description": "Options page label: 'period (sec.)'"
     },
     "optionsMiscSubTitle": {
