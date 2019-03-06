@@ -90,7 +90,6 @@ singlefile.ui.button = (() => {
 	}
 
 	async function onTabCreated(tab) {
-		await refreshProperty(tab.id, "setBadgeBackgroundColor", { color: DEFAULT_COLOR });
 		refreshTab(tab);
 	}
 
@@ -114,7 +113,7 @@ singlefile.ui.button = (() => {
 	}
 
 	function onForbiddenDomain(tabId, options) {
-		refresh(tabId, getProperties(options, BUTTON_BLOCKED_BADGE_MESSAGE, [224, 89, 0, 255], BUTTON_BLOCKED_TOOLTIP_MESSAGE));
+		refresh(tabId, getProperties(options, BUTTON_BLOCKED_BADGE_MESSAGE, [192, 192, 192, 255], BUTTON_BLOCKED_TOOLTIP_MESSAGE));
 	}
 
 	function onCancelled(tabId, options) {
@@ -135,8 +134,9 @@ singlefile.ui.button = (() => {
 	async function refreshTab(tab) {
 		const options = { autoSave: await singlefile.autosave.isEnabled(tab) };
 		const properties = getCurrentProperties(tab.id, options);
-		await refresh(tab.id, properties, true);
-		if (!singlefile.util.isAllowedURL(tab.url)) {
+		if (singlefile.util.isAllowedURL(tab.url)) {
+			await refresh(tab.id, properties, true);
+		} else {
 			try {
 				await onForbiddenDomain(tab.id, options);
 			} catch (error) {
