@@ -87,12 +87,16 @@ singlefile.core = (() => {
 					if (!mergedOptions.removeFrames) {
 						try {
 							await browser.tabs.executeScript(tab.id, { code: frameScript, allFrames: true, runAt: "document_start" });
-							const code = await getContentScript(mergedOptions);
-							await browser.tabs.executeScript(tab.id, { code, allFrames: false, runAt: "document_idle" });
-							scriptsInjected = true;
 						} catch (error) {
 							// ignored
 						}
+					}
+					try {
+						const code = await getContentScript(mergedOptions);
+						await browser.tabs.executeScript(tab.id, { code, allFrames: false, runAt: "document_idle" });
+						scriptsInjected = true;
+					} catch (error) {
+						// ignored
 					}
 					if (scriptsInjected) {
 						if (mergedOptions.frameId) {
