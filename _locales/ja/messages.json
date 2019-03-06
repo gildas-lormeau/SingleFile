@@ -72,7 +72,7 @@
         "description": "Button badge when the page is blacked: '🛇'"
     },
     "buttonBlockedTooltip": {
-        "message": "This page cannot be saved with SingleFile",
+        "message": "このページは SingleFile では保存できません",
         "description": "Button title: 'This page cannot be saved with SingleFile'"
     },
     "buttonInitializingTooltip": {
@@ -320,11 +320,11 @@
         "description": "オプションのページラベル: 'ページ読み込み後の自動保存待ち時間（秒）'"
     },
     "optionAutoSaveRepeat": {
-        "message": "auto-save periodically",
+        "message": "定期的に自動保存する",
         "description": "Options page label: 'auto-save periodically'"
     },
     "optionAutoSaveRepeatDelay": {
-        "message": "period (sec.)",
+        "message": "所要時間（秒）",
         "description": "Options page label: 'period (sec.)'"
     },
     "optionsMiscSubTitle": {
