@@ -78,7 +78,7 @@ Please follow these steps if you find an unknown issue:
 See https://addons.mozilla.org/en-US/firefox/addon/single-file/versions
 
 ## Contributors
-- Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad)
+- Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad), frostblazergit (https://github.com/frostblazergit)
 - Japanese translation done by Shitennouji（四天王寺) (https://github.com/Shitennouji)
 - Polish translation done by xesarni (https://github.com/xesarni)
 - Russian translation done by rstp14 (https://github.com/rstp14)
