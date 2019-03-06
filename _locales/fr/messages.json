@@ -316,8 +316,8 @@
         "description": "Options page label: 'auto-save on page unload'"
     },
     "optionAutoSaveDelay": {
-        "message": "délai d'attente après le chargement de la page (sec.)",
-        "description": "Options page label: 'auto-save waiting delay after page load (sec.)'"
+        "message": "délai d'attente après le chargement de la page (s)",
+        "description": "Options page label: 'auto-save waiting delay after page load (s)'"
     },
     "optionAutoSaveRepeat": {
         "message": "auto-sauvegarder périodiquement",
@@ -325,7 +325,7 @@
     },
     "optionAutoSaveRepeatDelay": {
         "message": "période (s)",
-        "description": "Options page label: 'period (sec.)'"
+        "description": "Options page label: 'period (s)'"
     },
     "optionsMiscSubTitle": {
         "message": "Divers",

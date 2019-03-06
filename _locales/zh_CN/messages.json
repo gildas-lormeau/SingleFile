@@ -325,7 +325,7 @@
     },
     "optionAutoSaveRepeatDelay": {
         "message": "定期自动保存单位（秒）",
-        "description": "Options page label: 'period (sec.)'"
+        "description": "Options page label: 'period (s)'"
     },
     "optionsMiscSubTitle": {
         "message": "其他",

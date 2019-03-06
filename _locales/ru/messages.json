@@ -317,15 +317,15 @@
     },
     "optionAutoSaveDelay": {
         "message": "задержка автосохранения после загрузки страницы (сек.)",
-        "description": "Options page label: 'auto-save waiting delay after page load (sec.)'"
+        "description": "Options page label: 'auto-save waiting delay after page load (s)'"
     },
     "optionAutoSaveRepeat": {
         "message": "auto-save periodically",
         "description": "Options page label: 'auto-save periodically'"
     },
     "optionAutoSaveRepeatDelay": {
-        "message": "period (sec.)",
-        "description": "Options page label: 'period (sec.)'"
+        "message": "period (s)",
+        "description": "Options page label: 'period (s)'"
     },
     "optionsMiscSubTitle": {
         "message": "Разное",
