@@ -101,10 +101,7 @@ singlefile.ui.button = (() => {
 		refresh(tabId, getProperties({}, "", DEFAULT_COLOR, BUTTON_DEFAULT_TOOLTIP_MESSAGE));
 	}
 
-	function onInitialize(tabId, options, step) {
-		if (step == 1) {
-			onLoad(tabId);
-		}
+	function onInitialize(tabId, options, step) {		
 		refresh(tabId, getProperties(options, BUTTON_INITIALIZING_BADGE_MESSAGE, step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], BUTTON_INITIALIZING_TOOLTIP_MESSAGE + " (" + step + "/2)", WAIT_ICON_PATH_PREFIX + "0.png"));
 	}
 
