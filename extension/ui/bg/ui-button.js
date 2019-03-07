@@ -135,7 +135,7 @@ singlefile.ui.button = (() => {
 		const options = { autoSave: await singlefile.autosave.isEnabled(tab) };
 		const properties = getCurrentProperties(tab.id, options);
 		if (singlefile.util.isAllowedURL(tab.url)) {
-			await refresh(tab.id, properties, true);
+			await refresh(tab.id, properties);
 		} else {
 			try {
 				await onForbiddenDomain(tab.id, options);
@@ -150,19 +150,15 @@ singlefile.ui.button = (() => {
 			return getProperties(options);
 		} else {
 			const tabsData = singlefile.tabsData.getTemporary(tabId);
-			const tabData = tabsData[tabId].button;
-			if (tabData) {
-				return tabData;
-			} else {
-				return getProperties(options);
-			}
+			delete tabsData[tabId].button;
+			return getProperties(options);
 		}
 	}
 
 	function getProperties(options, text, color, title = BUTTON_DEFAULT_TOOLTIP_MESSAGE, path = DEFAULT_ICON_PATH, autoColor = [208, 208, 208, 255]) {
 		return {
-			setBadgeText: { text: options.autoSave ? BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE : (text || "") },
 			setBadgeBackgroundColor: { color: options.autoSave ? autoColor : color || DEFAULT_COLOR },
+			setBadgeText: { text: options.autoSave ? BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE : (text || "") },
 			setTitle: { title: options.autoSave ? BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE : title },
 			setIcon: { path: options.autoSave ? DEFAULT_ICON_PATH : path }
 		};
@@ -185,7 +181,7 @@ singlefile.ui.button = (() => {
 
 	async function refreshAsync(tabId, tabData, oldTabData) {
 		for (const browserActionMethod of Object.keys(tabData)) {
-			if (browserActionMethod == "setBadgeBackgroundColor" || !oldTabData[browserActionMethod] || JSON.stringify(oldTabData[browserActionMethod]) != JSON.stringify(tabData[browserActionMethod])) {
+			if (browserActionMethod != "pendingRefresh" && (!oldTabData[browserActionMethod] || JSON.stringify(oldTabData[browserActionMethod]) != JSON.stringify(tabData[browserActionMethod]))) {
 				try {
 					await refreshProperty(tabId, browserActionMethod, tabData[browserActionMethod]);
 				} catch (error) {
