@@ -11,4 +11,4 @@ When you request for customer support, we may ask for your email address to get 
 We keep our privacy notice under regular review and we will place any updates on this document. This privacy notice was last updated on March 2019.
 
 ## How to contact us
-Please contact us if you have any questions about our privacy policy by email to gildas.lormeau <at> gmail.com.
+Please contact us if you have any questions about our privacy policy by email to gildas.lormeau &lt;at&gt; gmail.com.
