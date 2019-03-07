@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFileBrowser, singlefile, frameTree, document, Blob, MouseEvent, addEventListener, window, lazyLoader, URL, setTimeout, docHelper */
+/* global browser, SingleFileBrowser, singlefile, frameTree, document, MouseEvent, addEventListener, window, lazyLoader, URL, setTimeout, docHelper */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
@@ -141,7 +141,6 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (options.selected) {
 			singlefile.ui.unmarkSelection();
 		}
-		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 		if (options.shadowEnabled) {
 			singlefile.ui.onEndPage();
 		}
@@ -154,32 +153,24 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function downloadPage(page, options) {
 		if (options.backgroundSave) {
-			const response = await browser.runtime.sendMessage({ download: true, url: page.url, confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename });
-			if (response.notSupported) {
-				let response;
-				for (let blockIndex = 0; (!response || !response.notSupported) && (blockIndex * MAX_CONTENT_SIZE < page.content.length); blockIndex++) {
-					const message = { download: true, confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename };
-					message.truncated = page.content.length > MAX_CONTENT_SIZE;
-					if (message.truncated) {
-						message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > page.content.length;
-						message.content = page.content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
-					} else {
-						message.content = page.content;
-					}
-					response = await browser.runtime.sendMessage(message);
+			let response;
+			for (let blockIndex = 0; !response && (blockIndex * MAX_CONTENT_SIZE < page.content.length); blockIndex++) {
+				const message = { download: true, confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename };
+				message.truncated = page.content.length > MAX_CONTENT_SIZE;
+				if (message.truncated) {
+					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > page.content.length;
+					message.content = page.content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+				} else {
+					message.content = page.content;
 				}
-				if (response.notSupported) {
-					downloadPageFallback(page, options);
-				}
-			} else {
-				URL.revokeObjectURL(page.url);
+				response = await browser.runtime.sendMessage(message);
 			}
 		} else {
-			downloadPageFallback(page, options);
+			downloadPageForeground(page, options);
 		}
 	}
 
-	function downloadPageFallback(page, options) {
+	function downloadPageForeground(page, options) {
 		if (options.confirmFilename) {
 			page.filename = singlefile.ui.prompt("File name", page.filename);
 		}

@@ -30,38 +30,34 @@ singlefile.download = (() => {
 	};
 
 	function onMessage(message, sender) {
-		try {
-			if (message.truncated) {
-				let partialContent = partialContents.get(sender.tab.id);
-				if (!partialContent) {
-					partialContent = [];
-					partialContents.set(sender.tab.id, partialContent);
-				}
-				partialContent.push(message.content);
-				if (message.finished) {
-					partialContents.delete(sender.tab.id);
-					message.url = URL.createObjectURL(new Blob(partialContent, { type: "text/html" }));
-				} else {
-					return Promise.resolve({});
-				}
-			} else if (message.content) {
-				message.url = URL.createObjectURL(new Blob([message.content], { type: "text/html" }));
+		if (message.truncated) {
+			let partialContent = partialContents.get(sender.tab.id);
+			if (!partialContent) {
+				partialContent = [];
+				partialContents.set(sender.tab.id, partialContent);
 			}
-			return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction })
-				.catch(error => {
-					if (error.message) {
-						if (!error.message.toLowerCase().includes("canceled")) {
-							if (error.message.includes("'incognito'")) {
-								return downloadPage(message, { confirmFilename: message.confirmFilename, filenameConflictAction: message.filenameConflictAction });
-							} else {
-								return { notSupported: true };
-							}
+			partialContent.push(message.content);
+			if (message.finished) {
+				partialContents.delete(sender.tab.id);
+				message.url = URL.createObjectURL(new Blob(partialContent, { type: "text/html" }));
+			} else {
+				return Promise.resolve({});
+			}
+		} else if (message.content) {
+			message.url = URL.createObjectURL(new Blob([message.content], { type: "text/html" }));
+		}
+		return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction })
+			.catch(error => {
+				if (error.message) {
+					if (!error.message.toLowerCase().includes("canceled")) {
+						if (error.message.includes("'incognito'")) {
+							return downloadPage(message, { confirmFilename: message.confirmFilename, filenameConflictAction: message.filenameConflictAction });
+						} else {
+							throw error;
 						}
 					}
-				});
-		} catch (error) {
-			return Promise.resolve({ notSupported: true });
-		}
+				}
+			});
 	}
 
 	async function downloadPage(page, options) {
@@ -74,7 +70,22 @@ singlefile.download = (() => {
 		if (options.incognito) {
 			downloadInfo.incognito = true;
 		}
-		const downloadId = await browser.downloads.download(downloadInfo);
+		let downloadId;
+		try {
+			downloadId = await browser.downloads.download(downloadInfo);
+		} catch (error) {
+			if (error.message) {
+				if (!error.message.toLowerCase().includes("canceled")) {
+					if (error.message.includes("'incognito'")) {
+						return downloadPage(page, { confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction });
+					} else {
+						throw error;
+					}
+				}
+			} else {
+				throw error;
+			}
+		}
 		return new Promise((resolve, reject) => {
 			browser.downloads.onChanged.addListener(onChanged);
 
