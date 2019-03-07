@@ -92,8 +92,8 @@ singlefile.core = (() => {
 						}
 					}
 					try {
-						const code = await getContentScript(mergedOptions);
-						await browser.tabs.executeScript(tab.id, { code, allFrames: false, runAt: "document_idle" });
+						await initScripts();
+						await browser.tabs.executeScript(tab.id, { code: modulesScript + "\n" + contentScript, allFrames: false, runAt: "document_idle" });
 						scriptsInjected = true;
 					} catch (error) {
 						// ignored
@@ -124,11 +124,6 @@ singlefile.core = (() => {
 				getScript(modulesScriptFiles)
 			]);
 		}
-	}
-
-	async function getContentScript() {
-		await initScripts();
-		return modulesScript + "\n" + contentScript;
 	}
 
 	async function getScript(scriptFiles) {
