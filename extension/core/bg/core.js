@@ -99,12 +99,12 @@ singlefile.core = (() => {
 						// ignored
 					}
 					if (scriptsInjected) {
+						singlefile.ui.button.onInitialize(tabId, options, 2);
 						if (mergedOptions.frameId) {
 							await singlefile.tabs.sendMessage(tab.id, { saveFrame: true, options: mergedOptions }, { frameId: mergedOptions.frameId });
 						} else {
 							await singlefile.tabs.sendMessage(tab.id, { savePage: true, options: mergedOptions });
 						}
-						singlefile.ui.button.onInitialize(tabId, options, 2);
 					} else {
 						singlefile.ui.button.onForbiddenDomain(tabId, options);
 					}
