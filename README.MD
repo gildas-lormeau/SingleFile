@@ -11,6 +11,7 @@ SingleFile is a WebExtension compatible with Chrome, Firefox (Desktop and Mobile
  - [Known issues](#known-issues)
  - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
  - [Release notes](#release-notes)
+ - [Privacy policy](#privacy-policy)
  - [Contributors](#contributors)
  - [Icons](#icons)
  - [Code derived from third party projects](#code-derived-from-third-party-projects)
@@ -76,6 +77,9 @@ Please follow these steps if you find an unknown issue:
 
 ## Release notes
 See https://addons.mozilla.org/en-US/firefox/addon/single-file/versions
+
+## Privacy Policy
+See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 
 ## Contributors
 - Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad), frostblazergit (https://github.com/frostblazergit)
