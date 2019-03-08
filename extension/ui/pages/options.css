@@ -391,4 +391,8 @@ a {
         margin: 8px;
         border: solid 1px rgb(191, 191, 191);
     }
+
+    select {
+        max-height: 21px;
+    }
 }
