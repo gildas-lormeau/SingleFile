@@ -58,7 +58,8 @@ input[type="number"] {
 }
 
 select {
-    max-height: 16px;
+    min-height: 22px;
+    max-height: 22px;
 }
 
 input.large-input {
@@ -390,9 +391,5 @@ a {
     main {
         margin: 8px;
         border: solid 1px rgb(191, 191, 191);
-    }
-
-    select {
-        max-height: 21px;
     }
 }
