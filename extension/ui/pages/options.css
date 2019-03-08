@@ -57,6 +57,10 @@ input[type="number"] {
     max-width: 50px;
 }
 
+select {
+    max-height: 16px;
+}
+
 input.large-input {
     min-width: 60px;
 }
