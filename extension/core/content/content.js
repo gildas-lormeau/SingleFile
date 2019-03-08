@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFileBrowser, singlefile, frameTree, document, MouseEvent, addEventListener, window, lazyLoader, URL, setTimeout, docHelper */
+/* global browser, SingleFileBrowser, singlefile, frameTree, document, MouseEvent, addEventListener, window, lazyLoader, URL, setTimeout, docHelper, Blob */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
@@ -178,7 +178,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			const link = document.createElement("a");
 			document.body.appendChild(link);
 			link.download = page.filename;
-			link.href = page.url;
+			link.href = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 			link.dispatchEvent(new MouseEvent("click"));
 			link.remove();
 			URL.revokeObjectURL(page.url);
