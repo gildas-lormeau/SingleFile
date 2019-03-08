@@ -72,7 +72,7 @@
         "description": "Button badge when the page is blacked: '🛇'"
     },
     "buttonBlockedTooltip": {
-        "message": "This page cannot be saved with SingleFile",
+        "message": "Эта страница не может быть сохранена с SingleFile",
         "description": "Button title: 'This page cannot be saved with SingleFile'"
     },
     "buttonInitializingTooltip": {
@@ -316,15 +316,15 @@
         "description": "Options page label: 'auto-save on page unload'"
     },
     "optionAutoSaveDelay": {
-        "message": "задержка автосохранения после загрузки страницы (сек.)",
+        "message": "задержка автосохранения после загрузки страницы (с)",
         "description": "Options page label: 'auto-save waiting delay after page load (s)'"
     },
     "optionAutoSaveRepeat": {
-        "message": "auto-save periodically",
+        "message": "переодическое автосохранение",
         "description": "Options page label: 'auto-save periodically'"
     },
     "optionAutoSaveRepeatDelay": {
-        "message": "period (s)",
+        "message": "период (с)",
         "description": "Options page label: 'period (s)'"
     },
     "optionsMiscSubTitle": {
