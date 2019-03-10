@@ -29,11 +29,16 @@ singlefile.tabs = (() => {
 	return {
 		onMessage,
 		get: options => browser.tabs.query(options),
-		sendMessage: (tabId, message) => browser.tabs.sendMessage(tabId, message)
+		sendMessage: (tabId, message, options) => browser.tabs.sendMessage(tabId, message, options)
 	};
 
-	async function onMessage(message) {
-		return singlefile.config.getOptions(message.url);
+	async function onMessage(message, sender) {
+		if (message.loadFileURI) {
+			return singlefile.config.getOptions(message.url);
+		}
+		if (message.savePage) {
+			return singlefile.tabs.sendMessage(sender.tab.id, message, { frameId: 0 });
+		}
 	}
 
 	function onTabCreated(tab) {

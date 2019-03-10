@@ -23,7 +23,7 @@
 singlefile.messages = (() => {
 
 	browser.runtime.onMessage.addListener((message, sender) => {
-		if (message.loadFileURI) {
+		if (message.loadFileURI || message.savePage) {
 			return singlefile.tabs.onMessage(message, sender);
 		}
 		if (message.download) {

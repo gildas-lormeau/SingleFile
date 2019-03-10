@@ -26,11 +26,15 @@ this.singlefile.frame = this.singlefile.frame || (() => {
 		browser.runtime.onMessage.addListener(message => {
 			if (message.saveFrame) {
 				message.options.content = docHelper.serialize(document);
-				message.saveFrameFrame = null;
-				message.options.frameId = null;
+				delete message.saveFrame;
+				delete message.options.frameId;
 				message.savePage = true;
 				message.options.url = document.location.href;
-				top.postMessage("__SingleFile__::" + JSON.stringify(message), "*");
+				if (this.browser && browser.runtime && browser.runtime.sendMessage) {
+					browser.runtime.sendMessage(message);
+				} else {
+					top.postMessage("__SingleFile__::" + JSON.stringify(message), "*");
+				}
 			}
 		});
 	}
