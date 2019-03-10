@@ -52,6 +52,8 @@ singlefile.download = (() => {
 					if (!error.message.toLowerCase().includes("canceled")) {
 						if (error.message.includes("'incognito'")) {
 							return downloadPage(message, { confirmFilename: message.confirmFilename, filenameConflictAction: message.filenameConflictAction });
+						} else if (error.message == "conflictAction prompt not yet implemented") {
+							return downloadPage(message, { confirmFilename: message.confirmFilename });
 						} else {
 							throw error;
 						}
