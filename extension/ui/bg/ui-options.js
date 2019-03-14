@@ -397,6 +397,10 @@
 	if (location.href.endsWith("#")) {
 		document.querySelector(".new-window-link").remove();
 	}
+	if (location.href.endsWith("#side-panel")) {
+		document.querySelector(".options-title").remove();
+		document.documentElement.classList.add("side-panel");
+	}
 	refresh();
 
 	async function refresh(profileName) {

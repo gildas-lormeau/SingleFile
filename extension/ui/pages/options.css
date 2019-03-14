@@ -70,6 +70,7 @@ h3 {
     padding-left: 8px;
     padding-top: 10px;
     margin-top: 4px;
+    min-height: 24px;
 }
 
 h3 a {
@@ -338,7 +339,7 @@ a {
 .popup-content {
     width: 90%;
     max-width: 320px;
-    margin-top: 50vh;
+    margin-top: 25vh;
     transform: translateY(-50%);
     margin-left: auto;
     margin-right: auto;
@@ -376,6 +377,15 @@ a {
 
 .popup-content footer button {
     margin-bottom: 10px;
+}
+
+.side-panel .profiles {
+    max-width: unset;
+}
+
+.side-panel #helpLabel {
+    max-width: 0;
+    visibility: hidden;
 }
 
 @media (max-width:400px) {
