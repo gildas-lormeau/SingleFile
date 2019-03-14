@@ -72,6 +72,7 @@ singlefile.core = (() => {
 			await initScripts();
 			const tabId = tab.id;
 			options.tabId = tabId;
+			options.tabIndex = tab.index;
 			try {
 				if (options.autoSave) {
 					const options = await singlefile.config.getOptions(tab.url, true);

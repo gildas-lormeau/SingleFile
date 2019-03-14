@@ -98,6 +98,7 @@ singlefile.autosave = (() => {
 		options.autoSave = true;
 		options.incognito = tab.incognito;
 		options.tabId = tabId;
+		options.tabIndex = tab.index;
 		let index = 0, maxIndex = 0;
 		options.onprogress = async event => {
 			if (event.type == event.RESOURCES_INITIALIZED) {
