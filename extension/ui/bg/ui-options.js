@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, window, document, localStorage, FileReader */
+/* global browser, window, document, localStorage, FileReader, location */
 
 (async () => {
 
@@ -394,6 +394,9 @@
 	resetCancelButton.textContent = promptCancelButton.textContent = cancelButton.textContent = browser.i18n.getMessage("optionsCancelButton");
 	confirmButton.textContent = promptConfirmButton.textContent = browser.i18n.getMessage("optionsOKButton");
 	document.getElementById("resetConfirmLabel").textContent = browser.i18n.getMessage("optionsResetConfirm");
+	if (location.href.endsWith("#")) {
+		document.querySelector(".new-window-link").remove();
+	}
 	refresh();
 
 	async function refresh(profileName) {
