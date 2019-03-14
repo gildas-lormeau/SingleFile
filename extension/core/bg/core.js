@@ -45,8 +45,7 @@ singlefile.core = (() => {
 		"/extension/index.js",
 		"/lib/single-file/util/doc-helper.js",
 		"/lib/fetch/content/fetch.js",
-		"/lib/frame-tree/content/content-frame-tree.js",
-		"/extension/core/content/content-frame.js"
+		"/lib/frame-tree/content/content-frame-tree.js"
 	];
 
 	const modulesScriptFiles = [
@@ -86,7 +85,7 @@ singlefile.core = (() => {
 					let scriptsInjected;
 					if (!mergedOptions.removeFrames) {
 						try {
-							await browser.tabs.executeScript(tab.id, { code: frameScript, allFrames: true, runAt: "document_start" });
+							await browser.tabs.executeScript(tab.id, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
 						} catch (error) {
 							// ignored
 						}
@@ -101,10 +100,9 @@ singlefile.core = (() => {
 					if (scriptsInjected) {
 						singlefile.ui.button.onInitialize(tabId, options, 2);
 						if (mergedOptions.frameId) {
-							await singlefile.tabs.sendMessage(tab.id, { saveFrame: true, options: mergedOptions }, { frameId: mergedOptions.frameId });
-						} else {
-							await singlefile.tabs.sendMessage(tab.id, { savePage: true, options: mergedOptions });
+							await browser.tabs.executeScript(tab.id, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: mergedOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
 						}
+						await singlefile.tabs.sendMessage(tab.id, { savePage: true, options: mergedOptions });
 					} else {
 						singlefile.ui.button.onForbiddenDomain(tabId, options);
 					}

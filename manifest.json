@@ -22,8 +22,7 @@
 				"lib/single-file/util/doc-helper.js",
 				"lib/single-file/util/doc-util.js",
 				"lib/frame-tree/content/content-frame-tree.js",
-				"extension/index.js",
-				"extension/core/content/content-frame.js"
+				"extension/index.js"
 			],
 			"all_frames": true,
 			"match_about_blank": true

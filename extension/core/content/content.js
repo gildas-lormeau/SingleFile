@@ -46,7 +46,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function savePage(message) {
 		const options = message.options;
-		if (!processing && !options.frameId) {
+		if (!processing) {
 			let selectionFound;
 			if (options.selected) {
 				selectionFound = await singlefile.ui.markSelection();
@@ -128,8 +128,21 @@ this.singlefile.top = this.singlefile.top || (() => {
 			}
 		};
 		[options.framesData] = await Promise.all(preInitializationPromises);
-		options.doc = document;
+		const selectedFrame = options.framesData.find(frameData => frameData.requestedFrame);
 		options.win = window;
+		if (selectedFrame) {
+			options.content = selectedFrame.content;
+			options.url = selectedFrame.baseURI;
+			options.canvasData = selectedFrame.canvasData;
+			options.fontsData = selectedFrame.fontsData;
+			options.stylesheetContents = selectedFrame.stylesheetContents;
+			options.imageData = selectedFrame.imageData;
+			options.postersData = selectedFrame.postersData;
+			options.usedFonts = selectedFrame.usedFonts;
+			options.shadowRootContents = selectedFrame.shadowRootContents;
+		} else {
+			options.doc = document;
+		}
 		await processor.run();
 		if (!options.saveRawPage && !options.removeFrames && this.frameTree) {
 			this.frameTree.cleanup(options);
