@@ -65,11 +65,16 @@ singlefile.ui.menu = (() => {
 	let profileIndexes = new Map();
 	initialize();
 	return {
+		onMessage,
 		onTabCreated: refreshTab,
 		onTabActivated: refreshTab,
 		onTabUpdated: onTabUpdated,
 		refresh: createMenus
 	};
+
+	function onMessage() {
+		createMenus();
+	}
 
 	function onTabUpdated(tabId, changeInfo, tab) {
 		refreshTab(tab);

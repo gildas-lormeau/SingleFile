@@ -24,13 +24,14 @@ singlefile.ui = (() => {
 
 	return {
 		onMessage(message, sender) {
-			return singlefile.ui.button.onMessage(message, sender);
+			if (message.refreshMenu) {
+				return singlefile.ui.menu.onMessage(message, sender);
+			} else {
+				return singlefile.ui.button.onMessage(message, sender);
+			}
 		},
 		refresh(tab) {
 			return Promise.all([singlefile.ui.menu.refresh(tab), singlefile.ui.button.refresh(tab)]);
-		},
-		refreshMenu() {
-			return singlefile.ui.menu.refresh();
 		},
 		onProgress(tabId, index, maxIndex, options) {
 			singlefile.ui.button.onProgress(tabId, index, maxIndex, options);
