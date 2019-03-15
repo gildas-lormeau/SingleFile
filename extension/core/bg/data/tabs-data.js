@@ -25,11 +25,21 @@ singlefile.tabsData = (() => {
 	let persistentData, temporaryData;
 	getPersistent().then(tabsData => persistentData = tabsData);
 	return {
+		onMessage,
 		onTabRemoved,
 		getTemporary,
 		get: getPersistent,
 		set: setPersistent
 	};
+
+	async function onMessage(message) {
+		if (message.getTabsData) {
+			return getPersistent();
+		}
+		if (message.setTabsData) {
+			return setPersistent(message.tabsData);
+		}
+	}
 
 	async function onTabRemoved(tabId) {
 		const tabsData = await getPersistent();

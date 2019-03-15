@@ -145,6 +145,12 @@
 	const promptCancelButton = document.getElementById("promptCancelButton");
 	const promptConfirmButton = document.getElementById("promptConfirmButton");
 
+	let sidePanelDisplay;
+	browser.runtime.onMessage.addListener(message => {
+		if (message.refreshOptions && sidePanelDisplay) {
+			refresh(message.profileName);
+		}
+	});
 	let pendingSave = Promise.resolve();
 	let autoSaveProfileChanged;
 	ruleProfileInput.onchange = () => {
@@ -318,6 +324,12 @@
 			}
 			if (target == profileNamesInput) {
 				await refresh(profileNamesInput.value);
+				if (sidePanelDisplay) {
+					const tabsData = await browser.runtime.sendMessage({ getTabsData: true });
+					tabsData.profileName = profileNamesInput.value;
+					await browser.runtime.sendMessage({ setTabsData: true, tabsData });
+					await browser.runtime.sendMessage({ refreshMenu: true });
+				}
 			} else {
 				await refresh();
 			}
@@ -398,10 +410,14 @@
 		document.querySelector(".new-window-link").remove();
 	}
 	if (location.href.endsWith("#side-panel")) {
+		sidePanelDisplay = true;
 		document.querySelector(".options-title").remove();
 		document.documentElement.classList.add("side-panel");
+		const tabsData = await browser.runtime.sendMessage({ getTabsData: true });
+		refresh(tabsData.profileName);
+	} else {
+		refresh();
 	}
-	refresh();
 
 	async function refresh(profileName) {
 		const [profiles, rules] = await Promise.all([browser.runtime.sendMessage({ getProfiles: true }), browser.runtime.sendMessage({ getRules: true })]);

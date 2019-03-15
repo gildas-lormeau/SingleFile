@@ -40,6 +40,9 @@ singlefile.messages = (() => {
 			message.resetProfile || message.exportConfig || message.importConfig || message.updateProfile || message.updateRule) {
 			return singlefile.config.onMessage(message, sender);
 		}
+		if (message.getTabsData || message.setTabsData) {
+			return singlefile.tabsData.onMessage(message, sender);
+		}
 	});
 	if (browser.runtime.onMessageExternal) {
 		browser.runtime.onMessageExternal.addListener(async (message, sender) => {
