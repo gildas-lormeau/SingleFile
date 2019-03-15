@@ -70,7 +70,7 @@ h3 {
     padding-left: 8px;
     padding-top: 10px;
     margin-top: 4px;
-    min-height: 24px;
+    min-height: 28px;
 }
 
 h3 a {
@@ -383,9 +383,9 @@ a {
     max-width: unset;
 }
 
-.side-panel #helpLabel {
-    max-width: 0;
-    visibility: hidden;
+.side-panel .options-title,
+.side-panel .option.bottom {
+    display: none;
 }
 
 @media (max-width:400px) {
