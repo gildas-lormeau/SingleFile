@@ -85,8 +85,8 @@ h3 a {
     float: right;
     margin-right: 12px;
     position: relative;
-    top: 0;
-    max-width: calc(100% - 100px);
+    top: 3px;
+    max-width: calc(100% - 120px);
 }
 
 .rules-table-container {
@@ -381,6 +381,10 @@ a {
 
 .side-panel .profiles {
     max-width: unset;
+}
+
+.side-panel .profiles {
+    max-width: calc(100% - 10px);
 }
 
 .side-panel .options-title,
