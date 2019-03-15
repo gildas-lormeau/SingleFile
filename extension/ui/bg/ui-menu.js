@@ -198,7 +198,7 @@ singlefile.ui.menu = (() => {
 				Object.keys(profiles).forEach((profileName, profileIndex) => {
 					if (profileName != singlefile.config.DEFAULT_PROFILE_NAME) {
 						let profileId = MENU_ID_SELECT_PROFILE_PREFIX + profileIndex;
-						let profileChecked = options.profileName == profileName;
+						let profileChecked = tabsData.profileName == profileName;
 						menus.create({
 							id: profileId,
 							type: "radio",
