@@ -432,6 +432,7 @@
 				ruleEditAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
 			}
 		});
+		profileNamesInput.disabled = profileNamesInput.options.length == 1;
 		optionElement = document.createElement("option");
 		optionElement.value = DISABLED_PROFILE_NAME;
 		optionElement.textContent = browser.i18n.getMessage("profileDisabled");
