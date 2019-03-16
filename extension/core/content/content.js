@@ -128,7 +128,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			}
 		};
 		[options.framesData] = await Promise.all(preInitializationPromises);
-		const selectedFrame = options.framesData.find(frameData => frameData.requestedFrame);
+		const selectedFrame = options.framesData && options.framesData.find(frameData => frameData.requestedFrame);
 		options.win = window;
 		if (selectedFrame) {
 			options.content = selectedFrame.content;
