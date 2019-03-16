@@ -147,7 +147,7 @@
 
 	let sidePanelDisplay;
 	browser.runtime.onMessage.addListener(message => {
-		if (message.refreshOptions && sidePanelDisplay) {
+		if (message.refreshOptions || (message.refreshOptionsPanel && sidePanelDisplay)) {
 			refresh(message.profileName);
 		}
 	});
@@ -165,6 +165,7 @@
 		if (await confirm(browser.i18n.getMessage("optionsDeleteDisplayedRulesConfirm"))) {
 			await browser.runtime.sendMessage({ deleteRules: true, profileName: !showAllProfilesInput.checked && profileNamesInput.value });
 			await refresh();
+			refreshExternalComponents();
 		}
 	}, false);
 	createURLElement.onsubmit = async event => {
@@ -175,6 +176,7 @@
 			ruleProfileInput.value = ruleAutoSaveProfileInput.value = DEFAULT_PROFILE_NAME;
 			autoSaveProfileChanged = false;
 			await refresh();
+			refreshExternalComponents();
 			ruleUrlInput.focus();
 		} catch (error) {
 			// ignored
@@ -222,7 +224,8 @@
 		if (profileName) {
 			try {
 				await browser.runtime.sendMessage({ createProfile: true, profileName });
-				await Promise.all([refresh(profileName), browser.runtime.sendMessage({ refreshMenu: true })]);
+				await refresh(profileName);
+				refreshExternalComponents();
 			} catch (error) {
 				// ignored
 			}
@@ -233,7 +236,8 @@
 			try {
 				await browser.runtime.sendMessage({ deleteProfile: true, profileName: profileNamesInput.value });
 				profileNamesInput.value = null;
-				await Promise.all([refresh(), browser.runtime.sendMessage({ refreshMenu: true })]);
+				await refresh();
+				refreshExternalComponents();
 			} catch (error) {
 				// ignored
 			}
@@ -244,7 +248,8 @@
 		if (profileName) {
 			try {
 				await browser.runtime.sendMessage({ renameProfile: true, profileName: profileNamesInput.value, newProfileName: profileName });
-				await Promise.all([refresh(profileName), browser.runtime.sendMessage({ refreshMenu: true })]);
+				await refresh(profileName);
+				refreshExternalComponents();
 			} catch (error) {
 				// ignored
 			}
@@ -255,11 +260,13 @@
 		if (choice) {
 			if (choice == "all") {
 				await browser.runtime.sendMessage({ resetProfiles: true });
-				await Promise.all([refresh(DEFAULT_PROFILE_NAME), browser.runtime.sendMessage({ refreshMenu: true })]);
+				await refresh(DEFAULT_PROFILE_NAME);
+				refreshExternalComponents();
 			}
 			if (choice == "current") {
 				await browser.runtime.sendMessage({ resetProfile: true, profileName: profileNamesInput.value });
 				await refresh();
+				refreshExternalComponents();
 			}
 			await update();
 		}
@@ -481,6 +488,7 @@
 					if (await confirm(browser.i18n.getMessage("optionsDeleteRuleConfirm"))) {
 						await browser.runtime.sendMessage({ deleteRule: true, url: rule.url });
 						await refresh();
+						refreshExternalComponents();
 					}
 				}, false);
 				ruleUpdateButton.title = browser.i18n.getMessage("optionsUpdateRuleTooltip");
@@ -498,6 +506,7 @@
 							rulesElement.appendChild(editURLElement);
 							await browser.runtime.sendMessage({ updateRule: true, url: rule.url, newUrl: ruleEditUrlInput.value, profileName: ruleEditProfileInput.value, autoSaveProfileName: ruleEditAutoSaveProfileInput.value });
 							await refresh();
+							refreshExternalComponents();
 							ruleUrlInput.focus();
 						};
 					}
@@ -608,7 +617,15 @@
 			}
 		});
 		await pendingSave;
+	}
+
+	async function refreshExternalComponents() {
 		await browser.runtime.sendMessage({ refreshMenu: true });
+		if (sidePanelDisplay) {
+			await browser.runtime.sendMessage({ refreshOptions: true, profileName: profileNamesInput.value });
+		} else {
+			await browser.runtime.sendMessage({ refreshOptionsPanel: true, profileName: profileNamesInput.value });
+		}
 	}
 
 	async function confirm(message) {
