@@ -224,7 +224,11 @@
 		if (profileName) {
 			try {
 				await browser.runtime.sendMessage({ createProfile: true, profileName });
-				await refresh(profileName);
+				if (sidePanelDisplay) {
+					await refresh();
+				} else {
+					await refresh(profileName);
+				}
 				refreshExternalComponents();
 			} catch (error) {
 				// ignored
