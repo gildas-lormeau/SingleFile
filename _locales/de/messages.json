@@ -28,19 +28,19 @@
         "description": "Menu entry: 'Save frame'"
     },
     "menuSaveTabs": {
-        "message": "Registerkarte (Tab) speichern",
+        "message": "Registerkarte (TAB) speichern",
         "description": "Menu entry (SingleFile button only): 'Save tabs'"
     },
     "menuSaveSelectedTabs": {
-        "message": "Speichern der ausgewählten Registerkarten (Tabs)",
+        "message": "Speichern der ausgewählten Registerkarten (TABs)",
         "description": "Menu entry: 'Save selected tabs'"
     },
     "menuSaveUnpinnedTabs": {
-        "message": "Speichern der nicht angehefteten Registerkarten (Tabs)",
+        "message": "Speichern der nicht angehefteten Registerkarten (TABs)",
         "description": "Menu entry: 'Save unpinned tabs'"
     },
     "menuSaveAllTabs": {
-        "message": "Speichern aller Registerkarten (Tabs)",
+        "message": "Speichern aller Registerkarten (TABs)",
         "description": "Menu entry: 'Save all tabs'"
     },
     "menuAutoSave": {
@@ -52,15 +52,15 @@
         "description": "Menu entry: 'Auto-save' > Disabled'"
     },
     "menuAutoSaveTab": {
-        "message": "Automatische Speicherung der ausgewählten Registerkarte (Tab)",
+        "message": "Automatische Speicherung der ausgewählten Registerkarte (TAB)",
         "description": "Menu entry: 'Auto-save' > Auto-save this tab'"
     },
     "menuAutoSaveUnpinnedTabs": {
-        "message": "Automatische Speicherung der nicht angehefteten Registerkarten(Tabs)",
+        "message": "Automatische Speicherung der nicht angehefteten Registerkarten (TABs)",
         "description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
     },
     "menuAutoSaveAllTabs": {
-        "message": "Automatische Speicherung aller Registerkarten(Tabs)",
+        "message": "Automatische Speicherung aller Registerkarten (TABs)",
         "description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
     },
     "buttonDefaultTooltip": {
@@ -68,11 +68,11 @@
         "description": "Button title: 'Save page with SingleFile'"
     },
     "buttonBlockedBadge": {
-        "message": "ðŸ›‡",
-        "description": "Button badge when the page is blacked: 'ðŸ›‡'"
+        "message": "🛇",
+        "description": "Button badge when the page is blacked: '🛇'"
     },
     "buttonBlockedTooltip": {
-        "message": "Diese Webseite kann nicht mit SingleFile gespeichert werden",
+        "message": "SingleFile kann diese Webseite nicht speichern",
         "description": "Button title: 'This page cannot be saved with SingleFile'"
     },
     "buttonInitializingTooltip": {
@@ -80,8 +80,8 @@
         "description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
     },
     "buttonInitializingBadge": {
-        "message": "â€¢â€¢â€¢",
-        "description": "Badge label during initialization: 'â€¢â€¢â€¢'"
+        "message": "•••",
+        "description": "Badge label during initialization: '•••'"
     },
     "buttonSaveProgressTooltip": {
         "message": "Speicherung aktiviert: ",
@@ -92,7 +92,7 @@
         "description": "Badge label: 'OK'"
     },
     "buttonErrorBadge": {
-        "message": "FEHLER",
+        "message": "ERR",
         "description": "Badge label for unexpected errors"
     },
     "buttonAutoSaveActiveTooltip": {
@@ -104,7 +104,7 @@
         "description": "Badge label when auto-save is active"
     },
     "optionsTitle": {
-        "message": "Auswahl Menu",
+        "message": "Auswahlmenu",
         "description": "Options page title"
     },
     "optionsUserInterfaceSubTitle": {
@@ -120,15 +120,15 @@
         "description": "Options page label: 'overlay a shadow on the page during processing'"
     },
     "optionDisplayInfobar": {
-        "message": "Info Knopf beim Betrachten einer gespeicherten Seite anzeigen",
+        "message": "Infoknopf beim Betrachten einer gespeicherten Seite anzeigen",
         "description": "Options page label: 'display an infobar when viewing a saved page'"
     },
     "optionInfobarTemplate": {
-        "message": "Muster für Inhalt des Info Knopf",
+        "message": "Muster für Inhalt des Infoknopfs",
         "description": "Options page label: 'template of the infobar content'"
     },
     "optionConfirmInfobar": {
-        "message": "Dialogfenster zur Eingabe des Inhaltes des Info Knopfes öffnen",
+        "message": "Inhalt des Infoknopfs im Dialogfenster eingeben",
         "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
     },
     "optionsFileNameSubTitle": {
@@ -140,7 +140,7 @@
         "description": "Options page label: 'template'"
     },
     "optionConfirmFilename": {
-        "message": "Dialogfenster \"Sichern als\" zur Bestätigung des Dateinames öffnen",
+        "message": "Dialogfenster \"Sichern als\" zur Bestätigung des Dateinamens öffnen",
         "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
     },
     "optionFilenameConflictAction": {
@@ -204,7 +204,7 @@
         "description": "Options sub-title: 'Fonts'"
     },
     "optionRemoveUnusedFonts": {
-        "message": "Nicht verwendete Schriftarten entfernen",
+        "message": "Unbenutze Schriftarten entfernen",
         "description": "Options page label: 'remove unused fonts'"
     },
     "optionRemoveAlternativeFonts": {
@@ -212,7 +212,7 @@
         "description": "Options page label: 'remove alternative fonts'"
     },
     "optionsStylesheetsSubTitle": {
-        "message": "Formatvorlagen (Stylesheets)",
+        "message": "Formatvorlagen",
         "description": "Options sub-title: 'Stylesheets'"
     },
     "optionCompressCSS": {
@@ -348,7 +348,7 @@
         "description": "Options page label: 'maximum size (MB)'"
     },
     "optionSaveRawPage": {
-        "message": "Original Seite sichern",
+        "message": "Originalseite sichern",
         "description": "Options page label: 'save raw page'"
     },
     "optionsHelpLink": {
@@ -396,7 +396,7 @@
         "description": "Label 'Deferred images' in the log panel"
     },
     "logPanelFrameContents": {
-        "message": "Rahmen Inhalte",
+        "message": "Rahmeninhalte",
         "description": "Label 'Frame contents' in the log panel"
     },
     "logPanelStep": {
@@ -428,7 +428,7 @@
         "description": "Tooltip 'Delete the profile' in the options page"
     },
     "profileAddPrompt": {
-        "message": "Namen für das neue Profil eingeben",
+        "message": "Neuen Profilnamen eingeben",
         "description": "Popup text 'Enter a name for this new profile' in the options page"
     },
     "profileDeleteConfirm": {
