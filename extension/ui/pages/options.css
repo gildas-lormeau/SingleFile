@@ -384,7 +384,12 @@ a {
 }
 
 .side-panel .profiles {
-    max-width: calc(100% - 10px);
+    top: 0px;
+    min-width: calc(100% - 12px);
+}
+
+.side-panel .profiles select {
+    min-width: calc(100% - 78px);
 }
 
 .side-panel .options-title,
