@@ -89,6 +89,7 @@
 	},
 	"options_page": "extension/ui/pages/options.html",
 	"sidebar_action": {
+		"browser_style": true,
 		"default_title": "SingleFile options",
 		"default_panel": "extension/ui/pages/options.html#side-panel",
 		"default_icon": "extension/ui/resources/icon_128.png",
