@@ -120,9 +120,9 @@
 		}
 	},
 	"permissions": [
+		"menus",
 		"contextMenus",
 		"downloads",
-		"menus",
 		"storage",
 		"tabs",
 		"<all_urls>"
