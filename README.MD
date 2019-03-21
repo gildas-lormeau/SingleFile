@@ -24,7 +24,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 SingleFile can be installed on:
  - Firefox via the Firefox Add-ons website: https://addons.mozilla.org/en-US/firefox/addon/single-file,
  - Chrome via the Chrome Web Store: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle,
- - Opera and forks of Firefox/Chrome by downloading the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and installing it manually.
+ - by downloading the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and installing it manually.
 
 ## Getting started
 - Wait until the page is fully loaded, you may need to scroll down the entire page to be sure all elements are loaded.
