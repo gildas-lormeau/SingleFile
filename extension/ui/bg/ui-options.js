@@ -196,27 +196,27 @@
 			ruleEditButton.disabled = true;
 		}
 	};
-	if (localStorage.getItem("optionShowAutoSaveProfile")) {
+	if (getLocalStorageItem("optionShowAutoSaveProfile")) {
 		showAutoSaveProfileInput.checked = true;
 		rulesContainerElement.classList.remove("compact");
 	}
 	showAutoSaveProfileInput.addEventListener("click", () => {
 		if (showAutoSaveProfileInput.checked) {
-			localStorage.setItem("optionShowAutoSaveProfile", 1);
+			setLocalStorageItem("optionShowAutoSaveProfile", 1);
 			rulesContainerElement.classList.remove("compact");
 		} else {
-			localStorage.removeItem("optionShowAutoSaveProfile");
+			removeLocalStorageItem("optionShowAutoSaveProfile");
 			rulesContainerElement.classList.add("compact");
 		}
 	}, false);
-	if (localStorage.getItem("optionShowAllProfiles")) {
+	if (getLocalStorageItem("optionShowAllProfiles")) {
 		showAllProfilesInput.checked = true;
 	}
 	showAllProfilesInput.addEventListener("click", () => {
 		if (showAllProfilesInput.checked) {
-			localStorage.setItem("optionShowAllProfiles", 1);
+			setLocalStorageItem("optionShowAllProfiles", 1);
 		} else {
-			localStorage.removeItem("optionShowAllProfiles");
+			removeLocalStorageItem("optionShowAllProfiles");
 		}
 	}, false);
 	addProfileButton.addEventListener("click", async () => {
@@ -701,6 +701,30 @@
 				resolve(value);
 			}
 		});
+	}
+
+	function getLocalStorageItem(key) {
+		try {
+			return localStorage.getItem(key);
+		} catch (error) {
+			// ignored
+		}
+	}
+
+	function setLocalStorageItem(key, value) {
+		try {
+			return localStorage.setItem(key, value);
+		} catch (error) {
+			// ignored
+		}
+	}
+
+	function removeLocalStorageItem(key) {
+		try {
+			return localStorage.removeItem(key);
+		} catch (error) {
+			// ignored
+		}
 	}
 
 })();
