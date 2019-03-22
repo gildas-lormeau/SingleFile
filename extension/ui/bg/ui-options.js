@@ -419,6 +419,7 @@
 	document.getElementById("resetConfirmLabel").textContent = browser.i18n.getMessage("optionsResetConfirm");
 	if (location.href.endsWith("#")) {
 		document.querySelector(".new-window-link").remove();
+		document.documentElement.classList.add("maximized");
 	}
 	if (location.href.endsWith("#side-panel")) {
 		sidePanelDisplay = true;

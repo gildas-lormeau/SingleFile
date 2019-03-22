@@ -397,18 +397,28 @@ a {
     display: none;
 }
 
+.maximized main {
+    margin: 8px;
+    border: solid 1px rgb(191, 191, 191);
+}
+
+html.maximized {
+    background-color: #f0f0f0;
+}
+
+.maximized main {
+    background-color: white;
+}
+
+.maximized .profiles {
+    top: -4px;
+}
+
 @media (max-width:400px) {
     body,
     input,
     select,
     button {
         font-size: 11px;
-    }
-}
-
-@media (min-width:800px) {
-    main {
-        margin: 8px;
-        border: solid 1px rgb(191, 191, 191);
     }
 }
