@@ -1,5 +1,5 @@
 # SingleFile
-SingleFile is a WebExtension compatible with Chrome, Firefox (Desktop and Mobile), and Opera that helps you to save a complete web page into a single HTML file.
+SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobile), Vivaldi, Brave, Waterfox, Yandex browser, and Opera that helps you to save a complete web page into a single HTML file.
 
 ## Table of Contents
  - [Demo](#demo)
@@ -21,10 +21,10 @@ SingleFile is a WebExtension compatible with Chrome, Firefox (Desktop and Mobile
 https://www.youtube.com/watch?v=RdV8DBW5b0g
 
 ## Install
-SingleFile can be installed on:
- - Firefox via the Firefox Add-ons website: https://addons.mozilla.org/en-US/firefox/addon/single-file,
- - Chrome via the Chrome Web Store: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle,
- - Opera and forks of Firefox/Chrome by downloading the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and installing it manually.
+SingleFile can be installed:
+ - on Firefox via the Firefox Add-ons website: https://addons.mozilla.org/en-US/firefox/addon/single-file,
+ - on Chrome via the Chrome Web Store: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle,
+ - by downloading the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and installing it manually.
 
 ## Getting started
 - Wait until the page is fully loaded, you may need to scroll down the entire page to be sure all elements are loaded.
@@ -62,7 +62,7 @@ See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=
   - For security reasons, you cannot save pages hosted on https://chrome.google.com, https://addons.mozilla.org and some other Mozilla domains. When this happens, the label "🛇" is displayed on top of the SingleFile icon.
   - The last saved path cannot be remembered by default. To circumvent this limitation, disable the option "Misc > Save pages in background".
   - The following characters are replaced with _ in filenames: ~, \\, ?, %, *, :, |, ", <, >  
-- Chrome/Opera:
+- Chrome:
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
   - If the filename of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3", disable the option "Misc > Save pages in background". Reinstalling the browser may also fix this issue.
 
