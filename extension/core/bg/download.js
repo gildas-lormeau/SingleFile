@@ -54,7 +54,7 @@ singlefile.download = (() => {
 					} else if (error.message == "conflictAction prompt not yet implemented") {
 						return downloadPage(message, { confirmFilename: message.confirmFilename });
 					} else if (error.message.includes("illegal characters")) {
-						message.filename = message.filename.replace(/,/, "_").replace(/[^\x00-\x7f]+/g, "_"); // eslint-disable-line no-control-regex
+						message.filename = message.filename.replace(/,/g, "_");
 						return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction });
 					} else {
 						throw error;
