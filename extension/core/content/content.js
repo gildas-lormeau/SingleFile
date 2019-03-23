@@ -179,7 +179,11 @@ this.singlefile.top = this.singlefile.top || (() => {
 				response = await browser.runtime.sendMessage(message);
 			}
 		} else {
-			downloadPageForeground(page, options);
+			if (options.saveToClipboard) {
+				saveToClipboard(page);
+			} else {
+				downloadPageForeground(page, options);
+			}
 		}
 	}
 
@@ -195,6 +199,19 @@ this.singlefile.top = this.singlefile.top || (() => {
 			link.dispatchEvent(new MouseEvent("click"));
 			link.remove();
 			URL.revokeObjectURL(page.url);
+		}
+	}
+
+	function saveToClipboard(page) {
+		const command = "copy";
+		document.addEventListener(command, listener);
+		document.execCommand(command);
+		document.removeEventListener(command, listener);
+
+		function listener(event) {
+			event.clipboardData.setData("text/html", page.content);
+			event.clipboardData.setData("text/plain", page.content);
+			event.preventDefault();
 		}
 	}
 
