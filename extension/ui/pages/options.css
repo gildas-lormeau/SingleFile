@@ -414,6 +414,10 @@ html.maximized {
     top: -4px;
 }
 
+.maximized #helpLabel {
+    padding-left: 4px;
+}
+
 @media (max-width:400px) {
     body,
     input,
