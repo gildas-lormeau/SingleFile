@@ -18,7 +18,7 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, singlefile, Blob, URL */
+/* global browser, singlefile, Blob, URL, document */
 
 singlefile.download = (() => {
 
@@ -39,30 +39,38 @@ singlefile.download = (() => {
 			partialContent.push(message.content);
 			if (message.finished) {
 				partialContents.delete(sender.tab.id);
-				message.url = URL.createObjectURL(new Blob(partialContent, { type: "text/html" }));
+				if (message.saveToClipboard) {
+					message.content = partialContent.join("");
+				} else {
+					message.url = URL.createObjectURL(new Blob(partialContent, { type: "text/html" }));
+				}
 			} else {
 				return Promise.resolve({});
 			}
-		} else if (message.content) {
+		} else if (message.content && !message.saveToClipboard) {
 			message.url = URL.createObjectURL(new Blob([message.content], { type: "text/html" }));
 		}
-		return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction })
-			.catch(error => {
-				if (error.message) {
-					if (error.message.includes("'incognito'")) {
-						return downloadPage(message, { confirmFilename: message.confirmFilename, filenameConflictAction: message.filenameConflictAction });
-					} else if (error.message == "conflictAction prompt not yet implemented") {
-						return downloadPage(message, { confirmFilename: message.confirmFilename });
-					} else if (error.message.includes("illegal characters")) {
-						message.filename = message.filename.replace(/,/g, "_");
-						return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction });
+		if (message.saveToClipboard) {
+			saveToClipboard(message);
+		} else {
+			return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction })
+				.catch(error => {
+					if (error.message) {
+						if (error.message.includes("'incognito'")) {
+							return downloadPage(message, { confirmFilename: message.confirmFilename, filenameConflictAction: message.filenameConflictAction });
+						} else if (error.message == "conflictAction prompt not yet implemented") {
+							return downloadPage(message, { confirmFilename: message.confirmFilename });
+						} else if (error.message.includes("illegal characters")) {
+							message.filename = message.filename.replace(/,/g, "_");
+							return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction });
+						} else {
+							throw error;
+						}
 					} else {
 						throw error;
 					}
-				} else {
-					throw error;
-				}
-			});
+				});
+		}
 	}
 
 	async function downloadPage(page, options) {
@@ -105,6 +113,19 @@ singlefile.download = (() => {
 				}
 			}
 		});
+	}
+
+	function saveToClipboard(page) {
+		const command = "copy";
+		document.addEventListener(command, listener);
+		document.execCommand(command);
+		document.removeEventListener(command, listener);
+
+		function listener(event) {
+			event.clipboardData.setData("text/html", page.content);
+			event.clipboardData.setData("text/plain", page.content);
+			event.preventDefault();
+		}
 	}
 
 })();

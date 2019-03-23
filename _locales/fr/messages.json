@@ -351,6 +351,10 @@
         "message": "sauvegarder la page brute",
         "description": "Options page label: 'save raw page'"
     },
+    "optionSaveToClipboard": {
+        "message": "enregistrer dans le presse-papiers",
+        "description": "Options page label: 'save to clipboard'"
+    },
     "optionsHelpLink": {
         "message": "aide (anglais)",
         "description": "Options help link"

@@ -351,6 +351,10 @@
         "message": "保存原始页面",
         "description": "选项页标签: '保存原始页面'"
     },
+    "optionSaveToClipboard": {
+        "message": "save to clipboard",
+        "description": "Options page label: 'save to clipboard'"
+    },
     "optionsHelpLink": {
         "message": "帮助",
         "description": "选项页帮助链接"

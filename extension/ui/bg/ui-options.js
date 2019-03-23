@@ -30,6 +30,7 @@
 	const removeImportsLabel = document.getElementById("removeImportsLabel");
 	const removeScriptsLabel = document.getElementById("removeScriptsLabel");
 	const saveRawPageLabel = document.getElementById("saveRawPageLabel");
+	const saveToClipboardLabel = document.getElementById("saveToClipboardLabel");
 	const compressHTMLLabel = document.getElementById("compressHTMLLabel");
 	const compressCSSLabel = document.getElementById("compressCSSLabel");
 	const loadDeferredImagesLabel = document.getElementById("loadDeferredImagesLabel");
@@ -93,6 +94,7 @@
 	const removeImportsInput = document.getElementById("removeImportsInput");
 	const removeScriptsInput = document.getElementById("removeScriptsInput");
 	const saveRawPageInput = document.getElementById("saveRawPageInput");
+	const saveToClipboardInput = document.getElementById("saveToClipboardInput");
 	const compressHTMLInput = document.getElementById("compressHTMLInput");
 	const compressCSSInput = document.getElementById("compressCSSInput");
 	const loadDeferredImagesInput = document.getElementById("loadDeferredImagesInput");
@@ -356,6 +358,7 @@
 	removeImportsLabel.textContent = browser.i18n.getMessage("optionRemoveImports");
 	removeScriptsLabel.textContent = browser.i18n.getMessage("optionRemoveScripts");
 	saveRawPageLabel.textContent = browser.i18n.getMessage("optionSaveRawPage");
+	saveToClipboardLabel.textContent = browser.i18n.getMessage("optionSaveToClipboard");
 	compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
 	compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
 	loadDeferredImagesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImages");
@@ -530,6 +533,7 @@
 		removeImportsInput.checked = profileOptions.removeImports;
 		removeScriptsInput.checked = profileOptions.removeScripts;
 		saveRawPageInput.checked = profileOptions.saveRawPage;
+		saveToClipboardInput.checked = profileOptions.saveToClipboard;
 		compressHTMLInput.checked = profileOptions.compressHTML;
 		compressCSSInput.checked = profileOptions.compressCSS;
 		loadDeferredImagesInput.checked = profileOptions.loadDeferredImages;
@@ -537,12 +541,15 @@
 		loadDeferredImagesMaxIdleTimeInput.disabled = !profileOptions.loadDeferredImages;
 		contextMenuEnabledInput.checked = profileOptions.contextMenuEnabled;
 		filenameTemplateInput.value = profileOptions.filenameTemplate;
+		filenameTemplateInput.disabled = profileOptions.saveToClipboard;
 		shadowEnabledInput.checked = profileOptions.shadowEnabled;
 		maxResourceSizeEnabledInput.checked = profileOptions.maxResourceSizeEnabled;
 		maxResourceSizeInput.value = profileOptions.maxResourceSize;
 		maxResourceSizeInput.disabled = !profileOptions.maxResourceSizeEnabled;
 		confirmFilenameInput.checked = profileOptions.confirmFilename;
+		confirmFilenameInput.disabled = profileOptions.saveToClipboard;
 		filenameConflictActionInput.value = profileOptions.filenameConflictAction;
+		filenameConflictActionInput.disabled = profileOptions.saveToClipboard;
 		removeAudioSrcInput.checked = profileOptions.removeAudioSrc;
 		removeVideoSrcInput.checked = profileOptions.removeVideoSrc;
 		displayInfobarInput.checked = profileOptions.displayInfobar;
@@ -591,6 +598,7 @@
 				removeImports: removeImportsInput.checked,
 				removeScripts: removeScriptsInput.checked,
 				saveRawPage: saveRawPageInput.checked,
+				saveToClipboard: saveToClipboardInput.checked,
 				compressHTML: compressHTMLInput.checked,
 				compressCSS: compressCSSInput.checked,
 				loadDeferredImages: loadDeferredImagesInput.checked,

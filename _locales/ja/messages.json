@@ -351,6 +351,10 @@
         "message": "生のページを保存",
         "description": "オプションのページラベル: '生のページを保存'"
     },
+    "optionSaveToClipboard": {
+        "message": "save to clipboard",
+        "description": "Options page label: 'save to clipboard'"
+    },
     "optionsHelpLink": {
         "message": "ヘルプ",
         "description": "オプションの「ヘルプ」リンク"

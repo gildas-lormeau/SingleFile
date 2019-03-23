@@ -61,7 +61,8 @@ singlefile.config = (() => {
 		removeAlternativeMedias: true,
 		removeAlternativeImages: true,
 		groupDuplicateImages: true,
-		saveRawPage: false
+		saveRawPage: false,
+		saveToClipboard: false
 	};
 
 	let pendingUpgradePromise = upgrade();

@@ -168,7 +168,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (options.backgroundSave) {
 			let response;
 			for (let blockIndex = 0; !response && (blockIndex * MAX_CONTENT_SIZE < page.content.length); blockIndex++) {
-				const message = { download: true, confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename };
+				const message = { download: true, confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename, saveToClipboard: options.saveToClipboard };
 				message.truncated = page.content.length > MAX_CONTENT_SIZE;
 				if (message.truncated) {
 					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > page.content.length;

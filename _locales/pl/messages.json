@@ -351,6 +351,10 @@
         "message": "zapisuj surową stronę",
         "description": "Options page label: 'save raw page'"
     },
+    "optionSaveToClipboard": {
+        "message": "save to clipboard",
+        "description": "Options page label: 'save to clipboard'"
+    },
     "optionsHelpLink": {
         "message": "pomoc (w języku angielskim)",
         "description": "Options help link"

@@ -351,6 +351,10 @@
         "message": "Originalseite sichern",
         "description": "Options page label: 'save raw page'"
     },
+    "optionSaveToClipboard": {
+        "message": "In die Zwischenablage speichern",
+        "description": "Options page label: 'save to clipboard'"
+    },
     "optionsHelpLink": {
         "message": "Hilfe",
         "description": "Options help link"

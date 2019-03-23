@@ -351,6 +351,10 @@
         "message": "сохранить исходную страницу",
         "description": "Options page label: 'save raw page'"
     },
+    "optionSaveToClipboard": {
+        "message": "save to clipboard",
+        "description": "Options page label: 'save to clipboard'"
+    },
     "optionsHelpLink": {
         "message": "помощь",
         "description": "Options help link"
