@@ -86,7 +86,7 @@ h3 a {
     margin-right: 12px;
     position: relative;
     top: 3px;
-    max-width: calc(100% - 120px);
+    max-width: calc(100% - 90px);
 }
 
 .rules-table-container {
