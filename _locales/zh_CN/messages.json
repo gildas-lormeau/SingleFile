@@ -88,7 +88,7 @@
         "description": "保存时候的按钮标题: '保存进度：xx%'"
     },
     "buttonOKBadge": {
-        "message": "确定",
+        "message": "完成",
         "description": "徽标标签: 'OK'"
     },
     "buttonErrorBadge": {
@@ -316,11 +316,11 @@
         "description": "选项页标签: '页面卸载时自动保存'"
     },
     "optionAutoSaveDelay": {
-        "message": "页面加载后自动保存的延时（秒）",
+        "message": "页面加载后自动保存延时（秒）",
         "description": "选项页标签: '页面加载后自动保存的延时（秒）'"
     },
     "optionAutoSaveRepeat": {
-        "message": "定期自动保存",
+        "message": "定期自动保存周期（秒）",
         "description": "Options page label: 'auto-save periodically'"
     },
     "optionAutoSaveRepeatDelay": {
@@ -352,7 +352,7 @@
         "description": "选项页标签: '保存原始页面'"
     },
     "optionSaveToClipboard": {
-        "message": "save to clipboard",
+        "message": "保存到剪切板",
         "description": "Options page label: 'save to clipboard'"
     },
     "optionsHelpLink": {
