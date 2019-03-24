@@ -352,7 +352,7 @@
         "description": "Options page label: 'save raw page'"
     },
     "optionSaveToClipboard": {
-        "message": "save to clipboard",
+        "message": "сохранить в буфер обмена",
         "description": "Options page label: 'save to clipboard'"
     },
     "optionsHelpLink": {
