@@ -86,7 +86,7 @@ h3 a {
     margin-right: 12px;
     position: relative;
     top: 3px;
-    max-width: calc(100% - 90px);
+    max-width: calc(100% - 115px);
 }
 
 .rules-table-container {
@@ -412,6 +412,7 @@ html.maximized {
 
 .maximized .profiles {
     top: -4px;
+    max-width: calc(100% - 90px);
 }
 
 .maximized #helpLabel {
