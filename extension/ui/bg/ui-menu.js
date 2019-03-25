@@ -360,10 +360,10 @@ singlefile.ui.menu = (() => {
 		}
 	}
 
-	async function refreshExternalComponents(tab) {
+	async function refreshExternalComponents(tab, options) {
 		const tabsData = await singlefile.tabsData.get(tab.id);
 		await singlefile.autosave.refreshTabs();
-		singlefile.ui.button.refresh(tab);
+		singlefile.ui.button.refresh(tab, options);
 		browser.runtime.sendMessage({ method: "options.refresh", profileName: tabsData.profileName });
 	}
 

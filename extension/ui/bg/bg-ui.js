@@ -31,8 +31,8 @@ singlefile.ui = (() => {
 				return singlefile.ui.button.onMessage(message, sender);
 			}
 		},
-		refresh(tab) {
-			return Promise.all([singlefile.ui.menu.refresh(tab), singlefile.ui.button.refresh(tab)]);
+		async refresh(tab) {
+			return Promise.all([singlefile.ui.menu.refresh(tab), singlefile.ui.button.refresh(tab, { autoSave: await singlefile.autosave.isEnabled(tab) })]);
 		},
 		onProgress(tabId, index, maxIndex, options) {
 			singlefile.ui.button.onProgress(tabId, index, maxIndex, options);

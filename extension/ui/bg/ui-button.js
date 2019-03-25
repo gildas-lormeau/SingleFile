@@ -55,9 +55,9 @@ singlefile.ui.button = (() => {
 		onEnd,
 		onForbiddenDomain,
 		onError,
-		refresh: async tab => {
+		refresh: async (tab, options) => {
 			if (tab.id) {
-				await refresh(tab.id, getProperties({ autoSave: await singlefile.autosave.isEnabled(tab) }));
+				await refresh(tab.id, getProperties(options));
 			}
 		}
 	};
