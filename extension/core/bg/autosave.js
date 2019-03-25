@@ -64,7 +64,11 @@ singlefile.autosave = (() => {
 	async function isEnabled(tab) {
 		if (tab) {
 			const [tabsData, rule] = await Promise.all([singlefile.tabsData.get(), singlefile.config.getRule(tab.url)]);
-			return singlefile.util.isAllowedURL(tab.url) && Boolean(tabsData.autoSaveAll || (tabsData.autoSaveUnpinned && !tab.pinned) || (tabsData[tab.id] && tabsData[tab.id].autoSave)) && (!rule || rule.autoSaveProfile != singlefile.config.DISABLED_PROFILE_NAME);
+			return singlefile.util.isAllowedURL(tab.url) &&
+				Boolean(tabsData.autoSaveAll ||
+					(tabsData.autoSaveUnpinned && !tab.pinned) ||
+					(tabsData[tab.id] && tabsData[tab.id].autoSave)) &&
+				(!rule || rule.autoSaveProfile != singlefile.config.DISABLED_PROFILE_NAME);
 		}
 	}
 
