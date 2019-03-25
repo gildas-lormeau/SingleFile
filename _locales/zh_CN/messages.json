@@ -320,7 +320,7 @@
         "description": "选项页标签: '页面加载后自动保存的延时（秒）'"
     },
     "optionAutoSaveRepeat": {
-        "message": "定期自动保存周期（秒）",
+        "message": "定期自动保存",
         "description": "Options page label: 'auto-save periodically'"
     },
     "optionAutoSaveRepeatDelay": {
