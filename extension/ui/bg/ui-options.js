@@ -22,7 +22,7 @@
 
 (async () => {
 
-	const { DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME } = await browser.runtime.sendMessage({ getConfigConstants: true });
+	const { DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME } = await browser.runtime.sendMessage({ method: "config.getConstants" });
 	const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsLabel");
 	const removeUnusedStylesLabel = document.getElementById("removeUnusedStylesLabel");
 	const removeUnusedFontsLabel = document.getElementById("removeUnusedFontsLabel");
@@ -149,7 +149,7 @@
 
 	let sidePanelDisplay;
 	browser.runtime.onMessage.addListener(message => {
-		if (message.refreshOptions || (message.refreshOptionsPanel && sidePanelDisplay)) {
+		if (message.method == "options.refresh" || (message.method == "options.refreshPanel" && sidePanelDisplay)) {
 			refresh(message.profileName);
 		}
 	});
@@ -165,7 +165,7 @@
 	};
 	rulesDeleteAllButton.addEventListener("click", async () => {
 		if (await confirm(browser.i18n.getMessage("optionsDeleteDisplayedRulesConfirm"))) {
-			await browser.runtime.sendMessage({ deleteRules: true, profileName: !showAllProfilesInput.checked && profileNamesInput.value });
+			await browser.runtime.sendMessage({ method: "config.deleteRules", profileName: !showAllProfilesInput.checked && profileNamesInput.value });
 			await refresh();
 			refreshExternalComponents();
 		}
@@ -173,7 +173,7 @@
 	createURLElement.onsubmit = async event => {
 		event.preventDefault();
 		try {
-			await browser.runtime.sendMessage({ addRule: true, url: ruleUrlInput.value, profileName: ruleProfileInput.value, autoSaveProfileName: ruleAutoSaveProfileInput.value });
+			await browser.runtime.sendMessage({ method: "config.addRule", url: ruleUrlInput.value, profileName: ruleProfileInput.value, autoSaveProfileName: ruleAutoSaveProfileInput.value });
 			ruleUrlInput.value = "";
 			ruleProfileInput.value = ruleAutoSaveProfileInput.value = DEFAULT_PROFILE_NAME;
 			autoSaveProfileChanged = false;
@@ -186,14 +186,14 @@
 	};
 	ruleUrlInput.onclick = ruleUrlInput.onkeyup = ruleUrlInput.onchange = async () => {
 		ruleAddButton.disabled = !ruleUrlInput.value;
-		const rules = await browser.runtime.sendMessage({ getRules: true });
+		const rules = await browser.runtime.sendMessage({ method: "config.getRules" });
 		if (rules.find(rule => rule.url == ruleUrlInput.value)) {
 			ruleAddButton.disabled = true;
 		}
 	};
 	ruleEditUrlInput.onclick = ruleEditUrlInput.onkeyup = ruleEditUrlInput.onchange = async () => {
 		ruleEditButton.disabled = !ruleEditUrlInput.value;
-		const rules = await browser.runtime.sendMessage({ getRules: true });
+		const rules = await browser.runtime.sendMessage({ method: "config.getRules" });
 		if (rules.find(rule => rule.url == ruleEditUrlInput.value)) {
 			ruleEditButton.disabled = true;
 		}
@@ -225,7 +225,7 @@
 		const profileName = await prompt(browser.i18n.getMessage("profileAddPrompt"));
 		if (profileName) {
 			try {
-				await browser.runtime.sendMessage({ createProfile: true, profileName });
+				await browser.runtime.sendMessage({ method: "config.createProfile", profileName });
 				if (sidePanelDisplay) {
 					await refresh();
 				} else {
@@ -240,7 +240,7 @@
 	deleteProfileButton.addEventListener("click", async () => {
 		if (await confirm(browser.i18n.getMessage("profileDeleteConfirm"))) {
 			try {
-				await browser.runtime.sendMessage({ deleteProfile: true, profileName: profileNamesInput.value });
+				await browser.runtime.sendMessage({ method: "config.deleteProfile", profileName: profileNamesInput.value });
 				profileNamesInput.value = null;
 				await refresh();
 				refreshExternalComponents();
@@ -253,7 +253,7 @@
 		const profileName = await prompt(browser.i18n.getMessage("profileRenamePrompt"), profileNamesInput.value);
 		if (profileName) {
 			try {
-				await browser.runtime.sendMessage({ renameProfile: true, profileName: profileNamesInput.value, newProfileName: profileName });
+				await browser.runtime.sendMessage({ method: "config.renameProfile", profileName: profileNamesInput.value, newProfileName: profileName });
 				await refresh(profileName);
 				refreshExternalComponents();
 			} catch (error) {
@@ -265,12 +265,12 @@
 		const choice = await reset();
 		if (choice) {
 			if (choice == "all") {
-				await browser.runtime.sendMessage({ resetProfiles: true });
+				await browser.runtime.sendMessage({ method: "config.resetProfiles" });
 				await refresh(DEFAULT_PROFILE_NAME);
 				refreshExternalComponents();
 			}
 			if (choice == "current") {
-				await browser.runtime.sendMessage({ resetProfile: true, profileName: profileNamesInput.value });
+				await browser.runtime.sendMessage({ method: "config.resetProfile", profileName: profileNamesInput.value });
 				await refresh();
 				refreshExternalComponents();
 			}
@@ -278,7 +278,7 @@
 		}
 	}, false);
 	exportButton.addEventListener("click", async () => {
-		await browser.runtime.sendMessage({ exportConfig: true });
+		await browser.runtime.sendMessage({ method: "config.exportConfig" });
 	}, false);
 	importButton.addEventListener("click", () => {
 		fileInput.onchange = async () => {
@@ -290,7 +290,7 @@
 					reader.addEventListener("error", reject, false);
 				});
 				const config = JSON.parse(serializedConfig);
-				await browser.runtime.sendMessage({ importConfig: true, config });
+				await browser.runtime.sendMessage({ method: "config.importConfig", config });
 				await refresh(DEFAULT_PROFILE_NAME);
 				fileInput.value = "";
 			}
@@ -338,10 +338,10 @@
 			if (target == profileNamesInput) {
 				await refresh(profileNamesInput.value);
 				if (sidePanelDisplay) {
-					const tabsData = await browser.runtime.sendMessage({ getTabsData: true });
+					const tabsData = await browser.runtime.sendMessage({ method: "tabsData.get" });
 					tabsData.profileName = profileNamesInput.value;
-					await browser.runtime.sendMessage({ setTabsData: true, tabsData });
-					await browser.runtime.sendMessage({ refreshMenu: true });
+					await browser.runtime.sendMessage({ method: "tabsData.set", tabsData });
+					await browser.runtime.sendMessage({ method: "ui.refreshMenu" });
 				}
 			} else {
 				await refresh();
@@ -428,14 +428,14 @@
 		sidePanelDisplay = true;
 		document.querySelector(".options-title").remove();
 		document.documentElement.classList.add("side-panel");
-		const tabsData = await browser.runtime.sendMessage({ getTabsData: true });
+		const tabsData = await browser.runtime.sendMessage({ method: "tabsData.get" });
 		refresh(tabsData.profileName);
 	} else {
 		refresh();
 	}
 
 	async function refresh(profileName) {
-		const [profiles, rules] = await Promise.all([browser.runtime.sendMessage({ getProfiles: true }), browser.runtime.sendMessage({ getRules: true })]);
+		const [profiles, rules] = await Promise.all([browser.runtime.sendMessage({ method: "config.getProfiles" }), browser.runtime.sendMessage({ method: "config.getRules" })]);
 		const selectedProfileName = profileName || profileNamesInput.value || DEFAULT_PROFILE_NAME;
 		Array.from(profileNamesInput.childNodes).forEach(node => node.remove());
 		const profileNames = Object.keys(profiles);
@@ -494,7 +494,7 @@
 				ruleDeleteButton.title = browser.i18n.getMessage("optionsDeleteRuleTooltip");
 				ruleDeleteButton.addEventListener("click", async () => {
 					if (await confirm(browser.i18n.getMessage("optionsDeleteRuleConfirm"))) {
-						await browser.runtime.sendMessage({ deleteRule: true, url: rule.url });
+						await browser.runtime.sendMessage({ method: "config.deleteRule", url: rule.url });
 						await refresh();
 						refreshExternalComponents();
 					}
@@ -512,7 +512,7 @@
 						editURLElement.onsubmit = async event => {
 							event.preventDefault();
 							rulesElement.appendChild(editURLElement);
-							await browser.runtime.sendMessage({ updateRule: true, url: rule.url, newUrl: ruleEditUrlInput.value, profileName: ruleEditProfileInput.value, autoSaveProfileName: ruleEditAutoSaveProfileInput.value });
+							await browser.runtime.sendMessage({ method: "config.updateRule", url: rule.url, newUrl: ruleEditUrlInput.value, profileName: ruleEditProfileInput.value, autoSaveProfileName: ruleEditAutoSaveProfileInput.value });
 							await refresh();
 							refreshExternalComponents();
 							ruleUrlInput.focus();
@@ -588,7 +588,7 @@
 	async function update() {
 		await pendingSave;
 		pendingSave = browser.runtime.sendMessage({
-			updateProfile: true,
+			method: "config.updateProfile",
 			profileName: profileNamesInput.value,
 			profile: {
 				removeHiddenElements: removeHiddenElementsInput.checked,
@@ -633,11 +633,11 @@
 	}
 
 	async function refreshExternalComponents() {
-		await browser.runtime.sendMessage({ refreshMenu: true });
+		await browser.runtime.sendMessage({ method: "ui.refreshMenu" });
 		if (sidePanelDisplay) {
-			await browser.runtime.sendMessage({ refreshOptions: true, profileName: profileNamesInput.value });
+			await browser.runtime.sendMessage({ method: "options.refresh", profileName: profileNamesInput.value });
 		} else {
-			await browser.runtime.sendMessage({ refreshOptionsPanel: true, profileName: profileNamesInput.value });
+			await browser.runtime.sendMessage({ method: "options.refreshPanel", profileName: profileNamesInput.value });
 		}
 	}
 

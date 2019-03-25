@@ -63,24 +63,24 @@ singlefile.ui.button = (() => {
 	};
 
 	function onMessage(message, sender) {
-		if (message.loadURL) {
+		if (message.method.endsWith(".loadURL")) {
 			onLoad(sender.tab.id);
 		}
-		if (message.processProgress) {
+		if (message.method.endsWith(".processProgress")) {
 			if (message.maxIndex) {
 				onProgress(sender.tab.id, message.index, message.maxIndex, message.options);
 			}
 		}
-		if (message.processEnd) {
+		if (message.method.endsWith(".processEnd")) {
 			onEnd(sender.tab.id, message.options);
 		}
-		if (message.processError) {
+		if (message.method.endsWith(".processError")) {
 			if (message.error) {
 				console.error("Initialization error", message.error); // eslint-disable-line no-console
 			}
 			onError(sender.tab.id, message.options);
 		}
-		if (message.processCancelled) {
+		if (message.method.endsWith(".processCancelled")) {
 			onCancelled(sender.tab.id, message.options);
 		}
 	}
@@ -101,7 +101,7 @@ singlefile.ui.button = (() => {
 		refresh(tabId, getProperties({}, "", DEFAULT_COLOR, BUTTON_DEFAULT_TOOLTIP_MESSAGE));
 	}
 
-	function onInitialize(tabId, options, step) {		
+	function onInitialize(tabId, options, step) {
 		refresh(tabId, getProperties(options, BUTTON_INITIALIZING_BADGE_MESSAGE, step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], BUTTON_INITIALIZING_TOOLTIP_MESSAGE + " (" + step + "/2)", WAIT_ICON_PATH_PREFIX + "0.png"));
 	}
 

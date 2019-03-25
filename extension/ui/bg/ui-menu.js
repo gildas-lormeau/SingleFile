@@ -72,8 +72,10 @@ singlefile.ui.menu = (() => {
 		refresh: createMenus
 	};
 
-	function onMessage() {
-		createMenus();
+	function onMessage(message) {
+		if (message.method.endsWith("refreshMenu")) {
+			createMenus();
+		}
 	}
 
 	function onTabUpdated(tabId, changeInfo, tab) {
@@ -362,7 +364,7 @@ singlefile.ui.menu = (() => {
 		const tabsData = await singlefile.tabsData.get(tab.id);
 		await singlefile.autosave.refreshTabs();
 		singlefile.ui.button.refresh(tab);
-		browser.runtime.sendMessage({ refreshOptions: true, profileName: tabsData.profileName });
+		browser.runtime.sendMessage({ method: "options.refresh", profileName: tabsData.profileName });
 	}
 
 	async function refreshTab(tab) {

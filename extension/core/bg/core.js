@@ -77,7 +77,7 @@ singlefile.core = (() => {
 				if (options.autoSave) {
 					const options = await singlefile.config.getOptions(tab.url, true);
 					if (singlefile.autosave.isEnabled(tab)) {
-						await singlefile.tabs.sendMessage(tab.id, { autoSavePage: true, options });
+						await singlefile.tabs.sendMessage(tab.id, { method: "content.autosave", options });
 					}
 				} else {
 					singlefile.ui.button.onInitialize(tabId, options, 1);
@@ -103,7 +103,7 @@ singlefile.core = (() => {
 						if (mergedOptions.frameId) {
 							await browser.tabs.executeScript(tab.id, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: mergedOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
 						}
-						await singlefile.tabs.sendMessage(tab.id, { savePage: true, options: mergedOptions });
+						await singlefile.tabs.sendMessage(tab.id, { method: "content.save", options: mergedOptions });
 					} else {
 						singlefile.ui.button.onForbiddenDomain(tabId, options);
 					}

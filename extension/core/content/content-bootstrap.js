@@ -23,17 +23,17 @@
 this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 
 	let unloadListenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage;
-	browser.runtime.sendMessage({ initAutoSave: true }).then(message => {
+	browser.runtime.sendMessage({ method: "autosave.init" }).then(message => {
 		options = message.options;
 		autoSaveEnabled = message.autoSaveEnabled;
 		refresh();
 	});
 	browser.runtime.onMessage.addListener(message => onMessage(message));
-	browser.runtime.sendMessage({ loadURL: true });
+	browser.runtime.sendMessage({ method: "ui.loadURL" });
 	return {};
 
 	async function onMessage(message) {
-		if (message.autoSavePage) {
+		if (message.method == "content.autosave") {
 			autoSavingPage = false;
 			singlefile.pageAutoSaved = false;
 			options = message.options;
@@ -42,7 +42,7 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 				setTimeout(() => onMessage(message), options.autoSaveRepeatDelay * 1000);
 			}
 		}
-		if (message.initAutoSave) {
+		if (message.method == "content.init") {
 			options = message.options;
 			autoSaveEnabled = message.autoSaveEnabled;
 			refresh();
@@ -64,7 +64,7 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 					framesData = await frameTree.getAsync(options);
 				}
 				browser.runtime.sendMessage({
-					autoSaveContent: true,
+					method: "autosave.save",
 					content: docHelper.serialize(document, false),
 					canvasData: docData.canvasData,
 					fontsData: docData.fontsData,
@@ -103,7 +103,7 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 			const docData = docHelper.preProcessDoc(document, window, options);
 			if (this.frameTree && !options.removeFrames) {
 				browser.runtime.sendMessage({
-					autoSaveContent: true,
+					method: "autosave.save",
 					content: docHelper.serialize(document),
 					canvasData: docData.canvasData,
 					fontsData: docData.fontsData,

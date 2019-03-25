@@ -24,9 +24,10 @@ singlefile.ui = (() => {
 
 	return {
 		onMessage(message, sender) {
-			if (message.refreshMenu) {
+			if (message.method.endsWith(".refreshMenu")) {
 				return singlefile.ui.menu.onMessage(message, sender);
-			} else {
+			}
+			if (message.method.endsWith(".loadURL")) {
 				return singlefile.ui.button.onMessage(message, sender);
 			}
 		},

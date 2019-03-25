@@ -23,24 +23,22 @@
 singlefile.messages = (() => {
 
 	browser.runtime.onMessage.addListener((message, sender) => {
-		if (message.loadFileURI || message.savePage) {
+		if (message.method.startsWith("tabs.")) {
 			return singlefile.tabs.onMessage(message, sender);
 		}
-		if (message.download) {
+		if (message.method.startsWith("downloads.")) {
 			return singlefile.download.onMessage(message, sender);
 		}
-		if (message.initAutoSave || message.autoSaveContent) {
+		if (message.method.startsWith("autosave.")) {
 			return singlefile.autosave.onMessage(message, sender);
 		}
-		if (message.loadURL || message.processProgress || message.processEnd || message.processError || message.processCancelled || message.refreshMenu) {
+		if (message.method.startsWith("ui.")) {
 			return singlefile.ui.onMessage(message, sender);
 		}
-		if (message.getConfigConstants || message.deleteRules || message.deleteRule || message.addRule || message.getRules ||
-			message.createProfile || message.renameProfile || message.deleteProfile || message.resetProfiles || message.getProfiles ||
-			message.resetProfile || message.exportConfig || message.importConfig || message.updateProfile || message.updateRule) {
+		if (message.method.startsWith("config.")) {
 			return singlefile.config.onMessage(message, sender);
 		}
-		if (message.getTabsData || message.setTabsData) {
+		if (message.method.startsWith("tabsData.")) {
 			return singlefile.tabsData.onMessage(message, sender);
 		}
 	});

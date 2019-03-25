@@ -32,12 +32,9 @@ singlefile.tabs = (() => {
 		sendMessage: (tabId, message, options) => browser.tabs.sendMessage(tabId, message, options)
 	};
 
-	async function onMessage(message, sender) {
-		if (message.loadFileURI) {
+	async function onMessage(message) {
+		if (message.method.endsWith(".loadFileURI")) {
 			return singlefile.config.getOptions(message.url);
-		}
-		if (message.savePage) {
-			return singlefile.tabs.sendMessage(sender.tab.id, message, { frameId: 0 });
 		}
 	}
 

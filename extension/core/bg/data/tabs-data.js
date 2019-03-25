@@ -33,10 +33,10 @@ singlefile.tabsData = (() => {
 	};
 
 	async function onMessage(message) {
-		if (message.getTabsData) {
+		if (message.method.endsWith(".get")) {
 			return getPersistent();
 		}
-		if (message.setTabsData) {
+		if (message.method.endsWith(".set")) {
 			return setPersistent(message.tabsData);
 		}
 	}

@@ -18,28 +18,18 @@
  *   along with SingleFile.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* global browser, SingleFileBrowser, singlefile, frameTree, document, MouseEvent, addEventListener, window, lazyLoader, URL, setTimeout, docHelper, Blob */
+/* global browser, SingleFileBrowser, singlefile, frameTree, document, MouseEvent, window, lazyLoader, URL, setTimeout, docHelper, Blob */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
-	const MESSAGE_PREFIX = "__SingleFile__::";
 	const MAX_CONTENT_SIZE = 64 * (1024 * 1024);
 	const SingleFile = SingleFileBrowser.getClass();
 
 	let processing = false;
 
 	browser.runtime.onMessage.addListener(message => {
-		if (message.savePage) {
+		if (message.method == "content.save") {
 			savePage(message);
-		}
-	});
-
-	addEventListener("message", event => {
-		if (typeof event.data == "string" && event.data.startsWith(MESSAGE_PREFIX)) {
-			const message = JSON.parse(event.data.substring(MESSAGE_PREFIX.length));
-			if (message.savePage) {
-				savePage(message);
-			}
 		}
 	});
 	return true;
@@ -58,10 +48,10 @@ this.singlefile.top = this.singlefile.top || (() => {
 					await downloadPage(page, options);
 				} catch (error) {
 					console.error(error); // eslint-disable-line no-console
-					browser.runtime.sendMessage({ processError: true, error, options: {} });
+					browser.runtime.sendMessage({ method: "ui.processError", error, options: {} });
 				}
 			} else {
-				browser.runtime.sendMessage({ processCancelled: true, options: {} });
+				browser.runtime.sendMessage({ method: "ui.processCancelled", options: {} });
 			}
 			processing = false;
 		}
@@ -101,12 +91,12 @@ this.singlefile.top = this.singlefile.top || (() => {
 				if (event.type == event.RESOURCE_LOADED) {
 					index++;
 				}
-				browser.runtime.sendMessage({ processProgress: true, index, maxIndex, options: {} });
+				browser.runtime.sendMessage({ method: "ui.processProgress", index, maxIndex, options: {} });
 				if (options.shadowEnabled) {
 					singlefile.ui.onLoadResource(index, maxIndex);
 				}
 			} if (event.type == event.PAGE_ENDED) {
-				browser.runtime.sendMessage({ processEnd: true, options: {} });
+				browser.runtime.sendMessage({ method: "ui.processEnd", options: {} });
 			} else if (options.shadowEnabled && !event.detail.frame) {
 				if (event.type == event.PAGE_LOADING) {
 					singlefile.ui.onPageLoading();
@@ -168,7 +158,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (options.backgroundSave) {
 			let response;
 			for (let blockIndex = 0; !response && (blockIndex * MAX_CONTENT_SIZE < page.content.length); blockIndex++) {
-				const message = { download: true, confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename, saveToClipboard: options.saveToClipboard };
+				const message = { method: "downloads.download", confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename, saveToClipboard: options.saveToClipboard };
 				message.truncated = page.content.length > MAX_CONTENT_SIZE;
 				if (message.truncated) {
 					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > page.content.length;

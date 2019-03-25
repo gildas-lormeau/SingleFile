@@ -31,11 +31,11 @@ singlefile.autosave = (() => {
 	};
 
 	async function onMessage(message, sender) {
-		if (message.initAutoSave) {
+		if (message.method.endsWith(".init")) {
 			const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(sender.tab.url, true), isEnabled(sender.tab)]);
 			return { options, autoSaveEnabled };
 		}
-		if (message.autoSaveContent) {
+		if (message.method.endsWith(".save")) {
 			return saveContent(message, sender.tab);
 		}
 	}
@@ -73,7 +73,7 @@ singlefile.autosave = (() => {
 		return Promise.all(tabs.map(async tab => {
 			try {
 				const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(tab.url, true), isEnabled(tab)]);
-				await singlefile.tabs.sendMessage(tab.id, { initAutoSave: true, autoSaveEnabled, options });
+				await singlefile.tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options });
 			} catch (error) {
 				/* ignored */
 			}

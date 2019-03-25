@@ -139,52 +139,52 @@ singlefile.config = (() => {
 	}
 
 	async function onMessage(message) {
-		if (message.deleteRules) {
+		if (message.method.endsWith(".deleteRules")) {
 			await deleteRules(message.profileName);
 		}
-		if (message.deleteRule) {
+		if (message.method.endsWith(".deleteRule")) {
 			await deleteRule(message.url);
 		}
-		if (message.addRule) {
+		if (message.method.endsWith(".addRule")) {
 			await addRule(message.url, message.profileName, message.autoSaveProfileName);
 		}
-		if (message.createProfile) {
+		if (message.method.endsWith(".createProfile")) {
 			await createProfile(message.profileName);
 		}
-		if (message.renameProfile) {
+		if (message.method.endsWith(".renameProfile")) {
 			await renameProfile(message.profileName, message.newProfileName);
 		}
-		if (message.deleteProfile) {
+		if (message.method.endsWith(".deleteProfile")) {
 			await deleteProfile(message.profileName);
 		}
-		if (message.resetProfiles) {
+		if (message.method.endsWith(".resetProfiles")) {
 			await resetProfiles();
 		}
-		if (message.resetProfile) {
+		if (message.method.endsWith(".resetProfile")) {
 			await resetProfile(message.profileName);
 		}
-		if (message.importConfig) {
+		if (message.method.endsWith(".importConfig")) {
 			await importConfig(message.config);
 		}
-		if (message.updateProfile) {
+		if (message.method.endsWith(".updateProfile")) {
 			await updateProfile(message.profileName, message.profile);
 		}
-		if (message.updateRule) {
+		if (message.method.endsWith(".updateRule")) {
 			await updateRule(message.url, message.newUrl, message.profileName, message.autoSaveProfileName);
 		}
-		if (message.getConfigConstants) {
+		if (message.method.endsWith(".getConstants")) {
 			return {
 				DISABLED_PROFILE_NAME,
 				DEFAULT_PROFILE_NAME
 			};
 		}
-		if (message.getRules) {
+		if (message.method.endsWith(".getRules")) {
 			return getRules();
 		}
-		if (message.getProfiles) {
+		if (message.method.endsWith(".getProfiles")) {
 			return getProfiles();
 		}
-		if (message.exportConfig) {
+		if (message.method.endsWith(".exportConfig")) {
 			return exportConfig();
 		}
 		return {};
