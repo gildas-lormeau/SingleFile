@@ -4,8 +4,6 @@
 
 SingleFile can be launched from the command line to convert MAFF files to HTML files by running it into Firefox. It runs through Node.js as a standalone script injected into the web page instead of being embedded into a WebExtension. It uses [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) to connect Node.js to Firefox.
 
-This is a **work in progress**.
-
 ## Install
 
 - Install [Firefox version 56.0.2](https://ftp.mozilla.org/pub/firefox/releases/56.0.2/)
