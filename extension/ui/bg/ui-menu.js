@@ -364,11 +364,7 @@ singlefile.ui.menu = (() => {
 		const tabsData = await singlefile.tabsData.get(tab.id);
 		await singlefile.autosave.refreshTabs();
 		singlefile.ui.button.refresh(tab, options);
-		try {
-			await browser.runtime.sendMessage({ method: "options.refresh", profileName: tabsData.profileName });
-		} catch (error) {
-			console.log("Options page not displayed", error); // eslint-disable-line no-console
-		}
+		browser.runtime.sendMessage({ method: "options.refresh", profileName: tabsData.profileName }).catch(() => { /* ignored */ });
 	}
 
 	async function refreshTab(tab) {

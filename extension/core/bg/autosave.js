@@ -73,14 +73,10 @@ singlefile.autosave = (() => {
 	}
 
 	async function refreshTabs() {
-		const tabs = await singlefile.tabs.get({});
+		const tabs = (await singlefile.tabs.get({})).filter(tab => singlefile.util.isAllowedURL(tab.url));
 		return Promise.all(tabs.map(async tab => {
-			try {
-				const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(tab.url, true), isEnabled(tab)]);
-				await singlefile.tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options });
-			} catch (error) {
-				console.log("Content script not injected", "tab #" + tab.id, error); // eslint-disable-line no-console
-			}
+			const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(tab.url, true), isEnabled(tab)]);
+			singlefile.tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options }).catch(() => { /* ignored */ });
 		}));
 	}
 
