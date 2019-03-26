@@ -26,8 +26,7 @@ singlefile.ui = (() => {
 		onMessage(message, sender) {
 			if (message.method.endsWith(".refreshMenu")) {
 				return singlefile.ui.menu.onMessage(message, sender);
-			}
-			if (message.method.endsWith(".loadURL")) {
+			} else {
 				return singlefile.ui.button.onMessage(message, sender);
 			}
 		},
