@@ -303,7 +303,7 @@ singlefile.ui.menu = (() => {
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
 					const tabsData = await singlefile.tabsData.get(tab.id);
-					tabsData[tab.id].autoSave = event.checked;
+					tabsData[tab.id].autoSave = true;
 					await singlefile.tabsData.set(tabsData);
 					refreshExternalComponents(tab, { autoSave: true });
 				}
@@ -364,7 +364,11 @@ singlefile.ui.menu = (() => {
 		const tabsData = await singlefile.tabsData.get(tab.id);
 		await singlefile.autosave.refreshTabs();
 		singlefile.ui.button.refresh(tab, options);
-		browser.runtime.sendMessage({ method: "options.refresh", profileName: tabsData.profileName });
+		try {
+			await browser.runtime.sendMessage({ method: "options.refresh", profileName: tabsData.profileName });
+		} catch (error) {
+			console.log("Options page not displayed", error); // eslint-disable-line no-console
+		}
 	}
 
 	async function refreshTab(tab) {
@@ -413,13 +417,15 @@ singlefile.ui.menu = (() => {
 		}
 	}
 
-	function updateCheckedValue(id, checked) {
+	async function updateCheckedValue(id, checked) {
 		const lastCheckedValue = menusCheckedState.get(id);
 		menusCheckedState.set(id, checked);
-		if (lastCheckedValue === undefined) {
-			return menus.update(id, { checked });
-		} else if (lastCheckedValue != checked) {
-			return menus.update(id, { checked });
+		if (lastCheckedValue === undefined || lastCheckedValue != checked) {
+			try {
+				await menus.update(id, { checked });
+			} catch (error) {
+				// ignored
+			}
 		}
 	}
 
