@@ -79,7 +79,7 @@ singlefile.autosave = (() => {
 				const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(tab.url, true), isEnabled(tab)]);
 				await singlefile.tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options });
 			} catch (error) {
-				/* ignored */
+				console.log("Content script not injected", "tab #" + tab.id, error); // eslint-disable-line no-console
 			}
 		}));
 	}
