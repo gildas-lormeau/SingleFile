@@ -93,6 +93,7 @@ exports.getPageData = async options => {
 		return await page.evaluate(async options => {
 			docHelper.initDoc(document);
 			options.insertSingleFileComment = true;
+			options.insertFaviconLink = true;
 			const preInitializationPromises = [];
 			if (!options.saveRawPage) {
 				if (!options.removeFrames) {
