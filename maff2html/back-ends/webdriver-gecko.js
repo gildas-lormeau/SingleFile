@@ -146,7 +146,7 @@ function getPageDataScript() {
 	async function getPageData() {
 		docHelper.initDoc(document);
 		options.insertSingleFileComment = true;
-		options.insertSingleFileComment = true;
+		options.insertFaviconLink = true;
 		const preInitializationPromises = [];
 		if (!options.saveRawPage) {
 			if (!options.removeFrames) {
