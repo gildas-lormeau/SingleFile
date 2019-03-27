@@ -78,6 +78,8 @@ exports.getPageData = async options => {
 	let dom;
 	try {
 		dom = new JSDOM(pageContent, jsdomOptions);
+		options.insertSingleFileComment = true;
+		options.insertFaviconLink = true;
 		const win = dom.window;
 		const doc = win.document;
 		const scripts = (await Promise.all(SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()))).join("\n");
