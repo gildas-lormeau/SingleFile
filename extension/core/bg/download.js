@@ -108,13 +108,13 @@ singlefile.download = (() => {
 						browser.downloads.onChanged.removeListener(onChanged);
 					}
 					if (event.state.current == "interrupted") {
+						URL.revokeObjectURL(page.url);
 						if (event.error && event.error.current == "USER_CANCELED") {
 							resolve({});
 						} else {
-							URL.revokeObjectURL(page.url);
 							reject(new Error(event.state.current));
-							browser.downloads.onChanged.removeListener(onChanged);
 						}
+						browser.downloads.onChanged.removeListener(onChanged);
 					}
 				}
 			}
