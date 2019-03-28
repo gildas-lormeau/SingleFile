@@ -57,7 +57,7 @@ singlefile.download = (() => {
 				return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction })
 					.catch(error => {
 						if (error.message) {
-							if (error.message.includes("'incognito'")) {
+							if (error.message.includes("'incognito'") || error.message.includes("\"incognito\"")) {
 								return downloadPage(message, { confirmFilename: message.confirmFilename, filenameConflictAction: message.filenameConflictAction });
 							} else if (error.message == "conflictAction prompt not yet implemented") {
 								return downloadPage(message, { confirmFilename: message.confirmFilename });
