@@ -107,10 +107,14 @@ singlefile.download = (() => {
 						resolve({});
 						browser.downloads.onChanged.removeListener(onChanged);
 					}
-					if (event.state.current == "interrupted" && (!event.error || event.error.current != "USER_CANCELED")) {
-						URL.revokeObjectURL(page.url);
-						reject(new Error(event.state.current));
-						browser.downloads.onChanged.removeListener(onChanged);
+					if (event.state.current == "interrupted") {
+						if (event.error && event.error.current == "USER_CANCELED") {
+							resolve({});
+						} else {
+							URL.revokeObjectURL(page.url);
+							reject(new Error(event.state.current));
+							browser.downloads.onChanged.removeListener(onChanged);
+						}
 					}
 				}
 			}
