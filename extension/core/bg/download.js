@@ -57,12 +57,18 @@ singlefile.download = (() => {
 				return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction })
 					.catch(error => {
 						if (error.message) {
-							if (error.message.includes("'incognito'") || error.message.includes("\"incognito\"")) {
+							const errorMessage = error.message.toLowerCase();
+							if (errorMessage.includes("'incognito'") || errorMessage.includes("\"incognito\"")) {
 								return downloadPage(message, { confirmFilename: message.confirmFilename, filenameConflictAction: message.filenameConflictAction });
-							} else if (error.message == "conflictAction prompt not yet implemented") {
+							} else if (errorMessage == "conflictAction prompt not yet implemented") {
 								return downloadPage(message, { confirmFilename: message.confirmFilename });
-							} else if (error.message.includes("illegal characters")) {
-								message.filename = message.filename.replace(/,/g, "_");
+							} else if (errorMessage.includes("illegal characters") || errorMessage.includes("invalid filename")) {
+								if (message.filename.includes(",")) {
+									message.filename = message.filename.replace(/,/g, "_");
+								}
+								if (message.filename.startsWith(".")) {
+									message.filename = "_" + message.filename;
+								}
 								return downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction });
 							} else {
 								throw error;
