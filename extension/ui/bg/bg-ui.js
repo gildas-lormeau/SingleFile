@@ -36,6 +36,9 @@ singlefile.ui = (() => {
 		onProgress(tabId, index, maxIndex, options) {
 			singlefile.ui.button.onProgress(tabId, index, maxIndex, options);
 		},
+		onError(tabId, options) {
+			singlefile.ui.button.onError(tabId, options);
+		},
 		onEnd(tabId, options) {
 			singlefile.ui.button.onEnd(tabId, options);
 		},
