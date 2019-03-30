@@ -42,6 +42,7 @@ singlefile.tabsData = (() => {
 	}
 
 	async function onTabRemoved(tabId) {
+		delete temporaryData[tabId];
 		const tabsData = await getPersistent();
 		delete tabsData[tabId];
 		setPersistent(tabsData);
