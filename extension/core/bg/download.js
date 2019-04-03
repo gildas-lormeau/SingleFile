@@ -82,10 +82,11 @@ singlefile.download = (() => {
 		} catch (error) {
 			if (error.message) {
 				const errorMessage = error.message.toLowerCase();
-				if (errorMessage.includes("invalid filename") && page.filename.startsWith(".")) {
+				const invalidFilename = errorMessage.includes("illegal characters") || errorMessage.includes("invalid filename");
+				if (invalidFilename && page.filename.startsWith(".")) {
 					page.filename = "_" + page.filename;
 					return downloadPage(page, { confirmFilename: options.confirmFilename, incognito: options.incognito, filenameConflictAction: options.filenameConflictAction });
-				} else if (errorMessage.includes("illegal characters") && page.filename.includes(",")) {
+				} else if (invalidFilename && page.filename.includes(",")) {
 					page.filename = page.filename.replace(/,/g, "_");
 					return downloadPage(page, { confirmFilename: options.confirmFilename, incognito: options.incognito, filenameConflictAction: options.filenameConflictAction });
 				} else if ((errorMessage.includes("'incognito'") || errorMessage.includes("\"incognito\"")) && options.incognito) {
