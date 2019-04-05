@@ -22,7 +22,7 @@
 
 (async () => {
 
-	const { DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME } = await browser.runtime.sendMessage({ method: "config.getConstants" });
+	const { DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME, CURRENT_PROFILE_NAME } = await browser.runtime.sendMessage({ method: "config.getConstants" });
 	const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsLabel");
 	const removeUnusedStylesLabel = document.getElementById("removeUnusedStylesLabel");
 	const removeUnusedFontsLabel = document.getElementById("removeUnusedFontsLabel");
@@ -156,7 +156,7 @@
 	let pendingSave = Promise.resolve();
 	let autoSaveProfileChanged;
 	ruleProfileInput.onchange = () => {
-		if (!autoSaveProfileChanged) {
+		if (!autoSaveProfileChanged && ruleProfileInput.value != CURRENT_PROFILE_NAME) {
 			ruleAutoSaveProfileInput.value = ruleProfileInput.value;
 		}
 	};
@@ -438,7 +438,6 @@
 		const [profiles, rules] = await Promise.all([browser.runtime.sendMessage({ method: "config.getProfiles" }), browser.runtime.sendMessage({ method: "config.getRules" })]);
 		const selectedProfileName = profileName || profileNamesInput.value || DEFAULT_PROFILE_NAME;
 		Array.from(profileNamesInput.childNodes).forEach(node => node.remove());
-		const profileNames = Object.keys(profiles);
 		profileNamesInput.options.length = 0;
 		ruleProfileInput.options.length = 0;
 		ruleAutoSaveProfileInput.options.length = 0;
@@ -447,21 +446,19 @@
 		let optionElement = document.createElement("option");
 		optionElement.value = DEFAULT_PROFILE_NAME;
 		optionElement.textContent = browser.i18n.getMessage("profileDefaultSettings");
-		profileNamesInput.appendChild(optionElement);
-		ruleProfileInput.appendChild(optionElement.cloneNode(true));
-		ruleAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
-		ruleEditProfileInput.appendChild(optionElement.cloneNode(true));
-		ruleEditAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
-		profileNames.forEach(profileName => {
-			if (profileName != DEFAULT_PROFILE_NAME) {
-				const optionElement = document.createElement("option");
-				optionElement.value = optionElement.textContent = profileName;
-				profileNamesInput.appendChild(optionElement);
-				ruleProfileInput.appendChild(optionElement.cloneNode(true));
-				ruleAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
-				ruleEditProfileInput.appendChild(optionElement.cloneNode(true));
-				ruleEditAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
+		[CURRENT_PROFILE_NAME].concat(...Object.keys(profiles)).forEach(profileName => {
+			const optionElement = document.createElement("option");
+			optionElement.value = optionElement.textContent = profileName;
+			if (profileName == DEFAULT_PROFILE_NAME) {
+				optionElement.textContent = browser.i18n.getMessage("profileDefaultSettings");
 			}
+			if (profileName != CURRENT_PROFILE_NAME) {
+				profileNamesInput.appendChild(optionElement);
+			}
+			ruleProfileInput.appendChild(optionElement.cloneNode(true));
+			ruleAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
+			ruleEditProfileInput.appendChild(optionElement.cloneNode(true));
+			ruleEditAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
 		});
 		profileNamesInput.disabled = profileNamesInput.options.length == 1;
 		optionElement = document.createElement("option");

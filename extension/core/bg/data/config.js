@@ -22,6 +22,7 @@
 
 singlefile.config = (() => {
 
+	const CURRENT_PROFILE_NAME = "-";
 	const DEFAULT_PROFILE_NAME = "__Default_Settings__";
 	const DISABLED_PROFILE_NAME = "__Disabled_Settings__";
 	const REGEXP_RULE_PREFIX = "regexp:";
@@ -69,6 +70,7 @@ singlefile.config = (() => {
 	return {
 		DEFAULT_PROFILE_NAME,
 		DISABLED_PROFILE_NAME,
+		CURRENT_PROFILE_NAME,
 		getRule,
 		getOptions,
 		getProfiles,
@@ -175,7 +177,8 @@ singlefile.config = (() => {
 		if (message.method.endsWith(".getConstants")) {
 			return {
 				DISABLED_PROFILE_NAME,
-				DEFAULT_PROFILE_NAME
+				DEFAULT_PROFILE_NAME,
+				CURRENT_PROFILE_NAME
 			};
 		}
 		if (message.method.endsWith(".getRules")) {
@@ -206,8 +209,13 @@ singlefile.config = (() => {
 
 	async function getOptions(url, autoSave) {
 		const [config, rule, tabsData] = await Promise.all([getConfig(), getRule(url), singlefile.tabsData.get()]);
-		const profileName = tabsData.profileName;
-		return rule ? config.profiles[rule[autoSave ? "autoSaveProfile" : "profile"]] : config.profiles[profileName || singlefile.config.DEFAULT_PROFILE_NAME];
+		const tabProfileName = tabsData.profileName || DEFAULT_PROFILE_NAME;
+		if (rule) {
+			const profileName = rule[autoSave ? "autoSaveProfile" : "profile"];
+			return config.profiles[profileName == CURRENT_PROFILE_NAME ? tabProfileName : profileName];
+		} else {
+			return config.profiles[tabProfileName];
+		}
 	}
 
 	async function updateProfile(profileName, profile) {

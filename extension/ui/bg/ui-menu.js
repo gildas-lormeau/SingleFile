@@ -164,8 +164,8 @@ singlefile.ui.menu = (() => {
 					title: MENU_SELECT_PROFILE_MESSAGE,
 					contexts: defaultContexts,
 				});
-				let defaultProfileId = MENU_ID_SELECT_PROFILE_PREFIX + "default";
-				let defaultProfileChecked = !tabsData.profileName || tabsData.profileName == singlefile.config.DEFAULT_PROFILE_NAME;
+				const defaultProfileId = MENU_ID_SELECT_PROFILE_PREFIX + "default";
+				const defaultProfileChecked = !tabsData.profileName || tabsData.profileName == singlefile.config.DEFAULT_PROFILE_NAME;
 				menus.create({
 					id: defaultProfileId,
 					type: "radio",
@@ -185,17 +185,32 @@ singlefile.ui.menu = (() => {
 				if (tab && tab.url) {
 					rule = await singlefile.config.getRule(tab.url);
 				}
-				defaultProfileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
-				defaultProfileChecked = !rule || rule.profile == singlefile.config.DEFAULT_PROFILE_NAME;
+				const currentProfileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "current";
+				const currentProfileIChecked = !rule || (rule.profile == singlefile.config.CURRENT_PROFILE_NAME);
 				menus.create({
-					id: defaultProfileId,
+					id: currentProfileId,
+					type: "radio",
+					contexts: defaultContexts,
+					title: singlefile.config.CURRENT_PROFILE_NAME,
+					checked: currentProfileIChecked,
+					parentId: MENU_ID_ASSOCIATE_WITH_PROFILE
+				});
+				menusCheckedState.set(currentProfileId, currentProfileIChecked);
+
+				const associatedDefaultProfileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
+				const associatedDefaultProfileChecked = Boolean(rule) && (rule.profile == singlefile.config.DEFAULT_PROFILE_NAME);
+				menus.create({
+					id: associatedDefaultProfileId,
 					type: "radio",
 					contexts: defaultContexts,
 					title: PROFILE_DEFAULT_SETTINGS_MESSAGE,
-					checked: defaultProfileChecked,
+					checked: associatedDefaultProfileChecked,
 					parentId: MENU_ID_ASSOCIATE_WITH_PROFILE
 				});
-				menusCheckedState.set(defaultProfileId, defaultProfileChecked);
+				menusCheckedState.set(associatedDefaultProfileId, associatedDefaultProfileChecked);
+
+
+
 				profileIndexes = new Map();
 				Object.keys(profiles).forEach((profileName, profileIndex) => {
 					if (profileName != singlefile.config.DEFAULT_PROFILE_NAME) {
@@ -211,7 +226,7 @@ singlefile.ui.menu = (() => {
 						});
 						menusCheckedState.set(profileId, profileChecked);
 						profileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
-						profileChecked = rule && rule.profile == profileName;
+						profileChecked = Boolean(rule) && rule.profile == profileName;
 						menus.create({
 							id: profileId,
 							type: "radio",
@@ -344,6 +359,8 @@ singlefile.ui.menu = (() => {
 					let profileName;
 					if (profileId == "default") {
 						profileName = singlefile.config.DEFAULT_PROFILE_NAME;
+					} else if (profileId == "current") {
+						profileName = singlefile.config.CURRENT_PROFILE_NAME;
 					} else {
 						const profileIndex = Number(profileId);
 						profileName = Object.keys(profiles)[profileIndex];
@@ -414,6 +431,7 @@ singlefile.ui.menu = (() => {
 	}
 
 	async function updateCheckedValue(id, checked) {
+		checked = Boolean(checked);
 		const lastCheckedValue = menusCheckedState.get(id);
 		menusCheckedState.set(id, checked);
 		if (lastCheckedValue === undefined || lastCheckedValue != checked) {
