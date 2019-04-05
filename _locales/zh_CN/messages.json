@@ -68,8 +68,8 @@
         "description": "按钮标题: '使用 SingleFile 保存页面'"
     },
     "buttonBlockedBadge": {
-        "message": "🛇",
-        "description": "Button badge when the page is blacked: '🛇'"
+        "message": "🚫",
+        "description": "Button badge when the page is blacked: '🚫'"
     },
     "buttonBlockedTooltip": {
         "message": "SingleFile 无法保存这个页面",

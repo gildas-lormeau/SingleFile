@@ -68,8 +68,8 @@
         "description": "按鈕標題: '使用 SingleFile 保存頁面'"
     },
     "buttonBlockedBadge": {
-        "message": "🛇",
-        "description": "Button badge when the page is blacked: '🛇'"
+        "message": "🚫",
+        "description": "Button badge when the page is blacked: '🚫'"
     },
     "buttonBlockedTooltip": {
         "message": "SingleFile 無法保存這個頁面",

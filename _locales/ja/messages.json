@@ -68,8 +68,8 @@
         "description": "ボタンのタイトル: 'SingleFile でページを保存'"
     },
     "buttonBlockedBadge": {
-        "message": "🛇",
-        "description": "Button badge when the page is blacked: '🛇'"
+        "message": "🚫",
+        "description": "Button badge when the page is blacked: '🚫'"
     },
     "buttonBlockedTooltip": {
         "message": "このページは SingleFile では保存できません",
