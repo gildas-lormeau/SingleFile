@@ -59,7 +59,9 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function processPage(options) {
 		docHelper.initDoc(document);
-		singlefile.ui.onStartPage();
+		if (options.shadowEnabled) {
+			singlefile.ui.onStartPage();
+		}
 		const processor = new SingleFile(options);
 		const preInitializationPromises = [];
 		options.insertSingleFileComment = true;
@@ -71,14 +73,18 @@ this.singlefile.top = this.singlefile.top || (() => {
 				} else {
 					frameTreePromise = frameTree.getAsync(options);
 				}
-				singlefile.ui.onLoadingFrames();
-				frameTreePromise.then(() => singlefile.ui.onLoadFrames());
+				if (options.shadowEnabled) {
+					singlefile.ui.onLoadingFrames();
+					frameTreePromise.then(() => singlefile.ui.onLoadFrames());
+				}
 				preInitializationPromises.push(frameTreePromise);
 			}
-			if (options.loadDeferredImages && options.shadowEnabled) {
+			if (options.loadDeferredImages) {
 				const lazyLoadPromise = lazyLoader.process(options);
-				singlefile.ui.onLoadingDeferResources();
-				lazyLoadPromise.then(() => singlefile.ui.onLoadDeferResources());
+				if (options.shadowEnabled) {
+					singlefile.ui.onLoadingDeferResources();
+					lazyLoadPromise.then(() => singlefile.ui.onLoadDeferResources());
+				}
 				preInitializationPromises.push(lazyLoadPromise);
 			}
 		}
@@ -97,23 +103,25 @@ this.singlefile.top = this.singlefile.top || (() => {
 				}
 			} if (event.type == event.PAGE_ENDED) {
 				browser.runtime.sendMessage({ method: "ui.processEnd", options: {} });
-			} else if (options.shadowEnabled && !event.detail.frame) {
-				if (event.type == event.PAGE_LOADING) {
-					singlefile.ui.onPageLoading();
-				} else if (event.type == event.PAGE_LOADED) {
-					singlefile.ui.onLoadPage();
-				} else if (event.type == event.STAGE_STARTED) {
-					if (event.detail.step < 3) {
-						singlefile.ui.onStartStage(event.detail.step);
+			} else if (options.shadowEnabled) {
+				if (!event.detail.frame) {
+					if (event.type == event.PAGE_LOADING) {
+						singlefile.ui.onPageLoading();
+					} else if (event.type == event.PAGE_LOADED) {
+						singlefile.ui.onLoadPage();
+					} else if (event.type == event.STAGE_STARTED) {
+						if (event.detail.step < 3) {
+							singlefile.ui.onStartStage(event.detail.step);
+						}
+					} else if (event.type == event.STAGE_ENDED) {
+						if (event.detail.step < 3) {
+							singlefile.ui.onEndStage(event.detail.step);
+						}
+					} else if (event.type == event.STAGE_TASK_STARTED) {
+						singlefile.ui.onStartStageTask(event.detail.step, event.detail.task);
+					} else if (event.type == event.STAGE_TASK_ENDED) {
+						singlefile.ui.onEndStageTask(event.detail.step, event.detail.task);
 					}
-				} else if (event.type == event.STAGE_ENDED) {
-					if (event.detail.step < 3) {
-						singlefile.ui.onEndStage(event.detail.step);
-					}
-				} else if (event.type == event.STAGE_TASK_STARTED) {
-					singlefile.ui.onStartStageTask(event.detail.step, event.detail.task);
-				} else if (event.type == event.STAGE_TASK_ENDED) {
-					singlefile.ui.onEndStageTask(event.detail.step, event.detail.task);
 				}
 			}
 		};
