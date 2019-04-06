@@ -33,6 +33,12 @@ singlefile.ui = (() => {
 		async refresh(tab) {
 			return Promise.all([singlefile.ui.menu.refresh(tab), singlefile.ui.button.refresh(tab, { autoSave: await singlefile.autosave.isEnabled(tab) })]);
 		},
+		onForbiddenDomain(tab, options) {
+			singlefile.ui.button.onForbiddenDomain(tab, options);
+		},
+		onInitialize(tabId, options, step) {
+			singlefile.ui.button.onInitialize(tabId, options, step);
+		},
 		onProgress(tabId, index, maxIndex, options) {
 			singlefile.ui.button.onProgress(tabId, index, maxIndex, options);
 		},

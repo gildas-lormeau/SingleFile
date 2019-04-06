@@ -80,7 +80,7 @@ singlefile.core = (() => {
 						await singlefile.tabs.sendMessage(tab.id, { method: "content.autosave", options });
 					}
 				} else {
-					singlefile.ui.button.onInitialize(tabId, options, 1);
+					singlefile.ui.onInitialize(tabId, options, 1);
 					const mergedOptions = await singlefile.config.getOptions(tab.url);
 					Object.keys(options).forEach(key => mergedOptions[key] = options[key]);
 					let scriptsInjected;
@@ -99,18 +99,18 @@ singlefile.core = (() => {
 						// ignored
 					}
 					if (scriptsInjected) {
-						singlefile.ui.button.onInitialize(tabId, options, 2);
+						singlefile.ui.onInitialize(tabId, options, 2);
 						if (mergedOptions.frameId) {
 							await browser.tabs.executeScript(tab.id, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: mergedOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
 						}
 						await singlefile.tabs.sendMessage(tab.id, { method: "content.save", options: mergedOptions });
 					} else {
-						singlefile.ui.button.onForbiddenDomain(tab, options);
+						singlefile.ui.onForbiddenDomain(tab, options);
 					}
 				}
 			} catch (error) {
 				console.log(error); // eslint-disable-line no-console
-				singlefile.ui.button.onError(tabId, options);
+				singlefile.ui.onError(tabId, options);
 			}
 		}
 	}
