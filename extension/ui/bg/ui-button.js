@@ -38,7 +38,7 @@ singlefile.ui.button = (() => {
 	const BUTTON_SAVE_PROGRESS_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonSaveProgressTooltip");
 	const BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE = browser.i18n.getMessage("buttonAutoSaveActiveBadge");
 	const BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonAutoSaveActiveTooltip");
-	const DEFAULT_COLOR = [2, 147, 20, 255];
+	const DEFAULT_COLOR = [2, 147, 20, 192];
 
 	browser.browserAction.onClicked.addListener(async tab => {
 		const tabs = await singlefile.tabs.get({ currentWindow: true, highlighted: true });
@@ -106,11 +106,11 @@ singlefile.ui.button = (() => {
 	}
 
 	function onInitialize(tabId, options, step) {
-		refresh(tabId, getProperties(options, BUTTON_INITIALIZING_BADGE_MESSAGE, step == 1 ? DEFAULT_COLOR : [4, 229, 36, 255], BUTTON_INITIALIZING_TOOLTIP_MESSAGE + " (" + step + "/2)", WAIT_ICON_PATH_PREFIX + "0.png"));
+		refresh(tabId, getProperties(options, BUTTON_INITIALIZING_BADGE_MESSAGE, step == 1 ? DEFAULT_COLOR : [4, 229, 36, 192], BUTTON_INITIALIZING_TOOLTIP_MESSAGE + " (" + step + "/2)", WAIT_ICON_PATH_PREFIX + "0.png"));
 	}
 
 	function onError(tabId, options) {
-		refresh(tabId, getProperties(options, BUTTON_ERROR_BADGE_MESSAGE, [229, 4, 12, 255]));
+		refresh(tabId, getProperties(options, BUTTON_ERROR_BADGE_MESSAGE, [229, 4, 12, 192]));
 	}
 
 	function onForbiddenDomain(tab, options) {
@@ -124,14 +124,14 @@ singlefile.ui.button = (() => {
 	}
 
 	function onEnd(tabId, options) {
-		refresh(tabId, getProperties(options, BUTTON_OK_BADGE_MESSAGE, [4, 229, 36, 255]));
+		refresh(tabId, getProperties(options, BUTTON_OK_BADGE_MESSAGE, [4, 229, 36, 192]));
 	}
 
 	function onProgress(tabId, index, maxIndex, options) {
 		const progress = Math.max(Math.min(20, Math.floor((index / maxIndex) * 20)), 0);
 		const barProgress = Math.min(Math.floor((index / maxIndex) * 8), 8);
 		const path = WAIT_ICON_PATH_PREFIX + barProgress + ".png";
-		refresh(tabId, getProperties(options, "", [4, 229, 36, 255], BUTTON_SAVE_PROGRESS_TOOLTIP_MESSAGE + (progress * 5) + "%", path, [128, 128, 128, 255]));
+		refresh(tabId, getProperties(options, "", [4, 229, 36, 192], BUTTON_SAVE_PROGRESS_TOOLTIP_MESSAGE + (progress * 5) + "%", path, [128, 128, 128, 192]));
 	}
 
 	async function refreshTab(tab) {
@@ -158,7 +158,7 @@ singlefile.ui.button = (() => {
 		}
 	}
 
-	function getProperties(options, text, color, title = BUTTON_DEFAULT_TOOLTIP_MESSAGE, path = DEFAULT_ICON_PATH, autoColor = [208, 208, 208, 255]) {
+	function getProperties(options, text, color, title = BUTTON_DEFAULT_TOOLTIP_MESSAGE, path = DEFAULT_ICON_PATH, autoColor = [208, 208, 208, 192]) {
 		return {
 			setBadgeBackgroundColor: { color: options.autoSave ? autoColor : color || DEFAULT_COLOR },
 			setBadgeText: { text: options.autoSave ? BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE : (text || "") },
