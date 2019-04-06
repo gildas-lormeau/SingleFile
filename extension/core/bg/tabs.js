@@ -33,7 +33,7 @@ singlefile.tabs = (() => {
 	};
 
 	async function onMessage(message) {
-		if (message.method.endsWith(".loadFileURI")) {
+		if (message.method.endsWith(".getOptions")) {
 			return singlefile.config.getOptions(message.url);
 		}
 	}
