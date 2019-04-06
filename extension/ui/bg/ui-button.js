@@ -22,6 +22,7 @@
 
 singlefile.ui.button = (() => {
 
+	const NEW_TAB_URLS = ["about:newtab", "chrome://newtab/"];
 	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_128.png";
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_128_wait";
 	const BUTTON_DEFAULT_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonDefaultTooltip");
@@ -86,14 +87,17 @@ singlefile.ui.button = (() => {
 	}
 
 	function onTabUpdated(tabId, changeInfo, tab) {
+		console.log("onTabUpdated", arguments);
 		refreshTab(tab);
 	}
 
 	async function onTabCreated(tab) {
+		console.log("onTabCreated", arguments);
 		refreshTab(tab);
 	}
 
 	async function onTabActivated(tab) {
+		console.log("onTabActivated", arguments);
 		refreshTab(tab);
 	}
 
@@ -109,8 +113,10 @@ singlefile.ui.button = (() => {
 		refresh(tabId, getProperties(options, BUTTON_ERROR_BADGE_MESSAGE, [229, 4, 12, 255]));
 	}
 
-	function onForbiddenDomain(tabId, options) {
-		refresh(tabId, getProperties(options, BUTTON_BLOCKED_BADGE_MESSAGE, [255, 255, 255, 1], BUTTON_BLOCKED_TOOLTIP_MESSAGE));
+	function onForbiddenDomain(tab, options) {
+		if (!NEW_TAB_URLS.includes(tab.url)) {
+			refresh(tab.id, getProperties(options, BUTTON_BLOCKED_BADGE_MESSAGE, [255, 255, 255, 1], BUTTON_BLOCKED_TOOLTIP_MESSAGE));
+		}
 	}
 
 	function onCancelled(tabId, options) {
@@ -135,7 +141,7 @@ singlefile.ui.button = (() => {
 			await refresh(tab.id, properties);
 		} else {
 			try {
-				await onForbiddenDomain(tab.id, options);
+				await onForbiddenDomain(tab, options);
 			} catch (error) {
 				/* ignored */
 			}

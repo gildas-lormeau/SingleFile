@@ -105,7 +105,7 @@ singlefile.core = (() => {
 						}
 						await singlefile.tabs.sendMessage(tab.id, { method: "content.save", options: mergedOptions });
 					} else {
-						singlefile.ui.button.onForbiddenDomain(tabId, options);
+						singlefile.ui.button.onForbiddenDomain(tab, options);
 					}
 				}
 			} catch (error) {
