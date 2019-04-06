@@ -110,7 +110,7 @@ singlefile.ui.button = (() => {
 	}
 
 	function onForbiddenDomain(tabId, options) {
-		refresh(tabId, getProperties(options, BUTTON_BLOCKED_BADGE_MESSAGE, [192, 192, 192, 255], BUTTON_BLOCKED_TOOLTIP_MESSAGE));
+		refresh(tabId, getProperties(options, BUTTON_BLOCKED_BADGE_MESSAGE, [255, 255, 255, 1], BUTTON_BLOCKED_TOOLTIP_MESSAGE));
 	}
 
 	function onCancelled(tabId, options) {
