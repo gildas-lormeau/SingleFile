@@ -77,7 +77,7 @@ singlefile.core = (() => {
 				if (options.autoSave) {
 					const options = await singlefile.config.getOptions(tab.url, true);
 					if (singlefile.autosave.isEnabled(tab)) {
-						await singlefile.tabs.sendMessage(tab.id, { method: "content.autosave", options });
+						await singlefile.tabs.sendMessage(tabId, { method: "content.autosave", options });
 					}
 				} else {
 					singlefile.ui.onInitialize(tabId, options, 1);
@@ -86,14 +86,14 @@ singlefile.core = (() => {
 					let scriptsInjected;
 					if (!mergedOptions.removeFrames) {
 						try {
-							await browser.tabs.executeScript(tab.id, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
+							await browser.tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
 						} catch (error) {
 							// ignored
 						}
 					}
 					try {
 						await initScripts();
-						await browser.tabs.executeScript(tab.id, { code: modulesScript + "\n" + contentScript, allFrames: false, runAt: "document_idle" });
+						await browser.tabs.executeScript(tabId, { code: modulesScript + "\n" + contentScript, allFrames: false, runAt: "document_idle" });
 						scriptsInjected = true;
 					} catch (error) {
 						// ignored
@@ -101,9 +101,9 @@ singlefile.core = (() => {
 					if (scriptsInjected) {
 						singlefile.ui.onInitialize(tabId, options, 2);
 						if (mergedOptions.frameId) {
-							await browser.tabs.executeScript(tab.id, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: mergedOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
+							await browser.tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: mergedOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
 						}
-						await singlefile.tabs.sendMessage(tab.id, { method: "content.save", options: mergedOptions });
+						await singlefile.tabs.sendMessage(tabId, { method: "content.save", options: mergedOptions });
 					} else {
 						singlefile.ui.onForbiddenDomain(tab, options);
 					}
