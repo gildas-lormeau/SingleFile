@@ -87,17 +87,14 @@ singlefile.ui.button = (() => {
 	}
 
 	function onTabUpdated(tabId, changeInfo, tab) {
-		console.log("onTabUpdated", arguments);
 		refreshTab(tab);
 	}
 
 	async function onTabCreated(tab) {
-		console.log("onTabCreated", arguments);
 		refreshTab(tab);
 	}
 
 	async function onTabActivated(tab) {
-		console.log("onTabActivated", arguments);
 		refreshTab(tab);
 	}
 
