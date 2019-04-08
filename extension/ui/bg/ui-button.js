@@ -25,7 +25,7 @@
 
 singlefile.ui.button = (() => {
 
-	const NEW_TAB_URLS = ["about:newtab", "chrome://newtab/"];
+	const NEW_TAB_URLS = ["about:newtab", "chrome://newtab/", "chrome://startpage/"];
 	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_128.png";
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_128_wait";
 	const BUTTON_DEFAULT_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonDefaultTooltip");
