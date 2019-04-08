@@ -30,10 +30,17 @@ singlefile.util = (() => {
 		"addons.mozilla.org"
 	];
 
-	return { isAllowedURL };
+	return {
+		isAllowedProtocol,
+		isAllowedURL
+	};
+
+	function isAllowedProtocol(url) {
+		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://"));
+	}
 
 	function isAllowedURL(url) {
-		return url && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("file://")) && !FORBIDDEN_DOMAINS.find(domain => url.startsWith("https://" + domain) || url.startsWith("http://" + domain));
+		return isAllowedProtocol(url) && !FORBIDDEN_DOMAINS.find(domain => url.startsWith("https://" + domain) || url.startsWith("http://" + domain));
 	}
 
 })();

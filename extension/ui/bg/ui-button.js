@@ -25,7 +25,6 @@
 
 singlefile.ui.button = (() => {
 
-	const NEW_TAB_URLS = ["about:newtab", "chrome://newtab/", "chrome://startpage/"];
 	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_128.png";
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_128_wait";
 	const BUTTON_DEFAULT_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonDefaultTooltip");
@@ -114,7 +113,7 @@ singlefile.ui.button = (() => {
 	}
 
 	function onForbiddenDomain(tab, options) {
-		if (!NEW_TAB_URLS.includes(tab.url)) {
+		if (singlefile.util.isAllowedProtocol(tab.url)) {
 			refresh(tab.id, getProperties(options, BUTTON_BLOCKED_BADGE_MESSAGE, [255, 255, 255, 1], BUTTON_BLOCKED_TOOLTIP_MESSAGE));
 		}
 	}
