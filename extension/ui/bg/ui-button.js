@@ -58,6 +58,7 @@ singlefile.ui.button = (() => {
 		onEnd,
 		onForbiddenDomain,
 		onError,
+		refreshTab,
 		refresh: async (tab, options) => {
 			if (tab.id) {
 				await refresh(tab.id, getProperties(options));

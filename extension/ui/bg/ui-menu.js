@@ -72,7 +72,7 @@ singlefile.ui.menu = (() => {
 		onTabCreated: refreshTab,
 		onTabActivated: refreshTab,
 		onTabUpdated: onTabUpdated,
-		refresh: createMenus
+		refreshTab: createMenus
 	};
 
 	function onMessage(message) {

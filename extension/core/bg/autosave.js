@@ -48,7 +48,7 @@ singlefile.autosave = (() => {
 			const tabsData = await singlefile.tabsData.get(currentTab.id);
 			tabsData[currentTab.id].autoSave = message.enabled;
 			await singlefile.tabsData.set(tabsData);
-			singlefile.ui.refresh(currentTab);
+			singlefile.ui.refreshTab(currentTab);
 		}
 		if (message.method == "isAutoSaveEnabled") {
 			return await isEnabled(currentTab);

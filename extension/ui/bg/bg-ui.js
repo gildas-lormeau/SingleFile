@@ -33,8 +33,8 @@ singlefile.ui = (() => {
 				return singlefile.ui.button.onMessage(message, sender);
 			}
 		},
-		async refresh(tab) {
-			return Promise.all([singlefile.ui.menu.refresh(tab), singlefile.ui.button.refresh(tab, { autoSave: await singlefile.autosave.isEnabled(tab) })]);
+		async refreshTab(tab) {
+			return Promise.all([singlefile.ui.menu.refreshTab(tab), singlefile.ui.button.refreshTab(tab)]);
 		},
 		onForbiddenDomain(tab, options) {
 			singlefile.ui.button.onForbiddenDomain(tab, options);
