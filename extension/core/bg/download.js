@@ -35,18 +35,18 @@ singlefile.download = (() => {
 	async function onMessage(message, sender) {
 		if (message.method.endsWith(".download")) {
 			if (message.truncated) {
-				let partialContent = partialContents.get(sender.tab.id);
-				if (!partialContent) {
-					partialContent = [];
-					partialContents.set(sender.tab.id, partialContent);
+				let contents = partialContents.get(sender.tab.id);
+				if (!contents) {
+					contents = [];
+					partialContents.set(sender.tab.id, contents);
 				}
-				partialContent.push(message.content);
+				contents.push(message.content);
 				if (message.finished) {
 					partialContents.delete(sender.tab.id);
 					if (message.saveToClipboard) {
-						message.content = partialContent.join("");
+						message.content = contents.join("");
 					} else {
-						message.url = URL.createObjectURL(new Blob(partialContent, { type: "text/html" }));
+						message.url = URL.createObjectURL(new Blob(contents, { type: "text/html" }));
 					}
 				} else {
 					return {};
