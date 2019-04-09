@@ -159,11 +159,15 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 		infobarElement.style.setProperty("border-radius", "8px", "important");
 		infoElement.style.setProperty("display", "inline-block", "important");
 		linkElement.style.setProperty("display", "inline-block", "important");
+		infobarElement.style.setProperty("user-select", "initial", "important");
+		infobarElement.style.setProperty("-moz-user-select", "initial", "important");
 		infobarElement.onclick = null;
 		infobarElement.onmouseout = null;
 	}
 
 	function hideInfobar(infobarElement, linkElement, infoElement) {
+		infobarElement.style.setProperty("user-select", "none", "important");
+		infobarElement.style.setProperty("-moz-user-select", "none", "important");
 		infobarElement.style.setProperty("opacity", .7);
 		infobarElement.onmouseout = () => infobarElement.style.setProperty("opacity", .7);
 		infobarElement.style.setProperty("width", "24px", "important");
