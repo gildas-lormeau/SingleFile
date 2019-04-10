@@ -86,24 +86,28 @@
 				</ul>
 				<p>User interface</p>
 				<ul>
-					<li> <span class="option">Option: add entry in the context menu of the webpage</span>
+					<li data-options-label="addMenuEntryLabel"> <span class="option">Option: add entry in the context
+							menu of the webpage</span>
 						<p>Check this option to display an entry for SingleFile in the context menu of the webpage. The
 							context menu of the SingleFile button <img src="../resources/icon_16.png" class="icon"> in
 							the extension toolbar is displayed wether this option is checked or not. </p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: overlay a shadow on the page during processing</span>
+					<li data-options-label="shadowEnabledLabel"> <span class="option">Option: overlay a shadow on the
+							page during processing</span>
 						<p>Check this option to overlay a shadow on the page when SingleFile is retrieving page
 							resources. This reminds you that you should not close the tab. </p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: display an infobar when viewing a saved page</span>
+					<li data-options-label="displayInfobarLabel"> <span class="option">Option: display an infobar when
+							viewing a saved page</span>
 						<p>Check this option to display the ℹ button at the top right of the page when viewing a saved
 							page. By clicking this icon, you can get more information about the saved date and open the
 							original URL. </p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: template of the infobar content</span>
+					<li data-options-label="infobarTemplateLabel"> <span class="option">Option: template of the infobar
+							content</span>
 						<p>The template allows you to customize the content displayed in the infobar. You can use any
 							valid character, <code>\n</code> for new lines or <code>\t</code> for tabs. You can also use
 							any variables from <a href="#template-variables">this list</a> anywhere in the template. If
@@ -117,14 +121,15 @@
 								a page having "Example Domain" as title.</li>
 						</ul>
 					</li>
-					<li> <span class="option">Option: open a prompt dialog to edit the infobar content</span>
+					<li data-options-label="confirmInfobarLabel"> <span class="option">Option: open a prompt dialog to
+							edit the infobar content</span>
 						<p>Check this option to display a prompt dialog in order to confirm the infobar content before
 							saving the page. </p>
 					</li>
 				</ul>
 				<p>File name</p>
 				<ul>
-					<li> <span class="option">Option: template</span>
+					<li data-options-label="filenameTemplateLabel"> <span class="option">Option: template</span>
 						<p>The template allows you to customize the file name of saved pages. You can use any valid
 							character and "/" to create sub-folders (with the option "save pages in background" active).
 							You can also use any variables from <a href="#template-variables">this list</a> anywhere in
@@ -147,35 +152,39 @@
 								"2018/9/15/Introduction to SingleFile.html").</li>
 						</ul>
 					</li>
-					<li> <span class="option">Option: open the "Save as" dialog to confirm the file name</span>
+					<li data-options-label="confirmFilenameLabel"> <span class="option">Option: open the "Save as"
+							dialog to confirm the file name</span>
 						<p>Check this option to display the "Save as" dialog in order to confirm the file name before
 							saving the page. If the option "save pages in background" is unchecked then a prompt dialog
 							will be displayed instead of the "Save as" dialog. </p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li> <span class="option">Option: file name conflict resolution</span>
+					<li data-options-label="filenameConflictActionLabel"> <span class="option">Option: file name
+							conflict resolution</span>
 						<p>Choose the most appropriate action when a the filename of the saved page is conflicting with
 							existing ones on the filesystem.</p>
 					</li>
 				</ul>
 				<p>HTML content</p>
 				<ul>
-					<li> <span class="option">Option: compress HTML content</span>
+					<li data-options-label="compressHTMLLabel"> <span class="option">Option: compress HTML
+							content</span>
 						<p>Check this option to remove all HTML comments, and unneeded spaces or returns. This helps to
 							reduce the size of the file without altering the document.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: remove HTML imports</span>
+					<li data-options-label="removeImportsLabel"> <span class="option">Option: remove HTML imports</span>
 						<p>Check this option to remove all link elements used to import HTML documents. This can help to
 							reduce the size of the file without altering the document most of the time.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: remove hidden elements</span>
+					<li data-options-label="removeHiddenElementsLabel"> <span class="option">Option: remove hidden
+							elements</span>
 						<p>Check this option to remove all hidden elements. This option can help to reduce the size of
 							the file without altering the document.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: remove frames</span>
+					<li data-options-label="removeFramesLabel"> <span class="option">Option: remove frames</span>
 						<p>Check this option to remove all frame and iframe elements. This can considerably reduce the
 							size of the file without altering the document most of the time. Checking this option may
 							also decrease the time needed to save a page</p>
@@ -183,19 +192,21 @@
 				</ul>
 				<p>Stylesheets</p>
 				<ul>
-					<li> <span class="option">Option: compress CSS content</span>
+					<li data-options-label="compressCSSLabel"> <span class="option">Option: compress CSS content</span>
 						<p>Check this option to minify CSS stylesheets. This the size of the file without altering the
 							document. </p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: remove unused styles</span>
+					<li data-options-label="removeUnusedStylesLabel"> <span class="option">Option: remove unused
+							styles</span>
 						<p>Check this option to remove all CSS rules and styles that do not match any element. Checking
 							this option will not alter the document and can considerably reduce the size of the file.
 							Checking this option will also increase the CPU consumption and the time needed to save a
 							page.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: remove stylesheets for alternative devices to screens</span>
+					<li data-options-label="removeAlternativeMediasLabel"> <span class="option">Option: remove
+							stylesheets for alternative devices to screens</span>
 						<p>Check this option to remove stylesheets that are not used for the screen display like
 							stylesheets for print preview and speech synthesizers. Checking this this option can help to
 							reduce the size of the file.</p>
@@ -203,25 +214,29 @@
 				</ul>
 				<p>Images</p>
 				<ul>
-					<li> <span class="option">Option: group duplicate images together</span>
+					<li data-options-label="groupDuplicateImagesLabel"> <span class="option">Option: group duplicate
+							images together</span>
 						<p>Check this option to avoid saving multiple times duplicate images. Checking this this option
 							should not alter the document in modern browsers and can considerably reduce the size of the
 							file. Checking this this option option may also increase the CPU consumption and the time
 							needed to save a page</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: save deferred images</span>
+					<li data-options-label="loadDeferredImagesLabel"> <span class="option">Option: save deferred
+							images</span>
 						<p>Check this option to save all the deferred images that are not displayed. This may help to
 							save all the images without scrolling the page. This feature does its best effort and is not
 							guaranteed to work on all sites.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: maximum idle time (ms)</span>
+					<li data-options-label="loadDeferredImagesMaxIdleTimeLabel"> <span class="option">Option: maximum
+							idle time (ms)</span>
 						<p>Specify the maximum delay of time to wait for deferred images. You can increase this value if
 							for example the network or system conditions are degraded. You can also decrease this value
 							otherwise.</p>
 					</li>
-					<li> <span class="option">Option: remove images for alternative screen resolutions</span>
+					<li data-options-label="removeAlternativeImagesLabel"> <span class="option">Option: remove images
+							for alternative screen resolutions</span>
 						<p>Check this option to remove images that are alternatives in lower and/or higher resolutions
 							to the ones displayed by default. Checking this this option can considerably reduce the size
 							of the file in some cases.</p>
@@ -229,12 +244,14 @@
 				</ul>
 				<p>Fonts</p>
 				<ul>
-					<li> <span class="option">Option: remove unused fonts</span>
+					<li data-options-label="removeUnusedFontsLabel"> <span class="option">Option: remove unused
+							fonts</span>
 						<p>Check this option to remove all Fonts rules that do not match any content. Checking this
 							option should not alter the document and can considerably reduce the size of the file.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: remove alternative fonts</span>
+					<li data-options-label="removeAlternativeFontsLabel"> <span class="option">Option: remove
+							alternative fonts</span>
 						<p>Check this option to remove fonts that are alternatives to the ones used. Checking this this
 							option should not alter the document and can considerably reduce the size of the file.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
@@ -242,51 +259,57 @@
 				</ul>
 				<p>Other resources</p>
 				<ul>
-					<li> <span class="option">Option: remove scripts</span>
+					<li data-options-label="removeScriptsLabel"> <span class="option">Option: remove scripts</span>
 						<p>Check this option to remove all scripts. Unchecking this option may alter the document and
 							lead to security issues.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: remove video sources</span>
+					<li data-options-label="removeVideoLabel"> <span class="option">Option: remove video sources</span>
 						<p>Check this option to empty the "src" attribute of all video elements.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: remove audio sources</span>
+					<li data-options-label="removeAudioLabel"> <span class="option">Option: remove audio sources</span>
 						<p>Check this option to empty the "src" attribute of all audio elements.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 				</ul>
 				<p>Auto-save</p>
 				<ul>
-					<li> <span class="option">Option: auto-save after page load or on page unload</span>
+					<li data-options-label="autoSaveLoadOrUnloadLabel"> <span class="option">Option: auto-save after
+							page load or on page unload</span>
 						<p>Check this option to auto-save pages after being loaded. If you browse to another page before
 							the page is fully loaded then the page will be saved just before being unloaded. With this
 							option active, you are guaranteed pages will always be saved but some frame contents may be
 							missing (if you unchecked "remove frames") when pages are saved before being unloaded. </p>
 					</li>
-					<li> <span class="option">Option: auto-save after page load</span>
+					<li data-options-label="autoSaveLoadLabel"> <span class="option">Option: auto-save after page
+							load</span>
 						<p>Check this option to auto-save pages after being loaded.</p>
 					</li>
-					<li> <span class="option">Option: auto-save on page unload</span>
+					<li data-options-label="autoSaveUnloadLabel"> <span class="option">Option: auto-save on page
+							unload</span>
 						<p>Check this option to auto-save pages before being unloaded instead of saving pages after
 							being loaded. With this option active, you are guaranteed pages will always be saved but
 							some frame contents may be missing (if you unchecked "remove frames"). </p>
 					</li>
-					<li> <span class="option">Option: auto-save waiting delay after load (s)</span>
+					<li data-options-label="autoSaveDelayLabel"> <span class="option">Option: auto-save waiting delay
+							after load (s)</span>
 						<p>Specify the amount of time in seconds to wait before saving a page when the "auto-save on
 							page load or on page unload" or "auto-save on page load" is checked. </p>
 					</li>
-					<li> <span class="option">Option: auto-save periodically</span>
+					<li data-options-label="autoSaveRepeatLabel"> <span class="option">Option: auto-save
+							periodically</span>
 						<p>Check this option to auto-save pages periodically after load.</p>
 					</li>
-					<li> <span class="option">Option: period (s)</span>
+					<li data-options-label="autoSaveRepeatDelayLabel"> <span class="option">Option: period (s)</span>
 						<p>Specify the amount of time in seconds to wait before each page saving when the "uto-save
 							periodically" is checked. </p>
 					</li>
 				</ul>
 				<p>Misc.</p>
 				<ul>
-					<li> <span class="option">Option: save pages in background</span>
+					<li data-options-label="backgroundSaveLabel"> <span class="option">Option: save pages in
+							background</span>
 						<p>Uncheck this option if you get invalid file names like
 							"37bec68b-446a-46a5-8642-19a89c231b46.html" or interrupted downloads when saving pages.
 							Unchecking this option prevent saving using sub-directories in filename templates.
@@ -294,23 +317,28 @@
 							saved page.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li> <span class="option">Option: display stats in the console after processing</span>
+					<li data-options-label="displayStatsLabel"> <span class="option">Option: display stats in the
+							console after processing</span>
 						<p>Check this option to display stats about processing in the JavaScript developer tools of your
 							browser. Checking this option may increase the CPU consumption and the time needed to save a
 							page. </p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li> <span class="option">Option: set a maximum size for embedded resources (MB)</span>
-						<p>Specify the maximum size of each embedded resources (i.e. images, stylesheets, scripts and
-							iframes) in megabytes. </p>
+					<li data-options-label="setMaxResourceSizeLabel"> <span class="option">Option: set a maximum size
+							for embedded resources (MB)</span>
+						<p>Check this option to remove from teh saved page embedded resources (i.e. images, stylesheets,
+							scripts and iframes) that exceeds a given size.</p>
 					</li>
-					<li> <span class="option">Option: save raw page</span>
+					<li data-options-label="maxResourceSizeLabel"> <span class="option">Option: maximum size (MB)</span>
+						<p>Specify the maximum size of embedded resources in megabytes.</p>
+					</li>
+					<li data-options-label="saveRawPageLabel"> <span class="option">Option: save raw page</span>
 						<p>Check this option to save the page without interpreting JavaScript. Checking this option may
 							alter the document, and will force the options "remove frames" to be enabled and "load
 							deferred images" to be disabled.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li> <span class="option">Option: save to clipboard</span>
+					<li data-options-label="saveToClipboardLabel"> <span class="option">Option: save to clipboard</span>
 						<p>Check this option to save the page to the clipboard instead of downloading it. Checking this
 							option may alter will force the "file name" options to be disabled.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
