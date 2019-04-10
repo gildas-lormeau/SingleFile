@@ -21,10 +21,12 @@
  *   Source.
  */
 
-/* global browser, window, document, localStorage, FileReader, location */
+/* global browser, window, document, localStorage, FileReader, location, fetch, TextDecoder, DOMParser, HTMLElement */
 
 (async () => {
 
+	const HELP_ICON_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABIUlEQVQ4y+2TsarCMBSGvxTBRdqiUZAWOrhJB9EXcPKFfCvfQYfulUKHDqXg4CYUJSioYO4mSDX3ttzt3n87fMlHTpIjlsulxpDZbEYYhgghSNOUOI5Ny2mZYBAELBYLer0eAJ7ncTweKYri4x7LJJRS0u12n7XrukgpjSc0CpVSXK/XZ32/31FKNW85z3PW6zXT6RSAJEnIsqy5UGvNZrNhu90CcDqd+C6tT6J+v//2Th+PB2VZ1hN2Oh3G4zGTyQTbtl/YbrdjtVpxu91+Ljyfz0RRhG3bzOfzF+Y4TvNXvlwuaK2pE4tfzr/wzwsty0IIURlL0998KxRCMBqN8H2/wlzXJQxD2u12vVkeDoeUZUkURRU+GAw4HA7s9/sK+wK6CWHasQ/S/wAAAABJRU5ErkJggg==";
+	const HELP_PAGE_PATH = "/extension/ui/pages/help.html";
 	const { DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME, CURRENT_PROFILE_NAME } = await browser.runtime.sendMessage({ method: "config.getConstants" });
 	const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsLabel");
 	const removeUnusedStylesLabel = document.getElementById("removeUnusedStylesLabel");
@@ -158,6 +160,7 @@
 	});
 	let pendingSave = Promise.resolve();
 	let autoSaveProfileChanged;
+	getHelpContents();
 	ruleProfileInput.onchange = () => {
 		if (!autoSaveProfileChanged && ruleProfileInput.value != CURRENT_PROFILE_NAME) {
 			ruleAutoSaveProfileInput.value = ruleProfileInput.value;
@@ -708,6 +711,40 @@
 				document.body.style.setProperty("overflow-y", "");
 				resolve(value);
 			}
+		});
+	}
+
+	async function getHelpContents() {
+		const helpPage = await fetch(browser.runtime.getURL(HELP_PAGE_PATH));
+		const content = new TextDecoder().decode(await helpPage.arrayBuffer());
+		const doc = (new DOMParser()).parseFromString(content, "text/html");
+		const items = doc.querySelectorAll("[data-options-label]");
+		items.forEach(itemElement => {
+			const optionLabel = document.getElementById(itemElement.dataset.optionsLabel);
+			const helpIcon = document.createElement("img");
+			helpIcon.className = "help-icon";
+			helpIcon.src = HELP_ICON_URL;
+			helpIcon.onclick = () => {
+				helpContent.hidden = !helpContent.hidden;
+				return false;
+			};
+			optionLabel.appendChild(helpIcon);
+			const helpContent = document.createElement("div");
+			helpContent.hidden = true;
+			helpContent.className = "help-content";
+			itemElement.childNodes.forEach(node => {
+				if (node instanceof HTMLElement && node.className != "option") {
+					helpContent.appendChild(document.importNode(node, true));
+				}
+			});
+			helpContent.querySelectorAll("a[href]").forEach(linkElement => {
+				const hrefValue = linkElement.getAttribute("href");
+				if (hrefValue.startsWith("#")) {
+					linkElement.href = browser.runtime.getURL(HELP_PAGE_PATH + linkElement.getAttribute("href"));
+					linkElement.target = "_blank";
+				}
+			});
+			optionLabel.parentElement.insertAdjacentElement("afterEnd", helpContent);
 		});
 	}
 

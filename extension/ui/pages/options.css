@@ -89,6 +89,55 @@ h3 a {
     max-width: calc(100% - 115px);
 }
 
+
+.help-icon {
+    border-radius: 50%;
+    border: 1px black solid;
+    opacity: .1;
+    width: 10px;
+    margin-left: 8px;
+    position: relative;
+    top: 2px;
+    transition: opacity;
+    transition-duration: 200ms;
+    cursor: pointer;
+}
+
+.help-icon:hover {
+    opacity: .4;
+}
+
+.help-content {
+    margin-top: 4px;
+    margin-left: 8px;
+    margin-bottom: 12px;
+    border: 1px #bfbfbf dotted;
+    border-radius: 4px;
+    padding: 2px;
+    background-color: #fffcc1;
+    line-height: 1.4em;
+}
+
+.help-content img {
+    max-height: 1em;
+}
+
+.help-content a {
+    padding: 0px;
+}
+
+.help-content p {
+    margin: 6px;
+}
+
+.help-content ul {
+    margin: 4px;
+}
+
+.help-content li {
+    margin: 2px;
+}
+
 .rules-table-container {
     width: 100%;
     border-spacing: 0;
@@ -230,6 +279,7 @@ details {
     color: #555;
     margin-left: 6px;
     margin-right: 12px;
+    margin-bottom: 4px;
     border-top: #bfbfbf 1px dashed;
 }
 
@@ -281,9 +331,11 @@ a {
 }
 
 .option.vertical input {
-    margin-top: 3px;
+    margin-top: 4px;
     align-self: flex-end;
-    width: calc(100% - 3px);
+    width: calc(100% - 6px);
+    margin-bottom: 2px;
+    padding: 2px;
 }
 
 .option:last-of-type {
@@ -420,6 +472,7 @@ html.maximized {
 }
 
 @media (max-width:400px) {
+
     body,
     input,
     select,
