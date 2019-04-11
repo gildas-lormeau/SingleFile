@@ -69,7 +69,7 @@
     },
     "buttonBlockedBadge": {
         "message": "🚫",
-        "description": "Button badge when the page is blacked: '🚫'"
+        "description": "Button badge when the page is blocked: '🚫'"
     },
     "buttonBlockedTooltip": {
         "message": "SingleFile 无法保存这个页面",
