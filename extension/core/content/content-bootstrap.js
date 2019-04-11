@@ -104,22 +104,24 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 	function onUnload() {
 		if (!singlefile.pageAutoSaved || options.autoSaveUnload) {
 			const docData = docHelper.preProcessDoc(document, window, options);
+			let framesData = [];
 			if (this.frameTree && !options.removeFrames) {
-				browser.runtime.sendMessage({
-					method: "autosave.save",
-					content: docHelper.serialize(document),
-					canvasData: docData.canvasData,
-					fontsData: docData.fontsData,
-					stylesheetContents: docData.stylesheetContents,
-					imageData: docData.imageData,
-					postersData: docData.postersData,
-					usedFonts: docData.usedFonts,
-					shadowRootContents: docData.shadowRootContents,
-					referrer: docData.referrer,
-					framesData: frameTree.getSync(options),
-					url: location.href
-				});
+				framesData = frameTree.getSync(options);
 			}
+			browser.runtime.sendMessage({
+				method: "autosave.save",
+				content: docHelper.serialize(document),
+				canvasData: docData.canvasData,
+				fontsData: docData.fontsData,
+				stylesheetContents: docData.stylesheetContents,
+				imageData: docData.imageData,
+				postersData: docData.postersData,
+				usedFonts: docData.usedFonts,
+				shadowRootContents: docData.shadowRootContents,
+				referrer: docData.referrer,
+				framesData,
+				url: location.href
+			});
 		}
 	}
 })();
