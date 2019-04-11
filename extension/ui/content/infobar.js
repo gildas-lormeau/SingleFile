@@ -102,7 +102,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			const linkElement = createElement("a", infobarElement);
 			linkElement.style.setProperty("display", "inline-block", "important");
 			linkElement.style.setProperty("padding-left", "8px", "important");
-			linkElement.style.setProperty("line-height", "24px", "important");
+			linkElement.style.setProperty("line-height", "11px", "important");
 			linkElement.style.setProperty("cursor", "pointer", "important");
 			linkElement.style.setProperty("user-select", "none", "important");
 			linkElement.target = "_blank";
