@@ -110,7 +110,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			linkElement.title = "Open source URL: " + url;
 			linkElement.href = url;
 			const imgElement = createElement("img", linkElement);
-			imgElement.style.setProperty("vertical-align", "middle", "important");
+			imgElement.style.setProperty("padding-top", "4px", "important");
 			imgElement.style.setProperty("padding-bottom", "2px", "important");
 			imgElement.style.setProperty("-webkit-padding-after", "2px", "important");
 			imgElement.style.setProperty("padding-left", "2px", "important");
