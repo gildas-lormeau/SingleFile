@@ -51,24 +51,24 @@ singlefile.tabsData = (() => {
 		setPersistent(tabsData);
 	}
 
-	function getTemporary(tabId) {
+	function getTemporary(desiredTabId) {
 		if (!temporaryData) {
 			temporaryData = {};
 		}
-		if (tabId !== undefined && !temporaryData[tabId]) {
-			temporaryData[tabId] = {};
+		if (desiredTabId !== undefined && !temporaryData[desiredTabId]) {
+			temporaryData[desiredTabId] = {};
 		}
 		return temporaryData;
 	}
 
-	async function getPersistent(tabId) {
+	async function getPersistent(desiredTabId) {
 		if (!persistentData) {
 			const config = await browser.storage.local.get();
 			persistentData = config.tabsData || {};
 			cleanup();
 		}
-		if (tabId !== undefined && !persistentData[tabId]) {
-			persistentData[tabId] = {};
+		if (desiredTabId !== undefined && !persistentData[desiredTabId]) {
+			persistentData[desiredTabId] = {};
 		}
 		return persistentData;
 	}
