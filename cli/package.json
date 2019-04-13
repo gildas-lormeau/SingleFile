@@ -5,7 +5,7 @@
 	"author": "Gildas Lormeau",
 	"license": "AGPL-3.0-or-later",
 	"dependencies": {
-		"file-url": "^2.0.2",
+		"file-url": "*",
 		"iconv-lite": "*",
 		"jsdom": "*",
 		"puppeteer-core": "*",
