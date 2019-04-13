@@ -31,6 +31,10 @@ input[type=text] {
     border-width: 1px;
 }
 
+input[type=checkbox] {
+    margin-bottom: 0;
+}
+
 button:active {
     border-color: rgb(237, 237, 237);
 }
@@ -94,10 +98,10 @@ h3 a {
     border-radius: 50%;
     border: 1px black solid;
     opacity: .2;
-    width: 10px;
+    width: 12px;
     margin-left: 8px;
     position: relative;
-    top: 2px;
+    top: 3px;
     transition: opacity;
     transition-duration: 200ms;
     cursor: pointer;
