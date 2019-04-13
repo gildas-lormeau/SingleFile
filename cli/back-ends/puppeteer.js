@@ -58,8 +58,8 @@ exports.getPageData = async options => {
 	browserOptions.args = [];
 	if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
 		browserOptions.args.push("--disable-web-security");
-		browserOptions.args.push("--no-pings");
 	}
+	browserOptions.args.push("--no-pings");
 	if (!options.browserHeadless && options.browserDebug) {
 		browserOptions.args.push("--auto-open-devtools-for-tabs");
 	}
