@@ -94,7 +94,7 @@ singlefile.download = (() => {
 					return downloadPage(page, { confirmFilename: options.confirmFilename, incognito: options.incognito, filenameConflictAction: options.filenameConflictAction });
 				} else if ((errorMessage.includes("'incognito'") || errorMessage.includes("\"incognito\"")) && options.incognito) {
 					return downloadPage(page, { confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction });
-				} else if (errorMessage == "conflictAction prompt not yet implemented" && options.filenameConflictAction) {
+				} else if (errorMessage == "conflictaction prompt not yet implemented" && options.filenameConflictAction) {
 					return downloadPage(page, { confirmFilename: options.confirmFilename });
 				} else if (!errorMessage.includes("canceled")) {
 					throw error;
