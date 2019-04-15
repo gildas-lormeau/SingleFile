@@ -12,3 +12,6 @@ We keep our privacy notice under regular review and we will place any updates on
 
 ## How to contact us
 Please contact us if you have any questions about our privacy policy by email to gildas.lormeau &lt;at&gt; gmail.com.
+
+## History
+cf. https://github.com/gildas-lormeau/SingleFile/commits/master/privacy.md
