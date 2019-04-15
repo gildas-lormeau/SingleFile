@@ -21,11 +21,12 @@
  *   Source.
  */
 
-/* global browser, SingleFileBrowser, singlefile, frameTree, document, MouseEvent, window, lazyLoader, URL, setTimeout, docHelper, Blob */
+/* global browser, SingleFileBrowser, singlefile, frameTree, document, addEventListener, removeEventListener, window, lazyLoader, setTimeout, docHelper */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
 	const MAX_CONTENT_SIZE = 64 * (1024 * 1024);
+	const DOWNLOADER_FRAME_ID = "single-file-downloader";
 	const SingleFile = SingleFileBrowser.getClass();
 
 	let processing = false;
@@ -62,6 +63,10 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function processPage(options) {
 		docHelper.initDoc(document);
+		const iframe = document.getElementById(DOWNLOADER_FRAME_ID);
+		if (iframe) {
+			iframe.remove();
+		}
 		if (options.shadowEnabled) {
 			singlefile.ui.onStartPage();
 		}
@@ -193,13 +198,25 @@ this.singlefile.top = this.singlefile.top || (() => {
 			page.filename = singlefile.ui.prompt("File name", page.filename);
 		}
 		if (page.filename && page.filename.length) {
-			const link = document.createElement("a");
-			document.body.appendChild(link);
-			link.download = page.filename;
-			link.href = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
-			link.dispatchEvent(new MouseEvent("click"));
-			link.remove();
-			URL.revokeObjectURL(page.url);
+			const iframe = document.createElement("iframe");
+			iframe.id = DOWNLOADER_FRAME_ID;
+			iframe.style.setProperty("display", "inline-block", "important");
+			iframe.style.setProperty("max-width", "0", "important");
+			iframe.style.setProperty("max-height", "0", "important");
+			iframe.style.setProperty("border-width", "0", "important");
+			iframe.style.setProperty("margin", "0", "important");
+			iframe.src = browser.runtime.getURL("/extension/ui/pages/downloader.html");
+			iframe.onload = () => {
+				addEventListener("message", listener, false);
+				iframe.contentWindow.postMessage(JSON.stringify([page.filename, page.content]), "*");
+			};
+			document.body.appendChild(iframe);
+		}
+
+		function listener(event) {
+			if (event.data == "content.saved") {
+				removeEventListener("message", listener, false);
+			}
 		}
 	}
 
