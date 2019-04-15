@@ -182,7 +182,8 @@
 					<li data-options-label="removeHiddenElementsLabel"> <span class="option">Option: remove hidden
 							elements</span>
 						<p>Check this option to remove all hidden elements. Checking this option can help to reduce the
-							size of the file without altering the document.</p>
+							size of the file without altering the document. It may also increase the CPU consumption and
+							the time needed to save a page.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 					<li data-options-label="removeFramesLabel"> <span class="option">Option: remove frames</span>
@@ -220,14 +221,15 @@
 							images together</span>
 						<p>Check this option to avoid saving multiple times duplicate images. Checking this option
 							should not alter the document in modern browsers and can considerably reduce the size of the
-							file. It may also increase the CPU consumption and the time needed to save a page</p>
+							file. It may also increase the CPU consumption and the time needed to save a page.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 					<li data-options-label="loadDeferredImagesLabel"> <span class="option">Option: save deferred
 							images</span>
 						<p>Check this option to save all the deferred images that are not yet displayed. This may help
 							to save all the images without scrolling the page. This feature does its best effort and is
-							not guaranteed to work on all sites.</p>
+							not guaranteed to work on all sites. It will also increase the time needed to save a page.
+						</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 					<li data-options-label="loadDeferredImagesMaxIdleTimeLabel"> <span class="option">Option: maximum
@@ -262,7 +264,7 @@
 				<ul>
 					<li data-options-label="removeScriptsLabel"> <span class="option">Option: remove scripts</span>
 						<p>Check this option to remove all the JavaScript scripts. Unchecking this option may alter the
-							document and may introduce privacy issues.</p>
+							document and may introduce privacy or security issues.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 					<li data-options-label="removeVideoLabel"> <span class="option">Option: remove video sources</span>
