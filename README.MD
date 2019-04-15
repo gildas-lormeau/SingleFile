@@ -6,11 +6,11 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
  - [Install](#install)
  - [Getting started](#getting-started)
  - [Additional notes](#additional-notes)
+ - [Release notes](#release-notes)
  - [Statistics (Firefox)](#statistics-firefox)
  - [Command Line Interface](#command-line-interface)
  - [Known issues](#known-issues)
  - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
- - [Release notes](#release-notes)
  - [Privacy policy](#privacy-policy)
  - [Contributors](#contributors)
  - [Icons](#icons)
@@ -50,6 +50,9 @@ SingleFile can be installed:
  - You can use the shortcut Ctrl+Shift+Y (Ctrl+Shift+U on Chrome OS) to save the current tab or selected tabs. Go to chrome://extensions/shortcuts to change it in Chrome.
  - See the extension help in the options page for more detailed information about the options and technical notes.
 
+## Release notes
+See https://addons.mozilla.org/en-US/firefox/addon/single-file/versions
+
 ## Statistics (Firefox)
 See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=90
 
@@ -76,9 +79,6 @@ Please follow these steps if you find an unknown issue:
 - If restarting the browser did not fix the issue, try to disable all other extensions to see if there is a conflict.
 - If there is a conflict then try to determine against which extension(s).
 - Please report the issue with a short description on how to reproduce it here: https://github.com/gildas-lormeau/SingleFile/issues.
-
-## Release notes
-See https://addons.mozilla.org/en-US/firefox/addon/single-file/versions
 
 ## Privacy Policy
 See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
