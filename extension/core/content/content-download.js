@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global addEventListener, removeEventListener, document, URL, MouseEvent, Blob, top */
+/* global addEventListener, removeEventListener, document, URL, MouseEvent, Blob */
 
 addEventListener("message", listener, false);
 
