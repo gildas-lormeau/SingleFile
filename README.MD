@@ -7,6 +7,7 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
  - [Getting started](#getting-started)
  - [Additional notes](#additional-notes)
  - [Release notes](#release-notes)
+ - [FAQ](#fag)
  - [Statistics (Firefox)](#statistics-firefox)
  - [Command Line Interface](#command-line-interface)
  - [Known issues](#known-issues)
@@ -52,6 +53,9 @@ SingleFile can be installed:
 
 ## Release notes
 See https://addons.mozilla.org/en-US/firefox/addon/single-file/versions
+
+## FAQ
+See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md
 
 ## Statistics (Firefox)
 See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=90
