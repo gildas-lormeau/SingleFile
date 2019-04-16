@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, SingleFileBrowser, singlefile, frameTree, document, addEventListener, removeEventListener, window, lazyLoader, setTimeout, docHelper */
+/* global browser, SingleFileBrowser, singlefile, frameTree, document, window, lazyLoader, setTimeout, docHelper */
 
 this.singlefile.top = this.singlefile.top || (() => {
 
