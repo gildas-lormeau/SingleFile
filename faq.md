@@ -22,6 +22,7 @@ The default configuration of SingleFile is optimized to produce small pages. Thi
  - HTML content > remove hidden elements
  - Stylesheets > compress CSS content
  - Stylesheets > remove unused styles 
+ 
 You can also disable the options below. Some resources (e.g. images, frames) on the page may be missing though.
  - HTML content > remove frames
  - Images > save deferred images
