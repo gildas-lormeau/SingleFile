@@ -21,8 +21,8 @@ The permissions requested by SingleFile are defined in the manifest.json file. B
 The default configuration of SingleFile is optimized to produce small pages. This can sometimes slow down the save process considerably. Below are the options you can disable to save time.
  - HTML content > remove hidden elements
  - Stylesheets > compress CSS content
- - Stylesheets > remove unused styles 
- 
+ - Stylesheets > remove unused styles
+
 You can also disable the options below. Some resources (e.g. images, frames) on the page may be missing though.
  - HTML content > remove frames
  - Images > save deferred images
