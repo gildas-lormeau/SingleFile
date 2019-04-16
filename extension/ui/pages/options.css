@@ -306,6 +306,7 @@ details>summary {
 
 details[open]>summary {
     cursor: pointer;
+    outline-width: 0px;
 }
 
 a {
