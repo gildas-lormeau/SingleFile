@@ -10,7 +10,7 @@ For security purposes, browsers block web extension on certain domains. In parti
 By default, Chrome extensions are not allowed to access to pages stored on the filesystem. Therefore, why you must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
 
 ## What are the permissions requested by SingleFile for?
-The permissions requested by SingleFile are defined in the manifest.json file. Below are the reasons why they are necessary.
+The permissions requested by SingleFile are defined in the [manifest.json](https://github.com/gildas-lormeau/SingleFile/blob/master/manifest.json) file. Below are the reasons why they are necessary.
  - `storage`: allows SingleFile to store your settings.
  - `menus/contextMenus`: allows SingleFile to display an entry in the context menu of web pages.
  - `tabs` (all_urls): allows SingleFile to inject the code needed to save a page in any tab. This permission is needed for saving several tabs in one click among others.
