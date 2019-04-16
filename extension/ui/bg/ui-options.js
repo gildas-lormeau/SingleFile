@@ -541,7 +541,7 @@
 		compressCSSInput.checked = profileOptions.compressCSS;
 		loadDeferredImagesInput.checked = profileOptions.loadDeferredImages;
 		loadDeferredImagesMaxIdleTimeInput.value = profileOptions.loadDeferredImagesMaxIdleTime;
-		loadDeferredImagesMaxIdleTimeInput.disabled = !profileOptions.loadDeferredImages;
+		loadDeferredImagesMaxIdleTimeInput.disabled = !profileOptions.loadDeferredImages || profileOptions.saveRawPage;
 		contextMenuEnabledInput.checked = profileOptions.contextMenuEnabled;
 		filenameTemplateInput.value = profileOptions.filenameTemplate;
 		filenameTemplateInput.disabled = profileOptions.saveToClipboard;
@@ -578,7 +578,6 @@
 		removeFramesInput.disabled = saveRawPageInput.checked;
 		removeFramesInput.checked = removeFramesInput.checked || saveRawPageInput.checked;
 		loadDeferredImagesInput.disabled = saveRawPageInput.checked;
-		loadDeferredImagesMaxIdleTimeInput.disabled = saveRawPageInput.checked;
 		if (saveRawPageInput.checked) {
 			loadDeferredImagesInput.checked = false;
 		}
