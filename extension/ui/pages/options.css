@@ -474,6 +474,7 @@ html.maximized {
 .maximized #helpLabel {
     padding-left: 4px;
     padding-right: 4px;
+    padding-top: 7px;
 }
 
 @media (max-width:400px) {
