@@ -206,17 +206,8 @@ this.singlefile.top = this.singlefile.top || (() => {
 			iframe.style.setProperty("border-width", "0", "important");
 			iframe.style.setProperty("margin", "0", "important");
 			iframe.src = browser.runtime.getURL("/extension/ui/pages/downloader.html");
-			iframe.onload = () => {
-				addEventListener("message", listener, false);
-				iframe.contentWindow.postMessage(JSON.stringify([page.filename, page.content]), "*");
-			};
+			iframe.onload = () => iframe.contentWindow.postMessage(JSON.stringify([page.filename, page.content]), "*");
 			document.body.appendChild(iframe);
-		}
-
-		function listener(event) {
-			if (event.data == "content.saved") {
-				removeEventListener("message", listener, false);
-			}
 		}
 	}
 

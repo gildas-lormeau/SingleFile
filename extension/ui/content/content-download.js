@@ -35,5 +35,4 @@ function listener(event) {
 	link.href = url;
 	link.dispatchEvent(new MouseEvent("click"));
 	URL.revokeObjectURL(url);
-	top.postMessage("content.saved", "*");
 }
