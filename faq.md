@@ -1,7 +1,7 @@
 # FAQ
 
-## Does SingleFile upload data to third-party servers?
-As stated in the privacy policy (https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md), SingleFile does not upload any data to third-party servers. All the work is done in your browser. However, when you save a page with SingleFile, it can download resources (images, CSS, frame contents, fonts etc.) that are not displayed or not cached but present in the page.
+## Does SingleFile upload any data to third-party servers?
+As stated in the [privacy policy](https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md), SingleFile does not upload any data to third-party servers. All the work is done in your browser. However, when you save a page with SingleFile, it can download resources (images, CSS, frame contents, fonts etc.) that are not displayed or not cached but present in the page.
 
 ## Why can't I save some pages like https://addons.mozilla.org/en-US/firefox/addon/single-file?
 For security purposes, browsers block web extension on certain domains. In particular, this prevents a malicious extension to remove or change bad reviews, for example.
@@ -17,8 +17,8 @@ The permissions requested by SingleFile are defined in the [manifest.json](https
  - `downloads`: allows SingleFile to save pages as if they were downloaded from the web.
  - `clipboardWrite`: allows SingleFile to copy the content of a page into the clipboard instead of saving it on the filesystem.
 
-## SingleFile is slow on my computer/tablet/phone, can it work faster?
-The default configuration of SingleFile is optimized to produce small pages. This can sometimes slow down the save process considerably. Below are the options you can disable to save time.
+## SingleFile is slow on my computer/tablet/phone, can it run faster?
+The default configuration of SingleFile is optimized to produce small pages. This can sometimes slow down the save process considerably. Below are the options you can disable to save time and CPU.
  - HTML content > remove hidden elements
  - Stylesheets > compress CSS content
  - Stylesheets > remove unused styles
