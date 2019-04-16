@@ -727,6 +727,13 @@
 				helpContent.hidden = !helpContent.hidden;
 				return false;
 			};
+			helpIcon.tabIndex = 0;
+			helpIcon.onkeyup = event => {
+				if (event.code == "Enter") {
+					helpContent.hidden = !helpContent.hidden;
+					return false;
+				}
+			};
 			optionLabel.appendChild(helpIcon);
 			const helpContent = document.createElement("div");
 			helpContent.hidden = true;

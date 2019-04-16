@@ -138,6 +138,7 @@ h3 a {
 
 .help-content ul {
     margin: 4px;
+    padding-left: 25px;
 }
 
 .help-content li {
@@ -307,10 +308,6 @@ details[open]>summary {
     cursor: pointer;
 }
 
-details>summary:focus {
-    outline-width: 0px;
-}
-
 a {
     display: inline-block;
     padding-top: 5px;
@@ -475,6 +472,7 @@ html.maximized {
 
 .maximized #helpLabel {
     padding-left: 4px;
+    padding-right: 4px;
 }
 
 @media (max-width:400px) {
