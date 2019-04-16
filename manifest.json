@@ -120,8 +120,8 @@
 		}
 	},
 	"web_accessible_resources": [
-		"extension/ui/content/content-download.js",
-		"extension/ui/pages/downloader.html"
+		"extension/core/content/content-download.js",
+		"extension/core/pages/downloader.html"
 	],
 	"permissions": [
 		"menus",

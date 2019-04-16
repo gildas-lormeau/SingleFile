@@ -205,7 +205,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			iframe.style.setProperty("max-height", "0", "important");
 			iframe.style.setProperty("border-width", "0", "important");
 			iframe.style.setProperty("margin", "0", "important");
-			iframe.src = browser.runtime.getURL("/extension/ui/pages/downloader.html");
+			iframe.src = browser.runtime.getURL("/extension/core/pages/downloader.html");
 			iframe.onload = () => iframe.contentWindow.postMessage(JSON.stringify([page.filename, page.content]), "*");
 			document.body.appendChild(iframe);
 		}
