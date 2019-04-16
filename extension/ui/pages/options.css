@@ -95,13 +95,15 @@ h3 a {
 
 
 .help-icon {
+    vertical-align: middle;
     border-radius: 50%;
     border: 1px black solid;
     opacity: .2;
     width: 12px;
+    margin-top: 3px;
+    margin-bottom: 3px;
     margin-left: 8px;
-    position: relative;
-    top: 3px;
+    margin-right: 8px;
     transition: opacity;
     transition-duration: 200ms;
     cursor: pointer;
