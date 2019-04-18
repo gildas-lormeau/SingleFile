@@ -172,8 +172,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 
 	async function downloadPage(page, options) {
 		if (options.backgroundSave) {
-			let response;
-			for (let blockIndex = 0; !response && (blockIndex * MAX_CONTENT_SIZE < page.content.length); blockIndex++) {
+			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < page.content.length; blockIndex++) {
 				const message = { method: "downloads.download", confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename, saveToClipboard: options.saveToClipboard };
 				message.truncated = page.content.length > MAX_CONTENT_SIZE;
 				if (message.truncated) {
@@ -182,7 +181,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 				} else {
 					message.content = page.content;
 				}
-				response = await browser.runtime.sendMessage(message);
+				await browser.runtime.sendMessage(message);
 			}
 		} else {
 			if (options.saveToClipboard) {
