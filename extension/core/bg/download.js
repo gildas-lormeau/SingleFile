@@ -92,6 +92,8 @@ singlefile.download = (() => {
 				} else if (invalidFilename && page.filename.includes(",")) {
 					page.filename = page.filename.replace(/,/g, "_");
 					return downloadPage(page, { confirmFilename: options.confirmFilename, incognito: options.incognito, filenameConflictAction: options.filenameConflictAction });
+				} else if (invalidFilename && !page.filename.match(/^[\x00-\x7F]+$/)) {
+					page.filename = page.filename.replace(/[^\x00-\x7F]/g, "_");
 				} else if ((errorMessage.includes("'incognito'") || errorMessage.includes("\"incognito\"")) && options.incognito) {
 					return downloadPage(page, { confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction });
 				} else if (errorMessage == "conflictaction prompt not yet implemented" && options.filenameConflictAction) {
