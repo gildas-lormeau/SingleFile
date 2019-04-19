@@ -7,7 +7,7 @@ As stated in the [privacy policy](https://github.com/gildas-lormeau/SingleFile/b
 For security purposes, browsers block web extensions on certain domains. This prevents a malicious extension to remove or change bad reviews, for example.
 
 ## Why isn't the infobar displayed / Why cannot I save a page from the filesystem in Chrome?
-By default, Chrome extensions are not allowed to access to pages stored on the filesystem. Therefore, why you must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
+By default, Chrome extensions are not allowed to access to pages stored on the filesystem. Therefore, you must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
 
 ## What are the permissions requested by SingleFile for?
 The permissions requested by SingleFile are defined in the [manifest.json](https://github.com/gildas-lormeau/SingleFile/blob/master/manifest.json) file. Below are the reasons why they are necessary.
