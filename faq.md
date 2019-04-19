@@ -13,7 +13,7 @@ By default, Chrome extensions are not allowed to access to pages stored on the f
 The permissions requested by SingleFile are defined in the [manifest.json](https://github.com/gildas-lormeau/SingleFile/blob/master/manifest.json) file. Below are the reasons why they are necessary.
  - `storage`: allows SingleFile to store your settings.
  - `menus/contextMenus`: allows SingleFile to display an entry in the context menu of web pages.
- - `tabs` (all_urls): allows SingleFile to inject the code needed to process a page in any tab. This permission is needed for saving several tabs in one click among others.
+ - `tabs` (all_urls): allows SingleFile to inject the code needed to process a page in any tab. This permission is needed for saving several tabs in one click, for example.
  - `downloads`: allows SingleFile to save pages as if they were downloaded from the web.
  - `clipboardWrite`: allows SingleFile to copy the content of a page into the clipboard instead of saving it on the filesystem.
 
