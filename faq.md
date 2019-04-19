@@ -4,7 +4,7 @@
 As stated in the [privacy policy](https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md), SingleFile does not upload any data to third-party servers. All the work is done in your browser. However, when you save a page with SingleFile, it can download resources (images, CSS, frame contents, fonts etc.) that are not displayed or not cached but present in the page.
 
 ## Why can't I save some pages like https://addons.mozilla.org/en-US/firefox/addon/single-file?
-For security purposes, browsers block web extension on certain domains. In particular, this prevents a malicious extension to remove or change bad reviews, for example.
+For security purposes, browsers block web extensions on certain domains. This prevents a malicious extension to remove or change bad reviews, for example.
 
 ## Why isn't the infobar displayed / Why cannot I save a page from the filesystem in Chrome?
 By default, Chrome extensions are not allowed to access to pages stored on the filesystem. Therefore, why you must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
