@@ -91,7 +91,7 @@ singlefile.autosave = (() => {
 		options.framesData = message.framesData;
 		options.canvasData = message.canvasData;
 		options.fontsData = message.fontsData;
-		options.stylesheetContents = message.stylesheetContents;
+		options.stylesheetsData = message.stylesheetsData;
 		options.imageData = message.imageData;
 		options.postersData = message.postersData;
 		options.usedFonts = message.usedFonts;

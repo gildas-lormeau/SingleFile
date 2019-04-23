@@ -141,7 +141,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			options.url = selectedFrame.baseURI;
 			options.canvasData = selectedFrame.canvasData;
 			options.fontsData = selectedFrame.fontsData;
-			options.stylesheetContents = selectedFrame.stylesheetContents;
+			options.stylesheetsData = selectedFrame.stylesheetsData;
 			options.imageData = selectedFrame.imageData;
 			options.postersData = selectedFrame.postersData;
 			options.usedFonts = selectedFrame.usedFonts;
