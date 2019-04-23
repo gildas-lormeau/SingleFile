@@ -95,7 +95,7 @@ singlefile.autosave = (() => {
 		options.imageData = message.imageData;
 		options.postersData = message.postersData;
 		options.usedFonts = message.usedFonts;
-		options.shadowRootContents = message.shadowRootContents;
+		options.shadowRootsData = message.shadowRootsData;
 		options.referrer = message.referrer;
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;

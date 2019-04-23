@@ -145,7 +145,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			options.imageData = selectedFrame.imageData;
 			options.postersData = selectedFrame.postersData;
 			options.usedFonts = selectedFrame.usedFonts;
-			options.shadowRootContents = selectedFrame.shadowRootContents;
+			options.shadowRootsData = selectedFrame.shadowRootsData;
 		} else {
 			options.doc = document;
 		}

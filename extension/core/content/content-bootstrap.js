@@ -75,7 +75,7 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 					imageData: docData.imageData,
 					postersData: docData.postersData,
 					usedFonts: docData.usedFonts,
-					shadowRootContents: docData.shadowRootContents,
+					shadowRootsData: docData.shadowRootsData,
 					referrer: docData.referrer,
 					framesData,
 					url: location.href
@@ -117,7 +117,7 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 				imageData: docData.imageData,
 				postersData: docData.postersData,
 				usedFonts: docData.usedFonts,
-				shadowRootContents: docData.shadowRootContents,
+				shadowRootsData: docData.shadowRootsData,
 				referrer: docData.referrer,
 				framesData,
 				url: location.href
