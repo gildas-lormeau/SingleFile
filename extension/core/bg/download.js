@@ -98,7 +98,11 @@ singlefile.download = (() => {
 					return downloadPage(page, { confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction });
 				} else if (errorMessage == "conflictaction prompt not yet implemented" && options.filenameConflictAction) {
 					return downloadPage(page, { confirmFilename: options.confirmFilename });
-				} else if (!errorMessage.includes("canceled")) {
+				} else if (errorMessage.includes("canceled")) {
+					URL.revokeObjectURL(page.url);
+					return {};
+				}
+				else {
 					throw error;
 				}
 			} else {
