@@ -29,6 +29,7 @@ input[type=text] {
     border-style: solid;
     border-radius: 2px;
     border-width: 1px;
+    color: black;
 }
 
 input[type=checkbox] {
