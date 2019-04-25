@@ -53,33 +53,39 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		prompt(message, defaultValue) {
 			return prompt(message, defaultValue);
 		},
-		onStartPage() {
+		onStartPage(options) {
 			let maskElement = document.querySelector(MASK_TAGNAME);
 			if (!maskElement) {
-				const maskElement = createMaskElement();
-				createProgressBarElement(maskElement);
 				document.body.appendChild(logsWindowElement);
 				setLogsWindowStyle();
-				maskElement.offsetWidth;
-				maskElement.style.setProperty("background-color", "black", "important");
-				maskElement.style.setProperty("opacity", .3, "important");
-				document.body.offsetWidth;
+				if (options.shadowEnabled) {
+					const maskElement = createMaskElement();
+					createProgressBarElement(maskElement);
+					maskElement.offsetWidth;
+					maskElement.style.setProperty("background-color", "black", "important");
+					maskElement.style.setProperty("opacity", .3, "important");
+					document.body.offsetWidth;
+				}
 			}
 		},
-		onEndPage() {
-			const maskElement = document.querySelector(MASK_TAGNAME);
+		onEndPage(options) {
+			if (options.shadowEnabled) {
+				const maskElement = document.querySelector(MASK_TAGNAME);
+				if (maskElement) {
+					maskElement.remove();
+				}
+			}
 			logsWindowElement.remove();
 			clearLogs();
-			if (maskElement) {
-				maskElement.remove();
-			}
 		},
-		onLoadResource(index, maxIndex) {
-			const progressBarElement = document.querySelector(PROGRESS_BAR_TAGNAME);
-			if (progressBarElement && maxIndex) {
-				const width = Math.floor((index / maxIndex) * 100) + "%";
-				if (progressBarElement.style.getPropertyValue("width") != width) {
-					requestAnimationFrame(() => progressBarElement.style.setProperty("width", Math.floor((index / maxIndex) * 100) + "%", "important"));
+		onLoadResource(index, maxIndex, options) {
+			if (options.shadowEnabled) {
+				const progressBarElement = document.querySelector(PROGRESS_BAR_TAGNAME);
+				if (progressBarElement && maxIndex) {
+					const width = Math.floor((index / maxIndex) * 100) + "%";
+					if (progressBarElement.style.getPropertyValue("width") != width) {
+						requestAnimationFrame(() => progressBarElement.style.setProperty("width", Math.floor((index / maxIndex) * 100) + "%", "important"));
+					}
 				}
 			}
 		},

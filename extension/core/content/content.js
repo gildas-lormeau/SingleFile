@@ -67,9 +67,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (iframe) {
 			iframe.remove();
 		}
-		if (options.shadowEnabled) {
-			singlefile.ui.onStartPage();
-		}
+		singlefile.ui.onStartPage(options);
 		const processor = new SingleFile(options);
 		const preInitializationPromises = [];
 		options.insertSingleFileComment = true;
@@ -81,18 +79,14 @@ this.singlefile.top = this.singlefile.top || (() => {
 				} else {
 					frameTreePromise = frameTree.getAsync(options);
 				}
-				if (options.shadowEnabled) {
-					singlefile.ui.onLoadingFrames();
-					frameTreePromise.then(() => singlefile.ui.onLoadFrames());
-				}
+				singlefile.ui.onLoadingFrames();
+				frameTreePromise.then(() => singlefile.ui.onLoadFrames());
 				preInitializationPromises.push(frameTreePromise);
 			}
 			if (options.loadDeferredImages) {
 				const lazyLoadPromise = lazyLoader.process(options);
-				if (options.shadowEnabled) {
-					singlefile.ui.onLoadingDeferResources();
-					lazyLoadPromise.then(() => singlefile.ui.onLoadDeferResources());
-				}
+				singlefile.ui.onLoadingDeferResources();
+				lazyLoadPromise.then(() => singlefile.ui.onLoadDeferResources());
 				preInitializationPromises.push(lazyLoadPromise);
 			}
 		}
@@ -106,30 +100,26 @@ this.singlefile.top = this.singlefile.top || (() => {
 					index++;
 				}
 				browser.runtime.sendMessage({ method: "ui.processProgress", index, maxIndex, options: {} });
-				if (options.shadowEnabled) {
-					singlefile.ui.onLoadResource(index, maxIndex);
-				}
+				singlefile.ui.onLoadResource(index, maxIndex, options);
 			} if (event.type == event.PAGE_ENDED) {
 				browser.runtime.sendMessage({ method: "ui.processEnd", options: {} });
-			} else if (options.shadowEnabled) {
-				if (!event.detail.frame) {
-					if (event.type == event.PAGE_LOADING) {
-						singlefile.ui.onPageLoading();
-					} else if (event.type == event.PAGE_LOADED) {
-						singlefile.ui.onLoadPage();
-					} else if (event.type == event.STAGE_STARTED) {
-						if (event.detail.step < 3) {
-							singlefile.ui.onStartStage(event.detail.step);
-						}
-					} else if (event.type == event.STAGE_ENDED) {
-						if (event.detail.step < 3) {
-							singlefile.ui.onEndStage(event.detail.step);
-						}
-					} else if (event.type == event.STAGE_TASK_STARTED) {
-						singlefile.ui.onStartStageTask(event.detail.step, event.detail.task);
-					} else if (event.type == event.STAGE_TASK_ENDED) {
-						singlefile.ui.onEndStageTask(event.detail.step, event.detail.task);
+			} else if (!event.detail.frame) {
+				if (event.type == event.PAGE_LOADING) {
+					singlefile.ui.onPageLoading();
+				} else if (event.type == event.PAGE_LOADED) {
+					singlefile.ui.onLoadPage();
+				} else if (event.type == event.STAGE_STARTED) {
+					if (event.detail.step < 3) {
+						singlefile.ui.onStartStage(event.detail.step);
 					}
+				} else if (event.type == event.STAGE_ENDED) {
+					if (event.detail.step < 3) {
+						singlefile.ui.onEndStage(event.detail.step);
+					}
+				} else if (event.type == event.STAGE_TASK_STARTED) {
+					singlefile.ui.onStartStageTask(event.detail.step, event.detail.task);
+				} else if (event.type == event.STAGE_TASK_ENDED) {
+					singlefile.ui.onEndStageTask(event.detail.step, event.detail.task);
 				}
 			}
 		};
@@ -160,9 +150,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 		if (options.selected) {
 			singlefile.ui.unmarkSelection();
 		}
-		if (options.shadowEnabled) {
-			singlefile.ui.onEndPage();
-		}
+		singlefile.ui.onEndPage(options);
 		if (options.displayStats) {
 			console.log("SingleFile stats"); // eslint-disable-line no-console
 			console.table(page.stats); // eslint-disable-line no-console
