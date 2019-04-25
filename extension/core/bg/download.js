@@ -62,9 +62,10 @@ singlefile.download = (() => {
 					return await downloadPage(message, { confirmFilename: message.confirmFilename, incognito: tab.incognito, filenameConflictAction: message.filenameConflictAction });
 				} catch (error) {
 					console.error(error); // eslint-disable-line no-console
-					URL.revokeObjectURL(message.url);
 					singlefile.ui.onError(sender.tab.id, {});
 					return {};
+				} finally {
+					URL.revokeObjectURL(message.url);
 				}
 			}
 		}
@@ -100,7 +101,6 @@ singlefile.download = (() => {
 				} else if (errorMessage == "conflictaction prompt not yet implemented" && options.filenameConflictAction) {
 					return downloadPage(page, { confirmFilename: options.confirmFilename });
 				} else if (errorMessage.includes("canceled")) {
-					URL.revokeObjectURL(page.url);
 					return {};
 				} else {
 					throw error;
@@ -115,13 +115,11 @@ singlefile.download = (() => {
 			function onChanged(event) {
 				if (event.id == downloadId && event.state) {
 					if (event.state.current == "complete") {
-						URL.revokeObjectURL(page.url);
 						resolve({});
 						browser.downloads.onChanged.removeListener(onChanged);
 					}
 					if (event.state.current == "interrupted") {
 						if (event.error && event.error.current == "USER_CANCELED") {
-							URL.revokeObjectURL(page.url);
 							resolve({});
 						} else {
 							reject(new Error(event.state.current));
