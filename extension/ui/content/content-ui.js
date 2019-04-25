@@ -409,8 +409,10 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 		if (!lineElement) {
 			lineElement = createElement(LOGS_LINE_TAGNAME, logsWindowElement);
 			lineElement.setAttribute("data-id", id);
-			lineElement.style.setProperty("display", "flex");
-			lineElement.style.setProperty("justify-content", "space-between");
+			lineElement.style.setProperty("display", "flex", "important");
+			lineElement.style.setProperty("justify-content", "space-between", "important");
+			lineElement.style.setProperty("padding-top", "2px", "important");
+			lineElement.style.setProperty("padding-bottom", "2px", "important");
 			const textElement = createElement(LOGS_LINE_ELEMENT_TAGNAME, lineElement);
 			textElement.style.setProperty("font-size", "13px", "important");
 			textElement.style.setProperty("font-family", "arial, sans-serif", "important");
