@@ -99,7 +99,7 @@ singlefile.download = (() => {
 				} else if (errorMessage == "conflictaction prompt not yet implemented" && options.filenameConflictAction) {
 					return downloadPage(page, { confirmFilename: options.confirmFilename });
 				} else if (errorMessage.includes("canceled")) {
-					return Promise.resolve({});
+					return {};
 				} else {
 					throw error;
 				}
