@@ -408,7 +408,7 @@
         "description": "Label 'Step' (for 'Step x / 4') in the log panel"
     },
     "logPanelWidth": {
-        "message": "120",
+        "message": "190",
         "description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
     },
     "profileDefaultSettings": {
