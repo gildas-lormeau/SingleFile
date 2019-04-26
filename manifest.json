@@ -17,8 +17,8 @@
 			],
 			"run_at": "document_start",
 			"js": [
-				"lib/hooks/hooks-frame.js",
 				"lib/browser-polyfill/chrome-browser-polyfill.js",
+				"lib/hooks/hooks-frame.js",
 				"lib/single-file/util/doc-helper.js",
 				"lib/single-file/util/doc-util.js",
 				"lib/frame-tree/content/content-frame-tree.js",
@@ -120,6 +120,7 @@
 		}
 	},
 	"web_accessible_resources": [
+		"lib/hooks/hooks-web.js",
 		"extension/core/content/content-download.js",
 		"extension/core/pages/downloader.html"
 	],
