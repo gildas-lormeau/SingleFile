@@ -107,6 +107,7 @@ exports.getPageData = async options => {
 			}
 		}
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
+		scripts = "this.browser = { runtime: { getURL:() => " + JSON.stringify(require.resolve("../../lib/hooks/hooks-web.js")) + " } }" + scripts;
 		if (options.browserDebug) {
 			await driver.sleep(3000);
 		}

@@ -83,6 +83,7 @@ exports.getPageData = async options => {
 			await page.setBypassCSP(true);
 		}
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
+		scripts = "this.browser = { runtime: { getURL:() => " + JSON.stringify(require.resolve("../../lib/hooks/hooks-web.js")) + " } }" + scripts;
 		await page.evaluateOnNewDocument(scripts);
 		if (options.browserDebug) {
 			await page.waitFor(3000);

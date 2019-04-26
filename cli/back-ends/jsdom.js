@@ -82,7 +82,8 @@ exports.getPageData = async options => {
 		options.insertFaviconLink = true;
 		const win = dom.window;
 		const doc = win.document;
-		const scripts = (await Promise.all(SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()))).join("\n");
+		let scripts = (await Promise.all(SCRIPTS.concat(options.browserScripts || []).map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()))).join("\n");
+		scripts = "this.browser = { runtime: { getURL:() => " + JSON.stringify(require.resolve("../../lib/hooks/hooks-web.js")) + " } }" + scripts;
 		dom.window.eval(scripts);
 		if (dom.window.document.readyState == "loading") {
 			await new Promise(resolve => win.document.onload = resolve);

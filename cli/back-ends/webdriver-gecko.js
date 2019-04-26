@@ -97,6 +97,7 @@ exports.getPageData = async options => {
 			}
 		}
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString().replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")).join("\n");
+		scripts = "this.browser = { runtime: { getURL:() => " + JSON.stringify(require.resolve("../../lib/hooks/hooks-web.js")) + " } }" + scripts;
 		if (options.browserDebug) {
 			await driver.findElement(By.css("html")).sendKeys(Key.SHIFT + Key.F5);
 			await driver.sleep(3000);
