@@ -42,6 +42,7 @@ const args = require("yargs")
 		"browser-wait-until": "networkidle0",
 		"browser-debug": false,
 		"browser-extensions": [],
+		"browser-scripts": [],
 		"compress-CSS": true,
 		"compress-HTML": true,
 		"filename-template": "",
@@ -80,8 +81,10 @@ const args = require("yargs")
 	.choices("browser-wait-until", ["networkidle0", "networkidle2", "load", "domcontentloaded"])
 	.options("browser-debug", { description: "Enable debug mode (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("browser-debug")
-	.options("browser-extensions", { description: "List of extension paths separated by a space and relative to cli folder (webdriver-gecko, webdriver-chromium)" })
+	.options("browser-extensions", { description: "List of extension paths separated by a space and relative to the 'cli' folder (webdriver-gecko, webdriver-chromium)" })
 	.array("browser-extensions")
+	.options("browser-scripts", { description: "List of script paths separated by a space and relative to the 'cli' folder" })
+	.array("browser-scripts")
 	.options("compress-CSS", { description: "Compress CSS stylesheets" })
 	.boolean("compress-CSS")
 	.options("compress-HTML", { description: "Compress HTML content" })
@@ -137,6 +140,7 @@ args.compressHTML = args.compressHtml;
 if (!/^(https?|file):\/\//.test(args.url)) {
 	args.url = fileUrl(args.url);
 }
+args.browserScripts = args.browserScripts.map(path => require.resolve(path));
 require(backEnds[args.backEnd]).getPageData(args).then(pageData => {
 	if (args.output) {
 		require("fs").writeFileSync(args.output, pageData.content);

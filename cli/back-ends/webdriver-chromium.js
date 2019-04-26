@@ -106,7 +106,7 @@ exports.getPageData = async options => {
 				window.setSize(options.browserWidth, options.browserHeight);
 			}
 		}
-		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
+		let scripts = SCRIPTS.concat(options.browserScripts).map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
 		scripts = "this.browser = { runtime: { getURL:() => " + JSON.stringify(require.resolve("../../lib/hooks/hooks-web.js")) + " } }" + scripts;
 		if (options.browserDebug) {
 			await driver.sleep(3000);
