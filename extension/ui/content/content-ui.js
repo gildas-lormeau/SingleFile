@@ -427,6 +427,8 @@ this.singlefile.ui = this.singlefile.ui || (() => {
 			statusElement.style.setProperty("background-color", "white", "important");
 			statusElement.style.setProperty("min-width", "15px", "important");
 			statusElement.style.setProperty("text-align", "center", "important");
+			statusElement.style.setProperty("position", "relative", "important");
+			statusElement.style.setProperty("top", "1px", "important");
 			statusElement.style.setProperty("will-change", "opacity", "important");
 		}
 		updateLogLine(lineElement, textContent, textStatus);
