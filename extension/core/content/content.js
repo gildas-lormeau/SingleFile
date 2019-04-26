@@ -132,7 +132,7 @@ this.singlefile.top = this.singlefile.top || (() => {
 			options.canvasData = selectedFrame.canvasData;
 			options.fontsData = selectedFrame.fontsData;
 			options.stylesheetsData = selectedFrame.stylesheetsData;
-			options.imageData = selectedFrame.imageData;
+			options.imagesData = selectedFrame.imagesData;
 			options.postersData = selectedFrame.postersData;
 			options.usedFonts = selectedFrame.usedFonts;
 			options.shadowRootsData = selectedFrame.shadowRootsData;
