@@ -462,17 +462,18 @@ body {
     background-color: #fbfbfb;
 }
 
+.maximized body {
+    margin-top: 8px;
+}
+
 .maximized main {
-    margin: 8px;
+    margin: 0px;
     border: solid 1px rgb(191, 191, 191);
+    background-color: #fbfbfb;
 }
 
 html.maximized {
     background-color: #f0f0f0;
-}
-
-.maximized main {
-    background-color: white;
 }
 
 .maximized .profiles {
