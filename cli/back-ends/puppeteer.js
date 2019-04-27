@@ -63,6 +63,9 @@ exports.getPageData = async options => {
 	if (!options.browserHeadless && options.browserDebug) {
 		browserOptions.args.push("--auto-open-devtools-for-tabs");
 	}
+	if (options.browserWidth && options.browserHeight) {
+		browserOptions.args.push("--window-size=" + options.browserWidth + "," + options.browserHeight);
+	}
 	if (options.browserExecutablePath) {
 		browserOptions.executablePath = options.browserExecutablePath || "chrome";
 	}
