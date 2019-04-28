@@ -362,19 +362,26 @@ singlefile.config = (() => {
 			filename: "singlefile-settings.json",
 			saveAs: true
 		};
-		const downloadId = await browser.downloads.download(downloadInfo);
+		let downloadId;
+		try {
+			downloadId = await browser.downloads.download(downloadInfo);
+		} catch (error) {
+			if (!error.message || !error.message.toLowerCase().includes("canceled")) {
+				throw error;
+			}
+		} finally {
+			URL.revokeObjectURL(url);
+		}
 		return new Promise((resolve, reject) => {
 			browser.downloads.onChanged.addListener(onChanged);
 
 			function onChanged(event) {
 				if (event.id == downloadId && event.state) {
 					if (event.state.current == "complete") {
-						URL.revokeObjectURL(url);
 						resolve({});
 						browser.downloads.onChanged.removeListener(onChanged);
 					}
 					if (event.state.current == "interrupted" && (!event.error || event.error.current != "USER_CANCELED")) {
-						URL.revokeObjectURL(url);
 						reject(new Error(event.state.current));
 						browser.downloads.onChanged.removeListener(onChanged);
 					}
