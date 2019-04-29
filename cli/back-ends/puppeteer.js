@@ -92,6 +92,7 @@ exports.getPageData = async options => {
 			await page.waitFor(3000);
 		}
 		await page.goto(options.url, {
+			timeout: 0,
 			waitUntil: options.browserWaitUntil || "networkidle0"
 		});
 		return await page.evaluate(async options => {
