@@ -28,4 +28,4 @@ You can also disable the options below. Some resources (e.g. images, frames) on 
  - Images > save deferred images
 
 ## Why pages saved with SingleFile weight more than uncompressed MAFF files?
-To integrate them into the HTML file, all binary resources such as images or fonts are transformed into [data URIs](https://en.wikipedia.org/wiki/Data_URI_scheme). These URIs allow the binary content to be encoded in[base64](https://en.wikipedia.org/wiki/Base64) and to be stored as text in the HTML file. When encoded in base64, a binary resource will weigh about 33% more. This overload also has an impact on the size of the saved page.
+To integrate them into the HTML file, all binary resources such as images or fonts are transformed into [data URIs](https://en.wikipedia.org/wiki/Data_URI_scheme). These URIs allow the binary content to be encoded in [base64](https://en.wikipedia.org/wiki/Base64) and to be stored as text in the HTML file. When encoded in base64, a binary resource will weigh about 33% more. This overload also has an impact on the size of the saved page.
