@@ -362,15 +362,23 @@ singlefile.config = (() => {
 			filename: "singlefile-settings.json",
 			saveAs: true
 		};
+		try {
+			return await downloadConfig(downloadInfo);
+		} finally {
+			URL.revokeObjectURL(url);
+		}
+	}
+
+	async function downloadConfig(downloadInfo) {
 		let downloadId;
 		try {
 			downloadId = await browser.downloads.download(downloadInfo);
 		} catch (error) {
-			if (!error.message || !error.message.toLowerCase().includes("canceled")) {
+			if (error.message && error.message.toLowerCase().includes("canceled")) {
+				return {};
+			} else {
 				throw error;
 			}
-		} finally {
-			URL.revokeObjectURL(url);
 		}
 		return new Promise((resolve, reject) => {
 			browser.downloads.onChanged.addListener(onChanged);
