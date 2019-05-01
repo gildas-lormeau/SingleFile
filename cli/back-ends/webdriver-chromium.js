@@ -108,7 +108,7 @@ exports.getPageData = async options => {
 			}
 		}
 		let scripts = SCRIPTS.concat(options.browserScripts).map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
-		scripts = "this.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")) + "`;" + scripts;
+		scripts = scripts + ";this.singlefile.lib.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")) + "`;";
 		if (options.browserDebug) {
 			await driver.sleep(3000);
 		}

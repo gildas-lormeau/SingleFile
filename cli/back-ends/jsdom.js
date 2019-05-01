@@ -84,7 +84,7 @@ exports.getPageData = async options => {
 		const win = dom.window;
 		const doc = win.document;
 		let scripts = (await Promise.all(SCRIPTS.concat(options.browserScripts).map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()))).join("\n");
-		scripts = "this.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")) + "`;" + scripts;
+		scripts = scripts + ";this.singlefile.lib.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")) + "`;";
 		dom.window.eval(scripts);
 		if (dom.window.document.readyState == "loading") {
 			await new Promise(resolve => win.document.onload = resolve);

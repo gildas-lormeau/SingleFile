@@ -98,7 +98,7 @@ exports.getPageData = async options => {
 			}
 		}
 		let scripts = SCRIPTS.concat(options.browserScripts).map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString().replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")).join("\n");
-		scripts = "window.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")) + "`;" + scripts;
+		scripts = scripts + ";window.singlefile.lib.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")) + "`;";
 		if (options.browserDebug) {
 			await driver.findElement(By.css("html")).sendKeys(Key.SHIFT + Key.F5);
 			await driver.sleep(3000);

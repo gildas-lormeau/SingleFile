@@ -87,7 +87,7 @@ exports.getPageData = async options => {
 			await page.setBypassCSP(true);
 		}
 		let scripts = SCRIPTS.concat(options.browserScripts).map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()).join("\n");
-		scripts = "this.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")) + "`;" + scripts;
+		scripts = scripts + ";this.singlefile.lib.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")) + "`;";
 		await page.evaluateOnNewDocument(scripts);
 		if (options.browserDebug) {
 			await page.waitFor(3000);
