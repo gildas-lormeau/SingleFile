@@ -109,7 +109,7 @@ singlefile.extension.ui.bg.menu = (() => {
 				});
 				menus.create({
 					id: MENU_ID_SAVE_SELECTED,
-					contexts: defaultContexts.concat("selection"),
+					contexts: defaultContexts,
 					title: MENU_SAVE_SELECTION_MESSAGE
 				});
 				menus.create({
