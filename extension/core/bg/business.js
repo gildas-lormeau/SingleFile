@@ -44,7 +44,7 @@ singlefile.extension.core.bg.business = (() => {
 
 	const frameScriptFiles = [
 		"/index.js",
-		"/lib/hooks/content/content-hooks-frame.js",
+		"/lib/hooks/content/content-hooks-frames.js",
 		"/lib/browser-polyfill/chrome-browser-polyfill.js",
 		"/lib/single-file/single-file-helper.js",
 		"/lib/fetch/content/content-fetch-resources.js",
