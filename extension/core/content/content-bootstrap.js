@@ -39,8 +39,6 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 
 	async function onMessage(message) {
 		if (message.method == "content.autosave") {
-			autoSavingPage = false;
-			singlefile.pageAutoSaved = false;
 			options = message.options;
 			await autoSavePage();
 			if (options.autoSaveRepeat) {
