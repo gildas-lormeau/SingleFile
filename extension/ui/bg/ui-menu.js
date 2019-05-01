@@ -91,8 +91,8 @@ singlefile.extension.ui.bg.menu = (() => {
 		const [profiles, allTabsData] = await Promise.all([config.getProfiles(), tabsData.get()]);
 		const options = await config.getOptions(tab && tab.url, true);
 		if (BROWSER_MENUS_API_SUPPORTED && options) {
-			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio"];
-			const defaultContextsDisabled = ["browser_action"];
+			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio", "selection"];
+			const defaultContextsDisabled = ["browser_action", "tab"];
 			const defaultContextsEnabled = defaultContextsDisabled.concat(...pageContextsEnabled);
 			const defaultContexts = options.contextMenuEnabled ? defaultContextsEnabled : defaultContextsDisabled;
 			await menus.removeAll();
