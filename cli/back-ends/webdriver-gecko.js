@@ -30,11 +30,12 @@ const firefox = require("selenium-webdriver/firefox");
 const { Builder, By, Key } = require("selenium-webdriver");
 
 const SCRIPTS = [
-	"../../lib/hooks/hooks-frame.js",
+	"../../index.js",
+	"../../lib/hooks/content/content-hooks-frame.js",
 	"../../lib/frame-tree/content/content-frame-tree.js",
 	"../../lib/lazy/content/content-lazy-loader.js",
-	"../../lib/single-file/util/doc-util.js",
-	"../../lib/single-file/util/doc-helper.js",
+	"../../lib/single-file/single-file-util.js",
+	"../../lib/single-file/single-file-helper.js",
 	"../../lib/single-file/vendor/css-tree.js",
 	"../../lib/single-file/vendor/html-srcset-parser.js",
 	"../../lib/single-file/vendor/css-minifier.js",
@@ -49,7 +50,7 @@ const SCRIPTS = [
 	"../../lib/single-file/modules/html-images-alt-minifier.js",
 	"../../lib/single-file/modules/html-serializer.js",
 	"../../lib/single-file/single-file-core.js",
-	"../../lib/single-file/single-file-browser.js"
+	"../../lib/single-file/single-file.js"
 ];
 
 exports.getPageData = async options => {
@@ -97,7 +98,7 @@ exports.getPageData = async options => {
 			}
 		}
 		let scripts = SCRIPTS.concat(options.browserScripts).map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString().replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")).join("\n");
-		scripts = "this.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/hooks-web.js")) + "`;" + scripts;
+		scripts = "window.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")) + "`;" + scripts;
 		if (options.browserDebug) {
 			await driver.findElement(By.css("html")).sendKeys(Key.SHIFT + Key.F5);
 			await driver.sleep(3000);
@@ -165,22 +166,22 @@ function getPageDataScript() {
 		.catch(error => callback({ error: error.toString() }));
 
 	async function getPageData() {
-		docHelper.initDoc(document);
+		singlefile.lib.helper.initDoc(document);
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		const preInitializationPromises = [];
 		if (!options.saveRawPage) {
 			if (!options.removeFrames) {
-				preInitializationPromises.push(frameTree.getAsync(options));
+				preInitializationPromises.push(singlefile.lib.frameTree.content.frames.getAsync(options));
 			}
 			if (options.loadDeferredImages) {
-				preInitializationPromises.push(lazyLoader.process(options));
+				preInitializationPromises.push(singlefile.lib.lazy.content.loader.process(options));
 			}
 		}
 		[options.framesData] = await Promise.all(preInitializationPromises);
 		options.doc = document;
 		options.win = window;
-		const SingleFile = SingleFileBrowser.getClass();
+		const SingleFile = singlefile.lib.getClass();
 		const singleFile = new SingleFile(options);
 		await singleFile.run();
 		return await singleFile.getPageData();

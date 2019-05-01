@@ -23,7 +23,7 @@
 
 /* global browser, singlefile, Blob, URL, document */
 
-singlefile.download = (() => {
+singlefile.extension.core.bg.downloads = (() => {
 
 	const partialContents = new Map();
 
@@ -62,7 +62,7 @@ singlefile.download = (() => {
 					return await downloadPage(message, { confirmFilename: message.confirmFilename, incognito: tab.incognito, filenameConflictAction: message.filenameConflictAction });
 				} catch (error) {
 					console.error(error); // eslint-disable-line no-console
-					singlefile.ui.onError(sender.tab.id, {});
+					singlefile.extension.ui.bg.main.onError(sender.tab.id, {});
 					return {};
 				} finally {
 					URL.revokeObjectURL(message.url);

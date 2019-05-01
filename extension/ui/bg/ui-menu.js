@@ -23,7 +23,7 @@
 
 /* global browser, singlefile, URL */
 
-singlefile.ui.menu = (() => {
+singlefile.extension.ui.bg.menu = (() => {
 
 	const menus = browser.menus || browser.contextMenus;
 	const BROWSER_MENUS_API_SUPPORTED = menus && menus.onClicked && menus.create && menus.update && menus.removeAll;
@@ -86,8 +86,10 @@ singlefile.ui.menu = (() => {
 	}
 
 	async function createMenus(tab) {
-		const [profiles, tabsData] = await Promise.all([singlefile.config.getProfiles(), singlefile.tabsData.get()]);
-		const options = await singlefile.config.getOptions(tab && tab.url, true);
+		const config = singlefile.extension.core.bg.config;
+		const tabsData = singlefile.extension.core.bg.tabsData;
+		const [profiles, allTabsData] = await Promise.all([config.getProfiles(), tabsData.get()]);
+		const options = await config.getOptions(tab && tab.url, true);
 		if (BROWSER_MENUS_API_SUPPORTED && options) {
 			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio"];
 			const defaultContextsDisabled = ["browser_action"];
@@ -168,7 +170,7 @@ singlefile.ui.menu = (() => {
 					contexts: defaultContexts,
 				});
 				const defaultProfileId = MENU_ID_SELECT_PROFILE_PREFIX + "default";
-				const defaultProfileChecked = !tabsData.profileName || tabsData.profileName == singlefile.config.DEFAULT_PROFILE_NAME;
+				const defaultProfileChecked = !allTabsData.profileName || allTabsData.profileName == config.DEFAULT_PROFILE_NAME;
 				menus.create({
 					id: defaultProfileId,
 					type: "radio",
@@ -186,22 +188,22 @@ singlefile.ui.menu = (() => {
 				menusTitleState.set(MENU_ID_ASSOCIATE_WITH_PROFILE, MENU_CREATE_DOMAIN_RULE_MESSAGE);
 				let rule;
 				if (tab && tab.url) {
-					rule = await singlefile.config.getRule(tab.url);
+					rule = await config.getRule(tab.url);
 				}
 				const currentProfileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "current";
-				const currentProfileIChecked = !rule || (rule.profile == singlefile.config.CURRENT_PROFILE_NAME);
+				const currentProfileIChecked = !rule || (rule.profile == config.CURRENT_PROFILE_NAME);
 				menus.create({
 					id: currentProfileId,
 					type: "radio",
 					contexts: defaultContexts,
-					title: singlefile.config.CURRENT_PROFILE_NAME,
+					title: config.CURRENT_PROFILE_NAME,
 					checked: currentProfileIChecked,
 					parentId: MENU_ID_ASSOCIATE_WITH_PROFILE
 				});
 				menusCheckedState.set(currentProfileId, currentProfileIChecked);
 
 				const associatedDefaultProfileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
-				const associatedDefaultProfileChecked = Boolean(rule) && (rule.profile == singlefile.config.DEFAULT_PROFILE_NAME);
+				const associatedDefaultProfileChecked = Boolean(rule) && (rule.profile == config.DEFAULT_PROFILE_NAME);
 				menus.create({
 					id: associatedDefaultProfileId,
 					type: "radio",
@@ -216,9 +218,9 @@ singlefile.ui.menu = (() => {
 
 				profileIndexes = new Map();
 				Object.keys(profiles).forEach((profileName, profileIndex) => {
-					if (profileName != singlefile.config.DEFAULT_PROFILE_NAME) {
+					if (profileName != config.DEFAULT_PROFILE_NAME) {
 						let profileId = MENU_ID_SELECT_PROFILE_PREFIX + profileIndex;
-						let profileChecked = tabsData.profileName == profileName;
+						let profileChecked = allTabsData.profileName == profileName;
 						menus.create({
 							id: profileId,
 							type: "radio",
@@ -295,111 +297,117 @@ singlefile.ui.menu = (() => {
 	}
 
 	async function initialize() {
+		const business = singlefile.extension.core.bg.business;
+		const tabs = singlefile.extension.core.bg.tabs;
+		const tabsData = singlefile.extension.core.bg.tabsData;
+		const config = singlefile.extension.core.bg.config;
+		const autosave = singlefile.extension.core.bg.autosave;
 		if (BROWSER_MENUS_API_SUPPORTED) {
 			createMenus();
 			menus.onClicked.addListener(async (event, tab) => {
 				if (event.menuItemId == MENU_ID_SAVE_PAGE) {
-					singlefile.core.saveTab(tab);
+					business.saveTab(tab);
 				}
 				if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
-					singlefile.core.saveTab(tab, { selected: true });
+					business.saveTab(tab, { selected: true });
 				}
 				if (event.menuItemId == MENU_ID_SAVE_FRAME) {
-					singlefile.core.saveTab(tab, { frameId: event.frameId });
+					business.saveTab(tab, { frameId: event.frameId });
 				}
 				if (event.menuItemId == MENU_ID_SAVE_SELECTED_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_SELECTED_TABS) {
-					const tabs = await singlefile.tabs.get({ currentWindow: true, highlighted: true });
-					tabs.forEach(tab => singlefile.core.saveTab(tab));
+					const allTabs = await tabs.get({ currentWindow: true, highlighted: true });
+					allTabs.forEach(tab => business.saveTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_SAVE_UNPINNED_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_UNPINNED_TABS) {
-					const tabs = await singlefile.tabs.get({ currentWindow: true, pinned: false });
-					tabs.forEach(tab => singlefile.core.saveTab(tab));
+					const allTabs = await tabs.get({ currentWindow: true, pinned: false });
+					allTabs.forEach(tab => business.saveTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_SAVE_ALL_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_ALL_TABS) {
-					const tabs = await singlefile.tabs.get({ currentWindow: true });
-					tabs.forEach(tab => singlefile.core.saveTab(tab));
+					const allTabs = await tabs.get({ currentWindow: true });
+					allTabs.forEach(tab => business.saveTab(tab));
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
-					const tabsData = await singlefile.tabsData.get(tab.id);
-					tabsData[tab.id].autoSave = true;
-					await singlefile.tabsData.set(tabsData);
+					const allTabsData = await tabsData.get(tab.id);
+					allTabsData[tab.id].autoSave = true;
+					await tabsData.set(allTabsData);
 					refreshExternalComponents(tab, { autoSave: true });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_DISABLED) {
-					const tabsData = await singlefile.tabsData.get();
-					Object.keys(tabsData).forEach(tabId => tabsData[tabId].autoSave = false);
-					tabsData.autoSaveUnpinned = tabsData.autoSaveAll = false;
-					await singlefile.tabsData.set(tabsData);
+					const allTabsData = await tabsData.get();
+					Object.keys(allTabsData).forEach(tabId => allTabsData[tabId].autoSave = false);
+					allTabsData.autoSaveUnpinned = allTabsData.autoSaveAll = false;
+					await tabsData.set(allTabsData);
 					refreshExternalComponents(tab, {});
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_ALL) {
-					const tabsData = await singlefile.tabsData.get();
-					tabsData.autoSaveAll = event.checked;
-					await singlefile.tabsData.set(tabsData);
+					const allTabsData = await tabsData.get();
+					allTabsData.autoSaveAll = event.checked;
+					await tabsData.set(allTabsData);
 					refreshExternalComponents(tab, { autoSave: true });
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_UNPINNED) {
-					const tabsData = await singlefile.tabsData.get();
-					tabsData.autoSaveUnpinned = event.checked;
-					await singlefile.tabsData.set(tabsData);
+					const allTabsData = await tabsData.get();
+					allTabsData.autoSaveUnpinned = event.checked;
+					await tabsData.set(allTabsData);
 					refreshExternalComponents(tab, { autoSave: true });
 				}
 				if (event.menuItemId.startsWith(MENU_ID_SELECT_PROFILE_PREFIX)) {
-					const [profiles, tabsData] = await Promise.all([singlefile.config.getProfiles(), singlefile.tabsData.get()]);
+					const [profiles, allTabsData] = await Promise.all([config.getProfiles(), tabsData.get()]);
 					const profileId = event.menuItemId.split(MENU_ID_SELECT_PROFILE_PREFIX)[1];
 					if (profileId == "default") {
-						tabsData.profileName = singlefile.config.DEFAULT_PROFILE_NAME;
+						allTabsData.profileName = config.DEFAULT_PROFILE_NAME;
 					} else {
 						const profileIndex = Number(profileId);
-						tabsData.profileName = Object.keys(profiles)[profileIndex];
+						allTabsData.profileName = Object.keys(profiles)[profileIndex];
 					}
-					await singlefile.tabsData.set(tabsData);
-					refreshExternalComponents(tab, { autoSave: await singlefile.autosave.isEnabled() });
+					await tabsData.set(allTabsData);
+					refreshExternalComponents(tab, { autoSave: await autosave.isEnabled() });
 				}
 				if (event.menuItemId.startsWith(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX)) {
-					const [profiles, rule] = await Promise.all([singlefile.config.getProfiles(), singlefile.config.getRule(tab.url)]);
+					const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url)]);
 					const profileId = event.menuItemId.split(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX)[1];
 					let profileName;
 					if (profileId == "default") {
-						profileName = singlefile.config.DEFAULT_PROFILE_NAME;
+						profileName = config.DEFAULT_PROFILE_NAME;
 					} else if (profileId == "current") {
-						profileName = singlefile.config.CURRENT_PROFILE_NAME;
+						profileName = config.CURRENT_PROFILE_NAME;
 					} else {
 						const profileIndex = Number(profileId);
 						profileName = Object.keys(profiles)[profileIndex];
 					}
 					if (rule) {
-						await singlefile.config.updateRule(rule.url, rule.url, profileName, profileName);
+						await config.updateRule(rule.url, rule.url, profileName, profileName);
 					} else {
 						await updateTitleValue(MENU_ID_ASSOCIATE_WITH_PROFILE, MENU_UPDATE_RULE_MESSAGE);
-						await singlefile.config.addRule(new URL(tab.url).hostname, profileName, profileName);
+						await config.addRule(new URL(tab.url).hostname, profileName, profileName);
 					}
 				}
 			});
-			(await singlefile.tabs.get({})).forEach(tab => refreshTab(tab));
+			(await tabs.get({})).forEach(tab => refreshTab(tab));
 		}
 	}
 
 	async function refreshExternalComponents(tab, options) {
-		const tabsData = await singlefile.tabsData.get(tab.id);
-		await singlefile.autosave.refreshTabs();
-		singlefile.ui.button.refresh(tab, options);
-		browser.runtime.sendMessage({ method: "options.refresh", profileName: tabsData.profileName }).catch(() => { /* ignored */ });
+		const allTabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);
+		await singlefile.extension.core.bg.autosave.refreshTabs();
+		singlefile.extension.ui.bg.button.refresh(tab, options);
+		browser.runtime.sendMessage({ method: "options.refresh", profileName: allTabsData.profileName }).catch(() => { /* ignored */ });
 	}
 
 	async function refreshTab(tab) {
+		const config = singlefile.extension.core.bg.config;
 		if (BROWSER_MENUS_API_SUPPORTED) {
-			const tabsData = await singlefile.tabsData.get(tab.id);
+			const allTabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);
 			const promises = [];
 			try {
-				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, !tabsData[tab.id].autoSave));
-				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, tabsData[tab.id].autoSave));
-				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(tabsData.autoSaveUnpinned)));
-				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(tabsData.autoSaveAll)));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, !allTabsData[tab.id].autoSave));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, allTabsData[tab.id].autoSave));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(allTabsData.autoSaveUnpinned)));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(allTabsData.autoSaveAll)));
 				if (tab && tab.url) {
 					let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 					let title = MENU_CREATE_DOMAIN_RULE_MESSAGE;
-					const [profiles, rule] = await Promise.all([singlefile.config.getProfiles(), singlefile.config.getRule(tab.url)]);
+					const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url)]);
 					if (rule) {
 						const profileIndex = profileIndexes.get(rule.profile);
 						if (profileIndex) {
@@ -408,7 +416,7 @@ singlefile.ui.menu = (() => {
 						}
 					}
 					Object.keys(profiles).forEach((profileName, profileIndex) => {
-						if (profileName == singlefile.config.DEFAULT_PROFILE_NAME) {
+						if (profileName == config.DEFAULT_PROFILE_NAME) {
 							promises.push(updateCheckedValue(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default", selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default"));
 						} else {
 							promises.push(updateCheckedValue(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex, selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex));

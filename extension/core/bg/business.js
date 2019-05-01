@@ -23,31 +23,31 @@
 
 /* global browser, singlefile, fetch, TextDecoder */
 
-singlefile.core = (() => {
+singlefile.extension.core.bg.business = (() => {
 
 	let contentScript, frameScript, modulesScript;
 
 	const contentScriptFiles = [
-		"/lib/hooks/hooks.js",
+		"/index.js",
+		"/lib/hooks/content/content-hooks.js",
 		"/lib/browser-polyfill/chrome-browser-polyfill.js",
 		"/lib/single-file/vendor/css-tree.js",
 		"/lib/single-file/vendor/html-srcset-parser.js",
-		"/lib/single-file/util/doc-helper.js",
-		"/lib/single-file/util/doc-util.js",
-		"/lib/fetch/content/fetch.js",
+		"/lib/single-file/single-file-util.js",
+		"/lib/single-file/single-file-helper.js",
+		"/lib/fetch/content/content-fetch-resources.js",
 		"/lib/single-file/single-file-core.js",
-		"/lib/single-file/single-file-browser.js",
-		"/extension/index.js",
-		"/extension/ui/content/content-ui.js",
-		"/extension/core/content/content.js"
+		"/lib/single-file/single-file.js",
+		"/extension/ui/content/content-ui-main.js",
+		"/extension/core/content/content-main.js"
 	];
 
 	const frameScriptFiles = [
-		"/lib/hooks/hooks-frame.js",
+		"/index.js",
+		"/lib/hooks/content/content-hooks-frame.js",
 		"/lib/browser-polyfill/chrome-browser-polyfill.js",
-		"/extension/index.js",
-		"/lib/single-file/util/doc-helper.js",
-		"/lib/fetch/content/fetch.js",
+		"/lib/single-file/single-file-helper.js",
+		"/lib/fetch/content/content-fetch-resources.js",
 		"/lib/frame-tree/content/content-frame-tree.js"
 	];
 
@@ -71,49 +71,53 @@ singlefile.core = (() => {
 	return { saveTab };
 
 	async function saveTab(tab, options = {}) {
-		if (singlefile.util.isAllowedURL(tab.url)) {
+		const config = singlefile.extension.core.bg.config;
+		const autosave = singlefile.extension.core.bg.autosave;
+		const tabs = singlefile.extension.core.bg.tabs;
+		const ui = singlefile.extension.ui.bg.main;
+		if (singlefile.extension.core.bg.util.isAllowedURL(tab.url)) {
 			await initScripts();
 			const tabId = tab.id;
 			options.tabId = tabId;
 			options.tabIndex = tab.index;
 			try {
 				if (options.autoSave) {
-					const options = await singlefile.config.getOptions(tab.url, true);
-					if (singlefile.autosave.isEnabled(tab)) {
-						await singlefile.tabs.sendMessage(tabId, { method: "content.autosave", options });
+					const options = await config.getOptions(tab.url, true);
+					if (autosave.isEnabled(tab)) {
+						await tabs.sendMessage(tabId, { method: "content.autosave", options });
 					}
 				} else {
-					singlefile.ui.onInitialize(tabId, options, 1);
-					const mergedOptions = await singlefile.config.getOptions(tab.url);
+					ui.onInitialize(tabId, options, 1);
+					const mergedOptions = await config.getOptions(tab.url);
 					Object.keys(options).forEach(key => mergedOptions[key] = options[key]);
 					let scriptsInjected;
 					if (!mergedOptions.removeFrames) {
 						try {
-							await browser.tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
+							await tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
 						} catch (error) {
 							// ignored
 						}
 					}
 					try {
 						await initScripts();
-						await browser.tabs.executeScript(tabId, { code: modulesScript + "\n" + contentScript, allFrames: false, runAt: "document_idle" });
+						await tabs.executeScript(tabId, { code: modulesScript + "\n" + contentScript, allFrames: false, runAt: "document_idle" });
 						scriptsInjected = true;
 					} catch (error) {
 						// ignored
 					}
 					if (scriptsInjected) {
-						singlefile.ui.onInitialize(tabId, options, 2);
+						ui.onInitialize(tabId, options, 2);
 						if (mergedOptions.frameId) {
-							await browser.tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: mergedOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
+							await tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: mergedOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
 						}
-						await singlefile.tabs.sendMessage(tabId, { method: "content.save", options: mergedOptions });
+						await tabs.sendMessage(tabId, { method: "content.save", options: mergedOptions });
 					} else {
-						singlefile.ui.onForbiddenDomain(tab, options);
+						ui.onForbiddenDomain(tab, options);
 					}
 				}
 			} catch (error) {
 				console.log(error); // eslint-disable-line no-console
-				singlefile.ui.onError(tabId, options);
+				ui.onError(tabId, options);
 			}
 		}
 	}

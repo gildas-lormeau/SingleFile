@@ -23,34 +23,34 @@
 
 /* global browser, singlefile, */
 
-singlefile.messages = (() => {
+singlefile.extension.core.bg.messages = (() => {
 
 	browser.runtime.onMessage.addListener((message, sender) => {
 		if (message.method.startsWith("tabs.")) {
-			return singlefile.tabs.onMessage(message, sender);
+			return singlefile.extension.core.bg.tabs.onMessage(message, sender);
 		}
 		if (message.method.startsWith("downloads.")) {
-			return singlefile.download.onMessage(message, sender);
+			return singlefile.extension.core.bg.downloads.onMessage(message, sender);
 		}
 		if (message.method.startsWith("autosave.")) {
-			return singlefile.autosave.onMessage(message, sender);
+			return singlefile.extension.core.bg.autosave.onMessage(message, sender);
 		}
 		if (message.method.startsWith("ui.")) {
-			return singlefile.ui.onMessage(message, sender);
+			return singlefile.extension.ui.bg.main.onMessage(message, sender);
 		}
 		if (message.method.startsWith("config.")) {
-			return singlefile.config.onMessage(message, sender);
+			return singlefile.extension.core.bg.config.onMessage(message, sender);
 		}
 		if (message.method.startsWith("tabsData.")) {
-			return singlefile.tabsData.onMessage(message, sender);
+			return singlefile.extension.core.bg.tabsData.onMessage(message, sender);
 		}
 	});
 	if (browser.runtime.onMessageExternal) {
 		browser.runtime.onMessageExternal.addListener(async (message, sender) => {
-			const tabs = await singlefile.tabs.get({ currentWindow: true, active: true });
-			const currentTab = tabs[0];
-			if (currentTab && singlefile.util.isAllowedURL(currentTab.url)) {
-				return singlefile.autosave.onMessageExternal(message, currentTab, sender);
+			const allTabs = await singlefile.extension.core.bg.tabs.get({ currentWindow: true, active: true });
+			const currentTab = allTabs[0];
+			if (currentTab && singlefile.extension.core.bg.util.isAllowedURL(currentTab.url)) {
+				return singlefile.extension.core.bg.autosave.onMessageExternal(message, currentTab, sender);
 			} else {
 				return false;
 			}

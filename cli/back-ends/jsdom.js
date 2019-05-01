@@ -32,9 +32,10 @@ const iconv = require("iconv-lite");
 const request = require("request-promise-native");
 
 const SCRIPTS = [
+	"../../index.js",
 	"../../lib/frame-tree/content/content-frame-tree.js",
-	"../../lib/single-file/util/doc-util.js",
-	"../../lib/single-file/util/doc-helper.js",
+	"../../lib/single-file/single-file-util.js",
+	"../../lib/single-file/single-file-helper.js",
 	"../../lib/single-file/vendor/css-tree.js",
 	"../../lib/single-file/vendor/html-srcset-parser.js",
 	"../../lib/single-file/vendor/css-minifier.js",
@@ -83,7 +84,7 @@ exports.getPageData = async options => {
 		const win = dom.window;
 		const doc = win.document;
 		let scripts = (await Promise.all(SCRIPTS.concat(options.browserScripts).map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString()))).join("\n");
-		scripts = "this.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/hooks-web.js")) + "`;" + scripts;
+		scripts = "this.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")) + "`;" + scripts;
 		dom.window.eval(scripts);
 		if (dom.window.document.readyState == "loading") {
 			await new Promise(resolve => win.document.onload = resolve);
@@ -91,7 +92,7 @@ exports.getPageData = async options => {
 		win.Element.prototype.getBoundingClientRect = undefined;
 		executeFrameScripts(doc, scripts);
 		if (!options.saveRawPage && !options.removeFrames) {
-			options.framesData = await win.frameTree.getAsync(options);
+			options.framesData = await win.singlefile.lib.frameTree.content.frames.getAsync(options);
 		}
 		options.win = win;
 		options.doc = doc;
@@ -121,26 +122,26 @@ function executeFrameScripts(doc, scripts) {
 }
 
 function getSingleFileClass(win) {
-	const docHelper = win.docHelper;
+	const helper = win.singlefile.lib.helper;
 	const modules = {
-		docHelper: docHelper,
-		srcsetParser: win.srcsetParser,
-		cssMinifier: win.cssMinifier,
-		htmlMinifier: win.htmlMinifier,
-		serializer: win.serializer,
-		fontsMinifier: win.fontsMinifier.getInstance(win.cssTree, win.fontPropertyParser, docHelper),
-		fontsAltMinifier: win.fontsAltMinifier.getInstance(win.cssTree),
-		cssRulesMinifier: win.cssRulesMinifier.getInstance(win.cssTree),
-		matchedRules: win.matchedRules.getInstance(win.cssTree),
-		mediasAltMinifier: win.mediasAltMinifier.getInstance(win.cssTree, win.mediaQueryParser),
-		imagesAltMinifier: win.imagesAltMinifier.getInstance(win.srcsetParser)
+		helper: helper,
+		srcsetParser: win.singlefile.lib.vendor.srcsetParser,
+		cssMinifier: win.singlefile.lib.vendor.cssMinifier,
+		htmlMinifier: win.singlefile.lib.modules.htmlMinifier,
+		serializer: win.singlefile.lib.modules.serializer,
+		fontsMinifier: win.singlefile.lib.modules.fontsMinifier,
+		fontsAltMinifier: win.singlefile.lib.modules.fontsAltMinifier,
+		cssRulesMinifier: win.singlefile.lib.modules.cssRulesMinifier,
+		matchedRules: win.singlefile.lib.modules.matchedRules,
+		mediasAltMinifier: win.singlefile.lib.modules.mediasAltMinifier,
+		imagesAltMinifier: win.singlefile.lib.modules.imagesAltMinifier
 	};
 	const domUtil = {
 		getResourceContent,
 		isValidFontUrl,
 		digestText
 	};
-	return win.SingleFileCore.getClass(win.docUtil.getInstance(modules, domUtil), win.cssTree);
+	return win.singlefile.lib.core.getClass(win.singlefile.lib.util.getInstance(modules, domUtil), win.singlefile.lib.vendor.cssTree);
 }
 
 async function digestText(algo, text) {

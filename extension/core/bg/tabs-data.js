@@ -21,12 +21,12 @@
  *   Source.
  */
 
-/* global browser, singlefile */
+/* global browser, singlefile, setTimeout */
 
-singlefile.tabsData = (() => {
+singlefile.extension.core.bg.tabsData = (() => {
 
-	let persistentData, temporaryData;
-	getPersistent().then(tabsData => persistentData = tabsData);
+	let persistentData, temporaryData, cleanedUp;
+	setTimeout(() => getPersistent().then(allTabsData => persistentData = allTabsData), 0);
 	return {
 		onMessage,
 		onTabRemoved,
@@ -48,9 +48,9 @@ singlefile.tabsData = (() => {
 		if (temporaryData) {
 			delete temporaryData[tabId];
 		}
-		const tabsData = await getPersistent();
-		delete tabsData[tabId];
-		setPersistent(tabsData);
+		const allTabsData = await getPersistent();
+		delete allTabsData[tabId];
+		setPersistent(allTabsData);
 	}
 
 	function getTemporary(desiredTabId) {
@@ -67,25 +67,26 @@ singlefile.tabsData = (() => {
 		if (!persistentData) {
 			const config = await browser.storage.local.get();
 			persistentData = config.tabsData || {};
-			cleanup();
 		}
+		cleanup();
 		if (desiredTabId !== undefined && !persistentData[desiredTabId]) {
 			persistentData[desiredTabId] = {};
 		}
 		return persistentData;
 	}
 
-	async function setPersistent(tabsData) {
-		persistentData = tabsData;
-		await browser.storage.local.set({ tabsData });
+	async function setPersistent(allTabsData) {
+		persistentData = allTabsData;
+		await browser.storage.local.set({ tabsData: allTabsData });
 	}
 
 	async function cleanup() {
-		if (persistentData) {
-			const tabs = await browser.tabs.query({});
+		if (!cleanedUp && singlefile.extension.core.bg.tabs) {
+			cleanedUp = true;
+			const allTabs = await singlefile.extension.core.bg.tabs.get({ currentWindow: true, highlighted: true });
 			Object.keys(persistentData).filter(key => {
 				if (key != "autoSaveAll" && key != "autoSaveUnpinned" && key != "profileName") {
-					return !tabs.find(tab => tab.id == key);
+					return !allTabs.find(tab => tab.id == key);
 				}
 			}).forEach(tabId => delete persistentData[tabId]);
 			await browser.storage.local.set({ tabsData: persistentData });

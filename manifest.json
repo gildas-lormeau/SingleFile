@@ -17,12 +17,12 @@
 			],
 			"run_at": "document_start",
 			"js": [
+				"index.js",
 				"lib/browser-polyfill/chrome-browser-polyfill.js",
-				"lib/hooks/hooks-frame.js",
-				"lib/single-file/util/doc-helper.js",
-				"lib/single-file/util/doc-util.js",
-				"lib/frame-tree/content/content-frame-tree.js",
-				"extension/index.js"
+				"lib/hooks/content/content-hooks-frame.js",
+				"lib/single-file/single-file-util.js",
+				"lib/single-file/single-file-helper.js",
+				"lib/frame-tree/content/content-frame-tree.js"
 			],
 			"all_frames": true,
 			"match_about_blank": true
@@ -32,8 +32,8 @@
 				"<all_urls>"
 			],
 			"js": [
-				"extension/index.js",
-				"extension/ui/content/infobar.js"
+				"index.js",
+				"extension/ui/content/content-ui-infobar.js"
 			]
 		},
 		{
@@ -42,38 +42,38 @@
 			],
 			"run_at": "document_start",
 			"js": [
-				"extension/index.js",
-				"lib/hooks/hooks.js",
+				"index.js",
+				"lib/hooks/content/content-hooks.js",
 				"extension/core/content/content-bootstrap.js"
 			]
 		}
 	],
 	"background": {
 		"scripts": [
+			"index.js",
 			"lib/browser-polyfill/chrome-browser-polyfill.js",
-			"lib/fetch/bg/fetch.js",
-			"lib/fetch/content/fetch.js",
-			"lib/frame-tree/bg/bg-frame-tree.js",
-			"extension/index.js",
-			"extension/core/bg/data/config.js",
-			"extension/core/bg/data/tabs-data.js",
+			"lib/fetch/bg/fetch-resources.js",
+			"lib/fetch/content/content-fetch-resources.js",
+			"lib/frame-tree/bg/frame-tree.js",
+			"extension/core/bg/config.js",
+			"extension/core/bg/tabs-data.js",
 			"extension/core/bg/util.js",
-			"extension/core/bg/core.js",
+			"extension/core/bg/business.js",
 			"extension/core/bg/messages.js",
 			"extension/core/bg/tabs.js",
-			"extension/core/bg/download.js",
+			"extension/core/bg/downloads.js",
 			"extension/core/bg/autosave.js",
-			"extension/ui/bg/bg-ui.js",
+			"extension/ui/bg/ui-main.js",
 			"extension/ui/bg/ui-menu.js",
 			"extension/ui/bg/ui-button.js",
-			"lib/lazy/bg/bg-lazy-timeout.js",
+			"lib/lazy/bg/lazy-timeout.js",
 			"lib/single-file/vendor/css-minifier.js",
 			"lib/single-file/vendor/css-tree.js",
 			"lib/single-file/vendor/css-media-query-parser.js",
 			"lib/single-file/vendor/html-srcset-parser.js",
 			"lib/single-file/vendor/css-font-property-parser.js",
-			"lib/single-file/util/doc-helper.js",
-			"lib/single-file/util/doc-util.js",
+			"lib/single-file/single-file-util.js",
+			"lib/single-file/single-file-helper.js",
 			"lib/single-file/modules/css-fonts-minifier.js",
 			"lib/single-file/modules/css-fonts-alt-minifier.js",
 			"lib/single-file/modules/css-medias-alt-minifier.js",
@@ -83,7 +83,7 @@
 			"lib/single-file/modules/html-serializer.js",
 			"lib/single-file/modules/html-images-alt-minifier.js",
 			"lib/single-file/single-file-core.js",
-			"lib/single-file/single-file-browser.js"
+			"lib/single-file/single-file.js"
 		],
 		"persistent": false
 	},
@@ -120,7 +120,7 @@
 		}
 	},
 	"web_accessible_resources": [
-		"lib/hooks/hooks-web.js",
+		"lib/hooks/content/content-hooks-web.js",
 		"extension/core/content/content-download.js",
 		"extension/core/pages/downloader.html"
 	],

@@ -23,7 +23,7 @@
 
 /* global singlefile */
 
-singlefile.util = (() => {
+singlefile.extension.core.bg.util = (() => {
 
 	const FORBIDDEN_DOMAINS = [
 		"chrome.google.com/webstore/",

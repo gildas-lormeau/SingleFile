@@ -23,7 +23,7 @@
 
 /* global browser, singlefile */
 
-singlefile.ui.button = (() => {
+singlefile.extension.ui.bg.button = (() => {
 
 	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_128.png";
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_128_wait";
@@ -40,11 +40,12 @@ singlefile.ui.button = (() => {
 	const DEFAULT_COLOR = [2, 147, 20, 192];
 
 	browser.browserAction.onClicked.addListener(async tab => {
-		const tabs = await singlefile.tabs.get({ currentWindow: true, highlighted: true });
-		if (!tabs.length) {
-			singlefile.core.saveTab(tab);
+		const business = singlefile.extension.core.bg.business;
+		const allTabs = await singlefile.extension.core.bg.tabs.get({ currentWindow: true, highlighted: true });
+		if (!allTabs.length) {
+			business.saveTab(tab);
 		} else {
-			tabs.forEach(tab => (tab.active || tab.highlighted) && singlefile.core.saveTab(tab));
+			allTabs.forEach(tab => (tab.active || tab.highlighted) && business.saveTab(tab));
 		}
 	});
 
@@ -114,7 +115,7 @@ singlefile.ui.button = (() => {
 	}
 
 	function onForbiddenDomain(tab, options) {
-		if (singlefile.util.isAllowedProtocol(tab.url)) {
+		if (singlefile.extension.core.bg.util.isAllowedProtocol(tab.url)) {
 			refresh(tab.id, getProperties(options, BUTTON_BLOCKED_BADGE_MESSAGE, [255, 255, 255, 1], BUTTON_BLOCKED_TOOLTIP_MESSAGE));
 		}
 	}
@@ -135,9 +136,9 @@ singlefile.ui.button = (() => {
 	}
 
 	async function refreshTab(tab) {
-		const options = { autoSave: await singlefile.autosave.isEnabled(tab) };
+		const options = { autoSave: await singlefile.extension.core.bg.autosave.isEnabled(tab) };
 		const properties = getCurrentProperties(tab.id, options);
-		if (singlefile.util.isAllowedURL(tab.url)) {
+		if (singlefile.extension.core.bg.util.isAllowedURL(tab.url)) {
 			await refresh(tab.id, properties);
 		} else {
 			try {
@@ -152,8 +153,8 @@ singlefile.ui.button = (() => {
 		if (options.autoSave) {
 			return getProperties(options);
 		} else {
-			const tabsData = singlefile.tabsData.getTemporary(tabId);
-			delete tabsData[tabId].button;
+			const allTabsData = singlefile.extension.core.bg.tabsData.getTemporary(tabId);
+			delete allTabsData[tabId].button;
 			return getProperties(options);
 		}
 	}
@@ -168,9 +169,9 @@ singlefile.ui.button = (() => {
 	}
 
 	async function refresh(tabId, tabData) {
-		const tabsData = singlefile.tabsData.getTemporary(tabId);
-		const oldTabData = tabsData[tabId].button || {};
-		tabsData[tabId].button = tabData;
+		const allTabsData = singlefile.extension.core.bg.tabsData.getTemporary(tabId);
+		const oldTabData = allTabsData[tabId].button || {};
+		allTabsData[tabId].button = tabData;
 		if (!tabData.pendingRefresh) {
 			tabData.pendingRefresh = Promise.resolve();
 		}

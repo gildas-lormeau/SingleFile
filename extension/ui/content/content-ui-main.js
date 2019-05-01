@@ -21,11 +21,11 @@
  *   Source.
  */
 
-/* global SingleFileBrowser, browser, document, prompt, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, setTimeout, getSelection, Node */
+/* global browser, document, prompt, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, setTimeout, getSelection, Node */
 
-this.singlefile.ui = this.singlefile.ui || (() => {
+this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content.main || (() => {
 
-	const SingleFile = SingleFileBrowser.getClass();
+	const SingleFile = this.singlefile.lib.getClass();
 
 	const MASK_TAGNAME = "singlefile-mask";
 	const PROGRESS_BAR_TAGNAME = "singlefile-progress-bar";

@@ -22,7 +22,7 @@
  */
 /* global browser, singlefile */
 
-singlefile.tabs = (() => {
+singlefile.extension.core.bg.tabs = (() => {
 
 	browser.tabs.onCreated.addListener(tab => onTabCreated(tab));
 	browser.tabs.onActivated.addListener(activeInfo => onTabActivated(activeInfo));
@@ -31,31 +31,32 @@ singlefile.tabs = (() => {
 	return {
 		onMessage,
 		get: options => browser.tabs.query(options),
-		sendMessage: (tabId, message, options) => browser.tabs.sendMessage(tabId, message, options)
+		sendMessage: (tabId, message, options) => browser.tabs.sendMessage(tabId, message, options),
+		executeScript: (tabId, scriptData) => browser.tabs.executeScript(tabId, scriptData)
 	};
 
 	async function onMessage(message) {
 		if (message.method.endsWith(".getOptions")) {
-			return singlefile.config.getOptions(message.url);
+			return singlefile.extension.core.bg.config.getOptions(message.url);
 		}
 	}
 
 	function onTabCreated(tab) {
-		singlefile.ui.onTabCreated(tab);
+		singlefile.extension.ui.bg.main.onTabCreated(tab);
 	}
 
 	async function onTabActivated(activeInfo) {
 		const tab = await browser.tabs.get(activeInfo.tabId);
-		singlefile.ui.onTabActivated(tab, activeInfo);
+		singlefile.extension.ui.bg.main.onTabActivated(tab, activeInfo);
 	}
 
 	function onTabUpdated(tabId, changeInfo, tab) {
-		singlefile.autosave.onTabUpdated(tabId, changeInfo, tab);
-		singlefile.ui.onTabUpdated(tabId, changeInfo, tab);
+		singlefile.extension.core.bg.autosave.onTabUpdated(tabId, changeInfo, tab);
+		singlefile.extension.ui.bg.main.onTabUpdated(tabId, changeInfo, tab);
 	}
 
 	function onTabRemoved(tabId) {
-		singlefile.tabsData.onTabRemoved(tabId);
+		singlefile.extension.core.bg.tabsData.onTabRemoved(tabId);
 	}
 
 })();

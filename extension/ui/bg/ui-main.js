@@ -23,45 +23,45 @@
 
 /* global singlefile */
 
-singlefile.ui = (() => {
+singlefile.extension.ui.bg.main = (() => {
 
 	return {
 		onMessage(message, sender) {
 			if (message.method.endsWith(".refreshMenu")) {
-				return singlefile.ui.menu.onMessage(message, sender);
+				return singlefile.extension.ui.bg.menu.onMessage(message, sender);
 			} else {
-				return singlefile.ui.button.onMessage(message, sender);
+				return singlefile.extension.ui.bg.button.onMessage(message, sender);
 			}
 		},
 		async refreshTab(tab) {
-			return Promise.all([singlefile.ui.menu.refreshTab(tab), singlefile.ui.button.refreshTab(tab)]);
+			return Promise.all([singlefile.extension.ui.bg.menu.refreshTab(tab), singlefile.extension.ui.bg.button.refreshTab(tab)]);
 		},
 		onForbiddenDomain(tab, options) {
-			singlefile.ui.button.onForbiddenDomain(tab, options);
+			singlefile.extension.ui.bg.button.onForbiddenDomain(tab, options);
 		},
 		onInitialize(tabId, options, step) {
-			singlefile.ui.button.onInitialize(tabId, options, step);
+			singlefile.extension.ui.bg.button.onInitialize(tabId, options, step);
 		},
 		onProgress(tabId, index, maxIndex, options) {
-			singlefile.ui.button.onProgress(tabId, index, maxIndex, options);
+			singlefile.extension.ui.bg.button.onProgress(tabId, index, maxIndex, options);
 		},
 		onError(tabId, options) {
-			singlefile.ui.button.onError(tabId, options);
+			singlefile.extension.ui.bg.button.onError(tabId, options);
 		},
 		onEnd(tabId, options) {
-			singlefile.ui.button.onEnd(tabId, options);
+			singlefile.extension.ui.bg.button.onEnd(tabId, options);
 		},
 		onTabCreated(tab) {
-			singlefile.ui.button.onTabCreated(tab);
-			singlefile.ui.menu.onTabCreated(tab);
+			singlefile.extension.ui.bg.button.onTabCreated(tab);
+			singlefile.extension.ui.bg.menu.onTabCreated(tab);
 		},
 		onTabActivated(tab, activeInfo) {
-			singlefile.ui.menu.onTabActivated(tab, activeInfo);
-			singlefile.ui.button.onTabActivated(tab);
+			singlefile.extension.ui.bg.menu.onTabActivated(tab, activeInfo);
+			singlefile.extension.ui.bg.button.onTabActivated(tab);
 		},
 		onTabUpdated(tabId, changeInfo, tab) {
-			singlefile.ui.menu.onTabUpdated(tabId, changeInfo, tab);
-			singlefile.ui.button.onTabUpdated(tabId, changeInfo, tab);
+			singlefile.extension.ui.bg.menu.onTabUpdated(tabId, changeInfo, tab);
+			singlefile.extension.ui.bg.button.onTabUpdated(tabId, changeInfo, tab);
 		}
 	};
 

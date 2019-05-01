@@ -21,11 +21,13 @@
  *   Source.
  */
 
-/* global singlefile, frameTree, browser, window, addEventListener, removeEventListener, document, location, docHelper, setTimeout */
+/* global browser, window, addEventListener, removeEventListener, document, location, setTimeout */
 
-this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
+this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.core.content.bootstrap || (async () => {
 
-	let unloadListenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage;
+	const singlefile = this.singlefile;
+
+	let unloadListenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved;
 	browser.runtime.sendMessage({ method: "autosave.init" }).then(message => {
 		options = message.options;
 		autoSaveEnabled = message.autoSaveEnabled;
@@ -53,22 +55,24 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 	}
 
 	async function autoSavePage() {
-		if ((!autoSavingPage || autoSaveTimeout) && !singlefile.pageAutoSaved) {
+		const helper = singlefile.lib.helper;
+		const frames = singlefile.lib.frameTree.content.frames;
+		if ((!autoSavingPage || autoSaveTimeout) && !pageAutoSaved) {
 			autoSavingPage = true;
 			if (options.autoSaveDelay && !autoSaveTimeout) {
 				autoSaveTimeout = setTimeout(() => {
 					autoSavePage();
 				}, options.autoSaveDelay * 1000);
 			} else {
-				const docData = docHelper.preProcessDoc(document, window, options);
+				const docData = helper.preProcessDoc(document, window, options);
 				let framesData = [];
 				autoSaveTimeout = null;
-				if (!options.removeFrames && this.frameTree) {
-					framesData = await frameTree.getAsync(options);
+				if (!options.removeFrames && frames) {
+					framesData = await frames.getAsync(options);
 				}
 				browser.runtime.sendMessage({
 					method: "autosave.save",
-					content: docHelper.serialize(document, false),
+					content: helper.serialize(document, false),
 					canvasData: docData.canvasData,
 					fontsData: docData.fontsData,
 					stylesheetsData: docData.stylesheetsData,
@@ -80,8 +84,8 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 					framesData,
 					url: location.href
 				});
-				docHelper.postProcessDoc(document, options);
-				singlefile.pageAutoSaved = true;
+				helper.postProcessDoc(document, options);
+				pageAutoSaved = true;
 				autoSavingPage = false;
 			}
 		}
@@ -102,15 +106,16 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 	}
 
 	function onUnload() {
-		if (!singlefile.pageAutoSaved || options.autoSaveUnload) {
-			const docData = docHelper.preProcessDoc(document, window, options);
+		const helper = singlefile.lib.helper;
+		if (!pageAutoSaved || options.autoSaveUnload) {
+			const docData = helper.preProcessDoc(document, window, options);
 			let framesData = [];
-			if (this.frameTree && !options.removeFrames) {
-				framesData = frameTree.getSync(options);
+			if (!options.removeFrames && singlefile.lib.frameTree.content.frames) {
+				framesData = singlefile.lib.frameTree.content.frames.getSync(options);
 			}
 			browser.runtime.sendMessage({
 				method: "autosave.save",
-				content: docHelper.serialize(document),
+				content: helper.serialize(document),
 				canvasData: docData.canvasData,
 				fontsData: docData.fontsData,
 				stylesheetsData: docData.stylesheetsData,
@@ -124,4 +129,5 @@ this.singlefile.bootstrap = this.singlefile.bootstrap || (async () => {
 			});
 		}
 	}
+
 })();

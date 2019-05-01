@@ -21,16 +21,38 @@
  *   Source.
  */
 
-/* global browser */
+/* global */
 
-this.frameTree = (() => {
-
-	"use strict";
-
-	browser.runtime.onMessage.addListener((message, sender) => {
-		if (message.method == "frameTree.initResponse") {
-			browser.tabs.sendMessage(sender.tab.id, message, { frameId: 0 });
+if (!this.singlefile) {
+	this.singlefile = {
+		extension: {
+			core: {
+				bg: {},
+				content: {}
+			},
+			ui: {
+				bg: {},
+				content: {}
+			}
+		},
+		lib: {
+			fetch: {
+				bg: {},
+				content: {}
+			},
+			frameTree: {
+				bg: {},
+				content: {}
+			},
+			hooks: {
+				content: {}
+			},
+			lazy: {
+				bg: {},
+				content: {}
+			},
+			vendor: {},
+			modules: {}
 		}
-	});
-
-})();
+	};
+}

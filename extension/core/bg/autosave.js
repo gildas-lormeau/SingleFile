@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global singlefile, SingleFileBrowser, URL, Blob */
+/* global singlefile, URL, Blob */
 
-singlefile.autosave = (() => {
+singlefile.extension.core.bg.autosave = (() => {
 
 	return {
 		onMessage,
@@ -35,7 +35,7 @@ singlefile.autosave = (() => {
 
 	async function onMessage(message, sender) {
 		if (message.method.endsWith(".init")) {
-			const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(sender.tab.url, true), isEnabled(sender.tab)]);
+			const [options, autoSaveEnabled] = await Promise.all([singlefile.extension.core.bg.config.getOptions(sender.tab.url, true), isEnabled(sender.tab)]);
 			return { options, autoSaveEnabled };
 		}
 		if (message.method.endsWith(".save")) {
@@ -44,11 +44,12 @@ singlefile.autosave = (() => {
 	}
 
 	async function onMessageExternal(message, currentTab) {
+		const tabsData = singlefile.extension.core.bg.tabsData;
 		if (message.method == "enableAutoSave") {
-			const tabsData = await singlefile.tabsData.get(currentTab.id);
-			tabsData[currentTab.id].autoSave = message.enabled;
-			await singlefile.tabsData.set(tabsData);
-			singlefile.ui.refreshTab(currentTab);
+			const allTabsData = await tabsData.get(currentTab.id);
+			allTabsData[currentTab.id].autoSave = message.enabled;
+			await tabsData.set(allTabsData);
+			singlefile.extension.ui.bg.main.refreshTab(currentTab);
 		}
 		if (message.method == "isAutoSaveEnabled") {
 			return await isEnabled(currentTab);
@@ -56,35 +57,37 @@ singlefile.autosave = (() => {
 	}
 
 	async function onTabUpdated(tabId, changeInfo, tab) {
-		const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(tab.url, true), isEnabled(tab)]);
+		const [options, autoSaveEnabled] = await Promise.all([singlefile.extension.core.bg.config.getOptions(tab.url, true), isEnabled(tab)]);
 		if (options && ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && autoSaveEnabled)) {
 			if (changeInfo.status == "complete") {
-				singlefile.core.saveTab(tab, { autoSave: true });
+				singlefile.extension.core.bg.business.saveTab(tab, { autoSave: true });
 			}
 		}
 	}
 
 	async function isEnabled(tab) {
+		const config = singlefile.extension.core.bg.config;
 		if (tab) {
-			const [tabsData, rule] = await Promise.all([singlefile.tabsData.get(), singlefile.config.getRule(tab.url)]);
-			return singlefile.util.isAllowedURL(tab.url) &&
-				Boolean(tabsData.autoSaveAll ||
-					(tabsData.autoSaveUnpinned && !tab.pinned) ||
-					(tabsData[tab.id] && tabsData[tab.id].autoSave)) &&
-				(!rule || rule.autoSaveProfile != singlefile.config.DISABLED_PROFILE_NAME);
+			const [allTabsData, rule] = await Promise.all([singlefile.extension.core.bg.tabsData.get(), config.getRule(tab.url)]);
+			return singlefile.extension.core.bg.util.isAllowedURL(tab.url) &&
+				Boolean(allTabsData.autoSaveAll ||
+					(allTabsData.autoSaveUnpinned && !tab.pinned) ||
+					(allTabsData[tab.id] && allTabsData[tab.id].autoSave)) &&
+				(!rule || rule.autoSaveProfile != config.DISABLED_PROFILE_NAME);
 		}
 	}
 
 	async function refreshTabs() {
-		const tabs = (await singlefile.tabs.get({})).filter(tab => singlefile.util.isAllowedURL(tab.url));
-		return Promise.all(tabs.map(async tab => {
-			const [options, autoSaveEnabled] = await Promise.all([singlefile.config.getOptions(tab.url, true), isEnabled(tab)]);
-			singlefile.tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options }).catch(() => { /* ignored */ });
+		const tabs = singlefile.extension.core.bg.tabs;
+		const allTabs = (await tabs.get({})).filter(tab => singlefile.extension.core.bg.util.isAllowedURL(tab.url));
+		return Promise.all(allTabs.map(async tab => {
+			const [options, autoSaveEnabled] = await Promise.all([singlefile.extension.core.bg.config.getOptions(tab.url, true), isEnabled(tab)]);
+			tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options }).catch(() => { /* ignored */ });
 		}));
 	}
 
 	async function saveContent(message, tab) {
-		const options = await singlefile.config.getOptions(tab.url, true);
+		const options = await singlefile.extension.core.bg.config.getOptions(tab.url, true);
 		const tabId = tab.id;
 		options.content = message.content;
 		options.url = message.url;
@@ -108,20 +111,20 @@ singlefile.autosave = (() => {
 		options.onprogress = async event => {
 			if (event.type == event.RESOURCES_INITIALIZED) {
 				maxIndex = event.detail.max;
-				singlefile.ui.onProgress(tabId, index, maxIndex, { autoSave: true });
+				singlefile.extension.ui.bg.main.onProgress(tabId, index, maxIndex, { autoSave: true });
 			}
 			if (event.type == event.RESOURCE_LOADED) {
 				index++;
-				singlefile.ui.onProgress(tabId, index, maxIndex, { autoSave: true });
+				singlefile.extension.ui.bg.main.onProgress(tabId, index, maxIndex, { autoSave: true });
 			} else if (event.type == event.PAGE_ENDED) {
-				singlefile.ui.onEnd(tabId, { autoSave: true });
+				singlefile.extension.ui.bg.main.onEnd(tabId, { autoSave: true });
 			}
 		};
-		const processor = new (SingleFileBrowser.getClass())(options);
+		const processor = new (singlefile.lib.getClass())(options);
 		await processor.run();
 		const page = await processor.getPageData();
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
-		return singlefile.download.downloadPage(page, options);
+		return singlefile.extension.core.bg.downloads.downloadPage(page, options);
 	}
 
 })();

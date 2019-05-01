@@ -344,9 +344,9 @@
 			if (target == profileNamesInput) {
 				await refresh(profileNamesInput.value);
 				if (sidePanelDisplay) {
-					const tabsData = await browser.runtime.sendMessage({ method: "tabsData.get" });
-					tabsData.profileName = profileNamesInput.value;
-					await browser.runtime.sendMessage({ method: "tabsData.set", tabsData });
+					const allTabsData = await browser.runtime.sendMessage({ method: "tabsData.get" });
+					allTabsData.profileName = profileNamesInput.value;
+					await browser.runtime.sendMessage({ method: "tabsData.set", tabsData: allTabsData });
 					await browser.runtime.sendMessage({ method: "ui.refreshMenu" });
 				}
 			} else {
@@ -434,8 +434,8 @@
 		sidePanelDisplay = true;
 		document.querySelector(".options-title").remove();
 		document.documentElement.classList.add("side-panel");
-		const tabsData = await browser.runtime.sendMessage({ method: "tabsData.get" });
-		refresh(tabsData.profileName);
+		const allTabsData = await browser.runtime.sendMessage({ method: "tabsData.get" });
+		refresh(allTabsData.profileName);
 	} else {
 		refresh();
 	}

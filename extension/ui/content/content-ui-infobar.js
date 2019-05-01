@@ -23,7 +23,7 @@
 
 /* global browser, document, Node, window, top, getComputedStyle, location, setTimeout */
 
-this.singlefile.infobar = this.singlefile.infobar || (() => {
+this.singlefile.extension.ui.content.infobar = this.singlefile.extension.ui.content.infobar || (() => {
 
 	const INFOBAR_TAGNAME = "singlefile-infobar";
 	const LINK_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABmJLR0QABQDuAACS38mlAAAACXBIWXMAACfuAAAn7gExzuVDAAAAB3RJTUUH4ggCDDcMnYqGGAAAATtJREFUOMvNk19LwlAYxp+zhOoqpxJ1la3patFVINk/oRDBLuyreiPFMmcj/QQRSOOwpEINDCpwRr7d1HBMc4sufO7Oe877e5/zcA4wbWLDi8urGr2+vXsOFfJZdnPboDtuueoRcQEH6RQDgNBP8bxcpfvmA0QxPHF6u/MMInLVHFDP7kMUwyjks2xU8+ZGkgGAbtSp1e5gRhBc+0KQHHSjTg2TY0tVEItF/wYqV6+pYXKoiox0atvjOuQXYnILqiJj/ztceXUlGEirGGRyC0pCciDDmfm6mlYxiFtNKAkJmb0dV2OxpFGxpNFE0NmFTtxqQpbiHsgojQX1bBuyFMfR4S7zk+PYjE5PcizI0xD+6685jubnZvH41MJwgL+p233B8tKiF7SeXMPnYIB+/8OXg2hERO44wzC1+gJYGGpVbtoqiAAAAABJRU5ErkJggg==";
@@ -37,7 +37,7 @@ this.singlefile.infobar = this.singlefile.infobar || (() => {
 			displayIcon();
 		}
 	}
-	return true;
+	return {};
 
 	async function displayIcon() {
 		let singleFileComment = document.documentElement.childNodes[0];

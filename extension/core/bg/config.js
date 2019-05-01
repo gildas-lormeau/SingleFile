@@ -23,7 +23,7 @@
 
 /* global browser, singlefile, URL, Blob */
 
-singlefile.config = (() => {
+singlefile.extension.core.bg.config = (() => {
 
 	const CURRENT_PROFILE_NAME = "-";
 	const DEFAULT_PROFILE_NAME = "__Default_Settings__";
@@ -211,8 +211,8 @@ singlefile.config = (() => {
 	}
 
 	async function getOptions(url, autoSave) {
-		const [config, rule, tabsData] = await Promise.all([getConfig(), getRule(url), singlefile.tabsData.get()]);
-		const tabProfileName = tabsData.profileName || DEFAULT_PROFILE_NAME;
+		const [config, rule, allTabsData] = await Promise.all([getConfig(), getRule(url), singlefile.extension.core.bg.tabsData.get()]);
+		const tabProfileName = allTabsData.profileName || DEFAULT_PROFILE_NAME;
 		if (rule) {
 			const profileName = rule[autoSave ? "autoSaveProfile" : "profile"];
 			return config.profiles[profileName == CURRENT_PROFILE_NAME ? tabProfileName : profileName];
@@ -231,7 +231,8 @@ singlefile.config = (() => {
 	}
 
 	async function renameProfile(oldProfileName, profileName) {
-		const [config, tabsData] = await Promise.all([getConfig(), singlefile.tabsData.get()]);
+		const tabsData = singlefile.extension.core.bg.tabsData;
+		const [config, allTabsData] = await Promise.all([getConfig(), tabsData.get()]);
 		if (!Object.keys(config.profiles).includes(oldProfileName)) {
 			throw new Error("Profile not found");
 		}
@@ -241,9 +242,9 @@ singlefile.config = (() => {
 		if (oldProfileName == DEFAULT_PROFILE_NAME) {
 			throw new Error("Default settings cannot be renamed");
 		}
-		if (tabsData.profileName == oldProfileName) {
-			tabsData.profileName = profileName;
-			await singlefile.tabsData.set(tabsData);
+		if (allTabsData.profileName == oldProfileName) {
+			allTabsData.profileName = profileName;
+			await tabsData.set(allTabsData);
 		}
 		config.profiles[profileName] = config.profiles[oldProfileName];
 		config.rules.forEach(rule => {
@@ -259,16 +260,17 @@ singlefile.config = (() => {
 	}
 
 	async function deleteProfile(profileName) {
-		const [config, tabsData] = await Promise.all([getConfig(), singlefile.tabsData.get()]);
+		const tabsData = singlefile.extension.core.bg.tabsData;
+		const [config, allTabsData] = await Promise.all([getConfig(), tabsData.get()]);
 		if (!Object.keys(config.profiles).includes(profileName)) {
 			throw new Error("Profile not found");
 		}
 		if (profileName == DEFAULT_PROFILE_NAME) {
 			throw new Error("Default settings cannot be deleted");
 		}
-		if (tabsData.profileName == profileName) {
-			delete tabsData.profileName;
-			await singlefile.tabsData.set(tabsData);
+		if (allTabsData.profileName == profileName) {
+			delete allTabsData.profileName;
+			await tabsData.set(allTabsData);
 		}
 		config.rules.forEach(rule => {
 			if (rule.profile == profileName) {
@@ -337,10 +339,11 @@ singlefile.config = (() => {
 	}
 
 	async function resetProfiles() {
+		const tabsData = singlefile.extension.core.bg.tabsData;
 		await pendingUpgradePromise;
-		const tabsData = await singlefile.tabsData.get();
-		delete tabsData.profileName;
-		await singlefile.tabsData.set(tabsData);
+		const allTabsData = await tabsData.get();
+		delete allTabsData.profileName;
+		await tabsData.set(allTabsData);
 		await browser.storage.local.remove(["profiles", "rules"]);
 		await browser.storage.local.set({ profiles: { [DEFAULT_PROFILE_NAME]: DEFAULT_CONFIG }, rules: [] });
 	}
