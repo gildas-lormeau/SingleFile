@@ -21,8 +21,6 @@
  *   Source.
  */
 
-/* global */
-
 this.singlefile = this.singlefile || {
 	extension: {
 		core: {
