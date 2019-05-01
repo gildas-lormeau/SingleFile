@@ -31,7 +31,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 
 	const MAX_CONTENT_SIZE = 64 * (1024 * 1024);
 	const DOWNLOADER_FRAME_ID = "single-file-downloader";
-	const SingleFile = singlefile.lib.getClass();
+	const SingleFile = singlefile.lib.SingleFile.getClass();
 
 	let processing = false;
 

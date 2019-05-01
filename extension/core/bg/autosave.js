@@ -120,7 +120,7 @@ singlefile.extension.core.bg.autosave = (() => {
 				singlefile.extension.ui.bg.main.onEnd(tabId, { autoSave: true });
 			}
 		};
-		const processor = new (singlefile.lib.getClass())(options);
+		const processor = new (singlefile.lib.SingleFile.getClass())(options);
 		await processor.run();
 		const page = await processor.getPageData();
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));

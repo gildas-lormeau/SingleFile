@@ -112,7 +112,7 @@ exports.getPageData = async options => {
 			[options.framesData] = await Promise.all(preInitializationPromises);
 			options.doc = document;
 			options.win = window;
-			const SingleFile = singlefile.lib.getClass();
+			const SingleFile = singlefile.lib.SingleFile.getClass();
 			const singleFile = new SingleFile(options);
 			await singleFile.run();
 			return await singleFile.getPageData();
