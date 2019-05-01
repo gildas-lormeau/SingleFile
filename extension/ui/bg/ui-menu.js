@@ -92,10 +92,20 @@ singlefile.extension.ui.bg.menu = (() => {
 		const options = await config.getOptions(tab && tab.url, true);
 		if (BROWSER_MENUS_API_SUPPORTED && options) {
 			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio", "selection"];
-			const defaultContextsDisabled = ["browser_action", "tab"];
+			const defaultContextsDisabled = ["browser_action"];
+			try {
+				menus.create({
+					id: "temporary-id",
+					contexts: ["tab"],
+					title: "title"
+				});
+				defaultContextsDisabled.push("tab");
+			} catch (error) {
+				// ignored
+			}
+			await menus.removeAll();
 			const defaultContextsEnabled = defaultContextsDisabled.concat(...pageContextsEnabled);
 			const defaultContexts = options.contextMenuEnabled ? defaultContextsEnabled : defaultContextsDisabled;
-			await menus.removeAll();
 			if (options.contextMenuEnabled) {
 				menus.create({
 					id: MENU_ID_SAVE_PAGE,
