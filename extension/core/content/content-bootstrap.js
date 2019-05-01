@@ -38,7 +38,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	return {};
 
 	async function onMessage(message) {
-		if (message.method == "content.autosave") {
+		if (autoSaveEnabled && message.method == "content.autosave") {
 			options = message.options;
 			await autoSavePage();
 			if (options.autoSaveRepeat) {
