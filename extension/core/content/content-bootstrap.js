@@ -43,7 +43,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			await autoSavePage();
 			if (options.autoSaveRepeat) {
 				setTimeout(() => {
-					if (!autoSavingPage) {
+					if (autoSaveEnabled && !autoSavingPage) {
 						pageAutoSaved = false;
 						options.autoSaveDelay = 0;
 						onMessage(message);
