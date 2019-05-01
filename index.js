@@ -23,36 +23,34 @@
 
 /* global */
 
-if (!this.singlefile) {
-	this.singlefile = {
-		extension: {
-			core: {
-				bg: {},
-				content: {}
-			},
-			ui: {
-				bg: {},
-				content: {}
-			}
+this.singlefile = this.singlefile || {
+	extension: {
+		core: {
+			bg: {},
+			content: {}
 		},
-		lib: {
-			fetch: {
-				bg: {},
-				content: {}
-			},
-			frameTree: {
-				bg: {},
-				content: {}
-			},
-			hooks: {
-				content: {}
-			},
-			lazy: {
-				bg: {},
-				content: {}
-			},
-			vendor: {},
-			modules: {}
+		ui: {
+			bg: {},
+			content: {}
 		}
-	};
-}
+	},
+	lib: {
+		fetch: {
+			bg: {},
+			content: {}
+		},
+		frameTree: {
+			bg: {},
+			content: {}
+		},
+		hooks: {
+			content: {}
+		},
+		lazy: {
+			bg: {},
+			content: {}
+		},
+		vendor: {},
+		modules: {}
+	}
+};
