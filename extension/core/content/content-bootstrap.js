@@ -42,9 +42,13 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			options = message.options;
 			await autoSavePage();
 			if (options.autoSaveRepeat) {
-				pageAutoSaved = false;
-				options.autoSaveDelay = 0;
-				setTimeout(() => onMessage(message), options.autoSaveRepeatDelay * 1000);
+				setTimeout(() => {
+					if (!autoSavingPage) {
+						pageAutoSaved = false;
+						options.autoSaveDelay = 0;
+						onMessage(message);
+					}
+				}, options.autoSaveRepeatDelay * 1000);
 			}
 		}
 		if (message.method == "content.init") {
