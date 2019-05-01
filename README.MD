@@ -23,7 +23,7 @@ https://www.youtube.com/watch?v=RdV8DBW5b0g
 
 ## Install
 SingleFile can be installed:
- - via the Firefox Add-ons website: https://addons.mozilla.org/en-US/firefox/addon/single-file,
+ - via the Firefox Add-ons website: https://addons.mozilla.org/addon/single-file,
  - via the Chrome Web Store: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle,
  - by downloading the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and installing it manually.
 
@@ -52,13 +52,13 @@ SingleFile can be installed:
  - See the extension help in the options page for more detailed information about the options and technical notes.
 
 ## Release notes
-See https://addons.mozilla.org/en-US/firefox/addon/single-file/versions
+See https://addons.mozilla.org/firefox/addon/single-file/versions/
 
 ## FAQ
 See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md
 
 ## Statistics (Firefox)
-See https://addons.mozilla.org/en-US/firefox/addon/single-file/statistics/?last=90
+See https://addons.mozilla.org/firefox/addon/single-file/statistics/?last=90
 
 ## Command Line Interface
  - You can save web pages to HTML from the command line interface. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD.

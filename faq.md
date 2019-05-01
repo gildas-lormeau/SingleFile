@@ -3,7 +3,7 @@
 ## Does SingleFile upload any data to third-party servers?
 As stated in the [privacy policy](https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md), SingleFile does not upload any data to third-party servers. All the work is done in your browser. However, when you save a page with SingleFile, it can download resources (images, CSS, frame contents, fonts etc.) that are not displayed or not cached but present in the page.
 
-## Why can't I save some pages like https://addons.mozilla.org/en-US/firefox/addon/single-file?
+## Why can't I save some pages like https://addons.mozilla.org/addon/single-file?
 For security purposes, browsers block web extensions on certain domains. This prevents a malicious extension to remove or change bad reviews, for example.
 
 ## Why isn't the infobar displayed / Why cannot I save a page from the filesystem in Chrome?
