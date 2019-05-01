@@ -223,9 +223,6 @@ singlefile.extension.ui.bg.menu = (() => {
 					parentId: MENU_ID_ASSOCIATE_WITH_PROFILE
 				});
 				menusCheckedState.set(associatedDefaultProfileId, associatedDefaultProfileChecked);
-
-
-
 				profileIndexes = new Map();
 				Object.keys(profiles).forEach((profileName, profileIndex) => {
 					if (profileName != config.DEFAULT_PROFILE_NAME) {
