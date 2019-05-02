@@ -93,15 +93,17 @@ singlefile.extension.ui.bg.menu = (() => {
 		if (BROWSER_MENUS_API_SUPPORTED && options) {
 			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio", "selection"];
 			const defaultContextsDisabled = ["browser_action"];
-			try {
-				menus.create({
-					id: "temporary-id",
-					contexts: ["tab"],
-					title: "title"
-				});
-				defaultContextsDisabled.push("tab");
-			} catch (error) {
-				// ignored
+			if (options.tabMenuEnabled) {
+				try {
+					menus.create({
+						id: "temporary-id",
+						contexts: ["tab"],
+						title: "title"
+					});
+					defaultContextsDisabled.push("tab");
+				} catch (error) {
+					// ignored
+				}
 			}
 			await menus.removeAll();
 			const defaultContextsEnabled = defaultContextsDisabled.concat(...pageContextsEnabled);
