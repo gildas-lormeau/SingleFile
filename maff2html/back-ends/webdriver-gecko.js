@@ -98,7 +98,11 @@ exports.getPageData = async options => {
 			}
 		}
 		let scripts = SCRIPTS.map(scriptPath => fs.readFileSync(require.resolve(scriptPath)).toString().replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")).join("\n");
-		scripts = scripts + ";window.singlefile.lib.getFileContent = () => `" + fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")) + "`;";
+		const fileContents = {
+			"../../lib/hooks/content/content-hooks-web.js": fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")).toString(),
+			"../../lib/hooks/content/content-hooks-frames-web.js": fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-frames-web.js")).toString(),
+		};
+		scripts = scripts + ";this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(fileContents) + ")[filename];";
 		if (options.browserDebug) {
 			await driver.findElement(By.css("html")).sendKeys(Key.SHIFT + Key.F5);
 			await driver.sleep(3000);
