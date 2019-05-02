@@ -298,6 +298,7 @@
 				const config = JSON.parse(serializedConfig);
 				await browser.runtime.sendMessage({ method: "config.importConfig", config });
 				await refresh(DEFAULT_PROFILE_NAME);
+				refreshExternalComponents();
 				fileInput.value = "";
 			}
 		};
