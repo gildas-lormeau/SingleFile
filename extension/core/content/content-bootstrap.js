@@ -33,7 +33,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		autoSaveEnabled = message.autoSaveEnabled;
 		refresh();
 	});
-	browser.runtime.onMessage.addListener(message => onMessage(message));
+	browser.runtime.onMessage.addListener(message => { onMessage(message); });
 	browser.runtime.sendMessage({ method: "ui.loadURL" });
 	return {};
 

@@ -35,12 +35,13 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 
 	let processing = false;
 
-	browser.runtime.onMessage.addListener(message => {
+	browser.runtime.onMessage.addListener(async message => {
 		if (!ui) {
 			ui = singlefile.extension.ui.content.main;
 		}
 		if (message.method == "content.save") {
-			savePage(message);
+			await savePage(message);
+			return {};
 		}
 	});
 	return {};
