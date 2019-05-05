@@ -52,7 +52,6 @@ singlefile.extension.ui.bg.button = (() => {
 	return {
 		onMessage,
 		onTabCreated,
-		onTabActivated,
 		onTabUpdated,
 		onInitialize,
 		onProgress,
@@ -96,10 +95,6 @@ singlefile.extension.ui.bg.button = (() => {
 	}
 
 	async function onTabCreated(tab) {
-		refreshTab(tab);
-	}
-
-	async function onTabActivated(tab) {
 		refreshTab(tab);
 	}
 

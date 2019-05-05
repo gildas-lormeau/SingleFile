@@ -57,7 +57,6 @@ singlefile.extension.ui.bg.main = (() => {
 		},
 		onTabActivated(tab, activeInfo) {
 			singlefile.extension.ui.bg.menu.onTabActivated(tab, activeInfo);
-			singlefile.extension.ui.bg.button.onTabActivated(tab);
 		},
 		onTabUpdated(tabId, changeInfo, tab) {
 			singlefile.extension.ui.bg.menu.onTabUpdated(tabId, changeInfo, tab);
