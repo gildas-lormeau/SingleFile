@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, singlefile, URL, Blob */
+/* global browser, singlefile, navigator, URL, Blob */
 
 singlefile.extension.core.bg.config = (() => {
 
@@ -75,6 +75,7 @@ singlefile.extension.core.bg.config = (() => {
 		DEFAULT_PROFILE_NAME,
 		DISABLED_PROFILE_NAME,
 		CURRENT_PROFILE_NAME,
+		get: getConfig,
 		getRule,
 		getOptions,
 		getProfiles,
@@ -100,6 +101,9 @@ singlefile.extension.core.bg.config = (() => {
 			Object.keys(config.profiles).forEach(profileName => applyUpgrade(config.profiles[profileName]));
 			await browser.storage.local.remove(["profiles", "defaultProfile", "rules"]);
 			await browser.storage.local.set({ profiles: config.profiles, rules: config.rules });
+		}
+		if (!config.maxParallelWorkers) {
+			await browser.storage.local.set({ maxParallelWorkers: navigator.hardwareConcurrency || 4 });
 		}
 	}
 
@@ -133,7 +137,7 @@ singlefile.extension.core.bg.config = (() => {
 
 	async function getConfig() {
 		await pendingUpgradePromise;
-		return browser.storage.local.get(["profiles", "rules"]);
+		return browser.storage.local.get(["profiles", "rules", "maxParallelWorkers"]);
 	}
 
 	function sortRules(ruleLeft, ruleRight) {
@@ -360,7 +364,7 @@ singlefile.extension.core.bg.config = (() => {
 
 	async function exportConfig() {
 		const config = await getConfig();
-		const url = URL.createObjectURL(new Blob([JSON.stringify({ profiles: config.profiles, rules: config.rules }, null, 2)], { type: "text/json" }));
+		const url = URL.createObjectURL(new Blob([JSON.stringify({ profiles: config.profiles, rules: config.rules, maxParallelWorkers: config.maxParallelWorkers }, null, 2)], { type: "text/json" }));
 		const downloadInfo = {
 			url,
 			filename: "singlefile-settings.json",
@@ -403,8 +407,8 @@ singlefile.extension.core.bg.config = (() => {
 	}
 
 	async function importConfig(config) {
-		await browser.storage.local.remove(["profiles", "rules"]);
-		await browser.storage.local.set({ profiles: config.profiles, rules: config.rules });
+		await browser.storage.local.remove(["profiles", "rules", "maxParallelWorkers"]);
+		await browser.storage.local.set({ profiles: config.profiles, rules: config.rules, maxParallelWorkers: config.maxParallelWorkers });
 		await upgrade();
 	}
 

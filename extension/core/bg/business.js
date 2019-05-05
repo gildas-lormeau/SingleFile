@@ -68,6 +68,9 @@ singlefile.extension.core.bg.business = (() => {
 
 	initScripts();
 
+	const pendingSaves = new Map();
+	let maxParallelWorkers;
+
 	return { saveTab };
 
 	async function saveTab(tab, options = {}) {
@@ -75,6 +78,7 @@ singlefile.extension.core.bg.business = (() => {
 		const autosave = singlefile.extension.core.bg.autosave;
 		const tabs = singlefile.extension.core.bg.tabs;
 		const ui = singlefile.extension.ui.bg.main;
+		maxParallelWorkers = (await config.get()).maxParallelWorkers;
 		if (singlefile.extension.core.bg.util.isAllowedURL(tab.url)) {
 			await initScripts();
 			const tabId = tab.id;
@@ -82,16 +86,16 @@ singlefile.extension.core.bg.business = (() => {
 			options.tabIndex = tab.index;
 			try {
 				if (options.autoSave) {
-					const options = await config.getOptions(tab.url, true);
+					const tabOptions = await config.getOptions(tab.url, true);
 					if (autosave.isEnabled(tab)) {
-						await tabs.sendMessage(tabId, { method: "content.autosave", options });
+						await requestSaveTab(tabId, "content.autosave", tabOptions);
 					}
 				} else {
 					ui.onInitialize(tabId, options, 1);
-					const mergedOptions = await config.getOptions(tab.url);
-					Object.keys(options).forEach(key => mergedOptions[key] = options[key]);
+					const tabOptions = await config.getOptions(tab.url);
+					Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 					let scriptsInjected;
-					if (!mergedOptions.removeFrames) {
+					if (!tabOptions.removeFrames) {
 						try {
 							await tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
 						} catch (error) {
@@ -106,18 +110,48 @@ singlefile.extension.core.bg.business = (() => {
 						// ignored
 					}
 					if (scriptsInjected) {
-						ui.onInitialize(tabId, options, 2);
-						if (mergedOptions.frameId) {
-							await tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: mergedOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
+						ui.onInitialize(tabId, tabOptions, 2);
+						if (tabOptions.frameId) {
+							await tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: tabOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
 						}
-						await tabs.sendMessage(tabId, { method: "content.save", options: mergedOptions });
+						await requestSaveTab(tabId, "content.save", tabOptions);
 					} else {
-						ui.onForbiddenDomain(tab, options);
+						ui.onForbiddenDomain(tab, tabOptions);
 					}
 				}
 			} catch (error) {
 				console.log(error); // eslint-disable-line no-console
 				ui.onError(tabId, options);
+			}
+		}
+	}
+
+	function requestSaveTab(tabId, method, options) {
+		return new Promise((resolve, reject) => requestSaveTab(tabId, method, options, resolve, reject));
+
+		async function requestSaveTab(tabId, method, options, resolve, reject) {
+			if (pendingSaves.size < maxParallelWorkers) {
+				pendingSaves.set(tabId, { options, resolve, reject });
+				try {
+					await singlefile.extension.core.bg.tabs.sendMessage(tabId, { method, options });
+					pendingSaves.delete(tabId);
+					resolve();
+				} catch (error) {
+					pendingSaves.delete(tabId);
+					reject(error);
+				} finally {
+					next();
+				}
+			} else {
+				pendingSaves.set(tabId, { options, resolve, reject });
+			}
+		}
+
+		function next() {
+			if (pendingSaves.size) {
+				const [tabId, { resolve, reject, options }] = Array.from(pendingSaves)[0];
+				pendingSaves.delete(tabId);
+				requestSaveTab(tabId, method, options, resolve, reject);
 			}
 		}
 	}
