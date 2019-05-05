@@ -88,6 +88,7 @@ singlefile.extension.ui.bg.button = (() => {
 		if (message.method.endsWith(".processCancelled")) {
 			onCancelled(sender.tab.id, message.options);
 		}
+		return Promise.resolve({});
 	}
 
 	function onTabUpdated(tabId, changeInfo, tab) {
