@@ -120,8 +120,10 @@ singlefile.extension.core.bg.business = (() => {
 					}
 				}
 			} catch (error) {
-				console.log(error); // eslint-disable-line no-console
-				ui.onError(tabId, options);
+				if (error && (!error.message || (error.message != "Could not establish connection. Receiving end does not exist." && error.message != "Message manager disconnected"))) {
+					console.log(error); // eslint-disable-line no-console
+					ui.onError(tabId, options);
+				}
 			}
 		}
 	}
