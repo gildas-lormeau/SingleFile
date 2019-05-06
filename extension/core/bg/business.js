@@ -68,7 +68,11 @@ singlefile.extension.core.bg.business = (() => {
 
 	initScripts();
 
+	const ERROR_CONNECTION_LOST_CHROMIUM = "Could not establish connection. Receiving end does not exist.";
+	const ERROR_CONNECTION_LOST_GECKO = "Message manager disconnected";
+
 	const pendingSaves = new Map();
+	const currentSaves = new Map();
 	let maxParallelWorkers;
 
 	return { saveTab };
@@ -78,7 +82,7 @@ singlefile.extension.core.bg.business = (() => {
 		const autosave = singlefile.extension.core.bg.autosave;
 		const tabs = singlefile.extension.core.bg.tabs;
 		const ui = singlefile.extension.ui.bg.main;
-		maxParallelWorkers = (await config.get()).maxParallelWorkers;
+		maxParallelWorkers = 4;// (await config.get()).maxParallelWorkers;
 		if (singlefile.extension.core.bg.util.isAllowedURL(tab.url)) {
 			await initScripts();
 			const tabId = tab.id;
@@ -88,8 +92,7 @@ singlefile.extension.core.bg.business = (() => {
 				if (options.autoSave) {
 					const tabOptions = await config.getOptions(tab.url, true);
 					if (autosave.isEnabled(tab)) {
-						await singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.autosave", options: tabOptions });
-						// await requestSaveTab(tabId, "content.autosave", tabOptions);
+						await requestSaveTab(tabId, "content.autosave", tabOptions);
 					}
 				} else {
 					ui.onInitialize(tabId, options, 1);
@@ -115,14 +118,13 @@ singlefile.extension.core.bg.business = (() => {
 						if (tabOptions.frameId) {
 							await tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: tabOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
 						}
-						await singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.save", options: tabOptions });
-						// await requestSaveTab(tabId, "content.save", tabOptions);
+						await requestSaveTab(tabId, "content.save", tabOptions);
 					} else {
 						ui.onForbiddenDomain(tab, tabOptions);
 					}
 				}
 			} catch (error) {
-				if (error && (!error.message || (error.message != "Could not establish connection. Receiving end does not exist." && error.message != "Message manager disconnected"))) {
+				if ((error || Object.keys(error).length) && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
 					console.log(error); // eslint-disable-line no-console
 					ui.onError(tabId, options);
 				}
@@ -134,16 +136,15 @@ singlefile.extension.core.bg.business = (() => {
 		return new Promise((resolve, reject) => requestSaveTab(tabId, method, options, resolve, reject));
 
 		async function requestSaveTab(tabId, method, options, resolve, reject) {
-			if (pendingSaves.size < maxParallelWorkers) {
-				pendingSaves.set(tabId, { options, resolve, reject });
+			if (currentSaves.size < maxParallelWorkers) {
+				currentSaves.set(tabId, { options, resolve, reject });
 				try {
 					await singlefile.extension.core.bg.tabs.sendMessage(tabId, { method, options });
-					pendingSaves.delete(tabId);
 					resolve();
 				} catch (error) {
-					pendingSaves.delete(tabId);
 					reject(error);
 				} finally {
+					currentSaves.delete(tabId);
 					next();
 				}
 			} else {
