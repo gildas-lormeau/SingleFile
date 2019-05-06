@@ -49,6 +49,7 @@ singlefile.extension.core.bg.config = (() => {
 		contextMenuEnabled: true,
 		tabMenuEnabled: true,
 		shadowEnabled: true,
+		logsEnabled: true,
 		maxResourceSizeEnabled: false,
 		maxResourceSize: 10,
 		removeAudioSrc: true,

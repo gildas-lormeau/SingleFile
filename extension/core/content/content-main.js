@@ -88,14 +88,14 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 				} else {
 					frameTreePromise = frames.getAsync(options);
 				}
-				ui.onLoadingFrames();
-				frameTreePromise.then(() => ui.onLoadFrames());
+				ui.onLoadingFrames(options);
+				frameTreePromise.then(() => ui.onLoadFrames(options));
 				preInitializationPromises.push(frameTreePromise);
 			}
 			if (options.loadDeferredImages) {
 				const lazyLoadPromise = singlefile.lib.lazy.content.loader.process(options);
-				ui.onLoadingDeferResources();
-				lazyLoadPromise.then(() => ui.onLoadDeferResources());
+				ui.onLoadingDeferResources(options);
+				lazyLoadPromise.then(() => ui.onLoadDeferResources(options));
 				preInitializationPromises.push(lazyLoadPromise);
 			}
 		}
@@ -119,11 +119,11 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 					ui.onLoadPage();
 				} else if (event.type == event.STAGE_STARTED) {
 					if (event.detail.step < 3) {
-						ui.onStartStage(event.detail.step);
+						ui.onStartStage(event.detail.step, options);
 					}
 				} else if (event.type == event.STAGE_ENDED) {
 					if (event.detail.step < 3) {
-						ui.onEndStage(event.detail.step);
+						ui.onEndStage(event.detail.step, options);
 					}
 				} else if (event.type == event.STAGE_TASK_STARTED) {
 					ui.onStartStageTask(event.detail.step, event.detail.task);

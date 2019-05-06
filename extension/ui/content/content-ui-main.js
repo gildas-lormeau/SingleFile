@@ -56,8 +56,10 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 		onStartPage(options) {
 			let maskElement = document.querySelector(MASK_TAGNAME);
 			if (!maskElement) {
-				document.body.appendChild(logsWindowElement);
-				setLogsWindowStyle();
+				if (options.logsEnabled) {
+					document.body.appendChild(logsWindowElement);
+					setLogsWindowStyle();
+				}
 				if (options.shadowEnabled) {
 					const maskElement = createMaskElement();
 					createProgressBarElement(maskElement);
@@ -75,8 +77,10 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 					maskElement.remove();
 				}
 			}
-			logsWindowElement.remove();
-			clearLogs();
+			if (options.logsEnabled) {
+				logsWindowElement.remove();
+				clearLogs();
+			}
 		},
 		onLoadResource(index, maxIndex, options) {
 			if (options.shadowEnabled) {
@@ -89,23 +93,23 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 				}
 			}
 		},
-		onLoadingDeferResources() {
-			updateLog("load-deferred-images", LOG_PANEL_DEFERRED_IMAGES_MESSAGE, "…");
+		onLoadingDeferResources(options) {
+			updateLog("load-deferred-images", LOG_PANEL_DEFERRED_IMAGES_MESSAGE, "…", options);
 		},
-		onLoadDeferResources() {
-			updateLog("load-deferred-images", LOG_PANEL_DEFERRED_IMAGES_MESSAGE, "✓");
+		onLoadDeferResources(options) {
+			updateLog("load-deferred-images", LOG_PANEL_DEFERRED_IMAGES_MESSAGE, "✓", options);
 		},
-		onLoadingFrames() {
-			updateLog("load-frames", LOG_PANEL_FRAME_CONTENTS_MESSAGE, "…");
+		onLoadingFrames(options) {
+			updateLog("load-frames", LOG_PANEL_FRAME_CONTENTS_MESSAGE, "…", options);
 		},
-		onLoadFrames() {
-			updateLog("load-frames", LOG_PANEL_FRAME_CONTENTS_MESSAGE, "✓");
+		onLoadFrames(options) {
+			updateLog("load-frames", LOG_PANEL_FRAME_CONTENTS_MESSAGE, "✓", options);
 		},
-		onStartStage(step) {
-			updateLog("step-" + step, `${LOG_PANEL_STEP_MESSAGE} ${step + 1} / 3`, "…");
+		onStartStage(step, options) {
+			updateLog("step-" + step, `${LOG_PANEL_STEP_MESSAGE} ${step + 1} / 3`, "…", options);
 		},
-		onEndStage(step) {
-			updateLog("step-" + step, `${LOG_PANEL_STEP_MESSAGE} ${step + 1} / 3`, "✓");
+		onEndStage(step, options) {
+			updateLog("step-" + step, `${LOG_PANEL_STEP_MESSAGE} ${step + 1} / 3`, "✓", options);
 		},
 		onPageLoading() { },
 		onLoadPage() { },
@@ -404,34 +408,36 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 		logsWindowElement.style.setProperty("will-change", "height", "important");
 	}
 
-	function updateLog(id, textContent, textStatus) {
-		let lineElement = logsWindowElement.querySelector("[data-id='" + id + "']");
-		if (!lineElement) {
-			lineElement = createElement(LOGS_LINE_TAGNAME, logsWindowElement);
-			lineElement.setAttribute("data-id", id);
-			lineElement.style.setProperty("display", "flex", "important");
-			lineElement.style.setProperty("justify-content", "space-between", "important");
-			lineElement.style.setProperty("padding", "2px", "important");
-			const textElement = createElement(LOGS_LINE_ELEMENT_TAGNAME, lineElement);
-			textElement.style.setProperty("font-size", "13px", "important");
-			textElement.style.setProperty("font-family", "arial, sans-serif", "important");
-			textElement.style.setProperty("color", "black", "important");
-			textElement.style.setProperty("background-color", "white", "important");
-			textElement.style.setProperty("opacity", "1", "important");
-			textElement.style.setProperty("transition", "opacity 200ms", "important");
-			textElement.textContent = textContent;
-			const statusElement = createElement(LOGS_LINE_ELEMENT_TAGNAME, lineElement);
-			statusElement.style.setProperty("font-size", "11px", "important");
-			statusElement.style.setProperty("font-family", "arial, sans-serif", "important");
-			statusElement.style.setProperty("color", "black", "important");
-			statusElement.style.setProperty("background-color", "white", "important");
-			statusElement.style.setProperty("min-width", "15px", "important");
-			statusElement.style.setProperty("text-align", "center", "important");
-			statusElement.style.setProperty("position", "relative", "important");
-			statusElement.style.setProperty("top", "1px", "important");
-			statusElement.style.setProperty("will-change", "opacity", "important");
+	function updateLog(id, textContent, textStatus, options) {
+		if (options.logsEnabled) {
+			let lineElement = logsWindowElement.querySelector("[data-id='" + id + "']");
+			if (!lineElement) {
+				lineElement = createElement(LOGS_LINE_TAGNAME, logsWindowElement);
+				lineElement.setAttribute("data-id", id);
+				lineElement.style.setProperty("display", "flex", "important");
+				lineElement.style.setProperty("justify-content", "space-between", "important");
+				lineElement.style.setProperty("padding", "2px", "important");
+				const textElement = createElement(LOGS_LINE_ELEMENT_TAGNAME, lineElement);
+				textElement.style.setProperty("font-size", "13px", "important");
+				textElement.style.setProperty("font-family", "arial, sans-serif", "important");
+				textElement.style.setProperty("color", "black", "important");
+				textElement.style.setProperty("background-color", "white", "important");
+				textElement.style.setProperty("opacity", "1", "important");
+				textElement.style.setProperty("transition", "opacity 200ms", "important");
+				textElement.textContent = textContent;
+				const statusElement = createElement(LOGS_LINE_ELEMENT_TAGNAME, lineElement);
+				statusElement.style.setProperty("font-size", "11px", "important");
+				statusElement.style.setProperty("font-family", "arial, sans-serif", "important");
+				statusElement.style.setProperty("color", "black", "important");
+				statusElement.style.setProperty("background-color", "white", "important");
+				statusElement.style.setProperty("min-width", "15px", "important");
+				statusElement.style.setProperty("text-align", "center", "important");
+				statusElement.style.setProperty("position", "relative", "important");
+				statusElement.style.setProperty("top", "1px", "important");
+				statusElement.style.setProperty("will-change", "opacity", "important");
+			}
+			updateLogLine(lineElement, textContent, textStatus);
 		}
-		updateLogLine(lineElement, textContent, textStatus);
 	}
 
 	function updateLogLine(lineElement, textContent, textStatus) {
