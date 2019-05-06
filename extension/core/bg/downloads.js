@@ -26,10 +26,20 @@
 singlefile.extension.core.bg.downloads = (() => {
 
 	const partialContents = new Map();
+	const ERROR_DOWNLOAD_CANCELED_GECKO = "canceled";
+	const STATE_DOWNLOAD__CANCELED_CHROMIUM = "USER_CANCELED";
+	const ERROR_CONFLICT_ACTION_GECKO = "conflictaction prompt not yet implemented";
+	const ERROR_INCOGNITO_GECKO = "'incognito'";
+	const ERROR_INCOGNITO_GECKO_ALT = "\"incognito\"";
+	const ERROR_INVALID_FILENAME_GECKO = "illegal characters";
+	const ERROR_INVALID_FILENAME_CHROMIUM = "invalid filename";
 
 	return {
 		onMessage,
-		downloadPage
+		download,
+		downloadPage,
+		ERROR_DOWNLOAD_CANCELED_GECKO,
+		STATE_DOWNLOAD__CANCELED_CHROMIUM
 	};
 
 	async function onMessage(message, sender) {
@@ -58,8 +68,7 @@ singlefile.extension.core.bg.downloads = (() => {
 				saveToClipboard(message);
 			} else {
 				try {
-					const tab = sender.tab;
-					return await downloadPage(message, { confirmFilename: message.confirmFilename, incognito: tab.incognito, filenameConflictAction: message.filenameConflictAction });
+					return await downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction });
 				} catch (error) {
 					console.error(error); // eslint-disable-line no-console
 					singlefile.extension.ui.bg.main.onError(sender.tab.id, {});
@@ -81,26 +90,31 @@ singlefile.extension.core.bg.downloads = (() => {
 		if (options.incognito) {
 			downloadInfo.incognito = true;
 		}
+		await download(downloadInfo);
+	}
+
+	async function download(downloadInfo) {
 		let downloadId;
 		try {
 			downloadId = await browser.downloads.download(downloadInfo);
 		} catch (error) {
 			if (error.message) {
 				const errorMessage = error.message.toLowerCase();
-				const invalidFilename = errorMessage.includes("illegal characters") || errorMessage.includes("invalid filename");
-				if (invalidFilename && page.filename.startsWith(".")) {
-					page.filename = "_" + page.filename;
-					return downloadPage(page, { confirmFilename: options.confirmFilename, incognito: options.incognito, filenameConflictAction: options.filenameConflictAction });
-				} else if (invalidFilename && page.filename.includes(",")) {
-					page.filename = page.filename.replace(/,/g, "_");
-					return downloadPage(page, { confirmFilename: options.confirmFilename, incognito: options.incognito, filenameConflictAction: options.filenameConflictAction });
-				} else if (invalidFilename && !page.filename.match(/^[\x00-\x7F]+$/)) { // eslint-disable-line  no-control-regex
-					page.filename = page.filename.replace(/[^\x00-\x7F]+/g, "_"); // eslint-disable-line  no-control-regex
-				} else if ((errorMessage.includes("'incognito'") || errorMessage.includes("\"incognito\"")) && options.incognito) {
-					return downloadPage(page, { confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction });
-				} else if (errorMessage == "conflictaction prompt not yet implemented" && options.filenameConflictAction) {
-					return downloadPage(page, { confirmFilename: options.confirmFilename });
-				} else if (errorMessage.includes("canceled")) {
+				const invalidFilename = errorMessage.includes(ERROR_INVALID_FILENAME_GECKO) || errorMessage.includes(ERROR_INVALID_FILENAME_CHROMIUM);
+				if (invalidFilename && downloadInfo.filename.startsWith(".")) {
+					downloadInfo.filename = "_" + downloadInfo.filename;
+					return download(downloadInfo);
+				} else if (invalidFilename && downloadInfo.filename.includes(",")) {
+					downloadInfo.filename = downloadInfo.filename.replace(/,/g, "_");
+					return download(downloadInfo);
+				} else if (invalidFilename && !downloadInfo.filename.match(/^[\x00-\x7F]+$/)) { // eslint-disable-line  no-control-regex
+					downloadInfo.filename = downloadInfo.filename.replace(/[^\x00-\x7F]+/g, "_"); // eslint-disable-line  no-control-regex
+					return download(downloadInfo);
+				} else if ((errorMessage.includes(ERROR_INCOGNITO_GECKO) || errorMessage.includes(ERROR_INCOGNITO_GECKO_ALT)) && downloadInfo.incognito) {
+					return download({ confirmFilename: download.confirmFilename, filenameConflictAction: download.filenameConflictAction });
+				} else if (errorMessage == ERROR_CONFLICT_ACTION_GECKO && downloadInfo.filenameConflictAction) {
+					return download({ confirmFilename: download.confirmFilename });
+				} else if (errorMessage.includes(ERROR_DOWNLOAD_CANCELED_GECKO)) {
 					return {};
 				} else {
 					throw error;
@@ -119,7 +133,7 @@ singlefile.extension.core.bg.downloads = (() => {
 						browser.downloads.onChanged.removeListener(onChanged);
 					}
 					if (event.state.current == "interrupted") {
-						if (event.error && event.error.current == "USER_CANCELED") {
+						if (event.error && event.error.current == STATE_DOWNLOAD__CANCELED_CHROMIUM) {
 							resolve({});
 						} else {
 							reject(new Error(event.state.current));

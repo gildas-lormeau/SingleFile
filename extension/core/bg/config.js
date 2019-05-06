@@ -371,39 +371,10 @@ singlefile.extension.core.bg.config = (() => {
 			saveAs: true
 		};
 		try {
-			return await downloadConfig(downloadInfo);
+			return await singlefile.extension.core.bg.downloads.download(downloadInfo);
 		} finally {
 			URL.revokeObjectURL(url);
 		}
-	}
-
-	async function downloadConfig(downloadInfo) {
-		let downloadId;
-		try {
-			downloadId = await browser.downloads.download(downloadInfo);
-		} catch (error) {
-			if (error.message && error.message.toLowerCase().includes("canceled")) {
-				return {};
-			} else {
-				throw error;
-			}
-		}
-		return new Promise((resolve, reject) => {
-			browser.downloads.onChanged.addListener(onChanged);
-
-			function onChanged(event) {
-				if (event.id == downloadId && event.state) {
-					if (event.state.current == "complete") {
-						resolve({});
-						browser.downloads.onChanged.removeListener(onChanged);
-					}
-					if (event.state.current == "interrupted" && (!event.error || event.error.current != "USER_CANCELED")) {
-						reject(new Error(event.state.current));
-						browser.downloads.onChanged.removeListener(onChanged);
-					}
-				}
-			}
-		});
 	}
 
 	async function importConfig(config) {
