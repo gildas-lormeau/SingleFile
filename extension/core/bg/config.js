@@ -371,7 +371,7 @@ singlefile.extension.core.bg.config = (() => {
 			saveAs: true
 		};
 		try {
-			return await singlefile.extension.core.bg.downloads.download(downloadInfo);
+			await singlefile.extension.core.bg.downloads.download(downloadInfo);
 		} finally {
 			URL.revokeObjectURL(url);
 		}
