@@ -125,7 +125,8 @@ singlefile.extension.core.bg.autosave = (() => {
 		await processor.run();
 		const page = await processor.getPageData();
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
-		return singlefile.extension.core.bg.downloads.downloadPage(page, options);
+		await singlefile.extension.core.bg.downloads.downloadPage(page, options);
+		URL.revokeObjectURL(page.url);
 	}
 
 })();
