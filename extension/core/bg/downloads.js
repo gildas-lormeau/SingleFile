@@ -68,15 +68,15 @@ singlefile.extension.core.bg.downloads = (() => {
 				saveToClipboard(message);
 			} else {
 				try {
-					return await downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction });
+					await downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction });
 				} catch (error) {
 					console.error(error); // eslint-disable-line no-console
 					singlefile.extension.ui.bg.main.onError(sender.tab.id, {});
-					return {};
 				} finally {
 					URL.revokeObjectURL(message.url);
 				}
 			}
+			return {};
 		}
 	}
 

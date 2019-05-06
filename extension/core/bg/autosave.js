@@ -53,7 +53,7 @@ singlefile.extension.core.bg.autosave = (() => {
 			singlefile.extension.ui.bg.main.refreshTab(currentTab);
 		}
 		if (message.method == "isAutoSaveEnabled") {
-			return await isEnabled(currentTab);
+			return isEnabled(currentTab);
 		}
 	}
 
