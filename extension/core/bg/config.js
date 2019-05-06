@@ -351,7 +351,7 @@ singlefile.extension.core.bg.config = (() => {
 		delete allTabsData.profileName;
 		await tabsData.set(allTabsData);
 		await browser.storage.local.remove(["profiles", "rules", "maxParallelWorkers"]);
-		await browser.storage.local.set({ profiles: { [DEFAULT_PROFILE_NAME]: DEFAULT_CONFIG }, rules: [] });
+		await upgrade();
 	}
 
 	async function resetProfile(profileName) {
