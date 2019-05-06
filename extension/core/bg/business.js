@@ -82,7 +82,7 @@ singlefile.extension.core.bg.business = (() => {
 		const autosave = singlefile.extension.core.bg.autosave;
 		const tabs = singlefile.extension.core.bg.tabs;
 		const ui = singlefile.extension.ui.bg.main;
-		maxParallelWorkers = 4;// (await config.get()).maxParallelWorkers;
+		maxParallelWorkers = (await config.get()).maxParallelWorkers;
 		if (singlefile.extension.core.bg.util.isAllowedURL(tab.url)) {
 			await initScripts();
 			const tabId = tab.id;
