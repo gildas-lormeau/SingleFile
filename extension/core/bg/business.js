@@ -68,7 +68,8 @@ singlefile.extension.core.bg.business = (() => {
 
 	initScripts();
 
-	const ERROR_CONNECTION_LOST_CHROMIUM = "Could not establish connection. Receiving end does not exist.";
+	const ERROR_CONNECTION_ERROR_CHROMIUM = "Could not establish connection. Receiving end does not exist.";
+	const ERROR_CONNECTION_LOST_CHROMIUM = "The message port closed before a response was received.";
 	const ERROR_CONNECTION_LOST_GECKO = "Message manager disconnected";
 
 	const pendingSaves = new Map();
@@ -124,7 +125,7 @@ singlefile.extension.core.bg.business = (() => {
 					}
 				}
 			} catch (error) {
-				if ((error || Object.keys(error).length) && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
+				if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
 					console.log(error); // eslint-disable-line no-console
 					ui.onError(tabId, options);
 				}
