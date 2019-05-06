@@ -88,7 +88,8 @@ singlefile.extension.core.bg.business = (() => {
 				if (options.autoSave) {
 					const tabOptions = await config.getOptions(tab.url, true);
 					if (autosave.isEnabled(tab)) {
-						await requestSaveTab(tabId, "content.autosave", tabOptions);
+						await singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.autosave", options: tabOptions });
+						// await requestSaveTab(tabId, "content.autosave", tabOptions);
 					}
 				} else {
 					ui.onInitialize(tabId, options, 1);
@@ -114,7 +115,8 @@ singlefile.extension.core.bg.business = (() => {
 						if (tabOptions.frameId) {
 							await tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: tabOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
 						}
-						await requestSaveTab(tabId, "content.save", tabOptions);
+						await singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.save", options: tabOptions });
+						// await requestSaveTab(tabId, "content.save", tabOptions);
 					} else {
 						ui.onForbiddenDomain(tab, tabOptions);
 					}
