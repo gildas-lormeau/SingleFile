@@ -95,7 +95,7 @@ this.singlefile.extension.ui.content.infobar = this.singlefile.extension.ui.cont
 			infoElement.style.setProperty("font-family", "Arial", "important");
 			infoElement.style.setProperty("color", "#9aa0a6", "important");
 			infoElement.style.setProperty("font-size", "14px", "important");
-			infoElement.style.setProperty("line-height", "24px", "important");
+			infoElement.style.setProperty("line-height", "22px", "important");
 			infoElement.style.setProperty("word-break", "break-word", "important");
 			infoElement.style.setProperty("white-space", "pre-wrap", "important");
 			infoElement.textContent = infoData;
@@ -110,8 +110,7 @@ this.singlefile.extension.ui.content.infobar = this.singlefile.extension.ui.cont
 			linkElement.title = "Open source URL: " + url;
 			linkElement.href = url;
 			const imgElement = createElement("img", linkElement);
-			imgElement.style.setProperty("padding-top", "4px", "important");
-			imgElement.style.setProperty("padding-bottom", "2px", "important");
+			imgElement.style.setProperty("padding-top", "3px", "important");
 			imgElement.style.setProperty("-webkit-padding-after", "2px", "important");
 			imgElement.style.setProperty("padding-left", "2px", "important");
 			imgElement.style.setProperty("-webkit-padding-start", "2px", "important");
@@ -147,6 +146,7 @@ this.singlefile.extension.ui.content.infobar = this.singlefile.extension.ui.cont
 		infobarElement.style.setProperty("color", "#9aa0a6", "important");
 		infobarElement.style.setProperty("padding-left", "8px", "important");
 		infobarElement.style.setProperty("padding-right", "4px", "important");
+		infobarElement.style.setProperty("padding-top", "2px", "important");
 		infobarElement.style.setProperty("padding-bottom", "2px", "important");
 		infobarElement.style.setProperty("-webkit-padding-start", "8px", "important");
 		infobarElement.style.setProperty("-webkit-padding-end", "4px", "important");
@@ -176,6 +176,8 @@ this.singlefile.extension.ui.content.infobar = this.singlefile.extension.ui.cont
 		infobarElement.style.setProperty("color", "white", "important");
 		infobarElement.style.setProperty("padding-left", 0, "important");
 		infobarElement.style.setProperty("padding-right", 0, "important");
+		infobarElement.style.setProperty("padding-top", 0, "important");
+		infobarElement.style.setProperty("padding-bottom", 0, "important");
 		infobarElement.style.setProperty("-webkit-padding-start", 0, "important");
 		infobarElement.style.setProperty("-webkit-padding-end", 0, "important");
 		infobarElement.style.setProperty("border", "2px solid #eee", "important");
