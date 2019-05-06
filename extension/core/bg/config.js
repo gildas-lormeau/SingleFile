@@ -232,7 +232,7 @@ singlefile.extension.core.bg.config = (() => {
 		if (!Object.keys(config.profiles).includes(profileName)) {
 			throw new Error("Profile not found");
 		}
-		config.profiles[profileName] = profile;
+		Object.keys(profile).forEach(key => config.profiles[profileName][key] = profile[key]);
 		await browser.storage.local.set({ profiles: config.profiles });
 	}
 
