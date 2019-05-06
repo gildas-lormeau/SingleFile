@@ -78,6 +78,7 @@ singlefile.extension.ui.bg.menu = (() => {
 	function onMessage(message) {
 		if (message.method.endsWith("refreshMenu")) {
 			createMenus();
+			return Promise.resolve({});
 		}
 	}
 
