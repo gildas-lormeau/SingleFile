@@ -26,8 +26,11 @@
 singlefile.extension.core.bg.downloads = (() => {
 
 	const partialContents = new Map();
+	const MIMETYPE_HTML = "text/html";
+	const STATE_DOWNLOAD_COMPLETE = "complete";
+	const STATE_DOWNLOAD_INTERRUPTED = "interrupted";
+	const STATE_ERROR_CANCELED_CHROMIUM = "USER_CANCELED";
 	const ERROR_DOWNLOAD_CANCELED_GECKO = "canceled";
-	const STATE_DOWNLOAD__CANCELED_CHROMIUM = "USER_CANCELED";
 	const ERROR_CONFLICT_ACTION_GECKO = "conflictaction prompt not yet implemented";
 	const ERROR_INCOGNITO_GECKO = "'incognito'";
 	const ERROR_INCOGNITO_GECKO_ALT = "\"incognito\"";
@@ -37,9 +40,7 @@ singlefile.extension.core.bg.downloads = (() => {
 	return {
 		onMessage,
 		download,
-		downloadPage,
-		ERROR_DOWNLOAD_CANCELED_GECKO,
-		STATE_DOWNLOAD__CANCELED_CHROMIUM
+		downloadPage
 	};
 
 	async function onMessage(message, sender) {
@@ -56,13 +57,13 @@ singlefile.extension.core.bg.downloads = (() => {
 					if (message.saveToClipboard) {
 						message.content = contents.join("");
 					} else {
-						message.url = URL.createObjectURL(new Blob(contents, { type: "text/html" }));
+						message.url = URL.createObjectURL(new Blob(contents, { type: MIMETYPE_HTML }));
 					}
 				} else {
 					return {};
 				}
 			} else if (message.content && !message.saveToClipboard) {
-				message.url = URL.createObjectURL(new Blob([message.content], { type: "text/html" }));
+				message.url = URL.createObjectURL(new Blob([message.content], { type: MIMETYPE_HTML }));
 			}
 			if (message.saveToClipboard) {
 				saveToClipboard(message);
@@ -128,12 +129,12 @@ singlefile.extension.core.bg.downloads = (() => {
 
 			function onChanged(event) {
 				if (event.id == downloadId && event.state) {
-					if (event.state.current == "complete") {
+					if (event.state.current == STATE_DOWNLOAD_COMPLETE) {
 						resolve({});
 						browser.downloads.onChanged.removeListener(onChanged);
 					}
-					if (event.state.current == "interrupted") {
-						if (event.error && event.error.current == STATE_DOWNLOAD__CANCELED_CHROMIUM) {
+					if (event.state.current == STATE_DOWNLOAD_INTERRUPTED) {
+						if (event.error && event.error.current == STATE_ERROR_CANCELED_CHROMIUM) {
 							resolve({});
 						} else {
 							reject(new Error(event.state.current));
@@ -152,7 +153,7 @@ singlefile.extension.core.bg.downloads = (() => {
 		document.removeEventListener(command, listener);
 
 		function listener(event) {
-			event.clipboardData.setData("text/html", page.content);
+			event.clipboardData.setData(MIMETYPE_HTML, page.content);
 			event.clipboardData.setData("text/plain", page.content);
 			event.preventDefault();
 		}
