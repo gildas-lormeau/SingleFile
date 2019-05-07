@@ -48,6 +48,7 @@ singlefile.extension.core.bg.config = (() => {
 		filenameConflictAction: "uniquify",
 		contextMenuEnabled: true,
 		tabMenuEnabled: true,
+		browserActionMenuEnabled: true,
 		shadowEnabled: true,
 		logsEnabled: true,
 		maxResourceSizeEnabled: false,
