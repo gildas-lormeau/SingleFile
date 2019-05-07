@@ -96,7 +96,7 @@ exports.getPageData = async options => {
 		win.Element.prototype.getBoundingClientRect = undefined;
 		executeFrameScripts(doc, scripts);
 		if (!options.saveRawPage && !options.removeFrames) {
-			options.framesData = await win.singlefile.lib.frameTree.content.frames.getAsync(options);
+			options.frames = await win.singlefile.lib.frameTree.content.frames.getAsync(options);
 		}
 		options.win = win;
 		options.doc = doc;

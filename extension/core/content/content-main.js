@@ -132,19 +132,19 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 				}
 			}
 		};
-		[options.framesData] = await Promise.all(preInitializationPromises);
-		const selectedFrame = options.framesData && options.framesData.find(frameData => frameData.requestedFrame);
+		[options.frames] = await Promise.all(preInitializationPromises);
+		const selectedFrame = options.frames && options.frames.find(frameData => frameData.requestedFrame);
 		options.win = window;
 		if (selectedFrame) {
 			options.content = selectedFrame.content;
 			options.url = selectedFrame.baseURI;
-			options.canvasData = selectedFrame.canvasData;
-			options.fontsData = selectedFrame.fontsData;
-			options.stylesheetsData = selectedFrame.stylesheetsData;
-			options.imagesData = selectedFrame.imagesData;
-			options.postersData = selectedFrame.postersData;
+			options.canvases = selectedFrame.canvases;
+			options.fonts = selectedFrame.fonts;
+			options.stylesheets = selectedFrame.stylesheets;
+			options.images = selectedFrame.images;
+			options.posters = selectedFrame.posters;
 			options.usedFonts = selectedFrame.usedFonts;
-			options.shadowRootsData = selectedFrame.shadowRootsData;
+			options.shadowRoots = selectedFrame.shadowRoots;
 		} else {
 			options.doc = document;
 		}

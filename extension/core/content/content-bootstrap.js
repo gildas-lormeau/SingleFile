@@ -60,7 +60,6 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 
 	async function autoSavePage() {
 		const helper = singlefile.lib.helper;
-		const frames = singlefile.lib.frameTree.content.frames;
 		if ((!autoSavingPage || autoSaveTimeout) && !pageAutoSaved) {
 			autoSavingPage = true;
 			if (options.autoSaveDelay && !autoSaveTimeout) {
@@ -69,23 +68,23 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 				}, options.autoSaveDelay * 1000);
 			} else {
 				const docData = helper.preProcessDoc(document, window, options);
-				let framesData = [];
+				let frames = [];
 				autoSaveTimeout = null;
-				if (!options.removeFrames && frames) {
-					framesData = await frames.getAsync(options);
+				if (!options.removeFrames && singlefile.lib.frameTree.content.frames) {
+					frames = await singlefile.lib.frameTree.content.frames.getAsync(options);
 				}
 				browser.runtime.sendMessage({
 					method: "autosave.save",
 					content: helper.serialize(document, false),
-					canvasData: docData.canvasData,
-					fontsData: docData.fontsData,
-					stylesheetsData: docData.stylesheetsData,
-					imagesData: docData.imagesData,
-					postersData: docData.postersData,
+					canvases: docData.canvases,
+					fonts: docData.fonts,
+					stylesheets: docData.stylesheets,
+					images: docData.images,
+					posters: docData.posters,
 					usedFonts: docData.usedFonts,
-					shadowRootsData: docData.shadowRootsData,
+					shadowRoots: docData.shadowRoots,
 					referrer: docData.referrer,
-					framesData,
+					frames: frames,
 					url: location.href
 				});
 				helper.postProcessDoc(document, options);
@@ -113,22 +112,22 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		const helper = singlefile.lib.helper;
 		if (!pageAutoSaved || options.autoSaveUnload) {
 			const docData = helper.preProcessDoc(document, window, options);
-			let framesData = [];
+			let frames = [];
 			if (!options.removeFrames && singlefile.lib.frameTree.content.frames) {
-				framesData = singlefile.lib.frameTree.content.frames.getSync(options);
+				frames = singlefile.lib.frameTree.content.frames.getSync(options);
 			}
 			browser.runtime.sendMessage({
 				method: "autosave.save",
 				content: helper.serialize(document),
-				canvasData: docData.canvasData,
-				fontsData: docData.fontsData,
-				stylesheetsData: docData.stylesheetsData,
-				imagesData: docData.imagesData,
-				postersData: docData.postersData,
+				canvases: docData.canvases,
+				fonts: docData.fonts,
+				stylesheets: docData.stylesheets,
+				images: docData.images,
+				posters: docData.posters,
 				usedFonts: docData.usedFonts,
-				shadowRootsData: docData.shadowRootsData,
+				shadowRoots: docData.shadowRoots,
 				referrer: docData.referrer,
-				framesData,
+				frames: frames,
 				url: location.href
 			});
 		}

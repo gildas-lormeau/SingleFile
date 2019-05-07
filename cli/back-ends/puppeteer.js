@@ -113,7 +113,7 @@ exports.getPageData = async options => {
 					preInitializationPromises.push(singlefile.lib.lazy.content.loader.process(options));
 				}
 			}
-			[options.framesData] = await Promise.all(preInitializationPromises);
+			[options.frames] = await Promise.all(preInitializationPromises);
 			options.doc = document;
 			options.win = window;
 			const SingleFile = singlefile.lib.SingleFile.getClass();
