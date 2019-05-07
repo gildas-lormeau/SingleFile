@@ -62,7 +62,9 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 				}
 				if (options.shadowEnabled) {
 					const maskElement = createMaskElement();
-					createProgressBarElement(maskElement);
+					if (options.progressBarEnabled) {
+						createProgressBarElement(maskElement);
+					}
 					maskElement.offsetWidth;
 					maskElement.style.setProperty("background-color", "black", "important");
 					maskElement.style.setProperty("opacity", .3, "important");
@@ -83,7 +85,7 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 			}
 		},
 		onLoadResource(index, maxIndex, options) {
-			if (options.shadowEnabled) {
+			if (options.shadowEnabled && options.progressBarEnabled) {
 				const progressBarElement = document.querySelector(PROGRESS_BAR_TAGNAME);
 				if (progressBarElement && maxIndex) {
 					const width = Math.floor((index / maxIndex) * 100) + "%";

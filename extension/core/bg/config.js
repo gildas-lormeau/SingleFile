@@ -51,6 +51,7 @@ singlefile.extension.core.bg.config = (() => {
 		browserActionMenuEnabled: true,
 		shadowEnabled: true,
 		logsEnabled: true,
+		progressBarEnabled: true,
 		maxResourceSizeEnabled: false,
 		maxResourceSize: 10,
 		removeAudioSrc: true,
