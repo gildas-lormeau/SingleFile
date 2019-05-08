@@ -112,9 +112,11 @@ singlefile.extension.core.bg.downloads = (() => {
 					downloadInfo.filename = downloadInfo.filename.replace(/[^\x00-\x7F]+/g, "_"); // eslint-disable-line  no-control-regex
 					return download(downloadInfo);
 				} else if ((errorMessage.includes(ERROR_INCOGNITO_GECKO) || errorMessage.includes(ERROR_INCOGNITO_GECKO_ALT)) && downloadInfo.incognito) {
-					return download({ confirmFilename: download.confirmFilename, filenameConflictAction: download.filenameConflictAction });
-				} else if (errorMessage == ERROR_CONFLICT_ACTION_GECKO && downloadInfo.filenameConflictAction) {
-					return download({ confirmFilename: download.confirmFilename });
+					delete downloadInfo.incognito;
+					return download(downloadInfo);
+				} else if (errorMessage == ERROR_CONFLICT_ACTION_GECKO && downloadInfo.conflictAction) {
+					delete downloadInfo.conflictAction;
+					return download(downloadInfo);
 				} else if (errorMessage.includes(ERROR_DOWNLOAD_CANCELED_GECKO)) {
 					return {};
 				} else {
