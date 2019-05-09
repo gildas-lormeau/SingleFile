@@ -46,6 +46,8 @@ singlefile.extension.core.bg.config = (() => {
 		confirmInfobarContent: false,
 		confirmFilename: false,
 		filenameConflictAction: "uniquify",
+		filenameMaxLength: 192,
+		filenameReplacementCharacter: "_",
 		contextMenuEnabled: true,
 		tabMenuEnabled: true,
 		browserActionMenuEnabled: true,
@@ -374,7 +376,7 @@ singlefile.extension.core.bg.config = (() => {
 			saveAs: true
 		};
 		try {
-			await singlefile.extension.core.bg.downloads.download(downloadInfo);
+			await singlefile.extension.core.bg.downloads.download(downloadInfo, "_");
 		} finally {
 			URL.revokeObjectURL(url);
 		}

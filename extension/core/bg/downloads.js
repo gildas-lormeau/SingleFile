@@ -69,7 +69,12 @@ singlefile.extension.core.bg.downloads = (() => {
 				saveToClipboard(message);
 			} else {
 				try {
-					await downloadPage(message, { confirmFilename: message.confirmFilename, incognito: sender.tab.incognito, filenameConflictAction: message.filenameConflictAction });
+					await downloadPage(message, { 
+						confirmFilename: message.confirmFilename, 
+						incognito: sender.tab.incognito, 
+						filenameConflictAction: message.filenameConflictAction,
+						filenameReplacementCharacter: message.filenameReplacementCharacter
+					});
 				} catch (error) {
 					console.error(error); // eslint-disable-line no-console
 					singlefile.extension.ui.bg.main.onError(sender.tab.id, {});
@@ -91,10 +96,10 @@ singlefile.extension.core.bg.downloads = (() => {
 		if (options.incognito) {
 			downloadInfo.incognito = true;
 		}
-		await download(downloadInfo);
+		await download(downloadInfo, options.filenameReplacementCharacter);
 	}
 
-	async function download(downloadInfo) {
+	async function download(downloadInfo, replacementCharacter) {
 		let downloadId;
 		try {
 			downloadId = await browser.downloads.download(downloadInfo);
@@ -103,20 +108,20 @@ singlefile.extension.core.bg.downloads = (() => {
 				const errorMessage = error.message.toLowerCase();
 				const invalidFilename = errorMessage.includes(ERROR_INVALID_FILENAME_GECKO) || errorMessage.includes(ERROR_INVALID_FILENAME_CHROMIUM);
 				if (invalidFilename && downloadInfo.filename.startsWith(".")) {
-					downloadInfo.filename = "_" + downloadInfo.filename;
-					return download(downloadInfo);
+					downloadInfo.filename = replacementCharacter + downloadInfo.filename;
+					return download(downloadInfo, replacementCharacter);
 				} else if (invalidFilename && downloadInfo.filename.includes(",")) {
-					downloadInfo.filename = downloadInfo.filename.replace(/,/g, "_");
-					return download(downloadInfo);
+					downloadInfo.filename = downloadInfo.filename.replace(/,/g, replacementCharacter);
+					return download(downloadInfo, replacementCharacter);
 				} else if (invalidFilename && !downloadInfo.filename.match(/^[\x00-\x7F]+$/)) { // eslint-disable-line  no-control-regex
-					downloadInfo.filename = downloadInfo.filename.replace(/[^\x00-\x7F]+/g, "_"); // eslint-disable-line  no-control-regex
-					return download(downloadInfo);
+					downloadInfo.filename = downloadInfo.filename.replace(/[^\x00-\x7F]+/g, replacementCharacter); // eslint-disable-line  no-control-regex
+					return download(downloadInfo, replacementCharacter);
 				} else if ((errorMessage.includes(ERROR_INCOGNITO_GECKO) || errorMessage.includes(ERROR_INCOGNITO_GECKO_ALT)) && downloadInfo.incognito) {
 					delete downloadInfo.incognito;
-					return download(downloadInfo);
+					return download(downloadInfo, replacementCharacter);
 				} else if (errorMessage == ERROR_CONFLICT_ACTION_GECKO && downloadInfo.conflictAction) {
 					delete downloadInfo.conflictAction;
-					return download(downloadInfo);
+					return download(downloadInfo, replacementCharacter);
 				} else if (errorMessage.includes(ERROR_DOWNLOAD_CANCELED_GECKO)) {
 					return {};
 				} else {

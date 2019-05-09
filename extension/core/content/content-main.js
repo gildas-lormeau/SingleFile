@@ -171,7 +171,14 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 	async function downloadPage(page, options) {
 		if (options.backgroundSave) {
 			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < page.content.length; blockIndex++) {
-				const message = { method: "downloads.download", confirmFilename: options.confirmFilename, filenameConflictAction: options.filenameConflictAction, filename: page.filename, saveToClipboard: options.saveToClipboard };
+				const message = {
+					method: "downloads.download",
+					confirmFilename: options.confirmFilename,
+					filenameConflictAction: options.filenameConflictAction,
+					filename: page.filename,
+					saveToClipboard: options.saveToClipboard,
+					filenameReplacementCharacter: options.filenameReplacementCharacter
+				};
 				message.truncated = page.content.length > MAX_CONTENT_SIZE;
 				if (message.truncated) {
 					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > page.content.length;
