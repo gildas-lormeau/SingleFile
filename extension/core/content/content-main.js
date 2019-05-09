@@ -145,6 +145,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 			options.posters = selectedFrame.posters;
 			options.usedFonts = selectedFrame.usedFonts;
 			options.shadowRoots = selectedFrame.shadowRoots;
+			options.imports = selectedFrame.imports;
 		} else {
 			options.doc = document;
 		}

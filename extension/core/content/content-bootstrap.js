@@ -83,6 +83,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 					posters: docData.posters,
 					usedFonts: docData.usedFonts,
 					shadowRoots: docData.shadowRoots,
+					imports: docData.imports,
 					referrer: docData.referrer,
 					frames: frames,
 					url: location.href
@@ -126,6 +127,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 				posters: docData.posters,
 				usedFonts: docData.usedFonts,
 				shadowRoots: docData.shadowRoots,
+				imports: docData.imports,
 				referrer: docData.referrer,
 				frames: frames,
 				url: location.href

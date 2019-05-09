@@ -100,6 +100,7 @@ singlefile.extension.core.bg.autosave = (() => {
 		options.posters = message.posters;
 		options.usedFonts = message.usedFonts;
 		options.shadowRoots = message.shadowRoots;
+		options.imports = message.imports;
 		options.referrer = message.referrer;
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
