@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, window, setTimeout */
+/* global browser, document, window, setTimeout, URL, Blob, MouseEvent */
 
 this.singlefile.extension.core.content.main = this.singlefile.extension.core.content.main || (() => {
 
@@ -30,7 +30,6 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 	let ui;
 
 	const MAX_CONTENT_SIZE = 64 * (1024 * 1024);
-	const DOWNLOADER_FRAME_ID = "single-file-downloader";
 	const SingleFile = singlefile.lib.SingleFile.getClass();
 
 	let processing = false;
@@ -72,10 +71,6 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 	async function processPage(options) {
 		const frames = singlefile.lib.frameTree.content.frames;
 		singlefile.lib.helper.initDoc(document);
-		const iframe = document.getElementById(DOWNLOADER_FRAME_ID);
-		if (iframe) {
-			iframe.remove();
-		}
 		ui.onStartPage(options);
 		const processor = new SingleFile(options);
 		const preInitializationPromises = [];
@@ -202,16 +197,11 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 			page.filename = ui.prompt("File name", page.filename);
 		}
 		if (page.filename && page.filename.length) {
-			const iframe = document.createElement("iframe");
-			iframe.id = DOWNLOADER_FRAME_ID;
-			iframe.style.setProperty("display", "inline-block", "important");
-			iframe.style.setProperty("max-width", "0", "important");
-			iframe.style.setProperty("max-height", "0", "important");
-			iframe.style.setProperty("border-width", "0", "important");
-			iframe.style.setProperty("margin", "0", "important");
-			iframe.src = browser.runtime.getURL("/extension/core/pages/downloader.html");
-			iframe.onload = () => iframe.contentWindow.postMessage(JSON.stringify([page.filename, page.content]), "*");
-			document.body.appendChild(iframe);
+			const link = document.createElement("a");
+			link.download = page.filename;
+			link.href = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
+			link.dispatchEvent(new MouseEvent("click"));
+			URL.revokeObjectURL(link.href);
 		}
 	}
 
