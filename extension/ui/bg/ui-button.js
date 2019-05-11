@@ -155,12 +155,19 @@ singlefile.extension.ui.bg.button = (() => {
 		}
 	}
 
-	function getProperties(options, text, color, title = BUTTON_DEFAULT_TOOLTIP_MESSAGE, path = DEFAULT_ICON_PATH, autoColor = [208, 208, 208, 192]) {
-		return {
-			setBadgeBackgroundColor: { color: options.autoSave ? autoColor : color || DEFAULT_COLOR },
-			setBadgeText: { text: options.autoSave ? BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE : (text || "") },
-			setTitle: { title: options.autoSave ? BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE : title },
-			setIcon: { path: options.autoSave ? DEFAULT_ICON_PATH : path }
+	function getProperties(options, text = "", color = DEFAULT_COLOR, title = BUTTON_DEFAULT_TOOLTIP_MESSAGE, path = DEFAULT_ICON_PATH) {
+		return options.autoSave ?
+			{
+				setBadgeBackgroundColor: { color: [208, 208, 208, 192] },
+				setBadgeText: { BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE },
+				setTitle: { title: BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE },
+				setIcon: { path: DEFAULT_ICON_PATH }
+			} :
+			{
+				setBadgeBackgroundColor: { color },
+				setBadgeText: { text },
+				setTitle: { title },
+				setIcon: { path }
 		};
 	}
 
