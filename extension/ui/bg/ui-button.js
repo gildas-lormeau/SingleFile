@@ -36,6 +36,7 @@ singlefile.extension.ui.bg.button = (() => {
 	const BUTTON_OK_BADGE_MESSAGE = browser.i18n.getMessage("buttonOKBadge");
 	const BUTTON_SAVE_PROGRESS_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonSaveProgressTooltip");
 	const BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE = browser.i18n.getMessage("buttonAutoSaveActiveBadge");
+	const AUTOSAVE_COLOR = [208, 208, 208, 192];
 	const BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonAutoSaveActiveTooltip");
 	const DEFAULT_COLOR = [2, 147, 20, 192];
 
@@ -158,7 +159,7 @@ singlefile.extension.ui.bg.button = (() => {
 	function getProperties(options, text = "", color = DEFAULT_COLOR, title = BUTTON_DEFAULT_TOOLTIP_MESSAGE, path = DEFAULT_ICON_PATH) {
 		return options.autoSave ?
 			{
-				setBadgeBackgroundColor: { color: [208, 208, 208, 192] },
+				setBadgeBackgroundColor: { color: AUTOSAVE_COLOR },
 				setBadgeText: { BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE },
 				setTitle: { title: BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE },
 				setIcon: { path: DEFAULT_ICON_PATH }
