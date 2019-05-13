@@ -88,8 +88,7 @@ singlefile.extension.ui.bg.menu = (() => {
 
 	async function createMenus(tab) {
 		const config = singlefile.extension.core.bg.config;
-		const tabsData = singlefile.extension.core.bg.tabsData;
-		const [profiles, allTabsData] = await Promise.all([config.getProfiles(), tabsData.get()]);
+		const [profiles, tabsData] = await Promise.all([config.getProfiles(), singlefile.extension.core.bg.tabsData.get()]);
 		const options = await config.getOptions(tab && tab.url, true);
 		if (BROWSER_MENUS_API_SUPPORTED && options) {
 			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio", "selection"];
@@ -186,7 +185,7 @@ singlefile.extension.ui.bg.menu = (() => {
 					contexts: defaultContexts,
 				});
 				const defaultProfileId = MENU_ID_SELECT_PROFILE_PREFIX + "default";
-				const defaultProfileChecked = !allTabsData.profileName || allTabsData.profileName == config.DEFAULT_PROFILE_NAME;
+				const defaultProfileChecked = !tabsData.profileName || tabsData.profileName == config.DEFAULT_PROFILE_NAME;
 				menus.create({
 					id: defaultProfileId,
 					type: "radio",
@@ -233,7 +232,7 @@ singlefile.extension.ui.bg.menu = (() => {
 				Object.keys(profiles).forEach((profileName, profileIndex) => {
 					if (profileName != config.DEFAULT_PROFILE_NAME) {
 						let profileId = MENU_ID_SELECT_PROFILE_PREFIX + profileIndex;
-						let profileChecked = allTabsData.profileName == profileName;
+						let profileChecked = tabsData.profileName == profileName;
 						menus.create({
 							id: profileId,
 							type: "radio",

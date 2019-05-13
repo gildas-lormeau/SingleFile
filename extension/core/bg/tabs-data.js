@@ -26,7 +26,7 @@
 singlefile.extension.core.bg.tabsData = (() => {
 
 	let persistentData, temporaryData, cleanedUp;
-	setTimeout(() => getPersistent().then(allTabsData => persistentData = allTabsData), 0);
+	setTimeout(() => getPersistent().then(tabsData => persistentData = tabsData), 0);
 	return {
 		onMessage,
 		onTabRemoved,
@@ -48,9 +48,9 @@ singlefile.extension.core.bg.tabsData = (() => {
 		if (temporaryData) {
 			delete temporaryData[tabId];
 		}
-		const allTabsData = await getPersistent();
-		delete allTabsData[tabId];
-		setPersistent(allTabsData);
+		const tabsData = await getPersistent();
+		delete tabsData[tabId];
+		setPersistent(tabsData);
 	}
 
 	function getTemporary(desiredTabId) {
@@ -75,9 +75,9 @@ singlefile.extension.core.bg.tabsData = (() => {
 		return persistentData;
 	}
 
-	async function setPersistent(allTabsData) {
-		persistentData = allTabsData;
-		await browser.storage.local.set({ tabsData: allTabsData });
+	async function setPersistent(tabsData) {
+		persistentData = tabsData;
+		await browser.storage.local.set({ tabsData });
 	}
 
 	async function cleanup() {

@@ -69,11 +69,10 @@ singlefile.extension.core.bg.autosave = (() => {
 	async function isEnabled(tab) {
 		const config = singlefile.extension.core.bg.config;
 		if (tab) {
-			const [allTabsData, rule] = await Promise.all([singlefile.extension.core.bg.tabsData.get(), config.getRule(tab.url)]);
-			return singlefile.extension.core.bg.util.isAllowedURL(tab.url) &&
-				Boolean(allTabsData.autoSaveAll ||
-					(allTabsData.autoSaveUnpinned && !tab.pinned) ||
-					(allTabsData[tab.id] && allTabsData[tab.id].autoSave)) &&
+			const [tabsData, rule] = await Promise.all([singlefile.extension.core.bg.tabsData.get(), config.getRule(tab.url)]);
+			return Boolean(tabsData.autoSaveAll ||
+				(tabsData.autoSaveUnpinned && !tab.pinned) ||
+				(tabsData[tab.id] && tabsData[tab.id].autoSave)) &&
 				(!rule || rule.autoSaveProfile != config.DISABLED_PROFILE_NAME);
 		}
 	}
