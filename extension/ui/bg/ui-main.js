@@ -42,9 +42,6 @@ singlefile.extension.ui.bg.main = (() => {
 		onInitialize(tabId, step, autoSave) {
 			singlefile.extension.ui.bg.button.onInitialize(tabId, step, autoSave);
 		},
-		onProgress(tabId, index, maxIndex) {
-			singlefile.extension.ui.bg.button.onProgress(tabId, index, maxIndex);
-		},
 		onError(tabId) {
 			singlefile.extension.ui.bg.button.onError(tabId);
 		},
