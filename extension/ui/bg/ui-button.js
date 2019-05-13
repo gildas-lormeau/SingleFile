@@ -111,7 +111,6 @@ singlefile.extension.ui.bg.button = (() => {
 
 	return {
 		onMessage,
-		onTabUpdated,
 		onInitialize,
 		onProgress,
 		onForbiddenDomain,
@@ -144,16 +143,6 @@ singlefile.extension.ui.bg.button = (() => {
 			onCancelled(sender.tab);
 		}
 		return Promise.resolve({});
-	}
-
-	function onTabUpdated(/*tabId, changeInfo, tab*/) {
-		/*
-		const tabsData = singlefile.extension.core.bg.tabsData.getTemporary(tabId);
-		if (tabsData[tabId].button) {
-			delete tabsData[tabId].button.state;
-			refreshTab(tab);
-		}
-		*/
 	}
 
 	function onInitialize(tabId, step, autoSave) {
