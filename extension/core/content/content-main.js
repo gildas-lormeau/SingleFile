@@ -27,12 +27,10 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 
 	const singlefile = this.singlefile;
 
-	let ui;
-
 	const MAX_CONTENT_SIZE = 64 * (1024 * 1024);
 	const SingleFile = singlefile.lib.SingleFile.getClass();
 
-	let processing = false;
+	let ui, processing = false;
 
 	browser.runtime.onMessage.addListener(async message => {
 		if (!ui) {
