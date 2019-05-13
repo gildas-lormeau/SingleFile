@@ -64,9 +64,8 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		if ((!autoSavingPage || autoSaveTimeout) && !pageAutoSaved) {
 			autoSavingPage = true;
 			if (options.autoSaveDelay && !autoSaveTimeout) {
-				autoSaveTimeout = setTimeout(() => {
-					autoSavePage();
-				}, options.autoSaveDelay * 1000);
+				await new Promise(resolve => autoSaveTimeout = setTimeout(resolve, options.autoSaveDelay * 1000));
+				await autoSavePage();
 			} else {
 				const docData = helper.preProcessDoc(document, window, options);
 				let frames = [];
