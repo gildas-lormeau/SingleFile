@@ -212,7 +212,6 @@ singlefile.extension.ui.bg.button = (() => {
 	async function refreshAsync(tabId, state) {
 		for (const browserActionMethod of Object.keys(state)) {
 			try {
-				// console.log(tabId, "refreshAsync", browserActionMethod, state[browserActionMethod]);
 				await refreshProperty(tabId, browserActionMethod, state[browserActionMethod]);
 			} catch (error) {
 				/* ignored */
@@ -224,7 +223,6 @@ singlefile.extension.ui.bg.button = (() => {
 		if (browser.browserAction[browserActionMethod]) {
 			const parameter = JSON.parse(JSON.stringify(browserActionParameter));
 			parameter.tabId = tabId;
-			// console.log(browserActionMethod, parameter);
 			await browser.browserAction[browserActionMethod](parameter);
 		}
 	}
