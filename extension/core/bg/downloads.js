@@ -45,8 +45,9 @@ singlefile.extension.core.bg.downloads = (() => {
 
 	async function onMessage(message, sender) {
 		if (message.method.endsWith(".download")) {
+			let contents;
 			if (message.truncated) {
-				let contents = partialContents.get(sender.tab.id);
+				contents = partialContents.get(sender.tab.id);
 				if (!contents) {
 					contents = [];
 					partialContents.set(sender.tab.id, contents);
@@ -54,32 +55,29 @@ singlefile.extension.core.bg.downloads = (() => {
 				contents.push(message.content);
 				if (message.finished) {
 					partialContents.delete(sender.tab.id);
-					if (message.saveToClipboard) {
-						message.content = contents.join("");
-					} else {
-						message.url = URL.createObjectURL(new Blob(contents, { type: MIMETYPE_HTML }));
-					}
-				} else {
-					return {};
 				}
-			} else if (message.content && !message.saveToClipboard) {
-				message.url = URL.createObjectURL(new Blob([message.content], { type: MIMETYPE_HTML }));
+			} else if (message.content) {
+				contents = [message.content];
 			}
-			if (message.saveToClipboard) {
-				saveToClipboard(message);
-			} else {
-				try {
-					await downloadPage(message, {
-						confirmFilename: message.confirmFilename,
-						incognito: sender.tab.incognito,
-						filenameConflictAction: message.filenameConflictAction,
-						filenameReplacementCharacter: message.filenameReplacementCharacter
-					});
-				} catch (error) {
-					console.error(error); // eslint-disable-line no-console
-					singlefile.extension.ui.bg.main.onError(sender.tab.id);
-				} finally {
-					URL.revokeObjectURL(message.url);
+			if (!message.truncated || message.finished) {
+				if (message.saveToClipboard) {
+					message.content = contents.join("");
+					saveToClipboard(message);
+				} else {
+					message.url = URL.createObjectURL(new Blob([contents], { type: MIMETYPE_HTML }));
+					try {
+						await downloadPage(message, {
+							confirmFilename: message.confirmFilename,
+							incognito: sender.tab.incognito,
+							filenameConflictAction: message.filenameConflictAction,
+							filenameReplacementCharacter: message.filenameReplacementCharacter
+						});
+					} catch (error) {
+						console.error(error); // eslint-disable-line no-console
+						singlefile.extension.ui.bg.main.onError(sender.tab.id);
+					} finally {
+						URL.revokeObjectURL(message.url);
+					}
 				}
 			}
 			return {};
