@@ -71,6 +71,8 @@ singlefile.extension.core.bg.business = (() => {
 	const ERROR_CONNECTION_ERROR_CHROMIUM = "Could not establish connection. Receiving end does not exist.";
 	const ERROR_CONNECTION_LOST_CHROMIUM = "The message port closed before a response was received.";
 	const ERROR_CONNECTION_LOST_GECKO = "Message manager disconnected";
+	const INJECT_SCRIPTS_STEP = 1;
+	const EXECUTE_SCRIPTS_STEP = 2;
 
 	const pendingSaves = new Map();
 	const currentSaves = new Map();
@@ -95,7 +97,7 @@ singlefile.extension.core.bg.business = (() => {
 					await requestSaveTab(tabId, "content.autosave", tabOptions);
 				}
 			} else {
-				ui.onStart(tabId, 1);
+				ui.onStart(tabId, INJECT_SCRIPTS_STEP);
 				const tabOptions = await config.getOptions(tab.url);
 				Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 				let scriptsInjected;
@@ -114,7 +116,7 @@ singlefile.extension.core.bg.business = (() => {
 					// ignored
 				}
 				if (scriptsInjected) {
-					ui.onStart(tabId, 2);
+					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
 					if (tabOptions.frameId) {
 						await tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: tabOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
 					}

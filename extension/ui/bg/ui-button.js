@@ -44,6 +44,7 @@ singlefile.extension.ui.bg.button = (() => {
 	const ERROR_COLOR = [229, 4, 12, 192];
 	const AUTOSAVE_DEFAULT_COLOR = [208, 208, 208, 192];
 	const AUTOSAVE_INITIALIZING_COLOR = [64, 64, 64, 192];
+	const INJECT_SCRIPTS_STEP = 1;
 
 	const BUTTON_STATES = {
 		default: {
@@ -52,7 +53,7 @@ singlefile.extension.ui.bg.button = (() => {
 			setTitle: { title: BUTTON_DEFAULT_TOOLTIP_MESSAGE },
 			setIcon: { path: DEFAULT_ICON_PATH }
 		},
-		initialize: {
+		inject: {
 			setBadgeBackgroundColor: { color: DEFAULT_COLOR },
 			setBadgeText: { text: BUTTON_INITIALIZING_BADGE_MESSAGE },
 			setTitle: { title: BUTTON_INITIALIZING_TOOLTIP_MESSAGE },
@@ -84,7 +85,7 @@ singlefile.extension.ui.bg.button = (() => {
 			setIcon: { path: DEFAULT_ICON_PATH }
 		},
 		autosave: {
-			initialize: {
+			inject: {
 				setBadgeBackgroundColor: { color: AUTOSAVE_INITIALIZING_COLOR },
 				setBadgeText: { text: BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE },
 				setTitle: { title: BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE },
@@ -147,9 +148,9 @@ singlefile.extension.ui.bg.button = (() => {
 	function onStart(tabId, step, autoSave) {
 		let state;
 		if (autoSave) {
-			state = getButtonState("initialize", true);
+			state = getButtonState("inject", true);
 		} else {
-			state = step == 1 ? getButtonState("initialize") : getButtonState("execute");
+			state = step == INJECT_SCRIPTS_STEP ? getButtonState("inject") : getButtonState("execute");
 			state.setTitle = { title: BUTTON_INITIALIZING_TOOLTIP_MESSAGE + " (" + step + "/2)" };
 			state.setIcon = { path: WAIT_ICON_PATH_PREFIX + "0.png" };
 		}
