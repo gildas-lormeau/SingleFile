@@ -51,9 +51,11 @@ singlefile.extension.core.bg.tabs = (() => {
 	}
 
 	function onTabUpdated(tabId, changeInfo, tab) {
+		if (changeInfo.status == "loading") {
+			singlefile.extension.ui.bg.main.onTabUpdated(tabId, changeInfo, tab);
+		}
 		if (changeInfo.status == "complete") {
 			singlefile.extension.core.bg.autosave.onTabUpdated(tabId, changeInfo, tab);
-			singlefile.extension.ui.bg.main.onTabUpdated(tabId, changeInfo, tab);
 		}
 	}
 
