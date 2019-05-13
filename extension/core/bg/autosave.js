@@ -40,7 +40,7 @@ singlefile.extension.core.bg.autosave = (() => {
 			return { options, autoSaveEnabled };
 		}
 		if (message.method.endsWith(".save")) {
-			ui.onInit(sender.tab.id, 1, true);
+			ui.onStart(sender.tab.id, 1, true);
 			await saveContent(message, sender.tab);
 			ui.onEnd(sender.tab.id, true);
 			return {};

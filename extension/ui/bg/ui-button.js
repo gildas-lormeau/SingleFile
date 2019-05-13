@@ -111,7 +111,7 @@ singlefile.extension.ui.bg.button = (() => {
 
 	return {
 		onMessage,
-		onInit,
+		onStart,
 		onForbiddenDomain,
 		onError,
 		onEnd,
@@ -144,7 +144,7 @@ singlefile.extension.ui.bg.button = (() => {
 		return Promise.resolve({});
 	}
 
-	function onInit(tabId, step, autoSave) {
+	function onStart(tabId, step, autoSave) {
 		let state;
 		if (autoSave) {
 			state = getButtonState("initialize", true);

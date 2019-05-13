@@ -39,8 +39,8 @@ singlefile.extension.ui.bg.main = (() => {
 		onForbiddenDomain(tab) {
 			singlefile.extension.ui.bg.button.onForbiddenDomain(tab);
 		},
-		onInit(tabId, step, autoSave) {
-			singlefile.extension.ui.bg.button.onInit(tabId, step, autoSave);
+		onStart(tabId, step, autoSave) {
+			singlefile.extension.ui.bg.button.onStart(tabId, step, autoSave);
 		},
 		onError(tabId) {
 			singlefile.extension.ui.bg.button.onError(tabId);

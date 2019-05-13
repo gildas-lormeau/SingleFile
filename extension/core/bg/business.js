@@ -95,7 +95,7 @@ singlefile.extension.core.bg.business = (() => {
 					await requestSaveTab(tabId, "content.autosave", tabOptions);
 				}
 			} else {
-				ui.onInit(tabId, 1);
+				ui.onStart(tabId, 1);
 				const tabOptions = await config.getOptions(tab.url);
 				Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 				let scriptsInjected;
@@ -114,7 +114,7 @@ singlefile.extension.core.bg.business = (() => {
 					// ignored
 				}
 				if (scriptsInjected) {
-					ui.onInit(tabId, 2);
+					ui.onStart(tabId, 2);
 					if (tabOptions.frameId) {
 						await tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: tabOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
 					}
