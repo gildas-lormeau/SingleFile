@@ -49,7 +49,7 @@ singlefile.extension.core.bg.messages = (() => {
 		browser.runtime.onMessageExternal.addListener(async (message, sender) => {
 			const allTabs = await singlefile.extension.core.bg.tabs.get({ currentWindow: true, active: true });
 			const currentTab = allTabs[0];
-			if (currentTab && singlefile.extension.core.bg.util.isAllowedURL(currentTab.url)) {
+			if (currentTab) {
 				return singlefile.extension.core.bg.autosave.onMessageExternal(message, currentTab, sender);
 			} else {
 				return false;

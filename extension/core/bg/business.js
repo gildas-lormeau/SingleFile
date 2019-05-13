@@ -84,51 +84,49 @@ singlefile.extension.core.bg.business = (() => {
 		const tabs = singlefile.extension.core.bg.tabs;
 		const ui = singlefile.extension.ui.bg.main;
 		maxParallelWorkers = (await config.get()).maxParallelWorkers;
-		if (singlefile.extension.core.bg.util.isAllowedURL(tab.url)) {
-			await initScripts();
-			const tabId = tab.id;
-			options.tabId = tabId;
-			options.tabIndex = tab.index;
-			try {
-				if (options.autoSave) {
-					const tabOptions = await config.getOptions(tab.url, true);
-					if (autosave.isEnabled(tab)) {
-						await requestSaveTab(tabId, "content.autosave", tabOptions);
-					}
-				} else {
-					ui.onInitialize(tabId, options, 1);
-					const tabOptions = await config.getOptions(tab.url);
-					Object.keys(options).forEach(key => tabOptions[key] = options[key]);
-					let scriptsInjected;
-					if (!tabOptions.removeFrames) {
-						try {
-							await tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
-						} catch (error) {
-							// ignored
-						}
-					}
+		await initScripts();
+		const tabId = tab.id;
+		options.tabId = tabId;
+		options.tabIndex = tab.index;
+		try {
+			if (options.autoSave) {
+				const tabOptions = await config.getOptions(tab.url, true);
+				if (autosave.isEnabled(tab)) {
+					await requestSaveTab(tabId, "content.autosave", tabOptions);
+				}
+			} else {
+				ui.onInitialize(tabId, 1);
+				const tabOptions = await config.getOptions(tab.url);
+				Object.keys(options).forEach(key => tabOptions[key] = options[key]);
+				let scriptsInjected;
+				if (!tabOptions.removeFrames) {
 					try {
-						await initScripts();
-						await tabs.executeScript(tabId, { code: modulesScript + "\n" + contentScript, allFrames: false, runAt: "document_idle" });
-						scriptsInjected = true;
+						await tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
 					} catch (error) {
 						// ignored
 					}
-					if (scriptsInjected) {
-						ui.onInitialize(tabId, tabOptions, 2);
-						if (tabOptions.frameId) {
-							await tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: tabOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
-						}
-						await requestSaveTab(tabId, "content.save", tabOptions);
-					} else {
-						ui.onForbiddenDomain(tab, tabOptions);
+				}
+				try {
+					await initScripts();
+					await tabs.executeScript(tabId, { code: modulesScript + "\n" + contentScript, allFrames: false, runAt: "document_idle" });
+					scriptsInjected = true;
+				} catch (error) {
+					// ignored
+				}
+				if (scriptsInjected) {
+					ui.onInitialize(tabId, 2);
+					if (tabOptions.frameId) {
+						await tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: tabOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
 					}
+					await requestSaveTab(tabId, "content.save", tabOptions);
+				} else {
+					ui.onForbiddenDomain(tab);
 				}
-			} catch (error) {
-				if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
-					console.log(error); // eslint-disable-line no-console
-					ui.onError(tabId, options);
-				}
+			}
+		} catch (error) {
+			if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
+				console.log(error); // eslint-disable-line no-console
+				ui.onError(tabId);
 			}
 		}
 	}

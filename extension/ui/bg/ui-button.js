@@ -29,6 +29,7 @@ singlefile.extension.ui.bg.button = (() => {
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_128_wait";
 	const BUTTON_DEFAULT_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonDefaultTooltip");
 	const BUTTON_BLOCKED_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonBlockedTooltip");
+	const BUTTON_DEFAULT_BADGE_MESSAGE = "";
 	const BUTTON_INITIALIZING_BADGE_MESSAGE = browser.i18n.getMessage("buttonInitializingBadge");
 	const BUTTON_INITIALIZING_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonInitializingTooltip");
 	const BUTTON_ERROR_BADGE_MESSAGE = browser.i18n.getMessage("buttonErrorBadge");
@@ -36,9 +37,67 @@ singlefile.extension.ui.bg.button = (() => {
 	const BUTTON_OK_BADGE_MESSAGE = browser.i18n.getMessage("buttonOKBadge");
 	const BUTTON_SAVE_PROGRESS_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonSaveProgressTooltip");
 	const BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE = browser.i18n.getMessage("buttonAutoSaveActiveBadge");
-	const AUTOSAVE_COLOR = [208, 208, 208, 192];
 	const BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE = browser.i18n.getMessage("buttonAutoSaveActiveTooltip");
 	const DEFAULT_COLOR = [2, 147, 20, 192];
+	const ACTIVE_COLOR = [4, 229, 36, 192];
+	const FORBIDDEN_COLOR = [255, 255, 255, 1];
+	const ERROR_COLOR = [229, 4, 12, 192];
+	const AUTOSAVE_DEFAULT_COLOR = [208, 208, 208, 192];
+	const AUTOSAVE_INITIALIZING_COLOR = [64, 64, 64, 192];
+
+	const BUTTON_STATES = {
+		default: {
+			setBadgeBackgroundColor: { color: DEFAULT_COLOR },
+			setBadgeText: { text: BUTTON_DEFAULT_BADGE_MESSAGE },
+			setTitle: { title: BUTTON_DEFAULT_TOOLTIP_MESSAGE },
+			setIcon: { path: DEFAULT_ICON_PATH }
+		},
+		initialize: {
+			setBadgeBackgroundColor: { color: DEFAULT_COLOR },
+			setBadgeText: { text: BUTTON_INITIALIZING_BADGE_MESSAGE },
+			setTitle: { title: BUTTON_INITIALIZING_TOOLTIP_MESSAGE },
+		},
+		execute: {
+			setBadgeBackgroundColor: { color: ACTIVE_COLOR },
+			setBadgeText: { text: BUTTON_INITIALIZING_BADGE_MESSAGE },
+		},
+		progress: {
+			setBadgeBackgroundColor: { color: ACTIVE_COLOR },
+			setBadgeText: { text: BUTTON_DEFAULT_BADGE_MESSAGE }
+		},
+		end: {
+			setBadgeBackgroundColor: { color: ACTIVE_COLOR },
+			setBadgeText: { text: BUTTON_OK_BADGE_MESSAGE },
+			setTitle: { title: BUTTON_DEFAULT_TOOLTIP_MESSAGE },
+			setIcon: { path: DEFAULT_ICON_PATH }
+		},
+		error: {
+			setBadgeBackgroundColor: { color: ERROR_COLOR },
+			setBadgeText: { text: BUTTON_ERROR_BADGE_MESSAGE },
+			setTitle: { title: BUTTON_DEFAULT_BADGE_MESSAGE },
+			setIcon: { path: DEFAULT_ICON_PATH }
+		},
+		forbidden: {
+			setBadgeBackgroundColor: { color: FORBIDDEN_COLOR },
+			setBadgeText: { text: BUTTON_BLOCKED_BADGE_MESSAGE },
+			setTitle: { title: BUTTON_BLOCKED_TOOLTIP_MESSAGE },
+			setIcon: { path: DEFAULT_ICON_PATH }
+		},
+		autosave: {
+			initialize: {
+				setBadgeBackgroundColor: { color: AUTOSAVE_INITIALIZING_COLOR },
+				setBadgeText: { text: BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE },
+				setTitle: { title: BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE },
+				setIcon: { path: DEFAULT_ICON_PATH }
+			},
+			default: {
+				setBadgeBackgroundColor: { color: AUTOSAVE_DEFAULT_COLOR },
+				setBadgeText: { text: BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE },
+				setTitle: { title: BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE },
+				setIcon: { path: DEFAULT_ICON_PATH }
+			}
+		}
+	};
 
 	browser.browserAction.onClicked.addListener(async tab => {
 		const business = singlefile.extension.core.bg.business;
@@ -52,149 +111,120 @@ singlefile.extension.ui.bg.button = (() => {
 
 	return {
 		onMessage,
-		onTabCreated,
 		onTabUpdated,
 		onInitialize,
 		onProgress,
-		onEnd,
 		onForbiddenDomain,
 		onError,
-		refreshTab,
-		refresh: async (tab, options) => {
-			if (tab.id) {
-				await refresh(tab.id, getProperties(options));
-			}
-		}
+		onEnd,
+		refreshTab
 	};
 
 	function onMessage(message, sender) {
 		if (message.method.endsWith(".loadURL")) {
-			onLoad(sender.tab.id);
+			refreshTab(sender.tab);
 		}
 		if (message.method.endsWith(".processProgress")) {
 			if (message.maxIndex) {
-				onProgress(sender.tab.id, message.index, message.maxIndex, message.options);
+				onProgress(sender.tab.id, message.index, message.maxIndex);
 			}
 		}
 		if (message.method.endsWith(".processEnd")) {
-			onEnd(sender.tab.id, message.options);
+			onEnd(sender.tab.id);
 		}
 		if (message.method.endsWith(".processError")) {
 			if (message.error) {
 				console.error("Initialization error", message.error); // eslint-disable-line no-console
 			}
-			onError(sender.tab.id, message.options);
+			onError(sender.tab.id);
 		}
 		if (message.method.endsWith(".processCancelled")) {
-			onCancelled(sender.tab.id, message.options);
+			onCancelled(sender.tab);
 		}
 		return Promise.resolve({});
 	}
 
-	function onTabUpdated(tabId, changeInfo, tab) {
-		refreshTab(tab);
-	}
-
-	async function onTabCreated(tab) {
-		refreshTab(tab);
-	}
-
-	function onLoad(tabId) {
-		refresh(tabId, getProperties({}, "", DEFAULT_COLOR, BUTTON_DEFAULT_TOOLTIP_MESSAGE));
-	}
-
-	function onInitialize(tabId, options, step) {
-		refresh(tabId, getProperties(options, BUTTON_INITIALIZING_BADGE_MESSAGE, step == 1 ? DEFAULT_COLOR : [4, 229, 36, 192], BUTTON_INITIALIZING_TOOLTIP_MESSAGE + " (" + step + "/2)", WAIT_ICON_PATH_PREFIX + "0.png"));
-	}
-
-	function onError(tabId, options) {
-		refresh(tabId, getProperties(options, BUTTON_ERROR_BADGE_MESSAGE, [229, 4, 12, 192]));
-	}
-
-	function onForbiddenDomain(tab, options) {
-		if (singlefile.extension.core.bg.util.isAllowedProtocol(tab.url)) {
-			refresh(tab.id, getProperties(options, BUTTON_BLOCKED_BADGE_MESSAGE, [255, 255, 255, 1], BUTTON_BLOCKED_TOOLTIP_MESSAGE));
+	function onTabUpdated(/*tabId, changeInfo, tab*/) {
+		/*
+		const tabsData = singlefile.extension.core.bg.tabsData.getTemporary(tabId);
+		if (tabsData[tabId].button) {
+			delete tabsData[tabId].button.state;
+			refreshTab(tab);
 		}
+		*/
 	}
 
-	function onCancelled(tabId, options) {
-		refresh(tabId, getProperties(options, "", DEFAULT_COLOR, BUTTON_DEFAULT_TOOLTIP_MESSAGE));
+	function onInitialize(tabId, step, autoSave) {
+		let state;
+		if (autoSave) {
+			state = getButtonState("initialize", true);
+		} else {
+			state = step == 1 ? getButtonState("initialize") : getButtonState("execute");
+			state.setTitle = { title: BUTTON_INITIALIZING_TOOLTIP_MESSAGE + " (" + step + "/2)" };
+			state.setIcon = { path: WAIT_ICON_PATH_PREFIX + "0.png" };
+		}
+		refresh(tabId, state);
 	}
 
-	function onEnd(tabId, options) {
-		refresh(tabId, getProperties(options, BUTTON_OK_BADGE_MESSAGE, [4, 229, 36, 192]));
+	function onError(tabId) {
+		refresh(tabId, getButtonState("error"));
 	}
 
-	function onProgress(tabId, index, maxIndex, options) {
+	function onEnd(tabId, autoSave) {
+		refresh(tabId, autoSave ? getButtonState("default", true) : getButtonState("end"));
+	}
+
+	function onForbiddenDomain(tab) {
+		refresh(tab.id, getButtonState("forbidden"));
+	}
+
+	function onCancelled(tab) {
+		refreshTab(tab);
+	}
+
+	function onProgress(tabId, index, maxIndex) {
 		const progress = Math.max(Math.min(20, Math.floor((index / maxIndex) * 20)), 0);
 		const barProgress = Math.min(Math.floor((index / maxIndex) * 8), 8);
 		const path = WAIT_ICON_PATH_PREFIX + barProgress + ".png";
-		refresh(tabId, getProperties(options, "", [4, 229, 36, 192], BUTTON_SAVE_PROGRESS_TOOLTIP_MESSAGE + (progress * 5) + "%", path, [128, 128, 128, 192]));
+		const state = getButtonState("progress");
+		state.setTitle = { title: BUTTON_SAVE_PROGRESS_TOOLTIP_MESSAGE + (progress * 5) + "%" };
+		state.setIcon = { path };
+		refresh(tabId, state);
 	}
 
 	async function refreshTab(tab) {
-		const options = { autoSave: await singlefile.extension.core.bg.autosave.isEnabled(tab) };
-		const properties = getCurrentProperties(tab.id, options);
-		if (singlefile.extension.core.bg.util.isAllowedURL(tab.url)) {
-			await refresh(tab.id, properties);
-		} else {
-			try {
-				await onForbiddenDomain(tab, options);
-			} catch (error) {
-				/* ignored */
+		const autoSave = await singlefile.extension.core.bg.autosave.isEnabled(tab);
+		const state = getButtonState("default", autoSave);
+		await refresh(tab.id, state);
+	}
+
+	async function refresh(tabId, state) {
+		const tabsData = singlefile.extension.core.bg.tabsData.getTemporary(tabId);
+		if (state) {
+			if (!tabsData[tabId].button) {
+				tabsData[tabId].button = { lastState: null };
+			}
+			const lastState = tabsData[tabId].button.lastState || {};
+			const newState = {};
+			Object.keys(state).forEach(property => {
+				if (state[property] !== undefined && (JSON.stringify(lastState[property]) != JSON.stringify(state[property]))) {
+					newState[property] = state[property];
+				}
+			});
+			if (Object.keys(newState).length) {
+				tabsData[tabId].button.lastState = state;
+				await refreshAsync(tabId, newState);
 			}
 		}
 	}
 
-	function getCurrentProperties(tabId, options) {
-		if (options.autoSave) {
-			return getProperties(options);
-		} else {
-			const allTabsData = singlefile.extension.core.bg.tabsData.getTemporary(tabId);
-			delete allTabsData[tabId].button;
-			return getProperties(options);
-		}
-	}
-
-	function getProperties(options, text = "", color = DEFAULT_COLOR, title = BUTTON_DEFAULT_TOOLTIP_MESSAGE, path = DEFAULT_ICON_PATH) {
-		return options.autoSave ?
-			{
-				setBadgeBackgroundColor: { color: AUTOSAVE_COLOR },
-				setBadgeText: { BUTTON_AUTOSAVE_ACTIVE_BADGE_MESSAGE },
-				setTitle: { title: BUTTON_AUTOSAVE_ACTIVE_TOOLTIP_MESSAGE },
-				setIcon: { path: DEFAULT_ICON_PATH }
-			} :
-			{
-				setBadgeBackgroundColor: { color },
-				setBadgeText: { text },
-				setTitle: { title },
-				setIcon: { path }
-		};
-	}
-
-	async function refresh(tabId, tabData) {
-		const allTabsData = singlefile.extension.core.bg.tabsData.getTemporary(tabId);
-		const oldTabData = allTabsData[tabId].button || {};
-		allTabsData[tabId].button = tabData;
-		if (!tabData.pendingRefresh) {
-			tabData.pendingRefresh = Promise.resolve();
-		}
-		try {
-			await tabData.pendingRefresh;
-		} catch (error) {
-			/* ignored */
-		}
-		tabData.pendingRefresh = refreshAsync(tabId, tabData, oldTabData);
-	}
-
-	async function refreshAsync(tabId, tabData, oldTabData) {
-		for (const browserActionMethod of Object.keys(tabData)) {
-			if (browserActionMethod != "pendingRefresh" && (!oldTabData[browserActionMethod] || JSON.stringify(oldTabData[browserActionMethod]) != JSON.stringify(tabData[browserActionMethod]))) {
-				try {
-					await refreshProperty(tabId, browserActionMethod, tabData[browserActionMethod]);
-				} catch (error) {
-					/* ignored */
-				}
+	async function refreshAsync(tabId, state) {
+		for (const browserActionMethod of Object.keys(state)) {
+			try {
+				// console.log(tabId, "refreshAsync", browserActionMethod, state[browserActionMethod]);
+				await refreshProperty(tabId, browserActionMethod, state[browserActionMethod]);
+			} catch (error) {
+				/* ignored */
 			}
 		}
 	}
@@ -203,8 +233,13 @@ singlefile.extension.ui.bg.button = (() => {
 		if (browser.browserAction[browserActionMethod]) {
 			const parameter = JSON.parse(JSON.stringify(browserActionParameter));
 			parameter.tabId = tabId;
+			// console.log(browserActionMethod, parameter);
 			await browser.browserAction[browserActionMethod](parameter);
 		}
+	}
+
+	function getButtonState(name, autoSave) {
+		return JSON.parse(JSON.stringify(autoSave ? BUTTON_STATES.autosave[name] : BUTTON_STATES[name]));
 	}
 
 })();

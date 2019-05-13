@@ -56,7 +56,6 @@
 			"lib/frame-tree/bg/frame-tree.js",
 			"extension/core/bg/config.js",
 			"extension/core/bg/tabs-data.js",
-			"extension/core/bg/util.js",
 			"extension/core/bg/business.js",
 			"extension/core/bg/messages.js",
 			"extension/core/bg/tabs.js",

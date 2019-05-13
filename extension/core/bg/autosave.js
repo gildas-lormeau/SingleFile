@@ -34,22 +34,24 @@ singlefile.extension.core.bg.autosave = (() => {
 	};
 
 	async function onMessage(message, sender) {
+		const ui = singlefile.extension.ui.bg.main;
 		if (message.method.endsWith(".init")) {
 			const [options, autoSaveEnabled] = await Promise.all([singlefile.extension.core.bg.config.getOptions(sender.tab.url, true), isEnabled(sender.tab)]);
 			return { options, autoSaveEnabled };
 		}
 		if (message.method.endsWith(".save")) {
+			ui.onInitialize(sender.tab.id, 1, true);
 			await saveContent(message, sender.tab);
+			ui.onEnd(sender.tab.id, true);
 			return {};
 		}
 	}
 
 	async function onMessageExternal(message, currentTab) {
-		const tabsData = singlefile.extension.core.bg.tabsData;
 		if (message.method == "enableAutoSave") {
-			const allTabsData = await tabsData.get(currentTab.id);
-			allTabsData[currentTab.id].autoSave = message.enabled;
-			await tabsData.set(allTabsData);
+			const tabsData = await singlefile.extension.core.bg.tabsData.get(currentTab.id);
+			tabsData[currentTab.id].autoSave = message.enabled;
+			await singlefile.extension.core.bg.tabsData.set(tabsData);
 			singlefile.extension.ui.bg.main.refreshTab(currentTab);
 		}
 		if (message.method == "isAutoSaveEnabled") {
@@ -79,7 +81,7 @@ singlefile.extension.core.bg.autosave = (() => {
 
 	async function refreshTabs() {
 		const tabs = singlefile.extension.core.bg.tabs;
-		const allTabs = (await tabs.get({})).filter(tab => singlefile.extension.core.bg.util.isAllowedURL(tab.url));
+		const allTabs = (await singlefile.extension.core.bg.tabs.get({}));
 		return Promise.all(allTabs.map(async tab => {
 			const [options, autoSaveEnabled] = await Promise.all([singlefile.extension.core.bg.config.getOptions(tab.url, true), isEnabled(tab)]);
 			tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options }).catch(() => { /* ignored */ });
@@ -108,19 +110,6 @@ singlefile.extension.core.bg.autosave = (() => {
 		options.incognito = tab.incognito;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
-		let index = 0, maxIndex = 0;
-		options.onprogress = async event => {
-			if (event.type == event.RESOURCES_INITIALIZED) {
-				maxIndex = event.detail.max;
-				singlefile.extension.ui.bg.main.onProgress(tabId, index, maxIndex, { autoSave: true });
-			}
-			if (event.type == event.RESOURCE_LOADED) {
-				index++;
-				singlefile.extension.ui.bg.main.onProgress(tabId, index, maxIndex, { autoSave: true });
-			} else if (event.type == event.PAGE_ENDED) {
-				singlefile.extension.ui.bg.main.onEnd(tabId, { autoSave: true });
-			}
-		};
 		const processor = new (singlefile.lib.SingleFile.getClass())(options);
 		await processor.run();
 		const page = await processor.getPageData();

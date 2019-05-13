@@ -59,10 +59,10 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 					await downloadPage(page, options);
 				} catch (error) {
 					console.error(error); // eslint-disable-line no-console
-					browser.runtime.sendMessage({ method: "ui.processError", error, options: {} });
+					browser.runtime.sendMessage({ method: "ui.processError", error });
 				}
 			} else {
-				browser.runtime.sendMessage({ method: "ui.processCancelled", options: {} });
+				browser.runtime.sendMessage({ method: "ui.processCancelled" });
 			}
 			processing = false;
 		}
@@ -103,10 +103,10 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 				if (event.type == event.RESOURCE_LOADED) {
 					index++;
 				}
-				browser.runtime.sendMessage({ method: "ui.processProgress", index, maxIndex, options: {} });
+				browser.runtime.sendMessage({ method: "ui.processProgress", index, maxIndex });
 				ui.onLoadResource(index, maxIndex, options);
 			} if (event.type == event.PAGE_ENDED) {
-				browser.runtime.sendMessage({ method: "ui.processEnd", options: {} });
+				browser.runtime.sendMessage({ method: "ui.processEnd" });
 			} else if (!event.detail.frame) {
 				if (event.type == event.PAGE_LOADING) {
 					ui.onPageLoading();

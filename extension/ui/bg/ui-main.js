@@ -36,33 +36,29 @@ singlefile.extension.ui.bg.main = (() => {
 		async refreshTab(tab) {
 			return Promise.all([singlefile.extension.ui.bg.menu.refreshTab(tab), singlefile.extension.ui.bg.button.refreshTab(tab)]);
 		},
-		onForbiddenDomain(tab, options) {
-			singlefile.extension.ui.bg.button.onForbiddenDomain(tab, options);
+		onForbiddenDomain(tab) {
+			singlefile.extension.ui.bg.button.onForbiddenDomain(tab);
 		},
-		onInitialize(tabId, options, step) {
-			singlefile.extension.ui.bg.button.onInitialize(tabId, options, step);
+		onInitialize(tabId, step, autoSave) {
+			singlefile.extension.ui.bg.button.onInitialize(tabId, step, autoSave);
 		},
-		onProgress(tabId, index, maxIndex, options) {
-			singlefile.extension.ui.bg.button.onProgress(tabId, index, maxIndex, options);
+		onProgress(tabId, index, maxIndex) {
+			singlefile.extension.ui.bg.button.onProgress(tabId, index, maxIndex);
 		},
-		onError(tabId, options) {
-			singlefile.extension.ui.bg.button.onError(tabId, options);
+		onError(tabId) {
+			singlefile.extension.ui.bg.button.onError(tabId);
 		},
-		onEnd(tabId, options) {
-			singlefile.extension.ui.bg.button.onEnd(tabId, options);
+		onEnd(tabId, autoSave) {
+			singlefile.extension.ui.bg.button.onEnd(tabId, autoSave);
 		},
 		onTabCreated(tab) {
-			singlefile.extension.ui.bg.button.onTabCreated(tab);
 			singlefile.extension.ui.bg.menu.onTabCreated(tab);
 		},
 		onTabActivated(tab, activeInfo) {
 			singlefile.extension.ui.bg.menu.onTabActivated(tab, activeInfo);
 		},
 		onTabUpdated(tabId, changeInfo, tab) {
-			if (changeInfo.status) {
-				singlefile.extension.ui.bg.menu.onTabUpdated(tabId, changeInfo, tab);
-				singlefile.extension.ui.bg.button.onTabUpdated(tabId, changeInfo, tab);
-			}
+			singlefile.extension.ui.bg.menu.onTabUpdated(tabId, changeInfo, tab);
 		}
 	};
 
