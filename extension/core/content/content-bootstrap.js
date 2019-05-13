@@ -34,8 +34,8 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		refresh();
 	});
 	browser.runtime.onMessage.addListener(message => { onMessage(message); });
-	browser.runtime.sendMessage({ method: "ui.loadURL" });
-	addEventListener("single-file-push-state", () => browser.runtime.sendMessage({ method: "ui.loadURL" }));
+	browser.runtime.sendMessage({ method: "ui.processInit" });
+	addEventListener("single-file-push-state", () => browser.runtime.sendMessage({ method: "ui.processInit" }));
 	return {};
 
 	async function onMessage(message) {

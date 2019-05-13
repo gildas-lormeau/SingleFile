@@ -119,7 +119,7 @@ singlefile.extension.ui.bg.button = (() => {
 	};
 
 	function onMessage(message, sender) {
-		if (message.method.endsWith(".loadURL")) {
+		if (message.method.endsWith(".processInit")) {
 			const tabsData = singlefile.extension.core.bg.tabsData.getTemporary(sender.tab.id);
 			delete tabsData[sender.tab.id].button;
 			refreshTab(sender.tab);
