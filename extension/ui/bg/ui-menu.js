@@ -441,7 +441,7 @@ singlefile.extension.ui.bg.menu = (() => {
 				}
 				await Promise.all(promises);
 			} catch (error) {
-				/* ignored */
+				// ignored
 			}
 		}
 	}
