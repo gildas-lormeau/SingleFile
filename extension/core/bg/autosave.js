@@ -84,7 +84,11 @@ singlefile.extension.core.bg.autosave = (() => {
 		const allTabs = (await singlefile.extension.core.bg.tabs.get({}));
 		return Promise.all(allTabs.map(async tab => {
 			const [options, autoSaveEnabled] = await Promise.all([singlefile.extension.core.bg.config.getOptions(tab.url, true), isEnabled(tab)]);
-			tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options }).catch(() => { /* ignored */ });
+			try {
+				await tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options })
+			} catch (error) {
+				// ignored
+			}
 		}));
 	}
 
