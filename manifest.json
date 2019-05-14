@@ -111,18 +111,12 @@
 	"commands": {
 		"_execute_browser_action": {
 			"suggested_key": {
-				"windows": "Ctrl+Shift+Y",
-				"mac": "Command+Shift+Y",
-				"linux": "Ctrl+Shift+Y",
-				"chromeos": "Ctrl+Shift+Y"
+				"default": "Ctrl+Shift+Y"
 			}
 		},
 		"save-all-tabs": {
 			"suggested_key": {
-				"windows": "Ctrl+Shift+U",
-				"mac": "Command+Shift+U",
-				"linux": "Ctrl+Shift+U",
-				"chromeos": "Ctrl+Shift+U"
+				"default": "Ctrl+Shift+U"
 			},
 			"description": "Save all tabs"
 		}
