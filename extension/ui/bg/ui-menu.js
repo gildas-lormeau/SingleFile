@@ -72,7 +72,7 @@ singlefile.extension.ui.bg.menu = (() => {
 		onMessage,
 		onTabCreated: refreshTab,
 		onTabActivated: refreshTab,
-		onTabUpdated: onTabUpdated,
+		onTabUpdated: (tabId, changeInfo, tab) => refreshTab(tab),
 		refreshTab: createMenus
 	};
 
@@ -81,10 +81,6 @@ singlefile.extension.ui.bg.menu = (() => {
 			createMenus();
 			return Promise.resolve({});
 		}
-	}
-
-	function onTabUpdated(tabId, changeInfo, tab) {
-		refreshTab(tab);
 	}
 
 	async function createMenus(tab) {
