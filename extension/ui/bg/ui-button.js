@@ -211,11 +211,7 @@ singlefile.extension.ui.bg.button = (() => {
 
 	async function refreshAsync(tabId, state) {
 		for (const browserActionMethod of Object.keys(state)) {
-			try {
-				await refreshProperty(tabId, browserActionMethod, state[browserActionMethod]);
-			} catch (error) {
-				/* ignored */
-			}
+			await refreshProperty(tabId, browserActionMethod, state[browserActionMethod]);
 		}
 	}
 
