@@ -66,7 +66,7 @@ singlefile.extension.ui.bg.menu = (() => {
 	const menusCheckedState = new Map();
 	const menusTitleState = new Map();
 	let profileIndexes = new Map();
-	let menusCreated;
+	let menusCreated, pendingRefresh;
 	initialize();
 	return {
 		onMessage,
@@ -304,6 +304,10 @@ singlefile.extension.ui.bg.menu = (() => {
 			menusCheckedState.set(MENU_ID_AUTO_SAVE_ALL, false);
 		}
 		menusCreated = true;
+		if (pendingRefresh) {
+			pendingRefresh = false;
+			(await singlefile.extension.core.bg.tabs.get({})).forEach(async tab => await refreshTab(tab));
+		}
 	}
 
 	async function initialize() {
@@ -392,7 +396,11 @@ singlefile.extension.ui.bg.menu = (() => {
 					}
 				}
 			});
-			(await tabs.get({})).forEach(tab => refreshTab(tab));
+			if (menusCreated) {
+				pendingRefresh = true;
+			} else {
+				(await tabs.get({})).forEach(async tab => await refreshTab(tab));
+			}
 		}
 	}
 
