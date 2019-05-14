@@ -23,7 +23,7 @@
 
 /* global browser, singlefile, URL */
 
-singlefile.extension.ui.bg.menu = (() => {
+singlefile.extension.ui.bg.menus = (() => {
 
 	const menus = browser.menus || browser.contextMenus;
 	const BROWSER_MENUS_API_SUPPORTED = menus && menus.onClicked && menus.create && menus.update && menus.removeAll;

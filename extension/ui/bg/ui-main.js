@@ -28,13 +28,13 @@ singlefile.extension.ui.bg.main = (() => {
 	return {
 		onMessage(message, sender) {
 			if (message.method.endsWith(".refreshMenu")) {
-				return singlefile.extension.ui.bg.menu.onMessage(message, sender);
+				return singlefile.extension.ui.bg.menus.onMessage(message, sender);
 			} else {
 				return singlefile.extension.ui.bg.button.onMessage(message, sender);
 			}
 		},
 		async refreshTab(tab) {
-			return Promise.all([singlefile.extension.ui.bg.menu.refreshTab(tab), singlefile.extension.ui.bg.button.refreshTab(tab)]);
+			return Promise.all([singlefile.extension.ui.bg.menus.refreshTab(tab), singlefile.extension.ui.bg.button.refreshTab(tab)]);
 		},
 		onForbiddenDomain(tab) {
 			singlefile.extension.ui.bg.button.onForbiddenDomain(tab);
@@ -49,13 +49,13 @@ singlefile.extension.ui.bg.main = (() => {
 			singlefile.extension.ui.bg.button.onEnd(tabId, autoSave);
 		},
 		onTabCreated(tab) {
-			singlefile.extension.ui.bg.menu.onTabCreated(tab);
+			singlefile.extension.ui.bg.menus.onTabCreated(tab);
 		},
 		onTabActivated(tab, activeInfo) {
-			singlefile.extension.ui.bg.menu.onTabActivated(tab, activeInfo);
+			singlefile.extension.ui.bg.menus.onTabActivated(tab, activeInfo);
 		},
 		onTabUpdated(tabId, changeInfo, tab) {
-			singlefile.extension.ui.bg.menu.onTabUpdated(tabId, changeInfo, tab);
+			singlefile.extension.ui.bg.menus.onTabUpdated(tabId, changeInfo, tab);
 		}
 	};
 

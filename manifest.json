@@ -62,7 +62,7 @@
 			"extension/core/bg/downloads.js",
 			"extension/core/bg/autosave.js",
 			"extension/ui/bg/ui-main.js",
-			"extension/ui/bg/ui-menu.js",
+			"extension/ui/bg/ui-menus.js",
 			"extension/ui/bg/ui-commands.js",
 			"extension/ui/bg/ui-button.js",
 			"lib/lazy/bg/lazy-timeout.js",
