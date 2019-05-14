@@ -66,6 +66,7 @@ singlefile.extension.ui.bg.menu = (() => {
 	const menusCheckedState = new Map();
 	const menusTitleState = new Map();
 	let profileIndexes = new Map();
+	let menusCreated;
 	initialize();
 	return {
 		onMessage,
@@ -306,6 +307,7 @@ singlefile.extension.ui.bg.menu = (() => {
 			});
 			menusCheckedState.set(MENU_ID_AUTO_SAVE_ALL, false);
 		}
+		menusCreated = true;
 	}
 
 	async function initialize() {
@@ -411,25 +413,25 @@ singlefile.extension.ui.bg.menu = (() => {
 
 	async function refreshTab(tab) {
 		const config = singlefile.extension.core.bg.config;
-		if (BROWSER_MENUS_API_SUPPORTED) {
+		if (BROWSER_MENUS_API_SUPPORTED && menusCreated) {
 			const tabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);
 			const promises = [];
-			try {
-				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, !tabsData[tab.id].autoSave));
-				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, tabsData[tab.id].autoSave));
-				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(tabsData.autoSaveUnpinned)));
-				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(tabsData.autoSaveAll)));
-				if (tab && tab.url) {
-					let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
-					let title = MENU_CREATE_DOMAIN_RULE_MESSAGE;
-					const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url)]);
-					if (rule) {
-						const profileIndex = profileIndexes.get(rule.profile);
-						if (profileIndex) {
-							selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
-							title = MENU_UPDATE_RULE_MESSAGE;
-						}
+			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, !tabsData[tab.id].autoSave));
+			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, tabsData[tab.id].autoSave));
+			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(tabsData.autoSaveUnpinned)));
+			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(tabsData.autoSaveAll)));
+			if (tab && tab.url) {
+				let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
+				let title = MENU_CREATE_DOMAIN_RULE_MESSAGE;
+				const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url)]);
+				if (rule) {
+					const profileIndex = profileIndexes.get(rule.profile);
+					if (profileIndex) {
+						selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
+						title = MENU_UPDATE_RULE_MESSAGE;
 					}
+				}
+				if (Object.keys(profiles).length > 1) {
 					Object.keys(profiles).forEach((profileName, profileIndex) => {
 						if (profileName == config.DEFAULT_PROFILE_NAME) {
 							promises.push(updateCheckedValue(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default", selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default"));
@@ -439,10 +441,8 @@ singlefile.extension.ui.bg.menu = (() => {
 					});
 					promises.push(updateTitleValue(MENU_ID_ASSOCIATE_WITH_PROFILE, title));
 				}
-				await Promise.all(promises);
-			} catch (error) {
-				// ignored
 			}
+			await Promise.all(promises);
 		}
 	}
 
@@ -461,11 +461,7 @@ singlefile.extension.ui.bg.menu = (() => {
 		const lastCheckedValue = menusCheckedState.get(id);
 		menusCheckedState.set(id, checked);
 		if (lastCheckedValue === undefined || lastCheckedValue != checked) {
-			try {
-				await menus.update(id, { checked });
-			} catch (error) {
-				// ignored
-			}
+			await menus.update(id, { checked });
 		}
 	}
 
