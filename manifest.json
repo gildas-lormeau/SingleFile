@@ -63,6 +63,7 @@
 			"extension/core/bg/autosave.js",
 			"extension/ui/bg/ui-main.js",
 			"extension/ui/bg/ui-menu.js",
+			"extension/ui/bg/ui-commands.js",
 			"extension/ui/bg/ui-button.js",
 			"lib/lazy/bg/lazy-timeout.js",
 			"lib/single-file/vendor/css-minifier.js",
@@ -113,8 +114,17 @@
 				"windows": "Ctrl+Shift+Y",
 				"mac": "Command+Shift+Y",
 				"linux": "Ctrl+Shift+Y",
-				"chromeos": "Ctrl+Shift+U"
+				"chromeos": "Ctrl+Shift+Y"
 			}
+		},
+		"save-all-tabs": {
+			"suggested_key": {
+				"windows": "Ctrl+Shift+U",
+				"mac": "Command+Shift+U",
+				"linux": "Ctrl+Shift+U",
+				"chromeos": "Ctrl+Shift+U"
+			},
+			"description": "Save all tabs"
 		}
 	},
 	"web_accessible_resources": [
