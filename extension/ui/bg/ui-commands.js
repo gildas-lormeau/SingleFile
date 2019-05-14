@@ -29,7 +29,7 @@ singlefile.extension.ui.bg.commands = (() => {
 	const BROWSER_COMMANDS_API_SUPPORTED = commands && commands.onCommand && commands.onCommand.addListener;
 
 	if (BROWSER_COMMANDS_API_SUPPORTED) {
-		browser.commands.onCommand.addListener(async command => {
+		commands.onCommand.addListener(async command => {
 			if (command == "save-all-tabs") {
 				const allTabs = await singlefile.extension.core.bg.tabs.get({ currentWindow: true });
 				allTabs.forEach(tab => singlefile.extension.core.bg.business.saveTab(tab));
