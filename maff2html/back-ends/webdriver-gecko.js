@@ -69,7 +69,6 @@ exports.getPageData = async options => {
 			process.env["webdriver.gecko.driver"] = options.webDriverExecutablePath;
 		}
 		const profile = new firefox.Profile();
-		profile.addExtension(require.resolve("./extensions/signed/disabled_add_on_fix_for_firefox_52_56-1.1.4.xpi"));
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
 			profile.addExtension(require.resolve("./extensions/signed/disable_web_security-0.0.3-an+fx.xpi"));
 		}
@@ -86,6 +85,10 @@ exports.getPageData = async options => {
 			profile.setPreference("general.useragent.override", options.userAgent);
 		}
 		profile.addExtension(require.resolve("./extensions/signed/mozilla_archive_format_with_mht_and_faithful_save-5.2.1-fx+sm.xpi"));
+		profile.setPreference("browser.tabs.remote.autostart", false);
+		profile.setPreference("browser.tabs.remote.autostart.2", false);
+		profile.setPreference("extensions.allow-non-mpc-extensions", true);
+		profile.setPreference("xpinstall.signatures.required", false);
 		firefoxOptions.setProfile(profile);
 		builder.setFirefoxOptions(firefoxOptions);
 		driver = await builder.forBrowser("firefox").build();
@@ -157,7 +160,7 @@ function getPageDataScript() {
 		const preInitializationPromises = [];
 		if (!options.saveRawPage) {
 			if (!options.removeFrames) {
-				preInitializationPromises.push(singlefile.lib.frameTree.content.frames.(options));
+				preInitializationPromises.push(singlefile.lib.frameTree.content.frames.getAsync(options));
 			}
 			if (options.loadDeferredImages) {
 				preInitializationPromises.push(singlefile.lib.lazy.content.loader.process(options));
