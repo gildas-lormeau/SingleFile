@@ -6,7 +6,7 @@ SingleFile can be launched from the command line to convert MAFF files to HTML f
 
 ## Install
 
-- Install the latest Nightly version of [Firefox version 56.0.2](https://ftp.mozilla.org/pub/firefox/nightly/2017/08/2017-08-01-10-03-11-mozilla-central/) (cf. firefox-56.0a1.en-US.win64.zip, firefox-56.0a1.en-US.win32.zip, firefox-56.0a1.en-US.linux-x86_64.tar.bz2, firefox-56.0a1.en-US.mac.dmg)
+- Unzip and install the latest Nightly version of [Firefox version 56.0.2](https://github.com/gildas-lormeau/SingleFile/tree/master/maff2html/bin/firefox/)
 
 - Make sure the executable of Firefox can be found through the `PATH` environment variable. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating it.
 
@@ -28,7 +28,7 @@ SingleFile can be launched from the command line to convert MAFF files to HTML f
 
   `$ chmod +x single-file`
 
-- Extract and copy the [Mozilla geckodriver version 0.20.1](https://github.com/mozilla/geckodriver/releases/tag/v0.20.1) executable in the `maff2html` folder.
+- Unzip and copy the [Mozilla geckodriver version 0.20.1](https://github.com/gildas-lormeau/SingleFile/tree/master/maff2html/bin/geckodriver/) executable in the `maff2html` folder.
 
 ## Run
 
