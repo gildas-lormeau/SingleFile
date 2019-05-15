@@ -72,7 +72,8 @@ singlefile.extension.core.bg.config = (() => {
 		removeAlternativeImages: true,
 		groupDuplicateImages: true,
 		saveRawPage: false,
-		saveToClipboard: false
+		saveToClipboard: false,
+		referrerPolicy: "origin-when-cross-origin"
 	};
 
 	let pendingUpgradePromise = upgrade();
