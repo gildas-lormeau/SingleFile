@@ -69,6 +69,7 @@ exports.getPageData = async options => {
 			process.env["webdriver.gecko.driver"] = options.webDriverExecutablePath;
 		}
 		const profile = new firefox.Profile();
+		profile.addExtension(require.resolve("./extensions/signed/disabled_add_on_fix_for_firefox_52_56-1.1.4.xpi"));
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
 			profile.addExtension(require.resolve("./extensions/signed/disable_web_security-0.0.3-an+fx.xpi"));
 		}
