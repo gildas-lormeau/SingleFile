@@ -19,7 +19,7 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
  - [License](#license)
 
 ## Demo
-https://www.youtube.com/watch?v=RdV8DBW5b0g
+![](demo/SingleFile-demo.gif)
 
 ## Install
 SingleFile can be installed:
