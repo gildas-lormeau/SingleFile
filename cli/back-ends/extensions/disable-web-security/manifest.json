@@ -1,0 +1,20 @@
+{
+	"name": "disable-web-security",
+	"version": "0.0.3",
+	"background": {
+		"scripts": [
+			"index.js"
+		]
+	},
+	"permissions": [
+		"webRequest",
+		"webRequestBlocking",
+		"<all_urls>"
+	],
+	"applications": {
+		"gecko": {
+			"id": "{588434c2-67c3-4f77-9828-c30c7d63e8f9}"
+		}
+	},
+	"manifest_version": 2
+}

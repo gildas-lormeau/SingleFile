@@ -1,0 +1,12 @@
+{
+	"name": "single-file",
+	"version": "0.0.1",
+	"description": "SingleFile",
+	"author": "Gildas Lormeau",
+	"license": "AGPL-3.0-or-later",
+	"dependencies": {
+		"selenium-webdriver": "3.*",
+		"yargs": "12.*",
+		"file-url": "2.0"
+	}
+}

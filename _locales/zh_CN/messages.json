@@ -1,0 +1,449 @@
+{
+    "extensionDescription": {
+        "message": "将完整的页面保存到一个 HTML 文件中",
+        "description": "扩展描述。"
+    },
+    "menuSavePage": {
+        "message": "使用 SingleFile 保存页面",
+        "description": "菜单项: '使用 SingleFile 保存页面'"
+    },
+    "menuSelectProfile": {
+        "message": "选择默认配置文件",
+        "description": "Menu entry: 'Select the default profile'"
+    },
+    "menuUpdateRule": {
+        "message": "选择当前规则的配置",
+        "description": "Menu entry: 'Select the profile of the current rule'"
+    },
+    "menuCreateDomainRule": {
+        "message": "选择当前域名的配置",
+        "description": "Menu entry: 'Select the profile of the current domain'"
+    },
+    "menuSaveSelection": {
+        "message": "保存选中部分",
+        "description": "菜单项: '保存选中部分'"
+    },
+    "menuSaveFrame": {
+        "message": "保存框架",
+        "description": "菜单项: '保存框架'"
+    },
+    "menuSaveTabs": {
+        "message": "保存标签页",
+        "description": "Menu entry (SingleFile button only): 'Save tabs'"
+    },
+    "menuSaveSelectedTabs": {
+        "message": "保存选中标签页",
+        "description": "菜单项: '保存选中标签页'"
+    },
+    "menuSaveUnpinnedTabs": {
+        "message": "保存非固定标签页",
+        "description": "菜单项: '保存非固定标签页'"
+    },
+    "menuSaveAllTabs": {
+        "message": "保存所有标签页",
+        "description": "菜单项: '保存所有标签页'"
+    },
+    "menuAutoSave": {
+        "message": "自动保存",
+        "description": "菜单项: '自动保存'"
+    },
+    "menuAutoSaveDisabled": {
+        "message": "禁用",
+        "description": "菜单项: '自动保存' > '禁用'"
+    },
+    "menuAutoSaveTab": {
+        "message": "自动保存此标签页",
+        "description": "菜单项: '自动保存' > '自动保存此标签页'"
+    },
+    "menuAutoSaveUnpinnedTabs": {
+        "message": "自动保存非固定标签页",
+        "description": "菜单项: '自动保存' > '自动保存非固定标签页'"
+    },
+    "menuAutoSaveAllTabs": {
+        "message": "自动保存所有标签页",
+        "description": "菜单项: '自动保存' > '自动保存所有标签页'"
+    },
+    "buttonDefaultTooltip": {
+        "message": "使用 SingleFile 保存页面",
+        "description": "按钮标题: '使用 SingleFile 保存页面'"
+    },
+    "buttonBlockedBadge": {
+        "message": "🚫",
+        "description": "Button badge when the page is blocked: '🚫'"
+    },
+    "buttonBlockedTooltip": {
+        "message": "SingleFile 无法保存这个页面",
+        "description": "Button title: 'This page cannot be saved with SingleFile'"
+    },
+    "buttonInitializingTooltip": {
+        "message": "正在初始化 SingleFile",
+        "description": "保存时候的按钮标题: '正在初始化 SingleFile (x/2)'"
+    },
+    "buttonInitializingBadge": {
+        "message": "•••",
+        "description": "初始化时候的徽标标签: '•••'"
+    },
+    "buttonSaveProgressTooltip": {
+        "message": "保存进度：",
+        "description": "保存时候的按钮标题: '保存进度：xx%'"
+    },
+    "buttonOKBadge": {
+        "message": "完成",
+        "description": "徽标标签: 'OK'"
+    },
+    "buttonErrorBadge": {
+        "message": "错误",
+        "description": "出现意外错误时候的徽标标签"
+    },
+    "buttonAutoSaveActiveTooltip": {
+        "message": "自动保存动作",
+        "description": "按钮标题: '自动保存动作'"
+    },
+    "buttonAutoSaveActiveBadge": {
+        "message": "[自动]",
+        "description": "自动保存激活时候的徽标标签"
+    },
+    "optionsTitle": {
+        "message": "选项",
+        "description": "选项页标题"
+    },
+    "optionsUserInterfaceSubTitle": {
+        "message": "用户界面",
+        "description": "选项页副标题: '用户界面'"
+    },
+    "optionAddMenuEntry": {
+        "message": "添加菜单项到页面的右键菜单",
+        "description": "选项页标签: '添加菜单项到页面的右键菜单'"
+    },
+    "optionDisplayShadow": {
+        "message": "处理过程中以阴影遮盖页面",
+        "description": "选项页标签: '处理过程中以阴影遮盖页面'"
+    },
+    "optionDisplayInfobar": {
+        "message": "查看一个已保存的页面时显示信息栏",
+        "description": "选项页标签: '查看一个已保存的页面时显示信息栏'"
+    },
+    "optionInfobarTemplate": {
+        "message": "信息栏内容模板",
+        "description": "选项页标签: '信息栏内容模板'"
+    },
+    "optionConfirmInfobar": {
+        "message": "打开一个提示窗口以编辑信息栏内容",
+        "description": "选项页标签: '打开一个提示窗口以编辑信息栏内容'"
+    },
+    "optionsFileNameSubTitle": {
+        "message": "文件名",
+        "description": "选项页副标题: '文件名'"
+    },
+    "optionFilenameTemplate": {
+        "message": "模板",
+        "description": "选项页标签: '模板'"
+    },
+    "optionConfirmFilename": {
+        "message": "打开“另存为”对话框以确认文件名",
+        "description": "选项页标签: '打开“另存为”对话框以确认文件名'"
+    },
+    "optionFilenameConflictAction": {
+        "message": "文件名冲突解决",
+        "description": "Options page label: 'filename conflict resolution'"
+    },
+    "optionFilenameConflictActionUniquify": {
+        "message": "创建为不冲突的名称",
+        "description": "Value for 'filename conflict resolution' option: 'create a unique name'"
+    },
+    "optionFilenameConflictActionOverwrite": {
+        "message": "覆盖现有的文件",
+        "description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+    },
+    "optionFilenameConflictActionPrompt": {
+        "message": "询问新名称",
+        "description": "Value for 'name conflict resolution' option: 'prompt for a name'"
+    },
+    "optionsHTMLContentSubTitle": {
+        "message": "HTML 内容",
+        "description": "选项页副标题: 'HTML 内容'"
+    },
+    "optionCompressHTML": {
+        "message": "压缩 HTML 内容",
+        "description": "选项页标签: '压缩 HTML 内容'"
+    },
+    "optionRemoveImports": {
+        "message": "移除 HTML 导入",
+        "description": "选项页标签: '移除 HTML 导入'"
+    },
+    "optionRemoveFrames": {
+        "message": "移除框架",
+        "description": "选项页标签: '移除框架'"
+    },
+    "optionRemoveHiddenElements": {
+        "message": "移除隐藏元素",
+        "description": "选项页标签: '移除隐藏元素'"
+    },
+    "optionsImagesSubTitle": {
+        "message": "图像",
+        "description": "选项页副标题: '图像'"
+    },
+    "optionGroupDuplicateImages": {
+        "message": "重复图像合并",
+        "description": "选项页标签: '重复图像合并'"
+    },
+    "optionLoadDeferredImages": {
+        "message": "保存延迟加载的图像",
+        "description": "选项页标签: '保存延迟加载的图像'"
+    },
+    "optionLoadDeferredImagesMaxIdleTime": {
+        "message": "最长空闲时间（毫秒）",
+        "description": "Options page label: 'maximum idle time (ms)'"
+    },
+    "optionRemoveAlternativeImages": {
+        "message": "移除备用分辨率的图像",
+        "description": "选项页标签: '移除备用分辨率的图像'"
+    },
+    "optionsFontsSubTitle": {
+        "message": "字体",
+        "description": "Options sub-title: 'Fonts'"
+    },
+    "optionRemoveUnusedFonts": {
+        "message": "移除未使用的字体",
+        "description": "Options page label: 'remove unused fonts'"
+    },
+    "optionRemoveAlternativeFonts": {
+        "message": "移除备用的字体",
+        "description": "Options page label: 'remove alternative fonts'"
+    },
+    "optionsStylesheetsSubTitle": {
+        "message": "样式表",
+        "description": "选项页副标题: '样式表'"
+    },
+    "optionCompressCSS": {
+        "message": "压缩 CSS 内容",
+        "description": "选项页标签: '压缩 CSS 内容'"
+    },
+    "optionRemoveUnusedStyles": {
+        "message": "移除未使用的样式",
+        "description": "选项页标签: '移除未使用的样式'"
+    },
+    "optionRemoveAlternativeMedias": {
+        "message": "移除其他设备分辨率的样式表",
+        "description": "选项页标签: '移除其他设备分辨率的样式表'"
+    },
+    "optionsOtherResourcesSubTitle": {
+        "message": "其他资源",
+        "description": "选项页副标题: '其他资源'"
+    },
+    "optionRemoveScripts": {
+        "message": "移除脚本",
+        "description": "选项页标签: '移除脚本'"
+    },
+    "optionRemoveVideo": {
+        "message": "移除视频嵌入",
+        "description": "选项页标签: '移除视频嵌入'"
+    },
+    "optionRemoveAudio": {
+        "message": "移除音频嵌入",
+        "description": "选项页标签: '移除音频嵌入'"
+    },
+    "optionsAutoSaveSubTitle": {
+        "message": "自动保存",
+        "description": "选项页副标题: '自动保存'"
+    },
+    "optionsDeleteDisplayedRulesConfirm": {
+        "message": "确认移除所有已显示规则",
+        "description": "Popup text 'Confirm deletion of all displayed rules'"
+    },
+    "optionsDeleteRulesTooltip": {
+        "message": "移除所有已显示规则",
+        "description": "Popup text 'Delete all displayed rules'"
+    },
+    "optionsAutoSettingsSubTitle": {
+        "message": "自动设置",
+        "description": "Options sub-title: 'Auto-settings rules'"
+    },
+    "optionsAutoSettingsUrl": {
+        "message": "URL",
+        "description": "Options label in the auto-settings rules: 'URL'"
+    },
+    "optionsAutoSettingsUrlPlaceholder": {
+        "message": "输入部分或完整 URL（如 example.com）",
+        "description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
+    },
+    "optionsAutoSettingsProfile": {
+        "message": "配置文件",
+        "description": "Options label in the Auto-settings rules: 'Profile'"
+    },
+    "optionsAutoSettingsAutoSaveProfile": {
+        "message": "自动保存配置文件",
+        "description": "Options label in the Auto-settings rules: 'Auto-save profile'"
+    },
+    "optionsAutoSettingsShowAllProfiles": {
+        "message": "显示所有配置文件",
+        "description": "Options label in the Auto-settings rules: 'display all profiles'"
+    },
+    "optionsAutoSettingsShowAutoSaveProfile": {
+        "message": "显示“自动保存配置文件”",
+        "description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
+    },
+    "optionsUpdateRuleTooltip": {
+        "message": "更新规则",
+        "description": "Popup text 'Update the rule' in the options page"
+    },
+    "optionsDeleteRuleTooltip": {
+        "message": "删除规则",
+        "description": "Popup text 'Delete the rule' in the options page"
+    },
+    "optionsAddRuleTooltip": {
+        "message": "添加规则",
+        "description": "Popup text 'Delete the rule' in the options page"
+    },
+    "optionsValidateChangesTooltip": {
+        "message": "验证更改",
+        "description": "Popup text 'Validate changes' in the options page"
+    },
+    "optionsDeleteRuleConfirm": {
+        "message": "确认删除所选规则",
+        "description": "Popup text 'Confirm deletion of the selected rule' in the options page"
+    },
+    "optionAutoSaveLoadOrUnload": {
+        "message": "页面加载或页面卸载后自动保存",
+        "description": "页面加载或页面卸载后自动保存"
+    },
+    "optionAutoSaveLoad": {
+        "message": "页面加载后自动保存",
+        "description": "选项页标签: '页面加载后自动保存'"
+    },
+    "optionAutoSaveUnload": {
+        "message": "页面卸载时自动保存",
+        "description": "选项页标签: '页面卸载时自动保存'"
+    },
+    "optionAutoSaveDelay": {
+        "message": "页面加载后自动保存延时（秒）",
+        "description": "选项页标签: '页面加载后自动保存的延时（秒）'"
+    },
+    "optionAutoSaveRepeat": {
+        "message": "定期自动保存",
+        "description": "Options page label: 'auto-save periodically'"
+    },
+    "optionAutoSaveRepeatDelay": {
+        "message": "定期自动保存单位（秒）",
+        "description": "Options page label: 'period (s)'"
+    },
+    "optionsMiscSubTitle": {
+        "message": "其他",
+        "description": "选项页副标题: '其他'"
+    },
+    "optionBackgroundSave": {
+        "message": "在后台保存页面",
+        "description": "选项页标签: '在后台保存页面'"
+    },
+    "optionDisplayStats": {
+        "message": "处理后在控制台消息中显示统计",
+        "description": "选项页标签: '处理后在控制台消息中显示统计'"
+    },
+    "optionSetMaxResourceSize": {
+        "message": "设定嵌入的资源的最大体积",
+        "description": "选项页标签: '设定嵌入的资源的最大体积'"
+    },
+    "optionMaxResourceSize": {
+        "message": "最大体积（MB）",
+        "description": "选项页标签: '最大体积（MB）'"
+    },
+    "optionSaveRawPage": {
+        "message": "保存原始页面",
+        "description": "选项页标签: '保存原始页面'"
+    },
+    "optionSaveToClipboard": {
+        "message": "保存到剪切板",
+        "description": "Options page label: 'save to clipboard'"
+    },
+    "optionsHelpLink": {
+        "message": "帮助",
+        "description": "选项页帮助链接"
+    },
+    "optionsResetButton": {
+        "message": "重置",
+        "description": "选项按钮: '重置'"
+    },
+    "optionsResetTooltip": {
+        "message": "重置所有选项为默认值",
+        "description": "选项按钮'重置'的提示"
+    },
+    "optionsResetConfirm": {
+        "message": "确认重置所有选项或当前配置",
+        "description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+    },
+    "optionsResetAllButton": {
+        "message": "重置所有选项",
+        "description": "Options confirm button: 'Reset all options'"
+    },
+    "optionsResetCurrentButton": {
+        "message": "重置当前配置",
+        "description": "Options confirm button: 'Reset current profile'"
+    },
+    "optionsOKButton": {
+        "message": "确定",
+        "description": "Options confirm button: 'OK'"
+    },
+    "optionsCancelButton": {
+        "message": "取消",
+        "description": "Options confirm button: 'Cancel'"
+    },
+    "optionsExportButton": {
+        "message": "导出",
+        "description": "Options button: 'Export'"
+    },
+    "optionsImportButton": {
+        "message": "导入",
+        "description": "Options button: 'Import'"
+    },
+    "logPanelDeferredImages": {
+        "message": "延迟加载的图像",
+        "description": "Label 'Deferred images' in the log panel"
+    },
+    "logPanelFrameContents": {
+        "message": "框架内容",
+        "description": "Label 'Frame contents' in the log panel"
+    },
+    "logPanelStep": {
+        "message": "步骤",
+        "description": "Label 'Step' (for 'Step x / 4') in the log panel"
+    },
+    "logPanelWidth": {
+        "message": "115",
+        "description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+    },
+    "profileDefaultSettings": {
+        "message": "默认设置",
+        "description": "Label 'Default settings' of the default settings in the options page"
+    },
+    "profileDisabled": {
+        "message": "禁用",
+        "description": "Label 'Disabled' of the disabled profile name in the options page"
+    },
+    "profileAddButtonTooltip": {
+        "message": "添加一个新配置文件",
+        "description": "Tooltip 'Add a new profile' in the options page"
+    },
+    "profileRenameButtonTooltip": {
+        "message": "重命名配置文件",
+        "description": "Tooltip 'Rename the profile' in the options page"
+    },
+    "profileDeleteButtonTooltip": {
+        "message": "移除配置文件",
+        "description": "Tooltip 'Delete the profile' in the options page"
+    },
+    "profileAddPrompt": {
+        "message": "为新配置文件输入名字",
+        "description": "Popup text 'Enter a name for this new profile' in the options page"
+    },
+    "profileDeleteConfirm": {
+        "message": "确认移除所选配置文件",
+        "description": "Popup text 'Confirm deletion of the selected profile' in the options page"
+    },
+    "profileRenamePrompt": {
+        "message": "为所选配置文件输入新名字",
+        "description": "Popup text 'Enter a new name for the selected profile' in the options page"
+    },
+    "__WET_LOCALE__": {
+        "message": "zh-cn"
+    }
+}
