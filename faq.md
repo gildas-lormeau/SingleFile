@@ -1,7 +1,7 @@
 # FAQ
 
 ## Does SingleFile upload any data to third-party servers?
-As stated in the [privacy policy](https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md), SingleFile does not upload any data to third-party servers. All the work is done in your browser. However, when you save a page with SingleFile, it can download resources (images, CSS, frame contents, fonts etc.) that are not displayed or not cached but present in the page.
+As stated in the [privacy policy](https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md), SingleFile does not upload any data to third-party servers. All the work is done in your browser. However, when you save a page with SingleFile, it can download resources (images, CSS, frame contents, fonts etc.) that are not displayed or not already cached but present in the page.
 
 ## Why can't I save some pages like https://addons.mozilla.org/addon/single-file?
 For security purposes, browsers block web extensions on certain domains. This prevents a malicious extension to remove or change bad reviews, for example.
@@ -29,4 +29,5 @@ You can also disable the options below. Some resources (e.g. images, frames) on 
 
 ## Why pages saved with SingleFile weight more than uncompressed MAFF files?
 To integrate them into the HTML file, all binary resources such as images or fonts are transformed into [data URIs](https://en.wikipedia.org/wiki/Data_URI_scheme). These URIs allow the binary content to be encoded in [base64](https://en.wikipedia.org/wiki/Base64) and to be stored as text in the HTML file. When encoded in base64, a binary resource will weigh about 33% more. This overload also has an impact on the size of the saved page.
-If you're using Firefox, you may consider using [SingleFileZ](https://github.com/gildas-lormeau/SingleFileZ) which is able to compress saved pages and their assets. 
+
+If you're using Firefox, you may consider using [SingleFileZ](https://github.com/gildas-lormeau/SingleFileZ) which is able to compress saved pages and their assets into a self extracting HTML/ZIP hybrid file. 
