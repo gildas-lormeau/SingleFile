@@ -5,6 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>SingleFile help</title>
 	<link rel="stylesheet" href="help.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 
 <body>
@@ -12,268 +13,486 @@
 		<div id="titleBorder">
 			<h2>SingleFile</h2>
 			<h4>Save a complete page into a single HTML file</h4>
-		</div>
-		<span id="index">
-			<a href="#instructions">Instructions</a> -
-			<a href="#general-notes">Additional notes</a> -
-			<a href="#options">Options description</a> -
-			<a href="#notes">Technical notes</a> -
-			<a href="#known-issues">Known issues</a> -
-			<a href="#unknown-issues">Troubleshooting unknown issues</a>
+		</div> <span id="index"> <a href="#getting-started">Getting started</a> - <a href="#general-notes">Additional
+				notes</a> - <a href="#options">Options description</a> - <a href="#notes">Technical notes</a> - <a
+				href="#template-variables">Template variables</a> - <a href="#known-issues">Known issues</a> - <a
+				href="#unknown-issues">Troubleshooting unknown issues</a> - <a href="#contributors">Contributors</a>
 		</span>
 		<hr>
 		<ol>
-			<li>
-				<a id="instructions">Instructions</a>
+			<li> <a id="getting-started">Getting started</a>
 				<ul>
-					<li>Wait until the page is fully loaded: you may need to scroll down the entire page to be sure all elements are loaded.</li>
-					<li>Click on the SingleFile button
-						<img src="../resources/icon_16.png" class="icon"> in the extension toolbar.</li>
+					<li>Wait until the page is fully loaded, you may need to scroll down the entire page to be sure all
+						elements are loaded.</li>
+					<li>Click on the SingleFile button <img src="../resources/icon_16.png" class="icon"> in the
+						extension toolbar to save the page.</li>
 				</ul>
 			</li>
-			<li>
-				<a id="general-notes">Additional notes</a>
+			<li> <a id="general-notes">Additional notes</a>
 				<ul>
+					<li>To save multiple tabs, select them first and click on the SingleFile button <img
+							src="../resources/icon_16.png" class="icon">.</li>
+					<li> Open the context menu by right-clicking the SingleFile button <img
+							src="../resources/icon_16.png" class="icon"> in the extension toolbar or on the webpage. It
+						allows you to save: <ul>
+							<li>the current tab,</li>
+							<li>or the selected content,</li>
+							<li>or the selected frame.</li>
+						</ul>
+					</li>
+					<li> You can also process multiple tabs in one click and save: <ul>
+							<li>the selected tabs,</li>
+							<li>or the unpinned tabs,</li>
+							<li>or all the tabs.</li>
+						</ul>
+					</li>
+					<li> The context menu also allows you to activate the auto-save of: <ul>
+							<li>the current tab,</li>
+							<li>or the unpinned tabs,</li>
+							<li>or all the tabs.</li>
+						</ul>
+					</li>
+					<li>With auto-save active, pages are automatically saved every time after being loaded (or before
+						being unloaded if not). </li>
 					<li>Right-click on the SingleFile button and select "Options" to open the options page.</li>
-					<li>To save multiple tabs, select them first and click on the SingleFile button <img src="../resources/icon_16.png"
-						 class="icon">.</li>
-					<li>Use the context menu to save a tab, all tabs, selected tabs, a selected content, or a frame content. The context
-						menu also allows activating automatic page saving.</li>
+					<li> The default save folder is the download folder configured in your browser, cf.
+						about:preferences in Firefox and chrome://settings in Chrome. </li>
+					<li>You can use the shortcut Ctrl+Shift+Y to save the current tab or the selected tabs. Go to <a
+							href="chrome://extensions/shortcuts">chrome://extensions/shortcuts</a> to change it in
+						Chrome.</li>
 				</ul>
 			</li>
-			<li>
-				<a id="options">Options description</a>
-				<p>You can customize SingleFile through the options page. Right-click on SingleFile button
-					<img src="../resources/icon_16.png" class="icon"> in the browser toolbar and select "Options"/"Manage extension" in
-					the context menu to open the options page.</p>
-				<p>Option details :</p>
+			<li> <a id="options">Options description</a>
+				<p>You can customize SingleFile through the options page. Right-click on SingleFile button <img
+						src="../resources/icon_16.png" class="icon"> in the browser toolbar and select "Options"/"Manage
+					extension" in the context menu to open the options page.</p>
+				<p>Profiles</p>
 				<ul>
 					<li>
-						<span class="option">add entry in the context menu</span>
-						<p>Check this option to display an entry in the context menu of the webpage to save the entire page or the selected
-							part.
+						<p>A profile is a set of user-defined options associated to a unique name.</p>
+						<p> The drop-down list in the upper right of the options page allows you to select a profile and
+							modify the associated options. The buttons next to the drop-down list allows you
+							respectively to create, delete and rename a profile. </p>
+					</li>
+					<li>
+						<p> You can select the default profile through the context menu of SingleFile. The selection is
+							persistent and applied to all tabs. </p>
+					</li>
+					<li>
+						<p> You can also override the default profile by associating a profile to a complete or partial
+							URL. See the description of the <a href="#auto-settings-rules">Auto-settings rules</a>
+							feature for more info. </p>
+					</li>
+				</ul>
+				<p>User interface</p>
+				<ul>
+					<li data-options-label="addMenuEntryLabel"> <span class="option">Option: add entry in the context
+							menu of the webpage</span>
+						<p>Check this option to display an entry for SingleFile in the context menu of the webpage. The
+							context menu of the SingleFile button <img src="../resources/icon_16.png" class="icon"> in
+							the extension toolbar is displayed wether this option is checked or not. </p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
+					</li>
+					<li data-options-label="shadowEnabledLabel"> <span class="option">Option: overlay a shadow on the
+							page during processing</span>
+						<p>Check this option to overlay a shadow on the page when SingleFile is retrieving page
+							resources. This reminds you that you should not close the tab. </p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
+					</li>
+					<li data-options-label="displayInfobarLabel"> <span class="option">Option: display an infobar when
+							viewing a saved page</span>
+						<p>Check this option to display the ℹ button at the top right of the page when viewing a saved
+							page. By clicking this button, you can get more information about the saved date and open
+							the original URL.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
+					</li>
+					<li data-options-label="infobarTemplateLabel"> <span class="option">Option: template of the infobar
+							content</span>
+						<p>The template allows you to customize the content displayed in the infobar. You can use any
+							valid character, <code>\n</code> for new lines or <code>\t</code> for tabs. You can also use
+							any variables from <a href="#template-variables">this list</a> anywhere in the template. If
+							the template or the resulting content is empty, the infobar will display the saved date by
+							default. </p>
+						<p>Template examples:</p>
+						<ul>
+							<li><code>{url-href} ({date-iso})</code> will produce contents like "https://www.example.com
+								(2018-09-15 11 06 03 PM)".</li>
+							<li><code>Title: {page-title}</code> will produce contents like "Title: Example Domain" for
+								a page having "Example Domain" as title.</li>
+						</ul>
+					</li>
+					<li data-options-label="confirmInfobarLabel"> <span class="option">Option: open a prompt dialog to
+							edit the infobar content</span>
+						<p>Check this option to display a prompt dialog in order to confirm the infobar content before
+							saving the page. </p>
+					</li>
+				</ul>
+				<p>File name</p>
+				<ul>
+					<li data-options-label="filenameTemplateLabel"> <span class="option">Option: template</span>
+						<p>The template allows you to customize the file name of saved pages. You can use any valid
+							character and "/" to create sub-folders (with the option "save pages in background" active).
+							You can also use any variables from <a href="#template-variables">this list</a> anywhere in
+							the template.</p>
+						<p>Invalid characters are automatically transformed and collapsed to underscores. File names
+							cannot exceed 192 characters and are truncated if longer. The invalid characters are:
+							<code>[</code> <code>~</code> <code>\</code> <code>?</code> <code>%</code>
+							<code>*</code> <code>:</code> <code>|</code> <code>"</code> <code>&lt;</code>
+							<code>&gt;</code> and control characters from 0 to 31 in the ASCII table.</p>
+						<p>Template examples:</p>
+						<ul>
+							<li><code>{page-title} ({date-iso} {time-locale}).html</code> will produce filenames like
+								"Introduction to SingleFile (2018-09-15 11_06_03 PM).html" for a page having
+								"Introduction to SingleFile" as title.</li>
+							<li><code>archives/{url-last-segment} - {date-iso}</code> will produce filenames like
+								"welcome - 2018-09-15" for a page hosted on https://example.com/welcome.html. The saved
+								files will be saved in the sub-directory "archives".</li>
+							<li><code>archives/{year-locale}/{month-locale}/{day-locale}/{page-title}.html</code> will
+								produce filenames like "Introduction to SingleFile.html" stored into 3 sub-directories
+								in the "archives" folder, one for each part of the save date (e.g.
+								"2018/9/15/Introduction to SingleFile.html").</li>
+						</ul>
+					</li>
+					<li data-options-label="confirmFilenameLabel"> <span class="option">Option: open the "Save as"
+							dialog to confirm the file name</span>
+						<p>Check this option to display the "Save as" dialog in order to confirm the file name before
+							saving the page. If the option "save pages in background" is unchecked then a prompt dialog
+							will be displayed instead of the "Save as" dialog. </p>
+					</li>
+					<li data-options-label="filenameConflictActionLabel"> <span class="option">Option: file name
+							conflict resolution</span>
+						<p>Choose the most appropriate action when a the filename of the saved page is conflicting with
+							existing ones on the filesystem.</p>
+					</li>
+				</ul>
+				<p>HTML content</p>
+				<ul>
+					<li data-options-label="compressHTMLLabel"> <span class="option">Option: compress HTML
+							content</span>
+						<p>Check this option to remove all HTML comments and unneeded tags, spaces, quotes and
+							whitespace characters. Checking this option helps to reduce the size of the file without
+							altering the document.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
+					</li>
+					<li data-options-label="removeImportsLabel"> <span class="option">Option: remove HTML imports</span>
+						<p>Check this option to remove all link elements used to import HTML documents. Checking this
+							option can help to reduce the size of the file without altering the document.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
+					</li>
+					<li data-options-label="removeHiddenElementsLabel"> <span class="option">Option: remove hidden
+							elements</span>
+						<p>Check this option to remove all hidden elements. Checking this option can help to reduce the
+							size of the file without altering the document. It may also increase the CPU consumption and
+							the time needed to save a page.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
+					</li>
+					<li data-options-label="removeFramesLabel"> <span class="option">Option: remove frames</span>
+						<p>Check this option to remove all frame and iframe elements. Checking this option can
+							considerably reduce the size of the file without altering the document most of the time. It
+							may also decrease the time needed to save a page.</p>
+					</li>
+				</ul>
+				<p>Stylesheets</p>
+				<ul>
+					<li data-options-label="compressCSSLabel"> <span class="option">Option: compress CSS content</span>
+						<p>Check this option to minify CSS stylesheets. Checking this option can reduce size of the file
+							without altering the document. It may also increase the CPU consumption and the time needed
+							to save a page.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
+					</li>
+					<li data-options-label="removeUnusedStylesLabel"> <span class="option">Option: remove unused
+							styles</span>
+						<p>Check this option to remove all the CSS rules and styles that do not match any element in the
+							saved page. Checking this option will not alter the document and can considerably reduce the
+							size of the file. It will also increase the CPU consumption and the time needed to save a
+							page.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
+					</li>
+					<li data-options-label="removeAlternativeMediasLabel"> <span class="option">Option: remove
+							stylesheets for alternative devices to screens</span>
+						<p>Check this option to remove stylesheets that are not used for the screen display like
+							stylesheets for print preview and speech synthesizers. Checking this option can help to
+							reduce the size of the file.</p>
+					</li>
+				</ul>
+				<p>Images</p>
+				<ul>
+					<li data-options-label="groupDuplicateImagesLabel"> <span class="option">Option: group duplicate
+							images together</span>
+						<p>Check this option to avoid saving multiple times duplicate images. Checking this option
+							should not alter the document in modern browsers and can considerably reduce the size of the
+							file.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
+					</li>
+					<li data-options-label="loadDeferredImagesLabel"> <span class="option">Option: save deferred
+							images</span>
+						<p>Check this option to save all the deferred images that are not yet displayed. This may help
+							to save all the images without scrolling the page. This feature does its best effort and is
+							not guaranteed to work on all sites. It will also increase the time needed to save a page.
 						</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-
-					<li>
-						<span class="option">overlay a shadow on the page during processing</span>
-						<p>Check this option to overlay a shadow on the page when SingleFile is retrieving page resources. This reminds you
-							that you should not close the tab.
-						</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
+					<li data-options-label="loadDeferredImagesMaxIdleTimeLabel"> <span class="option">Option: maximum
+							idle time (ms)</span>
+						<p>Specify the maximum delay of time to wait for deferred images. You can increase this value if
+							for example the network or system conditions are degraded. You can also decrease this value
+							otherwise.</p>
 					</li>
-
-					<li>
-						<span class="option">display an infobar when viewing archives</span>
-						<p>Check this option to display the ❔ button at the top right of the page when viewing a saved page. By clicking this
-							icon, you can get more information about the saved date and open the original URL.
-						</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
+					<li data-options-label="removeAlternativeImagesLabel"> <span class="option">Option: remove images
+							for alternative screen resolutions</span>
+						<p>Check this option to remove images that are alternatives in lower and/or higher resolutions
+							to the ones displayed by default. Checking this option can considerably reduce the size of
+							the file.</p>
 					</li>
-
-					<li>
-						<span class="option">display stats in the console after processing</span>
-						<p>Check this option to display stats about processing in the JavaScript developer tools of your browser. Checking
-							this option may increase the time needed to process a page.
-						</p>
-						<p class="notice">It is recommended to
-							<u>uncheck</u> this option</p>
+				</ul>
+				<p>Fonts</p>
+				<ul>
+					<li data-options-label="removeUnusedFontsLabel"> <span class="option">Option: remove unused
+							fonts</span>
+						<p>Check this option to remove all font CSS rules that do not match any content. Checking this
+							option should not alter the document and can considerably reduce the size of the file.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-
-					<li>
-						<span class="option">append the save date to the file name</span>
-						<p>Check this option to append the save date of the webpage to the file name.
-						</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
+					<li data-options-label="removeAlternativeFontsLabel"> <span class="option">Option: remove
+							alternative fonts</span>
+						<p>Check this option to remove fonts that are alternatives to the ones used. Checking this
+							option should not alter the document and can considerably reduce the size of the file.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-
-					<li>
-						<span class="option">enter file name before saving the page</span>
-						<p>Check this option to display a prompt asking you to enter the file name of the saved page.
-						</p>
-						<p class="notice">It is recommended to
-							<u>uncheck</u> this option</p>
+				</ul>
+				<p>Other resources</p>
+				<ul>
+					<li data-options-label="removeScriptsLabel"> <span class="option">Option: remove scripts</span>
+						<p>Check this option to remove all the JavaScript scripts. Unchecking this option may alter the
+							document and may introduce privacy or security issues.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-
-					<li>
-						<span class="option">compress HTML</span>
-						<p>Check this option to remove all HTML comments, and unneeded spaces or returns. This helps to reduce the size of
-							the file without altering the document.</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
-					</li>
-
-					<li>
-						<span class="option">remove HTML import</span>
-						<p>Check this option to remove all link elements used to import HTML documents. This can reduce the size of the file
-							without altering the document most of the time.</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
-					</li>
-
-					<li>
-						<span class="option">remove frames</span>
-						<p>Check this option to remove all frame and iframe elements. This can considerably reduce the size of the file without
-							altering the document most of the time.</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
-					</li>
-
-					<li>
-						<span class="option">remove hidden elements</span>
-						<p>Check this option to remove all hidden elements. This option can considerably reduce the size of the file without
-							altering the document most of the time.</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
-					</li>
-
-					<li>
-						<span class="option">save raw page</span>
-						<p>Check this option to save the page without interpreting JavaScript. Checking this option may alter the document.</p>
-						<p class="notice">It is recommended to
-							<u>uncheck</u> this option</p>
-					</li>
-
-					<li>
-						<span class="option">remove scripts</span>
-						<p>Check this option to remove all scripts. Unchecking this option may alter the document.</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
-					</li>
-
-					<li>
-						<span class="option">remove video sources</span>
+					<li data-options-label="removeVideoLabel"> <span class="option">Option: remove video sources</span>
 						<p>Check this option to empty the "src" attribute of all video elements.</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-
-					<li>
-						<span class="option">remove audio sources</span>
+					<li data-options-label="removeAudioLabel"> <span class="option">Option: remove audio sources</span>
 						<p>Check this option to empty the "src" attribute of all audio elements.</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
-					</li>
-
-					<li>
-						<span class="option">compress CSS</span>
-						<p>Check this option to minify CSS stylesheets. This helps to reduce the size of the file without altering the document.</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
-					</li>
-
-					<li>
-						<span class="option">remove unused CSS rules</span>
-						<p>Check this option to remove all CSS rules that do not match any element. Checking this this option should not alter
-							the document and can considerably reduce the size of the file.</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
-					</li>
-
-					<li>
-						<span class="option">save lazy loaded images</span>
-						<p>Check this option to save all the lazy loaded images that are not displayed. This may help to save all the images
-							without scrolling the page. This feature is not guaranteed to work on all sites.</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
-					</li>
-
-					<li>
-						<span class="option">set a maximum size for embedded resources (Mb)</span>
-						<p>Specify the maximum size of embedded resources (i.e. images, stylesheets, scripts and iframes) in megabytes.
-						</p>
-					</li>
-
-					<li>
-						<span class="option">save pages in background</span>
-						<p>Uncheck this option if you get invalid file names like "37bec68b-446a-46a5-8642-19a89c231b46.html" when saving pages.
-						</p>
-						<p class="notice">It is recommended to
-							<u>check</u> this option</p>
-					</li>
-
-					<li>
-						<span class="option">auto-save wait delay (sec.)</span>
-						<p>Specify the time to wait in seconds before saving a page when auto-save is active.
-						</p>
-					</li>
-
-					<li>
-						<span class="option">Reset to default options</span>
-						<p>Reset all the options to their default value.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 				</ul>
-			</li>
-
-			<li>
-				<a id="notes">Technical notes</a>
+				<p>Auto-save</p>
 				<ul>
-					<li>All images are converted into
-						<a href="http://en.wikipedia.org/wiki/Base64">base64</a>.
+					<li data-options-label="autoSaveLoadOrUnloadLabel"> <span class="option">Option: auto-save after
+							page load or on page unload</span>
+						<p>Check this option to auto-save pages after being loaded. If you browse to another page before
+							the page is fully loaded then the page will be saved just before being unloaded. With this
+							option active, you are guaranteed pages will always be saved. Some frame contents may be
+							missing (if you unchecked "remove frames") when pages are saved before being unloaded. </p>
 					</li>
-					<li>All resources except frame contents are injected in the document using
-						<a href="http://en.wikipedia.org/wiki/Data_URI_scheme">data URI scheme</a>.
+					<li data-options-label="autoSaveLoadLabel"> <span class="option">Option: auto-save after page
+							load</span>
+						<p>Check this option to auto-save pages after being loaded.</p>
 					</li>
-					<li>Frame contents are injected as text in the document by using the srcdoc attribute.
+					<li data-options-label="autoSaveUnloadLabel"> <span class="option">Option: auto-save on page
+							unload</span>
+						<p>Check this option to auto-save pages before being unloaded instead of saving pages after
+							being loaded. With this option active, you are guaranteed pages will always be saved but
+							some frame contents may be missing (if you unchecked "remove frames"). </p>
+					</li>
+					<li data-options-label="autoSaveDelayLabel"> <span class="option">Option: auto-save waiting delay
+							after load (s)</span>
+						<p>Specify the delay in seconds to wait before saving a page when the "auto-save on page load or
+							on page unload" or "auto-save on page load" is checked. </p>
+					</li>
+					<li data-options-label="autoSaveRepeatLabel"> <span class="option">Option: auto-save
+							periodically</span>
+						<p>Check this option to auto-save pages periodically after load.</p>
+					</li>
+					<li data-options-label="autoSaveRepeatDelayLabel"> <span class="option">Option: period (s)</span>
+						<p>Specify the delay in seconds to wait before each page saving when the "auto-save
+							periodically" option is checked. </p>
 					</li>
 				</ul>
-			</li>
-
-			<li>
-				<a id="known-issues">Known issues</a>
+				<p>Misc.</p>
 				<ul>
-					<li>
-						All browsers
-						<ul>
-							<li>After installing the extension, if you want to save a tab that was already opened then you need to refresh it
-								first.
+					<li data-options-label="backgroundSaveLabel"> <span class="option">Option: save pages in
+							background</span>
+						<p>Uncheck this option if you get invalid file names like
+							"37bec68b-446a-46a5-8642-19a89c231b46.html" or interrupted downloads when saving pages. You
+							can also uncheck this option if you want the "Save as" dialog to remember the last saved
+							path. Unchecking this option prevent using sub-directories in filename templates.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
+					</li>
+					<li data-options-label="displayStatsLabel"> <span class="option">Option: display stats in the
+							console after processing</span>
+						<p>Check this option to display stats about processing in the JavaScript developer tools of your
+							browser. Checking this option may increase the CPU consumption and the time needed to save a
+							page. </p>
+						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+					</li>
+					<li data-options-label="setMaxResourceSizeLabel"> <span class="option">Option: set a maximum size
+							for embedded resources (MB)</span>
+						<p>Check this option to remove from the saved page embedded resources (i.e. images, stylesheets,
+							scripts and iframes) that exceeds a given size.</p>
+					</li>
+					<li data-options-label="maxResourceSizeLabel"> <span class="option">Option: maximum size (MB)</span>
+						<p>Specify the maximum size of embedded resources in megabytes.</p>
+					</li>
+					<li data-options-label="saveRawPageLabel"> <span class="option">Option: save raw page</span>
+						<p>Check this option to save the page without interpreting JavaScript. Checking this option may
+							alter the document, and will force the options "remove frames" to be enabled and "load
+							deferred images" to be disabled.</p>
+						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+					</li>
+					<li data-options-label="saveToClipboardLabel"> <span class="option">Option: save to clipboard</span>
+						<p>Check this option to copy the page to the clipboard instead of downloading it. Checking this
+							option may alter will force the "file name" options to be disabled.</p>
+						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+					</li>
+				</ul>
+				<p id="auto-settings-rules">Auto-settings rules</p>
+				<ul>
+					<li> The auto-settings rules let you associate a complete or partial URL with a profile. It also
+						allows to associate a specific profile for the auto-save, or to disable it (check "display
+						'Auto-save profile' column"). When two or more rules match a URL of a page to save, the rule
+						with the longest URL will be chosen. The special profile "-" means the current profile. </li>
+					<li> You can use regular expressions by prefixing the URL with "regexp:" (e.g. "regexp:.*\.com" to
+						match all URLs containing ".com"). When zero or more rules based on URLs and one or more rules
+						based on regular expressions match a URL, the longest rule based on regular expression will be
+						chosen. </li>
+				</ul>
+				<p>Form buttons</p>
+				<ul>
+					<li> <span class="option">Reset</span>
+						<p>Reset all options to their default values.</p>
+					</li>
+				</ul>
+			</li>
+			<li> <a id="template-variables">Template variables</a>
+				<p>The template variables are used to customize the infobar content or the file name of a saved page.
+					They help to insert dynamic values like the save date or the page title.</p>
+				<ul>
+					<li><code>{page-title}</code>: the title of the page</li>
+					<li><code>{page-language}</code>: the language of the page</li>
+					<li><code>{page-description}</code>: the description of the page</li>
+					<li><code>{page-author}</code>: the author of the page</li>
+					<li><code>{page-creator}</code>: the creator of the page</li>
+					<li><code>{page-publisher}</code>: the publisher of the page</li>
+					<li><code>{datetime-iso}</code>: the save date and time in the ISO format (e.g.
+						"2018-09-15T22_38_26_317Z")</li>
+					<li><code>{datetime-utc}</code>: the save date and time in UTC format (e.g. "Sat, 15 Sep 2018
+						22_38_26 GMT")</li>
+					<li><code>{datetime-locale}</code>: the localized value of the date and time (e.g. "9_16_2018,
+						12_54_31 AM")</li>
+					<li><code>{date-iso}</code>: the save date in the ISO format (e.g. "2018-09-15")</li>
+					<li><code>{date-locale}</code>: the localized value of the save date (e.g. "16_09_2018")</li>
+					<li><code>{time-iso}</code>: the save time in the ISO format (e.g. "22_38_26_317")</li>
+					<li><code>{time-locale}</code>: the localized value of the save time (e.g. "00_38_26")</li>
+					<li><code>{day-utc}</code>: the day of the save date in UTC format (e.g. "15")</li>
+					<li><code>{day-locale}</code>: the localized value of the day (e.g. "15")</li>
+					<li><code>{month-utc}</code>: the month of the save date in UTC format (e.g. "09")</li>
+					<li><code>{month-locale}</code>: the localized value of the month (e.g. "09")</li>
+					<li><code>{year-utc}</code>: the year of the save date in UTC format (e.g. "2018")</li>
+					<li><code>{year-locale}</code>: the localized value of the year (e.g. "2018")</li>
+					<li><code>{hours-utc}</code>: the hour of the save date in UTC format (e.g. "20")</li>
+					<li><code>{hours-locale}</code>: the localized value of the hour (e.g. "22")</li>
+					<li><code>{minutes-utc}</code>: the minutes of the save date in UTC format (e.g. "38")</li>
+					<li><code>{minutes-locale}</code>: the localized value of the minutes (e.g. "38")</li>
+					<li><code>{seconds-utc}</code>: the seconds of the save date in UTC format (e.g. "31")</li>
+					<li><code>{seconds-locale}</code>: the localized value of the seconds (e.g. "31")</li>
+					<li><code>{url-href}</code>: the URL of the page (e.g. "http_example.com")</li>
+					<li><code>{url-pathname}</code>: the path name of the URL (e.g. "category_index.html")</li>
+					<li><code>{url-last-segment}</code>: the last part of the pathname (without the extension) or the
+						host if not found (e.g. "index")</li>
+					<li><code>{url-protocol}</code>: the protocol of the URL (e.g. "https")</li>
+					<li><code>{url-host}</code>: the host name + the port of the URL (e.g. "example.com_8080")</li>
+					<li><code>{url-hostname}</code>: the host name of the URL (e.g. "example.com")</li>
+					<li><code>{url-port}</code>: the port of the URL (e.g. "8080")</li>
+					<li><code>{url-username}</code>: the user name of the URL (e.g. "john_doe")</li>
+					<li><code>{url-password}</code>: the password of the URL (e.g. "qwerty123")</li>
+					<li><code>{url-search}</code>: the search string of the URL (e.g. "order=ascending")</li>
+					<li><code>{url-search-&lt;name&gt;}</code>: the query parameter "&lt;name&gt;" in the the search
+						string of the URL (e.g. "url-search-order" will return "ascending" in the previous example)</li>
+					<li><code>{url-hash}</code>: the hash of the URL (e.g. "chapter-2")</li>
+					<li><code>{url-referrer}</code>: the URI of the page that "linked" to the page (e.g.
+						"http_example.com")</li>
+					<li><code>{tab-id}</code>: the unique identifier of the tab (e.g. "326")</li>
+					<li><code>{tab-index}</code>: the index of the tab in the window (e.g. "1")</li>
+					<li><code>{digest-sha-256}</code>: the SHA-256 hash value of the entire page content (e.g.
+						e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855)</li>
+					<li><code>{digest-sha-384}</code>: the SHA-384 hash value of the entire page content</li>
+					<li><code>{digest-sha-512}</code>: the SHA-512 hash value of the entire page content</li>
+				</ul>
+			</li>
+			<li> <a id="notes">Technical notes</a>
+				<ul>
+					<li>All images are converted into <a href="http://en.wikipedia.org/wiki/Base64">base64</a>. </li>
+					<li>All resources except frame contents are injected in the document using <a
+							href="http://en.wikipedia.org/wiki/Data_URI_scheme">data URI scheme</a>. </li>
+					<li>Frame contents are injected as text in the document by using the srcdoc attribute. </li>
+				</ul>
+			</li>
+			<li> <a id="known-issues">Known issues</a>
+				<ul>
+					<li> All browsers <ul>
+							<li>For security reasons, you cannot save pages hosted on https://chrome.google.com,
+								https://addons.mozilla.org and some other Mozilla domains. When this happens, 🚫 is
+								displayed on top of the SingleFile icon.</li>
+							<li>The last saved path cannot be remembered by default. To circumvent this limitation,
+								disable the option "Misc. &gt; Save pages in background".</li>
+							<li>The following characters are replaced with _ in filenames: ~, \, ?, %, *, :, |, ", &lt;,
+								&gt;</li>
+						</ul>
+					</li>
+					<li> Chrome/Opera <ul>
+							<li>You must enable the option "Allow access to file URLs" in the extension page to display
+								the infobar when viewing a saved page, or to save a page stored on the filesystem.</li>
+							<li>If the filename of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3",
+								disable the option "Misc. &gt; Save pages in background". Reinstalling the browser may
+								also fix this issue.</li>
+						</ul>
+					</li>
+					<li> Firefox <ul>
+							<li>The "file name conflict resolution" option does not work if set to "prompt for a name".
 							</li>
-							<li>For security reasons, you cannot save pages hosted on https://chrome.google.com or https://addons.mozilla.org.</li>
-						</ul>
-					</li>
-					<li>
-						Chrome/Opera
-						<ul>
-							<li>You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing
-								a saved page, or to save a page stored on the filesystem.</li>
-							<li>If saved pages have file names like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1" instead of the title then it means
-								another extension is conflicting with SingleFile. You can uncheck the option "save pages in background" to circumvent
-								this issue.
-							</li>
-						</ul>
-					</li>
-					<li>
-						Firefox
-						<ul>
-							<li>You cannot save selected tabs via the context menu since multiple tabs cannot be selected.</li>
-						</ul>
-					</li>
-					<li>
-						Edge
-						<ul>
-							<li>The file name looks like "4e5a13fd-6638-4a37-a34b-a3c104ac66b1".</li>
 						</ul>
 					</li>
 				</ul>
 			</li>
-
-			<li>
-				<a id="unknown-issues">Troubleshooting unknown issues</a>
+			<li> <a id="unknown-issues">Troubleshooting unknown issues</a>
 				<p>Please follow these steps if you find an unknown issue:</p>
 				<ul>
-					<li>Reset SingleFile options.</li>
-					<li>If resetting options did not fix the issue, try to disable all other extensions to see if there is a conflict.</li>
+					<li>Save the page in incognito.</li>
+					<li>If saving page in incognito did not fix the issue, reset SingleFile options.</li>
+					<li>If resetting options did not fix the issue, restart the browser.</li>
+					<li>If restarting the browser did not fix the issue, try to disable all other extensions to see if
+						there is a conflict.</li>
 					<li>If there is a conflict then try to determine against which extension(s).</li>
-					<li>Please report the issue
-						<a href="https://github.com/gildas-lormeau/SingleFile/issues">here</a> with a short description describing how to reproduce
-						the issue, Browser version, OS name and version.</li>
+					<li>Please report the issue <a href="https://github.com/gildas-lormeau/SingleFile/issues">here</a>
+						with a short description on how to reproduce it.</li>
 				</ul>
 				<p>Suggestions are welcome :)</p>
+			</li>
+			<li> <a id="contributors">Contributors</a>
+				<ul>
+					<li>Chinese translation done by yfdyh000 (<a href="https://github.com/yfdyh000">GitHub profile</a>),
+						KrasnayaPloshchad (<a href="https://github.com/KrasnayaPloshchad">GitHub profile</a>),
+						frostblazergit (<a href="https://github.com/frostblazergit">GitHub profile</a>)</li>
+					<li>Traditional Chinese translation done by frostblazergit (<a
+							href="https://github.com/frostblazergit">GitHub profile</a>)</li>
+					<li>German translation done by womotroll (<a href="https://github.com/womotroll">GitHub profile</a>)
+					</li>
+					<li>Japanese translation, done by Shitennouji （四天王寺) (<a
+							href="https://github.com/Shitennouji">GitHub profile</a>)</li>
+					<li>Polish translation done by xesarni (<a href="https://github.com/xesarni">GitHub profile</a>)
+					</li>
+					<li>Russian translation done by rstp14 (<a href="https://github.com/rstp14">GitHub profile</a>)</li>
+				</ul>
+			</li>
+			<li> <a id="icons">Icons</a>
+				<ul>
+					<li> Icon made by <a href="https://www.flaticon.com/authors/kiranshastry"
+							title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/"
+							title="Flaticon">www.flaticon.com</a> is licensed by <a
+							href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"
+							target="_blank">CC 3.0 BY</a> </li>
+				</ul>
 			</li>
 		</ol>
 	</div>

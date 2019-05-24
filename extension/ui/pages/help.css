@@ -6,7 +6,7 @@ body>div {
     position: relative;
     background-color: #fff;
     font-family: sans-serif;
-    max-width: 800px;
+    max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
     border-width: 1px;
@@ -15,7 +15,6 @@ body>div {
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 20px;
-    text-align: justify;
     box-shadow: #888 2px 2px 2px;
 }
 
@@ -54,8 +53,16 @@ a[id] {
     font-weight: bold;
 }
 
+ol>li>ul {
+    padding-left: 25px;
+}
+
 ol>li>ul>li {
     padding-top: .5em;
+}
+
+ol>li>ul>li>ul {
+    padding-left: 25px;
 }
 
 .icon {
@@ -82,11 +89,16 @@ ol>li>ul>li {
 #index {
     padding-left: 10px;
     font-size: .9em;
+    display: inline-block;
+    line-height: 150%;
+}
+
+#index a {
+    white-space: nowrap;
 }
 
 h2,
 h4 {
-    padding-left: .3em;
     margin-bottom: 0px;
 }
 
@@ -160,4 +172,20 @@ kbd.light,
     -moz-box-shadow: inset 0 0 1px rgb(255, 255, 255), inset 0 0 .4em rgb(200, 200, 200), 0 .1em 0 rgb(130, 130, 130), 0 .11em 0 rgba(0, 0, 0, .4), 0 .1em .11em rgba(0, 0, 0, .9);
     -webkit-box-shadow: inset 0 0 1px rgb(255, 255, 255), inset 0 0 .4em rgb(200, 200, 200), 0 .1em 0 rgb(130, 130, 130), 0 .11em 0 rgba(0, 0, 0, .4), 0 .1em .11em rgba(0, 0, 0, .9);
     box-shadow: inset 0 0 1px rgb(255, 255, 255), inset 0 0 .4em rgb(200, 200, 200), 0 .1em 0 rgb(130, 130, 130), 0 .11em 0 rgba(0, 0, 0, .4), 0 .1em .11em rgba(0, 0, 0, .9);
+}
+
+@media (max-width:800px) {
+    body {
+        background-color: white;
+        margin: 0px;
+    }
+    body>div {
+        border-width: 0px;
+    }
+    ol {
+        padding-left: 20px;
+    }
+    ul {
+        padding-left: 10px;
+    }
 }

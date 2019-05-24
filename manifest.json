@@ -1,65 +1,145 @@
 {
-    "name": "SingleFile",
-    "author": "Gildas Lormeau",
-    "icons": {
-        "16": "extension/ui/resources/icon_16.png",
-        "48": "extension/ui/resources/icon_48.png",
-        "128": "extension/ui/resources/icon_128.png"
-    },
-    "version": "1.4.4",
-    "description": "Save a complete page into a single HTML file",
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "run_at": "document_start",
-            "js": [
-                "lib/browser-polyfill/custom-browser-polyfill.js",
-                "extension/index.js",
-                "extension/ui/content/infobar.js",
-                "lib/single-file/doc-helper.js",
-                "lib/single-file/frame-tree/content/frame-tree.js",
-                "extension/core/content/content-frame.js"
-            ],
-            "all_frames": true,
-            "match_about_blank": true
-        }
-    ],
-    "background": {
-        "scripts": [
-            "lib/browser-polyfill/custom-browser-polyfill.js",
-            "lib/single-file/frame-tree/bg/frame-tree.js",
-            "lib/fetch/bg/fetch.js",
-            "extension/index.js",
-            "extension/core/bg/config.js",
-            "extension/core/bg/bg.js",
-            "extension/ui/bg/ui.js"
-        ],
-        "persistent": false
-    },
-    "options_page": "extension/ui/pages/options.html",
-    "options_ui": {
-        "page": "extension/ui/pages/options.html",
-        "open_in_tab": false
-    },
-    "browser_action": {
-        "default_icon": "extension/ui/resources/icon_16.png",
-        "default_title": "Save page with SingleFile"
-    },
-    "permissions": [
-        "contextMenus",
-        "downloads",
-        "menus",
-        "storage",
-        "tabs",
-        "<all_urls>"
-    ],
-    "applications": {
-        "gecko": {
-            "id": "{531906d3-e22f-4a6c-a102-8057b88a1a63}"
-        }
-    },
-    "incognito": "spanning",
-    "manifest_version": 2
+	"name": "SingleFile",
+	"author": "Gildas Lormeau",
+	"homepage_url": "https://github.com/gildas-lormeau/SingleFile",
+	"icons": {
+		"16": "extension/ui/resources/icon_16.png",
+		"48": "extension/ui/resources/icon_48.png",
+		"64": "extension/ui/resources/icon_64.png",
+		"128": "extension/ui/resources/icon_128.png"
+	},
+	"version": "1.10.70",
+	"description": "__MSG_extensionDescription__",
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"run_at": "document_start",
+			"js": [
+				"index.js",
+				"lib/browser-polyfill/chrome-browser-polyfill.js",
+				"lib/hooks/content/content-hooks-frames.js",
+				"lib/single-file/single-file-helper.js",
+				"lib/frame-tree/content/content-frame-tree.js"
+			],
+			"all_frames": true,
+			"match_about_blank": true
+		},
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"index.js",
+				"extension/ui/content/content-ui-infobar.js"
+			]
+		},
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"run_at": "document_start",
+			"js": [
+				"index.js",
+				"lib/hooks/content/content-hooks.js",
+				"extension/core/content/content-bootstrap.js"
+			]
+		}
+	],
+	"background": {
+		"scripts": [
+			"index.js",
+			"lib/browser-polyfill/chrome-browser-polyfill.js",
+			"lib/fetch/bg/fetch-resources.js",
+			"lib/fetch/content/content-fetch-resources.js",
+			"lib/frame-tree/bg/frame-tree.js",
+			"extension/core/bg/config.js",
+			"extension/core/bg/tabs-data.js",
+			"extension/core/bg/business.js",
+			"extension/core/bg/messages.js",
+			"extension/core/bg/tabs.js",
+			"extension/core/bg/downloads.js",
+			"extension/core/bg/autosave.js",
+			"extension/ui/bg/ui-main.js",
+			"extension/ui/bg/ui-menus.js",
+			"extension/ui/bg/ui-commands.js",
+			"extension/ui/bg/ui-button.js",
+			"lib/lazy/bg/lazy-timeout.js",
+			"lib/single-file/vendor/css-minifier.js",
+			"lib/single-file/vendor/css-tree.js",
+			"lib/single-file/vendor/css-media-query-parser.js",
+			"lib/single-file/vendor/html-srcset-parser.js",
+			"lib/single-file/vendor/css-font-property-parser.js",
+			"lib/single-file/single-file-util.js",
+			"lib/single-file/single-file-helper.js",
+			"lib/single-file/modules/css-fonts-minifier.js",
+			"lib/single-file/modules/css-fonts-alt-minifier.js",
+			"lib/single-file/modules/css-medias-alt-minifier.js",
+			"lib/single-file/modules/css-matched-rules.js",
+			"lib/single-file/modules/css-rules-minifier.js",
+			"lib/single-file/modules/html-minifier.js",
+			"lib/single-file/modules/html-serializer.js",
+			"lib/single-file/modules/html-images-alt-minifier.js",
+			"lib/single-file/single-file-core.js",
+			"lib/single-file/single-file.js"
+		],
+		"persistent": false
+	},
+	"options_page": "extension/ui/pages/options.html",
+	"sidebar_action": {
+		"browser_style": true,
+		"default_title": "SingleFile options",
+		"default_panel": "extension/ui/pages/options.html#side-panel",
+		"default_icon": "extension/ui/resources/icon_128.png",
+		"open_at_install": false
+	},
+	"options_ui": {
+		"browser_style": true,
+		"page": "extension/ui/pages/options.html",
+		"open_in_tab": false
+	},
+	"browser_action": {
+		"default_icon": {
+			"16": "extension/ui/resources/icon_16.png",
+			"48": "extension/ui/resources/icon_48.png",
+			"64": "extension/ui/resources/icon_64.png",
+			"128": "extension/ui/resources/icon_128.png"
+		},
+		"default_title": "__MSG_buttonDefaultTooltip__"
+	},
+	"commands": {
+		"_execute_browser_action": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+Y"
+			}
+		},
+		"save-all-tabs": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+U"
+			},
+			"description": "Save all tabs"
+		}
+	},
+	"web_accessible_resources": [
+		"lib/hooks/content/content-hooks-web.js",
+		"lib/hooks/content/content-hooks-frames-web.js"
+	],
+	"permissions": [
+		"menus",
+		"clipboardWrite",
+		"contextMenus",
+		"downloads",
+		"storage",
+		"tabs",
+		"<all_urls>"
+	],
+	"applications": {
+		"gecko": {
+			"id": "{531906d3-e22f-4a6c-a102-8057b88a1a63}"
+		}
+	},
+	"incognito": "spanning",
+	"manifest_version": 2,
+	"default_locale": "en"
 }
