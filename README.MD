@@ -54,6 +54,7 @@ SingleFile can be installed:
 
 ## SingleFileZ
 SingleFileZ is a fork of SingleFile that allows you to save a webpage as a self-extracting HTML file. This HTML file is also a valid ZIP file which contains the resources (images, fonts, stylesheets and frames) of the saved page. This ZIP file can be unzipped on the filesystem in order, for example, to view the page in a browser that would not support pages saved with SingleFileZ.
+
 More info here: https://github.com/gildas-lormeau/SingleFileZ
 
 ## Release notes
