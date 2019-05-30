@@ -6,6 +6,7 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
  - [Install](#install)
  - [Getting started](#getting-started)
  - [Additional notes](#additional-notes)
+ - [SingleFileZ](#singlefilez)
  - [Release notes](#release-notes)
  - [FAQ](#faq)
  - [Statistics (Firefox)](#statistics-firefox)
@@ -50,6 +51,10 @@ SingleFile can be installed:
  - The default save folder is the download folder configured in your browser, cf. about:preferences in Firefox and chrome://settings in Chrome.
  - You can use the shortcut Ctrl+Shift+Y to save the current tab or the selected tabs. Go to chrome://extensions/shortcuts to change it in Chrome.
  - See the extension help in the options page for more detailed information about the options and technical notes.
+
+## SingleFileZ
+SingleFileZis a fork of SingleFile that allows you to save a webpage as a self-extracting HTML file. This HTML file is also a valid ZIP file which contains the resources (images, fonts, stylesheets and frames) of the saved page. This ZIP file can be unzipped on the filesystem in order, for example, to view the page in a browser that would not support pages saved with SingleFileZ.
+More info here: https://github.com/gildas-lormeau/SingleFileZ
 
 ## Release notes
 See https://addons.mozilla.org/firefox/addon/single-file/versions/
