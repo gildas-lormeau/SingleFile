@@ -88,7 +88,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 					frames: frames,
 					url: location.href
 				});
-				helper.postProcessDoc(document, options);
+				helper.postProcessDoc(document, docData.markedElements);
 				pageAutoSaved = true;
 				autoSavingPage = false;
 			}
