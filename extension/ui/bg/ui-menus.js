@@ -101,13 +101,25 @@ singlefile.extension.ui.bg.menus = (() => {
 						title: "title"
 					});
 					defaultContextsDisabled.push("tab");
+					menus.create({
+						id: MENU_ID_SAVE_PAGE,
+						contexts: ["tab"],
+						title: MENU_SAVE_PAGE_MESSAGE
+					});
 				} catch (error) {
-					// ignored
+					options.tabMenuEnabled = false;
 				}
 			}
 			await menus.removeAll();
 			const defaultContextsEnabled = defaultContextsDisabled.concat(...pageContextsEnabled);
 			const defaultContexts = options.contextMenuEnabled ? defaultContextsEnabled : defaultContextsDisabled;
+			if (options.tabMenuEnabled) {
+				menus.create({
+					id: MENU_ID_SAVE_PAGE,
+					contexts: ["tab"],
+					title: MENU_SAVE_PAGE_MESSAGE
+				});
+			}
 			if (options.contextMenuEnabled) {
 				menus.create({
 					id: MENU_ID_SAVE_PAGE,
