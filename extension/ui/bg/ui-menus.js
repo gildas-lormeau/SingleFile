@@ -113,19 +113,12 @@ singlefile.extension.ui.bg.menus = (() => {
 			await menus.removeAll();
 			const defaultContextsEnabled = defaultContextsDisabled.concat(...pageContextsEnabled);
 			const defaultContexts = options.contextMenuEnabled ? defaultContextsEnabled : defaultContextsDisabled;
-			if (options.tabMenuEnabled) {
-				menus.create({
-					id: MENU_ID_SAVE_PAGE,
-					contexts: ["tab"],
-					title: MENU_SAVE_PAGE_MESSAGE
-				});
-			}
+			menus.create({
+				id: MENU_ID_SAVE_PAGE,
+				contexts: defaultContexts,
+				title: MENU_SAVE_PAGE_MESSAGE
+			});
 			if (options.contextMenuEnabled) {
-				menus.create({
-					id: MENU_ID_SAVE_PAGE,
-					contexts: pageContextsEnabled,
-					title: MENU_SAVE_PAGE_MESSAGE
-				});
 				menus.create({
 					id: "separator-1",
 					contexts: pageContextsEnabled,
