@@ -447,7 +447,7 @@
 	async function refresh(profileName) {
 		const [profiles, rules] = await Promise.all([browser.runtime.sendMessage({ method: "config.getProfiles" }), browser.runtime.sendMessage({ method: "config.getRules" })]);
 		const selectedProfileName = profileName || profileNamesInput.value || DEFAULT_PROFILE_NAME;
-		Array.from(profileNamesInput.childNodes).forEach(node => node.remove());
+		Array.from(profileNamesInput.childNodes, node => node.remove());
 		profileNamesInput.options.length = 0;
 		ruleProfileInput.options.length = 0;
 		ruleAutoSaveProfileInput.options.length = 0;
@@ -477,7 +477,7 @@
 		ruleAutoSaveProfileInput.appendChild(optionElement);
 		ruleEditAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
 		const rulesDataElement = rulesElement.querySelector(".rules-data");
-		Array.from(rulesDataElement.childNodes).forEach(node => (!node.className || !node.className.includes("rule-edit")) && node.remove());
+		Array.from(rulesDataElement.childNodes, node => (!node.className || !node.className.includes("rule-edit")) && node.remove());
 		const editURLElement = rulesElement.querySelector(".rule-edit");
 		createURLElement.hidden = false;
 		editURLElement.hidden = true;
