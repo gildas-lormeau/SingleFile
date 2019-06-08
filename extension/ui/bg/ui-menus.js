@@ -86,7 +86,7 @@ singlefile.extension.ui.bg.menus = (() => {
 	async function createMenus(tab) {
 		const config = singlefile.extension.core.bg.config;
 		const [profiles, tabsData] = await Promise.all([config.getProfiles(), singlefile.extension.core.bg.tabsData.get()]);
-		const options = await config.getOptions(tab && tab.url, true);
+		const options = await config.getOptions(tab && tab.url);
 		if (BROWSER_MENUS_API_SUPPORTED && options) {
 			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio", "selection"];
 			const defaultContextsDisabled = [];
