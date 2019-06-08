@@ -65,6 +65,7 @@ singlefile.extension.ui.bg.menus = (() => {
 
 	const menusCheckedState = new Map();
 	const menusTitleState = new Map();
+	let menusVisibleState;
 	let profileIndexes = new Map();
 	let menusCreated, pendingRefresh;
 	initialize();
@@ -431,6 +432,7 @@ singlefile.extension.ui.bg.menus = (() => {
 			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(tabsData.autoSaveAll)));
 			if (tab && tab.url) {
 				const options = await config.getOptions(tab.url);
+				promises.push(updateVisibleValue(tab, options.contextMenuEnabled));
 				promises.push(menus.update(MENU_ID_SAVE_SELECTED, { visible: !options.saveRawPage }));
 				let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 				let title = MENU_CREATE_DOMAIN_RULE_MESSAGE;
@@ -454,6 +456,14 @@ singlefile.extension.ui.bg.menus = (() => {
 				}
 			}
 			await Promise.all(promises);
+		}
+	}
+
+	async function updateVisibleValue(tab, visible) {
+		const lastVisibleValue = menusVisibleState;
+		menusVisibleState = visible;
+		if (lastVisibleValue === undefined || lastVisibleValue != visible) {
+			await createMenus(tab);
 		}
 	}
 
