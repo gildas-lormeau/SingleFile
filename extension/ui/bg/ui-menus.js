@@ -430,6 +430,8 @@ singlefile.extension.ui.bg.menus = (() => {
 			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(tabsData.autoSaveUnpinned)));
 			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(tabsData.autoSaveAll)));
 			if (tab && tab.url) {
+				const options = await config.getOptions(tab.url);
+				promises.push(menus.update(MENU_ID_SAVE_SELECTED, { visible: !options.saveRawPage }));
 				let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 				let title = MENU_CREATE_DOMAIN_RULE_MESSAGE;
 				const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url)]);
