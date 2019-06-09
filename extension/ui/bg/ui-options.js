@@ -447,7 +447,7 @@
 	async function refresh(profileName) {
 		const [profiles, rules] = await Promise.all([browser.runtime.sendMessage({ method: "config.getProfiles" }), browser.runtime.sendMessage({ method: "config.getRules" })]);
 		const selectedProfileName = profileName || profileNamesInput.value || DEFAULT_PROFILE_NAME;
-		Array.from(profileNamesInput.childNodes, node => node.remove());
+		Array.from(profileNamesInput.childNodes).forEach(node => node.remove());
 		profileNamesInput.options.length = 0;
 		ruleProfileInput.options.length = 0;
 		ruleAutoSaveProfileInput.options.length = 0;
