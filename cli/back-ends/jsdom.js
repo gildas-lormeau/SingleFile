@@ -142,7 +142,6 @@ function getSingleFileClass(win) {
 	};
 	const domUtil = {
 		getResourceContent,
-		isValidFontUrl,
 		digestText
 	};
 	return win.singlefile.lib.core.getClass(win.singlefile.lib.util.getInstance(modules, domUtil), win.singlefile.lib.vendor.cssTree);
@@ -152,11 +151,6 @@ async function digestText(algo, text) {
 	const hash = crypto.createHash(algo.replace("-", "").toLowerCase());
 	hash.update(text, "utf-8");
 	return hash.digest("hex");
-}
-
-function isValidFontUrl(/* urlFunction */) {
-	// TODO?
-	return true;
 }
 
 async function getResourceContent(resourceURL, options) {
