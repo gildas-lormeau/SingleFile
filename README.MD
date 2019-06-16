@@ -80,6 +80,8 @@ See https://addons.mozilla.org/firefox/addon/single-file/statistics/?last=90
   - If the filename of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3", disable the option "Misc > Save pages in background". Reinstalling the browser may also fix this issue.
 - Firefox:
   - The "file name conflict resolution" option does not work if set to "prompt for a name"
+- Waterfox
+  - When opening pages saved with the option "group duplicate images together" enabled, duplicate images are not displayed. It is recommended to disable this option.
 
 ## Troubleshooting unknown issues
 Please follow these steps if you find an unknown issue:
