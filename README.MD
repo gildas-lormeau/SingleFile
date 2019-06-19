@@ -46,6 +46,7 @@ SingleFile can be installed:
    - the current tab,
    - or the unpinned tabs,
    - or all the tabs.
+ - You can interrupt the saving progress by clicking on the SingleFile button when processing a page.
  - With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not).
  - Right-click on the SingleFile button and select "Options"/"Manage extension" to open the options page.
  - The default save folder is the download folder configured in your browser, cf. about:preferences in Firefox and chrome://settings in Chrome.
