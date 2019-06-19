@@ -104,9 +104,17 @@ singlefile.extension.ui.bg.button = (() => {
 		const business = singlefile.extension.core.bg.business;
 		const allTabs = await singlefile.extension.core.bg.tabs.get({ currentWindow: true, highlighted: true });
 		if (!allTabs.length) {
-			business.saveTab(tab);
+			toggleSaveTab(tab);
 		} else {
-			allTabs.forEach(tab => (tab.active || tab.highlighted) && business.saveTab(tab));
+			allTabs.forEach(tab => (tab.active || tab.highlighted) && toggleSaveTab(tab));
+		}
+
+		function toggleSaveTab(tab) {
+			if (business.isSavingTab(tab)) {
+				business.cancelTab(tab);
+			} else {
+				business.saveTab(tab);
+			}
 		}
 	});
 
