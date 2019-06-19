@@ -78,7 +78,11 @@ singlefile.extension.core.bg.business = (() => {
 	const currentSaves = new Map();
 	let maxParallelWorkers;
 
-	return { saveTab };
+	return {
+		isSavingTab: tab => currentSaves.has(tab.id),
+		saveTab,
+		cancelTab
+	};
 
 	async function saveTab(tab, options = {}) {
 		const config = singlefile.extension.core.bg.config;
@@ -130,6 +134,14 @@ singlefile.extension.core.bg.business = (() => {
 				console.log(error); // eslint-disable-line no-console
 				ui.onError(tabId);
 			}
+		}
+	}
+
+	async function cancelTab(tab) {
+		try {
+			singlefile.extension.core.bg.tabs.sendMessage(tab.id, { method: "content.cancelSave" });
+		} catch (error) {
+			// ignored;
 		}
 	}
 
