@@ -30,7 +30,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 	const MAX_CONTENT_SIZE = 64 * (1024 * 1024);
 	const SingleFile = singlefile.lib.SingleFile.getClass();
 
-	let ui, processing = false;
+	let ui, processing = false, processor;
 
 	browser.runtime.onMessage.addListener(async message => {
 		if (!ui) {
@@ -38,6 +38,14 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 		}
 		if (message.method == "content.save") {
 			await savePage(message);
+			return {};
+		}
+		if (message.method == "content.cancelSave") {
+			if (processor) {
+				processor.cancel();
+				ui.onEndPage();
+				browser.runtime.sendMessage({ method: "ui.processCancelled" });
+			}
 			return {};
 		}
 	});
@@ -54,10 +62,14 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 				processing = true;
 				try {
 					const page = await processPage(options);
-					await downloadPage(page, options);
+					if (page) {
+						await downloadPage(page, options);
+					}
 				} catch (error) {
-					console.error(error); // eslint-disable-line no-console
-					browser.runtime.sendMessage({ method: "ui.processError", error });
+					if (!processor.cancelled) {
+						console.error(error); // eslint-disable-line no-console
+						browser.runtime.sendMessage({ method: "ui.processError", error });
+					}
 				}
 			} else {
 				browser.runtime.sendMessage({ method: "ui.processCancelled" });
@@ -70,7 +82,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 		const frames = singlefile.lib.frameTree.content.frames;
 		singlefile.lib.helper.initDoc(document);
 		ui.onStartPage(options);
-		const processor = new SingleFile(options);
+		processor = new SingleFile(options);
 		const preInitializationPromises = [];
 		options.insertSingleFileComment = true;
 		if (!options.saveRawPage) {
@@ -82,50 +94,69 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 					frameTreePromise = frames.getAsync(options);
 				}
 				ui.onLoadingFrames(options);
-				frameTreePromise.then(() => ui.onLoadFrames(options));
+				frameTreePromise.then(() => {
+					if (!processor.cancelled) {
+						ui.onLoadFrames(options);
+					}
+				});
 				preInitializationPromises.push(frameTreePromise);
 			}
 			if (options.loadDeferredImages) {
 				const lazyLoadPromise = singlefile.lib.lazy.content.loader.process(options);
 				ui.onLoadingDeferResources(options);
-				lazyLoadPromise.then(() => ui.onLoadDeferResources(options));
+				lazyLoadPromise.then(() => {
+					if (!processor.cancelled) {
+						ui.onLoadDeferResources(options);
+					}
+				});
 				preInitializationPromises.push(lazyLoadPromise);
 			}
 		}
 		let index = 0, maxIndex = 0;
 		options.onprogress = event => {
-			if (event.type == event.RESOURCES_INITIALIZED) {
-				maxIndex = event.detail.max;
-			}
-			if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
-				if (event.type == event.RESOURCE_LOADED) {
-					index++;
+			if (!processor.cancelled) {
+				if (event.type == event.RESOURCES_INITIALIZED) {
+					maxIndex = event.detail.max;
 				}
-				browser.runtime.sendMessage({ method: "ui.processProgress", index, maxIndex });
-				ui.onLoadResource(index, maxIndex, options);
-			} if (event.type == event.PAGE_ENDED) {
-				browser.runtime.sendMessage({ method: "ui.processEnd" });
-			} else if (!event.detail.frame) {
-				if (event.type == event.PAGE_LOADING) {
-					ui.onPageLoading();
-				} else if (event.type == event.PAGE_LOADED) {
-					ui.onLoadPage();
-				} else if (event.type == event.STAGE_STARTED) {
-					if (event.detail.step < 3) {
-						ui.onStartStage(event.detail.step, options);
+				if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {
+					if (event.type == event.RESOURCE_LOADED) {
+						index++;
 					}
-				} else if (event.type == event.STAGE_ENDED) {
-					if (event.detail.step < 3) {
-						ui.onEndStage(event.detail.step, options);
+					browser.runtime.sendMessage({ method: "ui.processProgress", index, maxIndex });
+					ui.onLoadResource(index, maxIndex, options);
+				} if (event.type == event.PAGE_ENDED) {
+					browser.runtime.sendMessage({ method: "ui.processEnd" });
+				} else if (!event.detail.frame) {
+					if (event.type == event.PAGE_LOADING) {
+						ui.onPageLoading();
+					} else if (event.type == event.PAGE_LOADED) {
+						ui.onLoadPage();
+					} else if (event.type == event.STAGE_STARTED) {
+						if (event.detail.step < 3) {
+							ui.onStartStage(event.detail.step, options);
+						}
+					} else if (event.type == event.STAGE_ENDED) {
+						if (event.detail.step < 3) {
+							ui.onEndStage(event.detail.step, options);
+						}
+					} else if (event.type == event.STAGE_TASK_STARTED) {
+						ui.onStartStageTask(event.detail.step, event.detail.task);
+					} else if (event.type == event.STAGE_TASK_ENDED) {
+						ui.onEndStageTask(event.detail.step, event.detail.task);
 					}
-				} else if (event.type == event.STAGE_TASK_STARTED) {
-					ui.onStartStageTask(event.detail.step, event.detail.task);
-				} else if (event.type == event.STAGE_TASK_ENDED) {
-					ui.onEndStageTask(event.detail.step, event.detail.task);
 				}
 			}
 		};
-		[options.frames] = await Promise.all(preInitializationPromises);
+		[options.frames] = await new Promise(async resolve => {
+			const preInitializationAllPromises = Promise.all(preInitializationPromises);
+			const cancelProcessor = processor.cancel.bind(processor);
+			processor.cancel = function () {
+				cancelProcessor();
+				resolve([[]]);
+			};
+			await preInitializationAllPromises;
+			resolve(preInitializationAllPromises);
+		});
 		const selectedFrame = options.frames && options.frames.find(frameData => frameData.requestedFrame);
 		options.win = window;
 		if (selectedFrame) {
@@ -142,21 +173,26 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 		} else {
 			options.doc = document;
 		}
-		await processor.run();
+		if (!processor.cancelled) {
+			await processor.run();
+		}
 		if (!options.saveRawPage && !options.removeFrames && frames) {
 			frames.cleanup(options);
 		}
-		if (options.confirmInfobarContent) {
-			options.infobarContent = ui.prompt("Infobar content", options.infobarContent) || "";
-		}
-		const page = await processor.getPageData();
-		if (options.selected) {
-			ui.unmarkSelection();
-		}
-		ui.onEndPage(options);
-		if (options.displayStats) {
-			console.log("SingleFile stats"); // eslint-disable-line no-console
-			console.table(page.stats); // eslint-disable-line no-console
+		let page;
+		if (!processor.cancelled) {
+			if (options.confirmInfobarContent) {
+				options.infobarContent = ui.prompt("Infobar content", options.infobarContent) || "";
+			}
+			page = await processor.getPageData();
+			if (options.selected) {
+				ui.unmarkSelection();
+			}
+			ui.onEndPage();
+			if (options.displayStats) {
+				console.log("SingleFile stats"); // eslint-disable-line no-console
+				console.table(page.stats); // eslint-disable-line no-console
+			}
 		}
 		return page;
 	}
