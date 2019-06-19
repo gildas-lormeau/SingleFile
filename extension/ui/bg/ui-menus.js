@@ -102,11 +102,6 @@ singlefile.extension.ui.bg.menus = (() => {
 						title: "title"
 					});
 					defaultContextsDisabled.push("tab");
-					menus.create({
-						id: MENU_ID_SAVE_PAGE,
-						contexts: ["tab"],
-						title: MENU_SAVE_PAGE_MESSAGE
-					});
 				} catch (error) {
 					options.tabMenuEnabled = false;
 				}
