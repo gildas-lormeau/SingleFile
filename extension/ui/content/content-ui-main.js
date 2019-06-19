@@ -72,17 +72,14 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 				}
 			}
 		},
-		onEndPage(options) {
-			if (options.shadowEnabled) {
-				const maskElement = document.querySelector(MASK_TAGNAME);
-				if (maskElement) {
-					maskElement.remove();
-				}
+		onEndPage() {
+			const maskElement = document.querySelector(MASK_TAGNAME);
+			if (maskElement) {
+				maskElement.remove();
 			}
-			if (options.logsEnabled) {
-				logsWindowElement.remove();
-				clearLogs();
-			}
+
+			logsWindowElement.remove();
+			clearLogs();
 		},
 		onLoadResource(index, maxIndex, options) {
 			if (options.shadowEnabled && options.progressBarEnabled) {
