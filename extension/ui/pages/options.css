@@ -1,5 +1,5 @@
 body {
-    background-color: #fbfbfb;
+    background-color: #fff;
     font-family: sans-serif;
     font-size: 12px;
     max-width: 1024px;
@@ -9,8 +9,8 @@ body {
     margin-right: auto;
 }
 
-.maximized body {
-    background-color: #fff;
+.side-panel body {
+    background-color: #fbfbfb;
 }
 
 button {
@@ -456,10 +456,6 @@ a {
 .side-panel .options-title,
 .side-panel .option.bottom {
     display: none;
-}
-
-body {
-    background-color: #fbfbfb;
 }
 
 .maximized body {
