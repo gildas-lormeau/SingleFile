@@ -69,7 +69,7 @@ See https://addons.mozilla.org/firefox/addon/single-file/statistics/?last=90
 
 ## Command Line Interface
  - You can save web pages to HTML from the command line interface. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD.
- - You can also convert MAFF pages to HTML. For this, you must use specific versions of SingleFile CLI and Firefox. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/maff2html/README.MD.
+ - You can also convert MAFF pages to HTML. For this, you must use specific versions of SingleFile CLI and Firefox. See here for more info: https://github.com/gildas-lormeau/SingleFile-MAFF2HTML.
 
 ## Known Issues
 - All browsers:
