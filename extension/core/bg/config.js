@@ -132,13 +132,13 @@ singlefile.extension.core.bg.config = (() => {
 		}
 	}
 
-	async function getRule(url) {
+	async function getRule(url, ignoreWildcard) {
 		const config = await getConfig();
 		const regExpRules = config.rules.filter(rule => testRegExpRule(rule));
 		let rule = regExpRules.sort(sortRules).find(rule => url && url.match(new RegExp(rule.url.split(REGEXP_RULE_PREFIX)[1])));
 		if (!rule) {
 			const normalRules = config.rules.filter(rule => !testRegExpRule(rule));
-			rule = normalRules.sort(sortRules).find(rule => url && url.includes(rule.url));
+			rule = normalRules.sort(sortRules).find(rule => (!ignoreWildcard && rule.url == "*") || (url && url.includes(rule.url)));
 		}
 		return rule;
 	}
