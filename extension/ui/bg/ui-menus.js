@@ -201,7 +201,7 @@ singlefile.extension.ui.bg.menus = (() => {
 				menusTitleState.set(MENU_ID_ASSOCIATE_WITH_PROFILE, MENU_CREATE_DOMAIN_RULE_MESSAGE);
 				let rule;
 				if (tab && tab.url) {
-					rule = await config.getRule(tab.url);
+					rule = await config.getRule(tab.url, true);
 				}
 				const currentProfileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "current";
 				const currentProfileIChecked = !rule || (rule.profile == config.CURRENT_PROFILE_NAME);
@@ -378,7 +378,7 @@ singlefile.extension.ui.bg.menus = (() => {
 					refreshExternalComponents(tab);
 				}
 				if (event.menuItemId.startsWith(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX)) {
-					const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url)]);
+					const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url, true)]);
 					const profileId = event.menuItemId.split(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX)[1];
 					let profileName;
 					if (profileId == "default") {
