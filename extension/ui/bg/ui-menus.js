@@ -474,11 +474,8 @@ singlefile.extension.ui.bg.menus = (() => {
 
 	async function updateCheckedValue(id, checked) {
 		checked = Boolean(checked);
-		const lastCheckedValue = menusCheckedState.get(id);
 		menusCheckedState.set(id, checked);
-		if (lastCheckedValue === undefined || lastCheckedValue != checked) {
-			await menus.update(id, { checked });
-		}
+		await menus.update(id, { checked });
 	}
 
 })();
