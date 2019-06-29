@@ -41,6 +41,7 @@ singlefile.extension.core.bg.config = (() => {
 		compressCSS: true,
 		loadDeferredImages: true,
 		loadDeferredImagesMaxIdleTime: 1500,
+		loadDeferredImagesBlockCookies: true,
 		filenameTemplate: "{page-title} ({date-iso} {time-locale}).html",
 		infobarTemplate: "",
 		confirmInfobarContent: false,
