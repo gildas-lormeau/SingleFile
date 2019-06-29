@@ -149,7 +149,7 @@ singlefile.extension.core.bg.config = (() => {
 	}
 
 	function sortRules(ruleLeft, ruleRight) {
-		ruleRight.url.length - ruleLeft.url.length;
+		return ruleRight.url.length - ruleLeft.url.length;
 	}
 
 	function testRegExpRule(rule) {
