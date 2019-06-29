@@ -204,16 +204,16 @@ singlefile.extension.ui.bg.menus = (() => {
 					rule = await config.getRule(tab.url, true);
 				}
 				const currentProfileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "current";
-				const currentProfileIChecked = !rule || (rule.profile == config.CURRENT_PROFILE_NAME);
+				const currentProfileChecked = !rule || (rule.profile == config.CURRENT_PROFILE_NAME);
 				menus.create({
 					id: currentProfileId,
 					type: "radio",
 					contexts: defaultContexts,
 					title: config.CURRENT_PROFILE_NAME,
-					checked: currentProfileIChecked,
+					checked: currentProfileChecked,
 					parentId: MENU_ID_ASSOCIATE_WITH_PROFILE
 				});
-				menusCheckedState.set(currentProfileId, currentProfileIChecked);
+				menusCheckedState.set(currentProfileId, currentProfileChecked);
 
 				const associatedDefaultProfileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 				const associatedDefaultProfileChecked = Boolean(rule) && (rule.profile == config.DEFAULT_PROFILE_NAME);
