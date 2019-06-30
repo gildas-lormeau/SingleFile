@@ -89,7 +89,7 @@
     },
     "buttonOKBadge": {
         "message": "Aceptar",
-        "description": "Badge label: 'OK'"
+        "description": "Badge label: 'Correcto'"
     },
     "buttonErrorBadge": {
         "message": "ERR",
