@@ -103,6 +103,7 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 - Japanese translation done by Shitennouji（四天王寺) (https://github.com/Shitennouji)
 - Polish translation done by xesarni (https://github.com/xesarni)
 - Russian translation done by rstp14 (https://github.com/rstp14)
+- Spanish translation done by strel (https://github.com/strel)
 
 ## Code derived from third party projects
 - csstree: https://github.com/csstree/csstree
