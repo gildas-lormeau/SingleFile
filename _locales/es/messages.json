@@ -88,8 +88,8 @@
         "description": "Button title during save: 'Save progress: xx%'"
     },
     "buttonOKBadge": {
-        "message": "Aceptar",
-        "description": "Badge label: 'Correcto'"
+        "message": "OK",
+        "description": "Badge label: 'OK'"
     },
     "buttonErrorBadge": {
         "message": "ERR",
@@ -188,7 +188,7 @@
         "description": "Options page label: 'group duplicate images together'"
     },
     "optionLoadDeferredImages": {
-        "message": "guardar imágenes diferidas (imgDefer)",
+        "message": "guardar imágenes diferidas",
         "description": "Options page label: 'save deferred images'"
     },
     "optionLoadDeferredImagesMaxIdleTime": {
@@ -396,7 +396,7 @@
         "description": "Options button: 'Import'"
     },
     "logPanelDeferredImages": {
-        "message": "Imágenes diferidas (imgDefer)",
+        "message": "Imágenes diferidas",
         "description": "Label 'Deferred images' in the log panel"
     },
     "logPanelFrameContents": {
@@ -408,7 +408,7 @@
         "description": "Label 'Step' (for 'Step x / 4') in the log panel"
     },
     "logPanelWidth": {
-        "message": "122",
+        "message": "192",
         "description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
     },
     "profileDefaultSettings": {
