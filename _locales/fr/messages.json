@@ -293,7 +293,7 @@
     },
     "optionsAddRuleTooltip": {
         "message": "Ajouter la règle",
-        "description": "Popup text 'Delete the rule' in the options page"
+        "description": "Popup text 'Add the rule' in the options page"
     },
     "optionsValidateChangesTooltip": {
         "message": "Valider les changements",
