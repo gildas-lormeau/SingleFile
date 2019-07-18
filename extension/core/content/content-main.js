@@ -86,7 +86,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 		const preInitializationPromises = [];
 		options.insertSingleFileComment = true;
 		if (!options.saveRawPage) {
-			if (!options.removeFrames && frames) {
+			if (!options.removeFrames && frames && window.frames && window.frames.length) {
 				let frameTreePromise;
 				if (options.loadDeferredImages) {
 					frameTreePromise = new Promise(resolve => setTimeout(() => resolve(frames.getAsync(options)), options.loadDeferredImagesMaxIdleTime - frames.TIMEOUT_INIT_REQUEST_MESSAGE));
