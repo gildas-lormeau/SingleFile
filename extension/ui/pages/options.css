@@ -492,3 +492,80 @@ html.maximized {
         font-size: 11px;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+
+    details {
+        color: #ccc;
+    }
+
+    html,
+    html.maximized {
+        background-color: #373737;
+    }
+
+    main,
+    .maximized main,
+    details>summary,
+    button,
+    select,
+    .popup-content {
+        background-color: #202023;
+        color: #fdfdfd;
+    }
+
+    .new-window-link img,
+    .profiles button img {
+        filter: invert(100%);
+    }
+
+    .profiles button img:hover {
+        filter: invert(0%);
+    }
+
+    .profiles button[disabled] {
+        opacity: .4;
+    }
+
+    .profiles button[disabled] img {
+        filter: invert(50%);
+    }
+
+    .help-icon {
+        opacity: .6;
+        border-color: #ccc;
+    }
+
+    .help-icon:hover {
+        opacity: .8;
+    }
+
+    input[type="text"] {
+        background-color: #fff;
+    }
+
+    button:not([disabled]):hover {
+        color: #2A2A2E;
+    }
+
+    button:focus {
+        color: black;
+        border-color: black;
+        background-color: #d2d2d2;
+    }
+
+    .help-content {
+        background-color: rgb(85, 85, 97);
+    }
+
+    .rules-table-container,
+    .rules-table-container .thead {
+        border-color: rgb(85, 85, 97);
+    }
+
+    a,
+    a:visited {
+        color: white;
+    }
+
+}
