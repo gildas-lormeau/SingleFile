@@ -514,6 +514,10 @@ html.maximized {
         color: #fdfdfd;
     }
 
+    .maximized main {
+        border-color: rgb(81, 81, 81);
+    }
+
     .new-window-link img,
     .profiles button img {
         filter: invert(100%);
