@@ -37,7 +37,7 @@ input[type=text] {
 }
 
 input[type=checkbox] {
-    margin-bottom: 0;
+    margin-bottom: 1px;
 }
 
 button:active {
@@ -359,6 +359,7 @@ a {
     padding-top: 24px;
     padding-right: 12px;
     padding-bottom: 12px;
+    padding-left: 12px;
 }
 
 #expandAllButton {
@@ -499,7 +500,10 @@ html.maximized {
         color: #ccc;
     }
 
-    html,
+    html {
+        background-color: #202023;
+    }
+
     html.maximized {
         background-color: #373737;
     }
@@ -570,6 +574,14 @@ html.maximized {
     a,
     a:visited {
         color: white;
+    }
+
+    .popup {
+        background-color: rgba(59, 59, 59, 0.95);
+    }
+
+    .popup-content {
+        box-shadow: 5px 5px #000000;
     }
 
 }
