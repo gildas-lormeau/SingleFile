@@ -518,6 +518,15 @@ html.maximized {
         color: #fdfdfd;
     }
 
+    .side-panel,
+    .side-panel main,
+    .side-panel details>summary,
+    .side-panel button,
+    .side-panel select,
+    .side-panel .popup-content {
+        background-color: #38383d;
+    }
+
     .maximized main {
         border-color: rgb(81, 81, 81);
     }
