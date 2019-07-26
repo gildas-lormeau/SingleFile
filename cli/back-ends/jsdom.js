@@ -33,6 +33,7 @@ const request = require("request-promise-native");
 
 const SCRIPTS = [
 	"../../index.js",
+	"../../lib/hooks/content/content-hooks.js",
 	"../../lib/frame-tree/content/content-frame-tree.js",
 	"../../lib/single-file/single-file-util.js",
 	"../../lib/single-file/single-file-helper.js",
