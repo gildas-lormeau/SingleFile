@@ -302,8 +302,9 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 		requestAnimationFrame(() => {
 			const selectorElement = getAreaSelector();
 			const boundingRect = target.getBoundingClientRect();
-			selectorElement.style.setProperty("top", (document.documentElement.scrollTop + boundingRect.top - 10) + "px");
-			selectorElement.style.setProperty("left", (document.documentElement.scrollLeft + boundingRect.left - 10) + "px");
+			const scrollingElement = document.scrollingElement || document.documentElement;
+			selectorElement.style.setProperty("top", (scrollingElement.scrollTop + boundingRect.top - 10) + "px");
+			selectorElement.style.setProperty("left", (scrollingElement.scrollLeft + boundingRect.left - 10) + "px");
 			selectorElement.style.setProperty("width", (boundingRect.width + 20) + "px");
 			selectorElement.style.setProperty("height", (boundingRect.height + 20) + "px");
 		});
