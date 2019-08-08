@@ -95,7 +95,7 @@ See https://addons.mozilla.org/firefox/addon/single-file/statistics/?last=90
  - You can also convert MAFF pages to HTML. For this, you must use specific versions of SingleFile CLI and Firefox. See here for more info: https://github.com/gildas-lormeau/SingleFile-MAFF2HTML.
  
 ## Integration with WebKit
- - Here is a Swift application (MacOS) made by [@captaindavepdx](https://github.com/captaindavepdx) that illustrates how to use SingleFile with WebKit: https://github.com/captaindavepdx/SingleFileMacOS
+ - Here is a Swift application (for macOS) made by [@captaindavepdx](https://github.com/captaindavepdx) that illustrates how to use SingleFile with WebKit: https://github.com/captaindavepdx/SingleFileMacOS
 
 ## Privacy Policy
 See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
