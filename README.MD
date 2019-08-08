@@ -9,10 +9,11 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
  - [SingleFileZ](#singlefilez)
  - [Release notes](#release-notes)
  - [FAQ](#faq)
- - [Statistics (Firefox)](#statistics-firefox)
- - [Command Line Interface](#command-line-interface)
  - [Known issues](#known-issues)
  - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
+ - [Statistics (Firefox)](#statistics-firefox)
+ - [Command Line Interface](#command-line-interface)
+ - [Integration with WebKit](#integration-with-webkit)
  - [Privacy policy](#privacy-policy)
  - [Contributors](#contributors)
  - [Icons](#icons)
@@ -64,13 +65,6 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
 ## FAQ
 See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md
 
-## Statistics (Firefox)
-See https://addons.mozilla.org/firefox/addon/single-file/statistics/?last=90
-
-## Command Line Interface
- - You can save web pages to HTML from the command line interface. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD.
- - You can also convert MAFF pages to HTML. For this, you must use specific versions of SingleFile CLI and Firefox. See here for more info: https://github.com/gildas-lormeau/SingleFile-MAFF2HTML.
-
 ## Known Issues
 - All browsers:
   - For security reasons, you cannot save pages hosted on https://chrome.google.com, https://addons.mozilla.org and some other Mozilla domains. When this happens, 🛇 is displayed on top of the SingleFile icon.
@@ -92,6 +86,16 @@ Please follow these steps if you find an unknown issue:
 - If restarting the browser did not fix the issue, try to disable all other extensions to see if there is a conflict.
 - If there is a conflict then try to determine against which extension(s).
 - Please report the issue with a short description on how to reproduce it here: https://github.com/gildas-lormeau/SingleFile/issues.
+
+## Statistics (Firefox)
+See https://addons.mozilla.org/firefox/addon/single-file/statistics/?last=90
+
+## Command Line Interface
+ - You can save web pages to HTML from the command line interface. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD.
+ - You can also convert MAFF pages to HTML. For this, you must use specific versions of SingleFile CLI and Firefox. See here for more info: https://github.com/gildas-lormeau/SingleFile-MAFF2HTML.
+ 
+## Integration with WebKit
+ - Here is a Swift application (MacOS) made by [@captaindavepdx](https://github.com/captaindavepdx) that illustrates how to use SingleFile with WebKit: https://github.com/captaindavepdx/SingleFileMacOS
 
 ## Privacy Policy
 See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
