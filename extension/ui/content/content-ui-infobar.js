@@ -47,7 +47,12 @@ this.singlefile.extension.ui.content.infobar = this.singlefile.extension.ui.cont
 		if (singleFileComment) {
 			const info = singleFileComment.textContent.split("\n");
 			const [, , url, saveDate, ...infoData] = info;
-			const options = await browser.runtime.sendMessage({ method: "tabs.getOptions", url });
+			let options;
+			if (window.browser) {
+				options = await browser.runtime.sendMessage({ method: "tabs.getOptions", url });
+			} else {
+				options = { displayInfobar: true };
+			}
 			if (options.displayInfobar) {
 				initInfobar(url, saveDate, infoData);
 			}
