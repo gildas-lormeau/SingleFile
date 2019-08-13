@@ -39,6 +39,7 @@ singlefile.extension.core.bg.business = (() => {
 		"/lib/single-file/single-file-core.js",
 		"/lib/single-file/single-file.js",
 		"/extension/ui/content/content-ui-main.js",
+		"/extension/core/common/infobar.js",
 		"/extension/core/content/content-main.js"
 	];
 

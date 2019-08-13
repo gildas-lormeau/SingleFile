@@ -198,6 +198,9 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 	}
 
 	async function downloadPage(page, options) {
+		if (options.includeInfobar) {
+			await singlefile.extension.core.common.infobar.includeScript(page);
+		}
 		if (options.backgroundSave) {
 			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < page.content.length; blockIndex++) {
 				const message = {

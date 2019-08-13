@@ -21,35 +21,23 @@
  *   Source.
  */
 
-this.singlefile = this.singlefile || {
-	extension: {
-		core: {
-			common: {},
-			bg: {},
-			content: {}
-		},
-		ui: {
-			bg: {},
-			content: {}
+/* global browser, singlefile, fetch */
+
+singlefile.extension.core.common.infobar = (() => {
+
+	return {
+		includeScript
+	};
+
+	async function includeScript(pageData) {
+		let infobarContent = await (await fetch(browser.runtime.getURL("/extension/ui/content/content-ui-infobar.js"))).text();
+		let lastInfobarContent;
+		while (lastInfobarContent != infobarContent) {
+			lastInfobarContent = infobarContent;
+			infobarContent = infobarContent.replace(/\/\*(.|\n)*?\*\//, "");
 		}
-	},
-	lib: {
-		fetch: {
-			bg: {},
-			content: {}
-		},
-		frameTree: {
-			bg: {},
-			content: {}
-		},
-		hooks: {
-			content: {}
-		},
-		lazy: {
-			bg: {},
-			content: {}
-		},
-		vendor: {},
-		modules: {}
+		infobarContent = infobarContent.replace(/\t+/g, " ").replace(/\nthis\.[^(]*/gi, "\n").replace(/\n+/g, "");
+		pageData.content += "<script>" + infobarContent + "</script>";
 	}
-};
+
+})();

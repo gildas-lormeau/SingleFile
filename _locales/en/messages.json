@@ -127,6 +127,10 @@
         "message": "template of the infobar content",
         "description": "Options page label: 'template of the infobar content'"
     },
+    "optionIncludeInfobar": {
+        "message": "include the infobar in the saved page",
+        "description": "Options page label: 'include the infobar in the saved page'"
+    },
     "optionConfirmInfobar": {
         "message": "open a prompt dialog to edit the infobar content",
         "description": "Options page label: 'open a prompt dialog to edit the infobar content'"

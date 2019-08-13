@@ -61,6 +61,7 @@
 			"extension/core/bg/tabs.js",
 			"extension/core/bg/downloads.js",
 			"extension/core/bg/autosave.js",
+			"extension/core/common/infobar.js",
 			"extension/ui/bg/ui-main.js",
 			"extension/ui/bg/ui-menus.js",
 			"extension/ui/bg/ui-commands.js",
