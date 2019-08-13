@@ -127,6 +127,10 @@
         "message": "信息栏内容模板",
         "description": "选项页标签: '信息栏内容模板'"
     },
+    "optionIncludeInfobar": {
+        "message": "include the infobar in the saved page",
+        "description": "Options page label: 'include the infobar in the saved page'"
+    },
     "optionConfirmInfobar": {
         "message": "打开一个提示窗口以编辑信息栏内容",
         "description": "选项页标签: '打开一个提示窗口以编辑信息栏内容'"

@@ -127,6 +127,10 @@
         "message": "modèle du contenu de la barre d'information",
         "description": "Options page label: 'template of the infobar content'"
     },
+    "optionIncludeInfobar": {
+        "message": "inclure la barre d'information dans la page sauvegardée",
+        "description": "Options page label: 'include the infobar in the saved page'"
+    },
     "optionConfirmInfobar": {
         "message": "ouvrir une boite de dialogue pour éditer le contenu de la barre d'information",
         "description": "Options page label: 'open a prompt dialog to edit the infobar content'"

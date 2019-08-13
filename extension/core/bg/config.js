@@ -45,6 +45,7 @@ singlefile.extension.core.bg.config = (() => {
 		loadDeferredImagesBlockStorage: false,
 		filenameTemplate: "{page-title} ({date-iso} {time-locale}).html",
 		infobarTemplate: "",
+		includeInfobar: false,
 		confirmInfobarContent: false,
 		confirmFilename: false,
 		filenameConflictAction: "uniquify",

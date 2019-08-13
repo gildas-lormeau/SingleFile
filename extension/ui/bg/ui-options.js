@@ -82,6 +82,7 @@
 	const groupDuplicateImagesLabel = document.getElementById("groupDuplicateImagesLabel");
 	const confirmInfobarLabel = document.getElementById("confirmInfobarLabel");
 	const infobarTemplateLabel = document.getElementById("infobarTemplateLabel");
+	const includeInfobarLabel = document.getElementById("includeInfobarLabel");
 	const miscLabel = document.getElementById("miscLabel");
 	const helpLabel = document.getElementById("helpLabel");
 	const addProfileButton = document.getElementById("addProfileButton");
@@ -127,6 +128,7 @@
 	const removeAlternativeMediasInput = document.getElementById("removeAlternativeMediasInput");
 	const groupDuplicateImagesInput = document.getElementById("groupDuplicateImagesInput");
 	const infobarTemplateInput = document.getElementById("infobarTemplateInput");
+	const includeInfobarInput = document.getElementById("includeInfobarInput");
 	const confirmInfobarInput = document.getElementById("confirmInfobarInput");
 	const expandAllButton = document.getElementById("expandAllButton");
 	const rulesDeleteAllButton = document.getElementById("rulesDeleteAllButton");
@@ -410,6 +412,7 @@
 	miscLabel.textContent = browser.i18n.getMessage("optionsMiscSubTitle");
 	helpLabel.textContent = browser.i18n.getMessage("optionsHelpLink");
 	infobarTemplateLabel.textContent = browser.i18n.getMessage("optionInfobarTemplate");
+	includeInfobarLabel.textContent = browser.i18n.getMessage("optionIncludeInfobar");
 	confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
 	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
 	exportButton.textContent = browser.i18n.getMessage("optionsExportButton");
@@ -581,6 +584,7 @@
 		groupDuplicateImagesInput.checked = profileOptions.groupDuplicateImages;
 		removeAlternativeMediasInput.checked = profileOptions.removeAlternativeMedias;
 		infobarTemplateInput.value = profileOptions.infobarTemplate;
+		includeInfobarInput.checked = profileOptions.includeInfobar;
 		confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
 		removeFramesInput.disabled = saveRawPageInput.checked;
 		removeFramesInput.checked = removeFramesInput.checked || saveRawPageInput.checked;
@@ -635,6 +639,7 @@
 				removeAlternativeMedias: removeAlternativeMediasInput.checked,
 				groupDuplicateImages: groupDuplicateImagesInput.checked,
 				infobarTemplate: infobarTemplateInput.value,
+				includeInfobar: includeInfobarInput.checked,
 				confirmInfobarContent: confirmInfobarInput.checked
 			}
 		});

@@ -127,6 +127,10 @@
         "message": "infobar コンテンツのテンプレート",
         "description": "オプションのページラベル: 'infobar コンテンツのテンプレート'"
     },
+    "optionIncludeInfobar": {
+        "message": "include the infobar in the saved page",
+        "description": "Options page label: 'include the infobar in the saved page'"
+    },
     "optionConfirmInfobar": {
         "message": "infobar のコンテンツを編集するためのプロンプトダイアログを開く",
         "description": "オプションのページラベル: 'infobar のコンテンツを編集するためのプロンプトダイアログを開く'"

@@ -117,6 +117,9 @@ singlefile.extension.core.bg.autosave = (() => {
 		const processor = new (singlefile.lib.SingleFile.getClass())(options);
 		await processor.run();
 		const page = await processor.getPageData();
+		if (options.includeInfobar) {
+			await singlefile.extension.core.common.infobar.includeScript(page);
+		}
 		page.url = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
 		try {
 			await singlefile.extension.core.bg.downloads.downloadPage(page, options);

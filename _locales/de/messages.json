@@ -127,6 +127,10 @@
         "message": "Muster für Inhalt des Infoknopfs",
         "description": "Options page label: 'template of the infobar content'"
     },
+    "optionIncludeInfobar": {
+        "message": "Einfügen Inhalt des Infoknopfs in die gespeicherte Seite",
+        "description": "Options page label: 'include the infobar in the saved page'"
+    },
     "optionConfirmInfobar": {
         "message": "Inhalt des Infoknopfs im Dialogfenster eingeben",
         "description": "Options page label: 'open a prompt dialog to edit the infobar content'"

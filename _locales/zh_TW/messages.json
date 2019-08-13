@@ -127,6 +127,10 @@
         "message": "信息欄內容模板",
         "description": "選項頁標籤: '信息欄內容模板'"
     },
+    "optionIncludeInfobar": {
+        "message": "include the infobar in the saved page",
+        "description": "Options page label: 'include the infobar in the saved page'"
+    },
     "optionConfirmInfobar": {
         "message": "打開一個提示窗口以編輯信息欄內容",
         "description": "選項頁標籤: '打開一個提示窗口以編輯信息欄內容'"
