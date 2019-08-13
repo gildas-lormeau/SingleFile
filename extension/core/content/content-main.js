@@ -61,9 +61,9 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 			if (!options.selected || selectionFound) {
 				processing = true;
 				try {
-					const page = await processPage(options);
-					if (page) {
-						await downloadPage(page, options);
+					const pageData = await processPage(options);
+					if (pageData) {
+						await downloadPage(pageData, options);
 					}
 				} catch (error) {
 					if (!processor.cancelled) {
@@ -197,46 +197,46 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 		return page;
 	}
 
-	async function downloadPage(page, options) {
+	async function downloadPage(pageData, options) {
 		if (options.includeInfobar) {
-			await singlefile.extension.core.common.infobar.includeScript(page);
+			await singlefile.extension.core.common.infobar.includeScript(pageData);
 		}
 		if (options.backgroundSave) {
-			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < page.content.length; blockIndex++) {
+			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
 				const message = {
 					method: "downloads.download",
 					confirmFilename: options.confirmFilename,
 					filenameConflictAction: options.filenameConflictAction,
-					filename: page.filename,
+					filename: pageData.filename,
 					saveToClipboard: options.saveToClipboard,
 					filenameReplacementCharacter: options.filenameReplacementCharacter
 				};
-				message.truncated = page.content.length > MAX_CONTENT_SIZE;
+				message.truncated = pageData.content.length > MAX_CONTENT_SIZE;
 				if (message.truncated) {
-					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > page.content.length;
-					message.content = page.content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > pageData.content.length;
+					message.content = pageData.content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
 				} else {
-					message.content = page.content;
+					message.content = pageData.content;
 				}
 				await browser.runtime.sendMessage(message);
 			}
 		} else {
 			if (options.saveToClipboard) {
-				saveToClipboard(page);
+				saveToClipboard(pageData);
 			} else {
-				downloadPageForeground(page, options);
+				downloadPageForeground(pageData, options);
 			}
 		}
 	}
 
-	function downloadPageForeground(page, options) {
+	function downloadPageForeground(pageData, options) {
 		if (options.confirmFilename) {
-			page.filename = ui.prompt("File name", page.filename);
+			pageData.filename = ui.prompt("File name", pageData.filename);
 		}
-		if (page.filename && page.filename.length) {
+		if (pageData.filename && pageData.filename.length) {
 			const link = document.createElement("a");
-			link.download = page.filename;
-			link.href = URL.createObjectURL(new Blob([page.content], { type: "text/html" }));
+			link.download = pageData.filename;
+			link.href = URL.createObjectURL(new Blob([pageData.content], { type: "text/html" }));
 			link.dispatchEvent(new MouseEvent("click"));
 			URL.revokeObjectURL(link.href);
 		}

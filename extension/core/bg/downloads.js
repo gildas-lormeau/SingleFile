@@ -84,11 +84,11 @@ singlefile.extension.core.bg.downloads = (() => {
 		}
 	}
 
-	async function downloadPage(page, options) {
+	async function downloadPage(pageData, options) {
 		const downloadInfo = {
-			url: page.url,
+			url: pageData.url,
 			saveAs: options.confirmFilename,
-			filename: page.filename,
+			filename: pageData.filename,
 			conflictAction: options.filenameConflictAction
 		};
 		if (options.incognito) {
@@ -151,15 +151,15 @@ singlefile.extension.core.bg.downloads = (() => {
 		});
 	}
 
-	function saveToClipboard(page) {
+	function saveToClipboard(pageData) {
 		const command = "copy";
 		document.addEventListener(command, listener);
 		document.execCommand(command);
 		document.removeEventListener(command, listener);
 
 		function listener(event) {
-			event.clipboardData.setData(MIMETYPE_HTML, page.content);
-			event.clipboardData.setData("text/plain", page.content);
+			event.clipboardData.setData(MIMETYPE_HTML, pageData.content);
+			event.clipboardData.setData("text/plain", pageData.content);
 			event.preventDefault();
 		}
 	}
