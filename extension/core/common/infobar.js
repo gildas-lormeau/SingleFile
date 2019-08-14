@@ -37,7 +37,7 @@ singlefile.extension.core.common.infobar = (() => {
 			infobarContent = infobarContent.replace(/\/\*(.|\n)*?\*\//, "");
 		}
 		infobarContent = infobarContent.replace(/\t+/g, " ").replace(/\nthis\.[^(]*/gi, "\n").replace(/\n+/g, "");
-		pageData.content += "<script>" + infobarContent + "</script>";
+		pageData.content += "<script>document.currentScript.remove();" + infobarContent + "</script>";
 	}
 
 })();
