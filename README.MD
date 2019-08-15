@@ -69,19 +69,19 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md4
 ## File format comparison
 |   	                                             | SingleFile  | SingleFileZ |    MAFF     |    MHTML    |    HTML     |
 | ---                                	            |    :---:    |    :---:    |    :---:    |    :---:    |    :---:    |
-| Pages are saved as a single file                | X 	         | X 	         | X 	         | X 	         |            	|
-| HTML and styles are minified                    | X           | X 	         |   	         |             |            	|
-| Unused styles and HTML are removed from files   | X           | X 	         |   	         |             |            	|
-| Binary resources are not encodeed in base 64    |             | X 	         | X 	         |             | X          	|
-| Files are compressed                            |             | X 	         | X 	         |             |            	|
-| Files can be viewed w/o installing an extension | X           | X*          |   	         | X**         | X          	|
-| Files can be viewed w/o JavaScript              | X           |   	         | X 	         | X           | X          	|
-| Files can be unzipped                           |             | X 	         | X 	         |             |            	|
+| Pages are saved as a single file                | ✓ 	         | ✓ 	         | ✓ 	         | ✓ 	         |            	|
+| HTML and styles are minified                    | ✓           | ✓ 	         |   	         |             |            	|
+| Unused styles and HTML are removed from files   | ✓           | ✓ 	         |   	         |             |            	|
+| Binary resources are not encodeed in base 64    |             | ✓ 	         | ✓ 	         |             | ✓          	|
+| Files are compressed                            |             | ✓ 	         | ✓ 	         |             |            	|
+| Files can be viewed w/o installing an extension | ✓           | ✓*          |   	         | ✓**         | ✓          	|
+| Files can be viewed w/o JavaScript              | ✓           |   	         | ✓ 	         | ✓           | ✓          	|
+| Files can be unzipped                           |             | ✓ 	         | ✓ 	         |             |            	|
 
 |     | Notes                                                                                           |
 |:---:| ---                                                                                             |
-| X*  | a switch must be passed from the command line in Chrome and an option must be enabled in Safari |
-| X** | only in Chrome                                                                                  |
+| *   | a switch must be passed from the command line in Chrome and an option must be enabled in Safari |
+| **  | only in Chrome                                                                                  |
 
 ## Known Issues
 - All browsers:
