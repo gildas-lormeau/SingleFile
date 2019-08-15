@@ -9,6 +9,7 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
  - [SingleFileZ](#singlefilez)
  - [Release notes](#release-notes)
  - [FAQ](#faq)
+ - [File format comparison](#file-format-comparison)
  - [Known issues](#known-issues)
  - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
  - [Statistics (Firefox)](#statistics-firefox)
@@ -63,7 +64,24 @@ More info here: https://github.com/gildas-lormeau/SingleFileZ
 See https://addons.mozilla.org/firefox/addon/single-file/versions/
 
 ## FAQ
-See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md
+See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md4
+
+## File format comparison
+|   	                                             | SingleFile  | SingleFileZ |    MAFF     |    MHTML    |    HTML     |
+| ---                                	            |    :---:    |    :---:    |    :---:    |    :---:    |    :---:    |
+| Pages are saved as a single file                | X 	         | X 	         | X 	         | X 	         |            	|
+| HTML and styles are minified                    | X           | X 	         |   	         |             |            	|
+| Unused styles and HTML are removed from files   | X           | X 	         |   	         |             |            	|
+| Binary resources are not encodeed in base 64    |             | X 	         | X 	         |             | X          	|
+| Files are compressed                            |             | X 	         | X 	         |             |            	|
+| Files can be viewed w/o installing an extension | X           | X*          |   	         | X**         | X          	|
+| Files can be viewed w/o JavaScript              | X           |   	         | X 	         | X           | X          	|
+| Files can be unzipped                           |             | X 	         | X 	         |             |            	|
+
+|     | Notes                                                     |
+|:---:| ---                                                       |
+| X*  | for Chrome, a switch must be passed from the command line |
+| X** | only in Chrome                                            |
 
 ## Known Issues
 - All browsers:
