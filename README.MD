@@ -78,10 +78,10 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md4
 | Files can be viewed w/o JavaScript              | X           |   	         | X 	         | X           | X          	|
 | Files can be unzipped                           |             | X 	         | X 	         |             |            	|
 
-|     | Notes                                                     |
-|:---:| ---                                                       |
-| X*  | for Chrome, a switch must be passed from the command line |
-| X** | only in Chrome                                            |
+|     | Notes                                                                                           |
+|:---:| ---                                                                                             |
+| X*  | a switch must be passed from the command line in Chrome and an option must be enabled in Safari |
+| X** | only in Chrome                                                                                  |
 
 ## Known Issues
 - All browsers:
