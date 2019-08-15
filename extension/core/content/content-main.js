@@ -55,6 +55,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 		const options = message.options;
 		if (!processing) {
 			options.updatedResources = singlefile.extension.core.content.updatedResources;
+			Object.keys(options.updatedResources).forEach(url => options.updatedResources[url].retrieved = false);
 			let selectionFound;
 			if (options.selected) {
 				selectionFound = await ui.markSelection();
