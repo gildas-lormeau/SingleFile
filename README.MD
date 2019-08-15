@@ -76,7 +76,7 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md4
 | Files are compressed                            |             | ✓ 	         | ✓ 	         |             |            	|
 | Files can be viewed w/o installing an extension | ✓           | ✓*          |   	         | ✓**         | ✓          	|
 | Files can be viewed w/o JavaScript              | ✓           |   	         | ✓ 	         | ✓           | ✓          	|
-| Files can be unzipped                           |             | ✓ 	         | ✓ 	         |             |            	|
+| Files can be unzipped to extract resources      |             | ✓ 	         | ✓ 	         |             |            	|
 
 |     | Notes                                                                                           |
 |:---:| ---                                                                                             |
