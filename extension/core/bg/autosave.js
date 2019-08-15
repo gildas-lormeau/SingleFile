@@ -107,6 +107,7 @@ singlefile.extension.core.bg.autosave = (() => {
 		options.shadowRoots = message.shadowRoots;
 		options.imports = message.imports;
 		options.referrer = message.referrer;
+		options.updatedResources = message.updatedResources;
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
 		options.backgroundTab = true;
