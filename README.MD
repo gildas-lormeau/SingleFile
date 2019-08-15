@@ -67,7 +67,7 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
 See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md4
 
 ## File format comparison
-|   	                                             | SingleFile  | SingleFileZ |    MAFF     |    MHTML    |    HTML     |
+|   	                                             | SingleFile  | SingleFileZ |    MAFF     |    MHTML    | HTML+folder |
 | ---                                	            |    :---:    |    :---:    |    :---:    |    :---:    |    :---:    |
 | Pages are saved as a single file                | ✓ 	         | ✓ 	         | ✓ 	         | ✓ 	         |            	|
 | HTML and styles are minified                    | ✓           | ✓ 	         |   	         |             |            	|
