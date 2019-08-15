@@ -71,7 +71,7 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md4
 | ---                                	            |    :---:    |    :---:    |    :---:    |    :---:    |    :---:    |
 | Pages are saved as a single file                | ✓ 	         | ✓ 	         | ✓ 	         | ✓ 	         |            	|
 | HTML and styles are minified                    | ✓           | ✓ 	         |   	         |             |            	|
-| Unused styles and HTML are removed from files   | ✓           | ✓ 	         |   	         |             |            	|
+| Unused HTML and styles are removed from files   | ✓           | ✓ 	         |   	         |             |            	|
 | Binary resources are not encodeed in base 64    |             | ✓ 	         | ✓ 	         |             | ✓          	|
 | Files are compressed                            |             | ✓ 	         | ✓ 	         |             |            	|
 | Files can be viewed w/o installing an extension | ✓           | ✓*          |   	         | ✓**         | ✓          	|
