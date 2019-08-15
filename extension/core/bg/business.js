@@ -105,6 +105,7 @@ singlefile.extension.core.bg.business = (() => {
 				ui.onStart(tabId, INJECT_SCRIPTS_STEP);
 				const tabOptions = await config.getOptions(tab.url);
 				Object.keys(options).forEach(key => tabOptions[key] = options[key]);
+				tabOptions.updatedResources = singlefile.extension.core.bg.devtools.getUpdatedResources(tabId);
 				let scriptsInjected;
 				if (!tabOptions.removeFrames) {
 					try {
