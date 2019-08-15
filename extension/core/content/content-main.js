@@ -54,6 +54,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 	async function savePage(message) {
 		const options = message.options;
 		if (!processing) {
+			options.updatedResources = singlefile.extension.core.content.updatedResources;
 			let selectionFound;
 			if (options.selected) {
 				selectionFound = await ui.markSelection();

@@ -25,31 +25,14 @@
 
 singlefile.extension.core.bg.devtools = (() => {
 
-	const updatedResources = {};
-
 	return {
-		onMessage,
-		onTabRemoved,
-		onTabUpdated,
-		getUpdatedResources: tabId => updatedResources[tabId]
+		onMessage
 	};
 
-	async function onTabRemoved(tabId) {
-		delete updatedResources[tabId];
-	}
-
-	async function onTabUpdated(tabId) {
-		delete updatedResources[tabId];
-	}
-
-	function onMessage(message) {
+	async function onMessage(message) {
 		if (message.method.endsWith(".resourceCommitted")) {
 			if (message.tabId && message.url && (message.type == "stylesheet" || message.type == "script")) {
-				const tabId = message.tabId;
-				if (!updatedResources[tabId]) {
-					updatedResources[tabId] = {};
-				}
-				updatedResources[tabId][message.url] = { content: message.content, type: message.type, encoding: message.encoding };
+				await singlefile.extension.core.bg.tabs.sendMessage(message.tabId, message);
 			}
 		}
 	}
