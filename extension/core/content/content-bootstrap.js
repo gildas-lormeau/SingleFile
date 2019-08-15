@@ -77,22 +77,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 				if (!options.removeFrames && singlefile.lib.frameTree.content.frames && window.frames && window.frames.length) {
 					frames = await singlefile.lib.frameTree.content.frames.getAsync(options);
 				}
-				browser.runtime.sendMessage({
-					method: "autosave.save",
-					content: helper.serialize(document, false),
-					canvases: docData.canvases,
-					fonts: docData.fonts,
-					stylesheets: docData.stylesheets,
-					images: docData.images,
-					posters: docData.posters,
-					usedFonts: docData.usedFonts,
-					shadowRoots: docData.shadowRoots,
-					imports: docData.imports,
-					referrer: docData.referrer,
-					frames: frames,
-					url: location.href,
-					updatedResources: singlefile.extension.core.content.updatedResources
-				});
+				savePage(docData, frames);
 				helper.postProcessDoc(document, docData.markedElements);
 				pageAutoSaved = true;
 				autoSavingPage = false;
@@ -122,23 +107,30 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			if (!options.removeFrames && singlefile.lib.frameTree.content.frames && window.frames && window.frames.length) {
 				frames = singlefile.lib.frameTree.content.frames.getSync(options);
 			}
-			browser.runtime.sendMessage({
-				method: "autosave.save",
-				content: helper.serialize(document),
-				canvases: docData.canvases,
-				fonts: docData.fonts,
-				stylesheets: docData.stylesheets,
-				images: docData.images,
-				posters: docData.posters,
-				usedFonts: docData.usedFonts,
-				shadowRoots: docData.shadowRoots,
-				imports: docData.imports,
-				referrer: docData.referrer,
-				frames: frames,
-				url: location.href,
-				updatedResources: singlefile.extension.core.content.updatedResources
-			});
+			savePage(docData, frames);
 		}
+	}
+
+	function savePage(docData, frames) {
+		const helper = singlefile.lib.helper;
+		const updatedResources = singlefile.extension.core.content.updatedResources;
+		Object.keys(updatedResources).forEach(url => updatedResources[url].retrieved = false);
+		browser.runtime.sendMessage({
+			method: "autosave.save",
+			content: helper.serialize(document),
+			canvases: docData.canvases,
+			fonts: docData.fonts,
+			stylesheets: docData.stylesheets,
+			images: docData.images,
+			posters: docData.posters,
+			usedFonts: docData.usedFonts,
+			shadowRoots: docData.shadowRoots,
+			imports: docData.imports,
+			referrer: docData.referrer,
+			frames: frames,
+			url: location.href,
+			updatedResources
+		});
 	}
 
 })();
