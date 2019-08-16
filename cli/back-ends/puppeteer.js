@@ -140,8 +140,9 @@ exports.getPageData = async options => {
 					jsRedirects++;
 					if (jsRedirects < MAX_JS_REDIRECTS) {
 						return exports.getPageData(options);
+					} else {
+						throw error;
 					}
-					throw error;
 				}
 			} else {
 				throw error;
