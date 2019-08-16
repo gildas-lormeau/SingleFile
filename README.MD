@@ -81,7 +81,7 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md4
 |     | Notes                                                                                           |
 |:---:| ---                                                                                             |
 | *   | a switch must be passed from the command line in Chrome and an option must be enabled in Safari |
-| **  | only in Chromium-based browsers                                                                 |
+| **  | only in Chromium-based browsers and Internet Explorer                                           |
 
 ## Known Issues
 - All browsers:
