@@ -67,21 +67,22 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
 See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md4
 
 ## File format comparison
-|   	                                             | SingleFile  | SingleFileZ |    MAFF     |    MHTML    | HTML+folder |
-| ---                                	            |    :---:    |    :---:    |    :---:    |    :---:    |    :---:    |
-| Pages are saved as a single file                | ✓ 	         | ✓ 	         | ✓ 	         | ✓ 	         |            	|
-| HTML and styles are minified                    | ✓           | ✓ 	         |   	         |             |            	|
-| Unused HTML and styles are removed from files   | ✓           | ✓ 	         |   	         |             |            	|
-| Binary resources are not encoded in base 64     |             | ✓ 	         | ✓ 	         |             | ✓          	|
-| Files are compressed                            |             | ✓ 	         | ✓ 	         |             |            	|
-| Files can be viewed w/o installing an extension | ✓           | ✓*          |   	         | ✓**         | ✓          	|
-| Files can be viewed w/o JavaScript              | ✓           |   	         | ✓ 	         | ✓           | ✓          	|
-| Files can be unzipped to extract resources      |             | ✓ 	         | ✓ 	         |             |            	|
+|   	                                             | SingleFile  | SingleFileZ | MAFF  | MHTML | HTML+folder | Webarchive |
+| ---                                	            |    :---:    |    :---:    | :---: | :---: |    :---:    |    :---:    |
+| Pages are saved as a single file                | ✓ 	         | ✓ 	         | ✓     | ✓     |            	| ✓ 	         |
+| HTML and styles are minified                    | ✓           | ✓ 	         |       |       |            	|   	         |
+| Unused HTML and styles are removed from files   | ✓           | ✓ 	         |       |       |            	|   	         |
+| Binary resources are not encoded in base 64     |             | ✓ 	         | ✓     |       | ✓          	| ✓ 	         |
+| Files are compressed                            |             | ✓ 	         | ✓     |       |            	|   	         |
+| Files can be viewed w/o installing an extension | ✓           | ✓*          |       | ✓**   | ✓          	| ✓***        |
+| Files can be viewed w/o JavaScript              | ✓           |   	         | ✓     | ✓     | ✓          	| ✓ 	         |
+| Files can be unzipped to extract resources      |             | ✓ 	         | ✓     |       |            	|   	         |
 
 |     | Notes                                                                                           |
 |:---:| ---                                                                                             |
 | *   | a switch must be passed from the command line in Chrome and an option must be enabled in Safari |
 | **  | only in Chromium-based browsers and Internet Explorer                                           |
+| *** | only in Safari                                                                                  |
 
 ## Known Issues
 - All browsers:
