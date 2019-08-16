@@ -52,6 +52,10 @@ const SCRIPTS = [
 	"../../lib/single-file/single-file.js"
 ];
 
+const MAX_JS_REDIRECTS = 100;
+
+let jsRedirects = 0;
+
 exports.getPageData = async options => {
 	const browserOptions = {};
 	if (options.browserHeadless !== undefined) {
@@ -128,11 +132,15 @@ exports.getPageData = async options => {
 				const pages = await browser.pages();
 				const page = pages[1] || pages[0];
 				const url = page.url();
+				await browser.close();
 				if (url != options.url) {
-					await browser.close();
 					options.url = url;
 					return exports.getPageData(options);
 				} else {
+					jsRedirects++;
+					if (jsRedirects < MAX_JS_REDIRECTS) {
+						return exports.getPageData(options);
+					}
 					throw error;
 				}
 			} else {
