@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, Node, window, top, getComputedStyle, location, setTimeout */
+/* global document, Node, window, top, getComputedStyle, location, setTimeout */
 
 this.singlefile.extension.ui.content.infobar = this.singlefile.extension.ui.content.infobar || (() => {
 
@@ -29,6 +29,8 @@ this.singlefile.extension.ui.content.infobar = this.singlefile.extension.ui.cont
 	const LINK_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABmJLR0QABQDuAACS38mlAAAACXBIWXMAACfuAAAn7gExzuVDAAAAB3RJTUUH4ggCDDcMnYqGGAAAATtJREFUOMvNk19LwlAYxp+zhOoqpxJ1la3patFVINk/oRDBLuyreiPFMmcj/QQRSOOwpEINDCpwRr7d1HBMc4sufO7Oe877e5/zcA4wbWLDi8urGr2+vXsOFfJZdnPboDtuueoRcQEH6RQDgNBP8bxcpfvmA0QxPHF6u/MMInLVHFDP7kMUwyjks2xU8+ZGkgGAbtSp1e5gRhBc+0KQHHSjTg2TY0tVEItF/wYqV6+pYXKoiox0atvjOuQXYnILqiJj/ztceXUlGEirGGRyC0pCciDDmfm6mlYxiFtNKAkJmb0dV2OxpFGxpNFE0NmFTtxqQpbiHsgojQX1bBuyFMfR4S7zk+PYjE5PcizI0xD+6685jubnZvH41MJwgL+p233B8tKiF7SeXMPnYIB+/8OXg2hERO44wzC1+gJYGGpVbtoqiAAAAABJRU5ErkJggg==";
 	const IMAGE_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABIUlEQVQ4y+2TsarCMBSGvxTBRdqiUZAWOrhJB9EXcPKFfCvfQYfulUKHDqXg4CYUJSioYO4mSDX3ttzt3n87fMlHTpIjlsulxpDZbEYYhgghSNOUOI5Ny2mZYBAELBYLer0eAJ7ncTweKYri4x7LJJRS0u12n7XrukgpjSc0CpVSXK/XZ32/31FKNW85z3PW6zXT6RSAJEnIsqy5UGvNZrNhu90CcDqd+C6tT6J+v//2Th+PB2VZ1hN2Oh3G4zGTyQTbtl/YbrdjtVpxu91+Ljyfz0RRhG3bzOfzF+Y4TvNXvlwuaK2pE4tfzr/wzwsty0IIURlL0998KxRCMBqN8H2/wlzXJQxD2u12vVkeDoeUZUkURRU+GAw4HA7s9/sK+wK6CWHasQ/S/wAAAABJRU5ErkJggg==";
 	const SINGLEFILE_COMMENT = "SingleFile";
+
+	const browser = this.browser;
 
 	if (window == top && location && location.href && location.href.startsWith("file:///")) {
 		if (document.readyState == "loading") {
@@ -48,7 +50,7 @@ this.singlefile.extension.ui.content.infobar = this.singlefile.extension.ui.cont
 			const info = singleFileComment.textContent.split("\n");
 			const [, , url, saveDate, ...infoData] = info;
 			let options;
-			if (window.browser) {
+			if (browser && browser.runtime && browser.runtime.sendMessage) {
 				options = await browser.runtime.sendMessage({ method: "tabs.getOptions", url });
 			} else {
 				options = { displayInfobar: true };
