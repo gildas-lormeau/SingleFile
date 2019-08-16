@@ -101,27 +101,44 @@ exports.getPageData = async options => {
 			timeout: 0,
 			waitUntil: options.browserWaitUntil || "networkidle0"
 		});
-		return await page.evaluate(async options => {
-			singlefile.lib.helper.initDoc(document);
-			options.insertSingleFileComment = true;
-			options.insertFaviconLink = true;
-			const preInitializationPromises = [];
-			if (!options.saveRawPage) {
-				if (!options.removeFrames) {
-					preInitializationPromises.push(singlefile.lib.frameTree.content.frames.getAsync(options));
+		try {
+			return await page.evaluate(async options => {
+				singlefile.lib.helper.initDoc(document);
+				options.insertSingleFileComment = true;
+				options.insertFaviconLink = true;
+				const preInitializationPromises = [];
+				if (!options.saveRawPage) {
+					if (!options.removeFrames) {
+						preInitializationPromises.push(singlefile.lib.frameTree.content.frames.getAsync(options));
+					}
+					if (options.loadDeferredImages) {
+						preInitializationPromises.push(singlefile.lib.lazy.content.loader.process(options));
+					}
 				}
-				if (options.loadDeferredImages) {
-					preInitializationPromises.push(singlefile.lib.lazy.content.loader.process(options));
+				[options.frames] = await Promise.all(preInitializationPromises);
+				options.doc = document;
+				options.win = window;
+				const SingleFile = singlefile.lib.SingleFile.getClass();
+				const singleFile = new SingleFile(options);
+				await singleFile.run();
+				return await singleFile.getPageData();
+			}, options);
+		} catch (error) {
+			if (error.message.includes("Execution context was destroyed")) {
+				const pages = await browser.pages();
+				const page = pages[1] || pages[0];
+				const url = page.url();
+				if (url != options.url) {
+					await browser.close();
+					options.url = url;
+					return exports.getPageData(options);
+				} else {
+					throw error;
 				}
+			} else {
+				throw error;
 			}
-			[options.frames] = await Promise.all(preInitializationPromises);
-			options.doc = document;
-			options.win = window;
-			const SingleFile = singlefile.lib.SingleFile.getClass();
-			const singleFile = new SingleFile(options);
-			await singleFile.run();
-			return await singleFile.getPageData();
-		}, options);
+		}
 	} finally {
 		if (browser && !options.browserDebug) {
 			await browser.close();
