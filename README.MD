@@ -67,17 +67,17 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
 See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md4
 
 ## File format comparison
-|   	                                             | SingleFile  | SingleFileZ | MAFF  | MHTML | HTML+folder | Webarchive |
-| ---                                	            |    :---:    |    :---:    | :---: | :---: |    :---:    |    :---:    |
-| Pages are saved as a single file                | ✓ 	         | ✓ 	         | ✓     | ✓     |            	| ✓ 	         |
-| HTML and styles are minified                    | ✓           | ✓ 	         |       |       |            	|   	         |
-| Unused HTML and styles are removed from files   | ✓           | ✓ 	         |       |       |            	|   	         |
-| Binary resources are not encoded in base 64     |             | ✓ 	         | ✓     |       | ✓          	| ✓ 	         |
-| Files are compressed                            |             | ✓ 	         | ✓     |       |            	|   	         |
-| Files can be viewed w/o installing an extension | ✓           | ✓*          |       | ✓**   | ✓          	| ✓***        |
-| Files can be viewed w/o JavaScript              | ✓           |   	         | ✓     | ✓     | ✓          	| ✓ 	         |
-| Files can be unzipped to extract resources      |             | ✓ 	         | ✓     |       |            	|   	         |
-| Files contains plain text that can be indexed   | ✓ 	         | ✓****       |       | ✓    	| ✓ 	         | ✓ 	         |
+|   	                                                                          | SingleFile  | SingleFileZ | MAFF  | MHTML | HTML+folder | Webarchive |
+| ---                                	                                         |    :---:    |    :---:    | :---: | :---: |    :---:    |    :---:    |
+| Pages are saved as a single file                                             | ✓ 	         | ✓ 	         | ✓     | ✓     |            	| ✓ 	         |
+| HTML and styles are minified                                                 | ✓           | ✓ 	         |       |       |            	|   	         |
+| Unused HTML and styles are removed from files                                | ✓           | ✓ 	         |       |       |            	|   	         |
+| Binary resources are not encoded in base 64                                  |             | ✓ 	         | ✓     |       | ✓          	| ✓ 	         |
+| Files are compressed                                                         |             | ✓ 	         | ✓     |       |            	|   	         |
+| Files can be viewed w/o installing an extension                              | ✓           | ✓*          |       | ✓**   | ✓          	| ✓***        |
+| Files can be viewed w/o JavaScript                                           | ✓           |   	         | ✓     | ✓     | ✓          	| ✓ 	         |
+| Files can be unzipped to extract resources                                   |             | ✓ 	         | ✓     |       |            	|   	         |
+| Files contains the text of the page (plain or formatted) that can be indexed | ✓ 	         | ✓****       |       | ✓    	| ✓ 	| ✓ 	         |
 
 |       | Notes                                                                                           |
 | :---: | ---                                                                                             |
