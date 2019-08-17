@@ -74,8 +74,8 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md4
 | Unused HTML and styles are removed from files                                 | ✓           | ✓ 	         |       |       |            	|   	         |
 | Binary resources are not encoded in base 64                                   |             | ✓ 	         | ✓     |       | ✓          	| ✓ 	         |
 | Files are compressed                                                          |             | ✓ 	         | ✓     |       |            	|   	         |
-| Files can be viewed w/o installing an extension                               | ✓           | ✓*          |       | ✓**   | ✓          	| ✓***        |
-| Files can be viewed w/o JavaScript                                            | ✓           |   	         | ✓     | ✓     | ✓          	| ✓ 	         |
+| Files can be viewed without installing any extension                          | ✓           | ✓*          |       | ✓**   | ✓          	| ✓***        |
+| Files can be viewed without running JavaScript                                | ✓           |   	         | ✓     | ✓     | ✓          	| ✓ 	         |
 | Files can be unzipped to extract resources                                    |             | ✓ 	         | ✓     |       |            	|   	         |
 | Files contains the text of the page (plain or formatted) which can be indexed | ✓ 	         | ✓****       |       | ✓    	| ✓ 	| ✓ 	         |
 
