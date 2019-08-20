@@ -57,7 +57,7 @@ exports.getPageData = async options => {
 	if (options.browserHeadless !== undefined) {
 		browserOptions.headless = options.browserHeadless && !options.browserDebug;
 	}
-	browserOptions.args = [];
+	browserOptions.args = options.browserArgs ? JSON.parse(options.browserArgs) : [];
 	if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
 		browserOptions.args.push("--disable-web-security");
 	}

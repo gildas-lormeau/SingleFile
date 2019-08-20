@@ -69,6 +69,10 @@ exports.getPageData = async options => {
 		if (options.webDriverExecutablePath) {
 			process.env["webdriver.chrome.driver"] = options.webDriverExecutablePath;
 		}
+		if (options.browserArgs) {
+			const args = JSON.parse(options.browserArgs);
+			args.forEach(argument => chromeOptions.addArguments(argument));
+		}
 		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
 			chromeOptions.addArguments("--disable-web-security");
 		}
