@@ -81,6 +81,10 @@ exports.getPageData = async options => {
 		if (options.browserExtensions && options.browserExtensions.length) {
 			options.browserExtensions.forEach(extensionPath => extensions.push(path.resolve(__dirname, "..", extensionPath)));
 		}
+		if (options.browserArgs) {
+			const args = JSON.parse(options.browserArgs);
+			args.forEach(argument => firefoxOptions.addArguments(argument));
+		}
 		if (extensions.length) {
 			firefoxOptions.addExtensions(extensions);
 		}
