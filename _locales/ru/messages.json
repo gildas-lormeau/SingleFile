@@ -128,7 +128,7 @@
         "description": "Options page label: 'template of the infobar content'"
     },
     "optionIncludeInfobar": {
-        "message": "включить информационной панели в сохраненную страницу",
+        "message": "добавлять информационную панель в сохраняемую страницу",
         "description": "Options page label: 'include the infobar in the saved page'"
     },
     "optionConfirmInfobar": {
