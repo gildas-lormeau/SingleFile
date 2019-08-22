@@ -84,48 +84,48 @@ this.singlefile.extension.ui.content.infobar = this.singlefile.extension.ui.cont
 				infoData = saveDate;
 			}
 			infobarElement = createElement(INFOBAR_TAGNAME, document.body);
-			infobarElement.style.setProperty("background-color", "#f9f9f9", "important");
-			infobarElement.style.setProperty("display", "flex", "important");
-			infobarElement.style.setProperty("position", "fixed", "important");
-			infobarElement.style.setProperty("top", "16px", "important");
-			infobarElement.style.setProperty("right", "16px", "important");
-			infobarElement.style.setProperty("height", "auto", "important");
-			infobarElement.style.setProperty("min-height", "24px", "important");
-			infobarElement.style.setProperty("min-width", "24px", "important");
-			infobarElement.style.setProperty("background-position", "center", "important");
-			infobarElement.style.setProperty("background-repeat", "no-repeat", "important");
-			infobarElement.style.setProperty("z-index", 2147483647, "important");
-			infobarElement.style.setProperty("text-align", "center", "important");
-			infobarElement.style.setProperty("will-change", "opacity, padding-left, padding-right, width, background-color, color", "important");
-			infobarElement.style.setProperty("margin", "0 0 0 16px", "important");
+			setProperty(infobarElement, "background-color", "#f9f9f9");
+			setProperty(infobarElement, "display", "flex");
+			setProperty(infobarElement, "position", "fixed");
+			setProperty(infobarElement, "top", "16px");
+			setProperty(infobarElement, "right", "16px");
+			setProperty(infobarElement, "height", "auto");
+			setProperty(infobarElement, "min-height", "24px");
+			setProperty(infobarElement, "min-width", "24px");
+			setProperty(infobarElement, "background-position", "center");
+			setProperty(infobarElement, "background-repeat", "no-repeat");
+			setProperty(infobarElement, "z-index", 2147483647);
+			setProperty(infobarElement, "text-align", "center");
+			setProperty(infobarElement, "will-change", "opacity, padding-left, padding-right, width, background-color, color");
+			setProperty(infobarElement, "margin", "0 0 0 16px");
 			const infoElement = createElement("span", infobarElement);
-			infoElement.style.setProperty("font-family", "Arial", "important");
-			infoElement.style.setProperty("color", "#9aa0a6", "important");
-			infoElement.style.setProperty("font-size", "14px", "important");
-			infoElement.style.setProperty("line-height", "22px", "important");
-			infoElement.style.setProperty("word-break", "break-word", "important");
-			infoElement.style.setProperty("white-space", "pre-wrap", "important");
+			setProperty(infoElement, "font-family", "Arial");
+			setProperty(infoElement, "color", "#9aa0a6");
+			setProperty(infoElement, "font-size", "14px");
+			setProperty(infoElement, "line-height", "22px");
+			setProperty(infoElement, "word-break", "break-word");
+			setProperty(infoElement, "white-space", "pre-wrap");
 			infoElement.textContent = infoData;
 			const linkElement = createElement("a", infobarElement);
-			linkElement.style.setProperty("display", "inline-block", "important");
-			linkElement.style.setProperty("padding-left", "8px", "important");
-			linkElement.style.setProperty("line-height", "11px", "important");
-			linkElement.style.setProperty("cursor", "pointer", "important");
-			linkElement.style.setProperty("user-select", "none", "important");
+			setProperty(linkElement, "display", "inline-block");
+			setProperty(linkElement, "padding-left", "8px");
+			setProperty(linkElement, "line-height", "11px");
+			setProperty(linkElement, "cursor", "pointer");
+			setProperty(linkElement, "user-select", "none");
 			linkElement.target = "_blank";
 			linkElement.rel = "noopener noreferrer";
 			linkElement.title = "Open source URL: " + url;
 			linkElement.href = url;
 			const imgElement = createElement("img", linkElement);
-			imgElement.style.setProperty("padding-top", "3px", "important");
-			imgElement.style.setProperty("-webkit-padding-after", "2px", "important");
-			imgElement.style.setProperty("padding-left", "2px", "important");
-			imgElement.style.setProperty("-webkit-padding-start", "2px", "important");
-			imgElement.style.setProperty("cursor", "pointer", "important");
-			infobarElement.style.setProperty("text-align", "right", "important");
+			setProperty(imgElement, "padding-top", "3px");
+			setProperty(imgElement, "-webkit-padding-after", "2px");
+			setProperty(imgElement, "padding-left", "2px");
+			setProperty(imgElement, "-webkit-padding-start", "2px");
+			setProperty(imgElement, "cursor", "pointer");
+			setProperty(infobarElement, "text-align", "right");
 			imgElement.src = LINK_ICON;
 			hideInfobar(infobarElement, linkElement, infoElement);
-			infobarElement.onmouseover = () => infobarElement.style.setProperty("opacity", 1, "important");
+			infobarElement.onmouseover = () => setProperty(infobarElement, "opacity", 1);
 			document.addEventListener("click", event => {
 				if (event.button === 0) {
 					let element = event.target;
@@ -138,65 +138,65 @@ this.singlefile.extension.ui.content.infobar = this.singlefile.extension.ui.cont
 				}
 			});
 			setTimeout(() => {
-				infobarElement.style.setProperty("transition-property", "opacity", "important");
-				infobarElement.style.setProperty("transition-duration", "250ms", "important");
+				setProperty(infobarElement, "transition-property", "opacity");
+				setProperty(infobarElement, "transition-duration", "250ms");
 			});
 		}
 	}
 
 	function displayInfobar(infobarElement, linkElement, infoElement) {
-		infobarElement.style.setProperty("font-size", "13px", "important");
-		infobarElement.style.setProperty("opacity", 1, "important");
-		infobarElement.style.setProperty("width", "auto", "important");
-		infobarElement.style.setProperty("background-color", "#f9f9f9", "important");
-		infobarElement.style.setProperty("cursor", "auto", "important");
-		infobarElement.style.setProperty("color", "#9aa0a6", "important");
-		infobarElement.style.setProperty("padding-left", "8px", "important");
-		infobarElement.style.setProperty("padding-right", "4px", "important");
-		infobarElement.style.setProperty("padding-top", "2px", "important");
-		infobarElement.style.setProperty("padding-bottom", "2px", "important");
-		infobarElement.style.setProperty("-webkit-padding-start", "8px", "important");
-		infobarElement.style.setProperty("-webkit-padding-end", "4px", "important");
-		infobarElement.style.setProperty("border", "2px solid #555", "important");
-		infobarElement.style.setProperty("-webkit-border-start", "2px solid #555", "important");
-		infobarElement.style.setProperty("-webkit-border-before", "2px solid #555", "important");
-		infobarElement.style.setProperty("-webkit-border-end", "2px solid #555", "important");
-		infobarElement.style.setProperty("-webkit-border-after", "2px solid #555", "important");
-		infobarElement.style.setProperty("background-image", "none");
-		infobarElement.style.setProperty("border-radius", "8px", "important");
-		infoElement.style.setProperty("display", "inline-block", "important");
-		linkElement.style.setProperty("display", "inline-block", "important");
-		infobarElement.style.setProperty("user-select", "initial", "important");
-		infobarElement.style.setProperty("-moz-user-select", "initial", "important");
+		setProperty(infobarElement, "font-size", "13px");
+		setProperty(infobarElement, "opacity", 1);
+		setProperty(infobarElement, "width", "auto");
+		setProperty(infobarElement, "background-color", "#f9f9f9");
+		setProperty(infobarElement, "cursor", "auto");
+		setProperty(infobarElement, "color", "#9aa0a6");
+		setProperty(infobarElement, "padding-left", "8px");
+		setProperty(infobarElement, "padding-right", "4px");
+		setProperty(infobarElement, "padding-top", "2px");
+		setProperty(infobarElement, "padding-bottom", "2px");
+		setProperty(infobarElement, "-webkit-padding-start", "8px");
+		setProperty(infobarElement, "-webkit-padding-end", "4px");
+		setProperty(infobarElement, "border", "2px solid #555");
+		setProperty(infobarElement, "-webkit-border-start", "2px solid #555");
+		setProperty(infobarElement, "-webkit-border-before", "2px solid #555");
+		setProperty(infobarElement, "-webkit-border-end", "2px solid #555");
+		setProperty(infobarElement, "-webkit-border-after", "2px solid #555");
+		setProperty(infobarElement, "background-image", "none");
+		setProperty(infobarElement, "border-radius", "8px");
+		setProperty(infoElement, "display", "inline-block");
+		setProperty(linkElement, "display", "inline-block");
+		setProperty(infobarElement, "user-select", "initial");
+		setProperty(infobarElement, "-moz-user-select", "initial");
 		infobarElement.onclick = null;
 		infobarElement.onmouseout = null;
 	}
 
 	function hideInfobar(infobarElement, linkElement, infoElement) {
-		infobarElement.style.setProperty("user-select", "none", "important");
-		infobarElement.style.setProperty("-moz-user-select", "none", "important");
-		infobarElement.style.setProperty("opacity", .7);
-		infobarElement.onmouseout = () => infobarElement.style.setProperty("opacity", .7);
-		infobarElement.style.setProperty("width", "24px", "important");
-		infobarElement.style.setProperty("background-color", "#737373", "important");
-		infobarElement.style.setProperty("cursor", "pointer", "important");
-		infobarElement.style.setProperty("color", "white", "important");
-		infobarElement.style.setProperty("padding-left", 0, "important");
-		infobarElement.style.setProperty("padding-right", 0, "important");
-		infobarElement.style.setProperty("padding-top", 0, "important");
-		infobarElement.style.setProperty("padding-bottom", 0, "important");
-		infobarElement.style.setProperty("-webkit-padding-start", 0, "important");
-		infobarElement.style.setProperty("-webkit-padding-end", 0, "important");
-		infobarElement.style.setProperty("border", "2px solid #eee", "important");
-		infobarElement.style.setProperty("-webkit-border-start", "2px solid #eee", "important");
-		infobarElement.style.setProperty("-webkit-border-before", "2px solid #eee", "important");
-		infobarElement.style.setProperty("-webkit-border-end", "2px solid #eee", "important");
-		infobarElement.style.setProperty("-webkit-border-after", "2px solid #eee", "important");
-		infobarElement.style.setProperty("background-image", "url(" + IMAGE_ICON + ")");
-		infobarElement.style.setProperty("background-size", "70% 70%", "important");
-		infobarElement.style.setProperty("border-radius", "16px", "important");
-		linkElement.style.setProperty("display", "none", "important");
-		infoElement.style.setProperty("display", "none", "important");
+		setProperty(infobarElement, "user-select", "none");
+		setProperty(infobarElement, "-moz-user-select", "none");
+		setProperty(infobarElement, "opacity", .7);
+		infobarElement.onmouseout = () => setProperty(infobarElement, "opacity", .7);
+		setProperty(infobarElement, "width", "24px");
+		setProperty(infobarElement, "background-color", "#737373");
+		setProperty(infobarElement, "cursor", "pointer");
+		setProperty(infobarElement, "color", "white");
+		setProperty(infobarElement, "padding-left", 0);
+		setProperty(infobarElement, "padding-right", 0);
+		setProperty(infobarElement, "padding-top", 0);
+		setProperty(infobarElement, "padding-bottom", 0);
+		setProperty(infobarElement, "-webkit-padding-start", 0);
+		setProperty(infobarElement, "-webkit-padding-end", 0);
+		setProperty(infobarElement, "border", "2px solid #eee");
+		setProperty(infobarElement, "-webkit-border-start", "2px solid #eee");
+		setProperty(infobarElement, "-webkit-border-before", "2px solid #eee");
+		setProperty(infobarElement, "-webkit-border-end", "2px solid #eee");
+		setProperty(infobarElement, "-webkit-border-after", "2px solid #eee");
+		setProperty(infobarElement, "background-image", "url(" + IMAGE_ICON + ")");
+		setProperty(infobarElement, "background-size", "70% 70%");
+		setProperty(infobarElement, "border-radius", "16px");
+		setProperty(linkElement, "display", "none");
+		setProperty(infoElement, "display", "none");
 		infobarElement.onclick = event => {
 			if (event.button === 0) {
 				displayInfobar(infobarElement, linkElement, infoElement);
@@ -208,8 +208,12 @@ this.singlefile.extension.ui.content.infobar = this.singlefile.extension.ui.cont
 	function createElement(tagName, parentElement) {
 		const element = document.createElement(tagName);
 		parentElement.appendChild(element);
-		Array.from(getComputedStyle(element), property => element.style.setProperty(property, "initial", "important"));
+		Array.from(getComputedStyle(element), property => setProperty(element, property, "initial"));
 		return element;
+	}
+
+	function setProperty(element, name, value) {
+		element.style.setProperty(name, value, "important");
 	}
 
 })();
