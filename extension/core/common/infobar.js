@@ -21,16 +21,25 @@
  *   Source.
  */
 
-/* global browser, singlefile, fetch */
+/* global singlefile, fetch */
 
 singlefile.extension.core.common.infobar = (() => {
+
+	const SCRIPT_PATH = "/extension/ui/content/content-ui-infobar.js";
+
+	const browser = this.browser;
 
 	return {
 		includeScript
 	};
 
 	async function includeScript(pageData) {
-		let infobarContent = await (await fetch(browser.runtime.getURL("/extension/ui/content/content-ui-infobar.js"))).text();
+		let infobarContent;
+		if (browser && browser.runtime && browser.runtime.getURL) {
+			infobarContent = await (await fetch(browser.runtime.getURL(SCRIPT_PATH))).text();
+		} else if (singlefile.lib.getFileContent) {
+			infobarContent = singlefile.lib.getFileContent(SCRIPT_PATH);
+		}
 		let lastInfobarContent;
 		while (lastInfobarContent != infobarContent) {
 			lastInfobarContent = infobarContent;

@@ -51,7 +51,8 @@ const SCRIPTS = [
 	"../../lib/single-file/modules/html-images-alt-minifier.js",
 	"../../lib/single-file/modules/html-serializer.js",
 	"../../lib/single-file/single-file-core.js",
-	"../../lib/single-file/single-file.js"
+	"../../lib/single-file/single-file.js",
+	"../../extension/core/common/infobar.js"
 ];
 
 exports.getPageData = async options => {
@@ -106,6 +107,7 @@ exports.getPageData = async options => {
 		const fileContents = {
 			"/lib/hooks/content/content-hooks-web.js": fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")).toString(),
 			"/lib/hooks/content/content-hooks-frames-web.js": fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-frames-web.js")).toString(),
+			"/extension/ui/content/content-ui-infobar.js": fs.readFileSync(require.resolve("../..//extension/ui/content/content-ui-infobar.js")).toString()
 		};
 		scripts = scripts + ";this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(fileContents) + ")[filename];";
 		if (options.browserDebug) {
@@ -193,7 +195,11 @@ function getPageDataScript() {
 		const SingleFile = singlefile.lib.SingleFile.getClass();
 		const singleFile = new SingleFile(options);
 		await singleFile.run();
-		return await singleFile.getPageData();
+		const pageData = await singleFile.getPageData();
+		if (options.includeInfobar) {
+			await singlefile.extension.core.common.infobar.includeScript(pageData);
+		}
+		return pageData;
 	}
 	`;
 }
