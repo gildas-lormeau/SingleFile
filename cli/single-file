@@ -48,6 +48,7 @@ const args = require("yargs")
 		"compress-HTML": true,
 		"filename-template": "",
 		"group-duplicate-images": true,
+		"include-infobar": false,
 		"load-deferred-images": true,
 		"load-deferred-images-max-idle-time": 1500,
 		"max-resource-size-enabled": false,
@@ -96,6 +97,8 @@ const args = require("yargs")
 	.string("filename-template")
 	.options("group-duplicate-images", { description: "Group duplicate images into CSS custom properties" })
 	.boolean("group-duplicate-images")
+	.options("include-infobar", { description: "Include the infobar" })
+	.boolean("include-infobar")
 	.options("load-deferred-images", { description: "Load deferred (a.k.a. lazy-loaded) images (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("load-deferred-images")
 	.options("load-deferred-images-max-idle-time", { description: "Maximum delay of time to wait for deferred images in ms (puppeteer, webdriver-gecko, webdriver-chromium)" })
