@@ -64,7 +64,7 @@ More info here: https://github.com/gildas-lormeau/SingleFileZ
 See https://addons.mozilla.org/firefox/addon/single-file/versions/
 
 ## FAQ
-See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md4
+See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md
 
 ## File format comparison
 |   	                                                                           | HTML (SingleFile)  | HTML (SingleFileZ) | MAFF  | MHTML | Webarchive | HTML+folder |
