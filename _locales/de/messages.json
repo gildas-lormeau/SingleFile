@@ -135,6 +135,10 @@
         "message": "Inhalt des Infoknopfs im Dialogfenster eingeben",
         "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
     },
+    "optionAutoCloseLabel": {
+        "message": "Automatisches Schließen der Registerkarte (TAB) nach dem Speichern der Seite",
+        "description": "Options page label: 'auto-close the tab after the page is saved'"
+    },
     "optionsFileNameSubTitle": {
         "message": "Dateiname",
         "description": "Options sub-title: 'File name'"

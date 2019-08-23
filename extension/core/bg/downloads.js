@@ -82,6 +82,12 @@ singlefile.extension.core.bg.downloads = (() => {
 			}
 			return {};
 		}
+		if (message.method.endsWith(".end")) {
+			const options = await singlefile.extension.core.bg.config.getOptions(sender.tab.url, true);
+			if (options.autoClose) {
+				singlefile.extension.core.bg.tabs.remove(sender.tab.id);
+			}
+		}
 	}
 
 	async function downloadPage(pageData, options) {
