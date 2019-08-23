@@ -40,9 +40,14 @@ singlefile.extension.core.bg.autosave = (() => {
 			return { options, autoSaveEnabled };
 		}
 		if (message.method.endsWith(".save")) {
-			ui.onStart(sender.tab.id, 1, true);
+			const tabId = sender.tab.id;
+			const options = await singlefile.extension.core.bg.config.getOptions(sender.tab.url, true);
+			if (options.autoClose) {
+				singlefile.extension.core.bg.tabs.remove(tabId);
+			}
+			ui.onStart(tabId, 1, true);
 			await saveContent(message, sender.tab);
-			ui.onEnd(sender.tab.id, true);
+			ui.onEnd(tabId, true);
 			return {};
 		}
 	}

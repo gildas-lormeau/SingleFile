@@ -135,6 +135,10 @@
         "message": "open a prompt dialog to edit the infobar content",
         "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
     },
+    "optionAutoCloseLabel": {
+        "message": "auto-close the tab after the page is saved",
+        "description": "Options page label: 'auto-close the tab after the page is saved'"
+    },
     "optionsFileNameSubTitle": {
         "message": "File name",
         "description": "Options sub-title: 'File name'"

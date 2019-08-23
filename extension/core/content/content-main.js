@@ -229,6 +229,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 				downloadPageForeground(pageData, options);
 			}
 		}
+		await browser.runtime.sendMessage({ method: "downloads.end" });
 	}
 
 	function downloadPageForeground(pageData, options) {

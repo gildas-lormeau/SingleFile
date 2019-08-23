@@ -47,6 +47,7 @@ singlefile.extension.core.bg.config = (() => {
 		infobarTemplate: "",
 		includeInfobar: false,
 		confirmInfobarContent: false,
+		autoClose: false,
 		confirmFilename: false,
 		filenameConflictAction: "uniquify",
 		filenameMaxLength: 192,

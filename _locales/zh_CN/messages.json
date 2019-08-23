@@ -135,6 +135,10 @@
         "message": "打开一个提示窗口以编辑信息栏内容",
         "description": "选项页标签: '打开一个提示窗口以编辑信息栏内容'"
     },
+    "optionAutoCloseLabel": {
+        "message": "auto-close the tab after the page is saved",
+        "description": "Options page label: 'auto-close the tab after the page is saved'"
+    },
     "optionsFileNameSubTitle": {
         "message": "文件名",
         "description": "选项页副标题: '文件名'"
