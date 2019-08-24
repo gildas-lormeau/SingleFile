@@ -22,7 +22,7 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
  - [License](#license)
 
 ## Demo
-![](demo/SingleFile-demo.gif)
+![](https://github.com/gildas-lormeau/SingleFile-Demos/blob/master/SingleFile-demo.gif)
 
 ## Install
 SingleFile can be installed:
