@@ -28,7 +28,6 @@ const fs = require("fs");
 const puppeteer = require("puppeteer-core");
 
 const SCRIPTS = [
-	"../../index.js",
 	"../../lib/index.js",
 	"../../lib/hooks/content/content-hooks.js",
 	"../../lib/hooks/content/content-hooks-frames.js",

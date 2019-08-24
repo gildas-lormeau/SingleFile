@@ -30,7 +30,6 @@ const chrome = require("selenium-webdriver/chrome");
 const { Builder } = require("selenium-webdriver");
 
 const SCRIPTS = [
-	"../../index.js",
 	"../../lib/index.js",
 	"../../lib/hooks/content/content-hooks.js",
 	"../../lib/hooks/content/content-hooks-frames.js",
