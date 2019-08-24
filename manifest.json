@@ -18,11 +18,11 @@
 			"run_at": "document_start",
 			"js": [
 				"lib/index.js",
-				"extension/index.js",
-				"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
 				"lib/hooks/content/content-hooks-frames.js",
 				"lib/single-file/single-file-helper.js",
-				"lib/frame-tree/content/content-frame-tree.js"
+				"lib/frame-tree/content/content-frame-tree.js",
+				"extension/index.js",
+				"extension/lib/browser-polyfill/chrome-browser-polyfill.js"
 			],
 			"all_frames": true,
 			"match_about_blank": true
