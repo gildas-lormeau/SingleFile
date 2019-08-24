@@ -23,7 +23,7 @@
 
 /* global singlefile, browser, XMLHttpRequest */
 
-singlefile.lib.fetch.bg.resources = (() => {
+singlefile.extension.lib.fetch.bg.resources = (() => {
 
 	const responses = new Map();
 

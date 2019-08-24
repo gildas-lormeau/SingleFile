@@ -29,6 +29,7 @@ const puppeteer = require("puppeteer-core");
 
 const SCRIPTS = [
 	"../../index.js",
+	"../../lib/index.js",
 	"../../lib/hooks/content/content-hooks.js",
 	"../../lib/hooks/content/content-hooks-frames.js",
 	"../../lib/frame-tree/content/content-frame-tree.js",
@@ -50,6 +51,7 @@ const SCRIPTS = [
 	"../../lib/single-file/modules/html-serializer.js",
 	"../../lib/single-file/single-file-core.js",
 	"../../lib/single-file/single-file.js",
+	"../../extension/index.js",
 	"../../extension/core/common/infobar.js"
 ];
 
