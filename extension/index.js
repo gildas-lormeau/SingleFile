@@ -21,18 +21,25 @@
  *   Source.
  */
 
-/* global singlefile, browser */
-
-singlefile.lib.frameTree.bg.main = (() => {
-
-	"use strict";
-
-	browser.runtime.onMessage.addListener((message, sender) => {
-		if (message.method == "frameTree.initResponse") {
-			browser.tabs.sendMessage(sender.tab.id, message, { frameId: 0 });
-			return Promise.resolve({});
-		}
-	});
-	return {};
-
-})();
+this.singlefile.extension = this.singlefile.extension || {
+	core: {
+		common: {},
+		bg: {},
+		content: {}
+	},
+	ui: {
+		bg: {},
+		content: {}
+	},
+	lib: {
+		fetch: {
+			bg: {}
+		},
+		frameTree: {
+			bg: {}
+		},
+		lazy: {
+			bg: {}
+		},
+	}
+};

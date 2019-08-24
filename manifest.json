@@ -18,7 +18,9 @@
 			"run_at": "document_start",
 			"js": [
 				"index.js",
-				"lib/browser-polyfill/chrome-browser-polyfill.js",
+				"extension/index.js",
+				"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
+				"lib/index.js",
 				"lib/hooks/content/content-hooks-frames.js",
 				"lib/single-file/single-file-helper.js",
 				"lib/frame-tree/content/content-frame-tree.js"
@@ -32,6 +34,7 @@
 			],
 			"js": [
 				"index.js",
+				"extension/index.js",
 				"extension/ui/content/content-ui-infobar.js"
 			]
 		},
@@ -42,7 +45,9 @@
 			"run_at": "document_start",
 			"js": [
 				"index.js",
+				"lib/index.js",
 				"lib/hooks/content/content-hooks.js",
+				"extension/index.js",
 				"extension/core/content/content-bootstrap.js"
 			]
 		}
@@ -50,24 +55,7 @@
 	"background": {
 		"scripts": [
 			"index.js",
-			"lib/browser-polyfill/chrome-browser-polyfill.js",
-			"lib/fetch/bg/fetch-resources.js",
-			"lib/fetch/content/content-fetch-resources.js",
-			"lib/frame-tree/bg/frame-tree.js",
-			"extension/core/bg/config.js",
-			"extension/core/bg/tabs-data.js",
-			"extension/core/bg/business.js",
-			"extension/core/bg/messages.js",
-			"extension/core/bg/tabs.js",
-			"extension/core/bg/downloads.js",
-			"extension/core/bg/autosave.js",
-			"extension/core/common/infobar.js",
-			"extension/core/bg/devtools.js",
-			"extension/ui/bg/ui-main.js",
-			"extension/ui/bg/ui-menus.js",
-			"extension/ui/bg/ui-commands.js",
-			"extension/ui/bg/ui-button.js",
-			"lib/lazy/bg/lazy-timeout.js",
+			"lib/index.js",
 			"lib/single-file/vendor/css-minifier.js",
 			"lib/single-file/vendor/css-tree.js",
 			"lib/single-file/vendor/css-media-query-parser.js",
@@ -84,7 +72,26 @@
 			"lib/single-file/modules/html-serializer.js",
 			"lib/single-file/modules/html-images-alt-minifier.js",
 			"lib/single-file/single-file-core.js",
-			"lib/single-file/single-file.js"
+			"lib/single-file/single-file.js",
+			"extension/index.js",
+			"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
+			"extension/lib/fetch/content/content-fetch-resources.js",
+			"extension/lib/fetch/bg/fetch-resources.js",
+			"extension/lib/frame-tree/bg/frame-tree.js",
+			"extension/lib/lazy/bg/lazy-timeout.js",
+			"extension/core/bg/config.js",
+			"extension/core/bg/tabs-data.js",
+			"extension/core/bg/business.js",
+			"extension/core/bg/messages.js",
+			"extension/core/bg/tabs.js",
+			"extension/core/bg/downloads.js",
+			"extension/core/bg/autosave.js",
+			"extension/core/common/infobar.js",
+			"extension/core/bg/devtools.js",
+			"extension/ui/bg/ui-main.js",
+			"extension/ui/bg/ui-menus.js",
+			"extension/ui/bg/ui-commands.js",
+			"extension/ui/bg/ui-button.js"
 		],
 		"persistent": false
 	},
