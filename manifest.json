@@ -32,9 +32,7 @@
 				"<all_urls>"
 			],
 			"js": [
-				"lib/index.js",
-				"extension/index.js",
-				"extension/ui/content/content-ui-infobar.js"
+				"common/ui/content/content-infobar-web.js"
 			]
 		},
 		{
@@ -70,6 +68,8 @@
 			"lib/single-file/modules/html-images-alt-minifier.js",
 			"lib/single-file/single-file-core.js",
 			"lib/single-file/single-file.js",
+			"common/index.js",
+			"common/ui/content/content-infobar.js",
 			"extension/index.js",
 			"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
 			"extension/lib/fetch/content/content-fetch-resources.js",
@@ -83,7 +83,6 @@
 			"extension/core/bg/tabs.js",
 			"extension/core/bg/downloads.js",
 			"extension/core/bg/autosave.js",
-			"extension/core/common/infobar.js",
 			"extension/core/bg/devtools.js",
 			"extension/ui/bg/ui-main.js",
 			"extension/ui/bg/ui-menus.js",
@@ -130,7 +129,7 @@
 	"web_accessible_resources": [
 		"lib/hooks/content/content-hooks-web.js",
 		"lib/hooks/content/content-hooks-frames-web.js",
-		"extension/ui/content/content-ui-infobar.js"
+		"common/ui/content/content-infobar-web.js"
 	],
 	"permissions": [
 		"menus",

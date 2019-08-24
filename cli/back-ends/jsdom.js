@@ -51,8 +51,8 @@ const SCRIPTS = [
 	"../../lib/single-file/modules/html-images-alt-minifier.js",
 	"../../lib/single-file/modules/html-serializer.js",
 	"../../lib/single-file/single-file-core.js",
-	"../../extension/index.js",
-	"../../extension/core/common/infobar.js"
+	"../../common/index.js",
+	"../../common/ui/content/content-infobar.js"
 ];
 
 exports.getPageData = async options => {
@@ -90,7 +90,7 @@ exports.getPageData = async options => {
 		const fileContents = {
 			"/lib/hooks/content/content-hooks-web.js": fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-web.js")).toString(),
 			"/lib/hooks/content/content-hooks-frames-web.js": fs.readFileSync(require.resolve("../../lib/hooks/content/content-hooks-frames-web.js")).toString(),
-			"/extension/ui/content/content-ui-infobar.js": fs.readFileSync(require.resolve("../..//extension/ui/content/content-ui-infobar.js")).toString()
+			"/common/ui/content/content-infobar-web.js": fs.readFileSync(require.resolve("../../common/ui/content/content-infobar-web.js")).toString()
 		};
 		scripts = scripts + ";this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(fileContents) + ")[filename];";
 		dom.window.eval(scripts);
@@ -110,7 +110,7 @@ exports.getPageData = async options => {
 		await singleFile.run();
 		const pageData = await singleFile.getPageData();
 		if (options.includeInfobar) {
-			await win.singlefile.extension.core.common.infobar.includeScript(pageData);
+			await win.singlefile.common.ui.content.infobar.includeScript(pageData);
 		}
 		return pageData;
 	} finally {
