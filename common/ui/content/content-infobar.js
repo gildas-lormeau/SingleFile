@@ -23,9 +23,9 @@
 
 /* global singlefile, fetch */
 
-singlefile.extension.core.common.infobar = (() => {
+singlefile.common.ui.content.infobar = singlefile.common.ui.content.infobar || (() => {
 
-	const SCRIPT_PATH = "/extension/ui/content/content-ui-infobar.js";
+	const SCRIPT_PATH = "/common/ui/content/content-infobar-web.js";
 
 	const browser = this.browser;
 

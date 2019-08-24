@@ -36,12 +36,13 @@ singlefile.extension.core.bg.business = (() => {
 		"/lib/single-file/single-file-helper.js",
 		"/lib/single-file/single-file-core.js",
 		"/lib/single-file/single-file.js",
+		"/common/index.js",
+		"/common/ui/content/content-infobar.js",
 		"/extension/index.js",
 		"/extension/lib/browser-polyfill/chrome-browser-polyfill.js",
 		"/extension/lib/fetch/content/content-fetch-resources.js",
-		"/extension/ui/content/content-ui-main.js",
-		"/extension/core/common/infobar.js",
-		"/extension/core/content/content-main.js"
+		"/extension/core/content/content-main.js",
+		"/extension/ui/content/content-ui-main.js"
 	];
 
 	const frameScriptFiles = [

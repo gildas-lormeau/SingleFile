@@ -201,7 +201,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 
 	async function downloadPage(pageData, options) {
 		if (options.includeInfobar) {
-			await singlefile.extension.core.common.infobar.includeScript(pageData);
+			await singlefile.common.ui.content.infobar.includeScript(pageData);
 		}
 		if (options.backgroundSave) {
 			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
