@@ -28,7 +28,6 @@ singlefile.extension.core.bg.business = (() => {
 	let contentScript, frameScript, modulesScript;
 
 	const contentScriptFiles = [
-		"/index.js",
 		"/lib/index.js",
 		"/lib/hooks/content/content-hooks.js",
 		"/lib/single-file/vendor/css-tree.js",
@@ -46,7 +45,6 @@ singlefile.extension.core.bg.business = (() => {
 	];
 
 	const frameScriptFiles = [
-		"/index.js",
 		"/lib/index.js",
 		"/lib/hooks/content/content-hooks-frames.js",
 		"/lib/single-file/single-file-helper.js",

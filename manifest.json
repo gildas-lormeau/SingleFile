@@ -17,10 +17,9 @@
 			],
 			"run_at": "document_start",
 			"js": [
-				"index.js",
+				"lib/index.js",
 				"extension/index.js",
 				"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
-				"lib/index.js",
 				"lib/hooks/content/content-hooks-frames.js",
 				"lib/single-file/single-file-helper.js",
 				"lib/frame-tree/content/content-frame-tree.js"
@@ -33,7 +32,7 @@
 				"<all_urls>"
 			],
 			"js": [
-				"index.js",
+				"lib/index.js",
 				"extension/index.js",
 				"extension/ui/content/content-ui-infobar.js"
 			]
@@ -44,7 +43,6 @@
 			],
 			"run_at": "document_start",
 			"js": [
-				"index.js",
 				"lib/index.js",
 				"lib/hooks/content/content-hooks.js",
 				"extension/index.js",
@@ -54,7 +52,6 @@
 	],
 	"background": {
 		"scripts": [
-			"index.js",
 			"lib/index.js",
 			"lib/single-file/vendor/css-minifier.js",
 			"lib/single-file/vendor/css-tree.js",

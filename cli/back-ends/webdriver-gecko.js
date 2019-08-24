@@ -30,7 +30,6 @@ const firefox = require("selenium-webdriver/firefox");
 const { Builder, By, Key } = require("selenium-webdriver");
 
 const SCRIPTS = [
-	"../../index.js",
 	"../../lib/index.js",
 	"../../lib/hooks/content/content-hooks.js",
 	"../../lib/hooks/content/content-hooks-frames.js",
