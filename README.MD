@@ -7,13 +7,13 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
  - [Getting started](#getting-started)
  - [Additional notes](#additional-notes)
  - [SingleFileZ](#singlefilez)
+ - [Command Line Interface](#command-line-interface)
  - [Release notes](#release-notes)
  - [FAQ](#faq)
  - [File format comparison](#file-format-comparison)
  - [Known issues](#known-issues)
  - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
  - [Statistics (Firefox)](#statistics-firefox)
- - [Command Line Interface](#command-line-interface)
  - [Integration with WebKit](#integration-with-webkit)
  - [Privacy policy](#privacy-policy)
  - [Contributors](#contributors)
@@ -59,6 +59,10 @@ SingleFile can be installed:
 SingleFileZ is a fork of SingleFile that allows you to save a webpage as a self-extracting HTML file. This HTML file is also a valid ZIP file which contains the resources (images, fonts, stylesheets and frames) of the saved page. This ZIP file can be unzipped on the filesystem in order, for example, to view the page in a browser that would not support pages saved with SingleFileZ.
 
 More info here: https://github.com/gildas-lormeau/SingleFileZ
+
+## Command Line Interface
+ - You can save web pages to HTML from the command line interface. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD.
+ - You can also convert MAFF pages to HTML. For this, you must use specific versions of SingleFile CLI and Firefox. See here for more info: https://github.com/gildas-lormeau/SingleFile-MAFF2HTML.
 
 ## Release notes
 See https://addons.mozilla.org/firefox/addon/single-file/versions/
@@ -111,10 +115,6 @@ Please follow these steps if you find an unknown issue:
 
 ## Statistics (Firefox)
 See https://addons.mozilla.org/firefox/addon/single-file/statistics/?last=90
-
-## Command Line Interface
- - You can save web pages to HTML from the command line interface. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD.
- - You can also convert MAFF pages to HTML. For this, you must use specific versions of SingleFile CLI and Firefox. See here for more info: https://github.com/gildas-lormeau/SingleFile-MAFF2HTML.
  
 ## Integration with WebKit
  - Here is a Swift application (for macOS) made by [@captaindavepdx](https://github.com/captaindavepdx) that illustrates how to use SingleFile with WebKit: https://github.com/captaindavepdx/SingleFileMacOS
