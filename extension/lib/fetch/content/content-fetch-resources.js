@@ -21,19 +21,12 @@
  *   Source.
  */
 
-/* global window */
+/* global browser, addEventListener, fetch, CustomEvent, dispatchEvent, removeEventListener */
 
 this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extension.lib.fetch.content.resources || (() => {
 
 	const FETCH_REQUEST_EVENT = "single-file-request-fetch";
 	const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
-
-	const browser = this.browser;
-	const addEventListener = window.addEventListener;
-	const fetch = window.fetch;
-	const CustomEvent = window.CustomEvent;
-	const dispatchEvent = window.dispatchEvent;
-	const removeEventListener = window.removeEventListener;
 
 	return {
 		fetch: async url => {
@@ -69,13 +62,13 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 
 	function hostFetch(url) {
 		return new Promise((resolve, reject) => {
-			dispatchEvent.call(window, new CustomEvent(FETCH_REQUEST_EVENT, { detail: url }));
-			addEventListener.call(window, FETCH_RESPONSE_EVENT, onResponseFetch, false);
+			dispatchEvent(new CustomEvent(FETCH_REQUEST_EVENT, { detail: url }));
+			addEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
 
 			function onResponseFetch(event) {
 				if (event.detail) {
 					if (event.detail.url == url) {
-						removeEventListener.call(window, FETCH_RESPONSE_EVENT, onResponseFetch, false);
+						removeEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
 						if (event.detail.response) {
 							resolve({
 								status: event.detail.status,
