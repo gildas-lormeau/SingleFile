@@ -23,7 +23,7 @@
 
 /* global window */
 
-this.singlefile.lib.fetch.content.resources = this.singlefile.lib.fetch.content.resources || (() => {
+this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extension.lib.fetch.content.resources || (() => {
 
 	const FETCH_REQUEST_EVENT = "single-file-request-fetch";
 	const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
