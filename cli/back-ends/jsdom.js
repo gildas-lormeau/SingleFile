@@ -161,15 +161,12 @@ async function digestText(algo, text) {
 	return hash.digest("hex");
 }
 
-async function getResourceContent(resourceURL, options) {
+async function getResourceContent(resourceURL) {
 	const resourceContent = await request({
 		method: "GET",
 		uri: resourceURL,
 		resolveWithFullResponse: true,
-		encoding: null,
-		headers: {
-			"User-Agent": options.userAgent
-		}
+		encoding: null
 	});
 	return {
 		getUrl() {
