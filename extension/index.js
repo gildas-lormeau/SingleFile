@@ -33,7 +33,8 @@ this.singlefile.extension = this.singlefile.extension || {
 	},
 	lib: {
 		fetch: {
-			bg: {}
+			bg: {},
+			content: {}
 		},
 		frameTree: {
 			bg: {}
