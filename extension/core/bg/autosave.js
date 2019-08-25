@@ -120,7 +120,9 @@ singlefile.extension.core.bg.autosave = (() => {
 		options.incognito = tab.incognito;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
-		const processor = new (singlefile.lib.SingleFile.getClass())(options);
+		const processor = new (singlefile.lib.SingleFile.getClass({
+			fetch: singlefile.extension.lib.fetch.content.resources.fetch
+		}))(options);
 		await processor.run();
 		const pageData = await processor.getPageData();
 		if (options.includeInfobar) {
