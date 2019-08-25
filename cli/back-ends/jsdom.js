@@ -105,7 +105,7 @@ exports.getPageData = async options => {
 		options.win = win;
 		options.doc = doc;
 		options.removeHiddenElements = false;
-		const SingleFile = getSingleFileClass(win);
+		const SingleFile = getSingleFileClass(win, options);
 		const singleFile = new SingleFile(options);
 		await singleFile.run();
 		const pageData = await singleFile.getPageData();
@@ -133,7 +133,7 @@ function executeFrameScripts(doc, scripts) {
 	});
 }
 
-function getSingleFileClass(win) {
+function getSingleFileClass(win, options) {
 	const helper = win.singlefile.lib.helper;
 	const modules = {
 		helper: helper,
@@ -149,7 +149,7 @@ function getSingleFileClass(win) {
 		imagesAltMinifier: win.singlefile.lib.modules.imagesAltMinifier
 	};
 	const domUtil = {
-		getResourceContent,
+		getResourceContent: resourceURL => getResourceContent(resourceURL, options),
 		digestText
 	};
 	return win.singlefile.lib.core.getClass(win.singlefile.lib.util.getInstance(modules, domUtil), win.singlefile.lib.vendor.cssTree);
@@ -161,12 +161,15 @@ async function digestText(algo, text) {
 	return hash.digest("hex");
 }
 
-async function getResourceContent(resourceURL) {
+async function getResourceContent(resourceURL, options) {
 	const resourceContent = await request({
 		method: "GET",
 		uri: resourceURL,
 		resolveWithFullResponse: true,
-		encoding: null
+		encoding: null,
+		headers: {
+			"User-Agent": options.userAgent
+		}
 	});
 	return {
 		getUrl() {
