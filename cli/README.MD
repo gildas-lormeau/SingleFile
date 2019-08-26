@@ -16,27 +16,27 @@ You can also convert MAFF pages to HTML. For this, you must use specific version
 
 - Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk in an empty folder and go into the `SingleFile-master/cli` directory.
 
-  `$ unzip master.zip .`
+  `unzip master.zip .`
   
-  `$ cd SingleFile-master`
+  `cd SingleFile-master`
   
-  `$ cd cli`
+  `cd cli`
   
 - As an alternative to decompressing the master archive, you can clone the repository if `git` is installed on your machine and go into the `SingleFile/cli` directory.
 
-  `$ git clone https://github.com/gildas-lormeau/SingleFile.git`
+  `git clone https://github.com/gildas-lormeau/SingleFile.git`
   
-  `$ cd SingleFile`
+  `cd SingleFile`
   
-  `$ cd cli`
+  `cd cli`
 
 - Install dependencies with npm (installed with Node.js).
 
-  `$ npm install`
+  `npm install`
   
 - Make `single-file` executable (Linux/Unix/BSD etc.).
 
-  `$ chmod +x single-file`
+  `chmod +x single-file`
 
 - To use Firefox instead of Chrome, you must download the [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) component (i.e. `geckodriver` for Firefox).  Make sure it can be found through the `PATH` environment variable or the `cli` folder. Otherwise you will need to set the `--web-driver-executable-path` option to help SingleFile locating the executable.
 
@@ -44,25 +44,25 @@ You can also convert MAFF pages to HTML. For this, you must use specific version
 
 - Syntax
  
-  `$ ./single-file <url> [output] [options ...]`
+  `single-file <url> [output] [options ...]`
 
 - Display help
 
-  `$ ./single-file --help`
+  `./single-file --help`
 
 - Examples
 
   - Dump the processed content of https://www.wikipedia.org into the console
 
-  `$ ./single-file https://www.wikipedia.org`
+  `./single-file https://www.wikipedia.org`
 
   - Save https://www.wikipedia.org into `wikipedia.html`
 
-  `$ ./single-file https://www.wikipedia.org wikipedia.html`
+  `./single-file https://www.wikipedia.org wikipedia.html`
 
   - Save https://www.wikipedia.org into `wikipedia.html` with Firefox instead of Chrome
 
-  `$ ./single-file https://www.wikipedia.org wikipedia.html --back-end=webdriver-gecko`
+  `./single-file https://www.wikipedia.org wikipedia.html --back-end=webdriver-gecko`
   
 ## License
 
