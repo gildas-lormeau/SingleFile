@@ -16,14 +16,18 @@ This is a **work in progress**.
 
 - Install [Node.js](https://nodejs.org)
 
-- Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk in an empty folder.
+- Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk in an empty folder and go into the `SingleFile-master/cli` directory.
 
   `$ unzip master.zip .`
-
-- Go into the `cli` directory.
-
+  `$ cd SingleFile-master`
   `$ cd cli`
   
+- As an alternative to decompressing the master archive, you can clone the repository if git is installed on your machine and go into the `SingleFile/cli` directory.
+
+  `git clone https://github.com/gildas-lormeau/SingleFile.git`
+  `$ cd SingleFile`
+  `$ cd cli`
+
 - Install dependencies with npm (installed with Node.js).
 
   `$ npm install`
