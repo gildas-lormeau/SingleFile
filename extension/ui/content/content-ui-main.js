@@ -25,10 +25,7 @@
 
 this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content.main || (() => {
 
-	const singlefile = this.singlefile;
-	const SingleFile = this.singlefile.lib.SingleFile.getClass({
-		fetch: singlefile.extension.lib.fetch.content.resources.fetch
-	});
+	const SingleFile = this.singlefile.lib.SingleFile.getClass();
 
 	const MASK_TAGNAME = "singlefile-mask";
 	const PROGRESS_BAR_TAGNAME = "singlefile-progress-bar";
