@@ -6,8 +6,6 @@ SingleFile can be launched from the command line by running it into a (headless)
 
 You can also convert MAFF pages to HTML. For this, you must use specific versions of SingleFile CLI and Firefox. See here for more info: https://github.com/gildas-lormeau/SingleFile-MAFF2HTML.
 
-This is a **work in progress**.
-
 ## Run SingleFile
 
 ### Install
