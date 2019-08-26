@@ -26,7 +26,7 @@ This is a **work in progress**.
   
 - As an alternative to decompressing the master archive, you can clone the repository if `git` is installed on your machine and go into the `SingleFile/cli` directory.
 
-  `git clone https://github.com/gildas-lormeau/SingleFile.git`
+  `$ git clone https://github.com/gildas-lormeau/SingleFile.git`
   
   `$ cd SingleFile`
   
