@@ -104,9 +104,9 @@ exports.getPageData = async options => {
 					waitUntil: options.browserWaitUntil || "networkidle0"
 				});
 				const url = page.url();
-				await browser.close();
 				if (url != options.url) {
 					options.url = url;
+					await browser.close();
 					return exports.getPageData(options);
 				} else {
 					throw error;
