@@ -26,7 +26,6 @@
 const fs = require("fs");
 
 const SCRIPTS = [
-	"/lib/index.js",
 	"/lib/hooks/content/content-hooks.js",
 	"/lib/hooks/content/content-hooks-frames.js",
 	"/lib/frame-tree/content/content-frame-tree.js",
@@ -53,11 +52,13 @@ const SCRIPTS = [
 ];
 
 exports.get = async options => {
-	const scripts = (await Promise.all(SCRIPTS.concat(options.browserScripts).map(scriptPath => fs.readFileSync(require.resolve("../../.." + scriptPath)).toString()))).join("\n");
+	let scripts = await fs.readFileSync(require.resolve("../../../lib/index.js")).toString() + "\n";
 	const fileContents = {
 		"/lib/hooks/content/content-hooks-web.js": fs.readFileSync(require.resolve("../../../lib/hooks/content/content-hooks-web.js")).toString(),
 		"/lib/hooks/content/content-hooks-frames-web.js": fs.readFileSync(require.resolve("../../../lib/hooks/content/content-hooks-frames-web.js")).toString(),
 		"/common/ui/content/content-infobar-web.js": fs.readFileSync(require.resolve("../../../common/ui/content/content-infobar-web.js")).toString()
 	};
-	return scripts + ";this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(fileContents) + ")[filename];";
+	scripts += "this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(fileContents) + ")[filename];";
+	scripts += (await Promise.all(SCRIPTS.concat(options.browserScripts).map(scriptPath => fs.readFileSync(require.resolve("../../.." + scriptPath)).toString()))).join("\n");
+	return scripts;
 };
