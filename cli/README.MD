@@ -12,7 +12,7 @@ This is a **work in progress**.
 
 ### Install
 
-- Make sure Chrome or Firefox is installed and the executable can be found through the `PATH` environment variable. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating it.
+- Make sure Chrome or Firefox is installed and the executable can be found through the `PATH` environment variable. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating it. As an alternative to Chrome and Firefox, you can use jsdom by setting the `--back-end` option to `jsdom`.
 
 - Install [Node.js](https://nodejs.org)
 
