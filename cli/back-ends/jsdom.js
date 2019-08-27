@@ -53,13 +53,12 @@ exports.getPageData = async options => {
 			window.outerHeight = window.innerHeight = options.browserHeight;
 		};
 	}
-	let dom;
+	const dom = new JSDOM(pageContent, jsdomOptions);
+	const win = dom.window;
+	const doc = win.document;
 	try {
-		dom = new JSDOM(pageContent, jsdomOptions);
 		options.insertSingleFileComment = true;
 		options.insertFaviconLink = true;
-		const win = dom.window;
-		const doc = win.document;
 		const scripts = await require("./common/scripts.js").get(options);
 		win.TextDecoder = class {
 			constructor(utfLabel) {
@@ -78,11 +77,11 @@ exports.getPageData = async options => {
 				}
 			}
 		};
-		dom.window.eval(scripts);
-		if (dom.window.document.readyState == "loading") {
+		win.Element.prototype.getBoundingClientRect = undefined;
+		win.eval(scripts);
+		if (win.document.readyState == "loading") {
 			await new Promise(resolve => win.document.onload = resolve);
 		}
-		win.Element.prototype.getBoundingClientRect = undefined;
 		executeFrameScripts(doc, scripts);
 		if (!options.saveRawPage && !options.removeFrames) {
 			options.frames = await win.singlefile.lib.frameTree.content.frames.getAsync(options);
@@ -99,8 +98,8 @@ exports.getPageData = async options => {
 		}
 		return pageData;
 	} finally {
-		if (dom && dom.window) {
-			dom.window.close();
+		if (win) {
+			win.close();
 		}
 	}
 };
