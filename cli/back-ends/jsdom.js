@@ -26,7 +26,6 @@
 const crypto = require("crypto");
 
 const { JSDOM, VirtualConsole } = require("jsdom");
-const dataUri = require("strong-data-uri");
 const iconv = require("iconv-lite");
 const request = require("request-promise-native");
 
@@ -62,6 +61,23 @@ exports.getPageData = async options => {
 		const win = dom.window;
 		const doc = win.document;
 		const scripts = await require("./common/scripts.js").get(options);
+		win.TextDecoder = class {
+			constructor(utfLabel) {
+				this.utfLabel = utfLabel;
+			}
+			decode(buffer) {
+				return iconv.decode(buffer, this.utfLabel);
+			}
+		};
+		win.crypto = {
+			subtle: {
+				digest: async function digestText(algo, text) {
+					const hash = crypto.createHash(algo.replace("-", "").toLowerCase());
+					hash.update(text, "utf-8");
+					return hash.digest();
+				}
+			}
+		};
 		dom.window.eval(scripts);
 		if (dom.window.document.readyState == "loading") {
 			await new Promise(resolve => win.document.onload = resolve);
@@ -74,7 +90,7 @@ exports.getPageData = async options => {
 		options.win = win;
 		options.doc = doc;
 		options.removeHiddenElements = false;
-		const SingleFile = getSingleFileClass(win, options);
+		const SingleFile = win.singlefile.lib.SingleFile.getClass({ fetch: url => fetchResource(url, options) });
 		const singleFile = new SingleFile(options);
 		await singleFile.run();
 		const pageData = await singleFile.getPageData();
@@ -102,35 +118,7 @@ function executeFrameScripts(doc, scripts) {
 	});
 }
 
-function getSingleFileClass(win, options) {
-	const helper = win.singlefile.lib.helper;
-	const modules = {
-		helper: helper,
-		srcsetParser: win.singlefile.lib.vendor.srcsetParser,
-		cssMinifier: win.singlefile.lib.vendor.cssMinifier,
-		htmlMinifier: win.singlefile.lib.modules.htmlMinifier,
-		serializer: win.singlefile.lib.modules.serializer,
-		fontsMinifier: win.singlefile.lib.modules.fontsMinifier,
-		fontsAltMinifier: win.singlefile.lib.modules.fontsAltMinifier,
-		cssRulesMinifier: win.singlefile.lib.modules.cssRulesMinifier,
-		matchedRules: win.singlefile.lib.modules.matchedRules,
-		mediasAltMinifier: win.singlefile.lib.modules.mediasAltMinifier,
-		imagesAltMinifier: win.singlefile.lib.modules.imagesAltMinifier
-	};
-	const domUtil = {
-		getResourceContent: resourceURL => getResourceContent(resourceURL, options),
-		digestText
-	};
-	return win.singlefile.lib.core.getClass(win.singlefile.lib.util.getInstance(modules, domUtil), win.singlefile.lib.vendor.cssTree);
-}
-
-async function digestText(algo, text) {
-	const hash = crypto.createHash(algo.replace("-", "").toLowerCase());
-	hash.update(text, "utf-8");
-	return hash.digest("hex");
-}
-
-async function getResourceContent(resourceURL, options) {
+async function fetchResource(resourceURL, options) {
 	const resourceContent = await request({
 		method: "GET",
 		uri: resourceURL,
@@ -141,23 +129,10 @@ async function getResourceContent(resourceURL, options) {
 		}
 	});
 	return {
-		getUrl() {
-			return resourceContent.request.href;
+		status: resourceContent.statusCode,
+		headers: {
+			get: name => resourceContent.headers[name]
 		},
-		getContentType() {
-			return resourceContent.headers["content-type"];
-		},
-		getStatusCode() {
-			return resourceContent.statusCode;
-		},
-		getSize() {
-			return resourceContent.body.byteLength;
-		},
-		getText(charset) {
-			return iconv.decode(resourceContent.body, charset);
-		},
-		async getDataUri(contentType) {
-			return dataUri.encode(resourceContent.body, contentType || this.getContentType());
-		}
+		arrayBuffer: async () => resourceContent.body
 	};
 }
