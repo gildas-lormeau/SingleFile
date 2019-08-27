@@ -71,7 +71,7 @@ exports.getPageData = async options => {
 		});
 		try {
 			return await page.evaluate(async options => {
-				await singlefile.lib.initializeOptions(options, document, window);
+				options = await singlefile.lib.initializeOptions(options);
 				const pageData = await singlefile.lib.getPageData(options);
 				if (options.includeInfobar) {
 					await singlefile.common.ui.content.infobar.includeScript(pageData);
