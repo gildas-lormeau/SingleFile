@@ -31,7 +31,7 @@ SingleFile can be installed:
  - by downloading the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and installing it manually.
 
 ## Getting started
-- Wait until the page is fully loaded, you may need to scroll down the entire page to be sure all elements are loaded.
+- Wait until the page is fully loaded
 - Click on the SingleFile button in the extension toolbar to save the page.
 
 ## Additional notes
