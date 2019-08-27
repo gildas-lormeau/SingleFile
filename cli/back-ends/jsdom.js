@@ -78,6 +78,7 @@ exports.getPageData = async options => {
 			}
 		};
 		win.Element.prototype.getBoundingClientRect = undefined;
+		win.getComputedStyle = () => { };
 		win.eval(scripts);
 		if (win.document.readyState == "loading") {
 			await new Promise(resolve => win.document.onload = resolve);
