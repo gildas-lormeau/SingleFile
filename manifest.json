@@ -17,12 +17,12 @@
 			],
 			"run_at": "document_start",
 			"js": [
+				"extension/index.js",
+				"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
 				"lib/index.js",
 				"lib/hooks/content/content-hooks-frames.js",
 				"lib/single-file/single-file-helper.js",
-				"lib/frame-tree/content/content-frame-tree.js",
-				"extension/index.js",
-				"extension/lib/browser-polyfill/chrome-browser-polyfill.js"
+				"lib/frame-tree/content/content-frame-tree.js"
 			],
 			"all_frames": true,
 			"match_about_blank": true
@@ -50,6 +50,8 @@
 	],
 	"background": {
 		"scripts": [
+			"extension/index.js",
+			"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
 			"lib/index.js",
 			"lib/single-file/vendor/css-minifier.js",
 			"lib/single-file/vendor/css-tree.js",
@@ -70,8 +72,6 @@
 			"lib/single-file/single-file.js",
 			"common/index.js",
 			"common/ui/content/content-infobar.js",
-			"extension/index.js",
-			"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
 			"extension/lib/fetch/content/content-fetch-resources.js",
 			"extension/lib/fetch/bg/fetch-resources.js",
 			"extension/lib/frame-tree/bg/frame-tree.js",
