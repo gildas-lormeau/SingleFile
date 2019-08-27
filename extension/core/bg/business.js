@@ -28,9 +28,9 @@ singlefile.extension.core.bg.business = (() => {
 	let contentScript, frameScript, modulesScript;
 
 	const contentScriptFiles = [
+		"/lib/index.js",
 		"/extension/index.js",
 		"/extension/lib/browser-polyfill/chrome-browser-polyfill.js",
-		"/lib/index.js",
 		"/lib/hooks/content/content-hooks.js",
 		"/lib/single-file/vendor/css-tree.js",
 		"/lib/single-file/vendor/html-srcset-parser.js",
@@ -46,9 +46,9 @@ singlefile.extension.core.bg.business = (() => {
 	];
 
 	const frameScriptFiles = [
+		"/lib/index.js",
 		"/extension/index.js",
 		"/extension/lib/browser-polyfill/chrome-browser-polyfill.js",
-		"/lib/index.js",
 		"/lib/hooks/content/content-hooks-frames.js",
 		"/lib/single-file/single-file-helper.js",
 		"/lib/frame-tree/content/content-frame-tree.js",
