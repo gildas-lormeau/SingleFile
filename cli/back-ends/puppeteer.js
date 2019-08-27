@@ -71,19 +71,7 @@ exports.getPageData = async options => {
 		});
 		try {
 			return await page.evaluate(async options => {
-				singlefile.lib.helper.initDoc(document);
-				const preInitializationPromises = [];
-				if (!options.saveRawPage) {
-					if (!options.removeFrames) {
-						preInitializationPromises.push(singlefile.lib.frameTree.content.frames.getAsync(options));
-					}
-					if (options.loadDeferredImages) {
-						preInitializationPromises.push(singlefile.lib.lazy.content.loader.process(options));
-					}
-				}
-				[options.frames] = await Promise.all(preInitializationPromises);
-				options.doc = document;
-				options.win = window;
+				await singlefile.lib.initialize(options, document, window);
 				const pageData = await singlefile.lib.getPageData(options);
 				if (options.includeInfobar) {
 					await singlefile.common.ui.content.infobar.includeScript(pageData);
