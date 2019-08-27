@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global singlefile, require, exports, document, window */
+/* global singlefile, require, exports */
 
 const puppeteer = require("puppeteer-core");
 
