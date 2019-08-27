@@ -82,12 +82,8 @@ exports.getPageData = async options => {
 			await new Promise(resolve => win.document.onload = resolve);
 		}
 		executeFrameScripts(doc, scripts);
-		if (!options.saveRawPage && !options.removeFrames) {
-			options.frames = await win.singlefile.lib.frameTree.content.frames.getAsync(options);
-		}
-		options.win = win;
-		options.doc = doc;
 		options.removeHiddenElements = false;
+		await win.singlefile.lib.initialize(options, doc, win);
 		const pageData = await win.singlefile.lib.getPageData(options, { fetch: url => fetchResource(url, options) });
 		if (options.includeInfobar) {
 			await win.singlefile.common.ui.content.infobar.includeScript(pageData);
