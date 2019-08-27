@@ -57,8 +57,6 @@ exports.getPageData = async options => {
 	const win = dom.window;
 	const doc = win.document;
 	try {
-		options.insertSingleFileComment = true;
-		options.insertFaviconLink = true;
 		const scripts = await require("./common/scripts.js").get(options);
 		win.TextDecoder = class {
 			constructor(utfLabel) {
@@ -90,10 +88,7 @@ exports.getPageData = async options => {
 		options.win = win;
 		options.doc = doc;
 		options.removeHiddenElements = false;
-		const SingleFile = win.singlefile.lib.SingleFile.getClass({ fetch: url => fetchResource(url, options) });
-		const singleFile = new SingleFile(options);
-		await singleFile.run();
-		const pageData = await singleFile.getPageData();
+		const pageData = await win.singlefile.lib.getPageData(options, { fetch: url => fetchResource(url, options) });
 		if (options.includeInfobar) {
 			await win.singlefile.common.ui.content.infobar.includeScript(pageData);
 		}

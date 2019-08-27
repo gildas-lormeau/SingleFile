@@ -72,8 +72,6 @@ exports.getPageData = async options => {
 		try {
 			return await page.evaluate(async options => {
 				singlefile.lib.helper.initDoc(document);
-				options.insertSingleFileComment = true;
-				options.insertFaviconLink = true;
 				const preInitializationPromises = [];
 				if (!options.saveRawPage) {
 					if (!options.removeFrames) {
@@ -86,10 +84,7 @@ exports.getPageData = async options => {
 				[options.frames] = await Promise.all(preInitializationPromises);
 				options.doc = document;
 				options.win = window;
-				const SingleFile = singlefile.lib.SingleFile.getClass();
-				const singleFile = new SingleFile(options);
-				await singleFile.run();
-				const pageData = await singleFile.getPageData();
+				const pageData = await singlefile.lib.getPageData(options);
 				if (options.includeInfobar) {
 					await singlefile.common.ui.content.infobar.includeScript(pageData);
 				}
