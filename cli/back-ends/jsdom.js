@@ -119,7 +119,7 @@ function executeFrameScripts(doc, scripts) {
 }
 
 async function fetchResource(resourceURL, options) {
-	const resourceContent = await request({
+	const response = await request({
 		method: "GET",
 		uri: resourceURL,
 		resolveWithFullResponse: true,
@@ -129,10 +129,10 @@ async function fetchResource(resourceURL, options) {
 		}
 	});
 	return {
-		status: resourceContent.statusCode,
+		status: response.statusCode,
 		headers: {
-			get: name => resourceContent.headers[name]
+			get: name => response.headers[name]
 		},
-		arrayBuffer: async () => resourceContent.body
+		arrayBuffer: async () => response.body
 	};
 }
