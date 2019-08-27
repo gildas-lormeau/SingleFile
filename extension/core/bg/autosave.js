@@ -113,18 +113,12 @@ singlefile.extension.core.bg.autosave = (() => {
 		options.imports = message.imports;
 		options.referrer = message.referrer;
 		options.updatedResources = message.updatedResources;
-		options.insertSingleFileComment = true;
-		options.insertFaviconLink = true;
 		options.backgroundTab = true;
 		options.autoSave = true;
 		options.incognito = tab.incognito;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
-		const processor = new (singlefile.lib.SingleFile.getClass({
-			fetch: singlefile.extension.lib.fetch.content.resources.fetch
-		}))(options);
-		await processor.run();
-		const pageData = await processor.getPageData();
+		const pageData = await singlefile.lib.getPageData(options, { fetch: singlefile.extension.lib.fetch.content.resources.fetch });
 		if (options.includeInfobar) {
 			await singlefile.common.ui.content.infobar.includeScript(pageData);
 		}
