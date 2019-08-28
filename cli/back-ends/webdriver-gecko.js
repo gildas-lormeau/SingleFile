@@ -76,12 +76,13 @@ exports.getPageData = async options => {
 				window.setSize(options.browserWidth, options.browserHeight);
 			}
 		}
-		const scripts = await require("./common/scripts.js").get(options);
+		let scripts = await require("./common/scripts.js").get(options);
 		if (options.browserDebug) {
 			await driver.findElement(By.css("html")).sendKeys(Key.SHIFT + Key.F5);
 			await driver.sleep(3000);
 		}
 		await driver.get(options.url);
+		scripts = scripts.replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")
 		await driver.executeScript(scripts);
 		if (options.browserWaitUntil != "domcontentloaded") {
 			let scriptPromise;
@@ -138,16 +139,16 @@ async function executeScriptInFrames(driver, scripts) {
 
 function getPageDataScript() {
 	return `
-	const [options, callback] = arguments;
+	let [options, callback] = arguments;
 	getPageData()
 		.then(pageData => callback({ pageData }))
 		.catch(error => callback({ error: error.toString() }));
 
 	async function getPageData() {
-		options = await singlefile.lib.initializeOptions(options);
-		const pageData = await singlefile.lib.getPageData(options);
+		options = await window.singlefile.lib.initializeOptions(options);
+		const pageData = await window.singlefile.lib.getPageData(options);
 		if (options.includeInfobar) {
-			await singlefile.common.ui.content.infobar.includeScript(pageData);
+			await window.singlefile.common.ui.content.infobar.includeScript(pageData);
 		}
 		return pageData;
 	}
