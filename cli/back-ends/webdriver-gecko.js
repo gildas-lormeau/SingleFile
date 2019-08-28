@@ -82,7 +82,7 @@ exports.getPageData = async options => {
 			await driver.sleep(3000);
 		}
 		await driver.get(options.url);
-		scripts = scripts.replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||")
+		scripts = scripts.replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||");
 		await driver.executeScript(scripts);
 		if (options.browserWaitUntil != "domcontentloaded") {
 			let scriptPromise;
