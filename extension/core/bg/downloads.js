@@ -87,6 +87,7 @@ singlefile.extension.core.bg.downloads = (() => {
 			if (options.autoClose) {
 				singlefile.extension.core.bg.tabs.remove(sender.tab.id);
 			}
+			return {};
 		}
 	}
 
