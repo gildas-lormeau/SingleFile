@@ -83,12 +83,12 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md
 | Files can be unzipped to extract resources                                     |                    | ✓ 	               | ✓     |       |            |   	        |
 | Files contains the text of the page (plain or formatted) which can be indexed  | ✓ 	                | ✓****              |       | ✓     | ✓ 	        | ✓ 	        |
 
-|       | Notes                                                                                           |
-| :---: | ---                                                                                             |
-| *     | a switch must be passed from the command line in Chrome and an option must be enabled in Safari |
-| **    | only in Chromium-based browsers and Internet Explorer                                           |
-| ***   | only in Safari                                                                                  |
-| \**** | an option must be enabled in the extension                                                      |
+|       | Notes                                                                                                            |
+| :---: | ---                                                                                                              |
+| *     | a switch must be passed from the command line in Chromium-based browsers and an option must be enabled in Safari |
+| **    | only in Chromium-based browsers and Internet Explorer                                                            |
+| ***   | only in Safari                                                                                                   |
+| \**** | an option must be enabled in the extension                                                                       |
 
 ## Known Issues
 - All browsers:
