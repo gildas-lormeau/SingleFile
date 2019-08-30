@@ -127,6 +127,8 @@
 		}
 	},
 	"web_accessible_resources": [
+		"lib/hooks/content/content-hooks-web.js",
+		"lib/hooks/content/content-hooks-frames-web.js",
 		"common/ui/content/content-infobar-web.js"
 	],
 	"permissions": [
