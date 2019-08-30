@@ -54,8 +54,6 @@ const SCRIPTS = [
 exports.get = async options => {
 	let scripts = await fs.readFileSync(require.resolve("../../../lib/index.js")).toString() + "\n";
 	const fileContents = {
-		"/lib/hooks/content/content-hooks-web.js": fs.readFileSync(require.resolve("../../../lib/hooks/content/content-hooks-web.js")).toString(),
-		"/lib/hooks/content/content-hooks-frames-web.js": fs.readFileSync(require.resolve("../../../lib/hooks/content/content-hooks-frames-web.js")).toString(),
 		"/common/ui/content/content-infobar-web.js": fs.readFileSync(require.resolve("../../../common/ui/content/content-infobar-web.js")).toString()
 	};
 	scripts += "this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(fileContents) + ")[filename];";
