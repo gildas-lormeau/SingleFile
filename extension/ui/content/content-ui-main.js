@@ -25,8 +25,7 @@
 
 this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content.main || (() => {
 
-	const singlefile = this.singlefile;
-	const SingleFile = this.singlefile.lib.SingleFile.getClass({ fetch: singlefile.extension.lib.fetch.content.resources.fetch });
+	const SELECTED_CONTENT_ATTRIBUTE_NAME = this.singlefile.lib.SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME;
 
 	const MASK_TAGNAME = "singlefile-mask";
 	const PROGRESS_BAR_TAGNAME = "singlefile-progress-bar";
@@ -165,7 +164,7 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 
 	function markSelectedNode(node) {
 		const element = node.nodeType == Node.ELEMENT_NODE ? node : node.parentElement;
-		element.setAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+		element.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
 	}
 
 	function markSelectedParents(node) {
@@ -176,7 +175,7 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 	}
 
 	function unmarkSelection() {
-		document.querySelectorAll("[" + SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME));
+		document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
 	}
 
 	function selectArea() {
