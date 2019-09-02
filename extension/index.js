@@ -32,6 +32,9 @@ this.singlefile.extension = this.singlefile.extension || {
 		content: {}
 	},
 	lib: {
+		core: {
+			bg: {}
+		},
 		fetch: {
 			bg: {},
 			content: {}
