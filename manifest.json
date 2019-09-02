@@ -72,6 +72,7 @@
 			"lib/single-file/single-file.js",
 			"common/index.js",
 			"common/ui/content/content-infobar.js",
+			"extension/lib/core/bg/scripts.js",
 			"extension/lib/fetch/content/content-fetch-resources.js",
 			"extension/lib/fetch/bg/fetch-resources.js",
 			"extension/lib/frame-tree/bg/frame-tree.js",

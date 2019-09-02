@@ -21,56 +21,9 @@
  *   Source.
  */
 
-/* global browser, singlefile, fetch, TextDecoder */
+/* global singlefile */
 
 singlefile.extension.core.bg.business = (() => {
-
-	let contentScript, frameScript, modulesScript;
-
-	const contentScriptFiles = [
-		"/lib/index.js",
-		"/extension/index.js",
-		"/extension/lib/browser-polyfill/chrome-browser-polyfill.js",
-		"/lib/hooks/content/content-hooks.js",
-		"/lib/single-file/vendor/css-tree.js",
-		"/lib/single-file/vendor/html-srcset-parser.js",
-		"/lib/single-file/single-file-util.js",
-		"/lib/single-file/single-file-helper.js",
-		"/lib/single-file/single-file-core.js",
-		"/lib/single-file/single-file.js",
-		"/common/index.js",
-		"/common/ui/content/content-infobar.js",
-		"/extension/lib/fetch/content/content-fetch-resources.js",
-		"/extension/core/content/content-main.js",
-		"/extension/ui/content/content-ui-main.js"
-	];
-
-	const frameScriptFiles = [
-		"/lib/index.js",
-		"/extension/index.js",
-		"/extension/lib/browser-polyfill/chrome-browser-polyfill.js",
-		"/lib/hooks/content/content-hooks-frames.js",
-		"/lib/single-file/single-file-helper.js",
-		"/lib/frame-tree/content/content-frame-tree.js",
-		"/extension/lib/fetch/content/content-fetch-resources.js"
-	];
-
-	const modulesScriptFiles = [
-		"/lib/single-file/modules/html-minifier.js",
-		"/lib/single-file/modules/html-serializer.js",
-		"/lib/single-file/vendor/css-minifier.js",
-		"/lib/lazy/content/content-lazy-loader.js",
-		"/lib/single-file/modules/html-images-alt-minifier.js",
-		"/lib/single-file/vendor/css-font-property-parser.js",
-		"/lib/single-file/modules/css-fonts-minifier.js",
-		"/lib/single-file/modules/css-fonts-alt-minifier.js",
-		"/lib/single-file/modules/css-matched-rules.js",
-		"/lib/single-file/modules/css-rules-minifier.js",
-		"/lib/single-file/vendor/css-media-query-parser.js",
-		"/lib/single-file/modules/css-medias-alt-minifier.js"
-	];
-
-	initScripts();
 
 	const ERROR_CONNECTION_ERROR_CHROMIUM = "Could not establish connection. Receiving end does not exist.";
 	const ERROR_CONNECTION_LOST_CHROMIUM = "The message port closed before a response was received.";
@@ -80,7 +33,7 @@ singlefile.extension.core.bg.business = (() => {
 
 	const pendingSaves = new Map();
 	const currentSaves = new Map();
-	let maxParallelWorkers;
+	let maxParallelWorkers, scripts;
 
 	return {
 		isSavingTab: tab => currentSaves.has(tab.id),
@@ -94,7 +47,6 @@ singlefile.extension.core.bg.business = (() => {
 		const tabs = singlefile.extension.core.bg.tabs;
 		const ui = singlefile.extension.ui.bg.main;
 		maxParallelWorkers = (await config.get()).maxParallelWorkers;
-		await initScripts();
 		const tabId = tab.id;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
@@ -109,16 +61,18 @@ singlefile.extension.core.bg.business = (() => {
 				const tabOptions = await config.getOptions(tab.url);
 				Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 				let scriptsInjected;
+				if (!scripts) {
+					scripts = await singlefile.extension.lib.core.bg.scripts.get();
+				}
 				if (!tabOptions.removeFrames) {
 					try {
-						await tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
+						await tabs.executeScript(tabId, { code: scripts.frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
 					} catch (error) {
 						// ignored
 					}
 				}
 				try {
-					await initScripts();
-					await tabs.executeScript(tabId, { code: modulesScript + "\n" + contentScript, allFrames: false, runAt: "document_idle" });
+					await tabs.executeScript(tabId, { code: scripts.contentScript, allFrames: false, runAt: "document_idle" });
 					scriptsInjected = true;
 				} catch (error) {
 					// ignored
@@ -176,32 +130,6 @@ singlefile.extension.core.bg.business = (() => {
 				requestSaveTab(tabId, method, options, resolve, reject);
 			}
 		}
-	}
-
-	async function initScripts() {
-		if (!contentScript && !frameScript && !modulesScript) {
-			[contentScript, frameScript, modulesScript] = await Promise.all([
-				getScript(contentScriptFiles),
-				getScript(frameScriptFiles),
-				getScript(modulesScriptFiles)
-			]);
-		}
-	}
-
-	async function getScript(scriptFiles) {
-		const scriptsPromises = scriptFiles.map(async scriptFile => {
-			if (typeof scriptFile == "function") {
-				return "(" + scriptFile.toString() + ")();";
-			} else {
-				const scriptResource = await fetch(browser.runtime.getURL(scriptFile));
-				return new TextDecoder().decode(await scriptResource.arrayBuffer());
-			}
-		});
-		let content = "";
-		for (const scriptPromise of scriptsPromises) {
-			content += await scriptPromise;
-		}
-		return content;
 	}
 
 })();
