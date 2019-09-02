@@ -72,12 +72,28 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 
 	initScripts();
 	return {
-		async get() {
+		async inject(tabId, options) {
 			await initScripts();
-			return {
-				contentScript: moduleScript + "\n" + contentScript,
-				frameScript
-			};
+			let scriptsInjected;
+			if (!options.removeFrames) {
+				try {
+					await browser.tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
+				} catch (error) {
+					// ignored
+				}
+			}
+			try {
+				await browser.tabs.executeScript(tabId, { code: moduleScript + "\n" + contentScript, allFrames: false, runAt: "document_idle" });
+				scriptsInjected = true;
+			} catch (error) {
+				// ignored
+			}
+			if (scriptsInjected) {
+				if (options.frameId) {
+					await browser.tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: options.frameId, matchAboutBlank: true, runAt: "document_start" });
+				}
+			}
+			return scriptsInjected;
 		}
 	};
 

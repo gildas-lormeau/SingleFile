@@ -32,7 +32,6 @@ singlefile.extension.core.bg.tabs = (() => {
 		onMessage,
 		get: options => browser.tabs.query(options),
 		sendMessage: (tabId, message, options) => browser.tabs.sendMessage(tabId, message, options),
-		executeScript: (tabId, scriptData) => browser.tabs.executeScript(tabId, scriptData),
 		remove: tabId => browser.tabs.remove(tabId)
 	};
 
