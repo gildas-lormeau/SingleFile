@@ -33,7 +33,7 @@ singlefile.extension.core.bg.business = (() => {
 
 	const pendingSaves = new Map();
 	const currentSaves = new Map();
-	let maxParallelWorkers, scripts;
+	let maxParallelWorkers;
 
 	return {
 		isSavingTab: tab => currentSaves.has(tab.id),
@@ -44,7 +44,6 @@ singlefile.extension.core.bg.business = (() => {
 	async function saveTab(tab, options = {}) {
 		const config = singlefile.extension.core.bg.config;
 		const autosave = singlefile.extension.core.bg.autosave;
-		const tabs = singlefile.extension.core.bg.tabs;
 		const ui = singlefile.extension.ui.bg.main;
 		maxParallelWorkers = (await config.get()).maxParallelWorkers;
 		const tabId = tab.id;
@@ -60,28 +59,9 @@ singlefile.extension.core.bg.business = (() => {
 				ui.onStart(tabId, INJECT_SCRIPTS_STEP);
 				const tabOptions = await config.getOptions(tab.url);
 				Object.keys(options).forEach(key => tabOptions[key] = options[key]);
-				let scriptsInjected;
-				if (!scripts) {
-					scripts = await singlefile.extension.lib.core.bg.scripts.get();
-				}
-				if (!tabOptions.removeFrames) {
-					try {
-						await tabs.executeScript(tabId, { code: scripts.frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
-					} catch (error) {
-						// ignored
-					}
-				}
-				try {
-					await tabs.executeScript(tabId, { code: scripts.contentScript, allFrames: false, runAt: "document_idle" });
-					scriptsInjected = true;
-				} catch (error) {
-					// ignored
-				}
+				const scriptsInjected = await singlefile.extension.lib.core.bg.scripts.inject(tabId, tabOptions);
 				if (scriptsInjected) {
 					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
-					if (tabOptions.frameId) {
-						await tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: tabOptions.frameId, matchAboutBlank: true, runAt: "document_start" });
-					}
 					await requestSaveTab(tabId, "content.save", tabOptions);
 				} else {
 					ui.onForbiddenDomain(tab);
