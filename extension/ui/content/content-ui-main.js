@@ -25,7 +25,7 @@
 
 this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content.main || (() => {
 
-	const SELECTED_CONTENT_ATTRIBUTE_NAME = this.singlefile.lib.SingleFile.SELECTED_CONTENT_ATTRIBUTE_NAME;
+	const SELECTED_CONTENT_ATTRIBUTE_NAME = this.singlefile.lib.helper.SELECTED_CONTENT_ATTRIBUTE_NAME;
 
 	const MASK_TAGNAME = "singlefile-mask";
 	const PROGRESS_BAR_TAGNAME = "singlefile-progress-bar";
