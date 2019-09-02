@@ -28,12 +28,10 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 	const singlefile = this.singlefile;
 
 	const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
-	const SingleFile = singlefile.lib.SingleFile.getClass({
-		fetch: singlefile.extension.lib.fetch.content.resources.fetch
-	});
 
 	let ui, processing = false, processor;
 
+	singlefile.lib.main.init({ fetch: singlefile.extension.lib.fetch.content.resources.fetch });
 	browser.runtime.onMessage.addListener(async message => {
 		if (!ui) {
 			ui = singlefile.extension.ui.content.main;
@@ -86,7 +84,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 		const frames = singlefile.lib.frameTree.content.frames;
 		singlefile.lib.helper.initDoc(document);
 		ui.onStartPage(options);
-		processor = new SingleFile(options);
+		processor = new singlefile.lib.SingleFile(options);
 		const preInitializationPromises = [];
 		options.insertSingleFileComment = true;
 		if (!options.saveRawPage) {
