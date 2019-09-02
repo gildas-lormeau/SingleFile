@@ -43,9 +43,5 @@ this.singlefile.extension = this.singlefile.extension || {
 			bg: {}
 		},
 	},
-	getPageData: (options, doc, win) => getPageData(options, doc, win)
+	getPageData: (options, doc, win) => this.singlefile.lib.getPageData(options, { fetch: this.lib.fetch.content.resources.fetch }, doc, win)
 };
-
-async function getPageData(options, doc, win) {
-	return this.singlefile.lib.getPageData(options, { fetch: this.lib.fetch.content.resources.fetch }, doc, win);
-}
