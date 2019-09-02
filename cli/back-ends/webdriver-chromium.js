@@ -137,7 +137,6 @@ function getPageDataScript() {
 		.catch(error => callback({ error: error.toString() }));
 
 	async function getPageData() {
-		options = await singlefile.lib.initializeOptions(options);
 		const pageData = await singlefile.lib.getPageData(options);
 		if (options.includeInfobar) {
 			await singlefile.common.ui.content.infobar.includeScript(pageData);
