@@ -83,7 +83,7 @@ exports.getPageData = async options => {
 		}
 		executeFrameScripts(doc, scripts);
 		options.removeHiddenElements = false;
-		const pageData = await win.singlefile.lib.getPageData(options, { fetch: url => fetchResource(url, options) });
+		const pageData = await win.singlefile.lib.getPageData(options, { fetch: url => fetchResource(url, options) }, doc, win);
 		if (options.includeInfobar) {
 			await win.singlefile.common.ui.content.infobar.includeScript(pageData);
 		}
