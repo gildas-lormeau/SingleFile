@@ -31,7 +31,10 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 
 	let ui, processing = false, processor;
 
-	singlefile.lib.main.init({ fetch: singlefile.extension.lib.fetch.content.resources.fetch });
+	singlefile.lib.main.init({
+		fetch: singlefile.extension.lib.fetch.content.resources.fetch,
+		frameFetch: singlefile.extension.lib.fetch.content.resources.frameFetch
+	});
 	browser.runtime.onMessage.addListener(async message => {
 		if (!ui) {
 			ui = singlefile.extension.ui.content.main;

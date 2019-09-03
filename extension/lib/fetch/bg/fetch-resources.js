@@ -29,10 +29,10 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 
 	let requestId = 1;
 
-	browser.runtime.onMessage.addListener(message => {
+	browser.runtime.onMessage.addListener((message, sender) => {
 		if (message.method.startsWith("fetch")) {
 			return new Promise(resolve => {
-				onRequest(message)
+				onRequest(message, sender)
 					.then(resolve)
 					.catch(error => resolve({ error: error.toString() }));
 			});
@@ -40,7 +40,7 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 	});
 	return {};
 
-	async function onRequest(message) {
+	async function onRequest(message, sender) {
 		if (message.method == "fetch") {
 			const responseId = requestId;
 			requestId = requestId + 1;
@@ -59,6 +59,13 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 					response.xhrRequest.onload = () => resolve(getResponse(response.xhrRequest));
 				}
 			});
+		} else if (message.method == "fetch.frame") {
+			const response = await browser.tabs.sendMessage(sender.tab.id, message);
+			if (response.error) {
+				throw response.error;
+			} else {
+				return response;
+			}
 		}
 	}
 
