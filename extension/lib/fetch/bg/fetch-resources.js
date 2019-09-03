@@ -62,7 +62,7 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 		} else if (message.method == "fetch.frame") {
 			const response = await browser.tabs.sendMessage(sender.tab.id, message);
 			if (response.error) {
-				throw response.error;
+				throw new Error(response.error);
 			} else {
 				return response;
 			}
