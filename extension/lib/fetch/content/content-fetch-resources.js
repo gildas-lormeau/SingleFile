@@ -29,25 +29,29 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 	const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
 
 
-	browser.runtime.onMessage.addListener(async message => {
+	browser.runtime.onMessage.addListener(message => {
 		if (message.method == "fetch.frame" && window.frameId && window.frameId == message.frameId) {
-			try {
-				let response = await fetch(message.url, { cache: "force-cache" });
-				if (response.status == 403) {
-					response = hostFetch(message.url);
-				}
-				return {
-					status: response.status,
-					headers: Array.from(response.headers),
-					array: Array.from(new Uint8Array(await response.arrayBuffer()))
-				};
-			} catch (error) {
-				return {
-					error: error.toString()
-				};
-			}
+			return onMessage(message);
 		}
 	});
+
+	async function onMessage(message) {
+		try {
+			let response = await fetch(message.url, { cache: "force-cache" });
+			if (response.status == 403) {
+				response = hostFetch(message.url);
+			}
+			return {
+				status: response.status,
+				headers: Array.from(response.headers),
+				array: Array.from(new Uint8Array(await response.arrayBuffer()))
+			};
+		} catch (error) {
+			return {
+				error: error.toString()
+			};
+		}
+	}
 
 	return {
 		fetch: async url => {
