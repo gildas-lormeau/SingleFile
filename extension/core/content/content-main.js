@@ -35,7 +35,14 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 		fetch: singlefile.extension.lib.fetch.content.resources.fetch,
 		frameFetch: singlefile.extension.lib.fetch.content.resources.frameFetch
 	});
-	browser.runtime.onMessage.addListener(async message => {
+	browser.runtime.onMessage.addListener(message => {
+		if (message.method == "content.save" || message.method == "content.cancelSave") {
+			return onMessage(message);
+		}
+	});
+	return {};
+
+	async function onMessage(message) {
 		if (!ui) {
 			ui = singlefile.extension.ui.content.main;
 		}
@@ -51,8 +58,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 			}
 			return {};
 		}
-	});
-	return {};
+	}
 
 	async function savePage(message) {
 		const options = message.options;
