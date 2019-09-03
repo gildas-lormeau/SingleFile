@@ -28,7 +28,6 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 	const FETCH_REQUEST_EVENT = "single-file-request-fetch";
 	const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
 
-
 	browser.runtime.onMessage.addListener(message => {
 		if (message.method == "fetch.frame" && window.frameId && window.frameId == message.frameId) {
 			return onMessage(message);
