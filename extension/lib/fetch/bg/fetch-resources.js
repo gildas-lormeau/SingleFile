@@ -30,7 +30,7 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 	let requestId = 1;
 
 	browser.runtime.onMessage.addListener((message, sender) => {
-		if (message.method && message.method.startsWith("fetch")) {
+		if (message.method && message.method.startsWith("singlefile.fetch")) {
 			return new Promise(resolve => {
 				onRequest(message, sender)
 					.then(resolve)
@@ -41,14 +41,14 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 	return {};
 
 	async function onRequest(message, sender) {
-		if (message.method == "fetch") {
+		if (message.method == "singlefile.fetch") {
 			const responseId = requestId;
 			requestId = requestId + 1;
 			const response = await fetchResource(message.url);
 			responses.set(responseId, response);
 			response.responseId = responseId;
 			return { responseId, headers: response.headers };
-		} else if (message.method == "fetch.array") {
+		} else if (message.method == "singlefile.fetch.array") {
 			const response = responses.get(message.requestId);
 			responses.delete(response.requestId);
 			return new Promise((resolve, reject) => {
@@ -59,7 +59,7 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 					response.xhrRequest.onload = () => resolve(getResponse(response.xhrRequest));
 				}
 			});
-		} else if (message.method == "fetch.frame") {
+		} else if (message.method == "singlefile.fetch.frame") {
 			const response = await browser.tabs.sendMessage(sender.tab.id, message);
 			if (response.error) {
 				throw new Error(response.error);
