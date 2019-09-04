@@ -30,7 +30,7 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 	let requestId = 1;
 
 	browser.runtime.onMessage.addListener((message, sender) => {
-		if (message.method.startsWith("fetch")) {
+		if (message.method && message.method.startsWith("fetch")) {
 			return new Promise(resolve => {
 				onRequest(message, sender)
 					.then(resolve)
