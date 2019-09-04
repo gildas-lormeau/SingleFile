@@ -48,21 +48,21 @@ You can also convert MAFF pages to HTML. For this, you must use specific version
 
 - Display help
 
-  `./single-file --help`
+  `single-file --help`
 
 - Examples
 
   - Dump the processed content of https://www.wikipedia.org into the console
 
-  `./single-file https://www.wikipedia.org`
+  `single-file https://www.wikipedia.org`
 
   - Save https://www.wikipedia.org into `wikipedia.html`
 
-  `./single-file https://www.wikipedia.org wikipedia.html`
+  `single-file https://www.wikipedia.org wikipedia.html`
 
   - Save https://www.wikipedia.org into `wikipedia.html` with Firefox instead of Chrome
 
-  `./single-file https://www.wikipedia.org wikipedia.html --back-end=webdriver-gecko`
+  `single-file https://www.wikipedia.org wikipedia.html --back-end=webdriver-gecko`
   
 ## License
 
