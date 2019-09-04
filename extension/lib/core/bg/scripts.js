@@ -50,7 +50,7 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 		"/lib/hooks/content/content-hooks.js",
 		"/extension/index.js",
 		"/extension/lib/browser-polyfill/chrome-browser-polyfill.js",
-		"/extension/lib/fetch/content/content-fetch-resources.js",
+		"/extension/lib/fetch/content/content-fetch.js",
 	];
 
 	const frameScriptFiles = [
@@ -60,7 +60,7 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 		"/lib/frame-tree/content/content-frame-tree.js",
 		"/extension/index.js",
 		"/extension/lib/browser-polyfill/chrome-browser-polyfill.js",
-		"/extension/lib/fetch/content/content-fetch-resources.js"
+		"/extension/lib/fetch/content/content-fetch.js"
 	];
 
 	return {
