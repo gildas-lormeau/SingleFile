@@ -25,10 +25,6 @@
 
 singlefile.extension.lib.fetch.bg.resources = (() => {
 
-	const responses = new Map();
-
-	let requestId = 1;
-
 	browser.runtime.onMessage.addListener((message, sender) => {
 		if (message.method && message.method.startsWith("singlefile.fetch")) {
 			return new Promise(resolve => {
@@ -42,30 +38,9 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 
 	async function onRequest(message, sender) {
 		if (message.method == "singlefile.fetch") {
-			const responseId = requestId;
-			requestId = requestId + 1;
-			const response = await fetchResource(message.url);
-			responses.set(responseId, response);
-			response.responseId = responseId;
-			return { responseId, headers: response.headers };
-		} else if (message.method == "singlefile.fetch.array") {
-			const response = responses.get(message.requestId);
-			responses.delete(response.requestId);
-			return new Promise((resolve, reject) => {
-				response.xhrRequest.onerror = event => reject(new Error(event.detail));
-				if (response.xhrRequest.readyState == XMLHttpRequest.DONE) {
-					resolve(getResponse(response.xhrRequest));
-				} else {
-					response.xhrRequest.onload = () => resolve(getResponse(response.xhrRequest));
-				}
-			});
-		} else if (message.method == "singlefile.fetch.frame") {
-			const response = await browser.tabs.sendMessage(sender.tab.id, message);
-			if (response.error) {
-				throw new Error(response.error);
-			} else {
-				return response;
-			}
+			return fetchResource(message.url);
+		} else if (message.method == "singlefile.fetchFrame") {
+			return browser.tabs.sendMessage(sender.tab.id, message);
 		}
 	}
 
@@ -80,10 +55,11 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 			xhrRequest.responseType = "arraybuffer";
 			xhrRequest.onerror = event => reject(new Error(event.detail));
 			xhrRequest.onreadystatechange = () => {
-				if (xhrRequest.readyState == XMLHttpRequest.HEADERS_RECEIVED) {
-					const headers = {};
-					headers["content-type"] = xhrRequest.getResponseHeader("Content-Type");
-					resolve({ xhrRequest, headers, status: xhrRequest.status });
+				if (xhrRequest.readyState == XMLHttpRequest.DONE) {
+					const response = getResponse(xhrRequest);
+					response.headers = { "content-type": xhrRequest.getResponseHeader("Content-Type") };
+					response.status = xhrRequest.status;
+					resolve(response);
 				}
 			};
 			xhrRequest.open("GET", url, true);
