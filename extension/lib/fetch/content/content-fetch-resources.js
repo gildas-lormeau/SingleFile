@@ -29,7 +29,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 	const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
 
 	browser.runtime.onMessage.addListener(message => {
-		if (message.method == "singlefile.fetch.frame" && window.frameId && window.frameId == message.frameId) {
+		if (message.method == "singlefile.fetchFrame" && window.frameId && window.frameId == message.frameId) {
 			return onMessage(message);
 		}
 	});
@@ -62,19 +62,16 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 				return response;
 			}
 			catch (error) {
-				const responseFetch = await sendMessage({ method: "singlefile.fetch", url });
+				const response = await sendMessage({ method: "singlefile.fetch", url });
 				return {
-					status: responseFetch.status,
-					headers: { get: headerName => responseFetch.headers[headerName] },
-					arrayBuffer: async () => {
-						const response = await sendMessage({ method: "singlefile.fetch.array", requestId: responseFetch.responseId });
-						return new Uint8Array(response.array).buffer;
-					}
+					status: response.status,
+					headers: { get: headerName => response.headers[headerName] },
+					arrayBuffer: async () => new Uint8Array(response.array).buffer
 				};
 			}
 		},
 		frameFetch: async (url, frameId) => {
-			const response = await sendMessage({ method: "singlefile.fetch.frame", url, frameId });
+			const response = await sendMessage({ method: "singlefile.fetchFrame", url, frameId });
 			return {
 				status: response.status,
 				headers: {
