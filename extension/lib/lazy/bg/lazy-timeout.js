@@ -28,17 +28,17 @@ singlefile.extension.lib.lazy.bg.main = (() => {
 	"use strict";
 
 	browser.runtime.onMessage.addListener((message, sender) => {
-		if (message.method == "lazyTimeout.setTimeout") {
+		if (message.method == "singlefile.lazyTimeout.setTimeout") {
 			const timeoutId = setTimeout(async () => {
 				try {
-					await browser.tabs.sendMessage(sender.tab.id, { method: "content.onLazyTimeout", id: timeoutId });
+					await browser.tabs.sendMessage(sender.tab.id, { method: "singlefile.lazyTimeout.onTimeout", id: timeoutId });
 				} catch (error) {
 					// ignored
 				}
 			}, message.delay);
 			return Promise.resolve(timeoutId);
 		}
-		if (message.method == "lazyTimeout.clearTimeout") {
+		if (message.method == "singlefile.lazyTimeout.clearTimeout") {
 			clearTimeout(message.id);
 			return Promise.resolve({ id: message.id });
 		}
