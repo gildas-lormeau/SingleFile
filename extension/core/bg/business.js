@@ -32,10 +32,10 @@ singlefile.extension.core.bg.business = (() => {
 	const EXECUTE_SCRIPTS_STEP = 2;
 
 	const extensionScriptFiles = [
-		"/common/index.js",
-		"/common/ui/content/content-infobar.js",
-		"/extension/core/content/content-main.js",
-		"/extension/ui/content/content-ui-main.js"
+		"common/index.js",
+		"common/ui/content/content-infobar.js",
+		"extension/core/content/content-main.js",
+		"extension/ui/content/content-ui-main.js"
 	];
 
 	const pendingSaves = new Map();
@@ -66,7 +66,8 @@ singlefile.extension.core.bg.business = (() => {
 				ui.onStart(tabId, INJECT_SCRIPTS_STEP);
 				const tabOptions = await config.getOptions(tab.url);
 				Object.keys(options).forEach(key => tabOptions[key] = options[key]);
-				const scriptsInjected = await singlefile.extension.lib.core.bg.scripts.inject(tabId, tabOptions, extensionScriptFiles);
+				tabOptions.extensionScriptFiles = extensionScriptFiles;
+				const scriptsInjected = await singlefile.extension.lib.core.bg.scripts.inject(tabId, tabOptions);
 				if (scriptsInjected) {
 					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
 					await requestSaveTab(tabId, "content.save", tabOptions);
