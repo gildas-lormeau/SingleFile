@@ -28,44 +28,44 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 	let contentScript, frameScript;
 
 	const contentScriptFiles = [
-		"/lib/index.js",
-		"/lib/single-file/vendor/css-font-property-parser.js",
-		"/lib/single-file/vendor/css-media-query-parser.js",
-		"/lib/single-file/vendor/css-tree.js",
-		"/lib/single-file/vendor/html-srcset-parser.js",
-		"/lib/single-file/vendor/css-minifier.js",
-		"/lib/single-file/modules/html-minifier.js",
-		"/lib/single-file/modules/html-serializer.js",
-		"/lib/single-file/modules/html-images-alt-minifier.js",
-		"/lib/single-file/modules/css-fonts-minifier.js",
-		"/lib/single-file/modules/css-fonts-alt-minifier.js",
-		"/lib/single-file/modules/css-matched-rules.js",
-		"/lib/single-file/modules/css-rules-minifier.js",
-		"/lib/single-file/modules/css-medias-alt-minifier.js",
-		"/lib/single-file/single-file-util.js",
-		"/lib/single-file/single-file-helper.js",
-		"/lib/single-file/single-file-core.js",
-		"/lib/single-file/single-file.js",
-		"/lib/lazy/content/content-lazy-loader.js",
-		"/lib/hooks/content/content-hooks.js",
-		"/extension/index.js",
-		"/extension/lib/browser-polyfill/chrome-browser-polyfill.js",
-		"/extension/lib/fetch/content/content-fetch.js",
+		"lib/index.js",
+		"lib/single-file/vendor/css-font-property-parser.js",
+		"lib/single-file/vendor/css-media-query-parser.js",
+		"lib/single-file/vendor/css-tree.js",
+		"lib/single-file/vendor/html-srcset-parser.js",
+		"lib/single-file/vendor/css-minifier.js",
+		"lib/single-file/modules/html-minifier.js",
+		"lib/single-file/modules/html-serializer.js",
+		"lib/single-file/modules/html-images-alt-minifier.js",
+		"lib/single-file/modules/css-fonts-minifier.js",
+		"lib/single-file/modules/css-fonts-alt-minifier.js",
+		"lib/single-file/modules/css-matched-rules.js",
+		"lib/single-file/modules/css-rules-minifier.js",
+		"lib/single-file/modules/css-medias-alt-minifier.js",
+		"lib/single-file/single-file-util.js",
+		"lib/single-file/single-file-helper.js",
+		"lib/single-file/single-file-core.js",
+		"lib/single-file/single-file.js",
+		"lib/lazy/content/content-lazy-loader.js",
+		"lib/hooks/content/content-hooks.js",
+		"extension/index.js",
+		"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
+		"extension/lib/fetch/content/content-fetch.js",
 	];
 
 	const frameScriptFiles = [
-		"/lib/index.js",
-		"/lib/hooks/content/content-hooks-frames.js",
-		"/lib/single-file/single-file-helper.js",
-		"/lib/frame-tree/content/content-frame-tree.js",
-		"/extension/index.js",
-		"/extension/lib/browser-polyfill/chrome-browser-polyfill.js",
-		"/extension/lib/fetch/content/content-fetch.js"
+		"lib/index.js",
+		"lib/hooks/content/content-hooks-frames.js",
+		"lib/single-file/single-file-helper.js",
+		"lib/frame-tree/content/content-frame-tree.js",
+		"extension/index.js",
+		"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
+		"extension/lib/fetch/content/content-fetch.js"
 	];
 
 	return {
-		async inject(tabId, options, extensionScriptFiles) {
-			await initScripts(extensionScriptFiles);
+		async inject(tabId, options) {
+			await initScripts(options);
 			let scriptsInjected;
 			if (!options.removeFrames) {
 				try {
@@ -89,21 +89,23 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 		}
 	};
 
-	async function initScripts(extensionScriptFiles = []) {
+	async function initScripts(options) {
+		const extensionScriptFiles = options.extensionScriptFiles || [];
+		const basePath = options.basePath || "";
 		if (!contentScript && !frameScript) {
 			[contentScript, frameScript] = await Promise.all([
-				getScript(contentScriptFiles.concat(extensionScriptFiles)),
-				getScript(frameScriptFiles)
+				getScript(contentScriptFiles.concat(extensionScriptFiles), basePath),
+				getScript(frameScriptFiles, basePath)
 			]);
 		}
 	}
 
-	async function getScript(scriptFiles) {
+	async function getScript(scriptFiles, basePath) {
 		const scriptsPromises = scriptFiles.map(async scriptFile => {
 			if (typeof scriptFile == "function") {
 				return "(" + scriptFile.toString() + ")();";
 			} else {
-				const scriptResource = await fetch(browser.runtime.getURL(scriptFile));
+				const scriptResource = await fetch(browser.runtime.getURL((!basePath || !basePath.startsWith("/") ? "/" : "") + basePath + (basePath && !basePath.endsWith("/") ? "/" : "") + scriptFile));
 				return new TextDecoder().decode(await scriptResource.arrayBuffer());
 			}
 		});
