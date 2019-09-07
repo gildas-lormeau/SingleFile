@@ -28,19 +28,19 @@
         "description": "Menu entry: 'Save frame'"
     },
     "menuSaveTabs": {
-        "message": "Registerkarte (TAB) speichern",
+        "message": "Tab speichern",
         "description": "Menu entry (SingleFile button only): 'Save tabs'"
     },
     "menuSaveSelectedTabs": {
-        "message": "Speichern der ausgewählten Registerkarten (TABs)",
+        "message": "Speichern der ausgewählten Tabs",
         "description": "Menu entry: 'Save selected tabs'"
     },
     "menuSaveUnpinnedTabs": {
-        "message": "Speichern der nicht angehefteten Registerkarten (TABs)",
+        "message": "Speichern der nicht angehefteten Tabs",
         "description": "Menu entry: 'Save unpinned tabs'"
     },
     "menuSaveAllTabs": {
-        "message": "Speichern aller Registerkarten (TABs)",
+        "message": "Speichern aller Tabs",
         "description": "Menu entry: 'Save all tabs'"
     },
     "menuAutoSave": {
@@ -52,15 +52,15 @@
         "description": "Menu entry: 'Auto-save' > Disabled'"
     },
     "menuAutoSaveTab": {
-        "message": "Automatische Speicherung der ausgewählten Registerkarte (TAB)",
+        "message": "Automatische Speicherung dieses Tabs",
         "description": "Menu entry: 'Auto-save' > Auto-save this tab'"
     },
     "menuAutoSaveUnpinnedTabs": {
-        "message": "Automatische Speicherung der nicht angehefteten Registerkarten (TABs)",
+        "message": "Automatische Speicherung der nicht angehefteten Tabs",
         "description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
     },
     "menuAutoSaveAllTabs": {
-        "message": "Automatische Speicherung aller Registerkarten (TABs)",
+        "message": "Automatische Speicherung aller Tabs",
         "description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
     },
     "buttonDefaultTooltip": {
@@ -136,7 +136,7 @@
         "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
     },
     "optionAutoCloseLabel": {
-        "message": "Automatisches Schließen der Registerkarte (TAB) nach dem Speichern der Seite",
+        "message": "Automatisches Schließen des Tabs nach dem Speichern der Seite",
         "description": "Options page label: 'auto-close the tab after the page is saved'"
     },
     "optionsFileNameSubTitle": {
