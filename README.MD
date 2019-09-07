@@ -125,10 +125,10 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 ## Contributors
 - Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad), frostblazergit (https://github.com/frostblazergit)
 - Traditional Chinese translation done by frostblazergit (https://github.com/frostblazergit)
-- German translation done by womotroll (https://github.com/womotroll)
+- German translation done by womotroll (https://github.com/womotroll), bannmann (https://github.com/bannmann)
 - Japanese translation done by Shitennouji（四天王寺) (https://github.com/Shitennouji)
 - Polish translation done by xesarni (https://github.com/xesarni)
-- Russian translation done by rstp14 (https://github.com/rstp14)
+- Russian translation done by rstp14 (https://github.com/rstp14), kramola-RU (https://github.com/kramola-RU)
 - Spanish translation done by strel (https://github.com/strel)
 
 ## Code derived from third party projects
