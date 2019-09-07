@@ -44,10 +44,6 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 		}
 	}
 
-	function getResponse(xhrRequest) {
-		return { array: Array.from(new Uint8Array(xhrRequest.response)) };
-	}
-
 	async function fetchResource(url) {
 		return new Promise((resolve, reject) => {
 			const xhrRequest = new XMLHttpRequest();
@@ -56,10 +52,11 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 			xhrRequest.onerror = event => reject(new Error(event.detail));
 			xhrRequest.onreadystatechange = () => {
 				if (xhrRequest.readyState == XMLHttpRequest.DONE) {
-					const response = getResponse(xhrRequest);
-					response.headers = { "content-type": xhrRequest.getResponseHeader("Content-Type") };
-					response.status = xhrRequest.status;
-					resolve(response);
+					resolve({
+						array: Array.from(new Uint8Array(xhrRequest.response)),
+						headers: { "content-type": xhrRequest.getResponseHeader("Content-Type") },
+						status: xhrRequest.status
+					});
 				}
 			};
 			xhrRequest.open("GET", url, true);
