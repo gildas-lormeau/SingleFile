@@ -235,7 +235,7 @@
 		const profileName = await prompt(browser.i18n.getMessage("profileAddPrompt"));
 		if (profileName) {
 			try {
-				await browser.runtime.sendMessage({ method: "config.createProfile", profileName });
+				await browser.runtime.sendMessage({ method: "config.createProfile", profileName, fromProfileName: profileNamesInput.value });
 			} catch (error) {
 				// ignored
 			}

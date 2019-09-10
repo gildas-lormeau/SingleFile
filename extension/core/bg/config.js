@@ -169,7 +169,7 @@ singlefile.extension.core.bg.config = (() => {
 			await addRule(message.url, message.profileName, message.autoSaveProfileName);
 		}
 		if (message.method.endsWith(".createProfile")) {
-			await createProfile(message.profileName);
+			await createProfile(message.profileName, message.fromProfileName || DEFAULT_PROFILE_NAME);
 		}
 		if (message.method.endsWith(".renameProfile")) {
 			await renameProfile(message.profileName, message.newProfileName);
@@ -211,12 +211,12 @@ singlefile.extension.core.bg.config = (() => {
 		return {};
 	}
 
-	async function createProfile(profileName) {
+	async function createProfile(profileName, fromProfileName) {
 		const config = await getConfig();
 		if (Object.keys(config.profiles).includes(profileName)) {
 			throw new Error("Duplicate profile name");
 		}
-		config.profiles[profileName] = DEFAULT_CONFIG;
+		config.profiles[profileName] = config.profiles[fromProfileName];
 		await browser.storage.local.set({ profiles: config.profiles });
 	}
 
