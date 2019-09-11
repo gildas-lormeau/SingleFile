@@ -7,7 +7,7 @@ As stated in the [privacy policy](https://github.com/gildas-lormeau/SingleFile/b
 For security purposes, browsers block web extensions on certain domains. This prevents a malicious extension to remove or change bad reviews, for example.
 
 ## Why don't interactive elements like folding titles, dynamic maps or carousels work properly in saved pages?
-By default, SingleFile removes scripts because they can alter the rendering and there is no guarantee they will work offline. However, you can save them by unchecking the option "Other resources > remove scripts" and optionally checking the option "Misc. > save raw page".
+These elements need JavaScript to work properly. By default, SingleFile removes scripts because they can alter the rendering and there is no guarantee they will work offline. However, you can save them by unchecking the option "Other resources > remove scripts" and optionally checking the option "Misc. > save raw page".
 
 ## Why isn't the infobar displayed / Why cannot I save a page from the filesystem in Chrome?
 By default, Chrome extensions are not allowed to access to pages stored on the filesystem. Therefore, you must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
