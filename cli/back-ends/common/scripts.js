@@ -51,14 +51,34 @@ const SCRIPTS = [
 	"/common/ui/content/content-infobar.js"
 ];
 
+const WEB_SCRIPTS = [
+	"/lib/hooks/content/content-hooks-web.js",
+	"/lib/hooks/content/content-hooks-frames-web.js",
+	"/common/ui/content/content-infobar-web.js"
+];
+
 exports.get = async options => {
-	let scripts = await fs.readFileSync(require.resolve("../../../lib/index.js")).toString() + "\n";
-	const fileContents = {
-		"/lib/hooks/content/content-hooks-web.js": fs.readFileSync(require.resolve("../../../lib/hooks/content/content-hooks-web.js")).toString(),
-		"/lib/hooks/content/content-hooks-frames-web.js": fs.readFileSync(require.resolve("../../../lib/hooks/content/content-hooks-frames-web.js")).toString(),
-		"/common/ui/content/content-infobar-web.js": fs.readFileSync(require.resolve("../../../common/ui/content/content-infobar-web.js")).toString()
-	};
-	scripts += "this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(fileContents) + ")[filename];";
-	scripts += (await Promise.all(SCRIPTS.concat(options.browserScripts).map(scriptPath => fs.readFileSync(require.resolve("../../.." + scriptPath)).toString()))).join("\n");
+	let scripts = await readScriptFile("/lib/index.js");
+	const webScripts = {};
+	[
+		webScripts["/lib/hooks/content/content-hooks-web.js"],
+		webScripts["/lib/hooks/content/content-hooks-frames-web.js"],
+		webScripts["/common/ui/content/content-infobar-web.js"]
+	] = await Promise.all(WEB_SCRIPTS.map(path => readScriptFile(path)));
+	scripts += "this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(webScripts) + ")[filename];\n";
+	scripts += (await Promise.all(SCRIPTS.map(path => readScriptFile(path)))).join("");
+	scripts += (await Promise.all(options.browserScripts.map(path => readScriptFile(path, "")))).join("");
 	return scripts;
 };
+
+function readScriptFile(path, basePath = "../../..") {
+	return new Promise((resolve, reject) =>
+		fs.readFile(require.resolve(basePath + path), (err, data) => {
+			if (err) {
+				reject(err);
+			} else {
+				resolve(data.toString() + "\n");
+			}
+		})
+	);
+}
