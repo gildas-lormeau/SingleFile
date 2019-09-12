@@ -62,16 +62,16 @@ const WEB_SCRIPTS = [
 ];
 
 exports.get = async options => {
-	let scripts = await readFiles(INDEX_SCRIPTS);
+	let scripts = await readScriptFiles(INDEX_SCRIPTS);
 	const webScripts = {};
 	await Promise.all(WEB_SCRIPTS.map(async path => webScripts[path] = await readScriptFile(path)));
 	scripts += "this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(webScripts) + ")[filename];\n";
-	scripts += await readFiles(SCRIPTS);
-	scripts += await readFiles(options.browserScripts, "");
+	scripts += await readScriptFiles(SCRIPTS);
+	scripts += await readScriptFiles(options.browserScripts, "");
 	return scripts;
 };
 
-async function readFiles(paths, basePath) {
+async function readScriptFiles(paths, basePath) {
 	return (await Promise.all(paths.map(path => readScriptFile(path, basePath)))).join("");
 }
 
