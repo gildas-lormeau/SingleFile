@@ -47,8 +47,12 @@ const SCRIPTS = [
 	"/lib/single-file/modules/html-serializer.js",
 	"/lib/single-file/single-file-core.js",
 	"/lib/single-file/single-file.js",
-	"/common/index.js",
 	"/common/ui/content/content-infobar.js"
+];
+
+const INDEX_SCRIPTS = [
+	"/lib/index.js",
+	"/common/index.js"
 ];
 
 const WEB_SCRIPTS = [
@@ -58,7 +62,7 @@ const WEB_SCRIPTS = [
 ];
 
 exports.get = async options => {
-	let scripts = await readScriptFile("/lib/index.js");
+	let scripts = await readFiles(INDEX_SCRIPTS);
 	const webScripts = {};
 	[
 		webScripts["/lib/hooks/content/content-hooks-web.js"],
@@ -66,10 +70,14 @@ exports.get = async options => {
 		webScripts["/common/ui/content/content-infobar-web.js"]
 	] = await Promise.all(WEB_SCRIPTS.map(path => readScriptFile(path)));
 	scripts += "this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(webScripts) + ")[filename];\n";
-	scripts += (await Promise.all(SCRIPTS.map(path => readScriptFile(path)))).join("");
-	scripts += (await Promise.all(options.browserScripts.map(path => readScriptFile(path, "")))).join("");
+	scripts += await readFiles(SCRIPTS);
+	scripts += await readFiles(options.browserScripts);
 	return scripts;
 };
+
+async function readFiles(paths, basePath) {
+	return (await Promise.all(paths.map(path => readScriptFile(path, basePath)))).join("");
+}
 
 function readScriptFile(path, basePath = "../../..") {
 	return new Promise((resolve, reject) =>
