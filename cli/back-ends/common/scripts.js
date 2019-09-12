@@ -64,11 +64,7 @@ const WEB_SCRIPTS = [
 exports.get = async options => {
 	let scripts = await readFiles(INDEX_SCRIPTS);
 	const webScripts = {};
-	[
-		webScripts["/lib/hooks/content/content-hooks-web.js"],
-		webScripts["/lib/hooks/content/content-hooks-frames-web.js"],
-		webScripts["/common/ui/content/content-infobar-web.js"]
-	] = await Promise.all(WEB_SCRIPTS.map(path => readScriptFile(path)));
+	await Promise.all(WEB_SCRIPTS.map(async path => webScripts[path] = await readScriptFile(path)));
 	scripts += "this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(webScripts) + ")[filename];\n";
 	scripts += await readFiles(SCRIPTS);
 	scripts += await readFiles(options.browserScripts, "");
