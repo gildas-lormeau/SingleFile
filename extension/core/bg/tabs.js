@@ -31,6 +31,26 @@ singlefile.extension.core.bg.tabs = (() => {
 	return {
 		onMessage,
 		get: options => browser.tabs.query(options),
+		create: async createProperties => {
+			const tab = await browser.tabs.create(createProperties);
+			return new Promise((resolve, reject) => {
+				browser.tabs.onUpdated.addListener(onTabUpdated);
+				browser.tabs.onRemoved.addListener(onTabRemoved);
+				function onTabUpdated(tabId, changeInfo) {
+					if (tabId == tab.id && changeInfo.status == "complete") {
+						resolve(tab);
+						browser.tabs.onUpdated.removeListener(onTabUpdated);
+						browser.tabs.onRemoved.removeListener(onTabRemoved);
+					}
+				}
+				function onTabRemoved(tabId) {
+					if (tabId == tab.id) {
+						reject();
+						browser.tabs.onRemoved.removeListener(onTabRemoved);
+					}
+				}
+			});
+		},
 		sendMessage: (tabId, message, options) => browser.tabs.sendMessage(tabId, message, options),
 		remove: tabId => browser.tabs.remove(tabId)
 	};

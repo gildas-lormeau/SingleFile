@@ -320,7 +320,11 @@ singlefile.extension.ui.bg.menus = (() => {
 			createMenus();
 			menus.onClicked.addListener(async (event, tab) => {
 				if (event.menuItemId == MENU_ID_SAVE_PAGE) {
-					business.saveTab(tab);
+					if (event.linkUrl) {
+						business.saveLink(event.linkUrl);
+					} else {
+						business.saveTab(tab);
+					}
 				}
 				if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
 					business.saveTab(tab, { selected: true });
