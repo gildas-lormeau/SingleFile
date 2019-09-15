@@ -93,6 +93,7 @@ More info here: https://github.com/gildas-lormeau/SingleFileZ
 ## Known Issues
 - All browsers:
   - For security reasons, you cannot save pages hosted on https://chrome.google.com, https://addons.mozilla.org and some other Mozilla domains. When this happens, 🛇 is displayed on top of the SingleFile icon.
+  - For [security reasons](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image), SingleFile is sometimes unable to save the image representation of a [canvas](https://developer.mozilla.org/docs/Web/HTML/Element/canvas) element.
   - The last saved path cannot be remembered by default. To circumvent this limitation, disable the option "Misc > Save pages in background".
   - The following characters are replaced with _ in filenames: ~, \\, ?, %, *, :, |, ", <, >  
 - Chrome:
