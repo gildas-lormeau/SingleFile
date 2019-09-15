@@ -45,6 +45,7 @@ singlefile.extension.core.bg.business = (() => {
 	return {
 		isSavingTab: tab => currentSaves.has(tab.id),
 		saveTab,
+		saveLink,
 		cancelTab
 	};
 
@@ -81,6 +82,12 @@ singlefile.extension.core.bg.business = (() => {
 				ui.onError(tabId);
 			}
 		}
+	}
+
+	async function saveLink(url) {
+		const tabs = singlefile.extension.core.bg.tabs;
+		const tab = await tabs.create({ url, active: false });
+		await saveTab(tab, { autoClose: true });
 	}
 
 	async function cancelTab(tab) {

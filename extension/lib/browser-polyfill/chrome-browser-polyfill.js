@@ -275,10 +275,12 @@
 					addListener: listener => nativeAPI.tabs.onActivated.addListener(listener)
 				},
 				onUpdated: {
-					addListener: listener => nativeAPI.tabs.onUpdated.addListener(listener)
+					addListener: listener => nativeAPI.tabs.onUpdated.addListener(listener),
+					removeListener: listener => nativeAPI.tabs.onUpdated.removeListener(listener)
 				},
 				onRemoved: {
-					addListener: listener => nativeAPI.tabs.onRemoved.addListener(listener)
+					addListener: listener => nativeAPI.tabs.onRemoved.addListener(listener),
+					removeListener: listener => nativeAPI.tabs.onRemoved.removeListener(listener)
 				},
 				executeScript: (tabId, details) => new Promise((resolve, reject) => {
 					nativeAPI.tabs.executeScript(tabId, details, () => {
@@ -307,6 +309,15 @@
 							reject(nativeAPI.runtime.lastError);
 						} else {
 							resolve(tabs);
+						}
+					});
+				}),
+				create: createProperties => new Promise((resolve, reject) => {
+					nativeAPI.tabs.create(createProperties, tab => {
+						if (nativeAPI.runtime.lastError) {
+							reject(nativeAPI.runtime.lastError);
+						} else {
+							resolve(tab);
 						}
 					});
 				}),
