@@ -24,11 +24,26 @@
 /* global singlefile, require, exports */
 
 const puppeteer = require("puppeteer-core");
+const scripts = require("./common/scripts.js");
 
 const EXECUTION_CONTEXT_DESTROYED_ERROR = "Execution context was destroyed";
 const NETWORK_IDLE_STATE = "networkidle0";
 
 exports.getPageData = async options => {
+	let browser;
+	try {
+		browser = await puppeteer.launch(getBrowserOptions(options));
+		const page = await browser.newPage();
+		await setPageOptions(page, options);
+		return await getPageData(browser, page, options);
+	} finally {
+		if (browser && !options.browserDebug) {
+			await browser.close();
+		}
+	}
+};
+
+function getBrowserOptions(options) {
 	const browserOptions = {};
 	if (options.browserHeadless !== undefined) {
 		browserOptions.headless = options.browserHeadless && !options.browserDebug;
@@ -50,59 +65,64 @@ exports.getPageData = async options => {
 	if (options.userAgent) {
 		browserOptions.args.push("--user-agent=" + options.userAgent);
 	}
-	let browser;
-	try {
-		browser = await puppeteer.launch(browserOptions);
-		const page = await browser.newPage();
-		if (options.browserWidth && options.browserHeight) {
-			await page.setViewport({
-				width: options.browserWidth,
-				height: options.browserHeight
-			});
-		}
-		if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
-			await page.setBypassCSP(true);
-		}
-		const scripts = await require("./common/scripts.js").get(options);
-		await page.evaluateOnNewDocument(scripts);
-		if (options.browserDebug) {
-			await page.waitFor(3000);
-		}
-		await page.goto(options.url, {
-			timeout: 0,
-			waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
+	return browserOptions;
+}
+
+async function setPageOptions(page, options) {
+	if (options.browserWidth && options.browserHeight) {
+		await page.setViewport({
+			width: options.browserWidth,
+			height: options.browserHeight
 		});
-		try {
-			return await page.evaluate(async options => {
-				const pageData = await singlefile.lib.getPageData(options);
-				if (options.includeInfobar) {
-					await singlefile.common.ui.content.infobar.includeScript(pageData);
-				}
+	}
+	if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
+		await page.setBypassCSP(true);
+	}
+}
+
+async function getPageData(browser, page, options) {
+	const injectedScript = await scripts.get(options);
+	await page.evaluateOnNewDocument(injectedScript);
+	if (options.browserDebug) {
+		await page.waitFor(3000);
+	}	
+	await page.goto(options.url, {
+		timeout: 0,
+		waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
+	});
+	try {
+		return await page.evaluate(async options => {
+			const pageData = await singlefile.lib.getPageData(options);
+			if (options.includeInfobar) {
+				await singlefile.common.ui.content.infobar.includeScript(pageData);
+			}
+			return pageData;
+		}, options);
+	} catch (error) {
+		if (error.message && error.message.includes(EXECUTION_CONTEXT_DESTROYED_ERROR)) {
+			const pageData = await handleJSRedirect(browser, options);
+			if (pageData) {
 				return pageData;
-			}, options);
-		} catch (error) {
-			if (error.message && error.message.includes(EXECUTION_CONTEXT_DESTROYED_ERROR)) {
-				const pages = await browser.pages();
-				const page = pages[1] || pages[0];
-				await page.waitForNavigation(options.url, {
-					timeout: 0,
-					waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
-				});
-				const url = page.url();
-				if (url != options.url) {
-					options.url = url;
-					await browser.close();
-					return exports.getPageData(options);
-				} else {
-					throw error;
-				}
 			} else {
 				throw error;
 			}
-		}
-	} finally {
-		if (browser && !options.browserDebug) {
-			await browser.close();
+		} else {
+			throw error;
 		}
 	}
-};
+}
+
+async function handleJSRedirect(browser, options) {
+	const pages = await browser.pages();
+	const page = pages[1] || pages[0];
+	await page.waitForNavigation(options.url, {
+		timeout: 0,
+		waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
+	});
+	const url = page.url();
+	if (url != options.url) {
+		options.url = url;
+		await browser.close();
+		return exports.getPageData(options);
+	}
+}
