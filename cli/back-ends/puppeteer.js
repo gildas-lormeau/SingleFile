@@ -44,13 +44,13 @@ exports.getPageData = async options => {
 	if (options.browserExecutablePath) {
 		browserOptions.executablePath = options.browserExecutablePath || "chrome";
 	}
+	if (options.userAgent) {
+		browserOptions.args.push("--user-agent=" + options.userAgent);
+	}
 	let browser;
 	try {
 		browser = await puppeteer.launch(browserOptions);
 		const page = await browser.newPage();
-		if (options.userAgent) {
-			await page.setUserAgent(options.userAgent);
-		}
 		if (options.browserWidth && options.browserHeight) {
 			await page.setViewport({
 				width: options.browserWidth,
