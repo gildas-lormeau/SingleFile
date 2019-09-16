@@ -207,7 +207,7 @@
 	function createElement(tagName, parentElement) {
 		const element = document.createElement(tagName);
 		parentElement.appendChild(element);
-		Array.from(getComputedStyle(element), property => setProperty(element, property, "initial"));
+		Array.from(getComputedStyle(element)).forEach(property => setProperty(element, property, "initial"));
 		return element;
 	}
 
