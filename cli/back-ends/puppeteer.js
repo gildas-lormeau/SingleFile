@@ -25,6 +25,9 @@
 
 const puppeteer = require("puppeteer-core");
 
+const EXECUTION_CONTEXT_DESTROYED_ERROR = "Execution context was destroyed";
+const NETWORK_IDLE_STATE = "networkidle0";
+
 exports.getPageData = async options => {
 	const browserOptions = {};
 	if (options.browserHeadless !== undefined) {
@@ -67,7 +70,7 @@ exports.getPageData = async options => {
 		}
 		await page.goto(options.url, {
 			timeout: 0,
-			waitUntil: options.browserWaitUntil || "networkidle0"
+			waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
 		});
 		try {
 			return await page.evaluate(async options => {
@@ -78,12 +81,12 @@ exports.getPageData = async options => {
 				return pageData;
 			}, options);
 		} catch (error) {
-			if (error.message.includes("Execution context was destroyed")) {
+			if (error.message && error.message.includes(EXECUTION_CONTEXT_DESTROYED_ERROR)) {
 				const pages = await browser.pages();
 				const page = pages[1] || pages[0];
 				await page.waitForNavigation(options.url, {
 					timeout: 0,
-					waitUntil: options.browserWaitUntil || "networkidle0"
+					waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
 				});
 				const url = page.url();
 				if (url != options.url) {
