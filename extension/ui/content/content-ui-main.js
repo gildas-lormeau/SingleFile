@@ -45,7 +45,7 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 
 	let logsWindowElement = createLogsWindowElement();
 	const allProperties = new Set();
-	Array.from(getComputedStyle(document.body), property => allProperties.add(property));
+	Array.from(getComputedStyle(document.body)).forEach(property => allProperties.add(property));
 
 	return {
 		markSelection,
