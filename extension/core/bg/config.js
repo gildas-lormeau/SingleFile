@@ -217,7 +217,7 @@ singlefile.extension.core.bg.config = (() => {
 		if (Object.keys(config.profiles).includes(profileName)) {
 			throw new Error("Duplicate profile name");
 		}
-		config.profiles[profileName] = config.profiles[fromProfileName];
+		config.profiles[profileName] = JSON.parse(JSON.stringify(config.profiles[fromProfileName]));
 		await browser.storage.local.set({ profiles: config.profiles });
 	}
 
