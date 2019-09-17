@@ -396,17 +396,23 @@ a {
     top: 0;
     left: 0;
     background-color: rgba(191, 191, 191, .75);
+    display: none;
 }
 
 .popup-content {
+    align-self: center;
     width: 90%;
     max-width: 320px;
-    margin-top: 25vh;
-    transform: translateY(-50%);
+    margin-top: 100px;
+    margin-bottom: 100px;
     margin-left: auto;
     margin-right: auto;
     background-color: white;
     box-shadow: 5px 5px #ababab;
+}
+
+#formResetContainer .popup-content {
+    align-self: flex-end;
 }
 
 .popup-content header {
