@@ -174,7 +174,7 @@
 		autoSaveProfileChanged = true;
 	};
 	rulesDeleteAllButton.addEventListener("click", async () => {
-		if (await confirm(browser.i18n.getMessage("optionsDeleteDisplayedRulesConfirm"))) {
+		if (await confirm(browser.i18n.getMessage("optionsDeleteDisplayedRulesConfirm"), "flex-end")) {
 			await browser.runtime.sendMessage({ method: "config.deleteRules", profileName: !showAllProfilesInput.checked && profileNamesInput.value });
 			await refresh();
 			await refreshExternalComponents();
@@ -232,7 +232,7 @@
 		}
 	}, false);
 	addProfileButton.addEventListener("click", async () => {
-		const profileName = await prompt(browser.i18n.getMessage("profileAddPrompt"));
+		const profileName = await prompt(browser.i18n.getMessage("profileAddPrompt"), "flex-start");
 		if (profileName) {
 			try {
 				await browser.runtime.sendMessage({ method: "config.createProfile", profileName, fromProfileName: profileNamesInput.value });
@@ -248,7 +248,7 @@
 		}
 	}, false);
 	deleteProfileButton.addEventListener("click", async () => {
-		if (await confirm(browser.i18n.getMessage("profileDeleteConfirm"))) {
+		if (await confirm(browser.i18n.getMessage("profileDeleteConfirm"), "flex-start")) {
 			try {
 				await browser.runtime.sendMessage({ method: "config.deleteProfile", profileName: profileNamesInput.value });
 			} catch (error) {
@@ -260,7 +260,7 @@
 		}
 	}, false);
 	renameProfileButton.addEventListener("click", async () => {
-		const profileName = await prompt(browser.i18n.getMessage("profileRenamePrompt"), profileNamesInput.value);
+		const profileName = await prompt(browser.i18n.getMessage("profileRenamePrompt"), "flex-start", profileNamesInput.value);
 		if (profileName) {
 			try {
 				await browser.runtime.sendMessage({ method: "config.renameProfile", profileName: profileNamesInput.value, newProfileName: profileName });
@@ -506,7 +506,7 @@
 				const ruleUpdateButton = ruleElement.querySelector(".rule-update-button");
 				ruleDeleteButton.title = browser.i18n.getMessage("optionsDeleteRuleTooltip");
 				ruleDeleteButton.addEventListener("click", async () => {
-					if (await confirm(browser.i18n.getMessage("optionsDeleteRuleConfirm"))) {
+					if (await confirm(browser.i18n.getMessage("optionsDeleteRuleConfirm"), "flex-end")) {
 						await browser.runtime.sendMessage({ method: "config.deleteRule", url: rule.url });
 						await refresh();
 						await refreshExternalComponents();
@@ -664,9 +664,10 @@
 		}
 	}
 
-	async function confirm(message) {
+	async function confirm(message, position = "center") {
 		document.getElementById("confirmLabel").textContent = message;
-		document.getElementById("formConfirmContainer").hidden = false;
+		document.getElementById("formConfirmContainer").style.setProperty("display", "flex");
+		document.querySelector("#formConfirmContainer .popup-content").style.setProperty("align-self", position);
 		confirmButton.focus();
 		document.body.style.setProperty("overflow-y", "hidden");
 		return new Promise(resolve => {
@@ -680,7 +681,7 @@
 
 			function hideAndResolve(event, value) {
 				event.preventDefault();
-				document.getElementById("formConfirmContainer").hidden = true;
+				document.getElementById("formConfirmContainer").style.setProperty("display", "none");
 				document.body.style.setProperty("overflow-y", "");
 				resolve(value);
 			}
@@ -688,7 +689,7 @@
 	}
 
 	async function reset() {
-		document.getElementById("formResetContainer").hidden = false;
+		document.getElementById("formResetContainer").style.setProperty("display", "flex");
 		resetCancelButton.focus();
 		document.body.style.setProperty("overflow-y", "hidden");
 		return new Promise(resolve => {
@@ -703,16 +704,17 @@
 
 			function hideAndResolve(event, value) {
 				event.preventDefault();
-				document.getElementById("formResetContainer").hidden = true;
+				document.getElementById("formResetContainer").style.setProperty("display", "none");
 				document.body.style.setProperty("overflow-y", "");
 				resolve(value);
 			}
 		});
 	}
 
-	async function prompt(message, defaultValue = "") {
+	async function prompt(message, position = "center", defaultValue = "") {
 		document.getElementById("promptLabel").textContent = message;
-		document.getElementById("formPromptContainer").hidden = false;
+		document.getElementById("formPromptContainer").style.setProperty("display", "flex");
+		document.querySelector("#formPromptContainer .popup-content").style.setProperty("align-self", position);
 		promptInput.value = defaultValue;
 		promptInput.focus();
 		document.body.style.setProperty("overflow-y", "hidden");
@@ -727,7 +729,7 @@
 
 			function hideAndResolve(event, value) {
 				event.preventDefault();
-				document.getElementById("formPromptContainer").hidden = true;
+				document.getElementById("formPromptContainer").style.setProperty("display", "none");
 				document.body.style.setProperty("overflow-y", "");
 				resolve(value);
 			}
