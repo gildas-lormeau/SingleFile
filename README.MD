@@ -8,11 +8,11 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
  - [Additional notes](#additional-notes)
  - [FAQ](#faq)
  - [Release notes](#release-notes)
+ - [Known issues](#known-issues)
+ - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
  - [SingleFileZ](#singlefilez)
  - [Command Line Interface](#command-line-interface)
  - [File format comparison](#file-format-comparison)
- - [Known issues](#known-issues)
- - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
  - [Statistics (Firefox)](#statistics-firefox)
  - [Integration with WebKit](#integration-with-webkit)
  - [Privacy policy](#privacy-policy)
@@ -61,6 +61,30 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md
 ## Release notes
 See https://addons.mozilla.org/firefox/addon/single-file/versions/
 
+## Known Issues
+- All browsers:
+  - For security reasons, you cannot save pages hosted on https://chrome.google.com, https://addons.mozilla.org and some other Mozilla domains. When this happens, 🛇 is displayed on top of the SingleFile icon.
+  - For [security reasons](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image), SingleFile is sometimes unable to save the image representation of a [canvas](https://developer.mozilla.org/docs/Web/HTML/Element/canvas) element.
+  - The last saved path cannot be remembered by default. To circumvent this limitation, disable the option "Misc > Save pages in background".
+  - The following characters are replaced with _ in filenames: ~, \\, ?, %, *, :, |, ", <, >  
+- Chrome:
+  - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
+  - If the filename of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3", disable the option "Misc > Save pages in background". Reinstalling the browser may also fix this issue.
+  - Disabling the option 'File name > open the "Save as" dialog to confirm the file name' will work if and only if "Ask where to save each file before downloading" is disabled in chrome://settings/downloads.
+- Firefox:
+  - The "file name conflict resolution" option does not work if set to "prompt for a name"
+- Waterfox
+  - When opening pages saved with the option "group duplicate images together" enabled, duplicate images are not displayed. It is recommended to disable this option.
+
+## Troubleshooting unknown issues
+Please follow these steps if you find an unknown issue:
+- Save the page in incognito.
+- If saving page in incognito did not fix the issue, reset SingleFile options.
+- If resetting options did not fix the issue, restart the browser.
+- If restarting the browser did not fix the issue, try to disable all other extensions to see if there is a conflict.
+- If there is a conflict then try to determine against which extension(s).
+- Please report the issue with a short description on how to reproduce it here: https://github.com/gildas-lormeau/SingleFile/issues.
+
 ## SingleFileZ
 SingleFileZ is a fork of SingleFile that allows you to save a webpage as a self-extracting HTML file. This HTML file is also a valid ZIP file which contains the resources (images, fonts, stylesheets and frames) of the saved page. This ZIP file can be unzipped on the filesystem in order, for example, to view the page in a browser that would not support pages saved with SingleFileZ.
 
@@ -89,30 +113,6 @@ More info here: https://github.com/gildas-lormeau/SingleFileZ
 | **    | only in Chromium-based browsers and Internet Explorer                                                            |
 | ***   | only in Safari                                                                                                   |
 | \**** | an option must be enabled in the extension                                                                       |
-
-## Known Issues
-- All browsers:
-  - For security reasons, you cannot save pages hosted on https://chrome.google.com, https://addons.mozilla.org and some other Mozilla domains. When this happens, 🛇 is displayed on top of the SingleFile icon.
-  - For [security reasons](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image), SingleFile is sometimes unable to save the image representation of a [canvas](https://developer.mozilla.org/docs/Web/HTML/Element/canvas) element.
-  - The last saved path cannot be remembered by default. To circumvent this limitation, disable the option "Misc > Save pages in background".
-  - The following characters are replaced with _ in filenames: ~, \\, ?, %, *, :, |, ", <, >  
-- Chrome:
-  - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
-  - If the filename of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3", disable the option "Misc > Save pages in background". Reinstalling the browser may also fix this issue.
-  - Disabling the option 'File name > open the "Save as" dialog to confirm the file name' will work if and only if "Ask where to save each file before downloading" is disabled in chrome://settings/downloads.
-- Firefox:
-  - The "file name conflict resolution" option does not work if set to "prompt for a name"
-- Waterfox
-  - When opening pages saved with the option "group duplicate images together" enabled, duplicate images are not displayed. It is recommended to disable this option.
-
-## Troubleshooting unknown issues
-Please follow these steps if you find an unknown issue:
-- Save the page in incognito.
-- If saving page in incognito did not fix the issue, reset SingleFile options.
-- If resetting options did not fix the issue, restart the browser.
-- If restarting the browser did not fix the issue, try to disable all other extensions to see if there is a conflict.
-- If there is a conflict then try to determine against which extension(s).
-- Please report the issue with a short description on how to reproduce it here: https://github.com/gildas-lormeau/SingleFile/issues.
 
 ## Statistics (Firefox)
 See https://addons.mozilla.org/firefox/addon/single-file/statistics/?last=90
