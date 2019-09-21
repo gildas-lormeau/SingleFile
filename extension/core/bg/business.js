@@ -50,40 +50,43 @@ singlefile.extension.core.bg.business = (() => {
 	};
 
 	async function saveTabs(tabs, options = {}) {
-		const config = singlefile.extension.core.bg.config;
-		const autosave = singlefile.extension.core.bg.autosave;
-		const ui = singlefile.extension.ui.bg.main;
-		maxParallelWorkers = (await config.get()).maxParallelWorkers;
-		const tab = tabs.shift();
-		const tabId = tab.id;
-		options.tabId = tabId;
-		options.tabIndex = tab.index;
-		try {
-			if (options.autoSave) {
-				const tabOptions = await config.getOptions(tab.url, true);
-				if (autosave.isEnabled(tab)) {
-					await requestSaveTab(tabId, "content.autosave", tabOptions);
-				}
-			} else {
-				ui.onStart(tabId, INJECT_SCRIPTS_STEP);
-				const tabOptions = await config.getOptions(tab.url);
-				Object.keys(options).forEach(key => tabOptions[key] = options[key]);
-				tabOptions.extensionScriptFiles = extensionScriptFiles;
-				const scriptsInjected = await singlefile.extension.lib.core.bg.scripts.inject(tabId, tabOptions);
-				if (tabs.length) {
-					saveTabs(tabs, options = {});
-				}
-				if (scriptsInjected) {
-					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
-					await requestSaveTab(tabId, "content.save", tabOptions);
+		if (tabs.length) {
+			const config = singlefile.extension.core.bg.config;
+			const autosave = singlefile.extension.core.bg.autosave;
+			const ui = singlefile.extension.ui.bg.main;
+			maxParallelWorkers = (await config.get()).maxParallelWorkers;
+			const tab = tabs.shift();
+			const tabId = tab.id;
+			options.tabId = tabId;
+			options.tabIndex = tab.index;
+			try {
+				if (options.autoSave) {
+					const tabOptions = await config.getOptions(tab.url, true);
+					if (autosave.isEnabled(tab)) {
+						await requestSaveTab(tabId, "content.autosave", tabOptions);
+					}
 				} else {
-					ui.onForbiddenDomain(tab);
+					ui.onStart(tabId, INJECT_SCRIPTS_STEP);
+					const tabOptions = await config.getOptions(tab.url);
+					Object.keys(options).forEach(key => tabOptions[key] = options[key]);
+					tabOptions.extensionScriptFiles = extensionScriptFiles;
+					const scriptsInjected = await singlefile.extension.lib.core.bg.scripts.inject(tabId, tabOptions);
+					let promiseSaveTab;
+					if (scriptsInjected) {
+						ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
+						promiseSaveTab = requestSaveTab(tabId, "content.save", tabOptions);
+					} else {
+						ui.onForbiddenDomain(tab);
+						promiseSaveTab = Promise.resolve();
+					}
+					saveTabs(tabs, options);
+					await promiseSaveTab;
 				}
-			}
-		} catch (error) {
-			if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
-				console.log(error); // eslint-disable-line no-console
-				ui.onError(tabId);
+			} catch (error) {
+				if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
+					console.log(error); // eslint-disable-line no-console
+					ui.onError(tabId);
+				}
 			}
 		}
 	}
