@@ -104,7 +104,7 @@ More info here: https://github.com/gildas-lormeau/SingleFileZ
 | Files are compressed                                                           |                    | ✓ 	               | ✓     |       |            |   	        |
 | Files can be viewed without installing any extension                           | ✓                  | ✓*                 |       | ✓**   | ✓***       | ✓           |
 | Files can be viewed without running JavaScript                                 | ✓                  |   	               | ✓     | ✓     | ✓          | ✓ 	        |
-| Files can be unzipped to extract resources                                     |                    | ✓ 	               | ✓     |       |            |   	        |
+| Files can be unzipped to extract resources and view pages                      |                    | ✓ 	               | ✓     |       |            | n/a        |
 | Files contains the text of the page (plain or formatted) which can be indexed  | ✓ 	                | ✓****              |       | ✓     | ✓ 	        | ✓ 	        |
 
 |       | Notes                                                                                                            |
