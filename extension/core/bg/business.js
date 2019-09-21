@@ -44,16 +44,17 @@ singlefile.extension.core.bg.business = (() => {
 
 	return {
 		isSavingTab: tab => currentSaves.has(tab.id),
-		saveTab,
+		saveTabs,
 		saveLink,
 		cancelTab
 	};
 
-	async function saveTab(tab, options = {}) {
+	async function saveTabs(tabs, options = {}) {
 		const config = singlefile.extension.core.bg.config;
 		const autosave = singlefile.extension.core.bg.autosave;
 		const ui = singlefile.extension.ui.bg.main;
 		maxParallelWorkers = (await config.get()).maxParallelWorkers;
+		const tab = tabs.shift();
 		const tabId = tab.id;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
@@ -82,12 +83,15 @@ singlefile.extension.core.bg.business = (() => {
 				ui.onError(tabId);
 			}
 		}
+		if (tabs.length) {
+			saveTabs(tabs, options = {});
+		}
 	}
 
 	async function saveLink(url) {
 		const tabs = singlefile.extension.core.bg.tabs;
 		const tab = await tabs.create({ url, active: false });
-		await saveTab(tab, { autoClose: true });
+		await saveTabs([tab], { autoClose: true });
 	}
 
 	async function cancelTab(tab) {

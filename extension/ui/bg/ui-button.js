@@ -106,14 +106,14 @@ singlefile.extension.ui.bg.button = (() => {
 		if (!allTabs.length) {
 			toggleSaveTab(tab);
 		} else {
-			allTabs.forEach(tab => (tab.active || tab.highlighted) && toggleSaveTab(tab));
+			business.saveTabs(allTabs);
 		}
 
 		function toggleSaveTab(tab) {
 			if (business.isSavingTab(tab)) {
 				business.cancelTab(tab);
 			} else {
-				business.saveTab(tab);
+				business.saveTabs([tab]);
 			}
 		}
 	});

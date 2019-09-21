@@ -32,7 +32,7 @@ singlefile.extension.ui.bg.commands = (() => {
 		commands.onCommand.addListener(async command => {
 			if (command == "save-all-tabs") {
 				const allTabs = await singlefile.extension.core.bg.tabs.get({ currentWindow: true });
-				allTabs.forEach(tab => singlefile.extension.core.bg.business.saveTab(tab));
+				singlefile.extension.core.bg.business.saveTabs(allTabs);
 			}
 		});
 	}

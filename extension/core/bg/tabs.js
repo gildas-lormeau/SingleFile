@@ -30,7 +30,10 @@ singlefile.extension.core.bg.tabs = (() => {
 	browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
 	return {
 		onMessage,
-		get: options => browser.tabs.query(options),
+		get: async options => {
+			const tabs = await browser.tabs.query(options);
+			return tabs.sort((tab1, tab2) => tab1.index - tab2.index);
+		},
 		create: async createProperties => {
 			const tab = await browser.tabs.create(createProperties);
 			return new Promise((resolve, reject) => {
