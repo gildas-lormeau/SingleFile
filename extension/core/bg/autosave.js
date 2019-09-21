@@ -68,7 +68,7 @@ singlefile.extension.core.bg.autosave = (() => {
 		const [options, autoSaveEnabled] = await Promise.all([singlefile.extension.core.bg.config.getOptions(tab.url, true), isEnabled(tab)]);
 		if (options && ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && autoSaveEnabled)) {
 			if (changeInfo.status == "complete") {
-				singlefile.extension.core.bg.business.saveTab(tab, { autoSave: true });
+				singlefile.extension.core.bg.business.saveTabs([tab], { autoSave: true });
 			}
 		}
 	}

@@ -323,26 +323,26 @@ singlefile.extension.ui.bg.menus = (() => {
 					if (event.linkUrl) {
 						business.saveLink(event.linkUrl);
 					} else {
-						business.saveTab(tab);
+						business.saveTabs([tab]);
 					}
 				}
 				if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
-					business.saveTab(tab, { selected: true });
+					business.saveTabs([tab], { selected: true });
 				}
 				if (event.menuItemId == MENU_ID_SAVE_FRAME) {
-					business.saveTab(tab, { frameId: event.frameId });
+					business.saveTabs([tab], { frameId: event.frameId });
 				}
 				if (event.menuItemId == MENU_ID_SAVE_SELECTED_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_SELECTED_TABS) {
 					const allTabs = await tabs.get({ currentWindow: true, highlighted: true });
-					allTabs.forEach(tab => business.saveTab(tab));
+					business.saveTabs(allTabs);
 				}
 				if (event.menuItemId == MENU_ID_SAVE_UNPINNED_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_UNPINNED_TABS) {
 					const allTabs = await tabs.get({ currentWindow: true, pinned: false });
-					allTabs.forEach(tab => business.saveTab(tab));
+					business.saveTabs(allTabs);
 				}
 				if (event.menuItemId == MENU_ID_SAVE_ALL_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_ALL_TABS) {
 					const allTabs = await tabs.get({ currentWindow: true });
-					allTabs.forEach(tab => business.saveTab(tab));
+					business.saveTabs(allTabs);
 				}
 				if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
 					const allTabsData = await tabsData.get(tab.id);
