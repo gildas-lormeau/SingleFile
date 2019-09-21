@@ -70,6 +70,9 @@ singlefile.extension.core.bg.business = (() => {
 				Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 				tabOptions.extensionScriptFiles = extensionScriptFiles;
 				const scriptsInjected = await singlefile.extension.lib.core.bg.scripts.inject(tabId, tabOptions);
+				if (tabs.length) {
+					saveTabs(tabs, options = {});
+				}
 				if (scriptsInjected) {
 					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
 					await requestSaveTab(tabId, "content.save", tabOptions);
@@ -82,9 +85,6 @@ singlefile.extension.core.bg.business = (() => {
 				console.log(error); // eslint-disable-line no-console
 				ui.onError(tabId);
 			}
-		}
-		if (tabs.length) {
-			saveTabs(tabs, options = {});
 		}
 	}
 
