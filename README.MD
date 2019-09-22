@@ -66,7 +66,7 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
   - For security reasons, you cannot save pages hosted on https://chrome.google.com, https://addons.mozilla.org and some other Mozilla domains. When this happens, 🛇 is displayed on top of the SingleFile icon.
   - For [security reasons](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image), SingleFile is sometimes unable to save the image representation of a [canvas](https://developer.mozilla.org/docs/Web/HTML/Element/canvas) element.
   - The last saved path cannot be remembered by default. To circumvent this limitation, disable the option "Misc > Save pages in background".
-  - The following characters are replaced with _ in filenames: ~, \\, ?, %, *, :, |, ", <, >  
+  - The following characters are replaced with _ in filenames: ~, \\, ?, %, \*, :, ", <, >  
 - Chrome:
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
   - If the filename of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3", disable the option "Misc > Save pages in background". Reinstalling the browser may also fix this issue.
@@ -74,7 +74,7 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
 - Firefox:
   - The "file name conflict resolution" option does not work if set to "prompt for a name"
 - Waterfox
-  - When opening pages saved with the option "group duplicate images together" enabled, duplicate images are not displayed. It is recommended to disable this option.
+  - When opening pages saved with the option "Images > group duplicate images together" enabled, some duplicate images might not displayed. It is recommended to disable this option.
 
 ## Troubleshooting unknown issues
 Please follow these steps if you find an unknown issue:
