@@ -1,11 +1,11 @@
 {
     "extensionDescription": {
         "message": "完全なページを単一の HTML ファイルに保存する",
-        "description": "拡張機能の説明。"
+        "description": "Description of the extension."
     },
     "menuSavePage": {
         "message": "SingleFile でページを保存",
-        "description": "メニュー項目: 'SingleFile でページを保存'"
+        "description": "Menu entry: 'Save page with SingleFile'"
     },
     "menuSelectProfile": {
         "message": "規定（default）のプロファイルを選択",
@@ -25,47 +25,47 @@
     },
     "menuSaveSelection": {
         "message": "選択を保存",
-        "description": "メニュー項目: '選択を保存'"
+        "description": "Menu entry: 'Save selection'"
     },
     "menuSaveFrame": {
         "message": "フレームを保存",
-        "description": "メニュー項目: 'フレームを保存'"
+        "description": "Menu entry: 'Save frame'"
     },
     "menuSaveSelectedTabs": {
         "message": "選択したタブを保存",
-        "description": "メニュー項目: '選択したタブを保存'"
+        "description": "Menu entry: 'Save selected tabs'"
     },
     "menuSaveUnpinnedTabs": {
         "message": "固定解除されたタブを保存する",
-        "description": "メニュー項目: '固定解除されたタブを保存する'"
+        "description": "Menu entry: 'Save unpinned tabs'"
     },
     "menuSaveAllTabs": {
         "message": "すべてのタブを保存",
-        "description": "メニュー項目: 'すべてのタブを保存'"
+        "description": "Menu entry: 'Save all tabs'"
     },
     "menuAutoSave": {
         "message": "自動保存",
-        "description": "メニュー項目: '自動保存'"
+        "description": "Menu entry: 'Auto-save'"
     },
     "menuAutoSaveDisabled": {
         "message": "無効",
-        "description": "メニュー項目: '自動保存' > 無効'"
+        "description": "Menu entry: 'Auto-save' > Disabled'"
     },
     "menuAutoSaveTab": {
         "message": "このタブを自動保存する",
-        "description": "メニュー項目: '自動保存' > このタブを自動保存する'"
+        "description": "Menu entry: 'Auto-save' > Auto-save this tab'"
     },
     "menuAutoSaveUnpinnedTabs": {
         "message": "固定解除されたタブの自動保存",
-        "description": "メニュー項目: '自動保存' > 固定解除されたタブの自動保存'"
+        "description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
     },
     "menuAutoSaveAllTabs": {
         "message": "すべてのタブを自動的に保存する",
-        "description": "メニュー項目: '自動保存' > すべてのタブを自動的に保存する'"
+        "description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
     },
     "buttonDefaultTooltip": {
         "message": "SingleFile でページを保存",
-        "description": "ボタンのタイトル: 'SingleFile でページを保存'"
+        "description": "Button title: 'Save page with SingleFile'"
     },
     "buttonBlockedBadge": {
         "message": "🚫",
@@ -77,79 +77,79 @@
     },
     "buttonInitializingTooltip": {
         "message": "SingleFile の初期化",
-        "description": "初期化中のボタンのタイトル: 'SingleFile の初期化 (x/2)'"
+        "description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
     },
     "buttonInitializingBadge": {
         "message": "•••",
-        "description": "初期化中のバッジラベル: '•••'"
+        "description": "Badge label during initialization: '•••'"
     },
     "buttonSaveProgressTooltip": {
         "message": "進行状況を保存: ",
-        "description": "保存中のボタンのタイトル: '進行状況を保存: xx%'"
+        "description": "Button title during save: 'Save progress: xx%'"
     },
     "buttonOKBadge": {
         "message": "OK",
-        "description": "バッジラベル: 'OK'"
+        "description": "Badge label: 'OK'"
     },
     "buttonErrorBadge": {
         "message": "エラー",
-        "description": "予期しないエラーのバッジラベル"
+        "description": "Badge label for unexpected errors"
     },
     "buttonAutoSaveActiveTooltip": {
         "message": "有効な自動保存",
-        "description": "ボタンのタイトル: '有効な自動保存'"
+        "description": "Button title: 'Auto-save active'"
     },
     "buttonAutoSaveActiveBadge": {
         "message": "[A]",
-        "description": "自動保存が有効な場合のバッジラベル"
+        "description": "Badge label when auto-save is active"
     },
     "optionsTitle": {
         "message": "オプション（設定）",
-        "description": "オプションのページタイトル"
+        "description": "Options page title"
     },
     "optionsUserInterfaceSubTitle": {
         "message": "ユーザーインターフェイス（表示）",
-        "description": "オプションのサブタイトル: 'ユーザーインターフェイス（表示）'"
+        "description": "Options sub-title: 'User interface'"
     },
     "optionAddMenuEntry": {
         "message": "ウェブページのコンテキストメニューにエントリを追加する",
-        "description": "オプションのページラベル: 'ウェブページのコンテキストメニューにエントリを追加する'"
+        "description": "Options page label: 'add entry in the context menu of the webpage'"
     },
     "optionDisplayShadow": {
         "message": "処理中のページに影を重ねる",
-        "description": "オプションのページラベル: '処理中のページに影を重ねる'"
+        "description": "Options page label: 'overlay a shadow on the page during processing'"
     },
     "optionDisplayInfobar": {
         "message": "保存したページを表示するときに情報バーを表示する",
-        "description": "オプションのページラベル: '保存したページを表示するときに情報バーを表示する'"
+        "description": "Options page label: 'display an infobar when viewing a saved page'"
     },
     "optionInfobarTemplate": {
         "message": "infobar コンテンツのテンプレート",
-        "description": "オプションのページラベル: 'infobar コンテンツのテンプレート'"
+        "description": "Options page label: 'template of the infobar content'"
     },
     "optionIncludeInfobar": {
-        "message": "include the infobar in the saved page",
+        "message": "保存されたページに、infobar を含める",
         "description": "Options page label: 'include the infobar in the saved page'"
     },
     "optionConfirmInfobar": {
         "message": "infobar のコンテンツを編集するためのプロンプトダイアログを開く",
-        "description": "オプションのページラベル: 'infobar のコンテンツを編集するためのプロンプトダイアログを開く'"
+        "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
     },
     "optionAutoCloseLabel": {
-        "message": "auto-close the tab after the page is saved",
+        "message": "ページが保存された後にタブを自動的に閉じる",
         "description": "Options page label: 'auto-close the tab after the page is saved'"
     },
     "optionsFileNameSubTitle": {
         "message": "ファイル名",
-        "description": "オプションのサブタイトル: 'ファイル名'"
+        "description": "Options sub-title: 'File name'"
     },
     "optionFilenameTemplate": {
         "message": "保存時の定形書式",
-        "description": "オプションのページラベル: '保存時の定形書式'"
+        "description": "Options page label: 'template'"
     },
     "optionConfirmFilename": {
         "message": "を開く（として保存する：ファイル名を確認するためのダイアログ）",
-        "description": "オプションのページラベル: 'を開く（として保存する：ファイル名を確認するためのダイアログ）'"
+        "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
     },
     "optionFilenameConflictAction": {
         "message": "ファイル名の競合を解決する",
@@ -169,27 +169,27 @@
     },
     "optionsHTMLContentSubTitle": {
         "message": "HTML コンテンツ",
-        "description": "オプションのサブタイトル: 'HTML コンテンツ'"
+        "description": "Options sub-title: 'HTML content'"
     },
     "optionCompressHTML": {
         "message": "HTML コンテンツを圧縮する",
-        "description": "オプションのページラベル: 'HTML コンテンツを圧縮する'"
+        "description": "Options page label: 'compress HTML content'"
     },
     "optionRemoveImports": {
         "message": "取り込んだ HTML を削除する",
-        "description": "オプションのページラベル: '取り込んだ HTML を削除する'"
+        "description": "Options page label: 'remove HTML imports'"
     },
     "optionRemoveFrames": {
         "message": "フレームを削除する",
-        "description": "オプションのページラベル: 'フレームを削除する'"
+        "description": "Options page label: 'remove frames'"
     },
     "optionRemoveHiddenElements": {
         "message": "隠された要素を削除する",
-        "description": "オプションのページラベル: '隠された要素を削除する'"
+        "description": "Options page label: 'remove hidden elements'"
     },
     "optionsImagesSubTitle": {
         "message": "画像",
-        "description": "オプションのサブタイトル: '画像'"
+        "description": "Options sub-title: 'Images'"
     },
     "optionGroupDuplicateImages": {
         "message": "オプション重複画像のグループ化",
@@ -197,7 +197,7 @@
     },
     "optionLoadDeferredImages": {
         "message": "遅延画像を保存する",
-        "description": "オプションのページラベル: '遅延画像を保存する'"
+        "description": "Options page label: 'save deferred images'"
     },
     "optionLoadDeferredImagesMaxIdleTime": {
         "message": "最大アイドル時間（秒）",
@@ -205,7 +205,7 @@
     },
     "optionRemoveAlternativeImages": {
         "message": "代替画面解像度用の画像を削除します",
-        "description": "オプションのページラベル: '代替画面解像度用の画像を削除します'"
+        "description": "Options page label: 'remove images for alternative screen resolutions'"
     },
     "optionsFontsSubTitle": {
         "message": "フォント",
@@ -221,11 +221,11 @@
     },
     "optionsStylesheetsSubTitle": {
         "message": "スタイルシート",
-        "description": "オプションのサブタイトル: 'スタイルシート'"
+        "description": "Options sub-title: 'Stylesheets'"
     },
     "optionCompressCSS": {
         "message": "CSS コンテンツを圧縮する",
-        "description": "オプションのページラベル: 'CSS コンテンツを圧縮する'"
+        "description": "Options page label: 'compress CSS content'"
     },
     "optionRemoveUnusedStyles": {
         "message": "未使用のスタイルを削除する",
@@ -233,27 +233,27 @@
     },
     "optionRemoveAlternativeMedias": {
         "message": "代替デバイス用のスタイルシートを画面に表示しない",
-        "description": "オプションのページラベル: '代替デバイス用のスタイルシートを画面に表示しない'"
+        "description": "Options page label: 'remove stylesheets for alternative devices to screens'"
     },
     "optionsOtherResourcesSubTitle": {
         "message": "その他の要素",
-        "description": "オプションのサブタイトル: 'その他の要素'"
+        "description": "Options sub-title: 'Other resources'"
     },
     "optionRemoveScripts": {
         "message": "スクリプトを削除する",
-        "description": "オプションのページラベル: 'スクリプトを削除する'"
+        "description": "Options page label: 'remove scripts'"
     },
     "optionRemoveVideo": {
         "message": "ビデオソースを削除する",
-        "description": "オプションのページラベル: 'ビデオソースを削除する'"
+        "description": "Options page label: 'remove video sources'"
     },
     "optionRemoveAudio": {
         "message": "オーディオソースを削除する",
-        "description": "オプションのページラベル: 'オーディオソースを削除する'"
+        "description": "Options page label: 'remove audio sources'"
     },
     "optionsAutoSaveSubTitle": {
         "message": "自動保存",
-        "description": "オプションのサブタイトル: '自動保存'"
+        "description": "Options sub-title: 'Auto-save'"
     },
     "optionsAutoSettingsSubTitle": {
         "message": "自動設定のルール",
@@ -261,7 +261,7 @@
     },
     "optionsDeleteDisplayedRulesConfirm": {
         "message": "表示されているすべてのルールの削除を確認します",
-        "description": "Popup text 'Confirm deletion of all displayed rules'"
+        "description": "Popup text 'Confirm the deletion of all displayed rules'"
     },
     "optionsDeleteRulesTooltip": {
         "message": "表示されているすべてのルールを削除する",
@@ -269,7 +269,7 @@
     },
     "optionsAutoSettingsUrl": {
         "message": "URL",
-        "description": "Options label in the auto-settings rules: 'URL'"
+        "description": "Options label in the Auto-settings rules: 'URL'"
     },
     "optionsAutoSettingsUrlPlaceholder": {
         "message": "完全または部分的な URL を入力します (例 example.com)",
@@ -309,23 +309,23 @@
     },
     "optionsDeleteRuleConfirm": {
         "message": "選択したルールの削除を確認する",
-        "description": "Popup text 'Confirm deletion of the selected rule' in the options page"
+        "description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
     },
     "optionAutoSaveLoadOrUnload": {
         "message": "ページの読み込み後またはページの非読み込み時に自動保存",
-        "description": "ページの読み込み後またはページの非読み込み時に自動保存"
+        "description": "auto-save after page load or on page unload"
     },
     "optionAutoSaveLoad": {
         "message": "ページ読み込み後の自動保存",
-        "description": "オプションのページラベル: 'ページ読み込み後の自動保存'"
+        "description": "Options page label: 'auto-save after page load'"
     },
     "optionAutoSaveUnload": {
         "message": "ページの非読み込み時に自動保存",
-        "description": "オプションのページラベル: 'ページの非読み込み時に自動保存'"
+        "description": "Options page label: 'auto-save on page unload'"
     },
     "optionAutoSaveDelay": {
         "message": "ページ読み込み後の自動保存待ち時間（秒）",
-        "description": "オプションのページラベル: 'ページ読み込み後の自動保存待ち時間（秒）'"
+        "description": "Options page label: 'auto-save waiting delay after page load (s)'"
     },
     "optionAutoSaveRepeat": {
         "message": "定期的に自動保存する",
@@ -337,27 +337,27 @@
     },
     "optionsMiscSubTitle": {
         "message": "その他",
-        "description": "オプションのサブタイトル: 'その他'"
+        "description": "Options sub-title: 'Misc.'"
     },
     "optionBackgroundSave": {
         "message": "バックグラウンドでページを保存する",
-        "description": "オプションのページラベル: 'バックグラウンドでページを保存する'"
+        "description": "Options page label: 'save pages in background'"
     },
     "optionDisplayStats": {
         "message": "処理後、コンソールに統計情報を表示する",
-        "description": "オプションのページラベル: '処理後、コンソールに統計情報を表示する'"
+        "description": "Options page label: 'display stats in the console after processing'"
     },
     "optionSetMaxResourceSize": {
         "message": "埋め込み要素の最大サイズを設定する",
-        "description": "オプションのページラベル: '埋め込み要素の最大サイズを設定する'"
+        "description": "Options page label: 'set a maximum size for embedded resources'"
     },
     "optionMaxResourceSize": {
         "message": "最大サイズ（MB）",
-        "description": "オプションのページラベル: '最大サイズ（MB）'"
+        "description": "Options page label: 'maximum size (MB)'"
     },
     "optionSaveRawPage": {
         "message": "生のページを保存",
-        "description": "オプションのページラベル: '生のページを保存'"
+        "description": "Options page label: 'save raw page'"
     },
     "optionSaveToClipboard": {
         "message": "クリップボードに保存する",
@@ -365,15 +365,15 @@
     },
     "optionsHelpLink": {
         "message": "ヘルプ",
-        "description": "オプションの「ヘルプ」リンク"
+        "description": "Options help link"
     },
     "optionsResetButton": {
         "message": "リセット",
-        "description": "オプションボタン: 'リセット'"
+        "description": "Options button: 'Reset'"
     },
     "optionsResetTooltip": {
         "message": "すべてのオプションを規定値にリセットする",
-        "description": "オプション 'リセット'ボタンのツールチップ"
+        "description": "Options 'Reset' button tooltip"
     },
     "optionsResetConfirm": {
         "message": "すべてのオプションまたは現在のプロファイルのリセットを確認します",
@@ -445,7 +445,7 @@
     },
     "profileDeleteConfirm": {
         "message": "選択したプロファイルの削除を確認する",
-        "description": "Popup text 'Confirm deletion of the selected profile' in the options page"
+        "description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
     },
     "profileRenamePrompt": {
         "message": "選択したプロファイルの新しい名前を入力します。",
