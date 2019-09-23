@@ -4,9 +4,7 @@
 
 SingleFile can be launched from the command line by running it into a (headless) browser. It runs through Node.js as a standalone script injected into the web page instead of being embedded into a WebExtension. To connect to the browser, it can use [Puppeteer](https://github.com/GoogleChrome/puppeteer) or [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver). Alternatively, it can also emulate a browser with JavaScript disabled by using [jsdom](https://github.com/jsdom/jsdom).
 
-## Run SingleFile
-
-### Install
+## Install
 
 - Make sure Chrome or Firefox is installed and the executable can be found through the `PATH` environment variable. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating it. As an alternative to Chrome and Firefox, you can use jsdom by setting the `--back-end` option to `jsdom`.
 
@@ -38,7 +36,7 @@ SingleFile can be launched from the command line by running it into a (headless)
 
 - To use Firefox instead of Chrome, you must download the [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) component (i.e. `geckodriver` for Firefox).  Make sure it can be found through the `PATH` environment variable or the `cli` folder. Otherwise you will need to set the `--web-driver-executable-path` option to help SingleFile locating the executable.
 
-### Run
+## Run
 
 - Syntax
  
