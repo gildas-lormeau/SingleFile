@@ -103,7 +103,7 @@ singlefile.extension.ui.bg.button = (() => {
 	browser.browserAction.onClicked.addListener(async tab => {
 		const business = singlefile.extension.core.bg.business;
 		const allTabs = await singlefile.extension.core.bg.tabs.get({ currentWindow: true, highlighted: true });
-		if (!allTabs.length) {
+		if (allTabs.length <= 1) {
 			toggleSaveTab(tab);
 		} else {
 			business.saveTabs(allTabs);
