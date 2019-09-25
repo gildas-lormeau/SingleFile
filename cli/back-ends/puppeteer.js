@@ -53,7 +53,7 @@ function getBrowserOptions(options) {
 		browserOptions.args.push("--disable-web-security");
 	}
 	browserOptions.args.push("--no-pings");
-	if (!options.browserHeadless && options.browserDebug) {
+	if (options.browserDebug) {
 		browserOptions.args.push("--auto-open-devtools-for-tabs");
 	}
 	if (options.browserWidth && options.browserHeight) {
@@ -85,7 +85,7 @@ async function getPageData(browser, page, options) {
 	await page.evaluateOnNewDocument(injectedScript);
 	if (options.browserDebug) {
 		await page.waitFor(3000);
-	}	
+	}
 	await page.goto(options.url, {
 		timeout: 0,
 		waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
