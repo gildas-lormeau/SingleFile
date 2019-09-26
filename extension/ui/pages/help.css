@@ -177,12 +177,15 @@ kbd.light,
         background-color: white;
         margin: 0px;
     }
+
     body>div {
         border-width: 0px;
     }
+
     ol {
         padding-left: 20px;
     }
+
     ul {
         padding-left: 10px;
     }
@@ -193,7 +196,8 @@ kbd.light,
         background-color: #373737;
     }
 
-    body>div, a {
+    body>div,
+    a {
         background-color: #202023;
         color: #fdfdfd;
     }
