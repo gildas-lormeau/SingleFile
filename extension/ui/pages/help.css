@@ -9,7 +9,7 @@ body>div {
     max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
-    border: 1px #bfbfbf dotted;
+    border: 1px #bfbfbf solid;
     border-radius: 4px;
     padding-left: 10px;
     padding-right: 10px;
@@ -202,9 +202,13 @@ kbd.light,
         }
     }
 
+    body>div {
+        background-color: #202023;
+        border-color: rgb(81, 81, 81);
+    }
+
     body>div,
     a {
-        background-color: #202023;
         color: #fdfdfd;
     }
 
