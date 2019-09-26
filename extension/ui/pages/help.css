@@ -196,6 +196,12 @@ kbd.light,
         background-color: #373737;
     }
 
+    @media (max-width:800px) {
+        body {
+            background-color: #202023;
+        }
+    }
+
     body>div,
     a {
         background-color: #202023;
