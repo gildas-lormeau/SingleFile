@@ -9,13 +9,11 @@ body>div {
     max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 8px;
+    border: 1px #bfbfbf dotted;
+    border-radius: 4px;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 20px;
-    box-shadow: #888 2px 2px 2px;
 }
 
 div>iframe {
@@ -187,5 +185,20 @@ kbd.light,
     }
     ul {
         padding-left: 10px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #373737;
+    }
+
+    body>div, a {
+        background-color: #202023;
+        color: #fdfdfd;
+    }
+
+    .option {
+        color: #afafaf;
     }
 }
