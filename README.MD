@@ -14,6 +14,7 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
  - [SingleFileZ](#singlefilez)
  - [File format comparison](#file-format-comparison)
  - [Statistics (Firefox)](#statistics-firefox)
+ - [Integration with user scripts](#integration-with-user-scripts)
  - [Integration with WebKit](#integration-with-webkit)
  - [Privacy policy](#privacy-policy)
  - [Contributors](#contributors)
@@ -116,9 +117,12 @@ More info here: https://github.com/gildas-lormeau/SingleFileZ
 
 ## Statistics (Firefox)
 See https://addons.mozilla.org/firefox/addon/single-file/statistics/?last=90
+
+## Integration with user scripts
+You can execute a user script just before SingleFile saves a page. For more info, see https://github.com/gildas-lormeau/SingleFile/wiki/How-to-execute-a-user-script-before-a-page-is-saved
  
 ## Integration with WebKit
- - Here is a Swift application (for macOS) made by [@captaindavepdx](https://github.com/captaindavepdx) that illustrates how to use SingleFile with WebKit: https://github.com/captaindavepdx/SingleFileMacOS
+Here is a Swift application (for macOS) made by [@captaindavepdx](https://github.com/captaindavepdx) that illustrates how to use SingleFile with WebKit: https://github.com/captaindavepdx/SingleFileMacOS
 
 ## Privacy Policy
 See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
