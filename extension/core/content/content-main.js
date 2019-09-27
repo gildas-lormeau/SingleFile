@@ -185,7 +185,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 			options.doc = document;
 		}
 		if (!processor.cancelled) {
-			if (singlefile.waitForUserScript) {
+			if (options.userScriptEnabled && singlefile.waitForUserScript) {
 				await singlefile.waitForUserScript();
 			}
 			await processor.run();
