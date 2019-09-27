@@ -11,10 +11,10 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
  - [Known issues](#known-issues)
  - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
  - [Command Line Interface](#command-line-interface)
+ - [Integration with user scripts](#integration-with-user-scripts)
  - [SingleFileZ](#singlefilez)
  - [File format comparison](#file-format-comparison)
  - [Statistics (Firefox)](#statistics-firefox)
- - [Integration with user scripts](#integration-with-user-scripts)
  - [Integration with WebKit](#integration-with-webkit)
  - [Privacy policy](#privacy-policy)
  - [Contributors](#contributors)
@@ -87,8 +87,11 @@ Please follow these steps if you find an unknown issue:
 - Please report the issue with a short description on how to reproduce it here: https://github.com/gildas-lormeau/SingleFile/issues.
 
 ## Command Line Interface
- - You can save web pages to HTML from the command line interface. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD.
- - You can also convert MAFF pages to HTML. For this, you must use specific versions of SingleFile CLI and Firefox. See here for more info: https://github.com/gildas-lormeau/SingleFile-MAFF2HTML.
+You can save web pages to HTML from the command line interface. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD.
+  
+## Integration with user scripts
+You can execute a user script just before SingleFile saves a page. For more info, see https://github.com/gildas-lormeau/SingleFile/wiki/How-to-execute-a-user-script-before-a-page-is-saved
+
 
 ## SingleFileZ
 SingleFileZ is a fork of SingleFile that allows you to save a webpage as a self-extracting HTML file. This HTML file is also a valid ZIP file which contains the resources (images, fonts, stylesheets and frames) of the saved page. This ZIP file can be unzipped on the filesystem in order, for example, to view the page in a browser that would not support pages saved with SingleFileZ.
@@ -117,9 +120,6 @@ More info here: https://github.com/gildas-lormeau/SingleFileZ
 
 ## Statistics (Firefox)
 See https://addons.mozilla.org/firefox/addon/single-file/statistics/?last=90
-
-## Integration with user scripts
-You can execute a user script just before SingleFile saves a page. For more info, see https://github.com/gildas-lormeau/SingleFile/wiki/How-to-execute-a-user-script-before-a-page-is-saved
  
 ## Integration with WebKit
 Here is a Swift application (for macOS) made by [@captaindavepdx](https://github.com/captaindavepdx) that illustrates how to use SingleFile with WebKit: https://github.com/captaindavepdx/SingleFileMacOS
