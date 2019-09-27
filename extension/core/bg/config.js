@@ -78,7 +78,8 @@ singlefile.extension.core.bg.config = (() => {
 		groupDuplicateImages: true,
 		saveRawPage: false,
 		saveToClipboard: false,
-		resolveFragmentIdentifierURLs: false
+		resolveFragmentIdentifierURLs: false,
+		userScriptEnabled: false
 	};
 
 	let pendingUpgradePromise = upgrade();

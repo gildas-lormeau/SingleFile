@@ -79,15 +79,15 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 				await new Promise(resolve => autoSaveTimeout = setTimeout(resolve, options.autoSaveDelay * 1000));
 				await autoSavePage();
 			} else {
-				const docData = helper.preProcessDoc(document, window, options);
 				let frames = [];
 				autoSaveTimeout = null;
 				if (!options.removeFrames && singlefile.lib.frameTree.content.frames && window.frames && window.frames.length) {
 					frames = await singlefile.lib.frameTree.content.frames.getAsync(options);
 				}
-				if (singlefile.waitForUserScript) {
+				if (options.userScriptEnabled && singlefile.waitForUserScript) {
 					await singlefile.waitForUserScript();
 				}
+				const docData = helper.preProcessDoc(document, window, options);
 				savePage(docData, frames);
 				helper.postProcessDoc(document, docData.markedElements);
 				pageAutoSaved = true;
@@ -113,14 +113,14 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	function onUnload() {
 		const helper = singlefile.lib.helper;
 		if (!pageAutoSaved || options.autoSaveUnload) {
-			const docData = helper.preProcessDoc(document, window, options);
 			let frames = [];
 			if (!options.removeFrames && singlefile.lib.frameTree.content.frames && window.frames && window.frames.length) {
 				frames = singlefile.lib.frameTree.content.frames.getSync(options);
 			}
-			if (singlefile.waitForUserScript) {
+			if (options.userScriptEnabled && singlefile.waitForUserScript) {
 				singlefile.waitForUserScript();
 			}
+			const docData = helper.preProcessDoc(document, window, options);
 			savePage(docData, frames);
 		}
 	}
