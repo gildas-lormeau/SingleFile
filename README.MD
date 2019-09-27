@@ -90,7 +90,7 @@ Please follow these steps if you find an unknown issue:
 You can save web pages to HTML from the command line interface. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD.
   
 ## Integration with user scripts
-You can execute a user script just before SingleFile saves a page. For more info, see https://github.com/gildas-lormeau/SingleFile/wiki/How-to-execute-a-user-script-before-a-page-is-saved
+You can execute a user script just before (and after) SingleFile saves a page. For more info, see https://github.com/gildas-lormeau/SingleFile/wiki/How-to-execute-a-user-script-before-a-page-is-saved
 
 
 ## SingleFileZ
