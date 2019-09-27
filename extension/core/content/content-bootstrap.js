@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, window, addEventListener, removeEventListener, document, location, setTimeout */
+/* global browser, window, addEventListener, removeEventListener, document, location, setTimeout, CustomEvent, dispatchEvent */
 
 this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.core.content.bootstrap || (async () => {
 
@@ -37,6 +37,14 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	browser.runtime.onMessage.addListener(message => { onMessage(message); });
 	browser.runtime.sendMessage({ method: "ui.processInit" });
 	addEventListener("single-file-push-state", () => browser.runtime.sendMessage({ method: "ui.processInit" }));
+	addEventListener("single-file-user-script-init", () => singlefile.waitForUserScript = async () => {
+		const event = new CustomEvent("single-file-on-capture-request", { cancelable: true });
+		const promiseResponse = new Promise(resolve => addEventListener("single-file-on-capture-response", resolve));
+		dispatchEvent(event);
+		if (event.defaultPrevented) {
+			await promiseResponse;
+		}
+	});
 	return {};
 
 	async function onMessage(message) {
@@ -77,6 +85,9 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 				if (!options.removeFrames && singlefile.lib.frameTree.content.frames && window.frames && window.frames.length) {
 					frames = await singlefile.lib.frameTree.content.frames.getAsync(options);
 				}
+				if (singlefile.waitForUserScript) {
+					await singlefile.waitForUserScript();
+				}
 				savePage(docData, frames);
 				helper.postProcessDoc(document, docData.markedElements);
 				pageAutoSaved = true;
@@ -106,6 +117,9 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			let frames = [];
 			if (!options.removeFrames && singlefile.lib.frameTree.content.frames && window.frames && window.frames.length) {
 				frames = singlefile.lib.frameTree.content.frames.getSync(options);
+			}
+			if (singlefile.waitForUserScript) {
+				singlefile.waitForUserScript();
 			}
 			savePage(docData, frames);
 		}
