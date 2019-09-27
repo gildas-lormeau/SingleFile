@@ -37,9 +37,9 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	browser.runtime.onMessage.addListener(message => { onMessage(message); });
 	browser.runtime.sendMessage({ method: "ui.processInit" });
 	addEventListener("single-file-push-state", () => browser.runtime.sendMessage({ method: "ui.processInit" }));
-	addEventListener("single-file-user-script-init", () => singlefile.waitForUserScript = async () => {
-		const event = new CustomEvent("single-file-on-capture-request", { cancelable: true });
-		const promiseResponse = new Promise(resolve => addEventListener("single-file-on-capture-response", resolve));
+	addEventListener("single-file-user-script-init", () => singlefile.waitForUserScript = async eventPrefixName => {
+		const event = new CustomEvent(eventPrefixName + "-request", { cancelable: true });
+		const promiseResponse = new Promise(resolve => addEventListener(eventPrefixName + "-response", resolve));
 		dispatchEvent(event);
 		if (event.defaultPrevented) {
 			await promiseResponse;
@@ -85,11 +85,14 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 					frames = await singlefile.lib.frameTree.content.frames.getAsync(options);
 				}
 				if (options.userScriptEnabled && singlefile.waitForUserScript) {
-					await singlefile.waitForUserScript();
+					await singlefile.waitForUserScript("single-file-on-before-capture");
 				}
 				const docData = helper.preProcessDoc(document, window, options);
 				savePage(docData, frames);
 				helper.postProcessDoc(document, docData.markedElements);
+				if (options.userScriptEnabled && singlefile.waitForUserScript) {
+					await singlefile.waitForUserScript("single-file-on-after-capture");
+				}
 				pageAutoSaved = true;
 				autoSavingPage = false;
 			}
@@ -118,7 +121,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 				frames = singlefile.lib.frameTree.content.frames.getSync(options);
 			}
 			if (options.userScriptEnabled && singlefile.waitForUserScript) {
-				singlefile.waitForUserScript();
+				singlefile.waitForUserScript("single-file-on-before-capture");
 			}
 			const docData = helper.preProcessDoc(document, window, options);
 			savePage(docData, frames);
