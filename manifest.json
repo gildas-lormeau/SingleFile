@@ -115,10 +115,11 @@
 		"default_title": "__MSG_buttonDefaultTooltip__"
 	},
 	"commands": {
-		"_execute_browser_action": {
+		"save-tab": {
 			"suggested_key": {
 				"default": "Ctrl+Shift+Y"
-			}
+			},
+			"description": "Save the current tab or the selected content"
 		},
 		"save-all-tabs": {
 			"suggested_key": {
