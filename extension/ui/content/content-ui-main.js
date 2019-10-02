@@ -116,9 +116,9 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 		onEndStageTask() { }
 	};
 
-	async function markSelection() {
+	async function markSelection(optionallySelected) {
 		let selectionFound = markSelectedContent();
-		if (selectionFound) {
+		if (selectionFound || optionallySelected) {
 			return selectionFound;
 		} else {
 			selectionFound = await selectArea();
