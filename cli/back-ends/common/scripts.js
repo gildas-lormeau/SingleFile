@@ -26,10 +26,10 @@
 const fs = require("fs");
 
 const SCRIPTS = [
-	"/lib/hooks/content/content-hooks.js",
-	"/lib/hooks/content/content-hooks-frames.js",
-	"/lib/frame-tree/content/content-frame-tree.js",
-	"/lib/lazy/content/content-lazy-loader.js",
+	"/lib/single-file/processors/hooks/content/content-hooks.js",
+	"/lib/single-file/processors/hooks/content/content-hooks-frames.js",
+	"/lib/single-file/processors/frame-tree/content/content-frame-tree.js",
+	"/lib/single-file/processors/lazy/content/content-lazy-loader.js",
 	"/lib/single-file/single-file-util.js",
 	"/lib/single-file/single-file-helper.js",
 	"/lib/single-file/vendor/css-tree.js",
@@ -51,13 +51,13 @@ const SCRIPTS = [
 ];
 
 const INDEX_SCRIPTS = [
-	"/lib/index.js",
+	"/lib/single-file/index.js",
 	"/common/index.js"
 ];
 
 const WEB_SCRIPTS = [
-	"/lib/hooks/content/content-hooks-web.js",
-	"/lib/hooks/content/content-hooks-frames-web.js",
+	"/lib/single-file/processors/hooks/content/content-hooks-web.js",
+	"/lib/single-file/processors/hooks/content/content-hooks-frames-web.js",
 	"/common/ui/content/content-infobar-web.js"
 ];
 

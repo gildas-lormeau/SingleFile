@@ -28,7 +28,7 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 	let contentScript, frameScript;
 
 	const contentScriptFiles = [
-		"lib/index.js",
+		"lib/single-file/index.js",
 		"lib/single-file/vendor/css-font-property-parser.js",
 		"lib/single-file/vendor/css-media-query-parser.js",
 		"lib/single-file/vendor/css-tree.js",
@@ -46,18 +46,18 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 		"lib/single-file/single-file-helper.js",
 		"lib/single-file/single-file-core.js",
 		"lib/single-file/single-file.js",
-		"lib/lazy/content/content-lazy-loader.js",
-		"lib/hooks/content/content-hooks.js",
+		"lib/single-file/processors/lazy/content/content-lazy-loader.js",
+		"lib/single-file/processors/hooks/content/content-hooks.js",
 		"extension/index.js",
 		"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
 		"extension/lib/fetch/content/content-fetch.js",
 	];
 
 	const frameScriptFiles = [
-		"lib/index.js",
-		"lib/hooks/content/content-hooks-frames.js",
+		"lib/single-file/index.js",
 		"lib/single-file/single-file-helper.js",
-		"lib/frame-tree/content/content-frame-tree.js",
+		"lib/single-file/processors/hooks/content/content-hooks-frames.js",
+		"lib/single-file/processors/frame-tree/content/content-frame-tree.js",
 		"extension/index.js",
 		"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
 		"extension/lib/fetch/content/content-fetch.js"

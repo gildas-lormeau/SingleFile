@@ -75,8 +75,8 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			} else {
 				let frames = [];
 				autoSaveTimeout = null;
-				if (!options.removeFrames && singlefile.lib.frameTree.content.frames && window.frames && window.frames.length) {
-					frames = await singlefile.lib.frameTree.content.frames.getAsync(options);
+				if (!options.removeFrames && singlefile.lib.processors.frameTree.content.frames && window.frames && window.frames.length) {
+					frames = await singlefile.lib.processors.frameTree.content.frames.getAsync(options);
 				}
 				if (options.userScriptEnabled && helper.waitForUserScript) {
 					await helper.waitForUserScript(helper.ON_BEFORE_CAPTURE_EVENT_NAME);
@@ -111,8 +111,8 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		const helper = singlefile.lib.helper;
 		if (!pageAutoSaved || options.autoSaveUnload) {
 			let frames = [];
-			if (!options.removeFrames && singlefile.lib.frameTree.content.frames && window.frames && window.frames.length) {
-				frames = singlefile.lib.frameTree.content.frames.getSync(options);
+			if (!options.removeFrames && singlefile.lib.processors.frameTree.content.frames && window.frames && window.frames.length) {
+				frames = singlefile.lib.processors.frameTree.content.frames.getSync(options);
 			}
 			if (options.userScriptEnabled && helper.waitForUserScript) {
 				helper.waitForUserScript(helper.ON_BEFORE_CAPTURE_EVENT_NAME);

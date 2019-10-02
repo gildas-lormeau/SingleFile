@@ -17,12 +17,12 @@
 			],
 			"run_at": "document_start",
 			"js": [
-				"lib/index.js",
+				"lib/single-file/index.js",
 				"extension/index.js",
 				"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
-				"lib/hooks/content/content-hooks-frames.js",
 				"lib/single-file/single-file-helper.js",
-				"lib/frame-tree/content/content-frame-tree.js"
+				"lib/single-file/processors/hooks/content/content-hooks-frames.js",
+				"lib/single-file/processors/frame-tree/content/content-frame-tree.js"
 			],
 			"all_frames": true,
 			"match_about_blank": true
@@ -41,8 +41,8 @@
 			],
 			"run_at": "document_start",
 			"js": [
-				"lib/index.js",
-				"lib/hooks/content/content-hooks.js",
+				"lib/single-file/index.js",
+				"lib/single-file/processors/hooks/content/content-hooks.js",
 				"extension/index.js",
 				"extension/core/content/content-bootstrap.js"
 			]
@@ -50,7 +50,7 @@
 	],
 	"background": {
 		"scripts": [
-			"lib/index.js",
+			"lib/single-file/index.js",
 			"extension/index.js",
 			"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
 			"lib/single-file/vendor/css-minifier.js",
@@ -129,8 +129,8 @@
 		}
 	},
 	"web_accessible_resources": [
-		"lib/hooks/content/content-hooks-web.js",
-		"lib/hooks/content/content-hooks-frames-web.js",
+		"lib/single-file/processors/hooks/content/content-hooks-web.js",
+		"lib/single-file/processors/hooks/content/content-hooks-frames-web.js",
 		"common/ui/content/content-infobar-web.js"
 	],
 	"permissions": [
