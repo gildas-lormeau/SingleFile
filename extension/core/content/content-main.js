@@ -93,7 +93,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 	}
 
 	async function processPage(options) {
-		const frames = singlefile.lib.frameTree.content.frames;
+		const frames = singlefile.lib.processors.frameTree.content.frames;
 		singlefile.lib.helper.initDoc(document);
 		ui.onStartPage(options);
 		processor = new singlefile.lib.SingleFile(options);
@@ -116,7 +116,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 				preInitializationPromises.push(frameTreePromise);
 			}
 			if (options.loadDeferredImages) {
-				const lazyLoadPromise = singlefile.lib.lazy.content.loader.process(options);
+				const lazyLoadPromise = singlefile.lib.processors.lazy.content.loader.process(options);
 				ui.onLoadingDeferResources(options);
 				lazyLoadPromise.then(() => {
 					if (!processor.cancelled) {
