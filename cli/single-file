@@ -65,7 +65,8 @@ const args = require("yargs")
 		"remove-alternative-medias": true,
 		"remove-alternative-images": true,
 		"save-raw-page": false,
-		"web-driver-executable-path": ""
+		"web-driver-executable-path": "",
+		"user-script-enabled": true
 	})
 	.options("back-end", { description: "Back-end to use" })
 	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chromium", "webdriver-gecko"])
@@ -133,6 +134,8 @@ const args = require("yargs")
 	.boolean("save-raw-page")
 	.options("user-agent", { description: "User-agent of the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.string("user-agent")
+	.options("user-script-enabled", { description: "Enable the event API allowing to execute scripts before the page is saved" })
+	.boolean("user-script-enabled")
 	.options("web-driver-executable-path", { description: "Path to Selenium WebDriver executable (webdriver-gecko, webdriver-chromium)" })
 	.string("web-driver-executable-path")
 	.argv;
