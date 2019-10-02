@@ -66,8 +66,11 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 			options.updatedResources = singlefile.extension.core.content.updatedResources || {};
 			Object.keys(options.updatedResources).forEach(url => options.updatedResources[url].retrieved = false);
 			let selectionFound;
-			if (options.selected) {
-				selectionFound = await ui.markSelection();
+			if (options.selected || options.optionallySelected) {
+				selectionFound = await ui.markSelection(options.optionallySelected);
+			}
+			if (options.optionallySelected && selectionFound) {
+				options.selected = true;
 			}
 			if (!options.selected || selectionFound) {
 				processing = true;
@@ -202,7 +205,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 				options.infobarContent = ui.prompt("Infobar content", options.infobarContent) || "";
 			}
 			page = await processor.getPageData();
-			if (options.selected) {
+			if (options.selected || options.optionallySelected) {
 				ui.unmarkSelection();
 			}
 			ui.onEndPage();
