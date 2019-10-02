@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, window, addEventListener, removeEventListener, document, location, setTimeout, CustomEvent, dispatchEvent */
+/* global browser, window, addEventListener, removeEventListener, document, location, setTimeout */
 
 this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.core.content.bootstrap || (async () => {
 
@@ -37,14 +37,6 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	browser.runtime.onMessage.addListener(message => { onMessage(message); });
 	browser.runtime.sendMessage({ method: "ui.processInit" });
 	addEventListener("single-file-push-state", () => browser.runtime.sendMessage({ method: "ui.processInit" }));
-	addEventListener("single-file-user-script-init", () => singlefile.waitForUserScript = async eventPrefixName => {
-		const event = new CustomEvent(eventPrefixName + "-request", { cancelable: true });
-		const promiseResponse = new Promise(resolve => addEventListener(eventPrefixName + "-response", resolve));
-		dispatchEvent(event);
-		if (event.defaultPrevented) {
-			await promiseResponse;
-		}
-	});
 	return {};
 
 	async function onMessage(message) {
@@ -84,14 +76,14 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 				if (!options.removeFrames && singlefile.lib.frameTree.content.frames && window.frames && window.frames.length) {
 					frames = await singlefile.lib.frameTree.content.frames.getAsync(options);
 				}
-				if (options.userScriptEnabled && singlefile.waitForUserScript) {
-					await singlefile.waitForUserScript("single-file-on-before-capture");
+				if (options.userScriptEnabled && helper.waitForUserScript) {
+					await helper.waitForUserScript(helper.ON_BEFORE_CAPTURE_EVENT_NAME);
 				}
 				const docData = helper.preProcessDoc(document, window, options);
 				savePage(docData, frames);
 				helper.postProcessDoc(document, docData.markedElements);
-				if (options.userScriptEnabled && singlefile.waitForUserScript) {
-					await singlefile.waitForUserScript("single-file-on-after-capture");
+				if (options.userScriptEnabled && helper.waitForUserScript) {
+					await helper.waitForUserScript(helper.ON_AFTER_CAPTURE_EVENT_NAME);
 				}
 				pageAutoSaved = true;
 				autoSavingPage = false;
@@ -120,8 +112,8 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			if (!options.removeFrames && singlefile.lib.frameTree.content.frames && window.frames && window.frames.length) {
 				frames = singlefile.lib.frameTree.content.frames.getSync(options);
 			}
-			if (options.userScriptEnabled && singlefile.waitForUserScript) {
-				singlefile.waitForUserScript("single-file-on-before-capture");
+			if (options.userScriptEnabled && helper.waitForUserScript) {
+				helper.waitForUserScript(helper.ON_BEFORE_CAPTURE_EVENT_NAME);
 			}
 			const docData = helper.preProcessDoc(document, window, options);
 			savePage(docData, frames);
