@@ -21,4 +21,7 @@
  *   Source.
  */
 
-this.singlefile.extension = this.singlefile.extension || {};
+this.singlefile.extension.core = this.singlefile.extension.core || {
+	bg: {},
+	content: {}
+};

@@ -118,7 +118,7 @@ singlefile.extension.core.bg.autosave = (() => {
 		options.incognito = tab.incognito;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
-		const pageData = await singlefile.extension.getPageData(options, null, null);
+		const pageData = await singlefile.extension.lib.getPageData(options, null, null);
 		if (options.includeInfobar) {
 			await singlefile.common.ui.content.infobar.includeScript(pageData);
 		}
