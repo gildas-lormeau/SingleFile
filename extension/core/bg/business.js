@@ -73,7 +73,7 @@ singlefile.extension.core.bg.business = (() => {
 					const tabOptions = await config.getOptions(tab.url);
 					Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 					tabOptions.extensionScriptFiles = extensionScriptFiles;
-					const scriptsInjected = await singlefile.extension.lib.core.bg.scripts.inject(tabId, tabOptions);
+					const scriptsInjected = await singlefile.extension.lib.injectScript(tabId, tabOptions);
 					let promiseSaveTab;
 					if (scriptsInjected) {
 						ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
