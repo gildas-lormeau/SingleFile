@@ -26,40 +26,42 @@
 const fs = require("fs");
 
 const SCRIPTS = [
-	"/lib/single-file/processors/hooks/content/content-hooks.js",
-	"/lib/single-file/processors/hooks/content/content-hooks-frames.js",
-	"/lib/single-file/processors/frame-tree/content/content-frame-tree.js",
-	"/lib/single-file/processors/lazy/content/content-lazy-loader.js",
-	"/lib/single-file/single-file-util.js",
-	"/lib/single-file/single-file-helper.js",
-	"/lib/single-file/vendor/css-tree.js",
-	"/lib/single-file/vendor/html-srcset-parser.js",
-	"/lib/single-file/vendor/css-minifier.js",
-	"/lib/single-file/vendor/css-font-property-parser.js",
-	"/lib/single-file/vendor/css-media-query-parser.js",
-	"/lib/single-file/modules/html-minifier.js",
-	"/lib/single-file/modules/css-fonts-minifier.js",
-	"/lib/single-file/modules/css-fonts-alt-minifier.js",
-	"/lib/single-file/modules/css-matched-rules.js",
-	"/lib/single-file/modules/css-medias-alt-minifier.js",
-	"/lib/single-file/modules/css-rules-minifier.js",
-	"/lib/single-file/modules/html-images-alt-minifier.js",
-	"/lib/single-file/modules/html-serializer.js",
-	"/lib/single-file/single-file-core.js",
-	"/lib/single-file/single-file.js",
-	"/common/ui/content/content-infobar.js"
+	"lib/single-file/processors/hooks/content/content-hooks.js",
+	"lib/single-file/processors/hooks/content/content-hooks-frames.js",
+	"lib/single-file/processors/frame-tree/content/content-frame-tree.js",
+	"lib/single-file/processors/lazy/content/content-lazy-loader.js",
+	"lib/single-file/single-file-util.js",
+	"lib/single-file/single-file-helper.js",
+	"lib/single-file/vendor/css-tree.js",
+	"lib/single-file/vendor/html-srcset-parser.js",
+	"lib/single-file/vendor/css-minifier.js",
+	"lib/single-file/vendor/css-font-property-parser.js",
+	"lib/single-file/vendor/css-media-query-parser.js",
+	"lib/single-file/modules/html-minifier.js",
+	"lib/single-file/modules/css-fonts-minifier.js",
+	"lib/single-file/modules/css-fonts-alt-minifier.js",
+	"lib/single-file/modules/css-matched-rules.js",
+	"lib/single-file/modules/css-medias-alt-minifier.js",
+	"lib/single-file/modules/css-rules-minifier.js",
+	"lib/single-file/modules/html-images-alt-minifier.js",
+	"lib/single-file/modules/html-serializer.js",
+	"lib/single-file/single-file-core.js",
+	"lib/single-file/single-file.js",
+	"common/ui/content/content-infobar.js"
 ];
 
 const INDEX_SCRIPTS = [
-	"/lib/single-file/index.js",
-	"/common/index.js"
+	"lib/single-file/index.js",
+	"common/index.js"
 ];
 
 const WEB_SCRIPTS = [
-	"/lib/single-file/processors/hooks/content/content-hooks-web.js",
-	"/lib/single-file/processors/hooks/content/content-hooks-frames-web.js",
-	"/common/ui/content/content-infobar-web.js"
+	"lib/single-file/processors/hooks/content/content-hooks-web.js",
+	"lib/single-file/processors/hooks/content/content-hooks-frames-web.js",
+	"common/ui/content/content-infobar-web.js"
 ];
+
+const basePath = "../../../";
 
 exports.get = async options => {
 	let scripts = await readScriptFiles(INDEX_SCRIPTS);
@@ -71,11 +73,11 @@ exports.get = async options => {
 	return scripts;
 };
 
-async function readScriptFiles(paths, basePath) {
-	return (await Promise.all(paths.map(path => readScriptFile(path, basePath)))).join("");
+async function readScriptFiles(paths) {
+	return (await Promise.all(paths.map(path => readScriptFile(path)))).join("");
 }
 
-function readScriptFile(path, basePath = "../../..") {
+function readScriptFile(path) {
 	return new Promise((resolve, reject) =>
 		fs.readFile(require.resolve(basePath + path), (err, data) => {
 			if (err) {

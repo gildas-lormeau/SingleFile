@@ -63,6 +63,8 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 		"extension/lib/single-file/fetch/content/content-fetch.js"
 	];
 
+	const basePath = "../../../";
+
 	return {
 		async inject(tabId, options) {
 			await initScripts(options);
@@ -91,21 +93,20 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 
 	async function initScripts(options) {
 		const extensionScriptFiles = options.extensionScriptFiles || [];
-		const basePath = options.basePath || "";
 		if (!contentScript && !frameScript) {
 			[contentScript, frameScript] = await Promise.all([
-				getScript(contentScriptFiles.concat(extensionScriptFiles), basePath),
-				getScript(frameScriptFiles, basePath)
+				getScript(contentScriptFiles.concat(extensionScriptFiles)),
+				getScript(frameScriptFiles)
 			]);
 		}
 	}
 
-	async function getScript(scriptFiles, basePath) {
+	async function getScript(scriptFiles) {
 		const scriptsPromises = scriptFiles.map(async scriptFile => {
 			if (typeof scriptFile == "function") {
 				return "(" + scriptFile.toString() + ")();";
 			} else {
-				const scriptResource = await fetch(browser.runtime.getURL((!basePath || !basePath.startsWith("/") ? "/" : "") + basePath + (basePath && !basePath.endsWith("/") ? "/" : "") + scriptFile));
+				const scriptResource = await fetch(browser.runtime.getURL(basePath + scriptFile));
 				return new TextDecoder().decode(await scriptResource.arrayBuffer());
 			}
 		});
