@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global singlefile, browser, XMLHttpRequest */
+/* global browser, XMLHttpRequest */
 
-singlefile.extension.lib.fetch.bg.resources = (() => {
+(() => {
 
 	browser.runtime.onMessage.addListener((message, sender) => {
 		if (message.method && message.method.startsWith("singlefile.fetch")) {
@@ -34,7 +34,6 @@ singlefile.extension.lib.fetch.bg.resources = (() => {
 			});
 		}
 	});
-	return {};
 
 	async function onRequest(message, sender) {
 		if (message.method == "singlefile.fetch") {
