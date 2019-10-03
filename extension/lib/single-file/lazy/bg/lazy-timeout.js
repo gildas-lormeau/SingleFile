@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global singlefile, browser, setTimeout, clearTimeout */
+/* global browser, setTimeout, clearTimeout */
 
-singlefile.extension.lib.lazy.bg.main = (() => {
+(() => {
 
 	"use strict";
 
@@ -43,6 +43,5 @@ singlefile.extension.lib.lazy.bg.main = (() => {
 			return Promise.resolve({ id: message.id });
 		}
 	});
-	return {};
 
 })();

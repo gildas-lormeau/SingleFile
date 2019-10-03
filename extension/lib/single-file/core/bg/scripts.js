@@ -49,8 +49,8 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 		"lib/single-file/processors/lazy/content/content-lazy-loader.js",
 		"lib/single-file/processors/hooks/content/content-hooks.js",
 		"extension/index.js",
-		"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
-		"extension/lib/fetch/content/content-fetch.js",
+		"extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js",
+		"extension/lib/single-file/fetch/content/content-fetch.js",
 	];
 
 	const frameScriptFiles = [
@@ -59,8 +59,8 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 		"lib/single-file/processors/hooks/content/content-hooks-frames.js",
 		"lib/single-file/processors/frame-tree/content/content-frame-tree.js",
 		"extension/index.js",
-		"extension/lib/browser-polyfill/chrome-browser-polyfill.js",
-		"extension/lib/fetch/content/content-fetch.js"
+		"extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js",
+		"extension/lib/single-file/fetch/content/content-fetch.js"
 	];
 
 	return {

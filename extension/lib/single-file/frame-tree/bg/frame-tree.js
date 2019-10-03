@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global singlefile, browser */
+/* global browser */
 
-singlefile.extension.lib.frameTree.bg.main = (() => {
+(() => {
 
 	"use strict";
 
@@ -33,6 +33,5 @@ singlefile.extension.lib.frameTree.bg.main = (() => {
 			return Promise.resolve({});
 		}
 	});
-	return {};
 
 })();
