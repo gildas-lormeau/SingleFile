@@ -79,7 +79,8 @@ singlefile.extension.core.bg.config = (() => {
 		saveRawPage: false,
 		saveToClipboard: false,
 		resolveFragmentIdentifierURLs: false,
-		userScriptEnabled: false
+		userScriptEnabled: false,
+		openEditor: false
 	};
 
 	let pendingUpgradePromise = upgrade();

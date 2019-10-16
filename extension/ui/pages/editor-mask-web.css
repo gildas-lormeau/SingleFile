@@ -1,0 +1,25 @@
+.note-mask {
+    all: initial;
+    position: fixed;
+    z-index: 2147483645;
+    pointer-events: none;
+}
+
+.note-mask-moving {
+    background-color: rgba(236, 234, 234, 0.5);
+}
+
+.page-mask {
+    all: initial;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    z-index: 2147483646;
+}
+
+.page-mask-active {
+    width: 100vw;
+    height: 100vh;
+}

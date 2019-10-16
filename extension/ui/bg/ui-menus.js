@@ -28,6 +28,7 @@ singlefile.extension.ui.bg.menus = (() => {
 	const menus = browser.menus || browser.contextMenus;
 	const BROWSER_MENUS_API_SUPPORTED = menus && menus.onClicked && menus.create && menus.update && menus.removeAll;
 	const MENU_ID_SAVE_PAGE = "save-page";
+	const MENU_ID_EDIT_AND_SAVE_PAGE = "edit-and-save-page";
 	const MENU_ID_SELECT_PROFILE = "select-profile";
 	const MENU_ID_SELECT_PROFILE_PREFIX = "select-profile-";
 	const MENU_ID_ASSOCIATE_WITH_PROFILE = "associate-with-profile";
@@ -49,6 +50,7 @@ singlefile.extension.ui.bg.menus = (() => {
 	const MENU_CREATE_DOMAIN_RULE_MESSAGE = browser.i18n.getMessage("menuCreateDomainRule");
 	const MENU_UPDATE_RULE_MESSAGE = browser.i18n.getMessage("menuUpdateRule");
 	const MENU_SAVE_PAGE_MESSAGE = browser.i18n.getMessage("menuSavePage");
+	const MENU_EDIT_AND_SAVE_PAGE_MESSAGE = browser.i18n.getMessage("menuEditAndSavePage");
 	const MENU_SAVE_SELECTION_MESSAGE = browser.i18n.getMessage("menuSaveSelection");
 	const MENU_SAVE_FRAME_MESSAGE = browser.i18n.getMessage("menuSaveFrame");
 	const MENU_SAVE_TABS_MESSAGE = browser.i18n.getMessage("menuSaveTabs");
@@ -114,6 +116,13 @@ singlefile.extension.ui.bg.menus = (() => {
 				contexts: defaultContexts,
 				title: MENU_SAVE_PAGE_MESSAGE
 			});
+			if (!options.openEditor) {
+				menus.create({
+					id: MENU_ID_EDIT_AND_SAVE_PAGE,
+					contexts: defaultContexts,
+					title: MENU_EDIT_AND_SAVE_PAGE_MESSAGE
+				});
+			}
 			if (options.contextMenuEnabled) {
 				menus.create({
 					id: "separator-1",
@@ -324,6 +333,13 @@ singlefile.extension.ui.bg.menus = (() => {
 						business.saveLink(event.linkUrl);
 					} else {
 						business.saveTabs([tab]);
+					}
+				}
+				if (event.menuItemId == MENU_ID_EDIT_AND_SAVE_PAGE) {
+					if (event.linkUrl) {
+						business.saveLink(event.linkUrl, { openEditor: true });
+					} else {
+						business.saveTabs([tab], { openEditor: true });
 					}
 				}
 				if (event.menuItemId == MENU_ID_SAVE_SELECTED) {

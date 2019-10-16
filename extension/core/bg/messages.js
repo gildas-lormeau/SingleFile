@@ -47,6 +47,9 @@ singlefile.extension.core.bg.messages = (() => {
 		if (message.method.startsWith("devtools.")) {
 			return singlefile.extension.core.bg.devtools.onMessage(message, sender);
 		}
+		if (message.method.startsWith("editor.")) {
+			return singlefile.extension.core.bg.editor.onMessage(message, sender);
+		}
 	});
 	if (browser.runtime.onMessageExternal) {
 		browser.runtime.onMessageExternal.addListener(async (message, sender) => {

@@ -82,6 +82,7 @@
 	const groupDuplicateImagesLabel = document.getElementById("groupDuplicateImagesLabel");
 	const confirmInfobarLabel = document.getElementById("confirmInfobarLabel");
 	const autoCloseLabel = document.getElementById("autoCloseLabel");
+	const openEditorLabel = document.getElementById("openEditorLabel");
 	const infobarTemplateLabel = document.getElementById("infobarTemplateLabel");
 	const includeInfobarLabel = document.getElementById("includeInfobarLabel");
 	const miscLabel = document.getElementById("miscLabel");
@@ -132,6 +133,7 @@
 	const includeInfobarInput = document.getElementById("includeInfobarInput");
 	const confirmInfobarInput = document.getElementById("confirmInfobarInput");
 	const autoCloseInput = document.getElementById("autoCloseInput");
+	const openEditorInput = document.getElementById("openEditorInput");
 	const expandAllButton = document.getElementById("expandAllButton");
 	const rulesDeleteAllButton = document.getElementById("rulesDeleteAllButton");
 	const ruleUrlInput = document.getElementById("ruleUrlInput");
@@ -358,6 +360,9 @@
 				if (target == contextMenuEnabledInput) {
 					await browser.runtime.sendMessage({ method: "ui.refreshMenu" });
 				}
+				if (target == openEditorInput) {
+					await browser.runtime.sendMessage({ method: "ui.refreshMenu" });
+				}
 				await refresh();
 			}
 		}
@@ -417,6 +422,7 @@
 	includeInfobarLabel.textContent = browser.i18n.getMessage("optionIncludeInfobar");
 	confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
 	autoCloseLabel.textContent = browser.i18n.getMessage("optionAutoCloseLabel");
+	openEditorLabel.textContent = browser.i18n.getMessage("optionOpenEditorLabel");
 	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
 	exportButton.textContent = browser.i18n.getMessage("optionsExportButton");
 	importButton.textContent = browser.i18n.getMessage("optionsImportButton");
@@ -590,6 +596,7 @@
 		includeInfobarInput.checked = profileOptions.includeInfobar;
 		confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
 		autoCloseInput.checked = profileOptions.autoClose;
+		openEditorInput.checked = profileOptions.openEditor;
 		removeFramesInput.disabled = saveRawPageInput.checked;
 		removeFramesInput.checked = removeFramesInput.checked || saveRawPageInput.checked;
 		loadDeferredImagesInput.disabled = saveRawPageInput.checked;
@@ -645,7 +652,8 @@
 				infobarTemplate: infobarTemplateInput.value,
 				includeInfobar: includeInfobarInput.checked,
 				confirmInfobarContent: confirmInfobarInput.checked,
-				autoClose: autoCloseInput.checked
+				autoClose: autoCloseInput.checked,
+				openEditor: openEditorInput.checked
 			}
 		});
 		await pendingSave;
