@@ -460,55 +460,55 @@
 		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
 	},
 	"editorAddYellowNote": {
-		"message": "Add a yellow note",
+		"message": "Fügen eine gelbe Notiz hinzu",
 		"description": "Title of the button 'Add a yellow note' in the editor"
 	},
 	"editorAddPinkNote": {
-		"message": "Add a pink note",
+		"message": "Fügen eine rosa Notiz hinzu",
 		"description": "Title of the button 'Add a pink note' in the editor"
 	},
 	"editorAddBlueNote": {
-		"message": "Add a blue note",
+		"message": "Fügen eine blaue Notiz hinzu",
 		"description": "Title of the button 'Add a blue note' in the editor"
 	},
 	"editorAddGreenNote": {
-		"message": "Add a green note",
+		"message": "Fügen eine grüne Notiz hinzu",
 		"description": "Title of the button 'Add a green note' in the editor"
 	},
 	"editorHighlightYellow": {
-		"message": "Highlight selected text in yellow",
+		"message": "Hervorheben des selektierten Textes in Gelb",
 		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
 	},
 	"editorHighlightPink": {
-		"message": "Highlight selected text in pink",
+		"message": "Hervorheben des selektierten Textes in Rosa",
 		"description": "Title of the button 'Highlight selected text in pink' in the editor"
 	},
 	"editorHighlightBlue": {
-		"message": "Highlight selected text in blue",
+		"message": "Hervorheben des selektierten Textes in Blau",
 		"description": "Title of the button 'Highlight selected text in blue' in the editor"
 	},
 	"editorHighlightGreen": {
-		"message": "Highlight selected text in green",
+		"message": "Hervorheben des selektierten Textes in Grün",
 		"description": "Title of the button 'Highlight selected text in green' in the editor"
 	},
 	"editorToggleNotes": {
-		"message": "Display/hide notes",
+		"message": "Anzeigen/Verbergen von Notizen",
 		"description": "Title of the button 'Display/hide notes' in the editor"
 	},
 	"editorToggleHighlights": {
-		"message": "Display/hide the highlighted text",
+		"message": "Anzeigen/Verbergen von hervorgehobenem Text",
 		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
 	},
 	"editorRemoveHighlight": {
-		"message": "Remove the selected highlighted text",
+		"message": "Entfernen des selektierten hervorgehobenen Textes",
 		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
 	},
 	"editorEditPage": {
-		"message": "Enable/disable read-only",
+		"message": "Aktivieren/Deaktivieren des Nur-Lese-Modus",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorSavePage": {
-		"message": "Save the page",
+		"message": "Speichern der Webseite",
 		"description": "Title of the button 'Save the page' in the editor"
 	}
 }
