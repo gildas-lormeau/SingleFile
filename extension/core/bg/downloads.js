@@ -60,23 +60,35 @@ singlefile.extension.core.bg.downloads = (() => {
 				contents = [message.content];
 			}
 			if (!message.truncated || message.finished) {
-				if (message.saveToClipboard) {
-					message.content = contents.join("");
-					saveToClipboard(message);
+				if (message.openEditor) {
+					await singlefile.extension.core.bg.editor.open({ filename: message.filename, content: contents.join("") }, {
+						backgroundSave: message.backgroundSave,
+						saveToClipboard: message.saveToClipboard,
+						confirmFilename: message.confirmFilename,
+						incognito: sender.tab.incognito,
+						filenameConflictAction: message.filenameConflictAction,
+						filenameReplacementCharacter: message.filenameReplacementCharacter,
+						compressHTML: message.compressHTML
+					});
 				} else {
-					message.url = URL.createObjectURL(new Blob([contents], { type: MIMETYPE_HTML }));
-					try {
-						await downloadPage(message, {
-							confirmFilename: message.confirmFilename,
-							incognito: sender.tab.incognito,
-							filenameConflictAction: message.filenameConflictAction,
-							filenameReplacementCharacter: message.filenameReplacementCharacter
-						});
-					} catch (error) {
-						console.error(error); // eslint-disable-line no-console
-						singlefile.extension.ui.bg.main.onError(sender.tab.id);
-					} finally {
-						URL.revokeObjectURL(message.url);
+					if (message.saveToClipboard) {
+						message.content = contents.join("");
+						saveToClipboard(message);
+					} else {
+						message.url = URL.createObjectURL(new Blob([contents], { type: MIMETYPE_HTML }));
+						try {
+							await downloadPage(message, {
+								confirmFilename: message.confirmFilename,
+								incognito: sender.tab.incognito,
+								filenameConflictAction: message.filenameConflictAction,
+								filenameReplacementCharacter: message.filenameReplacementCharacter
+							});
+						} catch (error) {
+							console.error(error); // eslint-disable-line no-console
+							singlefile.extension.ui.bg.main.onError(sender.tab.id);
+						} finally {
+							URL.revokeObjectURL(message.url);
+						}
 					}
 				}
 			}

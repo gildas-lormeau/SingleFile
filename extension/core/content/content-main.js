@@ -21,13 +21,11 @@
  *   Source.
  */
 
-/* global browser, document, window, setTimeout, URL, Blob, MouseEvent */
+/* global browser, document, window, setTimeout */
 
 this.singlefile.extension.core.content.main = this.singlefile.extension.core.content.main || (() => {
 
 	const singlefile = this.singlefile;
-
-	const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 
 	let ui, processing = false, processor;
 
@@ -77,7 +75,10 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 				try {
 					const pageData = await processPage(options);
 					if (pageData) {
-						await downloadPage(pageData, options);
+						if (!options.backgroundSave && !options.saveToClipboard && options.confirmFilename) {
+							pageData.filename = ui.prompt("File name", pageData.filename);
+						}
+						await singlefile.extension.core.content.download.downloadPage(pageData, options);
 					}
 				} catch (error) {
 					if (!processor.cancelled) {
@@ -209,65 +210,6 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 			}
 		}
 		return page;
-	}
-
-	async function downloadPage(pageData, options) {
-		if (options.includeInfobar) {
-			await singlefile.common.ui.content.infobar.includeScript(pageData);
-		}
-		if (options.backgroundSave) {
-			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
-				const message = {
-					method: "downloads.download",
-					confirmFilename: options.confirmFilename,
-					filenameConflictAction: options.filenameConflictAction,
-					filename: pageData.filename,
-					saveToClipboard: options.saveToClipboard,
-					filenameReplacementCharacter: options.filenameReplacementCharacter
-				};
-				message.truncated = pageData.content.length > MAX_CONTENT_SIZE;
-				if (message.truncated) {
-					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > pageData.content.length;
-					message.content = pageData.content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
-				} else {
-					message.content = pageData.content;
-				}
-				await browser.runtime.sendMessage(message);
-			}
-		} else {
-			if (options.saveToClipboard) {
-				saveToClipboard(pageData);
-			} else {
-				downloadPageForeground(pageData, options);
-			}
-		}
-		await browser.runtime.sendMessage({ method: "downloads.end", autoClose: options.autoClose });
-	}
-
-	function downloadPageForeground(pageData, options) {
-		if (options.confirmFilename) {
-			pageData.filename = ui.prompt("File name", pageData.filename);
-		}
-		if (pageData.filename && pageData.filename.length) {
-			const link = document.createElement("a");
-			link.download = pageData.filename;
-			link.href = URL.createObjectURL(new Blob([pageData.content], { type: "text/html" }));
-			link.dispatchEvent(new MouseEvent("click"));
-			URL.revokeObjectURL(link.href);
-		}
-	}
-
-	function saveToClipboard(page) {
-		const command = "copy";
-		document.addEventListener(command, listener);
-		document.execCommand(command);
-		document.removeEventListener(command, listener);
-
-		function listener(event) {
-			event.clipboardData.setData("text/html", page.content);
-			event.clipboardData.setData("text/plain", page.content);
-			event.preventDefault();
-		}
 	}
 
 })();

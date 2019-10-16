@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="editor.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>&nbsp;</title>
+</head>
+
+<body>
+	<div class="toolbar">
+		<div class="buttons">
+			<img type="button" class="add-note-yellow-button" src="/extension/ui/resources/button_note_yellow.png">
+			<img type="button" class="add-note-pink-button" src="/extension/ui/resources/button_note_pink.png">
+			<img type="button" class="add-note-blue-button" src="/extension/ui/resources/button_note_blue.png">
+			<img type="button" class="add-note-green-button" src="/extension/ui/resources/button_note_green.png">
+			<div class="separator"></div>
+		</div>
+		<div class="buttons">
+			<img type="button" class="highlight-button highlight-yellow-button highlight-disabled"
+				src="/extension/ui/resources/button_highlighter_yellow.png">
+			<img type="button" class="highlight-button highlight-pink-button highlight-disabled"
+				src="/extension/ui/resources/button_highlighter_pink.png">
+			<img type="button" class="highlight-button highlight-blue-button highlight-disabled"
+				src="/extension/ui/resources/button_highlighter_blue.png">
+			<img type="button" class="highlight-button highlight-green-button highlight-disabled"
+				src="/extension/ui/resources/button_highlighter_green.png">
+			<div class="separator"></div>
+		</div>
+		<div class="buttons">
+			<img type="button" class="toggle-notes-button" src="/extension/ui/resources/button_note_visible.png">
+			<img type="button" class="toggle-highlights-button"
+				src="/extension/ui/resources/button_highlighter_visible.png">
+			<img type="button" class="remove-highlight-button remove-highlight-disabled"
+				src="/extension/ui/resources/button_highlighter_delete.png">
+			<img type="button" class="edit-page-button edit-disabled" src="/extension/ui/resources/button_edit.png">
+			<div class="separator"></div>
+		</div>
+		<div class="buttons">
+			<img type="button" class="save-page-button" src="/extension/ui/resources/button_download.png">
+		</div>
+	</div>
+	<iframe class="editor"
+		srcdoc="&lt;!DOCTYPE html&gt; &lt;body&gt;&lt;script src=/extension/ui/content/content-ui-editor-web.js&gt;&lt;/script&gt;&lt;script src=/lib/single-file/index.js&gt;&lt;/script&gt;&lt;script src=/lib/single-file/modules/html-serializer.js&gt;&lt;/script&gt;&lt;/body&gt;"
+		sandbox="allow-scripts"></iframe>
+	<script type="text/javascript"
+		src="/extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"></script>
+	<script src="/lib/single-file/index.js"></script>
+	<script src="/extension/lib/single-file/index.js"></script>
+	<script src="/extension/core/index.js"></script>
+	<script src="/extension/core/content/content-download.js"></script>
+	<script src="/extension/ui/index.js"></script>
+	<script src="/extension/ui/bg/ui-editor.js"></script>
+</body>
+
+</html>
