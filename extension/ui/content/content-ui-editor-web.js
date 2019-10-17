@@ -121,7 +121,7 @@
 			doc.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(templateElement => {
 				const noteElement = templateElement.querySelector("." + NOTE_CLASS);
 				if (noteElement) {
-					noteElement.classList.remove(NOTE_HIDDEN_CLASS)
+					noteElement.classList.remove(NOTE_HIDDEN_CLASS);
 				}
 			});
 			delete doc.body.contentEditable;
