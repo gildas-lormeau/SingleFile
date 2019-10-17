@@ -21,11 +21,12 @@
  *   Source.
  */
 
-/* global browser, document, window, setTimeout */
+/* global browser, document, window, location, setTimeout */
 
 this.singlefile.extension.core.content.main = this.singlefile.extension.core.content.main || (() => {
 
 	const singlefile = this.singlefile;
+	const MOZ_EXTENSION_PROTOCOL = "moz-extension:";
 
 	let ui, processing = false, processor;
 
@@ -44,17 +45,19 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 		if (!ui) {
 			ui = singlefile.extension.ui.content.main;
 		}
-		if (message.method == "content.save") {
-			await savePage(message);
-			return {};
-		}
-		if (message.method == "content.cancelSave") {
-			if (processor) {
-				processor.cancel();
-				ui.onEndPage();
-				browser.runtime.sendMessage({ method: "ui.processCancelled" });
+		if (!location.href.startsWith(MOZ_EXTENSION_PROTOCOL)) {
+			if (message.method == "content.save") {
+				await savePage(message);
+				return {};
 			}
-			return {};
+			if (message.method == "content.cancelSave") {
+				if (processor) {
+					processor.cancel();
+					ui.onEndPage();
+					browser.runtime.sendMessage({ method: "ui.processCancelled" });
+				}
+				return {};
+			}
 		}
 	}
 
