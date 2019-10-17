@@ -84,6 +84,7 @@ singlefile.extension.core.bg.tabs = (() => {
 
 	function onTabRemoved(tabId) {
 		singlefile.extension.core.bg.tabsData.onTabRemoved(tabId);
+		singlefile.extension.core.bg.editor.onTabRemoved(tabId);
 	}
 
 })();
