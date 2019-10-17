@@ -118,7 +118,12 @@
 			});
 			doc.querySelectorAll("." + MASK_CLASS).forEach(maskElement => maskElement.remove());
 			doc.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.remove(HIGHLIGHT_HIDDEN_CLASS));
-			doc.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(templateElement => templateElement.querySelector("." + NOTE_CLASS).classList.remove(NOTE_HIDDEN_CLASS));
+			doc.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(templateElement => {
+				const noteElement = templateElement.querySelector("." + NOTE_CLASS);
+				if (noteElement) {
+					noteElement.classList.remove(NOTE_HIDDEN_CLASS)
+				}
+			});
 			delete doc.body.contentEditable;
 			const scriptElement = doc.createElement("script");
 			scriptElement.setAttribute(SCRIPT_TEMPLATE_SHADOW_ROOT, "");
