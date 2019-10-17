@@ -29,11 +29,16 @@ singlefile.extension.core.bg.editor = (() => {
 
 	return {
 		onMessage,
+		onTabRemoved,
 		async open({ content, filename }, options) {
 			const tab = await browser.tabs.create({ active: true, url: "/extension/ui/pages/editor.html" });
 			tabsData.set(tab.id, { content, filename, options });
 		}
 	};
+
+	async function onTabRemoved(tabId) {
+		tabsData.delete(tabId);
+	}
 
 	async function onMessage(message, sender) {
 		if (message.method.endsWith(".getTabData")) {
