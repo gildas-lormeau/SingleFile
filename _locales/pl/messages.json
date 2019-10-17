@@ -132,7 +132,7 @@
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionIncludeInfobar": {
-		"message": "włączyć paska informacyjnego do zapisanej strony",
+		"message": "dołącz pasek informacyjny do zapisanej strony",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionConfirmInfobar": {
@@ -140,11 +140,11 @@
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionOpenEditorLabel": {
-		"message": "annotate the page before saving",
+		"message": "adnotuj stronę przed zapisaniem",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionAutoCloseLabel": {
-		"message": "auto-close the tab after the page is saved",
+		"message": "automatycznie zamykaj kartę po zapisaniu strony",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
 	"optionsFileNameSubTitle": {
@@ -368,7 +368,7 @@
 		"description": "Options page label: 'save raw page'"
 	},
 	"optionSaveToClipboard": {
-		"message": "zapisz do schowka",
+		"message": "zapisuj do schowka",
 		"description": "Options page label: 'save to clipboard'"
 	},
 	"optionsHelpLink": {
@@ -460,55 +460,55 @@
 		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
 	},
 	"editorAddYellowNote": {
-		"message": "Add a yellow note",
+		"message": "Dodaj żółtą notatkę",
 		"description": "Title of the button 'Add a yellow note' in the editor"
 	},
 	"editorAddPinkNote": {
-		"message": "Add a pink note",
+		"message": "Dodaj różową notatkę",
 		"description": "Title of the button 'Add a pink note' in the editor"
 	},
 	"editorAddBlueNote": {
-		"message": "Add a blue note",
+		"message": "Dodaj niebieską notatkę",
 		"description": "Title of the button 'Add a blue note' in the editor"
 	},
 	"editorAddGreenNote": {
-		"message": "Add a green note",
+		"message": "Dodaj zieloną notatkę",
 		"description": "Title of the button 'Add a green note' in the editor"
 	},
 	"editorHighlightYellow": {
-		"message": "Highlight selected text in yellow",
+		"message": "Podświetl wybrany tekst na żółto",
 		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
 	},
 	"editorHighlightPink": {
-		"message": "Highlight selected text in pink",
+		"message": "Podświetl wybrany tekst na różowo",
 		"description": "Title of the button 'Highlight selected text in pink' in the editor"
 	},
 	"editorHighlightBlue": {
-		"message": "Highlight selected text in blue",
+		"message": "Podświetl wybrany tekst na niebiesko",
 		"description": "Title of the button 'Highlight selected text in blue' in the editor"
 	},
 	"editorHighlightGreen": {
-		"message": "Highlight selected text in green",
+		"message": "Podświetl wybrany tekst na zielono",
 		"description": "Title of the button 'Highlight selected text in green' in the editor"
 	},
 	"editorToggleNotes": {
-		"message": "Display/hide notes",
+		"message": "Wyświetl/ukryj notatki",
 		"description": "Title of the button 'Display/hide notes' in the editor"
 	},
 	"editorToggleHighlights": {
-		"message": "Display/hide the highlighted text",
+		"message": "Wyświetl/ukryj podświetlony tekst",
 		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
 	},
 	"editorRemoveHighlight": {
-		"message": "Remove the selected highlighted text",
+		"message": "Usuń wybrany podświetlony tekst",
 		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
 	},
 	"editorEditPage": {
-		"message": "Enable/disable read-only",
+		"message": "Włącz/wyłącz tylko do odczytu",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorSavePage": {
-		"message": "Save the page",
+		"message": "Zapisz stronę",
 		"description": "Title of the button 'Save the page' in the editor"
 	}
 }
