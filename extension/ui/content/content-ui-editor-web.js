@@ -481,15 +481,9 @@
 			if (noteBoundingRect.y < minY) {
 				top += minY - noteBoundingRect.y;
 			}
-			if (fixedParent(anchorElement)) {
-				noteElement.style.setProperty("left", left + "px");
-				noteElement.style.setProperty("top", top + "px");
-				noteElement.style.setProperty("position", "fixed");
-			} else {
-				noteElement.style.setProperty("position", "absolute");
-				noteElement.style.setProperty("left", left + "px");
-				noteElement.style.setProperty("top", top + "px");
-			}
+			noteElement.style.setProperty("position", "absolute");
+			noteElement.style.setProperty("left", left + "px");
+			noteElement.style.setProperty("top", top + "px");
 		});
 	}
 
@@ -571,8 +565,7 @@
 			const HIGHLIGHT_CLASS = ${JSON.stringify(HIGHLIGHT_CLASS)};
 			const NOTES_WEB_STYLESHEET = ${JSON.stringify(NOTES_WEB_STYLESHEET)};
 			const MASK_WEB_STYLESHEET = ${JSON.stringify(MASK_WEB_STYLESHEET)};
-			const reflowNotes = ${minifyText(reflowNotes.toString())};
-			const fixedParent = ${minifyText(fixedParent.toString())};
+			const reflowNotes = ${minifyText(reflowNotes.toString())};			
 			const addNoteRef = ${minifyText(addNoteRef.toString())};
 			const deleteNoteRef = ${minifyText(deleteNoteRef.toString())};
 			const getNoteRefs = ${minifyText(getNoteRefs.toString())};
@@ -601,18 +594,6 @@
 
 	function getAnchorElement(containerElement) {
 		return document.querySelector("[data-single-file-note-refs^=" + JSON.stringify(containerElement.dataset.noteId) + "], [data-single-file-note-refs$=" + JSON.stringify(containerElement.dataset.noteId) + "], [data-single-file-note-refs*=" + JSON.stringify("," + containerElement.dataset.noteId + ",") + "]");
-	}
-
-	function fixedParent(element) {
-		let positionFixed;
-		while (element && !positionFixed) {
-			positionFixed = getComputedStyle(element).position == "fixed";
-			if (positionFixed) {
-				return element;
-			} else {
-				element = element.parentElement;
-			}
-		}
 	}
 
 	function addNoteRef(anchorElement, noteId) {
