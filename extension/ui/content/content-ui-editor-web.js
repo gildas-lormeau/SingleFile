@@ -45,6 +45,7 @@
 	const NOTE_INITIAL_POSITION_Y = 20;
 	const NOTE_INITIAL_WIDTH = 100;
 	const NOTE_INITIAL_HEIGHT = 100;
+	const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-file-disabled-noscript";
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, highlightColor;
@@ -59,6 +60,10 @@
 			} else {
 				document.insertBefore(contentDocument.doctype, document.documentElement);
 			}
+			contentDocument.querySelectorAll("noscript").forEach(element => {
+				element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
+				element.textContent = "";
+			});
 			document.replaceChild(contentDocument.documentElement, document.documentElement);
 			deserializeShadowRoots(document);
 			window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: document.querySelector("link[rel*=icon]").href }), "*");
@@ -107,6 +112,10 @@
 			serializeShadowRoots(document);
 			const doc = document.cloneNode(true);
 			deserializeShadowRoots(document);
+			doc.querySelectorAll("[" + DISABLED_NOSCRIPT_ATTRIBUTE_NAME + "]").forEach(element => {
+				element.textContent = element.getAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
+				element.removeAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
+			});
 			doc.querySelectorAll("." + MASK_CLASS).forEach(maskElement => maskElement.remove());
 			doc.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.remove(HIGHLIGHT_HIDDEN_CLASS));
 			doc.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(templateElement => templateElement.querySelector("." + NOTE_CLASS).classList.remove(NOTE_HIDDEN_CLASS));
