@@ -79,6 +79,7 @@ singlefile.extension.core.bg.tabs = (() => {
 		}
 		if (changeInfo.status == "complete") {
 			singlefile.extension.core.bg.autosave.onTabUpdated(tabId, changeInfo, tab);
+			singlefile.extension.core.bg.editor.onTabUpdated(tabId, changeInfo, tab);
 		}
 	}
 
