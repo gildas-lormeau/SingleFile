@@ -138,7 +138,7 @@ singlefile.extension.ui.bg.editor = (() => {
 		}
 	};
 	savePageButton.onclick = () => {
-		editorElement.contentWindow.postMessage(JSON.stringify({ method: "getContent", compressHTML: tabData.options.compressHTML }), "*");
+		savePage();
 	};
 	window.onmessage = event => {
 		const message = JSON.parse(event.data);
@@ -164,6 +164,18 @@ singlefile.extension.ui.bg.editor = (() => {
 		tabData = await browser.runtime.sendMessage({ method: "editor.getTabData" });
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
 	};
+
+	browser.runtime.onMessage.addListener(message => {
+		if (message.method == "content.save") {
+			savePage();
+			browser.runtime.sendMessage({ method: "ui.processInit" });
+			return {};			
+		}
+	});
+
+	function savePage() {
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "getContent", compressHTML: tabData.options.compressHTML }), "*");
+	}
 
 	return {};
 
