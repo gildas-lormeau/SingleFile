@@ -26,6 +26,7 @@
 singlefile.extension.core.bg.editor = (() => {
 
 	const tabsData = new Map();
+	const EDITOR_URL = browser.runtime.getURL("/extension/ui/pages/editor.html");
 
 	return {
 		onMessage,
@@ -33,7 +34,7 @@ singlefile.extension.core.bg.editor = (() => {
 		onTabUpdated,
 		async open({ content, filename }, options) {
 			const tab = await browser.tabs.create({ active: true, url: "/extension/ui/pages/editor.html" });
-			tabsData.set(tab.id, { content, filename, options, url: tab.url });
+			tabsData.set(tab.id, { content, filename, options });
 		}
 	};
 
@@ -42,8 +43,7 @@ singlefile.extension.core.bg.editor = (() => {
 	}
 
 	async function onTabUpdated(tabId, changeInfo, tab) {
-		const tabData = tabsData.get(tab.id);
-		if (tabData && tabData.url != tab.url) {
+		if (tab.url != EDITOR_URL) {
 			tabsData.delete(tabId);
 		}
 	}
