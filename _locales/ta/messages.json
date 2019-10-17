@@ -1,0 +1,514 @@
+{
+	"extensionDescription": {
+		"message": "காப்பாற்ற ஒரு முழுமையான பக்கம், ஒரு ஒற்றை HTML கோப்பு",
+		"description": "Description of the extension."
+	},
+	"menuSavePage": {
+		"message": "காப்பாற்ற பக்கம் SingleFile",
+		"description": "Menu entry: 'Save page with SingleFile'"
+	},
+	"menuEditAndSavePage": {
+		"message": "சிறுகுறிப்பு மற்றும் சேமிக்க பக்கம்...",
+		"description": "Menu entry: 'Annotate and save the page...'"
+	},
+	"menuSelectProfile": {
+		"message": "தேர்வு இயல்புநிலை சுயவிவர",
+		"description": "Menu entry: 'Select the default profile'"
+	},
+	"menuUpdateRule": {
+		"message": "தேர்வு சுயவிவரத்தை தற்போதைய ஆட்சி",
+		"description": "Menu entry: 'Select the profile of the current rule'"
+	},
+	"menuCreateDomainRule": {
+		"message": "தேர்வு சுயவிவரத்தை தற்போதைய டொமைன்",
+		"description": "Menu entry: 'Select the profile of the current domain'"
+	},
+	"menuSaveSelection": {
+		"message": "தேர்வு காப்பாற்ற",
+		"description": "Menu entry: 'Save selection'"
+	},
+	"menuSaveFrame": {
+		"message": "காப்பாற்ற சட்ட",
+		"description": "Menu entry: 'Save frame'"
+	},
+	"menuSaveTabs": {
+		"message": "காப்பாற்ற தாவல்கள்",
+		"description": "Menu entry (SingleFile button only): 'Save tabs'"
+	},
+	"menuSaveSelectedTabs": {
+		"message": "காப்பாற்ற தேர்வு தாவல்கள்",
+		"description": "Menu entry: 'Save selected tabs'"
+	},
+	"menuSaveUnpinnedTabs": {
+		"message": "காப்பாற்ற unpinned தாவல்கள்",
+		"description": "Menu entry: 'Save unpinned tabs'"
+	},
+	"menuSaveAllTabs": {
+		"message": "காப்பாற்ற அனைத்து தாவல்கள்",
+		"description": "Menu entry: 'Save all tabs'"
+	},
+	"menuAutoSave": {
+		"message": "ஆட்டோ சேமிக்க",
+		"description": "Menu entry: 'Auto-save'"
+	},
+	"menuAutoSaveDisabled": {
+		"message": "முடக்கப்பட்டுள்ளது",
+		"description": "Menu entry: 'Auto-save' > Disabled'"
+	},
+	"menuAutoSaveTab": {
+		"message": "ஆட்டோ சேமிக்க இந்த தாவல்",
+		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+	},
+	"menuAutoSaveUnpinnedTabs": {
+		"message": "Auto-save unpinned தாவல்கள்",
+		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+	},
+	"menuAutoSaveAllTabs": {
+		"message": "ஆட்டோ சேமிக்க அனைத்து தாவல்கள்",
+		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+	},
+	"buttonDefaultTooltip": {
+		"message": "காப்பாற்ற பக்கம் SingleFile",
+		"description": "Button title: 'Save page with SingleFile'"
+	},
+	"buttonBlockedBadge": {
+		"message": "🚫",
+		"description": "Button badge when the page is blocked: '🚫'"
+	},
+	"buttonBlockedTooltip": {
+		"message": "This page cannot be saved with SingleFile",
+		"description": "Button title: 'This page cannot be saved with SingleFile'"
+	},
+	"buttonInitializingTooltip": {
+		"message": "ஆரம்பிக்கும் SingleFile",
+		"description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
+	},
+	"buttonInitializingBadge": {
+		"message": "•••",
+		"description": "Badge label during initialization: '•••'"
+	},
+	"buttonSaveProgressTooltip": {
+		"message": "காப்பாற்ற முன்னேற்றம்: ",
+		"description": "Button title during save: 'Save progress: xx%'"
+	},
+	"buttonOKBadge": {
+		"message": "சரி",
+		"description": "Badge label: 'OK'"
+	},
+	"buttonErrorBadge": {
+		"message": "ம்ம்ம்",
+		"description": "Badge label for unexpected errors"
+	},
+	"buttonAutoSaveActiveTooltip": {
+		"message": "Auto-save செயலில்",
+		"description": "Button title: 'Auto-save active'"
+	},
+	"buttonAutoSaveActiveBadge": {
+		"message": "[A]",
+		"description": "Badge label when auto-save is active"
+	},
+	"optionsTitle": {
+		"message": "விருப்பங்கள்",
+		"description": "Options page title"
+	},
+	"optionsUserInterfaceSubTitle": {
+		"message": "பயனர் இடைமுகம்",
+		"description": "Options sub-title: 'User interface'"
+	},
+	"optionAddMenuEntry": {
+		"message": "சேர்க்க நுழைவு சூழல் மெனு வலைப்பக்கத்தின்",
+		"description": "Options page label: 'add entry in the context menu of the webpage'"
+	},
+	"optionDisplayShadow": {
+		"message": "மேலடுக்கில் ஒரு நிழல் போது பக்கத்தில் செயலாக்க",
+		"description": "Options page label: 'overlay a shadow on the page during processing'"
+	},
+	"optionDisplayInfobar": {
+		"message": "காட்சி ஒரு தகவல்பட்டி பார்க்கும் போது ஒரு பக்கம் சேமிக்க",
+		"description": "Options page label: 'display an infobar when viewing a saved page'"
+	},
+	"optionInfobarTemplate": {
+		"message": "டெம்ப்ளேட் உள்ளடக்கத்தை தகவல்பட்டி",
+		"description": "Options page label: 'template of the infobar content'"
+	},
+	"optionIncludeInfobar": {
+		"message": "அடங்கும் தகவல்பட்டி சேமிக்கப்பட்ட பக்கம்",
+		"description": "Options page label: 'include the infobar in the saved page'"
+	},
+	"optionConfirmInfobar": {
+		"message": "திறந்த ஒரு வரியில் உரையாடல் திருத்த பட்டி உள்ளடக்கம்",
+		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
+	},
+	"optionOpenEditorLabel": {
+		"message": "சிறுகுறிப்பு பக்கம் சேமிக்கும் முன்",
+		"description": "Options page label: 'annotate the page before saving'"
+	},
+	"optionAutoCloseLabel": {
+		"message": "ஆட்டோ தாவலை மூட பின்னர் பக்கம் சேமிக்கப்படும்",
+		"description": "Options page label: 'auto-close the tab after the page is saved'"
+	},
+	"optionsFileNameSubTitle": {
+		"message": "கோப்பு பெயர்",
+		"description": "Options sub-title: 'File name'"
+	},
+	"optionFilenameTemplate": {
+		"message": "டெம்ப்ளேட்",
+		"description": "Options page label: 'template'"
+	},
+	"optionConfirmFilename": {
+		"message": "open the \"Save as\" dialog to confirm the file name",
+		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
+	},
+	"optionFilenameConflictAction": {
+		"message": "கோப்பு பெயர் மோதல் தீர்மானம்",
+		"description": "Options page label: 'filename conflict resolution'"
+	},
+	"optionFilenameConflictActionUniquify": {
+		"message": "உருவாக்க ஒரு தனிப்பட்ட பெயர்",
+		"description": "Value for 'filename conflict resolution' option: 'create a unique name'"
+	},
+	"optionFilenameConflictActionOverwrite": {
+		"message": "இருக்கும் கோப்பின் மீது மேலெழுதுகிறது",
+		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+	},
+	"optionFilenameConflictActionPrompt": {
+		"message": "வரியில் ஒரு பெயர்",
+		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
+	},
+	"optionsHTMLContentSubTitle": {
+		"message": "HTML உள்ளடக்கம்",
+		"description": "Options sub-title: 'HTML content'"
+	},
+	"optionCompressHTML": {
+		"message": "சுருங்க HTML உள்ளடக்கம்",
+		"description": "Options page label: 'compress HTML content'"
+	},
+	"optionRemoveImports": {
+		"message": "நீக்க HTML இறக்குமதி",
+		"description": "Options page label: 'remove HTML imports'"
+	},
+	"optionRemoveFrames": {
+		"message": "நீக்க பிரேம்கள்",
+		"description": "Options page label: 'remove frames'"
+	},
+	"optionRemoveHiddenElements": {
+		"message": "நீக்க மறைக்கப்பட்ட உறுப்புகள்",
+		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsImagesSubTitle": {
+		"message": "படங்கள்",
+		"description": "Options sub-title: 'Images'"
+	},
+	"optionGroupDuplicateImages": {
+		"message": "குழு நகல் படங்களை ஒன்றாக",
+		"description": "Options page label: 'group duplicate images together'"
+	},
+	"optionLoadDeferredImages": {
+		"message": "காப்பாற்ற ஒத்திவைக்கப்பட்ட படங்கள்",
+		"description": "Options page label: 'save deferred images'"
+	},
+	"optionLoadDeferredImagesMaxIdleTime": {
+		"message": "maximum idle time (ms)",
+		"description": "Options page label: 'maximum idle time (ms)'"
+	},
+	"optionRemoveAlternativeImages": {
+		"message": "படங்கள் நீக்க மாற்று திரையில் தீர்மானங்களை",
+		"description": "Options page label: 'remove images for alternative screen resolutions'"
+	},
+	"optionsFontsSubTitle": {
+		"message": "எழுத்துருக்கள்",
+		"description": "Options sub-title: 'Fonts'"
+	},
+	"optionRemoveUnusedFonts": {
+		"message": "நீக்க பயன்படுத்தப்படாத எழுத்துருக்கள்",
+		"description": "Options page label: 'remove unused fonts'"
+	},
+	"optionRemoveAlternativeFonts": {
+		"message": "நீக்க மாற்று எழுத்துருக்கள்",
+		"description": "Options page label: 'remove alternative fonts'"
+	},
+	"optionsStylesheetsSubTitle": {
+		"message": "பாணி",
+		"description": "Options sub-title: 'Stylesheets'"
+	},
+	"optionCompressCSS": {
+		"message": "அழுத்தி CSS உள்ளடக்கம்",
+		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionRemoveUnusedStyles": {
+		"message": "நீக்க பயன்படுத்தப்படாத பாணியை",
+		"description": "Options page label: 'remove unused styles'"
+	},
+	"optionRemoveAlternativeMedias": {
+		"message": "நீக்க பாணி மாற்று சாதனங்கள் திரைகளில்",
+		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
+	},
+	"optionsOtherResourcesSubTitle": {
+		"message": "பிற வளங்கள்",
+		"description": "Options sub-title: 'Other resources'"
+	},
+	"optionRemoveScripts": {
+		"message": "நீக்க ஸ்கிரிப்டுகள்",
+		"description": "Options page label: 'remove scripts'"
+	},
+	"optionRemoveVideo": {
+		"message": "நீக்க வீடியோ ஆதாரங்கள்",
+		"description": "Options page label: 'remove video sources'"
+	},
+	"optionRemoveAudio": {
+		"message": "நீக்க ஆடியோ ஆதாரங்கள்",
+		"description": "Options page label: 'remove audio sources'"
+	},
+	"optionsAutoSaveSubTitle": {
+		"message": "ஆட்டோ சேமிக்க",
+		"description": "Options sub-title: 'Auto-save'"
+	},
+	"optionsAutoSettingsSubTitle": {
+		"message": "ஆட்டோ-அமைப்புகள் விதிகள்",
+		"description": "Options sub-title: 'Auto-settings rules'"
+	},
+	"optionsDeleteDisplayedRulesConfirm": {
+		"message": "நீக்கியதை உறுதிப்படுத்த அனைத்து காட்டப்படும் விதிகள்",
+		"description": "Popup text 'Confirm the deletion of all displayed rules'"
+	},
+	"optionsDeleteRulesTooltip": {
+		"message": "நீக்கு அனைத்து காட்டப்படும் விதிகள்",
+		"description": "Popup text 'Delete all displayed rules'"
+	},
+	"optionsAutoSettingsUrl": {
+		"message": "URL",
+		"description": "Options label in the Auto-settings rules: 'URL'"
+	},
+	"optionsAutoSettingsUrlPlaceholder": {
+		"message": "Type a complete or partial URL (e.g. example.com)",
+		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
+	},
+	"optionsAutoSettingsProfile": {
+		"message": "சுயவிவர",
+		"description": "Options label in the Auto-settings rules: 'Profile'"
+	},
+	"optionsAutoSettingsAutoSaveProfile": {
+		"message": "Auto-save profile",
+		"description": "Options label in the Auto-settings rules: 'Auto-save profile'"
+	},
+	"optionsAutoSettingsShowAllProfiles": {
+		"message": "அனைத்து சுயவிவரங்கள் காட்சி",
+		"description": "Options label in the Auto-settings rules: 'display all profiles'"
+	},
+	"optionsAutoSettingsShowAutoSaveProfile": {
+		"message": "காட்சி 'Auto-save profile' வரிசை",
+		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
+	},
+	"optionsUpdateRuleTooltip": {
+		"message": "மேம்படுத்தல் ஆட்சி",
+		"description": "Popup text 'Update the rule' in the options page"
+	},
+	"optionsDeleteRuleTooltip": {
+		"message": "நீக்கு ஆட்சி",
+		"description": "Popup text 'Delete the rule' in the options page"
+	},
+	"optionsAddRuleTooltip": {
+		"message": "சேர்க்க ஆட்சி",
+		"description": "Popup text 'Add the rule' in the options page"
+	},
+	"optionsValidateChangesTooltip": {
+		"message": "பரிசோதிக்கவும் மாற்றங்கள்",
+		"description": "Popup text 'Validate changes' in the options page"
+	},
+	"optionsDeleteRuleConfirm": {
+		"message": "Confirm the deletion தேர்ந்தெடுக்கப்பட்ட ஆட்சி",
+		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
+	},
+	"optionAutoSaveLoadOrUnload": {
+		"message": "auto-save பிறகு பக்கம் சுமை அல்லது பக்கம் இறக்கும்",
+		"description": "auto-save after page load or on page unload"
+	},
+	"optionAutoSaveLoad": {
+		"message": "தானாக பக்கம் சுமை பிறகு சேமிக்க",
+		"description": "Options page label: 'auto-save after page load'"
+	},
+	"optionAutoSaveUnload": {
+		"message": "ஆட்டோ சேமிக்க பக்கம் இறக்கும்",
+		"description": "Options page label: 'auto-save on page unload'"
+	},
+	"optionAutoSaveDelay": {
+		"message": "auto-save waiting delay after page load (s)",
+		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
+	},
+	"optionAutoSaveRepeat": {
+		"message": "auto-save அவ்வப்போது",
+		"description": "Options page label: 'auto-save periodically'"
+	},
+	"optionAutoSaveRepeatDelay": {
+		"message": "period (s.)",
+		"description": "Options page label: 'period (s)'"
+	},
+	"optionsMiscSubTitle": {
+		"message": "மற்றவை.",
+		"description": "Options sub-title: 'Misc.'"
+	},
+	"optionBackgroundSave": {
+		"message": "காப்பாற்ற பக்கங்கள் பின்னணி",
+		"description": "Options page label: 'save pages in background'"
+	},
+	"optionDisplayStats": {
+		"message": "காட்சி புள்ளிவிவரங்கள் பணியகம் செயலாக்க பிறகு",
+		"description": "Options page label: 'display stats in the console after processing'"
+	},
+	"optionSetMaxResourceSize": {
+		"message": "அமைக்க ஒரு அதிகபட்ச அளவு பதிக்கப்பட்ட வளங்கள்",
+		"description": "Options page label: 'set a maximum size for embedded resources'"
+	},
+	"optionMaxResourceSize": {
+		"message": "maximum size (MB)",
+		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionSaveRawPage": {
+		"message": "சேமிக்க மூல பக்கம்",
+		"description": "Options page label: 'save raw page'"
+	},
+	"optionSaveToClipboard": {
+		"message": "save to clipboard",
+		"description": "Options page label: 'save to clipboard'"
+	},
+	"optionsHelpLink": {
+		"message": "உதவி",
+		"description": "Options help link"
+	},
+	"optionsResetButton": {
+		"message": "மீட்டமை",
+		"description": "Options button: 'Reset'"
+	},
+	"optionsResetTooltip": {
+		"message": "மீட்டமை அனைத்து விருப்பங்களை தங்கள் இயல்புநிலை மதிப்புகள்",
+		"description": "Options 'Reset' button tooltip"
+	},
+	"optionsResetConfirm": {
+		"message": "உறுதிப்படுத்த மீட்டமைக்க அனைத்து விருப்பங்கள் அல்லது தற்போதைய சுயவிவர",
+		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+	},
+	"optionsResetAllButton": {
+		"message": "மீட்டமை அனைத்து விருப்பங்கள்",
+		"description": "Options confirm button: 'Reset all options'"
+	},
+	"optionsResetCurrentButton": {
+		"message": "மீட்டமை தற்போதைய சுயவிவர",
+		"description": "Options confirm button: 'Reset current profile'"
+	},
+	"optionsOKButton": {
+		"message": "சரி",
+		"description": "Options confirm button: 'OK'"
+	},
+	"optionsCancelButton": {
+		"message": "ரத்து",
+		"description": "Options confirm button: 'Cancel'"
+	},
+	"optionsExportButton": {
+		"message": "ஏற்றுமதி",
+		"description": "Options button: 'Export'"
+	},
+	"optionsImportButton": {
+		"message": "இறக்குமதி",
+		"description": "Options button: 'Import'"
+	},
+	"logPanelDeferredImages": {
+		"message": "ஒத்திவைக்கப்பட்ட படங்கள்",
+		"description": "Label 'Deferred images' in the log panel"
+	},
+	"logPanelFrameContents": {
+		"message": "சட்ட உள்ளடக்கங்களை",
+		"description": "Label 'Frame contents' in the log panel"
+	},
+	"logPanelStep": {
+		"message": "படி",
+		"description": "Label 'Step' (for 'Step x / 4') in the log panel"
+	},
+	"logPanelWidth": {
+		"message": "ஒரு நூறு இருபது இரண்டு",
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+	},
+	"profileDefaultSettings": {
+		"message": "இயல்புநிலை அமைப்புகள்",
+		"description": "Label 'Default settings' of the default settings in the options page"
+	},
+	"profileDisabled": {
+		"message": "முடக்கப்பட்டுள்ளது",
+		"description": "Label 'Disabled' of the disabled profile name in the options page"
+	},
+	"profileAddButtonTooltip": {
+		"message": "சேர்க்கவும் ஒரு புதிய சுயவிவரத்தை",
+		"description": "Tooltip 'Add a new profile' in the options page"
+	},
+	"profileRenameButtonTooltip": {
+		"message": "மறுபெயர் சுயவிவர",
+		"description": "Tooltip 'Rename the profile' in the options page"
+	},
+	"profileDeleteButtonTooltip": {
+		"message": "Delete profile",
+		"description": "Tooltip 'Delete the profile' in the options page"
+	},
+	"profileAddPrompt": {
+		"message": "Enter a name for this new profile",
+		"description": "Popup text 'Enter a name for this new profile' in the options page"
+	},
+	"profileDeleteConfirm": {
+		"message": "Confirm the deletion தேர்வு செய்தது",
+		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
+	},
+	"profileRenamePrompt": {
+		"message": "ஒரு புதிய பெயரை நுழைய தேர்வு செய்தது",
+		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
+	},
+	"editorAddYellowNote": {
+		"message": "சேர்க்க ஒரு மஞ்சள் குறிப்பு",
+		"description": "Title of the button 'Add a yellow note' in the editor"
+	},
+	"editorAddPinkNote": {
+		"message": "சேர்க்க ஒரு பிங்க் குறிப்பு",
+		"description": "Title of the button 'Add a pink note' in the editor"
+	},
+	"editorAddBlueNote": {
+		"message": "சேர்க்க ஒரு நீல குறிப்பு",
+		"description": "Title of the button 'Add a blue note' in the editor"
+	},
+	"editorAddGreenNote": {
+		"message": "சேர்க்க ஒரு பச்சை குறிப்பு",
+		"description": "Title of the button 'Add a green note' in the editor"
+	},
+	"editorHighlightYellow": {
+		"message": "சிறப்பம்சமாக தேர்ந்தெடுக்கப்பட்ட உரை, மஞ்சள்",
+		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
+	},
+	"editorHighlightPink": {
+		"message": "சிறப்பம்சமாக தேர்ந்தெடுக்கப்பட்ட உரை இளஞ்சிவப்பு",
+		"description": "Title of the button 'Highlight selected text in pink' in the editor"
+	},
+	"editorHighlightBlue": {
+		"message": "சிறப்பம்சமாக தேர்ந்தெடுக்கப்பட்ட உரை நீல",
+		"description": "Title of the button 'Highlight selected text in blue' in the editor"
+	},
+	"editorHighlightGreen": {
+		"message": "சிறப்பம்சமாக தேர்ந்தெடுக்கப்பட்ட உரை பச்சை",
+		"description": "Title of the button 'Highlight selected text in green' in the editor"
+	},
+	"editorToggleNotes": {
+		"message": "காட்சி/மறை",
+		"description": "Title of the button 'Display/hide notes' in the editor"
+	},
+	"editorToggleHighlights": {
+		"message": "காட்ட/மறைக்க உயர்த்தி உரை",
+		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
+	},
+	"editorRemoveHighlight": {
+		"message": "நீக்க தேர்வு உயர்த்தி உரை",
+		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
+	},
+	"editorEditPage": {
+		"message": "இயக்கு/முடக்கு வாசிக்க-மட்டும்",
+		"description": "Title of the button 'Enable/disable read-only' in the editor"
+	},
+	"editorSavePage": {
+		"message": "பக்கம் சேமிக்க",
+		"description": "Title of the button 'Save the page' in the editor"
+	}
+}

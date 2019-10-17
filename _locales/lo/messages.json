@@ -1,0 +1,514 @@
+{
+	"extensionDescription": {
+		"message": "ຊ່ວຍປະຢັດສໍາເລັດຫນ້າເຂົ້າໄປໃນດຽ HTML ໄຟລ໌",
+		"description": "Description of the extension."
+	},
+	"menuSavePage": {
+		"message": "ຊ່ວຍປະຢັຫນ້າກັບ SingleFile",
+		"description": "Menu entry: 'Save page with SingleFile'"
+	},
+	"menuEditAndSavePage": {
+		"message": "Annotate ແລະຊ່ວຍປະຢັດຫນ້າ...",
+		"description": "Menu entry: 'Annotate and save the page...'"
+	},
+	"menuSelectProfile": {
+		"message": "ເລືອກຕອນຕົ້ນຂໍ້ມູ",
+		"description": "Menu entry: 'Select the default profile'"
+	},
+	"menuUpdateRule": {
+		"message": "ເລືອກຂໍ້ມູນຂອງປະຈຸບັນກົດລະບຽບ",
+		"description": "Menu entry: 'Select the profile of the current rule'"
+	},
+	"menuCreateDomainRule": {
+		"message": "ເລືອກຂໍ້ມູນຂອງປະຈຸບັນໂດ",
+		"description": "Menu entry: 'Select the profile of the current domain'"
+	},
+	"menuSaveSelection": {
+		"message": "ຊ່ວຍປະຢັນການຄັດເລືອກ",
+		"description": "Menu entry: 'Save selection'"
+	},
+	"menuSaveFrame": {
+		"message": "ຊ່ວຍປະຢັພາ",
+		"description": "Menu entry: 'Save frame'"
+	},
+	"menuSaveTabs": {
+		"message": "ຊ່ວຍປະຢັກ່",
+		"description": "Menu entry (SingleFile button only): 'Save tabs'"
+	},
+	"menuSaveSelectedTabs": {
+		"message": "ຊ່ວຍປະຢັການຄັດເລືອກກ່ອງ",
+		"description": "Menu entry: 'Save selected tabs'"
+	},
+	"menuSaveUnpinnedTabs": {
+		"message": "ຊ່ວຍປະຢັ unpinned ກ່",
+		"description": "Menu entry: 'Save unpinned tabs'"
+	},
+	"menuSaveAllTabs": {
+		"message": "ຢັດທັງຫກ່",
+		"description": "Menu entry: 'Save all tabs'"
+	},
+	"menuAutoSave": {
+		"message": "ຕະໂນມັດ-ປະຢັດ",
+		"description": "Menu entry: 'Auto-save'"
+	},
+	"menuAutoSaveDisabled": {
+		"message": "ພິການ",
+		"description": "Menu entry: 'Auto-save' > Disabled'"
+	},
+	"menuAutoSaveTab": {
+		"message": "ຕະໂນມັດ-ປະຢັດແຖບນີ້",
+		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+	},
+	"menuAutoSaveUnpinnedTabs": {
+		"message": "ຕະໂນມັດ-ປະຢັດ unpinned ກ່",
+		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+	},
+	"menuAutoSaveAllTabs": {
+		"message": "ຕະໂນມັດ-ປະຢັດທັງຫມກ່",
+		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+	},
+	"buttonDefaultTooltip": {
+		"message": "ຊ່ວຍປະຢັຫນ້າກັບ SingleFile",
+		"description": "Button title: 'Save page with SingleFile'"
+	},
+	"buttonBlockedBadge": {
+		"message": "🚫",
+		"description": "Button badge when the page is blocked: '🚫'"
+	},
+	"buttonBlockedTooltip": {
+		"message": "ຫນ້ານີ້ບໍ່ສາມາດບັນທືກກັບ SingleFile",
+		"description": "Button title: 'This page cannot be saved with SingleFile'"
+	},
+	"buttonInitializingTooltip": {
+		"message": "Initializing SingleFile",
+		"description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
+	},
+	"buttonInitializingBadge": {
+		"message": "•••",
+		"description": "Badge label during initialization: '•••'"
+	},
+	"buttonSaveProgressTooltip": {
+		"message": "ຊ່ວຍປະຢັວາມຄືບຫນ້າ: ",
+		"description": "Button title during save: 'Save progress: xx%'"
+	},
+	"buttonOKBadge": {
+		"message": "OK",
+		"description": "Badge label: 'OK'"
+	},
+	"buttonErrorBadge": {
+		"message": "ທຳ",
+		"description": "Badge label for unexpected errors"
+	},
+	"buttonAutoSaveActiveTooltip": {
+		"message": "ຕະໂນມັດ-ປະຢັດງຫ້າວຫັນ",
+		"description": "Button title: 'Auto-save active'"
+	},
+	"buttonAutoSaveActiveBadge": {
+		"message": "[A]",
+		"description": "Badge label when auto-save is active"
+	},
+	"optionsTitle": {
+		"message": "ທາງເລືອກ",
+		"description": "Options page title"
+	},
+	"optionsUserInterfaceSubTitle": {
+		"message": "ໂຕ້ຕອບຂອງຜູ້ໃຊ້",
+		"description": "Options sub-title: 'User interface'"
+	},
+	"optionAddMenuEntry": {
+		"message": "ເພີ່ມເຂົ້າໃນເມນູສະພາບການຂອງເວັບ",
+		"description": "Options page label: 'add entry in the context menu of the webpage'"
+	},
+	"optionDisplayShadow": {
+		"message": "ລະບບເງົາກ່ຽວກັບຫນ້າໃນລະຫວ່າງການປຸງແຕ່ງ",
+		"description": "Options page label: 'overlay a shadow on the page during processing'"
+	},
+	"optionDisplayInfobar": {
+		"message": "ສະແດງ infobar ໃນເວລາທີ່ກໍາລັງເບິ່ງການບັນທຶກໄວ້ຫນ້າ",
+		"description": "Options page label: 'display an infobar when viewing a saved page'"
+	},
+	"optionInfobarTemplate": {
+		"message": "ແມ່ແບບຂອງການ infobar ເນື້ອ",
+		"description": "Options page label: 'template of the infobar content'"
+	},
+	"optionIncludeInfobar": {
+		"message": "ກອງ infobar ໃນການບັນທຶກໄວ້ຫນ້າ",
+		"description": "Options page label: 'include the infobar in the saved page'"
+	},
+	"optionConfirmInfobar": {
+		"message": "ເປີດວ່ອງໄວເພື່ອແກ້ infobar ເນື້ອ",
+		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
+	},
+	"optionOpenEditorLabel": {
+		"message": "annotate ງຫນ້າກ່ອນທີ່ຈະປະຢັ",
+		"description": "Options page label: 'annotate the page before saving'"
+	},
+	"optionAutoCloseLabel": {
+		"message": "ອັດຕະໂນ-ປິດແຖບນັ້ນຫຼັງຈາກທີ່ຫນ້າທີ່ຖືກບັນທືກ",
+		"description": "Options page label: 'auto-close the tab after the page is saved'"
+	},
+	"optionsFileNameSubTitle": {
+		"message": "ຊື່ໄຟລ໌",
+		"description": "Options sub-title: 'File name'"
+	},
+	"optionFilenameTemplate": {
+		"message": "ແມ່ແບບ",
+		"description": "Options page label: 'template'"
+	},
+	"optionConfirmFilename": {
+		"message": "open the \"Save as\" dialog to confirm the file name",
+		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
+	},
+	"optionFilenameConflictAction": {
+		"message": "ຊື່ໄຟລ໌ຂັດແຍ່ງລະອຽດ",
+		"description": "Options page label: 'filename conflict resolution'"
+	},
+	"optionFilenameConflictActionUniquify": {
+		"message": "ສ້າງເປັນເອກະລັກຊື່",
+		"description": "Value for 'filename conflict resolution' option: 'create a unique name'"
+	},
+	"optionFilenameConflictActionOverwrite": {
+		"message": "ຂຽນທີ່ມີຢູ່",
+		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+	},
+	"optionFilenameConflictActionPrompt": {
+		"message": "ຕຸ້ນເຕືອນສໍາລັບຊື່",
+		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
+	},
+	"optionsHTMLContentSubTitle": {
+		"message": "HTML ເນື້ອໃນ",
+		"description": "Options sub-title: 'HTML content'"
+	},
+	"optionCompressHTML": {
+		"message": "ຜ້າ HTML ເນື້ອໃນ",
+		"description": "Options page label: 'compress HTML content'"
+	},
+	"optionRemoveImports": {
+		"message": "ເອົາ HTML ການນໍາເຂົ້າ",
+		"description": "Options page label: 'remove HTML imports'"
+	},
+	"optionRemoveFrames": {
+		"message": "ເອົານໍາ",
+		"description": "Options page label: 'remove frames'"
+	},
+	"optionRemoveHiddenElements": {
+		"message": "ເອົາກອບທີ່ເຊື່ອງໄວ້",
+		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsImagesSubTitle": {
+		"message": "ຮູບພາບຕ່າງໆ",
+		"description": "Options sub-title: 'Images'"
+	},
+	"optionGroupDuplicateImages": {
+		"message": "ກຸ່ມທີ່ຊ້ໍາຮູບພາບຕ່າງໆຮ່ວມກັນ",
+		"description": "Options page label: 'group duplicate images together'"
+	},
+	"optionLoadDeferredImages": {
+		"message": "ຊ່ວຍປະຢັນປືກຮູບພາບ",
+		"description": "Options page label: 'save deferred images'"
+	},
+	"optionLoadDeferredImagesMaxIdleTime": {
+		"message": "maximum idle time (ms)",
+		"description": "Options page label: 'maximum idle time (ms)'"
+	},
+	"optionRemoveAlternativeImages": {
+		"message": "ເອົາຮູບພາບສໍາລັບທາງເລືອກທີ່ຫນ້າຈໍມະຕິຕົກລົງ",
+		"description": "Options page label: 'remove images for alternative screen resolutions'"
+	},
+	"optionsFontsSubTitle": {
+		"message": "ອັກສອນ",
+		"description": "Options sub-title: 'Fonts'"
+	},
+	"optionRemoveUnusedFonts": {
+		"message": "ເອົາບໍ່ໄດ້ໃຊ້ອັກສອນ",
+		"description": "Options page label: 'remove unused fonts'"
+	},
+	"optionRemoveAlternativeFonts": {
+		"message": "ເອົາທາງເລືອກອັກສອນ",
+		"description": "Options page label: 'remove alternative fonts'"
+	},
+	"optionsStylesheetsSubTitle": {
+		"message": "ໄຕ",
+		"description": "Options sub-title: 'Stylesheets'"
+	},
+	"optionCompressCSS": {
+		"message": "ຜ້າ CSS ເນື້ອ",
+		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionRemoveUnusedStyles": {
+		"message": "ເອົາມາໃຊ້ແບບ",
+		"description": "Options page label: 'remove unused styles'"
+	},
+	"optionRemoveAlternativeMedias": {
+		"message": "ເອົາໄຕສໍາລັບສາທາງເລືອກອຸປະກອນທີ່ຫນ້າຈໍ",
+		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
+	},
+	"optionsOtherResourcesSubTitle": {
+		"message": "ອື່ນໆຊັບພະຍາກອນ",
+		"description": "Options sub-title: 'Other resources'"
+	},
+	"optionRemoveScripts": {
+		"message": "ເອົາອັກສອນ",
+		"description": "Options page label: 'remove scripts'"
+	},
+	"optionRemoveVideo": {
+		"message": "ເອົາໂອແຫຼ່ງ",
+		"description": "Options page label: 'remove video sources'"
+	},
+	"optionRemoveAudio": {
+		"message": "ເອົາແຫຼ່ງຂໍ້ມູນສຽງ",
+		"description": "Options page label: 'remove audio sources'"
+	},
+	"optionsAutoSaveSubTitle": {
+		"message": "ຕະໂນມັດ-ປະຢັດ",
+		"description": "Options sub-title: 'Auto-save'"
+	},
+	"optionsAutoSettingsSubTitle": {
+		"message": "ອັດຕະໂນ-ການຕັ້ງຄ່າກົດລະບຽບ",
+		"description": "Options sub-title: 'Auto-settings rules'"
+	},
+	"optionsDeleteDisplayedRulesConfirm": {
+		"message": "ຢືນຢັນການລຶບຂອງການທັງຫແດກົດລະບຽບ",
+		"description": "Popup text 'Confirm the deletion of all displayed rules'"
+	},
+	"optionsDeleteRulesTooltip": {
+		"message": "ລົບທັງຫມກົດລະບຽບສະແດງ",
+		"description": "Popup text 'Delete all displayed rules'"
+	},
+	"optionsAutoSettingsUrl": {
+		"message": "URL",
+		"description": "Options label in the Auto-settings rules: 'URL'"
+	},
+	"optionsAutoSettingsUrlPlaceholder": {
+		"message": "Type a complete or partial URL (e.g. example.com)",
+		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
+	},
+	"optionsAutoSettingsProfile": {
+		"message": "ຂໍ້ມູ",
+		"description": "Options label in the Auto-settings rules: 'Profile'"
+	},
+	"optionsAutoSettingsAutoSaveProfile": {
+		"message": "ອັດຕະໂນ-ບັນທຶກຂໍ້ມູ",
+		"description": "Options label in the Auto-settings rules: 'Auto-save profile'"
+	},
+	"optionsAutoSettingsShowAllProfiles": {
+		"message": "ສະແດງທຸກຄົນ",
+		"description": "Options label in the Auto-settings rules: 'display all profiles'"
+	},
+	"optionsAutoSettingsShowAutoSaveProfile": {
+		"message": "ແດງ'ຕະໂນມັດ-ປະຢັດຂໍ້ມູ'ຖັນ",
+		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
+	},
+	"optionsUpdateRuleTooltip": {
+		"message": "ປັບປຸງກົດລະບຽບ",
+		"description": "Popup text 'Update the rule' in the options page"
+	},
+	"optionsDeleteRuleTooltip": {
+		"message": "ລົບກົດລະບຽບ",
+		"description": "Popup text 'Delete the rule' in the options page"
+	},
+	"optionsAddRuleTooltip": {
+		"message": "ຕື່ມການກົດລະບຽບ",
+		"description": "Popup text 'Add the rule' in the options page"
+	},
+	"optionsValidateChangesTooltip": {
+		"message": "ສອບການປ່ຽນແປງ",
+		"description": "Popup text 'Validate changes' in the options page"
+	},
+	"optionsDeleteRuleConfirm": {
+		"message": "ຢືນຢັນການລຶບຂອງທ່ານກົດລະບຽບການຄັດເລືອກ",
+		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
+	},
+	"optionAutoSaveLoadOrUnload": {
+		"message": "ອັດຕະໂນ-ບັນທຶກຫຼັງຈາກທີ່ໂຫຼດຫນ້າຫຼືຫນ້າລົງ",
+		"description": "auto-save after page load or on page unload"
+	},
+	"optionAutoSaveLoad": {
+		"message": "ອັດຕະໂນ-ບັນທຶກຫຼັງຈາກທີ່ໂຫຼດຫນ້າ",
+		"description": "Options page label: 'auto-save after page load'"
+	},
+	"optionAutoSaveUnload": {
+		"message": "ອັດຕະໂນ-ບັນທຶກກ່ຽວກັບຫນ້າລົງ",
+		"description": "Options page label: 'auto-save on page unload'"
+	},
+	"optionAutoSaveDelay": {
+		"message": "auto-save waiting delay after page load (s)",
+		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
+	},
+	"optionAutoSaveRepeat": {
+		"message": "ອັດຕະໂນ-ບັນທຶກແຕ່ລະໄລຍະ",
+		"description": "Options page label: 'auto-save periodically'"
+	},
+	"optionAutoSaveRepeatDelay": {
+		"message": "period (s.)",
+		"description": "Options page label: 'period (s)'"
+	},
+	"optionsMiscSubTitle": {
+		"message": "ອື່ນໆ.",
+		"description": "Options sub-title: 'Misc.'"
+	},
+	"optionBackgroundSave": {
+		"message": "ຊ່ວຍປະຢັດຫນ້າຢູ່ໃນພື້ນຖານ",
+		"description": "Options page label: 'save pages in background'"
+	},
+	"optionDisplayStats": {
+		"message": "ສະແດງສະຖິຕິໃນຊອບແວຫຼັງຈາກການປຸງແຕ່ງ",
+		"description": "Options page label: 'display stats in the console after processing'"
+	},
+	"optionSetMaxResourceSize": {
+		"message": "ກໍານົດສູງສຸດຂະຫນາດສໍາລັບການຝັງຊັບພະຍາກອນ",
+		"description": "Options page label: 'set a maximum size for embedded resources'"
+	},
+	"optionMaxResourceSize": {
+		"message": "maximum size (MB)",
+		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionSaveRawPage": {
+		"message": "ຊ່ວຍປະຢັດຖຸດິບຫນ້າ",
+		"description": "Options page label: 'save raw page'"
+	},
+	"optionSaveToClipboard": {
+		"message": "ຊ່ວຍປະຢັດຫນູນ",
+		"description": "Options page label: 'save to clipboard'"
+	},
+	"optionsHelpLink": {
+		"message": "ຊ່ວຍ",
+		"description": "Options help link"
+	},
+	"optionsResetButton": {
+		"message": "ຕັ້ງ",
+		"description": "Options button: 'Reset'"
+	},
+	"optionsResetTooltip": {
+		"message": "ຕັ້ງຄ່າທັງຫມົດຂອງເຂົາເຈົ້າເລີ່ມຕົ້ນ",
+		"description": "Options 'Reset' button tooltip"
+	},
+	"optionsResetConfirm": {
+		"message": "ຢືນຢັນການຕັ້ງຄ່າຂອງທາງເລືອກທັດຫຼືປະຈຸບັນຂໍ້ມູ",
+		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+	},
+	"optionsResetAllButton": {
+		"message": "ຕັ້ງຄ່າທັງຫມທາງເລືອກ",
+		"description": "Options confirm button: 'Reset all options'"
+	},
+	"optionsResetCurrentButton": {
+		"message": "ປັດຈຸບັນຂໍ້ມູ",
+		"description": "Options confirm button: 'Reset current profile'"
+	},
+	"optionsOKButton": {
+		"message": "OK",
+		"description": "Options confirm button: 'OK'"
+	},
+	"optionsCancelButton": {
+		"message": "ຍົກເລີກ",
+		"description": "Options confirm button: 'Cancel'"
+	},
+	"optionsExportButton": {
+		"message": "ການສົ່ງອອກ",
+		"description": "Options button: 'Export'"
+	},
+	"optionsImportButton": {
+		"message": "ການນໍາເຂົ້າ",
+		"description": "Options button: 'Import'"
+	},
+	"logPanelDeferredImages": {
+		"message": "ເຍື້ຮູບພາບ",
+		"description": "Label 'Deferred images' in the log panel"
+	},
+	"logPanelFrameContents": {
+		"message": "ຂອບເນື້ອໃນ",
+		"description": "Label 'Frame contents' in the log panel"
+	},
+	"logPanelStep": {
+		"message": "ຂັ້ນຕອນ",
+		"description": "Label 'Step' (for 'Step x / 4') in the log panel"
+	},
+	"logPanelWidth": {
+		"message": "ຫນຶ່ງຮ້ອຍຊາວສອງ",
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+	},
+	"profileDefaultSettings": {
+		"message": "ຕອນຕົ້ນການຕັ້ງຄ່າ",
+		"description": "Label 'Default settings' of the default settings in the options page"
+	},
+	"profileDisabled": {
+		"message": "ພິການ",
+		"description": "Label 'Disabled' of the disabled profile name in the options page"
+	},
+	"profileAddButtonTooltip": {
+		"message": "ຕື່ມຂໍ້ມູນໃຫມ່",
+		"description": "Tooltip 'Add a new profile' in the options page"
+	},
+	"profileRenameButtonTooltip": {
+		"message": "ປ່ຽນຂໍ້ມູນ",
+		"description": "Tooltip 'Rename the profile' in the options page"
+	},
+	"profileDeleteButtonTooltip": {
+		"message": "ລຶບຂໍ້ມູນ",
+		"description": "Tooltip 'Delete the profile' in the options page"
+	},
+	"profileAddPrompt": {
+		"message": "ກະລຸນາໃສ່ຊື່ສໍາລັບການນີ້ຂໍ້ມູນໃຫມ່",
+		"description": "Popup text 'Enter a name for this new profile' in the options page"
+	},
+	"profileDeleteConfirm": {
+		"message": "ຢືນຢັນການລຶບຂອງການຄັດເລືອກຂໍ້ມູ",
+		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
+	},
+	"profileRenamePrompt": {
+		"message": "ກະລຸນາໃສ່ຊື່ໃຫມ່ສໍາລັບການຄັດເລືອກຂໍ້ມູ",
+		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
+	},
+	"editorAddYellowNote": {
+		"message": "ເພີ່ມເປັນສີເຫຼືອງຫມາຍເຫດ",
+		"description": "Title of the button 'Add a yellow note' in the editor"
+	},
+	"editorAddPinkNote": {
+		"message": "ເພີ່ມສີສັງ",
+		"description": "Title of the button 'Add a pink note' in the editor"
+	},
+	"editorAddBlueNote": {
+		"message": "ເພີ່ມເປັນສີຟ້າຫມາຍເຫດ",
+		"description": "Title of the button 'Add a blue note' in the editor"
+	},
+	"editorAddGreenNote": {
+		"message": "ຕື່ມການສີຂຽວຫມາຍເຫດ",
+		"description": "Title of the button 'Add a green note' in the editor"
+	},
+	"editorHighlightYellow": {
+		"message": "ຈຸດເດັ່ນຄັດເລືອກຂໍ້ຄວາມໃນສີເຫຼືອງ",
+		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
+	},
+	"editorHighlightPink": {
+		"message": "ຈຸດເດັ່ນຄັດເລືອກຂໍ້ຄວາມໃນສີບົວ",
+		"description": "Title of the button 'Highlight selected text in pink' in the editor"
+	},
+	"editorHighlightBlue": {
+		"message": "ຈຸດເດັ່ນຄັດເລືອກຂໍ້ຄວາມໃນສີຟ້າ",
+		"description": "Title of the button 'Highlight selected text in blue' in the editor"
+	},
+	"editorHighlightGreen": {
+		"message": "ຈຸດເດັ່ນຄັດເລືອກຂໍ້ຄວາມໃນສີຂຽວ",
+		"description": "Title of the button 'Highlight selected text in green' in the editor"
+	},
+	"editorToggleNotes": {
+		"message": "ສະແດງ/ຊ່ອນ່ື",
+		"description": "Title of the button 'Display/hide notes' in the editor"
+	},
+	"editorToggleHighlights": {
+		"message": "ສະແດງ/ເຊື່ອງການເນັ້ນຂໍ້",
+		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
+	},
+	"editorRemoveHighlight": {
+		"message": "ເອົາການຄັດເລືອກການເນັ້ນຂໍ້",
+		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
+	},
+	"editorEditPage": {
+		"message": "ເຮັດໃຫ້ສາມາດ/ປິດການອ່ານ-ພຽງແຕ່",
+		"description": "Title of the button 'Enable/disable read-only' in the editor"
+	},
+	"editorSavePage": {
+		"message": "ຊ່ວຍປະຢັດຫນ້າ",
+		"description": "Title of the button 'Save the page' in the editor"
+	}
+}

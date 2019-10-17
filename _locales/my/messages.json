@@ -1,0 +1,514 @@
+{
+	"extensionDescription": {
+		"message": "ကယ်ပြီးပြည့်စုံစာမျက်နှာသို့တစ်ခုတည်းကမ်းဖိုင်ကို",
+		"description": "Description of the extension."
+	},
+	"menuSavePage": {
+		"message": "ကယ်တို့နှင့်စာမျက်နှာကို SingleFile",
+		"description": "Menu entry: 'Save page with SingleFile'"
+	},
+	"menuEditAndSavePage": {
+		"message": "Annotate နှင့်စာမျက်နှာကို။။။",
+		"description": "Menu entry: 'Annotate and save the page...'"
+	},
+	"menuSelectProfile": {
+		"message": "ရွေးပုံေအက်ဥ္း",
+		"description": "Menu entry: 'Select the default profile'"
+	},
+	"menuUpdateRule": {
+		"message": "ရွေး၏ပရိုဖိုင်ကိုလက်ရှိအုပ်ချုပ်",
+		"description": "Menu entry: 'Select the profile of the current rule'"
+	},
+	"menuCreateDomainRule": {
+		"message": "ရွေး၏လက်ရှိဒိုမိန်း",
+		"description": "Menu entry: 'Select the profile of the current domain'"
+	},
+	"menuSaveSelection": {
+		"message": "ကယ်ရွေးချယ်ခြင်း",
+		"description": "Menu entry: 'Save selection'"
+	},
+	"menuSaveFrame": {
+		"message": "ကယ်ဘောင်",
+		"description": "Menu entry: 'Save frame'"
+	},
+	"menuSaveTabs": {
+		"message": "ကယ် tabs",
+		"description": "Menu entry (SingleFile button only): 'Save tabs'"
+	},
+	"menuSaveSelectedTabs": {
+		"message": "ကယ်ရွေးချယ်ထား tabs",
+		"description": "Menu entry: 'Save selected tabs'"
+	},
+	"menuSaveUnpinnedTabs": {
+		"message": "ကယ် unpinned tabs",
+		"description": "Menu entry: 'Save unpinned tabs'"
+	},
+	"menuSaveAllTabs": {
+		"message": "ကယ်အားလုံး tabs",
+		"description": "Menu entry: 'Save all tabs'"
+	},
+	"menuAutoSave": {
+		"message": "အော်တို-ခံေျမစာရင္းမ်ား",
+		"description": "Menu entry: 'Auto-save'"
+	},
+	"menuAutoSaveDisabled": {
+		"message": "မသန်စွမ်း",
+		"description": "Menu entry: 'Auto-save' > Disabled'"
+	},
+	"menuAutoSaveTab": {
+		"message": "-ဤကယ်တင်ဘာင္ေ",
+		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+	},
+	"menuAutoSaveUnpinnedTabs": {
+		"message": "အော်တို-အင္း unpinned tabs",
+		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+	},
+	"menuAutoSaveAllTabs": {
+		"message": "-ကယ်အားလုံး tabs",
+		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+	},
+	"buttonDefaultTooltip": {
+		"message": "ကယ်တို့နှင့်စာမျက်နှာကို SingleFile",
+		"description": "Button title: 'Save page with SingleFile'"
+	},
+	"buttonBlockedBadge": {
+		"message": "🚫",
+		"description": "Button badge when the page is blocked: '🚫'"
+	},
+	"buttonBlockedTooltip": {
+		"message": "ဤစာမျက်နှာကိုမရနိုငျနှင့်အတူကယ်တင် SingleFile",
+		"description": "Button title: 'This page cannot be saved with SingleFile'"
+	},
+	"buttonInitializingTooltip": {
+		"message": "Initializing SingleFile",
+		"description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
+	},
+	"buttonInitializingBadge": {
+		"message": "•••",
+		"description": "Badge label during initialization: '•••'"
+	},
+	"buttonSaveProgressTooltip": {
+		"message": "သိမ်းဆည်းတိုးတက်လာ: ",
+		"description": "Button title during save: 'Save progress: xx%'"
+	},
+	"buttonOKBadge": {
+		"message": "အိုကေ",
+		"description": "Badge label: 'OK'"
+	},
+	"buttonErrorBadge": {
+		"message": "လွဲ",
+		"description": "Badge label for unexpected errors"
+	},
+	"buttonAutoSaveActiveTooltip": {
+		"message": "အော်တို-အင္းတက်ကြွစွာ",
+		"description": "Button title: 'Auto-save active'"
+	},
+	"buttonAutoSaveActiveBadge": {
+		"message": "[A]",
+		"description": "Badge label when auto-save is active"
+	},
+	"optionsTitle": {
+		"message": "ရွေးချယ်မှုများ",
+		"description": "Options page title"
+	},
+	"optionsUserInterfaceSubTitle": {
+		"message": "အသံုးျပဳသူမ်ား၏မွတ္ထား",
+		"description": "Options sub-title: 'User interface'"
+	},
+	"optionAddMenuEntry": {
+		"message": "ထည့်သွင်း၍ထိုအခြေအနူးအဝက်ဘ်ဆိုဒ်စာမျက်နှာ",
+		"description": "Options page label: 'add entry in the context menu of the webpage'"
+	},
+	"optionDisplayShadow": {
+		"message": "မွမ်းတစ်ဦးအရိပ်သည်စာမျက်နှာတစ်ခုအတွင်းအပြောင်းအလဲ",
+		"description": "Options page label: 'overlay a shadow on the page during processing'"
+	},
+	"optionDisplayInfobar": {
+		"message": "အခ်က္အလက္မ်ားျပမ်က္ႏွာျပင္အ infobar အခါကြည့်ရှုကယ်တင်ခြင်းစာမျက်နှာ",
+		"description": "Options page label: 'display an infobar when viewing a saved page'"
+	},
+	"optionInfobarTemplate": {
+		"message": "တမ်းပလိတ်အ infobar ကြောင်းအရာ",
+		"description": "Options page label: 'template of the infobar content'"
+	},
+	"optionIncludeInfobar": {
+		"message": "ထည့်သွင်းအ infobar အတွက်ကယ်တင်စာမျက်နှာ",
+		"description": "Options page label: 'include the infobar in the saved page'"
+	},
+	"optionConfirmInfobar": {
+		"message": "ပွင့်လင်းတဲ့သတိပေးစကားအပြင်အ infobar ကြောင်းအရာ",
+		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
+	},
+	"optionOpenEditorLabel": {
+		"message": "annotate စာမျက်နှာခင်",
+		"description": "Options page label: 'annotate the page before saving'"
+	},
+	"optionAutoCloseLabel": {
+		"message": "အော်တို-အနီးကပ်ဝင်ရောက်ပြီးနောက်ထိုစာမျက်နှာသည်ကယ်တင်",
+		"description": "Options page label: 'auto-close the tab after the page is saved'"
+	},
+	"optionsFileNameSubTitle": {
+		"message": "ဖိုင်အမည်",
+		"description": "Options sub-title: 'File name'"
+	},
+	"optionFilenameTemplate": {
+		"message": "တမ်းပလိတ်",
+		"description": "Options page label: 'template'"
+	},
+	"optionConfirmFilename": {
+		"message": "open the \"Save as\" dialog to confirm the file name",
+		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
+	},
+	"optionFilenameConflictAction": {
+		"message": "ဖိုင်ကိုအမည်ပဋိပက္ခဆုံးဖြတ်ချက်",
+		"description": "Options page label: 'filename conflict resolution'"
+	},
+	"optionFilenameConflictActionUniquify": {
+		"message": "ဖန်တီးထူးခြားတဲ့နာမတော်အ",
+		"description": "Value for 'filename conflict resolution' option: 'create a unique name'"
+	},
+	"optionFilenameConflictActionOverwrite": {
+		"message": "အောက်အသားဖိုင်ကို",
+		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+	},
+	"optionFilenameConflictActionPrompt": {
+		"message": "တစ်ခုသည်လုပ်ပေးပါတယ်မည်",
+		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
+	},
+	"optionsHTMLContentSubTitle": {
+		"message": "တုံ့ပြန်မှုကြောင်းအရာ",
+		"description": "Options sub-title: 'HTML content'"
+	},
+	"optionCompressHTML": {
+		"message": "ချုံ့ကမ်းအကြောင်း",
+		"description": "Options page label: 'compress HTML content'"
+	},
+	"optionRemoveImports": {
+		"message": "ရှေ့ကမ်းတင်သွင်း",
+		"description": "Options page label: 'remove HTML imports'"
+	},
+	"optionRemoveFrames": {
+		"message": "ဖယ်ရှားရန်ပျဉ်ပြား",
+		"description": "Options page label: 'remove frames'"
+	},
+	"optionRemoveHiddenElements": {
+		"message": "ဖယ်ရှားဝှက်ထားဒြပ်စင်များ",
+		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsImagesSubTitle": {
+		"message": "ရုပ်တုဆင်းတု",
+		"description": "Options sub-title: 'Images'"
+	},
+	"optionGroupDuplicateImages": {
+		"message": "အုပ်စုထပ်ပုံရိပ်တွေအတူတူ",
+		"description": "Options page label: 'group duplicate images together'"
+	},
+	"optionLoadDeferredImages": {
+		"message": "ကယ်ရှင်းရှင်းပုံများ",
+		"description": "Options page label: 'save deferred images'"
+	},
+	"optionLoadDeferredImagesMaxIdleTime": {
+		"message": "maximum idle time (ms)",
+		"description": "Options page label: 'maximum idle time (ms)'"
+	},
+	"optionRemoveAlternativeImages": {
+		"message": "ဖယ်ရှားပုံရိပ်တွေများအတွက်အခြားရွေးချယ်စရာမျက်နှာပြင်ဆုံးဖြတ်ချက်",
+		"description": "Options page label: 'remove images for alternative screen resolutions'"
+	},
+	"optionsFontsSubTitle": {
+		"message": "စာ",
+		"description": "Options sub-title: 'Fonts'"
+	},
+	"optionRemoveUnusedFonts": {
+		"message": "ဖယ်ရှားမပြုတဲ့စာလုံးတွေ",
+		"description": "Options page label: 'remove unused fonts'"
+	},
+	"optionRemoveAlternativeFonts": {
+		"message": "ဖယ်ရှားတခြားစာလုံး",
+		"description": "Options page label: 'remove alternative fonts'"
+	},
+	"optionsStylesheetsSubTitle": {
+		"message": "Stylesheets",
+		"description": "Options sub-title: 'Stylesheets'"
+	},
+	"optionCompressCSS": {
+		"message": "ချုံ့အက္ခရာ",
+		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionRemoveUnusedStyles": {
+		"message": "ဖယ်ရှားမပြုစတိုင်များ",
+		"description": "Options page label: 'remove unused styles'"
+	},
+	"optionRemoveAlternativeMedias": {
+		"message": "ဖယ်ရှား stylesheets များအတွက်အခြားရွေးချယ်စရာထုတ်ကုန်ကိုဖန်",
+		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
+	},
+	"optionsOtherResourcesSubTitle": {
+		"message": "အခြားအရင်းအမြစ်များ",
+		"description": "Options sub-title: 'Other resources'"
+	},
+	"optionRemoveScripts": {
+		"message": "ဖယ်ရှားထြက္စာ",
+		"description": "Options page label: 'remove scripts'"
+	},
+	"optionRemoveVideo": {
+		"message": "ဖယ်ရှားဗီဒီယိုသတင်းရပ်ကွက်",
+		"description": "Options page label: 'remove video sources'"
+	},
+	"optionRemoveAudio": {
+		"message": "ဖယ်ရှားသံရင်းမြစ်",
+		"description": "Options page label: 'remove audio sources'"
+	},
+	"optionsAutoSaveSubTitle": {
+		"message": "အော်တို-ခံေျမစာရင္းမ်ား",
+		"description": "Options sub-title: 'Auto-save'"
+	},
+	"optionsAutoSettingsSubTitle": {
+		"message": "အော်တို-ခ််ိန္ညႇ်ိခ်က္စည်းမျဉ်း",
+		"description": "Options sub-title: 'Auto-settings rules'"
+	},
+	"optionsDeleteDisplayedRulesConfirm": {
+		"message": "အတည်ပြုဖျက်အားလုံးပြသနည်းဥပဒေများ",
+		"description": "Popup text 'Confirm the deletion of all displayed rules'"
+	},
+	"optionsDeleteRulesTooltip": {
+		"message": "အားလုံးကိုပြသနည်းဥပဒေများ",
+		"description": "Popup text 'Delete all displayed rules'"
+	},
+	"optionsAutoSettingsUrl": {
+		"message": "ဆိုဒ္လိပ္စာ",
+		"description": "Options label in the Auto-settings rules: 'URL'"
+	},
+	"optionsAutoSettingsUrlPlaceholder": {
+		"message": "Type a complete or partial URL (e.g. example.com)",
+		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
+	},
+	"optionsAutoSettingsProfile": {
+		"message": "ပရိုဖိုင်",
+		"description": "Options label in the Auto-settings rules: 'Profile'"
+	},
+	"optionsAutoSettingsAutoSaveProfile": {
+		"message": "-ကယ်ရို",
+		"description": "Options label in the Auto-settings rules: 'Auto-save profile'"
+	},
+	"optionsAutoSettingsShowAllProfiles": {
+		"message": "အခ်က္အလက္မ်ားျပမ်က္ႏွာျပင္အားလုံးသည္ပုံ",
+		"description": "Options label in the Auto-settings rules: 'display all profiles'"
+	},
+	"optionsAutoSettingsShowAutoSaveProfile": {
+		"message": "အခ်က္အလက္မ်ားျပမ်က္ႏွာျပင္'အော်တို-အကယ်ရို'ကော်လံ",
+		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
+	},
+	"optionsUpdateRuleTooltip": {
+		"message": "ထပ္မံျဖည့္စြက္သည္စိုးမိုး",
+		"description": "Popup text 'Update the rule' in the options page"
+	},
+	"optionsDeleteRuleTooltip": {
+		"message": "ဖျက်စိုးမိုး",
+		"description": "Popup text 'Delete the rule' in the options page"
+	},
+	"optionsAddRuleTooltip": {
+		"message": "ထည့်စိုးမိုး",
+		"description": "Popup text 'Add the rule' in the options page"
+	},
+	"optionsValidateChangesTooltip": {
+		"message": "သိမ်းအပြောင်းအလဲ",
+		"description": "Popup text 'Validate changes' in the options page"
+	},
+	"optionsDeleteRuleConfirm": {
+		"message": "အတည်ပြုဖျက်ခြင်းအဖြစ်ရွေးချယ်ထားစိုးမိုး",
+		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
+	},
+	"optionAutoSaveLoadOrUnload": {
+		"message": "-ကယ်တင်ပြီးနောက်စာမျက်နှာဝန်သို့မဟုတ်စာမျက်နှာပေါ်ချ",
+		"description": "auto-save after page load or on page unload"
+	},
+	"optionAutoSaveLoad": {
+		"message": "-ကယ်တင်ပြီးနောက်စာမျက်နှာဝန်",
+		"description": "Options page label: 'auto-save after page load'"
+	},
+	"optionAutoSaveUnload": {
+		"message": "အော်တို-အင္းစာမျက်နှာပေါ်ချ",
+		"description": "Options page label: 'auto-save on page unload'"
+	},
+	"optionAutoSaveDelay": {
+		"message": "auto-save waiting delay after page load (s)",
+		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
+	},
+	"optionAutoSaveRepeat": {
+		"message": "အော်တို-အင္းလျော်",
+		"description": "Options page label: 'auto-save periodically'"
+	},
+	"optionAutoSaveRepeatDelay": {
+		"message": "period (s.)",
+		"description": "Options page label: 'period (s)'"
+	},
+	"optionsMiscSubTitle": {
+		"message": "Misc။",
+		"description": "Options sub-title: 'Misc.'"
+	},
+	"optionBackgroundSave": {
+		"message": "ကယ်စာမျက်နှာများအတွက်နောက်ခံ",
+		"description": "Options page label: 'save pages in background'"
+	},
+	"optionDisplayStats": {
+		"message": "အခ်က္အလက္မ်ားျပမ်က္ႏွာျပင္ရင်းအတွက်ခလုတ်ပြီးနောက်အပြောင်းအလဲ",
+		"description": "Options page label: 'display stats in the console after processing'"
+	},
+	"optionSetMaxResourceSize": {
+		"message": "အမြင့်ဆုံးအရွယ်အစားအဘို့အရည္အရင်းအမြစ်များ",
+		"description": "Options page label: 'set a maximum size for embedded resources'"
+	},
+	"optionMaxResourceSize": {
+		"message": "maximum size (MB)",
+		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionSaveRawPage": {
+		"message": "ကယ်ကုန်ကြမ်းစာမျက်နှာ",
+		"description": "Options page label: 'save raw page'"
+	},
+	"optionSaveToClipboard": {
+		"message": "ကယ်တင်ဖို့ clipboard",
+		"description": "Options page label: 'save to clipboard'"
+	},
+	"optionsHelpLink": {
+		"message": "အကူအညီ",
+		"description": "Options help link"
+	},
+	"optionsResetButton": {
+		"message": "ပန္လည္တည္ေ",
+		"description": "Options button: 'Reset'"
+	},
+	"optionsResetTooltip": {
+		"message": "ပြန်လည်အပေါင်းတို့ရွေးချယ်မှုများကသူတို့ပုံမှန်တန်ဖိုးများ",
+		"description": "Options 'Reset' button tooltip"
+	},
+	"optionsResetConfirm": {
+		"message": "အတည်ပြုအလွန်အစွမ်းထက်တဲ့အပေါင်းတို့၏ရွေးချယ်မှုများသို့မဟုတ်လက်ရှိအက်ဥ္း",
+		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+	},
+	"optionsResetAllButton": {
+		"message": "ပြန်လည်အပေါင်းတို့ရွေးချယ်မှုများ",
+		"description": "Options confirm button: 'Reset all options'"
+	},
+	"optionsResetCurrentButton": {
+		"message": "ပြန်လည်လက်ရှိအက်ဥ္း",
+		"description": "Options confirm button: 'Reset current profile'"
+	},
+	"optionsOKButton": {
+		"message": "အိုကေ",
+		"description": "Options confirm button: 'OK'"
+	},
+	"optionsCancelButton": {
+		"message": "ဖျက်သိမ်း",
+		"description": "Options confirm button: 'Cancel'"
+	},
+	"optionsExportButton": {
+		"message": "ပို့ကုန်",
+		"description": "Options button: 'Export'"
+	},
+	"optionsImportButton": {
+		"message": "သွင်းကုန်",
+		"description": "Options button: 'Import'"
+	},
+	"logPanelDeferredImages": {
+		"message": "ရှင်းရှင်းပုံများ",
+		"description": "Label 'Deferred images' in the log panel"
+	},
+	"logPanelFrameContents": {
+		"message": "ဘောင်တွေကို",
+		"description": "Label 'Frame contents' in the log panel"
+	},
+	"logPanelStep": {
+		"message": "ခြေလှမ်း",
+		"description": "Label 'Step' (for 'Step x / 4') in the log panel"
+	},
+	"logPanelWidth": {
+		"message": "တရာနှစ်ဆယ်နှစ်ယောက်",
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+	},
+	"profileDefaultSettings": {
+		"message": "မူလဆက္တင္မ်ား",
+		"description": "Label 'Default settings' of the default settings in the options page"
+	},
+	"profileDisabled": {
+		"message": "မသန်စွမ်း",
+		"description": "Label 'Disabled' of the disabled profile name in the options page"
+	},
+	"profileAddButtonTooltip": {
+		"message": "အသစ်ပေါင်းထည့်အက်ဥ္း",
+		"description": "Tooltip 'Add a new profile' in the options page"
+	},
+	"profileRenameButtonTooltip": {
+		"message": "ပြောင်းပရိုဖိုင်ကို",
+		"description": "Tooltip 'Rename the profile' in the options page"
+	},
+	"profileDeleteButtonTooltip": {
+		"message": "ဖျက်ပရိုဖိုင်ကို",
+		"description": "Tooltip 'Delete the profile' in the options page"
+	},
+	"profileAddPrompt": {
+		"message": "နာမည်တစ်ခုရိုက်ထည့်ပါဒီအတွက်ပရိုဖိုင်အသစ်",
+		"description": "Popup text 'Enter a name for this new profile' in the options page"
+	},
+	"profileDeleteConfirm": {
+		"message": "အတည်ပြုဖျက်ခြင်းအဖြစ်ရွေးချယ်ထားအက်ဥ္း",
+		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
+	},
+	"profileRenamePrompt": {
+		"message": "ဝင်မည်အသစ်အတွက်ရွေးချယ်အက်ဥ္း",
+		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
+	},
+	"editorAddYellowNote": {
+		"message": "ထည့်သွင်းအဝါရောင်မွတ္ခ်က္",
+		"description": "Title of the button 'Add a yellow note' in the editor"
+	},
+	"editorAddPinkNote": {
+		"message": "ထည့်ပန္းမွတ္ခ်က္",
+		"description": "Title of the button 'Add a pink note' in the editor"
+	},
+	"editorAddBlueNote": {
+		"message": "ထည့်သွင်းအပြာရောင်မွတ္ခ်က္",
+		"description": "Title of the button 'Add a blue note' in the editor"
+	},
+	"editorAddGreenNote": {
+		"message": "ထည့်သွင်းအစိမ်းရောင်မွတ္ခ်က္",
+		"description": "Title of the button 'Add a green note' in the editor"
+	},
+	"editorHighlightYellow": {
+		"message": "ကိုမီးမောင်းထိုးပြရွေးချယ်ထားသောစာသားအတွက်အဝါရောင်",
+		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
+	},
+	"editorHighlightPink": {
+		"message": "ကိုမီးမောင်းထိုးပြရွေးချယ်ထားသောစာသားပန္းေရာင္",
+		"description": "Title of the button 'Highlight selected text in pink' in the editor"
+	},
+	"editorHighlightBlue": {
+		"message": "ကိုမီးမောင်းထိုးပြရွေးချယ်ထားသောစာသားအျပာေရာင္",
+		"description": "Title of the button 'Highlight selected text in blue' in the editor"
+	},
+	"editorHighlightGreen": {
+		"message": "ကိုမီးမောင်းထိုးပြရွေးချယ်ထားသောစာသားအတွက်အစိမ်းရောင်",
+		"description": "Title of the button 'Highlight selected text in green' in the editor"
+	},
+	"editorToggleNotes": {
+		"message": "အခ်က္အလက္မ်ားျပမ်က္ႏွာျပင္/ပုန်းမှတ်စုများ",
+		"description": "Title of the button 'Display/hide notes' in the editor"
+	},
+	"editorToggleHighlights": {
+		"message": "အခ်က္အလက္မ်ားျပမ်က္ႏွာျပင္/ပုန်းကိုမီးမောင်းထိုးစာသား",
+		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
+	},
+	"editorRemoveHighlight": {
+		"message": "ရှေ့ကိုမီးမောင်းထိုးပြရွေးချယ်ထားသောစာသား",
+		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
+	},
+	"editorEditPage": {
+		"message": "စႏိုင္သည္/ပိတ်ဖတ်-သာ",
+		"description": "Title of the button 'Enable/disable read-only' in the editor"
+	},
+	"editorSavePage": {
+		"message": "ကယ်စာမျက်နှာ",
+		"description": "Title of the button 'Save the page' in the editor"
+	}
+}

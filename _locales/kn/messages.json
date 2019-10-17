@@ -1,0 +1,514 @@
+{
+	"extensionDescription": {
+		"message": "ಉಳಿಸಲು ಒಂದು ಸಂಪೂರ್ಣ ಪುಟ ಒಳಗೆ ಒಂದು HTML ಫೈಲ್",
+		"description": "Description of the extension."
+	},
+	"menuSavePage": {
+		"message": "ಉಳಿಸಲು ಪುಟ SingleFile",
+		"description": "Menu entry: 'Save page with SingleFile'"
+	},
+	"menuEditAndSavePage": {
+		"message": "ಟಿಪ್ಪಣಿ ಮತ್ತು ಪುಟ ಉಳಿಸಲು...",
+		"description": "Menu entry: 'Annotate and save the page...'"
+	},
+	"menuSelectProfile": {
+		"message": "ನಗರವನ್ನು ಡೀಫಾಲ್ಟ್ ಪ್ರೊಫೈಲ್",
+		"description": "Menu entry: 'Select the default profile'"
+	},
+	"menuUpdateRule": {
+		"message": "ಆಯ್ಕೆ ಪ್ರೊಫೈಲ್ ಪ್ರಸ್ತುತ ನಿಯಮ",
+		"description": "Menu entry: 'Select the profile of the current rule'"
+	},
+	"menuCreateDomainRule": {
+		"message": "ಆಯ್ಕೆ ಪ್ರೊಫೈಲ್ ಪ್ರಸ್ತುತ ಡೊಮೇನ್",
+		"description": "Menu entry: 'Select the profile of the current domain'"
+	},
+	"menuSaveSelection": {
+		"message": "ಉಳಿಸಲು ಆಯ್ಕೆ",
+		"description": "Menu entry: 'Save selection'"
+	},
+	"menuSaveFrame": {
+		"message": "ಉಳಿಸಲು ಫ್ರೇಮ್",
+		"description": "Menu entry: 'Save frame'"
+	},
+	"menuSaveTabs": {
+		"message": "ಉಳಿಸಲು ಟ್ಯಾಬ್ಗಳನ್ನು",
+		"description": "Menu entry (SingleFile button only): 'Save tabs'"
+	},
+	"menuSaveSelectedTabs": {
+		"message": "ಉಳಿಸಲು ಆಯ್ಕೆ ಟ್ಯಾಬ್ಗಳನ್ನು",
+		"description": "Menu entry: 'Save selected tabs'"
+	},
+	"menuSaveUnpinnedTabs": {
+		"message": "ಉಳಿಸಲು unpinned ಟ್ಯಾಬ್ಗಳನ್ನು",
+		"description": "Menu entry: 'Save unpinned tabs'"
+	},
+	"menuSaveAllTabs": {
+		"message": "ಉಳಿಸಲು ಎಲ್ಲಾ ಟ್ಯಾಬ್ಗಳನ್ನು",
+		"description": "Menu entry: 'Save all tabs'"
+	},
+	"menuAutoSave": {
+		"message": "ಸ್ವಯಂ ಉಳಿಸಲು",
+		"description": "Menu entry: 'Auto-save'"
+	},
+	"menuAutoSaveDisabled": {
+		"message": "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ",
+		"description": "Menu entry: 'Auto-save' > Disabled'"
+	},
+	"menuAutoSaveTab": {
+		"message": "ಸ್ವಯಂ ಉಳಿಸಲು ಈ ಟ್ಯಾಬ್",
+		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+	},
+	"menuAutoSaveUnpinnedTabs": {
+		"message": "ಸ್ವಯಂ ಉಳಿಸಲು unpinned ಟ್ಯಾಬ್ಗಳನ್ನು",
+		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+	},
+	"menuAutoSaveAllTabs": {
+		"message": "ಸ್ವಯಂ ಉಳಿಸಲು ಎಲ್ಲಾ ಟ್ಯಾಬ್ಗಳನ್ನು",
+		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+	},
+	"buttonDefaultTooltip": {
+		"message": "ಉಳಿಸಲು ಪುಟ SingleFile",
+		"description": "Button title: 'Save page with SingleFile'"
+	},
+	"buttonBlockedBadge": {
+		"message": "🚫",
+		"description": "Button badge when the page is blocked: '🚫'"
+	},
+	"buttonBlockedTooltip": {
+		"message": "ಈ ಪುಟ cannot be saved with SingleFile",
+		"description": "Button title: 'This page cannot be saved with SingleFile'"
+	},
+	"buttonInitializingTooltip": {
+		"message": "Initializing SingleFile",
+		"description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
+	},
+	"buttonInitializingBadge": {
+		"message": "•••",
+		"description": "Badge label during initialization: '•••'"
+	},
+	"buttonSaveProgressTooltip": {
+		"message": "ಉಳಿಸಲು ಪ್ರಗತಿ: ",
+		"description": "Button title during save: 'Save progress: xx%'"
+	},
+	"buttonOKBadge": {
+		"message": "ಸರಿ",
+		"description": "Badge label: 'OK'"
+	},
+	"buttonErrorBadge": {
+		"message": "ತಪ್ಪುಮಾಡು",
+		"description": "Badge label for unexpected errors"
+	},
+	"buttonAutoSaveActiveTooltip": {
+		"message": "ಸ್ವಯಂ ಉಳಿಸಲು ಸಕ್ರಿಯ",
+		"description": "Button title: 'Auto-save active'"
+	},
+	"buttonAutoSaveActiveBadge": {
+		"message": "[A]",
+		"description": "Badge label when auto-save is active"
+	},
+	"optionsTitle": {
+		"message": "ಆಯ್ಕೆಗಳನ್ನು",
+		"description": "Options page title"
+	},
+	"optionsUserInterfaceSubTitle": {
+		"message": "ಬಳಕೆದಾರ ಇಂಟರ್ಫೇಸ್",
+		"description": "Options sub-title: 'User interface'"
+	},
+	"optionAddMenuEntry": {
+		"message": "ಸೇರಿಸಿ ಪ್ರವೇಶ ಸಂದರ್ಭದಲ್ಲಿ ಮೆನು ವೆಬ್ಪುಟವನ್ನು",
+		"description": "Options page label: 'add entry in the context menu of the webpage'"
+	},
+	"optionDisplayShadow": {
+		"message": "ಒವರ್ಲೆ ಒಂದು ನೆರಳು ಪುಟದಲ್ಲಿ ಸಮಯದಲ್ಲಿ ಪ್ರಕ್ರಿಯೆಗೆ",
+		"description": "Options page label: 'overlay a shadow on the page during processing'"
+	},
+	"optionDisplayInfobar": {
+		"message": "ಪ್ರದರ್ಶನ ಒಂದು ಇನ್ಫೋಬಾರ್ ನೋಡುವಾಗ ಒಂದು ಉಳಿಸಿದ ಪುಟ",
+		"description": "Options page label: 'display an infobar when viewing a saved page'"
+	},
+	"optionInfobarTemplate": {
+		"message": "ಟೆಂಪ್ಲೆಟ್ ಇನ್ಫೋಬಾರ್ ವಿಷಯ",
+		"description": "Options page label: 'template of the infobar content'"
+	},
+	"optionIncludeInfobar": {
+		"message": "ಸೇರಿವೆ ಇನ್ಫೋಬಾರ್ ಉಳಿಸಿದ ಪುಟ",
+		"description": "Options page label: 'include the infobar in the saved page'"
+	},
+	"optionConfirmInfobar": {
+		"message": "ಓಪನ್ ಒಂದು ಪ್ರಾಂಪ್ಟಿನಲ್ಲಿ ಸಂವಾದ ಸಂಪಾದಿಸಲು ಇನ್ಫೋಬಾರ್ ವಿಷಯ",
+		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
+	},
+	"optionOpenEditorLabel": {
+		"message": "ಟಿಪ್ಪಣಿ ಪುಟ ಉಳಿಸುವ ಮೊದಲು",
+		"description": "Options page label: 'annotate the page before saving'"
+	},
+	"optionAutoCloseLabel": {
+		"message": "ಆಟೋ-ಟ್ಯಾಬ್ ಮುಚ್ಚಿ ನಂತರ ಪುಟ ಉಳಿಸಲಾಗಿದೆ",
+		"description": "Options page label: 'auto-close the tab after the page is saved'"
+	},
+	"optionsFileNameSubTitle": {
+		"message": "ಫೈಲ್ ಹೆಸರು",
+		"description": "Options sub-title: 'File name'"
+	},
+	"optionFilenameTemplate": {
+		"message": "ಟೆಂಪ್ಲೇಟು",
+		"description": "Options page label: 'template'"
+	},
+	"optionConfirmFilename": {
+		"message": "open the \"Save as\" dialog to confirm the file name",
+		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
+	},
+	"optionFilenameConflictAction": {
+		"message": "ಫೈಲ್ ಹೆಸರು ಕಾನ್ಫ್ಲಿಕ್ಟ್ ರೆಸೊಲ್ಯೂಷನ್",
+		"description": "Options page label: 'filename conflict resolution'"
+	},
+	"optionFilenameConflictActionUniquify": {
+		"message": "ಒಂದು ಅನನ್ಯ ರಚಿಸಲು ಹೆಸರು",
+		"description": "Value for 'filename conflict resolution' option: 'create a unique name'"
+	},
+	"optionFilenameConflictActionOverwrite": {
+		"message": "ಬದಲಿಸಿ ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಫೈಲ್",
+		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+	},
+	"optionFilenameConflictActionPrompt": {
+		"message": "ಪ್ರಾಂಪ್ಟ್ ಒಂದು ಹೆಸರು",
+		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
+	},
+	"optionsHTMLContentSubTitle": {
+		"message": "HTML ವಿಷಯ",
+		"description": "Options sub-title: 'HTML content'"
+	},
+	"optionCompressHTML": {
+		"message": "ಕುಗ್ಗಿಸುವಾಗ HTML ವಿಷಯ",
+		"description": "Options page label: 'compress HTML content'"
+	},
+	"optionRemoveImports": {
+		"message": "ತೆಗೆದು HTML ಆಮದು",
+		"description": "Options page label: 'remove HTML imports'"
+	},
+	"optionRemoveFrames": {
+		"message": "ತೆಗೆದು ಚೌಕಟ್ಟುಗಳು",
+		"description": "Options page label: 'remove frames'"
+	},
+	"optionRemoveHiddenElements": {
+		"message": "ತೆಗೆಯಲು ಗುಪ್ತ ಅಂಶಗಳನ್ನು",
+		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsImagesSubTitle": {
+		"message": "ಚಿತ್ರಗಳು",
+		"description": "Options sub-title: 'Images'"
+	},
+	"optionGroupDuplicateImages": {
+		"message": "ಗುಂಪು ನಕಲು ಚಿತ್ರಗಳನ್ನು ಒಟ್ಟಿಗೆ",
+		"description": "Options page label: 'group duplicate images together'"
+	},
+	"optionLoadDeferredImages": {
+		"message": "ಉಳಿಸಲು ಮುಂದೂಡಲ್ಪಟ್ಟ ಚಿತ್ರಗಳು",
+		"description": "Options page label: 'save deferred images'"
+	},
+	"optionLoadDeferredImagesMaxIdleTime": {
+		"message": "maximum idle time (ms)",
+		"description": "Options page label: 'maximum idle time (ms)'"
+	},
+	"optionRemoveAlternativeImages": {
+		"message": "ಚಿತ್ರಗಳನ್ನು ತೆಗೆದು ಪರ್ಯಾಯ ಸ್ಕ್ರೀನ್ ನಿರ್ಣಯಗಳು",
+		"description": "Options page label: 'remove images for alternative screen resolutions'"
+	},
+	"optionsFontsSubTitle": {
+		"message": "ಫಾಂಟ್ಗಳು",
+		"description": "Options sub-title: 'Fonts'"
+	},
+	"optionRemoveUnusedFonts": {
+		"message": "ತೆಗೆದು ಬಳಕೆಯಾಗದ ಫಾಂಟ್ಗಳು",
+		"description": "Options page label: 'remove unused fonts'"
+	},
+	"optionRemoveAlternativeFonts": {
+		"message": "ತೆಗೆದು ಪರ್ಯಾಯ ಫಾಂಟ್ಗಳು",
+		"description": "Options page label: 'remove alternative fonts'"
+	},
+	"optionsStylesheetsSubTitle": {
+		"message": "ಸ್ಟೈಲ್ಶೀಟ್ಸಂರಚಿಸು",
+		"description": "Options sub-title: 'Stylesheets'"
+	},
+	"optionCompressCSS": {
+		"message": "ಸಂಕುಚಿತಗೊಂಡಾಗ CSS ವಿಷಯ",
+		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionRemoveUnusedStyles": {
+		"message": "ತೆಗೆದು ಬಳಕೆಯಾಗದ ಶೈಲಿಗಳು",
+		"description": "Options page label: 'remove unused styles'"
+	},
+	"optionRemoveAlternativeMedias": {
+		"message": "ತೆಗೆದು ಸ್ಟೈಲ್ಶೀಟ್ಸಂರಚಿಸು ಪರ್ಯಾಯ ಸಾಧನಗಳು ಪರದೆಯ",
+		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
+	},
+	"optionsOtherResourcesSubTitle": {
+		"message": "ಇತರ ಸಂಪನ್ಮೂಲಗಳು",
+		"description": "Options sub-title: 'Other resources'"
+	},
+	"optionRemoveScripts": {
+		"message": "ತೆಗೆದು ಸ್ಕ್ರಿಪ್ಟ್ಗಳು",
+		"description": "Options page label: 'remove scripts'"
+	},
+	"optionRemoveVideo": {
+		"message": "ತೆಗೆದುಹಾಕಿ ವೀಡಿಯೊ ಮೂಲಗಳು",
+		"description": "Options page label: 'remove video sources'"
+	},
+	"optionRemoveAudio": {
+		"message": "ತೆಗೆದು ಆಡಿಯೋ ಮೂಲಗಳು",
+		"description": "Options page label: 'remove audio sources'"
+	},
+	"optionsAutoSaveSubTitle": {
+		"message": "ಸ್ವಯಂ ಉಳಿಸಲು",
+		"description": "Options sub-title: 'Auto-save'"
+	},
+	"optionsAutoSettingsSubTitle": {
+		"message": "ಸ್ವಯಂ ಸೆಟ್ಟಿಂಗ್ಗಳನ್ನು ನಿಯಮಗಳು",
+		"description": "Options sub-title: 'Auto-settings rules'"
+	},
+	"optionsDeleteDisplayedRulesConfirm": {
+		"message": "ಅಳಿಸುವಿಕೆಯನ್ನು ಪೂರ್ಣಗೊಳಿಸಲು ಎಲ್ಲಾ ಪ್ರದರ್ಶಿಸಲಾಗುತ್ತದೆ ನಿಯಮಗಳು",
+		"description": "Popup text 'Confirm the deletion of all displayed rules'"
+	},
+	"optionsDeleteRulesTooltip": {
+		"message": "ಅಳಿಸಿ ಎಲ್ಲಾ ಪ್ರದರ್ಶಿಸಲಾಗುತ್ತದೆ ನಿಯಮಗಳು",
+		"description": "Popup text 'Delete all displayed rules'"
+	},
+	"optionsAutoSettingsUrl": {
+		"message": "URL",
+		"description": "Options label in the Auto-settings rules: 'URL'"
+	},
+	"optionsAutoSettingsUrlPlaceholder": {
+		"message": "Type a complete or partial URL (e.g. example.com)",
+		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
+	},
+	"optionsAutoSettingsProfile": {
+		"message": "ಪ್ರೊಫೈಲ್",
+		"description": "Options label in the Auto-settings rules: 'Profile'"
+	},
+	"optionsAutoSettingsAutoSaveProfile": {
+		"message": "ಸ್ವಯಂ ಉಳಿಸಲು ಪ್ರೊಫೈಲ್",
+		"description": "Options label in the Auto-settings rules: 'Auto-save profile'"
+	},
+	"optionsAutoSettingsShowAllProfiles": {
+		"message": "ಪ್ರದರ್ಶನ ಎಲ್ಲಾ ಪ್ರೊಫೈಲ್ಗಳು",
+		"description": "Options label in the Auto-settings rules: 'display all profiles'"
+	},
+	"optionsAutoSettingsShowAutoSaveProfile": {
+		"message": "ಪ್ರದರ್ಶನ 'ಸ್ವಯಂ ಉಳಿಸಲು ಪ್ರೊಫೈಲ್' ಅಂಕಣ",
+		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
+	},
+	"optionsUpdateRuleTooltip": {
+		"message": "ಅಪ್ಡೇಟ್ ನಿಯಮ",
+		"description": "Popup text 'Update the rule' in the options page"
+	},
+	"optionsDeleteRuleTooltip": {
+		"message": "ಅಳಿಸಿ ನಿಯಮ",
+		"description": "Popup text 'Delete the rule' in the options page"
+	},
+	"optionsAddRuleTooltip": {
+		"message": "ಸೇರಿಸಿ ನಿಯಮ",
+		"description": "Popup text 'Add the rule' in the options page"
+	},
+	"optionsValidateChangesTooltip": {
+		"message": "ಮೌಲ್ಯೀಕರಿಸಲು ಬದಲಾವಣೆಗಳನ್ನು",
+		"description": "Popup text 'Validate changes' in the options page"
+	},
+	"optionsDeleteRuleConfirm": {
+		"message": "Confirm the deletion of the selected ನಿಯಮ",
+		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
+	},
+	"optionAutoSaveLoadOrUnload": {
+		"message": "ಸ್ವಯಂ ಉಳಿಸಲು ನಂತರ ಪುಟ ಲೋಡ್ ಮೇಲೆ ಅಥವಾ ಪುಟ ಇಳಿಸುವುದನ್ನು",
+		"description": "auto-save after page load or on page unload"
+	},
+	"optionAutoSaveLoad": {
+		"message": "ಸ್ವಯಂ ಉಳಿಸಲು ನಂತರ ಪುಟ ಲೋಡ್",
+		"description": "Options page label: 'auto-save after page load'"
+	},
+	"optionAutoSaveUnload": {
+		"message": "ಸ್ವಯಂ ಉಳಿಸಲು ಪುಟದಲ್ಲಿ ಇಳಿಸುವುದನ್ನು",
+		"description": "Options page label: 'auto-save on page unload'"
+	},
+	"optionAutoSaveDelay": {
+		"message": "auto-save waiting delay after page load (s)",
+		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
+	},
+	"optionAutoSaveRepeat": {
+		"message": "ಸ್ವಯಂ ಉಳಿಸಲು ನಿಯತಕಾಲಿಕವಾಗಿ",
+		"description": "Options page label: 'auto-save periodically'"
+	},
+	"optionAutoSaveRepeatDelay": {
+		"message": "period (s.)",
+		"description": "Options page label: 'period (s)'"
+	},
+	"optionsMiscSubTitle": {
+		"message": "ಇತರೆ.",
+		"description": "Options sub-title: 'Misc.'"
+	},
+	"optionBackgroundSave": {
+		"message": "ಉಳಿಸಲು ಪುಟಗಳು ಹಿನ್ನೆಲೆ",
+		"description": "Options page label: 'save pages in background'"
+	},
+	"optionDisplayStats": {
+		"message": "ಪ್ರದರ್ಶನ ಅಂಕಿಅಂಶಗಳು ಕನ್ಸೋಲ್ ನಂತರ ಸಂಸ್ಕರಣೆ",
+		"description": "Options page label: 'display stats in the console after processing'"
+	},
+	"optionSetMaxResourceSize": {
+		"message": "ಸೆಟ್ ಗರಿಷ್ಠ ಗಾತ್ರ ಎಂಬೆಡೆಡ್ ಸಂಪನ್ಮೂಲಗಳನ್ನು",
+		"description": "Options page label: 'set a maximum size for embedded resources'"
+	},
+	"optionMaxResourceSize": {
+		"message": "maximum size (MB)",
+		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionSaveRawPage": {
+		"message": "ಉಳಿಸಲು ಕಚ್ಚಾ ಪುಟ",
+		"description": "Options page label: 'save raw page'"
+	},
+	"optionSaveToClipboard": {
+		"message": "ಉಳಿಸಲು ಕ್ಲಿಪ್ಬೋರ್ಡ್ಗೆ",
+		"description": "Options page label: 'save to clipboard'"
+	},
+	"optionsHelpLink": {
+		"message": "ಸಹಾಯ",
+		"description": "Options help link"
+	},
+	"optionsResetButton": {
+		"message": "ರೀಸೆಟ್",
+		"description": "Options button: 'Reset'"
+	},
+	"optionsResetTooltip": {
+		"message": "ರೀಸೆಟ್ ಎಲ್ಲಾ ಆಯ್ಕೆಗಳನ್ನು ತಮ್ಮ ಡೀಫಾಲ್ಟ್ ಮೌಲ್ಯಗಳು",
+		"description": "Options 'Reset' button tooltip"
+	},
+	"optionsResetConfirm": {
+		"message": "ದೃಢೀಕರಿಸಿ ರೀಸೆಟ್ ಎಲ್ಲಾ ಆಯ್ಕೆಗಳನ್ನು ಅಥವಾ ಪ್ರಸ್ತುತ ಪ್ರೊಫೈಲ್",
+		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+	},
+	"optionsResetAllButton": {
+		"message": "ರೀಸೆಟ್ ಎಲ್ಲಾ ಆಯ್ಕೆಗಳನ್ನು",
+		"description": "Options confirm button: 'Reset all options'"
+	},
+	"optionsResetCurrentButton": {
+		"message": "ರೀಸೆಟ್ ಪ್ರಸ್ತುತ ಪ್ರೊಫೈಲ್",
+		"description": "Options confirm button: 'Reset current profile'"
+	},
+	"optionsOKButton": {
+		"message": "ಸರಿ",
+		"description": "Options confirm button: 'OK'"
+	},
+	"optionsCancelButton": {
+		"message": "ರದ್ದು",
+		"description": "Options confirm button: 'Cancel'"
+	},
+	"optionsExportButton": {
+		"message": "ರಫ್ತು",
+		"description": "Options button: 'Export'"
+	},
+	"optionsImportButton": {
+		"message": "ಆಮದು",
+		"description": "Options button: 'Import'"
+	},
+	"logPanelDeferredImages": {
+		"message": "ಮುಂದೂಡಲ್ಪಟ್ಟ ಚಿತ್ರಗಳು",
+		"description": "Label 'Deferred images' in the log panel"
+	},
+	"logPanelFrameContents": {
+		"message": "ಫ್ರೇಮ್ ವಿಷಯಗಳನ್ನು",
+		"description": "Label 'Frame contents' in the log panel"
+	},
+	"logPanelStep": {
+		"message": "ಹಂತ",
+		"description": "Label 'Step' (for 'Step x / 4') in the log panel"
+	},
+	"logPanelWidth": {
+		"message": "ನೂರು ಇಪ್ಪತ್ತು ಎರಡು",
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+	},
+	"profileDefaultSettings": {
+		"message": "ಡೀಫಾಲ್ಟ್ ಸೆಟ್ಟಿಂಗ್ಗಳನ್ನು",
+		"description": "Label 'Default settings' of the default settings in the options page"
+	},
+	"profileDisabled": {
+		"message": "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ",
+		"description": "Label 'Disabled' of the disabled profile name in the options page"
+	},
+	"profileAddButtonTooltip": {
+		"message": "ಸೇರಿಸಿ ಒಂದು ಹೊಸ ಪ್ರೊಫೈಲ್",
+		"description": "Tooltip 'Add a new profile' in the options page"
+	},
+	"profileRenameButtonTooltip": {
+		"message": "ಮರುಹೆಸರಿಸು ಪ್ರೊಫೈಲ್",
+		"description": "Tooltip 'Rename the profile' in the options page"
+	},
+	"profileDeleteButtonTooltip": {
+		"message": "ಅಳಿಸಿ ಪ್ರೊಫೈಲ್",
+		"description": "Tooltip 'Delete the profile' in the options page"
+	},
+	"profileAddPrompt": {
+		"message": "Enter a name for ಈ ಹೊಸ ಪ್ರೊಫೈಲ್",
+		"description": "Popup text 'Enter a name for this new profile' in the options page"
+	},
+	"profileDeleteConfirm": {
+		"message": "Confirm the deletion of the selected profile",
+		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
+	},
+	"profileRenamePrompt": {
+		"message": "Enter a new name for the selected profile",
+		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
+	},
+	"editorAddYellowNote": {
+		"message": "ಸೇರಿಸಿ ಒಂದು ಹಳದಿ ಗಮನಿಸಿ",
+		"description": "Title of the button 'Add a yellow note' in the editor"
+	},
+	"editorAddPinkNote": {
+		"message": "ಸೇರಿಸಿ ಒಂದು ಗುಲಾಬಿ ಗಮನಿಸಿ",
+		"description": "Title of the button 'Add a pink note' in the editor"
+	},
+	"editorAddBlueNote": {
+		"message": "ಸೇರಿಸಿ ಒಂದು ನೀಲಿ ಗಮನಿಸಿ",
+		"description": "Title of the button 'Add a blue note' in the editor"
+	},
+	"editorAddGreenNote": {
+		"message": "ಸೇರಿಸಿ ಒಂದು ಹಸಿರು ಸೂಚನೆ",
+		"description": "Title of the button 'Add a green note' in the editor"
+	},
+	"editorHighlightYellow": {
+		"message": "ಪ್ರಮುಖ ಆಯ್ಕೆ ಪಠ್ಯ, ಹಳದಿ",
+		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
+	},
+	"editorHighlightPink": {
+		"message": "ಪ್ರಮುಖ ಆಯ್ಕೆ ಪಠ್ಯ ಗುಲಾಬಿ",
+		"description": "Title of the button 'Highlight selected text in pink' in the editor"
+	},
+	"editorHighlightBlue": {
+		"message": "ಪ್ರಮುಖ ಆಯ್ಕೆ ಪಠ್ಯ ನೀಲಿ",
+		"description": "Title of the button 'Highlight selected text in blue' in the editor"
+	},
+	"editorHighlightGreen": {
+		"message": "ಪ್ರಮುಖ ಆಯ್ಕೆ ಪಠ್ಯ ಹಸಿರು",
+		"description": "Title of the button 'Highlight selected text in green' in the editor"
+	},
+	"editorToggleNotes": {
+		"message": "ಪ್ರದರ್ಶನ/ಮರೆಮಾಡು ಟಿಪ್ಪಣಿಗಳು",
+		"description": "Title of the button 'Display/hide notes' in the editor"
+	},
+	"editorToggleHighlights": {
+		"message": "ಪ್ರದರ್ಶನ/ಮರೆಮಾಡು ಹೈಲೈಟ್ ಪಠ್ಯ",
+		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
+	},
+	"editorRemoveHighlight": {
+		"message": "Remove the selected ಹೈಲೈಟ್ ಪಠ್ಯ",
+		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
+	},
+	"editorEditPage": {
+		"message": "ಸಕ್ರಿಯಗೊಳಿಸಿ/ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ ಓದಲು-ಮಾತ್ರ",
+		"description": "Title of the button 'Enable/disable read-only' in the editor"
+	},
+	"editorSavePage": {
+		"message": "ಪುಟ ಉಳಿಸಲು",
+		"description": "Title of the button 'Save the page' in the editor"
+	}
+}

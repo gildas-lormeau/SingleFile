@@ -1,0 +1,514 @@
+{
+	"extensionDescription": {
+		"message": "ਨੂੰ ਬਚਾਉਣ, ਇੱਕ ਪੂਰਨ ਸਫ਼ੇ ਵਿੱਚ ਇੱਕ ਸਿੰਗਲ HTML ਫਾਇਲ",
+		"description": "Description of the extension."
+	},
+	"menuSavePage": {
+		"message": "ਨੂੰ ਬਚਾਉਣ ਸਫ਼ੇ ਦੇ ਨਾਲ SingleFile",
+		"description": "Menu entry: 'Save page with SingleFile'"
+	},
+	"menuEditAndSavePage": {
+		"message": "ਵਿਆਖਿਆ ਅਤੇ ਸਫ਼ੇ ਨੂੰ ਬਚਾਉਣ...",
+		"description": "Menu entry: 'Annotate and save the page...'"
+	},
+	"menuSelectProfile": {
+		"message": "ਦੀ ਚੋਣ ਕਰੋ ਮੂਲ ਪ੍ਰੋਫ਼ਾਈਲ",
+		"description": "Menu entry: 'Select the default profile'"
+	},
+	"menuUpdateRule": {
+		"message": "ਦੀ ਚੋਣ ਕਰੋ ਪ੍ਰੋਫ਼ਾਈਲ english ਦੇ ਮੌਜੂਦਾ ਨਿਯਮ",
+		"description": "Menu entry: 'Select the profile of the current rule'"
+	},
+	"menuCreateDomainRule": {
+		"message": "ਦੀ ਚੋਣ ਕਰੋ ਪ੍ਰੋਫ਼ਾਈਲ english ਦੇ ਮੌਜੂਦਾ ਡੋਮੇਨ",
+		"description": "Menu entry: 'Select the profile of the current domain'"
+	},
+	"menuSaveSelection": {
+		"message": "ਚੋਣ ਸੰਭਾਲੋ",
+		"description": "Menu entry: 'Save selection'"
+	},
+	"menuSaveFrame": {
+		"message": "ਨੂੰ ਬਚਾਉਣ ਫਰੇਮ",
+		"description": "Menu entry: 'Save frame'"
+	},
+	"menuSaveTabs": {
+		"message": "ਨੂੰ ਬਚਾਉਣ ਟੈਬ",
+		"description": "Menu entry (SingleFile button only): 'Save tabs'"
+	},
+	"menuSaveSelectedTabs": {
+		"message": "ਨੂੰ ਬਚਾਉਣ ਚੁਣਿਆ ਟੈਬ",
+		"description": "Menu entry: 'Save selected tabs'"
+	},
+	"menuSaveUnpinnedTabs": {
+		"message": "ਨੂੰ ਬਚਾਉਣ unpinned ਟੈਬ",
+		"description": "Menu entry: 'Save unpinned tabs'"
+	},
+	"menuSaveAllTabs": {
+		"message": "ਸਾਰੇ ਨੂੰ ਬਚਾ ਟੈਬ",
+		"description": "Menu entry: 'Save all tabs'"
+	},
+	"menuAutoSave": {
+		"message": "ਆਟੋ-ਨੂੰ ਬਚਾਉਣ",
+		"description": "Menu entry: 'Auto-save'"
+	},
+	"menuAutoSaveDisabled": {
+		"message": "ਅਯੋਗ",
+		"description": "Menu entry: 'Auto-save' > Disabled'"
+	},
+	"menuAutoSaveTab": {
+		"message": "ਆਟੋ-ਇਸ ਨੂੰ ਨੂੰ ਬਚਾਉਣ ਟੈਬ",
+		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+	},
+	"menuAutoSaveUnpinnedTabs": {
+		"message": "ਆਟੋ-ਨੂੰ ਬਚਾਉਣ unpinned ਟੈਬ",
+		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+	},
+	"menuAutoSaveAllTabs": {
+		"message": "ਆਟੋ-ਨੂੰ ਬਚਾਉਣ ਸਾਰੇ ਟੈਬ",
+		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+	},
+	"buttonDefaultTooltip": {
+		"message": "ਨੂੰ ਬਚਾਉਣ ਸਫ਼ੇ ਦੇ ਨਾਲ SingleFile",
+		"description": "Button title: 'Save page with SingleFile'"
+	},
+	"buttonBlockedBadge": {
+		"message": "🚫",
+		"description": "Button badge when the page is blocked: '🚫'"
+	},
+	"buttonBlockedTooltip": {
+		"message": "ਇਸ ਸਫ਼ੇ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ ਨੂੰ ਬਚਾਇਆ ਨਾਲ SingleFile",
+		"description": "Button title: 'This page cannot be saved with SingleFile'"
+	},
+	"buttonInitializingTooltip": {
+		"message": "ਸ਼ੁਰੂ SingleFile",
+		"description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
+	},
+	"buttonInitializingBadge": {
+		"message": "•••",
+		"description": "Badge label during initialization: '•••'"
+	},
+	"buttonSaveProgressTooltip": {
+		"message": "ਤਰੱਕੀ ਨੂੰ ਬਚਾਉਣ: ",
+		"description": "Button title during save: 'Save progress: xx%'"
+	},
+	"buttonOKBadge": {
+		"message": "ਠੀਕ ਹੈ",
+		"description": "Badge label: 'OK'"
+	},
+	"buttonErrorBadge": {
+		"message": "ਭਟਕ",
+		"description": "Badge label for unexpected errors"
+	},
+	"buttonAutoSaveActiveTooltip": {
+		"message": "ਆਟੋ-ਨੂੰ ਬਚਾਉਣ ਸਰਗਰਮ",
+		"description": "Button title: 'Auto-save active'"
+	},
+	"buttonAutoSaveActiveBadge": {
+		"message": "[A]",
+		"description": "Badge label when auto-save is active"
+	},
+	"optionsTitle": {
+		"message": "ਚੋਣ",
+		"description": "Options page title"
+	},
+	"optionsUserInterfaceSubTitle": {
+		"message": "ਯੂਜ਼ਰ ਇੰਟਰਫੇਸ",
+		"description": "Options sub-title: 'User interface'"
+	},
+	"optionAddMenuEntry": {
+		"message": "ਸ਼ਾਮਿਲ ਇੰਦਰਾਜ਼ ਪਰਸੰਗ ਮੇਨੂ ਵਿੱਚ ਵੈੱਬਪੇਜ ਦੇ",
+		"description": "Options page label: 'add entry in the context menu of the webpage'"
+	},
+	"optionDisplayShadow": {
+		"message": "ਓਵਰਲੇ ਇੱਕ ਸ਼ੈਡੋ ਸਫ਼ੇ ' ਤੇ ਕਾਰਵਾਈ ਕਰਨ ਦੇ ਦੌਰਾਨ",
+		"description": "Options page label: 'overlay a shadow on the page during processing'"
+	},
+	"optionDisplayInfobar": {
+		"message": "ਡਿਸਪਲੇਅ ਨੂੰ ਇੱਕ infobar ਦੇਖਣ ਨੂੰ ਜਦ, ਇੱਕ ਸਫ਼ੇ ਨੂੰ ਬਚਾਇਆ",
+		"description": "Options page label: 'display an infobar when viewing a saved page'"
+	},
+	"optionInfobarTemplate": {
+		"message": "ਫਰਮਾ ਦੀ infobar ਸਮੱਗਰੀ",
+		"description": "Options page label: 'template of the infobar content'"
+	},
+	"optionIncludeInfobar": {
+		"message": "ਸ਼ਾਮਲ ਹਨ infobar ਵਿੱਚ ਸੰਭਾਲਿਆ ਪੰਨਾ",
+		"description": "Options page label: 'include the infobar in the saved page'"
+	},
+	"optionConfirmInfobar": {
+		"message": "ਓਪਨ ਨੂੰ ਇੱਕ ਪ੍ਰਾਉਟ ਡਾਈਲਾਗ ਵਿੱਚ ਸੋਧ ਕਰਨ ਲਈ infobar ਸਮੱਗਰੀ",
+		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
+	},
+	"optionOpenEditorLabel": {
+		"message": "ਵਿਆਖਿਆ ਸਫ਼ੇ ਨੂੰ ਸੰਭਾਲਣ ਦੇ ਅੱਗੇ",
+		"description": "Options page label: 'annotate the page before saving'"
+	},
+	"optionAutoCloseLabel": {
+		"message": "ਆਟੋ-ਟੈਬ ਬੰਦ ਦੇ ਬਾਅਦ page ਨੂੰ ਬਚਾਇਆ ਗਿਆ ਹੈ",
+		"description": "Options page label: 'auto-close the tab after the page is saved'"
+	},
+	"optionsFileNameSubTitle": {
+		"message": "ਫਾਇਲ ਦਾ ਨਾਮ",
+		"description": "Options sub-title: 'File name'"
+	},
+	"optionFilenameTemplate": {
+		"message": "ਫਰਮਾ",
+		"description": "Options page label: 'template'"
+	},
+	"optionConfirmFilename": {
+		"message": "open the \"Save as\" dialog to confirm the file name",
+		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
+	},
+	"optionFilenameConflictAction": {
+		"message": "ਫਾਇਲ ਦਾ ਨਾਮ ਅਪਵਾਦ ਮਤਾ",
+		"description": "Options page label: 'filename conflict resolution'"
+	},
+	"optionFilenameConflictActionUniquify": {
+		"message": "ਬਣਾਓ ਇੱਕ ਵਿਲੱਖਣ ਨਾਮ",
+		"description": "Value for 'filename conflict resolution' option: 'create a unique name'"
+	},
+	"optionFilenameConflictActionOverwrite": {
+		"message": "ਲਿਖਣਾ ਮੌਜੂਦਾ ਫਾਇਲ",
+		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+	},
+	"optionFilenameConflictActionPrompt": {
+		"message": "ਪ੍ਰਾਉਟ ਲਈ ਇੱਕ ਨਾਮ",
+		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
+	},
+	"optionsHTMLContentSubTitle": {
+		"message": "HTML ਸਮੱਗਰੀ",
+		"description": "Options sub-title: 'HTML content'"
+	},
+	"optionCompressHTML": {
+		"message": "ਸੰਕੁਚਿਤ HTML ਸਮੱਗਰੀ",
+		"description": "Options page label: 'compress HTML content'"
+	},
+	"optionRemoveImports": {
+		"message": "ਨੂੰ ਹਟਾਉਣ HTML ਦਰਾਮਦ",
+		"description": "Options page label: 'remove HTML imports'"
+	},
+	"optionRemoveFrames": {
+		"message": "ਨੂੰ ਹਟਾਉਣ ਫਰੇਮ",
+		"description": "Options page label: 'remove frames'"
+	},
+	"optionRemoveHiddenElements": {
+		"message": "ਨੂੰ ਹਟਾਉਣ ਓਹਲੇ ਤੱਤ",
+		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsImagesSubTitle": {
+		"message": "ਚਿੱਤਰ",
+		"description": "Options sub-title: 'Images'"
+	},
+	"optionGroupDuplicateImages": {
+		"message": "ਗਰੁੱਪ ਡੁਪਲੀਕੇਟ ਚਿੱਤਰ ਨੂੰ ਮਿਲ ਕੇ",
+		"description": "Options page label: 'group duplicate images together'"
+	},
+	"optionLoadDeferredImages": {
+		"message": "ਨੂੰ ਬਚਾਉਣ ਸਥਗਤ ਚਿੱਤਰ",
+		"description": "Options page label: 'save deferred images'"
+	},
+	"optionLoadDeferredImagesMaxIdleTime": {
+		"message": "maximum idle time (ms)",
+		"description": "Options page label: 'maximum idle time (ms)'"
+	},
+	"optionRemoveAlternativeImages": {
+		"message": "ਨੂੰ ਹਟਾਉਣ ਲਈ ਚਿੱਤਰ ਬਦਲ ਸਕਰੀਨ ਮਤੇ",
+		"description": "Options page label: 'remove images for alternative screen resolutions'"
+	},
+	"optionsFontsSubTitle": {
+		"message": "Fonts",
+		"description": "Options sub-title: 'Fonts'"
+	},
+	"optionRemoveUnusedFonts": {
+		"message": "ਨੂੰ ਹਟਾਉਣ ਨਾ ਵਰਤੇ fonts",
+		"description": "Options page label: 'remove unused fonts'"
+	},
+	"optionRemoveAlternativeFonts": {
+		"message": "ਨੂੰ ਹਟਾਉਣ ਬਦਲ fonts",
+		"description": "Options page label: 'remove alternative fonts'"
+	},
+	"optionsStylesheetsSubTitle": {
+		"message": "ਸਟਾਇਲਸ਼ੀਟ",
+		"description": "Options sub-title: 'Stylesheets'"
+	},
+	"optionCompressCSS": {
+		"message": "ਸੰਕੁਚਿਤ CSS ਸਮੱਗਰੀ",
+		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionRemoveUnusedStyles": {
+		"message": "ਨੂੰ ਹਟਾਉਣ ਨਾ ਵਰਤੇ ਸਟਾਈਲ",
+		"description": "Options page label: 'remove unused styles'"
+	},
+	"optionRemoveAlternativeMedias": {
+		"message": "ਨੂੰ ਹਟਾਉਣ ਲਈ ਸਟਾਇਲਸ਼ੀਟ ਬਦਲ ਜੰਤਰ ਨੂੰ ਸਕਰੀਨ",
+		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
+	},
+	"optionsOtherResourcesSubTitle": {
+		"message": "ਹੋਰ ਸਰੋਤ",
+		"description": "Options sub-title: 'Other resources'"
+	},
+	"optionRemoveScripts": {
+		"message": "ਨੂੰ ਹਟਾਉਣ ਸਕਰਿਪਟ",
+		"description": "Options page label: 'remove scripts'"
+	},
+	"optionRemoveVideo": {
+		"message": "ਨੂੰ ਹਟਾਉਣ ਵੀਡੀਓ ਸਰੋਤ",
+		"description": "Options page label: 'remove video sources'"
+	},
+	"optionRemoveAudio": {
+		"message": "ਨੂੰ ਹਟਾਉਣ ਆਡੀਓ ਸਰੋਤ",
+		"description": "Options page label: 'remove audio sources'"
+	},
+	"optionsAutoSaveSubTitle": {
+		"message": "ਆਟੋ-ਨੂੰ ਬਚਾਉਣ",
+		"description": "Options sub-title: 'Auto-save'"
+	},
+	"optionsAutoSettingsSubTitle": {
+		"message": "ਆਟੋ-ਸੈਟਿੰਗ ਨਿਯਮ",
+		"description": "Options sub-title: 'Auto-settings rules'"
+	},
+	"optionsDeleteDisplayedRulesConfirm": {
+		"message": "ਹਟਾਉਣ ਦੀ ਪੁਸ਼ਟੀ ਦੇ ਸਾਰੇ ਨਿਯਮ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ",
+		"description": "Popup text 'Confirm the deletion of all displayed rules'"
+	},
+	"optionsDeleteRulesTooltip": {
+		"message": "ਸਾਰੇ ਹਟਾ ਪ੍ਰਦਰਸ਼ਿਤ ਨਿਯਮ",
+		"description": "Popup text 'Delete all displayed rules'"
+	},
+	"optionsAutoSettingsUrl": {
+		"message": "URL",
+		"description": "Options label in the Auto-settings rules: 'URL'"
+	},
+	"optionsAutoSettingsUrlPlaceholder": {
+		"message": "Type a complete or partial URL (e.g. example.com)",
+		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
+	},
+	"optionsAutoSettingsProfile": {
+		"message": "ਪ੍ਰੋਫ਼ਾਈਲ english",
+		"description": "Options label in the Auto-settings rules: 'Profile'"
+	},
+	"optionsAutoSettingsAutoSaveProfile": {
+		"message": "ਆਟੋ-ਨੂੰ ਬਚਾਉਣ ਪ੍ਰੋਫ਼ਾਈਲ",
+		"description": "Options label in the Auto-settings rules: 'Auto-save profile'"
+	},
+	"optionsAutoSettingsShowAllProfiles": {
+		"message": "ਡਿਸਪਲੇਅ ਸਾਰੇ ਪਰੋਫਾਈਲ",
+		"description": "Options label in the Auto-settings rules: 'display all profiles'"
+	},
+	"optionsAutoSettingsShowAutoSaveProfile": {
+		"message": "ਡਿਸਪਲੇਅ 'ਆਟੋ-ਨੂੰ ਬਚਾਉਣ ਪ੍ਰੋਫ਼ਾਈਲ' ਕਾਲਮ",
+		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
+	},
+	"optionsUpdateRuleTooltip": {
+		"message": "ਅੱਪਡੇਟ ਰਾਜ",
+		"description": "Popup text 'Update the rule' in the options page"
+	},
+	"optionsDeleteRuleTooltip": {
+		"message": "ਹਟਾਓ ਰਾਜ",
+		"description": "Popup text 'Delete the rule' in the options page"
+	},
+	"optionsAddRuleTooltip": {
+		"message": "ਸ਼ਾਮਿਲ ਰਾਜ",
+		"description": "Popup text 'Add the rule' in the options page"
+	},
+	"optionsValidateChangesTooltip": {
+		"message": "ਦੀ ਪੜਤਾਲ ਬਦਲਾਅ",
+		"description": "Popup text 'Validate changes' in the options page"
+	},
+	"optionsDeleteRuleConfirm": {
+		"message": "ਹਟਾਉਣ ਦੀ ਪੁਸ਼ਟੀ ਚੁਣਿਆ ਰਾਜ",
+		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
+	},
+	"optionAutoSaveLoadOrUnload": {
+		"message": "ਆਟੋ-ਨੂੰ ਬਚਾਉਣ ਦੇ ਬਾਅਦ ਪੰਨਾ ਲੋਡ ਜ ਸਫ਼ੇ ' ਤੇ ਅਨਲੋਡ",
+		"description": "auto-save after page load or on page unload"
+	},
+	"optionAutoSaveLoad": {
+		"message": "ਆਟੋ-ਨੂੰ ਬਚਾਉਣ ਦੇ ਬਾਅਦ ਪੰਨਾ ਲੋਡ",
+		"description": "Options page label: 'auto-save after page load'"
+	},
+	"optionAutoSaveUnload": {
+		"message": "ਆਟੋ-ਨੂੰ ਬਚਾਉਣ ਸਫ਼ੇ ' ਤੇ ਅਨਲੋਡ",
+		"description": "Options page label: 'auto-save on page unload'"
+	},
+	"optionAutoSaveDelay": {
+		"message": "auto-save waiting delay after page load (s)",
+		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
+	},
+	"optionAutoSaveRepeat": {
+		"message": "ਆਟੋ-ਨੂੰ ਬਚਾਉਣ ਲਗਾਤਾਰ",
+		"description": "Options page label: 'auto-save periodically'"
+	},
+	"optionAutoSaveRepeatDelay": {
+		"message": "period (s.)",
+		"description": "Options page label: 'period (s)'"
+	},
+	"optionsMiscSubTitle": {
+		"message": "Misc.",
+		"description": "Options sub-title: 'Misc.'"
+	},
+	"optionBackgroundSave": {
+		"message": "ਨੂੰ ਬਚਾਉਣ ਵਿੱਚ ਸਫ਼ੇ ਦੀ ਪਿੱਠਭੂਮੀ",
+		"description": "Options page label: 'save pages in background'"
+	},
+	"optionDisplayStats": {
+		"message": "ਡਿਸਪਲੇਅ ਦੀ ਪ੍ਰੋਫਾਈਲ ਵਿੱਚ ਕੰਸੋਲ ਨੂੰ ਕਾਰਵਾਈ ਕਰਨ ਦੇ ਬਾਅਦ",
+		"description": "Options page label: 'display stats in the console after processing'"
+	},
+	"optionSetMaxResourceSize": {
+		"message": "ਸੈੱਟ ਕੀਤਾ ਇੱਕ ਵੱਧ ਆਕਾਰ ਲਈ ਸਰੋਤ ਸ਼ਾਮਿਲ",
+		"description": "Options page label: 'set a maximum size for embedded resources'"
+	},
+	"optionMaxResourceSize": {
+		"message": "maximum size (MB)",
+		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionSaveRawPage": {
+		"message": "ਨੂੰ ਬਚਾਉਣ ਕੱਚੇ ਪੰਨਾ",
+		"description": "Options page label: 'save raw page'"
+	},
+	"optionSaveToClipboard": {
+		"message": "ਨੂੰ ਬਚਾਉਣ ਲਈ ਕਲਿੱਪਬੋਰਡ",
+		"description": "Options page label: 'save to clipboard'"
+	},
+	"optionsHelpLink": {
+		"message": "ਮਦਦ",
+		"description": "Options help link"
+	},
+	"optionsResetButton": {
+		"message": "ਮੁੜ-ਸੈੱਟ",
+		"description": "Options button: 'Reset'"
+	},
+	"optionsResetTooltip": {
+		"message": "ਰੀਸੈੱਟ ਸਾਰੇ ਚੋਣ ਕਰਨ ਲਈ ਆਪਣੇ ਮੂਲ ਮੁੱਲ",
+		"description": "Options 'Reset' button tooltip"
+	},
+	"optionsResetConfirm": {
+		"message": "ਦੀ ਪੁਸ਼ਟੀ ਸੈੱਟ ਦੇ ਸਾਰੇ ਚੋਣ ਨੂੰ ਜ ਮੌਜੂਦਾ ਪਰੋਫਾਈਲ",
+		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+	},
+	"optionsResetAllButton": {
+		"message": "ਰੀਸੈੱਟ ਸਾਰੇ ਚੋਣ",
+		"description": "Options confirm button: 'Reset all options'"
+	},
+	"optionsResetCurrentButton": {
+		"message": "ਰੀਸੈੱਟ ਮੌਜੂਦਾ ਪਰੋਫਾਈਲ",
+		"description": "Options confirm button: 'Reset current profile'"
+	},
+	"optionsOKButton": {
+		"message": "ਠੀਕ ਹੈ",
+		"description": "Options confirm button: 'OK'"
+	},
+	"optionsCancelButton": {
+		"message": "ਰੱਦ",
+		"description": "Options confirm button: 'Cancel'"
+	},
+	"optionsExportButton": {
+		"message": "ਬਰਾਮਦ",
+		"description": "Options button: 'Export'"
+	},
+	"optionsImportButton": {
+		"message": "ਅਯਾਤ",
+		"description": "Options button: 'Import'"
+	},
+	"logPanelDeferredImages": {
+		"message": "ਸਥਗਤ ਚਿੱਤਰ",
+		"description": "Label 'Deferred images' in the log panel"
+	},
+	"logPanelFrameContents": {
+		"message": "ਫਰੇਮ ਸਮੱਗਰੀ",
+		"description": "Label 'Frame contents' in the log panel"
+	},
+	"logPanelStep": {
+		"message": "ਕਦਮ",
+		"description": "Label 'Step' (for 'Step x / 4') in the log panel"
+	},
+	"logPanelWidth": {
+		"message": "ਇੱਕ ਸੌ ਵੀਹ-ਦੋ",
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+	},
+	"profileDefaultSettings": {
+		"message": "ਨੂੰ ਮੂਲ ਸੈਟਿੰਗ ਨੂੰ",
+		"description": "Label 'Default settings' of the default settings in the options page"
+	},
+	"profileDisabled": {
+		"message": "ਅਯੋਗ",
+		"description": "Label 'Disabled' of the disabled profile name in the options page"
+	},
+	"profileAddButtonTooltip": {
+		"message": "ਸ਼ਾਮਲ ਕਰੋ ਇੱਕ ਨਵ ਪਰੋਫਾਇਲ",
+		"description": "Tooltip 'Add a new profile' in the options page"
+	},
+	"profileRenameButtonTooltip": {
+		"message": "ਬਦਲੋ ਪ੍ਰੋਫ਼ਾਈਲ",
+		"description": "Tooltip 'Rename the profile' in the options page"
+	},
+	"profileDeleteButtonTooltip": {
+		"message": "ਪਰੋਫਾਇਲ ਨੂੰ ਹਟਾ",
+		"description": "Tooltip 'Delete the profile' in the options page"
+	},
+	"profileAddPrompt": {
+		"message": "ਲਈ ਇੱਕ ਨਾਮ ਦਰਜ ਕਰੋ, ਇਸ ਨਵ ਪਰੋਫਾਇਲ",
+		"description": "Popup text 'Enter a name for this new profile' in the options page"
+	},
+	"profileDeleteConfirm": {
+		"message": "ਹਟਾਉਣ ਦੀ ਪੁਸ਼ਟੀ ਦੇ ਚੁਣੇ ਪਰੋਫਾਇਲ",
+		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
+	},
+	"profileRenamePrompt": {
+		"message": "ਦਿਓ, ਇੱਕ ਨਵ ਨਾਮ ਦੇ ਲਈ ਚੁਣੇ ਪਰੋਫਾਇਲ",
+		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
+	},
+	"editorAddYellowNote": {
+		"message": "ਸ਼ਾਮਲ ਕਰੋ ਨੂੰ ਇੱਕ ਪੀਲੇ ਸੂਚਨਾ",
+		"description": "Title of the button 'Add a yellow note' in the editor"
+	},
+	"editorAddPinkNote": {
+		"message": "ਸ਼ਾਮਲ ਕਰੋ ਨੂੰ ਇੱਕ ਗੁਲਾਬੀ ਸੂਚਨਾ",
+		"description": "Title of the button 'Add a pink note' in the editor"
+	},
+	"editorAddBlueNote": {
+		"message": "ਸ਼ਾਮਲ ਕਰੋ ਨੂੰ ਇੱਕ ਨੀਲੇ ਸੂਚਨਾ",
+		"description": "Title of the button 'Add a blue note' in the editor"
+	},
+	"editorAddGreenNote": {
+		"message": "ਸ਼ਾਮਿਲ ਇੱਕ ਹਰੇ ਸੂਚਨਾ",
+		"description": "Title of the button 'Add a green note' in the editor"
+	},
+	"editorHighlightYellow": {
+		"message": "ਹਾਈਲਾਈਟ ਚੁਣੇ ਪਾਠ ਵਿੱਚ ਪੀਲੇ",
+		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
+	},
+	"editorHighlightPink": {
+		"message": "ਹਾਈਲਾਈਟ ਚੁਣੇ ਪਾਠ ਵਿਚ ਗੁਲਾਬੀ",
+		"description": "Title of the button 'Highlight selected text in pink' in the editor"
+	},
+	"editorHighlightBlue": {
+		"message": "ਹਾਈਲਾਈਟ ਚੁਣੇ ਪਾਠ ਵਿਚ ਨੀਲੇ",
+		"description": "Title of the button 'Highlight selected text in blue' in the editor"
+	},
+	"editorHighlightGreen": {
+		"message": "ਹਾਈਲਾਈਟ ਚੁਣੇ ਪਾਠ ਵਿੱਚ ਹਰੇ",
+		"description": "Title of the button 'Highlight selected text in green' in the editor"
+	},
+	"editorToggleNotes": {
+		"message": "ਡਿਸਪਲੇਅ/ਓਹਲੇ ਸੂਚਨਾ",
+		"description": "Title of the button 'Display/hide notes' in the editor"
+	},
+	"editorToggleHighlights": {
+		"message": "ਡਿਸਪਲੇਅ/ਓਹਲੇ ਉਜਾਗਰ ਪਾਠ ਨੂੰ",
+		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
+	},
+	"editorRemoveHighlight": {
+		"message": "ਨੂੰ ਹਟਾਉਣ ਚੁਣਿਆ ਉਜਾਗਰ ਪਾਠ ਨੂੰ",
+		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
+	},
+	"editorEditPage": {
+		"message": "ਨੂੰ ਯੋਗ/ਅਯੋਗ ਸਿਰਫ-ਪੜਨ ਲਈ",
+		"description": "Title of the button 'Enable/disable read-only' in the editor"
+	},
+	"editorSavePage": {
+		"message": "ਪੰਨਾ ਨੂੰ ਬਚਾਉਣ",
+		"description": "Title of the button 'Save the page' in the editor"
+	}
+}
