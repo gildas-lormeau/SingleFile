@@ -23,6 +23,10 @@
     color: inherit !important;
 }
 
+.single-file-mask {
+    opacity: .99 !important;
+}
+
 single-file-note {
     all: initial !important;
 }
