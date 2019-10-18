@@ -551,7 +551,8 @@
 				node.querySelectorAll("template[${SHADOW_MODE_ATTRIBUTE_NAME}]").forEach(element=>{
 					if (!element.parentElement.shadowRoot) {
 						const shadowRoot = element.parentElement.attachShadow({mode:element.getAttribute("${SHADOW_MODE_ATTRIBUTE_NAME}"),delegatesFocus:Boolean(element.getAttribute("${SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME}"))});
-						shadowRoot.innerHTML = element.innerHTML;element.remove();
+						shadowRoot.innerHTML = element.innerHTML;
+						element.remove();
 						processNode(shadowRoot);
 					}
 				})
