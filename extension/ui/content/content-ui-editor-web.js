@@ -39,6 +39,7 @@
 	const NOTE_SELECTED_CLASS = "note-selected";
 	const PAGE_MASK_CLASS = "page-mask";
 	const MASK_CLASS = "single-file-mask";
+	const PAGE_MASK_CONTAINER_CLASS = "single-file-page-mask";
 	const HIGHLIGHT_CLASS = "single-file-highlight";
 	const HIGHLIGHT_HIDDEN_CLASS = "single-file-highlight-hidden";
 	const NOTE_INITIAL_POSITION_X = 20;
@@ -69,7 +70,7 @@
 			window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: document.querySelector("link[rel*=icon]").href }), "*");
 			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement));
 			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
-			maskPageElement = getMaskElement(PAGE_MASK_CLASS);
+			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
 			document.documentElement.onmouseup = onMouseUp;
 			window.onclick = event => event.preventDefault();
@@ -315,7 +316,8 @@
 				positionedElement = document.documentElement;
 			}
 			if (positionedElement == document.documentElement) {
-				document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
+				const firstMaskElement = document.querySelector("." + MASK_CLASS);
+				document.documentElement.insertBefore(containerElement, firstMaskElement);
 			} else {
 				positionedElement.appendChild(containerElement);
 			}
@@ -524,11 +526,14 @@
 		});
 	}
 
-	function getMaskElement(className) {
+	function getMaskElement(className, containerClassName) {
 		let maskElement = document.documentElement.querySelector("." + className);
 		if (!maskElement) {
 			maskElement = document.createElement("div");
 			const maskContainerElement = document.createElement("div");
+			if (containerClassName) {
+				maskContainerElement.classList.add(containerClassName);
+			}
 			maskContainerElement.classList.add(MASK_CLASS);
 			const firstNote = document.querySelector(NOTE_TAGNAME);
 			if (firstNote && firstNote.parentElement == document.documentElement) {
@@ -576,7 +581,7 @@
 			const getStyleElement = ${minifyText(getStyleElement.toString())};
 			const attachNoteListeners = ${minifyText(attachNoteListeners.toString())};
 			const maskNoteElement = getMaskElement(${JSON.stringify(NOTE_MASK_CLASS)});
-			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)});
+			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});			
 			let selectedNote;
 			window.onresize = reflowNotes;
 			window.addEventListener("DOMContentLoaded", () => {
