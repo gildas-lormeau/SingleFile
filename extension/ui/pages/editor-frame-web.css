@@ -23,7 +23,7 @@
     color: inherit !important;
 }
 
-.single-file-mask {
+.single-file-mask.single-file-page-mask {
     opacity: .99 !important;
 }
 
