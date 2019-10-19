@@ -140,9 +140,9 @@
 		"lib/single-file/processors/hooks/content/content-hooks-frames-web.js",
 		"common/ui/content/content-infobar-web.js",
 		"extension/ui/content/content-ui-editor-web.js",
-		"extension/ui/pages/editor-note-web.css",
-		"extension/ui/pages/editor-mask-web.css",
-		"extension/ui/pages/editor-frame-web.css"
+		"extension/ui/editor/editor-note-web.css",
+		"extension/ui/editor/editor-mask-web.css",
+		"extension/ui/editor/editor-frame-web.css"
 	],
 	"permissions": [
 		"menus",
