@@ -2,8 +2,8 @@
     all: initial;
     display: flex;
     flex-direction: column;
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     position: absolute;
     top: 10px;
     left: 10px;
