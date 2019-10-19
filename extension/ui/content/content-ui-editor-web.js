@@ -219,6 +219,8 @@
 				} else {
 					maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
 					document.documentElement.style.setProperty("user-select", "none", "important");
+					anchorElement = getAnchorElement(containerElement);
+					displayMaskNote();
 					headerElement.ontouchmove = document.documentElement.onmousemove = event => moveNote(event, deltaX, deltaY);
 					headerElement.ontouchend = headerElement.onmouseup = event => anchorNote(event, deltaX, deltaY);
 				}
@@ -277,6 +279,10 @@
 			noteElement.style.setProperty("left", (clientX - deltaX) + "px");
 			noteElement.style.setProperty("top", (clientY - deltaY) + "px");
 			noteElement.style.setProperty("position", "fixed");
+			displayMaskNote();
+		}
+
+		function displayMaskNote() {
 			if (anchorElement == document.documentElement || anchorElement == document.documentElement) {
 				maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
 			} else {
