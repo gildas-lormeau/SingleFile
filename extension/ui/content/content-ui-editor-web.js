@@ -206,25 +206,22 @@
 		const removeNoteElement = noteShadow.querySelector(".note-remove");
 		headerElement.ondblclick = () => noteElement.classList.toggle(NOTE_CLOSED_CLASS);
 		headerElement.ontouchstart = headerElement.onmousedown = event => {
-			event.preventDefault();
-			const position = getPosition(event);
-			const clientX = position.clientX;
-			const clientY = position.clientY;
-			const boundingRect = noteElement.getBoundingClientRect();
-			const deltaX = clientX - boundingRect.left;
-			const deltaY = clientY - boundingRect.top;
-			if (event.touches && event.touches.length > 1) {
-				noteElement.classList.toggle(NOTE_CLOSED_CLASS);
-			} else {
-				maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
-				document.documentElement.style.setProperty("user-select", "none", "important");
-				anchorElement = getTarget(clientX, clientY) || document.documentElement;
-				document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
-				noteElement.style.setProperty("left", (clientX - deltaX) + "px");
-				noteElement.style.setProperty("top", (clientY - deltaY) + "px");
-				noteElement.style.setProperty("position", "fixed");
-				headerElement.ontouchmove = document.documentElement.onmousemove = event => moveNote(event, deltaX, deltaY);
-				headerElement.ontouchend = headerElement.onmouseup = event => anchorNote(event, deltaX, deltaY);
+			if (event.target == headerElement) {
+				event.preventDefault();
+				const position = getPosition(event);
+				const clientX = position.clientX;
+				const clientY = position.clientY;
+				const boundingRect = noteElement.getBoundingClientRect();
+				const deltaX = clientX - boundingRect.left;
+				const deltaY = clientY - boundingRect.top;
+				if (event.touches && event.touches.length > 1) {
+					noteElement.classList.toggle(NOTE_CLOSED_CLASS);
+				} else {
+					maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
+					document.documentElement.style.setProperty("user-select", "none", "important");
+					headerElement.ontouchmove = document.documentElement.onmousemove = event => moveNote(event, deltaX, deltaY);
+					headerElement.ontouchend = headerElement.onmouseup = event => anchorNote(event, deltaX, deltaY);
+				}
 			}
 		};
 
