@@ -26,14 +26,14 @@
 singlefile.extension.core.bg.editor = (() => {
 
 	const tabsData = new Map();
-	const EDITOR_URL = browser.runtime.getURL("/extension/ui/pages/editor.html");
+	const EDITOR_URL = browser.runtime.getURL("/extension/ui/editor/editor.html");
 
 	return {
 		onMessage,
 		onTabRemoved,
 		onTabUpdated,
 		async open({ content, filename }, options) {
-			const tab = await browser.tabs.create({ active: true, url: "/extension/ui/pages/editor.html" });
+			const tab = await browser.tabs.create({ active: true, url: "/extension/ui/editor/editor.html" });
 			tabsData.set(tab.id, { content, filename, options });
 		}
 	};
