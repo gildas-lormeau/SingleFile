@@ -226,7 +226,6 @@
 				}
 			}
 		};
-
 		resizeElement.ontouchstart = resizeElement.onmousedown = event => {
 			event.preventDefault();
 			maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
