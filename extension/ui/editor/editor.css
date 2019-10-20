@@ -60,9 +60,11 @@ img[type=button].remove-highlight-disabled:hover {
     border: none;
 }
 
-@media (max-width: 420px) {
-    .separator {
-        display: none;
+@media (orientation: landscape) {
+    @media (max-width: 420px) {
+        .separator {
+            display: none;
+        }
     }
 }
 
@@ -72,6 +74,7 @@ img[type=button].remove-highlight-disabled:hover {
     }
 
     .toolbar {
+        min-width: 32px;
         max-width: 32px;
         border-bottom: 0px;
         border-right: 1px solid #6d6d6d;
