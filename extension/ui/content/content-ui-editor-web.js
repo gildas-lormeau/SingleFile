@@ -56,15 +56,19 @@
 		if (message.method == "init") {
 			await initConstants();
 			const contentDocument = (new DOMParser()).parseFromString(message.content, "text/html");
-			if (document.doctype) {
-				document.replaceChild(contentDocument.doctype, document.doctype);
+			if (contentDocument.doctype) {
+				if (document.doctype) {
+					document.replaceChild(contentDocument.doctype, document.doctype);
+				} else {
+					document.insertBefore(contentDocument.doctype, document.documentElement);
+				}
+				contentDocument.querySelectorAll("noscript").forEach(element => {
+					element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
+					element.textContent = "";
+				});
 			} else {
-				document.insertBefore(contentDocument.doctype, document.documentElement);
+				document.doctype.remove();
 			}
-			contentDocument.querySelectorAll("noscript").forEach(element => {
-				element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
-				element.textContent = "";
-			});
 			document.replaceChild(contentDocument.documentElement, document.documentElement);
 			deserializeShadowRoots(document);
 			window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: document.querySelector("link[rel*=icon]").href }), "*");
