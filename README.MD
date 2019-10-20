@@ -134,6 +134,7 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 - Japanese translation done by Shitennouji（四天王寺) (https://github.com/Shitennouji)
 - Polish translation done by xesarni (https://github.com/xesarni)
 - Russian translation done by rstp14 (https://github.com/rstp14), kramola-RU (https://github.com/kramola-RU)
+- Ukrainian translation done by perdolka (https://github.com/perdolka)
 - Spanish translation done by strel (https://github.com/strel)
 
 ## Code derived from third party projects
