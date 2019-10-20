@@ -276,6 +276,7 @@
 			} else {
 				anchorElement = document.documentElement;
 			}
+			document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
 			noteElement.style.setProperty("left", (clientX - deltaX) + "px");
 			noteElement.style.setProperty("top", (clientY - deltaY) + "px");
 			noteElement.style.setProperty("position", "fixed");
