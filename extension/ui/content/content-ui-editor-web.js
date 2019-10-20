@@ -565,7 +565,7 @@
 					}
 				})
 			};
-			const SELF_CLOSED_TAG_NAMES = ${JSON.stringify(FORBIDDEN_TAG_NAMES)};
+			const FORBIDDEN_TAG_NAMES = ${JSON.stringify(FORBIDDEN_TAG_NAMES)};
 			const NOTE_TAGNAME = ${JSON.stringify(NOTE_TAGNAME)};
 			const NOTE_CLASS = ${JSON.stringify(NOTE_CLASS)};
 			const NOTE_ANCHORED_CLASS = ${JSON.stringify(NOTE_ANCHORED_CLASS)};
