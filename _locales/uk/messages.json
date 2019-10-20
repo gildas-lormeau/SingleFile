@@ -1,0 +1,514 @@
+{
+	"extensionDescription": {
+		"message": "Сохранить полную страницу в одном HTML-файле",
+		"description": "Description of the extension."
+	},
+	"menuSavePage": {
+		"message": "Сохранить страницу с помощью SingleFile",
+		"description": "Menu entry: 'Save page with SingleFile'"
+	},
+	"menuEditAndSavePage": {
+		"message": "Аннотировать и сохранить страницу...",
+		"description": "Menu entry: 'Annotate and save the page...'"
+	},
+	"menuSelectProfile": {
+		"message": "Выберите профиль по умолчанию",
+		"description": "Menu entry: 'Select the default profile'"
+	},
+	"menuUpdateRule": {
+		"message": "Выберите профиль текущего правила",
+		"description": "Menu entry: 'Select the profile of the current rule'"
+	},
+	"menuCreateDomainRule": {
+		"message": "Выберите профиль текущего домена",
+		"description": "Menu entry: 'Select the profile of the current domain'"
+	},
+	"menuSaveSelection": {
+		"message": "Сохранить выделенное",
+		"description": "Menu entry: 'Save selection'"
+	},
+	"menuSaveFrame": {
+		"message": "Сохранить фрейм",
+		"description": "Menu entry: 'Save frame'"
+	},
+	"menuSaveTabs": {
+		"message": "Сохранить вкладки",
+		"description": "Menu entry (SingleFile button only): 'Save tabs'"
+	},
+	"menuSaveSelectedTabs": {
+		"message": "Сохранить выбранные вкладки",
+		"description": "Menu entry: 'Save selected tabs'"
+	},
+	"menuSaveUnpinnedTabs": {
+		"message": "Сохранить незакрепленные вкладки",
+		"description": "Menu entry: 'Save unpinned tabs'"
+	},
+	"menuSaveAllTabs": {
+		"message": "Сохранить все вкладки",
+		"description": "Menu entry: 'Save all tabs'"
+	},
+	"menuAutoSave": {
+		"message": "Автосохранение",
+		"description": "Menu entry: 'Auto-save'"
+	},
+	"menuAutoSaveDisabled": {
+		"message": "Отключено",
+		"description": "Menu entry: 'Auto-save' > Disabled'"
+	},
+	"menuAutoSaveTab": {
+		"message": "Автосохранение этой вкладки",
+		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+	},
+	"menuAutoSaveUnpinnedTabs": {
+		"message": "Автосохранение незакрепленных вкладок",
+		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+	},
+	"menuAutoSaveAllTabs": {
+		"message": "Автосохранение всех вкладок",
+		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+	},
+	"buttonDefaultTooltip": {
+		"message": "Сохранить страницу с помощью SingleFile",
+		"description": "Button title: 'Save page with SingleFile'"
+	},
+	"buttonBlockedBadge": {
+		"message": "🚫",
+		"description": "Button badge when the page is blocked: '🚫'"
+	},
+	"buttonBlockedTooltip": {
+		"message": "Эта страница не может быть сохранена с SingleFile",
+		"description": "Button title: 'This page cannot be saved with SingleFile'"
+	},
+	"buttonInitializingTooltip": {
+		"message": "Инициализация SingleFile",
+		"description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
+	},
+	"buttonInitializingBadge": {
+		"message": "•••",
+		"description": "Badge label during initialization: '•••'"
+	},
+	"buttonSaveProgressTooltip": {
+		"message": "Прогресс сохранения: ",
+		"description": "Button title during save: 'Save progress: xx%'"
+	},
+	"buttonOKBadge": {
+		"message": "OK",
+		"description": "Badge label: 'OK'"
+	},
+	"buttonErrorBadge": {
+		"message": "ERR",
+		"description": "Badge label for unexpected errors"
+	},
+	"buttonAutoSaveActiveTooltip": {
+		"message": "Автосохранение активно",
+		"description": "Button title: 'Auto-save active'"
+	},
+	"buttonAutoSaveActiveBadge": {
+		"message": "[A]",
+		"description": "Badge label when auto-save is active"
+	},
+	"optionsTitle": {
+		"message": "Параметры",
+		"description": "Options page title"
+	},
+	"optionsUserInterfaceSubTitle": {
+		"message": "Пользовательский интерфейс",
+		"description": "Options sub-title: 'User interface'"
+	},
+	"optionAddMenuEntry": {
+		"message": "добавить пункт в контекстное меню веб-страницы",
+		"description": "Options page label: 'add entry in the context menu of the webpage'"
+	},
+	"optionDisplayShadow": {
+		"message": "накладывать тень на страницу во время обработки",
+		"description": "Options page label: 'overlay a shadow on the page during processing'"
+	},
+	"optionDisplayInfobar": {
+		"message": "отображать информационную панель при просмотре сохраненной страницы",
+		"description": "Options page label: 'display an infobar when viewing a saved page'"
+	},
+	"optionInfobarTemplate": {
+		"message": "шаблон содержимого информационной панели",
+		"description": "Options page label: 'template of the infobar content'"
+	},
+	"optionIncludeInfobar": {
+		"message": "добавлять информационную панель в сохраняемую страницу",
+		"description": "Options page label: 'include the infobar in the saved page'"
+	},
+	"optionConfirmInfobar": {
+		"message": "открывать диалоговое окно для редактирования содержимого информационной панели",
+		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
+	},
+	"optionOpenEditorLabel": {
+		"message": "annotate the page before saving",
+		"description": "Options page label: 'annotate the page before saving'"
+	},
+	"optionAutoCloseLabel": {
+		"message": "auto-close the tab after the page is saved",
+		"description": "Options page label: 'auto-close the tab after the page is saved'"
+	},
+	"optionsFileNameSubTitle": {
+		"message": "Имя файла",
+		"description": "Options sub-title: 'File name'"
+	},
+	"optionFilenameTemplate": {
+		"message": "шаблон",
+		"description": "Options page label: 'template'"
+	},
+	"optionConfirmFilename": {
+		"message": "открывать диалоговое окно \"Сохранить как\" для подтверждения имени файла",
+		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
+	},
+	"optionFilenameConflictAction": {
+		"message": "разрешение конфликтов имен файлов",
+		"description": "Options page label: 'filename conflict resolution'"
+	},
+	"optionFilenameConflictActionUniquify": {
+		"message": "создать уникальное имя",
+		"description": "Value for 'filename conflict resolution' option: 'create a unique name'"
+	},
+	"optionFilenameConflictActionOverwrite": {
+		"message": "перезаписать существующий файл",
+		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+	},
+	"optionFilenameConflictActionPrompt": {
+		"message": "запросить имя",
+		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
+	},
+	"optionsHTMLContentSubTitle": {
+		"message": "HTML-контент",
+		"description": "Options sub-title: 'HTML content'"
+	},
+	"optionCompressHTML": {
+		"message": "сжать HTML-контент",
+		"description": "Options page label: 'compress HTML content'"
+	},
+	"optionRemoveImports": {
+		"message": "удалить HTML-импорт",
+		"description": "Options page label: 'remove HTML imports'"
+	},
+	"optionRemoveFrames": {
+		"message": "удалить фреймы",
+		"description": "Options page label: 'remove frames'"
+	},
+	"optionRemoveHiddenElements": {
+		"message": "удалить скрытые элементы",
+		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsImagesSubTitle": {
+		"message": "Изображения",
+		"description": "Options sub-title: 'Images'"
+	},
+	"optionGroupDuplicateImages": {
+		"message": "группировать дубликаты изображений",
+		"description": "Options page label: 'group duplicate images together'"
+	},
+	"optionLoadDeferredImages": {
+		"message": "сохранить отложенные изображения",
+		"description": "Options page label: 'save deferred images'"
+	},
+	"optionLoadDeferredImagesMaxIdleTime": {
+		"message": "максимальное время простоя (мс)",
+		"description": "Options page label: 'maximum idle time (ms)'"
+	},
+	"optionRemoveAlternativeImages": {
+		"message": "удалить изображения для альтернативных разрешений экрана",
+		"description": "Options page label: 'remove images for alternative screen resolutions'"
+	},
+	"optionsFontsSubTitle": {
+		"message": "Шрифты",
+		"description": "Options sub-title: 'Fonts'"
+	},
+	"optionRemoveUnusedFonts": {
+		"message": "удалить неиспользуемые шрифты",
+		"description": "Options page label: 'remove unused fonts'"
+	},
+	"optionRemoveAlternativeFonts": {
+		"message": "удалить альтернативные шрифты",
+		"description": "Options page label: 'remove alternative fonts'"
+	},
+	"optionsStylesheetsSubTitle": {
+		"message": "Таблицы стилей",
+		"description": "Options sub-title: 'Stylesheets'"
+	},
+	"optionCompressCSS": {
+		"message": "сжать содержимое CSS",
+		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionRemoveUnusedStyles": {
+		"message": "удалить неиспользуемые стили",
+		"description": "Options page label: 'remove unused styles'"
+	},
+	"optionRemoveAlternativeMedias": {
+		"message": "удалить таблицы стилей для экранов альтернативных устройств",
+		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
+	},
+	"optionsOtherResourcesSubTitle": {
+		"message": "Другие ресурсы",
+		"description": "Options sub-title: 'Other resources'"
+	},
+	"optionRemoveScripts": {
+		"message": "удалить скрипты",
+		"description": "Options page label: 'remove scripts'"
+	},
+	"optionRemoveVideo": {
+		"message": "удалить источники видео",
+		"description": "Options page label: 'remove video sources'"
+	},
+	"optionRemoveAudio": {
+		"message": "удалить источники аудио",
+		"description": "Options page label: 'remove audio sources'"
+	},
+	"optionsAutoSaveSubTitle": {
+		"message": "Автосохранение",
+		"description": "Options sub-title: 'Auto-save'"
+	},
+	"optionsAutoSettingsSubTitle": {
+		"message": "Правила автонастройки",
+		"description": "Options sub-title: 'Auto-settings rules'"
+	},
+	"optionsDeleteDisplayedRulesConfirm": {
+		"message": "Подтвердите удаление всех отображаемых правил",
+		"description": "Popup text 'Confirm deletion of all displayed rules'"
+	},
+	"optionsDeleteRulesTooltip": {
+		"message": "Удалить все отображаемые правила",
+		"description": "Popup text 'Delete all displayed rules'"
+	},
+	"optionsAutoSettingsUrl": {
+		"message": "URL",
+		"description": "Options label in the auto-settings rules: 'URL'"
+	},
+	"optionsAutoSettingsUrlPlaceholder": {
+		"message": "Введите полный или частичный URL (т.к. example.com)",
+		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
+	},
+	"optionsAutoSettingsProfile": {
+		"message": "Профиль",
+		"description": "Options label in the Auto-settings rules: 'Profile'"
+	},
+	"optionsAutoSettingsAutoSaveProfile": {
+		"message": "Профиль автосохранения",
+		"description": "Options label in the Auto-settings rules: 'Auto-save profile'"
+	},
+	"optionsAutoSettingsShowAllProfiles": {
+		"message": "показать все профили",
+		"description": "Options label in the Auto-settings rules: 'display all profiles'"
+	},
+	"optionsAutoSettingsShowAutoSaveProfile": {
+		"message": "отобразить столбец 'Профиль автосохранения'",
+		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
+	},
+	"optionsUpdateRuleTooltip": {
+		"message": "Обновить правило",
+		"description": "Popup text 'Update the rule' in the options page"
+	},
+	"optionsDeleteRuleTooltip": {
+		"message": "Удалить правило",
+		"description": "Popup text 'Delete the rule' in the options page"
+	},
+	"optionsAddRuleTooltip": {
+		"message": "Добавить правило",
+		"description": "Popup text 'Add the rule' in the options page"
+	},
+	"optionsValidateChangesTooltip": {
+		"message": "Подтвердить изменения",
+		"description": "Popup text 'Validate changes' in the options page"
+	},
+	"optionsDeleteRuleConfirm": {
+		"message": "Подтвердите удаление выбранного правила",
+		"description": "Popup text 'Confirm deletion of the selected rule' in the options page"
+	},
+	"optionAutoSaveLoadOrUnload": {
+		"message": "автосохранение после загрузки или выгрузки страницы",
+		"description": "auto-save after page load or on page unload"
+	},
+	"optionAutoSaveLoad": {
+		"message": "автосохранение после загрузки страницы",
+		"description": "Options page label: 'auto-save after page load'"
+	},
+	"optionAutoSaveUnload": {
+		"message": "автосохранение после выгрузки страницы",
+		"description": "Options page label: 'auto-save on page unload'"
+	},
+	"optionAutoSaveDelay": {
+		"message": "задержка автосохранения после загрузки страницы (с)",
+		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
+	},
+	"optionAutoSaveRepeat": {
+		"message": "переодическое автосохранение",
+		"description": "Options page label: 'auto-save periodically'"
+	},
+	"optionAutoSaveRepeatDelay": {
+		"message": "период (с)",
+		"description": "Options page label: 'period (s)'"
+	},
+	"optionsMiscSubTitle": {
+		"message": "Разное",
+		"description": "Options sub-title: 'Misc.'"
+	},
+	"optionBackgroundSave": {
+		"message": "сохранять страницы в фоновом режиме",
+		"description": "Options page label: 'save pages in background'"
+	},
+	"optionDisplayStats": {
+		"message": "отображать статистику в консоли после обработки",
+		"description": "Options page label: 'display stats in the console after processing'"
+	},
+	"optionSetMaxResourceSize": {
+		"message": "установить максимальный размер для встроенных ресурсов",
+		"description": "Options page label: 'set a maximum size for embedded resources'"
+	},
+	"optionMaxResourceSize": {
+		"message": "максимальный размер (МБ)",
+		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionSaveRawPage": {
+		"message": "сохранить исходную страницу",
+		"description": "Options page label: 'save raw page'"
+	},
+	"optionSaveToClipboard": {
+		"message": "сохранить в буфер обмена",
+		"description": "Options page label: 'save to clipboard'"
+	},
+	"optionsHelpLink": {
+		"message": "помощь",
+		"description": "Options help link"
+	},
+	"optionsResetButton": {
+		"message": "Сброс",
+		"description": "Options button: 'Reset'"
+	},
+	"optionsResetTooltip": {
+		"message": "Сбросить все параметры к значениям по умолчанию",
+		"description": "Options 'Reset' button tooltip"
+	},
+	"optionsResetConfirm": {
+		"message": "Подтвердите сброс всех параметров или текущего профиля",
+		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+	},
+	"optionsResetAllButton": {
+		"message": "Сбросить все параметры",
+		"description": "Options confirm button: 'Reset all options'"
+	},
+	"optionsResetCurrentButton": {
+		"message": "Сбросить текущий профиль",
+		"description": "Options confirm button: 'Reset current profile'"
+	},
+	"optionsOKButton": {
+		"message": "OK",
+		"description": "Options confirm button: 'OK'"
+	},
+	"optionsCancelButton": {
+		"message": "Отмена",
+		"description": "Options confirm button: 'Cancel'"
+	},
+	"optionsExportButton": {
+		"message": "Экспорт",
+		"description": "Options button: 'Export'"
+	},
+	"optionsImportButton": {
+		"message": "Импорт",
+		"description": "Options button: 'Import'"
+	},
+	"logPanelDeferredImages": {
+		"message": "Отложенные изображения",
+		"description": "Label 'Deferred images' in the log panel"
+	},
+	"logPanelFrameContents": {
+		"message": "Контент фреймов",
+		"description": "Label 'Frame contents' in the log panel"
+	},
+	"logPanelStep": {
+		"message": "Шаг",
+		"description": "Label 'Step' (for 'Step x / 4') in the log panel"
+	},
+	"logPanelWidth": {
+		"message": "190",
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+	},
+	"profileDefaultSettings": {
+		"message": "Настройки по умолчанию",
+		"description": "Label 'Default settings' of the default settings in the options page"
+	},
+	"profileDisabled": {
+		"message": "Отключено",
+		"description": "Label 'Disabled' of the disabled profile name in the options page"
+	},
+	"profileAddButtonTooltip": {
+		"message": "Добавить профиль",
+		"description": "Tooltip 'Add a new profile' in the options page"
+	},
+	"profileRenameButtonTooltip": {
+		"message": "Переименовать профиль",
+		"description": "Tooltip 'Rename the profile' in the options page"
+	},
+	"profileDeleteButtonTooltip": {
+		"message": "Удалить профиль",
+		"description": "Tooltip 'Delete the profile' in the options page"
+	},
+	"profileAddPrompt": {
+		"message": "Введите имя для этого профиля",
+		"description": "Popup text 'Enter a name for this new profile' in the options page"
+	},
+	"profileDeleteConfirm": {
+		"message": "Подтвердите удаление выбранного профиля",
+		"description": "Popup text 'Confirm deletion of the selected profile' in the options page"
+	},
+	"profileRenamePrompt": {
+		"message": "Введите новое имя для выбранного профиля",
+		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
+	},
+	"editorAddYellowNote": {
+		"message": "Add a yellow note",
+		"description": "Title of the button 'Add a yellow note' in the editor"
+	},
+	"editorAddPinkNote": {
+		"message": "Add a pink note",
+		"description": "Title of the button 'Add a pink note' in the editor"
+	},
+	"editorAddBlueNote": {
+		"message": "Add a blue note",
+		"description": "Title of the button 'Add a blue note' in the editor"
+	},
+	"editorAddGreenNote": {
+		"message": "Add a green note",
+		"description": "Title of the button 'Add a green note' in the editor"
+	},
+	"editorHighlightYellow": {
+		"message": "Highlight selected text in yellow",
+		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
+	},
+	"editorHighlightPink": {
+		"message": "Highlight selected text in pink",
+		"description": "Title of the button 'Highlight selected text in pink' in the editor"
+	},
+	"editorHighlightBlue": {
+		"message": "Highlight selected text in blue",
+		"description": "Title of the button 'Highlight selected text in blue' in the editor"
+	},
+	"editorHighlightGreen": {
+		"message": "Highlight selected text in green",
+		"description": "Title of the button 'Highlight selected text in green' in the editor"
+	},
+	"editorToggleNotes": {
+		"message": "Display/hide notes",
+		"description": "Title of the button 'Display/hide notes' in the editor"
+	},
+	"editorToggleHighlights": {
+		"message": "Display/hide the highlighted text",
+		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
+	},
+	"editorRemoveHighlight": {
+		"message": "Remove the selected highlighted text",
+		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
+	},
+	"editorEditPage": {
+		"message": "Enable/disable read-only",
+		"description": "Title of the button 'Enable/disable read-only' in the editor"
+	},
+	"editorSavePage": {
+		"message": "Save the page",
+		"description": "Title of the button 'Save the page' in the editor"
+	}
+}
