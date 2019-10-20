@@ -128,10 +128,6 @@
 				const noteElement = templateElement.querySelector("." + NOTE_CLASS);
 				if (noteElement) {
 					noteElement.classList.remove(NOTE_HIDDEN_CLASS);
-					const mainElement = noteElement.querySelector("main");
-					if (mainElement) {
-						delete mainElement.contentEditable;
-					}
 				}
 			});
 			delete doc.body.contentEditable;
