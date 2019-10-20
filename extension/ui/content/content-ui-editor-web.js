@@ -25,7 +25,7 @@
 
 (async () => {
 
-	const FORBIDDEN_TAG_NAMES = ["area", "audio", "base", "br", "col", "command", "embed", "hr", "img", "iframe", "input", "keygen", "link", "meta", "param", "source", "track", "video", "wbr"];
+	const FORBIDDEN_TAG_NAMES = ["a", "area", "audio", "base", "br", "col", "command", "embed", "hr", "img", "iframe", "input", "keygen", "link", "meta", "param", "source", "track", "video", "wbr"];
 	const BUTTON_ANCHOR_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH4woJCScQox8NKQAAAJZJREFUGNOF0DEOAWEUBODPv6Ki1CgVq1HtQai0CoUTqCTuIZptZAsqJxJ7BolQoPklPyEmmWQy814y7/GOPIRQhxBq5GnQ+Bg84hD1CH0/UOEaufUHu8if6ODxwfYrbGKMFvboYhOzOc6Y4AZl3J4lPauoZzErA4poDr/UeXlFhjUuWOGOHjIMsMQC03S7jzo55JT+8Ql3/B/LcN3QKQAAAABJRU5ErkJggg==";
 	const BUTTON_CLOSE_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4woIDi82BDhzPAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAk0lEQVQY023QQQrCQAyF4a8WF7rQW3gVryK4c9lFQaG2UPQE3sSjeAhXdiFC3UQYywQCIfnz5k0K7LDBQT4qLOGKN1oUCVCgxojbr9nihQZl5BGfEPrbbvDEKRYHnHNeyoCGeK5Kh7MJPMci6mVOrQhPQyg1UXdTsA7jqacuen16p3H6u4g+ZpcSWzywz4B3rLD+Api7H1RudMpLAAAAAElFTkSuQmCC";
 	const SHADOW_MODE_ATTRIBUTE_NAME = "shadowmode";
