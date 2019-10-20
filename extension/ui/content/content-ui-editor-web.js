@@ -46,6 +46,7 @@
 	const NOTE_INITIAL_POSITION_Y = 20;
 	const NOTE_INITIAL_WIDTH = 150;
 	const NOTE_INITIAL_HEIGHT = 150;
+	const NOTE_HEADER_HEIGHT = 25;
 	const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-file-disabled-noscript";
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
@@ -474,7 +475,7 @@
 			const anchorBoundingRect = anchorElement.getBoundingClientRect();
 			const maxX = anchorBoundingRect.x + Math.max(0, anchorBoundingRect.width - noteBoundingRect.width);
 			const minX = anchorBoundingRect.x;
-			const maxY = anchorBoundingRect.y + Math.max(0, anchorBoundingRect.height - 20);
+			const maxY = anchorBoundingRect.y + Math.max(0, anchorBoundingRect.height - NOTE_HEADER_HEIGHT);
 			const minY = anchorBoundingRect.y;
 			let left = parseInt(noteElement.style.getPropertyValue("left"));
 			let top = parseInt(noteElement.style.getPropertyValue("top"));
@@ -578,6 +579,7 @@
 			const HIGHLIGHT_CLASS = ${JSON.stringify(HIGHLIGHT_CLASS)};
 			const NOTES_WEB_STYLESHEET = ${JSON.stringify(NOTES_WEB_STYLESHEET)};
 			const MASK_WEB_STYLESHEET = ${JSON.stringify(MASK_WEB_STYLESHEET)};
+			const NOTE_HEADER_HEIGHT = ${JSON.stringify(NOTE_HEADER_HEIGHT)};
 			const reflowNotes = ${minifyText(reflowNotes.toString())};			
 			const addNoteRef = ${minifyText(addNoteRef.toString())};
 			const deleteNoteRef = ${minifyText(deleteNoteRef.toString())};
