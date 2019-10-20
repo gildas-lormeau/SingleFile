@@ -73,7 +73,7 @@
 			document.replaceChild(contentDocument.documentElement, document.documentElement);
 			deserializeShadowRoots(document);
 			window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: document.querySelector("link[rel*=icon]").href }), "*");
-			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement));
+			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
 			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
 			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
@@ -128,6 +128,10 @@
 				const noteElement = templateElement.querySelector("." + NOTE_CLASS);
 				if (noteElement) {
 					noteElement.classList.remove(NOTE_HIDDEN_CLASS);
+					const mainElement = noteElement.querySelector("main");;
+					if (mainElement) {
+						delete mainElement.contentEditable;
+					}
 				}
 			});
 			delete doc.body.contentEditable;
@@ -180,7 +184,6 @@
 		noteElement.style.setProperty("top", (positionY - NOTE_INITIAL_HEIGHT - 1) + "px");
 		resizeElement.className = "note-resize";
 		resizeElement.ondragstart = event => event.preventDefault();
-		mainElement.contentEditable = true;
 		removeNoteElement.className = "note-remove";
 		removeNoteElement.src = BUTTON_CLOSE_URL;
 		removeNoteElement.ondragstart = event => event.preventDefault();
@@ -189,13 +192,13 @@
 		anchorIconElement.ondragstart = event => event.preventDefault();
 		containerElement.dataset.noteId = noteId;
 		addNoteRef(document.documentElement, noteId);
-		attachNoteListeners(containerElement);
+		attachNoteListeners(containerElement, true);
 		document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
 		noteElement.classList.add(NOTE_SELECTED_CLASS);
 		selectedNote = noteElement;
 	}
 
-	function attachNoteListeners(containerElement) {
+	function attachNoteListeners(containerElement, editable = false) {
 		const SELECT_PX_THRESHOLD = 4;
 		const NOTE_CLOSED_CLASS = "note-closed";
 		const NOTE_MOVING_CLASS = "note-moving";
@@ -209,6 +212,12 @@
 		const resizeElement = noteShadow.querySelector(".note-resize");
 		const anchorIconElement = noteShadow.querySelector(".note-anchor");
 		const removeNoteElement = noteShadow.querySelector(".note-remove");
+		mainElement.contentEditable = editable;
+		if (!editable) {
+			anchorIconElement.style.setProperty("display", "none", "important");
+		} else {
+			anchorIconElement.style.removeProperty("display");
+		}
 		headerElement.ondblclick = () => noteElement.classList.toggle(NOTE_CLOSED_CLASS);
 		headerElement.ontouchstart = headerElement.onmousedown = event => {
 			if (event.target == headerElement) {
@@ -273,12 +282,14 @@
 			event.preventDefault();
 			const { clientX, clientY } = getPosition(event);
 			noteElement.classList.add(NOTE_MOVING_CLASS);
-			if (noteElement.classList.contains(NOTE_ANCHORED_CLASS)) {
-				deleteNoteRef(containerElement, noteId);
-				anchorElement = getTarget(clientX, clientY) || document.documentElement;
-				addNoteRef(anchorElement, noteId);
-			} else {
-				anchorElement = document.documentElement;
+			if (editable) {
+				if (noteElement.classList.contains(NOTE_ANCHORED_CLASS)) {
+					deleteNoteRef(containerElement, noteId);
+					anchorElement = getTarget(clientX, clientY) || document.documentElement;
+					addNoteRef(anchorElement, noteId);
+				} else {
+					anchorElement = document.documentElement;
+				}
 			}
 			document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
 			noteElement.style.setProperty("left", (clientX - deltaX) + "px");
