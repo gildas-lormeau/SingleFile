@@ -129,6 +129,10 @@
 				if (noteElement) {
 					noteElement.classList.remove(NOTE_HIDDEN_CLASS);
 				}
+				const mainElement = templateElement.querySelector("textarea");
+				if (mainElement) {
+					mainElement.textContent = mainElement.value;
+				}
 			});
 			delete doc.body.contentEditable;
 			const scriptElement = doc.createElement("script");
@@ -152,7 +156,7 @@
 		const containerElement = document.createElement(NOTE_TAGNAME);
 		const noteElement = document.createElement("div");
 		const headerElement = document.createElement("header");
-		const mainElement = document.createElement("main");
+		const mainElement = document.createElement("textarea");
 		const resizeElement = document.createElement("div");
 		const removeNoteElement = document.createElement("img");
 		const anchorIconElement = document.createElement("img");
@@ -203,12 +207,12 @@
 		const noteShadow = containerElement.shadowRoot;
 		const noteElement = noteShadow.childNodes[1];
 		const headerElement = noteShadow.querySelector("header");
-		const mainElement = noteShadow.querySelector("main");
+		const mainElement = noteShadow.querySelector("textarea");
 		const noteId = containerElement.dataset.noteId;
 		const resizeElement = noteShadow.querySelector(".note-resize");
 		const anchorIconElement = noteShadow.querySelector(".note-anchor");
 		const removeNoteElement = noteShadow.querySelector(".note-remove");
-		mainElement.contentEditable = editable;
+		mainElement.readOnly = !editable;
 		if (!editable) {
 			anchorIconElement.style.setProperty("display", "none", "important");
 		} else {
@@ -265,14 +269,7 @@
 		};
 		noteElement.onmousedown = () => {
 			selectNote(noteElement);
-		};
-		noteElement.onpaste = event => {
-			event.preventDefault();
-			const dataTransferItem = Array.from(event.clipboardData.items).find(item => item.type == "text/plain");
-			if (dataTransferItem) {
-				dataTransferItem.getAsString(value => mainElement.textContent = value);
-			}
-		};
+		};		
 
 		function moveNote(event, deltaX, deltaY) {
 			event.preventDefault();

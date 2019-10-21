@@ -30,7 +30,7 @@
     opacity: .75;
 }
 
-.note-closed main {
+.note-closed textarea {
     display: none;
 }
 
@@ -38,19 +38,18 @@
     display: none;
 }
 
-.note main {
+.note textarea {
     all: initial;
-    -moz-user-modify: read-write;
+    white-space: pre;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     padding: 3px;
     height: 100%;
-    overflow: auto;
-    -webkit-user-modify: read-write;
     border: 1px solid transparent;
+    resize: none;
 }
 
-.note main:focus {
+.note textarea:focus {
     border: 1px dotted rgb(160, 160, 160);
 }
 
@@ -126,7 +125,7 @@
     background-color: #f5f545;
 }
 
-.note-yellow main {
+.note-yellow textarea {
     background-color: #ffff7c;
 }
 
@@ -134,7 +133,7 @@
     background-color: #ffa59f;
 }
 
-.note-pink main {
+.note-pink textarea {
     background-color: #ffbbb6;
 }
 
@@ -142,7 +141,7 @@
     background-color: #84c8ff;
 }
 
-.note-blue main {
+.note-blue textarea {
     background-color: #95d0ff;
 }
 
@@ -150,6 +149,6 @@
     background-color: #93ef8d;
 }
 
-.note-green main {
+.note-green textarea {
     background-color: #9cff95;
 }
