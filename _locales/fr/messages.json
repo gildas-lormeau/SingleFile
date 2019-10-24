@@ -140,7 +140,7 @@
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionOpenEditorLabel": {
-		"message": "annoter la page avant de la sauvegerder",
+		"message": "annoter la page avant de la sauvegarder",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionAutoCloseLabel": {
