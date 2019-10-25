@@ -220,6 +220,7 @@
 		}
 		headerElement.ondblclick = () => noteElement.classList.toggle(NOTE_CLOSED_CLASS);
 		headerElement.ontouchstart = headerElement.onmousedown = event => {
+			let lastMoveEvent;
 			if (event.target == headerElement) {
 				event.preventDefault();
 				const position = getPosition(event);
@@ -235,8 +236,11 @@
 					document.documentElement.style.setProperty("user-select", "none", "important");
 					anchorElement = getAnchorElement(containerElement);
 					displayMaskNote();
-					headerElement.ontouchmove = document.documentElement.onmousemove = event => moveNote(event, deltaX, deltaY);
-					headerElement.ontouchend = headerElement.onmouseup = event => anchorNote(event, deltaX, deltaY);
+					headerElement.ontouchmove = document.documentElement.onmousemove = event => {
+						lastMoveEvent = event;
+						moveNote(event, deltaX, deltaY);
+					};
+					headerElement.ontouchend = headerElement.onmouseup = () => anchorNote(lastMoveEvent, deltaX, deltaY);
 				}
 			}
 		};
@@ -269,7 +273,7 @@
 		};
 		noteElement.onmousedown = () => {
 			selectNote(noteElement);
-		};		
+		};
 
 		function moveNote(event, deltaX, deltaY) {
 			event.preventDefault();
