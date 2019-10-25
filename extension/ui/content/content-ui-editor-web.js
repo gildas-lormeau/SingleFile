@@ -232,6 +232,7 @@
 				if (event.touches && event.touches.length > 1) {
 					noteElement.classList.toggle(NOTE_CLOSED_CLASS);
 				} else {
+					selectNote(noteElement);
 					maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
 					document.documentElement.style.setProperty("user-select", "none", "important");
 					anchorElement = getAnchorElement(containerElement);
@@ -240,7 +241,7 @@
 						lastMoveEvent = event;
 						moveNote(event, deltaX, deltaY);
 					};
-					headerElement.ontouchend = headerElement.onmouseup = () => anchorNote(lastMoveEvent, deltaX, deltaY);
+					headerElement.ontouchend = headerElement.onmouseup = event => anchorNote(lastMoveEvent || event, deltaX, deltaY);
 				}
 			}
 		};
@@ -255,19 +256,22 @@
 				noteElement.style.height = clientY - boundingRectNote.top + "px";
 			};
 		};
-		resizeElement.ontouchend = resizeElement.onmouseup = () => {
+		resizeElement.ontouchend = resizeElement.onmouseup = event => {
+			event.preventDefault();
 			document.documentElement.style.removeProperty("user-select");
 			maskPageElement.classList.remove(PAGE_MASK_ACTIVE_CLASS);
 			resizeElement.ontouchmove = document.documentElement.onmousemove = null;
 		};
-		anchorIconElement.ontouchend = anchorIconElement.onclick = () => {
+		anchorIconElement.ontouchend = anchorIconElement.onclick = event => {
+			event.preventDefault();
 			noteElement.classList.toggle(NOTE_ANCHORED_CLASS);
 			if (!noteElement.classList.contains(NOTE_ANCHORED_CLASS)) {
 				deleteNoteRef(containerElement, noteId);
 				addNoteRef(document.documentElement, noteId);
 			}
 		};
-		removeNoteElement.ontouchend = removeNoteElement.onclick = () => {
+		removeNoteElement.ontouchend = removeNoteElement.onclick = event => {
+			event.preventDefault();
 			deleteNoteRef(containerElement, noteId);
 			containerElement.remove();
 		};
