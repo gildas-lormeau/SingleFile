@@ -55,7 +55,7 @@
 
 .note header {
     all: initial;
-    min-height: 25px;
+    min-height: 30px;
     cursor: grab;
     user-select: none;
 }
