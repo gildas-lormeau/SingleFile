@@ -10,8 +10,8 @@
     border: 1px solid rgb(191, 191, 191);
     z-index: 2147483646;
     box-shadow: 2px 2px 5px rgba(33, 33, 33, .7);
-    min-height: 50px;
-    min-width: 50px;
+    min-height: 100px;
+    min-width: 100px;
 }
 
 .note-selected {
