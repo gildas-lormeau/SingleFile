@@ -37,11 +37,14 @@
 	const NOTE_HIDDEN_CLASS = "note-hidden";
 	const NOTE_ANCHORED_CLASS = "note-anchored";
 	const NOTE_SELECTED_CLASS = "note-selected";
+	const NOTE_MOVING_CLASS = "note-moving";
+	const NOTE_MASK_MOVING_CLASS = "note-mask-moving";
 	const PAGE_MASK_CLASS = "page-mask";
 	const MASK_CLASS = "single-file-mask";
 	const PAGE_MASK_CONTAINER_CLASS = "single-file-page-mask";
 	const HIGHLIGHT_CLASS = "single-file-highlight";
 	const HIGHLIGHT_HIDDEN_CLASS = "single-file-highlight-hidden";
+	const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
 	const NOTE_INITIAL_POSITION_X = 20;
 	const NOTE_INITIAL_POSITION_Y = 20;
 	const NOTE_INITIAL_WIDTH = 150;
@@ -50,7 +53,7 @@
 	const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-file-disabled-noscript";
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, highlightColor;
+	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor;
 
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
@@ -77,7 +80,7 @@
 			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
 			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
-			document.documentElement.onmouseup = onMouseUp;
+			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
 			window.onclick = event => event.preventDefault();
 		}
 		if (message.method == "addNote") {
@@ -200,9 +203,6 @@
 
 	function attachNoteListeners(containerElement, editable = false) {
 		const SELECT_PX_THRESHOLD = 4;
-		const NOTE_MOVING_CLASS = "note-moving";
-		const NOTE_MASK_MOVING_CLASS = "note-mask-moving";
-		const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
 		const noteShadow = containerElement.shadowRoot;
 		const noteElement = noteShadow.childNodes[1];
 		const headerElement = noteShadow.querySelector("header");
@@ -218,7 +218,6 @@
 			anchorIconElement.style.removeProperty("display");
 		}
 		headerElement.ontouchstart = headerElement.onmousedown = event => {
-			let lastMoveEvent;
 			if (event.target == headerElement) {
 				event.preventDefault();
 				const position = getPosition(event);
@@ -232,29 +231,29 @@
 				document.documentElement.style.setProperty("user-select", "none", "important");
 				anchorElement = getAnchorElement(containerElement);
 				displayMaskNote();
-				headerElement.ontouchmove = document.documentElement.onmousemove = event => {
-					lastMoveEvent = event;
+				movingNoteMode = { deltaX, deltaY };
+				document.documentElement.ontouchmove = document.documentElement.onmousemove = event => {
+					if (!movingNoteMode) {
+						movingNoteMode = { deltaX, deltaY };
+					}
+					movingNoteMode.event = event;
 					moveNote(event, deltaX, deltaY);
 				};
-				headerElement.ontouchend = headerElement.onmouseup = event => anchorNote(lastMoveEvent || event, deltaX, deltaY);
 			}
 		};
 		resizeElement.ontouchstart = resizeElement.onmousedown = event => {
 			event.preventDefault();
+			resizingNoteMode = true;
+			selectNote(noteElement);
 			maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
 			document.documentElement.style.setProperty("user-select", "none", "important");
-			resizeElement.ontouchmove = document.documentElement.onmousemove = event => {
+			document.documentElement.ontouchmove = document.documentElement.onmousemove = event => {
+				event.preventDefault();
 				const { clientX, clientY } = getPosition(event);
 				const boundingRectNote = noteElement.getBoundingClientRect();
 				noteElement.style.width = clientX - boundingRectNote.left + "px";
 				noteElement.style.height = clientY - boundingRectNote.top + "px";
 			};
-		};
-		resizeElement.ontouchend = resizeElement.onmouseup = event => {
-			event.preventDefault();
-			document.documentElement.style.removeProperty("user-select");
-			maskPageElement.classList.remove(PAGE_MASK_ACTIVE_CLASS);
-			resizeElement.ontouchmove = document.documentElement.onmousemove = null;
 		};
 		anchorIconElement.ontouchend = anchorIconElement.onclick = event => {
 			event.preventDefault();
@@ -306,59 +305,12 @@
 			}
 		}
 
-		function anchorNote(event, deltaX, deltaY) {
-			event.preventDefault();
-			const { clientX, clientY } = getPosition(event);
-			document.documentElement.style.removeProperty("user-select");
-			noteElement.classList.remove(NOTE_MOVING_CLASS);
-			maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
-			maskPageElement.classList.remove(PAGE_MASK_ACTIVE_CLASS);
-			headerElement.ontouchmove = document.documentElement.onmousemove = null;
-			headerElement.ontouchend = headerElement.onmouseup = null;
-			let currentElement = anchorElement;
-			let positionedElement;
-			while (currentElement.parentElement && !positionedElement) {
-				if (!FORBIDDEN_TAG_NAMES.includes(currentElement.tagName.toLowerCase())) {
-					const currentElementStyle = getComputedStyle(currentElement);
-					if (currentElementStyle.position != "static") {
-						positionedElement = currentElement;
-					}
-				}
-				currentElement = currentElement.parentElement;
-			}
-			if (!positionedElement) {
-				positionedElement = document.documentElement;
-			}
-			if (positionedElement == document.documentElement) {
-				const firstMaskElement = document.querySelector("." + MASK_CLASS);
-				document.documentElement.insertBefore(containerElement, firstMaskElement);
-			} else {
-				positionedElement.appendChild(containerElement);
-			}
-			const boundingRectPositionedElement = positionedElement.getBoundingClientRect();
-			const stylePositionedElement = window.getComputedStyle(positionedElement);
-			const borderX = parseInt(stylePositionedElement.getPropertyValue("border-left-width"));
-			const borderY = parseInt(stylePositionedElement.getPropertyValue("border-top-width"));
-			noteElement.style.setProperty("position", "absolute");
-			noteElement.style.setProperty("left", (clientX - boundingRectPositionedElement.x - deltaX - borderX) + "px");
-			noteElement.style.setProperty("top", (clientY - boundingRectPositionedElement.y - deltaY - borderY) + "px");
-		}
-
 		function selectNote(noteElement) {
 			if (selectedNote) {
 				selectedNote.classList.remove(NOTE_SELECTED_CLASS);
 			}
 			noteElement.classList.add(NOTE_SELECTED_CLASS);
 			selectedNote = noteElement;
-		}
-
-		function getPosition(event) {
-			if (event.touches && event.touches.length) {
-				const touch = event.touches[0];
-				return touch;
-			} else {
-				return event;
-			}
 		}
 
 		function getTarget(clientX, clientY) {
@@ -428,6 +380,65 @@
 				}
 				element = element.parentElement;
 			}
+		}
+		if (resizingNoteMode) {
+			resizingNoteMode = false;
+			document.documentElement.style.removeProperty("user-select");
+			maskPageElement.classList.remove(PAGE_MASK_ACTIVE_CLASS);
+			document.documentElement.ontouchmove = document.documentElement.onmousemove = null;
+		}
+		if (movingNoteMode) {
+			anchorNote(movingNoteMode.event || event, selectedNote, movingNoteMode.deltaX, movingNoteMode.deltaY);
+			movingNoteMode = null;
+			document.documentElement.ontouchmove = document.documentElement.onmousemove = null;
+		}
+	}
+
+	function anchorNote(event, noteElement, deltaX, deltaY) {
+		event.preventDefault();
+		const { clientX, clientY } = getPosition(event);
+		document.documentElement.style.removeProperty("user-select");
+		noteElement.classList.remove(NOTE_MOVING_CLASS);
+		maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
+		maskPageElement.classList.remove(PAGE_MASK_ACTIVE_CLASS);
+		const headerElement = noteElement.querySelector("header");
+		headerElement.ontouchmove = document.documentElement.onmousemove = null;
+		let currentElement = anchorElement;
+		let positionedElement;
+		while (currentElement.parentElement && !positionedElement) {
+			if (!FORBIDDEN_TAG_NAMES.includes(currentElement.tagName.toLowerCase())) {
+				const currentElementStyle = getComputedStyle(currentElement);
+				if (currentElementStyle.position != "static") {
+					positionedElement = currentElement;
+				}
+			}
+			currentElement = currentElement.parentElement;
+		}
+		if (!positionedElement) {
+			positionedElement = document.documentElement;
+		}
+		const containerElement = noteElement.getRootNode().host;
+		if (positionedElement == document.documentElement) {
+			const firstMaskElement = document.querySelector("." + MASK_CLASS);
+			document.documentElement.insertBefore(containerElement, firstMaskElement);
+		} else {
+			positionedElement.appendChild(containerElement);
+		}
+		const boundingRectPositionedElement = positionedElement.getBoundingClientRect();
+		const stylePositionedElement = window.getComputedStyle(positionedElement);
+		const borderX = parseInt(stylePositionedElement.getPropertyValue("border-left-width"));
+		const borderY = parseInt(stylePositionedElement.getPropertyValue("border-top-width"));
+		noteElement.style.setProperty("position", "absolute");
+		noteElement.style.setProperty("left", (clientX - boundingRectPositionedElement.x - deltaX - borderX) + "px");
+		noteElement.style.setProperty("top", (clientY - boundingRectPositionedElement.y - deltaY - borderY) + "px");
+	}
+
+	function getPosition(event) {
+		if (event.touches && event.touches.length) {
+			const touch = event.touches[0];
+			return touch;
+		} else {
+			return event;
 		}
 	}
 
@@ -581,11 +592,14 @@
 			const NOTE_CLASS = ${JSON.stringify(NOTE_CLASS)};
 			const NOTE_ANCHORED_CLASS = ${JSON.stringify(NOTE_ANCHORED_CLASS)};
 			const NOTE_SELECTED_CLASS = ${JSON.stringify(NOTE_SELECTED_CLASS)};
+			const NOTE_MOVING_CLASS = ${JSON.stringify(NOTE_MOVING_CLASS)};
+			const NOTE_MASK_MOVING_CLASS = ${JSON.stringify(NOTE_MASK_MOVING_CLASS)};
 			const MASK_CLASS = ${JSON.stringify(MASK_CLASS)};
 			const HIGHLIGHT_CLASS = ${JSON.stringify(HIGHLIGHT_CLASS)};
 			const NOTES_WEB_STYLESHEET = ${JSON.stringify(NOTES_WEB_STYLESHEET)};
 			const MASK_WEB_STYLESHEET = ${JSON.stringify(MASK_WEB_STYLESHEET)};
 			const NOTE_HEADER_HEIGHT = ${JSON.stringify(NOTE_HEADER_HEIGHT)};
+			const PAGE_MASK_ACTIVE_CLASS = ${JSON.stringify(PAGE_MASK_ACTIVE_CLASS)};
 			const reflowNotes = ${minifyText(reflowNotes.toString())};			
 			const addNoteRef = ${minifyText(addNoteRef.toString())};
 			const deleteNoteRef = ${minifyText(deleteNoteRef.toString())};
@@ -595,10 +609,14 @@
 			const getMaskElement = ${minifyText(getMaskElement.toString())};
 			const getStyleElement = ${minifyText(getStyleElement.toString())};
 			const attachNoteListeners = ${minifyText(attachNoteListeners.toString())};
+			const anchorNote = ${minifyText(anchorNote.toString())};
+			const getPosition = ${minifyText(getPosition.toString())};
+			const onMouseUp = ${minifyText(onMouseUp.toString())};
 			const maskNoteElement = getMaskElement(${JSON.stringify(NOTE_MASK_CLASS)});
-			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});			
-			let selectedNote;
+			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});
+			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode;
 			window.onresize = reflowNotes;
+			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
 			window.addEventListener("DOMContentLoaded", () => {
 				processNode(document);
 				reflowNotes();
