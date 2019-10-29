@@ -33,4 +33,5 @@
 
 single-file-note {
     all: initial !important;
+    display: contents !important;
 }
