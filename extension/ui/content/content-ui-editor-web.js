@@ -199,7 +199,7 @@
 	}
 
 	function attachNoteListeners(containerElement, editable = false) {
-		const SELECT_PX_THRESHOLD = 4;		
+		const SELECT_PX_THRESHOLD = 4;
 		const NOTE_MOVING_CLASS = "note-moving";
 		const NOTE_MASK_MOVING_CLASS = "note-mask-moving";
 		const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
