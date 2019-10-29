@@ -26,8 +26,8 @@
 (async () => {
 
 	const FORBIDDEN_TAG_NAMES = ["a", "area", "audio", "base", "br", "col", "command", "embed", "hr", "img", "iframe", "input", "keygen", "link", "meta", "param", "source", "track", "video", "wbr"];
-	const BUTTON_ANCHOR_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAB3RJTUUH4woJCScQox8NKQAAAJZJREFUGNOF0DEOAWEUBODPv6Ki1CgVq1HtQai0CoUTqCTuIZptZAsqJxJ7BolQoPklPyEmmWQy814y7/GOPIRQhxBq5GnQ+Bg84hD1CH0/UOEaufUHu8if6ODxwfYrbGKMFvboYhOzOc6Y4AZl3J4lPauoZzErA4poDr/UeXlFhjUuWOGOHjIMsMQC03S7jzo55JT+8Ql3/B/LcN3QKQAAAABJRU5ErkJggg==";
-	const BUTTON_CLOSE_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4woIDi82BDhzPAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAk0lEQVQY023QQQrCQAyF4a8WF7rQW3gVryK4c9lFQaG2UPQE3sSjeAhXdiFC3UQYywQCIfnz5k0K7LDBQT4qLOGKN1oUCVCgxojbr9nihQZl5BGfEPrbbvDEKRYHnHNeyoCGeK5Kh7MJPMci6mVOrQhPQyg1UXdTsA7jqacuen16p3H6u4g+ZpcSWzywz4B3rLD+Api7H1RudMpLAAAAAElFTkSuQmCC";
+	const BUTTON_ANCHOR_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfjChsXNzegf7t9AAAA70lEQVQoz43QsUoDQRSF4S9BAgYbEbHQQqtIQDsxpe/gIwj6CnZio0IEwcJnsEpAxEIN+Aoq2FgLQhAhu0aLjWPhsnGFrP7T3Dn3nJk7Q55Dfe+OFXAqaNoTXI6yTAi2wZZgctgo/zAlqINFDEadtS840xKcFE11IPh05A9ivWJDRUci0VEpNkai31LZPxjTsO7Gnb4Pb6AEqsZVLVnTZkVI1056XQx2M32VmbRsZzPFaXWbdmaRJS7MoydCzX2mg0cbWqnwaiDxlO6aNr18m+ZAQ2yQpRPPFkAt/9KSacuuXambyn/BkKCr6xwP+fQXY1Rewf35xxAAAAAASUVORK5CYII=";
+	const BUTTON_CLOSE_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wocAAIEOSCVkQAAAPxJREFUOMuNlEkLwkAMhT9coW61LfqrVLyJ/nMPgifxUpdWXEDrwShDSOs8yCWZvMnkvRY+WAIbIMYfY2ANrL6JBVA4EXmQdIDM6ZkAbBXRHWj/ITqpngKZ4KWSB6BuEDSBo0Hye8UQuKniGQgcklhy7pkTEOrbWjKJe/AJJBKZqqXAoOztNePWDNip3MOaRCOQSYqKiHw9kgC5QXAu81qtgiw3cjexhxciY7FuvGTiSjRKJN4bavaqiA7GBDHQNUybW6YNDMfelTqJQZbKKwAYGd9OWuKTnqHmBegjvwItcfhnj9YKWKrE0EPZJnB1embfwtRZrC9C6ZkDvAF1+o8SXFr+wAAAAABJRU5ErkJggg==";
 	const SHADOW_MODE_ATTRIBUTE_NAME = "shadowmode";
 	const SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME = "delegatesfocus";
 	const SCRIPT_TEMPLATE_SHADOW_ROOT = "data-template-shadow-root";
@@ -218,7 +218,6 @@
 		} else {
 			anchorIconElement.style.removeProperty("display");
 		}
-		headerElement.ondblclick = () => noteElement.classList.toggle(NOTE_CLOSED_CLASS);
 		headerElement.ontouchstart = headerElement.onmousedown = event => {
 			let lastMoveEvent;
 			if (event.target == headerElement) {
@@ -229,20 +228,16 @@
 				const boundingRect = noteElement.getBoundingClientRect();
 				const deltaX = clientX - boundingRect.left;
 				const deltaY = clientY - boundingRect.top;
-				if (event.touches && event.touches.length > 1) {
-					noteElement.classList.toggle(NOTE_CLOSED_CLASS);
-				} else {
-					selectNote(noteElement);
-					maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
-					document.documentElement.style.setProperty("user-select", "none", "important");
-					anchorElement = getAnchorElement(containerElement);
-					displayMaskNote();
-					headerElement.ontouchmove = document.documentElement.onmousemove = event => {
-						lastMoveEvent = event;
-						moveNote(event, deltaX, deltaY);
-					};
-					headerElement.ontouchend = headerElement.onmouseup = event => anchorNote(lastMoveEvent || event, deltaX, deltaY);
-				}
+				selectNote(noteElement);
+				maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
+				document.documentElement.style.setProperty("user-select", "none", "important");
+				anchorElement = getAnchorElement(containerElement);
+				displayMaskNote();
+				headerElement.ontouchmove = document.documentElement.onmousemove = event => {
+					lastMoveEvent = event;
+					moveNote(event, deltaX, deltaY);
+				};
+				headerElement.ontouchend = headerElement.onmouseup = event => anchorNote(lastMoveEvent || event, deltaX, deltaY);
 			}
 		};
 		resizeElement.ontouchstart = resizeElement.onmousedown = event => {
