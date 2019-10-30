@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global singlefile, window, document, fetch, DOMParser, getComputedStyle */
+/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout */
 
 (async () => {
 
@@ -53,7 +53,7 @@
 	const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-file-disabled-noscript";
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor;
+	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout;
 
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
@@ -203,6 +203,7 @@
 
 	function attachNoteListeners(containerElement, editable = false) {
 		const SELECT_PX_THRESHOLD = 4;
+		const COLLAPSING_NOTE_DELAY = 750;
 		const noteShadow = containerElement.shadowRoot;
 		const noteElement = noteShadow.childNodes[1];
 		const headerElement = noteShadow.querySelector("header");
@@ -219,6 +220,7 @@
 		}
 		headerElement.ontouchstart = headerElement.onmousedown = event => {
 			if (event.target == headerElement) {
+				collapseNoteTimeout = setTimeout(() => noteElement.classList.toggle("note-collapsed"), COLLAPSING_NOTE_DELAY);
 				event.preventDefault();
 				const position = getPosition(event);
 				const clientX = position.clientX;
@@ -226,13 +228,15 @@
 				const boundingRect = noteElement.getBoundingClientRect();
 				const deltaX = clientX - boundingRect.left;
 				const deltaY = clientY - boundingRect.top;
-				selectNote(noteElement);
 				maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
 				document.documentElement.style.setProperty("user-select", "none", "important");
 				anchorElement = getAnchorElement(containerElement);
 				displayMaskNote();
+				selectNote(noteElement);
+				moveNote(event, deltaX, deltaY);
 				movingNoteMode = { deltaX, deltaY };
 				document.documentElement.ontouchmove = document.documentElement.onmousemove = event => {
+					clearTimeout(collapseNoteTimeout);
 					if (!movingNoteMode) {
 						movingNoteMode = { deltaX, deltaY };
 					}
@@ -391,6 +395,10 @@
 			anchorNote(movingNoteMode.event || event, selectedNote, movingNoteMode.deltaX, movingNoteMode.deltaY);
 			movingNoteMode = null;
 			document.documentElement.ontouchmove = document.documentElement.onmousemove = null;
+		}
+		if (collapseNoteTimeout) {
+			clearTimeout(collapseNoteTimeout);
+			collapseNoteTimeout = null;
 		}
 	}
 
@@ -614,7 +622,7 @@
 			const onMouseUp = ${minifyText(onMouseUp.toString())};
 			const maskNoteElement = getMaskElement(${JSON.stringify(NOTE_MASK_CLASS)});
 			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});
-			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode;
+			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout;
 			window.onresize = reflowNotes;
 			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
 			window.addEventListener("DOMContentLoaded", () => {
