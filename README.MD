@@ -45,6 +45,7 @@ SingleFile can be installed:
    - the selected tabs,
    - or the unpinned tabs,
    - or all the tabs.
+ - You can annotate the page before saving it by selecting "Annotate and save the page..." in the context menu.
  - The context menu also allows you to activate the auto-save of:
    - the current tab,
    - or the unpinned tabs,
