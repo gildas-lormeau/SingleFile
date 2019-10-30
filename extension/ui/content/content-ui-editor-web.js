@@ -234,7 +234,7 @@
 				displayMaskNote();
 				selectNote(noteElement);
 				moveNote(event, deltaX, deltaY);
-				movingNoteMode = { deltaX, deltaY };
+				movingNoteMode = { event, deltaX, deltaY };
 				document.documentElement.ontouchmove = document.documentElement.onmousemove = event => {
 					clearTimeout(collapseNoteTimeout);
 					if (!movingNoteMode) {
@@ -370,6 +370,7 @@
 	}
 
 	function onMouseUp(event) {
+		debugger
 		if (highlightSelectionMode) {
 			highlightSelection();
 		}
