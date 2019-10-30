@@ -22,6 +22,12 @@
     display: none;
 }
 
+.note-collapsed {
+    min-height: 30px;
+    max-height: 30px;
+    overflow: hidden;
+}
+
 .note textarea {
     all: initial;
     white-space: pre;
