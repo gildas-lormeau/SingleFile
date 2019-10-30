@@ -370,7 +370,6 @@
 	}
 
 	function onMouseUp(event) {
-		debugger
 		if (highlightSelectionMode) {
 			highlightSelection();
 		}
