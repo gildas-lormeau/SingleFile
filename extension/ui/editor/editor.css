@@ -105,7 +105,7 @@ img[type=button].remove-highlight-disabled:hover {
 
 @media (prefers-color-scheme: dark) {
     .toolbar {
-        background-color: #505050;
+        background-color: #3a3a3a;
         border-color: #4a4a4a;
     }
 
