@@ -13,8 +13,10 @@ body {
 
 .toolbar {
     display: flex;
-    background-color: #e6e6e6;
-    border-bottom: 1px solid #cecece;
+    background-color: #efefef;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: #cccccc;
 }
 
 .buttons {
@@ -72,8 +74,9 @@ img[type=button].remove-highlight-disabled:hover {
         flex-direction: column;
         min-width: 34px;
         max-width: 34px;
-        border-bottom: 0px;
-        border-right: 1px solid #6d6d6d;
+        border-bottom-width: 0px;
+        border-right-width: 1px;
+        border-right-style: solid;
     }
 
     .buttons {
@@ -103,7 +106,7 @@ img[type=button].remove-highlight-disabled:hover {
 @media (prefers-color-scheme: dark) {
     .toolbar {
         background-color: #505050;
-        border-bottom-color: #4a4a4a;
+        border-color: #4a4a4a;
     }
 
     img[type=button] {
