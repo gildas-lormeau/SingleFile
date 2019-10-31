@@ -12,61 +12,55 @@ body {
 }
 
 .toolbar {
-    background-color: #425c69;
-    border-bottom: 1px solid #6d6d6d;
+    display: flex;
+    background-color: #e6e6e6;
+    border-bottom: 1px solid #cecece;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    margin: 1px;
 }
 
 img[type=button] {
-    margin-left: 1px;
-    margin-right: 1px;
-    margin-top: 5px;
-    margin-bottom: 4px;
-    opacity: .75;
     cursor: pointer;
+    background-color: #404040;
+    padding: 4px;
+    margin-right: 2px;
+    border-radius: 4px;
 }
 
 img[type=button]:hover {
-    opacity: 1;
+    filter: brightness(0.75);
 }
 
 img[type=button].edit-disabled,
 img[type=button].highlight-disabled,
 img[type=button].remove-highlight-disabled {
-    opacity: .25;
+    background-color: #7b7b7b;
+    filter: brightness(1.25);
 }
 
 img[type=button].edit-disabled:hover,
 img[type=button].highlight-disabled:hover,
 img[type=button].remove-highlight-disabled:hover {
-    opacity: .5;
-}
-
-.buttons {
-    display: inline-block;
+    filter: brightness(0.875);
 }
 
 .separator {
     display: inline-block;
     width: 2px;
     height: 22px;
-    background-color: #9ab0bb;
+    background-color: #404040;
     margin-left: 2px;
     margin-right: 2px;
-    margin-top: 1px;
-    margin-bottom: 4px;
+    margin-top: 6px;
 }
 
 .editor {
     flex: auto;
     border: none;
-}
-
-@media (orientation: landscape) {
-    @media (max-width: 420px) {
-        .separator {
-            display: none;
-        }
-    }
 }
 
 @media (orientation: portrait) {
@@ -75,26 +69,50 @@ img[type=button].remove-highlight-disabled:hover {
     }
 
     .toolbar {
-        min-width: 32px;
-        max-width: 32px;
+        flex-direction: column;
+        min-width: 34px;
+        max-width: 34px;
         border-bottom: 0px;
         border-right: 1px solid #6d6d6d;
     }
 
+    .buttons {
+        flex-direction: column;
+    }
+
     .separator {
-        margin-left: 4px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        margin-left: 6px;
         width: 22px;
         height: 2px;
     }
 
     img[type="button"] {
-        margin-left: 4px;
-        margin-bottom: 1px;
+        margin-right: 0;
+        margin-bottom: 2px;
     }
 
     @media (max-height: 495px) {
         .separator {
             display: none;
         }
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .toolbar {
+        background-color: #505050;
+        border-bottom-color: #4a4a4a;
+    }
+
+    img[type=button] {
+        background-color: #1f1f1f;
+    }
+
+    img[type=button].edit-disabled,
+    img[type=button].highlight-disabled,
+    img[type=button].remove-highlight-disabled {
+        background-color: #4a4a4a;
     }
 }
