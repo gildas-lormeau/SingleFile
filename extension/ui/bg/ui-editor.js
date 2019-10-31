@@ -143,7 +143,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	window.onmessage = event => {
 		const message = JSON.parse(event.data);
 		if (message.method == "setMetadata") {
-			document.title = message.title + " (edit)";
+			document.title = "[SingleFile] " + message.title;
 			if (message.icon) {
 				const linkElement = document.createElement("link");
 				linkElement.rel = "icon";
@@ -169,7 +169,7 @@ singlefile.extension.ui.bg.editor = (() => {
 		if (message.method == "content.save") {
 			savePage();
 			browser.runtime.sendMessage({ method: "ui.processInit" });
-			return {};			
+			return {};
 		}
 	});
 
