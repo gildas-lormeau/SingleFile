@@ -25,6 +25,7 @@
 
 .single-file-mask {
     all: initial;
+    display: contents !important;
 }
 
 .single-file-mask.single-file-page-mask {
