@@ -127,6 +127,12 @@
 			document.body.removeEventListener ("mouseover", cutter);
 			document.body.removeEventListener ("mouseout", cutter);
 		}
+		if (message.method == "undoCutPage" ) {
+			var removedElements = document.getElementsByClassName("single-file-removed");
+			while (removedElements.length) {
+				removedElements[0].classList.remove ("single-file-removed");
+			}
+		}
 		if (message.method == "getContent") {
 			serializeShadowRoots(document);
 			const doc = document.cloneNode(true);
