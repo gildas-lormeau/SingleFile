@@ -455,28 +455,28 @@
 		document.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(highlightedElement => highlightId = Math.max(highlightId, highlightedElement.dataset.singlefileHighlightId));
 		highlightId++;
 		const selection = window.getSelection();
+		const highlightedNodes = new Set();
 		for (let indexRange = 0; indexRange < selection.rangeCount; indexRange++) {
 			const range = selection.getRangeAt(indexRange);
 			if (!range.collapsed) {
-				const highlightedNodes = new Set();
 				if (range.commonAncestorContainer.nodeType == range.commonAncestorContainer.TEXT_NODE) {
 					let contentText = range.startContainer.splitText(range.startOffset);
 					contentText = contentText.splitText(range.endOffset);
-					highlightedNodes.add(contentText.previousSibling);
+					addHighLightedNode(contentText.previousSibling);
 				} else {
 					const treeWalker = document.createTreeWalker(range.commonAncestorContainer, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
 					let highlightNodes;
 					while (treeWalker.nextNode()) {
 						if (highlightNodes && !treeWalker.currentNode.contains(range.endContainer)) {
-							highlightedNodes.add(treeWalker.currentNode);
+							addHighLightedNode(treeWalker.currentNode);
 						}
 						if (treeWalker.currentNode == range.startContainer) {
 							if (range.startContainer.nodeType == range.startContainer.TEXT_NODE) {
 								const contentText = range.startContainer.splitText(range.startOffset);
 								treeWalker.nextNode();
-								highlightedNodes.add(contentText);
+								addHighLightedNode(contentText);
 							} else {
-								highlightedNodes.add(range.startContainer.childNodes[range.startOffset]);
+								addHighLightedNode(range.startContainer.childNodes[range.startOffset]);
 							}
 							highlightNodes = true;
 						}
@@ -484,16 +484,24 @@
 							if (range.endContainer.nodeType == range.endContainer.TEXT_NODE) {
 								const contentText = range.endContainer.splitText(range.endOffset);
 								treeWalker.nextNode();
-								highlightedNodes.add(contentText.previousSibling);
+								addHighLightedNode(contentText.previousSibling);
 							} else {
-								highlightedNodes.add(range.endContainer.childNodes[range.endOffset]);
+								addHighLightedNode(range.endContainer.childNodes[range.endOffset]);
 							}
 							highlightNodes = false;
 						}
 					}
 					range.collapse();
 				}
-				highlightedNodes.forEach(node => highlightNode(node));
+			}
+		}
+		highlightedNodes.forEach(node => highlightNode(node));
+
+		function addHighLightedNode(node) {
+			if (node.nodeType == node.TEXT_NODE && node.parentElement.childNodes.length == 1 && node.parentElement.classList.contains(HIGHLIGHT_CLASS)) {
+				highlightedNodes.add(node.parentElement);
+			} else {
+				highlightedNodes.add(node);
 			}
 		}
 
