@@ -53,7 +53,7 @@
 	const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-file-disabled-noscript";
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout;
+	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode;
 
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
@@ -116,6 +116,16 @@
 		}
 		if (message.method == "disableEditPage") {
 			document.body.contentEditable = false;
+		}
+		if (message.method == "enableCutPage") {
+			cuttingMode = true;
+			document.body.addEventListener ("mouseover", cutter);
+			document.body.addEventListener ("mouseout", cutter);
+		}
+		if (message.method == "disableCutPage" ) {
+			cuttingMode = false;
+			document.body.removeEventListener ("mouseover", cutter);
+			document.body.removeEventListener ("mouseout", cutter);
 		}
 		if (message.method == "getContent") {
 			serializeShadowRoots(document);
@@ -199,6 +209,13 @@
 		document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
 		noteElement.classList.add(NOTE_SELECTED_CLASS);
 		selectedNote = noteElement;
+	}
+
+	function cutter (e) {
+		if (e.type === 'mouseover' || e.type === 'mouseout') {
+			e.target.classList.toggle ("single-file-hover");
+		}
+		e.stopPropagation();
 	}
 
 	function attachNoteListeners(containerElement, editable = false) {
@@ -399,6 +416,10 @@
 		if (collapseNoteTimeout) {
 			clearTimeout(collapseNoteTimeout);
 			collapseNoteTimeout = null;
+		}
+		if (cuttingMode) {
+			let element = event.target;
+			element.classList.add ("single-file-removed");
 		}
 	}
 
