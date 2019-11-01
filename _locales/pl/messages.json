@@ -132,7 +132,7 @@
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionIncludeInfobar": {
-		"message": "dołącz pasek informacyjny do zapisanej strony",
+		"message": "dołączaj pasek informacyjny do zapisanej strony",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionConfirmInfobar": {
