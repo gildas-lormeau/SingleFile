@@ -507,6 +507,10 @@
 		"message": "Activer/déactiver le mode lecture seule",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
+	"editorCutPage": {
+		"message": "Enable/disable removing document's element on click",
+		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
+	},
 	"editorSavePage": {
 		"message": "Sauver la page",
 		"description": "Title of the button 'Save the page' in the editor"

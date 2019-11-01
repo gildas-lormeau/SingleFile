@@ -507,6 +507,10 @@
 		"message": "Enable/disable read-only",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
+	"editorCutPage": {
+		"message": "Enable/disable removing document's element on click",
+		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
+	},
 	"editorSavePage": {
 		"message": "Save the page",
 		"description": "Title of the button 'Save the page' in the editor"
