@@ -39,6 +39,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	const addBlueNoteButton = document.querySelector(".add-note-blue-button");
 	const addGreenNoteButton = document.querySelector(".add-note-green-button");
 	const editPageButton = document.querySelector(".edit-page-button");
+	const cutPageButton = document.querySelector(".cut-page-button");
 	const savePageButton = document.querySelector(".save-page-button");
 
 	let tabData;
@@ -55,6 +56,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	toggleHighlightsButton.title = browser.i18n.getMessage("editorToggleHighlights");
 	removeHighlightButton.title = browser.i18n.getMessage("editorRemoveHighlight");
 	editPageButton.title = browser.i18n.getMessage("editorEditPage");
+	cutPageButton.title = browser.i18n.getMessage("editorCutPage");
 	savePageButton.title = browser.i18n.getMessage("editorSavePage");
 
 	addYellowNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-yellow" }), "*");
@@ -135,6 +137,15 @@ singlefile.extension.ui.bg.editor = (() => {
 		} else {
 			editPageButton.classList.add("edit-disabled");
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableEditPage" }), "*");
+		}
+	};
+	cutPageButton.onclick = () => {
+		if (cutPageButton.classList.contains("cut-disabled")) {
+			cutPageButton.classList.remove("cut-disabled");
+			editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableCutPage" }), "*");
+		} else {
+			cutPageButton.classList.add("cut-disabled");
+			editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableCutPage" }), "*");
 		}
 	};
 	savePageButton.onclick = () => {

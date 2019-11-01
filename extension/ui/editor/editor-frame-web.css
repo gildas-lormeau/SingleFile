@@ -36,3 +36,14 @@ single-file-note {
     all: initial !important;
     display: contents !important;
 }
+
+.single-file-hover {
+    outline: 1px solid red !important;
+}
+
+.single-file-removed {
+    display: none !important;
+    float: none !important;
+    position: static !important;
+    visibility: collapse !important;
+}
