@@ -498,10 +498,12 @@
 		highlightedNodes.forEach(node => highlightNode(node));
 
 		function addHighLightedNode(node) {
-			if (node.nodeType == node.TEXT_NODE && node.parentElement.childNodes.length == 1 && node.parentElement.classList.contains(HIGHLIGHT_CLASS)) {
-				highlightedNodes.add(node.parentElement);
-			} else {
-				highlightedNodes.add(node);
+			if (node && node.textContent.trim()) {
+				if (node.nodeType == node.TEXT_NODE && node.parentElement.childNodes.length == 1 && node.parentElement.classList.contains(HIGHLIGHT_CLASS)) {
+					highlightedNodes.add(node.parentElement);
+				} else {
+					highlightedNodes.add(node);
+				}
 			}
 		}
 
