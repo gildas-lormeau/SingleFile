@@ -473,6 +473,7 @@
 						if (treeWalker.currentNode == range.startContainer) {
 							if (range.startContainer.nodeType == range.startContainer.TEXT_NODE) {
 								const contentText = range.startContainer.splitText(range.startOffset);
+								treeWalker.nextNode();
 								highlightedNodes.add(contentText);
 							} else {
 								highlightedNodes.add(range.startContainer.childNodes[range.startOffset]);
@@ -482,6 +483,7 @@
 						if (treeWalker.currentNode == range.endContainer) {
 							if (range.endContainer.nodeType == range.endContainer.TEXT_NODE) {
 								const contentText = range.endContainer.splitText(range.endOffset);
+								treeWalker.nextNode();
 								highlightedNodes.add(contentText.previousSibling);
 							} else {
 								highlightedNodes.add(range.endContainer.childNodes[range.endOffset]);
