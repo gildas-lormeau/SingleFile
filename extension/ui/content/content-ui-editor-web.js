@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout */
+/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter */
 
 (async () => {
 
@@ -458,37 +458,62 @@
 		for (let indexRange = 0; indexRange < selection.rangeCount; indexRange++) {
 			const range = selection.getRangeAt(indexRange);
 			if (!range.collapsed) {
-				const contents = range.extractContents();
-				highlightChildNodes(contents);
-				range.insertNode(contents);
+				const highlightedNodes = new Set();
+				if (range.commonAncestorContainer.nodeType == range.commonAncestorContainer.TEXT_NODE) {
+					let contentText = range.startContainer.splitText(range.startOffset);
+					contentText = contentText.splitText(range.endOffset);
+					highlightedNodes.add(contentText.previousSibling);
+				} else {
+					const treeWalker = document.createTreeWalker(range.commonAncestorContainer, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
+					let highlightNodes;
+					while (treeWalker.nextNode()) {
+						if (highlightNodes && !treeWalker.currentNode.contains(range.endContainer)) {
+							highlightedNodes.add(treeWalker.currentNode);
+						}
+						if (treeWalker.currentNode == range.startContainer) {
+							if (range.startContainer.nodeType == range.startContainer.TEXT_NODE) {
+								const contentText = range.startContainer.splitText(range.startOffset);
+								highlightedNodes.add(contentText);
+							} else {
+								highlightedNodes.add(range.startContainer.childNodes[range.startOffset]);
+							}
+							highlightNodes = true;
+						}
+						if (treeWalker.currentNode == range.endContainer) {
+							if (range.endContainer.nodeType == range.endContainer.TEXT_NODE) {
+								const contentText = range.endContainer.splitText(range.endOffset);
+								highlightedNodes.add(contentText.previousSibling);
+							} else {
+								highlightedNodes.add(range.endContainer.childNodes[range.endOffset]);
+							}
+							highlightNodes = false;
+						}
+					}
+				}
 				range.collapse();
+				highlightedNodes.forEach(node => highlightNode(node));
 			}
 		}
 
-		function highlightChildNodes(node) {
-			if (node.childNodes.length) {
-				node.childNodes.forEach(childNode => {
-					if (childNode.classList) {
-						resetHighlightedElement(childNode);
-						if (Array.from(childNode.childNodes).find(childNode => childNode.classList)) {
-							highlightChildNodes(childNode);
-						} else {
-							childNode.classList.add(HIGHLIGHT_CLASS);
-							childNode.classList.add(highlightColor);
-							childNode.dataset.singlefileHighlightId = highlightId;
-						}
-					} else {
-						highlightChildNodes(childNode);
-					}
-				});
-			} else if (node.textContent) {
-				const spanElement = document.createElement("span");
-				spanElement.classList.add(HIGHLIGHT_CLASS);
-				spanElement.classList.add(highlightColor);
-				spanElement.textContent = node.textContent;
-				spanElement.dataset.singlefileHighlightId = highlightId;
-				node.parentNode.replaceChild(spanElement, node);
+		function highlightNode(node) {
+			if (node.nodeType == node.ELEMENT_NODE) {
+				resetHighlightedElement(node);
+				node.classList.add(HIGHLIGHT_CLASS);
+				node.classList.add(highlightColor);
+				node.dataset.singlefileHighlightId = highlightId;
+			} else if (node.parentElement) {
+				highlightTextNode(node);
 			}
+		}
+
+		function highlightTextNode(node) {
+			const spanElement = document.createElement("span");
+			spanElement.classList.add(HIGHLIGHT_CLASS);
+			spanElement.classList.add(highlightColor);
+			spanElement.textContent = node.textContent;
+			spanElement.dataset.singlefileHighlightId = highlightId;
+			node.parentNode.replaceChild(spanElement, node);
+			return spanElement;
 		}
 	}
 
