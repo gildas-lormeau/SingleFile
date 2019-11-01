@@ -491,8 +491,8 @@
 							highlightNodes = false;
 						}
 					}
+					range.collapse();
 				}
-				range.collapse();
 				highlightedNodes.forEach(node => highlightNode(node));
 			}
 		}
