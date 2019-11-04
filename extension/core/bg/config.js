@@ -51,7 +51,7 @@ singlefile.extension.core.bg.config = (() => {
 		confirmFilename: false,
 		filenameConflictAction: "uniquify",
 		filenameMaxLength: 192,
-		filenameReplacedCharacters: ["~", "\\\\", "?", "%", "*", ":", "|", "\"", "<", ">", "\x00-\x1f", "\x7F"],
+		filenameReplacedCharacters: ["~", "+", "\\\\", "?", "%", "*", ":", "|", "\"", "<", ">", "\x00-\x1f", "\x7F"],
 		filenameReplacementCharacter: "_",
 		contextMenuEnabled: true,
 		tabMenuEnabled: true,
