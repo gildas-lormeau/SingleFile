@@ -68,11 +68,11 @@ SingleFile can be launched from the command line by running it into a (headless)
   
 - Run
 
-  `docker run singlefile "https://google.com"`
+  `docker run singlefile "https://www.wikipedia.org"`
   
 - Run and pipe the result into a file
 
-  `docker run singlefile "https://google.com" > google.html`
+  `docker run singlefile "https://www.wikipedia.org" > wikipedia.html`
 
 ## License
 
