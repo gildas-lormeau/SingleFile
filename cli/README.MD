@@ -60,6 +60,20 @@ SingleFile can be launched from the command line by running it into a (headless)
 
   `single-file https://www.wikipedia.org wikipedia.html --back-end=webdriver-gecko`
   
+## Docker
+
+- Build
+
+  `docker build -t singlefile .`
+  
+- Run
+
+  `docker run singlefile "https://google.com"`
+  
+- Run and pipe the result into a file
+
+  `docker run singlefile "https://google.com" > google.html`
+
 ## License
 
 SingleFile is licensed under AGPL. Code derived from third-party projects is licensed under MIT. Please contact me at gildas.lormeau &lt;at&gt; gmail.com if you are interested in licensing the SingleFile code for a commercial service or product.
