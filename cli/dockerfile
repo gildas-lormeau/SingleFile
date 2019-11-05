@@ -1,0 +1,13 @@
+FROM zenika/alpine-chrome:with-node
+
+RUN set -x \
+    git \
+    && git clone --recursive https://github.com/gildas-lormeau/SingleFile \
+    && cd SingleFile && npm install --production && cd cli && npm install --production \
+    && chmod +x single-file \
+    && echo
+    
+WORKDIR /usr/src/app/SingleFile/cli
+
+ENTRYPOINT ["./single-file", "--browser-executable-path", "/usr/bin/chromium-browser", "--browser-args", "[\"--no-sandbox\"]"]
+CMD ["https://github.com/Zenika/alpine-chrome"]
