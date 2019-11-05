@@ -54,6 +54,7 @@
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode;
+	let removedElements = [];
 
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
@@ -128,9 +129,13 @@
 			document.body.removeEventListener ("mouseout", cutter);
 		}
 		if (message.method == "undoCutPage" ) {
-			var removedElements = document.getElementsByClassName("single-file-removed");
+			if (removedElements.length) {
+				removedElements.pop().classList.remove ("single-file-removed");
+			}
+		}
+		if (message.method == "undoAllCutPage" ) {
 			while (removedElements.length) {
-				removedElements[0].classList.remove ("single-file-removed");
+				removedElements.pop().classList.remove ("single-file-removed");
 			}
 		}
 		if (message.method == "getContent") {
@@ -426,6 +431,7 @@
 		if (cuttingMode) {
 			let element = event.target;
 			element.classList.add ("single-file-removed");
+			removedElements.push(element);
 		}
 	}
 
