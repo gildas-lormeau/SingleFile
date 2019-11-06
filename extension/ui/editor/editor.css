@@ -115,6 +115,7 @@ img[type=button].remove-highlight-disabled:hover {
     }
 
     img[type=button].edit-disabled,
+    img[type=button].cut-disabled,
     img[type=button].highlight-disabled,
     img[type=button].remove-highlight-disabled {
         background-color: #4a4a4a;
