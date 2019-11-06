@@ -38,6 +38,7 @@ img[type=button]:hover {
 }
 
 img[type=button].edit-disabled,
+img[type=button].cut-disabled,
 img[type=button].highlight-disabled,
 img[type=button].remove-highlight-disabled {
     background-color: #7b7b7b;
