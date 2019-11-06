@@ -53,7 +53,8 @@
 	const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-file-disabled-noscript";
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout;
+	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode;
+	let removedElements = [];
 
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
@@ -116,6 +117,26 @@
 		}
 		if (message.method == "disableEditPage") {
 			document.body.contentEditable = false;
+		}
+		if (message.method == "enableCutPage") {
+			cuttingMode = true;
+			document.body.addEventListener("mouseover", highlightElementToCut);
+			document.body.addEventListener("mouseout", highlightElementToCut);
+		}
+		if (message.method == "disableCutPage") {
+			cuttingMode = false;
+			document.body.removeEventListener("mouseover", highlightElementToCut);
+			document.body.removeEventListener("mouseout", highlightElementToCut);
+		}
+		if (message.method == "undoCutPage") {
+			if (removedElements.length) {
+				removedElements.pop().classList.remove("single-file-removed");
+			}
+		}
+		if (message.method == "undoAllCutPage") {
+			while (removedElements.length) {
+				removedElements.pop().classList.remove("single-file-removed");
+			}
 		}
 		if (message.method == "getContent") {
 			serializeShadowRoots(document);
@@ -400,6 +421,13 @@
 			clearTimeout(collapseNoteTimeout);
 			collapseNoteTimeout = null;
 		}
+		if (cuttingMode) {
+			let element = event.target;
+			if (document.documentElement != element) {
+				element.classList.add("single-file-removed");
+				removedElements.push(element);
+			}
+		}
 	}
 
 	function anchorNote(event, noteElement, deltaX, deltaY) {
@@ -527,6 +555,15 @@
 			node.parentNode.replaceChild(spanElement, node);
 			return spanElement;
 		}
+	}
+
+	function highlightElementToCut(event) {
+		if (event.type != "mouseover" && event.type != "mouseout") return;
+		var target = event.target;
+		if ("classList" in target) {
+			target.classList.toggle("single-file-hover");
+		}
+		event.stopPropagation();
 	}
 
 	function reflowNotes() {
