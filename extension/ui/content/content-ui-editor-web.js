@@ -120,22 +120,22 @@
 		}
 		if (message.method == "enableCutPage") {
 			cuttingMode = true;
-			document.body.addEventListener ("mouseover", cutter);
-			document.body.addEventListener ("mouseout", cutter);
+			document.body.addEventListener("mouseover", highlightElementToCut);
+			document.body.addEventListener("mouseout", highlightElementToCut);
 		}
-		if (message.method == "disableCutPage" ) {
+		if (message.method == "disableCutPage") {
 			cuttingMode = false;
-			document.body.removeEventListener ("mouseover", cutter);
-			document.body.removeEventListener ("mouseout", cutter);
+			document.body.removeEventListener("mouseover", highlightElementToCut);
+			document.body.removeEventListener("mouseout", highlightElementToCut);
 		}
-		if (message.method == "undoCutPage" ) {
+		if (message.method == "undoCutPage") {
 			if (removedElements.length) {
-				removedElements.pop().classList.remove ("single-file-removed");
+				removedElements.pop().classList.remove("single-file-removed");
 			}
 		}
-		if (message.method == "undoAllCutPage" ) {
+		if (message.method == "undoAllCutPage") {
 			while (removedElements.length) {
-				removedElements.pop().classList.remove ("single-file-removed");
+				removedElements.pop().classList.remove("single-file-removed");
 			}
 		}
 		if (message.method == "getContent") {
@@ -220,13 +220,6 @@
 		document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
 		noteElement.classList.add(NOTE_SELECTED_CLASS);
 		selectedNote = noteElement;
-	}
-
-	function cutter (e) {
-		if (e.type === 'mouseover' || e.type === 'mouseout') {
-			e.target.classList.toggle ("single-file-hover");
-		}
-		e.stopPropagation();
 	}
 
 	function attachNoteListeners(containerElement, editable = false) {
@@ -431,7 +424,7 @@
 		if (cuttingMode) {
 			let element = event.target;
 			if (document.documentElement != element) {
-				element.classList.add ("single-file-removed");
+				element.classList.add("single-file-removed");
 				removedElements.push(element);
 			}
 		}
@@ -525,6 +518,15 @@
 				node.parentNode.replaceChild(spanElement, node);
 			}
 		}
+	}
+
+	function highlightElementToCut(event) {
+		if (event.type != "mouseover" && event.type != "mouseout") return;
+		var target = event.target;
+		if ("classList" in target) {
+			target.classList.toggle("single-file-hover");
+		}
+		event.stopPropagation();
 	}
 
 	function reflowNotes() {
