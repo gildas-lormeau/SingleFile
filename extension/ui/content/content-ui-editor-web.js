@@ -696,7 +696,7 @@
 			const onMouseUp = ${minifyText(onMouseUp.toString())};
 			const maskNoteElement = getMaskElement(${JSON.stringify(NOTE_MASK_CLASS)});
 			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});
-			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout;
+			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout, cuttingMode;
 			window.onresize = reflowNotes;
 			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
 			window.addEventListener("DOMContentLoaded", () => {
