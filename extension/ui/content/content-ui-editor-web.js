@@ -424,7 +424,7 @@
 		}
 		if (cuttingMode) {
 			let element = event.target;
-			if (document.documentElement != element) {
+			if (document.documentElement != element && element.tagName.toLowerCase() != NOTE_TAGNAME) {
 				element.classList.add(REMOVED_CONTENT_CLASS);
 				removedElements.push(element);
 			}
