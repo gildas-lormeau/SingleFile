@@ -511,6 +511,14 @@
 		"message": "Enable/disable removing document's element on click",
 		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
 	},
+	"editorUndoCutPage": {
+		"message": "Restore last removed element",
+		"description": "Title of the button 'Restore last removed element' in the editor"
+	},
+	"editorUndoAllCutPage": {
+		"message": "Restore all removed elements",
+		"description": "Title of the button 'Restore all removed elements' in the editor"
+	},
 	"editorSavePage": {
 		"message": "Speichern der Webseite",
 		"description": "Title of the button 'Save the page' in the editor"
