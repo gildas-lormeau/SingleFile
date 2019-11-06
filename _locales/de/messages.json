@@ -508,15 +508,15 @@
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorCutPage": {
-		"message": "Enable/disable removing document's element on click",
+		"message": "Aktivieren/Deaktivieren des Entfernens des Dokument-Elements auf Klick",
 		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
 	},
 	"editorUndoCutPage": {
-		"message": "Restore last removed element",
+		"message": "Wiederherstellen des zuletzt entfernten Elements",
 		"description": "Title of the button 'Restore last removed element' in the editor"
 	},
 	"editorUndoAllCutPage": {
-		"message": "Restore all removed elements",
+		"message": "Wiederherstellen aller entfernten Elemente",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
 	"editorSavePage": {
