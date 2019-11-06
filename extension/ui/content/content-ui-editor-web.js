@@ -430,8 +430,10 @@
 		}
 		if (cuttingMode) {
 			let element = event.target;
-			element.classList.add ("single-file-removed");
-			removedElements.push(element);
+			if (document.documentElement != element) {
+				element.classList.add ("single-file-removed");
+				removedElements.push(element);
+			}
 		}
 	}
 
