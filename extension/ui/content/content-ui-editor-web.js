@@ -43,6 +43,7 @@
 	const MASK_CLASS = "single-file-mask";
 	const PAGE_MASK_CONTAINER_CLASS = "single-file-page-mask";
 	const HIGHLIGHT_CLASS = "single-file-highlight";
+	const REMOVED_CONTENT_CLASS = "single-file-removed";
 	const HIGHLIGHT_HIDDEN_CLASS = "single-file-highlight-hidden";
 	const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
 	const NOTE_INITIAL_POSITION_X = 20;
@@ -130,12 +131,12 @@
 		}
 		if (message.method == "undoCutPage") {
 			if (removedElements.length) {
-				removedElements.pop().classList.remove("single-file-removed");
+				removedElements.pop().classList.remove(REMOVED_CONTENT_CLASS);
 			}
 		}
 		if (message.method == "undoAllCutPage") {
 			while (removedElements.length) {
-				removedElements.pop().classList.remove("single-file-removed");
+				removedElements.pop().classList.remove(REMOVED_CONTENT_CLASS);
 			}
 		}
 		if (message.method == "getContent") {
@@ -146,7 +147,7 @@
 				element.textContent = element.getAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
 				element.removeAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
 			});
-			doc.querySelectorAll("." + MASK_CLASS).forEach(maskElement => maskElement.remove());
+			doc.querySelectorAll("." + MASK_CLASS + ", ." + REMOVED_CONTENT_CLASS).forEach(maskElement => maskElement.remove());
 			doc.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.remove(HIGHLIGHT_HIDDEN_CLASS));
 			doc.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(templateElement => {
 				const noteElement = templateElement.querySelector("." + NOTE_CLASS);
@@ -424,7 +425,7 @@
 		if (cuttingMode) {
 			let element = event.target;
 			if (document.documentElement != element) {
-				element.classList.add("single-file-removed");
+				element.classList.add(REMOVED_CONTENT_CLASS);
 				removedElements.push(element);
 			}
 		}
@@ -682,6 +683,7 @@
 			const MASK_WEB_STYLESHEET = ${JSON.stringify(MASK_WEB_STYLESHEET)};
 			const NOTE_HEADER_HEIGHT = ${JSON.stringify(NOTE_HEADER_HEIGHT)};
 			const PAGE_MASK_ACTIVE_CLASS = ${JSON.stringify(PAGE_MASK_ACTIVE_CLASS)};
+			const REMOVED_CONTENT_CLASS = ${JSON.stringify(REMOVED_CONTENT_CLASS)};
 			const reflowNotes = ${minifyText(reflowNotes.toString())};			
 			const addNoteRef = ${minifyText(addNoteRef.toString())};
 			const deleteNoteRef = ${minifyText(deleteNoteRef.toString())};
