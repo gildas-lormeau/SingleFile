@@ -45,6 +45,9 @@ singlefile.extension.ui.bg.main = (() => {
 		onError(tabId) {
 			singlefile.extension.ui.bg.button.onError(tabId);
 		},
+		onEdit(tabId) {
+			singlefile.extension.ui.bg.button.onEdit(tabId);
+		},
 		onEnd(tabId, autoSave) {
 			singlefile.extension.ui.bg.button.onEnd(tabId, autoSave);
 		},

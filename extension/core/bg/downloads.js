@@ -66,7 +66,7 @@ singlefile.extension.core.bg.downloads = (() => {
 			}
 			if (!message.truncated || message.finished) {
 				if (message.openEditor) {
-					singlefile.extension.ui.bg.main.onEnd(sender.tab.id);
+					singlefile.extension.ui.bg.main.onEdit(sender.tab.id);
 					await singlefile.extension.core.bg.editor.open({ filename: message.filename, content: contents.join("") }, {
 						backgroundSave: message.backgroundSave,
 						saveToClipboard: message.saveToClipboard,
