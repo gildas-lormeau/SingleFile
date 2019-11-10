@@ -371,6 +371,10 @@
 		"message": "zapisuj do schowka",
 		"description": "Options page label: 'save to clipboard'"
 	},
+	"optionSaveToGDrive": {
+		"message": "save to Google Drive",
+		"description": "Options page label: 'save to Google Drive'"
+	},
 	"optionsHelpLink": {
 		"message": "pomoc (w języku angielskim)",
 		"description": "Options help link"

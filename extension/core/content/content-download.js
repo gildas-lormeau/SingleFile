@@ -35,7 +35,7 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 		if (options.includeInfobar) {
 			await singlefile.common.ui.content.infobar.includeScript(pageData);
 		}
-		if (options.backgroundSave || options.openEditor) {
+		if (options.backgroundSave || options.openEditor || options.saveToGDrive) {
 			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
 				const message = {
 					method: "downloads.download",
@@ -43,6 +43,7 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 					filenameConflictAction: options.filenameConflictAction,
 					filename: pageData.filename,
 					saveToClipboard: options.saveToClipboard,
+					saveToGDrive: options.saveToGDrive,
 					filenameReplacementCharacter: options.filenameReplacementCharacter,
 					openEditor: options.openEditor,
 					compressHTML: options.compressHTMLEdit,
@@ -63,6 +64,7 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 			} else {
 				downloadPageForeground(pageData);
 			}
+			browser.runtime.sendMessage({ method: "ui.processEnd" });
 		}
 		await browser.runtime.sendMessage({ method: "downloads.end", autoClose: options.autoClose });
 	}

@@ -28,6 +28,12 @@
 	if (!this.browser && this.chrome) {
 		const nativeAPI = this.chrome;
 		this.__defineGetter__("browser", () => ({
+			alarms: nativeAPI.alarms && {
+				create: (name, alarmInfo) => nativeAPI.alarms.create(name, alarmInfo),
+				onAlarm: {
+					addListener: listener => nativeAPI.alarms.onAlarm.addListener(listener)
+				}
+			},
 			browserAction: {
 				onClicked: {
 					addListener: listener => nativeAPI.browserAction.onClicked.addListener(listener)
@@ -148,6 +154,41 @@
 			i18n: {
 				getMessage: (messageName, substitutions) => nativeAPI.i18n.getMessage(messageName, substitutions)
 			},
+			identity: {
+				get getAuthToken() {
+					return nativeAPI.identity && nativeAPI.identity.getAuthToken && (details => new Promise((resolve, reject) =>
+						nativeAPI.identity.getAuthToken(details, token => {
+							if (nativeAPI.runtime.lastError) {
+								reject(nativeAPI.runtime.lastError);
+							} else {
+								resolve(token);
+							}
+						})
+					));
+				},
+				get launchWebAuthFlow() {
+					return nativeAPI.identity && nativeAPI.identity.launchWebAuthFlow && (options => new Promise((resolve, reject) => {
+						nativeAPI.identity.launchWebAuthFlow(options, responseUrl => {
+							if (nativeAPI.runtime.lastError) {
+								reject(nativeAPI.runtime.lastError);
+							} else {
+								resolve(responseUrl);
+							}
+						});
+					}));
+				},
+				get removeCachedAuthToken() {
+					return nativeAPI.identity && nativeAPI.identity.removeCachedAuthToken && (details => new Promise((resolve, reject) =>
+						nativeAPI.identity.removeCachedAuthToken(details, () => {
+							if (nativeAPI.runtime.lastError) {
+								reject(nativeAPI.runtime.lastError);
+							} else {
+								resolve();
+							}
+						})
+					));
+				}
+			},
 			menus: {
 				onClicked: {
 					addListener: listener => nativeAPI.contextMenus.onClicked.addListener(listener)
@@ -172,7 +213,19 @@
 					});
 				})
 			},
+			permissions: {
+				request: permissions => new Promise((resolve, reject) => {
+					nativeAPI.permissions.request(permissions, () => {
+						if (nativeAPI.runtime.lastError) {
+							reject(nativeAPI.runtime.lastError);
+						} else {
+							resolve();
+						}
+					});
+				})
+			},
 			runtime: {
+				getManifest: () => nativeAPI.runtime.getManifest(),
 				onMessage: {
 					addListener: listener => nativeAPI.runtime.onMessage.addListener((message, sender, sendResponse) => {
 						const response = listener(message, sender);

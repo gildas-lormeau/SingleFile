@@ -368,8 +368,12 @@
 		"description": "Options page label: 'save raw page'"
 	},
 	"optionSaveToClipboard": {
-		"message": "enregistrer dans le presse-papiers",
+		"message": "sauvegarder dans le presse-papiers",
 		"description": "Options page label: 'save to clipboard'"
+	},
+	"optionSaveToGDrive": {
+		"message": "sauvegarder dans Google Drive",
+		"description": "Options page label: 'save to Google Drive'"
 	},
 	"optionsHelpLink": {
 		"message": "aide (anglais)",

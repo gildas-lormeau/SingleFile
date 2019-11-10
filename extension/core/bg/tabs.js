@@ -24,6 +24,8 @@
 
 singlefile.extension.core.bg.tabs = (() => {
 
+	const pendingPrompts = new Map();
+
 	browser.tabs.onCreated.addListener(tab => onTabCreated(tab));
 	browser.tabs.onActivated.addListener(activeInfo => onTabActivated(activeInfo));
 	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabUpdated(tabId, changeInfo, tab));
@@ -55,10 +57,47 @@ singlefile.extension.core.bg.tabs = (() => {
 			});
 		},
 		sendMessage: (tabId, message, options) => browser.tabs.sendMessage(tabId, message, options),
-		remove: tabId => browser.tabs.remove(tabId)
+		remove: tabId => browser.tabs.remove(tabId),
+		promptValue: async promptMessage => {
+			const tabs = await browser.tabs.query({ currentWindow: true, active: true });
+			return new Promise(async (resolve, reject) => {
+				const tabId = tabs[0].id;
+				pendingPrompts.set(tabId, { resolve, reject });
+				browser.tabs.sendMessage(tabId, { method: "common.promptValueRequest", promptMessage });
+			});
+		},
+		getAuthCode: authURL => {
+			return new Promise((resolve, reject) => {
+				let authTabId;
+				browser.tabs.onUpdated.addListener(onTabUpdated);
+				browser.tabs.onRemoved.addListener(onTabRemoved);
+
+				function onTabUpdated(tabId, changeInfo) {
+					if (changeInfo && changeInfo.url == authURL) {
+						authTabId = tabId;
+					}
+					if (authTabId == tabId && changeInfo && changeInfo.title && changeInfo.title.startsWith("Success code=")) {
+						browser.tabs.onUpdated.removeListener(onTabUpdated);
+						browser.tabs.onUpdated.removeListener(onTabRemoved);
+						resolve(changeInfo.title.substring(13, changeInfo.title.length - 49));
+					}
+				}
+
+				function onTabRemoved(tabId) {
+					if (tabId == authTabId) {
+						browser.tabs.onUpdated.removeListener(onTabUpdated);
+						browser.tabs.onUpdated.removeListener(onTabRemoved);
+						reject();
+					}
+				}
+			});
+		}
 	};
 
-	async function onMessage(message) {
+	async function onMessage(message, sender) {
+		if (message.method.endsWith(".promptValueResponse")) {
+			pendingPrompts.get(sender.tab.id).resolve(message.value);
+		}
 		if (message.method.endsWith(".getOptions")) {
 			return singlefile.extension.core.bg.config.getOptions(message.url);
 		}

@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, singlefile, window, document */
+/* global browser, singlefile, window, document, prompt */
 
 singlefile.extension.ui.bg.editor = (() => {
 
@@ -190,6 +190,10 @@ singlefile.extension.ui.bg.editor = (() => {
 		if (message.method == "content.save") {
 			savePage();
 			browser.runtime.sendMessage({ method: "ui.processInit" });
+			return {};
+		}
+		if (message.method == "common.promptValueRequest") {
+			browser.runtime.sendMessage({ method: "tabs.promptValueResponse", value: prompt(message.promptMessage) });
 			return {};
 		}
 	});

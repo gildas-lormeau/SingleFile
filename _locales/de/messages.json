@@ -371,6 +371,10 @@
 		"message": "In die Zwischenablage speichern",
 		"description": "Options page label: 'save to clipboard'"
 	},
+	"optionSaveToGDrive": {
+		"message": "In Google Drive speichern",
+		"description": "Options page label: 'save to Google Drive'"
+	},
 	"optionsHelpLink": {
 		"message": "Hilfe",
 		"description": "Options help link"

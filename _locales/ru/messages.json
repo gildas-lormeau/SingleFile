@@ -371,6 +371,10 @@
 		"message": "сохранить в буфер обмена",
 		"description": "Options page label: 'save to clipboard'"
 	},
+	"optionSaveToGDrive": {
+		"message": "save to Google Drive",
+		"description": "Options page label: 'save to Google Drive'"
+	},
 	"optionsHelpLink": {
 		"message": "помощь",
 		"description": "Options help link"
