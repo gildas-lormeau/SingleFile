@@ -41,6 +41,7 @@ singlefile.extension.core.bg.downloads = (() => {
 
 	const manifest = browser.runtime.getManifest();
 	const gDrive = new GDrive(CLIENT_ID, SCOPES);
+	let permissionIdentityRequested = manifest.optional_permissions && manifest.optional_permissions.includes("identity");
 
 	return {
 		onMessage,
@@ -110,8 +111,8 @@ singlefile.extension.core.bg.downloads = (() => {
 			return {};
 		}
 		if (message.method.endsWith(".enableGDrive")) {
-			if (!manifest.permissions || !manifest.permissions.includes("identity")) {
-				await browser.permissions.request({ permissions: ["identity"] });
+			if (permissionIdentityRequested) {
+				await requestPermissionIdentity();
 			}
 			return {};
 		}
@@ -132,7 +133,10 @@ singlefile.extension.core.bg.downloads = (() => {
 	async function getAuthInfo(force) {
 		let code, cancelled, authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
 		gDrive.setAuthInfo(authInfo);
-		const options = { interactive: true, auto: true, requestPermissionIdentity: manifest.optional_permissions && manifest.optional_permissions.includes("identity") };
+		const options = { interactive: true, auto: true };
+		if (permissionIdentityRequested) {
+			await requestPermissionIdentity();
+		}
 		if (!authInfo || force || gDrive.managedToken()) {
 			try {
 				if (!gDrive.managedToken()) {
@@ -155,6 +159,16 @@ singlefile.extension.core.bg.downloads = (() => {
 			await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
 		}
 		return authInfo;
+	}
+
+	async function requestPermissionIdentity() {
+		try {
+			await browser.permissions.request({ permissions: ["identity"] });
+			permissionIdentityRequested = false;
+		}
+		catch (error) {
+			// ignored;
+		}
 	}
 
 	async function uploadPage(filename, blob, tabId) {
