@@ -61,9 +61,18 @@ singlefile.extension.core.bg.tabs = (() => {
 		promptValue: async promptMessage => {
 			const tabs = await browser.tabs.query({ currentWindow: true, active: true });
 			return new Promise(async (resolve, reject) => {
-				const tabId = tabs[0].id;
-				pendingPrompts.set(tabId, { resolve, reject });
-				browser.tabs.sendMessage(tabId, { method: "common.promptValueRequest", promptMessage });
+				const selectedTabId = tabs[0].id;
+				browser.tabs.onRemoved.addListener(onTabRemoved);
+				pendingPrompts.set(selectedTabId, { resolve, reject });
+				browser.tabs.sendMessage(selectedTabId, { method: "common.promptValueRequest", promptMessage });
+
+				function onTabRemoved(tabId) {
+					if (tabId == selectedTabId) {
+						pendingPrompts.delete(tabId);
+						browser.tabs.onUpdated.removeListener(onTabRemoved);
+						reject();
+					}
+				}
 			});
 		},
 		getAuthCode: authURL => {
@@ -96,7 +105,11 @@ singlefile.extension.core.bg.tabs = (() => {
 
 	async function onMessage(message, sender) {
 		if (message.method.endsWith(".promptValueResponse")) {
-			pendingPrompts.get(sender.tab.id).resolve(message.value);
+			const promptPromise = pendingPrompts.get(sender.tab.id);
+			if (promptPromise) {
+				promptPromise.resolve(message.value);
+				pendingPrompts.delete(sender.tab.id);
+			}
 		}
 		if (message.method.endsWith(".getOptions")) {
 			return singlefile.extension.core.bg.config.getOptions(message.url);
