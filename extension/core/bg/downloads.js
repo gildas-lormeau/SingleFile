@@ -42,15 +42,6 @@ singlefile.extension.core.bg.downloads = (() => {
 	const manifest = browser.runtime.getManifest();
 	const gDrive = new GDrive(CLIENT_ID, SCOPES);
 
-	if (browser.alarms) {
-		browser.alarms.onAlarm.addListener(async alarmInfo => {
-			if (alarmInfo.name == "refreshAuthToken") {
-				const authInfo = await gDrive.refreshAuthToken();
-				await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
-				browser.alarms.create("refreshAuthToken", { when: Date.now() + Math.max(60000, authInfo.expirationDate - 60000) });
-			}
-		});
-	}
 	return {
 		onMessage,
 		download,
@@ -163,9 +154,6 @@ singlefile.extension.core.bg.downloads = (() => {
 			}
 			await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
 		}
-		if (!gDrive.managedToken() && authInfo.expirationDate) {
-			browser.alarms.create("refreshAuthToken", { when: Math.max(Date.now() + 60000, authInfo.expirationDate - 60000) });
-		}
 		return authInfo;
 	}
 
@@ -176,7 +164,17 @@ singlefile.extension.core.bg.downloads = (() => {
 		}
 		catch (error) {
 			if (error.message == "invalid_token") {
-				await getAuthInfo(true);
+				let authInfo;
+				try {
+					authInfo = await gDrive.refreshAuthToken();
+				} catch (error) {
+					if (error.message == "unknown_token") {
+						authInfo = await getAuthInfo(true);
+					} else {
+						throw error;
+					}
+				}
+				await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
 				await uploadPage(filename, blob, tabId);
 			} else {
 				throw error;
