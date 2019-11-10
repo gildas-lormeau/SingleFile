@@ -36,6 +36,7 @@
 	const removeScriptsLabel = document.getElementById("removeScriptsLabel");
 	const saveRawPageLabel = document.getElementById("saveRawPageLabel");
 	const saveToClipboardLabel = document.getElementById("saveToClipboardLabel");
+	const saveToGDriveLabel = document.getElementById("saveToGDriveLabel");
 	const compressHTMLLabel = document.getElementById("compressHTMLLabel");
 	const compressCSSLabel = document.getElementById("compressCSSLabel");
 	const loadDeferredImagesLabel = document.getElementById("loadDeferredImagesLabel");
@@ -103,6 +104,7 @@
 	const removeScriptsInput = document.getElementById("removeScriptsInput");
 	const saveRawPageInput = document.getElementById("saveRawPageInput");
 	const saveToClipboardInput = document.getElementById("saveToClipboardInput");
+	const saveToGDriveInput = document.getElementById("saveToGDriveInput");
 	const compressHTMLInput = document.getElementById("compressHTMLInput");
 	const compressCSSInput = document.getElementById("compressCSSInput");
 	const loadDeferredImagesInput = document.getElementById("loadDeferredImagesInput");
@@ -342,6 +344,13 @@
 			removeUnusedStylesInput.checked = false;
 		}
 	}, false);
+	saveToGDriveInput.addEventListener("click", async () => {
+		if (saveToGDriveInput.checked) {
+			await browser.runtime.sendMessage({ method: "downloads.enableGDrive" });
+		} else {
+			await browser.runtime.sendMessage({ method: "downloads.disableGDrive" });
+		}
+	}, false);
 	document.body.onchange = async event => {
 		let target = event.target;
 		if (target != ruleUrlInput && target != ruleProfileInput && target != ruleAutoSaveProfileInput && target != ruleEditUrlInput && target != ruleEditProfileInput && target != ruleEditAutoSaveProfileInput && target != showAutoSaveProfileInput) {
@@ -378,6 +387,7 @@
 	removeScriptsLabel.textContent = browser.i18n.getMessage("optionRemoveScripts");
 	saveRawPageLabel.textContent = browser.i18n.getMessage("optionSaveRawPage");
 	saveToClipboardLabel.textContent = browser.i18n.getMessage("optionSaveToClipboard");
+	saveToGDriveLabel.textContent = browser.i18n.getMessage("optionSaveToGDrive");
 	compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
 	compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
 	loadDeferredImagesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImages");
@@ -554,7 +564,10 @@
 		removeImportsInput.checked = profileOptions.removeImports;
 		removeScriptsInput.checked = profileOptions.removeScripts;
 		saveRawPageInput.checked = profileOptions.saveRawPage;
-		saveToClipboardInput.checked = profileOptions.saveToClipboard;
+		saveToClipboardInput.checked = profileOptions.saveToClipboard && !profileOptions.saveToGDrive;
+		saveToClipboardInput.disabled = profileOptions.saveToGDrive;
+		saveToGDriveInput.checked = profileOptions.saveToGDrive && !profileOptions.saveToClipboard;
+		saveToGDriveInput.disabled = profileOptions.saveToClipboard;
 		compressHTMLInput.checked = profileOptions.compressHTML;
 		compressCSSInput.checked = profileOptions.compressCSS;
 		loadDeferredImagesInput.checked = profileOptions.loadDeferredImages && !profileOptions.saveRawPage;
@@ -571,12 +584,13 @@
 		confirmFilenameInput.checked = profileOptions.confirmFilename;
 		confirmFilenameInput.disabled = profileOptions.saveToClipboard;
 		filenameConflictActionInput.value = profileOptions.filenameConflictAction;
-		filenameConflictActionInput.disabled = profileOptions.saveToClipboard;
+		filenameConflictActionInput.disabled = profileOptions.saveToClipboard || profileOptions.saveToGDrive;
 		removeAudioSrcInput.checked = profileOptions.removeAudioSrc;
 		removeVideoSrcInput.checked = profileOptions.removeVideoSrc;
 		displayInfobarInput.checked = profileOptions.displayInfobar;
 		displayStatsInput.checked = profileOptions.displayStats;
 		backgroundSaveInput.checked = profileOptions.backgroundSave;
+		backgroundSaveInput.disabled = profileOptions.saveToGDrive;
 		autoSaveDelayInput.value = profileOptions.autoSaveDelay;
 		autoSaveDelayInput.disabled = !profileOptions.autoSaveLoadOrUnload && !profileOptions.autoSaveLoad;
 		autoSaveLoadInput.checked = !profileOptions.autoSaveLoadOrUnload && profileOptions.autoSaveLoad;
@@ -623,6 +637,7 @@
 				removeScripts: removeScriptsInput.checked,
 				saveRawPage: saveRawPageInput.checked,
 				saveToClipboard: saveToClipboardInput.checked,
+				saveToGDrive: saveToGDriveInput.checked,
 				compressHTML: compressHTMLInput.checked,
 				compressCSS: compressCSSInput.checked,
 				loadDeferredImages: loadDeferredImagesInput.checked,

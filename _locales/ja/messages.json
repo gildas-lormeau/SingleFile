@@ -371,6 +371,10 @@
 		"message": "クリップボードに保存する",
 		"description": "Options page label: 'save to clipboard'"
 	},
+	"optionSaveToGDrive": {
+		"message": "save to Google Drive",
+		"description": "Options page label: 'save to Google Drive'"
+	},
 	"optionsHelpLink": {
 		"message": "ヘルプ",
 		"description": "Options help link"

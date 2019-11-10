@@ -78,6 +78,7 @@ singlefile.extension.core.bg.config = (() => {
 		groupDuplicateImages: true,
 		saveRawPage: false,
 		saveToClipboard: false,
+		saveToGDrive: false,
 		resolveFragmentIdentifierURLs: false,
 		userScriptEnabled: false,
 		openEditor: false
@@ -94,7 +95,9 @@ singlefile.extension.core.bg.config = (() => {
 		getProfiles,
 		onMessage,
 		updateRule,
-		addRule
+		addRule,
+		getAuthInfo,
+		setAuthInfo
 	};
 
 	async function upgrade() {
@@ -352,6 +355,14 @@ singlefile.extension.core.bg.config = (() => {
 		urlConfig.profile = profile;
 		urlConfig.autoSaveProfile = autoSaveProfile;
 		await browser.storage.local.set({ rules: config.rules });
+	}
+
+	async function getAuthInfo() {
+		return (await browser.storage.local.get(["authInfo"])).authInfo;
+	}
+
+	async function setAuthInfo(authInfo) {
+		await browser.storage.local.set({ authInfo });
 	}
 
 	async function resetProfiles() {

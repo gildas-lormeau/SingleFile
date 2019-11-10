@@ -78,8 +78,8 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 				try {
 					const pageData = await processPage(options);
 					if (pageData) {
-						if (!options.backgroundSave && !options.saveToClipboard && options.confirmFilename) {
-							pageData.filename = ui.prompt("File name", pageData.filename);
+						if (((!options.backgroundSave && !options.saveToClipboard) || options.saveToGDrive) && options.confirmFilename) {
+							pageData.filename = ui.prompt("Save as", pageData.filename) || pageData.filename;
 						}
 						await singlefile.extension.core.content.download.downloadPage(pageData, options);
 					}
@@ -142,8 +142,6 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 					}
 					browser.runtime.sendMessage({ method: "ui.processProgress", index, maxIndex });
 					ui.onLoadResource(index, maxIndex, options);
-				} if (event.type == event.PAGE_ENDED) {
-					browser.runtime.sendMessage({ method: "ui.processEnd" });
 				} else if (!event.detail.frame) {
 					if (event.type == event.PAGE_LOADING) {
 						ui.onPageLoading();

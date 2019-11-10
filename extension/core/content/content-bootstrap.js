@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, window, addEventListener, removeEventListener, document, location, setTimeout */
+/* global browser, window, addEventListener, removeEventListener, document, location, setTimeout, prompt */
 
 this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.core.content.bootstrap || (async () => {
 
@@ -36,7 +36,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		autoSaveEnabled = message.autoSaveEnabled;
 		refresh();
 	});
-	browser.runtime.onMessage.addListener(message => { onMessage(message); });
+	browser.runtime.onMessage.addListener(message => onMessage(message));
 	browser.runtime.sendMessage({ method: "ui.processInit" });
 	addEventListener(PUSH_STATE_NOTIFICATION_EVENT_NAME, () => browser.runtime.sendMessage({ method: "ui.processInit" }));
 	return {};
@@ -59,9 +59,13 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			options = message.options;
 			autoSaveEnabled = message.autoSaveEnabled;
 			refresh();
+			return {};
 		}
 		if (message.method == "devtools.resourceCommitted") {
 			singlefile.extension.core.content.updatedResources[message.url] = { content: message.content, type: message.type, encoding: message.encoding };
+		}
+		if (message.method == "common.promptValueRequest") {
+			browser.runtime.sendMessage({ method: "tabs.promptValueResponse", value: prompt("SingleFile: " + message.promptMessage) });
 		}
 	}
 

@@ -74,6 +74,7 @@
 			"lib/single-file/modules/html-images-alt-minifier.js",
 			"lib/single-file/single-file-core.js",
 			"lib/single-file/single-file.js",
+			"lib/gdrive/gdrive.js",
 			"common/index.js",
 			"common/ui/content/content-infobar.js",
 			"extension/lib/single-file/core/bg/scripts.js",
@@ -144,7 +145,15 @@
 		"extension/ui/editor/editor-mask-web.css",
 		"extension/ui/editor/editor-frame-web.css"
 	],
+	"oauth2": {
+		"client_id": "207618107333-bktohpfmdfnv5hfavi1ll18h74gqi27v.apps.googleusercontent.com",
+		"scopes": [
+			"https://www.googleapis.com/auth/drive.file"
+		]
+	},
 	"permissions": [
+		"identity",
+		"alarms",
 		"menus",
 		"clipboardWrite",
 		"contextMenus",
@@ -152,6 +161,9 @@
 		"storage",
 		"tabs",
 		"<all_urls>"
+	],
+	"optional_permissions": [
+		"identity"
 	],
 	"applications": {
 		"gecko": {
