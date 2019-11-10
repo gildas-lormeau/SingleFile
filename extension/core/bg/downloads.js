@@ -144,7 +144,7 @@ singlefile.extension.core.bg.downloads = (() => {
 		const options = { interactive: true, auto: true };
 		if (!authInfo || force || gDrive.managedToken()) {
 			try {
-				if (options.auto && !gDrive.managedToken()) {
+				if (!gDrive.managedToken()) {
 					singlefile.extension.core.bg.tabs.getAuthCode(gDrive.getAuthURL(options))
 						.then(authCode => code = authCode)
 						.catch(() => { cancelled = true; });
@@ -165,7 +165,7 @@ singlefile.extension.core.bg.downloads = (() => {
 			}
 			await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
 		}
-		if (!gDrive.managedToken()) {
+		if (!gDrive.managedToken() && authInfo.expirationDate) {
 			browser.alarms.create("refreshAuthToken", { when: Math.max(Date.now() + 60000, authInfo.expirationDate - 60000) });
 		}
 		return authInfo;
