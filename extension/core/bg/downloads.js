@@ -132,7 +132,7 @@ singlefile.extension.core.bg.downloads = (() => {
 	async function getAuthInfo(force) {
 		let code, cancelled, authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
 		gDrive.setAuthInfo(authInfo);
-		const options = { interactive: true, auto: true };
+		const options = { interactive: true, auto: true, requestPermissionIdentity: manifest.optional_permissions && manifest.optional_permissions.includes("identity") };
 		if (!authInfo || force || gDrive.managedToken()) {
 			try {
 				if (!gDrive.managedToken()) {
