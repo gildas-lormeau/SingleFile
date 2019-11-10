@@ -140,9 +140,9 @@ singlefile.extension.core.bg.downloads = (() => {
 
 	async function getAuthInfo(force) {
 		let code, cancelled, authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
-		const options = { interactive: true, auto: true };
 		gDrive.setAuthInfo(authInfo);
-		if (force || gDrive.managedToken()) {
+		const options = { interactive: true, auto: true };
+		if (!authInfo || force || gDrive.managedToken()) {
 			try {
 				if (options.auto && !gDrive.managedToken()) {
 					singlefile.extension.core.bg.tabs.getAuthCode(gDrive.getAuthURL(options))
