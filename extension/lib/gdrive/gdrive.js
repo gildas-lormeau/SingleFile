@@ -51,7 +51,7 @@ this.GDrive = this.GDrive || (() => {
 				this.getAuthURL(options);
 				return options.code ? authFromCode(this, options) : initAuth(this, options);
 			}
-		}		
+		}
 		managedToken() {
 			return Boolean(browser.identity.getAuthToken);
 		}
