@@ -151,10 +151,8 @@ singlefile.extension.core.bg.downloads = (() => {
 				}
 				authInfo = await gDrive.auth(options);
 			} catch (error) {
-				if (!cancelled && error.message == "code_required") {
-					if (!code) {
-						code = await singlefile.extension.core.bg.tabs.promptValue("Please enter the access code for Google Drive");
-					}
+				if (!cancelled && error.message == "code_required" && !code) {
+					code = await singlefile.extension.core.bg.tabs.promptValue("Please enter the access code for Google Drive");
 				}
 				if (code) {
 					options.code = code;
