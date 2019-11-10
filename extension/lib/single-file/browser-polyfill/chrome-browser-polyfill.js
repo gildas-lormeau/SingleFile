@@ -28,12 +28,6 @@
 	if (!this.browser && this.chrome) {
 		const nativeAPI = this.chrome;
 		this.__defineGetter__("browser", () => ({
-			alarms: nativeAPI.alarms && {
-				create: (name, alarmInfo) => nativeAPI.alarms.create(name, alarmInfo),
-				onAlarm: {
-					addListener: listener => nativeAPI.alarms.onAlarm.addListener(listener)
-				}
-			},
 			browserAction: {
 				onClicked: {
 					addListener: listener => nativeAPI.browserAction.onClicked.addListener(listener)
