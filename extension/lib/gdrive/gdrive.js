@@ -61,7 +61,7 @@ this.GDrive = this.GDrive || (() => {
 			}
 		}
 		managedToken(options) {
-			return Boolean(browser.identity.getAuthToken) && !options.forceWebAuthFlow;
+			return Boolean(browser.identity && browser.identity.getAuthToken) && !options.forceWebAuthFlow;
 		}
 		setAuthInfo(authInfo, options) {
 			if (!this.managedToken(options)) {
@@ -111,7 +111,7 @@ this.GDrive = this.GDrive || (() => {
 		}
 		async revokeAuthToken(accessToken) {
 			if (accessToken) {
-				if (browser.identity.removeCachedAuthToken) {
+				if (browser.identity && browser.identity.removeCachedAuthToken) {
 					try {
 						await browser.identity.removeCachedAuthToken({ token: accessToken });
 					} catch (error) {
