@@ -33,7 +33,7 @@ this.GDrive = this.GDrive || (() => {
 	const GDRIVE_URL = "https://www.googleapis.com/drive/v3/files";
 	const GDRIVE_UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files";
 
-	let requestPermissionIdentityNeeded;
+	let requestPermissionIdentityNeeded = true;
 
 	class GDrive {
 		constructor(clientId, scopes) {
