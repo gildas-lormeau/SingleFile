@@ -214,8 +214,14 @@ this.GDrive = this.GDrive || (() => {
 	}
 
 	async function initAuth(gdrive, options) {
+		let code, cancelled;
+		if (options.extractAuthCode) {
+			options.extractAuthCode()
+				.then(authCode => code = authCode)
+				.catch(() => { cancelled = true; });
+		}
 		try {
-			if (gdrive.managedToken(options)) {
+			if (browser.identity && browser.identity.launchWebAuthFlow && !options.forceWebAuthFlow) {
 				return await browser.identity.launchWebAuthFlow({
 					interactive: options.interactive,
 					url: gdrive.authURL
@@ -227,8 +233,16 @@ this.GDrive = this.GDrive || (() => {
 			}
 		}
 		catch (error) {
-			if (error.message && error.message.includes("access")) {
-				throw new Error("code_required");
+			if (error.message && (error.message == "code_required" || error.message.includes("access"))) {
+				if (!options.auto && !cancelled && !code && options.promptAuthCode) {
+					code = await options.promptAuthCode();
+				}
+				if (code) {
+					options.code = code;
+					return await authFromCode(gdrive, options);
+				} else {
+					throw new Error("code_required");
+				}
 			} else {
 				throw error;
 			}

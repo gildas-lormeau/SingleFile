@@ -75,7 +75,7 @@ singlefile.extension.core.bg.tabs = (() => {
 				}
 			});
 		},
-		getAuthCode: authURL => {
+		extractAuthCode: authURL => {
 			return new Promise((resolve, reject) => {
 				let authTabId;
 				browser.tabs.onUpdated.addListener(onTabUpdated);

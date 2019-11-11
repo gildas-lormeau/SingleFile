@@ -127,38 +127,18 @@ singlefile.extension.core.bg.downloads = (() => {
 	}
 
 	async function getAuthInfo(uploadOptions, force) {
-		let code, cancelled, authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
+		let authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
 		const options = {
 			interactive: true,
 			auto: true,
 			forceWebAuthFlow: uploadOptions.forceWebAuthFlow,
-			requestPermissionIdentity
+			requestPermissionIdentity,
+			extractAuthCode: () => singlefile.extension.core.bg.tabs.extractAuthCode(gDrive.getAuthURL(options)),
+			promptAuthCode: () => singlefile.extension.core.bg.tabs.promptValue("Please enter the access code for Google Drive")
 		};
 		gDrive.setAuthInfo(authInfo, options);
 		if (!authInfo || force || gDrive.managedToken(options)) {
-			try {
-				if (!gDrive.managedToken(options)) {
-					singlefile.extension.core.bg.tabs.getAuthCode(gDrive.getAuthURL(options))
-						.then(authCode => code = authCode)
-						.catch(() => { cancelled = true; });
-				}
-				authInfo = await gDrive.auth(options);
-			} catch (error) {
-				if (!cancelled && error.message == "code_required" && !code) {
-					if (options.auto) {
-						options.auto = false;
-						return getAuthInfo(uploadOptions, force);
-					} else {
-						code = await singlefile.extension.core.bg.tabs.promptValue("Please enter the access code for Google Drive");
-					}
-				}
-				if (code) {
-					options.code = code;
-					authInfo = await gDrive.auth(options);
-				} else {
-					throw error;
-				}
-			}
+			authInfo = await gDrive.auth(options);
 			if (authInfo) {
 				await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
 			} else {
