@@ -2,7 +2,7 @@
 Your data always belongs to you, and only you. SingleFile does not collect any data.
 
 ## How your data is protected and used
-SingleFile does not send any data to our servers or any third parties. All your data is processed and stored locally on your device.
+SingleFile does not send any data to our servers or any third parties. All your data is processed and stored locally on your device. If you connect SingleFile to your Google Drive account, data is only transmitted from your browser to Google servers.
 
 ## Customer support
 When you request for customer support, we may ask for your email address to get back to you.
