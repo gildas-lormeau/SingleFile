@@ -125,12 +125,12 @@ singlefile.extension.core.bg.downloads = (() => {
 		}
 	}
 
-	async function getAuthInfo(uploadOptions, force) {
+	async function getAuthInfo(authOptions, force) {
 		let authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
 		const options = {
 			interactive: true,
-			auto: uploadOptions.extractAuthCode,
-			forceWebAuthFlow: uploadOptions.forceWebAuthFlow,
+			auto: authOptions.extractAuthCode,
+			forceWebAuthFlow: authOptions.forceWebAuthFlow,
 			requestPermissionIdentity,
 			launchWebAuthFlow: options => singlefile.extension.core.bg.tabs.launchWebAuthFlow(options),
 			extractAuthCode: authURL => singlefile.extension.core.bg.tabs.extractAuthCode(authURL),
@@ -148,9 +148,9 @@ singlefile.extension.core.bg.downloads = (() => {
 		return authInfo;
 	}
 
-	async function uploadPage(filename, blob, tabId, options) {
+	async function uploadPage(filename, blob, tabId, authOptions) {
 		try {
-			await getAuthInfo(options);
+			await getAuthInfo(authOptions);
 			await gDrive.upload(filename, blob);
 		}
 		catch (error) {
@@ -160,7 +160,7 @@ singlefile.extension.core.bg.downloads = (() => {
 					authInfo = await gDrive.refreshAuthToken();
 				} catch (error) {
 					if (error.message == "unknown_token") {
-						authInfo = await getAuthInfo(options, true);
+						authInfo = await getAuthInfo(authOptions, true);
 					} else {
 						throw error;
 					}
@@ -170,7 +170,7 @@ singlefile.extension.core.bg.downloads = (() => {
 				} else {
 					await singlefile.extension.core.bg.config.removeAuthInfo();
 				}
-				await uploadPage(filename, blob, tabId, options);
+				await uploadPage(filename, blob, tabId, authOptions);
 			} else {
 				throw error;
 			}
