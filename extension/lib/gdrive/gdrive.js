@@ -74,7 +74,7 @@ this.GDrive = this.GDrive || (() => {
 			}
 		}
 		async refreshAuthToken() {
-			if (this.clientId && this.refreshToken) {
+			if (this.refreshToken) {
 				const httpResponse = await fetch(TOKEN_URL, {
 					method: "POST",
 					headers: { "Content-Type": "application/x-www-form-urlencoded" },
