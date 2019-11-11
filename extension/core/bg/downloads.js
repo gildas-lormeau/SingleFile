@@ -147,7 +147,7 @@ singlefile.extension.core.bg.downloads = (() => {
 				if (!cancelled && error.message == "code_required" && !code) {
 					if (options.auto) {
 						options.auto = false;
-						await getAuthInfo(uploadOptions, force);
+						return getAuthInfo(uploadOptions, force);
 					} else {
 						code = await singlefile.extension.core.bg.tabs.promptValue("Please enter the access code for Google Drive");
 					}
