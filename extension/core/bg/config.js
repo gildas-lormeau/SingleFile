@@ -79,6 +79,7 @@ singlefile.extension.core.bg.config = (() => {
 		saveRawPage: false,
 		saveToClipboard: false,
 		saveToGDrive: false,
+		forceWebAuthFlow: false,
 		resolveFragmentIdentifierURLs: false,
 		userScriptEnabled: false,
 		openEditor: false
@@ -97,7 +98,8 @@ singlefile.extension.core.bg.config = (() => {
 		updateRule,
 		addRule,
 		getAuthInfo,
-		setAuthInfo
+		setAuthInfo,
+		removeAuthInfo
 	};
 
 	async function upgrade() {
@@ -363,6 +365,10 @@ singlefile.extension.core.bg.config = (() => {
 
 	async function setAuthInfo(authInfo) {
 		await browser.storage.local.set({ authInfo });
+	}
+
+	async function removeAuthInfo() {
+		await browser.storage.local.remove(["authInfo"]);
 	}
 
 	async function resetProfiles() {

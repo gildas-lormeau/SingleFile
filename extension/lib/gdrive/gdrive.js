@@ -33,6 +33,8 @@ this.GDrive = this.GDrive || (() => {
 	const GDRIVE_URL = "https://www.googleapis.com/drive/v3/files";
 	const GDRIVE_UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files";
 
+	let requestPermissionIdentityNeeded;
+
 	class GDrive {
 		constructor(clientId, scopes) {
 			this.clientId = clientId;
@@ -40,8 +42,14 @@ this.GDrive = this.GDrive || (() => {
 			this.folderIds = new Map();
 			setInterval(() => this.folderIds.clear(), 60 * 1000);
 		}
+		async requestPermissionIdentity(options) {
+			if (options.requestPermissionIdentity) {
+				await requestPermissionIdentity();
+			}
+		}
 		async auth(options = { interactive: true, auto: true }) {
-			if (this.managedToken()) {
+			if (this.managedToken(options)) {
+				await this.requestPermissionIdentity(options);
 				const token = await browser.identity.getAuthToken({ interactive: options.interactive });
 				if (token) {
 					this.accessToken = token;
@@ -52,11 +60,11 @@ this.GDrive = this.GDrive || (() => {
 				return options.code ? authFromCode(this, options) : initAuth(this, options);
 			}
 		}
-		managedToken() {
-			return Boolean(browser.identity.getAuthToken);
+		managedToken(options) {
+			return Boolean(browser.identity.getAuthToken) && !options.forceWebAuthFlow;
 		}
-		setAuthInfo(authInfo) {
-			if (!browser.identity.getAuthToken) {
+		setAuthInfo(authInfo, options) {
+			if (!this.managedToken(options)) {
 				if (authInfo) {
 					this.accessToken = authInfo.accessToken;
 					this.refreshToken = authInfo.refreshToken;
@@ -103,8 +111,12 @@ this.GDrive = this.GDrive || (() => {
 		}
 		async revokeAuthToken(accessToken) {
 			if (accessToken) {
-				if (this.managedToken()) {
-					await browser.identity.removeCachedAuthToken({ token: accessToken });
+				if (browser.identity.removeCachedAuthToken) {
+					try {
+						await browser.identity.removeCachedAuthToken({ token: accessToken });
+					} catch (error) {
+						// ignored
+					}
 				}
 				const httpResponse = await fetch(REVOKE_ACCESS_URL, {
 					method: "POST",
@@ -182,6 +194,18 @@ this.GDrive = this.GDrive || (() => {
 
 	return GDrive;
 
+	async function requestPermissionIdentity() {
+		if (requestPermissionIdentityNeeded) {
+			try {
+				await browser.permissions.request({ permissions: ["identity"] });
+				requestPermissionIdentityNeeded = false;
+			}
+			catch (error) {
+				// ignored;
+			}
+		}
+	}
+
 	async function authFromCode(gdrive, options) {
 		const httpResponse = await fetch(TOKEN_URL, {
 			method: "POST",
@@ -200,10 +224,16 @@ this.GDrive = this.GDrive || (() => {
 
 	async function initAuth(gdrive, options) {
 		try {
-			return await browser.identity.launchWebAuthFlow({
-				interactive: options.interactive,
-				url: gdrive.authURL
-			});
+			if (gdrive.managedToken(options)) {
+				return await browser.identity.launchWebAuthFlow({
+					interactive: options.interactive,
+					url: gdrive.authURL
+				});
+			} else if (gdrive.launchWebAuthFlow) {
+				return await gdrive.launchWebAuthFlow({ url: gdrive.authURL });
+			} else {
+				throw new Error("auth_not_supported");
+			}
 		}
 		catch (error) {
 			if (error.message && error.message.includes("access")) {

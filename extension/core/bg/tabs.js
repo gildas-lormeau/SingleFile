@@ -100,6 +100,18 @@ singlefile.extension.core.bg.tabs = (() => {
 					}
 				}
 			});
+		},
+		launchWebAuthFlow: async options => {
+			const tab = await browser.tabs.create({ url: options.url, active: true });
+			return new Promise((resolve, reject) => {
+				browser.tabs.onRemoved.addListener(onTabRemoved);
+				function onTabRemoved(tabId) {
+					if (tabId == tab.id) {
+						browser.tabs.onRemoved.removeListener(onTabRemoved);
+						reject(new Error("code_required"));
+					}
+				}
+			});
 		}
 	};
 

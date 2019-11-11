@@ -40,9 +40,9 @@ singlefile.extension.core.bg.downloads = (() => {
 	const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 
 	const manifest = browser.runtime.getManifest();
+	const requestPermissionIdentity = manifest.optional_permissions && manifest.optional_permissions.includes("identity");
 	const gDrive = new GDrive(CLIENT_ID, SCOPES);
-	let permissionIdentityRequested = manifest.optional_permissions && manifest.optional_permissions.includes("identity");
-
+	gDrive.launchWebAuthFlow = async options => singlefile.extension.core.bg.tabs.launchWebAuthFlow(options);
 	return {
 		onMessage,
 		download,
@@ -86,7 +86,7 @@ singlefile.extension.core.bg.downloads = (() => {
 						const blob = new Blob([contents], { type: MIMETYPE_HTML });
 						try {
 							if (message.saveToGDrive) {
-								await uploadPage(message.filename, blob, sender.tab.id);
+								await uploadPage(message.filename, blob, sender.tab.id, { forceWebAuthFlow: message.forceWebAuthFlow });
 							} else {
 								message.url = URL.createObjectURL(blob);
 								await downloadPage(message, {
@@ -110,16 +110,12 @@ singlefile.extension.core.bg.downloads = (() => {
 			}
 			return {};
 		}
-		if (message.method.endsWith(".enableGDrive")) {
-			if (permissionIdentityRequested) {
-				await requestPermissionIdentity();
-			}
-			return {};
-		}
 		if (message.method.endsWith(".disableGDrive")) {
 			const authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
-			singlefile.extension.core.bg.config.setAuthInfo(null);
-			await gDrive.revokeAuthToken(authInfo.accessToken);
+			if (authInfo) {
+				singlefile.extension.core.bg.config.removeAuthInfo();
+				await gDrive.revokeAuthToken(authInfo.accessToken);
+			}
 			return {};
 		}
 		if (message.method.endsWith(".end")) {
@@ -130,16 +126,18 @@ singlefile.extension.core.bg.downloads = (() => {
 		}
 	}
 
-	async function getAuthInfo(force) {
+	async function getAuthInfo(uploadOptions, force) {
 		let code, cancelled, authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
-		gDrive.setAuthInfo(authInfo);
-		const options = { interactive: true, auto: true };
-		if (permissionIdentityRequested) {
-			await requestPermissionIdentity();
-		}
-		if (!authInfo || force || gDrive.managedToken()) {
+		const options = {
+			interactive: true,
+			auto: true,
+			forceWebAuthFlow: uploadOptions.forceWebAuthFlow,
+			requestPermissionIdentity
+		};
+		gDrive.setAuthInfo(authInfo, options);
+		if (!authInfo || force || gDrive.managedToken(options)) {
 			try {
-				if (!gDrive.managedToken()) {
+				if (!gDrive.managedToken(options)) {
 					singlefile.extension.core.bg.tabs.getAuthCode(gDrive.getAuthURL(options))
 						.then(authCode => code = authCode)
 						.catch(() => { cancelled = true; });
@@ -156,24 +154,18 @@ singlefile.extension.core.bg.downloads = (() => {
 					throw error;
 				}
 			}
-			await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
+			if (authInfo) {
+				await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
+			} else {
+				await singlefile.extension.core.bg.config.removeAuthInfo();
+			}
 		}
 		return authInfo;
 	}
 
-	async function requestPermissionIdentity() {
+	async function uploadPage(filename, blob, tabId, options) {
 		try {
-			await browser.permissions.request({ permissions: ["identity"] });
-			permissionIdentityRequested = false;
-		}
-		catch (error) {
-			// ignored;
-		}
-	}
-
-	async function uploadPage(filename, blob, tabId) {
-		try {
-			await getAuthInfo();
+			await getAuthInfo(options);
 			await gDrive.upload(filename, blob);
 		}
 		catch (error) {
@@ -183,13 +175,17 @@ singlefile.extension.core.bg.downloads = (() => {
 					authInfo = await gDrive.refreshAuthToken();
 				} catch (error) {
 					if (error.message == "unknown_token") {
-						authInfo = await getAuthInfo(true);
+						authInfo = await getAuthInfo(options, true);
 					} else {
 						throw error;
 					}
 				}
-				await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
-				await uploadPage(filename, blob, tabId);
+				if (authInfo) {
+					await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
+				} else {
+					await singlefile.extension.core.bg.config.removeAuthInfo();
+				}
+				await uploadPage(filename, blob, tabId, options);
 			} else {
 				throw error;
 			}
