@@ -85,7 +85,7 @@ singlefile.extension.core.bg.downloads = (() => {
 						const blob = new Blob([contents], { type: MIMETYPE_HTML });
 						try {
 							if (message.saveToGDrive) {
-								await uploadPage(message.filename, blob, sender.tab.id, { forceWebAuthFlow: message.forceWebAuthFlow });
+								await uploadPage(message.filename, blob, sender.tab.id, { forceWebAuthFlow: message.forceWebAuthFlow, extractAuthCode: message.extractAuthCode });
 							} else {
 								message.url = URL.createObjectURL(blob);
 								await downloadPage(message, {
@@ -129,7 +129,7 @@ singlefile.extension.core.bg.downloads = (() => {
 		let authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
 		const options = {
 			interactive: true,
-			auto: true,
+			auto: uploadOptions.extractAuthCode,
 			forceWebAuthFlow: uploadOptions.forceWebAuthFlow,
 			requestPermissionIdentity,
 			launchWebAuthFlow: options => singlefile.extension.core.bg.tabs.launchWebAuthFlow(options),

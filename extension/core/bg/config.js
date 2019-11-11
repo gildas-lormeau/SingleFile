@@ -80,6 +80,7 @@ singlefile.extension.core.bg.config = (() => {
 		saveToClipboard: false,
 		saveToGDrive: false,
 		forceWebAuthFlow: false,
+		extractAuthCode: true,
 		resolveFragmentIdentifierURLs: false,
 		userScriptEnabled: false,
 		openEditor: false
