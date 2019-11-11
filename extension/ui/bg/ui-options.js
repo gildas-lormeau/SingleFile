@@ -345,9 +345,7 @@
 		}
 	}, false);
 	saveToGDriveInput.addEventListener("click", async () => {
-		if (saveToGDriveInput.checked) {
-			await browser.runtime.sendMessage({ method: "downloads.enableGDrive" });
-		} else {
+		if (!saveToGDriveInput.checked) {
 			await browser.runtime.sendMessage({ method: "downloads.disableGDrive" });
 		}
 	}, false);

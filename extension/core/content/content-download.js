@@ -44,6 +44,7 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 					filename: pageData.filename,
 					saveToClipboard: options.saveToClipboard,
 					saveToGDrive: options.saveToGDrive,
+					forceWebAuthFlow: options.forceWebAuthFlow,
 					filenameReplacementCharacter: options.filenameReplacementCharacter,
 					openEditor: options.openEditor,
 					compressHTML: options.compressHTMLEdit,
