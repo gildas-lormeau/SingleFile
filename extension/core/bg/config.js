@@ -370,7 +370,11 @@ singlefile.extension.core.bg.config = (() => {
 
 	async function removeAuthInfo() {
 		let authInfo = getAuthInfo();
-		setAuthInfo({ revokableAccessToken: authInfo.revokableAccessToken });
+		if (authInfo.revokableAccessToken) {
+			setAuthInfo({ revokableAccessToken: authInfo.revokableAccessToken });
+		} else {
+			await browser.storage.local.remove(["authInfo"]);
+		}
 	}
 
 	async function resetProfiles() {
