@@ -42,7 +42,6 @@ singlefile.extension.core.bg.downloads = (() => {
 	const manifest = browser.runtime.getManifest();
 	const requestPermissionIdentity = manifest.optional_permissions && manifest.optional_permissions.includes("identity");
 	const gDrive = new GDrive(CLIENT_ID, SCOPES);
-	gDrive.launchWebAuthFlow = async options => singlefile.extension.core.bg.tabs.launchWebAuthFlow(options);
 	return {
 		onMessage,
 		download,
@@ -133,11 +132,12 @@ singlefile.extension.core.bg.downloads = (() => {
 			auto: true,
 			forceWebAuthFlow: uploadOptions.forceWebAuthFlow,
 			requestPermissionIdentity,
-			extractAuthCode: () => singlefile.extension.core.bg.tabs.extractAuthCode(gDrive.getAuthURL(options)),
+			launchWebAuthFlow: options => singlefile.extension.core.bg.tabs.launchWebAuthFlow(options),
+			extractAuthCode: authURL => singlefile.extension.core.bg.tabs.extractAuthCode(authURL),
 			promptAuthCode: () => singlefile.extension.core.bg.tabs.promptValue("Please enter the access code for Google Drive")
 		};
 		gDrive.setAuthInfo(authInfo, options);
-		if (!authInfo || force || gDrive.managedToken(options)) {
+		if (!authInfo || force) {
 			authInfo = await gDrive.auth(options);
 			if (authInfo) {
 				await singlefile.extension.core.bg.config.setAuthInfo(authInfo);

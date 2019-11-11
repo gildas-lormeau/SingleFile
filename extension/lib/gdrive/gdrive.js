@@ -43,31 +43,24 @@ this.GDrive = this.GDrive || (() => {
 			setInterval(() => this.folderIds.clear(), 60 * 1000);
 		}
 		async auth(options = { interactive: true, auto: true }) {
-			if (this.managedToken(options)) {
-				if (options.requestPermissionIdentity && requestPermissionIdentityNeeded) {
-					try {
-						await browser.permissions.request({ permissions: ["identity"] });
-						requestPermissionIdentityNeeded = false;
-					}
-					catch (error) {
-						// ignored;
-					}
+			if (options.requestPermissionIdentity && requestPermissionIdentityNeeded) {
+				try {
+					await browser.permissions.request({ permissions: ["identity"] });
+					requestPermissionIdentityNeeded = false;
 				}
-				const token = await browser.identity.getAuthToken({ interactive: options.interactive });
-				if (token) {
-					this.accessToken = token;
-					return { accessToken: this.accessToken };
+				catch (error) {
+					// ignored;
 				}
+			}
+			if (nativeAuth(options)) {
+				this.accessToken = await browser.identity.getAuthToken({ interactive: options.interactive });
 			} else {
-				this.getAuthURL(options);
+				getAuthURL(this, options);
 				return options.code ? authFromCode(this, options) : initAuth(this, options);
 			}
 		}
-		managedToken(options) {
-			return Boolean(browser.identity && browser.identity.getAuthToken) && !options.forceWebAuthFlow;
-		}
 		setAuthInfo(authInfo, options) {
-			if (!this.managedToken(options)) {
+			if (!nativeAuth(options)) {
 				if (authInfo) {
 					this.accessToken = authInfo.accessToken;
 					this.refreshToken = authInfo.refreshToken;
@@ -78,16 +71,6 @@ this.GDrive = this.GDrive || (() => {
 					delete this.expirationDate;
 				}
 			}
-		}
-		getAuthURL(options = {}) {
-			this.redirectURI = encodeURIComponent("urn:ietf:wg:oauth:2.0:oob" + (options.auto ? ":auto" : ""));
-			this.authURL = AUTH_URL +
-				"?client_id=" + this.clientId +
-				"&response_type=code" +
-				"&access_type=offline" +
-				"&redirect_uri=" + this.redirectURI +
-				"&scope=" + this.scopes.join(" ");
-			return this.authURL;
 		}
 		async refreshAuthToken() {
 			if (this.clientId && this.refreshToken) {
@@ -216,7 +199,7 @@ this.GDrive = this.GDrive || (() => {
 	async function initAuth(gdrive, options) {
 		let code, cancelled;
 		if (options.extractAuthCode) {
-			options.extractAuthCode()
+			options.extractAuthCode(getAuthURL(gdrive, options))
 				.then(authCode => code = authCode)
 				.catch(() => { cancelled = true; });
 		}
@@ -226,8 +209,8 @@ this.GDrive = this.GDrive || (() => {
 					interactive: options.interactive,
 					url: gdrive.authURL
 				});
-			} else if (gdrive.launchWebAuthFlow) {
-				return await gdrive.launchWebAuthFlow({ url: gdrive.authURL });
+			} else if (options.launchWebAuthFlow) {
+				return await options.launchWebAuthFlow({ url: gdrive.authURL });
 			} else {
 				throw new Error("auth_not_supported");
 			}
@@ -247,6 +230,21 @@ this.GDrive = this.GDrive || (() => {
 				throw error;
 			}
 		}
+	}
+
+	function getAuthURL(gdrive, options = {}) {
+		gdrive.redirectURI = encodeURIComponent("urn:ietf:wg:oauth:2.0:oob" + (options.auto ? ":auto" : ""));
+		gdrive.authURL = AUTH_URL +
+			"?client_id=" + gdrive.clientId +
+			"&response_type=code" +
+			"&access_type=offline" +
+			"&redirect_uri=" + gdrive.redirectURI +
+			"&scope=" + gdrive.scopes.join(" ");
+		return gdrive.authURL;
+	}
+
+	function nativeAuth(options) {
+		return Boolean(browser.identity && browser.identity.getAuthToken) && !options.forceWebAuthFlow;
 	}
 
 	async function getParentFolderId(gdrive, filename, retry = true) {
