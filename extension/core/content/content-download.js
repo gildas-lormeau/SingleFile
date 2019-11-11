@@ -45,6 +45,7 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 					saveToClipboard: options.saveToClipboard,
 					saveToGDrive: options.saveToGDrive,
 					forceWebAuthFlow: options.forceWebAuthFlow,
+					extractAuthCode: options.extractAuthCode,
 					filenameReplacementCharacter: options.filenameReplacementCharacter,
 					openEditor: options.openEditor,
 					compressHTML: options.compressHTMLEdit,
