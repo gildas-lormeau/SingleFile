@@ -42,14 +42,17 @@ this.GDrive = this.GDrive || (() => {
 			this.folderIds = new Map();
 			setInterval(() => this.folderIds.clear(), 60 * 1000);
 		}
-		async requestPermissionIdentity(options) {
-			if (options.requestPermissionIdentity) {
-				await requestPermissionIdentity();
-			}
-		}
 		async auth(options = { interactive: true, auto: true }) {
 			if (this.managedToken(options)) {
-				await this.requestPermissionIdentity(options);
+				if (options.requestPermissionIdentity && requestPermissionIdentityNeeded) {
+					try {
+						await browser.permissions.request({ permissions: ["identity"] });
+						requestPermissionIdentityNeeded = false;
+					}
+					catch (error) {
+						// ignored;
+					}
+				}
 				const token = await browser.identity.getAuthToken({ interactive: options.interactive });
 				if (token) {
 					this.accessToken = token;
@@ -193,18 +196,6 @@ this.GDrive = this.GDrive || (() => {
 	}
 
 	return GDrive;
-
-	async function requestPermissionIdentity() {
-		if (requestPermissionIdentityNeeded) {
-			try {
-				await browser.permissions.request({ permissions: ["identity"] });
-				requestPermissionIdentityNeeded = false;
-			}
-			catch (error) {
-				// ignored;
-			}
-		}
-	}
 
 	async function authFromCode(gdrive, options) {
 		const httpResponse = await fetch(TOKEN_URL, {
