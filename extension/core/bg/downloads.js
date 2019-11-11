@@ -111,10 +111,8 @@ singlefile.extension.core.bg.downloads = (() => {
 		}
 		if (message.method.endsWith(".disableGDrive")) {
 			const authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
-			if (authInfo) {
-				singlefile.extension.core.bg.config.removeAuthInfo();
-				await gDrive.revokeAuthToken(authInfo.accessToken);
-			}
+			singlefile.extension.core.bg.config.removeAuthInfo();
+			await gDrive.revokeAuthToken(authInfo && (authInfo.accessToken || authInfo.revokableAccessToken));
 			return {};
 		}
 		if (message.method.endsWith(".end")) {

@@ -54,6 +54,7 @@ this.GDrive = this.GDrive || (() => {
 			}
 			if (nativeAuth(options)) {
 				this.accessToken = await browser.identity.getAuthToken({ interactive: options.interactive });
+				return { revokableAccessToken: this.accessToken };
 			} else {
 				getAuthURL(this, options);
 				return options.code ? authFromCode(this, options) : initAuth(this, options);
@@ -243,7 +244,7 @@ this.GDrive = this.GDrive || (() => {
 		return gdrive.authURL;
 	}
 
-	function nativeAuth(options) {
+	function nativeAuth(options = {}) {
 		return Boolean(browser.identity && browser.identity.getAuthToken) && !options.forceWebAuthFlow;
 	}
 
