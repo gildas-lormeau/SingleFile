@@ -45,7 +45,8 @@ singlefile.extension.core.bg.downloads = (() => {
 	return {
 		onMessage,
 		download,
-		downloadPage
+		downloadPage,
+		uploadPage
 	};
 
 	async function onMessage(message, sender) {
@@ -85,7 +86,12 @@ singlefile.extension.core.bg.downloads = (() => {
 						const blob = new Blob([contents], { type: MIMETYPE_HTML });
 						try {
 							if (message.saveToGDrive) {
-								await uploadPage(message.filename, blob, sender.tab.id, { forceWebAuthFlow: message.forceWebAuthFlow, extractAuthCode: message.extractAuthCode });
+								await uploadPage(message.filename, blob, {
+									forceWebAuthFlow: message.forceWebAuthFlow,
+									extractAuthCode: message.extractAuthCode
+								}, {
+									onProgress: (offset, size) => singlefile.extension.ui.bg.button.onProgress(sender.tab.id, offset, size)
+								});
 							} else {
 								message.url = URL.createObjectURL(blob);
 								await downloadPage(message, {
@@ -146,13 +152,10 @@ singlefile.extension.core.bg.downloads = (() => {
 		return authInfo;
 	}
 
-	async function uploadPage(filename, blob, tabId, authOptions) {
-		singlefile.extension.ui.bg.button.onUpload(tabId);
+	async function uploadPage(filename, blob, authOptions, uploadOptions) {
 		try {
 			await getAuthInfo(authOptions);
-			await gDrive.upload(filename, blob, {
-				onProgress: (offset, size) => singlefile.extension.ui.bg.button.onProgress(tabId, offset, size)
-			});
+			await gDrive.upload(filename, blob, uploadOptions);
 		}
 		catch (error) {
 			if (error.message == "invalid_token") {
@@ -171,7 +174,7 @@ singlefile.extension.core.bg.downloads = (() => {
 				} else {
 					await singlefile.extension.core.bg.config.removeAuthInfo();
 				}
-				await uploadPage(filename, blob, tabId, authOptions);
+				await uploadPage(filename, blob, authOptions, uploadOptions);
 			} else {
 				throw error;
 			}
