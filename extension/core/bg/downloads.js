@@ -51,69 +51,7 @@ singlefile.extension.core.bg.downloads = (() => {
 
 	async function onMessage(message, sender) {
 		if (message.method.endsWith(".download")) {
-			let contents;
-			if (message.truncated) {
-				contents = partialContents.get(sender.tab.id);
-				if (!contents) {
-					contents = [];
-					partialContents.set(sender.tab.id, contents);
-				}
-				contents.push(message.content);
-				if (message.finished) {
-					partialContents.delete(sender.tab.id);
-				}
-			} else if (message.content) {
-				contents = [message.content];
-			}
-			if (!message.truncated || message.finished) {
-				if (message.openEditor) {
-					singlefile.extension.ui.bg.main.onEdit(sender.tab.id);
-					await singlefile.extension.core.bg.editor.open({ filename: message.filename, content: contents.join("") }, {
-						backgroundSave: message.backgroundSave,
-						saveToClipboard: message.saveToClipboard,
-						saveToGDrive: message.saveToGDrive,
-						confirmFilename: message.confirmFilename,
-						incognito: sender.tab.incognito,
-						filenameConflictAction: message.filenameConflictAction,
-						filenameReplacementCharacter: message.filenameReplacementCharacter,
-						compressHTML: message.compressHTML
-					});
-				} else {
-					if (message.saveToClipboard) {
-						message.content = contents.join("");
-						saveToClipboard(message);
-					} else {
-						const blob = new Blob([contents], { type: MIMETYPE_HTML });
-						try {
-							if (message.saveToGDrive) {
-								await uploadPage(message.filename, blob, {
-									forceWebAuthFlow: message.forceWebAuthFlow,
-									extractAuthCode: message.extractAuthCode
-								}, {
-									onProgress: (offset, size) => singlefile.extension.ui.bg.button.onUploadProgress(sender.tab.id, offset, size)
-								});
-							} else {
-								message.url = URL.createObjectURL(blob);
-								await downloadPage(message, {
-									confirmFilename: message.confirmFilename,
-									incognito: sender.tab.incognito,
-									filenameConflictAction: message.filenameConflictAction,
-									filenameReplacementCharacter: message.filenameReplacementCharacter
-								});
-							}
-							singlefile.extension.ui.bg.main.onEnd(sender.tab.id);
-						} catch (error) {
-							console.error(error); // eslint-disable-line no-console
-							singlefile.extension.ui.bg.main.onError(sender.tab.id);
-						} finally {
-							if (message.url) {
-								URL.revokeObjectURL(message.url);
-							}
-						}
-					}
-				}
-			}
-			return {};
+			return downloadTabPage(message, sender.tab);
 		}
 		if (message.method.endsWith(".disableGDrive")) {
 			const authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
@@ -127,6 +65,72 @@ singlefile.extension.core.bg.downloads = (() => {
 			}
 			return {};
 		}
+	}
+
+	async function downloadTabPage(message, tab) {
+		let contents;
+		if (message.truncated) {
+			contents = partialContents.get(tab.id);
+			if (!contents) {
+				contents = [];
+				partialContents.set(tab.id, contents);
+			}
+			contents.push(message.content);
+			if (message.finished) {
+				partialContents.delete(tab.id);
+			}
+		} else if (message.content) {
+			contents = [message.content];
+		}
+		if (!message.truncated || message.finished) {
+			if (message.openEditor) {
+				singlefile.extension.ui.bg.main.onEdit(tab.id);
+				await singlefile.extension.core.bg.editor.open({ filename: message.filename, content: contents.join("") }, {
+					backgroundSave: message.backgroundSave,
+					saveToClipboard: message.saveToClipboard,
+					saveToGDrive: message.saveToGDrive,
+					confirmFilename: message.confirmFilename,
+					incognito: tab.incognito,
+					filenameConflictAction: message.filenameConflictAction,
+					filenameReplacementCharacter: message.filenameReplacementCharacter,
+					compressHTML: message.compressHTML
+				});
+			} else {
+				if (message.saveToClipboard) {
+					message.content = contents.join("");
+					saveToClipboard(message);
+				} else {
+					const blob = new Blob([contents], { type: MIMETYPE_HTML });
+					try {
+						if (message.saveToGDrive) {
+							await uploadPage(message.filename, blob, {
+								forceWebAuthFlow: message.forceWebAuthFlow,
+								extractAuthCode: message.extractAuthCode
+							}, {
+								onProgress: (offset, size) => singlefile.extension.ui.bg.button.onUploadProgress(tab.id, offset, size)
+							});
+						} else {
+							message.url = URL.createObjectURL(blob);
+							await downloadPage(message, {
+								confirmFilename: message.confirmFilename,
+								incognito: tab.incognito,
+								filenameConflictAction: message.filenameConflictAction,
+								filenameReplacementCharacter: message.filenameReplacementCharacter
+							});
+						}
+						singlefile.extension.ui.bg.main.onEnd(tab.id);
+					} catch (error) {
+						console.error(error); // eslint-disable-line no-console
+						singlefile.extension.ui.bg.main.onError(tab.id);
+					} finally {
+						if (message.url) {
+							URL.revokeObjectURL(message.url);
+						}
+					}
+				}
+			}
+		}
+		return {};
 	}
 
 	async function getAuthInfo(authOptions, force) {
