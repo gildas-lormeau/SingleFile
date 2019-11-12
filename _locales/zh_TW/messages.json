@@ -91,6 +91,10 @@
 		"message": "保存進度：",
 		"description": "保存時候的按鈕標題: '保存進度：xx%'"
 	},
+	"buttonUploadProgressTooltip": {
+		"message": "Upload progress: ",
+		"description": "Button title during save: 'Upload progress: xx%'"
+	},
 	"buttonOKBadge": {
 		"message": "完成",
 		"description": "徽標標籤: 'OK'"
