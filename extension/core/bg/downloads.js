@@ -145,7 +145,7 @@ singlefile.extension.core.bg.downloads = (() => {
 			promptAuthCode: () => singlefile.extension.core.bg.tabs.promptValue("Please enter the access code for Google Drive")
 		};
 		gDrive.setAuthInfo(authInfo, options);
-		if (!authInfo || force) {
+		if (!authInfo || !authInfo.accessToken || force) {
 			authInfo = await gDrive.auth(options);
 			if (authInfo) {
 				await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
