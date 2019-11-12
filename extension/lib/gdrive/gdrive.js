@@ -125,7 +125,7 @@ this.GDrive = this.GDrive || (() => {
 				}
 			}
 		}
-		async upload(fullFilename, blob, retry = true) {
+		async upload(fullFilename, blob, options, retry = true) {
 			const parentFolderId = await getParentFolderId(this, fullFilename);
 			const fileParts = fullFilename.split("/");
 			const filename = fileParts.pop();
@@ -133,7 +133,8 @@ this.GDrive = this.GDrive || (() => {
 				token: this.accessToken,
 				file: blob,
 				parents: [parentFolderId],
-				filename
+				filename,
+				onProgress: options.onProgress
 			});
 			try {
 				return await uploader.upload();
@@ -141,7 +142,7 @@ this.GDrive = this.GDrive || (() => {
 			catch (error) {
 				if (error.message == "path_not_found" && retry) {
 					this.folderIds.clear();
-					return this.upload(fullFilename, blob, false);
+					return this.upload(fullFilename, blob, options, false);
 				} else {
 					throw error;
 				}
@@ -152,6 +153,7 @@ this.GDrive = this.GDrive || (() => {
 	class MediaUploader {
 		constructor(options) {
 			this.file = options.file;
+			this.onProgress = options.onProgress;
 			this.contentType = this.file.type || "application/octet-stream";
 			this.metadata = {
 				name: options.filename,
@@ -160,7 +162,7 @@ this.GDrive = this.GDrive || (() => {
 			};
 			this.token = options.token;
 			this.offset = 0;
-			this.chunkSize = options.chunkSize || 5 * 1024 * 1024;
+			this.chunkSize = options.chunkSize || 512 * 1024;
 		}
 		async upload() {
 			const httpResponse = getResponse(await fetch(GDRIVE_UPLOAD_URL + "?uploadType=resumable", {
@@ -175,6 +177,9 @@ this.GDrive = this.GDrive || (() => {
 			}));
 			const location = httpResponse.headers.get("Location");
 			this.url = location;
+			if (this.onProgress) {
+				this.onProgress(0, this.file.size);
+			}
 			return sendFile(this);
 		}
 	}
@@ -337,6 +342,9 @@ this.GDrive = this.GDrive || (() => {
 			},
 			body: content
 		});
+		if (mediaUploader.onProgress) {
+			mediaUploader.onProgress(mediaUploader.offset + mediaUploader.chunkSize, mediaUploader.file.size);
+		}
 		if (httpResponse.status == 200 || httpResponse.status == 201) {
 			return httpResponse.json();
 		} else if (httpResponse.status == 308) {
@@ -344,7 +352,7 @@ this.GDrive = this.GDrive || (() => {
 			if (range) {
 				mediaUploader.offset = parseInt(range.match(/\d+/g).pop(), 10) + 1;
 			}
-			sendFile(mediaUploader);
+			return sendFile(mediaUploader);
 		} else {
 			getResponse(httpResponse);
 		}

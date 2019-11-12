@@ -147,9 +147,12 @@ singlefile.extension.core.bg.downloads = (() => {
 	}
 
 	async function uploadPage(filename, blob, tabId, authOptions) {
+		singlefile.extension.ui.bg.button.onUpload(tabId);
 		try {
 			await getAuthInfo(authOptions);
-			await gDrive.upload(filename, blob);
+			await gDrive.upload(filename, blob, {
+				onProgress: (offset, size) => singlefile.extension.ui.bg.button.onProgress(tabId, offset, size)
+			});
 		}
 		catch (error) {
 			if (error.message == "invalid_token") {
