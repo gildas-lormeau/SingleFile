@@ -91,6 +91,10 @@
 		"message": "Progresión del guardado: ",
 		"description": "Button title during save: 'Save progress: xx%'"
 	},
+	"buttonUploadProgressTooltip": {
+		"message": "Progresión del upload: ",
+		"description": "Button title during save: 'Upload progress: xx%'"
+	},
 	"buttonOKBadge": {
 		"message": "OK",
 		"description": "Badge label: 'OK'"

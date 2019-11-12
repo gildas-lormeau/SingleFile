@@ -91,6 +91,10 @@
 		"message": "進行状況を保存: ",
 		"description": "Button title during save: 'Save progress: xx%'"
 	},
+	"buttonUploadProgressTooltip": {
+		"message": "Upload progress: ",
+		"description": "Button title during save: 'Upload progress: xx%'"
+	},
 	"buttonOKBadge": {
 		"message": "OK",
 		"description": "Badge label: 'OK'"

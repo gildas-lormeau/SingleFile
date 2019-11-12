@@ -90,7 +90,7 @@ singlefile.extension.core.bg.downloads = (() => {
 									forceWebAuthFlow: message.forceWebAuthFlow,
 									extractAuthCode: message.extractAuthCode
 								}, {
-									onProgress: (offset, size) => singlefile.extension.ui.bg.button.onProgress(sender.tab.id, offset, size)
+									onProgress: (offset, size) => singlefile.extension.ui.bg.button.onUploadProgress(sender.tab.id, offset, size)
 								});
 							} else {
 								message.url = URL.createObjectURL(blob);
