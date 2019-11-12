@@ -122,11 +122,18 @@ singlefile.extension.core.bg.autosave = (() => {
 		if (options.includeInfobar) {
 			await singlefile.common.ui.content.infobar.includeScript(pageData);
 		}
-		pageData.url = URL.createObjectURL(new Blob([pageData.content], { type: "text/html" }));
 		try {
-			await singlefile.extension.core.bg.downloads.downloadPage(pageData, options);
+			const blob = new Blob([pageData.content], { type: "text/html" });
+			if (options.saveToGDrive) {
+				await singlefile.extension.core.bg.downloads.uploadPage(pageData.filename, blob, options, {});
+			} else {
+				pageData.url = URL.createObjectURL(blob);
+				await singlefile.extension.core.bg.downloads.downloadPage(pageData, options);
+			}
 		} finally {
-			URL.revokeObjectURL(pageData.url);
+			if (pageData.url) {
+				URL.revokeObjectURL(pageData.url);
+			}
 		}
 	}
 
