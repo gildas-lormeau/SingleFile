@@ -11,6 +11,10 @@
 		"message": "Anotar y guardar la página",
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
+	"menuViewPendingSaves": {
+		"message": "View pending saves...",
+		"description": "Menu entry: 'View pending saves...'"
+	},
 	"menuSelectProfile": {
 		"message": "Seleccionar el perfil predeterminado",
 		"description": "Menu entry: 'Select the default profile'"
@@ -530,5 +534,37 @@
 	"editorSavePage": {
 		"message": "Save the page",
 		"description": "Title of the button 'Save the page' in the editor"
+	},
+	"pendingsTitle": {
+		"message": "Pending saves",
+		"description": "Title of the pending save page 'Pending saves' in the editor"
+	},
+	"pendingsCancelAllButton": {
+		"message": "Cancel all",
+		"description": "Pending saves button 'Cancel all'"
+	},
+	"pendingsURLTitle": {
+		"message": "URL",
+		"description": "Title of the first column in the table of the pending saves 'URL'"
+	},
+	"pendingsStatusTitle": {
+		"message": "status",
+		"description": "Title of the second column in the table of the pending saves 'status'"
+	},
+	"pendingsPendingStatus": {
+		"message": "pending",
+		"description": "Value of 'status' for pending saves"
+	},
+	"pendingsProcessingStatus": {
+		"message": "processing",
+		"description": "Value of 'status' for current saves"
+	},
+	"pendingsCancellingStatus": {
+		"message": "cancelling",
+		"description": "Value of 'status' for cancelled saves"
+	},
+	"pendingsNoPendings": {
+		"message": "No pending saves",
+		"description": "Label displayed when they are no pending saves"
 	}
 }

@@ -140,6 +140,7 @@ singlefile.extension.ui.bg.button = (() => {
 		onError,
 		onEdit,
 		onEnd,
+		onCancelled,
 		refreshTab
 	};
 
