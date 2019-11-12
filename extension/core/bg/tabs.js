@@ -126,6 +126,9 @@ singlefile.extension.core.bg.tabs = (() => {
 		if (message.method.endsWith(".getOptions")) {
 			return singlefile.extension.core.bg.config.getOptions(message.url);
 		}
+		if (message.method.endsWith(".activate")) {
+			await browser.tabs.update(message.tabId, { active: true });
+		}
 	}
 
 	function onTabCreated(tab) {

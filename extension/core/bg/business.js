@@ -50,7 +50,8 @@ singlefile.extension.core.bg.business = (() => {
 		isSavingTab: tab => currentSaves.has(tab.id),
 		saveTabs,
 		saveLink,
-		cancelTab
+		cancelTab,
+		getInfo: () => ({ pending: Array.from(pendingSaves), processing: Array.from(currentSaves) })
 	};
 
 	async function saveTabs(tabs, options = {}) {
@@ -67,7 +68,7 @@ singlefile.extension.core.bg.business = (() => {
 				if (options.autoSave) {
 					const tabOptions = await config.getOptions(tab.url, true);
 					if (autosave.isEnabled(tab)) {
-						await requestSaveTab(tabId, "content.autosave", tabOptions);
+						await requestSaveTab(tab, "content.autosave", tabOptions);
 					}
 				} else {
 					ui.onStart(tabId, INJECT_SCRIPTS_STEP);
@@ -78,7 +79,7 @@ singlefile.extension.core.bg.business = (() => {
 					let promiseSaveTab;
 					if (scriptsInjected) {
 						ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
-						promiseSaveTab = requestSaveTab(tabId, "content.save", tabOptions);
+						promiseSaveTab = requestSaveTab(tab, "content.save", tabOptions);
 					} else {
 						ui.onForbiddenDomain(tab);
 						promiseSaveTab = Promise.resolve();
@@ -102,39 +103,48 @@ singlefile.extension.core.bg.business = (() => {
 		await saveTabs([tab], options);
 	}
 
-	async function cancelTab(tab) {
+	async function cancelTab(tabId) {
 		try {
-			singlefile.extension.core.bg.tabs.sendMessage(tab.id, { method: "content.cancelSave" });
+			if (currentSaves.has(tabId)) {
+				const data = currentSaves.get(tabId);
+				data.cancelled = true;
+				singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave" });
+			}
+			if (pendingSaves.has(tabId)) {
+				const data = pendingSaves.get(tabId);
+				pendingSaves.delete(tabId);
+				singlefile.extension.ui.bg.main.onCancelled(data.tab);
+			}
 		} catch (error) {
-			// ignored;
+			// ignored
 		}
 	}
 
-	function requestSaveTab(tabId, method, options) {
-		return new Promise((resolve, reject) => requestSaveTab(tabId, method, options, resolve, reject));
+	function requestSaveTab(tab, method, options) {
+		return new Promise((resolve, reject) => requestSaveTab(tab, method, options, resolve, reject));
 
-		async function requestSaveTab(tabId, method, options, resolve, reject) {
+		async function requestSaveTab(tab, method, options, resolve, reject) {
 			if (currentSaves.size < maxParallelWorkers) {
-				currentSaves.set(tabId, { options, resolve, reject });
+				currentSaves.set(tab.id, { tab, options, resolve, reject });
 				try {
-					await singlefile.extension.core.bg.tabs.sendMessage(tabId, { method, options });
+					await singlefile.extension.core.bg.tabs.sendMessage(tab.id, { method, options });
 					resolve();
 				} catch (error) {
 					reject(error);
 				} finally {
-					currentSaves.delete(tabId);
+					currentSaves.delete(tab.id);
 					next();
 				}
 			} else {
-				pendingSaves.set(tabId, { options, resolve, reject });
+				pendingSaves.set(tab.id, { tab, options, resolve, reject });
 			}
 		}
 
 		function next() {
 			if (pendingSaves.size) {
-				const [tabId, { resolve, reject, options }] = Array.from(pendingSaves)[0];
+				const [tabId, { tab, resolve, reject, options }] = Array.from(pendingSaves)[0];
 				pendingSaves.delete(tabId);
-				requestSaveTab(tabId, method, options, resolve, reject);
+				requestSaveTab(tab, method, options, resolve, reject);
 			}
 		}
 	}

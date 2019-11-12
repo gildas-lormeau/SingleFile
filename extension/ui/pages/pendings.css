@@ -1,0 +1,132 @@
+html {
+    background-color: #f0f0f0;
+}
+
+main {
+    background-color: #fff;
+    border: solid 1px rgb(191, 191, 191);
+}
+
+main,
+header {
+    font-size: 12px;
+    font-family: sans-serif;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1024px;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    background-color: #fbfbfb;
+    border-color: rgb(191, 191, 191);
+    border-style: solid;
+    border-radius: 2px;
+    border-width: 1px;
+    color: black;
+}
+
+button:not([disabled]):hover {
+    background-color: #ededed;
+}
+
+header button {
+    margin-bottom: 10px;
+    align-self: flex-end;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.result-row {
+    display: flex;
+    flex-direction: row;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    min-height: 40px;
+}
+
+.result-row:not(:first-child) {
+    border-top: #bfbfbf 1px dashed;
+}
+
+.result-head {
+    background-color: #ececec;
+}
+
+.result-row span {
+    padding: 10px;
+    align-self: center;
+}
+
+.result-url {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.result-row:not(:first-child) .result-url {
+    cursor: pointer;
+}
+
+.result-status {
+    min-width: 120px;
+}
+
+.result-cancel {
+    text-align: right;
+    width: 19px;
+}
+
+.result-cancel button {
+    background-color: #fbfbfb;
+}
+
+.no-result {
+    color: #888;
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: #373737;
+        color: #fdfdfd;
+    }
+
+    main {
+        border-color: rgb(81, 81, 81);
+    }
+
+    main,
+    button {
+        background-color: #202023;
+        color: #fdfdfd;
+    }
+
+    .result-head {
+        background-color: #191919;
+        color: white;
+    }
+
+    .result-row {
+        color: #fdfdfd;
+    }
+
+    .no-result {
+        color: #888;
+    }
+
+    .result-cancel button {
+        color: #fdfdfd;
+    }
+
+    button:not([disabled]):hover {
+        color: #2A2A2E;
+    }
+}

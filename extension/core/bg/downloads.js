@@ -65,6 +65,13 @@ singlefile.extension.core.bg.downloads = (() => {
 			}
 			return {};
 		}
+		if (message.method.endsWith(".getInfo")) {
+			return singlefile.extension.core.bg.business.getInfo();
+		}
+		if (message.method.endsWith(".cancel")) {
+			await singlefile.extension.core.bg.business.cancelTab(message.tabId);
+			return {};
+		}
 	}
 
 	async function downloadTabPage(message, tab) {
