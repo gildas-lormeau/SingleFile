@@ -137,7 +137,10 @@ this.GDrive = this.GDrive || (() => {
 				onProgress: options.onProgress
 			});
 			try {
-				return await uploader.upload();
+				return {
+					cancelUpload: () => uploader.cancelled = true,
+					uploadPromise: uploader.upload()
+				};
 			}
 			catch (error) {
 				if (error.message == "path_not_found" && retry) {
@@ -352,7 +355,11 @@ this.GDrive = this.GDrive || (() => {
 			if (range) {
 				mediaUploader.offset = parseInt(range.match(/\d+/g).pop(), 10) + 1;
 			}
-			return sendFile(mediaUploader);
+			if (mediaUploader.cancelled) {
+				throw new Error("upload_cancelled");
+			} else {
+				return sendFile(mediaUploader);
+			}
 		} else {
 			getResponse(httpResponse);
 		}
