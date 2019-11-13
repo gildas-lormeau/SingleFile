@@ -133,12 +133,13 @@ singlefile.extension.core.bg.business = (() => {
 			const saveInfo = currentSaves.get(tabId);
 			saveInfo.cancelled = true;
 			singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave" });
-			if (saveInfo.method == "content.autosave") {
-				singlefile.extension.ui.bg.main.onEnd(tabId, true);
-			}
 			if (saveInfo.cancel) {
 				saveInfo.cancel();
 			}
+			if (saveInfo.method == "content.autosave") {
+				singlefile.extension.ui.bg.main.onEnd(tabId, true);
+			}
+			singlefile.extension.ui.bg.main.onCancelled(saveInfo.tab);
 			saveInfo.resolve();
 		}
 		if (pendingSaves.has(tabId)) {

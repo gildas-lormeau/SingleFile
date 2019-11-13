@@ -54,6 +54,9 @@ singlefile.extension.ui.bg.main = (() => {
 		onCancelled(tabId) {
 			singlefile.extension.ui.bg.button.onCancelled(tabId);
 		},
+		onUploadProgress(tabId, index, maxIndex) {
+			singlefile.extension.ui.bg.button.onUploadProgress(tabId, index, maxIndex);
+		},
 		onTabCreated(tab) {
 			singlefile.extension.ui.bg.menus.onTabCreated(tab);
 		},
