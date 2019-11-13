@@ -51,7 +51,14 @@ singlefile.extension.core.bg.business = (() => {
 		saveTabs,
 		saveLink,
 		cancelTab,
-		getInfo: () => ({ pending: Array.from(pendingSaves).map(mapSaveInfo), processing: Array.from(currentSaves).map(mapSaveInfo) })
+		getTabsInfo: () => ({ pending: Array.from(pendingSaves).map(mapSaveInfo), processing: Array.from(currentSaves).map(mapSaveInfo) }),
+		getTabInfo: tabId => currentSaves.get(tabId) || pendingSaves.get(tabId),
+		setCancelCallback: (tabId, cancelCallback) => {
+			const tabInfo = currentSaves.get(tabId);
+			if (tabInfo) {
+				tabInfo.cancel = cancelCallback;
+			}
+		}
 	};
 
 	async function saveTabs(tabs, options = {}) {
@@ -106,14 +113,17 @@ singlefile.extension.core.bg.business = (() => {
 	async function cancelTab(tabId) {
 		try {
 			if (currentSaves.has(tabId)) {
-				const data = currentSaves.get(tabId);
-				data.cancelled = true;
+				const saveInfo = currentSaves.get(tabId);
+				saveInfo.cancelled = true;
 				singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave" });
+				if (saveInfo.cancel) {
+					saveInfo.cancel();
+				}
 			}
 			if (pendingSaves.has(tabId)) {
-				const data = pendingSaves.get(tabId);
+				const saveInfo = pendingSaves.get(tabId);
 				pendingSaves.delete(tabId);
-				singlefile.extension.ui.bg.main.onCancelled(data.tab);
+				singlefile.extension.ui.bg.main.onCancelled(saveInfo.tab);
 			}
 		} catch (error) {
 			// ignored

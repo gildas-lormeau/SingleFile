@@ -66,7 +66,7 @@ singlefile.extension.core.bg.downloads = (() => {
 			return {};
 		}
 		if (message.method.endsWith(".getInfo")) {
-			return singlefile.extension.core.bg.business.getInfo();
+			return singlefile.extension.core.bg.business.getTabsInfo();
 		}
 		if (message.method.endsWith(".cancel")) {
 			await singlefile.extension.core.bg.business.cancelTab(message.tabId);
@@ -110,7 +110,7 @@ singlefile.extension.core.bg.downloads = (() => {
 					const blob = new Blob([contents], { type: MIMETYPE_HTML });
 					try {
 						if (message.saveToGDrive) {
-							await uploadPage(message.filename, blob, {
+							await uploadPage(tab.id, message.filename, blob, {
 								forceWebAuthFlow: message.forceWebAuthFlow,
 								extractAuthCode: message.extractAuthCode
 							}, {
@@ -127,8 +127,12 @@ singlefile.extension.core.bg.downloads = (() => {
 						}
 						singlefile.extension.ui.bg.main.onEnd(tab.id);
 					} catch (error) {
-						console.error(error); // eslint-disable-line no-console
-						singlefile.extension.ui.bg.main.onError(tab.id);
+						if (error.message && error.message == "upload_cancelled") {
+							await singlefile.extension.core.bg.business.cancelTab(tab.id);
+						} else {
+							console.error(error); // eslint-disable-line no-console
+							singlefile.extension.ui.bg.main.onError(tab.id);
+						}
 					} finally {
 						if (message.url) {
 							URL.revokeObjectURL(message.url);
@@ -163,10 +167,14 @@ singlefile.extension.core.bg.downloads = (() => {
 		return authInfo;
 	}
 
-	async function uploadPage(filename, blob, authOptions, uploadOptions) {
+	async function uploadPage(tabId, filename, blob, authOptions, uploadOptions) {
 		try {
 			await getAuthInfo(authOptions);
-			await gDrive.upload(filename, blob, uploadOptions);
+			if (!singlefile.extension.core.bg.business.getTabInfo(tabId).cancelled) {
+				const uploadInfo = await gDrive.upload(filename, blob, uploadOptions);
+				singlefile.extension.core.bg.business.setCancelCallback(tabId, uploadInfo.cancelUpload);
+				return await uploadInfo.uploadPromise;
+			}
 		}
 		catch (error) {
 			if (error.message == "invalid_token") {
@@ -185,7 +193,7 @@ singlefile.extension.core.bg.downloads = (() => {
 				} else {
 					await singlefile.extension.core.bg.config.removeAuthInfo();
 				}
-				await uploadPage(filename, blob, authOptions, uploadOptions);
+				await uploadPage(tabId, filename, blob, authOptions, uploadOptions);
 			} else {
 				throw error;
 			}
