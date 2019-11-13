@@ -116,12 +116,12 @@ header button {
         color: #fdfdfd;
     }
 
-    .result-head {
-        background-color: #191919;
-        color: white;
+    .result-row {
+        color: #dedede;
     }
 
-    .result-row {
+    .result-head {
+        background-color: #191919;
         color: #fdfdfd;
     }
 
@@ -133,7 +133,11 @@ header button {
         color: #202023;
     }
 
-    button:not([disabled]):hover {
+    .result-cancel button:hover {
+        background-color: #ccc;
+    }
+
+    button:hover {
         color: #2A2A2E;
     }
 }
