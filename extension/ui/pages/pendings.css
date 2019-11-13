@@ -72,7 +72,7 @@ header button {
     white-space: nowrap;
 }
 
-.result-row:not(:first-child) .result-url {
+.result-row:not(.result-head) .result-url {
     cursor: pointer;
 }
 
