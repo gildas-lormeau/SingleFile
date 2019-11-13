@@ -141,8 +141,7 @@ singlefile.extension.core.bg.business = (() => {
 			}
 			singlefile.extension.ui.bg.main.onCancelled(saveInfo.tab);
 			saveInfo.resolve();
-		}
-		if (pendingSaves.has(tabId)) {
+		} else if (pendingSaves.has(tabId)) {
 			const saveInfo = pendingSaves.get(tabId);
 			pendingSaves.delete(tabId);
 			singlefile.extension.ui.bg.main.onCancelled(saveInfo.tab);
