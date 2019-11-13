@@ -2,6 +2,10 @@ html {
     background-color: #f0f0f0;
 }
 
+body {
+    margin: 0;
+}
+
 main {
     background-color: #fff;
     border: solid 1px rgb(191, 191, 191);
@@ -36,7 +40,8 @@ button:not([disabled]):hover {
 }
 
 header button {
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     align-self: flex-end;
     padding: 5px;
     padding-left: 10px;
