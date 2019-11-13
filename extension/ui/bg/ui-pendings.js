@@ -51,11 +51,10 @@
 		resultsTable.innerHTML = "";
 	}
 
-	function updateTable(results, type) {
-		const data = results[type];
-		if (data.length) {
-			data.sort(([, tabInfo1], [, tabInfo2]) => tabInfo1.index - tabInfo2.index);
-			data.forEach(([tabId, tabInfo]) => {
+	function updateTable(results) {
+		if (results.length) {
+			results.sort(([, tabInfo1], [, tabInfo2]) => tabInfo1.index - tabInfo2.index);
+			results.forEach(([tabId, tabInfo]) => {
 				const row = document.createElement("div");
 				const cellURL = document.createElement("span");
 				const cellStatus = document.createElement("span");
@@ -65,13 +64,13 @@
 				row.className = "result-row";
 				cellURL.textContent = tabInfo.url;
 				cellURL.className = "result-url";
-				cellURL.onclick = () => selectTab(type, tabId);
+				cellURL.onclick = () => selectTab(tabId);
 				if (tabInfo.cancelled) {
 					cellStatus.textContent = statusText.cancelling;
 				} else {
-					cellStatus.textContent = statusText[type];
+					cellStatus.textContent = statusText[tabInfo.status];
 					buttonCancel.textContent = "×";
-					buttonCancel.onclick = () => cancel(type, tabId);
+					buttonCancel.onclick = () => cancel(tabId);
 					cellCancel.appendChild(buttonCancel);
 				}
 				cellStatus.className = "result-status";
@@ -84,12 +83,12 @@
 		}
 	}
 
-	async function cancel(type, tabId) {
-		await browser.runtime.sendMessage({ method: "downloads.cancel", tabId, hintType: type });
+	async function cancel(tabId) {
+		await browser.runtime.sendMessage({ method: "downloads.cancel", tabId });
 		await refresh();
 	}
 
-	async function selectTab(type, tabId) {
+	async function selectTab(tabId) {
 		await browser.runtime.sendMessage({ method: "tabs.activate", tabId });
 		await refresh();
 	}
@@ -100,9 +99,8 @@
 		if (previousState != currentState) {
 			previousState = currentState;
 			resetTable();
-			updateTable(results, "processing");
-			updateTable(results, "pending");
-			if (!results.pending.length && !results.processing.length) {
+			updateTable(results);
+			if (!results.length) {
 				const row = document.createElement("div");
 				row.className = "result-row";
 				const cell = document.createElement("span");
