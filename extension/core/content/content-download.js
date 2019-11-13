@@ -68,7 +68,7 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 			}
 			browser.runtime.sendMessage({ method: "ui.processEnd" });
 		}
-		await browser.runtime.sendMessage({ method: "downloads.end", autoClose: options.autoClose });
+		await browser.runtime.sendMessage({ method: "downloads.end" });
 	}
 
 	function downloadPageForeground(pageData) {
