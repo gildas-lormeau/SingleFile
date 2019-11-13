@@ -63,7 +63,7 @@
 				const cellCancel = document.createElement("span");
 				const buttonCancel = document.createElement("button");
 				row.dataset.tabId = tabId;
-				row.className = "result-row result-type-" + type;
+				row.className = "result-row";
 				cellURL.textContent = tabInfo.url;
 				cellURL.className = "result-url";
 				cellURL.onclick = () => selectTab(type, tabId);
