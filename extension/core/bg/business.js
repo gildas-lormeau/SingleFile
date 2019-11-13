@@ -54,10 +54,25 @@ singlefile.extension.core.bg.business = (() => {
 		getTabsInfo: () => ({ pending: Array.from(pendingSaves).map(mapSaveInfo), processing: Array.from(currentSaves).map(mapSaveInfo) }),
 		getTabInfo: tabId => currentSaves.get(tabId) || pendingSaves.get(tabId),
 		setCancelCallback: (tabId, cancelCallback) => {
-			const tabInfo = currentSaves.get(tabId);
-			if (tabInfo) {
-				tabInfo.cancel = cancelCallback;
+			const saveInfo = currentSaves.get(tabId);
+			if (saveInfo) {
+				saveInfo.cancel = cancelCallback;
 			}
+		},
+		onSaveEnd: (tabId, autoClose) => {
+			if (autoClose) {
+				singlefile.extension.core.bg.tabs.remove(tabId);
+			}
+			const saveInfo = currentSaves.get(tabId);
+			if (saveInfo) {
+				saveInfo.resolve();
+			}
+		},
+		onTabUpdated: tabId => {
+			cancelTab(tabId);
+		},
+		onTabRemoved: tabId => {
+			cancelTab(tabId);
 		}
 	};
 
@@ -99,6 +114,13 @@ singlefile.extension.core.bg.business = (() => {
 					console.log(error); // eslint-disable-line no-console
 					ui.onError(tabId);
 				}
+			} finally {
+				currentSaves.delete(tabId);
+				if (pendingSaves.size) {
+					const [tabId, { tab, method, resolve, reject, options }] = Array.from(pendingSaves)[0];
+					pendingSaves.delete(tabId);
+					requestSaveTab(tab, method, options, resolve, reject);
+				}
 			}
 		}
 	}
@@ -110,15 +132,19 @@ singlefile.extension.core.bg.business = (() => {
 		await saveTabs([tab], options);
 	}
 
-	async function cancelTab(tabId) {
+	function cancelTab(tabId) {
 		try {
 			if (currentSaves.has(tabId)) {
 				const saveInfo = currentSaves.get(tabId);
 				saveInfo.cancelled = true;
 				singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave" });
+				if (saveInfo.method == "content.autosave") {
+					singlefile.extension.ui.bg.main.onEnd(tabId, true);
+				}
 				if (saveInfo.cancel) {
 					saveInfo.cancel();
 				}
+				saveInfo.resolve();
 			}
 			if (pendingSaves.has(tabId)) {
 				const saveInfo = pendingSaves.get(tabId);
@@ -135,26 +161,14 @@ singlefile.extension.core.bg.business = (() => {
 
 		async function requestSaveTab(tab, method, options, resolve, reject) {
 			if (currentSaves.size < maxParallelWorkers) {
-				currentSaves.set(tab.id, { tab, options, resolve, reject });
+				currentSaves.set(tab.id, { tab, options, method, resolve, reject });
 				try {
 					await singlefile.extension.core.bg.tabs.sendMessage(tab.id, { method, options });
-					resolve();
 				} catch (error) {
 					reject(error);
-				} finally {
-					currentSaves.delete(tab.id);
-					next();
 				}
 			} else {
-				pendingSaves.set(tab.id, { tab, options, resolve, reject });
-			}
-		}
-
-		function next() {
-			if (pendingSaves.size) {
-				const [tabId, { tab, resolve, reject, options }] = Array.from(pendingSaves)[0];
-				pendingSaves.delete(tabId);
-				requestSaveTab(tab, method, options, resolve, reject);
+				pendingSaves.set(tab.id, { tab, options, method, resolve, reject });
 			}
 		}
 	}
