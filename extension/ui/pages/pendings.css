@@ -92,6 +92,8 @@ header button {
 
 .result-cancel button {
     background-color: #fbfbfb;
+    width: 19px;
+    padding: 0;
 }
 
 .no-result {
