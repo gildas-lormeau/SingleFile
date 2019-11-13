@@ -40,8 +40,7 @@
 	};
 	const noPendingsText = browser.i18n.getMessage("pendingsNoPendings");
 	cancelAllButton.onclick = async () => {
-		const results = await browser.runtime.sendMessage({ method: "downloads.getInfo" });
-		await Promise.all(results.pending.concat(results.processing).map(([tabId]) => browser.runtime.sendMessage({ method: "downloads.cancel", tabId })));
+		await browser.runtime.sendMessage({ method: "downloads.cancelAll" });
 		await refresh();
 	};
 	let previousState;
@@ -86,7 +85,7 @@
 	}
 
 	async function cancel(type, tabId) {
-		await browser.runtime.sendMessage({ method: "downloads.cancel", tabId });
+		await browser.runtime.sendMessage({ method: "downloads.cancel", tabId, hintType: type });
 		await refresh();
 	}
 

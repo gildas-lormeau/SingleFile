@@ -67,7 +67,11 @@ singlefile.extension.core.bg.downloads = (() => {
 			return singlefile.extension.core.bg.business.getTabsInfo();
 		}
 		if (message.method.endsWith(".cancel")) {
-			singlefile.extension.core.bg.business.cancelTab(message.tabId);
+			singlefile.extension.core.bg.business.cancelTab(message.tabId, message.hintType);
+			return {};
+		}
+		if (message.method.endsWith(".cancelAll")) {			
+			singlefile.extension.core.bg.business.cancelAllTabs(message.tabId);
 			return {};
 		}
 	}
