@@ -105,41 +105,42 @@ singlefile.extension.core.bg.downloads = (() => {
 					message.content = contents.join("");
 					saveToClipboard(message);
 				} else {
-					const blob = new Blob([contents], { type: MIMETYPE_HTML });
-					try {
-						if (message.saveToGDrive) {
-							await uploadPage(tab.id, message.filename, blob, {
-								forceWebAuthFlow: message.forceWebAuthFlow,
-								extractAuthCode: message.extractAuthCode
-							}, {
-								onProgress: (offset, size) => singlefile.extension.ui.bg.button.onUploadProgress(tab.id, offset, size)
-							});
-						} else {
-							message.url = URL.createObjectURL(blob);
-							await downloadPage(message, {
-								confirmFilename: message.confirmFilename,
-								incognito: tab.incognito,
-								filenameConflictAction: message.filenameConflictAction,
-								filenameReplacementCharacter: message.filenameReplacementCharacter
-							});
-						}
-						singlefile.extension.ui.bg.main.onEnd(tab.id);
-					} catch (error) {
-						if (error.message && error.message == "upload_cancelled") {
-							singlefile.extension.core.bg.business.cancelTab(tab.id);
-						} else {
-							console.error(error); // eslint-disable-line no-console
-							singlefile.extension.ui.bg.main.onError(tab.id);
-						}
-					} finally {
-						if (message.url) {
-							URL.revokeObjectURL(message.url);
-						}
-					}
+					await downloadBlob(new Blob([contents], { type: MIMETYPE_HTML }), tab.id, tab.incognito, message);
 				}
 			}
 		}
 		return {};
+	}
+
+	async function downloadBlob(blob, tabId, incognito, message) {
+		try {
+			if (message.saveToGDrive) {
+				await uploadPage(tabId, message.filename, blob, {
+					forceWebAuthFlow: message.forceWebAuthFlow,
+					extractAuthCode: message.extractAuthCode
+				}, {
+					onProgress: (offset, size) => singlefile.extension.ui.bg.main.onUploadProgress(tabId, offset, size)
+				});
+			} else {
+				message.url = URL.createObjectURL(blob);
+				await downloadPage(message, {
+					confirmFilename: message.confirmFilename,
+					incognito,
+					filenameConflictAction: message.filenameConflictAction,
+					filenameReplacementCharacter: message.filenameReplacementCharacter
+				});
+			}
+			singlefile.extension.ui.bg.main.onEnd(tabId);
+		} catch (error) {
+			if (!error.message || error.message != "upload_cancelled") {
+				console.error(error); // eslint-disable-line no-console
+				singlefile.extension.ui.bg.main.onError(tabId);
+			}
+		} finally {
+			if (message.url) {
+				URL.revokeObjectURL(message.url);
+			}
+		}
 	}
 
 	async function getAuthInfo(authOptions, force) {
