@@ -65,12 +65,8 @@ singlefile.extension.core.bg.business = (() => {
 				saveInfo.resolve();
 			}
 		},
-		onTabUpdated: tabId => {
-			cancelTab(tabId);
-		},
-		onTabRemoved: tabId => {
-			cancelTab(tabId);
-		}
+		onTabUpdated: cancelTab,
+		onTabRemoved: cancelTab
 	};
 
 	async function saveTabs(tabs, options = {}) {
