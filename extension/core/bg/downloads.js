@@ -60,16 +60,14 @@ singlefile.extension.core.bg.downloads = (() => {
 			return {};
 		}
 		if (message.method.endsWith(".end")) {
-			if (message.autoClose) {
-				singlefile.extension.core.bg.tabs.remove(sender.tab.id);
-			}
+			singlefile.extension.core.bg.business.onSaveEnd(sender.tab.id, message.autoClose);
 			return {};
 		}
 		if (message.method.endsWith(".getInfo")) {
 			return singlefile.extension.core.bg.business.getTabsInfo();
 		}
 		if (message.method.endsWith(".cancel")) {
-			await singlefile.extension.core.bg.business.cancelTab(message.tabId);
+			singlefile.extension.core.bg.business.cancelTab(message.tabId);
 			return {};
 		}
 	}
@@ -128,7 +126,7 @@ singlefile.extension.core.bg.downloads = (() => {
 						singlefile.extension.ui.bg.main.onEnd(tab.id);
 					} catch (error) {
 						if (error.message && error.message == "upload_cancelled") {
-							await singlefile.extension.core.bg.business.cancelTab(tab.id);
+							singlefile.extension.core.bg.business.cancelTab(tab.id);
 						} else {
 							console.error(error); // eslint-disable-line no-console
 							singlefile.extension.ui.bg.main.onError(tab.id);
@@ -170,7 +168,8 @@ singlefile.extension.core.bg.downloads = (() => {
 	async function uploadPage(tabId, filename, blob, authOptions, uploadOptions) {
 		try {
 			await getAuthInfo(authOptions);
-			if (!singlefile.extension.core.bg.business.getTabInfo(tabId).cancelled) {
+			const saveInfo = singlefile.extension.core.bg.business.getTabInfo(tabId);
+			if (saveInfo && !saveInfo.cancelled) {
 				const uploadInfo = await gDrive.upload(filename, blob, uploadOptions);
 				singlefile.extension.core.bg.business.setCancelCallback(tabId, uploadInfo.cancelUpload);
 				return await uploadInfo.uploadPromise;

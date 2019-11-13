@@ -118,11 +118,12 @@ singlefile.extension.core.bg.autosave = (() => {
 		options.incognito = tab.incognito;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
-		const pageData = await singlefile.extension.getPageData(options, null, null);
-		if (options.includeInfobar) {
-			await singlefile.common.ui.content.infobar.includeScript(pageData);
-		}
+		let pageData;
 		try {
+			pageData = await singlefile.extension.getPageData(options, null, null);
+			if (options.includeInfobar) {
+				await singlefile.common.ui.content.infobar.includeScript(pageData);
+			}
 			const blob = new Blob([pageData.content], { type: "text/html" });
 			if (options.saveToGDrive) {
 				await singlefile.extension.core.bg.downloads.uploadPage(tab.id, pageData.filename, blob, options, {});
@@ -131,7 +132,8 @@ singlefile.extension.core.bg.autosave = (() => {
 				await singlefile.extension.core.bg.downloads.downloadPage(pageData, options);
 			}
 		} finally {
-			if (pageData.url) {
+			singlefile.extension.core.bg.business.onSaveEnd(tab.id);
+			if (pageData && pageData.url) {
 				URL.revokeObjectURL(pageData.url);
 			}
 		}
