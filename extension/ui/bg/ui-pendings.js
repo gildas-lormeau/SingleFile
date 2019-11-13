@@ -55,8 +55,8 @@
 	function updateTable(results, type) {
 		const data = results[type];
 		if (data.length) {
-			data.sort(([, saveInfo1], [, saveInfo2]) => saveInfo1.tab.index - saveInfo2.tab.index);
-			data.forEach(([tabId, saveInfo]) => {
+			data.sort(([, tabInfo1], [, tabInfo2]) => tabInfo1.index - tabInfo2.index);
+			data.forEach(([tabId, tabInfo]) => {
 				const row = document.createElement("div");
 				const cellURL = document.createElement("span");
 				const cellStatus = document.createElement("span");
@@ -64,10 +64,10 @@
 				const buttonCancel = document.createElement("button");
 				row.dataset.tabId = tabId;
 				row.className = "result-row result-type-" + type;
-				cellURL.textContent = saveInfo.tab.url;
+				cellURL.textContent = tabInfo.url;
 				cellURL.className = "result-url";
 				cellURL.onclick = () => selectTab(type, tabId);
-				if (saveInfo.cancelled) {
+				if (tabInfo.cancelled) {
 					cellStatus.textContent = statusText.cancelling;
 				} else {
 					cellStatus.textContent = statusText[type];

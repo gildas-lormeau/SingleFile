@@ -51,7 +51,7 @@ singlefile.extension.core.bg.business = (() => {
 		saveTabs,
 		saveLink,
 		cancelTab,
-		getInfo: () => ({ pending: Array.from(pendingSaves), processing: Array.from(currentSaves) })
+		getInfo: () => ({ pending: Array.from(pendingSaves).map(mapSaveInfo), processing: Array.from(currentSaves).map(mapSaveInfo) })
 	};
 
 	async function saveTabs(tabs, options = {}) {
@@ -147,6 +147,10 @@ singlefile.extension.core.bg.business = (() => {
 				requestSaveTab(tab, method, options, resolve, reject);
 			}
 		}
+	}
+
+	function mapSaveInfo([tabId, saveInfo]) {
+		return [tabId, { index: saveInfo.tab.index, url: saveInfo.tab.url, cancelled: saveInfo.cancelled }];
 	}
 
 })();
