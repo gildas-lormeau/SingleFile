@@ -60,7 +60,7 @@ singlefile.extension.core.bg.downloads = (() => {
 			return {};
 		}
 		if (message.method.endsWith(".end")) {
-			singlefile.extension.core.bg.business.onSaveEnd(sender.tab.id, message.autoClose);
+			singlefile.extension.core.bg.business.onSaveEnd(sender.tab.id);
 			return {};
 		}
 		if (message.method.endsWith(".getInfo")) {

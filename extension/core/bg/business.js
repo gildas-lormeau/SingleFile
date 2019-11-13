@@ -59,10 +59,7 @@ singlefile.extension.core.bg.business = (() => {
 				saveInfo.cancel = cancelCallback;
 			}
 		},
-		onSaveEnd: (tabId, autoClose) => {
-			if (autoClose) {
-				singlefile.extension.core.bg.tabs.remove(tabId);
-			}
+		onSaveEnd: tabId => {
 			const saveInfo = currentSaves.get(tabId);
 			if (saveInfo) {
 				saveInfo.resolve();
@@ -108,6 +105,9 @@ singlefile.extension.core.bg.business = (() => {
 					}
 					saveTabs(tabs, options);
 					await promiseSaveTab;
+					if (tabOptions.autoClose) {
+						singlefile.extension.core.bg.tabs.remove(tabId);
+					}
 				}
 			} catch (error) {
 				if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
