@@ -129,26 +129,22 @@ singlefile.extension.core.bg.business = (() => {
 	}
 
 	function cancelTab(tabId) {
-		try {
-			if (currentSaves.has(tabId)) {
-				const saveInfo = currentSaves.get(tabId);
-				saveInfo.cancelled = true;
-				singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave" });
-				if (saveInfo.method == "content.autosave") {
-					singlefile.extension.ui.bg.main.onEnd(tabId, true);
-				}
-				if (saveInfo.cancel) {
-					saveInfo.cancel();
-				}
-				saveInfo.resolve();
+		if (currentSaves.has(tabId)) {
+			const saveInfo = currentSaves.get(tabId);
+			saveInfo.cancelled = true;
+			singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave" });
+			if (saveInfo.method == "content.autosave") {
+				singlefile.extension.ui.bg.main.onEnd(tabId, true);
 			}
-			if (pendingSaves.has(tabId)) {
-				const saveInfo = pendingSaves.get(tabId);
-				pendingSaves.delete(tabId);
-				singlefile.extension.ui.bg.main.onCancelled(saveInfo.tab);
+			if (saveInfo.cancel) {
+				saveInfo.cancel();
 			}
-		} catch (error) {
-			// ignored
+			saveInfo.resolve();
+		}
+		if (pendingSaves.has(tabId)) {
+			const saveInfo = pendingSaves.get(tabId);
+			pendingSaves.delete(tabId);
+			singlefile.extension.ui.bg.main.onCancelled(saveInfo.tab);
 		}
 	}
 
