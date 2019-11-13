@@ -55,6 +55,7 @@
 	function updateTable(results, type) {
 		const data = results[type];
 		if (data.length) {
+			data.sort(([, saveInfo1], [, saveInfo2]) => saveInfo1.tab.index - saveInfo2.tab.index);
 			data.forEach(([tabId, saveInfo]) => {
 				const row = document.createElement("div");
 				const cellURL = document.createElement("span");
