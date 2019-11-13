@@ -43,28 +43,24 @@ singlefile.extension.core.bg.business = (() => {
 	];
 
 	const pendingSaves = new Map();
-	const currentSaves = new Map();
 	let maxParallelWorkers;
 
 	return {
-		isSavingTab: tab => currentSaves.has(tab.id),
+		isSavingTab: tab => pendingSaves.has(tab.id),
 		saveTabs,
 		saveLink,
 		cancelTab,
-		cancelAllTabs: () => {
-			Array.from(pendingSaves).forEach(([tabId]) => cancelTab(tabId, "pending"));
-			Array.from(currentSaves).forEach(([tabId]) => cancelTab(tabId, "processing"));
-		},
-		getTabsInfo: () => ({ pending: Array.from(pendingSaves).map(mapSaveInfo), processing: Array.from(currentSaves).map(mapSaveInfo) }),
-		getTabInfo: tabId => currentSaves.get(tabId) || pendingSaves.get(tabId),
+		cancelAllTabs: () => Array.from(pendingSaves).forEach(([tabId]) => cancelTab(tabId)),
+		getTabsInfo: () => Array.from(pendingSaves).map(mapSaveInfo),
+		getTabInfo: tabId => pendingSaves.get(tabId),
 		setCancelCallback: (tabId, cancelCallback) => {
-			const saveInfo = currentSaves.get(tabId);
+			const saveInfo = pendingSaves.get(tabId);
 			if (saveInfo) {
 				saveInfo.cancel = cancelCallback;
 			}
 		},
 		onSaveEnd: tabId => {
-			const saveInfo = currentSaves.get(tabId);
+			const saveInfo = pendingSaves.get(tabId);
 			if (saveInfo) {
 				saveInfo.resolve();
 			}
@@ -115,9 +111,10 @@ singlefile.extension.core.bg.business = (() => {
 					ui.onError(tabId);
 				}
 			} finally {
-				currentSaves.delete(tabId);
-				if (pendingSaves.size) {
-					const [tabId, { tab, method, resolve, reject, options }] = Array.from(pendingSaves)[0];
+				pendingSaves.delete(tabId);
+				const nextPendingSave = Array.from(pendingSaves).filter(([, saveInfo]) => saveInfo.status == "pending");
+				if (nextPendingSave.length) {
+					const [tabId, { tab, method, resolve, reject, options }] = nextPendingSave[0];
 					pendingSaves.delete(tabId);
 					requestSaveTab(tab, method, options, resolve, reject);
 				}
@@ -132,9 +129,9 @@ singlefile.extension.core.bg.business = (() => {
 		await saveTabs([tab], options);
 	}
 
-	function cancelTab(tabId, hintType) {
-		if (currentSaves.has(tabId) && (!hintType || hintType == "processing")) {
-			const saveInfo = currentSaves.get(tabId);
+	function cancelTab(tabId) {
+		if (pendingSaves.has(tabId)) {
+			const saveInfo = pendingSaves.get(tabId);
 			saveInfo.cancelled = true;
 			singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave" });
 			if (saveInfo.cancel) {
@@ -144,33 +141,24 @@ singlefile.extension.core.bg.business = (() => {
 				singlefile.extension.ui.bg.main.onEnd(tabId, true);
 			}
 			singlefile.extension.ui.bg.main.onCancelled(saveInfo.tab);
-			saveInfo.resolve();
-		} else if (pendingSaves.has(tabId) && (!hintType || hintType == "pending")) {
-			const saveInfo = pendingSaves.get(tabId);
 			pendingSaves.delete(tabId);
-			singlefile.extension.ui.bg.main.onCancelled(saveInfo.tab);
+			saveInfo.resolve();
 		}
 	}
 
 	function requestSaveTab(tab, method, options) {
-		return new Promise((resolve, reject) => requestSaveTab(tab, method, options, resolve, reject));
-
-		async function requestSaveTab(tab, method, options, resolve, reject) {
-			if (currentSaves.size < maxParallelWorkers) {
-				currentSaves.set(tab.id, { tab, options, method, resolve, reject });
-				try {
-					await singlefile.extension.core.bg.tabs.sendMessage(tab.id, { method, options });
-				} catch (error) {
-					reject(error);
-				}
+		return new Promise((resolve, reject) => {
+			if (Array.from(pendingSaves).filter(([, saveInfo]) => saveInfo.status == "processing").length < maxParallelWorkers) {
+				pendingSaves.set(tab.id, { status: "processing", tab, options, method, resolve, reject });
+				singlefile.extension.core.bg.tabs.sendMessage(tab.id, { method, options });
 			} else {
-				pendingSaves.set(tab.id, { tab, options, method, resolve, reject });
+				pendingSaves.set(tab.id, { status: "pending", tab, options, method, resolve, reject });
 			}
-		}
+		});
 	}
 
 	function mapSaveInfo([tabId, saveInfo]) {
-		return [tabId, { index: saveInfo.tab.index, url: saveInfo.tab.url, cancelled: saveInfo.cancelled }];
+		return [tabId, { index: saveInfo.tab.index, url: saveInfo.tab.url, cancelled: saveInfo.cancelled, status: saveInfo.status }];
 	}
 
 })();
