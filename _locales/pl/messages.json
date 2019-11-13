@@ -12,7 +12,7 @@
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
 	"menuViewPendingSaves": {
-		"message": "View pending saves...",
+		"message": "Zobacz oczekujące zapisy...",
 		"description": "Menu entry: 'View pending saves...'"
 	},
 	"menuSelectProfile": {
@@ -536,15 +536,15 @@
 		"description": "Title of the button 'Save the page' in the editor"
 	},
 	"pendingsTitle": {
-		"message": "Pending saves",
+		"message": "Oczekujące zapisy",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
 	},
 	"pendingsCancelAllButton": {
-		"message": "Cancel all",
+		"message": "Anuluj wszystkie",
 		"description": "Pending saves button 'Cancel all'"
 	},
 	"pendingsURLTitle": {
-		"message": "URL",
+		"message": "Adres URL",
 		"description": "Title of the first column in the table of the pending saves 'URL'"
 	},
 	"pendingsStatusTitle": {
@@ -552,19 +552,19 @@
 		"description": "Title of the second column in the table of the pending saves 'status'"
 	},
 	"pendingsPendingStatus": {
-		"message": "pending",
+		"message": "oczekiwanie",
 		"description": "Value of 'status' for pending saves"
 	},
 	"pendingsProcessingStatus": {
-		"message": "processing",
+		"message": "przetwarzanie",
 		"description": "Value of 'status' for current saves"
 	},
 	"pendingsCancellingStatus": {
-		"message": "cancelling",
+		"message": "anulowanie",
 		"description": "Value of 'status' for cancelled saves"
 	},
 	"pendingsNoPendings": {
-		"message": "No pending saves",
+		"message": "Brak oczekujących zapisów",
 		"description": "Label displayed when they are no pending saves"
 	}
 }
