@@ -180,10 +180,12 @@ this.GDrive = this.GDrive || (() => {
 			}));
 			const location = httpResponse.headers.get("Location");
 			this.url = location;
-			if (this.onProgress && !this.cancelled) {
-				this.onProgress(0, this.file.size);
+			if (!this.cancelled) {
+				if (this.onProgress) {
+					this.onProgress(0, this.file.size);
+				}
+				return sendFile(this);
 			}
-			return sendFile(this);
 		}
 	}
 
