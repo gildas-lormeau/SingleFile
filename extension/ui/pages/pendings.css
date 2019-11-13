@@ -123,7 +123,7 @@ header button {
     }
 
     .result-cancel button {
-        color: #fdfdfd;
+        color: #202023;
     }
 
     button:not([disabled]):hover {
