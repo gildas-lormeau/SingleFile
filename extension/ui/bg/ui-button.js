@@ -123,7 +123,7 @@ singlefile.extension.ui.bg.button = (() => {
 
 		function toggleSaveTab(tab) {
 			if (business.isSavingTab(tab)) {
-				business.cancelTab(tab);
+				business.cancelTab(tab.id);
 			} else {
 				business.saveTabs([tab]);
 			}
