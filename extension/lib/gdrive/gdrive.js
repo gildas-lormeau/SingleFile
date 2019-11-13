@@ -180,7 +180,7 @@ this.GDrive = this.GDrive || (() => {
 			}));
 			const location = httpResponse.headers.get("Location");
 			this.url = location;
-			if (this.onProgress) {
+			if (this.onProgress && !this.cancelled) {
 				this.onProgress(0, this.file.size);
 			}
 			return sendFile(this);
@@ -345,7 +345,7 @@ this.GDrive = this.GDrive || (() => {
 			},
 			body: content
 		});
-		if (mediaUploader.onProgress) {
+		if (mediaUploader.onProgress && !mediaUploader.cancelled) {
 			mediaUploader.onProgress(mediaUploader.offset + mediaUploader.chunkSize, mediaUploader.file.size);
 		}
 		if (httpResponse.status == 200 || httpResponse.status == 201) {
