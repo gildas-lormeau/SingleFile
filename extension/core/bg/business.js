@@ -53,7 +53,7 @@ singlefile.extension.core.bg.business = (() => {
 		cancelTab,
 		cancelAllTabs: () => {
 			Array.from(pendingSaves).forEach(([tabId]) => cancelTab(tabId, "pending"));
-			Array.from(currentSaves).forEach(([tabId]) => cancelTab(tabId, "current"));
+			Array.from(currentSaves).forEach(([tabId]) => cancelTab(tabId, "processing"));
 		},
 		getTabsInfo: () => ({ pending: Array.from(pendingSaves).map(mapSaveInfo), processing: Array.from(currentSaves).map(mapSaveInfo) }),
 		getTabInfo: tabId => currentSaves.get(tabId) || pendingSaves.get(tabId),
@@ -133,7 +133,7 @@ singlefile.extension.core.bg.business = (() => {
 	}
 
 	function cancelTab(tabId, hintType) {
-		if (currentSaves.has(tabId) && (!hintType || hintType == "current")) {
+		if (currentSaves.has(tabId) && (!hintType || hintType == "processing")) {
 			const saveInfo = currentSaves.get(tabId);
 			saveInfo.cancelled = true;
 			singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave" });
