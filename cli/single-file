@@ -47,6 +47,7 @@ const args = require("yargs")
 		"compress-CSS": true,
 		"compress-HTML": true,
 		"filename-template": "",
+		"filename-replacement-character": "_",
 		"group-duplicate-images": true,
 		"include-infobar": false,
 		"load-deferred-images": true,
@@ -95,6 +96,9 @@ const args = require("yargs")
 	.options("compress-HTML", { description: "Compress HTML content" })
 	.boolean("compress-HTML")
 	.options("filename-template", { description: "Template used to generate the output filename (see help page of the extension for more info)" })
+	.string("filename-template")
+	.options("filename-replacement-character", { description: "The character used for replacing invalid characters in filenames" })
+	.string("filename-replacement-character")
 	.string("filename-template")
 	.options("group-duplicate-images", { description: "Group duplicate images into CSS custom properties" })
 	.boolean("group-duplicate-images")
