@@ -64,20 +64,30 @@ header button {
     background-color: #ececec;
 }
 
-.result-row span {
+.result-row>span {
     padding: 10px;
     align-self: center;
 }
 
-.result-url {
+.result-row>span>span {
+    padding: 5px;
+}
+
+.result-head .unselected {
+    opacity: .5;
+}
+
+.result-url-title {
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
     white-space: nowrap;
+    user-select: none;
+    cursor: pointer;
 }
 
-.result-row:not(.result-head) .result-url {
+.result-row:not(.result-head) .result-url-title {
     cursor: pointer;
 }
 

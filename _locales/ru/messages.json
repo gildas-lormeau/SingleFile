@@ -543,6 +543,10 @@
 		"message": "Cancel all",
 		"description": "Pending saves button 'Cancel all'"
 	},
+	"pendingsTitleTitle": {
+		"message": "Title",
+		"description": "Title of the first column in the table of the pending saves 'Title'"
+	},
 	"pendingsURLTitle": {
 		"message": "URL",
 		"description": "Title of the first column in the table of the pending saves 'URL'"
