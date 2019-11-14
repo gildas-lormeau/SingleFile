@@ -130,17 +130,17 @@ singlefile.extension.ui.bg.menus = (() => {
 				contexts: defaultContexts,
 				title: MENU_VIEW_PENDINGS_MESSAGE
 			});
+			menus.create({
+				id: "separator-1",
+				contexts: defaultContexts,
+				type: "separator"
+			});
+			menus.create({
+				id: MENU_ID_SAVE_SELECTED,
+				contexts: defaultContexts,
+				title: MENU_SAVE_SELECTION_MESSAGE
+			});
 			if (options.contextMenuEnabled) {
-				menus.create({
-					id: "separator-1",
-					contexts: pageContextsEnabled,
-					type: "separator"
-				});
-				menus.create({
-					id: MENU_ID_SAVE_SELECTED,
-					contexts: pageContextsEnabled,
-					title: MENU_SAVE_SELECTION_MESSAGE
-				});
 				menus.create({
 					id: MENU_ID_SAVE_FRAME,
 					contexts: ["frame"],
