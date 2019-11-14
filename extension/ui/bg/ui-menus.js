@@ -126,11 +126,6 @@ singlefile.extension.ui.bg.menus = (() => {
 				});
 			}
 			menus.create({
-				id: MENU_ID_VIEW_PENDINGS,
-				contexts: defaultContexts,
-				title: MENU_VIEW_PENDINGS_MESSAGE
-			});
-			menus.create({
 				id: "separator-1",
 				contexts: defaultContexts,
 				type: "separator"
@@ -319,6 +314,16 @@ singlefile.extension.ui.bg.menus = (() => {
 				parentId: MENU_ID_AUTO_SAVE
 			});
 			menusCheckedState.set(MENU_ID_AUTO_SAVE_ALL, false);
+			menus.create({
+				id: "separator-4",
+				contexts: defaultContexts,
+				type: "separator"
+			});
+			menus.create({
+				id: MENU_ID_VIEW_PENDINGS,
+				contexts: defaultContexts,
+				title: MENU_VIEW_PENDINGS_MESSAGE
+			});
 		}
 		menusCreated = true;
 		if (pendingRefresh) {
