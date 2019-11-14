@@ -158,7 +158,7 @@ singlefile.extension.core.bg.business = (() => {
 	}
 
 	function mapSaveInfo([tabId, saveInfo]) {
-		return [tabId, { index: saveInfo.tab.index, url: saveInfo.tab.url, cancelled: saveInfo.cancelled, status: saveInfo.status }];
+		return [tabId, { index: saveInfo.tab.index, url: saveInfo.tab.url, title: saveInfo.tab.title, cancelled: saveInfo.cancelled, status: saveInfo.status }];
 	}
 
 })();

@@ -26,13 +26,14 @@
 (async () => {
 
 	const URLLabel = document.getElementById("URLLabel");
-	const statusLabel = document.getElementById("statusLabel");
+	const titleLabel = document.getElementById("titleLabel");
 	const resultsTable = document.getElementById("resultsTable");
 	const cancelAllButton = document.getElementById("cancelAllButton");
 	document.title = browser.i18n.getMessage("pendingsTitle");
 	cancelAllButton.textContent = browser.i18n.getMessage("pendingsCancelAllButton");
 	URLLabel.textContent = browser.i18n.getMessage("pendingsURLTitle");
-	statusLabel.textContent = browser.i18n.getMessage("pendingsStatusTitle");
+	titleLabel.textContent = browser.i18n.getMessage("pendingsTitleTitle");
+	document.getElementById("statusLabel").textContent = browser.i18n.getMessage("pendingsStatusTitle");
 	const statusText = {
 		pending: browser.i18n.getMessage("pendingsPendingStatus"),
 		processing: browser.i18n.getMessage("pendingsProcessingStatus"),
@@ -42,6 +43,11 @@
 	cancelAllButton.onclick = async () => {
 		await browser.runtime.sendMessage({ method: "downloads.cancelAll" });
 		await refresh();
+	};
+	let URLDisplayed = true;
+	document.getElementById("URLTitleLabel").onclick = () => {
+		URLDisplayed = !URLDisplayed;
+		refresh(true);
 	};
 	let previousState;
 	setInterval(refresh, 1000);
@@ -62,8 +68,12 @@
 				const buttonCancel = document.createElement("button");
 				row.dataset.tabId = tabId;
 				row.className = "result-row";
-				cellURL.textContent = tabInfo.url;
-				cellURL.className = "result-url";
+				if (URLDisplayed) {
+					cellURL.textContent = tabInfo.url;
+				} else {
+					cellURL.textContent = tabInfo.title;
+				}
+				cellURL.className = "result-url-title";
 				cellURL.onclick = () => selectTab(tabId);
 				if (tabInfo.cancelled) {
 					cellStatus.textContent = statusText.cancelling;
@@ -93,12 +103,19 @@
 		await refresh();
 	}
 
-	async function refresh() {
+	async function refresh(force) {
 		const results = await browser.runtime.sendMessage({ method: "downloads.getInfo" });
 		const currentState = JSON.stringify(results);
-		if (previousState != currentState) {
+		if (previousState != currentState || force) {
 			previousState = currentState;
 			resetTable();
+			if (URLDisplayed) {
+				URLLabel.className = "";
+				titleLabel.className = "unselected";
+			} else {
+				URLLabel.className = "unselected";
+				titleLabel.className = "";
+			}
 			updateTable(results);
 			if (!results.length) {
 				const row = document.createElement("div");
