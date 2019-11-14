@@ -762,21 +762,23 @@
 		const items = doc.querySelectorAll("[data-options-label]");
 		items.forEach(itemElement => {
 			const optionLabel = document.getElementById(itemElement.dataset.optionsLabel);
+			const helpIconContainer = document.createElement("span");
 			const helpIcon = document.createElement("img");
-			helpIcon.className = "help-icon";
 			helpIcon.src = HELP_ICON_URL;
-			helpIcon.onclick = () => {
+			helpIconContainer.className = "help-icon";
+			helpIconContainer.onclick = () => {
 				helpContent.hidden = !helpContent.hidden;
 				return false;
 			};
 			helpIcon.tabIndex = 0;
-			helpIcon.onkeyup = event => {
+			helpIconContainer.onkeyup = event => {
 				if (event.code == "Enter") {
 					helpContent.hidden = !helpContent.hidden;
 					return false;
 				}
 			};
-			optionLabel.appendChild(helpIcon);
+			helpIconContainer.appendChild(helpIcon);
+			optionLabel.appendChild(helpIconContainer);
 			const helpContent = document.createElement("div");
 			helpContent.hidden = true;
 			helpContent.className = "help-content";

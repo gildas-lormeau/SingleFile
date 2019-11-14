@@ -98,9 +98,13 @@ h3 a {
     max-width: calc(100% - 115px);
 }
 
-
 .help-icon {
     vertical-align: middle;
+    display: inline-block;
+    margin-left: 3px;
+}
+
+.help-icon>img {
     border-radius: 50%;
     border: 1px black solid;
     opacity: .2;
@@ -114,7 +118,7 @@ h3 a {
     cursor: pointer;
 }
 
-.help-icon:hover {
+.help-icon>img:hover {
     opacity: .4;
 }
 
@@ -554,12 +558,12 @@ html.maximized {
         filter: invert(50%);
     }
 
-    .help-icon {
+    .help-icon>img {
         opacity: .6;
         border-color: #ccc;
     }
 
-    .help-icon:hover {
+    .help-icon>img:hover {
         opacity: .8;
     }
 
