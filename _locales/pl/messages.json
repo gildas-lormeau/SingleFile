@@ -151,6 +151,10 @@
 		"message": "adnotuj stronę przed zapisaniem",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
+	"optionAutoOpenEditor": {
+		"message": "open pages saved with SingleFile in the annotation editor",
+		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
+	},
 	"optionAutoCloseLabel": {
 		"message": "automatycznie zamykaj kartę po zapisaniu strony",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"

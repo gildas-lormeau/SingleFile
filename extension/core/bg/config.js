@@ -83,7 +83,8 @@ singlefile.extension.core.bg.config = (() => {
 		extractAuthCode: true,
 		resolveFragmentIdentifierURLs: false,
 		userScriptEnabled: false,
-		openEditor: false
+		openEditor: false,
+		autoOpenEditor: false
 	};
 
 	let pendingUpgradePromise = upgrade();

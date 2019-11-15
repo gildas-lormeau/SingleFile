@@ -84,6 +84,7 @@
 	const confirmInfobarLabel = document.getElementById("confirmInfobarLabel");
 	const autoCloseLabel = document.getElementById("autoCloseLabel");
 	const openEditorLabel = document.getElementById("openEditorLabel");
+	const autoOpenEditorLabel = document.getElementById("autoOpenEditorLabel");
 	const infobarTemplateLabel = document.getElementById("infobarTemplateLabel");
 	const includeInfobarLabel = document.getElementById("includeInfobarLabel");
 	const miscLabel = document.getElementById("miscLabel");
@@ -136,6 +137,7 @@
 	const confirmInfobarInput = document.getElementById("confirmInfobarInput");
 	const autoCloseInput = document.getElementById("autoCloseInput");
 	const openEditorInput = document.getElementById("openEditorInput");
+	const autoOpenEditorInput = document.getElementById("autoOpenEditorInput");
 	const expandAllButton = document.getElementById("expandAllButton");
 	const rulesDeleteAllButton = document.getElementById("rulesDeleteAllButton");
 	const ruleUrlInput = document.getElementById("ruleUrlInput");
@@ -165,7 +167,7 @@
 		sidePanelDisplay = true;
 		document.querySelector(".options-title").remove();
 		document.documentElement.classList.add("side-panel");
-	}	
+	}
 	browser.runtime.onMessage.addListener(message => {
 		if (message.method == "options.refresh" || (message.method == "options.refreshPanel" && sidePanelDisplay)) {
 			refresh(message.profileName);
@@ -436,6 +438,7 @@
 	confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
 	autoCloseLabel.textContent = browser.i18n.getMessage("optionAutoCloseLabel");
 	openEditorLabel.textContent = browser.i18n.getMessage("optionOpenEditorLabel");
+	autoOpenEditorLabel.textContent = browser.i18n.getMessage("optionAutoOpenEditor");
 	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
 	exportButton.textContent = browser.i18n.getMessage("optionsExportButton");
 	importButton.textContent = browser.i18n.getMessage("optionsImportButton");
@@ -607,6 +610,7 @@
 		confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
 		autoCloseInput.checked = profileOptions.autoClose;
 		openEditorInput.checked = profileOptions.openEditor;
+		autoOpenEditorInput.checked = profileOptions.autoOpenEditor;
 		removeFramesInput.disabled = saveRawPageInput.checked;
 		removeFramesInput.checked = removeFramesInput.checked || saveRawPageInput.checked;
 		loadDeferredImagesInput.disabled = saveRawPageInput.checked;
@@ -664,7 +668,8 @@
 				includeInfobar: includeInfobarInput.checked,
 				confirmInfobarContent: confirmInfobarInput.checked,
 				autoClose: autoCloseInput.checked,
-				openEditor: openEditorInput.checked
+				openEditor: openEditorInput.checked,
+				autoOpenEditor: autoOpenEditorInput.checked
 			}
 		});
 		await pendingSave;
