@@ -130,6 +130,10 @@ html.side-panel, .side-panel .result-head , .side-panel main {
     display: none;
 }
 
+.side-panel .result-row>span, .side-panel .result-row>span>span {
+    padding: 0px;
+}
+
 @media (prefers-color-scheme: dark) {
     html {
         background-color: #373737;
