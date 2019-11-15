@@ -21,12 +21,13 @@
  *   Source.
  */
 
-/* global browser, window, addEventListener, removeEventListener, document, location, setTimeout, prompt */
+/* global browser, window, addEventListener, removeEventListener, document, location, setTimeout, prompt, Node */
 
 this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.core.content.bootstrap || (async () => {
 
 	const singlefile = this.singlefile;
 
+	const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 	const PUSH_STATE_NOTIFICATION_EVENT_NAME = "single-file-push-state";
 
 	let unloadListenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved;
@@ -34,7 +35,15 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	browser.runtime.sendMessage({ method: "autosave.init" }).then(message => {
 		options = message.options;
 		autoSaveEnabled = message.autoSaveEnabled;
-		refresh();
+		if (document.documentElement.firstChild.nodeType == Node.COMMENT_NODE && document.documentElement.firstChild.textContent.includes("Page saved with SingleFile") && options.autoOpenEditor) {
+			if (document.readyState == "loading") {
+				document.addEventListener("DOMContentLoaded", () => openEditor(document));
+			} else {
+				openEditor(document);
+			}
+		} else {
+			refresh();
+		}
 	});
 	browser.runtime.onMessage.addListener(message => onMessage(message));
 	browser.runtime.sendMessage({ method: "ui.processInit" });
@@ -145,6 +154,38 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			frames: frames,
 			url: location.href,
 			updatedResources
+		});
+	}
+
+	async function openEditor(document) {
+		serializeShadowRoots(document);
+		const content = singlefile.lib.modules.serializer.process(document);
+		for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
+			const message = {
+				method: "editor.open",
+				filename: decodeURIComponent(location.href.match(/^.*\/(.*)$/)[1])
+			};
+			message.truncated = content.length > MAX_CONTENT_SIZE;
+			if (message.truncated) {
+				message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > content.length;
+				message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+			} else {
+				message.content = content;
+			}
+			await browser.runtime.sendMessage(message);
+		}
+	}
+
+	function serializeShadowRoots(node) {
+		const SHADOW_MODE_ATTRIBUTE_NAME = "shadowmode";
+		node.querySelectorAll("*").forEach(element => {
+			if (element.shadowRoot) {
+				serializeShadowRoots(element.shadowRoot);
+				const templateElement = document.createElement("template");
+				templateElement.setAttribute(SHADOW_MODE_ATTRIBUTE_NAME, "open");
+				templateElement.appendChild(element.shadowRoot);
+				element.appendChild(templateElement);
+			}
 		});
 	}
 

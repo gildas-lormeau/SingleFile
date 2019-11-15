@@ -26,6 +26,7 @@
 singlefile.extension.core.bg.editor = (() => {
 
 	const tabsData = new Map();
+	const partialContents = new Map();
 	const EDITOR_URL = browser.runtime.getURL("/extension/ui/editor/editor.html");
 
 	return {
@@ -52,6 +53,28 @@ singlefile.extension.core.bg.editor = (() => {
 		if (message.method.endsWith(".getTabData")) {
 			const tab = sender.tab;
 			return tabsData.get(tab.id);
+		}
+		if (message.method.endsWith(".open")) {
+			let contents;
+			const tab = sender.tab;
+			if (message.truncated) {
+				contents = partialContents.get(tab.id);
+				if (!contents) {
+					contents = [];
+					partialContents.set(tab.id, contents);
+				}
+				contents.push(message.content);
+				if (message.finished) {
+					partialContents.delete(tab.id);
+				}
+			} else if (message.content) {
+				contents = [message.content];
+			}
+			if (!message.truncated || message.finished) {
+				const options = await singlefile.extension.core.bg.config.getOptions(tab && tab.url);
+				await singlefile.extension.core.bg.tabs.remove(tab.id);
+				await singlefile.extension.core.bg.editor.open({ filename: message.filename, content: contents.join("") }, options);
+			}
 		}
 	}
 

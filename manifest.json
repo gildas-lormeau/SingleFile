@@ -43,6 +43,7 @@
 			"js": [
 				"lib/single-file/index.js",
 				"lib/single-file/processors/hooks/content/content-hooks.js",
+				"lib/single-file/modules/html-serializer.js",
 				"extension/lib/single-file/index.js",
 				"extension/core/index.js",
 				"extension/core/content/content-bootstrap.js"
