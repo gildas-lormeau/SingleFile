@@ -117,13 +117,13 @@ html.side-panel, .side-panel .result-head , .side-panel main {
 .side-panel header button {
     position: absolute;
     top: 4px;
-    right: 8px;
+    right: 12px;
 }
 
 .side-panel main {
     border: 0;
     margin-left: 8px;
-    margin-right: 8px;
+    margin-right: 12px;
 }
 
 .side-panel .result-status {
