@@ -100,8 +100,9 @@ singlefile.extension.core.bg.business = (() => {
 						promiseSaveTab = Promise.resolve();
 					}
 					saveTabs(tabs, options);
+					const saveInfo = pendingSaves.get(tabId);
 					await promiseSaveTab;
-					if (tabOptions.autoClose) {
+					if (tabOptions.autoClose && !saveInfo.cancelled) {
 						singlefile.extension.core.bg.tabs.remove(tabId);
 					}
 				}
