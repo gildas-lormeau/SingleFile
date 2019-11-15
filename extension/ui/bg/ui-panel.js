@@ -21,13 +21,16 @@
  *   Source.
  */
 
-/* global document */
+/* global browser, document */
 
 (async () => {
 
 	const optionsTab = document.getElementById("tab-options");
 	const pendingsTab = document.getElementById("tab-pendings");
-	const viewPanel = document.getElementById("view-panel");	
+	const viewPanel = document.getElementById("view-panel");
+
+	optionsTab.textContent = browser.i18n.getMessage("optionsTitle");
+	pendingsTab.textContent = browser.i18n.getMessage("pendingsTitle");
 
 	optionsTab.onclick = () => {
 		optionsTab.classList.add("tab-selected");
