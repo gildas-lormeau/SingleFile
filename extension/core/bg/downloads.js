@@ -70,7 +70,7 @@ singlefile.extension.core.bg.downloads = (() => {
 			singlefile.extension.core.bg.business.cancelTab(message.tabId);
 			return {};
 		}
-		if (message.method.endsWith(".cancelAll")) {			
+		if (message.method.endsWith(".cancelAll")) {
 			singlefile.extension.core.bg.business.cancelAllTabs(message.tabId);
 			return {};
 		}
@@ -94,7 +94,7 @@ singlefile.extension.core.bg.downloads = (() => {
 		if (!message.truncated || message.finished) {
 			if (message.openEditor) {
 				singlefile.extension.ui.bg.main.onEdit(tab.id);
-				await singlefile.extension.core.bg.editor.open({ filename: message.filename, content: contents.join("") }, {
+				await singlefile.extension.core.bg.editor.open({ tabIndex: tab.index + 1, filename: message.filename, content: contents.join("") }, {
 					backgroundSave: message.backgroundSave,
 					saveToClipboard: message.saveToClipboard,
 					saveToGDrive: message.saveToGDrive,
