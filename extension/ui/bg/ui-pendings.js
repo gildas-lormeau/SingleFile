@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, setInterval */
+/* global browser, document, setInterval, location */
 
 (async () => {
 
@@ -44,6 +44,9 @@
 		await browser.runtime.sendMessage({ method: "downloads.cancelAll" });
 		await refresh();
 	};
+	if (location.href.endsWith("#side-panel")) {
+		document.documentElement.classList.add("side-panel");
+	}
 	let URLDisplayed = true;
 	document.getElementById("URLTitleLabel").onclick = () => {
 		URLDisplayed = !URLDisplayed;
