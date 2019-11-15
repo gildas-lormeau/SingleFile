@@ -150,6 +150,10 @@ html.side-panel,
         padding-bottom: 3px;
         min-height: 30px;
     }
+
+    .side-panel header button {
+        top: 0px;        
+    }    
 }
 
 @media (prefers-color-scheme: dark) {
