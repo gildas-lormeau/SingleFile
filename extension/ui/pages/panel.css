@@ -1,0 +1,50 @@
+html,
+body {
+    height: 100%;
+    font-family: sans-serif;
+    font-size: 12px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: #fbfbfb;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+}
+
+.tab {
+    height: 30px;
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-right: 16px;
+	opacity: .5;
+	cursor: pointer;
+}
+
+.tab-selected {
+    opacity: 1;
+}
+
+main {
+    flex: 1;
+}
+
+iframe {
+    height: 100%;
+    width: 100%;
+    border-width: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+		background-color: #38383d;
+		color: #fdfdfd;
+    }
+}

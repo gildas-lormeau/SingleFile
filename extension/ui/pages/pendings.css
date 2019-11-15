@@ -110,6 +110,26 @@ header button {
     color: #888;
 }
 
+html.side-panel, .side-panel .result-head , .side-panel main {
+    background-color: #fbfbfb;
+}
+
+.side-panel header button {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+}
+
+.side-panel main {
+    border: 0;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.side-panel .result-status {
+    display: none;
+}
+
 @media (prefers-color-scheme: dark) {
     html {
         background-color: #373737;
@@ -149,5 +169,20 @@ header button {
 
     button:hover {
         color: #2A2A2E;
+    }
+
+    html.side-panel,
+    .side-panel .result-head,
+    .side-panel main,
+    .side-panel button {
+        background-color: #38383d;
+    }
+
+    .side-panel .result-head {
+        border-bottom: dashed 1px rgb(191, 191, 191);
+    }
+
+    .side-panel .result-cancel button {
+        color: #fdfdfd;        
     }
 }
