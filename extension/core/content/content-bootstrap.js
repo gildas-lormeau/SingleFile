@@ -45,7 +45,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			refresh();
 		}
 	});
-	browser.runtime.onMessage.addListener(message => onMessage(message));
+	browser.runtime.onMessage.addListener(message => { onMessage(message); });
 	browser.runtime.sendMessage({ method: "ui.processInit" });
 	addEventListener(PUSH_STATE_NOTIFICATION_EVENT_NAME, () => browser.runtime.sendMessage({ method: "ui.processInit" }));
 	return {};
