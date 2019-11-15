@@ -16,7 +16,7 @@ body {
 
 header {
     display: flex;
-    flex-direction: row;
+    flex-direction: row;    
 }
 
 .tab {
@@ -24,8 +24,11 @@ header {
     padding-top: 8px;
     padding-left: 8px;
     padding-right: 8px;
-	opacity: .5;
+    opacity: .5;
 	cursor: pointer;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .tab-selected {
@@ -44,7 +47,7 @@ iframe {
 
 @media (prefers-color-scheme: dark) {
     body {
-		background-color: #38383d;
-		color: #fdfdfd;
+        background-color: #38383d;
+        color: #fdfdfd;
     }
 }
