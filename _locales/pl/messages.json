@@ -152,7 +152,7 @@
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionAutoOpenEditor": {
-		"message": "open pages saved with SingleFile in the annotation editor",
+		"message": "otwieraj strony zapisane z SingleFile w edytorze adnotacji",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionAutoCloseLabel": {
