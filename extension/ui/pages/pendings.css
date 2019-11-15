@@ -110,7 +110,9 @@ header button {
     color: #888;
 }
 
-html.side-panel, .side-panel .result-head , .side-panel main {
+html.side-panel,
+.side-panel .result-head,
+.side-panel main {
     background-color: #fbfbfb;
 }
 
@@ -130,8 +132,24 @@ html.side-panel, .side-panel .result-head , .side-panel main {
     display: none;
 }
 
-.side-panel .result-row>span, .side-panel .result-row>span>span {
+.side-panel .result-row>span,
+.side-panel .result-row>span>span {
     padding: 0px;
+}
+
+@media (max-width:400px) {
+
+    main,
+    header,
+    header>button {
+        font-size: 11px;
+    }
+
+    .result-row {
+        padding-top: 3px;
+        padding-bottom: 3px;
+        min-height: 30px;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -187,6 +205,6 @@ html.side-panel, .side-panel .result-head , .side-panel main {
     }
 
     .side-panel .result-cancel button {
-        color: #fdfdfd;        
+        color: #fdfdfd;
     }
 }
