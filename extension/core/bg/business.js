@@ -99,36 +99,36 @@ singlefile.extension.core.bg.business = (() => {
 		for (let index = 0; index < Math.min(tabs.length, (maxParallelWorkers - processingCount)); index++) {
 			runTask();
 		}
+	}
 
-		function runTask() {
-			const nextPendingSave = Array.from(pendingSaves).find(([, saveInfo]) => saveInfo.status == "pending");
-			if (nextPendingSave) {
-				const [tabId, saveInfo] = nextPendingSave;
-				return new Promise((resolve, reject) => {
-					saveInfo.status = "processing";
-					saveInfo.resolve = async () => {
-						if (saveInfo.options.autoClose && !saveInfo.cancelled) {
-							singlefile.extension.core.bg.tabs.remove(tabId);
+	function runTask() {
+		const nextPendingSave = Array.from(pendingSaves).find(([, saveInfo]) => saveInfo.status == "pending");
+		if (nextPendingSave) {
+			const [tabId, saveInfo] = nextPendingSave;
+			return new Promise((resolve, reject) => {
+				saveInfo.status = "processing";
+				saveInfo.resolve = async () => {
+					if (saveInfo.options.autoClose && !saveInfo.cancelled) {
+						singlefile.extension.core.bg.tabs.remove(tabId);
+					}
+					pendingSaves.delete(tabId);
+					resolve();
+					await runTask();
+				};
+				saveInfo.reject = async error => {
+					pendingSaves.delete(tabId);
+					reject(error);
+					await runTask();
+				};
+				singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: saveInfo.method, options: saveInfo.options })
+					.catch(error => {
+						if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
+							console.log(error); // eslint-disable-line no-console
+							singlefile.extension.ui.bg.main.onError(tabId);
+							saveInfo.reject(error);
 						}
-						pendingSaves.delete(tabId);
-						resolve();
-						await runTask();
-					};
-					saveInfo.reject = async error => {
-						pendingSaves.delete(tabId);
-						reject(error);
-						await runTask();
-					};
-					singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: saveInfo.method, options: saveInfo.options })
-						.catch(error => {
-							if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
-								console.log(error); // eslint-disable-line no-console
-								singlefile.extension.ui.bg.main.onError(tabId);
-								saveInfo.reject(error);
-							}
-						});
-				});
-			}
+					});
+			});
 		}
 	}
 
