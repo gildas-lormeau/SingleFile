@@ -36,6 +36,8 @@ SingleFile can be launched from the command line by running it into a (headless)
 
 - To use Firefox instead of Chrome, you must download the [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) component (i.e. `geckodriver` for Firefox).  Make sure it can be found through the `PATH` environment variable or the `cli` folder. Otherwise you will need to set the `--web-driver-executable-path` option to help WebDriver locating the executable.
 
+- To use Puppeteer with Firefox, you must install the package `puppeteer-firefox` manually by running `npm install puppeteer-firefox` and set the `--back-end` option to `puppeteer-firefox`.
+
 ## Run
 
 - Syntax
