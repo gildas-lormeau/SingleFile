@@ -70,55 +70,65 @@ singlefile.extension.core.bg.business = (() => {
 	};
 
 	async function saveTabs(tabs, options = {}) {
-		if (tabs.length) {
+		for (const tab of tabs) {
 			const config = singlefile.extension.core.bg.config;
 			const autosave = singlefile.extension.core.bg.autosave;
 			const ui = singlefile.extension.ui.bg.main;
 			maxParallelWorkers = (await config.get()).maxParallelWorkers;
-			const tab = tabs.shift();
 			const tabId = tab.id;
-			options.tabId = tabId;
-			options.tabIndex = tab.index;
-			try {
-				if (options.autoSave) {
-					const tabOptions = await config.getOptions(tab.url, true);
-					if (autosave.isEnabled(tab)) {
-						await requestSaveTab(tab, "content.autosave", tabOptions);
-					}
+			const tabOptions = await config.getOptions(tab.url);
+			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
+			tabOptions.tabId = tabId;
+			tabOptions.tabIndex = tab.index;
+			tabOptions.extensionScriptFiles = extensionScriptFiles;
+			if (options.autoSave) {
+				if (autosave.isEnabled(tab)) {
+					pendingSaves.set(tab.id, { status: "pending", tab, options: tabOptions, method: "content.autosave" });
+				}
+			} else {
+				ui.onStart(tabId, INJECT_SCRIPTS_STEP);
+				const scriptsInjected = await singlefile.extension.injectScript(tabId, tabOptions);
+				if (scriptsInjected) {
+					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
+					pendingSaves.set(tab.id, { status: "pending", tab, options: tabOptions, method: "content.save" });
 				} else {
-					ui.onStart(tabId, INJECT_SCRIPTS_STEP);
-					const tabOptions = await config.getOptions(tab.url);
-					Object.keys(options).forEach(key => tabOptions[key] = options[key]);
-					tabOptions.extensionScriptFiles = extensionScriptFiles;
-					const scriptsInjected = await singlefile.extension.injectScript(tabId, tabOptions);
-					let promiseSaveTab;
-					if (scriptsInjected) {
-						ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
-						promiseSaveTab = requestSaveTab(tab, "content.save", tabOptions);
-					} else {
-						ui.onForbiddenDomain(tab);
-						promiseSaveTab = Promise.resolve();
-					}
-					saveTabs(tabs, options);
-					const saveInfo = pendingSaves.get(tabId);
-					await promiseSaveTab;
-					if (tabOptions.autoClose && saveInfo && !saveInfo.cancelled) {
-						singlefile.extension.core.bg.tabs.remove(tabId);
-					}
+					ui.onForbiddenDomain(tab);
 				}
-			} catch (error) {
-				if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
-					console.log(error); // eslint-disable-line no-console
-					ui.onError(tabId);
-				}
-			} finally {
-				pendingSaves.delete(tabId);
-				const nextPendingSave = Array.from(pendingSaves).filter(([, saveInfo]) => saveInfo.status == "pending");
-				if (nextPendingSave.length) {
-					const [tabId, { tab, method, resolve, reject, options }] = nextPendingSave[0];
-					pendingSaves.delete(tabId);
-					requestSaveTab(tab, method, options, resolve, reject);
-				}
+			}
+		}
+		const processingCount = Array.from(pendingSaves).filter(([, saveInfo]) => saveInfo.status == "processing").length;
+		for (let index = 0; index < Math.min(tabs.length, (maxParallelWorkers - processingCount)); index++) {
+			runTask();
+		}
+
+		function runTask() {
+			const nextPendingSave = Array.from(pendingSaves).find(([, saveInfo]) => saveInfo.status == "pending");
+			if (nextPendingSave) {
+				const [tabId, saveInfo] = nextPendingSave;
+				return new Promise((resolve, reject) => {
+					saveInfo.status = "processing";
+					saveInfo.resolve = async () => {
+						if (saveInfo.options.autoClose && !saveInfo.cancelled) {
+							singlefile.extension.core.bg.tabs.remove(tabId);
+						}
+						pendingSaves.delete(tabId);
+						resolve();
+						await runTask();
+					};
+					saveInfo.reject = async error => {
+						pendingSaves.delete(tabId);
+						reject(error);
+						await runTask();
+					};
+					singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: saveInfo.method, options: saveInfo.options })
+						.catch(error => {
+							if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
+								console.log(error); // eslint-disable-line no-console
+								singlefile.extension.ui.bg.main.onError(tabId);
+								saveInfo.reject(error);
+							}
+						});
+				});
 			}
 		}
 	}
@@ -145,17 +155,6 @@ singlefile.extension.core.bg.business = (() => {
 			pendingSaves.delete(tabId);
 			saveInfo.resolve();
 		}
-	}
-
-	function requestSaveTab(tab, method, options) {
-		return new Promise((resolve, reject) => {
-			if (Array.from(pendingSaves).filter(([, saveInfo]) => saveInfo.status == "processing").length < maxParallelWorkers) {
-				pendingSaves.set(tab.id, { status: "processing", tab, options, method, resolve, reject });
-				singlefile.extension.core.bg.tabs.sendMessage(tab.id, { method, options });
-			} else {
-				pendingSaves.set(tab.id, { status: "pending", tab, options, method, resolve, reject });
-			}
-		});
 	}
 
 	function mapSaveInfo([tabId, saveInfo]) {
