@@ -87,6 +87,7 @@ singlefile.extension.core.bg.config = (() => {
 		autoOpenEditor: false
 	};
 
+	let configStorage;
 	let pendingUpgradePromise = upgrade();
 	return {
 		DEFAULT_PROFILE_NAME,
@@ -105,25 +106,31 @@ singlefile.extension.core.bg.config = (() => {
 	};
 
 	async function upgrade() {
-		const config = await browser.storage.local.get();
+		const { sync } = await browser.storage.local.get();
+		if (sync) {
+			configStorage = browser.storage.sync;
+		} else {
+			configStorage = browser.storage.local;
+		}
+		const config = await configStorage.get();
 		if (!config.profiles) {
 			const defaultConfig = config;
 			delete defaultConfig.tabsData;
 			applyUpgrade(defaultConfig);
 			const newConfig = { profiles: {}, rules: [] };
 			newConfig.profiles[DEFAULT_PROFILE_NAME] = defaultConfig;
-			browser.storage.local.remove(Object.keys(DEFAULT_CONFIG));
-			await browser.storage.local.set(newConfig);
+			configStorage.remove(Object.keys(DEFAULT_CONFIG));
+			await configStorage.set(newConfig);
 		} else {
 			if (!config.rules) {
 				config.rules = [];
 			}
 			Object.keys(config.profiles).forEach(profileName => applyUpgrade(config.profiles[profileName]));
-			await browser.storage.local.remove(["profiles", "defaultProfile", "rules"]);
-			await browser.storage.local.set({ profiles: config.profiles, rules: config.rules });
+			await configStorage.remove(["profiles", "defaultProfile", "rules"]);
+			await configStorage.set({ profiles: config.profiles, rules: config.rules });
 		}
 		if (!config.maxParallelWorkers) {
-			await browser.storage.local.set({ maxParallelWorkers: navigator.hardwareConcurrency || 4 });
+			await configStorage.set({ maxParallelWorkers: navigator.hardwareConcurrency || 4 });
 		}
 	}
 
@@ -157,7 +164,7 @@ singlefile.extension.core.bg.config = (() => {
 
 	async function getConfig() {
 		await pendingUpgradePromise;
-		return browser.storage.local.get(["profiles", "rules", "maxParallelWorkers"]);
+		return configStorage.get(["profiles", "rules", "maxParallelWorkers"]);
 	}
 
 	function sortRules(ruleLeft, ruleRight) {
@@ -218,6 +225,27 @@ singlefile.extension.core.bg.config = (() => {
 		if (message.method.endsWith(".exportConfig")) {
 			return exportConfig();
 		}
+		if (message.method.endsWith(".enableSync")) {
+			await browser.storage.local.set({ sync: true });
+			const syncConfig = await browser.storage.sync.get();
+			if (!syncConfig || !syncConfig.profiles) {
+				const localConfig = await browser.storage.local.get();
+				await browser.storage.sync.set({ profiles: localConfig.profiles, rules: localConfig.rules, maxParallelWorkers: localConfig.maxParallelWorkers });
+			}
+			configStorage = browser.storage.sync;
+			return {};
+		}
+		if (message.method.endsWith(".disableSync")) {
+			await browser.storage.local.set({ sync: false });
+			const syncConfig = await browser.storage.sync.get();
+			if (syncConfig && syncConfig.profiles) {
+				await browser.storage.local.set({ profiles: syncConfig.profiles, rules: syncConfig.rules, maxParallelWorkers: syncConfig.maxParallelWorkers });
+			}
+			configStorage = browser.storage.local;
+		}
+		if (message.method.endsWith(".isSync")) {
+			return { sync: (await browser.storage.local.get()).sync };
+		}
 		return {};
 	}
 
@@ -227,7 +255,7 @@ singlefile.extension.core.bg.config = (() => {
 			throw new Error("Duplicate profile name");
 		}
 		config.profiles[profileName] = JSON.parse(JSON.stringify(config.profiles[fromProfileName]));
-		await browser.storage.local.set({ profiles: config.profiles });
+		await configStorage.set({ profiles: config.profiles });
 	}
 
 	async function getProfiles() {
@@ -252,7 +280,7 @@ singlefile.extension.core.bg.config = (() => {
 			throw new Error("Profile not found");
 		}
 		Object.keys(profile).forEach(key => config.profiles[profileName][key] = profile[key]);
-		await browser.storage.local.set({ profiles: config.profiles });
+		await configStorage.set({ profiles: config.profiles });
 	}
 
 	async function renameProfile(oldProfileName, profileName) {
@@ -280,7 +308,7 @@ singlefile.extension.core.bg.config = (() => {
 			}
 		});
 		delete config.profiles[oldProfileName];
-		await browser.storage.local.set({ profiles: config.profiles, rules: config.rules });
+		await configStorage.set({ profiles: config.profiles, rules: config.rules });
 	}
 
 	async function deleteProfile(profileName) {
@@ -304,7 +332,7 @@ singlefile.extension.core.bg.config = (() => {
 			}
 		});
 		delete config.profiles[profileName];
-		await browser.storage.local.set({ profiles: config.profiles, rules: config.rules });
+		await configStorage.set({ profiles: config.profiles, rules: config.rules });
 	}
 
 	async function getRules() {
@@ -325,7 +353,7 @@ singlefile.extension.core.bg.config = (() => {
 			profile,
 			autoSaveProfile
 		});
-		await browser.storage.local.set({ rules: config.rules });
+		await configStorage.set({ rules: config.rules });
 	}
 
 	async function deleteRule(url) {
@@ -334,13 +362,13 @@ singlefile.extension.core.bg.config = (() => {
 		}
 		const config = await getConfig();
 		config.rules = config.rules.filter(rule => rule.url != url);
-		await browser.storage.local.set({ rules: config.rules });
+		await configStorage.set({ rules: config.rules });
 	}
 
 	async function deleteRules(profileName) {
 		const config = await getConfig();
 		config.rules = config.rules = profileName ? config.rules.filter(rule => rule.autoSaveProfile != profileName && rule.profile != profileName) : [];
-		await browser.storage.local.set({ rules: config.rules });
+		await configStorage.set({ rules: config.rules });
 	}
 
 	async function updateRule(url, newURL, profile, autoSaveProfile) {
@@ -358,15 +386,15 @@ singlefile.extension.core.bg.config = (() => {
 		urlConfig.url = newURL;
 		urlConfig.profile = profile;
 		urlConfig.autoSaveProfile = autoSaveProfile;
-		await browser.storage.local.set({ rules: config.rules });
+		await configStorage.set({ rules: config.rules });
 	}
 
 	async function getAuthInfo() {
-		return (await browser.storage.local.get(["authInfo"])).authInfo;
+		return (await configStorage.get()).authInfo;
 	}
 
 	async function setAuthInfo(authInfo) {
-		await browser.storage.local.set({ authInfo });
+		await configStorage.set({ authInfo });
 	}
 
 	async function removeAuthInfo() {
@@ -374,7 +402,7 @@ singlefile.extension.core.bg.config = (() => {
 		if (authInfo.revokableAccessToken) {
 			setAuthInfo({ revokableAccessToken: authInfo.revokableAccessToken });
 		} else {
-			await browser.storage.local.remove(["authInfo"]);
+			await configStorage.remove(["authInfo"]);
 		}
 	}
 
@@ -383,7 +411,7 @@ singlefile.extension.core.bg.config = (() => {
 		const tabsData = await singlefile.extension.core.bg.tabsData.get();
 		delete tabsData.profileName;
 		await singlefile.extension.core.bg.tabsData.set(tabsData);
-		await browser.storage.local.remove(["profiles", "rules", "maxParallelWorkers"]);
+		await configStorage.remove(["profiles", "rules", "maxParallelWorkers"]);
 		await upgrade();
 	}
 
@@ -393,7 +421,9 @@ singlefile.extension.core.bg.config = (() => {
 			throw new Error("Profile not found");
 		}
 		config.profiles[profileName] = DEFAULT_CONFIG;
-		await browser.storage.local.set({ profiles: config.profiles });
+		await configStorage.set({ profiles: config.profiles });
+		await browser.storage.local.set({ sync: false });
+		configStorage = browser.storage.local;
 	}
 
 	async function exportConfig() {
@@ -412,8 +442,8 @@ singlefile.extension.core.bg.config = (() => {
 	}
 
 	async function importConfig(config) {
-		await browser.storage.local.remove(["profiles", "rules", "maxParallelWorkers"]);
-		await browser.storage.local.set({ profiles: config.profiles, rules: config.rules, maxParallelWorkers: config.maxParallelWorkers });
+		await configStorage.remove(["profiles", "rules", "maxParallelWorkers"]);
+		await configStorage.set({ profiles: config.profiles, rules: config.rules, maxParallelWorkers: config.maxParallelWorkers });
 		await upgrade();
 	}
 

@@ -391,6 +391,10 @@
 		"message": "帮助",
 		"description": "选项页帮助链接"
 	},
+	"optionSynchronize": {
+		"message": "synchronize options",
+		"description": "Options label: 'synchronize options'"
+	},
 	"optionsResetButton": {
 		"message": "重置",
 		"description": "选项按钮: '重置'"

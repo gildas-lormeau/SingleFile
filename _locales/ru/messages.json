@@ -391,6 +391,10 @@
 		"message": "помощь",
 		"description": "Options help link"
 	},
+	"optionSynchronize": {
+		"message": "synchronize options",
+		"description": "Options label: 'synchronize options'"
+	},
 	"optionsResetButton": {
 		"message": "Сброс",
 		"description": "Options button: 'Reset'"

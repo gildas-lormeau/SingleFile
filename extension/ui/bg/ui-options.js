@@ -89,6 +89,7 @@
 	const includeInfobarLabel = document.getElementById("includeInfobarLabel");
 	const miscLabel = document.getElementById("miscLabel");
 	const helpLabel = document.getElementById("helpLabel");
+	const synchronizeLabel = document.getElementById("synchronizeLabel");
 	const addProfileButton = document.getElementById("addProfileButton");
 	const deleteProfileButton = document.getElementById("deleteProfileButton");
 	const renameProfileButton = document.getElementById("renameProfileButton");
@@ -153,6 +154,7 @@
 	const createURLElement = rulesElement.querySelector(".rule-create");
 	const showAllProfilesInput = document.getElementById("showAllProfilesInput");
 	const showAutoSaveProfileInput = document.getElementById("showAutoSaveProfileInput");
+	const synchronizeInput = document.getElementById("synchronizeInput");
 	const resetAllButton = document.getElementById("resetAllButton");
 	const resetCurrentButton = document.getElementById("resetCurrentButton");
 	const resetCancelButton = document.getElementById("resetCancelButton");
@@ -356,6 +358,16 @@
 			await browser.runtime.sendMessage({ method: "downloads.disableGDrive" });
 		}
 	}, false);
+	synchronizeInput.checked = (await browser.runtime.sendMessage({ method: "config.isSync" })).sync;
+	synchronizeInput.addEventListener("click", async () => {
+		if (synchronizeInput.checked) {
+			await browser.runtime.sendMessage({ method: "config.enableSync" });
+			await refresh(DEFAULT_PROFILE_NAME);
+		} else {
+			await browser.runtime.sendMessage({ method: "config.disableSync" });
+			await refresh();
+		}
+	}, false);
 	document.body.onchange = async event => {
 		let target = event.target;
 		if (target != ruleUrlInput && target != ruleProfileInput && target != ruleAutoSaveProfileInput && target != ruleEditUrlInput && target != ruleEditProfileInput && target != ruleEditAutoSaveProfileInput && target != showAutoSaveProfileInput) {
@@ -453,6 +465,7 @@
 	showAllProfilesLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsShowAllProfiles");
 	showAutoSaveProfileLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsShowAutoSaveProfile");
 	ruleUrlInput.placeholder = ruleEditUrlInput.placeholder = browser.i18n.getMessage("optionsAutoSettingsUrlPlaceholder");
+	synchronizeLabel.textContent = browser.i18n.getMessage("optionSynchronize");
 	resetAllButton.textContent = browser.i18n.getMessage("optionsResetAllButton");
 	resetCurrentButton.textContent = browser.i18n.getMessage("optionsResetCurrentButton");
 	resetCancelButton.textContent = promptCancelButton.textContent = cancelButton.textContent = browser.i18n.getMessage("optionsCancelButton");
