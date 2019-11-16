@@ -71,9 +71,9 @@ singlefile.extension.core.bg.business = (() => {
 	async function saveTabs(tabs, options = {}) {
 		const config = singlefile.extension.core.bg.config;
 		const maxParallelWorkers = (await config.get()).maxParallelWorkers;
+		const autosave = singlefile.extension.core.bg.autosave;
+		const ui = singlefile.extension.ui.bg.main;
 		await Promise.all(tabs.map(async tab => {
-			const autosave = singlefile.extension.core.bg.autosave;
-			const ui = singlefile.extension.ui.bg.main;
 			const tabId = tab.id;
 			const tabOptions = await config.getOptions(tab.url);
 			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
