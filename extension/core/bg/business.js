@@ -70,7 +70,7 @@ singlefile.extension.core.bg.business = (() => {
 	};
 
 	async function saveTabs(tabs, options = {}) {
-		for (const tab of tabs) {
+		await Promise.all(tabs.map(async tab => {
 			const config = singlefile.extension.core.bg.config;
 			const autosave = singlefile.extension.core.bg.autosave;
 			const ui = singlefile.extension.ui.bg.main;
@@ -95,7 +95,7 @@ singlefile.extension.core.bg.business = (() => {
 					ui.onForbiddenDomain(tab);
 				}
 			}
-		}
+		}));
 		const processingCount = Array.from(pendingSaves).filter(([, saveInfo]) => saveInfo.status == "processing").length;
 		for (let index = 0; index < Math.min(tabs.length, (maxParallelWorkers - processingCount)); index++) {
 			runTask();
