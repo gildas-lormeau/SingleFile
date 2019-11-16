@@ -312,6 +312,44 @@
 							}
 						});
 					})
+				},
+				sync: {
+					set: value => new Promise((resolve, reject) => {
+						nativeAPI.storage.sync.set(value, () => {
+							if (nativeAPI.runtime.lastError) {
+								reject(nativeAPI.runtime.lastError);
+							} else {
+								resolve();
+							}
+						});
+					}),
+					get: () => new Promise((resolve, reject) => {
+						nativeAPI.storage.sync.get(null, value => {
+							if (nativeAPI.runtime.lastError) {
+								reject(nativeAPI.runtime.lastError);
+							} else {
+								resolve(value);
+							}
+						});
+					}),
+					clear: () => new Promise((resolve, reject) => {
+						nativeAPI.storage.sync.clear(() => {
+							if (nativeAPI.runtime.lastError) {
+								reject(nativeAPI.runtime.lastError);
+							} else {
+								resolve();
+							}
+						});
+					}),
+					remove: keys => new Promise((resolve, reject) => {
+						nativeAPI.storage.sync.remove(keys, () => {
+							if (nativeAPI.runtime.lastError) {
+								reject(nativeAPI.runtime.lastError);
+							} else {
+								resolve();
+							}
+						});
+					})
 				}
 			},
 			tabs: {
