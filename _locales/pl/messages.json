@@ -392,7 +392,7 @@
 		"description": "Options help link"
 	},
 	"optionSynchronize": {
-		"message": "synchronize options",
+		"message": "opcje synchronizacji",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionsResetButton": {
