@@ -144,6 +144,7 @@
 			serializeShadowRoots(document);
 			const doc = document.cloneNode(true);
 			deserializeShadowRoots(doc);
+			deserializeShadowRoots(document);
 			doc.querySelectorAll("[" + DISABLED_NOSCRIPT_ATTRIBUTE_NAME + "]").forEach(element => {
 				element.textContent = element.getAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
 				element.removeAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
