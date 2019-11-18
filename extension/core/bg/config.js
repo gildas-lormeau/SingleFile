@@ -412,6 +412,8 @@ singlefile.extension.core.bg.config = (() => {
 		delete tabsData.profileName;
 		await singlefile.extension.core.bg.tabsData.set(tabsData);
 		await configStorage.remove(["profiles", "rules", "maxParallelWorkers"]);
+		await browser.storage.local.set({ sync: false });
+		configStorage = browser.storage.local;
 		await upgrade();
 	}
 
@@ -422,8 +424,6 @@ singlefile.extension.core.bg.config = (() => {
 		}
 		config.profiles[profileName] = DEFAULT_CONFIG;
 		await configStorage.set({ profiles: config.profiles });
-		await browser.storage.local.set({ sync: false });
-		configStorage = browser.storage.local;
 	}
 
 	async function exportConfig() {
