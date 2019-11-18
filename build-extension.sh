@@ -8,7 +8,7 @@ jq "del(.options_page,.background.persistent,.optional_permissions[0],.oauth2)" 
 sed -i 's/207618107333-bktohpfmdfnv5hfavi1ll18h74gqi27v/207618107333-8fpm0a5h0lho1svrhdj21sbri3via774/g' manifest.json
 zip -r singlefile-extension-firefox.zip manifest.json common extension lib _locales
 
-jq "del(.applications,.permissions[0],.permissions[1],.applications,.options_ui.browser_style)" manifest.copy.json > manifest.json
+jq "del(.applications,.permissions[0],.permissions[1],.options_ui.browser_style)" manifest.copy.json > manifest.json
 sed -i 's/207618107333-bktohpfmdfnv5hfavi1ll18h74gqi27v/207618107333-8fpm0a5h0lho1svrhdj21sbri3via774/g' manifest.json
 zip -r singlefile-extension-chromium.zip manifest.json common extension lib _locales
 
