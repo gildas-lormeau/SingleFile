@@ -48,7 +48,7 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 					extractAuthCode: options.extractAuthCode,
 					filenameReplacementCharacter: options.filenameReplacementCharacter,
 					openEditor: options.openEditor,
-					compressHTML: options.compressHTMLEdit,
+					compressHTML: options.compressHTML,
 					backgroundSave: options.backgroundSave
 				};
 				message.truncated = pageData.content.length > MAX_CONTENT_SIZE;
