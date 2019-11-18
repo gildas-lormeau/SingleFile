@@ -79,11 +79,6 @@ singlefile.extension.ui.bg.button = (() => {
 			setTitle: { title: BUTTON_DEFAULT_TOOLTIP_MESSAGE },
 			setIcon: { path: DEFAULT_ICON_PATH }
 		},
-		upload: {
-			setBadgeBackgroundColor: { color: DEFAULT_COLOR },
-			setBadgeText: { text: BUTTON_DEFAULT_BADGE_MESSAGE },
-			setTitle: { title: BUTTON_DEFAULT_BADGE_MESSAGE },
-		},
 		error: {
 			setBadgeBackgroundColor: { color: ERROR_COLOR },
 			setBadgeText: { text: BUTTON_ERROR_BADGE_MESSAGE },
@@ -134,8 +129,7 @@ singlefile.extension.ui.bg.button = (() => {
 		onMessage,
 		onStart,		
 		onUploadProgress,
-		onForbiddenDomain,
-		onUpload,
+		onForbiddenDomain,		
 		onError,
 		onEdit,
 		onEnd,
@@ -179,10 +173,6 @@ singlefile.extension.ui.bg.button = (() => {
 			state.setIcon = { path: WAIT_ICON_PATH_PREFIX + "0.png" };
 		}
 		refresh(tabId, state);
-	}
-
-	function onUpload(tabId) {
-		refresh(tabId, getButtonState("upload"));
 	}
 
 	function onError(tabId) {
