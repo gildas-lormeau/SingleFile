@@ -308,7 +308,7 @@
 		"description": "Options label in the Auto-settings rules: 'display all profiles'"
 	},
 	"optionsAutoSettingsShowAutoSaveProfile": {
-		"message": "отобразить столбец \"'Профиль автосохранения\"",
+		"message": "отобразить столбец \"Профиль автосохранения\"",
 		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
 	},
 	"optionsUpdateRuleTooltip": {
