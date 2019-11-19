@@ -127,9 +127,9 @@ singlefile.extension.ui.bg.button = (() => {
 
 	return {
 		onMessage,
-		onStart,		
+		onStart,
 		onUploadProgress,
-		onForbiddenDomain,		
+		onForbiddenDomain,
 		onError,
 		onEdit,
 		onEnd,
