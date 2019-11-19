@@ -1,4 +1,4 @@
-{
+﻿{
 	"extensionDescription": {
 		"message": "Сохранить полную страницу в одном HTML-файле",
 		"description": "Description of the extension."
@@ -12,7 +12,7 @@
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
 	"menuViewPendingSaves": {
-		"message": "View pending saves...",
+		"message": "Просмотр отложенных сохранений...",
 		"description": "Menu entry: 'View pending saves...'"
 	},
 	"menuSelectProfile": {
@@ -44,7 +44,7 @@
 		"description": "Menu entry: 'Save selected tabs'"
 	},
 	"menuSaveUnpinnedTabs": {
-		"message": "Сохранить незакрепленные вкладки",
+		"message": "Сохранить незакреплённые вкладки",
 		"description": "Menu entry: 'Save unpinned tabs'"
 	},
 	"menuSaveAllTabs": {
@@ -64,7 +64,7 @@
 		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
 	},
 	"menuAutoSaveUnpinnedTabs": {
-		"message": "Автосохранение незакрепленных вкладок",
+		"message": "Автосохранение незакреплённых вкладок",
 		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
 	},
 	"menuAutoSaveAllTabs": {
@@ -92,11 +92,11 @@
 		"description": "Badge label during initialization: '•••'"
 	},
 	"buttonSaveProgressTooltip": {
-		"message": "Прогресс сохранения: ",
+		"message": "Ход сохранения: ",
 		"description": "Button title during save: 'Save progress: xx%'"
 	},
 	"buttonUploadProgressTooltip": {
-		"message": "Upload progress: ",
+		"message": "Ход загрузки: ",
 		"description": "Button title during save: 'Upload progress: xx%'"
 	},
 	"buttonOKBadge": {
@@ -132,7 +132,7 @@
 		"description": "Options page label: 'overlay a shadow on the page during processing'"
 	},
 	"optionDisplayInfobar": {
-		"message": "отображать информационную панель при просмотре сохраненной страницы",
+		"message": "отображать информационную панель при просмотре сохранённой страницы",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
 	"optionInfobarTemplate": {
@@ -148,15 +148,15 @@
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionOpenEditorLabel": {
-		"message": "annotate the page before saving",
+		"message": "аннотировать страницу перед сохранением",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionAutoOpenEditor": {
-		"message": "open pages saved with SingleFile in the annotation editor",
+		"message": "сохранять открытые страницы из редактора аннотаций SingleFile",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionAutoCloseLabel": {
-		"message": "auto-close the tab after the page is saved",
+		"message": "автозакрытие вкладки после сохранения страницы",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
 	"optionsFileNameSubTitle": {
@@ -172,7 +172,7 @@
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
 	},
 	"optionFilenameConflictAction": {
-		"message": "разрешение конфликтов имен файлов",
+		"message": "разрешение конфликтов имён файлов",
 		"description": "Options page label: 'filename conflict resolution'"
 	},
 	"optionFilenameConflictActionUniquify": {
@@ -292,7 +292,7 @@
 		"description": "Options label in the auto-settings rules: 'URL'"
 	},
 	"optionsAutoSettingsUrlPlaceholder": {
-		"message": "Введите полный или частичный URL (т.к. example.com)",
+		"message": "Введите полный или частичный URL (например, example.com)",
 		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
 	},
 	"optionsAutoSettingsProfile": {
@@ -308,7 +308,7 @@
 		"description": "Options label in the Auto-settings rules: 'display all profiles'"
 	},
 	"optionsAutoSettingsShowAutoSaveProfile": {
-		"message": "отобразить столбец 'Профиль автосохранения'",
+		"message": "отобразить столбец \"'Профиль автосохранения\"",
 		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
 	},
 	"optionsUpdateRuleTooltip": {
@@ -384,7 +384,7 @@
 		"description": "Options page label: 'save to clipboard'"
 	},
 	"optionSaveToGDrive": {
-		"message": "save to Google Drive",
+		"message": "сохранить на Google Drive",
 		"description": "Options page label: 'save to Google Drive'"
 	},
 	"optionsHelpLink": {
@@ -392,7 +392,7 @@
 		"description": "Options help link"
 	},
 	"optionSynchronize": {
-		"message": "synchronize options",
+		"message": "параметры синхронизации",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionsResetButton": {
@@ -480,79 +480,79 @@
 		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
 	},
 	"editorAddYellowNote": {
-		"message": "Add a yellow note",
+		"message": "Добавить жёлтую заметку",
 		"description": "Title of the button 'Add a yellow note' in the editor"
 	},
 	"editorAddPinkNote": {
-		"message": "Add a pink note",
+		"message": "Добавить розовую заметку",
 		"description": "Title of the button 'Add a pink note' in the editor"
 	},
 	"editorAddBlueNote": {
-		"message": "Add a blue note",
+		"message": "Добавить синюю заметку",
 		"description": "Title of the button 'Add a blue note' in the editor"
 	},
 	"editorAddGreenNote": {
-		"message": "Add a green note",
+		"message": "Добавить зелёную заметку",
 		"description": "Title of the button 'Add a green note' in the editor"
 	},
 	"editorHighlightYellow": {
-		"message": "Highlight selected text in yellow",
+		"message": "Выделить выбранный текст жёлтым цветом",
 		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
 	},
 	"editorHighlightPink": {
-		"message": "Highlight selected text in pink",
+		"message": "Выделить выбранный текст розовым цветом",
 		"description": "Title of the button 'Highlight selected text in pink' in the editor"
 	},
 	"editorHighlightBlue": {
-		"message": "Highlight selected text in blue",
+		"message": "Выделить выбранный текст синим цветом",
 		"description": "Title of the button 'Highlight selected text in blue' in the editor"
 	},
 	"editorHighlightGreen": {
-		"message": "Highlight selected text in green",
+		"message": "Выделить выбранный текст зелёным цветом",
 		"description": "Title of the button 'Highlight selected text in green' in the editor"
 	},
 	"editorToggleNotes": {
-		"message": "Display/hide notes",
+		"message": "Показать/скрыть заметки",
 		"description": "Title of the button 'Display/hide notes' in the editor"
 	},
 	"editorToggleHighlights": {
-		"message": "Display/hide the highlighted text",
+		"message": "Показать/скрыть выделение текста",
 		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
 	},
 	"editorRemoveHighlight": {
-		"message": "Remove the selected highlighted text",
+		"message": "Удалить выделение выбранного текста",
 		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
 	},
 	"editorEditPage": {
-		"message": "Enable/disable read-only",
+		"message": "Включить/отключить режим \"только для чтения\"",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorCutPage": {
-		"message": "Enable/disable removing document's element on click",
+		"message": "Включить/отключить удаление элемента документа щелчком мыши",
 		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
 	},
 	"editorUndoCutPage": {
-		"message": "Restore last removed element",
+		"message": "Восстановить последний удалённый элемент",
 		"description": "Title of the button 'Restore last removed element' in the editor"
 	},
 	"editorUndoAllCutPage": {
-		"message": "Restore all removed elements",
+		"message": "Восстановить все удалённые элементы",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
 	"editorSavePage": {
-		"message": "Save the page",
+		"message": "Сохранить страницу",
 		"description": "Title of the button 'Save the page' in the editor"
 	},
 	"pendingsTitle": {
-		"message": "Pending saves",
+		"message": "Отложенное сохранение",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
 	},
 	"pendingsCancelAllButton": {
-		"message": "Cancel all",
+		"message": "Отменить все",
 		"description": "Pending saves button 'Cancel all'"
 	},
 	"pendingsTitleTitle": {
-		"message": "Title",
+		"message": "Заголовок",
 		"description": "Title of the first column in the table of the pending saves 'Title'"
 	},
 	"pendingsURLTitle": {
@@ -560,23 +560,23 @@
 		"description": "Title of the first column in the table of the pending saves 'URL'"
 	},
 	"pendingsStatusTitle": {
-		"message": "status",
+		"message": "статус",
 		"description": "Title of the second column in the table of the pending saves 'status'"
 	},
 	"pendingsPendingStatus": {
-		"message": "pending",
+		"message": "отложено",
 		"description": "Value of 'status' for pending saves"
 	},
 	"pendingsProcessingStatus": {
-		"message": "processing",
+		"message": "выполнение",
 		"description": "Value of 'status' for current saves"
 	},
 	"pendingsCancellingStatus": {
-		"message": "cancelling",
+		"message": "отмена",
 		"description": "Value of 'status' for cancelled saves"
 	},
 	"pendingsNoPendings": {
-		"message": "No pending saves",
+		"message": "Нет отложенных сохранений",
 		"description": "Label displayed when they are no pending saves"
 	}
 }
