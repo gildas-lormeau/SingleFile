@@ -44,7 +44,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	const undoAllCutPageButton = document.querySelector(".undo-all-cut-page-button");
 	const savePageButton = document.querySelector(".save-page-button");
 
-	let tabData;
+	let tabData, tabDataContents = [];
 
 	addYellowNoteButton.title = browser.i18n.getMessage("editorAddYellowNote");
 	addPinkNoteButton.title = browser.i18n.getMessage("editorAddPinkNote");
@@ -181,10 +181,7 @@ singlefile.extension.ui.bg.editor = (() => {
 			singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
 		}
 	};
-	window.onload = async () => {
-		tabData = await browser.runtime.sendMessage({ method: "editor.getTabData" });
-		editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
-	};
+	window.onload = browser.runtime.sendMessage({ method: "editor.getTabData" });
 
 	browser.runtime.onMessage.addListener(message => {
 		if (message.method == "content.save") {
@@ -194,6 +191,20 @@ singlefile.extension.ui.bg.editor = (() => {
 		}
 		if (message.method == "common.promptValueRequest") {
 			browser.runtime.sendMessage({ method: "tabs.promptValueResponse", value: prompt(message.promptMessage) });
+			return {};
+		}
+		if (message.method == "editor.setTabData") {
+			if (message.truncated) {
+				tabDataContents.push(message.content);
+			} else {
+				tabDataContents = [message.content];
+			}
+			if (!message.truncated || message.finished) {
+				tabData = JSON.parse(tabDataContents.join(""));
+				tabDataContents = [];
+				editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
+				delete tabData.content;
+			}
 			return {};
 		}
 	});

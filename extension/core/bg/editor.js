@@ -25,6 +25,7 @@
 
 singlefile.extension.core.bg.editor = (() => {
 
+	const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 	const tabsData = new Map();
 	const partialContents = new Map();
 	const EDITOR_URL = browser.runtime.getURL("/extension/ui/editor/editor.html");
@@ -58,7 +59,23 @@ singlefile.extension.core.bg.editor = (() => {
 	async function onMessage(message, sender) {
 		if (message.method.endsWith(".getTabData")) {
 			const tab = sender.tab;
-			return tabsData.get(tab.id);
+			const tabData = tabsData.get(tab.id);
+			if (tabData) {
+				const content = JSON.stringify(tabData);
+				for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
+					const message = {
+						method: "editor.setTabData"
+					};
+					message.truncated = content.length > MAX_CONTENT_SIZE;
+					if (message.truncated) {
+						message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > content.length;
+						message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+					} else {
+						message.content = content;
+					}
+					await singlefile.extension.core.bg.tabs.sendMessage(tab.id, message);
+				}
+			}
 		}
 		if (message.method.endsWith(".open")) {
 			let contents;
