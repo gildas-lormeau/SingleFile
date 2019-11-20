@@ -108,6 +108,7 @@ singlefile.extension.core.bg.downloads = (() => {
 				if (message.saveToClipboard) {
 					message.content = contents.join("");
 					saveToClipboard(message);
+					singlefile.extension.ui.bg.main.onEnd(tab.id);
 				} else {
 					await downloadBlob(new Blob([contents], { type: MIMETYPE_HTML }), tab.id, tab.incognito, message);
 				}
