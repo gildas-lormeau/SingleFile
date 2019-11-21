@@ -42,26 +42,28 @@ singlefile.extension.core.bg.business = (() => {
 		"extension/ui/content/content-ui-main.js"
 	];
 
-	const pendingSaves = new Map();
+	const tasks = [];
+	let currentTaskId = 0;
 
 	return {
-		isSavingTab: tab => pendingSaves.has(tab.id),
+		isSavingTab: tab => Boolean(tasks.find(taskInfo => taskInfo.tab.id == tab.id)),
 		saveTabs,
 		saveLink,
 		cancelTab,
-		cancelAllTabs: () => Array.from(pendingSaves).forEach(([tabId]) => cancelTab(tabId)),
-		getTabsInfo: () => Array.from(pendingSaves).map(mapSaveInfo),
-		getTabInfo: tabId => pendingSaves.get(tabId),
-		setCancelCallback: (tabId, cancelCallback) => {
-			const saveInfo = pendingSaves.get(tabId);
-			if (saveInfo) {
-				saveInfo.cancel = cancelCallback;
+		cancelTask: taskId => cancelTask(tasks.find(taskInfo => taskInfo.taskId == taskId)),
+		cancelAllTasks: () => Array.from(tasks).forEach(cancelTask),
+		getTasksInfo: () => tasks.map(mapTaskInfo),
+		getTaskInfo: taskId => tasks.find(taskInfo => taskInfo.id == taskId),
+		setCancelCallback: (taskId, cancelCallback) => {
+			const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
+			if (taskInfo) {
+				taskInfo.cancel = cancelCallback;
 			}
 		},
-		onSaveEnd: tabId => {
-			const saveInfo = pendingSaves.get(tabId);
-			if (saveInfo) {
-				saveInfo.resolve();
+		onSaveEnd: taskId => {
+			const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
+			if (taskInfo) {
+				taskInfo.resolve();
 			}
 		},
 		onTabUpdated: cancelTab,
@@ -82,50 +84,54 @@ singlefile.extension.core.bg.business = (() => {
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
 			if (options.autoSave) {
 				if (autosave.isEnabled(tab)) {
-					pendingSaves.set(tab.id, { status: "pending", tab, options: tabOptions, method: "content.autosave" });
+					tasks.push({ id: currentTaskId, status: "pending", tab, options: tabOptions, method: "content.autosave" });
+					currentTaskId++;
 				}
 			} else {
 				ui.onStart(tabId, INJECT_SCRIPTS_STEP);
 				const scriptsInjected = await singlefile.extension.injectScript(tabId, tabOptions);
 				if (scriptsInjected) {
 					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
-					pendingSaves.set(tab.id, { status: "pending", tab, options: tabOptions, method: "content.save" });
+					tasks.push({ id: currentTaskId, status: "pending", tab, options: tabOptions, method: "content.save" });
+					currentTaskId++;
 				} else {
 					ui.onForbiddenDomain(tab);
 				}
 			}
 		}));
-		const processingCount = Array.from(pendingSaves).filter(([, saveInfo]) => saveInfo.status == "processing").length;
+		const processingCount = tasks.filter(taskInfo => taskInfo.status == "processing").length;
 		for (let index = 0; index < Math.min(tabs.length, (maxParallelWorkers - processingCount)); index++) {
 			runTask();
 		}
 	}
 
 	function runTask() {
-		const nextPendingSave = Array.from(pendingSaves).find(([, saveInfo]) => saveInfo.status == "pending");
-		if (nextPendingSave) {
-			const [tabId, saveInfo] = nextPendingSave;
+		const taskInfo = tasks.find(taskInfo => taskInfo.status == "pending");
+		if (taskInfo) {
+			const tabId = taskInfo.tab.id;
+			const taskId = taskInfo.id;
 			return new Promise((resolve, reject) => {
-				saveInfo.status = "processing";
-				saveInfo.resolve = async () => {
-					if (saveInfo.options.autoClose && !saveInfo.cancelled) {
-						singlefile.extension.core.bg.tabs.remove(tabId);
+				taskInfo.status = "processing";
+				taskInfo.resolve = async () => {
+					if (taskInfo.options.autoClose && !taskInfo.cancelled) {
+						singlefile.extension.core.bg.tabs.remove(taskInfo.tab.id);
 					}
-					pendingSaves.delete(tabId);
+					tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == taskId), 1);
 					resolve();
 					await runTask();
 				};
-				saveInfo.reject = async error => {
-					pendingSaves.delete(tabId);
+				taskInfo.reject = async error => {
+					tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == taskId), 1);
 					reject(error);
 					await runTask();
 				};
-				singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: saveInfo.method, options: saveInfo.options })
+				taskInfo.options.taskId = taskId;
+				singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: taskInfo.method, options: taskInfo.options })
 					.catch(error => {
 						if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
 							console.log(error); // eslint-disable-line no-console
 							singlefile.extension.ui.bg.main.onError(tabId);
-							saveInfo.reject(error);
+							taskInfo.reject(error);
 						}
 					});
 			});
@@ -140,24 +146,27 @@ singlefile.extension.core.bg.business = (() => {
 	}
 
 	function cancelTab(tabId) {
-		if (pendingSaves.has(tabId)) {
-			const saveInfo = pendingSaves.get(tabId);
-			saveInfo.cancelled = true;
-			singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave" });
-			if (saveInfo.cancel) {
-				saveInfo.cancel();
-			}
-			if (saveInfo.method == "content.autosave") {
-				singlefile.extension.ui.bg.main.onEnd(tabId, true);
-			}
-			singlefile.extension.ui.bg.main.onCancelled(saveInfo.tab);
-			pendingSaves.delete(tabId);
-			saveInfo.resolve();
-		}
+		Array.from(tasks).filter(taskInfo => taskInfo.tab.id == tabId).forEach(cancelTask);
 	}
 
-	function mapSaveInfo([tabId, saveInfo]) {
-		return [tabId, { index: saveInfo.tab.index, url: saveInfo.tab.url, title: saveInfo.tab.title, cancelled: saveInfo.cancelled, status: saveInfo.status }];
+	function cancelTask(taskInfo) {
+		const tabId = taskInfo.tab.id;
+		const taskId = taskInfo.id;
+		taskInfo.cancelled = true;
+		singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave" });
+		if (taskInfo.cancel) {
+			taskInfo.cancel();
+		}
+		if (taskInfo.method == "content.autosave") {
+			singlefile.extension.ui.bg.main.onEnd(tabId, true);
+		}
+		singlefile.extension.ui.bg.main.onCancelled(taskInfo.tab);
+		tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == taskId), 1);
+		taskInfo.resolve();
+	}
+
+	function mapTaskInfo(taskInfo) {
+		return { id: taskInfo.id, tabId: taskInfo.tab.id, index: taskInfo.tab.index, url: taskInfo.tab.url, title: taskInfo.tab.title, cancelled: taskInfo.cancelled, status: taskInfo.status };
 	}
 
 })();

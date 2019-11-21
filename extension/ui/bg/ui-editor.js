@@ -185,6 +185,7 @@ singlefile.extension.ui.bg.editor = (() => {
 
 	browser.runtime.onMessage.addListener(message => {
 		if (message.method == "content.save") {
+			tabData.options = message.options;
 			savePage();
 			browser.runtime.sendMessage({ method: "ui.processInit" });
 			return {};
