@@ -147,7 +147,7 @@
 		"message": "відкривати діалогове вікно для редагування вмісту інформаційної панелі",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
-	"optionOpenEditorLabel": {
+	"optionOpenEditor": {
 		"message": "анотувати сторінки перед збереженням",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
@@ -155,7 +155,7 @@
 		"message": "open pages saved with SingleFile in the annotation editor",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
-	"optionAutoCloseLabel": {
+	"optionAutoClose": {
 		"message": "автоматично закривати вкладку після збереження сторінки",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},

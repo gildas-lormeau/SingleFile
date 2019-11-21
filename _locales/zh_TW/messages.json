@@ -147,7 +147,7 @@
 		"message": "打開一個提示窗口以編輯信息欄內容",
 		"description": "選項頁標籤: '打開一個提示窗口以編輯信息欄內容'"
 	},
-	"optionOpenEditorLabel": {
+	"optionOpenEditor": {
 		"message": "annotate the page before saving",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
@@ -155,7 +155,7 @@
 		"message": "open pages saved with SingleFile in the annotation editor",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
-	"optionAutoCloseLabel": {
+	"optionAutoClose": {
 		"message": "auto-close the tab after the page is saved",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},

@@ -147,7 +147,7 @@
 		"message": "открывать диалоговое окно для редактирования содержимого информационной панели",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
-	"optionOpenEditorLabel": {
+	"optionOpenEditor": {
 		"message": "аннотировать страницу перед сохранением",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
@@ -155,7 +155,7 @@
 		"message": "сохранять открытые страницы из редактора аннотаций SingleFile",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
-	"optionAutoCloseLabel": {
+	"optionAutoClose": {
 		"message": "автозакрытие вкладки после сохранения страницы",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},

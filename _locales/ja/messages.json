@@ -147,7 +147,7 @@
 		"message": "infobar のコンテンツを編集するためのプロンプトダイアログを開く",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
-	"optionOpenEditorLabel": {
+	"optionOpenEditor": {
 		"message": "保存する前にページに注釈を付けます",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
@@ -155,7 +155,7 @@
 		"message": "annotation editor で、SingleFile で保存されたページを開く",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
-	"optionAutoCloseLabel": {
+	"optionAutoClose": {
 		"message": "ページが保存された後にタブを自動的に閉じる",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},

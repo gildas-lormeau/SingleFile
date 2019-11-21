@@ -448,8 +448,8 @@
 	infobarTemplateLabel.textContent = browser.i18n.getMessage("optionInfobarTemplate");
 	includeInfobarLabel.textContent = browser.i18n.getMessage("optionIncludeInfobar");
 	confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
-	autoCloseLabel.textContent = browser.i18n.getMessage("optionAutoCloseLabel");
-	openEditorLabel.textContent = browser.i18n.getMessage("optionOpenEditorLabel");
+	autoCloseLabel.textContent = browser.i18n.getMessage("optionAutoClose");
+	openEditorLabel.textContent = browser.i18n.getMessage("optionOpenEditor");
 	autoOpenEditorLabel.textContent = browser.i18n.getMessage("optionAutoOpenEditor");
 	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
 	exportButton.textContent = browser.i18n.getMessage("optionsExportButton");
