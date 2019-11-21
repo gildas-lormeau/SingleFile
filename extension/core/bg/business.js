@@ -146,7 +146,7 @@ singlefile.extension.core.bg.business = (() => {
 	}
 
 	function cancelTab(tabId) {
-		Array.from(tasks).filter(taskInfo => taskInfo.tab.id == tabId).forEach(cancelTask);
+		Array.from(tasks).filter(taskInfo => taskInfo.tab.id == tabId && !taskInfo.options.autoSave).forEach(cancelTask);
 	}
 
 	function cancelTask(taskInfo) {
