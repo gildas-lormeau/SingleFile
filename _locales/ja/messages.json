@@ -12,7 +12,7 @@
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
 	"menuViewPendingSaves": {
-		"message": "View pending saves...",
+		"message": "保留中の保存を表示...",
 		"description": "Menu entry: 'View pending saves...'"
 	},
 	"menuSelectProfile": {
@@ -96,7 +96,7 @@
 		"description": "Button title during save: 'Save progress: xx%'"
 	},
 	"buttonUploadProgressTooltip": {
-		"message": "Upload progress: ",
+		"message": "アップロードの進行状況: ",
 		"description": "Button title during save: 'Upload progress: xx%'"
 	},
 	"buttonOKBadge": {
@@ -148,11 +148,11 @@
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionOpenEditorLabel": {
-		"message": "annotate the page before saving",
+		"message": "保存する前にページに注釈を付けます",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionAutoOpenEditor": {
-		"message": "open pages saved with SingleFile in the annotation editor",
+		"message": "annotation editor で、SingleFile で保存されたページを開く",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionAutoCloseLabel": {
@@ -220,7 +220,7 @@
 		"description": "Options page label: 'save deferred images'"
 	},
 	"optionLoadDeferredImagesMaxIdleTime": {
-		"message": "最大アイドル時間（秒）",
+		"message": "最大アイドル時間（ミリ秒）",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
 	"optionRemoveAlternativeImages": {
@@ -384,7 +384,7 @@
 		"description": "Options page label: 'save to clipboard'"
 	},
 	"optionSaveToGDrive": {
-		"message": "save to Google Drive",
+		"message": "Google Drive に保存",
 		"description": "Options page label: 'save to Google Drive'"
 	},
 	"optionsHelpLink": {
@@ -392,7 +392,7 @@
 		"description": "Options help link"
 	},
 	"optionSynchronize": {
-		"message": "synchronize options",
+		"message": "同期オプション",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionsResetButton": {
@@ -480,79 +480,79 @@
 		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
 	},
 	"editorAddYellowNote": {
-		"message": "Add a yellow note",
+		"message": "黄色のメモを追加する",
 		"description": "Title of the button 'Add a yellow note' in the editor"
 	},
 	"editorAddPinkNote": {
-		"message": "Add a pink note",
+		"message": "ピンクのメモを追加",
 		"description": "Title of the button 'Add a pink note' in the editor"
 	},
 	"editorAddBlueNote": {
-		"message": "Add a blue note",
+		"message": "青いメモを追加する",
 		"description": "Title of the button 'Add a blue note' in the editor"
 	},
 	"editorAddGreenNote": {
-		"message": "Add a green note",
+		"message": "緑のメモを追加する",
 		"description": "Title of the button 'Add a green note' in the editor"
 	},
 	"editorHighlightYellow": {
-		"message": "Highlight selected text in yellow",
+		"message": "選択したテキストを黄色で強調表示します",
 		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
 	},
 	"editorHighlightPink": {
-		"message": "Highlight selected text in pink",
+		"message": "選択したテキストをピンクで強調表示します",
 		"description": "Title of the button 'Highlight selected text in pink' in the editor"
 	},
 	"editorHighlightBlue": {
-		"message": "Highlight selected text in blue",
+		"message": "選択したテキストを青色で強調表示します",
 		"description": "Title of the button 'Highlight selected text in blue' in the editor"
 	},
 	"editorHighlightGreen": {
-		"message": "Highlight selected text in green",
+		"message": "選択したテキストを緑色で強調表示します",
 		"description": "Title of the button 'Highlight selected text in green' in the editor"
 	},
 	"editorToggleNotes": {
-		"message": "Display/hide notes",
+		"message": "メモを表示/非表示",
 		"description": "Title of the button 'Display/hide notes' in the editor"
 	},
 	"editorToggleHighlights": {
-		"message": "Display/hide the highlighted text",
+		"message": "強調表示されたテキストを表示/非表示",
 		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
 	},
 	"editorRemoveHighlight": {
-		"message": "Remove the selected highlighted text",
+		"message": "選択した強調表示されたテキストを削除します",
 		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
 	},
 	"editorEditPage": {
-		"message": "Enable/disable read-only",
+		"message": "読み取り専用を有効/無効にする",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorCutPage": {
-		"message": "Enable/disable removing document's element on click",
+		"message": "クリック時にドキュメントの要素を削除することを有効/無効にする",
 		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
 	},
 	"editorUndoCutPage": {
-		"message": "Restore last removed element",
+		"message": "最後に削除された要素を復元する",
 		"description": "Title of the button 'Restore last removed element' in the editor"
 	},
 	"editorUndoAllCutPage": {
-		"message": "Restore all removed elements",
+		"message": "削除されたすべての要素を復元する",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
 	"editorSavePage": {
-		"message": "Save the page",
+		"message": "ページを保存する",
 		"description": "Title of the button 'Save the page' in the editor"
 	},
 	"pendingsTitle": {
-		"message": "Pending saves",
+		"message": "保留中の保存",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
 	},
 	"pendingsCancelAllButton": {
-		"message": "Cancel all",
+		"message": "すべてをキャンセルする",
 		"description": "Pending saves button 'Cancel all'"
 	},
 	"pendingsTitleTitle": {
-		"message": "Title",
+		"message": "タイトル",
 		"description": "Title of the first column in the table of the pending saves 'Title'"
 	},
 	"pendingsURLTitle": {
@@ -560,23 +560,23 @@
 		"description": "Title of the first column in the table of the pending saves 'URL'"
 	},
 	"pendingsStatusTitle": {
-		"message": "status",
+		"message": "状態",
 		"description": "Title of the second column in the table of the pending saves 'status'"
 	},
 	"pendingsPendingStatus": {
-		"message": "pending",
+		"message": "保留中",
 		"description": "Value of 'status' for pending saves"
 	},
 	"pendingsProcessingStatus": {
-		"message": "processing",
+		"message": "処理中",
 		"description": "Value of 'status' for current saves"
 	},
 	"pendingsCancellingStatus": {
-		"message": "cancelling",
+		"message": "キャンセル実行中",
 		"description": "Value of 'status' for cancelled saves"
 	},
 	"pendingsNoPendings": {
-		"message": "No pending saves",
+		"message": "保留中の保存はありません",
 		"description": "Label displayed when they are no pending saves"
 	}
 }
