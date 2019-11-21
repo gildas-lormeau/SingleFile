@@ -39,6 +39,7 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
 				const message = {
 					method: "downloads.download",
+					taskId: options.taskId,
 					confirmFilename: options.confirmFilename,
 					filenameConflictAction: options.filenameConflictAction,
 					filename: pageData.filename,
@@ -68,7 +69,7 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 			}
 			browser.runtime.sendMessage({ method: "ui.processEnd" });
 		}
-		await browser.runtime.sendMessage({ method: "downloads.end" });
+		await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId });
 	}
 
 	function downloadPageForeground(pageData) {

@@ -141,6 +141,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		Object.keys(updatedResources).forEach(url => updatedResources[url].retrieved = false);
 		browser.runtime.sendMessage({
 			method: "autosave.save",
+			taskId: options.taskId,
 			content: helper.serialize(document),
 			canvases: docData.canvases,
 			fonts: docData.fonts,

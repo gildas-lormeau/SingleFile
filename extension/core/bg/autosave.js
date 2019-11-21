@@ -126,13 +126,13 @@ singlefile.extension.core.bg.autosave = (() => {
 			}
 			const blob = new Blob([pageData.content], { type: "text/html" });
 			if (options.saveToGDrive) {
-				await singlefile.extension.core.bg.downloads.uploadPage(tab.id, pageData.filename, blob, options, {});
+				await singlefile.extension.core.bg.downloads.uploadPage(message.taskId, pageData.filename, blob, options, {});
 			} else {
 				pageData.url = URL.createObjectURL(blob);
 				await singlefile.extension.core.bg.downloads.downloadPage(pageData, options);
 			}
 		} finally {
-			singlefile.extension.core.bg.business.onSaveEnd(tab.id);
+			singlefile.extension.core.bg.business.onSaveEnd(message.taskId);
 			if (pageData && pageData.url) {
 				URL.revokeObjectURL(pageData.url);
 			}

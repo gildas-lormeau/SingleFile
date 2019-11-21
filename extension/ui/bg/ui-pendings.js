@@ -62,28 +62,27 @@
 
 	function updateTable(results) {
 		if (results.length) {
-			results.sort(([, tabInfo1], [, tabInfo2]) => tabInfo1.index - tabInfo2.index);
-			results.forEach(([tabId, tabInfo]) => {
+			results.sort((taskInfo1, taskInfo2) => taskInfo1.index - taskInfo2.index);
+			results.forEach((taskInfo) => {
 				const row = document.createElement("div");
 				const cellURL = document.createElement("span");
 				const cellStatus = document.createElement("span");
 				const cellCancel = document.createElement("span");
 				const buttonCancel = document.createElement("button");
-				row.dataset.tabId = tabId;
 				row.className = "result-row";
 				if (URLDisplayed) {
-					cellURL.textContent = tabInfo.url;
+					cellURL.textContent = taskInfo.url;
 				} else {
-					cellURL.textContent = tabInfo.title;
+					cellURL.textContent = taskInfo.title;
 				}
 				cellURL.className = "result-url-title";
-				cellURL.onclick = () => selectTab(tabId);
-				if (tabInfo.cancelled) {
+				cellURL.onclick = () => selectTab(taskInfo.tabId);
+				if (taskInfo.cancelled) {
 					cellStatus.textContent = statusText.cancelling;
 				} else {
-					cellStatus.textContent = statusText[tabInfo.status];
+					cellStatus.textContent = statusText[taskInfo.status];
 					buttonCancel.textContent = "×";
-					buttonCancel.onclick = () => cancel(tabId);
+					buttonCancel.onclick = () => cancel(taskInfo.id);
 					cellCancel.appendChild(buttonCancel);
 				}
 				cellStatus.className = "result-status";
@@ -96,8 +95,8 @@
 		}
 	}
 
-	async function cancel(tabId) {
-		await browser.runtime.sendMessage({ method: "downloads.cancel", tabId });
+	async function cancel(taskId) {
+		await browser.runtime.sendMessage({ method: "downloads.cancel", taskId });
 		await refresh();
 	}
 
