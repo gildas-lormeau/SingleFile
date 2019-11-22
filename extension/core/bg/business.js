@@ -162,7 +162,9 @@ singlefile.extension.core.bg.business = (() => {
 		}
 		singlefile.extension.ui.bg.main.onCancelled(taskInfo.tab);
 		tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == taskId), 1);
-		taskInfo.resolve();
+		if (taskInfo.resolve) {
+			taskInfo.resolve();
+		}
 	}
 
 	function mapTaskInfo(taskInfo) {
