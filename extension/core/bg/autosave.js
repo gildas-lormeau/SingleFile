@@ -28,7 +28,7 @@ singlefile.extension.core.bg.autosave = (() => {
 	return {
 		onMessage,
 		onMessageExternal,
-		onTabUpdated,
+		onInit,
 		isEnabled,
 		refreshTabs
 	};
@@ -64,12 +64,10 @@ singlefile.extension.core.bg.autosave = (() => {
 		}
 	}
 
-	async function onTabUpdated(tabId, changeInfo, tab) {
+	async function onInit(tab) {
 		const [options, autoSaveEnabled] = await Promise.all([singlefile.extension.core.bg.config.getOptions(tab.url, true), isEnabled(tab)]);
 		if (options && ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && autoSaveEnabled)) {
-			if (changeInfo.status == "complete") {
-				singlefile.extension.core.bg.business.saveTabs([tab], { autoSave: true });
-			}
+			singlefile.extension.core.bg.business.saveTabs([tab], { autoSave: true });
 		}
 	}
 

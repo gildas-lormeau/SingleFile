@@ -66,7 +66,7 @@ singlefile.extension.core.bg.business = (() => {
 				taskInfo.resolve();
 			}
 		},
-		onTabUpdated: cancelTab,
+		onInit: tab => cancelTab(tab.id),
 		onTabRemoved: cancelTab
 	};
 
