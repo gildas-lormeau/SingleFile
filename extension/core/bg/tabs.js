@@ -28,7 +28,6 @@ singlefile.extension.core.bg.tabs = (() => {
 
 	browser.tabs.onCreated.addListener(tab => onTabCreated(tab));
 	browser.tabs.onActivated.addListener(activeInfo => onTabActivated(activeInfo));
-	browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => onTabUpdated(tabId, changeInfo, tab));
 	browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
 	return {
 		onMessage,
@@ -116,6 +115,12 @@ singlefile.extension.core.bg.tabs = (() => {
 	};
 
 	async function onMessage(message, sender) {
+		if (message.method.endsWith(".init")) {
+			singlefile.extension.ui.bg.main.onInit(sender.tab);
+			singlefile.extension.core.bg.business.onInit(sender.tab);
+			singlefile.extension.core.bg.autosave.onInit(sender.tab);
+			singlefile.extension.core.bg.editor.onInit(sender.tab);
+		}
 		if (message.method.endsWith(".promptValueResponse")) {
 			const promptPromise = pendingPrompts.get(sender.tab.id);
 			if (promptPromise) {
@@ -138,17 +143,6 @@ singlefile.extension.core.bg.tabs = (() => {
 	async function onTabActivated(activeInfo) {
 		const tab = await browser.tabs.get(activeInfo.tabId);
 		singlefile.extension.ui.bg.main.onTabActivated(tab, activeInfo);
-	}
-
-	function onTabUpdated(tabId, changeInfo, tab) {
-		if (changeInfo.status == "loading") {
-			singlefile.extension.ui.bg.main.onTabUpdated(tabId, changeInfo, tab);
-			singlefile.extension.core.bg.business.onTabUpdated(tabId, changeInfo, tab);
-		}
-		if (changeInfo.status == "complete") {
-			singlefile.extension.core.bg.autosave.onTabUpdated(tabId, changeInfo, tab);
-			singlefile.extension.core.bg.editor.onTabUpdated(tabId, changeInfo, tab);
-		}
 	}
 
 	function onTabRemoved(tabId) {
