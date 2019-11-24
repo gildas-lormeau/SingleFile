@@ -57,6 +57,9 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	async function onMessage(message) {
 		if (autoSaveEnabled && message.method == "content.autosave") {
 			options = message.options;
+			if (document.readyState != "complete") {
+				await new Promise(resolve => window.onload = resolve);
+			}
 			await autoSavePage();
 			if (options.autoSaveRepeat) {
 				setTimeout(() => {
