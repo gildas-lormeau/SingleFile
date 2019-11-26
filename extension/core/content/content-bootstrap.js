@@ -35,7 +35,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	browser.runtime.sendMessage({ method: "autosave.init" }).then(message => {
 		options = message.options;
 		autoSaveEnabled = message.autoSaveEnabled;
-		if (document.documentElement.firstChild.nodeType == Node.COMMENT_NODE && document.documentElement.firstChild.textContent.includes("Page saved with SingleFile") && options.autoOpenEditor) {
+		if (options.autoOpenEditor) {
 			if (document.readyState == "loading") {
 				document.addEventListener("DOMContentLoaded", () => openEditor(document));
 			} else {
@@ -166,21 +166,25 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	}
 
 	async function openEditor(document) {
-		serializeShadowRoots(document);
-		const content = singlefile.lib.modules.serializer.process(document);
-		for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
-			const message = {
-				method: "editor.open",
-				filename: decodeURIComponent(location.href.match(/^.*\/(.*)$/)[1])
-			};
-			message.truncated = content.length > MAX_CONTENT_SIZE;
-			if (message.truncated) {
-				message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > content.length;
-				message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
-			} else {
-				message.content = content;
+		if (document.documentElement.firstChild.nodeType == Node.COMMENT_NODE && document.documentElement.firstChild.textContent.includes("Page saved with SingleFile")) {
+			serializeShadowRoots(document);
+			const content = singlefile.lib.modules.serializer.process(document);
+			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
+				const message = {
+					method: "editor.open",
+					filename: decodeURIComponent(location.href.match(/^.*\/(.*)$/)[1])
+				};
+				message.truncated = content.length > MAX_CONTENT_SIZE;
+				if (message.truncated) {
+					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > content.length;
+					message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+				} else {
+					message.content = content;
+				}
+				await browser.runtime.sendMessage(message);
 			}
-			await browser.runtime.sendMessage(message);
+		} else {
+			refresh();
 		}
 	}
 
