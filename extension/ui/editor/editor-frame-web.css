@@ -1,21 +1,25 @@
 .single-file-highlight-yellow {
     background-color: #ffff7c !important;
     color: black !important;
+    display: inline !important;
 }
 
 .single-file-highlight-pink {
     background-color: #ffbbb6 !important;
     color: black !important;
+    display: inline !important;
 }
 
 .single-file-highlight-blue {
     background-color: #95d0ff !important;
     color: black !important;
+    display: inline !important;
 }
 
 .single-file-highlight-green {
     background-color: #93ef8d !important;
     color: black !important;
+    display: inline !important;
 }
 
 .single-file-highlight-hidden {
