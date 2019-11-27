@@ -26,10 +26,11 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
 ![](https://github.com/gildas-lormeau/SingleFile-Demos/blob/master/SingleFile-demo.gif)
 
 ## Install
-SingleFile can be installed:
+SingleFile can be installed on:
  - Firefox: https://addons.mozilla.org/firefox/addon/single-file
  - Chrome: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
- - You can aslo download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project and install it manually
+
+You can also download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project and install it manually
 
 ## Getting started
 - Wait until the page is fully loaded.
