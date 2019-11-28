@@ -1,24 +1,36 @@
 .single-file-highlight-yellow {
     background-color: #ffff7c !important;
     color: black !important;
+}
+
+span.single-file-highlight-yellow {
     display: inline !important;
 }
 
 .single-file-highlight-pink {
     background-color: #ffbbb6 !important;
     color: black !important;
+}
+
+span.single-file-highlight-pink {
     display: inline !important;
 }
 
 .single-file-highlight-blue {
     background-color: #95d0ff !important;
     color: black !important;
+}
+
+span.single-file-highlight-blue {
     display: inline !important;
 }
 
 .single-file-highlight-green {
     background-color: #93ef8d !important;
     color: black !important;
+}
+
+span.single-file-highlight-green {
     display: inline !important;
 }
 
