@@ -1,5 +1,5 @@
 # SingleFile
-SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobile), Chromium-based Edge, Vivaldi, Brave, Waterfox, Yandex browser, and Opera. It helps you to save a complete web page into a single HTML file.
+SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox (Desktop and Mobile), Chromium-based Edge, Vivaldi, Brave, Waterfox, Yandex browser, and Opera. It helps you to save a complete web page into a single HTML file.
 
 ## Table of Contents
  - [Demo](#demo)
@@ -30,11 +30,12 @@ SingleFile can be installed on:
  - Firefox: https://addons.mozilla.org/firefox/addon/single-file
  - Chrome: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
 
-You can also download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project and install it manually
+You can also download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project and install it manually.
 
 ## Getting started
 - Wait until the page is fully loaded.
 - Click on the SingleFile button in the extension toolbar to save the page.
+- You can click again on the button to cancel the action when processing a page.
 
 ## Additional notes
  - To save multiple tabs, select them first and click on the SingleFile button.
@@ -46,16 +47,15 @@ You can also download the zip file (https://github.com/gildas-lormeau/SingleFile
    - the selected tabs,
    - or the unpinned tabs,
    - or all the tabs.
- - You can annotate the page before saving it by selecting "Annotate and save the page..." in the context menu.
+ - You can highlight text, add notes, and remove content before saving the page by selecting "Annotate and save the page..." in the context menu
  - The context menu also allows you to activate the auto-save of:
    - the current tab,
    - or the unpinned tabs,
    - or all the tabs.
- - You can interrupt the saving progress by clicking on the SingleFile button when processing a page.
  - With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not).
- - Right-click on the SingleFile button and select "Options"/"Manage extension" to open the options page.
- - The default save folder is the download folder configured in your browser, cf. about:preferences in Firefox and chrome://settings in Chrome.
- - You can use the shortcut Ctrl+Shift+Y to save the current tab or the selected tabs. Go to chrome://extensions/shortcuts to change it in Chrome.
+ - Right-click on the SingleFile button and select "Manage extension" (Firefox) / "Options" (Chrome) to open the options page.
+ - The default save folder is the download folder configured in your browser, cf. about:addons in Firefox and chrome://settings in Chrome.
+ - You can use the customizable shortkey Ctrl+Shift+Y to save the current tab or the selected tabs. Go to about:addons and select "Manage extension shortcuts" in the cogwheel menu to change it in Firefox. Go to chrome://extensions/shortcuts to change it in Chrome.
  - See the extension help in the options page for more detailed information about the options and technical notes.
 
 ## FAQ
