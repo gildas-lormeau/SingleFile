@@ -47,7 +47,7 @@ You can also download the zip file (https://github.com/gildas-lormeau/SingleFile
    - the selected tabs,
    - or the unpinned tabs,
    - or all the tabs.
- - You can highlight text, add notes, and remove content before saving it by selecting "Annotate and save the page..." in the context menu
+ - You can highlight text, add notes, and remove content before saving the page by selecting "Annotate and save the page..." in the context menu
  - The context menu also allows you to activate the auto-save of:
    - the current tab,
    - or the unpinned tabs,
@@ -55,7 +55,7 @@ You can also download the zip file (https://github.com/gildas-lormeau/SingleFile
  - With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not).
  - Right-click on the SingleFile button and select "Manage extension" (Firefox) / "Options" (Chrome) to open the options page.
  - The default save folder is the download folder configured in your browser, cf. about:addons in Firefox and chrome://settings in Chrome.
- - You can use the customizable shortkey Ctrl+Shift+Y to save the current tab or the selected tabs. Go to chrome://extensions/shortcuts to change it in Chrome and .
+ - You can use the customizable shortkey Ctrl+Shift+Y to save the current tab or the selected tabs. Go to about:addons and select "Manage extension shortcuts" in the cogwheel menu to change it in Firefox. Go to chrome://extensions/shortcuts to change it in Chrome.
  - See the extension help in the options page for more detailed information about the options and technical notes.
 
 ## FAQ
