@@ -142,6 +142,7 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 ## Code derived from third party projects
 - csstree: https://github.com/csstree/csstree
 - postcss-media-query-parser: https://github.com/dryoma/postcss-media-query-parser
+- postcss-selector-parser: https://github.com/postcss/postcss-selector-parser
 - UglifyCSS: https://github.com/fmarcia/UglifyCSS
 - parse-srcset: https://github.com/albell/parse-srcset
 - parse-css-font: https://github.com/jedmao/parse-css-font
