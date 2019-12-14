@@ -30,6 +30,7 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 	const contentScriptFiles = [
 		"lib/single-file/index.js",
 		"lib/single-file/vendor/css-font-property-parser.js",
+		"lib/single-file/vendor/css-unescape.js",
 		"lib/single-file/vendor/css-media-query-parser.js",
 		"lib/single-file/vendor/css-tree.js",
 		"lib/single-file/vendor/html-srcset-parser.js",
