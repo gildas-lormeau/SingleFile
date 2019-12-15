@@ -57,6 +57,7 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 	const frameScriptFiles = [
 		"lib/single-file/index.js",
 		"lib/single-file/single-file-helper.js",
+		"lib/single-file/vendor/css-unescape.js",
 		"lib/single-file/processors/hooks/content/content-hooks-frames.js",
 		"lib/single-file/processors/frame-tree/content/content-frame-tree.js",
 		"extension/lib/single-file/index.js",
