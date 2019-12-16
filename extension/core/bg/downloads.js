@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, singlefile, Blob, URL, document, GDrive */
+/* global browser, singlefile, Blob, URL, document, GDrive, woleet */
 
 singlefile.extension.core.bg.downloads = (() => {
 
@@ -60,6 +60,9 @@ singlefile.extension.core.bg.downloads = (() => {
 			return {};
 		}
 		if (message.method.endsWith(".end")) {
+			if (message.hash) {
+				await woleet.anchor(message.hash);
+			}
 			singlefile.extension.core.bg.business.onSaveEnd(message.taskId);
 			return {};
 		}

@@ -383,6 +383,10 @@
 		"message": "save to clipboard",
 		"description": "Options page label: 'save to clipboard'"
 	},
+	"optionAddProof": {
+		"message": "add proof of existence",
+		"description": "Options page label: 'add proof of existence'"
+	},
 	"optionSaveToGDrive": {
 		"message": "save to Google Drive",
 		"description": "Options page label: 'save to Google Drive'"
