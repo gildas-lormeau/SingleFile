@@ -78,6 +78,7 @@ singlefile.extension.core.bg.config = (() => {
 		groupDuplicateImages: true,
 		saveRawPage: false,
 		saveToClipboard: false,
+		addProof: false,
 		saveToGDrive: false,
 		forceWebAuthFlow: false,
 		extractAuthCode: true,

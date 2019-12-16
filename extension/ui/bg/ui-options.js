@@ -36,6 +36,7 @@
 	const removeScriptsLabel = document.getElementById("removeScriptsLabel");
 	const saveRawPageLabel = document.getElementById("saveRawPageLabel");
 	const saveToClipboardLabel = document.getElementById("saveToClipboardLabel");
+	const addProofLabel = document.getElementById("addProofLabel");
 	const saveToGDriveLabel = document.getElementById("saveToGDriveLabel");
 	const compressHTMLLabel = document.getElementById("compressHTMLLabel");
 	const compressCSSLabel = document.getElementById("compressCSSLabel");
@@ -106,6 +107,7 @@
 	const removeScriptsInput = document.getElementById("removeScriptsInput");
 	const saveRawPageInput = document.getElementById("saveRawPageInput");
 	const saveToClipboardInput = document.getElementById("saveToClipboardInput");
+	const addProofInput = document.getElementById("addProofInput");
 	const saveToGDriveInput = document.getElementById("saveToGDriveInput");
 	const compressHTMLInput = document.getElementById("compressHTMLInput");
 	const compressCSSInput = document.getElementById("compressCSSInput");
@@ -403,6 +405,7 @@
 	removeScriptsLabel.textContent = browser.i18n.getMessage("optionRemoveScripts");
 	saveRawPageLabel.textContent = browser.i18n.getMessage("optionSaveRawPage");
 	saveToClipboardLabel.textContent = browser.i18n.getMessage("optionSaveToClipboard");
+	addProofLabel.textContent = browser.i18n.getMessage("optionAddProof");
 	saveToGDriveLabel.textContent = browser.i18n.getMessage("optionSaveToGDrive");
 	compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
 	compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
@@ -578,6 +581,7 @@
 		saveRawPageInput.checked = profileOptions.saveRawPage;
 		saveToClipboardInput.checked = profileOptions.saveToClipboard && !profileOptions.saveToGDrive;
 		saveToClipboardInput.disabled = profileOptions.saveToGDrive;
+		addProofInput.checked = profileOptions.addProof;
 		saveToGDriveInput.checked = profileOptions.saveToGDrive && !profileOptions.saveToClipboard;
 		saveToGDriveInput.disabled = profileOptions.saveToClipboard;
 		compressHTMLInput.checked = profileOptions.compressHTML;
@@ -650,6 +654,7 @@
 				removeScripts: removeScriptsInput.checked,
 				saveRawPage: saveRawPageInput.checked,
 				saveToClipboard: saveToClipboardInput.checked,
+				addProof: addProofInput.checked,
 				saveToGDrive: saveToGDriveInput.checked,
 				compressHTML: compressHTMLInput.checked,
 				compressCSS: compressCSSInput.checked,

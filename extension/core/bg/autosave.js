@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global singlefile, URL, Blob */
+/* global singlefile, URL, Blob, woleet */
 
 singlefile.extension.core.bg.autosave = (() => {
 
@@ -128,6 +128,9 @@ singlefile.extension.core.bg.autosave = (() => {
 			} else {
 				pageData.url = URL.createObjectURL(blob);
 				await singlefile.extension.core.bg.downloads.downloadPage(pageData, options);
+			}
+			if (pageData.hash) {
+				await woleet.anchor(pageData.hash);
 			}
 		} finally {
 			singlefile.extension.core.bg.business.onSaveEnd(message.taskId);
