@@ -384,7 +384,7 @@
 		"description": "Options page label: 'save to clipboard'"
 	},
 	"optionAddProof": {
-		"message": "add proof of existence",
+		"message": "dodawaj dowód istnienia",
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionSaveToGDrive": {
@@ -396,7 +396,7 @@
 		"description": "Options help link"
 	},
 	"optionSynchronize": {
-		"message": "opcje synchronizacji",
+		"message": "synchronizuj opcje",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionsResetButton": {
