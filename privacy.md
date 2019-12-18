@@ -12,7 +12,7 @@ Your data always belongs to you, and only you. SingleFile does not collect any d
 When you request for customer support, we may ask for your email address to get back to you.
 
 ## Changes to our privacy policy
-We keep our privacy notice under regular review and we will place any updates on this document. This privacy notice was last updated on November 2019.
+We keep our privacy notice under regular review and we will place any updates on this document. This privacy notice was last updated on December 2019.
 
 ## How to contact us
 Please contact us if you have any questions about our privacy policy by email to gildas.lormeau &lt;at&gt; gmail.com.
