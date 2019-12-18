@@ -359,6 +359,15 @@
 			await browser.runtime.sendMessage({ method: "downloads.disableGDrive" });
 		}
 	}, false);
+	addProofInput.addEventListener("click", async () => {
+		if (addProofInput.checked) {
+			addProofInput.checked = false;
+			if (await confirm(browser.i18n.getMessage("optionsAddProofConfirm"))) {
+				addProofInput.checked = true;
+			}
+			await update();
+		}
+	});
 	synchronizeInput.checked = (await browser.runtime.sendMessage({ method: "config.isSync" })).sync;
 	synchronizeInput.addEventListener("click", async () => {
 		if (synchronizeInput.checked) {
