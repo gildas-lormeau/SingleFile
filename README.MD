@@ -38,24 +38,28 @@ You can also download the zip file (https://github.com/gildas-lormeau/SingleFile
 - You can click again on the button to cancel the action when processing a page.
 
 ## Additional notes
- - To save multiple tabs, select them first and click on the SingleFile button.
  - Open the context menu by right-clicking the SingleFile button in the extension toolbar or on the webpage. It allows you to save:
    - the current tab,
-   - or the selected content,
-   - or the selected frame.
+   - the selected content,
+   - the selected frame.
  - You can also process multiple tabs in one click and save:
    - the selected tabs,
-   - or the unpinned tabs,
-   - or all the tabs.
- - You can highlight text, add notes, and remove content before saving the page by selecting "Annotate and save the page..." in the context menu
+   - the unpinned tabs,
+   - all the tabs.
+ - Select "Annotate and save the page..." in the context menu to:
+   - highlight text,
+   - add notes,
+   - remove content.
  - The context menu also allows you to activate the auto-save of:
    - the current tab,
-   - or the unpinned tabs,
-   - or all the tabs.
+   - the unpinned tabs,
+   - all the tabs. 
  - With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not).
  - Right-click on the SingleFile button and select "Manage extension" (Firefox) / "Options" (Chrome) to open the options page.
- - The default save folder is the download folder configured in your browser, cf. about:addons in Firefox and chrome://settings in Chrome.
+ - Enable the option "Misc. > save to Google Drive" to upload pages to Google Drive.
+ - Enable the option "Misc. > add proof of existence" to prove the existence of saved pages by linking the SHA256 of the pages into the blockchain.
  - You can use the customizable shortkey Ctrl+Shift+Y to save the current tab or the selected tabs. Go to about:addons and select "Manage extension shortcuts" in the cogwheel menu to change it in Firefox. Go to chrome://extensions/shortcuts to change it in Chrome.
+ - The default save folder is the download folder configured in your browser, cf. about:addons in Firefox and chrome://settings in Chrome.
  - See the extension help in the options page for more detailed information about the options and technical notes.
 
 ## FAQ
