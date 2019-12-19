@@ -384,7 +384,7 @@
 		"description": "Options page label: 'save to clipboard'"
 	},
 	"optionAddProof": {
-		"message": "add proof of existence",
+		"message": "ブロックチェーン証明を追加する",
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
