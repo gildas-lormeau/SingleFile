@@ -132,7 +132,7 @@
 		"description": "Options page label: 'overlay a shadow on the page during processing'"
 	},
 	"optionDisplayInfobar": {
-		"message": "отображать информационную панель при просмотре сохранённой страницы",
+		"message": "показывать информационную панель при просмотре сохранённой страницы",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
 	"optionInfobarTemplate": {
@@ -188,15 +188,15 @@
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionsHTMLContentSubTitle": {
-		"message": "HTML-контент",
+		"message": "содержимое HTML",
 		"description": "Options sub-title: 'HTML content'"
 	},
 	"optionCompressHTML": {
-		"message": "сжать HTML-контент",
+		"message": "сжать содержимое HTML",
 		"description": "Options page label: 'compress HTML content'"
 	},
 	"optionRemoveImports": {
-		"message": "удалить HTML-импорт",
+		"message": "удалить импорт HTML",
 		"description": "Options page label: 'remove HTML imports'"
 	},
 	"optionRemoveFrames": {
@@ -308,7 +308,7 @@
 		"description": "Options label in the Auto-settings rules: 'display all profiles'"
 	},
 	"optionsAutoSettingsShowAutoSaveProfile": {
-		"message": "отобразить столбец \"Профиль автосохранения\"",
+		"message": "показывать столбец \"Профиль автосохранения\"",
 		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
 	},
 	"optionsUpdateRuleTooltip": {
@@ -344,7 +344,7 @@
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDelay": {
-		"message": "задержка автосохранения после загрузки страницы (с)",
+		"message": "задержка автосохранения после загрузки страницы (сек.)",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
 	},
 	"optionAutoSaveRepeat": {
@@ -352,7 +352,7 @@
 		"description": "Options page label: 'auto-save periodically'"
 	},
 	"optionAutoSaveRepeatDelay": {
-		"message": "период (с)",
+		"message": "период (сек.)",
 		"description": "Options page label: 'period (s)'"
 	},
 	"optionsMiscSubTitle": {
@@ -364,7 +364,7 @@
 		"description": "Options page label: 'save pages in background'"
 	},
 	"optionDisplayStats": {
-		"message": "отображать статистику в консоли после обработки",
+		"message": "показывать статистику в консоли после обработки",
 		"description": "Options page label: 'display stats in the console after processing'"
 	},
 	"optionSetMaxResourceSize": {
@@ -384,11 +384,11 @@
 		"description": "Options page label: 'save to clipboard'"
 	},
 	"optionAddProof": {
-		"message": "add proof of existence",
+		"message": "добавить доказательство существования",
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
-		"message": "Confirm you allow SingleFile to send to the Woleet API a SHA256 hash of each page you are going to save. You can find more information about this feature in the help page or by clicking on the question mark next to the option.",
+		"message": "Подтвердите, что разрешаете SingleFile отправлять в Woleet API SHA256-хеш каждой сохраняемой вами страницы. Дополнительную информацию об этой функции можно найти на странице помощи или нажав на знак вопроса рядом с параметром.",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionSaveToGDrive": {
@@ -444,7 +444,7 @@
 		"description": "Label 'Deferred images' in the log panel"
 	},
 	"logPanelFrameContents": {
-		"message": "Контент фреймов",
+		"message": "Содержимое фреймов",
 		"description": "Label 'Frame contents' in the log panel"
 	},
 	"logPanelStep": {
