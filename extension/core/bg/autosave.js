@@ -21,14 +21,14 @@
  *   Source.
  */
 
-/* global singlefile, URL, Blob */
+/* global singlefile, URL, Blob, woleet */
 
 singlefile.extension.core.bg.autosave = (() => {
 
 	return {
 		onMessage,
 		onMessageExternal,
-		onTabUpdated,
+		onInit,
 		isEnabled,
 		refreshTabs
 	};
@@ -64,12 +64,10 @@ singlefile.extension.core.bg.autosave = (() => {
 		}
 	}
 
-	async function onTabUpdated(tabId, changeInfo, tab) {
+	async function onInit(tab) {
 		const [options, autoSaveEnabled] = await Promise.all([singlefile.extension.core.bg.config.getOptions(tab.url, true), isEnabled(tab)]);
 		if (options && ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && autoSaveEnabled)) {
-			if (changeInfo.status == "complete") {
-				singlefile.extension.core.bg.business.saveTabs([tab], { autoSave: true });
-			}
+			singlefile.extension.core.bg.business.saveTabs([tab], { autoSave: true });
 		}
 	}
 
@@ -126,13 +124,16 @@ singlefile.extension.core.bg.autosave = (() => {
 			}
 			const blob = new Blob([pageData.content], { type: "text/html" });
 			if (options.saveToGDrive) {
-				await singlefile.extension.core.bg.downloads.uploadPage(tab.id, pageData.filename, blob, options, {});
+				await singlefile.extension.core.bg.downloads.uploadPage(message.taskId, pageData.filename, blob, options, {});
 			} else {
 				pageData.url = URL.createObjectURL(blob);
 				await singlefile.extension.core.bg.downloads.downloadPage(pageData, options);
 			}
+			if (pageData.hash) {
+				await woleet.anchor(pageData.hash);
+			}
 		} finally {
-			singlefile.extension.core.bg.business.onSaveEnd(tab.id);
+			singlefile.extension.core.bg.business.onSaveEnd(message.taskId);
 			if (pageData && pageData.url) {
 				URL.revokeObjectURL(pageData.url);
 			}

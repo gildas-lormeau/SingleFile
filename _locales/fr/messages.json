@@ -147,7 +147,7 @@
 		"message": "ouvrir une boite de dialogue pour éditer le contenu de la barre d'information",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
-	"optionOpenEditorLabel": {
+	"optionOpenEditor": {
 		"message": "annoter la page avant de la sauvegarder",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
@@ -155,7 +155,7 @@
 		"message": "ouvrir les pages sauvées avec SingleFile dans l'éditeur d'annotations",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
-	"optionAutoCloseLabel": {
+	"optionAutoClose": {
 		"message": "fermer automatiquement l'onglet après l'enregistrement de la page",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
@@ -382,6 +382,14 @@
 	"optionSaveToClipboard": {
 		"message": "sauvegarder dans le presse-papiers",
 		"description": "Options page label: 'save to clipboard'"
+	},
+	"optionAddProof": {
+		"message": "ajouter une preuve d'existence",
+		"description": "Options page label: 'add proof of existence'"
+	},
+	"optionsAddProofConfirm": {
+		"message": "Confirmez que vous autorisez SingleFile à envoyer à l'API de Woleet un hachage SHA256 de chaque page que vous allez enregistrer. Vous trouverez plus d'informations sur cette fonctionnalité dans la page d'aide ou en cliquant sur le point d'interrogation à côté de l'option.",
+		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionSaveToGDrive": {
 		"message": "sauvegarder dans Google Drive",

@@ -341,8 +341,9 @@ a {
 .option {
     display: flex;
     justify-content: space-between;
-    margin-top: 5px;
+    margin-top: 3px;
     padding-left: 8px;
+    padding-bottom: 2px;
     min-height: 24px;
 }
 

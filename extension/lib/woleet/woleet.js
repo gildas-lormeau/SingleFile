@@ -21,17 +21,31 @@
  *   Source.
  */
 
-/* global browser */
+/* global fetch */
 
-(() => {
+this.woleet = this.woleet || (() => {
 
-	"use strict";
+	const urlService = "https://api.woleet.io/v1/anchor";
+	const apiKey = "__WOLEET_API_KEY__";
 
-	browser.runtime.onMessage.addListener((message, sender) => {
-		if (message.method == "singlefile.frameTree.initResponse" || message.method == "singlefile.frameTree.ackInitRequest") {
-			browser.tabs.sendMessage(sender.tab.id, message, { frameId: 0 });
-			return Promise.resolve({});
-		}
-	});
+	return {
+		anchor
+	};
+
+	async function anchor(hash) {
+		return (await fetch(urlService, {
+			method: "POST",
+			headers: {
+				"Accept": "application/json",
+				"Content-Type": "application/json",
+				"Authorization": "Bearer " + apiKey
+			},
+			body: JSON.stringify({
+				"name": hash,
+				"hash": hash,
+				"public": true
+			})
+		})).json();
+	}
 
 })();

@@ -36,6 +36,7 @@
 	const removeScriptsLabel = document.getElementById("removeScriptsLabel");
 	const saveRawPageLabel = document.getElementById("saveRawPageLabel");
 	const saveToClipboardLabel = document.getElementById("saveToClipboardLabel");
+	const addProofLabel = document.getElementById("addProofLabel");
 	const saveToGDriveLabel = document.getElementById("saveToGDriveLabel");
 	const compressHTMLLabel = document.getElementById("compressHTMLLabel");
 	const compressCSSLabel = document.getElementById("compressCSSLabel");
@@ -106,6 +107,7 @@
 	const removeScriptsInput = document.getElementById("removeScriptsInput");
 	const saveRawPageInput = document.getElementById("saveRawPageInput");
 	const saveToClipboardInput = document.getElementById("saveToClipboardInput");
+	const addProofInput = document.getElementById("addProofInput");
 	const saveToGDriveInput = document.getElementById("saveToGDriveInput");
 	const compressHTMLInput = document.getElementById("compressHTMLInput");
 	const compressCSSInput = document.getElementById("compressCSSInput");
@@ -177,7 +179,6 @@
 	});
 	let pendingSave = Promise.resolve();
 	let autoSaveProfileChanged;
-	getHelpContents();
 	ruleProfileInput.onchange = () => {
 		if (!autoSaveProfileChanged && ruleProfileInput.value != CURRENT_PROFILE_NAME) {
 			ruleAutoSaveProfileInput.value = ruleProfileInput.value;
@@ -358,6 +359,15 @@
 			await browser.runtime.sendMessage({ method: "downloads.disableGDrive" });
 		}
 	}, false);
+	addProofInput.addEventListener("click", async () => {
+		if (addProofInput.checked) {
+			addProofInput.checked = false;
+			if (await confirm(browser.i18n.getMessage("optionsAddProofConfirm"))) {
+				addProofInput.checked = true;
+			}
+			await update();
+		}
+	});
 	synchronizeInput.checked = (await browser.runtime.sendMessage({ method: "config.isSync" })).sync;
 	synchronizeInput.addEventListener("click", async () => {
 		if (synchronizeInput.checked) {
@@ -404,6 +414,7 @@
 	removeScriptsLabel.textContent = browser.i18n.getMessage("optionRemoveScripts");
 	saveRawPageLabel.textContent = browser.i18n.getMessage("optionSaveRawPage");
 	saveToClipboardLabel.textContent = browser.i18n.getMessage("optionSaveToClipboard");
+	addProofLabel.textContent = browser.i18n.getMessage("optionAddProof");
 	saveToGDriveLabel.textContent = browser.i18n.getMessage("optionSaveToGDrive");
 	compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
 	compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
@@ -448,8 +459,8 @@
 	infobarTemplateLabel.textContent = browser.i18n.getMessage("optionInfobarTemplate");
 	includeInfobarLabel.textContent = browser.i18n.getMessage("optionIncludeInfobar");
 	confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
-	autoCloseLabel.textContent = browser.i18n.getMessage("optionAutoCloseLabel");
-	openEditorLabel.textContent = browser.i18n.getMessage("optionOpenEditorLabel");
+	autoCloseLabel.textContent = browser.i18n.getMessage("optionAutoClose");
+	openEditorLabel.textContent = browser.i18n.getMessage("optionOpenEditor");
 	autoOpenEditorLabel.textContent = browser.i18n.getMessage("optionAutoOpenEditor");
 	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
 	exportButton.textContent = browser.i18n.getMessage("optionsExportButton");
@@ -476,6 +487,7 @@
 		document.documentElement.classList.add("maximized");
 	}
 	const tabsData = await browser.runtime.sendMessage({ method: "tabsData.get" });
+	getHelpContents();
 	refresh(tabsData.profileName);
 
 	async function refresh(profileName) {
@@ -578,6 +590,7 @@
 		saveRawPageInput.checked = profileOptions.saveRawPage;
 		saveToClipboardInput.checked = profileOptions.saveToClipboard && !profileOptions.saveToGDrive;
 		saveToClipboardInput.disabled = profileOptions.saveToGDrive;
+		addProofInput.checked = profileOptions.addProof;
 		saveToGDriveInput.checked = profileOptions.saveToGDrive && !profileOptions.saveToClipboard;
 		saveToGDriveInput.disabled = profileOptions.saveToClipboard;
 		compressHTMLInput.checked = profileOptions.compressHTML;
@@ -650,6 +663,7 @@
 				removeScripts: removeScriptsInput.checked,
 				saveRawPage: saveRawPageInput.checked,
 				saveToClipboard: saveToClipboardInput.checked,
+				addProof: addProofInput.checked,
 				saveToGDrive: saveToGDriveInput.checked,
 				compressHTML: compressHTMLInput.checked,
 				compressCSS: compressCSSInput.checked,

@@ -147,7 +147,7 @@
 		"message": "відкривати діалогове вікно для редагування вмісту інформаційної панелі",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
-	"optionOpenEditorLabel": {
+	"optionOpenEditor": {
 		"message": "анотувати сторінки перед збереженням",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
@@ -155,7 +155,7 @@
 		"message": "open pages saved with SingleFile in the annotation editor",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
-	"optionAutoCloseLabel": {
+	"optionAutoClose": {
 		"message": "автоматично закривати вкладку після збереження сторінки",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
@@ -382,6 +382,14 @@
 	"optionSaveToClipboard": {
 		"message": "зберегти в буфер обміну",
 		"description": "Options page label: 'save to clipboard'"
+	},
+	"optionAddProof": {
+		"message": "add proof of existence",
+		"description": "Options page label: 'add proof of existence'"
+	},
+	"optionsAddProofConfirm": {
+		"message": "Confirm you allow SingleFile to send to the Woleet API a SHA256 hash of each page you are going to save. You can find more information about this feature in the help page or by clicking on the question mark next to the option.",
+		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionSaveToGDrive": {
 		"message": "save to Google Drive",

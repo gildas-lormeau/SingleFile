@@ -115,15 +115,13 @@ async function pageGoto(page, options) {
 			waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
 		});
 	} catch (error) {
-		if (error.name != "TimeoutError") {
-			if (error.message.includes("Unknown waitUntil condition")) {
-				await page.goto(options.url, {
-					timeout: options.browserLoadMaxTime || 0,
-					waitUntil: "load"
-				});
-			} else {
-				throw error;
-			}
+		if (error.message.includes("Unknown waitUntil condition")) {
+			await page.goto(options.url, {
+				timeout: options.browserLoadMaxTime || 0,
+				waitUntil: "load"
+			});
+		} else {
+			throw error;
 		}
 	}
 }

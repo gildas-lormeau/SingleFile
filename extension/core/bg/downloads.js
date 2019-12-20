@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, singlefile, Blob, URL, document, GDrive */
+/* global browser, singlefile, Blob, URL, document, GDrive, woleet */
 
 singlefile.extension.core.bg.downloads = (() => {
 
@@ -60,18 +60,21 @@ singlefile.extension.core.bg.downloads = (() => {
 			return {};
 		}
 		if (message.method.endsWith(".end")) {
-			singlefile.extension.core.bg.business.onSaveEnd(sender.tab.id);
+			if (message.hash) {
+				await woleet.anchor(message.hash);
+			}
+			singlefile.extension.core.bg.business.onSaveEnd(message.taskId);
 			return {};
 		}
 		if (message.method.endsWith(".getInfo")) {
-			return singlefile.extension.core.bg.business.getTabsInfo();
+			return singlefile.extension.core.bg.business.getTasksInfo();
 		}
 		if (message.method.endsWith(".cancel")) {
-			singlefile.extension.core.bg.business.cancelTab(message.tabId);
+			singlefile.extension.core.bg.business.cancelTask(message.taskId);
 			return {};
 		}
 		if (message.method.endsWith(".cancelAll")) {
-			singlefile.extension.core.bg.business.cancelAllTabs(message.tabId);
+			singlefile.extension.core.bg.business.cancelAllTasks();
 			return {};
 		}
 	}
@@ -108,6 +111,7 @@ singlefile.extension.core.bg.downloads = (() => {
 				if (message.saveToClipboard) {
 					message.content = contents.join("");
 					saveToClipboard(message);
+					singlefile.extension.ui.bg.main.onEnd(tab.id);
 				} else {
 					await downloadBlob(new Blob([contents], { type: MIMETYPE_HTML }), tab.id, tab.incognito, message);
 				}
@@ -119,7 +123,7 @@ singlefile.extension.core.bg.downloads = (() => {
 	async function downloadBlob(blob, tabId, incognito, message) {
 		try {
 			if (message.saveToGDrive) {
-				await uploadPage(tabId, message.filename, blob, {
+				await uploadPage(message.taskId, message.filename, blob, {
 					forceWebAuthFlow: message.forceWebAuthFlow,
 					extractAuthCode: message.extractAuthCode
 				}, {
@@ -170,13 +174,13 @@ singlefile.extension.core.bg.downloads = (() => {
 		return authInfo;
 	}
 
-	async function uploadPage(tabId, filename, blob, authOptions, uploadOptions) {
+	async function uploadPage(taskId, filename, blob, authOptions, uploadOptions) {
 		try {
 			await getAuthInfo(authOptions);
-			const saveInfo = singlefile.extension.core.bg.business.getTabInfo(tabId);
-			if (saveInfo && !saveInfo.cancelled) {
+			const taskInfo = singlefile.extension.core.bg.business.getTaskInfo(taskId);
+			if (taskInfo && !taskInfo.cancelled) {
 				const uploadInfo = await gDrive.upload(filename, blob, uploadOptions);
-				singlefile.extension.core.bg.business.setCancelCallback(tabId, uploadInfo.cancelUpload);
+				singlefile.extension.core.bg.business.setCancelCallback(taskId, uploadInfo.cancelUpload);
 				return await uploadInfo.uploadPromise;
 			}
 		}
@@ -197,7 +201,7 @@ singlefile.extension.core.bg.downloads = (() => {
 				} else {
 					await singlefile.extension.core.bg.config.removeAuthInfo();
 				}
-				await uploadPage(tabId, filename, blob, authOptions, uploadOptions);
+				await uploadPage(taskId, filename, blob, authOptions, uploadOptions);
 			} else {
 				throw error;
 			}
