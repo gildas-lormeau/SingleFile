@@ -36,6 +36,7 @@ const SCRIPTS = [
 	"lib/single-file/vendor/html-srcset-parser.js",
 	"lib/single-file/vendor/css-minifier.js",
 	"lib/single-file/vendor/css-font-property-parser.js",
+	"lib/single-file/vendor/css-unescape.js",
 	"lib/single-file/vendor/css-media-query-parser.js",
 	"lib/single-file/modules/html-minifier.js",
 	"lib/single-file/modules/css-fonts-minifier.js",

@@ -1,4 +1,4 @@
-﻿{
+{
 	"extensionDescription": {
 		"message": "Сохранить полную страницу в одном HTML-файле",
 		"description": "Description of the extension."
@@ -147,7 +147,7 @@
 		"message": "открывать диалоговое окно для редактирования содержимого информационной панели",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
-	"optionOpenEditorLabel": {
+	"optionOpenEditor": {
 		"message": "аннотировать страницу перед сохранением",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
@@ -155,7 +155,7 @@
 		"message": "сохранять открытые страницы из редактора аннотаций SingleFile",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
-	"optionAutoCloseLabel": {
+	"optionAutoClose": {
 		"message": "автозакрытие вкладки после сохранения страницы",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
@@ -382,6 +382,14 @@
 	"optionSaveToClipboard": {
 		"message": "сохранить в буфер обмена",
 		"description": "Options page label: 'save to clipboard'"
+	},
+	"optionAddProof": {
+		"message": "add proof of existence",
+		"description": "Options page label: 'add proof of existence'"
+	},
+	"optionsAddProofConfirm": {
+		"message": "Confirm you allow SingleFile to send to the Woleet API a SHA256 hash of each page you are going to save. You can find more information about this feature in the help page or by clicking on the question mark next to the option.",
+		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionSaveToGDrive": {
 		"message": "сохранить на Google Drive",

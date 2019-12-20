@@ -1,5 +1,5 @@
 # SingleFile
-SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobile), Chromium-based Edge, Vivaldi, Brave, Waterfox, Yandex browser, and Opera. It helps you to save a complete web page into a single HTML file.
+SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox (Desktop and Mobile), Chromium-based Edge, Vivaldi, Brave, Waterfox, Yandex browser, and Opera. It helps you to save a complete web page into a single HTML file.
 
 ## Table of Contents
  - [Demo](#demo)
@@ -26,35 +26,40 @@ SingleFile is a Web Extension compatible with Chrome, Firefox (Desktop and Mobil
 ![](https://github.com/gildas-lormeau/SingleFile-Demos/blob/master/SingleFile-demo.gif)
 
 ## Install
-SingleFile can be installed:
- - via the Firefox Add-ons website: https://addons.mozilla.org/addon/single-file,
- - via the Chrome Web Store: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle,
- - by downloading the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) and installing it manually.
+SingleFile can be installed on:
+ - Firefox: https://addons.mozilla.org/firefox/addon/single-file
+ - Chrome: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
+
+You can also download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project and install it manually.
 
 ## Getting started
 - Wait until the page is fully loaded.
 - Click on the SingleFile button in the extension toolbar to save the page.
+- You can click again on the button to cancel the action when processing a page.
 
 ## Additional notes
- - To save multiple tabs, select them first and click on the SingleFile button.
  - Open the context menu by right-clicking the SingleFile button in the extension toolbar or on the webpage. It allows you to save:
    - the current tab,
-   - or the selected content,
-   - or the selected frame.
+   - the selected content,
+   - the selected frame.
  - You can also process multiple tabs in one click and save:
    - the selected tabs,
-   - or the unpinned tabs,
-   - or all the tabs.
- - You can annotate the page before saving it by selecting "Annotate and save the page..." in the context menu.
+   - the unpinned tabs,
+   - all the tabs.
+ - Select "Annotate and save the page..." in the context menu to:
+   - highlight text,
+   - add notes,
+   - remove content.
  - The context menu also allows you to activate the auto-save of:
    - the current tab,
-   - or the unpinned tabs,
-   - or all the tabs.
- - You can interrupt the saving progress by clicking on the SingleFile button when processing a page.
+   - the unpinned tabs,
+   - all the tabs. 
  - With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not).
- - Right-click on the SingleFile button and select "Options"/"Manage extension" to open the options page.
- - The default save folder is the download folder configured in your browser, cf. about:preferences in Firefox and chrome://settings in Chrome.
- - You can use the shortcut Ctrl+Shift+Y to save the current tab or the selected tabs. Go to chrome://extensions/shortcuts to change it in Chrome.
+ - Right-click on the SingleFile button and select "Manage extension" (Firefox) / "Options" (Chrome) to open the options page.
+ - Enable the option "Misc. > save to Google Drive" to upload pages to Google Drive.
+ - Enable the option "Misc. > add proof of existence" to prove the existence of saved pages by linking the SHA256 of the pages into the blockchain.
+ - You can use the customizable shortkey Ctrl+Shift+Y to save the current tab or the selected tabs. Go to about:addons and select "Manage extension shortcuts" in the cogwheel menu to change it in Firefox. Go to chrome://extensions/shortcuts to change it in Chrome.
+ - The default save folder is the download folder configured in your browser, cf. about:addons in Firefox and chrome://settings in Chrome.
  - See the extension help in the options page for more detailed information about the options and technical notes.
 
 ## FAQ
@@ -134,13 +139,14 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 - German translation done by womotroll (https://github.com/womotroll), bannmann (https://github.com/bannmann)
 - Japanese translation done by Shitennouji（四天王寺) (https://github.com/Shitennouji)
 - Polish translation done by xesarni (https://github.com/xesarni)
-- Russian translation done by rstp14 (https://github.com/rstp14), kramola-RU (https://github.com/kramola-RU)
+- Russian translation done by rstp14 (https://github.com/rstp14), kramola-RU (https://github.com/kramola-RU), solokot (https://github.com/solokot)
 - Ukrainian translation done by perdolka (https://github.com/perdolka)
 - Spanish translation done by strel (https://github.com/strel)
 
 ## Code derived from third party projects
 - csstree: https://github.com/csstree/csstree
 - postcss-media-query-parser: https://github.com/dryoma/postcss-media-query-parser
+- postcss-selector-parser: https://github.com/postcss/postcss-selector-parser
 - UglifyCSS: https://github.com/fmarcia/UglifyCSS
 - parse-srcset: https://github.com/albell/parse-srcset
 - parse-css-font: https://github.com/jedmao/parse-css-font

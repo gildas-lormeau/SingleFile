@@ -122,14 +122,8 @@ async function handleJSRedirect(browser, options) {
 }
 
 async function pageGoto(page, options) {
-	try {
-		await page.goto(options.url, {
-			timeout: options.browserLoadMaxTime || 0,
-			waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
-		});
-	} catch (error) {
-		if (error.name != "TimeoutError") {
-			throw error;
-		}
-	}
+	await page.goto(options.url, {
+		timeout: options.browserLoadMaxTime || 0,
+		waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
+	});
 }

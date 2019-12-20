@@ -22,10 +22,10 @@
 		<ol>
 			<li><a id="getting-started">Getting started</a>
 				<ul>
-					<li>Wait until the page is fully loaded, you may need to scroll down the entire page to be sure all
-						elements are loaded.</li>
+					<li>Wait until the page is fully loaded.</li>
 					<li>Click on the SingleFile button <img src="../resources/icon_16.png" class="icon"> in the
-						extension toolbar to save the page.</li>
+						extension toolbar to process and save the page.</li>
+					<li>You can click again on the button to cancel the action when processing a page.</li>
 				</ul>
 			</li>
 			<li><a id="general-notes">Additional notes</a>
@@ -52,18 +52,17 @@
 							<li>or all the tabs.</li>
 						</ul>
 					</li>
-					<li>You can annotate the page before saving it by selecting "Annotate and save the page..." in the
-						context menu.</li>
-					<li>You can interrupt the saving progress by clicking on the SingleFile button when processing a
-						page.</li>
+					<li>You can highlight text, add notes, and remove content before saving the page by selecting
+						"Annotate and save the page..." in the context menu</li>
 					<li>With auto-save active, pages are automatically saved every time after being loaded (or before
 						being unloaded if not). </li>
 					<li>Right-click on the SingleFile button and select "Options" to open the options page.</li>
+					<li>Enable the option "Misc. &gt; save to Google Drive" to upload pages to Google Drive</li>
+					<li>You can use the customizable shortcut Ctrl+Shift+Y to save the current tab or the selected tabs.
+						Go to about:addons and select "Manage extension shortcuts" in the cogwheel menu to change it in
+						Firefox. Go to chrome://extensions/shortcuts to change it in Chrome..</li>
 					<li>The default save folder is the download folder configured in your browser, cf.
-						about:preferences in Firefox and chrome://settings in Chrome. </li>
-					<li>You can use the shortcut Ctrl+Shift+Y to save the current tab or the selected tabs. Go to <a
-							href="chrome://extensions/shortcuts">chrome://extensions/shortcuts</a> to change it in
-						Chrome.</li>
+						about:preferences in Firefox and chrome://settings in Chrome.</li>
 				</ul>
 			</li>
 			<li><a id="options">Options description</a>
@@ -214,7 +213,7 @@
 					</li>
 					<li data-options-label="includeInfobarLabel">Option: include infobar in the saved page
 						<p>Check this option to display the ℹ button at the top right of the page when viewing a saved
-							page in a browser where SingleFileZ is not installed.</p>
+							page in a browser where SingleFile is not installed.</p>
 					</li>
 				</ul>
 				<p>Stylesheets</p>
@@ -369,6 +368,35 @@
 						<p>Check this option to copy the page to the clipboard instead of downloading it on your
 							computer. Checking this option will force the "File name" options to be disabled.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+					</li>
+					<li data-options-label="addProofLabel"> <span class="option">Option: add proof od existence</span>
+						<p>Check this option to create a worldwide proof of the existence of the page you want to save.
+						</p>
+						<ul>
+							<li>
+								<strong>What is a proof of existence (data anchoring)?</strong><br>
+								Data anchoring consists in building a time-stamped proof of existence for a data by
+								linking it to a tamper resistant and time-stamped blockchain. Data anchoring
+								implementation relies on the resilience and immutability of the Bitcoin blockchain
+								to provide the best possible security level
+							</li>
+							<li>
+								<strong>How does this protect my data?</strong><br>
+								The anchoring mechanism only handles data impressions. Your data remains where you
+								calculate the fingerprints, i.e. in the browser. Their confidentiality is totally
+								preserved.
+							</li>
+							<li>
+								<strong>
+									The day after your backup you can get freely the proof receipt here: <a
+										href="https://gildas-lormeau.github.io/singlefile-woleet/index.html">gildas-lormeau.github.io/singlefile-woleet/index.html</a>.
+									A proof receipt will be used to verify the validity of the evidence
+								</strong>
+							</li>
+						</ul>
+						<p>
+							More information <a href="https://doc.woleet.io">doc.woleet.io</a>
+						</p>
 					</li>
 					<li data-options-label="saveToGDriveLabel"> <span class="option">Option: save to Google Drive</span>
 						<p>Check this option to save the page on Google Drive instead of downloading it on your
@@ -534,7 +562,8 @@
 					<li>Polish translation done by xesarni (<a href="https://github.com/xesarni">GitHub profile</a>)
 					</li>
 					<li>Russian translation done by rstp14 (<a href="https://github.com/rstp14">GitHub profile</a>),
-						kramola-RU (<a href="https://github.com/kramola-RU">GitHub profile</a>)</li>
+						kramola-RU (<a href="https://github.com/kramola-RU">GitHub profile</a>), solokot (<a
+							href="https://github.com/solokot">GitHub profile</a>)</li>
 					<li>Ukrainian translation done by perdolka (<a href="https://github.com/perdolka">GitHub
 							profile</a>)</li>
 					<li>Spanish translation done by strel (<a href="https://github.com/strel">GitHub profile</a>)</li>

@@ -147,7 +147,7 @@
 		"message": "otwieraj okno dialogowe z monitem, aby edytować zawartość paska informacyjnego",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
-	"optionOpenEditorLabel": {
+	"optionOpenEditor": {
 		"message": "adnotuj stronę przed zapisaniem",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
@@ -155,7 +155,7 @@
 		"message": "otwieraj strony zapisane z SingleFile w edytorze adnotacji",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
-	"optionAutoCloseLabel": {
+	"optionAutoClose": {
 		"message": "automatycznie zamykaj kartę po zapisaniu strony",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
@@ -383,6 +383,14 @@
 		"message": "zapisuj do schowka",
 		"description": "Options page label: 'save to clipboard'"
 	},
+	"optionAddProof": {
+		"message": "dodawaj dowód istnienia",
+		"description": "Options page label: 'add proof of existence'"
+	},
+	"optionsAddProofConfirm": {
+		"message": "Confirm you allow SingleFile to send to the Woleet API a SHA256 hash of each page you are going to save. You can find more information about this feature in the help page or by clicking on the question mark next to the option.",
+		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
+	},
 	"optionSaveToGDrive": {
 		"message": "zapisuj na Dysku Google",
 		"description": "Options page label: 'save to Google Drive'"
@@ -392,7 +400,7 @@
 		"description": "Options help link"
 	},
 	"optionSynchronize": {
-		"message": "opcje synchronizacji",
+		"message": "synchronizuj opcje",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionsResetButton": {
