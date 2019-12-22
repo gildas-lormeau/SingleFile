@@ -57,7 +57,6 @@
 			"extension/lib/single-file/index.js",
 			"extension/core/index.js",
 			"extension/ui/index.js",
-			"extension/lib/single-file/index.js",
 			"extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js",
 			"lib/single-file/vendor/css-minifier.js",
 			"lib/single-file/vendor/css-tree.js",
