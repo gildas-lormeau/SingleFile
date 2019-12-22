@@ -94,8 +94,7 @@
 			"extension/core/bg/downloads.js",
 			"extension/core/bg/autosave.js",
 			"extension/core/bg/devtools.js",
-			"extension/core/bg/editor.js",
-			"extension/core/bg/bookmarks.js",
+			"extension/core/bg/editor.js",			
 			"extension/ui/bg/ui-main.js",
 			"extension/ui/bg/ui-menus.js",
 			"extension/ui/bg/ui-commands.js",
@@ -167,8 +166,7 @@
 		"<all_urls>"
 	],
 	"optional_permissions": [
-		"identity", 
-		"bookmarks"
+		"identity"
 	],
 	"applications": {
 		"gecko": {
