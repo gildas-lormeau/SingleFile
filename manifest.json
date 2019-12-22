@@ -21,6 +21,7 @@
 				"extension/lib/single-file/index.js",
 				"extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js",
 				"lib/single-file/single-file-helper.js",
+				"lib/single-file/vendor/css-unescape.js",
 				"lib/single-file/processors/hooks/content/content-hooks-frames.js",
 				"lib/single-file/processors/frame-tree/content/content-frame-tree.js"
 			],
@@ -94,6 +95,7 @@
 			"extension/core/bg/autosave.js",
 			"extension/core/bg/devtools.js",
 			"extension/core/bg/editor.js",
+			"extension/core/bg/bookmarks.js",
 			"extension/ui/bg/ui-main.js",
 			"extension/ui/bg/ui-menus.js",
 			"extension/ui/bg/ui-commands.js",
@@ -165,7 +167,8 @@
 		"<all_urls>"
 	],
 	"optional_permissions": [
-		"identity"
+		"identity", 
+		"bookmarks"
 	],
 	"applications": {
 		"gecko": {
