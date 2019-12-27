@@ -29,6 +29,7 @@ SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox (
 SingleFile can be installed on:
  - Firefox: https://addons.mozilla.org/firefox/addon/single-file
  - Chrome: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
+ - Microsoft Edge: https://microsoftedge.microsoft.com/addons/detail/efnbkdcfmcmnhlkaijjjmhjjgladedno
 
 You can also download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project and install it manually.
 
