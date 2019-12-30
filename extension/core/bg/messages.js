@@ -50,6 +50,9 @@ singlefile.extension.core.bg.messages = (() => {
 		if (message.method.startsWith("editor.")) {
 			return singlefile.extension.core.bg.editor.onMessage(message, sender);
 		}
+		if (message.method.startsWith("bookmarks.")) {
+			return singlefile.extension.core.bg.bookmarks.onMessage(message, sender);
+		}
 	});
 	if (browser.runtime.onMessageExternal) {
 		browser.runtime.onMessageExternal.addListener(async (message, sender) => {
