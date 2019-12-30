@@ -396,7 +396,7 @@
 		"description": "Options page label: 'save to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
-		"message": "save the page of a newly created bookmark",
+		"message": "zapisuj stronę nowo utworzonej zakładki",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionsHelpLink": {
