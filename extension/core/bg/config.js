@@ -85,7 +85,8 @@ singlefile.extension.core.bg.config = (() => {
 		resolveFragmentIdentifierURLs: false,
 		userScriptEnabled: false,
 		openEditor: false,
-		autoOpenEditor: false
+		autoOpenEditor: false,
+		saveCreatedBookmarks: false
 	};
 
 	let configStorage;

@@ -395,6 +395,10 @@
 		"message": "sauvegarder dans Google Drive",
 		"description": "Options page label: 'save to Google Drive'"
 	},
+	"optionSaveCreatedBookmarks": {
+		"message": "sauvegarder la page d'un signet nouvellement créé",
+		"description": "Options page label: 'save the page of a newly created bookmark'"
+	},
 	"optionsHelpLink": {
 		"message": "aide (anglais)",
 		"description": "Options help link"

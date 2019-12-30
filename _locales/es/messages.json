@@ -395,6 +395,10 @@
 		"message": "save en Google Drive",
 		"description": "Options page label: 'save to Google Drive'"
 	},
+	"optionSaveCreatedBookmarks": {
+		"message": "guardar la página de un marcador recién creado",
+		"description": "Options page label: 'save the page of a newly created bookmark'"
+	},
 	"optionsHelpLink": {
 		"message": "ayuda",
 		"description": "Options help link"
