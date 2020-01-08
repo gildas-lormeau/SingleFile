@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Gildas Lormeau
+ * Copyright 2010-2020 Gildas Lormeau
  * contact : gildas.lormeau <at> gmail.com
  * 
  * This file is part of SingleFile.
@@ -37,7 +37,7 @@
 						try {
 							nativeAPI.browserAction.setBadgeText(options, () => {
 								if (nativeAPI.runtime.lastError) {
-									reject(nativeAPI.runtime.lastError);
+									reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 								} else {
 									resolve();
 								}
@@ -49,7 +49,7 @@
 					if (FEATURE_TESTS["browserAction.setBadgeText"] && FEATURE_TESTS["browserAction.setBadgeText"].callbackNotSupported) {
 						nativeAPI.browserAction.setBadgeText(options);
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve();
 						}
@@ -60,7 +60,7 @@
 						try {
 							nativeAPI.browserAction.setBadgeBackgroundColor(options, () => {
 								if (nativeAPI.runtime.lastError) {
-									reject(nativeAPI.runtime.lastError);
+									reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 								} else {
 									resolve();
 								}
@@ -72,7 +72,7 @@
 					if (FEATURE_TESTS["browserAction.setBadgeBackgroundColor"] && FEATURE_TESTS["browserAction.setBadgeBackgroundColor"].callbackNotSupported) {
 						nativeAPI.browserAction.setBadgeBackgroundColor(options);
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve();
 						}
@@ -83,7 +83,7 @@
 						try {
 							nativeAPI.browserAction.setTitle(options, () => {
 								if (nativeAPI.runtime.lastError) {
-									reject(nativeAPI.runtime.lastError);
+									reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 								} else {
 									resolve();
 								}
@@ -95,7 +95,7 @@
 					if (FEATURE_TESTS["browserAction.setTitle"] && FEATURE_TESTS["browserAction.setTitle"].callbackNotSupported) {
 						nativeAPI.browserAction.setTitle(options);
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve();
 						}
@@ -106,7 +106,7 @@
 						try {
 							nativeAPI.browserAction.setIcon(options, () => {
 								if (nativeAPI.runtime.lastError) {
-									reject(nativeAPI.runtime.lastError);
+									reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 								} else {
 									resolve();
 								}
@@ -118,12 +118,18 @@
 					if (FEATURE_TESTS["browserAction.setIcon"] && FEATURE_TESTS["browserAction.setIcon"].callbackNotSupported) {
 						nativeAPI.browserAction.setIcon(options);
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve();
 						}
 					}
 				})
+			},
+			bookmarks: {
+				onCreated: {
+					addListener: listener => nativeAPI.bookmarks.onCreated.addListener(listener),
+					removeListener: listener => nativeAPI.bookmarks.onCreated.removeListener(listener)
+				}
 			},
 			commands: {
 				onCommand: {
@@ -134,7 +140,7 @@
 				download: options => new Promise((resolve, reject) => {
 					nativeAPI.downloads.download(options, downloadId => {
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve(downloadId);
 						}
@@ -153,7 +159,7 @@
 					return nativeAPI.identity && nativeAPI.identity.getAuthToken && (details => new Promise((resolve, reject) =>
 						nativeAPI.identity.getAuthToken(details, token => {
 							if (nativeAPI.runtime.lastError) {
-								reject(nativeAPI.runtime.lastError);
+								reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 							} else {
 								resolve(token);
 							}
@@ -164,7 +170,7 @@
 					return nativeAPI.identity && nativeAPI.identity.launchWebAuthFlow && (options => new Promise((resolve, reject) => {
 						nativeAPI.identity.launchWebAuthFlow(options, responseUrl => {
 							if (nativeAPI.runtime.lastError) {
-								reject(nativeAPI.runtime.lastError);
+								reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 							} else {
 								resolve(responseUrl);
 							}
@@ -175,7 +181,7 @@
 					return nativeAPI.identity && nativeAPI.identity.removeCachedAuthToken && (details => new Promise((resolve, reject) =>
 						nativeAPI.identity.removeCachedAuthToken(details, () => {
 							if (nativeAPI.runtime.lastError) {
-								reject(nativeAPI.runtime.lastError);
+								reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 							} else {
 								resolve();
 							}
@@ -191,7 +197,7 @@
 				update: (menuItemId, options) => new Promise((resolve, reject) => {
 					nativeAPI.contextMenus.update(menuItemId, options, () => {
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve();
 						}
@@ -200,7 +206,7 @@
 				removeAll: () => new Promise((resolve, reject) => {
 					nativeAPI.contextMenus.removeAll(() => {
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve();
 						}
@@ -209,11 +215,11 @@
 			},
 			permissions: {
 				request: permissions => new Promise((resolve, reject) => {
-					nativeAPI.permissions.request(permissions, () => {
+					nativeAPI.permissions.request(permissions, result => {
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
-							resolve();
+							resolve(result);
 						}
 					});
 				})
@@ -260,13 +266,13 @@
 				sendMessage: message => new Promise((resolve, reject) => {
 					nativeAPI.runtime.sendMessage(message, response => {
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve(response);
 						}
 					});
 					if (nativeAPI.runtime.lastError) {
-						reject(nativeAPI.runtime.lastError);
+						reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 					}
 				}),
 				getURL: (path) => nativeAPI.runtime.getURL(path),
@@ -279,7 +285,7 @@
 					set: value => new Promise((resolve, reject) => {
 						nativeAPI.storage.local.set(value, () => {
 							if (nativeAPI.runtime.lastError) {
-								reject(nativeAPI.runtime.lastError);
+								reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 							} else {
 								resolve();
 							}
@@ -288,7 +294,7 @@
 					get: () => new Promise((resolve, reject) => {
 						nativeAPI.storage.local.get(null, value => {
 							if (nativeAPI.runtime.lastError) {
-								reject(nativeAPI.runtime.lastError);
+								reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 							} else {
 								resolve(value);
 							}
@@ -297,7 +303,7 @@
 					clear: () => new Promise((resolve, reject) => {
 						nativeAPI.storage.local.clear(() => {
 							if (nativeAPI.runtime.lastError) {
-								reject(nativeAPI.runtime.lastError);
+								reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 							} else {
 								resolve();
 							}
@@ -306,7 +312,7 @@
 					remove: keys => new Promise((resolve, reject) => {
 						nativeAPI.storage.local.remove(keys, () => {
 							if (nativeAPI.runtime.lastError) {
-								reject(nativeAPI.runtime.lastError);
+								reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 							} else {
 								resolve();
 							}
@@ -317,7 +323,7 @@
 					set: value => new Promise((resolve, reject) => {
 						nativeAPI.storage.sync.set(value, () => {
 							if (nativeAPI.runtime.lastError) {
-								reject(nativeAPI.runtime.lastError);
+								reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 							} else {
 								resolve();
 							}
@@ -326,7 +332,7 @@
 					get: () => new Promise((resolve, reject) => {
 						nativeAPI.storage.sync.get(null, value => {
 							if (nativeAPI.runtime.lastError) {
-								reject(nativeAPI.runtime.lastError);
+								reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 							} else {
 								resolve(value);
 							}
@@ -335,7 +341,7 @@
 					clear: () => new Promise((resolve, reject) => {
 						nativeAPI.storage.sync.clear(() => {
 							if (nativeAPI.runtime.lastError) {
-								reject(nativeAPI.runtime.lastError);
+								reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 							} else {
 								resolve();
 							}
@@ -344,7 +350,7 @@
 					remove: keys => new Promise((resolve, reject) => {
 						nativeAPI.storage.sync.remove(keys, () => {
 							if (nativeAPI.runtime.lastError) {
-								reject(nativeAPI.runtime.lastError);
+								reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 							} else {
 								resolve();
 							}
@@ -370,7 +376,7 @@
 				executeScript: (tabId, details) => new Promise((resolve, reject) => {
 					nativeAPI.tabs.executeScript(tabId, details, () => {
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve();
 						}
@@ -379,19 +385,19 @@
 				sendMessage: (tabId, message, options = {}) => new Promise((resolve, reject) => {
 					nativeAPI.tabs.sendMessage(tabId, message, options, response => {
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve(response);
 						}
 					});
 					if (nativeAPI.runtime.lastError) {
-						reject(nativeAPI.runtime.lastError);
+						reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 					}
 				}),
 				query: options => new Promise((resolve, reject) => {
 					nativeAPI.tabs.query(options, tabs => {
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve(tabs);
 						}
@@ -400,7 +406,7 @@
 				create: createProperties => new Promise((resolve, reject) => {
 					nativeAPI.tabs.create(createProperties, tab => {
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve(tab);
 						}
@@ -409,7 +415,7 @@
 				get: options => new Promise((resolve, reject) => {
 					nativeAPI.tabs.get(options, tab => {
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve(tab);
 						}
@@ -418,7 +424,7 @@
 				remove: tabId => new Promise((resolve, reject) => {
 					nativeAPI.tabs.remove(tabId, () => {
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve();
 						}
@@ -427,7 +433,7 @@
 				update: (tabId, updateProperties) => new Promise((resolve, reject) => {
 					nativeAPI.tabs.update(tabId, updateProperties, tab => {
 						if (nativeAPI.runtime.lastError) {
-							reject(nativeAPI.runtime.lastError);
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
 						} else {
 							resolve(tab);
 						}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Gildas Lormeau
+ * Copyright 2010-2020 Gildas Lormeau
  * contact : gildas.lormeau <at> gmail.com
  * 
  * This file is part of SingleFile.
@@ -49,6 +49,9 @@ singlefile.extension.core.bg.messages = (() => {
 		}
 		if (message.method.startsWith("editor.")) {
 			return singlefile.extension.core.bg.editor.onMessage(message, sender);
+		}
+		if (message.method.startsWith("bookmarks.")) {
+			return singlefile.extension.core.bg.bookmarks.onMessage(message, sender);
 		}
 	});
 	if (browser.runtime.onMessageExternal) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Gildas Lormeau
+ * Copyright 2010-2020 Gildas Lormeau
  * contact : gildas.lormeau <at> gmail.com
  * 
  * This file is part of SingleFile.
@@ -66,6 +66,7 @@
 	const removeAlternativeFontsLabel = document.getElementById("removeAlternativeFontsLabel");
 	const removeAlternativeImagesLabel = document.getElementById("removeAlternativeImagesLabel");
 	const removeAlternativeMediasLabel = document.getElementById("removeAlternativeMediasLabel");
+	const saveCreatedBookmarksLabel = document.getElementById("saveCreatedBookmarksLabel");
 	const titleLabel = document.getElementById("titleLabel");
 	const userInterfaceLabel = document.getElementById("userInterfaceLabel");
 	const filenameLabel = document.getElementById("filenameLabel");
@@ -134,6 +135,7 @@
 	const removeAlternativeFontsInput = document.getElementById("removeAlternativeFontsInput");
 	const removeAlternativeImagesInput = document.getElementById("removeAlternativeImagesInput");
 	const removeAlternativeMediasInput = document.getElementById("removeAlternativeMediasInput");
+	const saveCreatedBookmarksInput = document.getElementById("saveCreatedBookmarksInput");
 	const groupDuplicateImagesInput = document.getElementById("groupDuplicateImagesInput");
 	const infobarTemplateInput = document.getElementById("infobarTemplateInput");
 	const includeInfobarInput = document.getElementById("includeInfobarInput");
@@ -354,6 +356,7 @@
 			removeUnusedStylesInput.checked = false;
 		}
 	}, false);
+	saveCreatedBookmarksInput.addEventListener("click", saveCreatedBookmarks, false);
 	saveToGDriveInput.addEventListener("click", async () => {
 		if (!saveToGDriveInput.checked) {
 			await browser.runtime.sendMessage({ method: "downloads.disableGDrive" });
@@ -380,7 +383,14 @@
 	}, false);
 	document.body.onchange = async event => {
 		let target = event.target;
-		if (target != ruleUrlInput && target != ruleProfileInput && target != ruleAutoSaveProfileInput && target != ruleEditUrlInput && target != ruleEditProfileInput && target != ruleEditAutoSaveProfileInput && target != showAutoSaveProfileInput) {
+		if (target != ruleUrlInput &&
+			target != ruleProfileInput &&
+			target != ruleAutoSaveProfileInput &&
+			target != ruleEditUrlInput &&
+			target != ruleEditProfileInput &&
+			target != ruleEditAutoSaveProfileInput &&
+			target != showAutoSaveProfileInput &&
+			target != saveCreatedBookmarksInput) {
 			if (target != profileNamesInput && target != showAllProfilesInput) {
 				await update();
 			}
@@ -444,6 +454,7 @@
 	removeAlternativeFontsLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeFonts");
 	removeAlternativeImagesLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeImages");
 	removeAlternativeMediasLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeMedias");
+	saveCreatedBookmarksLabel.textContent = browser.i18n.getMessage("optionSaveCreatedBookmarks");
 	groupDuplicateImagesLabel.textContent = browser.i18n.getMessage("optionGroupDuplicateImages");
 	titleLabel.textContent = browser.i18n.getMessage("optionsTitle");
 	userInterfaceLabel.textContent = browser.i18n.getMessage("optionsUserInterfaceSubTitle");
@@ -631,6 +642,7 @@
 		removeAlternativeImagesInput.checked = profileOptions.removeAlternativeImages;
 		groupDuplicateImagesInput.checked = profileOptions.groupDuplicateImages;
 		removeAlternativeMediasInput.checked = profileOptions.removeAlternativeMedias;
+		saveCreatedBookmarksInput.checked = profileOptions.saveCreatedBookmarks;
 		infobarTemplateInput.value = profileOptions.infobarTemplate;
 		includeInfobarInput.checked = profileOptions.includeInfobar;
 		confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
@@ -690,6 +702,7 @@
 				removeAlternativeFonts: removeAlternativeFontsInput.checked,
 				removeAlternativeImages: removeAlternativeImagesInput.checked,
 				removeAlternativeMedias: removeAlternativeMediasInput.checked,
+				saveCreatedBookmarks: saveCreatedBookmarksInput.checked,
 				groupDuplicateImages: groupDuplicateImagesInput.checked,
 				infobarTemplate: infobarTemplateInput.value,
 				includeInfobar: includeInfobarInput.checked,
@@ -712,6 +725,31 @@
 			}
 		} catch (error) {
 			// ignored
+		}
+	}
+
+	async function saveCreatedBookmarks() {
+		if (saveCreatedBookmarksInput.checked) {
+			saveCreatedBookmarksInput.checked = false;
+			try {
+				const permissionGranted = await browser.permissions.request({ permissions: ["bookmarks"] });
+				if (permissionGranted) {
+					saveCreatedBookmarksInput.checked = true;
+					await update();
+					await browser.runtime.sendMessage({ method: "bookmarks.saveCreatedBookmarks" });
+				} else {
+					await disableOption();
+				}
+			} catch (error) {
+				await disableOption();
+			}
+		} else {
+			await disableOption();
+		}
+
+		async function disableOption() {
+			await update();
+			await browser.runtime.sendMessage({ method: "bookmarks.disable" });
 		}
 	}
 
