@@ -188,7 +188,7 @@
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionsHTMLContentSubTitle": {
-		"message": "содержимое HTML",
+		"message": "Содержимое HTML",
 		"description": "Options sub-title: 'HTML content'"
 	},
 	"optionCompressHTML": {
