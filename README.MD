@@ -31,7 +31,7 @@ SingleFile can be installed on:
  - Chrome: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
  - Microsoft Edge: https://microsoftedge.microsoft.com/addons/detail/efnbkdcfmcmnhlkaijjjmhjjgladedno
 
-You can also download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project and install it manually by following these instructions:
+You can also download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project and install it manually by unzipping it somewhere on your disk and following these instructions:
  - Firefox: https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/
  - Chrome: https://developer.chrome.com/extensions/getstarted#manifest (omit the manifest creation)
  - Microsoft Edge: https://docs.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/part1-simple-extension#run-your-extension-locally-in-your-browser-while-developing-it-side-loading
