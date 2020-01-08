@@ -395,6 +395,10 @@
 		"message": "Google Drive に保存",
 		"description": "Options page label: 'save to Google Drive'"
 	},
+	"optionSaveCreatedBookmarks": {
+		"message": "save the page of a newly created bookmark",
+		"description": "Options page label: 'save the page of a newly created bookmark'"
+	},
 	"optionsHelpLink": {
 		"message": "ヘルプ",
 		"description": "Options help link"

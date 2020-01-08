@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Gildas Lormeau
+ * Copyright 2010-2020 Gildas Lormeau
  * contact : gildas.lormeau <at> gmail.com
  * 
  * This file is part of SingleFile.
@@ -85,7 +85,8 @@ singlefile.extension.core.bg.config = (() => {
 		resolveFragmentIdentifierURLs: false,
 		userScriptEnabled: false,
 		openEditor: false,
-		autoOpenEditor: false
+		autoOpenEditor: false,
+		saveCreatedBookmarks: false
 	};
 
 	let configStorage;

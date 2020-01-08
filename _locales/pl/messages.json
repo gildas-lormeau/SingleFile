@@ -388,12 +388,16 @@
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
-		"message": "Confirm you allow SingleFile to send to the Woleet API a SHA256 hash of each page you are going to save. You can find more information about this feature in the help page or by clicking on the question mark next to the option.",
+		"message": "Potwierdź, że zezwalasz SingleFile na wysyłanie do interfejsu API Woleet skrótu SHA256 każdej strony, którą chcesz zapisać. Więcej informacji na temat tej funkcji można znaleźć na stronie pomocy lub klikając znak zapytania obok opcji.",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionSaveToGDrive": {
 		"message": "zapisuj na Dysku Google",
 		"description": "Options page label: 'save to Google Drive'"
+	},
+	"optionSaveCreatedBookmarks": {
+		"message": "zapisuj stronę nowo utworzonej zakładki",
+		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionsHelpLink": {
 		"message": "pomoc (w języku angielskim)",
