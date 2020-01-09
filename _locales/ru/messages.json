@@ -188,7 +188,7 @@
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionsHTMLContentSubTitle": {
-		"message": "содержимое HTML",
+		"message": "Содержимое HTML",
 		"description": "Options sub-title: 'HTML content'"
 	},
 	"optionCompressHTML": {
@@ -396,7 +396,7 @@
 		"description": "Options page label: 'save to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
-		"message": "save the page of a newly created bookmark",
+		"message": "сохранить страницу недавно созданной закладки",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionsHelpLink": {
