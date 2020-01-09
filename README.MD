@@ -31,7 +31,7 @@ SingleFile can be installed on:
  - Chrome: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
  - Microsoft Edge: https://microsoftedge.microsoft.com/addons/detail/efnbkdcfmcmnhlkaijjjmhjjgladedno
 
-You can also download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project and install it manually by following these instructions:
+You can also download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project and install it manually by unzipping it somewhere on your disk and following these instructions:
  - Firefox: https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/
  - Chrome: https://developer.chrome.com/extensions/getstarted#manifest (omit the manifest creation)
  - Microsoft Edge: https://docs.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/part1-simple-extension#run-your-extension-locally-in-your-browser-while-developing-it-side-loading
@@ -80,7 +80,7 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
   - The following characters are replaced with `_` in file names: `~`, `+`, `\`, `?`, `%`, `*`, `:`, `"`, `<`, `>`  
 - Chrome:
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
-  - If the file name of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3.html", disable the option "Misc > save pages in background". Reinstalling the browser may also fix this issue.
+  - If the file name of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3.html", disable the option "Misc > save pages in background". Reinstalling the browser may also fix this issue. You can find more info about this bug [here](https://bugs.chromium.org/p/chromium/issues/detail?id=892133).
   - Disabling the option "File name > open the "Save as" dialog to confirm the file name" will work if and only if the option "Ask where to save each file before downloading" is disabled in chrome://settings/downloads.
 - Firefox:
   - The "File name > file name conflict resolution" option does not work if set to "prompt for a name"
