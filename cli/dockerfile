@@ -2,7 +2,7 @@ FROM zenika/alpine-chrome:with-node
 
 RUN set -x \
     git \
-    && git clone --recursive https://github.com/gildas-lormeau/SingleFile \
+    && git clone --depth 1 --recursive https://github.com/gildas-lormeau/SingleFile \
     && cd SingleFile && npm install --production && cd cli && npm install --production \
     && chmod +x single-file \
     && echo
