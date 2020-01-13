@@ -46,7 +46,7 @@ const args = require("yargs")
 		"browser-args": "",
 		"compress-CSS": true,
 		"compress-HTML": true,
-		"filename-template": "",
+		"filename-template": "{page-title} ({date-iso} {time-locale}).html",
 		"filename-replacement-character": "_",
 		"group-duplicate-images": true,
 		"include-infobar": false,
