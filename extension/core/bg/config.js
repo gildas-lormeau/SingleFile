@@ -86,7 +86,8 @@ singlefile.extension.core.bg.config = (() => {
 		userScriptEnabled: false,
 		openEditor: false,
 		autoOpenEditor: false,
-		saveCreatedBookmarks: false
+		saveCreatedBookmarks: false,
+		saveFavicon: true
 	};
 
 	let configStorage;
