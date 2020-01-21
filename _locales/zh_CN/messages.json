@@ -124,7 +124,7 @@
 		"description": "选项页副标题: '用户界面'"
 	},
 	"optionAddMenuEntry": {
-		"message": "添加菜单项到页面的右键菜单",
+		"message": "在页面右键菜单中显示 SingleFile 选项",
 		"description": "选项页标签: '添加菜单项到页面的右键菜单'"
 	},
 	"optionDisplayShadow": {
@@ -140,7 +140,7 @@
 		"description": "选项页标签: '信息栏内容模板'"
 	},
 	"optionIncludeInfobar": {
-		"message": "include the infobar in the saved page",
+		"message": "在保存的页面中加入信息栏",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionConfirmInfobar": {
@@ -148,15 +148,15 @@
 		"description": "选项页标签: '打开一个提示窗口以编辑信息栏内容'"
 	},
 	"optionOpenEditor": {
-		"message": "annotate the page before saving",
+		"message": "保存之前打开标注编辑器",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionAutoOpenEditor": {
-		"message": "open pages saved with SingleFile in the annotation editor",
+		"message": "打开已保存的页面时默认打开标注编辑器",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionAutoClose": {
-		"message": "auto-close the tab after the page is saved",
+		"message": "保存后自动关闭标签页",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
 	"optionsFileNameSubTitle": {
@@ -352,7 +352,7 @@
 		"description": "Options page label: 'auto-save periodically'"
 	},
 	"optionAutoSaveRepeatDelay": {
-		"message": "定期自动保存单位（秒）",
+		"message": "定期自动保存周期（秒）",
 		"description": "Options page label: 'period (s)'"
 	},
 	"optionsMiscSubTitle": {
@@ -384,7 +384,7 @@
 		"description": "Options page label: 'save to clipboard'"
 	},
 	"optionAddProof": {
-		"message": "add proof of existence",
+		"message": "添加证明文件存在指纹",
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
@@ -392,11 +392,11 @@
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionSaveToGDrive": {
-		"message": "save to Google Drive",
+		"message": "保存到 Google Drive",
 		"description": "Options page label: 'save to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
-		"message": "save the page of a newly created bookmark",
+		"message": "保存到书签",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionsHelpLink": {
@@ -404,7 +404,7 @@
 		"description": "选项页帮助链接"
 	},
 	"optionSynchronize": {
-		"message": "synchronize options",
+		"message": "同步配置文件",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionsResetButton": {
@@ -492,67 +492,67 @@
 		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
 	},
 	"editorAddYellowNote": {
-		"message": "Add a yellow note",
+		"message": "添加黄色笔记",
 		"description": "Title of the button 'Add a yellow note' in the editor"
 	},
 	"editorAddPinkNote": {
-		"message": "Add a pink note",
+		"message": "添加粉色笔记",
 		"description": "Title of the button 'Add a pink note' in the editor"
 	},
 	"editorAddBlueNote": {
-		"message": "Add a blue note",
+		"message": "添加蓝色笔记",
 		"description": "Title of the button 'Add a blue note' in the editor"
 	},
 	"editorAddGreenNote": {
-		"message": "Add a green note",
+		"message": "添加绿色笔记",
 		"description": "Title of the button 'Add a green note' in the editor"
 	},
 	"editorHighlightYellow": {
-		"message": "Highlight selected text in yellow",
+		"message": "突出选中文字为黄色",
 		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
 	},
 	"editorHighlightPink": {
-		"message": "Highlight selected text in pink",
+		"message": "突出选中文字为粉色",
 		"description": "Title of the button 'Highlight selected text in pink' in the editor"
 	},
 	"editorHighlightBlue": {
-		"message": "Highlight selected text in blue",
+		"message": "突出选中文字为蓝色",
 		"description": "Title of the button 'Highlight selected text in blue' in the editor"
 	},
 	"editorHighlightGreen": {
-		"message": "Highlight selected text in green",
+		"message": "突出选中文字为绿色",
 		"description": "Title of the button 'Highlight selected text in green' in the editor"
 	},
 	"editorToggleNotes": {
-		"message": "Display/hide notes",
+		"message": "显示/隐藏 笔记",
 		"description": "Title of the button 'Display/hide notes' in the editor"
 	},
 	"editorToggleHighlights": {
-		"message": "Display/hide the highlighted text",
+		"message": "显示/隐藏 文本突出颜色",
 		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
 	},
 	"editorRemoveHighlight": {
-		"message": "Remove the selected highlighted text",
+		"message": "移除选中文本突出颜色",
 		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
 	},
 	"editorEditPage": {
-		"message": "Enable/disable read-only",
+		"message": "启用/禁用 编辑模式",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorCutPage": {
-		"message": "Enable/disable removing document's element on click",
+		"message": "启用/禁用 点击删除元素",
 		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
 	},
 	"editorUndoCutPage": {
-		"message": "Restore last removed element",
+		"message": "恢复最后删除的元素",
 		"description": "Title of the button 'Restore last removed element' in the editor"
 	},
 	"editorUndoAllCutPage": {
-		"message": "Restore all removed elements",
+		"message": "恢复所有删除的元素",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
 	"editorSavePage": {
-		"message": "Save the page",
+		"message": "保存页面",
 		"description": "Title of the button 'Save the page' in the editor"
 	},
 	"pendingsTitle": {
