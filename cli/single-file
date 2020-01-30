@@ -44,7 +44,7 @@ const args = require("yargs")
 		"browser-extensions": [],
 		"browser-scripts": [],
 		"browser-args": "",
-		"compress-CSS": true,
+		"compress-CSS": false,
 		"compress-HTML": true,
 		"filename-template": "{page-title} ({date-iso} {time-locale}).html",
 		"filename-replacement-character": "_",
