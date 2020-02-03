@@ -77,6 +77,10 @@ singlefile.extension.core.bg.downloads = (() => {
 			singlefile.extension.core.bg.business.cancelAllTasks();
 			return {};
 		}
+		if (message.method.endsWith(".saveUrls")) {
+			singlefile.extension.core.bg.business.saveUrls(message.urls);
+			return {};
+		}
 	}
 
 	async function downloadTabPage(message, tab) {

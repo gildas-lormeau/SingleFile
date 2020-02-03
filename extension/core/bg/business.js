@@ -48,7 +48,8 @@ singlefile.extension.core.bg.business = (() => {
 	return {
 		isSavingTab: tab => Boolean(tasks.find(taskInfo => taskInfo.tab.id == tab.id)),
 		saveTabs,
-		saveLink,
+		saveUrls,
+		saveSelectedLinks,
 		cancelTab,
 		cancelTask: taskId => cancelTask(tasks.find(taskInfo => taskInfo.taskId == taskId)),
 		cancelAllTasks: () => Array.from(tasks).forEach(cancelTask),
@@ -70,9 +71,34 @@ singlefile.extension.core.bg.business = (() => {
 		onTabRemoved: cancelTab
 	};
 
+	async function saveSelectedLinks(tab) {
+		const tabs = singlefile.extension.core.bg.tabs;
+		const tabOptions = { extensionScriptFiles, tabId: tab.id, tabIndex: tab.index };
+		const scriptsInjected = await singlefile.extension.injectScript(tab.id, tabOptions);
+		if (scriptsInjected) {
+			const response = await tabs.sendMessage(tab.id, { method: "content.getSelectedLinks" });
+			if (response.urls && response.urls.length) {
+				await saveUrls(response.urls);
+			}
+		} else {
+			singlefile.extension.ui.bg.main.onForbiddenDomain(tab);
+		}
+	}
+
+	async function saveUrls(urls, options = {}) {
+		await Promise.all(urls.map(async url => {
+			const tabOptions = await singlefile.extension.core.bg.config.getOptions(url);
+			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
+			tabOptions.autoClose = true;
+			tabOptions.extensionScriptFiles = extensionScriptFiles;
+			tasks.push({ id: currentTaskId, status: "pending", tab: { url }, options: tabOptions, method: "content.save" });
+			currentTaskId++;
+		}));
+		await runTasks();
+	}
+
 	async function saveTabs(tabs, options = {}) {
 		const config = singlefile.extension.core.bg.config;
-		const maxParallelWorkers = (await config.get()).maxParallelWorkers;
 		const autosave = singlefile.extension.core.bg.autosave;
 		const ui = singlefile.extension.ui.bg.main;
 		await Promise.all(tabs.map(async tab => {
@@ -99,23 +125,27 @@ singlefile.extension.core.bg.business = (() => {
 				}
 			}
 		}));
+		await runTasks();
+	}
+
+	async function runTasks() {
+		const config = singlefile.extension.core.bg.config;
+		const maxParallelWorkers = (await config.get()).maxParallelWorkers;
 		const processingCount = tasks.filter(taskInfo => taskInfo.status == "processing").length;
-		for (let index = 0; index < Math.min(tabs.length, (maxParallelWorkers - processingCount)); index++) {
+		for (let index = 0; index < Math.min(tasks.length - processingCount, (maxParallelWorkers - processingCount)); index++) {
 			runTask();
 		}
 	}
 
 	function runTask() {
+		const ui = singlefile.extension.ui.bg.main;
+		const tabs = singlefile.extension.core.bg.tabs;
 		const taskInfo = tasks.find(taskInfo => taskInfo.status == "pending");
 		if (taskInfo) {
-			const tabId = taskInfo.tab.id;
 			const taskId = taskInfo.id;
-			return new Promise((resolve, reject) => {
+			return new Promise(async (resolve, reject) => {
 				taskInfo.status = "processing";
 				taskInfo.resolve = async () => {
-					if (taskInfo.options.autoClose && !taskInfo.cancelled) {
-						singlefile.extension.core.bg.tabs.remove(taskInfo.tab.id);
-					}
 					tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == taskId), 1);
 					resolve();
 					await runTask();
@@ -125,24 +155,35 @@ singlefile.extension.core.bg.business = (() => {
 					reject(error);
 					await runTask();
 				};
+				if (!taskInfo.tab.id) {
+					const tab = await tabs.create({ url: taskInfo.tab.url, active: false });
+					taskInfo.tab.id = taskInfo.options.tabId = tab.id;
+					taskInfo.tab.index = taskInfo.options.tabIndex = tab.index;
+					ui.onStart(taskInfo.tab.id, INJECT_SCRIPTS_STEP);
+					const scriptsInjected = await singlefile.extension.injectScript(taskInfo.tab.id, taskInfo.options);
+					if (scriptsInjected) {
+						ui.onStart(taskInfo.tab.id, EXECUTE_SCRIPTS_STEP);
+					} else {
+						taskInfo.reject();
+						return;
+					}
+				}
 				taskInfo.options.taskId = taskId;
-				singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: taskInfo.method, options: taskInfo.options })
+				tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options })
+					.then(() => {
+						if (taskInfo.options.autoClose && !taskInfo.cancelled) {
+							tabs.remove(taskInfo.tab.id);
+						}
+					})
 					.catch(error => {
 						if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
 							console.log(error); // eslint-disable-line no-console
-							singlefile.extension.ui.bg.main.onError(tabId);
+							ui.onError(taskInfo.tab.id);
 							taskInfo.reject(error);
 						}
 					});
 			});
 		}
-	}
-
-	async function saveLink(url, options = {}) {
-		const tabs = singlefile.extension.core.bg.tabs;
-		const tab = await tabs.create({ url, active: false });
-		options.autoClose = true;
-		await saveTabs([tab], options);
 	}
 
 	function cancelTab(tabId) {
