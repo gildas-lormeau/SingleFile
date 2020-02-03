@@ -152,7 +152,7 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 				}
 			}
 		}
-		return links;
+		return Array.from(new Set(links));
 	}
 
 	async function markSelection(optionallySelected) {
