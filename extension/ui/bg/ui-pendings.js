@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, setInterval, location */
+/* global browser, window, document, setInterval, location */
 
 (async () => {
 
@@ -29,8 +29,16 @@
 	const titleLabel = document.getElementById("titleLabel");
 	const resultsTable = document.getElementById("resultsTable");
 	const cancelAllButton = document.getElementById("cancelAllButton");
+	const addUrlsButton = document.getElementById("addUrlsButton");
+	const addUrlsInput = document.getElementById("addUrlsInput");
+	const addUrlsCancelButton = document.getElementById("addUrlsCancelButton");
+	const addUrlsOKButton = document.getElementById("addUrlsOKButton");
 	document.title = browser.i18n.getMessage("pendingsTitle");
 	cancelAllButton.textContent = browser.i18n.getMessage("pendingsCancelAllButton");
+	addUrlsButton.textContent = browser.i18n.getMessage("pendingsAddUrlsButton");
+	addUrlsCancelButton.textContent = browser.i18n.getMessage("pendingsAddUrlsCancelButton");
+	addUrlsOKButton.textContent = browser.i18n.getMessage("pendingsAddUrlsOKButton");
+	document.getElementById("addUrlsLabel").textContent = browser.i18n.getMessage("pendingsAddUrls");
 	URLLabel.textContent = browser.i18n.getMessage("pendingsURLTitle");
 	titleLabel.textContent = browser.i18n.getMessage("pendingsTitleTitle");
 	document.getElementById("statusLabel").textContent = browser.i18n.getMessage("pendingsStatusTitle");
@@ -44,6 +52,7 @@
 		await browser.runtime.sendMessage({ method: "downloads.cancelAll" });
 		await refresh();
 	};
+	addUrlsButton.onclick = displayAddUrlsPopup;
 	if (location.href.endsWith("#side-panel")) {
 		document.documentElement.classList.add("side-panel");
 	}
@@ -103,6 +112,33 @@
 	async function selectTab(tabId) {
 		await browser.runtime.sendMessage({ method: "tabs.activate", tabId });
 		await refresh();
+	}
+
+	async function displayAddUrlsPopup() {
+		document.getElementById("formAddUrls").style.setProperty("display", "flex");
+		document.querySelector("#formAddUrls .popup-content").style.setProperty("align-self", "center");
+		addUrlsInput.value = "";
+		addUrlsInput.focus();
+		document.body.style.setProperty("overflow-y", "hidden");
+		const urls = await new Promise(resolve => {
+			addUrlsOKButton.onclick = event => hideAndResolve(event, addUrlsInput.value);
+			addUrlsCancelButton.onclick = event => hideAndResolve(event);
+			window.onkeyup = event => {
+				if (event.key == "Escape") {
+					hideAndResolve(event);
+				}
+			};
+
+			function hideAndResolve(event, value = "") {
+				event.preventDefault();
+				document.getElementById("formAddUrls").style.setProperty("display", "none");
+				document.body.style.setProperty("overflow-y", "");
+				resolve(value.split("\n").map(url => url.trim()).filter(url => url));
+			}
+		});
+		if (urls.length) {
+			await browser.runtime.sendMessage({ method: "downloads.saveUrls", urls });
+		}
 	}
 
 	async function refresh(force) {

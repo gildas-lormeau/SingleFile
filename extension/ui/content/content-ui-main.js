@@ -48,6 +48,7 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 	Array.from(getComputedStyle(document.body)).forEach(property => allProperties.add(property));
 
 	return {
+		getSelectedLinks,
 		markSelection,
 		unmarkSelection,
 		prompt(message, defaultValue) {
@@ -115,6 +116,44 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 		onStartStageTask() { },
 		onEndStageTask() { }
 	};
+
+	function getSelectedLinks() {
+		let selectionFound;
+		const links = [];
+		const selection = getSelection();
+		for (let indexRange = 0; indexRange < selection.rangeCount; indexRange++) {
+			let range = selection.getRangeAt(indexRange);
+			if (range && range.commonAncestorContainer) {
+				const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
+				let rangeSelectionFound = false;
+				let finished = false;
+				while (!finished) {
+					if (rangeSelectionFound || treeWalker.currentNode == range.startContainer || treeWalker.currentNode == range.endContainer) {
+						rangeSelectionFound = true;
+						if (range.startContainer != range.endContainer || range.startOffset != range.endOffset) {
+							selectionFound = true;
+							if (treeWalker.currentNode.tagName == "A" && treeWalker.currentNode.href) {
+								links.push(treeWalker.currentNode.href);
+							}
+						}
+					}
+					if (treeWalker.currentNode == range.endContainer) {
+						finished = true;
+					} else {
+						treeWalker.nextNode();
+					}
+				}
+				if (selectionFound && treeWalker.currentNode == range.endContainer && treeWalker.currentNode.querySelectorAll) {
+					treeWalker.currentNode.querySelectorAll("*").forEach(descendantElement => {
+						if (descendantElement.tagName == "A" && descendantElement.href) {
+							links.push(treeWalker.currentNode.href);
+						}
+					});
+				}
+			}
+		}
+		return links;
+	}
 
 	async function markSelection(optionallySelected) {
 		let selectionFound = markSelectedContent();

@@ -7,12 +7,16 @@ body {
 }
 
 main {
+    font-family: sans-serif;
+}
+
+body>main {
     background-color: #fff;
     border: solid 1px rgb(191, 191, 191);
 }
 
-main,
-header {
+body>main,
+body>header {
     font-size: 12px;
     font-family: sans-serif;
     margin: 0;
@@ -21,9 +25,14 @@ header {
     max-width: 1024px;
 }
 
-header {
+body>header {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
+}
+
+.header-buttons {
+    flex-direction: row;
 }
 
 button {
@@ -39,13 +48,14 @@ button:not([disabled]):hover {
     background-color: #ededed;
 }
 
-header button {
+body>header button {
     margin-top: 5px;
     margin-bottom: 5px;
     align-self: flex-end;
     padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
+    margin-left: 8px;
 }
 
 .result-row {
@@ -112,17 +122,17 @@ header button {
 
 html.side-panel,
 .side-panel .result-head,
-.side-panel main {
+.side-panel body>main {
     background-color: #fbfbfb;
 }
 
-.side-panel header button {
+.side-panel .header-buttons {
     position: absolute;
     top: 4px;
     right: 12px;
 }
 
-.side-panel main {
+.side-panel body>main {
     border: 0;
     margin-left: 8px;
     margin-right: 12px;
@@ -137,11 +147,68 @@ html.side-panel,
     padding: 0px;
 }
 
+.popup {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(191, 191, 191, .75);
+    display: none;
+}
+
+.popup-content {
+    align-self: center;
+    width: 90%;
+    max-width: 320px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    box-shadow: 5px 5px #ababab;
+}
+
+.popup-content header {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.popup-content main {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.popup-content main textarea {
+    margin-bottom: 10px;
+    padding: 2px;
+    font-size: 13px;
+    margin-left: 0px;
+    width: calc(100% - 16px);
+    min-width: calc(100% - 16px);
+    max-width: calc(100% - 16px);
+    height: 60px;
+}
+
+.popup-content footer {
+    text-align: right;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.popup-content footer button {
+    margin-bottom: 10px;
+}
+
 @media (max-width:400px) {
 
-    main,
-    header,
-    header>button {
+    body>main,
+    body>header,
+    .header-buttons>button {
         font-size: 11px;
     }
 
@@ -151,9 +218,9 @@ html.side-panel,
         min-height: 30px;
     }
 
-    .side-panel header button {
-        top: 0px;        
-    }    
+    .side-panel .header-buttons {
+        top: 0px;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -162,12 +229,13 @@ html.side-panel,
         color: #fdfdfd;
     }
 
-    main {
+    body>main {
         border-color: rgb(81, 81, 81);
     }
 
-    main,
-    button {
+    body>main,
+    button,
+    .popup-content {
         background-color: #202023;
         color: #fdfdfd;
     }
@@ -197,10 +265,29 @@ html.side-panel,
         color: #2A2A2E;
     }
 
+    textarea {
+        background-color: #fff;
+    }
+
+    button:focus {
+        color: black;
+        border-color: black;
+        background-color: #d2d2d2;
+    }
+
+    .popup {
+        background-color: rgba(59, 59, 59, 0.95);
+    }
+
+    .popup-content {
+        box-shadow: 5px 5px #000000;
+    }
+
     html.side-panel,
     .side-panel .result-head,
-    .side-panel main,
-    .side-panel button {
+    .side-panel body>main,
+    .side-panel button,
+    .side-panel .popup-content {
         background-color: #38383d;
     }
 

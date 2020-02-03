@@ -11,6 +11,10 @@
 		"message": "Annotate and save the page...",
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
+	"menuSaveSelectedLinks": {
+		"message": "Save selected links",
+		"description": "Menu entry: 'Save selected links'"
+	},
 	"menuViewPendingSaves": {
 		"message": "View pending saves...",
 		"description": "Menu entry: 'View pending saves...'"
@@ -590,5 +594,21 @@
 	"pendingsNoPendings": {
 		"message": "No pending saves",
 		"description": "Label displayed when they are no pending saves"
+	},
+	"pendingsAddUrlsButton": {
+		"message": "Add URLs",
+		"description": "button 'Add URLs'"
+	},
+	"pendingsAddUrls": {
+		"message": "Enter a list of URLs separated by a new line",
+		"description": "Label of the add URLs input"
+	},
+	"pendingsAddUrlsOKButton": {
+		"message": "OK",
+		"description": "Add URLs popup confirm button: 'OK'"
+	},
+	"pendingsAddUrlsCancelButton": {
+		"message": "Cancel",
+		"description": "Add URLs popup cancel button: 'Cancel'"
 	}
 }

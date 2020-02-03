@@ -7,6 +7,10 @@
 		"message": "使用 SingleFile 保存页面",
 		"description": "菜单项: '使用 SingleFile 保存页面'"
 	},
+	"menuSaveSelectedLinks": {
+		"message": "Save selected links",
+		"description": "Menu entry: 'Save selected links'"
+	},
 	"menuEditAndSavePage": {
 		"message": "评论并保存页面...",
 		"description": "Menu entry: 'Annotate and save the page...'"
@@ -590,5 +594,21 @@
 	"pendingsNoPendings": {
 		"message": "No pending saves",
 		"description": "Label displayed when they are no pending saves"
+	},
+	"pendingsAddUrlsButton": {
+		"message": "Add URLs",
+		"description": "button 'Add URLs'"
+	},
+	"pendingsAddUrls": {
+		"message": "Enter a list of URLs separated by a new line",
+		"description": "Label of the add URLs input"
+	},
+	"pendingsAddUrlsOKButton": {
+		"message": "OK",
+		"description": "Add URLs popup confirm button: 'OK'"
+	},
+	"pendingsAddUrlsCancelButton": {
+		"message": "Cancel",
+		"description": "Add URLs popup cancel button: 'Cancel'"
 	}
 }
