@@ -237,7 +237,7 @@
 							without altering the document. It may also increase the CPU consumption and the time needed
 							to save a page.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
-					</li>					
+					</li>
 				</ul>
 				<p>Images</p>
 				<ul>
@@ -448,6 +448,10 @@
 			<li><a id="template-variables">Template variables</a>
 				<p>The template variables are used to customize the infobar content or the file name of a saved page.
 					They help to insert dynamic values like the save date or the page title.</p>
+				<p>
+					You can limit the length of a dynamic value by adding <code>[<em>maxByteSize</em>]</code> just after
+					the variable name. The <code>maxByteSize</code> value is the maximum length of the value in bytes
+					(e.g. `{page-title}[20]` to limit the title to 20 bytes).</p>
 				<ul>
 					<li><code>{page-title}</code>: the title of the page</li>
 					<li><code>{page-language}</code>: the language of the page</li>
