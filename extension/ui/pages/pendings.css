@@ -6,7 +6,8 @@ body {
     margin: 0;
 }
 
-main {
+main,
+header {
     font-family: sans-serif;
 }
 
