@@ -32,10 +32,6 @@ body>header {
     align-items: flex-end;
 }
 
-.header-buttons {
-    flex-direction: row;
-}
-
 button {
     background-color: #fbfbfb;
     border-color: rgb(191, 191, 191);
@@ -131,6 +127,7 @@ html.side-panel,
     position: absolute;
     top: 4px;
     right: 12px;
+    display: flex;
 }
 
 .side-panel body>main {
@@ -221,6 +218,20 @@ html.side-panel,
 
     .side-panel .header-buttons {
         top: 0px;
+    }
+}
+
+@media (max-width:300px) {
+    .side-panel button {
+        display: flex;
+    }
+
+    .side-panel .header-buttons {
+        flex-direction: column;
+    }
+
+    .result-head {
+        padding-bottom: 36px;
     }
 }
 
