@@ -28,7 +28,7 @@
 const fileUrl = require("file-url");
 const args = require("yargs")
 	.wrap(null)
-	.command("$0 <url> [output]", "Save a page into a single HTML file.", yargs => {
+	.command("$0 [url] [output]", "Save a page into a single HTML file.", yargs => {
 		yargs.positional("url", { description: "URL or path on the filesystem of the page to save", type: "string" });
 		yargs.positional("output", { description: "Output filename", type: "string" });
 	})
@@ -52,6 +52,7 @@ const args = require("yargs")
 		"include-infobar": false,
 		"load-deferred-images": true,
 		"load-deferred-images-max-idle-time": 1500,
+		"maxParallelWorkers": 8,
 		"max-resource-size-enabled": false,
 		"max-resource-size": 10,
 		"remove-hidden-elements": true,
@@ -108,6 +109,8 @@ const args = require("yargs")
 	.boolean("load-deferred-images")
 	.options("load-deferred-images-max-idle-time", { description: "Maximum delay of time to wait for deferred images in ms (puppeteer, puppeteer-firefox, webdriver-gecko, webdriver-chromium)" })
 	.number("load-deferred-images-max-idle-time")
+	.options("max-parallel-workers", { description: "Maximum number of browsers launched in parallel when processing a list of URLs (cf --urls-file)" })
+	.number("max-parallel-workers")
 	.options("max-resource-size-enabled", { description: "Enable removal of embedded resources exceeding a given size" })
 	.boolean("max-resource-size-enabled")
 	.options("max-resource-size", { description: "Maximum size of embedded resources in MB (i.e. images, stylesheets, scripts and iframes)" })
@@ -136,6 +139,8 @@ const args = require("yargs")
 	.boolean("remove-alternative-images")
 	.options("save-raw-page", { description: "Save the original page without interpreting it into the browser (puppeteer, puppeteer-firefox, webdriver-gecko, webdriver-chromium)" })
 	.boolean("save-raw-page")
+	.options("urls-file", { description: "Path to a text file containing a list of URLs (separated by a newline) to save" })
+	.string("urls-file")
 	.options("user-agent", { description: "User-agent of the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.string("user-agent")
 	.options("user-script-enabled", { description: "Enable the event API allowing to execute scripts before the page is saved" })
@@ -144,6 +149,7 @@ const args = require("yargs")
 	.string("web-driver-executable-path")
 	.argv;
 
+const fs = require("fs");
 const backEnds = {
 	jsdom: "./back-ends/jsdom.js",
 	puppeteer: "./back-ends/puppeteer.js",
@@ -153,18 +159,60 @@ const backEnds = {
 };
 args.compressCSS = args.compressCss;
 args.compressHTML = args.compressHtml;
-if (!/^(https?|file):\/\//.test(args.url)) {
+if (args.url && !/^(https?|file):\/\//.test(args.url)) {
 	args.url = fileUrl(args.url);
 }
 args.browserScripts = args.browserScripts.map(path => require.resolve(path));
-require(backEnds[args.backEnd]).getPageData(args).then(pageData => {
-	if (args.output) {
-		require("fs").writeFileSync(args.output, pageData.content);
+const backend = require(backEnds[args.backEnd]);
+backend.initialize(args).then(() => {
+	if (args.urlsFile) {
+		const urls = fs.readFileSync(args.urlsFile).toString().split("\n").map(url => url.trim()).filter(url => url);
+		for (let workerIndex = 0; workerIndex < args.maxParallelWorkers; workerIndex++) {
+			workerCapturePage(args, urls, workerIndex);
+		}
 	} else {
-		if (args.filenameTemplate) {
-			require("fs").writeFileSync(pageData.filename, pageData.content);
+		capturePage(args);
+	}
+});
+
+async function workerCapturePage(args, urls, workerIndex, depth = 0) {
+	const url = urls[workerIndex + (depth * args.maxParallelWorkers)];
+	if (url) {
+		args = JSON.parse(JSON.stringify(args));
+		args.url = url;
+		args.output = null;
+		await capturePage(args);
+		await workerCapturePage(args, urls, workerIndex, depth + 1);
+	}
+}
+
+async function capturePage(args) {
+	const pageData = await backend.getPageData(args);
+	if (args.output) {
+		fs.writeFileSync(getFilename(args.output), pageData.content);
+	} else {
+		if (args.filenameTemplate && pageData.filename) {
+			fs.writeFileSync(getFilename(pageData.filename), pageData.content);
 		} else {
 			console.log(pageData.content); // eslint-disable-line no-console			
 		}
 	}
-});
+}
+
+function getFilename(filename, index = 1) {
+	let newFilename = filename;
+	if (index > 1) {
+		const regExpMatchExtension = /(\.[^.]+)$/;
+		const matchExtension = newFilename.match(regExpMatchExtension);
+		if (matchExtension && matchExtension[1]) {
+			newFilename = newFilename.replace(regExpMatchExtension, " - " + index + matchExtension[1]);
+		} else {
+			newFilename += " - " + index;
+		}
+	}
+	if (fs.existsSync(newFilename)) {
+		return getFilename(filename, index + 1);
+	} else {
+		return newFilename;
+	}
+}

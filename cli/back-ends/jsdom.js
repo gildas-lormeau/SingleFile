@@ -29,6 +29,8 @@ const { JSDOM, VirtualConsole } = require("jsdom");
 const iconv = require("iconv-lite");
 const request = require("request-promise-native");
 
+exports.initialize = async () => { };
+
 exports.getPageData = async options => {
 	const pageContent = (await request({
 		method: "GET",
@@ -39,6 +41,54 @@ exports.getPageData = async options => {
 			"User-Agent": options.userAgent
 		}
 	})).body.toString();
+	let win;
+	try {
+		const dom = new JSDOM(pageContent, getBrowserOptions(options));
+		win = dom.window;
+		return await getPageData(win, options);
+	} finally {
+		if (win) {
+			win.close();
+		}
+	}
+};
+
+async function getPageData(win, options) {
+	const doc = win.document;
+	const scripts = await require("./common/scripts.js").get(options);
+	win.TextDecoder = class {
+		constructor(utfLabel) {
+			this.utfLabel = utfLabel;
+		}
+		decode(buffer) {
+			return iconv.decode(buffer, this.utfLabel);
+		}
+	};
+	win.crypto = {
+		subtle: {
+			digest: async function digestText(algo, text) {
+				const hash = crypto.createHash(algo.replace("-", "").toLowerCase());
+				hash.update(text, "utf-8");
+				return hash.digest();
+			}
+		}
+	};
+	win.Element.prototype.getBoundingClientRect = undefined;
+	win.getComputedStyle = () => { };
+	win.eval(scripts);
+	if (win.document.readyState == "loading" || win.document.readyState == "interactive") {
+		await new Promise(resolve => win.onload = resolve);
+	}
+	executeFrameScripts(doc, scripts);
+	options.removeHiddenElements = false;
+	const pageData = await win.singlefile.lib.getPageData(options, { fetch: url => fetchResource(url, options) }, doc, win);
+	if (options.includeInfobar) {
+		await win.singlefile.common.ui.content.infobar.includeScript(pageData);
+	}
+	return pageData;
+}
+
+function getBrowserOptions(options) {
 	const jsdomOptions = {
 		url: options.url,
 		virtualConsole: new VirtualConsole(),
@@ -53,47 +103,8 @@ exports.getPageData = async options => {
 			window.outerHeight = window.innerHeight = options.browserHeight;
 		};
 	}
-	const dom = new JSDOM(pageContent, jsdomOptions);
-	const win = dom.window;
-	const doc = win.document;
-	try {
-		const scripts = await require("./common/scripts.js").get(options);
-		win.TextDecoder = class {
-			constructor(utfLabel) {
-				this.utfLabel = utfLabel;
-			}
-			decode(buffer) {
-				return iconv.decode(buffer, this.utfLabel);
-			}
-		};
-		win.crypto = {
-			subtle: {
-				digest: async function digestText(algo, text) {
-					const hash = crypto.createHash(algo.replace("-", "").toLowerCase());
-					hash.update(text, "utf-8");
-					return hash.digest();
-				}
-			}
-		};
-		win.Element.prototype.getBoundingClientRect = undefined;
-		win.getComputedStyle = () => { };
-		win.eval(scripts);
-		if (win.document.readyState == "loading") {
-			await new Promise(resolve => win.document.onload = resolve);
-		}
-		executeFrameScripts(doc, scripts);
-		options.removeHiddenElements = false;
-		const pageData = await win.singlefile.lib.getPageData(options, { fetch: url => fetchResource(url, options) }, doc, win);
-		if (options.includeInfobar) {
-			await win.singlefile.common.ui.content.infobar.includeScript(pageData);
-		}
-		return pageData;
-	} finally {
-		if (win) {
-			win.close();
-		}
-	}
-};
+	return jsdomOptions;
+}
 
 function executeFrameScripts(doc, scripts) {
 	const frameElements = doc.querySelectorAll("iframe, frame");
