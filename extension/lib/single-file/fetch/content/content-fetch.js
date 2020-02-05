@@ -42,7 +42,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 			}
 			return {
 				status: response.status,
-				headers: Array.from(response.headers),
+				headers: [...response.headers],
 				array: Array.from(new Uint8Array(await response.arrayBuffer()))
 			};
 		} catch (error) {
