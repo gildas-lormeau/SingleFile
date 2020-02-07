@@ -29,15 +29,25 @@ const scripts = require("./common/scripts.js");
 const EXECUTION_CONTEXT_DESTROYED_ERROR = "Execution context was destroyed";
 const NETWORK_IDLE_STATE = "networkidle0";
 
+let browser, pendings = 0;
+
+exports.initialize = async options => {
+	browser = await puppeteer.launch(getBrowserOptions(options));
+};
+
 exports.getPageData = async options => {
-	let browser;
+	let page;
 	try {
-		browser = await puppeteer.launch(getBrowserOptions(options));
-		const page = await browser.newPage();
+		pendings++;
+		page = await browser.newPage();
 		await setPageOptions(page, options);
 		return await getPageData(browser, page, options);
 	} finally {
-		if (browser && !options.browserDebug) {
+		pendings--;
+		if (page) {
+			await page.close();
+		}
+		if (!pendings && browser && !options.browserDebug) {
 			await browser.close();
 		}
 	}

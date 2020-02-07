@@ -7,6 +7,10 @@
 		"message": "使用 SingleFile 保存頁面",
 		"description": "菜單項: '使用 SingleFile 保存頁面'"
 	},
+	"menuSaveSelectedLinks": {
+		"message": "Save selected links",
+		"description": "Menu entry: 'Save selected links'"
+	},
 	"menuEditAndSavePage": {
 		"message": "評論並保存頁面...",
 		"description": "Menu entry: 'Annotate and save the page...'"
@@ -124,7 +128,7 @@
 		"description": "選項頁副標題: '用戶界面'"
 	},
 	"optionAddMenuEntry": {
-		"message": "添加菜單項到頁面的右鍵菜單",
+		"message": "在頁面右鍵菜單中顯示 SingleFile 選項",
 		"description": "選項頁標籤: '添加菜單項到頁面的右鍵菜單'"
 	},
 	"optionDisplayShadow": {
@@ -140,7 +144,7 @@
 		"description": "選項頁標籤: '信息欄內容模板'"
 	},
 	"optionIncludeInfobar": {
-		"message": "include the infobar in the saved page",
+		"message": "在保存的頁面中加入信息欄",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionConfirmInfobar": {
@@ -148,15 +152,15 @@
 		"description": "選項頁標籤: '打開一個提示窗口以編輯信息欄內容'"
 	},
 	"optionOpenEditor": {
-		"message": "annotate the page before saving",
+		"message": "保存之前打開標註編輯器",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionAutoOpenEditor": {
-		"message": "open pages saved with SingleFile in the annotation editor",
+		"message": "打開已保存的頁面時默認打開標註編輯器",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionAutoClose": {
-		"message": "auto-close the tab after the page is saved",
+		"message": "保存後自動關閉標籤頁",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
 	"optionsFileNameSubTitle": {
@@ -352,7 +356,7 @@
 		"description": "Options page label: 'auto-save periodically'"
 	},
 	"optionAutoSaveRepeatDelay": {
-		"message": "定期自動保存單位（秒）",
+		"message": "定期自動保存週期（秒）",
 		"description": "Options page label: 'period (s)'"
 	},
 	"optionsMiscSubTitle": {
@@ -360,12 +364,12 @@
 		"description": "選項頁副標題: '其他'"
 	},
 	"optionBackgroundSave": {
-		"message": "在後台保存頁面",
-		"description": "選項頁標籤: '在後台保存頁面'"
+		"message": "在後臺保存頁面",
+		"description": "選項頁標籤: '在後臺保存頁面'"
 	},
 	"optionDisplayStats": {
-		"message": "處理後在控制台消息中顯示統計",
-		"description": "選項頁標籤: '處理後在控制台消息中顯示統計'"
+		"message": "處理後在控制檯消息中顯示統計",
+		"description": "選項頁標籤: '處理後在控制檯消息中顯示統計'"
 	},
 	"optionSetMaxResourceSize": {
 		"message": "設定嵌入的資源的最大體積",
@@ -384,7 +388,7 @@
 		"description": "Options page label: 'save to clipboard'"
 	},
 	"optionAddProof": {
-		"message": "add proof of existence",
+		"message": "添加證明文件存在指紋",
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
@@ -392,11 +396,11 @@
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionSaveToGDrive": {
-		"message": "save to Google Drive",
+		"message": "保存到 Google Drive",
 		"description": "Options page label: 'save to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
-		"message": "save the page of a newly created bookmark",
+		"message": "保存到書籤",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionsHelpLink": {
@@ -404,7 +408,7 @@
 		"description": "選項頁幫助鏈接"
 	},
 	"optionSynchronize": {
-		"message": "synchronize options",
+		"message": "同步配置文件",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionsResetButton": {
@@ -492,67 +496,67 @@
 		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
 	},
 	"editorAddYellowNote": {
-		"message": "Add a yellow note",
+		"message": "添加黃色筆記",
 		"description": "Title of the button 'Add a yellow note' in the editor"
 	},
 	"editorAddPinkNote": {
-		"message": "Add a pink note",
+		"message": "添加粉色筆記",
 		"description": "Title of the button 'Add a pink note' in the editor"
 	},
 	"editorAddBlueNote": {
-		"message": "Add a blue note",
+		"message": "添加藍色筆記",
 		"description": "Title of the button 'Add a blue note' in the editor"
 	},
 	"editorAddGreenNote": {
-		"message": "Add a green note",
+		"message": "添加綠色筆記",
 		"description": "Title of the button 'Add a green note' in the editor"
 	},
 	"editorHighlightYellow": {
-		"message": "Highlight selected text in yellow",
+		"message": "突出選中文字為黃色",
 		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
 	},
 	"editorHighlightPink": {
-		"message": "Highlight selected text in pink",
+		"message": "突出選中文字為粉色",
 		"description": "Title of the button 'Highlight selected text in pink' in the editor"
 	},
 	"editorHighlightBlue": {
-		"message": "Highlight selected text in blue",
+		"message": "突出選中文字為藍色",
 		"description": "Title of the button 'Highlight selected text in blue' in the editor"
 	},
 	"editorHighlightGreen": {
-		"message": "Highlight selected text in green",
+		"message": "突出選中文字為綠色",
 		"description": "Title of the button 'Highlight selected text in green' in the editor"
 	},
 	"editorToggleNotes": {
-		"message": "Display/hide notes",
+		"message": "顯示/隱藏 筆記",
 		"description": "Title of the button 'Display/hide notes' in the editor"
 	},
 	"editorToggleHighlights": {
-		"message": "Display/hide the highlighted text",
+		"message": "顯示/隱藏 文本突出顏色",
 		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
 	},
 	"editorRemoveHighlight": {
-		"message": "Remove the selected highlighted text",
+		"message": "移除選中文本突出顏色",
 		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
 	},
 	"editorEditPage": {
-		"message": "Enable/disable read-only",
+		"message": "啟用/禁用 編輯模式",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorCutPage": {
-		"message": "Enable/disable removing document's element on click",
+		"message": "啟用/禁用 點擊刪除元素",
 		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
 	},
 	"editorUndoCutPage": {
-		"message": "Restore last removed element",
+		"message": "恢復最後刪除的元素",
 		"description": "Title of the button 'Restore last removed element' in the editor"
 	},
 	"editorUndoAllCutPage": {
-		"message": "Restore all removed elements",
+		"message": "恢復所有刪除的元素",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
 	"editorSavePage": {
-		"message": "Save the page",
+		"message": "保存頁面",
 		"description": "Title of the button 'Save the page' in the editor"
 	},
 	"pendingsTitle": {
@@ -590,5 +594,21 @@
 	"pendingsNoPendings": {
 		"message": "No pending saves",
 		"description": "Label displayed when they are no pending saves"
+	},
+	"pendingsAddUrlsButton": {
+		"message": "Add URLs",
+		"description": "button 'Add URLs'"
+	},
+	"pendingsAddUrls": {
+		"message": "Enter a list of URLs separated by a new line",
+		"description": "Label of the add URLs input"
+	},
+	"pendingsAddUrlsOKButton": {
+		"message": "OK",
+		"description": "Add URLs popup confirm button: 'OK'"
+	},
+	"pendingsAddUrlsCancelButton": {
+		"message": "Cancel",
+		"description": "Add URLs popup cancel button: 'Cancel'"
 	}
 }

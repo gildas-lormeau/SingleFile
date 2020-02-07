@@ -97,6 +97,20 @@
 			setProperty(infobarElement, "text-align", "center");
 			setProperty(infobarElement, "will-change", "opacity, padding-left, padding-right, width, background-color, color");
 			setProperty(infobarElement, "margin", "0 0 0 16px");
+			const closeElement = createElement("span", infobarElement);
+			closeElement.textContent = "✕";
+			setProperty(closeElement, "display", "none");
+			setProperty(closeElement, "opacity", .7);
+			setProperty(closeElement, "padding-right", "8px");
+			setProperty(closeElement, "cursor", "pointer");
+			setProperty(closeElement, "color", "#9aa0a6");
+			closeElement.onmouseover = () => setProperty(closeElement, "opacity", 1);
+			closeElement.onmouseout = () => setProperty(closeElement, "opacity", .7);
+			closeElement.onclick = event => {
+				if (event.button === 0) {
+					infobarElement.remove();
+				}
+			};
 			const infoElement = createElement("span", infobarElement);
 			setProperty(infoElement, "font-family", "Arial");
 			setProperty(infoElement, "color", "#9aa0a6");
@@ -123,7 +137,7 @@
 			setProperty(imgElement, "cursor", "pointer");
 			setProperty(infobarElement, "text-align", "right");
 			imgElement.src = LINK_ICON;
-			hideInfobar(infobarElement, linkElement, infoElement);
+			hideInfobar(infobarElement, linkElement, infoElement, closeElement);
 			infobarElement.onmouseover = () => setProperty(infobarElement, "opacity", 1);
 			document.addEventListener("click", event => {
 				if (event.button === 0) {
@@ -132,7 +146,7 @@
 						element = element.parentElement;
 					}
 					if (element != infobarElement) {
-						hideInfobar(infobarElement, linkElement, infoElement);
+						hideInfobar(infobarElement, linkElement, infoElement, closeElement);
 					}
 				}
 			});
@@ -143,7 +157,7 @@
 		}
 	}
 
-	function displayInfobar(infobarElement, linkElement, infoElement) {
+	function displayInfobar(infobarElement, linkElement, infoElement, closeElement) {
 		setProperty(infobarElement, "font-size", "13px");
 		setProperty(infobarElement, "opacity", 1);
 		setProperty(infobarElement, "width", "auto");
@@ -165,13 +179,14 @@
 		setProperty(infobarElement, "border-radius", "8px");
 		setProperty(infoElement, "display", "inline-block");
 		setProperty(linkElement, "display", "inline-block");
+		setProperty(closeElement, "display", "inline-block");
 		setProperty(infobarElement, "user-select", "initial");
 		setProperty(infobarElement, "-moz-user-select", "initial");
 		infobarElement.onclick = null;
 		infobarElement.onmouseout = null;
 	}
 
-	function hideInfobar(infobarElement, linkElement, infoElement) {
+	function hideInfobar(infobarElement, linkElement, infoElement, closeElement) {
 		setProperty(infobarElement, "user-select", "none");
 		setProperty(infobarElement, "-moz-user-select", "none");
 		setProperty(infobarElement, "opacity", .7);
@@ -194,11 +209,12 @@
 		setProperty(infobarElement, "background-image", "url(" + IMAGE_ICON + ")");
 		setProperty(infobarElement, "background-size", "70% 70%");
 		setProperty(infobarElement, "border-radius", "16px");
+		setProperty(closeElement, "display", "none");
 		setProperty(linkElement, "display", "none");
 		setProperty(infoElement, "display", "none");
 		infobarElement.onclick = event => {
 			if (event.button === 0) {
-				displayInfobar(infobarElement, linkElement, infoElement);
+				displayInfobar(infobarElement, linkElement, infoElement, closeElement);
 				return false;
 			}
 		};

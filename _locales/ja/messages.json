@@ -7,6 +7,10 @@
 		"message": "SingleFile でページを保存",
 		"description": "Menu entry: 'Save page with SingleFile'"
 	},
+	"menuSaveSelectedLinks": {
+		"message": "Save selected links",
+		"description": "Menu entry: 'Save selected links'"
+	},
 	"menuEditAndSavePage": {
 		"message": "ページに注釈を付けて保存する...",
 		"description": "Menu entry: 'Annotate and save the page...'"
@@ -396,7 +400,7 @@
 		"description": "Options page label: 'save to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
-		"message": "save the page of a newly created bookmark",
+		"message": "新しく作成したブックマークのページを保存する",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionsHelpLink": {
@@ -590,5 +594,21 @@
 	"pendingsNoPendings": {
 		"message": "保留中の保存はありません",
 		"description": "Label displayed when they are no pending saves"
+	},
+	"pendingsAddUrlsButton": {
+		"message": "Add URLs",
+		"description": "button 'Add URLs'"
+	},
+	"pendingsAddUrls": {
+		"message": "Enter a list of URLs separated by a new line",
+		"description": "Label of the add URLs input"
+	},
+	"pendingsAddUrlsOKButton": {
+		"message": "OK",
+		"description": "Add URLs popup confirm button: 'OK'"
+	},
+	"pendingsAddUrlsCancelButton": {
+		"message": "Cancel",
+		"description": "Add URLs popup cancel button: 'Cancel'"
 	}
 }

@@ -28,100 +28,109 @@ const path = require("path");
 const firefox = require("selenium-webdriver/firefox");
 const { Builder, By, Key } = require("selenium-webdriver");
 
+exports.initialize = async () => { };
+
 exports.getPageData = async options => {
 	let driver;
 	try {
 		const builder = new Builder().withCapabilities({ "pageLoadStrategy": "none" });
-		const firefoxOptions = new firefox.Options();
-		if ((options.browserHeadless === undefined || options.browserHeadless) && !options.browserDebug) {
-			firefoxOptions.headless();
-		}
-		if (options.browserExecutablePath) {
-			firefoxOptions.setBinary(options.browserExecutablePath);
-		}
-		if (options.webDriverExecutablePath) {
-			process.env["webdriver.gecko.driver"] = options.webDriverExecutablePath;
-		}
-		const extensions = [];
-		if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
-			extensions.push(require.resolve("./extensions/signed/disable_web_security-0.0.3-an+fx.xpi"));
-		}
-		if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
-			extensions.push(require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi"));
-		}
-		if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0" || options.browserWaitUntil == "networkidle2") {
-			extensions.push(require.resolve("./extensions/signed/network_idle-0.0.2-an+fx.xpi"));
-		}
-		if (options.browserExtensions && options.browserExtensions.length) {
-			options.browserExtensions.forEach(extensionPath => extensions.push(path.resolve(__dirname, "..", extensionPath)));
-		}
-		if (options.browserArgs) {
-			const args = JSON.parse(options.browserArgs);
-			args.forEach(argument => firefoxOptions.addArguments(argument));
-		}
-		if (extensions.length) {
-			firefoxOptions.addExtensions(extensions);
-		}
-		if (options.userAgent) {
-			firefoxOptions.setPreference("general.useragent.override", options.userAgent);
-		}
-		builder.setFirefoxOptions(firefoxOptions);
-		driver = await builder.forBrowser("firefox").build();
-		driver.manage().setTimeouts({ script: options.browserLoadMaxTime, pageLoad: options.browserLoadMaxTime, implicit: options.browserLoadMaxTime });
-		if (options.browserWidth && options.browserHeight) {
-			const window = driver.manage().window();
-			if (window.setRect) {
-				window.setRect(options.browserHeight, options.browserWidth);
-			} else if (window.setSize) {
-				window.setSize(options.browserWidth, options.browserHeight);
-			}
-		}
-		let scripts = await require("./common/scripts.js").get(options);
-		if (options.browserDebug) {
-			await driver.findElement(By.css("html")).sendKeys(Key.SHIFT + Key.F5);
-			await driver.sleep(3000);
-		}
-		await driver.get(options.url);
-		while (await driver.getCurrentUrl() == "about:blank") {
-			// do nothing
-		}
-		scripts = scripts.replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||");
-		await driver.executeScript(scripts);
-		if (options.browserWaitUntil != "domcontentloaded") {
-			let scriptPromise;
-			if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0") {
-				scriptPromise = driver.executeAsyncScript("addEventListener(\"single-file-network-idle-0\", () => arguments[0](), true)");
-			} else if (options.browserWaitUntil == "networkidle2") {
-				scriptPromise = driver.executeAsyncScript("addEventListener(\"single-file-network-idle-2\", () => arguments[0](), true)");
-			} else if (options.browserWaitUntil == "load") {
-				scriptPromise = driver.executeAsyncScript("if (document.readyState == \"loading\" || document.readyState == \"interactive\") { document.addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
-			}
-			let cancelTimeout;
-			const timeoutPromise = new Promise(resolve => {
-				const timeoutId = setTimeout(resolve, Math.max(0, options.browserLoadMaxTime - 5000));
-				cancelTimeout = () => {
-					clearTimeout(timeoutId);
-					resolve();
-				};
-			});
-			await Promise.race([scriptPromise, timeoutPromise]);
-			cancelTimeout();
-		}
-		if (!options.removeFrames) {
-			await executeScriptInFrames(driver, scripts);
-		}
-		const result = await driver.executeAsyncScript(getPageDataScript(), options);
-		if (result.error) {
-			throw result.error;
-		} else {
-			return result.pageData;
-		}
+		builder.setFirefoxOptions(getBrowserOptions(options));
+		driver = builder.forBrowser("firefox").build();
+		return await getPageData(driver, options);
 	} finally {
 		if (driver && !options.browserDebug) {
 			driver.quit();
 		}
 	}
 };
+
+function getBrowserOptions(options) {
+	const firefoxOptions = new firefox.Options();
+	if ((options.browserHeadless === undefined || options.browserHeadless) && !options.browserDebug) {
+		firefoxOptions.headless();
+	}
+	if (options.browserExecutablePath) {
+		firefoxOptions.setBinary(options.browserExecutablePath);
+	}
+	if (options.webDriverExecutablePath) {
+		process.env["webdriver.gecko.driver"] = options.webDriverExecutablePath;
+	}
+	const extensions = [];
+	if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
+		extensions.push(require.resolve("./extensions/signed/disable_web_security-0.0.3-an+fx.xpi"));
+	}
+	if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
+		extensions.push(require.resolve("./extensions/signed/bypass_csp-0.0.3-an+fx.xpi"));
+	}
+	if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0" || options.browserWaitUntil == "networkidle2") {
+		extensions.push(require.resolve("./extensions/signed/network_idle-0.0.2-an+fx.xpi"));
+	}
+	if (options.browserExtensions && options.browserExtensions.length) {
+		options.browserExtensions.forEach(extensionPath => extensions.push(path.resolve(__dirname, "..", extensionPath)));
+	}
+	if (extensions.length) {
+		firefoxOptions.addExtensions(extensions);
+	}
+	if (options.browserArgs) {
+		const args = JSON.parse(options.browserArgs);
+		args.forEach(argument => firefoxOptions.addArguments(argument));
+	}
+	if (options.userAgent) {
+		firefoxOptions.setPreference("general.useragent.override", options.userAgent);
+	}
+}
+
+async function getPageData(driver, options) {
+	driver.manage().setTimeouts({ script: options.browserLoadMaxTime, pageLoad: options.browserLoadMaxTime, implicit: options.browserLoadMaxTime });
+	if (options.browserWidth && options.browserHeight) {
+		const window = driver.manage().window();
+		if (window.setRect) {
+			window.setRect(options.browserHeight, options.browserWidth);
+		} else if (window.setSize) {
+			window.setSize(options.browserWidth, options.browserHeight);
+		}
+	}
+	let scripts = await require("./common/scripts.js").get(options);
+	if (options.browserDebug) {
+		await driver.findElement(By.css("html")).sendKeys(Key.SHIFT + Key.F5);
+		await driver.sleep(3000);
+	}
+	await driver.get(options.url);
+	while (await driver.getCurrentUrl() == "about:blank") {
+		// do nothing
+	}
+	scripts = scripts.replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||");
+	await driver.executeScript(scripts);
+	if (options.browserWaitUntil != "domcontentloaded") {
+		let scriptPromise;
+		if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0") {
+			scriptPromise = driver.executeAsyncScript("addEventListener(\"single-file-network-idle-0\", () => arguments[0](), true)");
+		} else if (options.browserWaitUntil == "networkidle2") {
+			scriptPromise = driver.executeAsyncScript("addEventListener(\"single-file-network-idle-2\", () => arguments[0](), true)");
+		} else if (options.browserWaitUntil == "load") {
+			scriptPromise = driver.executeAsyncScript("if (document.readyState == \"loading\" || document.readyState == \"interactive\") { addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
+		}
+		let cancelTimeout;
+		const timeoutPromise = new Promise(resolve => {
+			const timeoutId = setTimeout(resolve, Math.max(0, options.browserLoadMaxTime - 5000));
+			cancelTimeout = () => {
+				clearTimeout(timeoutId);
+				resolve();
+			};
+		});
+		await Promise.race([scriptPromise, timeoutPromise]);
+		cancelTimeout();
+	}
+	if (!options.removeFrames) {
+		await executeScriptInFrames(driver, scripts);
+	}
+	const result = await driver.executeAsyncScript(getPageDataScript(), options);
+	if (result.error) {
+		throw result.error;
+	} else {
+		return result.pageData;
+	}
+}
 
 async function executeScriptInFrames(driver, scripts) {
 	let finished = false, indexFrame = 0;

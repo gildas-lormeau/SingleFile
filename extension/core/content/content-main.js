@@ -35,7 +35,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 		frameFetch: singlefile.extension.lib.fetch.content.resources.frameFetch
 	});
 	browser.runtime.onMessage.addListener(message => {
-		if (message.method == "content.save" || message.method == "content.cancelSave") {
+		if (message.method == "content.save" || message.method == "content.cancelSave" || message.method == "content.getSelectedLinks") {
 			return onMessage(message);
 		}
 	});
@@ -57,6 +57,11 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 					browser.runtime.sendMessage({ method: "ui.processCancelled" });
 				}
 				return {};
+			}
+			if (message.method == "content.getSelectedLinks") {
+				return {
+					urls: ui.getSelectedLinks()
+				};
 			}
 		}
 	}
