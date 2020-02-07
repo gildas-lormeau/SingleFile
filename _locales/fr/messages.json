@@ -7,6 +7,10 @@
 		"message": "Sauver la page avec SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
 	},
+	"menuSaveSelectedLinks": {
+		"message": "Sauver les liens selectionnés",
+		"description": "Menu entry: 'Save selected links'"
+	},
 	"menuEditAndSavePage": {
 		"message": "Annoter et sauver la page...",
 		"description": "Menu entry: 'Annotate and save the page...'"
@@ -216,7 +220,7 @@
 		"description": "Options page label: 'group duplicate images together'"
 	},
 	"optionLoadDeferredImages": {
-		"message": "sauver les images chargées de manière différées",
+		"message": "sauver les images chargées de manière différée",
 		"description": "Options page label: 'save deferred images'"
 	},
 	"optionLoadDeferredImagesMaxIdleTime": {
@@ -590,5 +594,21 @@
 	"pendingsNoPendings": {
 		"message": "Aucune sauvegarde en cours",
 		"description": "Label displayed when they are no pending saves"
+	},
+	"pendingsAddUrlsButton": {
+		"message": "Ajouter URLs",
+		"description": "button 'Add URLs'"
+	},
+	"pendingsAddUrls": {
+		"message": "Entrez une liste d'URLs séparées par une nouvelle ligne",
+		"description": "Label of the add URLs input"
+	},
+	"pendingsAddUrlsOKButton": {
+		"message": "OK",
+		"description": "Add URLs popup confirm button: 'OK'"
+	},
+	"pendingsAddUrlsCancelButton": {
+		"message": "Annuler",
+		"description": "Add URLs popup cancel button: 'Cancel'"
 	}
 }

@@ -218,12 +218,6 @@
 				</ul>
 				<p>Stylesheets</p>
 				<ul>
-					<li data-options-label="compressCSSLabel"> <span class="option">Option: compress CSS content</span>
-						<p>Check this option to minify CSS stylesheets. Checking this option can reduce size of the file
-							without altering the document. It may also increase the CPU consumption and the time needed
-							to save a page.</p>
-						<p class="notice">It is recommended to <u>check</u> this option</p>
-					</li>
 					<li data-options-label="removeUnusedStylesLabel"> <span class="option">Option: remove unused
 							styles</span>
 						<p>Check this option to remove all the CSS rules and styles that do not match any element in the
@@ -237,6 +231,12 @@
 						<p>Check this option to remove stylesheets that are not used for the screen display like
 							stylesheets for print preview and speech synthesizers. Checking this option can help to
 							reduce the size of the file.</p>
+					</li>
+					<li data-options-label="compressCSSLabel"> <span class="option">Option: compress CSS content</span>
+						<p>Check this option to minify CSS stylesheets. Checking this option can reduce size of the file
+							without altering the document. It may also increase the CPU consumption and the time needed
+							to save a page.</p>
+						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 				</ul>
 				<p>Images</p>
@@ -437,8 +437,8 @@
 				<p>Form buttons</p>
 				<ul>
 					<li><span class="option">synchronize options</span>
-						<p>Check this option to synchronize your options with the account associated to
-							your browser session.</p>
+						<p>Check this option to synchronize your options and make them available in all instances of the
+							browser you are logged into, on different devices.</p>
 					</li>
 					<li><span class="option">Reset</span>
 						<p>Reset all options to their default values.</p>
@@ -448,6 +448,10 @@
 			<li><a id="template-variables">Template variables</a>
 				<p>The template variables are used to customize the infobar content or the file name of a saved page.
 					They help to insert dynamic values like the save date or the page title.</p>
+				<p>
+					You can limit the length of a dynamic value by adding <code>[<em>maxByteSize</em>]</code> just after
+					the variable name. The <code>maxByteSize</code> value is the maximum length of the value in bytes
+					(e.g. `{page-title}[20]` to limit the title to 20 bytes).</p>
 				<ul>
 					<li><code>{page-title}</code>: the title of the page</li>
 					<li><code>{page-language}</code>: the language of the page</li>

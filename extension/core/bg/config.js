@@ -38,7 +38,7 @@ singlefile.extension.core.bg.config = (() => {
 		removeImports: true,
 		removeScripts: true,
 		compressHTML: true,
-		compressCSS: true,
+		compressCSS: false,
 		loadDeferredImages: true,
 		loadDeferredImagesMaxIdleTime: 1500,
 		loadDeferredImagesBlockCookies: false,
@@ -86,7 +86,8 @@ singlefile.extension.core.bg.config = (() => {
 		userScriptEnabled: false,
 		openEditor: false,
 		autoOpenEditor: false,
-		saveCreatedBookmarks: false
+		saveCreatedBookmarks: false,
+		saveFavicon: true
 	};
 
 	let configStorage;

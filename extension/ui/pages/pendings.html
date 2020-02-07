@@ -10,7 +10,10 @@
 
 <body>
 	<header>
-		<button id="cancelAllButton"></button>
+		<div class="header-buttons">
+			<button id="addUrlsButton"></button>
+			<button id="cancelAllButton"></button>
+		</div>
 	</header>
 	<main>
 		<div class="result-row result-head">
@@ -23,6 +26,18 @@
 		<div id="resultsTable">
 		</div>
 	</main>
+	<div id="formAddUrls" class="popup">
+		<form class="popup-content">
+			<header>
+				<span id="addUrlsLabel"></span>
+			</header>
+			<main><textarea id="addUrlsInput" type="text"></textarea></main>
+			<footer>
+				<button type="submit" id="addUrlsOKButton"></button>
+				<button id="addUrlsCancelButton"></button>
+			</footer>
+		</form>
+	</div>
 	<script type="text/javascript"
 		src="/extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"></script>
 	<script type="text/javascript" src="../bg/ui-pendings.js"></script>

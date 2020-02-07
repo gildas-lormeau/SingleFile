@@ -24,7 +24,6 @@ The permissions requested by SingleFile are defined in the [manifest.json](https
 ## SingleFile is slow on my computer/tablet/phone, can it run faster?
 The default configuration of SingleFile is optimized to produce small pages. This can sometimes slow down the save process considerably. Below are the options you can disable to save time and CPU.
  - HTML content > remove hidden elements
- - Stylesheets > compress CSS content
  - Stylesheets > remove unused styles
 
 You can also disable the options below. Some resources (e.g. images, frames) on the page may be missing though.

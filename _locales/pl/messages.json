@@ -7,6 +7,10 @@
 		"message": "Zapisz stronę z SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
 	},
+	"menuSaveSelectedLinks": {
+		"message": "Zapisz wybrane odnośniki",
+		"description": "Menu entry: 'Save selected links'"
+	},
 	"menuEditAndSavePage": {
 		"message": "Adnotuj i zapisz stronę...",
 		"description": "Menu entry: 'Annotate and save the page...'"
@@ -590,5 +594,21 @@
 	"pendingsNoPendings": {
 		"message": "Brak oczekujących zapisów",
 		"description": "Label displayed when they are no pending saves"
+	},
+	"pendingsAddUrlsButton": {
+		"message": "Dodaj adresy URL",
+		"description": "button 'Add URLs'"
+	},
+	"pendingsAddUrls": {
+		"message": "Wprowadź listę adresów URL oddzielonych nowym wierszem",
+		"description": "Label of the add URLs input"
+	},
+	"pendingsAddUrlsOKButton": {
+		"message": "OK",
+		"description": "Add URLs popup confirm button: 'OK'"
+	},
+	"pendingsAddUrlsCancelButton": {
+		"message": "Anuluj",
+		"description": "Add URLs popup cancel button: 'Cancel'"
 	}
 }

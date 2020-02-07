@@ -1,5 +1,5 @@
 # SingleFile
-SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox (Desktop and Mobile), Microsoft (Chromium-based) Edge, Vivaldi, Brave, Waterfox, Yandex browser, and Opera. It helps you to save a complete web page into a single HTML file.
+SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox (Desktop and Mobile), Microsoft Edge, Vivaldi, Brave, Waterfox, Yandex browser, and Opera. It helps you to save a complete web page into a single HTML file.
 
 ## Table of Contents
  - [Demo](#demo)
@@ -23,7 +23,7 @@ SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox (
  - [License](#license)
 
 ## Demo
-![](https://github.com/gildas-lormeau/SingleFile-Demos/blob/master/SingleFile-demo.gif)
+![](https://github.com/gildas-lormeau/SingleFile-Demos/blob/master/demo-sf.gif)
 
 ## Install
 SingleFile can be installed on:
@@ -31,7 +31,7 @@ SingleFile can be installed on:
  - Chrome: https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
  - Microsoft Edge: https://microsoftedge.microsoft.com/addons/detail/efnbkdcfmcmnhlkaijjjmhjjgladedno
 
-You can also download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project and install it manually by following these instructions:
+You can also download the zip file (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project and install it manually by unzipping it somewhere on your disk and following these instructions:
  - Firefox: https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/
  - Chrome: https://developer.chrome.com/extensions/getstarted#manifest (omit the manifest creation)
  - Microsoft Edge: https://docs.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/part1-simple-extension#run-your-extension-locally-in-your-browser-while-developing-it-side-loading
@@ -77,13 +77,14 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
   - For security reasons, you cannot save pages hosted on https://chrome.google.com, https://addons.mozilla.org and some other Mozilla domains. When this happens, 🛇 is displayed on top of the SingleFile icon.
   - For [security reasons](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image), SingleFile is sometimes unable to save the image representation of [canvas](https://developer.mozilla.org/docs/Web/HTML/Element/canvas) and snapshots of [video](https://developer.mozilla.org/docs/Web/HTML/Element/video) elements.
   - The last saved path cannot be remembered by default. To circumvent this limitation, disable the option "Misc > save pages in background".
-  - The following characters are replaced with `_` in file names: `~`, `+`, `\`, `?`, `%`, `*`, `:`, `"`, `<`, `>`  
+  - The following characters are replaced with `_` in file names: `~`, `+`, `\`, `?`, `%`, `*`, `:`, `|`, `"`, `<`, `>`  
 - Chrome:
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
-  - If the file name of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3.html", disable the option "Misc > save pages in background". Reinstalling the browser may also fix this issue.
+  - If the file name of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3.html", disable the option "Misc > save pages in background". Reinstalling the browser may also fix this issue. You can find more info about this bug [here](https://bugs.chromium.org/p/chromium/issues/detail?id=892133).
   - Disabling the option "File name > open the "Save as" dialog to confirm the file name" will work if and only if the option "Ask where to save each file before downloading" is disabled in chrome://settings/downloads.
 - Firefox:
   - The "File name > file name conflict resolution" option does not work if set to "prompt for a name"
+  - Sometimes, SingleFile is unable to save the contents of  sandboxed iframes because of [this bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1411641).
 - Waterfox
   - When opening pages saved with the option "Images > group duplicate images together" enabled, some duplicate images might not displayed. It is recommended to disable this option.
 
