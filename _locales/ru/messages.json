@@ -8,7 +8,7 @@
 		"description": "Menu entry: 'Save page with SingleFile'"
 	},
 	"menuSaveSelectedLinks": {
-		"message": "Save selected links",
+		"message": "Сохранить выбранные ссылки",
 		"description": "Menu entry: 'Save selected links'"
 	},
 	"menuEditAndSavePage": {
@@ -596,11 +596,11 @@
 		"description": "Label displayed when they are no pending saves"
 	},
 	"pendingsAddUrlsButton": {
-		"message": "Add URLs",
+		"message": "Добавить URL",
 		"description": "button 'Add URLs'"
 	},
 	"pendingsAddUrls": {
-		"message": "Enter a list of URLs separated by a new line",
+		"message": "Введите список URL, разделённых новой строкой",
 		"description": "Label of the add URLs input"
 	},
 	"pendingsAddUrlsOKButton": {
@@ -608,7 +608,7 @@
 		"description": "Add URLs popup confirm button: 'OK'"
 	},
 	"pendingsAddUrlsCancelButton": {
-		"message": "Cancel",
+		"message": "Отмена",
 		"description": "Add URLs popup cancel button: 'Cancel'"
 	}
 }
