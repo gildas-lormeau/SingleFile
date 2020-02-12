@@ -547,6 +547,10 @@
 		"message": "啟用/禁用 編輯模式",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
+	"editorFormatPage": {
+		"message": "Format the page for better readability",
+		"description": "Title of the button 'Format the page for better readability' in the editor"
+	},
 	"editorCutPage": {
 		"message": "啟用/禁用 點擊刪除元素",
 		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"

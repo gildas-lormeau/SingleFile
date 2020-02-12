@@ -39,6 +39,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	const addBlueNoteButton = document.querySelector(".add-note-blue-button");
 	const addGreenNoteButton = document.querySelector(".add-note-green-button");
 	const editPageButton = document.querySelector(".edit-page-button");
+	const formatPageButton = document.querySelector(".format-page-button");
 	const cutPageButton = document.querySelector(".cut-page-button");
 	const undoCutPageButton = document.querySelector(".undo-cut-page-button");
 	const undoAllCutPageButton = document.querySelector(".undo-all-cut-page-button");
@@ -58,6 +59,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	toggleHighlightsButton.title = browser.i18n.getMessage("editorToggleHighlights");
 	removeHighlightButton.title = browser.i18n.getMessage("editorRemoveHighlight");
 	editPageButton.title = browser.i18n.getMessage("editorEditPage");
+	formatPageButton.title = browser.i18n.getMessage("editorFormatPage");
 	cutPageButton.title = browser.i18n.getMessage("editorCutPage");
 	undoCutPageButton.title = browser.i18n.getMessage("editorUndoCutPage");
 	undoAllCutPageButton.title = browser.i18n.getMessage("editorUndoAllCutPage");
@@ -141,6 +143,12 @@ singlefile.extension.ui.bg.editor = (() => {
 		} else {
 			editPageButton.classList.add("edit-disabled");
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableEditPage" }), "*");
+		}
+	};
+	formatPageButton.onclick = () => {
+		if (formatPageButton.classList.contains("format-disabled")) {
+			formatPageButton.classList.remove("format-disabled");
+			editorElement.contentWindow.postMessage(JSON.stringify({ method: "formatPage" }), "*");
 		}
 	};
 	cutPageButton.onclick = () => {

@@ -547,6 +547,10 @@
 		"message": "Aktivieren/Deaktivieren des Nur-Lese-Modus",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
+	"editorFormatPage": {
+		"message": "Die Seite zur besseren Lesbarkeit formatieren",
+		"description": "Title of the button 'Format the page for better readability' in the editor"
+	},
 	"editorCutPage": {
 		"message": "Aktivieren/Deaktivieren des Entfernens des Dokument-Elements auf Klick",
 		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
