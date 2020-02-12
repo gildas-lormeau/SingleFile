@@ -29,7 +29,8 @@ singlefile.extension.core.bg.bookmarks = (() => {
 	return {
 		onMessage,
 		saveCreatedBookmarks: enable,
-		disable
+		disable,
+		update: (id, changes) => browser.bookmarks.update(id, changes)
 	};
 
 	async function onInit() {
@@ -79,16 +80,33 @@ singlefile.extension.core.bg.bookmarks = (() => {
 		const options = await singlefile.extension.core.bg.config.getOptions(bookmarkInfo.url);
 		if (options.saveCreatedBookmarks) {
 			if (tabs.length && tabs[0].url == bookmarkInfo.url) {
-				singlefile.extension.core.bg.business.saveTabs(tabs);
+				singlefile.extension.core.bg.business.saveTabs(tabs, { bookmarkId: bookmarkInfo.id });
 			} else {
 				const tabs = await singlefile.extension.core.bg.tabs.get({});
 				if (tabs.length) {
 					const tab = tabs.find(tab => tab.url == bookmarkInfo.url);
 					if (tab) {
-						singlefile.extension.core.bg.business.saveTabs([tab]);
+						singlefile.extension.core.bg.business.saveTabs([tab], { bookmarkId: bookmarkInfo.id });
+					} else {
+						if (bookmarkInfo.url == "about:blank") {
+							browser.bookmarks.onChanged.addListener(onChanged);
+						} else {
+							saveUrl(bookmarkInfo.url);
+						}
 					}
 				}
 			}
+		}
+
+		function onChanged(id, changeInfo) {
+			if (id == bookmarkInfo.id && changeInfo.url) {
+				browser.bookmarks.onChanged.removeListener(onChanged);
+				saveUrl(changeInfo.url);
+			}
+		}
+
+		function saveUrl(url) {
+			singlefile.extension.core.bg.business.saveUrls([url], { bookmarkId: bookmarkInfo.id });
 		}
 	}
 

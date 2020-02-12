@@ -403,6 +403,10 @@
 		"message": "сохранить страницу недавно созданной закладки",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
+	"optionReplaceBookmarkURL": {
+		"message": "link the new bookmark to the saved page",
+		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
 	"optionsHelpLink": {
 		"message": "помощь",
 		"description": "Options help link"

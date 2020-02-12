@@ -403,6 +403,10 @@
 		"message": "sauvegarder la page d'un signet nouvellement créé",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
+	"optionReplaceBookmarkURL": {
+		"message": "lier le nouveau signet à la page sauvegardée",
+		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
 	"optionsHelpLink": {
 		"message": "aide (anglais)",
 		"description": "Options help link"
