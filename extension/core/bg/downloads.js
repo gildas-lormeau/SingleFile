@@ -222,7 +222,11 @@ singlefile.extension.core.bg.downloads = (() => {
 		if (options.incognito) {
 			downloadInfo.incognito = true;
 		}
-		await download(downloadInfo, options.filenameReplacementCharacter);
+		const downloadData = await download(downloadInfo, options.filenameReplacementCharacter);
+		if (downloadData.filename) {
+			const taskInfo = singlefile.extension.core.bg.business.getTaskInfo(pageData.taskId);
+			taskInfo.options.filename = "file:///" + encodeURI(downloadData.filename.replace(/\\/gi, "/"));
+		}
 	}
 
 	async function download(downloadInfo, replacementCharacter) {
@@ -263,7 +267,9 @@ singlefile.extension.core.bg.downloads = (() => {
 			function onChanged(event) {
 				if (event.id == downloadId && event.state) {
 					if (event.state.current == STATE_DOWNLOAD_COMPLETE) {
-						resolve({});
+						browser.downloads.search({ id: downloadId })
+							.then(downloadItems => resolve({ filename: downloadItems[0] && downloadItems[0].filename }))
+							.catch(() => resolve({}));
 						browser.downloads.onChanged.removeListener(onChanged);
 					}
 					if (event.state.current == STATE_DOWNLOAD_INTERRUPTED) {

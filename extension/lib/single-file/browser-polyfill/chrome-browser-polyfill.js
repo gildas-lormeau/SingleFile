@@ -129,7 +129,20 @@
 				onCreated: {
 					addListener: listener => nativeAPI.bookmarks.onCreated.addListener(listener),
 					removeListener: listener => nativeAPI.bookmarks.onCreated.removeListener(listener)
-				}
+				},
+				onChanged: {
+					addListener: listener => nativeAPI.bookmarks.onChanged.addListener(listener),
+					removeListener: listener => nativeAPI.bookmarks.onChanged.removeListener(listener)
+				},
+				update: (id, changes) => new Promise((resolve, reject) => {
+					nativeAPI.bookmarks.update(id, changes, node => {
+						if (nativeAPI.runtime.lastError) {
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
+						} else {
+							resolve(node);
+						}
+					});
+				})
 			},
 			commands: {
 				onCommand: {
@@ -149,7 +162,16 @@
 				onChanged: {
 					addListener: listener => nativeAPI.downloads.onChanged.addListener(listener),
 					removeListener: listener => nativeAPI.downloads.onChanged.removeListener(listener)
-				}
+				},
+				search: query => new Promise((resolve, reject) => {
+					nativeAPI.downloads.search(query, downloadItems => {
+						if (nativeAPI.runtime.lastError) {
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
+						} else {
+							resolve(downloadItems);
+						}
+					});
+				})
 			},
 			i18n: {
 				getMessage: (messageName, substitutions) => nativeAPI.i18n.getMessage(messageName, substitutions)

@@ -403,6 +403,10 @@
 		"message": "guardar la página de un marcador recién creado",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
+	"optionReplaceBookmarkURL": {
+		"message": "enlazar el nuevo marcador a la página guardada",
+		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
 	"optionsHelpLink": {
 		"message": "ayuda",
 		"description": "Options help link"

@@ -87,6 +87,7 @@ singlefile.extension.core.bg.config = (() => {
 		openEditor: false,
 		autoOpenEditor: false,
 		saveCreatedBookmarks: false,
+		replaceBookmarkURL: true,
 		saveFavicon: true
 	};
 
