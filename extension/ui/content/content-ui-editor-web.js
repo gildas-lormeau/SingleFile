@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable */
+/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia */
 
 (async () => {
 
@@ -893,6 +893,9 @@ table {
 			document.body.classList.add("sans-serif");
 			document.body.classList.add("container");
 			document.body.classList.add("line-height4");
+			if (matchMedia("prefers-color-scheme: dark")) {
+				document.body.classList.add("dark");
+			}
 			document.body.style.setProperty("display", "block");
 			document.body.style.setProperty("padding", "24px");
 			const titleElement = document.createElement("h1");
