@@ -188,6 +188,9 @@ singlefile.extension.ui.bg.editor = (() => {
 			tabData.options.openEditor = false;
 			singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
 		}
+		if (message.method == "disableFormatPage") {
+			formatPageButton.classList.remove("format-disabled");
+		}
 	};
 	window.onload = browser.runtime.sendMessage({ method: "editor.getTabData" });
 
