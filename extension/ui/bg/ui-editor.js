@@ -189,7 +189,7 @@ singlefile.extension.ui.bg.editor = (() => {
 			singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
 		}
 		if (message.method == "disableFormatPage") {
-			formatPageButton.classList.remove("format-disabled");
+			formatPageButton.remove();
 		}
 	};
 	window.onload = browser.runtime.sendMessage({ method: "editor.getTabData" });
