@@ -225,7 +225,9 @@ singlefile.extension.core.bg.downloads = (() => {
 		const downloadData = await download(downloadInfo, options.filenameReplacementCharacter);
 		if (downloadData.filename) {
 			const taskInfo = singlefile.extension.core.bg.business.getTaskInfo(pageData.taskId);
-			taskInfo.options.filename = "file:///" + encodeURI(downloadData.filename.replace(/\\/gi, "/"));
+			if (taskInfo) {
+				taskInfo.options.filename = "file:///" + encodeURI(downloadData.filename.replace(/\\/gi, "/"));
+			}
 		}
 	}
 
