@@ -88,10 +88,12 @@ singlefile.extension.core.bg.bookmarks = (() => {
 					if (tab) {
 						singlefile.extension.core.bg.business.saveTabs([tab], { bookmarkId: bookmarkInfo.id });
 					} else {
-						if (bookmarkInfo.url == "about:blank") {
-							browser.bookmarks.onChanged.addListener(onChanged);
-						} else {
-							saveUrl(bookmarkInfo.url);
+						if (bookmarkInfo.url) {
+							if (bookmarkInfo.url == "about:blank") {
+								browser.bookmarks.onChanged.addListener(onChanged);
+							} else {
+								saveUrl(bookmarkInfo.url);
+							}
 						}
 					}
 				}
