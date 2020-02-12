@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability */
+/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable */
 
 (async () => {
 
@@ -833,6 +833,9 @@ table {
 			deserializeShadowRoots(document);
 			const iconElement = document.querySelector("link[rel*=icon]");
 			window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: iconElement && iconElement.href }), "*");
+			if (!isProbablyReaderable(document)) {
+				window.parent.postMessage(JSON.stringify({ "method": "disableFormatPage" }), "*");
+			}
 			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
 			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
 			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
