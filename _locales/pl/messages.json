@@ -548,7 +548,7 @@
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorFormatPage": {
-		"message": "Format the page for better readability",
+		"message": "Sformatuj stronę dla lepszej czytelności",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutPage": {
