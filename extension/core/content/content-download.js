@@ -50,7 +50,9 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 					filenameReplacementCharacter: options.filenameReplacementCharacter,
 					openEditor: options.openEditor,
 					compressHTML: options.compressHTML,
-					backgroundSave: options.backgroundSave
+					backgroundSave: options.backgroundSave,
+					bookmarkId: options.bookmarkId,
+					replaceBookmarkURL: options.replaceBookmarkURL
 				};
 				message.truncated = pageData.content.length > MAX_CONTENT_SIZE;
 				if (message.truncated) {

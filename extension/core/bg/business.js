@@ -171,9 +171,6 @@ singlefile.extension.core.bg.business = (() => {
 				taskInfo.options.taskId = taskId;
 				tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options })
 					.then(() => {
-						if (taskInfo.options.replaceBookmarkURL && taskInfo.options.bookmarkId && taskInfo.options.filename) {
-							singlefile.extension.core.bg.bookmarks.update(taskInfo.options.bookmarkId, { url: taskInfo.options.filename });
-						}
 						if (taskInfo.options.autoClose && !taskInfo.cancelled) {
 							tabs.remove(taskInfo.tab.id);
 						}
