@@ -109,7 +109,9 @@ singlefile.extension.core.bg.downloads = (() => {
 					incognito: tab.incognito,
 					filenameConflictAction: message.filenameConflictAction,
 					filenameReplacementCharacter: message.filenameReplacementCharacter,
-					compressHTML: message.compressHTML
+					compressHTML: message.compressHTML,
+					bookmarkId: message.bookmarkId,
+					replaceBookmarkURL: message.replaceBookmarkURL
 				});
 			} else {
 				if (message.saveToClipboard) {
@@ -223,11 +225,8 @@ singlefile.extension.core.bg.downloads = (() => {
 			downloadInfo.incognito = true;
 		}
 		const downloadData = await download(downloadInfo, options.filenameReplacementCharacter);
-		if (downloadData.filename) {
-			const taskInfo = singlefile.extension.core.bg.business.getTaskInfo(pageData.taskId);
-			if (taskInfo) {
-				taskInfo.options.filename = "file:///" + encodeURI(downloadData.filename.replace(/\\/gi, "/"));
-			}
+		if (downloadData.filename && pageData.bookmarkId && pageData.replaceBookmarkURL) {
+			await singlefile.extension.core.bg.bookmarks.update(pageData.bookmarkId, { url: downloadData.filename });
 		}
 	}
 
