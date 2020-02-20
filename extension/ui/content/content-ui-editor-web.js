@@ -1411,17 +1411,19 @@ table {
 
 	function deserializeShadowRoots(node) {
 		node.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(element => {
-			let shadowRoot = element.parentElement.shadowRoot;
-			if (shadowRoot) {
-				Array.from(element.childNodes).forEach(node => shadowRoot.appendChild(node));
-				element.remove();
-			} else {
-				shadowRoot = element.parentElement.attachShadow({ mode: "open" });
-				const contentDocument = (new DOMParser()).parseFromString(element.innerHTML, "text/html");
-				Array.from(contentDocument.head.childNodes).forEach(node => shadowRoot.appendChild(node));
-				Array.from(contentDocument.body.childNodes).forEach(node => shadowRoot.appendChild(node));
+			if (element.parentElement) {
+				let shadowRoot = element.parentElement.shadowRoot;
+				if (shadowRoot) {
+					Array.from(element.childNodes).forEach(node => shadowRoot.appendChild(node));
+					element.remove();
+				} else {
+					shadowRoot = element.parentElement.attachShadow({ mode: "open" });
+					const contentDocument = (new DOMParser()).parseFromString(element.innerHTML, "text/html");
+					Array.from(contentDocument.head.childNodes).forEach(node => shadowRoot.appendChild(node));
+					Array.from(contentDocument.body.childNodes).forEach(node => shadowRoot.appendChild(node));
+				}
+				deserializeShadowRoots(shadowRoot);
 			}
-			deserializeShadowRoots(shadowRoot);
 		});
 	}
 
