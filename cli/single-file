@@ -96,6 +96,8 @@ const args = require("yargs")
 	.boolean("compress-CSS")
 	.options("compress-HTML", { description: "Compress HTML content" })
 	.boolean("compress-HTML")
+	.options("error-file")
+	.string("error-file")
 	.options("filename-template", { description: "Template used to generate the output filename (see help page of the extension for more info)" })
 	.string("filename-template")
 	.options("filename-replacement-character", { description: "The character used for replacing invalid characters in filenames" })
@@ -187,14 +189,23 @@ async function workerCapturePage(args, urls, workerIndex, depth = 0) {
 }
 
 async function capturePage(args) {
-	const pageData = await backend.getPageData(args);
-	if (args.output) {
-		fs.writeFileSync(getFilename(args.output), pageData.content);
-	} else {
-		if (args.filenameTemplate && pageData.filename) {
-			fs.writeFileSync(getFilename(pageData.filename), pageData.content);
+	try {
+		const pageData = await backend.getPageData(args);
+		if (args.output) {
+			fs.writeFileSync(getFilename(args.output), pageData.content);
 		} else {
-			console.log(pageData.content); // eslint-disable-line no-console			
+			if (args.filenameTemplate && pageData.filename) {
+				fs.writeFileSync(getFilename(pageData.filename), pageData.content);
+			} else {
+				console.log(pageData.content); // eslint-disable-line no-console
+			}
+		}
+	} catch (error) {
+		const message = "URL: " + args.url + "\nStack: " + error.stack + "\n";
+		if (args.errorFile) {
+			fs.writeFileSync(args.errorFile, message, { flag: "a" });
+		} else {
+			console.error(message);// eslint-disable-line no-console
 		}
 	}
 }
