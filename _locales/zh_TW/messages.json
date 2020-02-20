@@ -403,6 +403,10 @@
 		"message": "保存到書籤",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
+	"optionReplaceBookmarkURL": {
+		"message": "link the new bookmark to the saved page",
+		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
 	"optionsHelpLink": {
 		"message": "幫助",
 		"description": "選項頁幫助鏈接"
@@ -542,6 +546,10 @@
 	"editorEditPage": {
 		"message": "啟用/禁用 編輯模式",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
+	},
+	"editorFormatPage": {
+		"message": "Format the page for better readability",
+		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutPage": {
 		"message": "啟用/禁用 點擊刪除元素",

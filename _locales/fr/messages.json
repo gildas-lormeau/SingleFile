@@ -403,6 +403,10 @@
 		"message": "sauvegarder la page d'un signet nouvellement créé",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
+	"optionReplaceBookmarkURL": {
+		"message": "lier le nouveau signet à la page sauvegardée",
+		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
 	"optionsHelpLink": {
 		"message": "aide (anglais)",
 		"description": "Options help link"
@@ -542,6 +546,10 @@
 	"editorEditPage": {
 		"message": "Activer/déactiver le mode lecture seule",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
+	},
+	"editorFormatPage": {
+		"message": "Formater la  page pour une meilleure lisibilité",
+		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutPage": {
 		"message": "Activer/désactiver la supression des éléments du document au click",

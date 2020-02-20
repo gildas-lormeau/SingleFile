@@ -67,6 +67,7 @@
 	const removeAlternativeImagesLabel = document.getElementById("removeAlternativeImagesLabel");
 	const removeAlternativeMediasLabel = document.getElementById("removeAlternativeMediasLabel");
 	const saveCreatedBookmarksLabel = document.getElementById("saveCreatedBookmarksLabel");
+	const replaceBookmarkURLLabel = document.getElementById("replaceBookmarkURLLabel");
 	const titleLabel = document.getElementById("titleLabel");
 	const userInterfaceLabel = document.getElementById("userInterfaceLabel");
 	const filenameLabel = document.getElementById("filenameLabel");
@@ -136,6 +137,7 @@
 	const removeAlternativeImagesInput = document.getElementById("removeAlternativeImagesInput");
 	const removeAlternativeMediasInput = document.getElementById("removeAlternativeMediasInput");
 	const saveCreatedBookmarksInput = document.getElementById("saveCreatedBookmarksInput");
+	const replaceBookmarkURLInput = document.getElementById("replaceBookmarkURLInput");
 	const groupDuplicateImagesInput = document.getElementById("groupDuplicateImagesInput");
 	const infobarTemplateInput = document.getElementById("infobarTemplateInput");
 	const includeInfobarInput = document.getElementById("includeInfobarInput");
@@ -455,6 +457,7 @@
 	removeAlternativeImagesLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeImages");
 	removeAlternativeMediasLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeMedias");
 	saveCreatedBookmarksLabel.textContent = browser.i18n.getMessage("optionSaveCreatedBookmarks");
+	replaceBookmarkURLLabel.textContent = browser.i18n.getMessage("optionReplaceBookmarkURL");
 	groupDuplicateImagesLabel.textContent = browser.i18n.getMessage("optionGroupDuplicateImages");
 	titleLabel.textContent = browser.i18n.getMessage("optionsTitle");
 	userInterfaceLabel.textContent = browser.i18n.getMessage("optionsUserInterfaceSubTitle");
@@ -643,6 +646,8 @@
 		groupDuplicateImagesInput.checked = profileOptions.groupDuplicateImages;
 		removeAlternativeMediasInput.checked = profileOptions.removeAlternativeMedias;
 		saveCreatedBookmarksInput.checked = profileOptions.saveCreatedBookmarks;
+		replaceBookmarkURLInput.checked = profileOptions.saveCreatedBookmarks && profileOptions.backgroundSave && profileOptions.replaceBookmarkURL;
+		replaceBookmarkURLInput.disabled = !profileOptions.saveCreatedBookmarks || !profileOptions.backgroundSave || profileOptions.saveToClipboard || profileOptions.saveToGDrive;
 		infobarTemplateInput.value = profileOptions.infobarTemplate;
 		includeInfobarInput.checked = profileOptions.includeInfobar;
 		confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
@@ -703,6 +708,7 @@
 				removeAlternativeImages: removeAlternativeImagesInput.checked,
 				removeAlternativeMedias: removeAlternativeMediasInput.checked,
 				saveCreatedBookmarks: saveCreatedBookmarksInput.checked,
+				replaceBookmarkURL: replaceBookmarkURLInput.checked,
 				groupDuplicateImages: groupDuplicateImagesInput.checked,
 				infobarTemplate: infobarTemplateInput.value,
 				includeInfobar: includeInfobarInput.checked,
@@ -736,6 +742,7 @@
 				if (permissionGranted) {
 					saveCreatedBookmarksInput.checked = true;
 					await update();
+					await refresh();
 					await browser.runtime.sendMessage({ method: "bookmarks.saveCreatedBookmarks" });
 				} else {
 					await disableOption();
@@ -749,6 +756,7 @@
 
 		async function disableOption() {
 			await update();
+			await refresh();
 			await browser.runtime.sendMessage({ method: "bookmarks.disable" });
 		}
 	}

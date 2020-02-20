@@ -109,7 +109,9 @@ singlefile.extension.core.bg.downloads = (() => {
 					incognito: tab.incognito,
 					filenameConflictAction: message.filenameConflictAction,
 					filenameReplacementCharacter: message.filenameReplacementCharacter,
-					compressHTML: message.compressHTML
+					compressHTML: message.compressHTML,
+					bookmarkId: message.bookmarkId,
+					replaceBookmarkURL: message.replaceBookmarkURL
 				});
 			} else {
 				if (message.saveToClipboard) {
@@ -222,7 +224,10 @@ singlefile.extension.core.bg.downloads = (() => {
 		if (options.incognito) {
 			downloadInfo.incognito = true;
 		}
-		await download(downloadInfo, options.filenameReplacementCharacter);
+		const downloadData = await download(downloadInfo, options.filenameReplacementCharacter);
+		if (downloadData.filename && pageData.bookmarkId && pageData.replaceBookmarkURL) {
+			await singlefile.extension.core.bg.bookmarks.update(pageData.bookmarkId, { url: downloadData.filename });
+		}
 	}
 
 	async function download(downloadInfo, replacementCharacter) {
@@ -263,7 +268,9 @@ singlefile.extension.core.bg.downloads = (() => {
 			function onChanged(event) {
 				if (event.id == downloadId && event.state) {
 					if (event.state.current == STATE_DOWNLOAD_COMPLETE) {
-						resolve({});
+						browser.downloads.search({ id: downloadId })
+							.then(downloadItems => resolve({ filename: downloadItems[0] && downloadItems[0].filename }))
+							.catch(() => resolve({}));
 						browser.downloads.onChanged.removeListener(onChanged);
 					}
 					if (event.state.current == STATE_DOWNLOAD_INTERRUPTED) {

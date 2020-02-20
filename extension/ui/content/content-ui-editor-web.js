@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter */
+/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia */
 
 (async () => {
 
@@ -53,6 +53,760 @@
 	const NOTE_HEADER_HEIGHT = 25;
 	const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-file-disabled-noscript";
 
+	const STYLE_FORMATTED_PAGE = `
+	/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/* Avoid adding ID selector rules in this style sheet, since they could
+ * inadvertently match elements in the article content. */
+:root {
+   --close-button-hover: #d94141;
+}
+body {
+  --toolbar-bgcolor: #fbfbfb;
+  --toolbar-border: #b5b5b5;
+  --toolbar-hover: #ebebeb;
+  --popup-bgcolor: #fbfbfb;
+  --popup-border: #b5b5b5;
+  --font-color: #4c4c4c;
+  --icon-fill: #808080;
+  /* light colours */
+}
+
+body.dark {
+  --toolbar-bgcolor: #2a2a2d;
+  --toolbar-border: #4B4A50;
+  --toolbar-hover: #737373;
+  --popup-bgcolor: #4b4a50;
+  --popup-border: #65646a;
+  --font-color: #fff;
+  --icon-fill: #fff;
+  /* dark colours */
+}
+
+body {
+  padding: 64px 51px;
+}
+
+body.loaded {
+  transition: color 0.4s, background-color 0.4s;
+}
+
+body.light {
+  color: #333333;
+  background-color: #ffffff;
+}
+
+body.dark {
+  color: #eeeeee;
+  background-color: #333333;
+}
+
+body.dark *::-moz-selection {
+  background-color: #FFFFFF;
+  color: #0095DD;
+}
+body.dark a::-moz-selection {
+  color: #DD4800;
+}
+
+body.sepia {
+  color: #5b4636;
+  background-color: #f4ecd8;
+}
+
+body.sans-serif,
+body.sans-serif .remove-button {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+body.serif,
+body.serif .remove-button  {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.container {
+  --font-size: 12;
+  max-width: 30em;
+  margin: 0 auto;
+  font-size: var(--font-size);
+}
+
+.container.content-width1 {
+  max-width: 20em;
+}
+
+.container.content-width2 {
+  max-width: 25em;
+}
+
+.container.content-width3 {
+  max-width: 30em;
+}
+
+.container.content-width4  {
+  max-width: 35em;
+}
+
+.container.content-width5 {
+  max-width: 40em;
+}
+
+.container.content-width6 {
+  max-width: 45em;
+}
+
+.container.content-width7 {
+  max-width: 50em;
+}
+
+.container.content-width8 {
+  max-width: 55em;
+}
+
+.container.content-width9 {
+  max-width: 60em;
+}
+
+/* Override some controls and content styles based on color scheme */
+
+body.light > .container > .header > .domain {
+  border-bottom-color: #333333 !important;
+}
+
+body.sepia > .container > .header > .domain {
+  border-bottom-color: #5b4636 !important;
+}
+
+body.dark > .container > .header > .domain {
+  border-bottom-color: #eeeeee !important;
+}
+
+body.sepia > .container > .footer {
+  background-color: #dedad4 !important;
+}
+
+body.light blockquote {
+  border-inline-start: 2px solid #333333 !important;
+}
+
+body.sepia blockquote {
+  border-inline-start: 2px solid #5b4636 !important;
+}
+
+body.dark blockquote {
+  border-inline-start: 2px solid #eeeeee !important;
+}
+
+/* Add toolbar transition base on loaded class  */
+
+body.loaded .toolbar {
+  transition: transform 0.3s ease-out;
+}
+
+body:not(.loaded) .toolbar:-moz-locale-dir(ltr) {
+  transform: translateX(-100%);
+}
+
+body:not(.loaded) .toolbar:-moz-locale-dir(rtl) {
+  transform: translateX(100%);
+}
+
+.light-button {
+  color: #333333;
+  background-color: #ffffff;
+}
+
+.dark-button {
+  color: #eeeeee;
+  background-color: #333333;
+}
+
+.sepia-button {
+  color: #5b4636;
+  background-color: #f4ecd8;
+}
+
+.sans-serif-button {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.serif-button {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* Loading/error message */
+
+.reader-message {
+  margin-top: 40px;
+  display: none;
+  text-align: center;
+  width: 100%;
+  font-size: 0.9em;
+}
+
+/* Header */
+
+.header {
+  text-align: start;
+  display: none;
+}
+
+.domain {
+  font-size: 0.9em;
+  line-height: 1.48em;
+  padding-bottom: 4px;
+  font-family: Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  border-bottom: 1px solid;
+  color: #0095dd;
+}
+
+.header > h1 {
+  font-size: 1.6em;
+  line-height: 1.25em;
+  width: 100%;
+  margin: 30px 0;
+  padding: 0;
+}
+
+.header > .credits {
+  font-size: 0.9em;
+  line-height: 1.48em;
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-style: italic;
+}
+
+.header > .meta-data {
+  font-size: 0.65em;
+  margin: 0 0 15px 0;
+}
+
+/*======= Controls toolbar =======*/
+
+.toolbar {
+  font-family: Helvetica, Arial, sans-serif;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color:  var(--toolbar-bgcolor);
+  -moz-user-select: none;
+  border-right: 1px solid  var(--toolbar-border);
+  z-index: 1;
+}
+
+.button {
+  display: block;
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  color: #333;
+  background-color: var(--toolbar-bgcolor);
+  height: 40px;
+  padding: 0;
+}
+
+button {
+  -moz-context-properties: fill;
+  color: var(--font-color);
+  fill: var(--icon-fill);
+}
+
+.toolbar .button {
+  width: 40px;
+  background-position: center;
+  margin-right: -1px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 1px solid var(--toolbar-border);
+  border-bottom: 1px solid var(--toolbar-border);
+  background-color:  var(--toolbar-bgcolor);
+}
+
+.button[hidden] {
+  display: none;
+}
+
+.dropdown {
+  text-align: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown li {
+  margin: 0;
+  padding: 0;
+}
+
+/*======= Popup =======*/
+
+.dropdown-popup {
+  min-width: 300px;
+  text-align: start;
+  position: absolute;
+  left: 48px; /* offset to account for toolbar width */
+  z-index: 1000;
+  background-color: var(--popup-bgcolor);
+  visibility: hidden;
+  border-radius: 4px;
+  border: 1px solid var(--popup-border);
+  border-bottom-width: 0;
+  box-shadow: 0 1px 3px #c1c1c1;
+}
+
+.keep-open .dropdown-popup {
+  z-index: initial;
+}
+
+.dropdown-popup > hr {
+  display: none;
+}
+
+.open > .dropdown-popup {
+  visibility: visible;
+}
+
+.dropdown-arrow {
+  position: absolute;
+  top: 30px; /* offset arrow from top of popup */
+  left: -16px;
+  width: 16px;
+  height: 24px;
+  background-image: url("chrome://global/skin/reader/RM-Type-Controls-Arrow.svg");
+  display: block;
+  -moz-context-properties:  fill, stroke;
+  fill: var(--popup-bgcolor);
+  stroke: var(--popup-border);
+}
+
+
+/*======= Font style popup =======*/
+
+.font-type-buttons,
+.font-size-buttons,
+.color-scheme-buttons,
+.content-width-buttons,
+.line-height-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.font-type-buttons > button:first-child {
+  border-top-left-radius: 3px;
+}
+.font-type-buttons > button:last-child {
+  border-top-right-radius: 3px;
+}
+.color-scheme-buttons > button:first-child {
+  border-bottom-left-radius: 3px;
+}
+.color-scheme-buttons > button:last-child {
+  border-bottom-right-radius: 3px;
+}
+
+.font-type-buttons > button,
+.font-size-buttons > button,
+.color-scheme-buttons > button,
+.content-width-buttons > button,
+.line-height-buttons > button {
+  text-align: center;
+  border: 0;
+}
+
+.font-type-buttons > button,
+.font-size-buttons > button,
+.content-width-buttons > button,
+.line-height-buttons > button {
+  width: 50%;
+  background-color: transparent;
+  border-left: 1px solid var(--popup-border);
+  border-bottom: 1px solid var(--popup-border);
+}
+
+.color-scheme-buttons > button {
+  width: 33.33%;
+  font-size: 14px;
+}
+
+.color-scheme-buttons > .dark-button {
+  margin-top: -1px;
+  height: 61px;
+}
+
+.font-type-buttons > button:first-child,
+.font-size-buttons > button:first-child,
+.content-width-buttons > button:first-child,
+.line-height-buttons > button:first-child {
+  border-left: 0;
+}
+
+.font-type-buttons > button {
+  display: inline-block;
+  font-size: 62px;
+  height: 100px;
+}
+
+.font-size-buttons > button,
+.color-scheme-buttons > button,
+.content-width-buttons > button,
+.line-height-buttons > button {
+  height: 60px;
+}
+
+.font-type-buttons > button:active:hover,
+.font-type-buttons > button.selected,
+.color-scheme-buttons > button:active:hover,
+.color-scheme-buttons > button.selected {
+  box-shadow: inset 0 -3px 0 0 #fc6420;
+}
+
+.font-type-buttons > button:active:hover,
+.font-type-buttons > button.selected {
+  border-bottom: 1px solid #FC6420;
+}
+
+/* Make the serif button content the same size as the sans-serif button content. */
+.font-type-buttons > button > .description {
+  font-size: 12px;
+  margin-top: -5px;
+}
+
+/* Font sizes are different per-platform, so we need custom CSS to line them up. */
+.font-type-buttons > .sans-serif-button > .name {
+  margin-top: 2px;
+}
+
+.font-type-buttons > .sans-serif-button > .description {
+  margin-top: -4px;
+}
+
+.font-type-buttons > .serif-button > .name {
+  font-size: 63px;
+}
+
+.button:hover,
+.font-size-buttons > button:hover,
+.font-type-buttons > button:hover,
+.content-width-buttons > button:hover,
+.line-height-buttons > button:hover {
+  background-color: var(--toolbar-hover);
+}
+
+.dropdown.open,
+.button:active,
+.font-size-buttons > button:active,
+.font-size-buttons > button.selected,
+.content-width-buttons > button:active,
+.content-width-buttons > button.selected,
+.line-height-buttons > button:active,
+.line-height-buttons > button.selected {
+  background-color: #dadada;
+}
+
+/* Only used on Android */
+.font-size-sample {
+  display: none;
+}
+
+.minus-button,
+.plus-button,
+.content-width-minus-button,
+.content-width-plus-button,
+.line-height-minus-button,
+.line-height-plus-button {
+  background-color: transparent;
+  border: 0;
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/*======= Toolbar icons =======*/
+
+.close-button {
+  background-image: url("chrome://global/skin/reader/RM-Close-24x24.svg");
+  height: 68px;
+  background-position: center 8px;
+}
+
+.close-button:hover {
+  fill: #fff;
+  background-color: var(--close-button-hover);
+  border-bottom: 1px solid var(--close-button-hover);
+  border-right: 1px solid var(--close-button-hover);
+}
+
+.close-button:hover:active {
+  background-color: #AE2325;
+  border-bottom: 1px solid #AE2325;
+  border-right: 1px solid #AE2325;
+}
+
+.style-button {
+  background-image: url("chrome://global/skin/reader/RM-Type-Controls-24x24.svg");
+}
+
+.minus-button {
+  background-image: url("chrome://global/skin/reader/RM-Minus-24x24.svg");
+}
+
+.plus-button {
+  background-image: url("chrome://global/skin/reader/RM-Plus-24x24.svg");
+}
+
+.content-width-minus-button {
+  background-size: 42px 16px;
+  background-image: url("chrome://global/skin/reader/RM-Content-Width-Minus-42x16.svg");
+}
+
+.content-width-plus-button {
+  background-size: 44px 16px;
+  background-image: url("chrome://global/skin/reader/RM-Content-Width-Plus-44x16.svg");
+}
+
+.line-height-minus-button {
+  background-size: 34px 14px;
+  background-image: url("chrome://global/skin/reader/RM-Line-Height-Minus-38x14.svg");
+}
+
+.line-height-plus-button {
+  background-size: 34px 24px;
+  background-image: url("chrome://global/skin/reader/RM-Line-Height-Plus-38x24.svg");
+}
+
+@media print {
+  .toolbar {
+    display: none !important;
+  }
+}
+
+/*======= Article content =======*/
+
+/* Note that any class names from the original article that we want to match on
+ * must be added to CLASSES_TO_PRESERVE in ReaderMode.jsm, so that
+ * Readability.js doesn't strip them out */
+
+.moz-reader-content {
+  display: none;
+  font-size: 1em;
+  line-height: 1.6em;
+}
+
+.moz-reader-content.line-height1 {
+  line-height: 1em;
+}
+
+.moz-reader-content.line-height2 {
+  line-height: 1.2em;
+}
+
+.moz-reader-content.line-height3 {
+  line-height: 1.4em;
+}
+
+.moz-reader-content.line-height4 {
+  line-height: 1.6em;
+}
+
+.moz-reader-content.line-height5 {
+  line-height: 1.8em;
+}
+
+.moz-reader-content.line-height6 {
+  line-height: 2.0em;
+}
+
+.moz-reader-content.line-height7 {
+  line-height: 2.2em;
+}
+
+.moz-reader-content.line-height8 {
+  line-height: 2.4em;
+}
+
+.moz-reader-content.line-height9 {
+  line-height: 2.6em;
+}
+
+@media print {
+  .moz-reader-content p,
+  .moz-reader-content code,
+  .moz-reader-content pre,
+  .moz-reader-content blockquote,
+  .moz-reader-content ul,
+  .moz-reader-content ol,
+  .moz-reader-content li,
+  .moz-reader-content figure,
+  .moz-reader-content .wp-caption {
+    margin: 0 0 10px 0 !important;
+    padding: 0 !important;
+  }
+}
+
+.moz-reader-content h1,
+.moz-reader-content h2,
+.moz-reader-content h3 {
+  font-weight: bold;
+}
+
+.moz-reader-content h1 {
+  font-size: 1.6em;
+  line-height: 1.25em;
+}
+
+.moz-reader-content h2 {
+  font-size: 1.2em;
+  line-height: 1.51em;
+}
+
+.moz-reader-content h3 {
+  font-size: 1em;
+  line-height: 1.66em;
+}
+
+.moz-reader-content a:link {
+  text-decoration: underline;
+  font-weight: normal;
+}
+
+.moz-reader-content a:link,
+.moz-reader-content a:link:hover,
+.moz-reader-content a:link:active {
+  color: #0095dd;
+}
+
+.moz-reader-content a:visited {
+  color: #c2e;
+}
+
+.moz-reader-content * {
+  max-width: 100%;
+  height: auto;
+}
+
+.moz-reader-content p,
+.moz-reader-content p,
+.moz-reader-content code,
+.moz-reader-content pre,
+.moz-reader-content blockquote,
+.moz-reader-content ul,
+.moz-reader-content ol,
+.moz-reader-content li,
+.moz-reader-content figure,
+.moz-reader-content .wp-caption {
+  margin: -10px -10px 20px -10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.moz-reader-content li {
+  margin-bottom: 0;
+}
+
+.moz-reader-content li > ul,
+.moz-reader-content li > ol {
+  margin-bottom: -10px;
+}
+
+.moz-reader-content p > img:only-child,
+.moz-reader-content p > a:only-child > img:only-child,
+.moz-reader-content .wp-caption img,
+.moz-reader-content figure img {
+  display: block;
+}
+
+.moz-reader-content img[moz-reader-center] {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.moz-reader-content .caption,
+.moz-reader-content .wp-caption-text
+.moz-reader-content figcaption {
+  font-size: 0.9em;
+  line-height: 1.48em;
+  font-style: italic;
+}
+
+.moz-reader-content code,
+.moz-reader-content pre {
+  white-space: pre-wrap;
+}
+
+.moz-reader-content blockquote {
+  padding: 0;
+  padding-inline-start: 16px;
+}
+
+.moz-reader-content ul,
+.moz-reader-content ol {
+  padding: 0;
+}
+
+.moz-reader-content ul {
+  padding-inline-start: 30px;
+  list-style: disc;
+}
+
+.moz-reader-content ol {
+  padding-inline-start: 30px;
+  list-style: decimal;
+}
+
+table,
+th,
+td {
+  border: 1px solid currentColor;
+  border-collapse: collapse;
+  padding: 6px;
+  vertical-align: top;
+}
+
+table {
+  margin: 5px;
+}
+
+/* Visually hide (but don't display: none) screen reader elements */
+.moz-reader-content .visually-hidden,
+.moz-reader-content .visuallyhidden,
+.moz-reader-content .sr-only {
+  display: inline-block;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  border-width: 0;
+}
+
+/* Hide elements with common "hidden" class names */
+.moz-reader-content .hidden,
+.moz-reader-content .invisible {
+  display: none;
+}
+
+/* Enforce wordpress and similar emoji/smileys aren't sized to be full-width,
+ * see bug 1399616 for context. */
+.moz-reader-content img.wp-smiley,
+.moz-reader-content img.emoji {
+  display: inline-block;
+  border-width: 0;
+  /* height: auto is implied from .moz-reader-content * rule. */
+  width: 1em;
+  margin: 0 .07em;
+  padding: 0;
+}
+
+.reader-show-element {
+  display: initial;
+}`;
+
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode;
 	let removedElements = [];
@@ -79,6 +833,9 @@
 			deserializeShadowRoots(document);
 			const iconElement = document.querySelector("link[rel*=icon]");
 			window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: iconElement && iconElement.href }), "*");
+			if (!isProbablyReaderable(document)) {
+				window.parent.postMessage(JSON.stringify({ "method": "disableFormatPage" }), "*");
+			}
 			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
 			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
 			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
@@ -116,6 +873,38 @@
 		}
 		if (message.method == "enableEditPage") {
 			document.body.contentEditable = true;
+		}
+		if (message.method == "formatPage") {
+			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => containerElement.remove());
+			const article = new Readability(document).parse();
+			document.body.innerHTML = "";
+			const domParser = new DOMParser();
+			const doc = domParser.parseFromString(article.content, "text/html");
+			const contentEditable = document.body.contentEditable;
+			document.documentElement.replaceChild(doc.body, document.body);
+			document.body.contentEditable = contentEditable;
+			document.head.querySelectorAll("style").forEach(styleElement => styleElement.remove());
+			const styleElement = document.createElement("style");
+			styleElement.textContent = STYLE_FORMATTED_PAGE;
+			document.head.appendChild(styleElement);
+			document.body.classList.add("moz-reader-content");
+			document.body.classList.add("content-width6");
+			document.body.classList.add("reader-show-element");
+			document.body.classList.add("sans-serif");
+			document.body.classList.add("container");
+			document.body.classList.add("line-height4");
+			if (matchMedia("prefers-color-scheme: dark")) {
+				document.body.classList.add("dark");
+			}
+			document.body.style.setProperty("display", "block");
+			document.body.style.setProperty("padding", "24px");
+			const titleElement = document.createElement("h1");
+			titleElement.classList.add("reader-title");
+			titleElement.textContent = article.title;
+			document.body.insertBefore(titleElement, document.body.firstChild);
+			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
+			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
+			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
 		}
 		if (message.method == "disableEditPage") {
 			document.body.contentEditable = false;

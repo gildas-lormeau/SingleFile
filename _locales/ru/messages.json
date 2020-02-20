@@ -403,6 +403,10 @@
 		"message": "сохранить страницу недавно созданной закладки",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
+	"optionReplaceBookmarkURL": {
+		"message": "link the new bookmark to the saved page",
+		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
 	"optionsHelpLink": {
 		"message": "помощь",
 		"description": "Options help link"
@@ -542,6 +546,10 @@
 	"editorEditPage": {
 		"message": "Включить/отключить режим \"только для чтения\"",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
+	},
+	"editorFormatPage": {
+		"message": "Format the page for better readability",
+		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutPage": {
 		"message": "Включить/отключить удаление элемента документа щелчком мыши",

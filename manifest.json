@@ -8,7 +8,7 @@
 		"64": "extension/ui/resources/icon_64.png",
 		"128": "extension/ui/resources/icon_128.png"
 	},
-	"version": "1.16.1",
+	"version": "1.17.3",
 	"description": "__MSG_extensionDescription__",
 	"content_scripts": [
 		{
@@ -144,6 +144,8 @@
 		"lib/single-file/processors/hooks/content/content-hooks-web.js",
 		"lib/single-file/processors/hooks/content/content-hooks-frames-web.js",
 		"common/ui/content/content-infobar-web.js",
+		"extension/lib/readability/Readability.js",
+		"extension/lib/readability/Readability-readerable.js",
 		"extension/ui/content/content-ui-editor-web.js",
 		"extension/ui/editor/editor-note-web.css",
 		"extension/ui/editor/editor-mask-web.css",
