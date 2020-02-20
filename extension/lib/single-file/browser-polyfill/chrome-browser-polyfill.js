@@ -126,6 +126,15 @@
 				})
 			},
 			bookmarks: {
+				get: id => new Promise((resolve, reject) => {
+					nativeAPI.bookmarks.get(id, result => {
+						if (nativeAPI.runtime.lastError) {
+							reject(nativeAPI.runtime.lastError.message || nativeAPI.runtime.lastError);
+						} else {
+							resolve(result);
+						}
+					});
+				}),
 				onCreated: {
 					addListener: listener => nativeAPI.bookmarks.onCreated.addListener(listener),
 					removeListener: listener => nativeAPI.bookmarks.onCreated.removeListener(listener)

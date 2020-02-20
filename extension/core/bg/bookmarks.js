@@ -79,24 +79,39 @@ singlefile.extension.core.bg.bookmarks = (() => {
 		const tabs = await singlefile.extension.core.bg.tabs.get({ lastFocusedWindow: true, active: true });
 		const options = await singlefile.extension.core.bg.config.getOptions(bookmarkInfo.url);
 		if (options.saveCreatedBookmarks) {
-			if (tabs.length && tabs[0].url == bookmarkInfo.url) {
-				singlefile.extension.core.bg.business.saveTabs(tabs, { bookmarkId: bookmarkInfo.id });
-			} else {
-				const tabs = await singlefile.extension.core.bg.tabs.get({});
-				if (tabs.length) {
-					const tab = tabs.find(tab => tab.url == bookmarkInfo.url);
-					if (tab) {
-						singlefile.extension.core.bg.business.saveTabs([tab], { bookmarkId: bookmarkInfo.id });
-					} else {
-						if (bookmarkInfo.url) {
-							if (bookmarkInfo.url == "about:blank") {
-								browser.bookmarks.onChanged.addListener(onChanged);
-							} else {
-								saveUrl(bookmarkInfo.url);
+			if (!(await findParentFolder(bookmarkInfo.parentId, options.ignoredBookmarkFolders))) {
+				if (tabs.length && tabs[0].url == bookmarkInfo.url) {
+					singlefile.extension.core.bg.business.saveTabs(tabs, { bookmarkId: bookmarkInfo.id });
+				} else {
+					const tabs = await singlefile.extension.core.bg.tabs.get({});
+					if (tabs.length) {
+						const tab = tabs.find(tab => tab.url == bookmarkInfo.url);
+						if (tab) {
+							singlefile.extension.core.bg.business.saveTabs([tab], { bookmarkId: bookmarkInfo.id });
+						} else {
+							if (bookmarkInfo.url) {
+								if (bookmarkInfo.url == "about:blank") {
+									browser.bookmarks.onChanged.addListener(onChanged);
+								} else {
+									saveUrl(bookmarkInfo.url);
+								}
 							}
 						}
 					}
 				}
+			}
+		}
+
+		async function findParentFolder(id, folderNames) {
+			if (id && folderNames.length) {
+				const bookmarkNode = (await browser.bookmarks.get(id))[0];
+				if (bookmarkNode) {
+					return folderNames.includes(bookmarkNode.title) || findParentFolder(bookmarkNode.parentId, folderNames);
+				} else {
+					return false;
+				}
+			} else {
+				return false;
 			}
 		}
 
