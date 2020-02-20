@@ -404,7 +404,7 @@
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionReplaceBookmarkURL": {
-		"message": "link the new bookmark to the saved page",
+		"message": "связать новую закладку с сохранённой страницей",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
 	"optionsHelpLink": {
@@ -548,7 +548,7 @@
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorFormatPage": {
-		"message": "Format the page for better readability",
+		"message": "Форматировать страницу для лучшей читаемости",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutPage": {
