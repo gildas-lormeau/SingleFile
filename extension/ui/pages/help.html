@@ -415,9 +415,17 @@
 					<li data-options-label="saveCreatedBookmarksLabel"> <span class="option">Option: save the page of a
 							newly created bookmark</span>
 						<p>
-							Check this option to save pages that you add into your bookmarks. Note that a page will be
-							saved if and only if the page is already displayed in a tab when adding it into the
-							bookmarks.
+							Check this option to save pages that you add into your bookmarks. Note that if the page is
+							to be saved is not already displayed in a tab, SingleFile will open temporarily
+							a new tab to save the page.
+						</p>
+						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+					</li>
+					<li data-options-label="replaceBookmarkURLLabel"> <span class="option">Option: link the new bookmark
+							to the saved page</span>
+						<p>
+							Check this option to replace the URL of the page added into your bookmark with the file URI
+							of the saved page on your disk.
 						</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>

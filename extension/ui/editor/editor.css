@@ -38,6 +38,7 @@ img[type=button]:hover {
 }
 
 img[type=button].edit-disabled,
+img[type=button].format-disabled,
 img[type=button].cut-disabled,
 img[type=button].highlight-disabled,
 img[type=button].remove-highlight-disabled {
@@ -46,9 +47,15 @@ img[type=button].remove-highlight-disabled {
 }
 
 img[type=button].edit-disabled:hover,
+img[type=button].cut-disabled:hover,
 img[type=button].highlight-disabled:hover,
 img[type=button].remove-highlight-disabled:hover {
     filter: brightness(0.875);
+}
+
+.format-page-button:not(.format-disabled):hover {
+    cursor: default;
+    filter: brightness(1);
 }
 
 .separator {
@@ -115,6 +122,7 @@ img[type=button].remove-highlight-disabled:hover {
     }
 
     img[type=button].edit-disabled,
+    img[type=button].format-disabled,
     img[type=button].cut-disabled,
     img[type=button].highlight-disabled,
     img[type=button].remove-highlight-disabled {

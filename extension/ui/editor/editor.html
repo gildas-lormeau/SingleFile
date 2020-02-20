@@ -36,6 +36,8 @@
 		<div class="buttons">
 			<img type="button" class="edit-page-button edit-disabled"
 				src="/extension/ui/resources/button_note_edit.png">
+			<img type="button" class="format-page-button format-disabled"
+				src="/extension/ui/resources/button_note_format.png">
 			<div class="separator"></div>
 		</div>
 		<div class="buttons">
@@ -49,7 +51,7 @@
 		</div>
 	</div>
 	<iframe class="editor"
-		srcdoc="&lt;!DOCTYPE html&gt; &lt;body&gt;&lt;script src=/extension/ui/content/content-ui-editor-web.js&gt;&lt;/script&gt;&lt;script src=/lib/single-file/index.js&gt;&lt;/script&gt;&lt;script src=/lib/single-file/modules/html-serializer.js&gt;&lt;/script&gt;&lt;/body&gt;"
+		srcdoc="&lt;!DOCTYPE html&gt; &lt;body&gt;&lt;script src=/extension/ui/content/content-ui-editor-web.js&gt;&lt;/script&gt;&lt;script src=/lib/single-file/index.js&gt;&lt;/script&gt;&lt;script src=/lib/single-file/modules/html-serializer.js&gt;&lt;/script&gt;&lt;script src=/extension/lib/readability/Readability.js&gt;&lt;/script&gt;&lt;/script&gt;&lt;script src=/extension/lib/readability/Readability-readerable.js&gt;&lt;/script&gt;&lt;/body&gt;"
 		sandbox="allow-scripts"></iframe>
 	<script type="text/javascript"
 		src="/extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"></script>

@@ -403,6 +403,10 @@
 		"message": "zapisuj stronę nowo utworzonej zakładki",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
+	"optionReplaceBookmarkURL": {
+		"message": "łącz nową zakładkę z zapisaną stroną",
+		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
 	"optionsHelpLink": {
 		"message": "pomoc (w języku angielskim)",
 		"description": "Options help link"
@@ -542,6 +546,10 @@
 	"editorEditPage": {
 		"message": "Włącz/wyłącz tylko do odczytu",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
+	},
+	"editorFormatPage": {
+		"message": "Sformatuj stronę dla lepszej czytelności",
+		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutPage": {
 		"message": "Włącz/wyłącz usuwanie elementu dokumentu po kliknięciu",
