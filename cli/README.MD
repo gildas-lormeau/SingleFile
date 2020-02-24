@@ -61,6 +61,10 @@ SingleFile can be launched from the command line by running it into a (headless)
   - Save https://www.wikipedia.org into `wikipedia.html` with Firefox instead of Chrome
 
   `single-file https://www.wikipedia.org wikipedia.html --back-end=webdriver-gecko`
+
+  - Save a list of URLs stored into `list-urls.txt`
+
+  `single-file --urls-file=list-urls.txt`
   
 ## Docker
 
