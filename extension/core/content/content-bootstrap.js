@@ -45,7 +45,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			refresh();
 		}
 	});
-	browser.runtime.onMessage.addListener(message => { onMessage(message); });
+	browser.runtime.onMessage.addListener(message => onMessage(message));
 	browser.runtime.sendMessage({ method: "tabs.init" });
 	browser.runtime.sendMessage({ method: "ui.processInit" });
 	addEventListener(PUSH_STATE_NOTIFICATION_EVENT_NAME, () => {
@@ -56,20 +56,8 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 
 	async function onMessage(message) {
 		if (autoSaveEnabled && message.method == "content.autosave") {
-			options = message.options;
-			if (document.readyState != "complete") {
-				await new Promise(resolve => window.onload = resolve);
-			}
-			await autoSavePage();
-			if (options.autoSaveRepeat) {
-				setTimeout(() => {
-					if (autoSaveEnabled && !autoSavingPage) {
-						pageAutoSaved = false;
-						options.autoSaveDelay = 0;
-						onMessage(message);
-					}
-				}, options.autoSaveRepeatDelay * 1000);
-			}
+			initAutoSavePage(message);
+			return {};
 		}
 		if (message.method == "content.init") {
 			options = message.options;
@@ -79,9 +67,28 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		}
 		if (message.method == "devtools.resourceCommitted") {
 			singlefile.extension.core.content.updatedResources[message.url] = { content: message.content, type: message.type, encoding: message.encoding };
+			return {};
 		}
 		if (message.method == "common.promptValueRequest") {
 			browser.runtime.sendMessage({ method: "tabs.promptValueResponse", value: prompt("SingleFile: " + message.promptMessage) });
+			return {};
+		}
+	}
+
+	async function initAutoSavePage(message) {
+		options = message.options;
+		if (document.readyState != "complete") {
+			await new Promise(resolve => window.onload = resolve);
+		}
+		await autoSavePage();
+		if (options.autoSaveRepeat) {
+			setTimeout(() => {
+				if (autoSaveEnabled && !autoSavingPage) {
+					pageAutoSaved = false;
+					options.autoSaveDelay = 0;
+					onMessage(message);
+				}
+			}, options.autoSaveRepeatDelay * 1000);
 		}
 	}
 
