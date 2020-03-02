@@ -54,16 +54,16 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	});
 	return {};
 
-	function onMessage(message) {
+	async function onMessage(message) {
 		if (autoSaveEnabled && message.method == "content.autosave") {
 			initAutoSavePage(message);
-			return Promise.resolve({});
+			return {};
 		}
 		if (message.method == "content.init") {
 			options = message.options;
 			autoSaveEnabled = message.autoSaveEnabled;
 			refresh();
-			return Promise.resolve({});
+			return {};
 		}
 		if (message.method == "devtools.resourceCommitted") {
 			singlefile.extension.core.content.updatedResources[message.url] = { content: message.content, type: message.type, encoding: message.encoding };
