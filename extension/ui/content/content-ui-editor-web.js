@@ -876,7 +876,7 @@ table {
 		}
 		if (message.method == "formatPage") {
 			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => containerElement.remove());
-			const article = new Readability(document).parse();
+			const article = new Readability(document, { classesToPreserve: ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"] }).parse();
 			document.body.innerHTML = "";
 			const domParser = new DOMParser();
 			const doc = domParser.parseFromString(article.content, "text/html");
