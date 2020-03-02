@@ -35,7 +35,7 @@ singlefile.extension.core.bg.tabsData = (() => {
 		set: setPersistent
 	};
 
-	async function onMessage(message) {
+	function onMessage(message) {
 		if (message.method.endsWith(".get")) {
 			return getPersistent();
 		}

@@ -23,7 +23,7 @@
 
 /* global browser, window, addEventListener, removeEventListener, document, location, setTimeout, prompt, Node */
 
-this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.core.content.bootstrap || (async () => {
+this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.core.content.bootstrap || (() => {
 
 	const singlefile = this.singlefile;
 
@@ -120,7 +120,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		}
 	}
 
-	async function refresh() {
+	function refresh() {
 		if (autoSaveEnabled && options && (options.autoSaveUnload || options.autoSaveLoadOrUnload)) {
 			if (!unloadListenerAdded) {
 				addEventListener("unload", onUnload);

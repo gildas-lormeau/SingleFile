@@ -59,7 +59,7 @@ singlefile.extension.core.bg.tabs = (() => {
 		remove: tabId => browser.tabs.remove(tabId),
 		promptValue: async promptMessage => {
 			const tabs = await browser.tabs.query({ currentWindow: true, active: true });
-			return new Promise(async (resolve, reject) => {
+			return new Promise((resolve, reject) => {
 				const selectedTabId = tabs[0].id;
 				browser.tabs.onRemoved.addListener(onTabRemoved);
 				pendingPrompts.set(selectedTabId, { resolve, reject });

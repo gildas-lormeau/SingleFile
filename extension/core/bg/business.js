@@ -154,12 +154,12 @@ singlefile.extension.core.bg.business = (() => {
 		const taskId = taskInfo.id;
 		return new Promise(async (resolve, reject) => {
 			taskInfo.status = "processing";
-			taskInfo.resolve = async () => {
+			taskInfo.resolve = () => {
 				tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == taskId), 1);
 				resolve();
 				runTasks();
 			};
-			taskInfo.reject = async error => {
+			taskInfo.reject = error => {
 				tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == taskId), 1);
 				reject(error);
 				runTasks();
