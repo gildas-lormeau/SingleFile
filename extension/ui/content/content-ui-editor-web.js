@@ -875,13 +875,15 @@ table {
 			document.body.contentEditable = true;
 		}
 		if (message.method == "formatPage") {
-			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => containerElement.remove());
+			const shadowRoots = {};
+			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => shadowRoots[containerElement.dataset.noteId] = containerElement.shadowRoot);
 			const article = new Readability(document, { classesToPreserve: ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"] }).parse();
 			document.body.innerHTML = "";
 			const domParser = new DOMParser();
 			const doc = domParser.parseFromString(article.content, "text/html");
 			const contentEditable = document.body.contentEditable;
 			document.documentElement.replaceChild(doc.body, document.body);
+			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => containerElement.shadowRoot = shadowRoots[containerElement.dataset.noteId]);
 			document.body.contentEditable = contentEditable;
 			document.head.querySelectorAll("style").forEach(styleElement => styleElement.remove());
 			const styleElement = document.createElement("style");
