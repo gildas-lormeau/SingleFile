@@ -25,7 +25,7 @@
 
 singlefile.extension.core.bg.bookmarks = (() => {
 
-	onInit();
+	enable();
 	return {
 		onMessage,
 		saveCreatedBookmarks: enable,
@@ -33,11 +33,7 @@ singlefile.extension.core.bg.bookmarks = (() => {
 		update: (id, changes) => browser.bookmarks.update(id, changes)
 	};
 
-	async function onInit() {
-		enable();
-	}
-
-	async function onMessage(message) {
+	function onMessage(message) {
 		if (message.method.endsWith(".saveCreatedBookmarks")) {
 			enable();
 			return {};

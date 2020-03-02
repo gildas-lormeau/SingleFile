@@ -23,7 +23,7 @@
 
 /* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia */
 
-(async () => {
+(() => {
 
 	const FORBIDDEN_TAG_NAMES = ["a", "area", "audio", "base", "br", "col", "command", "embed", "hr", "img", "iframe", "input", "keygen", "link", "meta", "param", "source", "track", "video", "wbr"];
 	const BUTTON_ANCHOR_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfjCh0VAjZTpsLvAAAA1klEQVQoz3XQMS8EURQF4O9txN9QSCjoNYRiy01EomDb3UbnR+j8BpSKrbaaQvwAyTZ2Qyg0WiwJiZjmKmasmWTnvObe8849971DFSe+/TjVgL6wpyMczxcMXYIzV/9kqyIY27Vsyb5J05KREMa1sQoS3r2W1Vxkcrms6Tph6q3usFARBJJUVjPBgZ6Je49u5ELCog0r1qy7YFMI4RxMfZRZFOxOa/bn28oi8rK7K6hrITw48uVT37MQBn9vOcS2l9K0OE9W0atHsqWtIwxlRk1ZdHXrxC+ueUcydrdI6QAAAABJRU5ErkJggg==";

@@ -46,11 +46,11 @@ singlefile.extension.core.bg.editor = (() => {
 		tabsData.set(tab.id, { content, filename, options });
 	}
 
-	async function onTabRemoved(tabId) {
+	function onTabRemoved(tabId) {
 		tabsData.delete(tabId);
 	}
 
-	async function onInit(tab) {
+	function onInit(tab) {
 		if (tab.url != EDITOR_URL) {
 			tabsData.delete(tab.id);
 		}

@@ -23,7 +23,7 @@
 
 /* global browser, document */
 
-(async () => {
+(() => {
 
 	const optionsTab = document.getElementById("tab-options");
 	const pendingsTab = document.getElementById("tab-pendings");
