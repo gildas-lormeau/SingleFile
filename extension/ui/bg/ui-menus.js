@@ -132,11 +132,13 @@ singlefile.extension.ui.bg.menus = (() => {
 				contexts: options.contextMenuEnabled ? defaultContextsDisabled.concat(["selection"]) : defaultContextsDisabled.concat(["selection"]),
 				title: MENU_SAVE_SELECTED_LINKS
 			});
-			menus.create({
-				id: "separator-1",
-				contexts: defaultContexts,
-				type: "separator"
-			});
+			if (options.contextMenuEnabled) {
+				menus.create({
+					id: "separator-1",
+					contexts: pageContextsEnabled,
+					type: "separator"
+				});
+			}
 			menus.create({
 				id: MENU_ID_SAVE_SELECTED,
 				contexts: defaultContexts,
