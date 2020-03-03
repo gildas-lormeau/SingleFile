@@ -147,9 +147,9 @@
 		"extension/lib/readability/Readability.js",
 		"extension/lib/readability/Readability-readerable.js",
 		"extension/ui/content/content-ui-editor-web.js",
-		"extension/ui/editor/editor-note-web.css",
-		"extension/ui/editor/editor-mask-web.css",
-		"extension/ui/editor/editor-frame-web.css"
+		"extension/ui/pages/editor-note-web.css",
+		"extension/ui/pages/editor-mask-web.css",
+		"extension/ui/pages/editor-frame-web.css"
 	],
 	"oauth2": {
 		"client_id": "207618107333-bktohpfmdfnv5hfavi1ll18h74gqi27v.apps.googleusercontent.com",

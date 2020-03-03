@@ -980,9 +980,9 @@ table {
 
 	async function initConstants() {
 		[NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET] = await Promise.all([
-			minifyText(await ((await fetch("editor-note-web.css")).text())),
-			minifyText(await ((await fetch("editor-mask-web.css")).text())),
-			minifyText(await ((await fetch("editor-frame-web.css")).text()))
+			minifyText(await ((await fetch("../pages/editor-note-web.css")).text())),
+			minifyText(await ((await fetch("../pages/editor-mask-web.css")).text())),
+			minifyText(await ((await fetch("../pages/editor-frame-web.css")).text()))
 		]);
 	}
 
