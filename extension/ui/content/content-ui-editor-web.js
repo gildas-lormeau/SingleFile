@@ -876,13 +876,28 @@ table {
 		}
 		if (message.method == "formatPage") {
 			const shadowRoots = {};
-			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => shadowRoots[containerElement.dataset.noteId] = containerElement.shadowRoot);
-			const article = new Readability(document, { classesToPreserve: ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"] }).parse();
+			const classesToPreserve = ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"];
+			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
+				shadowRoots[containerElement.dataset.noteId] = containerElement.shadowRoot;
+				const className = "singlefile-note-id-" + containerElement.dataset.noteId;
+				containerElement.classList.add(className);
+				classesToPreserve.push(className);
+			});
+			const article = new Readability(document, { classesToPreserve }).parse();
 			document.body.innerHTML = "";
 			const domParser = new DOMParser();
 			const doc = domParser.parseFromString(article.content, "text/html");
 			const contentEditable = document.body.contentEditable;
 			document.documentElement.replaceChild(doc.body, document.body);
+			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
+				const noteId = (Array.from(containerElement.classList).find(className => /singlefile-note-id-\d+/.test(className))).split("singlefile-note-id-")[1];
+				containerElement.classList.remove("singlefile-note-id-" + noteId);
+				containerElement.dataset.noteId = noteId;
+				if (!containerElement.shadowRoot) {
+					containerElement.attachShadow({ mode: "open" });
+					containerElement.shadowRoot.appendChild(shadowRoots[noteId]);
+				}
+			});
 			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => containerElement.shadowRoot = shadowRoots[containerElement.dataset.noteId]);
 			document.body.contentEditable = contentEditable;
 			document.head.querySelectorAll("style").forEach(styleElement => styleElement.remove());
@@ -907,6 +922,7 @@ table {
 			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
 			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+			reflowNotes();
 		}
 		if (message.method == "disableEditPage") {
 			document.body.contentEditable = false;
