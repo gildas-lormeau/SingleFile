@@ -104,6 +104,7 @@
 			setProperty(closeElement, "padding-right", "8px");
 			setProperty(closeElement, "cursor", "pointer");
 			setProperty(closeElement, "color", "#9aa0a6");
+			setProperty(closeElement, "line-height", "24px");
 			closeElement.onmouseover = () => setProperty(closeElement, "opacity", 1);
 			closeElement.onmouseout = () => setProperty(closeElement, "opacity", .7);
 			closeElement.onclick = event => {
