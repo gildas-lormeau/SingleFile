@@ -35,6 +35,9 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 		if (options.includeInfobar) {
 			await singlefile.common.ui.content.infobar.includeScript(pageData);
 		}
+		if (options.includeBOM) {
+			pageData.content = "\ufeff" + pageData.content;
+		}
 		if (options.backgroundSave || options.openEditor || options.saveToGDrive) {
 			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
 				const message = {
