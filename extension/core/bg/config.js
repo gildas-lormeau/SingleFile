@@ -89,7 +89,8 @@ singlefile.extension.core.bg.config = (() => {
 		saveCreatedBookmarks: false,
 		ignoredBookmarkFolders: [],
 		replaceBookmarkURL: true,
-		saveFavicon: true
+		saveFavicon: true,
+		includeBOM: false
 	};
 
 	let configStorage;
