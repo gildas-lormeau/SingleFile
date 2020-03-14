@@ -169,15 +169,14 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 				}
 			}
 		};
-		[options.frames] = await new Promise(async resolve => {
+		[options.frames] = await new Promise(resolve => {
 			const preInitializationAllPromises = Promise.all(preInitializationPromises);
 			const cancelProcessor = processor.cancel.bind(processor);
 			processor.cancel = function () {
 				cancelProcessor();
 				resolve([[]]);
 			};
-			await preInitializationAllPromises;
-			resolve(preInitializationAllPromises);
+			preInitializationAllPromises.then(() => resolve(preInitializationAllPromises));
 		});
 		const selectedFrame = options.frames && options.frames.find(frameData => frameData.requestedFrame);
 		options.win = window;
