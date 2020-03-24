@@ -129,7 +129,7 @@ singlefile.extension.ui.bg.menus = (() => {
 			}
 			menus.create({
 				id: MENU_ID_SAVE_SELECTED_LINKS,
-				contexts: options.contextMenuEnabled ? defaultContextsDisabled.concat(["selection"]) : defaultContextsDisabled.concat(["selection"]),
+				contexts: options.contextMenuEnabled ? defaultContextsDisabled.concat(["selection"]) : defaultContextsDisabled,
 				title: MENU_SAVE_SELECTED_LINKS
 			});
 			if (options.contextMenuEnabled) {
