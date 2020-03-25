@@ -82,7 +82,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	async function initAutoSavePage(message) {
 		options = message.options;
 		if (document.readyState != "complete") {
-			await new Promise(resolve => window.onload = resolve);
+			await new Promise(resolve => window.addEventListener("load", resolve));
 		}
 		await autoSavePage();
 		if (options.autoSaveRepeat) {
