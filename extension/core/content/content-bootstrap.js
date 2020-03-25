@@ -45,7 +45,11 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			refresh();
 		}
 	});
-	browser.runtime.onMessage.addListener(message => onMessage(message));
+	browser.runtime.onMessage.addListener(message => {
+		if ((autoSaveEnabled && message.method == "content.autosave") || message.method == "content.init" || message.method == "devtools.resourceCommitted" || message.method == "common.promptValueRequest") {
+			return onMessage(message);
+		}
+	});
 	browser.runtime.sendMessage({ method: "tabs.init" });
 	browser.runtime.sendMessage({ method: "ui.processInit" });
 	addEventListener(PUSH_STATE_NOTIFICATION_EVENT_NAME, () => {
