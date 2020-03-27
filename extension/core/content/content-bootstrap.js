@@ -28,7 +28,6 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	const singlefile = this.singlefile;
 
 	const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
-	const PUSH_STATE_NOTIFICATION_EVENT_NAME = "single-file-push-state";
 
 	let unloadListenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved;
 	singlefile.extension.core.content.updatedResources = {};
@@ -52,10 +51,6 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	});
 	browser.runtime.sendMessage({ method: "tabs.init" });
 	browser.runtime.sendMessage({ method: "ui.processInit" });
-	addEventListener(PUSH_STATE_NOTIFICATION_EVENT_NAME, () => {
-		browser.runtime.sendMessage({ method: "tabs.init" });
-		browser.runtime.sendMessage({ method: "ui.processInit" });
-	});
 	return {};
 
 	async function onMessage(message) {
@@ -128,12 +123,10 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		if (autoSaveEnabled && options && (options.autoSaveUnload || options.autoSaveLoadOrUnload)) {
 			if (!unloadListenerAdded) {
 				addEventListener("unload", onUnload);
-				addEventListener(PUSH_STATE_NOTIFICATION_EVENT_NAME, onUnload);
 				unloadListenerAdded = true;
 			}
 		} else {
 			removeEventListener("unload", onUnload);
-			removeEventListener(PUSH_STATE_NOTIFICATION_EVENT_NAME, onUnload);
 			unloadListenerAdded = false;
 		}
 	}
