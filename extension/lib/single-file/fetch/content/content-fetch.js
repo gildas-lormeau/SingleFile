@@ -56,7 +56,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 		fetch: async url => {
 			try {
 				let response = await fetch(url, { cache: "force-cache" });
-				if (response.status == 403) {
+				if (response.status == 403 || response.status == 404) {
 					response = hostFetch(url);
 				}
 				return response;
