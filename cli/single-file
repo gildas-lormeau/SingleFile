@@ -40,6 +40,7 @@ const args = require("yargs")
 		"browser-height": 720,
 		"browser-load-max-time": 60000,
 		"browser-wait-until": "networkidle0",
+		"browser-wait-until-fallback": true,
 		"browser-debug": false,
 		"browser-extensions": [],
 		"browser-scripts": [],
@@ -85,6 +86,8 @@ const args = require("yargs")
 	.number("browser-load-max-time")
 	.options("browser-wait-until", { description: "When to consider the page is loaded (puppeteer, puppeteer-firefox, webdriver-gecko, webdriver-chromium)" })
 	.choices("browser-wait-until", ["networkidle0", "networkidle2", "load", "domcontentloaded"])
+	.options("browser-wait-until-fallback", { description: "Retry with the next value of --browser-wait-until when a timeout error is thrown" })	
+	.boolean("browser-wait-until-fallback")
 	.options("browser-debug", { description: "Enable debug mode (puppeteer, puppeteer-firefox, webdriver-gecko, webdriver-chromium)" })
 	.boolean("browser-debug")
 	.options("browser-extensions", { description: "List of extension paths separated by a space and relative to the 'cli' folder (webdriver-gecko, webdriver-chromium)" })
