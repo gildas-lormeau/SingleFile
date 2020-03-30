@@ -28,6 +28,7 @@ const scripts = require("./common/scripts.js");
 
 const EXECUTION_CONTEXT_DESTROYED_ERROR = "Execution context was destroyed";
 const NETWORK_IDLE_STATE = "networkidle0";
+const NETWORK_STATES = ["networkidle2", "networkidle0", "load", "domcontentloaded"];
 
 let browser, pendings = 0;
 
@@ -96,7 +97,21 @@ async function getPageData(browser, page, options) {
 	if (options.browserDebug) {
 		await page.waitFor(3000);
 	}
-	await pageGoto(page, options);
+	try {
+		await pageGoto(page, options);
+	} catch (error) {
+		if (options.browserWaitUntilFallback && error.name == "TimeoutError") {
+			const browserWaitUntil = NETWORK_STATES[(NETWORK_STATES.indexOf(options.browserWaitUntil) + 1)];
+			if (browserWaitUntil) {
+				options.browserWaitUntil = browserWaitUntil;
+				return getPageData(browser, page, options);
+			} else {
+				throw error;
+			}
+		} else {
+			throw error;
+		}
+	}
 	try {
 		return await page.evaluate(async options => {
 			const pageData = await singlefile.lib.getPageData(options);
