@@ -28,7 +28,7 @@ const scripts = require("./common/scripts.js");
 
 const EXECUTION_CONTEXT_DESTROYED_ERROR = "Execution context was destroyed";
 const NETWORK_IDLE_STATE = "networkidle0";
-const NETWORK_STATES = ["networkidle2", "networkidle0", "load", "domcontentloaded"];
+const NETWORK_STATES = ["networkidle0", "networkidle2", "load", "domcontentloaded"];
 
 let browser, pendings = 0;
 
