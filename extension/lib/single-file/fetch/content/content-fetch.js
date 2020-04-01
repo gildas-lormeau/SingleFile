@@ -25,30 +25,84 @@
 
 this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extension.lib.fetch.content.resources || (() => {
 
+	const MAX_CONTENT_SIZE = 8 * (1024 * 1024);
 	const FETCH_REQUEST_EVENT = "single-file-request-fetch";
 	const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
 
+	const pendingRequests = [];
+
 	browser.runtime.onMessage.addListener(message => {
-		if (message.method == "singlefile.fetchFrame" && window.frameId && window.frameId == message.frameId) {
+		if ((message.method == "singlefile.fetchFrameRequest" && window.frameId && window.frameId == message.frameId)
+			|| message.method == "singlefile.fetchResponse"
+			|| message.method == "singlefile.fetchFrameResponse") {
 			return onMessage(message);
 		}
 	});
 
 	async function onMessage(message) {
-		try {
-			let response = await fetch(message.url, { cache: "force-cache" });
-			if (response.status == 403) {
-				response = hostFetch(message.url);
+		if (message.method == "singlefile.fetchFrameRequest") {
+			try {
+				let response = await fetch(message.url, { cache: "force-cache" });
+				if (response.status == 403 || response.status == 404) {
+					response = hostFetch(message.url);
+				}
+				const array = new Uint8Array(await response.arrayBuffer());
+				const { id, bgId } = message;
+				for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < array.length; blockIndex++) {
+					const message = {
+						method: "singlefile.bgFetchFrameResponse",
+						id,
+						bgId
+					};
+					message.truncated = array.length > MAX_CONTENT_SIZE;
+					if (message.truncated) {
+						message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > array.length;
+						message.array = Array.from(array.slice(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE));
+					} else {
+						message.array = Array.from(array);
+					}
+					const headers = {};
+					response.headers.forEach((value, key) => headers[key] = value);
+					if (!message.truncated || message.finished) {
+						message.headers = headers;
+						message.status = response.status;
+					}
+					browser.runtime.sendMessage(message);
+				}
+			} catch (error) {
+				await browser.runtime.sendMessage({
+					method: "singlefile.bgFetchFrameResponse",
+					id: message.id,
+					error: error.toString()
+				});
 			}
-			return {
-				status: response.status,
-				headers: [...response.headers],
-				array: Array.from(new Uint8Array(await response.arrayBuffer()))
-			};
-		} catch (error) {
-			return {
-				error: error.toString()
-			};
+		} else if (message.method == "singlefile.fetchResponse" || message.method == "singlefile.fetchFrameResponse") {
+			const pendingRequest = pendingRequests[message.id];
+			if (pendingRequest) {
+				if (message.error) {
+					pendingRequest.reject(new Error(message.error.toString()));
+					pendingRequests[message.id] = null;
+				} else {
+					if (message.truncated) {
+						if (!pendingRequest.responseArray) {
+							pendingRequest.responseArray = [];
+						}
+						pendingRequest.responseArray = pendingRequest.responseArray.concat(message.array);
+					} else {
+						pendingRequest.responseArray = message.array;
+					}
+					if (!message.truncated || message.finished) {
+						pendingRequest.resolve({
+							status: message.status,
+							headers: {
+								get: headerName => message.headers[headerName]
+							},
+							arrayBuffer: async () => new Uint8Array(pendingRequest.responseArray).buffer
+						});
+						pendingRequests[message.id] = null;
+					}
+				}
+			}
 		}
 	}
 
@@ -62,39 +116,15 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 				return response;
 			}
 			catch (error) {
-				const response = await sendMessage({ method: "singlefile.fetch", url });
-				return {
-					status: response.status,
-					headers: { get: headerName => response.headers[headerName] },
-					arrayBuffer: async () => new Uint8Array(response.array).buffer
-				};
+				browser.runtime.sendMessage({ method: "singlefile.fetchRequest", url, id: pendingRequests.length });
+				return new Promise((resolve, reject) => pendingRequests.push({ resolve, reject }));
 			}
 		},
 		frameFetch: async (url, frameId) => {
-			const response = await sendMessage({ method: "singlefile.fetchFrame", url, frameId });
-			return {
-				status: response.status,
-				headers: {
-					get: headerName => {
-						const headerArray = response.headers.find(headerArray => headerArray[0] == headerName);
-						if (headerArray) {
-							return headerArray[1];
-						}
-					}
-				},
-				arrayBuffer: async () => new Uint8Array(response.array).buffer
-			};
+			browser.runtime.sendMessage({ method: "singlefile.fetchFrameRequest", url, frameId, id: pendingRequests.length });
+			return new Promise((resolve, reject) => pendingRequests.push({ resolve, reject }));
 		}
 	};
-
-	async function sendMessage(message) {
-		const response = await browser.runtime.sendMessage(message);
-		if (!response || response.error) {
-			throw new Error(response && response.error.toString());
-		} else {
-			return response;
-		}
-	}
 
 	function hostFetch(url) {
 		return new Promise((resolve, reject) => {
