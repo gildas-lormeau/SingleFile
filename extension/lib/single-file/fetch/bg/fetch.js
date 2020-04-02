@@ -25,21 +25,74 @@
 
 (() => {
 
+	const MAX_CONTENT_SIZE = 8 * (1024 * 1024);
+
 	browser.runtime.onMessage.addListener((message, sender) => {
-		if (message.method && message.method.startsWith("singlefile.fetch")) {
-			return new Promise(resolve => {
-				onRequest(message, sender)
-					.then(resolve)
-					.catch(error => resolve({ error: error.toString() }));
-			});
+		if (message.method == "singlefile.fetchRequest"
+			|| message.method == "singlefile.fetchFrameRequest"
+			|| message.method == "singlefile.bgFetchFrameResponse") {
+			return onRequest(message, sender);
 		}
 	});
 
-	function onRequest(message, sender) {
-		if (message.method == "singlefile.fetch") {
-			return fetchResource(message.url);
-		} else if (message.method == "singlefile.fetchFrame") {
-			return browser.tabs.sendMessage(sender.tab.id, message);
+	async function onRequest(message, sender) {
+		if (message.method == "singlefile.fetchRequest") {
+			sendFetchResponse(message, sender);
+			return {};
+		} else if (message.method == "singlefile.fetchFrameRequest") {
+			return sendFrameMessage(message, sender);
+		} else if (message.method == "singlefile.bgFetchFrameResponse") {
+			sendFetchFrameResponse(message);
+			return {};
+		}
+	}
+
+	async function sendFrameMessage(message, sender) {
+		message.tabId = sender.tab.id;
+		try {
+			return await browser.tabs.sendMessage(sender.tab.id, message);
+		} catch (error) {
+			return null;
+		}
+	}
+
+	async function sendFetchResponse(message, sender) {
+		try {
+			const response = await fetchResource(message.url);
+			const id = message.id;
+			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < response.array.length; blockIndex++) {
+				const message = {
+					method: "singlefile.fetchResponse",
+					id
+				};
+				message.truncated = response.array.length > MAX_CONTENT_SIZE;
+				if (message.truncated) {
+					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > response.array.length;
+					message.array = response.array.slice(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+				} else {
+					message.array = response.array;
+				}
+				if (!message.truncated || message.finished) {
+					message.headers = response.headers;
+					message.status = response.status;
+				}
+				browser.tabs.sendMessage(sender.tab.id, message);
+			}
+		} catch (error) {
+			await browser.tabs.sendMessage(sender.tab.id, {
+				method: "singlefile.fetchResponse",
+				id: message.id,
+				error: error.toString()
+			});
+		}
+	}
+
+	function sendFetchFrameResponse(message) {
+		if (message.error) {
+			browser.tabs.sendMessage(message.tabId, message);
+		} else {
+			message.method = "singlefile.fetchFrameResponse";
+			browser.tabs.sendMessage(message.tabId, message);
 		}
 	}
 
@@ -51,11 +104,15 @@
 			xhrRequest.onerror = event => reject(new Error(event.detail));
 			xhrRequest.onreadystatechange = () => {
 				if (xhrRequest.readyState == XMLHttpRequest.DONE) {
-					resolve({
-						array: Array.from(new Uint8Array(xhrRequest.response)),
-						headers: { "content-type": xhrRequest.getResponseHeader("Content-Type") },
-						status: xhrRequest.status
-					});
+					if (xhrRequest.status || xhrRequest.response.byteLength) {
+						resolve({
+							array: Array.from(new Uint8Array(xhrRequest.response)),
+							headers: { "content-type": xhrRequest.getResponseHeader("Content-Type") },
+							status: xhrRequest.status
+						});
+					} else {
+						reject();
+					}
 				}
 			};
 			xhrRequest.open("GET", url, true);
