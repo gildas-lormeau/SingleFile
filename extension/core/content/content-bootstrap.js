@@ -29,7 +29,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 
 	const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 
-	let unloadListenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved;
+	let unloadListenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved, previousLocationHref;
 	singlefile.extension.core.content.updatedResources = {};
 	browser.runtime.sendMessage({ method: "autosave.init" }).then(message => {
 		options = message.options;
@@ -45,17 +45,24 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		}
 	});
 	browser.runtime.onMessage.addListener(message => {
-		if ((autoSaveEnabled && message.method == "content.autosave") || message.method == "content.init" || message.method == "devtools.resourceCommitted" || message.method == "common.promptValueRequest") {
+		if ((autoSaveEnabled && message.method == "content.autosave") ||
+			message.method == "content.maybeInit" ||
+			message.method == "content.init" ||
+			message.method == "devtools.resourceCommitted" ||
+			message.method == "common.promptValueRequest") {
 			return onMessage(message);
 		}
 	});
-	browser.runtime.sendMessage({ method: "tabs.init" });
-	browser.runtime.sendMessage({ method: "ui.processInit" });
+	init();
 	return {};
 
 	async function onMessage(message) {
 		if (autoSaveEnabled && message.method == "content.autosave") {
 			initAutoSavePage(message);
+			return {};
+		}
+		if (message.method == "content.maybeInit") {
+			init();
 			return {};
 		}
 		if (message.method == "content.init") {
@@ -71,6 +78,15 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		if (message.method == "common.promptValueRequest") {
 			browser.runtime.sendMessage({ method: "tabs.promptValueResponse", value: prompt("SingleFile: " + message.promptMessage) });
 			return {};
+		}
+	}
+
+	function init() {
+		if (previousLocationHref != location.href) {
+			pageAutoSaved = false;
+			previousLocationHref = location.href;
+			browser.runtime.sendMessage({ method: "tabs.init" });
+			browser.runtime.sendMessage({ method: "ui.processInit" });
 		}
 	}
 
