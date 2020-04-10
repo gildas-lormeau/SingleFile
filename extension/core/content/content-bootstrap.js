@@ -186,7 +186,9 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	}
 
 	async function openEditor(document) {
-		if (document.documentElement.firstChild.nodeType == Node.COMMENT_NODE && document.documentElement.firstChild.textContent.includes("Page saved with SingleFile")) {
+		const helper = singlefile.lib.helper;
+		if (document.documentElement.firstChild.nodeType == Node.COMMENT_NODE &&
+			(document.documentElement.firstChild.textContent.includes(helper.COMMENT_HEADER) || document.documentElement.firstChild.textContent.includes(helper.COMMENT_HEADER_LEGACY))) {
 			serializeShadowRoots(document);
 			const content = singlefile.lib.modules.serializer.process(document);
 			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
