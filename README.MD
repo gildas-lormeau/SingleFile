@@ -80,11 +80,11 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
   - The following characters are replaced with `_` in file names: `~`, `+`, `\`, `?`, `%`, `*`, `:`, `|`, `"`, `<`, `>`  
 - Chrome:
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
-  - If the file name of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3.html", disable the option "Misc > save pages in background". Reinstalling the browser may also fix this issue. You can find more info about this bug [here](https://bugs.chromium.org/p/chromium/issues/detail?id=892133).
+  - If the file name of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3.html", disable the option "Misc > save pages in background". Reinstalling the browser may also fix this issue. You can find more info about this bug [here](https://bugs.chromium.org/p/chromium/issues/detail?id=892133). This bug has been closed by Google as "WontFix".
   - Disabling the option "File name > open the "Save as" dialog to confirm the file name" will work if and only if the option "Ask where to save each file before downloading" is disabled in chrome://settings/downloads.
 - Firefox:
   - The "File name > file name conflict resolution" option does not work if set to "prompt for a name"
-  - Sometimes, SingleFile is unable to save the contents of  sandboxed iframes because of [this bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1411641). This bug has been closed by Google as "WontFix".
+  - Sometimes, SingleFile is unable to save the contents of  sandboxed iframes because of [this bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1411641).
 - Waterfox
   - When opening pages saved with the option "Images > group duplicate images together" enabled, some duplicate images might not displayed. It is recommended to disable this option.
 
