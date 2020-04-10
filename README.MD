@@ -84,7 +84,7 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
   - Disabling the option "File name > open the "Save as" dialog to confirm the file name" will work if and only if the option "Ask where to save each file before downloading" is disabled in chrome://settings/downloads.
 - Firefox:
   - The "File name > file name conflict resolution" option does not work if set to "prompt for a name"
-  - Sometimes, SingleFile is unable to save the contents of  sandboxed iframes because of [this bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1411641).
+  - Sometimes, SingleFile is unable to save the contents of  sandboxed iframes because of [this bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1411641). This bug has been closed by Google as "WontFix".
 - Waterfox
   - When opening pages saved with the option "Images > group duplicate images together" enabled, some duplicate images might not displayed. It is recommended to disable this option.
 
