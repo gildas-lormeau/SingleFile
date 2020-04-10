@@ -66,6 +66,12 @@ SingleFile can be launched from the command line by running it into a (headless)
 
   `single-file --urls-file=list-urls.txt`
   
+## Troubleshooting
+
+ - If the error message `UnhandledPromiseRejectionWarning: Error: Browser is not downloaded. Run "npm install" or "yarn install" at ChromeLauncher.launch` is displayed, it probably means that `single-file` was not able to find the executable of the browser. Using the option `--browser-executable-path` to pass to `single-file` the complete path of the executable fixes this issue.
+ 
+  - If saving a page takes an unusually long time, this may be due to a timeout error that was automatically recovered. Setting `--browser-wait-until` to a lower value (e.g. `networkidle0` or `load` instead of `networkidle2`) fixes this issue.
+  
 ## Docker
 
 - Build
