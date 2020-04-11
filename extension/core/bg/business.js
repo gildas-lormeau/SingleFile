@@ -165,11 +165,16 @@ singlefile.extension.core.bg.business = (() => {
 				runTasks();
 			};
 			if (!taskInfo.tab.id) {
-				const tab = await tabs.create({ url: taskInfo.tab.url, active: false });
-				taskInfo.tab.id = taskInfo.options.tabId = tab.id;
-				taskInfo.tab.index = taskInfo.options.tabIndex = tab.index;
-				ui.onStart(taskInfo.tab.id, INJECT_SCRIPTS_STEP);
-				const scriptsInjected = await singlefile.extension.injectScript(taskInfo.tab.id, taskInfo.options);
+				let scriptsInjected;
+				try {
+					const tab = await tabs.create({ url: taskInfo.tab.url, active: false });
+					taskInfo.tab.id = taskInfo.options.tabId = tab.id;
+					taskInfo.tab.index = taskInfo.options.tabIndex = tab.index;
+					ui.onStart(taskInfo.tab.id, INJECT_SCRIPTS_STEP);
+					scriptsInjected = await singlefile.extension.injectScript(taskInfo.tab.id, taskInfo.options);
+				} catch (tabId) {
+					taskInfo.tab.id = tabId;
+				}
 				if (scriptsInjected) {
 					ui.onStart(taskInfo.tab.id, EXECUTE_SCRIPTS_STEP);
 				} else {
