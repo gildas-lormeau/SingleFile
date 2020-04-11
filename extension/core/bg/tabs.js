@@ -51,7 +51,7 @@ singlefile.extension.core.bg.tabs = (() => {
 				}
 				function onTabRemoved(tabId) {
 					if (tabId == tab.id) {
-						reject();
+						reject(tabId);
 						browser.tabs.onRemoved.removeListener(onTabRemoved);
 					}
 				}
