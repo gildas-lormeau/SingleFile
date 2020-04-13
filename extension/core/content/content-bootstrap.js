@@ -82,7 +82,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	}
 
 	function init() {
-		if (previousLocationHref != location.href) {
+		if (previousLocationHref != location.href && !singlefile.extension.core.processing) {
 			pageAutoSaved = false;
 			previousLocationHref = location.href;
 			browser.runtime.sendMessage({ method: "tabs.init" });
