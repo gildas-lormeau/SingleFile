@@ -28,19 +28,20 @@ const path = require("path");
 const firefox = require("selenium-webdriver/firefox");
 const { Builder, By, Key } = require("selenium-webdriver");
 
+let driver;
+
 exports.initialize = async () => { };
 
 exports.getPageData = async options => {
-	let driver;
-	try {
-		const builder = new Builder().withCapabilities({ "pageLoadStrategy": "none" });
-		builder.setFirefoxOptions(getBrowserOptions(options));
-		driver = builder.forBrowser("firefox").build();
-		return await getPageData(driver, options);
-	} finally {
-		if (driver && !options.browserDebug) {
-			driver.quit();
-		}
+	const builder = new Builder().withCapabilities({ "pageLoadStrategy": "none" });
+	builder.setFirefoxOptions(getBrowserOptions(options));
+	driver = builder.forBrowser("firefox").build();
+	return await getPageData(driver, options);
+};
+
+exports.closeBrowser = () => {
+	if (driver) {
+		return driver.quit();
 	}
 };
 
