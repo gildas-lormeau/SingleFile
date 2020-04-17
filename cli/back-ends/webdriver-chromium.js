@@ -56,7 +56,7 @@ function getBrowserOptions(options) {
 		chromeOptions.setChromeBinaryPath(options.browserExecutablePath);
 	}
 	if (options.webDriverExecutablePath) {
-		process.env["webdriver.chrome.driver"] = options.webDriverExecutablePath;
+		process.env["PATH"] = process.env["PATH"] + ";" + options.webDriverExecutablePath.replace(/geckodriver(\.exe)?$/, "");
 	}
 	if (options.browserArgs) {
 		const args = JSON.parse(options.browserArgs);
