@@ -26,8 +26,8 @@
 /* global require, URL */
 
 const fileUrl = require("file-url");
-const options = require("./args");
 const fs = require("fs");
+const options = require("./args");
 
 const backEnds = {
 	jsdom: "./back-ends/jsdom.js",
