@@ -26,7 +26,7 @@
 /* global require, URL */
 
 const fileUrl = require("file-url");
-const args = require("./args");
+const options = require("./args");
 const fs = require("fs");
 
 const backEnds = {
@@ -36,27 +36,27 @@ const backEnds = {
 	"webdriver-chromium": "./back-ends/webdriver-chromium.js",
 	"webdriver-gecko": "./back-ends/webdriver-gecko.js"
 };
-args.compressCSS = args.compressCss;
-args.compressHTML = args.compressHtml;
-args.includeBOM = args.includeBom;
-if (args.url && !/^(https?|file):\/\//.test(args.url)) {
-	args.url = fileUrl(args.url);
+options.compressCSS = options.compressCss;
+options.compressHTML = options.compressHtml;
+options.includeBOM = options.includeBom;
+if (options.url && !/^(https?|file):\/\//.test(options.url)) {
+	options.url = fileUrl(options.url);
 }
-args.retrieveLinks = true;
-args.browserScripts = args.browserScripts.map(path => require.resolve(path));
-const backend = require(backEnds[args.backEnd]);
-backend.initialize(args).then(() => {
+options.retrieveLinks = true;
+options.browserScripts = options.browserScripts.map(path => require.resolve(path));
+const backend = require(backEnds[options.backEnd]);
+backend.initialize(options).then(() => {
 	let tasks;
-	if (args.urlsFile) {
-		tasks = fs.readFileSync(args.urlsFile).toString().split("\n")
-			.map(url => ({ url: rewriteURL(url, args.urlRewriteRules), depth: 0 }))
+	if (options.urlsFile) {
+		tasks = fs.readFileSync(options.urlsFile).toString().split("\n")
+			.map(url => ({ url: rewriteURL(url, options.urlRewriteRules), depth: 0 }))
 			.filter(task => task.url);
 	} else {
-		tasks = [{ url: rewriteURL(args.url, args.urlRewriteRules), depth: 0 }];
+		tasks = [{ url: rewriteURL(options.url, options.urlRewriteRules), depth: 0 }];
 	}
-	return runTasks(tasks, args);
+	return runTasks(tasks, options);
 }).then(() => {
-	if (!args.browserDebug) {
+	if (!options.browserDebug) {
 		return backend.closeBrowser();
 	}
 });
