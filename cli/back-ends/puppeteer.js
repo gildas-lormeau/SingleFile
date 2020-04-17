@@ -30,7 +30,7 @@ const EXECUTION_CONTEXT_DESTROYED_ERROR = "Execution context was destroyed";
 const NETWORK_IDLE_STATE = "networkidle0";
 const NETWORK_STATES = ["networkidle0", "networkidle2", "load", "domcontentloaded"];
 
-let browser, pendings = 0;
+let browser;
 
 exports.initialize = async options => {
 	browser = await puppeteer.launch(getBrowserOptions(options));
@@ -39,18 +39,19 @@ exports.initialize = async options => {
 exports.getPageData = async options => {
 	let page;
 	try {
-		pendings++;
 		page = await browser.newPage();
 		await setPageOptions(page, options);
 		return await getPageData(browser, page, options);
 	} finally {
-		pendings--;
 		if (page) {
 			await page.close();
 		}
-		if (!pendings && browser && !options.browserDebug) {
-			await browser.close();
-		}
+	}
+};
+
+exports.closeBrowser = () => {
+	if (browser) {
+		return browser.close();
 	}
 };
 

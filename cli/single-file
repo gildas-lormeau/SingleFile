@@ -196,6 +196,10 @@ backend.initialize(args).then(() => {
 		tasks = [{ url: rewriteURL(args.url, args.urlRewriteRules), depth: 0 }];
 	}
 	return runTasks(tasks, args);
+}).then(() => {
+	if (!args.browserDebug) {
+		return backend.closeBrowser();
+	}
 });
 
 async function runTasks(tasks, options) {
