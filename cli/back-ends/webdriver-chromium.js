@@ -28,22 +28,23 @@ const path = require("path");
 const chrome = require("selenium-webdriver/chrome");
 const { Builder } = require("selenium-webdriver");
 
-let driver;
-
 exports.initialize = async () => { };
 
 exports.getPageData = async options => {
-	const builder = new Builder();
-	builder.setChromeOptions(getBrowserOptions(options));
-	driver = builder.forBrowser("chrome").build();
-	return await getPageData(driver, options);
-};
-
-exports.closeBrowser = () => {
-	if (driver) {
-		return driver.quit();
+	let driver;
+	try {
+		const builder = new Builder();
+		builder.setChromeOptions(getBrowserOptions(options));
+		driver = builder.forBrowser("chrome").build();
+		return await getPageData(driver, options);
+	} finally {
+		if (driver) {
+			driver.quit();
+		}
 	}
 };
+
+exports.closeBrowser = () => { };
 
 function getBrowserOptions(options) {
 	const chromeOptions = new chrome.Options();
