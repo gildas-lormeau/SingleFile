@@ -82,7 +82,7 @@ async function runNextTask(tasks, options) {
 		task.status = "processing";
 		const pageData = await capturePage(options);
 		task.status = "processed";
-		if (pageData && options.crawlLinks) {
+		if (pageData && options.crawlLinks && task.depth < options.crawlMaxDepth) {
 			pageData.links = pageData.links
 				.map(urlLink => rewriteURL(urlLink, options.urlRewriteRules))
 				.filter(urlLink => urlLink && (urlLink.startsWith("http:") || urlLink.startsWith("https:")) && !tasks.find(task => task.url == urlLink));
@@ -90,9 +90,7 @@ async function runNextTask(tasks, options) {
 				const urlHost = getHostURL(options.url);
 				pageData.links = pageData.links.filter(urlLink => urlLink.startsWith(urlHost));
 			}
-			if (task.depth < options.crawlMaxDepth) {
-				tasks.splice(tasks.length, 0, ...pageData.links.map(url => ({ url, depth: task.depth + 1 })));
-			}
+			tasks.splice(tasks.length, 0, ...pageData.links.map(url => ({ url, depth: task.depth + 1 })));
 		}
 		await runTasks(tasks, options);
 	}
