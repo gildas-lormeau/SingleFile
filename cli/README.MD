@@ -65,6 +65,10 @@ SingleFile can be launched from the command line by running it into a (headless)
   - Save a list of URLs stored into `list-urls.txt`
 
   `single-file --urls-file=list-urls.txt`
+
+  - Save https://www.wikipedia.org and crawl its inner links with their query parameters removed from the URL
+
+  `single-file https://www.wikipedia.org --crawl-links=true --crawl-inner-links-only=true  --crawl-max-depth=1 --url-rewrite-rules="^(.*)\\?.*$ $1"`
   
 ## Troubleshooting
 
