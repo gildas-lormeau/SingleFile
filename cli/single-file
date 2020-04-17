@@ -25,6 +25,8 @@
 
 /* global require, URL */
 
+const VALID_URL_TEST = /^(https?|file):\/\//;
+
 const fileUrl = require("file-url");
 const fs = require("fs");
 const options = require("./args");
@@ -39,7 +41,7 @@ const backEnds = {
 options.compressCSS = options.compressCss;
 options.compressHTML = options.compressHtml;
 options.includeBOM = options.includeBom;
-if (options.url && !/^(https?|file):\/\//.test(options.url)) {
+if (options.url && !VALID_URL_TEST.test(options.url)) {
 	options.url = fileUrl(options.url);
 }
 options.retrieveLinks = true;
@@ -85,7 +87,7 @@ async function runNextTask(tasks, options) {
 		if (pageData && options.crawlLinks && task.depth < options.crawlMaxDepth) {
 			pageData.links = pageData.links
 				.map(urlLink => rewriteURL(urlLink, options.urlRewriteRules))
-				.filter(urlLink => urlLink && (urlLink.startsWith("http:") || urlLink.startsWith("https:")) && !tasks.find(task => task.url == urlLink));
+				.filter(urlLink => urlLink && VALID_URL_TEST.test(urlLink) && !tasks.find(task => task.url == urlLink));
 			if (options.crawlInnerLinksOnly) {
 				const urlHost = getHostURL(options.url);
 				pageData.links = pageData.links.filter(urlLink => urlLink.startsWith(urlHost));
