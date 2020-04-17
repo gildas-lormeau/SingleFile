@@ -23,7 +23,7 @@
  *   Source.
  */
 
-/* global require */
+/* global require, URL */
 
 const fileUrl = require("file-url");
 const args = require("yargs")
@@ -70,7 +70,11 @@ const args = require("yargs")
 		"save-raw-page": false,
 		"web-driver-executable-path": "",
 		"user-script-enabled": true,
-		"include-BOM": false
+		"include-BOM": false,
+		"crawl-links": false,
+		"crawl-inner-links-only": true,
+		"crawl-max-depth": 1,
+		"url-rewrite-rules": []
 	})
 	.options("back-end", { description: "Back-end to use" })
 	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chromium", "webdriver-gecko", "puppeteer-firefox"])
@@ -86,7 +90,7 @@ const args = require("yargs")
 	.number("browser-load-max-time")
 	.options("browser-wait-until", { description: "When to consider the page is loaded (puppeteer, puppeteer-firefox, webdriver-gecko, webdriver-chromium)" })
 	.choices("browser-wait-until", ["networkidle0", "networkidle2", "load", "domcontentloaded"])
-	.options("browser-wait-until-fallback", { description: "Retry with the next value of --browser-wait-until when a timeout error is thrown" })	
+	.options("browser-wait-until-fallback", { description: "Retry with the next value of --browser-wait-until when a timeout error is thrown" })
 	.boolean("browser-wait-until-fallback")
 	.options("browser-debug", { description: "Enable debug mode (puppeteer, puppeteer-firefox, webdriver-gecko, webdriver-chromium)" })
 	.boolean("browser-debug")
@@ -100,6 +104,12 @@ const args = require("yargs")
 	.boolean("compress-CSS")
 	.options("compress-HTML", { description: "Compress HTML content" })
 	.boolean("compress-HTML")
+	.options("crawl-links", { description: "Crawl and save pages found via inner links" })
+	.boolean("crawl-links")
+	.options("crawl-inner-links-only", { description: "Crawl pages found via inner links only if they are hosted on the same domain" })
+	.boolean("crawl-inner-links-only")
+	.options("crawl-max-depth", { description: "Max depth when crawl pages found via inner links" })
+	.number("crawl-max-depth")
 	.options("error-file")
 	.string("error-file")
 	.options("filename-template", { description: "Template used to generate the output filename (see help page of the extension for more info)" })
@@ -147,6 +157,8 @@ const args = require("yargs")
 	.boolean("remove-alternative-images")
 	.options("save-raw-page", { description: "Save the original page without interpreting it into the browser (puppeteer, puppeteer-firefox, webdriver-gecko, webdriver-chromium)" })
 	.boolean("save-raw-page")
+	.options("url-rewrite-rules", { description: "List of rewrite rules used to rewrite URLs" })
+	.array("url-rewrite-rules")
 	.options("urls-file", { description: "Path to a text file containing a list of URLs (separated by a newline) to save" })
 	.string("urls-file")
 	.options("user-agent", { description: "User-agent of the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
@@ -171,48 +183,89 @@ args.includeBOM = args.includeBom;
 if (args.url && !/^(https?|file):\/\//.test(args.url)) {
 	args.url = fileUrl(args.url);
 }
+args.retrieveLinks = true;
 args.browserScripts = args.browserScripts.map(path => require.resolve(path));
 const backend = require(backEnds[args.backEnd]);
 backend.initialize(args).then(() => {
+	let tasks;
 	if (args.urlsFile) {
-		const urls = fs.readFileSync(args.urlsFile).toString().split("\n").map(url => url.trim()).filter(url => url);
-		for (let workerIndex = 0; workerIndex < args.maxParallelWorkers; workerIndex++) {
-			workerCapturePage(args, urls, workerIndex);
-		}
+		tasks = fs.readFileSync(args.urlsFile).toString().split("\n")
+			.map(url => ({ url: rewriteURL(url, args.urlRewriteRules), depth: 0 }))
+			.filter(task => task.url);
 	} else {
-		capturePage(args);
+		tasks = [{ url: rewriteURL(args.url, args.urlRewriteRules), depth: 0 }];
 	}
+	return runTasks(tasks, args);
 });
 
-async function workerCapturePage(args, urls, workerIndex, depth = 0) {
-	const url = urls[workerIndex + (depth * args.maxParallelWorkers)];
-	if (url) {
-		args = JSON.parse(JSON.stringify(args));
-		args.url = url;
-		args.output = null;
-		await capturePage(args);
-		await workerCapturePage(args, urls, workerIndex, depth + 1);
+async function runTasks(tasks, options) {
+	const availableTasks = tasks.filter(task => !task.status).length;
+	const processingTasks = tasks.filter(task => task.status == "processing").length;
+	const promisesTasks = [];
+	for (let workerIndex = 0; workerIndex < Math.min(availableTasks, options.maxParallelWorkers - processingTasks); workerIndex++) {
+		promisesTasks.push(runNextTask(tasks, options));
+	}
+	await Promise.all(promisesTasks);
+}
+
+async function runNextTask(tasks, options) {
+	const task = tasks.find(task => !task.status);
+	if (task) {
+		options = JSON.parse(JSON.stringify(options));
+		options.url = task.url;
+		options.output = null;
+		task.status = "processing";
+		const pageData = await capturePage(options);
+		task.status = "processed";
+		if (pageData && options.crawlLinks) {
+			pageData.links = pageData.links
+				.map(urlLink => rewriteURL(urlLink, options.urlRewriteRules))
+				.filter(urlLink => !tasks.find(task => task.url == urlLink));
+			if (options.crawlInnerLinksOnly) {
+				const urlHost = getHostURL(options.url);
+				pageData.links = pageData.links.filter(urlLink => urlLink.startsWith(urlHost));
+			}
+			if (task.depth < options.crawlMaxDepth) {
+				tasks.splice(tasks.length, 0, ...pageData.links.map(url => ({ url, depth: task.depth + 1 })));
+			}
+		}
+		await runTasks(tasks, options);
 	}
 }
 
-async function capturePage(args) {
+function rewriteURL(url, rewriteRules) {
+	url = url.trim();
+	rewriteRules.forEach(rewriteRule => {
+		const parts = rewriteRule.split(/ +/);
+		url = url.replace(new RegExp(parts[0]), parts[1]).trim();
+	});
+	return url;
+}
+
+function getHostURL(url) {
+	url = new URL(url);
+	return url.protocol + "//" + (url.username ? url.username + (url.password || "") + "@" : "") + url.hostname;
+}
+
+async function capturePage(options) {
 	try {
-		const pageData = await backend.getPageData(args);
-		if (args.output) {
-			fs.writeFileSync(getFilename(args.output), pageData.content);
+		const pageData = await backend.getPageData(options);
+		if (options.output) {
+			fs.writeFileSync(getFilename(options.output), pageData.content);
 		} else {
-			if (args.filenameTemplate && pageData.filename) {
+			if (options.filenameTemplate && pageData.filename) {
 				fs.writeFileSync(getFilename(pageData.filename), pageData.content);
 			} else {
 				console.log(pageData.content); // eslint-disable-line no-console
 			}
 		}
+		return pageData;
 	} catch (error) {
-		const message = "URL: " + args.url + "\nStack: " + error.stack + "\n";
-		if (args.errorFile) {
-			fs.writeFileSync(args.errorFile, message, { flag: "a" });
+		const message = "URL: " + options.url + "\nStack: " + error.stack + "\n";
+		if (options.errorFile) {
+			fs.writeFileSync(options.errorFile, message, { flag: "a" });
 		} else {
-			console.error(message);// eslint-disable-line no-console
+			console.error(message); // eslint-disable-line no-console
 		}
 	}
 }
