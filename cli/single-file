@@ -85,7 +85,7 @@ async function runNextTask(tasks, options) {
 		if (pageData && options.crawlLinks) {
 			pageData.links = pageData.links
 				.map(urlLink => rewriteURL(urlLink, options.urlRewriteRules))
-				.filter(urlLink => !tasks.find(task => task.url == urlLink));
+				.filter(urlLink => (urlLink.startsWith("http:") || urlLink.startsWith("https:")) && !tasks.find(task => task.url == urlLink));
 			if (options.crawlInnerLinksOnly) {
 				const urlHost = getHostURL(options.url);
 				pageData.links = pageData.links.filter(urlLink => urlLink.startsWith(urlHost));
