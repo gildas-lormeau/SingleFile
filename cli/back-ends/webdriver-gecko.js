@@ -55,7 +55,7 @@ function getBrowserOptions(options) {
 		firefoxOptions.setBinary(options.browserExecutablePath);
 	}
 	if (options.webDriverExecutablePath) {
-		process.env["PATH"] = process.env["PATH"] + ";" + options.webDriverExecutablePath.replace(/geckodriver(\.exe)?$/, "");
+		process.env["PATH"] += ";" + options.webDriverExecutablePath.replace(/geckodriver(\.exe)?$/, "");
 	}
 	const extensions = [];
 	if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {
