@@ -29,6 +29,8 @@ const { JSDOM, VirtualConsole } = require("jsdom");
 const iconv = require("iconv-lite");
 const request = require("request-promise-native");
 
+let win;
+
 exports.initialize = async () => { };
 
 exports.getPageData = async options => {
@@ -41,16 +43,9 @@ exports.getPageData = async options => {
 			"User-Agent": options.userAgent
 		}
 	})).body.toString();
-	let win;
-	try {
-		const dom = new JSDOM(pageContent, getBrowserOptions(options));
-		win = dom.window;
-		return await getPageData(win, options);
-	} finally {
-		if (win) {
-			win.close();
-		}
-	}
+	const dom = new JSDOM(pageContent, getBrowserOptions(options));
+	win = dom.window;
+	return await getPageData(win, options);
 };
 
 async function getPageData(win, options) {
@@ -87,6 +82,12 @@ async function getPageData(win, options) {
 	}
 	return pageData;
 }
+
+exports.closeBrowser = () => {
+	if (win) {
+		win.close();
+	}
+};
 
 function getBrowserOptions(options) {
 	const jsdomOptions = {
