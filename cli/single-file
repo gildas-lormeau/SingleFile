@@ -237,7 +237,9 @@ function rewriteURL(url, rewriteRules) {
 	url = url.trim();
 	rewriteRules.forEach(rewriteRule => {
 		const parts = rewriteRule.split(/ +/);
-		url = url.replace(new RegExp(parts[0]), parts[1]).trim();
+		if (parts.length == 2) {
+			url = url.replace(new RegExp(parts[0]), parts[1]).trim();
+		}
 	});
 	return url;
 }
