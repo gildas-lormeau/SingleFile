@@ -45,7 +45,10 @@ if (options.url && !/^(https?|file):\/\//.test(options.url)) {
 options.retrieveLinks = true;
 options.browserScripts = options.browserScripts.map(path => require.resolve(path));
 const backend = require(backEnds[options.backEnd]);
-backend.initialize(options).then(() => {
+run(options);
+
+async function run(options) {
+	await backend.initialize(options);
 	let tasks;
 	if (options.urlsFile) {
 		tasks = fs.readFileSync(options.urlsFile).toString().split("\n")
@@ -54,12 +57,11 @@ backend.initialize(options).then(() => {
 	} else {
 		tasks = [{ url: rewriteURL(options.url, options.urlRewriteRules), depth: 0 }];
 	}
-	return runTasks(tasks, options);
-}).then(() => {
+	await runTasks(tasks, options);
 	if (!options.browserDebug) {
 		return backend.closeBrowser();
 	}
-});
+}
 
 async function runTasks(tasks, options) {
 	const availableTasks = tasks.filter(task => !task.status).length;
