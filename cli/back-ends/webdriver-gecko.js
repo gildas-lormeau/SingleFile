@@ -49,7 +49,7 @@ exports.closeBrowser = () => { };
 function getBrowserOptions(options) {
 	const firefoxOptions = new firefox.Options();
 	if ((options.browserHeadless === undefined || options.browserHeadless) && !options.browserDebug) {
-		firefoxOptions.headless();
+		process.env["MOZ_HEADLESS"] = "1";
 	}
 	if (options.browserExecutablePath) {
 		firefoxOptions.setBinary(options.browserExecutablePath);
