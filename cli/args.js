@@ -71,7 +71,7 @@ module.exports = require("yargs")
 		"crawl-links": false,
 		"crawl-inner-links-only": true,
 		"crawl-max-depth": 1,
-		"crawl-replace-urls": true,
+		"crawl-replace-urls": false,
 		"url-rewrite-rules": []
 	})
 	.options("back-end", { description: "Back-end to use" })
