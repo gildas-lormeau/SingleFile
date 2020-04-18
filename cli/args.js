@@ -71,6 +71,7 @@ module.exports = require("yargs")
 		"crawl-links": false,
 		"crawl-inner-links-only": true,
 		"crawl-max-depth": 1,
+		"crawl-replace-urls": true,
 		"url-rewrite-rules": []
 	})
 	.options("back-end", { description: "Back-end to use" })
@@ -107,6 +108,8 @@ module.exports = require("yargs")
 	.boolean("crawl-inner-links-only")
 	.options("crawl-max-depth", { description: "Max depth when crawl pages found via inner links" })
 	.number("crawl-max-depth")
+	.options("crawl-replace-urls", { description: "Replace URLs of saved pages with relative paths of saved pages on the filesystem" })
+	.boolean("crawl-replace-urls")
 	.options("error-file")
 	.string("error-file")
 	.options("filename-template", { description: "Template used to generate the output filename (see help page of the extension for more info)" })

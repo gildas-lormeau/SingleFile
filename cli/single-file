@@ -41,6 +41,7 @@ const backEnds = {
 options.compressCSS = options.compressCss;
 options.compressHTML = options.compressHtml;
 options.includeBOM = options.includeBom;
+options.crawlReplaceURLs = options.crawlReplaceUrls;
 if (options.url && !VALID_URL_TEST.test(options.url)) {
 	options.url = fileUrl(options.url);
 }
@@ -60,6 +61,19 @@ async function run(options) {
 		tasks = [{ url: rewriteURL(options.url, options.urlRewriteRules), depth: 0 }];
 	}
 	await runTasks(tasks, options);
+	if (options.crawlReplaceURLs) {
+		tasks.forEach(task => {
+			let pageContent = fs.readFileSync(task.filename).toString();
+			tasks.forEach(otherTask => {
+				pageContent = pageContent.replace(new RegExp(escapeRegExp("\"" + otherTask.url + "\""), "gi"), "\"" + otherTask.filename + "\"");
+				pageContent = pageContent.replace(new RegExp(escapeRegExp("'" + otherTask.url + "'"), "gi"), "'" + otherTask.filename + "'");
+				const filename = otherTask.filename.replace(/ /g, "%20");
+				pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.url + " "), "gi"), "=" + filename + " ");
+				pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.url + ">"), "gi"), "=" + filename + ">");
+			});
+			fs.writeFileSync(task.filename, pageContent);
+		});
+	}
 	if (!options.browserDebug) {
 		return backend.closeBrowser();
 	}
@@ -84,6 +98,7 @@ async function runNextTask(tasks, options) {
 		task.status = "processing";
 		const pageData = await capturePage(options);
 		task.status = "processed";
+		task.filename = pageData.filename;
 		if (pageData && options.crawlLinks && task.depth < options.crawlMaxDepth) {
 			pageData.links = pageData.links
 				.map(urlLink => rewriteURL(urlLink, options.urlRewriteRules))
@@ -153,4 +168,8 @@ function getFilename(filename, index = 1) {
 	} else {
 		return newFilename;
 	}
+}
+
+function escapeRegExp(string) {
+	return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
