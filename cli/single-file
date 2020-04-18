@@ -63,15 +63,19 @@ async function run(options) {
 	await runTasks(tasks, options);
 	if (options.crawlReplaceURLs) {
 		tasks.forEach(task => {
-			let pageContent = fs.readFileSync(task.filename).toString();
-			tasks.forEach(otherTask => {
-				pageContent = pageContent.replace(new RegExp(escapeRegExp("\"" + otherTask.url + "\""), "gi"), "\"" + otherTask.filename + "\"");
-				pageContent = pageContent.replace(new RegExp(escapeRegExp("'" + otherTask.url + "'"), "gi"), "'" + otherTask.filename + "'");
-				const filename = otherTask.filename.replace(/ /g, "%20");
-				pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.url + " "), "gi"), "=" + filename + " ");
-				pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.url + ">"), "gi"), "=" + filename + ">");
-			});
-			fs.writeFileSync(task.filename, pageContent);
+			try {
+				let pageContent = fs.readFileSync(task.filename).toString();
+				tasks.forEach(otherTask => {
+					pageContent = pageContent.replace(new RegExp(escapeRegExp("\"" + otherTask.url + "\""), "gi"), "\"" + otherTask.filename + "\"");
+					pageContent = pageContent.replace(new RegExp(escapeRegExp("'" + otherTask.url + "'"), "gi"), "'" + otherTask.filename + "'");
+					const filename = otherTask.filename.replace(/ /g, "%20");
+					pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.url + " "), "gi"), "=" + filename + " ");
+					pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.url + ">"), "gi"), "=" + filename + ">");
+				});
+				fs.writeFileSync(task.filename, pageContent);
+			} catch (error) {
+				// ignored
+			}
 		});
 	}
 	if (!options.browserDebug) {
