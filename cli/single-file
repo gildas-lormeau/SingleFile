@@ -98,7 +98,6 @@ async function runNextTask(tasks, options) {
 	if (task) {
 		options = JSON.parse(JSON.stringify(options));
 		options.url = task.url;
-		options.output = null;
 		task.status = "processing";
 		const pageData = await capturePage(options);
 		task.status = "processed";
