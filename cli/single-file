@@ -55,10 +55,10 @@ async function run(options) {
 	let tasks;
 	if (options.urlsFile) {
 		tasks = fs.readFileSync(options.urlsFile).toString().split("\n")
-			.map(url => ({ url: rewriteURL(url, options.urlRewriteRules), depth: 0 }))
+			.map(url => ({ url: rewriteURL(url, options.urlRewriteRules), originalUrl: url, depth: 0 }))
 			.filter(task => task.url);
 	} else {
-		tasks = [{ url: rewriteURL(options.url, options.urlRewriteRules), depth: 0 }];
+		tasks = [{ url: rewriteURL(options.url, options.urlRewriteRules), originalUrl: options.url, depth: 0 }];
 	}
 	await runTasks(tasks, options);
 	if (options.crawlReplaceURLs) {
@@ -66,11 +66,11 @@ async function run(options) {
 			try {
 				let pageContent = fs.readFileSync(task.filename).toString();
 				tasks.forEach(otherTask => {
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("\"" + otherTask.url + "\""), "gi"), "\"" + otherTask.filename + "\"");
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("'" + otherTask.url + "'"), "gi"), "'" + otherTask.filename + "'");
+					pageContent = pageContent.replace(new RegExp(escapeRegExp("\"" + otherTask.originalUrl + "\""), "gi"), "\"" + otherTask.filename + "\"");
+					pageContent = pageContent.replace(new RegExp(escapeRegExp("'" + otherTask.originalUrl + "'"), "gi"), "'" + otherTask.filename + "'");
 					const filename = otherTask.filename.replace(/ /g, "%20");
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.url + " "), "gi"), "=" + filename + " ");
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.url + ">"), "gi"), "=" + filename + ">");
+					pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.originalUrl + " "), "gi"), "=" + filename + " ");
+					pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.originalUrl + ">"), "gi"), "=" + filename + ">");
 				});
 				fs.writeFileSync(task.filename, pageContent);
 			} catch (error) {
@@ -104,14 +104,14 @@ async function runNextTask(tasks, options) {
 		task.status = "processed";
 		task.filename = pageData.filename;
 		if (pageData && options.crawlLinks && task.depth < options.crawlMaxDepth) {
-			pageData.links = pageData.links
-				.map(urlLink => rewriteURL(urlLink, options.urlRewriteRules))
-				.filter(urlLink => urlLink && VALID_URL_TEST.test(urlLink) && !tasks.find(task => task.url == urlLink));
+			let newTasks = pageData.links
+				.map(urlLink => ({ url: rewriteURL(urlLink, options.urlRewriteRules), originalUrl: urlLink, depth: task.depth + 1 }))
+				.filter(task => task.url && VALID_URL_TEST.test(task.url) && !tasks.find(otherTask => otherTask.url == task.url));
 			if (options.crawlInnerLinksOnly) {
 				const urlHost = getHostURL(options.url);
-				pageData.links = pageData.links.filter(urlLink => urlLink.startsWith(urlHost));
+				newTasks = newTasks.filter(task => task.url.startsWith(urlHost));
 			}
-			tasks.splice(tasks.length, 0, ...pageData.links.map(url => ({ url, depth: task.depth + 1 })));
+			tasks.splice(tasks.length, 0, ...newTasks);
 		}
 		await runTasks(tasks, options);
 	}
