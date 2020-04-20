@@ -367,6 +367,10 @@
 		"message": "バックグラウンドでページを保存する",
 		"description": "Options page label: 'save pages in background'"
 	},
+	"optionApplySystemTheme": {
+		"message": "apply the system theme when formatting a page in the annotation editor",
+		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
+	},
 	"optionDisplayStats": {
 		"message": "処理後、コンソールに統計情報を表示する",
 		"description": "Options page label: 'display stats in the console after processing'"

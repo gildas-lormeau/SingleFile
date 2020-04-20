@@ -57,6 +57,7 @@
 	const displayInfobarLabel = document.getElementById("displayInfobarLabel");
 	const displayStatsLabel = document.getElementById("displayStatsLabel");
 	const backgroundSaveLabel = document.getElementById("backgroundSaveLabel");
+	const applySystemThemeLabel = document.getElementById("applySystemThemeLabel");
 	const autoSaveDelayLabel = document.getElementById("autoSaveDelayLabel");
 	const autoSaveLoadLabel = document.getElementById("autoSaveLoadLabel");
 	const autoSaveUnloadLabel = document.getElementById("autoSaveUnloadLabel");
@@ -127,6 +128,7 @@
 	const displayInfobarInput = document.getElementById("displayInfobarInput");
 	const displayStatsInput = document.getElementById("displayStatsInput");
 	const backgroundSaveInput = document.getElementById("backgroundSaveInput");
+	const applySystemThemeInput = document.getElementById("applySystemThemeInput");
 	const autoSaveDelayInput = document.getElementById("autoSaveDelayInput");
 	const autoSaveLoadInput = document.getElementById("autoSaveLoadInput");
 	const autoSaveUnloadInput = document.getElementById("autoSaveUnloadInput");
@@ -447,6 +449,7 @@
 	displayInfobarLabel.textContent = browser.i18n.getMessage("optionDisplayInfobar");
 	displayStatsLabel.textContent = browser.i18n.getMessage("optionDisplayStats");
 	backgroundSaveLabel.textContent = browser.i18n.getMessage("optionBackgroundSave");
+	applySystemThemeLabel.textContent = browser.i18n.getMessage("optionApplySystemTheme");
 	autoSaveDelayLabel.textContent = browser.i18n.getMessage("optionAutoSaveDelay");
 	autoSaveLoadLabel.textContent = browser.i18n.getMessage("optionAutoSaveLoad");
 	autoSaveUnloadLabel.textContent = browser.i18n.getMessage("optionAutoSaveUnload");
@@ -630,6 +633,7 @@
 		displayStatsInput.checked = profileOptions.displayStats;
 		backgroundSaveInput.checked = profileOptions.backgroundSave;
 		backgroundSaveInput.disabled = profileOptions.saveToGDrive;
+		applySystemThemeInput.checked = profileOptions.applySystemTheme;
 		autoSaveDelayInput.value = profileOptions.autoSaveDelay;
 		autoSaveDelayInput.disabled = !profileOptions.autoSaveLoadOrUnload && !profileOptions.autoSaveLoad;
 		autoSaveLoadInput.checked = !profileOptions.autoSaveLoadOrUnload && profileOptions.autoSaveLoad;
@@ -698,6 +702,7 @@
 				displayInfobar: displayInfobarInput.checked,
 				displayStats: displayStatsInput.checked,
 				backgroundSave: backgroundSaveInput.checked,
+				applySystemTheme: applySystemThemeInput.checked,
 				autoSaveDelay: Math.max(autoSaveDelayInput.value, 0),
 				autoSaveLoad: autoSaveLoadInput.checked,
 				autoSaveUnload: autoSaveUnloadInput.checked,

@@ -848,7 +848,10 @@ table {
 			document.body.contentEditable = true;
 		}
 		if (message.method == "formatPage") {
-			formatPage();
+			formatPage(true);
+		}
+		if (message.method == "formatPageNoTheme") {
+			formatPage(false);
 		}
 		if (message.method == "disableEditPage") {
 			document.body.contentEditable = false;
@@ -1308,7 +1311,7 @@ table {
 		event.stopPropagation();
 	}
 
-	function formatPage() {
+	function formatPage(applySystemTheme) {
 		const shadowRoots = {};
 		const classesToPreserve = ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"];
 		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
@@ -1345,7 +1348,7 @@ table {
 		document.body.classList.add("sans-serif");
 		document.body.classList.add("container");
 		document.body.classList.add("line-height4");
-		if (matchMedia("prefers-color-scheme: dark")) {
+		if (applySystemTheme && matchMedia("prefers-color-scheme: dark")) {
 			document.body.classList.add("dark");
 		}
 		document.body.style.setProperty("display", "block");

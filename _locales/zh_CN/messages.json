@@ -367,6 +367,10 @@
 		"message": "在后台保存页面",
 		"description": "Options page label: 'save pages in background'"
 	},
+	"optionApplySystemTheme": {
+		"message": "apply the system theme when formatting a page in the annotation editor",
+		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
+	},
 	"optionDisplayStats": {
 		"message": "处理完成后在控制台中显示统计数据",
 		"description": "Options page label: 'display stats in the console after processing'"

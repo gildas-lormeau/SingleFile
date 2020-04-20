@@ -111,7 +111,8 @@ singlefile.extension.core.bg.downloads = (() => {
 					filenameReplacementCharacter: message.filenameReplacementCharacter,
 					compressHTML: message.compressHTML,
 					bookmarkId: message.bookmarkId,
-					replaceBookmarkURL: message.replaceBookmarkURL
+					replaceBookmarkURL: message.replaceBookmarkURL,
+					applySystemTheme: message.applySystemTheme
 				});
 			} else {
 				if (message.saveToClipboard) {
