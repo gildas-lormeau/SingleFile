@@ -367,6 +367,10 @@
 		"message": "guardar páginas en segundo plano",
 		"description": "Options page label: 'save pages in background'"
 	},
+	"optionApplySystemTheme": {
+		"message": "apply the system theme when formatting a page in the annotation editor",
+		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
+	},
 	"optionDisplayStats": {
 		"message": "mostrar estadísticas en la consola tras el procesado",
 		"description": "Options page label: 'display stats in the console after processing'"

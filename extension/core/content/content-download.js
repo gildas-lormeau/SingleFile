@@ -55,7 +55,8 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 					compressHTML: options.compressHTML,
 					backgroundSave: options.backgroundSave,
 					bookmarkId: options.bookmarkId,
-					replaceBookmarkURL: options.replaceBookmarkURL
+					replaceBookmarkURL: options.replaceBookmarkURL,
+					applySystemTheme: options.applySystemTheme
 				};
 				message.truncated = pageData.content.length > MAX_CONTENT_SIZE;
 				if (message.truncated) {

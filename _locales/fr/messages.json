@@ -367,6 +367,10 @@
 		"message": "sauvegarder la page en tâche de fond",
 		"description": "Options page label: 'save pages in background'"
 	},
+	"optionApplySystemTheme": {
+		"message": "appliquer le thème système lors du formattage d'une page dans l'éditeur  d'annotations",
+		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
+	},
 	"optionDisplayStats": {
 		"message": "afficher les statistiques dans la console après la sauvegarde",
 		"description": "Options page label: 'display stats in the console after processing'"

@@ -367,6 +367,10 @@
 		"message": "зберігати сторінки у фоновому режимі",
 		"description": "Options page label: 'save pages in background'"
 	},
+	"optionApplySystemTheme": {
+		"message": "apply the system theme when formatting a page in the annotation editor",
+		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
+	},
 	"optionDisplayStats": {
 		"message": "відображати статистику в консолі після обробки",
 		"description": "Options page label: 'display stats in the console after processing'"

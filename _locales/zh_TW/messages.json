@@ -367,6 +367,10 @@
 		"message": "在後臺保存頁面",
 		"description": "選項頁標籤: '在後臺保存頁面'"
 	},
+	"optionApplySystemTheme": {
+		"message": "apply the system theme when formatting a page in the annotation editor",
+		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
+	},
 	"optionDisplayStats": {
 		"message": "處理後在控制檯消息中顯示統計",
 		"description": "選項頁標籤: '處理後在控制檯消息中顯示統計'"
