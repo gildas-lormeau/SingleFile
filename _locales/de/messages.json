@@ -171,6 +171,10 @@
 		"message": "Vorlage",
 		"description": "Options page label: 'template'"
 	},
+	"optionFilenameMaxLength": {
+		"message": "maximale Länge (bytes)",
+		"description": "Options page label: 'max length (bytes)'"
+	},
 	"optionConfirmFilename": {
 		"message": "Dialogfenster \"Sichern als\" zur Bestätigung des Dateinamens öffnen",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
