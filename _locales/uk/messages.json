@@ -171,6 +171,10 @@
 		"message": "шаблон",
 		"description": "Options page label: 'template'"
 	},
+	"optionFilenameMaxLength": {
+		"message": "максимальна довжина (байти)",
+		"description": "Options page label: 'max length (bytes)'"
+	},
 	"optionConfirmFilename": {
 		"message": "відкривати діалогове вікно \"Save as\" для підтвердження імені файлу",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"

@@ -171,6 +171,10 @@
 		"message": "modèle",
 		"description": "Options page label: 'template'"
 	},
+	"optionFilenameMaxLength": {
+		"message": "longueur maximale (octets)",
+		"description": "Options page label: 'max length (bytes)'"
+	},
 	"optionConfirmFilename": {
 		"message": "ouvrir la boite de dialogue \"Sauver sous\" pour confimer le nom de fichier",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"

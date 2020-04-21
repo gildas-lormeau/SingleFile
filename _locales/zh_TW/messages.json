@@ -171,6 +171,10 @@
 		"message": "模板",
 		"description": "Options page label: 'template'"
 	},
+	"optionFilenameMaxLength": {
+		"message": "max length (bytes)",
+		"description": "Options page label: 'max length (bytes)'"
+	},
 	"optionConfirmFilename": {
 		"message": "打開 “另存為” 對話框以確認文件名",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"

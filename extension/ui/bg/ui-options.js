@@ -44,6 +44,7 @@
 	const loadDeferredImagesMaxIdleTimeLabel = document.getElementById("loadDeferredImagesMaxIdleTimeLabel");
 	const addMenuEntryLabel = document.getElementById("addMenuEntryLabel");
 	const filenameTemplateLabel = document.getElementById("filenameTemplateLabel");
+	const filenameMaxLengthLabel = document.getElementById("filenameMaxLengthLabel");
 	const shadowEnabledLabel = document.getElementById("shadowEnabledLabel");
 	const setMaxResourceSizeLabel = document.getElementById("setMaxResourceSizeLabel");
 	const maxResourceSizeLabel = document.getElementById("maxResourceSizeLabel");
@@ -118,6 +119,7 @@
 	const loadDeferredImagesMaxIdleTimeInput = document.getElementById("loadDeferredImagesMaxIdleTimeInput");
 	const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 	const filenameTemplateInput = document.getElementById("filenameTemplateInput");
+	const filenameMaxLengthInput = document.getElementById("filenameMaxLengthInput");
 	const shadowEnabledInput = document.getElementById("shadowEnabledInput");
 	const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 	const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
@@ -436,6 +438,7 @@
 	loadDeferredImagesMaxIdleTimeLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesMaxIdleTime");
 	addMenuEntryLabel.textContent = browser.i18n.getMessage("optionAddMenuEntry");
 	filenameTemplateLabel.textContent = browser.i18n.getMessage("optionFilenameTemplate");
+	filenameMaxLengthLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLength");
 	shadowEnabledLabel.textContent = browser.i18n.getMessage("optionDisplayShadow");
 	setMaxResourceSizeLabel.textContent = browser.i18n.getMessage("optionSetMaxResourceSize");
 	maxResourceSizeLabel.textContent = browser.i18n.getMessage("optionMaxResourceSize");
@@ -618,6 +621,7 @@
 		loadDeferredImagesMaxIdleTimeInput.disabled = !profileOptions.loadDeferredImages || profileOptions.saveRawPage;
 		contextMenuEnabledInput.checked = profileOptions.contextMenuEnabled;
 		filenameTemplateInput.value = profileOptions.filenameTemplate;
+		filenameMaxLengthInput.value = profileOptions.filenameMaxLength;
 		filenameTemplateInput.disabled = profileOptions.saveToClipboard;
 		shadowEnabledInput.checked = profileOptions.shadowEnabled;
 		maxResourceSizeEnabledInput.checked = profileOptions.maxResourceSizeEnabled;
@@ -692,6 +696,7 @@
 				loadDeferredImagesMaxIdleTime: Math.max(loadDeferredImagesMaxIdleTimeInput.value, 0),
 				contextMenuEnabled: contextMenuEnabledInput.checked,
 				filenameTemplate: filenameTemplateInput.value,
+				filenameMaxLength: filenameMaxLengthInput.value,
 				shadowEnabled: shadowEnabledInput.checked,
 				maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
 				maxResourceSize: Math.max(maxResourceSizeInput.value, 0),

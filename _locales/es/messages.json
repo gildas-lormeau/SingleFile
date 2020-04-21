@@ -171,6 +171,10 @@
 		"message": "plantilla",
 		"description": "Options page label: 'template'"
 	},
+	"optionFilenameMaxLength": {
+		"message": "longitud máxima (bytes)",
+		"description": "Options page label: 'max length (bytes)'"
+	},
 	"optionConfirmFilename": {
 		"message": "abrir el cuadro de diálogo \"Guardar como\" para confirmar el nombre del archivo",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
