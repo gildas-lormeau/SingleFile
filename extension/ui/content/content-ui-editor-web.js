@@ -942,6 +942,7 @@ table {
 		noteElement.classList.add(NOTE_CLASS);
 		noteElement.classList.add(NOTE_ANCHORED_CLASS);
 		noteElement.classList.add(color);
+		mainElement.dir = "auto";
 		const boundingRectDocument = document.documentElement.getBoundingClientRect();
 		let positionX = NOTE_INITIAL_WIDTH + NOTE_INITIAL_POSITION_X - 1 - boundingRectDocument.x;
 		let positionY = NOTE_INITIAL_HEIGHT + NOTE_INITIAL_POSITION_Y - 1 - boundingRectDocument.y;
