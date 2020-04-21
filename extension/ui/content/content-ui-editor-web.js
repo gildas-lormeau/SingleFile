@@ -1348,7 +1348,8 @@ table {
 		document.body.classList.add("sans-serif");
 		document.body.classList.add("container");
 		document.body.classList.add("line-height4");
-		if (applySystemTheme && matchMedia("prefers-color-scheme: dark")) {
+		const prefersColorSchemeDark = matchMedia("(prefers-color-scheme: dark)");
+		if (applySystemTheme && prefersColorSchemeDark && prefersColorSchemeDark.matches) {
 			document.body.classList.add("dark");
 		}
 		document.body.style.setProperty("display", "block");
