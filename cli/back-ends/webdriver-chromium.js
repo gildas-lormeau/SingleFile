@@ -38,11 +38,13 @@ exports.getPageData = async options => {
 		driver = builder.forBrowser("chrome").build();
 		return await getPageData(driver, options);
 	} finally {
-		if (driver && !options.browserDebug) {
+		if (driver) {
 			driver.quit();
 		}
 	}
 };
+
+exports.closeBrowser = () => { };
 
 function getBrowserOptions(options) {
 	const chromeOptions = new chrome.Options();
@@ -54,7 +56,7 @@ function getBrowserOptions(options) {
 		chromeOptions.setChromeBinaryPath(options.browserExecutablePath);
 	}
 	if (options.webDriverExecutablePath) {
-		process.env["webdriver.chrome.driver"] = options.webDriverExecutablePath;
+		process.env["PATH"] += ";" + options.webDriverExecutablePath.replace(/chromedriver(\.exe)?$/, "");
 	}
 	if (options.browserArgs) {
 		const args = JSON.parse(options.browserArgs);

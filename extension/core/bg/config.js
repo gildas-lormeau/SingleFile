@@ -66,6 +66,7 @@ singlefile.extension.core.bg.config = (() => {
 		displayInfobar: true,
 		displayStats: false,
 		backgroundSave: true,
+		applySystemTheme: true,
 		autoSaveDelay: 1,
 		autoSaveLoad: false,
 		autoSaveUnload: false,
@@ -87,8 +88,10 @@ singlefile.extension.core.bg.config = (() => {
 		openEditor: false,
 		autoOpenEditor: false,
 		saveCreatedBookmarks: false,
+		ignoredBookmarkFolders: [],
 		replaceBookmarkURL: true,
-		saveFavicon: true
+		saveFavicon: true,
+		includeBOM: false
 	};
 
 	let configStorage;

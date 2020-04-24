@@ -23,29 +23,34 @@
 
 /* global singlefile, require, exports */
 
-const puppeteer = require("puppeteer-firefox");
+const puppeteer = require("puppeteer-core");
 const scripts = require("./common/scripts.js");
 
 const EXECUTION_CONTEXT_DESTROYED_ERROR = "Execution context was destroyed";
 const NETWORK_IDLE_STATE = "networkidle0";
 
-let browser, pendings = 0;
+let browser;
 
 exports.initialize = async options => {
 	browser = await puppeteer.launch(getBrowserOptions(options));
 };
 
 exports.getPageData = async options => {
+	let page;
 	try {
-		pendings++;
-		const page = await browser.newPage();
+		page = await browser.newPage();
 		await setPageOptions(page, options);
 		return await getPageData(browser, page, options);
 	} finally {
-		pendings--;
-		if (!pendings && browser && !options.browserDebug) {
-			await browser.close();
+		if (page) {
+			await page.close();
 		}
+	}
+};
+
+exports.closeBrowser = () => {
+	if (browser) {
+		return browser.close();
 	}
 };
 
@@ -58,6 +63,7 @@ function getBrowserOptions(options) {
 	if (options.browserExecutablePath) {
 		browserOptions.executablePath = options.browserExecutablePath || "firefox";
 	}
+	browserOptions.product = "firefox";
 	return browserOptions;
 }
 
@@ -69,7 +75,11 @@ async function setPageOptions(page, options) {
 		});
 	}
 	if ((options.browserBypassCSP === undefined || options.browserBypassCSP) && page.setBypassCSP) {
-		await page.setBypassCSP(true);
+		try {
+			await page.setBypassCSP(true);
+		} catch (error) {
+			// ignored
+		}
 	}
 }
 

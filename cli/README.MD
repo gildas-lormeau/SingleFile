@@ -36,8 +36,6 @@ SingleFile can be launched from the command line by running it into a (headless)
 
 - To use Firefox instead of Chrome, you must download the [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) component (i.e. `geckodriver` for Firefox).  Make sure it can be found through the `PATH` environment variable or the `cli` folder. Otherwise you will need to set the `--web-driver-executable-path` option to help WebDriver locating the executable.
 
-- To use Puppeteer with Firefox, you must install the package `puppeteer-firefox` manually by running `npm install puppeteer-firefox` and set the `--back-end` option to `puppeteer-firefox`.
-
 ## Run
 
 - Syntax
@@ -61,6 +59,20 @@ SingleFile can be launched from the command line by running it into a (headless)
   - Save https://www.wikipedia.org into `wikipedia.html` with Firefox instead of Chrome
 
   `single-file https://www.wikipedia.org wikipedia.html --back-end=webdriver-gecko`
+
+  - Save a list of URLs stored into `list-urls.txt`
+
+  `single-file --urls-file=list-urls.txt`
+
+  - Save https://www.wikipedia.org and crawl its internal links with the query parameters removed from the URL
+
+  `single-file https://www.wikipedia.org --crawl-links=true --crawl-inner-links-only=true  --crawl-max-depth=1 --url-rewrite-rules="^(.*)\\?.*$ $1"`
+  
+## Troubleshooting
+
+ - If the error message `UnhandledPromiseRejectionWarning: Error: Browser is not downloaded. Run "npm install" or "yarn install" at ChromeLauncher.launch` is displayed, it probably means that `single-file` was not able to find the executable of the browser. Using the option `--browser-executable-path` to pass to `single-file` the complete path of the executable fixes this issue.
+ 
+  - If saving a page takes an unusually long time, this may be due to a timeout error that was automatically recovered. Setting `--browser-wait-until` to a lower value (e.g. `networkidle0` or `load` instead of `networkidle2`) fixes this issue.
   
 ## Docker
 

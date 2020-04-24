@@ -20,15 +20,17 @@
  *   notice and a URL through which recipients can access the Corresponding 
  *   Source.
  */
-/* global browser, singlefile */
+/* global browser, singlefile, setTimeout */
 
 singlefile.extension.core.bg.tabs = (() => {
 
+	const DELAY_MAYBE_INIT = 1500;
 	const pendingPrompts = new Map();
 
 	browser.tabs.onCreated.addListener(tab => onTabCreated(tab));
 	browser.tabs.onActivated.addListener(activeInfo => onTabActivated(activeInfo));
 	browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
+	browser.tabs.onUpdated.addListener((tabId, changeInfo) => onTabUpdated(tabId, changeInfo));
 	return {
 		onMessage,
 		get: async options => {
@@ -49,7 +51,7 @@ singlefile.extension.core.bg.tabs = (() => {
 				}
 				function onTabRemoved(tabId) {
 					if (tabId == tab.id) {
-						reject();
+						reject(tabId);
 						browser.tabs.onRemoved.removeListener(onTabRemoved);
 					}
 				}
@@ -59,7 +61,7 @@ singlefile.extension.core.bg.tabs = (() => {
 		remove: tabId => browser.tabs.remove(tabId),
 		promptValue: async promptMessage => {
 			const tabs = await browser.tabs.query({ currentWindow: true, active: true });
-			return new Promise(async (resolve, reject) => {
+			return new Promise((resolve, reject) => {
 				const selectedTabId = tabs[0].id;
 				browser.tabs.onRemoved.addListener(onTabRemoved);
 				pendingPrompts.set(selectedTabId, { resolve, reject });
@@ -133,6 +135,12 @@ singlefile.extension.core.bg.tabs = (() => {
 		}
 		if (message.method.endsWith(".activate")) {
 			await browser.tabs.update(message.tabId, { active: true });
+		}
+	}
+
+	async function onTabUpdated(tabId, changeInfo) {
+		if (changeInfo.status == "complete") {
+			setTimeout(() => browser.tabs.sendMessage(tabId, { method: "content.maybeInit" }), DELAY_MAYBE_INIT);
 		}
 	}
 

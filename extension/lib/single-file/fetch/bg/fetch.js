@@ -35,7 +35,7 @@
 		}
 	});
 
-	async function onRequest(message, sender) {
+	function onRequest(message, sender) {
 		if (message.method == "singlefile.fetch") {
 			return fetchResource(message.url);
 		} else if (message.method == "singlefile.fetchFrame") {
@@ -43,7 +43,7 @@
 		}
 	}
 
-	async function fetchResource(url) {
+	function fetchResource(url) {
 		return new Promise((resolve, reject) => {
 			const xhrRequest = new XMLHttpRequest();
 			xhrRequest.withCredentials = true;

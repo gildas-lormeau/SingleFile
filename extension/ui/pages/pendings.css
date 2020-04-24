@@ -222,7 +222,7 @@ html.side-panel,
 }
 
 @media (max-width:300px) {
-    .side-panel button {
+    .side-panel :not(.result-cancel) > button {
         display: flex;
     }
 

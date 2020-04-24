@@ -171,6 +171,10 @@
 		"message": "szablon",
 		"description": "Options page label: 'template'"
 	},
+	"optionFilenameMaxLength": {
+		"message": "maksymalna długość (bajty)",
+		"description": "Options page label: 'max length (bytes)'"
+	},
 	"optionConfirmFilename": {
 		"message": "otwieraj okno \"Zapisz jako\", aby potwierdzić nazwę pliku",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
@@ -366,6 +370,10 @@
 	"optionBackgroundSave": {
 		"message": "zapisuj strony w tle",
 		"description": "Options page label: 'save pages in background'"
+	},
+	"optionApplySystemTheme": {
+		"message": "zastosuj motyw systemowy podczas formatowania strony w edytorze adnotacji",
+		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
 	},
 	"optionDisplayStats": {
 		"message": "wyświetlaj statystyki w konsoli po przetworzeniu",

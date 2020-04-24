@@ -26,9 +26,10 @@
 singlefile.extension.core.bg.editor = (() => {
 
 	const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
+	const EDITOR_PAGE_URL = "/extension/ui/pages/editor.html";
 	const tabsData = new Map();
 	const partialContents = new Map();
-	const EDITOR_URL = browser.runtime.getURL("/extension/ui/editor/editor.html");
+	const EDITOR_URL = browser.runtime.getURL(EDITOR_PAGE_URL);
 
 	return {
 		onMessage,
@@ -38,7 +39,7 @@ singlefile.extension.core.bg.editor = (() => {
 	};
 
 	async function open({ tabIndex, content, filename }, options) {
-		const createTabProperties = { active: true, url: "/extension/ui/editor/editor.html" };
+		const createTabProperties = { active: true, url: EDITOR_PAGE_URL };
 		if (tabIndex != null) {
 			createTabProperties.index = tabIndex;
 		}
@@ -46,11 +47,11 @@ singlefile.extension.core.bg.editor = (() => {
 		tabsData.set(tab.id, { content, filename, options });
 	}
 
-	async function onTabRemoved(tabId) {
+	function onTabRemoved(tabId) {
 		tabsData.delete(tabId);
 	}
 
-	async function onInit(tab) {
+	function onInit(tab) {
 		if (tab.url != EDITOR_URL) {
 			tabsData.delete(tab.id);
 		}

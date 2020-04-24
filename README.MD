@@ -78,9 +78,9 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
   - For [security reasons](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image), SingleFile is sometimes unable to save the image representation of [canvas](https://developer.mozilla.org/docs/Web/HTML/Element/canvas) and snapshots of [video](https://developer.mozilla.org/docs/Web/HTML/Element/video) elements.
   - The last saved path cannot be remembered by default. To circumvent this limitation, disable the option "Misc > save pages in background".
   - The following characters are replaced with `_` in file names: `~`, `+`, `\`, `?`, `%`, `*`, `:`, `|`, `"`, `<`, `>`  
-- Chrome:
+- Chromium-based browsers:
   - You must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
-  - If the file name of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3.html", disable the option "Misc > save pages in background". Reinstalling the browser may also fix this issue. You can find more info about this bug [here](https://bugs.chromium.org/p/chromium/issues/detail?id=892133).
+  - If the file name of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3.html", disable the option "Misc > save pages in background". Reinstalling the browser may also fix this issue. You can find more info about this bug [here](https://bugs.chromium.org/p/chromium/issues/detail?id=892133). This bug has been closed by Google as "WontFix".
   - Disabling the option "File name > open the "Save as" dialog to confirm the file name" will work if and only if the option "Ask where to save each file before downloading" is disabled in chrome://settings/downloads.
 - Firefox:
   - The "File name > file name conflict resolution" option does not work if set to "prompt for a name"
@@ -101,7 +101,7 @@ Please follow these steps if you find an unknown issue:
 You can save web pages to HTML from the command line interface. See here for more info: https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD.
   
 ## Integration with user scripts
-You can execute a user script just before (and after) SingleFile saves a page. For more info, see https://github.com/gildas-lormeau/SingleFile/wiki/How-to-execute-a-user-script-before-a-page-is-saved
+You can execute a user script just before (and after) SingleFile saves a page. For more info, see https://github.com/gildas-lormeau/SingleFile/wiki/How-to-execute-a-user-script-before-a-page-is-saved.
 
 
 ## SingleFileZ
