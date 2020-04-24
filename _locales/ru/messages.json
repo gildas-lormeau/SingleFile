@@ -132,11 +132,11 @@
 		"description": "Options page label: 'add entry in the context menu of the webpage'"
 	},
 	"optionDisplayShadow": {
-		"message": "накладывать тень на страницу во время обработки",
+		"message": "наложить тень на страницу во время обработки",
 		"description": "Options page label: 'overlay a shadow on the page during processing'"
 	},
 	"optionDisplayInfobar": {
-		"message": "показывать информационную панель при просмотре сохранённой страницы",
+		"message": "показать информационную панель при просмотре сохранённой страницы",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
 	"optionInfobarTemplate": {
@@ -144,11 +144,11 @@
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionIncludeInfobar": {
-		"message": "добавлять информационную панель в сохраняемую страницу",
+		"message": "добавить информационную панель в сохраняемую страницу",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionConfirmInfobar": {
-		"message": "открывать диалоговое окно для редактирования содержимого информационной панели",
+		"message": "открыть диалоговое окно для редактирования содержимого информационной панели",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionOpenEditor": {
@@ -176,11 +176,11 @@
 		"description": "Options page label: 'max length (bytes)'"
 	},
 	"optionConfirmFilename": {
-		"message": "открывать диалоговое окно \"Сохранить как\" для подтверждения имени файла",
+		"message": "открыть диалоговое окно \"Сохранить как\" для подтверждения имени файла",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
 	},
 	"optionFilenameConflictAction": {
-		"message": "разрешение конфликтов имён файлов",
+		"message": "решение конфлика имён файлов",
 		"description": "Options page label: 'filename conflict resolution'"
 	},
 	"optionFilenameConflictActionUniquify": {
@@ -192,7 +192,7 @@
 		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
 	},
 	"optionFilenameConflictActionPrompt": {
-		"message": "запросить имя",
+		"message": "запросить новое имя",
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionsHTMLContentSubTitle": {
@@ -372,11 +372,11 @@
 		"description": "Options page label: 'save pages in background'"
 	},
 	"optionApplySystemTheme": {
-		"message": "apply the system theme when formatting a page in the annotation editor",
+		"message": "использовать системную тему при форматировании страницы в редакторе аннотаций",
 		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
 	},
 	"optionDisplayStats": {
-		"message": "показывать статистику в консоли после обработки",
+		"message": "показать статистику в консоли после обработки",
 		"description": "Options page label: 'display stats in the console after processing'"
 	},
 	"optionSetMaxResourceSize": {
