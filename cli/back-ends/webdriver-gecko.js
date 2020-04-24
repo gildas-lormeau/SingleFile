@@ -38,22 +38,24 @@ exports.getPageData = async options => {
 		driver = builder.forBrowser("firefox").build();
 		return await getPageData(driver, options);
 	} finally {
-		if (driver && !options.browserDebug) {
+		if (driver) {
 			driver.quit();
 		}
 	}
 };
 
+exports.closeBrowser = () => { };
+
 function getBrowserOptions(options) {
 	const firefoxOptions = new firefox.Options();
 	if ((options.browserHeadless === undefined || options.browserHeadless) && !options.browserDebug) {
-		firefoxOptions.headless();
+		process.env["MOZ_HEADLESS"] = "1";
 	}
 	if (options.browserExecutablePath) {
 		firefoxOptions.setBinary(options.browserExecutablePath);
 	}
 	if (options.webDriverExecutablePath) {
-		process.env["webdriver.gecko.driver"] = options.webDriverExecutablePath;
+		process.env["PATH"] += ";" + options.webDriverExecutablePath.replace(/geckodriver(\.exe)?$/, "");
 	}
 	const extensions = [];
 	if (options.browserDisableWebSecurity === undefined || options.browserDisableWebSecurity) {

@@ -53,6 +53,8 @@ exports.getPageData = async options => {
 	}
 };
 
+exports.closeBrowser = () => { };
+
 async function getPageData(win, options) {
 	const doc = win.document;
 	const scripts = await require("./common/scripts.js").get(options);

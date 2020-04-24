@@ -23,14 +23,13 @@
 
 /* global browser, window, addEventListener, removeEventListener, document, location, setTimeout, prompt, Node */
 
-this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.core.content.bootstrap || (async () => {
+this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.core.content.bootstrap || (() => {
 
 	const singlefile = this.singlefile;
 
 	const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
-	const PUSH_STATE_NOTIFICATION_EVENT_NAME = "single-file-push-state";
 
-	let unloadListenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved;
+	let unloadListenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved, previousLocationHref;
 	singlefile.extension.core.content.updatedResources = {};
 	browser.runtime.sendMessage({ method: "autosave.init" }).then(message => {
 		options = message.options;
@@ -45,31 +44,26 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			refresh();
 		}
 	});
-	browser.runtime.onMessage.addListener(message => { onMessage(message); });
-	browser.runtime.sendMessage({ method: "tabs.init" });
-	browser.runtime.sendMessage({ method: "ui.processInit" });
-	addEventListener(PUSH_STATE_NOTIFICATION_EVENT_NAME, () => {
-		browser.runtime.sendMessage({ method: "tabs.init" });
-		browser.runtime.sendMessage({ method: "ui.processInit" });
+	browser.runtime.onMessage.addListener(message => {
+		if ((autoSaveEnabled && message.method == "content.autosave") ||
+			message.method == "content.maybeInit" ||
+			message.method == "content.init" ||
+			message.method == "devtools.resourceCommitted" ||
+			message.method == "common.promptValueRequest") {
+			return onMessage(message);
+		}
 	});
+	init();
 	return {};
 
 	async function onMessage(message) {
 		if (autoSaveEnabled && message.method == "content.autosave") {
-			options = message.options;
-			if (document.readyState != "complete") {
-				await new Promise(resolve => window.onload = resolve);
-			}
-			await autoSavePage();
-			if (options.autoSaveRepeat) {
-				setTimeout(() => {
-					if (autoSaveEnabled && !autoSavingPage) {
-						pageAutoSaved = false;
-						options.autoSaveDelay = 0;
-						onMessage(message);
-					}
-				}, options.autoSaveRepeatDelay * 1000);
-			}
+			initAutoSavePage(message);
+			return {};
+		}
+		if (message.method == "content.maybeInit") {
+			init();
+			return {};
 		}
 		if (message.method == "content.init") {
 			options = message.options;
@@ -79,9 +73,37 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		}
 		if (message.method == "devtools.resourceCommitted") {
 			singlefile.extension.core.content.updatedResources[message.url] = { content: message.content, type: message.type, encoding: message.encoding };
+			return {};
 		}
 		if (message.method == "common.promptValueRequest") {
 			browser.runtime.sendMessage({ method: "tabs.promptValueResponse", value: prompt("SingleFile: " + message.promptMessage) });
+			return {};
+		}
+	}
+
+	function init() {
+		if (previousLocationHref != location.href && !singlefile.extension.core.processing) {
+			pageAutoSaved = false;
+			previousLocationHref = location.href;
+			browser.runtime.sendMessage({ method: "tabs.init" });
+			browser.runtime.sendMessage({ method: "ui.processInit" });
+		}
+	}
+
+	async function initAutoSavePage(message) {
+		options = message.options;
+		if (document.readyState != "complete") {
+			await new Promise(resolve => window.addEventListener("load", resolve));
+		}
+		await autoSavePage();
+		if (options.autoSaveRepeat) {
+			setTimeout(() => {
+				if (autoSaveEnabled && !autoSavingPage) {
+					pageAutoSaved = false;
+					options.autoSaveDelay = 0;
+					onMessage(message);
+				}
+			}, options.autoSaveRepeatDelay * 1000);
 		}
 	}
 
@@ -113,16 +135,14 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		}
 	}
 
-	async function refresh() {
+	function refresh() {
 		if (autoSaveEnabled && options && (options.autoSaveUnload || options.autoSaveLoadOrUnload)) {
 			if (!unloadListenerAdded) {
 				addEventListener("unload", onUnload);
-				addEventListener(PUSH_STATE_NOTIFICATION_EVENT_NAME, onUnload);
 				unloadListenerAdded = true;
 			}
 		} else {
 			removeEventListener("unload", onUnload);
-			removeEventListener(PUSH_STATE_NOTIFICATION_EVENT_NAME, onUnload);
 			unloadListenerAdded = false;
 		}
 	}
@@ -166,7 +186,9 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	}
 
 	async function openEditor(document) {
-		if (document.documentElement.firstChild.nodeType == Node.COMMENT_NODE && document.documentElement.firstChild.textContent.includes("Page saved with SingleFile")) {
+		const helper = singlefile.lib.helper;
+		if (document.documentElement.firstChild.nodeType == Node.COMMENT_NODE &&
+			(document.documentElement.firstChild.textContent.includes(helper.COMMENT_HEADER) || document.documentElement.firstChild.textContent.includes(helper.COMMENT_HEADER_LEGACY))) {
 			serializeShadowRoots(document);
 			const content = singlefile.lib.modules.serializer.process(document);
 			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {

@@ -171,6 +171,10 @@
 		"message": "plantilla",
 		"description": "Options page label: 'template'"
 	},
+	"optionFilenameMaxLength": {
+		"message": "longitud máxima (bytes)",
+		"description": "Options page label: 'max length (bytes)'"
+	},
 	"optionConfirmFilename": {
 		"message": "abrir el cuadro de diálogo \"Guardar como\" para confirmar el nombre del archivo",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
@@ -366,6 +370,10 @@
 	"optionBackgroundSave": {
 		"message": "guardar páginas en segundo plano",
 		"description": "Options page label: 'save pages in background'"
+	},
+	"optionApplySystemTheme": {
+		"message": "apply the system theme when formatting a page in the annotation editor",
+		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
 	},
 	"optionDisplayStats": {
 		"message": "mostrar estadísticas en la consola tras el procesado",

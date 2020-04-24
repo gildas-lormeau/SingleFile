@@ -44,6 +44,7 @@
 	const loadDeferredImagesMaxIdleTimeLabel = document.getElementById("loadDeferredImagesMaxIdleTimeLabel");
 	const addMenuEntryLabel = document.getElementById("addMenuEntryLabel");
 	const filenameTemplateLabel = document.getElementById("filenameTemplateLabel");
+	const filenameMaxLengthLabel = document.getElementById("filenameMaxLengthLabel");
 	const shadowEnabledLabel = document.getElementById("shadowEnabledLabel");
 	const setMaxResourceSizeLabel = document.getElementById("setMaxResourceSizeLabel");
 	const maxResourceSizeLabel = document.getElementById("maxResourceSizeLabel");
@@ -57,6 +58,7 @@
 	const displayInfobarLabel = document.getElementById("displayInfobarLabel");
 	const displayStatsLabel = document.getElementById("displayStatsLabel");
 	const backgroundSaveLabel = document.getElementById("backgroundSaveLabel");
+	const applySystemThemeLabel = document.getElementById("applySystemThemeLabel");
 	const autoSaveDelayLabel = document.getElementById("autoSaveDelayLabel");
 	const autoSaveLoadLabel = document.getElementById("autoSaveLoadLabel");
 	const autoSaveUnloadLabel = document.getElementById("autoSaveUnloadLabel");
@@ -117,6 +119,7 @@
 	const loadDeferredImagesMaxIdleTimeInput = document.getElementById("loadDeferredImagesMaxIdleTimeInput");
 	const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 	const filenameTemplateInput = document.getElementById("filenameTemplateInput");
+	const filenameMaxLengthInput = document.getElementById("filenameMaxLengthInput");
 	const shadowEnabledInput = document.getElementById("shadowEnabledInput");
 	const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 	const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
@@ -127,6 +130,7 @@
 	const displayInfobarInput = document.getElementById("displayInfobarInput");
 	const displayStatsInput = document.getElementById("displayStatsInput");
 	const backgroundSaveInput = document.getElementById("backgroundSaveInput");
+	const applySystemThemeInput = document.getElementById("applySystemThemeInput");
 	const autoSaveDelayInput = document.getElementById("autoSaveDelayInput");
 	const autoSaveLoadInput = document.getElementById("autoSaveLoadInput");
 	const autoSaveUnloadInput = document.getElementById("autoSaveUnloadInput");
@@ -434,6 +438,7 @@
 	loadDeferredImagesMaxIdleTimeLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesMaxIdleTime");
 	addMenuEntryLabel.textContent = browser.i18n.getMessage("optionAddMenuEntry");
 	filenameTemplateLabel.textContent = browser.i18n.getMessage("optionFilenameTemplate");
+	filenameMaxLengthLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLength");
 	shadowEnabledLabel.textContent = browser.i18n.getMessage("optionDisplayShadow");
 	setMaxResourceSizeLabel.textContent = browser.i18n.getMessage("optionSetMaxResourceSize");
 	maxResourceSizeLabel.textContent = browser.i18n.getMessage("optionMaxResourceSize");
@@ -447,6 +452,7 @@
 	displayInfobarLabel.textContent = browser.i18n.getMessage("optionDisplayInfobar");
 	displayStatsLabel.textContent = browser.i18n.getMessage("optionDisplayStats");
 	backgroundSaveLabel.textContent = browser.i18n.getMessage("optionBackgroundSave");
+	applySystemThemeLabel.textContent = browser.i18n.getMessage("optionApplySystemTheme");
 	autoSaveDelayLabel.textContent = browser.i18n.getMessage("optionAutoSaveDelay");
 	autoSaveLoadLabel.textContent = browser.i18n.getMessage("optionAutoSaveLoad");
 	autoSaveUnloadLabel.textContent = browser.i18n.getMessage("optionAutoSaveUnload");
@@ -615,6 +621,7 @@
 		loadDeferredImagesMaxIdleTimeInput.disabled = !profileOptions.loadDeferredImages || profileOptions.saveRawPage;
 		contextMenuEnabledInput.checked = profileOptions.contextMenuEnabled;
 		filenameTemplateInput.value = profileOptions.filenameTemplate;
+		filenameMaxLengthInput.value = profileOptions.filenameMaxLength;
 		filenameTemplateInput.disabled = profileOptions.saveToClipboard;
 		shadowEnabledInput.checked = profileOptions.shadowEnabled;
 		maxResourceSizeEnabledInput.checked = profileOptions.maxResourceSizeEnabled;
@@ -630,6 +637,7 @@
 		displayStatsInput.checked = profileOptions.displayStats;
 		backgroundSaveInput.checked = profileOptions.backgroundSave;
 		backgroundSaveInput.disabled = profileOptions.saveToGDrive;
+		applySystemThemeInput.checked = profileOptions.applySystemTheme;
 		autoSaveDelayInput.value = profileOptions.autoSaveDelay;
 		autoSaveDelayInput.disabled = !profileOptions.autoSaveLoadOrUnload && !profileOptions.autoSaveLoad;
 		autoSaveLoadInput.checked = !profileOptions.autoSaveLoadOrUnload && profileOptions.autoSaveLoad;
@@ -688,6 +696,7 @@
 				loadDeferredImagesMaxIdleTime: Math.max(loadDeferredImagesMaxIdleTimeInput.value, 0),
 				contextMenuEnabled: contextMenuEnabledInput.checked,
 				filenameTemplate: filenameTemplateInput.value,
+				filenameMaxLength: filenameMaxLengthInput.value,
 				shadowEnabled: shadowEnabledInput.checked,
 				maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
 				maxResourceSize: Math.max(maxResourceSizeInput.value, 0),
@@ -698,6 +707,7 @@
 				displayInfobar: displayInfobarInput.checked,
 				displayStats: displayStatsInput.checked,
 				backgroundSave: backgroundSaveInput.checked,
+				applySystemTheme: applySystemThemeInput.checked,
 				autoSaveDelay: Math.max(autoSaveDelayInput.value, 0),
 				autoSaveLoad: autoSaveLoadInput.checked,
 				autoSaveUnload: autoSaveUnloadInput.checked,

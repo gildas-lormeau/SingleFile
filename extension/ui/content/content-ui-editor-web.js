@@ -23,7 +23,7 @@
 
 /* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia */
 
-(async () => {
+(() => {
 
 	const FORBIDDEN_TAG_NAMES = ["a", "area", "audio", "base", "br", "col", "command", "embed", "hr", "img", "iframe", "input", "keygen", "link", "meta", "param", "source", "track", "video", "wbr"];
 	const BUTTON_ANCHOR_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfjCh0VAjZTpsLvAAAA1klEQVQoz3XQMS8EURQF4O9txN9QSCjoNYRiy01EomDb3UbnR+j8BpSKrbaaQvwAyTZ2Qyg0WiwJiZjmKmasmWTnvObe8849971DFSe+/TjVgL6wpyMczxcMXYIzV/9kqyIY27Vsyb5J05KREMa1sQoS3r2W1Vxkcrms6Tph6q3usFARBJJUVjPBgZ6Je49u5ELCog0r1qy7YFMI4RxMfZRZFOxOa/bn28oi8rK7K6hrITw48uVT37MQBn9vOcS2l9K0OE9W0atHsqWtIwxlRk1ZdHXrxC+ueUcydrdI6QAAAABJRU5ErkJggg==";
@@ -814,34 +814,7 @@ table {
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
 		if (message.method == "init") {
-			await initConstants();
-			const contentDocument = (new DOMParser()).parseFromString(message.content, "text/html");
-			if (contentDocument.doctype) {
-				if (document.doctype) {
-					document.replaceChild(contentDocument.doctype, document.doctype);
-				} else {
-					document.insertBefore(contentDocument.doctype, document.documentElement);
-				}
-			} else {
-				document.doctype.remove();
-			}
-			contentDocument.querySelectorAll("noscript").forEach(element => {
-				element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
-				element.textContent = "";
-			});
-			document.replaceChild(contentDocument.documentElement, document.documentElement);
-			deserializeShadowRoots(document);
-			const iconElement = document.querySelector("link[rel*=icon]");
-			window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: iconElement && iconElement.href }), "*");
-			if (!isProbablyReaderable(document)) {
-				window.parent.postMessage(JSON.stringify({ "method": "disableFormatPage" }), "*");
-			}
-			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
-			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
-			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
-			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
-			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
-			window.onclick = event => event.preventDefault();
+			await init(message.content);
 		}
 		if (message.method == "addNote") {
 			addNote(message);
@@ -875,36 +848,10 @@ table {
 			document.body.contentEditable = true;
 		}
 		if (message.method == "formatPage") {
-			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => containerElement.remove());
-			const article = new Readability(document).parse();
-			document.body.innerHTML = "";
-			const domParser = new DOMParser();
-			const doc = domParser.parseFromString(article.content, "text/html");
-			const contentEditable = document.body.contentEditable;
-			document.documentElement.replaceChild(doc.body, document.body);
-			document.body.contentEditable = contentEditable;
-			document.head.querySelectorAll("style").forEach(styleElement => styleElement.remove());
-			const styleElement = document.createElement("style");
-			styleElement.textContent = STYLE_FORMATTED_PAGE;
-			document.head.appendChild(styleElement);
-			document.body.classList.add("moz-reader-content");
-			document.body.classList.add("content-width6");
-			document.body.classList.add("reader-show-element");
-			document.body.classList.add("sans-serif");
-			document.body.classList.add("container");
-			document.body.classList.add("line-height4");
-			if (matchMedia("prefers-color-scheme: dark")) {
-				document.body.classList.add("dark");
-			}
-			document.body.style.setProperty("display", "block");
-			document.body.style.setProperty("padding", "24px");
-			const titleElement = document.createElement("h1");
-			titleElement.classList.add("reader-title");
-			titleElement.textContent = article.title;
-			document.body.insertBefore(titleElement, document.body.firstChild);
-			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
-			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
-			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+			formatPage(true);
+		}
+		if (message.method == "formatPageNoTheme") {
+			formatPage(false);
 		}
 		if (message.method == "disableEditPage") {
 			document.body.contentEditable = false;
@@ -930,41 +877,47 @@ table {
 			}
 		}
 		if (message.method == "getContent") {
-			serializeShadowRoots(document);
-			const doc = document.cloneNode(true);
-			deserializeShadowRoots(doc);
-			deserializeShadowRoots(document);
-			doc.querySelectorAll("[" + DISABLED_NOSCRIPT_ATTRIBUTE_NAME + "]").forEach(element => {
-				element.textContent = element.getAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
-				element.removeAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
-			});
-			doc.querySelectorAll("." + MASK_CLASS + ", ." + REMOVED_CONTENT_CLASS).forEach(maskElement => maskElement.remove());
-			doc.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.remove(HIGHLIGHT_HIDDEN_CLASS));
-			doc.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(templateElement => {
-				const noteElement = templateElement.querySelector("." + NOTE_CLASS);
-				if (noteElement) {
-					noteElement.classList.remove(NOTE_HIDDEN_CLASS);
-				}
-				const mainElement = templateElement.querySelector("textarea");
-				if (mainElement) {
-					mainElement.textContent = mainElement.value;
-				}
-			});
-			delete doc.body.contentEditable;
-			const scriptElement = doc.createElement("script");
-			scriptElement.setAttribute(SCRIPT_TEMPLATE_SHADOW_ROOT, "");
-			scriptElement.textContent = getEmbedScript();
-			doc.body.appendChild(scriptElement);
-			window.parent.postMessage(JSON.stringify({ "method": "setContent", content: singlefile.lib.modules.serializer.process(doc, message.compressHTML) }), "*");
+			getContent(message.compressHTML);
 		}
 	};
 	window.onresize = reflowNotes;
 
+	async function init(content) {
+		await initConstants();
+		const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
+		if (contentDocument.doctype) {
+			if (document.doctype) {
+				document.replaceChild(contentDocument.doctype, document.doctype);
+			} else {
+				document.insertBefore(contentDocument.doctype, document.documentElement);
+			}
+		} else {
+			document.doctype.remove();
+		}
+		contentDocument.querySelectorAll("noscript").forEach(element => {
+			element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
+			element.textContent = "";
+		});
+		document.replaceChild(contentDocument.documentElement, document.documentElement);
+		deserializeShadowRoots(document);
+		const iconElement = document.querySelector("link[rel*=icon]");
+		window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: iconElement && iconElement.href }), "*");
+		if (!isProbablyReaderable(document)) {
+			window.parent.postMessage(JSON.stringify({ "method": "disableFormatPage" }), "*");
+		}
+		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
+		document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
+		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
+		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+		document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
+		window.onclick = event => event.preventDefault();
+	}
+
 	async function initConstants() {
 		[NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET] = await Promise.all([
-			minifyText(await ((await fetch("editor-note-web.css")).text())),
-			minifyText(await ((await fetch("editor-mask-web.css")).text())),
-			minifyText(await ((await fetch("editor-frame-web.css")).text()))
+			minifyText(await ((await fetch("../pages/editor-note-web.css")).text())),
+			minifyText(await ((await fetch("../pages/editor-mask-web.css")).text())),
+			minifyText(await ((await fetch("../pages/editor-frame-web.css")).text()))
 		]);
 	}
 
@@ -989,6 +942,7 @@ table {
 		noteElement.classList.add(NOTE_CLASS);
 		noteElement.classList.add(NOTE_ANCHORED_CLASS);
 		noteElement.classList.add(color);
+		mainElement.dir = "auto";
 		const boundingRectDocument = document.documentElement.getBoundingClientRect();
 		let positionX = NOTE_INITIAL_WIDTH + NOTE_INITIAL_POSITION_X - 1 - boundingRectDocument.x;
 		let positionY = NOTE_INITIAL_HEIGHT + NOTE_INITIAL_POSITION_Y - 1 - boundingRectDocument.y;
@@ -1358,6 +1312,88 @@ table {
 		event.stopPropagation();
 	}
 
+	function formatPage(applySystemTheme) {
+		const shadowRoots = {};
+		const classesToPreserve = ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"];
+		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
+			shadowRoots[containerElement.dataset.noteId] = containerElement.shadowRoot;
+			const className = "singlefile-note-id-" + containerElement.dataset.noteId;
+			containerElement.classList.add(className);
+			classesToPreserve.push(className);
+		});
+		const article = new Readability(document, { classesToPreserve }).parse();
+		removedElements = [];
+		document.body.innerHTML = "";
+		const domParser = new DOMParser();
+		const doc = domParser.parseFromString(article.content, "text/html");
+		const contentEditable = document.body.contentEditable;
+		document.documentElement.replaceChild(doc.body, document.body);
+		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
+			const noteId = (Array.from(containerElement.classList).find(className => /singlefile-note-id-\d+/.test(className))).split("singlefile-note-id-")[1];
+			containerElement.classList.remove("singlefile-note-id-" + noteId);
+			containerElement.dataset.noteId = noteId;
+			if (!containerElement.shadowRoot) {
+				containerElement.attachShadow({ mode: "open" });
+				containerElement.shadowRoot.appendChild(shadowRoots[noteId]);
+			}
+		});
+		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => containerElement.shadowRoot = shadowRoots[containerElement.dataset.noteId]);
+		document.body.contentEditable = contentEditable;
+		document.head.querySelectorAll("style").forEach(styleElement => styleElement.remove());
+		const styleElement = document.createElement("style");
+		styleElement.textContent = STYLE_FORMATTED_PAGE;
+		document.head.appendChild(styleElement);
+		document.body.classList.add("moz-reader-content");
+		document.body.classList.add("content-width6");
+		document.body.classList.add("reader-show-element");
+		document.body.classList.add("sans-serif");
+		document.body.classList.add("container");
+		document.body.classList.add("line-height4");
+		const prefersColorSchemeDark = matchMedia("(prefers-color-scheme: dark)");
+		if (applySystemTheme && prefersColorSchemeDark && prefersColorSchemeDark.matches) {
+			document.body.classList.add("dark");
+		}
+		document.body.style.setProperty("display", "block");
+		document.body.style.setProperty("padding", "24px");
+		const titleElement = document.createElement("h1");
+		titleElement.classList.add("reader-title");
+		titleElement.textContent = article.title;
+		document.body.insertBefore(titleElement, document.body.firstChild);
+		document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
+		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
+		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+		reflowNotes();
+	}
+
+	function getContent(compressHTML) {
+		serializeShadowRoots(document);
+		const doc = document.cloneNode(true);
+		deserializeShadowRoots(doc);
+		deserializeShadowRoots(document);
+		doc.querySelectorAll("[" + DISABLED_NOSCRIPT_ATTRIBUTE_NAME + "]").forEach(element => {
+			element.textContent = element.getAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
+			element.removeAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
+		});
+		doc.querySelectorAll("." + MASK_CLASS + ", ." + REMOVED_CONTENT_CLASS).forEach(maskElement => maskElement.remove());
+		doc.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.remove(HIGHLIGHT_HIDDEN_CLASS));
+		doc.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(templateElement => {
+			const noteElement = templateElement.querySelector("." + NOTE_CLASS);
+			if (noteElement) {
+				noteElement.classList.remove(NOTE_HIDDEN_CLASS);
+			}
+			const mainElement = templateElement.querySelector("textarea");
+			if (mainElement) {
+				mainElement.textContent = mainElement.value;
+			}
+		});
+		delete doc.body.contentEditable;
+		const scriptElement = doc.createElement("script");
+		scriptElement.setAttribute(SCRIPT_TEMPLATE_SHADOW_ROOT, "");
+		scriptElement.textContent = getEmbedScript();
+		doc.body.appendChild(scriptElement);
+		window.parent.postMessage(JSON.stringify({ "method": "setContent", content: singlefile.lib.modules.serializer.process(doc, compressHTML) }), "*");
+	}
+
 	function reflowNotes() {
 		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
 			const noteElement = containerElement.shadowRoot.querySelector("." + NOTE_CLASS);
@@ -1411,17 +1447,19 @@ table {
 
 	function deserializeShadowRoots(node) {
 		node.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(element => {
-			let shadowRoot = element.parentElement.shadowRoot;
-			if (shadowRoot) {
-				Array.from(element.childNodes).forEach(node => shadowRoot.appendChild(node));
-				element.remove();
-			} else {
-				shadowRoot = element.parentElement.attachShadow({ mode: "open" });
-				const contentDocument = (new DOMParser()).parseFromString(element.innerHTML, "text/html");
-				Array.from(contentDocument.head.childNodes).forEach(node => shadowRoot.appendChild(node));
-				Array.from(contentDocument.body.childNodes).forEach(node => shadowRoot.appendChild(node));
+			if (element.parentElement) {
+				let shadowRoot = element.parentElement.shadowRoot;
+				if (shadowRoot) {
+					Array.from(element.childNodes).forEach(node => shadowRoot.appendChild(node));
+					element.remove();
+				} else {
+					shadowRoot = element.parentElement.attachShadow({ mode: "open" });
+					const contentDocument = (new DOMParser()).parseFromString(element.innerHTML, "text/html");
+					Array.from(contentDocument.head.childNodes).forEach(node => shadowRoot.appendChild(node));
+					Array.from(contentDocument.body.childNodes).forEach(node => shadowRoot.appendChild(node));
+				}
+				deserializeShadowRoots(shadowRoot);
 			}
-			deserializeShadowRoots(shadowRoot);
 		});
 	}
 

@@ -171,6 +171,10 @@
 		"message": "template",
 		"description": "Options page label: 'template'"
 	},
+	"optionFilenameMaxLength": {
+		"message": "max length (bytes)",
+		"description": "Options page label: 'max length (bytes)'"
+	},
 	"optionConfirmFilename": {
 		"message": "open the \"Save as\" dialog to confirm the file name",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
@@ -366,6 +370,10 @@
 	"optionBackgroundSave": {
 		"message": "save pages in background",
 		"description": "Options page label: 'save pages in background'"
+	},
+	"optionApplySystemTheme": {
+		"message": "apply the system theme when formatting a page in the annotation editor",
+		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
 	},
 	"optionDisplayStats": {
 		"message": "display stats in the console after processing",

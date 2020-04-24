@@ -111,7 +111,8 @@ singlefile.extension.core.bg.downloads = (() => {
 					filenameReplacementCharacter: message.filenameReplacementCharacter,
 					compressHTML: message.compressHTML,
 					bookmarkId: message.bookmarkId,
-					replaceBookmarkURL: message.replaceBookmarkURL
+					replaceBookmarkURL: message.replaceBookmarkURL,
+					applySystemTheme: message.applySystemTheme
 				});
 			} else {
 				if (message.saveToClipboard) {
@@ -226,6 +227,12 @@ singlefile.extension.core.bg.downloads = (() => {
 		}
 		const downloadData = await download(downloadInfo, options.filenameReplacementCharacter);
 		if (downloadData.filename && pageData.bookmarkId && pageData.replaceBookmarkURL) {
+			if (!downloadData.filename.startsWith("file:")) {
+				if (downloadData.filename.startsWith("/")) {
+					downloadData.filename = downloadData.filename.substring(1);
+				}
+				downloadData.filename = "file:///" + downloadData.filename;
+			}
 			await singlefile.extension.core.bg.bookmarks.update(pageData.bookmarkId, { url: downloadData.filename });
 		}
 	}
