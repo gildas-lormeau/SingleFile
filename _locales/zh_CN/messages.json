@@ -172,7 +172,7 @@
 		"description": "Options page label: 'template'"
 	},
 	"optionFilenameMaxLength": {
-		"message": "max length (bytes)",
+		"message": "最大长度（字节）",
 		"description": "Options page label: 'max length (bytes)'"
 	},
 	"optionConfirmFilename": {
@@ -372,7 +372,7 @@
 		"description": "Options page label: 'save pages in background'"
 	},
 	"optionApplySystemTheme": {
-		"message": "apply the system theme when formatting a page in the annotation editor",
+		"message": "在标注编辑器中打开页面时应用系统主题样式",
 		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
 	},
 	"optionDisplayStats": {
@@ -384,7 +384,7 @@
 		"description": "Options page label: 'set a maximum size for embedded resources'"
 	},
 	"optionMaxResourceSize": {
-		"message": "大小上限（MB）",
+		"message": "大小上限（兆字节）",
 		"description": "Options page label: 'maximum size (MB)'"
 	},
 	"optionSaveRawPage": {
