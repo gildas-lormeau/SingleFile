@@ -101,16 +101,18 @@ async function runNextTask(tasks, options) {
 		task.status = "processing";
 		const pageData = await capturePage(options);
 		task.status = "processed";
-		if (pageData && options.crawlLinks && task.depth < options.crawlMaxDepth) {
+		if (pageData) {
 			task.filename = pageData.filename;
-			let newTasks = pageData.links
-				.map(urlLink => ({ url: rewriteURL(urlLink, options.urlRewriteRules), originalUrl: urlLink, depth: task.depth + 1 }))
-				.filter(task => task.url && VALID_URL_TEST.test(task.url) && !tasks.find(otherTask => otherTask.url == task.url));
-			if (options.crawlInnerLinksOnly) {
-				const urlHost = getHostURL(options.url);
-				newTasks = newTasks.filter(task => task.url.startsWith(urlHost));
+			if (options.crawlLinks && task.depth < options.crawlMaxDepth) {
+				let newTasks = pageData.links
+					.map(urlLink => ({ url: rewriteURL(urlLink, options.urlRewriteRules), originalUrl: urlLink, depth: task.depth + 1 }))
+					.filter(task => task.url && VALID_URL_TEST.test(task.url) && !tasks.find(otherTask => otherTask.url == task.url));
+				if (options.crawlInnerLinksOnly) {
+					const urlHost = getHostURL(options.url);
+					newTasks = newTasks.filter(task => task.url.startsWith(urlHost));
+				}
+				tasks.splice(tasks.length, 0, ...newTasks);
 			}
-			tasks.splice(tasks.length, 0, ...newTasks);
 		}
 		await runTasks(tasks, options);
 	}
