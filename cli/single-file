@@ -134,6 +134,9 @@ function createTask(url, parentTask, rootTask) {
 
 function rewriteURL(url) {
 	url = url.trim();
+	if (options.crawlRemoveURLFragment) {
+		url = url.replace(/^(.*?)#.*$/, "$1");
+	}
 	options.crawlRewriteRules.forEach(rewriteRule => {
 		const parts = rewriteRule.trim().split(/ +/);
 		if (parts.length) {

@@ -70,6 +70,7 @@ const args = require("yargs")
 		"include-BOM": false,
 		"crawl-links": false,
 		"crawl-inner-links-only": true,
+		"crawl-remove-url-fragment": true,
 		"crawl-max-depth": 1,
 		"crawl-external-links-max-depth": 1,
 		"crawl-replace-urls": false,
@@ -107,6 +108,8 @@ const args = require("yargs")
 	.boolean("crawl-links")
 	.options("crawl-inner-links-only", { description: "Crawl pages found via inner links only if they are hosted on the same domain" })
 	.boolean("crawl-inner-links-only")
+	.options("crawl-remove-url-fragment", { description: "Remove URL fragments found in links" })
+	.boolean("crawl-remove-url-fragment")
 	.options("crawl-max-depth", { description: "Max depth when crawling pages found in internal and external links (0: infinite)" })
 	.number("crawl-max-depth")
 	.options("crawl-external-links-max-depth", { description: "Max depth when crawling pages found in external links (0: infinite)" })
@@ -175,4 +178,5 @@ args.compressCSS = args.compressCss;
 args.compressHTML = args.compressHtml;
 args.includeBOM = args.includeBom;
 args.crawlReplaceURLs = args.crawlReplaceUrls;
+args.crawlRemoveURLFragment = args.crawlRemoveUrlFragment;
 module.exports = args;
