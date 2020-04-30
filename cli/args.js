@@ -72,7 +72,7 @@ const args = require("yargs")
 		"crawl-inner-links-only": true,
 		"crawl-max-depth": 1,
 		"crawl-replace-urls": false,
-		"url-rewrite-rules": []
+		"crawl-rewrite-rules": []
 	})
 	.options("back-end", { description: "Back-end to use" })
 	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chromium", "webdriver-gecko"])
@@ -112,6 +112,8 @@ const args = require("yargs")
 	.number("crawl-external-links-max-depth")
 	.options("crawl-replace-urls", { description: "Replace URLs of saved pages with relative paths of saved pages on the filesystem" })
 	.boolean("crawl-replace-urls")
+	.options("crawl-rewrite-rules", { description: "List of rewrite rules used to rewrite URLs of internal and external links" })
+	.array("crawl-rewrite-rules")
 	.options("error-file")
 	.string("error-file")
 	.options("filename-template", { description: "Template used to generate the output filename (see help page of the extension for more info)" })
@@ -158,9 +160,7 @@ const args = require("yargs")
 	.options("remove-alternative-images", { description: "Remove images for alternative sizes of screen" })
 	.boolean("remove-alternative-images")
 	.options("save-raw-page", { description: "Save the original page without interpreting it into the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
-	.boolean("save-raw-page")
-	.options("url-rewrite-rules", { description: "List of rewrite rules used to rewrite URLs" })
-	.array("url-rewrite-rules")
+	.boolean("save-raw-page")	
 	.options("urls-file", { description: "Path to a text file containing a list of URLs (separated by a newline) to save" })
 	.string("urls-file")
 	.options("user-agent", { description: "User-agent of the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
