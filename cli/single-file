@@ -51,12 +51,12 @@ async function run(options) {
 	let tasks;
 	if (options.urlsFile) {
 		tasks = fs.readFileSync(options.urlsFile).toString().split("\n")
-			.map(url => ({ url: rewriteURL(url, options.urlRewriteRules), originalUrl: url, depth: 0 }))
-			.filter(task => task.url);
+			.map(url => createTask(url));
 	} else {
-		tasks = [{ url: rewriteURL(options.url, options.urlRewriteRules), originalUrl: options.url, depth: 0 }];
+		tasks = [createTask(options.url)];
 	}
-	await runTasks(tasks, options);
+	tasks = tasks.filter(task => task);
+	await runTasks(tasks);
 	if (options.crawlReplaceURLs) {
 		tasks.forEach(task => {
 			try {
@@ -79,44 +79,62 @@ async function run(options) {
 	}
 }
 
-async function runTasks(tasks, options) {
+async function runTasks(tasks) {
 	const availableTasks = tasks.filter(task => !task.status).length;
 	const processingTasks = tasks.filter(task => task.status == "processing").length;
 	const promisesTasks = [];
 	for (let workerIndex = 0; workerIndex < Math.min(availableTasks, options.maxParallelWorkers - processingTasks); workerIndex++) {
-		promisesTasks.push(runNextTask(tasks, options));
+		promisesTasks.push(runNextTask(tasks));
 	}
-	await Promise.all(promisesTasks);
+	return Promise.all(promisesTasks);
 }
 
-async function runNextTask(tasks, options) {
+async function runNextTask(tasks) {
 	const task = tasks.find(task => !task.status);
 	if (task) {
-		options = JSON.parse(JSON.stringify(options));
-		options.url = task.url;
+		let taskOptions = JSON.parse(JSON.stringify(options));
+		taskOptions.url = task.url;
 		task.status = "processing";
-		const pageData = await capturePage(options);
+		const pageData = await capturePage(taskOptions);
 		task.status = "processed";
 		if (pageData) {
 			task.filename = pageData.filename;
-			if (options.crawlLinks && (options.crawlMaxDepth == 0) || (task.depth < options.crawlMaxDepth)) {
+			if (options.crawlLinks && testMaxDepth(task)) {
 				let newTasks = pageData.links
-					.map(urlLink => ({ url: rewriteURL(urlLink, options.urlRewriteRules), originalUrl: urlLink, depth: task.depth + 1 }))
-					.filter(task => task.url && VALID_URL_TEST.test(task.url) && !tasks.find(otherTask => otherTask.url == task.url));
-				if (options.crawlInnerLinksOnly) {
-					const urlHost = getHostURL(options.url);
-					newTasks = newTasks.filter(task => task.url.startsWith(urlHost));
-				}
+					.map(urlLink => createTask(urlLink, task, tasks[0]))
+					.filter(task => task &&
+						testMaxDepth(task) &&
+						!tasks.find(otherTask => otherTask.url == task.url) &&
+						(!options.crawlInnerLinksOnly || task.isInnerLink));
 				tasks.splice(tasks.length, 0, ...newTasks);
 			}
 		}
-		await runTasks(tasks, options);
+		await runTasks(tasks);
 	}
 }
 
-function rewriteURL(url, rewriteRules) {
+function testMaxDepth(task) {
+	return (options.crawlMaxDepth == 0 || task.depth < options.crawlMaxDepth) &&
+		(options.crawlExternalLinksMaxDepth == 0 || task.externalLinkDepth < options.crawlExternalLinksMaxDepth);
+}
+
+function createTask(url, parentTask, rootTask) {
+	url = parentTask ? rewriteURL(url) : url;
+	if (VALID_URL_TEST.test(url)) {
+		const isInnerLink = rootTask && url.startsWith(getHostURL(rootTask.url));
+		return {
+			url,
+			isInnerLink,
+			originalUrl: url,
+			depth: parentTask ? parentTask.depth + 1 : 0,
+			externalLinkDepth: isInnerLink ? -1 : parentTask ? parentTask.externalLinkDepth + 1 : -1
+		};
+	}
+}
+
+function rewriteURL(url) {
 	url = url.trim();
-	rewriteRules.forEach(rewriteRule => {
+	options.urlRewriteRules.forEach(rewriteRule => {
 		const parts = rewriteRule.trim().split(/ +/);
 		if (parts.length == 2) {
 			url = url.replace(new RegExp(parts[0]), parts[1]).trim();
