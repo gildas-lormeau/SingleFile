@@ -38,10 +38,6 @@ const backEnds = {
 	"webdriver-chromium": "./back-ends/webdriver-chromium.js",
 	"webdriver-gecko": "./back-ends/webdriver-gecko.js"
 };
-options.compressCSS = options.compressCss;
-options.compressHTML = options.compressHtml;
-options.includeBOM = options.includeBom;
-options.crawlReplaceURLs = options.crawlReplaceUrls;
 if (options.url && !VALID_URL_TEST.test(options.url)) {
 	options.url = fileUrl(options.url);
 }
