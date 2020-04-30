@@ -71,6 +71,7 @@ const args = require("yargs")
 		"crawl-links": false,
 		"crawl-inner-links-only": true,
 		"crawl-max-depth": 1,
+		"crawl-external-links-max-depth": 1,
 		"crawl-replace-urls": false,
 		"crawl-rewrite-rules": []
 	})
@@ -160,7 +161,7 @@ const args = require("yargs")
 	.options("remove-alternative-images", { description: "Remove images for alternative sizes of screen" })
 	.boolean("remove-alternative-images")
 	.options("save-raw-page", { description: "Save the original page without interpreting it into the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
-	.boolean("save-raw-page")	
+	.boolean("save-raw-page")
 	.options("urls-file", { description: "Path to a text file containing a list of URLs (separated by a newline) to save" })
 	.string("urls-file")
 	.options("user-agent", { description: "User-agent of the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
