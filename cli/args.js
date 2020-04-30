@@ -23,7 +23,7 @@
 
 /* global require, module */
 
-module.exports = require("yargs")
+const args = require("yargs")
 	.wrap(null)
 	.command("$0 [url] [output]", "Save a page into a single HTML file.", yargs => {
 		yargs.positional("url", { description: "URL or path on the filesystem of the page to save", type: "string" });
@@ -168,3 +168,8 @@ module.exports = require("yargs")
 	.options("web-driver-executable-path", { description: "Path to Selenium WebDriver executable (webdriver-gecko, webdriver-chromium)" })
 	.string("web-driver-executable-path")
 	.argv;
+args.compressCSS = args.compressCss;
+args.compressHTML = args.compressHtml;
+args.includeBOM = args.includeBom;
+args.crawlReplaceURLs = args.crawlReplaceUrls;
+module.exports = args;
