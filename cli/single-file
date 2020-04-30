@@ -103,7 +103,7 @@ async function runNextTask(tasks, options) {
 		task.status = "processed";
 		if (pageData) {
 			task.filename = pageData.filename;
-			if (options.crawlLinks && task.depth < options.crawlMaxDepth) {
+			if (options.crawlLinks && (options.crawlMaxDepth == 0) || (task.depth < options.crawlMaxDepth)) {
 				let newTasks = pageData.links
 					.map(urlLink => ({ url: rewriteURL(urlLink, options.urlRewriteRules), originalUrl: urlLink, depth: task.depth + 1 }))
 					.filter(task => task.url && VALID_URL_TEST.test(task.url) && !tasks.find(otherTask => otherTask.url == task.url));
