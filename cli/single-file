@@ -136,8 +136,8 @@ function rewriteURL(url) {
 	url = url.trim();
 	options.crawlRewriteRules.forEach(rewriteRule => {
 		const parts = rewriteRule.trim().split(/ +/);
-		if (parts.length == 2) {
-			url = url.replace(new RegExp(parts[0]), parts[1]).trim();
+		if (parts.length) {
+			url = url.replace(new RegExp(parts[0]), parts[1] || "").trim();
 		}
 	});
 	return url;
