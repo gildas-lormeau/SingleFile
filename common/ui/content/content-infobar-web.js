@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global document, Node, window, top, getComputedStyle, setTimeout */
+/* global document, Node, window, top, getComputedStyle, setTimeout, XPathResult */
 
 (() => {
 
@@ -41,7 +41,8 @@
 	}
 
 	async function displayIcon() {
-		let singleFileComment = document.documentElement.childNodes[0];
+		const result = document.evaluate("//comment()", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+		let singleFileComment = result && result.singleNodeValue;
 		if (singleFileComment && isSingleFileComment(singleFileComment)) {
 			const info = singleFileComment.textContent.split("\n");
 			const [, , url, saveDate, ...infoData] = info;
