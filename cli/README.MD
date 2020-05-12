@@ -10,29 +10,9 @@ SingleFile can be launched from the command line by running it into a (headless)
 
 - Install [Node.js](https://nodejs.org)
 
-- Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk in an empty folder and go into the `SingleFile-master/cli` directory.
+- Install `single-file` on your system with:
 
-  `unzip master.zip .`
-  
-  `cd SingleFile-master`
-  
-  `cd cli`
-  
-- As an alternative to decompressing the master archive, you can clone the repository if `git` is installed on your machine and go into the `SingleFile/cli` directory.
-
-  `git clone https://github.com/gildas-lormeau/SingleFile.git`
-  
-  `cd SingleFile`
-  
-  `cd cli`
-
-- Install dependencies with npm (installed with Node.js).
-
-  `npm install`
-  
-- Make `single-file` executable (Linux/Unix/BSD etc.).
-
-  `chmod +x single-file`
+  `npm install single-file --global`
 
 - To use Firefox instead of Chrome, you must download the [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver) component (i.e. `geckodriver` for Firefox).  Make sure it can be found through the `PATH` environment variable or the `cli` folder. Otherwise you will need to set the `--web-driver-executable-path` option to help WebDriver locating the executable.
 
