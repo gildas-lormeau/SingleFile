@@ -4,6 +4,7 @@
 	"description": "SingleFile",
 	"author": "Gildas Lormeau",
 	"license": "AGPL-3.0-or-later",
+	"bin": "./single-file",
 	"dependencies": {
 		"file-url": "*",
 		"iconv-lite": "*",
