@@ -5,13 +5,13 @@
 	"author": "Gildas Lormeau",
 	"license": "AGPL-3.0-or-later",
 	"dependencies": {
-		"file-url": "*",
-		"iconv-lite": "*",
-		"jsdom": "*",
-		"puppeteer-core": "*",
-		"request-promise-native": "*",
+		"file-url": "^3.0.0",
+		"iconv-lite": "^0.5.1",
+		"jsdom": "^16.2.2",
+		"puppeteer-core": "^3.0.4",
+		"request-promise-native": "1.0.8",
 		"selenium-webdriver": "4.0.0-alpha.7",
-		"strong-data-uri": "*",
-		"yargs": "*"
+		"strong-data-uri": "^1.0.6",
+		"yargs": "^15.3.1"
 	}
 }
