@@ -195,7 +195,11 @@
 		"message": "Dialogfenster zur Eingabe eines Dateinamens",
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
-	"optionsHTMLContentSubTitle": {
+	"optionFilenameConflictActionSkip": {
+        "message": "Überspringen doppelter Dateien",
+        "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+    },
+    "optionsHTMLContentSubTitle": {
 		"message": "HTML-Inhalt",
 		"description": "Options sub-title: 'HTML content'"
 	},

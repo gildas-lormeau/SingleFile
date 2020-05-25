@@ -195,7 +195,11 @@
 		"message": "名前を求めるプロンプト",
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
-	"optionsHTMLContentSubTitle": {
+	"optionFilenameConflictActionSkip": {
+        "message": "skip duplicate files",
+        "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+    },
+    "optionsHTMLContentSubTitle": {
 		"message": "HTML コンテンツ",
 		"description": "Options sub-title: 'HTML content'"
 	},
