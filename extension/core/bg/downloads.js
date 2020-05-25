@@ -38,6 +38,9 @@ singlefile.extension.core.bg.downloads = (() => {
 	const ERROR_INVALID_FILENAME_CHROMIUM = "invalid filename";
 	const CLIENT_ID = "207618107333-bktohpfmdfnv5hfavi1ll18h74gqi27v.apps.googleusercontent.com";
 	const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
+	const CONFLICT_ACTION_SKIP = "skip";
+	const CONFLICT_ACTION_UNIQUIFY = "uniquify";
+	const REGEXP_ESCAPE = /([{}()^$&.*?/+|[\\\\]|\]|-)/g;
 
 	const manifest = browser.runtime.getManifest();
 	const requestPermissionIdentity = manifest.optional_permissions && manifest.optional_permissions.includes("identity");
@@ -138,12 +141,27 @@ singlefile.extension.core.bg.downloads = (() => {
 				});
 			} else {
 				message.url = URL.createObjectURL(blob);
-				await downloadPage(message, {
-					confirmFilename: message.confirmFilename,
-					incognito,
-					filenameConflictAction: message.filenameConflictAction,
-					filenameReplacementCharacter: message.filenameReplacementCharacter
-				});
+				const filenameConflictAction = message.filenameConflictAction;
+				let skipped;
+				if (filenameConflictAction == CONFLICT_ACTION_SKIP) {
+					const downloadItems = await browser.downloads.search({
+						filenameRegex: "(\\\\|/)" + getRegExp(message.filename) + "$",
+						exists: true
+					});
+					if (downloadItems.length) {
+						skipped = true;
+					} else {
+						message.filenameConflictAction = CONFLICT_ACTION_UNIQUIFY;
+					}
+				}
+				if (!skipped) {
+					await downloadPage(message, {
+						confirmFilename: message.confirmFilename,
+						incognito,
+						filenameConflictAction: message.filenameConflictAction,
+						filenameReplacementCharacter: message.filenameReplacementCharacter
+					});
+				}
 			}
 			singlefile.extension.ui.bg.main.onEnd(tabId);
 		} catch (error) {
@@ -156,6 +174,10 @@ singlefile.extension.core.bg.downloads = (() => {
 				URL.revokeObjectURL(message.url);
 			}
 		}
+	}
+
+	function getRegExp(string) {
+		return string.replace(REGEXP_ESCAPE, "\\$1");
 	}
 
 	async function getAuthInfo(authOptions, force) {

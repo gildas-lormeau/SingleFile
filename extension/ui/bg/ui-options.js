@@ -53,6 +53,7 @@
 	const filenameConflictActionUniquifyLabel = document.getElementById("filenameConflictActionUniquifyLabel");
 	const filenameConflictActionOverwriteLabel = document.getElementById("filenameConflictActionOverwriteLabel");
 	const filenameConflictActionPromptLabel = document.getElementById("filenameConflictActionPromptLabel");
+	const filenameConflictActionSkipLabel = document.getElementById("filenameConflictActionSkipLabel");
 	const removeAudioLabel = document.getElementById("removeAudioLabel");
 	const removeVideoLabel = document.getElementById("removeVideoLabel");
 	const displayInfobarLabel = document.getElementById("displayInfobarLabel");
@@ -447,6 +448,7 @@
 	filenameConflictActionUniquifyLabel.textContent = browser.i18n.getMessage("optionFilenameConflictActionUniquify");
 	filenameConflictActionOverwriteLabel.textContent = browser.i18n.getMessage("optionFilenameConflictActionOverwrite");
 	filenameConflictActionPromptLabel.textContent = browser.i18n.getMessage("optionFilenameConflictActionPrompt");
+	filenameConflictActionSkipLabel.textContent = browser.i18n.getMessage("optionFilenameConflictActionSkip");
 	removeAudioLabel.textContent = browser.i18n.getMessage("optionRemoveAudio");
 	removeVideoLabel.textContent = browser.i18n.getMessage("optionRemoveVideo");
 	displayInfobarLabel.textContent = browser.i18n.getMessage("optionDisplayInfobar");
