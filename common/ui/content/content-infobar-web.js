@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global document, Node, window, top, getComputedStyle, location, setTimeout */
+/* global document, Node, window, top, getComputedStyle, setTimeout, XPathResult */
 
 (() => {
 
@@ -32,7 +32,7 @@
 
 	const browser = this.browser;
 
-	if (window == top && location && location.href && location.href.startsWith("file:///")) {
+	if (window == top) {
 		if (document.readyState == "loading") {
 			document.addEventListener("DOMContentLoaded", displayIcon, false);
 		} else {
@@ -41,27 +41,23 @@
 	}
 
 	async function displayIcon() {
-		let singleFileComment = document.documentElement.childNodes[0];
-		if (!isSingleFileComment(singleFileComment)) {
-			singleFileComment = findSingleFileComment();
-		}
-		if (singleFileComment) {
+		const result = document.evaluate("//comment()", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+		let singleFileComment = result && result.singleNodeValue;
+		if (singleFileComment && isSingleFileComment(singleFileComment)) {
 			const info = singleFileComment.textContent.split("\n");
 			const [, , url, saveDate, ...infoData] = info;
-			let options;
-			if (browser && browser.runtime && browser.runtime.sendMessage) {
-				options = await browser.runtime.sendMessage({ method: "tabs.getOptions", url });
-			} else {
-				options = { displayInfobar: true };
-			}
-			if (options.displayInfobar) {
-				initInfobar(url, saveDate, infoData);
+			if (url && saveDate) {
+				let options;
+				if (browser && browser.runtime && browser.runtime.sendMessage) {
+					options = await browser.runtime.sendMessage({ method: "tabs.getOptions", url });
+				} else {
+					options = { displayInfobar: true };
+				}
+				if (options.displayInfobar) {
+					initInfobar(url, saveDate, infoData);
+				}
 			}
 		}
-	}
-
-	function findSingleFileComment(node = document.documentElement) {
-		return node.childNodes && node.childNodes.length ? Array.from(node.childNodes).find(findSingleFileComment) : isSingleFileComment(node);
 	}
 
 	function isSingleFileComment(node) {

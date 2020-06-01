@@ -47,7 +47,7 @@ exports.getPageData = async options => {
 exports.closeBrowser = () => { };
 
 function getBrowserOptions(options) {
-	const firefoxOptions = new firefox.Options();
+	const firefoxOptions = new firefox.Options().setBinary(firefox.Channel.NIGHTLY);
 	if ((options.browserHeadless === undefined || options.browserHeadless) && !options.browserDebug) {
 		process.env["MOZ_HEADLESS"] = "1";
 	}
@@ -98,18 +98,18 @@ async function getPageData(driver, options) {
 		await driver.sleep(3000);
 	}
 	await driver.get(options.url);
+	scripts = scripts.replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||");
 	while (await driver.getCurrentUrl() == "about:blank") {
 		// do nothing
 	}
-	scripts = scripts.replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||");
 	await driver.executeScript(scripts);
 	if (options.browserWaitUntil != "domcontentloaded") {
 		let scriptPromise;
-		if (options.browserWaitUntil === undefined || options.browserWaitUntil == "networkidle0") {
+		if (options.browserWaitUntil == "networkidle0") {
 			scriptPromise = driver.executeAsyncScript("addEventListener(\"single-file-network-idle-0\", () => arguments[0](), true)");
 		} else if (options.browserWaitUntil == "networkidle2") {
 			scriptPromise = driver.executeAsyncScript("addEventListener(\"single-file-network-idle-2\", () => arguments[0](), true)");
-		} else if (options.browserWaitUntil == "load") {
+		} else if (options.browserWaitUntil === undefined || options.browserWaitUntil == "load") {
 			scriptPromise = driver.executeAsyncScript("if (document.readyState == \"loading\" || document.readyState == \"interactive\") { addEventListener(\"load\", () => arguments[0]()) } else { arguments[0](); }");
 		}
 		let cancelTimeout;

@@ -62,23 +62,22 @@ const WEB_SCRIPTS = [
 	"common/ui/content/content-infobar-web.js"
 ];
 
-const basePath = "../../../";
-
 exports.get = async options => {
-	let scripts = await readScriptFiles(INDEX_SCRIPTS);
+	const basePath = "../../../";
+	let scripts = await readScriptFiles(INDEX_SCRIPTS, basePath);
 	const webScripts = {};
-	await Promise.all(WEB_SCRIPTS.map(async path => webScripts[path] = await readScriptFile(path)));
+	await Promise.all(WEB_SCRIPTS.map(async path => webScripts[path] = await readScriptFile(path, basePath)));
 	scripts += "this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(webScripts) + ")[filename];\n";
-	scripts += await readScriptFiles(SCRIPTS);
+	scripts += await readScriptFiles(SCRIPTS, basePath);
 	scripts += await readScriptFiles(options.browserScripts, "");
 	return scripts;
 };
 
-async function readScriptFiles(paths) {
-	return (await Promise.all(paths.map(path => readScriptFile(path)))).join("");
+async function readScriptFiles(paths, basePath = "../../../") {
+	return (await Promise.all(paths.map(path => readScriptFile(path, basePath)))).join("");
 }
 
-function readScriptFile(path) {
+function readScriptFile(path, basePath) {
 	return new Promise((resolve, reject) =>
 		fs.readFile(require.resolve(basePath + path), (err, data) => {
 			if (err) {

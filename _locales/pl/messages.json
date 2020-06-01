@@ -195,7 +195,11 @@
 		"message": "zapytaj o nazwę",
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
-	"optionsHTMLContentSubTitle": {
+	"optionFilenameConflictActionSkip": {
+        "message": "pomiń duplikaty plików",
+        "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+    },
+    "optionsHTMLContentSubTitle": {
 		"message": "Zawartość HTML",
 		"description": "Options sub-title: 'HTML content'"
 	},

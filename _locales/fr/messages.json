@@ -195,7 +195,11 @@
 		"message": "demander un nom de fichier",
 		"description": "Value for 'filename conflict resolution' option: 'prompt for a filename'"
 	},
-	"optionsHTMLContentSubTitle": {
+	"optionFilenameConflictActionSkip": {
+        "message": "passer les fichiers en double",
+        "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+    },
+    "optionsHTMLContentSubTitle": {
 		"message": "Contenu HTML",
 		"description": "Options sub-title: 'HTML content'"
 	},

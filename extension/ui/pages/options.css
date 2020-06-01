@@ -288,6 +288,7 @@ h3 a {
     height: auto;
     vertical-align: middle;
     padding: 2px;
+    box-sizing: content-box;
 }
 
 .rules-table-container+.option label,

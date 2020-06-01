@@ -66,7 +66,11 @@ SingleFile can be launched from the command line by running it into a (headless)
 
   - Save https://www.wikipedia.org and crawl its internal links with the query parameters removed from the URL
 
-  `single-file https://www.wikipedia.org --crawl-links=true --crawl-inner-links-only=true  --crawl-max-depth=1 --url-rewrite-rules="^(.*)\\?.*$ $1"`
+  `single-file https://www.wikipedia.org --crawl-links=true --crawl-inner-links-only=true --crawl-max-depth=1 --crawl-rewrite-rules="^(.*)\\?.*$ $1"`
+
+  - Save https://www.wikipedia.org and external links only
+
+  `single-file https://www.wikipedia.org --crawl-links=true --crawl-inner-links-only=false --crawl-external-links-max-depth=1 --crawl-rewrite-rules="^.*wikipedia.*$"`
   
 ## Troubleshooting
 
