@@ -23,7 +23,7 @@
 
 /* global require, module */
 
-module.exports = require("yargs")
+const args = require("yargs")
 	.wrap(null)
 	.command("$0 [url] [output]", "Save a page into a single HTML file.", yargs => {
 		yargs.positional("url", { description: "URL or path on the filesystem of the page to save", type: "string" });
@@ -70,9 +70,11 @@ module.exports = require("yargs")
 		"include-BOM": false,
 		"crawl-links": false,
 		"crawl-inner-links-only": true,
+		"crawl-remove-url-fragment": true,
 		"crawl-max-depth": 1,
+		"crawl-external-links-max-depth": 1,
 		"crawl-replace-urls": false,
-		"url-rewrite-rules": []
+		"crawl-rewrite-rules": []
 	})
 	.options("back-end", { description: "Back-end to use" })
 	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chromium", "webdriver-gecko"])
@@ -106,10 +108,16 @@ module.exports = require("yargs")
 	.boolean("crawl-links")
 	.options("crawl-inner-links-only", { description: "Crawl pages found via inner links only if they are hosted on the same domain" })
 	.boolean("crawl-inner-links-only")
-	.options("crawl-max-depth", { description: "Max depth when crawl pages found via inner links" })
+	.options("crawl-remove-url-fragment", { description: "Remove URL fragments found in links" })
+	.boolean("crawl-remove-url-fragment")
+	.options("crawl-max-depth", { description: "Max depth when crawling pages found in internal and external links (0: infinite)" })
 	.number("crawl-max-depth")
+	.options("crawl-external-links-max-depth", { description: "Max depth when crawling pages found in external links (0: infinite)" })
+	.number("crawl-external-links-max-depth")
 	.options("crawl-replace-urls", { description: "Replace URLs of saved pages with relative paths of saved pages on the filesystem" })
 	.boolean("crawl-replace-urls")
+	.options("crawl-rewrite-rules", { description: "List of rewrite rules used to rewrite URLs of internal and external links" })
+	.array("crawl-rewrite-rules")
 	.options("error-file")
 	.string("error-file")
 	.options("filename-template", { description: "Template used to generate the output filename (see help page of the extension for more info)" })
@@ -157,8 +165,6 @@ module.exports = require("yargs")
 	.boolean("remove-alternative-images")
 	.options("save-raw-page", { description: "Save the original page without interpreting it into the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("save-raw-page")
-	.options("url-rewrite-rules", { description: "List of rewrite rules used to rewrite URLs" })
-	.array("url-rewrite-rules")
 	.options("urls-file", { description: "Path to a text file containing a list of URLs (separated by a newline) to save" })
 	.string("urls-file")
 	.options("user-agent", { description: "User-agent of the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
@@ -168,3 +174,9 @@ module.exports = require("yargs")
 	.options("web-driver-executable-path", { description: "Path to Selenium WebDriver executable (webdriver-gecko, webdriver-chromium)" })
 	.string("web-driver-executable-path")
 	.argv;
+args.compressCSS = args.compressCss;
+args.compressHTML = args.compressHtml;
+args.includeBOM = args.includeBom;
+args.crawlReplaceURLs = args.crawlReplaceUrls;
+args.crawlRemoveURLFragment = args.crawlRemoveUrlFragment;
+module.exports = args;

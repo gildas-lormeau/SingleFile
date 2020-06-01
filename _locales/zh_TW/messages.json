@@ -172,7 +172,7 @@
 		"description": "Options page label: 'template'"
 	},
 	"optionFilenameMaxLength": {
-		"message": "max length (bytes)",
+		"message": "最大長度（字節）",
 		"description": "Options page label: 'max length (bytes)'"
 	},
 	"optionConfirmFilename": {
@@ -195,7 +195,11 @@
 		"message": "指定一個新名稱",
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
-	"optionsHTMLContentSubTitle": {
+	"optionFilenameConflictActionSkip": {
+        "message": "skip duplicate files",
+        "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+    },
+    "optionsHTMLContentSubTitle": {
 		"message": "HTML 內容",
 		"description": "Options sub-title: 'HTML content'"
 	},
@@ -372,7 +376,7 @@
 		"description": "Options page label: 'save pages in background'"
 	},
 	"optionApplySystemTheme": {
-		"message": "apply the system theme when formatting a page in the annotation editor",
+		"message": "在標註編輯器中打開頁面時應用系統主題樣式",
 		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
 	},
 	"optionDisplayStats": {
@@ -384,7 +388,7 @@
 		"description": "Options page label: 'set a maximum size for embedded resources'"
 	},
 	"optionMaxResourceSize": {
-		"message": "大小上限（MB）",
+		"message": "大小上限（兆字節）",
 		"description": "Options page label: 'maximum size (MB)'"
 	},
 	"optionSaveRawPage": {
@@ -472,7 +476,7 @@
 		"description": "Label 'Step' (for 'Step x / 4') in the log panel"
 	},
 	"logPanelWidth": {
-		"message": "115",
+		"message": "122",
 		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
 	},
 	"profileDefaultSettings": {

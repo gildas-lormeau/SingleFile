@@ -31,6 +31,8 @@ img[type=button] {
     padding: 4px;
     margin-right: 2px;
     border-radius: 4px;
+    max-width: 24px;
+    max-height: 24px;
 }
 
 img[type=button]:hover {
