@@ -172,7 +172,7 @@
 		"description": "Options page label: 'template'"
 	},
 	"optionFilenameMaxLength": {
-		"message": "max length (bytes)",
+		"message": "最大長（バイト）",
 		"description": "Options page label: 'max length (bytes)'"
 	},
 	"optionConfirmFilename": {
@@ -196,10 +196,10 @@
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionFilenameConflictActionSkip": {
-        "message": "skip duplicate files",
-        "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
-    },
-    "optionsHTMLContentSubTitle": {
+		"message": "重複ファイルをスキップ",
+		"description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+	},
+	"optionsHTMLContentSubTitle": {
 		"message": "HTML コンテンツ",
 		"description": "Options sub-title: 'HTML content'"
 	},
@@ -376,7 +376,7 @@
 		"description": "Options page label: 'save pages in background'"
 	},
 	"optionApplySystemTheme": {
-		"message": "apply the system theme when formatting a page in the annotation editor",
+		"message": "（注釈エディタ）でページをフォーマットするときにシステムテーマを適用する",
 		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
 	},
 	"optionDisplayStats": {
@@ -416,7 +416,7 @@
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionReplaceBookmarkURL": {
-		"message": "link the new bookmark to the saved page",
+		"message": "新しいブックマークを保存したページにリンクさせることを可能にする",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
 	"optionsHelpLink": {
