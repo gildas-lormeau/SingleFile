@@ -196,7 +196,7 @@
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionFilenameConflictActionSkip": {
-        "message": "skip duplicate files",
+        "message": "пропустить дублирующиеся файлы",
         "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
     },
     "optionsHTMLContentSubTitle": {
