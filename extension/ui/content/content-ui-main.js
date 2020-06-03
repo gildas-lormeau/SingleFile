@@ -58,8 +58,8 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 			let maskElement = document.querySelector(MASK_TAGNAME);
 			if (!maskElement) {
 				if (options.logsEnabled) {
-					document.body.appendChild(logsWindowElement);
 					setLogsWindowStyle();
+					document.body.appendChild(logsWindowElement);
 				}
 				if (options.shadowEnabled) {
 					const maskElement = createMaskElement();
@@ -378,10 +378,9 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 	function createMaskElement() {
 		let maskElement = document.querySelector(MASK_TAGNAME);
 		if (!maskElement) {
-			maskElement = createElement(MASK_TAGNAME, document.body);
+			maskElement = createElement(MASK_TAGNAME);
 			maskElement.style.setProperty("opacity", 0, "important");
 			maskElement.style.setProperty("background-color", "transparent", "important");
-			maskElement.offsetWidth;
 			maskElement.style.setProperty("position", "fixed", "important");
 			maskElement.style.setProperty("top", "0", "important");
 			maskElement.style.setProperty("left", "0", "important");
@@ -389,6 +388,8 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 			maskElement.style.setProperty("height", "100%", "important");
 			maskElement.style.setProperty("z-index", 2147483646, "important");
 			maskElement.style.setProperty("transition", "opacity 250ms", "important");
+			document.body.appendChild(maskElement);
+			maskElement.offsetWidth;
 		}
 		return maskElement;
 	}
@@ -529,7 +530,9 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 	function createElement(tagName, parentElement) {
 		const element = document.createElement(tagName);
 		element.className = SINGLE_FILE_UI_ELEMENT_CLASS;
-		parentElement.appendChild(element);
+		if (parentElement) {
+			parentElement.appendChild(element);
+		}
 		initStyle(element);
 		return element;
 	}
