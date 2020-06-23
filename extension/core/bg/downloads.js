@@ -141,27 +141,12 @@ singlefile.extension.core.bg.downloads = (() => {
 				});
 			} else {
 				message.url = URL.createObjectURL(blob);
-				const filenameConflictAction = message.filenameConflictAction;
-				let skipped;
-				if (filenameConflictAction == CONFLICT_ACTION_SKIP) {
-					const downloadItems = await browser.downloads.search({
-						filenameRegex: "(\\\\|/)" + getRegExp(message.filename) + "$",
-						exists: true
-					});
-					if (downloadItems.length) {
-						skipped = true;
-					} else {
-						message.filenameConflictAction = CONFLICT_ACTION_UNIQUIFY;
-					}
-				}
-				if (!skipped) {
-					await downloadPage(message, {
-						confirmFilename: message.confirmFilename,
-						incognito,
-						filenameConflictAction: message.filenameConflictAction,
-						filenameReplacementCharacter: message.filenameReplacementCharacter
-					});
-				}
+				await downloadPage(message, {
+					confirmFilename: message.confirmFilename,
+					incognito,
+					filenameConflictAction: message.filenameConflictAction,
+					filenameReplacementCharacter: message.filenameReplacementCharacter
+				});
 			}
 			singlefile.extension.ui.bg.main.onEnd(tabId);
 		} catch (error) {
@@ -238,24 +223,39 @@ singlefile.extension.core.bg.downloads = (() => {
 	}
 
 	async function downloadPage(pageData, options) {
-		const downloadInfo = {
-			url: pageData.url,
-			saveAs: options.confirmFilename,
-			filename: pageData.filename,
-			conflictAction: options.filenameConflictAction
-		};
-		if (options.incognito) {
-			downloadInfo.incognito = true;
-		}
-		const downloadData = await download(downloadInfo, options.filenameReplacementCharacter);
-		if (downloadData.filename && pageData.bookmarkId && pageData.replaceBookmarkURL) {
-			if (!downloadData.filename.startsWith("file:")) {
-				if (downloadData.filename.startsWith("/")) {
-					downloadData.filename = downloadData.filename.substring(1);
-				}
-				downloadData.filename = "file:///" + downloadData.filename;
+		const filenameConflictAction = options.filenameConflictAction;
+		let skipped;
+		if (filenameConflictAction == CONFLICT_ACTION_SKIP) {
+			const downloadItems = await browser.downloads.search({
+				filenameRegex: "(\\\\|/)" + getRegExp(pageData.filename) + "$",
+				exists: true
+			});
+			if (downloadItems.length) {
+				skipped = true;
+			} else {
+				options.filenameConflictAction = CONFLICT_ACTION_UNIQUIFY;
 			}
-			await singlefile.extension.core.bg.bookmarks.update(pageData.bookmarkId, { url: downloadData.filename });
+		}
+		if (!skipped) {
+			const downloadInfo = {
+				url: pageData.url,
+				saveAs: options.confirmFilename,
+				filename: pageData.filename,
+				conflictAction: options.filenameConflictAction
+			};
+			if (options.incognito) {
+				downloadInfo.incognito = true;
+			}
+			const downloadData = await download(downloadInfo, options.filenameReplacementCharacter);
+			if (downloadData.filename && pageData.bookmarkId && pageData.replaceBookmarkURL) {
+				if (!downloadData.filename.startsWith("file:")) {
+					if (downloadData.filename.startsWith("/")) {
+						downloadData.filename = downloadData.filename.substring(1);
+					}
+					downloadData.filename = "file:///" + downloadData.filename;
+				}
+				await singlefile.extension.core.bg.bookmarks.update(pageData.bookmarkId, { url: downloadData.filename });
+			}
 		}
 	}
 
