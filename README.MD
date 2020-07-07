@@ -85,8 +85,9 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
 - Firefox:
   - The "File name > file name conflict resolution" option does not work if set to "prompt for a name"
   - Sometimes, SingleFile is unable to save the contents of  sandboxed iframes because of [this bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1411641).
+  - When processing a page from the filesystem, external resources (e.g. images, stylesheets, fonts etc.) will not be embedded into the saved page. You can find more info about this bug [here](https://bugzilla.mozilla.org/show_bug.cgi?id=1644488). This bug has been closed by Mozilla as "WontFix".
 - Waterfox
-  - When opening pages saved with the option "Images > group duplicate images together" enabled, some duplicate images might not displayed. It is recommended to disable this option.
+  - When opening pages saved with the option "Images > group duplicate images together" enabled, some duplicate images might not displayed. It is recommended to disable this option.  
 
 ## Troubleshooting unknown issues
 Please follow these steps if you find an unknown issue:
