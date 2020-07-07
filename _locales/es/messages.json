@@ -235,6 +235,10 @@
 		"message": "periodo máximo de espera (ms)",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
+	"optionLoadDeferredImagesKeepZoomLevel": {
+		"message": "alejar la página",
+		"description": "Options page label: 'zoom out the page'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "eliminar imágenes para resoluciones alternativas de pantalla",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"

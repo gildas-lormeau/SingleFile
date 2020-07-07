@@ -235,6 +235,10 @@
 		"message": "максимальное время простоя (мс)",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
+	"optionLoadDeferredImagesKeepZoomLevel": {
+		"message": "zoom out the page",
+		"description": "Options page label: 'zoom out the page'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "удалить изображения для альтернативных разрешений экрана",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"
