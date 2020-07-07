@@ -235,6 +235,10 @@
 		"message": "最大アイドル時間（ミリ秒）",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
+	"optionLoadDeferredImagesKeepZoomLevel": {
+		"message": "zoom out the page",
+		"description": "Options page label: 'zoom out the page'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "代替画面解像度用の画像を削除します",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"

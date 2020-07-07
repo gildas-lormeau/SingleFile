@@ -235,6 +235,10 @@
 		"message": "最長空閒時間（毫秒）",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
+	"optionLoadDeferredImagesKeepZoomLevel": {
+		"message": "zoom out the page",
+		"description": "Options page label: 'zoom out the page'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "移除用於備選分辨率的圖片",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"
