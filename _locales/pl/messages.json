@@ -236,7 +236,7 @@
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
 	"optionLoadDeferredImagesKeepZoomLevel": {
-		"message": "zoom out the page",
+		"message": "pomniejsz stronę",
 		"description": "Options page label: 'zoom out the page'"
 	},
 	"optionRemoveAlternativeImages": {
