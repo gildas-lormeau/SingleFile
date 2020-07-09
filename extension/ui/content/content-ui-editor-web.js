@@ -898,6 +898,11 @@ table {
 			element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
 			element.textContent = "";
 		});
+		contentDocument.querySelectorAll("iframe").forEach(element => {
+			const pointerEvents = "pointer-events";
+			element.style.setProperty("-sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
+			element.style.setProperty(pointerEvents, "none", "important");
+		});
 		document.replaceChild(contentDocument.documentElement, document.documentElement);
 		deserializeShadowRoots(document);
 		const iconElement = document.querySelector("link[rel*=icon]");
@@ -1385,6 +1390,11 @@ table {
 			if (mainElement) {
 				mainElement.textContent = mainElement.value;
 			}
+		});
+		doc.querySelectorAll("iframe").forEach(element => {
+			const pointerEvents = "pointer-events";
+			element.style.setProperty(pointerEvents, element.style.getPropertyValue("-sf-" + pointerEvents), element.style.getPropertyPriority("-sf-" + pointerEvents));
+			element.style.removeProperty("-sf-" + pointerEvents);
 		});
 		delete doc.body.contentEditable;
 		const scriptElement = doc.createElement("script");
