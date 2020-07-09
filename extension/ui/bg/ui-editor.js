@@ -199,11 +199,11 @@ singlefile.extension.ui.bg.editor = (() => {
 			tabData.options = message.options;
 			savePage();
 			browser.runtime.sendMessage({ method: "ui.processInit" });
-			return {};
+			return Promise.resolve({});
 		}
 		if (message.method == "common.promptValueRequest") {
 			browser.runtime.sendMessage({ method: "tabs.promptValueResponse", value: prompt(message.promptMessage) });
-			return {};
+			return Promise.resolve({});
 		}
 		if (message.method == "editor.setTabData") {
 			if (message.truncated) {
@@ -217,7 +217,7 @@ singlefile.extension.ui.bg.editor = (() => {
 				editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
 				delete tabData.content;
 			}
-			return {};
+			return Promise.resolve({});
 		}
 	});
 
