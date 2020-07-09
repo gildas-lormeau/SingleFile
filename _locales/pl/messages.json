@@ -235,6 +235,10 @@
 		"message": "maksymalny czas bezczynności (ms)",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
+	"optionLoadDeferredImagesKeepZoomLevel": {
+		"message": "pomniejsz stronę",
+		"description": "Options page label: 'zoom out the page'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "usuwaj obrazy dla alternatywnych rozdzielczości ekranu",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"

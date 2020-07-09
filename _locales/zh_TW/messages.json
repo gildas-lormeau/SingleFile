@@ -196,7 +196,7 @@
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionFilenameConflictActionSkip": {
-        "message": "skip duplicate files",
+        "message": "跳過重複文件",
         "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
     },
     "optionsHTMLContentSubTitle": {
@@ -234,6 +234,10 @@
 	"optionLoadDeferredImagesMaxIdleTime": {
 		"message": "最長空閒時間（毫秒）",
 		"description": "Options page label: 'maximum idle time (ms)'"
+	},
+	"optionLoadDeferredImagesKeepZoomLevel": {
+		"message": "縮小頁面",
+		"description": "Options page label: 'zoom out the page'"
 	},
 	"optionRemoveAlternativeImages": {
 		"message": "移除用於備選分辨率的圖片",
