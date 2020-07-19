@@ -20,7 +20,7 @@ SingleFile can be launched from the command line by running it into a (headless)
   
 - As an alternative to decompressing the master archive, you can clone the repository if `git` is installed on your machine and go into the `SingleFile/cli` directory.
 
-  `git clone https://github.com/gildas-lormeau/SingleFile.git`
+  `git clone --depth 1 --recursive https://github.com/gildas-lormeau/SingleFile.git`
   
   `cd SingleFile`
   
