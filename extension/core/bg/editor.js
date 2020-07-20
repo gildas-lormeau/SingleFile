@@ -34,7 +34,7 @@ singlefile.extension.core.bg.editor = (() => {
 	return {
 		onMessage,
 		onTabRemoved,
-		onInit,
+		isEditor,
 		open
 	};
 
@@ -51,10 +51,8 @@ singlefile.extension.core.bg.editor = (() => {
 		tabsData.delete(tabId);
 	}
 
-	function onInit(tab) {
-		if (tab.url != EDITOR_URL) {
-			tabsData.delete(tab.id);
-		}
+	function isEditor(tab) {
+		return tab.url == EDITOR_URL;
 	}
 
 	async function onMessage(message, sender) {

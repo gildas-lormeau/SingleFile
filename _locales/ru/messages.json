@@ -11,6 +11,10 @@
 		"message": "Сохранить выбранные ссылки",
 		"description": "Menu entry: 'Save selected links'"
 	},
+	"menuEditPage": {
+		"message": "Annotate the page...",
+		"description": "Menu entry: 'Annotate the page...'"
+	},
 	"menuEditAndSavePage": {
 		"message": "Аннотировать и сохранить страницу...",
 		"description": "Menu entry: 'Annotate and save the page...'"
@@ -196,10 +200,10 @@
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionFilenameConflictActionSkip": {
-        "message": "пропустить дублирующиеся файлы",
-        "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
-    },
-    "optionsHTMLContentSubTitle": {
+		"message": "пропустить дублирующиеся файлы",
+		"description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+	},
+	"optionsHTMLContentSubTitle": {
 		"message": "Содержимое HTML",
 		"description": "Options sub-title: 'HTML content'"
 	},

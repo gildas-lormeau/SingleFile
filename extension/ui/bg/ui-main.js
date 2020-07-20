@@ -60,8 +60,8 @@ singlefile.extension.ui.bg.main = (() => {
 		onTabCreated(tab) {
 			singlefile.extension.ui.bg.menus.onTabCreated(tab);
 		},
-		onTabActivated(tab, activeInfo) {
-			singlefile.extension.ui.bg.menus.onTabActivated(tab, activeInfo);
+		onTabActivated(tab) {
+			singlefile.extension.ui.bg.menus.onTabActivated(tab);
 		},
 		onInit(tab) {
 			singlefile.extension.ui.bg.menus.onInit(tab);

@@ -11,6 +11,10 @@
 		"message": "Guardar los links seleccionados",
 		"description": "Menu entry: 'Save selected links'"
 	},
+	"menuEditPage": {
+		"message": "Anotar la página",
+		"description": "Menu entry: 'Annotate the page...'"
+	},
 	"menuEditAndSavePage": {
 		"message": "Anotar y guardar la página",
 		"description": "Menu entry: 'Annotate and save the page...'"
@@ -196,10 +200,10 @@
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionFilenameConflictActionSkip": {
-        "message": "saltar los archivos duplicados",
-        "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
-    },
-    "optionsHTMLContentSubTitle": {
+		"message": "saltar los archivos duplicados",
+		"description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+	},
+	"optionsHTMLContentSubTitle": {
 		"message": "Contenido HTML",
 		"description": "Options sub-title: 'HTML content'"
 	},

@@ -11,6 +11,10 @@
 		"message": "Save selected links",
 		"description": "Menu entry: 'Save selected links'"
 	},
+	"menuEditPage": {
+		"message": "Annotate the page...",
+		"description": "Menu entry: 'Annotate the page...'"
+	},
 	"menuEditAndSavePage": {
 		"message": "ページに注釈を付けて保存する...",
 		"description": "Menu entry: 'Annotate and save the page...'"

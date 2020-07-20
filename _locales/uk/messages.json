@@ -11,6 +11,10 @@
 		"message": "Save selected links",
 		"description": "Menu entry: 'Save selected links'"
 	},
+	"menuEditPage": {
+		"message": "Annotate the page...",
+		"description": "Menu entry: 'Annotate the page...'"
+	},
 	"menuEditAndSavePage": {
 		"message": "Анотувати і зберегти сторінку...",
 		"description": "Menu entry: 'Annotate and save the page...'"

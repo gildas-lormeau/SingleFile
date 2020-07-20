@@ -61,6 +61,7 @@ singlefile.extension.core.bg.business = (() => {
 				taskInfo.cancel = cancelCallback;
 			}
 		},
+		openEditor,
 		onSaveEnd: taskId => {
 			const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
 			if (taskInfo) {
@@ -130,6 +131,10 @@ singlefile.extension.core.bg.business = (() => {
 			}
 		}));
 		runTasks();
+	}
+
+	function openEditor(tab) {
+		singlefile.extension.core.bg.tabs.sendMessage(tab.id, { method: "content.openEditor" });
 	}
 
 	async function initMaxParallelWorkers() {

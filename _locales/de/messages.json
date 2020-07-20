@@ -11,6 +11,10 @@
 		"message": "Speichern ausgewählter Links",
 		"description": "Menu entry: 'Save selected links'"
 	},
+	"menuEditPage": {
+		"message": "Annotieren der Webseite...",
+		"description": "Menu entry: 'Annotate the page...'"
+	},
 	"menuEditAndSavePage": {
 		"message": "Annotieren und Speichern der Webseite...",
 		"description": "Menu entry: 'Annotate and save the page...'"
