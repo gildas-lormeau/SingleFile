@@ -82,7 +82,8 @@ singlefile.extension.ui.bg.menus = (() => {
 
 	const menusCheckedState = new Map();
 	const menusTitleState = new Map();
-	let menusVisibleState = true;
+	let contextMenuVisibleState = true;
+	let allMenuVisibleState = true;
 	let profileIndexes = new Map();
 	let menusCreated, pendingRefresh;
 	initialize();
@@ -524,19 +525,23 @@ singlefile.extension.ui.bg.menus = (() => {
 	}
 
 	async function updateAllVisibleValues(visible) {
-		const promises = [];
-		try {
-			MENU_TOP_VISIBLE_ENTRIES.forEach(id => promises.push(menus.update(id, { visible })));
-			await Promise.all(promises);
-		} catch (error) {
-			// ignored
+		const lastVisibleState = allMenuVisibleState;
+		allMenuVisibleState = visible;
+		if (lastVisibleState === undefined || lastVisibleState != visible) {
+			const promises = [];
+			try {
+				MENU_TOP_VISIBLE_ENTRIES.forEach(id => promises.push(menus.update(id, { visible })));
+				await Promise.all(promises);
+			} catch (error) {
+				// ignored
+			}
 		}
 	}
 
 	async function updateVisibleValue(tab, visible) {
-		const lastVisibleValue = menusVisibleState;
-		menusVisibleState = visible;
-		if (lastVisibleValue === undefined || lastVisibleValue != visible) {
+		const lastVisibleState = contextMenuVisibleState;
+		contextMenuVisibleState = visible;
+		if (lastVisibleState === undefined || lastVisibleState != visible) {
 			await createMenus(tab);
 		}
 	}
