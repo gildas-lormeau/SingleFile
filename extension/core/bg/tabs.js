@@ -37,7 +37,8 @@ singlefile.extension.core.bg.tabs = (() => {
 			const tabs = await browser.tabs.query(options);
 			return tabs.sort((tab1, tab2) => tab1.index - tab2.index);
 		},
-		create: async createProperties => {
+		create: createProperties => browser.tabs.create(createProperties),
+		createAndWait: async createProperties => {
 			const tab = await browser.tabs.create(createProperties);
 			return new Promise((resolve, reject) => {
 				browser.tabs.onUpdated.addListener(onTabUpdated);
@@ -58,6 +59,7 @@ singlefile.extension.core.bg.tabs = (() => {
 			});
 		},
 		sendMessage: (tabId, message, options) => browser.tabs.sendMessage(tabId, message, options),
+		update: (tabId, updateProperties) => browser.tabs.update(tabId, updateProperties),
 		remove: tabId => browser.tabs.remove(tabId),
 		promptValue: async promptMessage => {
 			const tabs = await browser.tabs.query({ currentWindow: true, active: true });

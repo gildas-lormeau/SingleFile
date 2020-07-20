@@ -172,7 +172,7 @@ singlefile.extension.core.bg.business = (() => {
 			if (!taskInfo.tab.id) {
 				let scriptsInjected;
 				try {
-					const tab = await tabs.create({ url: taskInfo.tab.url, active: false });
+					const tab = await tabs.createAndWait({ url: taskInfo.tab.url, active: false });
 					taskInfo.tab.id = taskInfo.options.tabId = tab.id;
 					taskInfo.tab.index = taskInfo.options.tabIndex = tab.index;
 					ui.onStart(taskInfo.tab.id, INJECT_SCRIPTS_STEP);
