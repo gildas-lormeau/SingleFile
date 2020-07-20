@@ -369,12 +369,12 @@ singlefile.extension.ui.bg.menus = (() => {
 					}
 				}
 				if (event.menuItemId == MENU_ID_EDIT_AND_SAVE_PAGE) {
-					if (event.linkUrl) {
-						business.saveUrls([event.linkUrl], { openEditor: true });
+					const allTabsData = await tabsData.get(tab.id);
+					if (allTabsData[tab.id].savedPageDetected) {
+						business.openEditor(tab);
 					} else {
-						const allTabsData = await tabsData.get(tab.id);
-						if (allTabsData[tab.id].savedPageDetected) {
-							business.openEditor(tab);
+						if (event.linkUrl) {
+							business.saveUrls([event.linkUrl], { openEditor: true });
 						} else {
 							business.saveTabs([tab], { openEditor: true });
 						}
