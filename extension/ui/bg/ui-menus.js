@@ -73,16 +73,16 @@ singlefile.extension.ui.bg.menus = (() => {
 		MENU_ID_EDIT_AND_SAVE_PAGE,
 		MENU_ID_SAVE_SELECTED_LINKS,
 		MENU_ID_VIEW_PENDINGS,
-		MENU_ID_SELECT_PROFILE,
-		MENU_ID_ASSOCIATE_WITH_PROFILE,
 		MENU_ID_SAVE_SELECTED,
 		MENU_ID_SAVE_FRAME,
-		MENU_ID_AUTO_SAVE
+		MENU_ID_AUTO_SAVE,
+		MENU_ID_SELECT_PROFILE,
+		MENU_ID_ASSOCIATE_WITH_PROFILE
 	];
 
 	const menusCheckedState = new Map();
 	const menusTitleState = new Map();
-	let menusVisibleState;
+	let menusVisibleState = true;
 	let profileIndexes = new Map();
 	let menusCreated, pendingRefresh;
 	initialize();
@@ -485,17 +485,17 @@ singlefile.extension.ui.bg.menus = (() => {
 			const promises = [];
 			const tabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);
 			if (tabsData[tab.id].editorDetected) {
-				MENU_TOP_VISIBLE_ENTRIES.forEach(id => promises.push(menus.update(id, { visible: false })));
+				updateAllVisibleValues(false);
 			} else {
-				MENU_TOP_VISIBLE_ENTRIES.forEach(id => promises.push(menus.update(id, { visible: true })));
+				updateAllVisibleValues(true);
 				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, !tabsData[tab.id].autoSave));
 				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, tabsData[tab.id].autoSave));
 				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(tabsData.autoSaveUnpinned)));
 				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(tabsData.autoSaveAll)));
 				if (tab && tab.url) {
 					const options = await config.getOptions(tab.url);
-					promises.push(updateTitleValue(MENU_ID_EDIT_AND_SAVE_PAGE, tabsData[tab.id].savedPageDetected ? MENU_EDIT_PAGE_MESSAGE : MENU_EDIT_AND_SAVE_PAGE_MESSAGE));
 					promises.push(updateVisibleValue(tab, options.contextMenuEnabled));
+					promises.push(updateTitleValue(MENU_ID_EDIT_AND_SAVE_PAGE, tabsData[tab.id].savedPageDetected ? MENU_EDIT_PAGE_MESSAGE : MENU_EDIT_AND_SAVE_PAGE_MESSAGE));
 					promises.push(menus.update(MENU_ID_SAVE_SELECTED, { visible: !options.saveRawPage }));
 					let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 					let title = MENU_CREATE_DOMAIN_RULE_MESSAGE;
@@ -520,6 +520,16 @@ singlefile.extension.ui.bg.menus = (() => {
 				}
 			}
 			await Promise.all(promises);
+		}
+	}
+
+	async function updateAllVisibleValues(visible) {
+		const promises = [];
+		try {
+			MENU_TOP_VISIBLE_ENTRIES.forEach(id => promises.push(menus.update(id, { visible })));
+			await Promise.all(promises);
+		} catch (error) {
+			// ignored
 		}
 	}
 
