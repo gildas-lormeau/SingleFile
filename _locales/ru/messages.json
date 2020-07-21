@@ -84,8 +84,8 @@
 		"description": "Button title: 'Save page with SingleFile'"
 	},
 	"buttonBlockedBadge": {
-		"message": "🚫",
-		"description": "Button badge when the page is blocked: '🚫'"
+		"message": "",
+		"description": "Button badge when the page is blocked: ''"
 	},
 	"buttonBlockedTooltip": {
 		"message": "Эта страница не может быть сохранена с SingleFile",
@@ -184,7 +184,7 @@
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
 	},
 	"optionFilenameConflictAction": {
-		"message": "решение конфлика имён файлов",
+		"message": "решение конфликта имён файлов",
 		"description": "Options page label: 'filename conflict resolution'"
 	},
 	"optionFilenameConflictActionUniquify": {
