@@ -145,7 +145,7 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 - German translation done by womotroll (https://github.com/womotroll), bannmann (https://github.com/bannmann)
 - Japanese translation done by Shitennouji（四天王寺) (https://github.com/Shitennouji)
 - Polish translation done by xesarni (https://github.com/xesarni)
-- Russian translation done by rstp14 (https://github.com/rstp14), kramola-RU (https://github.com/kramola-RU), solokot (https://github.com/solokot)
+- Russian translation done by rstp14 (https://github.com/rstp14), kramola-RU (https://github.com/kramola-RU), solokot (https://github.com/solokot), TotalCaesar659 (https://github.com/TotalCaesar659)
 - Ukrainian translation done by perdolka (https://github.com/perdolka)
 - Spanish translation done by strel (https://github.com/strel)
 
