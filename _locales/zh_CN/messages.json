@@ -11,6 +11,10 @@
 		"message": "保存所选链接",
 		"description": "Menu entry: 'Save selected links'"
 	},
+	"menuEditPage": {
+		"message": "Annotate the page...",
+		"description": "Menu entry: 'Annotate the page...'"
+	},
 	"menuEditAndSavePage": {
 		"message": "标注并保存该页面...",
 		"description": "Menu entry: 'Annotate and save the page...'"

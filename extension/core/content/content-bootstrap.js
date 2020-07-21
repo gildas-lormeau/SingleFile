@@ -48,12 +48,13 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		if ((autoSaveEnabled && message.method == "content.autosave") ||
 			message.method == "content.maybeInit" ||
 			message.method == "content.init" ||
+			message.method == "content.openEditor" ||
 			message.method == "devtools.resourceCommitted" ||
 			message.method == "common.promptValueRequest") {
 			return onMessage(message);
 		}
 	});
-	init();
+	document.addEventListener("DOMContentLoaded", init, false);
 	return {};
 
 	async function onMessage(message) {
@@ -71,6 +72,14 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			refresh();
 			return {};
 		}
+		if (message.method == "content.openEditor") {
+			if (detectSavedPage(document)) {
+				openEditor(document);
+			} else {
+				refresh();
+			}
+			return {};
+		}
 		if (message.method == "devtools.resourceCommitted") {
 			singlefile.extension.core.content.updatedResources[message.url] = { content: message.content, type: message.type, encoding: message.encoding };
 			return {};
@@ -85,7 +94,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 		if (previousLocationHref != location.href && !singlefile.extension.core.processing) {
 			pageAutoSaved = false;
 			previousLocationHref = location.href;
-			browser.runtime.sendMessage({ method: "tabs.init" });
+			browser.runtime.sendMessage({ method: "tabs.init", savedPageDetected: detectSavedPage(document) });
 			browser.runtime.sendMessage({ method: "ui.processInit" });
 		}
 	}
@@ -186,28 +195,33 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	}
 
 	async function openEditor(document) {
-		const helper = singlefile.lib.helper;
-		if (document.documentElement.firstChild.nodeType == Node.COMMENT_NODE &&
-			(document.documentElement.firstChild.textContent.includes(helper.COMMENT_HEADER) || document.documentElement.firstChild.textContent.includes(helper.COMMENT_HEADER_LEGACY))) {
-			serializeShadowRoots(document);
-			const content = singlefile.lib.modules.serializer.process(document);
-			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
-				const message = {
-					method: "editor.open",
-					filename: decodeURIComponent(location.href.match(/^.*\/(.*)$/)[1])
-				};
-				message.truncated = content.length > MAX_CONTENT_SIZE;
-				if (message.truncated) {
-					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > content.length;
-					message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
-				} else {
-					message.content = content;
-				}
-				await browser.runtime.sendMessage(message);
-			}
-		} else {
-			refresh();
+		const infobarElement = document.querySelector("singlefile-infobar");
+		if (infobarElement) {
+			infobarElement.remove();
 		}
+		serializeShadowRoots(document);
+		const content = singlefile.lib.modules.serializer.process(document);
+		for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
+			const message = {
+				method: "editor.open",
+				filename: decodeURIComponent(location.href.match(/^.*\/(.*)$/)[1])
+			};
+			message.truncated = content.length > MAX_CONTENT_SIZE;
+			if (message.truncated) {
+				message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > content.length;
+				message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+			} else {
+				message.content = content;
+			}
+			await browser.runtime.sendMessage(message);
+		}
+	}
+
+	function detectSavedPage(document) {
+		const helper = singlefile.lib.helper;
+		const firstDocumentChild = document.documentElement.firstChild;
+		return firstDocumentChild.nodeType == Node.COMMENT_NODE &&
+			(firstDocumentChild.textContent.includes(helper.COMMENT_HEADER) || firstDocumentChild.textContent.includes(helper.COMMENT_HEADER_LEGACY));
 	}
 
 	function serializeShadowRoots(node) {

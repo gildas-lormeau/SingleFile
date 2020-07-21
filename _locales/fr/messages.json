@@ -11,6 +11,10 @@
 		"message": "Sauver les liens selectionnés",
 		"description": "Menu entry: 'Save selected links'"
 	},
+	"menuEditPage": {
+		"message": "Annoter la page...",
+		"description": "Menu entry: 'Annotate the page...'"
+	},
 	"menuEditAndSavePage": {
 		"message": "Annoter et sauver la page...",
 		"description": "Menu entry: 'Annotate and save the page...'"
@@ -196,10 +200,10 @@
 		"description": "Value for 'filename conflict resolution' option: 'prompt for a filename'"
 	},
 	"optionFilenameConflictActionSkip": {
-        "message": "passer les fichiers en double",
-        "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
-    },
-    "optionsHTMLContentSubTitle": {
+		"message": "passer les fichiers en double",
+		"description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+	},
+	"optionsHTMLContentSubTitle": {
 		"message": "Contenu HTML",
 		"description": "Options sub-title: 'HTML content'"
 	},

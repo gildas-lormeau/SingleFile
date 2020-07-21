@@ -53,6 +53,7 @@ singlefile.extension.ui.bg.menus = (() => {
 	const MENU_UPDATE_RULE_MESSAGE = browser.i18n.getMessage("menuUpdateRule");
 	const MENU_SAVE_PAGE_MESSAGE = browser.i18n.getMessage("menuSavePage");
 	const MENU_SAVE_SELECTED_LINKS = browser.i18n.getMessage("menuSaveSelectedLinks");
+	const MENU_EDIT_PAGE_MESSAGE = browser.i18n.getMessage("menuEditPage");
 	const MENU_EDIT_AND_SAVE_PAGE_MESSAGE = browser.i18n.getMessage("menuEditAndSavePage");
 	const MENU_VIEW_PENDINGS_MESSAGE = browser.i18n.getMessage("menuViewPendingSaves");
 	const MENU_SAVE_SELECTION_MESSAGE = browser.i18n.getMessage("menuSaveSelection");
@@ -68,10 +69,21 @@ singlefile.extension.ui.bg.menus = (() => {
 	const MENU_AUTOSAVE_TAB_MESSAGE = browser.i18n.getMessage("menuAutoSaveTab");
 	const MENU_AUTOSAVE_UNPINNED_TABS_MESSAGE = browser.i18n.getMessage("menuAutoSaveUnpinnedTabs");
 	const MENU_AUTOSAVE_ALL_TABS_MESSAGE = browser.i18n.getMessage("menuAutoSaveAllTabs");
+	const MENU_TOP_VISIBLE_ENTRIES = [
+		MENU_ID_EDIT_AND_SAVE_PAGE,
+		MENU_ID_SAVE_SELECTED_LINKS,
+		MENU_ID_VIEW_PENDINGS,
+		MENU_ID_SAVE_SELECTED,
+		MENU_ID_SAVE_FRAME,
+		MENU_ID_AUTO_SAVE,
+		MENU_ID_SELECT_PROFILE,
+		MENU_ID_ASSOCIATE_WITH_PROFILE
+	];
 
 	const menusCheckedState = new Map();
 	const menusTitleState = new Map();
-	let menusVisibleState;
+	let contextMenuVisibleState = true;
+	let allMenuVisibleState = true;
 	let profileIndexes = new Map();
 	let menusCreated, pendingRefresh;
 	initialize();
@@ -357,10 +369,15 @@ singlefile.extension.ui.bg.menus = (() => {
 					}
 				}
 				if (event.menuItemId == MENU_ID_EDIT_AND_SAVE_PAGE) {
-					if (event.linkUrl) {
-						business.saveUrls([event.linkUrl], { openEditor: true });
+					const allTabsData = await tabsData.get(tab.id);
+					if (allTabsData[tab.id].savedPageDetected) {
+						business.openEditor(tab);
 					} else {
-						business.saveTabs([tab], { openEditor: true });
+						if (event.linkUrl) {
+							business.saveUrls([event.linkUrl], { openEditor: true });
+						} else {
+							business.saveTabs([tab], { openEditor: true });
+						}
 					}
 				}
 				if (event.menuItemId == MENU_ID_SAVE_SELECTED_LINKS) {
@@ -466,45 +483,65 @@ singlefile.extension.ui.bg.menus = (() => {
 	async function refreshTab(tab) {
 		const config = singlefile.extension.core.bg.config;
 		if (BROWSER_MENUS_API_SUPPORTED && menusCreated) {
-			const tabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);
 			const promises = [];
-			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, !tabsData[tab.id].autoSave));
-			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, tabsData[tab.id].autoSave));
-			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(tabsData.autoSaveUnpinned)));
-			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(tabsData.autoSaveAll)));
-			if (tab && tab.url) {
-				const options = await config.getOptions(tab.url);
-				promises.push(updateVisibleValue(tab, options.contextMenuEnabled));
-				promises.push(menus.update(MENU_ID_SAVE_SELECTED, { visible: !options.saveRawPage }));
-				let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
-				let title = MENU_CREATE_DOMAIN_RULE_MESSAGE;
-				const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url)]);
-				if (rule) {
-					const profileIndex = profileIndexes.get(rule.profile);
-					if (profileIndex) {
-						selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
-						title = MENU_UPDATE_RULE_MESSAGE;
-					}
-				}
-				if (Object.keys(profiles).length > 1) {
-					Object.keys(profiles).forEach((profileName, profileIndex) => {
-						if (profileName == config.DEFAULT_PROFILE_NAME) {
-							promises.push(updateCheckedValue(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default", selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default"));
-						} else {
-							promises.push(updateCheckedValue(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex, selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex));
+			const tabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);
+			if (tabsData[tab.id].editorDetected) {
+				updateAllVisibleValues(false);
+			} else {
+				updateAllVisibleValues(true);
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, !tabsData[tab.id].autoSave));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, tabsData[tab.id].autoSave));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(tabsData.autoSaveUnpinned)));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(tabsData.autoSaveAll)));
+				if (tab && tab.url) {
+					const options = await config.getOptions(tab.url);
+					promises.push(updateVisibleValue(tab, options.contextMenuEnabled));
+					promises.push(updateTitleValue(MENU_ID_EDIT_AND_SAVE_PAGE, tabsData[tab.id].savedPageDetected ? MENU_EDIT_PAGE_MESSAGE : MENU_EDIT_AND_SAVE_PAGE_MESSAGE));
+					promises.push(menus.update(MENU_ID_SAVE_SELECTED, { visible: !options.saveRawPage }));
+					let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
+					let title = MENU_CREATE_DOMAIN_RULE_MESSAGE;
+					const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url)]);
+					if (rule) {
+						const profileIndex = profileIndexes.get(rule.profile);
+						if (profileIndex) {
+							selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
+							title = MENU_UPDATE_RULE_MESSAGE;
 						}
-					});
-					promises.push(updateTitleValue(MENU_ID_ASSOCIATE_WITH_PROFILE, title));
+					}
+					if (Object.keys(profiles).length > 1) {
+						Object.keys(profiles).forEach((profileName, profileIndex) => {
+							if (profileName == config.DEFAULT_PROFILE_NAME) {
+								promises.push(updateCheckedValue(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default", selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default"));
+							} else {
+								promises.push(updateCheckedValue(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex, selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex));
+							}
+						});
+						promises.push(updateTitleValue(MENU_ID_ASSOCIATE_WITH_PROFILE, title));
+					}
 				}
 			}
 			await Promise.all(promises);
 		}
 	}
 
+	async function updateAllVisibleValues(visible) {
+		const lastVisibleState = allMenuVisibleState;
+		allMenuVisibleState = visible;
+		if (lastVisibleState === undefined || lastVisibleState != visible) {
+			const promises = [];
+			try {
+				MENU_TOP_VISIBLE_ENTRIES.forEach(id => promises.push(menus.update(id, { visible })));
+				await Promise.all(promises);
+			} catch (error) {
+				// ignored
+			}
+		}
+	}
+
 	async function updateVisibleValue(tab, visible) {
-		const lastVisibleValue = menusVisibleState;
-		menusVisibleState = visible;
-		if (lastVisibleValue === undefined || lastVisibleValue != visible) {
+		const lastVisibleState = contextMenuVisibleState;
+		contextMenuVisibleState = visible;
+		if (lastVisibleState === undefined || lastVisibleState != visible) {
 			await createMenus(tab);
 		}
 	}

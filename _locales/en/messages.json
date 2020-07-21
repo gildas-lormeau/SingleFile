@@ -7,6 +7,10 @@
 		"message": "Save page with SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
 	},
+	"menuEditPage": {
+		"message": "Annotate the page...",
+		"description": "Menu entry: 'Annotate the page...'"
+	},
 	"menuEditAndSavePage": {
 		"message": "Annotate and save the page...",
 		"description": "Menu entry: 'Annotate and save the page...'"
@@ -196,10 +200,10 @@
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionFilenameConflictActionSkip": {
-        "message": "skip duplicate files",
-        "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
-    },
-    "optionsHTMLContentSubTitle": {
+		"message": "skip duplicate files",
+		"description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+	},
+	"optionsHTMLContentSubTitle": {
 		"message": "HTML content",
 		"description": "Options sub-title: 'HTML content'"
 	},

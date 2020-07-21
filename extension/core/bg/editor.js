@@ -34,7 +34,7 @@ singlefile.extension.core.bg.editor = (() => {
 	return {
 		onMessage,
 		onTabRemoved,
-		onInit,
+		isEditor,
 		open
 	};
 
@@ -43,7 +43,7 @@ singlefile.extension.core.bg.editor = (() => {
 		if (tabIndex != null) {
 			createTabProperties.index = tabIndex;
 		}
-		const tab = await browser.tabs.create(createTabProperties);
+		const tab = await singlefile.extension.core.bg.tabs.create(createTabProperties);
 		tabsData.set(tab.id, { content, filename, options });
 	}
 
@@ -51,10 +51,8 @@ singlefile.extension.core.bg.editor = (() => {
 		tabsData.delete(tabId);
 	}
 
-	function onInit(tab) {
-		if (tab.url != EDITOR_URL) {
-			tabsData.delete(tab.id);
-		}
+	function isEditor(tab) {
+		return tab.url == EDITOR_URL;
 	}
 
 	async function onMessage(message, sender) {
@@ -96,8 +94,9 @@ singlefile.extension.core.bg.editor = (() => {
 			}
 			if (!message.truncated || message.finished) {
 				const options = await singlefile.extension.core.bg.config.getOptions(tab && tab.url);
-				await singlefile.extension.core.bg.tabs.remove(tab.id);
-				await open({ tabIndex: tab.index, filename: message.filename, content: contents.join("") }, options);
+				const updateTabProperties = { url: EDITOR_PAGE_URL };
+				await singlefile.extension.core.bg.tabs.update(tab.id, updateTabProperties);
+				tabsData.set(tab.id, { content: contents.join(""), filename: message.filename, options });
 			}
 		}
 	}

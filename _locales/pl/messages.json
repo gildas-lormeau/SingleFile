@@ -11,6 +11,10 @@
 		"message": "Zapisz wybrane odnośniki",
 		"description": "Menu entry: 'Save selected links'"
 	},
+	"menuEditPage": {
+		"message": "Adnotuj stronę...",
+		"description": "Menu entry: 'Annotate the page...'"
+	},
 	"menuEditAndSavePage": {
 		"message": "Adnotuj i zapisz stronę...",
 		"description": "Menu entry: 'Annotate and save the page...'"
@@ -196,10 +200,10 @@
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionFilenameConflictActionSkip": {
-        "message": "pomiń duplikaty plików",
-        "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
-    },
-    "optionsHTMLContentSubTitle": {
+		"message": "pomiń duplikaty plików",
+		"description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+	},
+	"optionsHTMLContentSubTitle": {
 		"message": "Zawartość HTML",
 		"description": "Options sub-title: 'HTML content'"
 	},

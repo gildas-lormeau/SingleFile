@@ -37,7 +37,8 @@ singlefile.extension.core.bg.tabs = (() => {
 			const tabs = await browser.tabs.query(options);
 			return tabs.sort((tab1, tab2) => tab1.index - tab2.index);
 		},
-		create: async createProperties => {
+		create: createProperties => browser.tabs.create(createProperties),
+		createAndWait: async createProperties => {
 			const tab = await browser.tabs.create(createProperties);
 			return new Promise((resolve, reject) => {
 				browser.tabs.onUpdated.addListener(onTabUpdated);
@@ -58,6 +59,7 @@ singlefile.extension.core.bg.tabs = (() => {
 			});
 		},
 		sendMessage: (tabId, message, options) => browser.tabs.sendMessage(tabId, message, options),
+		update: (tabId, updateProperties) => browser.tabs.update(tabId, updateProperties),
 		remove: tabId => browser.tabs.remove(tabId),
 		promptValue: async promptMessage => {
 			const tabs = await browser.tabs.query({ currentWindow: true, active: true });
@@ -118,10 +120,10 @@ singlefile.extension.core.bg.tabs = (() => {
 
 	async function onMessage(message, sender) {
 		if (message.method.endsWith(".init")) {
+			await onInit(sender.tab, message);
 			singlefile.extension.ui.bg.main.onInit(sender.tab);
 			singlefile.extension.core.bg.business.onInit(sender.tab);
 			singlefile.extension.core.bg.autosave.onInit(sender.tab);
-			singlefile.extension.core.bg.editor.onInit(sender.tab);
 		}
 		if (message.method.endsWith(".promptValueResponse")) {
 			const promptPromise = pendingPrompts.get(sender.tab.id);
@@ -138,9 +140,23 @@ singlefile.extension.core.bg.tabs = (() => {
 		}
 	}
 
+	async function onInit(tab, options) {
+		await singlefile.extension.core.bg.tabsData.remove(tab.id);
+		const tabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);
+		tabsData[tab.id].savedPageDetected = options.savedPageDetected;
+		await singlefile.extension.core.bg.tabsData.set(tabsData);
+	}
+
 	async function onTabUpdated(tabId, changeInfo) {
 		if (changeInfo.status == "complete") {
 			setTimeout(() => browser.tabs.sendMessage(tabId, { method: "content.maybeInit" }), DELAY_MAYBE_INIT);
+			const tab = await browser.tabs.get(tabId);
+			if (singlefile.extension.core.bg.editor.isEditor(tab)) {
+				const tabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);
+				tabsData[tab.id].editorDetected = true;
+				await singlefile.extension.core.bg.tabsData.set(tabsData);
+				singlefile.extension.ui.bg.main.onTabActivated(tab);
+			}
 		}
 	}
 
@@ -150,11 +166,11 @@ singlefile.extension.core.bg.tabs = (() => {
 
 	async function onTabActivated(activeInfo) {
 		const tab = await browser.tabs.get(activeInfo.tabId);
-		singlefile.extension.ui.bg.main.onTabActivated(tab, activeInfo);
+		singlefile.extension.ui.bg.main.onTabActivated(tab);
 	}
 
 	function onTabRemoved(tabId) {
-		singlefile.extension.core.bg.tabsData.onTabRemoved(tabId);
+		singlefile.extension.core.bg.tabsData.remove(tabId);
 		singlefile.extension.core.bg.editor.onTabRemoved(tabId);
 		singlefile.extension.core.bg.business.onTabRemoved(tabId);
 	}
