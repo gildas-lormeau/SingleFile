@@ -191,8 +191,17 @@ singlefile.extension.ui.bg.editor = (() => {
 		if (message.method == "disableFormatPage") {
 			formatPageButton.remove();
 		}
+		if (message.method == "onUpdate") {
+			tabData.docSaved = message.saved;
+		}
 	};
 	window.onload = browser.runtime.sendMessage({ method: "editor.getTabData" });
+	window.onbeforeunload = event => {
+		if (tabData.options.warnUnsavedPage && !tabData.docSaved) {
+			event.preventDefault();
+			event.returnValue = "";
+		}
+	};
 
 	browser.runtime.onMessage.addListener(message => {
 		if (message.method == "content.save") {
@@ -213,6 +222,7 @@ singlefile.extension.ui.bg.editor = (() => {
 			}
 			if (!message.truncated || message.finished) {
 				tabData = JSON.parse(tabDataContents.join(""));
+				tabData.docSaved = true;
 				tabDataContents = [];
 				editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
 				delete tabData.content;

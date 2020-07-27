@@ -155,14 +155,6 @@
 		"message": "otwieraj okno dialogowe z monitem, aby edytować zawartość paska informacyjnego",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
-	"optionOpenEditor": {
-		"message": "adnotuj stronę przed zapisaniem",
-		"description": "Options page label: 'annotate the page before saving'"
-	},
-	"optionAutoOpenEditor": {
-		"message": "otwieraj strony zapisane z SingleFile w edytorze adnotacji",
-		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
-	},
 	"optionAutoClose": {
 		"message": "automatycznie zamykaj kartę po zapisaniu strony",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
@@ -375,6 +367,26 @@
 		"message": "okres (s)",
 		"description": "Options page label: 'period (s)'"
 	},
+	"optionsEditorSubTitle": {
+		"message": "Annotation editor",
+		"description": "Options sub-title: 'Annotation editor'"
+	},
+	"optionOpenEditor": {
+		"message": "adnotuj stronę przed zapisaniem",
+		"description": "Options page label: 'annotate the page before saving'"
+	},
+	"optionAutoOpenEditor": {
+		"message": "otwieraj strony zapisane z SingleFile w edytorze adnotacji",
+		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
+	},
+	"optionApplySystemTheme": {
+		"message": "zastosuj motyw systemowy podczas formatowania strony",
+		"description": "Title of the button 'apply the system theme when formatting a page'"
+	},
+	"optionWarnUnsavedPage": {
+		"message": "warn if leaving page with unsaved changes",
+		"description": "Title of the button 'warn if leaving page with unsaved changes'"
+	},
 	"optionsMiscSubTitle": {
 		"message": "Różne",
 		"description": "Options sub-title: 'Misc.'"
@@ -382,10 +394,6 @@
 	"optionBackgroundSave": {
 		"message": "zapisuj strony w tle",
 		"description": "Options page label: 'save pages in background'"
-	},
-	"optionApplySystemTheme": {
-		"message": "zastosuj motyw systemowy podczas formatowania strony w edytorze adnotacji",
-		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
 	},
 	"optionDisplayStats": {
 		"message": "wyświetlaj statystyki w konsoli po przetworzeniu",

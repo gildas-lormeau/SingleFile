@@ -60,7 +60,6 @@
 	const displayInfobarLabel = document.getElementById("displayInfobarLabel");
 	const displayStatsLabel = document.getElementById("displayStatsLabel");
 	const backgroundSaveLabel = document.getElementById("backgroundSaveLabel");
-	const applySystemThemeLabel = document.getElementById("applySystemThemeLabel");
 	const autoSaveDelayLabel = document.getElementById("autoSaveDelayLabel");
 	const autoSaveLoadLabel = document.getElementById("autoSaveLoadLabel");
 	const autoSaveUnloadLabel = document.getElementById("autoSaveUnloadLabel");
@@ -90,8 +89,11 @@
 	const groupDuplicateImagesLabel = document.getElementById("groupDuplicateImagesLabel");
 	const confirmInfobarLabel = document.getElementById("confirmInfobarLabel");
 	const autoCloseLabel = document.getElementById("autoCloseLabel");
+	const editorLabel = document.getElementById("editorLabel");
 	const openEditorLabel = document.getElementById("openEditorLabel");
 	const autoOpenEditorLabel = document.getElementById("autoOpenEditorLabel");
+	const applySystemThemeLabel = document.getElementById("applySystemThemeLabel");
+	const warnUnsavedPageLabel = document.getElementById("warnUnsavedPageLabel");
 	const infobarTemplateLabel = document.getElementById("infobarTemplateLabel");
 	const includeInfobarLabel = document.getElementById("includeInfobarLabel");
 	const miscLabel = document.getElementById("miscLabel");
@@ -133,7 +135,6 @@
 	const displayInfobarInput = document.getElementById("displayInfobarInput");
 	const displayStatsInput = document.getElementById("displayStatsInput");
 	const backgroundSaveInput = document.getElementById("backgroundSaveInput");
-	const applySystemThemeInput = document.getElementById("applySystemThemeInput");
 	const autoSaveDelayInput = document.getElementById("autoSaveDelayInput");
 	const autoSaveLoadInput = document.getElementById("autoSaveLoadInput");
 	const autoSaveUnloadInput = document.getElementById("autoSaveUnloadInput");
@@ -152,6 +153,8 @@
 	const autoCloseInput = document.getElementById("autoCloseInput");
 	const openEditorInput = document.getElementById("openEditorInput");
 	const autoOpenEditorInput = document.getElementById("autoOpenEditorInput");
+	const applySystemThemeInput = document.getElementById("applySystemThemeInput");
+	const warnUnsavedPageInput = document.getElementById("warnUnsavedPageInput");
 	const expandAllButton = document.getElementById("expandAllButton");
 	const rulesDeleteAllButton = document.getElementById("rulesDeleteAllButton");
 	const ruleUrlInput = document.getElementById("ruleUrlInput");
@@ -457,7 +460,6 @@
 	displayInfobarLabel.textContent = browser.i18n.getMessage("optionDisplayInfobar");
 	displayStatsLabel.textContent = browser.i18n.getMessage("optionDisplayStats");
 	backgroundSaveLabel.textContent = browser.i18n.getMessage("optionBackgroundSave");
-	applySystemThemeLabel.textContent = browser.i18n.getMessage("optionApplySystemTheme");
 	autoSaveDelayLabel.textContent = browser.i18n.getMessage("optionAutoSaveDelay");
 	autoSaveLoadLabel.textContent = browser.i18n.getMessage("optionAutoSaveLoad");
 	autoSaveUnloadLabel.textContent = browser.i18n.getMessage("optionAutoSaveUnload");
@@ -485,8 +487,11 @@
 	includeInfobarLabel.textContent = browser.i18n.getMessage("optionIncludeInfobar");
 	confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
 	autoCloseLabel.textContent = browser.i18n.getMessage("optionAutoClose");
+	editorLabel.textContent = browser.i18n.getMessage("optionsEditorSubTitle");
 	openEditorLabel.textContent = browser.i18n.getMessage("optionOpenEditor");
 	autoOpenEditorLabel.textContent = browser.i18n.getMessage("optionAutoOpenEditor");
+	applySystemThemeLabel.textContent = browser.i18n.getMessage("optionApplySystemTheme");
+	warnUnsavedPageLabel.textContent = browser.i18n.getMessage("optionWarnUnsavedPage");
 	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
 	exportButton.textContent = browser.i18n.getMessage("optionsExportButton");
 	importButton.textContent = browser.i18n.getMessage("optionsImportButton");
@@ -644,7 +649,6 @@
 		displayStatsInput.checked = profileOptions.displayStats;
 		backgroundSaveInput.checked = profileOptions.backgroundSave;
 		backgroundSaveInput.disabled = profileOptions.saveToGDrive;
-		applySystemThemeInput.checked = profileOptions.applySystemTheme;
 		autoSaveDelayInput.value = profileOptions.autoSaveDelay;
 		autoSaveDelayInput.disabled = !profileOptions.autoSaveLoadOrUnload && !profileOptions.autoSaveLoad;
 		autoSaveLoadInput.checked = !profileOptions.autoSaveLoadOrUnload && profileOptions.autoSaveLoad;
@@ -669,6 +673,8 @@
 		autoCloseInput.checked = profileOptions.autoClose;
 		openEditorInput.checked = profileOptions.openEditor;
 		autoOpenEditorInput.checked = profileOptions.autoOpenEditor;
+		applySystemThemeInput.checked = profileOptions.applySystemTheme;
+		warnUnsavedPageInput.checked = profileOptions.warnUnsavedPage;
 		removeFramesInput.disabled = saveRawPageInput.checked;
 		removeFramesInput.checked = removeFramesInput.checked || saveRawPageInput.checked;
 		loadDeferredImagesInput.disabled = saveRawPageInput.checked;
@@ -715,7 +721,6 @@
 				displayInfobar: displayInfobarInput.checked,
 				displayStats: displayStatsInput.checked,
 				backgroundSave: backgroundSaveInput.checked,
-				applySystemTheme: applySystemThemeInput.checked,
 				autoSaveDelay: Math.max(autoSaveDelayInput.value, 0),
 				autoSaveLoad: autoSaveLoadInput.checked,
 				autoSaveUnload: autoSaveUnloadInput.checked,
@@ -733,7 +738,9 @@
 				confirmInfobarContent: confirmInfobarInput.checked,
 				autoClose: autoCloseInput.checked,
 				openEditor: openEditorInput.checked,
-				autoOpenEditor: autoOpenEditorInput.checked
+				autoOpenEditor: autoOpenEditorInput.checked,
+				applySystemTheme: applySystemThemeInput.checked,
+				warnUnsavedPage: warnUnsavedPageInput.checked
 			}
 		});
 		await pendingSave;

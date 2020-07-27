@@ -155,14 +155,6 @@
 		"message": "infobar のコンテンツを編集するためのプロンプトダイアログを開く",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
-	"optionOpenEditor": {
-		"message": "保存する前にページに注釈を付けます",
-		"description": "Options page label: 'annotate the page before saving'"
-	},
-	"optionAutoOpenEditor": {
-		"message": "annotation editor で、SingleFile で保存されたページを開く",
-		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
-	},
 	"optionAutoClose": {
 		"message": "ページが保存された後にタブを自動的に閉じる",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
@@ -375,6 +367,26 @@
 		"message": "所要時間（秒）",
 		"description": "Options page label: 'period (s)'"
 	},
+	"optionsEditorSubTitle": {
+		"message": "注釈エディタ",
+		"description": "Options sub-title: 'Annotation editor'"
+	},
+	"optionOpenEditor": {
+		"message": "保存する前にページに注釈を付けます",
+		"description": "Options page label: 'annotate the page before saving'"
+	},
+	"optionAutoOpenEditor": {
+		"message": "annotation editor で、SingleFile で保存されたページを開く",
+		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
+	},
+	"optionApplySystemTheme": {
+		"message": "ページの書式設定時にシステムテーマを適用する",
+		"description": "Title of the button 'apply the system theme when formatting a page'"
+	},
+	"optionWarnUnsavedPage": {
+		"message": "warn if leaving page with unsaved changes",
+		"description": "Title of the button 'warn if leaving page with unsaved changes'"
+	},
 	"optionsMiscSubTitle": {
 		"message": "その他",
 		"description": "Options sub-title: 'Misc.'"
@@ -382,10 +394,6 @@
 	"optionBackgroundSave": {
 		"message": "バックグラウンドでページを保存する",
 		"description": "Options page label: 'save pages in background'"
-	},
-	"optionApplySystemTheme": {
-		"message": "（注釈エディタ）でページをフォーマットするときにシステムテーマを適用する",
-		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
 	},
 	"optionDisplayStats": {
 		"message": "処理後、コンソールに統計情報を表示する",
