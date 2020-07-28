@@ -844,8 +844,9 @@ table {
 		if (message.method == "disableRemoveHighlights") {
 			removeHighlightMode = false;
 		}
-		if (message.method == "enableEditPage") {
+		if (message.method == "enableEditPage") {			
 			document.body.contentEditable = true;
+			onUpdate(false);
 		}
 		if (message.method == "formatPage") {
 			formatPage(true);
@@ -877,6 +878,7 @@ table {
 			}
 		}
 		if (message.method == "getContent") {
+			onUpdate(true);
 			getContent(message.compressHTML);
 		}
 	};
@@ -971,6 +973,7 @@ table {
 		document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
 		noteElement.classList.add(NOTE_SELECTED_CLASS);
 		selectedNote = noteElement;
+		onUpdate(false);
 	}
 
 	function attachNoteListeners(containerElement, editable = false) {
@@ -1038,6 +1041,7 @@ table {
 				deleteNoteRef(containerElement, noteId);
 				addNoteRef(document.documentElement, noteId);
 			}
+			onUpdate(false);
 		};
 		removeNoteElement.ontouchend = removeNoteElement.onclick = event => {
 			event.preventDefault();
@@ -1144,6 +1148,7 @@ table {
 	function onMouseUp(event) {
 		if (highlightSelectionMode) {
 			highlightSelection();
+			onUpdate(false);
 		}
 		if (removeHighlightMode) {
 			let element = event.target, done;
@@ -1151,6 +1156,7 @@ table {
 				if (element.classList.contains(HIGHLIGHT_CLASS)) {
 					document.querySelectorAll("." + HIGHLIGHT_CLASS + "[data-singlefile-highlight-id=" + JSON.stringify(element.dataset.singlefileHighlightId) + "]").forEach(highlightedElement => {
 						resetHighlightedElement(highlightedElement);
+						onUpdate(false);
 					});
 					done = true;
 				}
@@ -1162,11 +1168,13 @@ table {
 			document.documentElement.style.removeProperty("user-select");
 			maskPageElement.classList.remove(PAGE_MASK_ACTIVE_CLASS);
 			document.documentElement.ontouchmove = document.documentElement.onmousemove = null;
+			onUpdate(false);
 		}
 		if (movingNoteMode) {
 			anchorNote(movingNoteMode.event || event, selectedNote, movingNoteMode.deltaX, movingNoteMode.deltaY);
 			movingNoteMode = null;
 			document.documentElement.ontouchmove = document.documentElement.onmousemove = null;
+			onUpdate(false);
 		}
 		if (collapseNoteTimeout) {
 			clearTimeout(collapseNoteTimeout);
@@ -1177,6 +1185,7 @@ table {
 			if (document.documentElement != element && element.tagName.toLowerCase() != NOTE_TAGNAME) {
 				element.classList.add(REMOVED_CONTENT_CLASS);
 				removedElements.push(element);
+				onUpdate(false);
 			}
 		}
 	}
@@ -1368,6 +1377,7 @@ table {
 		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
 		reflowNotes();
+		onUpdate(false);
 	}
 
 	function getContent(compressHTML) {
@@ -1402,6 +1412,10 @@ table {
 		scriptElement.textContent = getEmbedScript();
 		doc.body.appendChild(scriptElement);
 		window.parent.postMessage(JSON.stringify({ "method": "setContent", content: singlefile.lib.modules.serializer.process(doc, compressHTML) }), "*");
+	}
+
+	function onUpdate(saved) {
+		window.parent.postMessage(JSON.stringify({ "method": "onUpdate", saved }), "*");
 	}
 
 	function reflowNotes() {

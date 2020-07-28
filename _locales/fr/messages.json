@@ -155,14 +155,6 @@
 		"message": "ouvrir une boite de dialogue pour éditer le contenu de la barre d'information",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
-	"optionOpenEditor": {
-		"message": "annoter la page avant de la sauvegarder",
-		"description": "Options page label: 'annotate the page before saving'"
-	},
-	"optionAutoOpenEditor": {
-		"message": "ouvrir les pages sauvées avec SingleFile dans l'éditeur d'annotations",
-		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
-	},
 	"optionAutoClose": {
 		"message": "fermer automatiquement l'onglet après l'enregistrement de la page",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
@@ -375,6 +367,26 @@
 		"message": "période (s)",
 		"description": "Options page label: 'period (s)'"
 	},
+	"optionsEditorSubTitle": {
+		"message": "Éditeur d'annotations",
+		"description": "Options sub-title: 'Éditeur d'annotations'"
+	},
+	"optionOpenEditor": {
+		"message": "annoter la page avant de la sauvegarder",
+		"description": "Options page label: 'annotate the page before saving'"
+	},
+	"optionAutoOpenEditor": {
+		"message": "ouvrir les pages sauvées avec SingleFile dans l'éditeur d'annotations",
+		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
+	},
+	"optionApplySystemTheme": {
+		"message": "appliquer le thème système lors du formattage d'une page",
+		"description": "Title of the button 'apply the system theme when formatting a page'"
+	},
+	"optionWarnUnsavedPage": {
+		"message": "avertir si l'on quitte la page avec des modifications non sauvegardées",
+		"description": "Title of the button 'warn if leaving page with unsaved changes'"
+	},
 	"optionsMiscSubTitle": {
 		"message": "Divers",
 		"description": "Options sub-title: 'Misc.'"
@@ -382,10 +394,6 @@
 	"optionBackgroundSave": {
 		"message": "sauvegarder la page en tâche de fond",
 		"description": "Options page label: 'save pages in background'"
-	},
-	"optionApplySystemTheme": {
-		"message": "appliquer le thème système lors du formattage d'une page dans l'éditeur  d'annotations",
-		"description": "Title of the button 'apply the system theme when formatting a page in the annotation editor"
 	},
 	"optionDisplayStats": {
 		"message": "afficher les statistiques dans la console après la sauvegarde",
