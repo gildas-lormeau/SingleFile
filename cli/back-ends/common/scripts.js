@@ -69,7 +69,7 @@ exports.get = async options => {
 	await Promise.all(WEB_SCRIPTS.map(async path => webScripts[path] = await readScriptFile(path, basePath)));
 	scripts += "this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(webScripts) + ")[filename];\n";
 	scripts += await readScriptFiles(SCRIPTS, basePath);
-	scripts += await readScriptFiles(options.browserScripts, "");
+	scripts += await readScriptFiles(options && options.browserScripts ? options.browserScripts : [], "");
 	return scripts;
 };
 
