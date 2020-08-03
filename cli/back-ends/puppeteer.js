@@ -71,9 +71,7 @@ function getBrowserOptions(options) {
 	if (options.browserWidth && options.browserHeight) {
 		browserOptions.args.push("--window-size=" + options.browserWidth + "," + options.browserHeight);
 	}
-	if (options.browserExecutablePath) {
-		browserOptions.executablePath = options.browserExecutablePath || "chrome";
-	}
+	browserOptions.executablePath = options.browserExecutablePath || "chrome";
 	if (options.userAgent) {
 		browserOptions.args.push("--user-agent=" + options.userAgent);
 	}
