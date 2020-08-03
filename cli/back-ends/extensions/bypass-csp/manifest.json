@@ -11,7 +11,7 @@
 		"webRequestBlocking",
 		"<all_urls>"
 	],
-	"applications": {
+	"browser_specific_settings": {
 		"gecko": {
 			"id": "{55e2789c-817b-4d75-815b-df6921c84ed8}"
 		}
