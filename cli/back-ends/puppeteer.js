@@ -146,9 +146,13 @@ async function handleJSRedirect(browser, options) {
 }
 
 async function pageGoto(page, options) {
-	const loadOptiions = {
+	const loadOptions = {
 		timeout: options.browserLoadMaxTime || 0,
 		waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
 	};
-	return options.content ? await page.setContent(options.content, loadOptiions) : await page.goto(options.url, loadOptiions);
+	if (options.content) {
+		await page.setContent(options.content, loadOptions);
+	} else {
+		await page.goto(options.url, loadOptions);
+	}
 }
