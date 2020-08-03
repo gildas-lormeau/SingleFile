@@ -146,8 +146,9 @@ async function handleJSRedirect(browser, options) {
 }
 
 async function pageGoto(page, options) {
-	await page.goto(options.url, {
+	const loadOptiions = {
 		timeout: options.browserLoadMaxTime || 0,
 		waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
-	});
+	};
+	return options.content ? await page.setContent(options.content, loadOptiions) : await page.goto(options.url, loadOptiions);
 }
