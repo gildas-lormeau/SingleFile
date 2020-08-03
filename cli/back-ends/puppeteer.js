@@ -55,7 +55,7 @@ exports.closeBrowser = () => {
 	}
 };
 
-function getBrowserOptions(options) {
+function getBrowserOptions(options = {}) {
 	const browserOptions = {};
 	if (options.browserHeadless !== undefined) {
 		browserOptions.headless = options.browserHeadless && !options.browserDebug;
