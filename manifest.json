@@ -95,6 +95,7 @@
 			"extension/core/bg/devtools.js",
 			"extension/core/bg/editor.js",
 			"extension/core/bg/bookmarks.js",
+			"extension/core/bg/companion.js",
 			"extension/ui/bg/ui-main.js",
 			"extension/ui/bg/ui-menus.js",
 			"extension/ui/bg/ui-commands.js",
