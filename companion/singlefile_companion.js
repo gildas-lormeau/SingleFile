@@ -43,12 +43,8 @@ async function capturePage(options) {
 	await backend.initialize(require("./options.json"));
 	try {
 		const pageData = await backend.getPageData(options);
-		if (options.output) {
-			fs.writeFileSync(getFilename(options.output), pageData.content);
-		} else if (options.filenameTemplate && pageData.filename) {
-			pageData.filename = "../" + pageData.filename;
-			fs.writeFileSync(getFilename(pageData.filename), pageData.content);
-		}
+		pageData.filename = "../" + pageData.filename;
+		fs.writeFileSync(getFilename(pageData.filename), pageData.content);
 		return pageData;
 	} catch (error) {
 		if (options.errorFile) {
