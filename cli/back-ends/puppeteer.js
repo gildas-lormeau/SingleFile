@@ -151,7 +151,7 @@ async function pageGoto(page, options) {
 		waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
 	};
 	if (options.content) {
-		await page.goto("about:blank", loadOptions);
+		await page.goto(options.url, { waitUntil: "domcontentloaded" });
 		await page.setContent(options.content, loadOptions);
 	} else {
 		await page.goto(options.url, loadOptions);
