@@ -368,7 +368,7 @@
 		"description": "Options page label: 'period (s)'"
 	},
 	"optionsEditorSubTitle": {
-		"message": "Annotation editor",
+		"message": "Редактор аннотаций",
 		"description": "Options sub-title: 'Annotation editor'"
 	},
 	"optionOpenEditor": {
@@ -384,7 +384,7 @@
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionWarnUnsavedPage": {
-		"message": "warn if leaving page with unsaved changes",
+		"message": "предупреждать при закрытии страницы с несохранёнными изменениями",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
 	"optionsMiscSubTitle": {
