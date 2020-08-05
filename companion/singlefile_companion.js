@@ -40,14 +40,15 @@ process.stdin
 	.pipe(process.stdout);
 
 async function capturePage(options) {
-	await backend.initialize(require("./options.json"));
+	const companionOptions = require("./options.json");
+	await backend.initialize(companionOptions);
 	try {
 		const pageData = await backend.getPageData(options);
 		pageData.filename = "../" + pageData.filename;
 		fs.writeFileSync(getFilename(pageData.filename), pageData.content);
 		return pageData;
 	} catch (error) {
-		if (options.errorFile) {
+		if (companionOptions.errorFile) {
 			const message = "URL: " + options.url + "\nStack: " + error.stack + "\n";
 			fs.writeFileSync(options.errorFile, message, { flag: "a" });
 		}
