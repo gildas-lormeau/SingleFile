@@ -517,8 +517,13 @@
 					<li><code>{minutes-locale}</code>: the localized value of the minutes (e.g. "38")</li>
 					<li><code>{seconds-utc}</code>: the seconds of the save date in UTC format (e.g. "31")</li>
 					<li><code>{seconds-locale}</code>: the localized value of the seconds (e.g. "31")</li>
-					<li><code>{url-href}</code>: the URL of the page (e.g. "http_example.com")</li>
-					<li><code>{url-pathname}</code>: the path name of the URL (e.g. "category_index.html")</li>
+					<li><code>{url-href}</code>: the URL of the page (e.g. "http://example.com/category/index.html")
+					</li>
+					<li><code>{url-href-flat}</code>: the URL of the page with replaced slashes (e.g.
+						"http__example.com_category_index.html")</li>
+					<li><code>{url-pathname}</code>: the path name of the URL (e.g. "category/index.html")</li>
+					<li><code>{url-pathname-flat}</code>: the path name of the URL with replaced slashes (e.g.
+						"category_index.html")</li>
 					<li><code>{url-last-segment}</code>: the last part of the pathname (without the extension) or the
 						host if not found (e.g. "index")</li>
 					<li><code>{url-protocol}</code>: the protocol of the URL (e.g. "https")</li>
