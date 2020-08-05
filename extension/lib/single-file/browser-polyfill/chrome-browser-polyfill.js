@@ -256,6 +256,7 @@
 				})
 			},
 			runtime: {
+				connectNative: application => nativeAPI.runtime.connectNative(application),
 				getManifest: () => nativeAPI.runtime.getManifest(),
 				onMessage: {
 					addListener: listener => nativeAPI.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -404,7 +405,6 @@
 					addListener: listener => nativeAPI.tabs.onRemoved.addListener(listener),
 					removeListener: listener => nativeAPI.tabs.onRemoved.removeListener(listener)
 				},
-				connectNative: application => nativeAPI.runtime.connectNative(application),
 				executeScript: (tabId, details) => new Promise((resolve, reject) => {
 					nativeAPI.tabs.executeScript(tabId, details, () => {
 						if (nativeAPI.runtime.lastError) {
