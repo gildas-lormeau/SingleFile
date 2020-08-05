@@ -27,7 +27,13 @@
 
 const fs = require("fs");
 const nativeMessage = require("./lib/messaging.js");
-const backend = require("./../cli/back-ends/puppeteer.js");
+const backEnds = {
+	jsdom: "./../cli/back-ends/jsdom.js",
+	puppeteer: "./../cli/back-ends/puppeteer.js",
+	"puppeteer-firefox": "./../cli/back-ends/puppeteer-firefox.js",
+	"webdriver-chromium": "./../cli/back-ends/webdriver-chromium.js",
+	"webdriver-gecko": "./../cli/back-ends/webdriver-gecko.js"
+};
 
 process.stdin
 	.pipe(new nativeMessage.Input())
@@ -41,10 +47,11 @@ process.stdin
 
 async function capturePage(options) {
 	const companionOptions = require("./options.json");
+	const backend = require(backEnds[companionOptions.backEnd || "puppeteer"]);
 	await backend.initialize(companionOptions);
 	try {
 		const pageData = await backend.getPageData(options);
-		pageData.filename = "../" + pageData.filename;
+		pageData.filename = "../../" + pageData.filename;
 		fs.writeFileSync(getFilename(pageData.filename), pageData.content);
 		return pageData;
 	} catch (error) {
