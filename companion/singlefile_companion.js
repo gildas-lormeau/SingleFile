@@ -26,6 +26,7 @@
 /* global require, process */
 
 const fs = require("fs");
+const path = require("path");
 const nativeMessage = require("./lib/messaging.js");
 const backEnds = {
 	jsdom: "./../cli/back-ends/jsdom.js",
@@ -51,7 +52,7 @@ async function capturePage(options) {
 	await backend.initialize(companionOptions);
 	try {
 		const pageData = await backend.getPageData(options);
-		pageData.filename = "../../" + pageData.filename;
+		pageData.filename = path.resolve("../../", (companionOptions.savePath || ""), pageData.filename);
 		fs.writeFileSync(getFilename(pageData.filename), pageData.content);
 		return pageData;
 	} catch (error) {
