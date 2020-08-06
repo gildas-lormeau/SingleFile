@@ -1,5 +1,7 @@
 // https://github.com/andy-portmen/native-client/blob/master/messaging.js
 
+//  MPL-2.0 License (https://github.com/andy-portmen/native-client/blob/master/COPYING)
+
 // chrome-native-messaging module
 //
 // Defines three Transform streams:
