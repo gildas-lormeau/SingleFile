@@ -25,9 +25,11 @@
 
 const fs = require("fs");
 
-const SCRIPTS = [
+const SCRIPTS = [		
 	"lib/single-file/processors/hooks/content/content-hooks.js",
+	"lib/single-file/processors/hooks/content/content-hooks-web.js",
 	"lib/single-file/processors/hooks/content/content-hooks-frames.js",
+	"lib/single-file/processors/hooks/content/content-hooks-frames-web.js",
 	"lib/single-file/processors/frame-tree/content/content-frame-tree.js",
 	"lib/single-file/processors/lazy/content/content-lazy-loader.js",
 	"lib/single-file/single-file-util.js",
