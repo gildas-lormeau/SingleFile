@@ -23,6 +23,15 @@ SingleFile Companion is a program that runs outside the browser and can help to 
 
 `install.bat` (Windows)
 
+## Options
+
+ - The `options.json` file allows configuring SingleFile Companion. Here are the entries you can edit:
+  - `savePath`: path where to save files (default: `SingleFile/companion` path)
+  - `backEnd`: backend used to save the page (default: `"puppeteer"`)
+  - `errorFile`: path of the file where errors are stored (default: `undefined`)
+  - `browserHeadless`: whether the browser is launched in headless mode (default: `true`)
+  - `browserDebug`: whether the browser is launched with the developer tools opened (default: `false`)
+
 ## Notes
 
  - Only the Chrome version of SingleFile allows you to use SingleFile Companion at the moment. This feature will be available in Firefox when this bug is fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=1630415. Although, you can use SingleFile Companion with Firefox by installing it SingleFile manually, see https://github.com/gildas-lormeau/SingleFile#install.
