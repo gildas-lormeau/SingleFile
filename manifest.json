@@ -161,6 +161,7 @@
 	"permissions": [
 		"identity",
 		"menus",
+		"nativeMessaging",
 		"clipboardWrite",
 		"contextMenus",
 		"downloads",
@@ -170,6 +171,7 @@
 	],
 	"optional_permissions": [
 		"identity",
+		"nativeMessaging",
 		"bookmarks"
 	],
 	"browser_specific_settings": {

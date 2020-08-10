@@ -66,6 +66,7 @@
 	const autoSaveLoadOrUnloadLabel = document.getElementById("autoSaveLoadOrUnloadLabel");
 	const autoSaveRepeatLabel = document.getElementById("autoSaveRepeatLabel");
 	const autoSaveRepeatDelayLabel = document.getElementById("autoSaveRepeatDelayLabel");
+	const autoSaveExternalSaveLabel = document.getElementById("autoSaveExternalSaveLabel");
 	const removeAlternativeFontsLabel = document.getElementById("removeAlternativeFontsLabel");
 	const removeAlternativeImagesLabel = document.getElementById("removeAlternativeImagesLabel");
 	const removeAlternativeMediasLabel = document.getElementById("removeAlternativeMediasLabel");
@@ -141,6 +142,7 @@
 	const autoSaveLoadOrUnloadInput = document.getElementById("autoSaveLoadOrUnloadInput");
 	const autoSaveRepeatInput = document.getElementById("autoSaveRepeatInput");
 	const autoSaveRepeatDelayInput = document.getElementById("autoSaveRepeatDelayInput");
+	const autoSaveExternalSaveInput = document.getElementById("autoSaveExternalSaveInput");
 	const removeAlternativeFontsInput = document.getElementById("removeAlternativeFontsInput");
 	const removeAlternativeImagesInput = document.getElementById("removeAlternativeImagesInput");
 	const removeAlternativeMediasInput = document.getElementById("removeAlternativeMediasInput");
@@ -369,6 +371,7 @@
 		}
 	}, false);
 	saveCreatedBookmarksInput.addEventListener("click", saveCreatedBookmarks, false);
+	autoSaveExternalSaveInput.addEventListener("click", enableExternalSave, false);
 	saveToGDriveInput.addEventListener("click", async () => {
 		if (!saveToGDriveInput.checked) {
 			await browser.runtime.sendMessage({ method: "downloads.disableGDrive" });
@@ -466,6 +469,7 @@
 	autoSaveLoadOrUnloadLabel.textContent = browser.i18n.getMessage("optionAutoSaveLoadOrUnload");
 	autoSaveRepeatLabel.textContent = browser.i18n.getMessage("optionAutoSaveRepeat");
 	autoSaveRepeatDelayLabel.textContent = browser.i18n.getMessage("optionAutoSaveRepeatDelay");
+	autoSaveExternalSaveLabel.textContent = browser.i18n.getMessage("optionAutoSaveExternalSave");
 	removeAlternativeFontsLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeFonts");
 	removeAlternativeImagesLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeImages");
 	removeAlternativeMediasLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeMedias");
@@ -521,7 +525,10 @@
 	refresh(tabsData.profileName);
 
 	async function refresh(profileName) {
-		const [profiles, rules] = await Promise.all([browser.runtime.sendMessage({ method: "config.getProfiles" }), browser.runtime.sendMessage({ method: "config.getRules" })]);
+		const [profiles, rules, companionState] = await Promise.all([
+			browser.runtime.sendMessage({ method: "config.getProfiles" }),
+			browser.runtime.sendMessage({ method: "config.getRules" }),
+			browser.runtime.sendMessage({ method: "companion.state" })]);
 		const selectedProfileName = profileName || profileNamesInput.value || DEFAULT_PROFILE_NAME;
 		Array.from(profileNamesInput.childNodes).forEach(node => node.remove());
 		profileNamesInput.options.length = 0;
@@ -660,6 +667,8 @@
 		autoSaveRepeatInput.disabled = !profileOptions.autoSaveLoadOrUnload && !profileOptions.autoSaveLoad;
 		autoSaveRepeatDelayInput.value = profileOptions.autoSaveRepeatDelay;
 		autoSaveRepeatDelayInput.disabled = !profileOptions.autoSaveRepeat;
+		autoSaveExternalSaveInput.checked = profileOptions.autoSaveExternalSave;
+		autoSaveExternalSaveInput.parentElement.hidden = !companionState.enabled;
 		removeAlternativeFontsInput.checked = profileOptions.removeAlternativeFonts;
 		removeAlternativeImagesInput.checked = profileOptions.removeAlternativeImages;
 		groupDuplicateImagesInput.checked = profileOptions.groupDuplicateImages;
@@ -727,6 +736,7 @@
 				autoSaveLoadOrUnload: autoSaveLoadOrUnloadInput.checked,
 				autoSaveRepeat: autoSaveRepeatInput.checked,
 				autoSaveRepeatDelay: Math.max(autoSaveRepeatDelayInput.value, 1),
+				autoSaveExternalSave: autoSaveExternalSaveInput.checked,
 				removeAlternativeFonts: removeAlternativeFontsInput.checked,
 				removeAlternativeImages: removeAlternativeImagesInput.checked,
 				removeAlternativeMedias: removeAlternativeMediasInput.checked,
@@ -783,6 +793,35 @@
 			await update();
 			await refresh();
 			await browser.runtime.sendMessage({ method: "bookmarks.disable" });
+		}
+	}
+
+	async function enableExternalSave() {
+		if (autoSaveExternalSaveInput.checked) {
+			autoSaveExternalSaveInput.checked = false;
+			try {
+				const permissionGranted = await browser.permissions.request({ permissions: ["nativeMessaging"] });
+				if (permissionGranted) {
+					autoSaveExternalSaveInput.checked = true;
+					await refreshOption();
+					if (window.chrome) {
+						window.chrome.runtime.reload();
+						location.reload();
+					}
+				} else {
+					await refreshOption();
+				}
+			} catch (error) {
+				autoSaveExternalSaveInput.checked = true;
+				await refreshOption();
+			}
+		} else {
+			await refreshOption();
+		}
+
+		async function refreshOption() {
+			await update();
+			await refresh();
 		}
 	}
 

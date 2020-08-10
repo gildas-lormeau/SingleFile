@@ -367,6 +367,10 @@
 		"message": "okres (s)",
 		"description": "Options page label: 'period (s)'"
 	},
+	"optionAutoSaveExternalSave": {
+		"message": "save the page with SingleFile Companion",
+		"description": "Options page label: 'save the page with SingleFile Companion'"
+	},	
 	"optionsEditorSubTitle": {
 		"message": "Edytor adnotacji",
 		"description": "Options sub-title: 'Annotation editor'"

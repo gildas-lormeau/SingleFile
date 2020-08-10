@@ -367,6 +367,10 @@
 		"message": "период (сек.)",
 		"description": "Options page label: 'period (s)'"
 	},
+	"optionAutoSaveExternalSave": {
+		"message": "save the page with SingleFile Companion",
+		"description": "Options page label: 'save the page with SingleFile Companion'"
+	},	
 	"optionsEditorSubTitle": {
 		"message": "Редактор аннотаций",
 		"description": "Options sub-title: 'Annotation editor'"

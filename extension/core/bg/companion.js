@@ -24,8 +24,13 @@
 /* global singlefile, browser */
 
 singlefile.extension.core.bg.companion = {
-
-	save: async options => {
+	enabled: true,
+	async onMessage(message) {
+		if (message.method.endsWith(".state")) {
+			return { enabled: this.enabled };
+		}
+	},
+	async save(options) {
 		try {
 			options.autoSaveExternalSave = false;
 			const port = browser.runtime.connectNative("singlefile_companion");
@@ -45,5 +50,4 @@ singlefile.extension.core.bg.companion = {
 			singlefile.extension.ui.bg.main.onError(options.tabId);
 		}
 	}
-
 };

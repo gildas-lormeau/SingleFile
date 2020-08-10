@@ -367,6 +367,10 @@
 		"message": "periodo (s)",
 		"description": "Options page label: 'period (s)'"
 	},
+	"optionAutoSaveExternalSave": {
+		"message": "guardar la página con SingleFile Companion",
+		"description": "Options page label: 'save the page with SingleFile Companion'"
+	},	
 	"optionsEditorSubTitle": {
 		"message": "Annotation editor",
 		"description": "Options sub-title: 'Annotation editor'"

@@ -38,10 +38,15 @@ const backEnds = {
 
 process.stdin
 	.pipe(new nativeMessage.Input())
-	.pipe(new nativeMessage.Transform(function (msg, push, done) {
-		capturePage(msg);
-		push(JSON.stringify(msg));
+	.pipe(new nativeMessage.Transform(async function (message, push, done) {
+		try {
+			await capturePage(message);
+			push({});
+		} catch (error) {
+			push({ error });
+		}
 		done();
+		process.exit(0);
 	}))
 	.pipe(new nativeMessage.Output())
 	.pipe(process.stdout);
@@ -60,9 +65,9 @@ async function capturePage(options) {
 			const message = "URL: " + options.url + "\nStack: " + error.stack + "\n";
 			fs.writeFileSync(options.errorFile, message, { flag: "a" });
 		}
+		throw error;
 	} finally {
 		await backend.closeBrowser();
-		process.exit(0);
 	}
 }
 
