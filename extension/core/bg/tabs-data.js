@@ -49,7 +49,7 @@ singlefile.extension.core.bg.tabsData = (() => {
 			delete temporaryData[tabId];
 		}
 		const tabsData = await getPersistent();
-		if (tabsData) {
+		if (tabsData[tabId]) {
 			const autoSave = tabsData[tabId].autoSave;
 			tabsData[tabId] = { autoSave };
 			await setPersistent(tabsData);
