@@ -23,6 +23,8 @@ SingleFile Companion is a program that runs outside the browser and can help to 
 
 `install.bat` (Windows)
 
+ - Enable the option `Misc. > save the page with SingleFile Companion` in SingleFile
+
 ## Options
 
 The `options.json` file allows configuring SingleFile Companion. Here are the entries you can edit:
