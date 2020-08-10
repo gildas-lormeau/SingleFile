@@ -34,7 +34,7 @@ singlefile.extension.core.bg.companion = {
 				port.onDisconnect.addListener(() => {
 					if (port.error) {
 						reject(port.error.message);
-					} else {
+					} else if (!browser.runtime.lastError || browser.runtime.lastError.message.includes("Native host has exited")) {
 						resolve();
 					}
 				});
