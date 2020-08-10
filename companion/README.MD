@@ -36,4 +36,4 @@ The `options.json` file allows configuring SingleFile Companion. Here are the en
 
 ## Notes
 
- - Only the Chrome version of SingleFile allows you to use SingleFile Companion at the moment. This feature will be available in Firefox when this bug is fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=1630415. Although, you can use SingleFile Companion with Firefox by installing it SingleFile manually, see https://github.com/gildas-lormeau/SingleFile#install.
+ - Only the Chrome version of SingleFile allows you to use SingleFile Companion at the moment. This feature will be available in Firefox when this bug is fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=1630415. Although, you can use SingleFile Companion with Firefox by installing SingleFile manually, see https://github.com/gildas-lormeau/SingleFile#install.
