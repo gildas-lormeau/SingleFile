@@ -27,7 +27,7 @@ singlefile.extension.core.bg.companion = {
 
 	save: async options => {
 		try {
-			options.externalSave = false;
+			options.autoSaveExternalSave = false;
 			const port = browser.runtime.connectNative("singlefile_companion");
 			port.postMessage(options);
 			await new Promise((resolve, reject) => {

@@ -118,7 +118,7 @@ singlefile.extension.core.bg.autosave = (() => {
 		options.tabIndex = tab.index;
 		let pageData;
 		try {
-			if (options.externalSave) {
+			if (options.autoSaveExternalSave) {
 				await singlefile.extension.core.bg.companion.save(options);
 			} else {
 				pageData = await singlefile.extension.getPageData(options, null, null, { fetch });
