@@ -22,7 +22,7 @@
 		"webRequest",
 		"<all_urls>"
 	],
-	"applications": {
+	"browser_specific_settings": {
 		"gecko": {
 			"id": "{caf9306a-8951-4f0c-beb0-bab690d00caf}"
 		}

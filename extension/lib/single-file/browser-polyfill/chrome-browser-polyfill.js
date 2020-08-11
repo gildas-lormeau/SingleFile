@@ -256,6 +256,7 @@
 				})
 			},
 			runtime: {
+				connectNative: application => nativeAPI.runtime.connectNative(application),
 				getManifest: () => nativeAPI.runtime.getManifest(),
 				onMessage: {
 					addListener: listener => nativeAPI.runtime.onMessage.addListener((message, sender, sendResponse) => {

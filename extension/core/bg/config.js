@@ -93,7 +93,8 @@ singlefile.extension.core.bg.config = (() => {
 		replaceBookmarkURL: true,
 		saveFavicon: true,
 		includeBOM: false,
-		warnUnsavedPage: true
+		warnUnsavedPage: true,
+		autoSaveExternalSave: false
 	};
 
 	let configStorage;

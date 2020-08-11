@@ -8,7 +8,7 @@
 		"64": "extension/ui/resources/icon_64.png",
 		"128": "extension/ui/resources/icon_128.png"
 	},
-	"version": "1.17.58",
+	"version": "1.17.61",
 	"description": "__MSG_extensionDescription__",
 	"content_scripts": [
 		{
@@ -95,6 +95,7 @@
 			"extension/core/bg/devtools.js",
 			"extension/core/bg/editor.js",
 			"extension/core/bg/bookmarks.js",
+			"extension/core/bg/companion.js",
 			"extension/ui/bg/ui-main.js",
 			"extension/ui/bg/ui-menus.js",
 			"extension/ui/bg/ui-commands.js",
@@ -160,6 +161,7 @@
 	"permissions": [
 		"identity",
 		"menus",
+		"nativeMessaging",
 		"clipboardWrite",
 		"contextMenus",
 		"downloads",
@@ -169,9 +171,10 @@
 	],
 	"optional_permissions": [
 		"identity",
+		"nativeMessaging",
 		"bookmarks"
 	],
-	"applications": {
+	"browser_specific_settings": {
 		"gecko": {
 			"id": "{531906d3-e22f-4a6c-a102-8057b88a1a63}"
 		}

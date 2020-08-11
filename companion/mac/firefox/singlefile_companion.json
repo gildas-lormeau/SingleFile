@@ -1,0 +1,9 @@
+{
+    "name": "singlefile_companion",
+    "description": "SingleFile Companion",
+    "path": "singlefile_companion.sh",
+    "type": "stdio",
+    "allowed_extensions": [
+        "{531906d3-e22f-4a6c-a102-8057b88a1a63}"
+    ]
+}

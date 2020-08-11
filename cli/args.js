@@ -50,6 +50,7 @@ const args = require("yargs")
 		"include-infobar": false,
 		"load-deferred-images": true,
 		"load-deferred-images-max-idle-time": 1500,
+		"load-deferred-images-keep-zoom-level": false,
 		"maxParallelWorkers": 8,
 		"max-resource-size-enabled": false,
 		"max-resource-size": 10,
@@ -135,6 +136,8 @@ const args = require("yargs")
 	.boolean("load-deferred-images")
 	.options("load-deferred-images-max-idle-time", { description: "Maximum delay of time to wait for deferred images in ms (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.number("load-deferred-images-max-idle-time")
+	.options("load-deferred-images-keep-zoom-level", { description: "Load defrrred images by keeping zoomed out the page" })
+	.boolean("load-deferred-images-keep-zoom-level")
 	.options("max-parallel-workers", { description: "Maximum number of browsers launched in parallel when processing a list of URLs (cf --urls-file)" })
 	.number("max-parallel-workers")
 	.options("max-resource-size-enabled", { description: "Enable removal of embedded resources exceeding a given size" })

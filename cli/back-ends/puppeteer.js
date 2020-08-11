@@ -55,7 +55,7 @@ exports.closeBrowser = () => {
 	}
 };
 
-function getBrowserOptions(options) {
+function getBrowserOptions(options = {}) {
 	const browserOptions = {};
 	if (options.browserHeadless !== undefined) {
 		browserOptions.headless = options.browserHeadless && !options.browserDebug;
@@ -71,9 +71,7 @@ function getBrowserOptions(options) {
 	if (options.browserWidth && options.browserHeight) {
 		browserOptions.args.push("--window-size=" + options.browserWidth + "," + options.browserHeight);
 	}
-	if (options.browserExecutablePath) {
-		browserOptions.executablePath = options.browserExecutablePath || "chrome";
-	}
+	browserOptions.executablePath = options.browserExecutablePath || "chrome";
 	if (options.userAgent) {
 		browserOptions.args.push("--user-agent=" + options.userAgent);
 	}
@@ -148,8 +146,14 @@ async function handleJSRedirect(browser, options) {
 }
 
 async function pageGoto(page, options) {
-	await page.goto(options.url, {
+	const loadOptions = {
 		timeout: options.browserLoadMaxTime || 0,
 		waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
-	});
+	};
+	if (options.content) {
+		await page.goto(options.url, { waitUntil: "domcontentloaded" });
+		await page.setContent(options.content, loadOptions);
+	} else {
+		await page.goto(options.url, loadOptions);
+	}
 }

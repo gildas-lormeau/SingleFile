@@ -339,7 +339,7 @@ a {
     margin-left: 10px;
 }
 
-.option {
+.option:not([hidden]) {
     display: flex;
     justify-content: space-between;
     margin-top: 3px;

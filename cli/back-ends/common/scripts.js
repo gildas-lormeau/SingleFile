@@ -25,9 +25,11 @@
 
 const fs = require("fs");
 
-const SCRIPTS = [
+const SCRIPTS = [		
 	"lib/single-file/processors/hooks/content/content-hooks.js",
+	"lib/single-file/processors/hooks/content/content-hooks-web.js",
 	"lib/single-file/processors/hooks/content/content-hooks-frames.js",
+	"lib/single-file/processors/hooks/content/content-hooks-frames-web.js",
 	"lib/single-file/processors/frame-tree/content/content-frame-tree.js",
 	"lib/single-file/processors/lazy/content/content-lazy-loader.js",
 	"lib/single-file/single-file-util.js",
@@ -69,7 +71,7 @@ exports.get = async options => {
 	await Promise.all(WEB_SCRIPTS.map(async path => webScripts[path] = await readScriptFile(path, basePath)));
 	scripts += "this.singlefile.lib.getFileContent = filename => (" + JSON.stringify(webScripts) + ")[filename];\n";
 	scripts += await readScriptFiles(SCRIPTS, basePath);
-	scripts += await readScriptFiles(options.browserScripts, "");
+	scripts += await readScriptFiles(options && options.browserScripts ? options.browserScripts : [], "");
 	return scripts;
 };
 

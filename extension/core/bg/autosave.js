@@ -118,19 +118,23 @@ singlefile.extension.core.bg.autosave = (() => {
 		options.tabIndex = tab.index;
 		let pageData;
 		try {
-			pageData = await singlefile.extension.getPageData(options, null, null, { fetch });
-			if (options.includeInfobar) {
-				await singlefile.common.ui.content.infobar.includeScript(pageData);
-			}
-			const blob = new Blob([pageData.content], { type: "text/html" });
-			if (options.saveToGDrive) {
-				await singlefile.extension.core.bg.downloads.uploadPage(message.taskId, pageData.filename, blob, options, {});
+			if (options.autoSaveExternalSave) {
+				await singlefile.extension.core.bg.companion.save(options);
 			} else {
-				pageData.url = URL.createObjectURL(blob);
-				await singlefile.extension.core.bg.downloads.downloadPage(pageData, options);
-			}
-			if (pageData.hash) {
-				await woleet.anchor(pageData.hash);
+				pageData = await singlefile.extension.getPageData(options, null, null, { fetch });
+				if (options.includeInfobar) {
+					await singlefile.common.ui.content.infobar.includeScript(pageData);
+				}
+				const blob = new Blob([pageData.content], { type: "text/html" });
+				if (options.saveToGDrive) {
+					await singlefile.extension.core.bg.downloads.uploadPage(message.taskId, pageData.filename, blob, options, {});
+				} else {
+					pageData.url = URL.createObjectURL(blob);
+					await singlefile.extension.core.bg.downloads.downloadPage(pageData, options);
+				}
+				if (pageData.hash) {
+					await woleet.anchor(pageData.hash);
+				}
 			}
 		} finally {
 			singlefile.extension.core.bg.business.onSaveEnd(message.taskId);
