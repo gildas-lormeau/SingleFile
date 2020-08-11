@@ -368,7 +368,7 @@
 		"description": "Options page label: 'period (s)'"
 	},
 	"optionAutoSaveExternalSave": {
-		"message": "save the page with SingleFile Companion",
+		"message": "сохранять страницу с помощью SingleFile Companion",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
 	},	
 	"optionsEditorSubTitle": {
