@@ -19,6 +19,10 @@
 		"message": "ページに注釈を付けて保存する...",
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
+	"menuSaveWithProfile": {
+		"message": "Save page with profile",
+		"description": "Menu entry: 'Save with profile'"
+	},
 	"menuViewPendingSaves": {
 		"message": "保留中の保存を表示...",
 		"description": "Menu entry: 'View pending saves...'"

@@ -19,6 +19,10 @@
 		"message": "Annotieren und Speichern der Webseite...",
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
+	"menuSaveWithProfile": {
+		"message": "Speichern der Webseite mit Profil",
+		"description": "Menu entry: 'Save with profile'"
+	},
 	"menuViewPendingSaves": {
 		"message": "Anzeigen der aktuellen Speichern...",
 		"description": "Menu entry: 'View pending saves...'"
@@ -370,7 +374,7 @@
 	"optionAutoSaveExternalSave": {
 		"message": "Speichern der Seite mit SingleFile Companion",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
-	},	
+	},
 	"optionsEditorSubTitle": {
 		"message": "Annotation editor",
 		"description": "Options sub-title: 'Annotation editor'"

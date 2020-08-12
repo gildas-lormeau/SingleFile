@@ -19,6 +19,10 @@
 		"message": "Annoter et sauver la page...",
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
+	"menuSaveWithProfile": {
+		"message": "Sauver la page avec le profil",
+		"description": "Menu entry: 'Save with profile'"
+	},
 	"menuViewPendingSaves": {
 		"message": "Afficher les sauvegardes en cours...",
 		"description": "Menu entry: 'View pending saves...'"

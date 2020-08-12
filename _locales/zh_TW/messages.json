@@ -19,6 +19,10 @@
 		"message": "標註並保存該頁面...",
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
+	"menuSaveWithProfile": {
+		"message": "Save page with profile",
+		"description": "Menu entry: 'Save with profile'"
+	},
 	"menuViewPendingSaves": {
 		"message": "查看掛起的保存項...",
 		"description": "Menu entry: 'View pending saves...'"
