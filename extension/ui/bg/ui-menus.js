@@ -29,7 +29,7 @@ singlefile.extension.ui.bg.menus = (() => {
 	const BROWSER_MENUS_API_SUPPORTED = menus && menus.onClicked && menus.create && menus.update && menus.removeAll;
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_EDIT_AND_SAVE_PAGE = "edit-and-save-page";
-	const MENU_ID_SAVE_SELECTED_LINKS = "save-selectec-links";
+	const MENU_ID_SAVE_SELECTED_LINKS = "save-selected-links";
 	const MENU_ID_VIEW_PENDINGS = "view-pendings";
 	const MENU_ID_SELECT_PROFILE = "select-profile";
 	const MENU_ID_SELECT_PROFILE_PREFIX = "select-profile-";
