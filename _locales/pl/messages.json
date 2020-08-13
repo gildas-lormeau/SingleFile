@@ -20,7 +20,7 @@
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
 	"menuSaveWithProfile": {
-		"message": "Save page with profile",
+		"message": "Zapisz stronę z profilem",
 		"description": "Menu entry: 'Save with profile'"
 	},
 	"menuViewPendingSaves": {
