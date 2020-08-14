@@ -23,7 +23,7 @@
  *   Source.
  */
 
-/* global require, URL */
+/* global require, module, URL */
 
 const VALID_URL_TEST = /^(https?|file):\/\//;
 
@@ -45,6 +45,8 @@ options.retrieveLinks = true;
 options.browserScripts = options.browserScripts.map(path => require.resolve(path));
 const backend = require(backEnds[options.backEnd]);
 run(options);
+
+module.exports = run;
 
 async function run(options) {
 	await backend.initialize(options);
