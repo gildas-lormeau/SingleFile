@@ -1,0 +1,21 @@
+{
+	"name": "single-file",
+	"version": "0.0.1",
+	"description": "SingleFile",
+	"author": "Gildas Lormeau",
+	"license": "AGPL-3.0-or-later",
+	"main": "single-file",
+	"bin": {
+        "single-file": "./cli/single-file"
+    },
+	"dependencies": {
+		"file-url": "^3.0.0",
+		"iconv-lite": "^0.5.2",
+		"jsdom": "^16.3.0",
+		"puppeteer-core": "^3.0.4",
+		"request-promise-native": "1.0.8",
+		"selenium-webdriver": "4.0.0-alpha.7",
+		"strong-data-uri": "^1.0.6",
+		"yargs": "^15.4.1"
+	}
+}
