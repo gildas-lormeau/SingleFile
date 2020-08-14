@@ -4,7 +4,7 @@
 	"description": "SingleFile",
 	"author": "Gildas Lormeau",
 	"license": "AGPL-3.0-or-later",
-	"main": "cli/single-file",
+	"main": "cli/singlefile-cli-core.js",
 	"bin": {
 		"single-file": "./cli/single-file"
 	},
