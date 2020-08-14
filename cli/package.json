@@ -5,7 +5,9 @@
 	"author": "Gildas Lormeau",
 	"license": "AGPL-3.0-or-later",
 	"main": "single-file",
-	"bin": "single-file",
+	"bin": {
+        "single-file": "./single-file",
+    },
 	"dependencies": {
 		"file-url": "^3.0.0",
 		"iconv-lite": "^0.5.2",
