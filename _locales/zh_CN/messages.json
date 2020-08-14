@@ -20,7 +20,7 @@
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
 	"menuSaveWithProfile": {
-		"message": "Save page with profile",
+		"message": "使用指定的配置文件保存页面",
 		"description": "Menu entry: 'Save with profile'"
 	},
 	"menuViewPendingSaves": {
@@ -392,7 +392,7 @@
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionWarnUnsavedPage": {
-		"message": "当离开标注编辑器但未保存已修改时发出提醒",
+		"message": "离开标注编辑器时提醒保存已修改的内容",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
 	"optionsMiscSubTitle": {
