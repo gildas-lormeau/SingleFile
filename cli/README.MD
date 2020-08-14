@@ -10,7 +10,7 @@ SingleFile can be launched from the command line by running it into a (headless)
 
 - Install [Node.js](https://nodejs.org)
 
-- There are 3 ways to download the code of SingleFile, choose the one you prefer:
+- There are 3 ways to download the code of SingleFile, choose the one you prefer (`npm` is installed with Node.js):
 
   - Download and unzip manually the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) provided by Github      
 
@@ -22,7 +22,7 @@ SingleFile can be launched from the command line by running it into a (headless)
       
     `npm install`
     
-  - Download with `npm` (provided by Node.js)
+  - Download with `npm`
     
     `npm install 'gildas-lormeau/SingleFile#master'`
        
