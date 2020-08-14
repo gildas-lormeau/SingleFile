@@ -6,7 +6,7 @@
 	"license": "AGPL-3.0-or-later",
 	"main": "single-file",
 	"bin": {
-        "single-file": "./single-file",
+        "single-file": "./single-file"
     },
 	"dependencies": {
 		"file-url": "^3.0.0",
