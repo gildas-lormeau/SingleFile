@@ -6,8 +6,8 @@
 	"license": "AGPL-3.0-or-later",
 	"main": "cli/single-file.js",
 	"bin": {
-        "single-file": "./cli/single-file"
-    },
+		"single-file": "./cli/single-file"
+	},
 	"dependencies": {
 		"file-url": "^3.0.0",
 		"iconv-lite": "^0.5.2",
