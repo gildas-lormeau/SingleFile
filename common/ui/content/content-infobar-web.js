@@ -115,6 +115,8 @@
 			setProperty(infoElement, "line-height", "22px");
 			setProperty(infoElement, "word-break", "break-word");
 			setProperty(infoElement, "white-space", "pre-wrap");
+			setProperty(infoElement, "position", "relative");
+			setProperty(infoElement, "top", "1px");
 			infoElement.textContent = infoData;
 			const linkElement = createElement("a", infobarElement);
 			setProperty(linkElement, "display", "inline-block");
