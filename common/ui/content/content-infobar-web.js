@@ -99,7 +99,7 @@
 			setProperty(closeElement, "opacity", .7);
 			setProperty(closeElement, "padding-right", "8px");
 			setProperty(closeElement, "cursor", "pointer");
-			setProperty(closeElement, "color", "#2d2d2d");
+			setProperty(closeElement, "color", "rgb(126 135 140)");
 			setProperty(closeElement, "line-height", "24px");
 			closeElement.onmouseover = () => setProperty(closeElement, "opacity", 1);
 			closeElement.onmouseout = () => setProperty(closeElement, "opacity", .7);
