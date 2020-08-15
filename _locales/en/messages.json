@@ -15,6 +15,10 @@
 		"message": "Annotate and save the page...",
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
+	"menuSaveWithProfile": {
+		"message": "Save page with profile",
+		"description": "Menu entry: 'Save with profile'"
+	},
 	"menuSaveSelectedLinks": {
 		"message": "Save selected links",
 		"description": "Menu entry: 'Save selected links'"

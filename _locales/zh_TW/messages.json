@@ -12,12 +12,16 @@
 		"description": "Menu entry: 'Save selected links'"
 	},
 	"menuEditPage": {
-		"message": "Annotate the page...",
+		"message": "標註頁面...",
 		"description": "Menu entry: 'Annotate the page...'"
 	},
 	"menuEditAndSavePage": {
 		"message": "標註並保存該頁面...",
 		"description": "Menu entry: 'Annotate and save the page...'"
+	},
+	"menuSaveWithProfile": {
+		"message": "使用指定的配置文件保存頁面",
+		"description": "Menu entry: 'Save with profile'"
 	},
 	"menuViewPendingSaves": {
 		"message": "查看掛起的保存項...",
@@ -368,11 +372,11 @@
 		"description": "Options page label: 'period (s)'"
 	},
 	"optionAutoSaveExternalSave": {
-		"message": "save the page with SingleFile Companion",
+		"message": "使用 SingleFile Companion 保存頁面",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
-	},
+	},	
 	"optionsEditorSubTitle": {
-		"message": "Annotation editor",
+		"message": "標註編輯器",
 		"description": "Options sub-title: 'Annotation editor'"
 	},
 	"optionOpenEditor": {
@@ -388,7 +392,7 @@
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionWarnUnsavedPage": {
-		"message": "warn if leaving page with unsaved changes",
+		"message": "離開標註編輯器時提醒保存已修改的內容",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
 	"optionsMiscSubTitle": {
@@ -420,7 +424,7 @@
 		"description": "Options page label: 'save to clipboard'"
 	},
 	"optionAddProof": {
-		"message": "添加證明文件存在指紋",
+		"message": "添加證明文件存在的指紋",
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
@@ -520,7 +524,7 @@
 		"description": "Tooltip 'Delete the profile' in the options page"
 	},
 	"profileAddPrompt": {
-		"message": "請為這個新的配置文件輸入名稱",
+		"message": "請輸入這個新的配置文件名",
 		"description": "Popup text 'Enter a name for this new profile' in the options page"
 	},
 	"profileDeleteConfirm": {

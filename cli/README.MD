@@ -10,25 +10,37 @@ SingleFile can be launched from the command line by running it into a (headless)
 
 - Install [Node.js](https://nodejs.org)
 
-- Unzip the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) somewhere on your disk in an empty folder and go into the `SingleFile-master/cli` directory.
+- There are 3 ways to download the code of SingleFile, choose the one you prefer (`npm` is installed with Node.js):
 
-  `unzip master.zip .`
-  
-  `cd SingleFile-master`
-  
-  `cd cli`
-  
-- As an alternative to decompressing the master archive, you can clone the repository if `git` is installed on your machine and go into the `SingleFile/cli` directory.
+  - Download and unzip manually the [master archive](https://github.com/gildas-lormeau/SingleFile/archive/master.zip) provided by Github      
 
-  `git clone --depth 1 --recursive https://github.com/gildas-lormeau/SingleFile.git`
+    `unzip master.zip .`
   
-  `cd SingleFile`
+    `cd SingleFile-master`
   
-  `cd cli`
+    `cd cli`
+      
+    `npm install`
+    
+  - Download with `npm`
+    
+    `npm install 'gildas-lormeau/SingleFile#master'`
+       
+    `cd node-modules`
+       
+    `cd single-file`
+       
+    `cd cli`  
+  
+  - Download with `git`
 
-- Install dependencies with npm (installed with Node.js).
-
-  `npm install`
+    `git clone --depth 1 --recursive https://github.com/gildas-lormeau/SingleFile.git`
+  
+    `cd SingleFile`
+  
+    `cd cli`
+       
+    `npm install`        
   
 - Make `single-file` executable (Linux/Unix/BSD etc.).
 
@@ -50,7 +62,7 @@ SingleFile can be launched from the command line by running it into a (headless)
 
   - Dump the processed content of https://www.wikipedia.org into the console
 
-  `single-file https://www.wikipedia.org`
+  `single-file https://www.wikipedia.org` --filename-template=""
 
   - Save https://www.wikipedia.org into `wikipedia.html`
 

@@ -19,6 +19,10 @@
 		"message": "Adnotuj i zapisz stronę...",
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
+	"menuSaveWithProfile": {
+		"message": "Zapisz stronę z profilem",
+		"description": "Menu entry: 'Save with profile'"
+	},
 	"menuViewPendingSaves": {
 		"message": "Zobacz oczekujące zapisy...",
 		"description": "Menu entry: 'View pending saves...'"

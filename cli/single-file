@@ -23,175 +23,26 @@
  *   Source.
  */
 
-/* global require, URL */
-
-const VALID_URL_TEST = /^(https?|file):\/\//;
+/* global require */
 
 const fileUrl = require("file-url");
 const fs = require("fs");
-const options = require("./args");
-
-const backEnds = {
-	jsdom: "./back-ends/jsdom.js",
-	puppeteer: "./back-ends/puppeteer.js",
-	"puppeteer-firefox": "./back-ends/puppeteer-firefox.js",
-	"webdriver-chromium": "./back-ends/webdriver-chromium.js",
-	"webdriver-gecko": "./back-ends/webdriver-gecko.js"
-};
-if (options.url && !VALID_URL_TEST.test(options.url)) {
-	options.url = fileUrl(options.url);
-}
-options.retrieveLinks = true;
-options.browserScripts = options.browserScripts.map(path => require.resolve(path));
-const backend = require(backEnds[options.backEnd]);
-run(options);
+run(require("./args"));
 
 async function run(options) {
-	await backend.initialize(options);
-	let tasks;
+	const singlefile = await require("./singlefile-cli-api")(options);
+	let urls;
+	if (options.url && !singlefile.VALID_URL_TEST.test(options.url)) {
+		options.url = fileUrl(options.url);
+	}
 	if (options.urlsFile) {
-		tasks = fs.readFileSync(options.urlsFile).toString().split("\n")
-			.map(url => createTask(url));
+		urls = fs.readFileSync(options.urlsFile).toString().split("\n");
 	} else {
-		tasks = [createTask(options.url)];
+		urls = [options.url];
 	}
-	tasks = tasks.filter(task => task);
-	await runTasks(tasks);
-	if (options.crawlReplaceURLs) {
-		tasks.forEach(task => {
-			try {
-				let pageContent = fs.readFileSync(task.filename).toString();
-				tasks.forEach(otherTask => {
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("\"" + otherTask.originalUrl + "\""), "gi"), "\"" + otherTask.filename + "\"");
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("'" + otherTask.originalUrl + "'"), "gi"), "'" + otherTask.filename + "'");
-					const filename = otherTask.filename.replace(/ /g, "%20");
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.originalUrl + " "), "gi"), "=" + filename + " ");
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.originalUrl + ">"), "gi"), "=" + filename + ">");
-				});
-				fs.writeFileSync(task.filename, pageContent);
-			} catch (error) {
-				// ignored
-			}
-		});
-	}
-	if (!options.browserDebug) {
-		return backend.closeBrowser();
-	}
-}
+	options.retrieveLinks = true;
+	options.browserScripts = options.browserScripts.map(path => require.resolve(path));
 
-async function runTasks(tasks) {
-	const availableTasks = tasks.filter(task => !task.status).length;
-	const processingTasks = tasks.filter(task => task.status == "processing").length;
-	const promisesTasks = [];
-	for (let workerIndex = 0; workerIndex < Math.min(availableTasks, options.maxParallelWorkers - processingTasks); workerIndex++) {
-		promisesTasks.push(runNextTask(tasks));
-	}
-	return Promise.all(promisesTasks);
-}
-
-async function runNextTask(tasks) {
-	const task = tasks.find(task => !task.status);
-	if (task) {
-		let taskOptions = JSON.parse(JSON.stringify(options));
-		taskOptions.url = task.url;
-		task.status = "processing";
-		const pageData = await capturePage(taskOptions);
-		task.status = "processed";
-		if (pageData) {
-			task.filename = pageData.filename;
-			if (options.crawlLinks && testMaxDepth(task)) {
-				let newTasks = pageData.links
-					.map(urlLink => createTask(urlLink, task, tasks[0]))
-					.filter(task => task &&
-						testMaxDepth(task) &&
-						!tasks.find(otherTask => otherTask.url == task.url) &&
-						(!options.crawlInnerLinksOnly || task.isInnerLink));
-				tasks.splice(tasks.length, 0, ...newTasks);
-			}
-		}
-		await runTasks(tasks);
-	}
-}
-
-function testMaxDepth(task) {
-	return (options.crawlMaxDepth == 0 || task.depth < options.crawlMaxDepth) &&
-		(options.crawlExternalLinksMaxDepth == 0 || task.externalLinkDepth < options.crawlExternalLinksMaxDepth);
-}
-
-function createTask(url, parentTask, rootTask) {
-	url = parentTask ? rewriteURL(url) : url;
-	if (VALID_URL_TEST.test(url)) {
-		const isInnerLink = rootTask && url.startsWith(getHostURL(rootTask.url));
-		return {
-			url,
-			isInnerLink,
-			originalUrl: url,
-			depth: parentTask ? parentTask.depth + 1 : 0,
-			externalLinkDepth: isInnerLink ? -1 : parentTask ? parentTask.externalLinkDepth + 1 : -1
-		};
-	}
-}
-
-function rewriteURL(url) {
-	url = url.trim();
-	if (options.crawlRemoveURLFragment) {
-		url = url.replace(/^(.*?)#.*$/, "$1");
-	}
-	options.crawlRewriteRules.forEach(rewriteRule => {
-		const parts = rewriteRule.trim().split(/ +/);
-		if (parts.length) {
-			url = url.replace(new RegExp(parts[0]), parts[1] || "").trim();
-		}
-	});
-	return url;
-}
-
-function getHostURL(url) {
-	url = new URL(url);
-	return url.protocol + "//" + (url.username ? url.username + (url.password || "") + "@" : "") + url.hostname;
-}
-
-async function capturePage(options) {
-	try {
-		const pageData = await backend.getPageData(options);
-		if (options.output) {
-			fs.writeFileSync(getFilename(options.output), pageData.content);
-		} else {
-			if (options.filenameTemplate && pageData.filename) {
-				fs.writeFileSync(getFilename(pageData.filename), pageData.content);
-			} else {
-				console.log(pageData.content); // eslint-disable-line no-console
-			}
-		}
-		return pageData;
-	} catch (error) {
-		const message = "URL: " + options.url + "\nStack: " + error.stack + "\n";
-		if (options.errorFile) {
-			fs.writeFileSync(options.errorFile, message, { flag: "a" });
-		} else {
-			console.error(message); // eslint-disable-line no-console
-		}
-	}
-}
-
-function getFilename(filename, index = 1) {
-	let newFilename = filename;
-	if (index > 1) {
-		const regExpMatchExtension = /(\.[^.]+)$/;
-		const matchExtension = newFilename.match(regExpMatchExtension);
-		if (matchExtension && matchExtension[1]) {
-			newFilename = newFilename.replace(regExpMatchExtension, " - " + index + matchExtension[1]);
-		} else {
-			newFilename += " - " + index;
-		}
-	}
-	if (fs.existsSync(newFilename)) {
-		return getFilename(filename, index + 1);
-	} else {
-		return newFilename;
-	}
-}
-
-function escapeRegExp(string) {
-	return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+	await singlefile.capture(urls);
+	await singlefile.finish();
 }

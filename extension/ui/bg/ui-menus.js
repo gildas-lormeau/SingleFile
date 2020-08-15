@@ -29,9 +29,11 @@ singlefile.extension.ui.bg.menus = (() => {
 	const BROWSER_MENUS_API_SUPPORTED = menus && menus.onClicked && menus.create && menus.update && menus.removeAll;
 	const MENU_ID_SAVE_PAGE = "save-page";
 	const MENU_ID_EDIT_AND_SAVE_PAGE = "edit-and-save-page";
-	const MENU_ID_SAVE_SELECTED_LINKS = "save-selectec-links";
+	const MENU_ID_SAVE_WITH_PROFILE = "save-with-profile";
+	const MENU_ID_SAVE_SELECTED_LINKS = "save-selected-links";
 	const MENU_ID_VIEW_PENDINGS = "view-pendings";
 	const MENU_ID_SELECT_PROFILE = "select-profile";
+	const MENU_ID_SAVE_WITH_PROFILE_PREFIX = "wasve-with-profile-";
 	const MENU_ID_SELECT_PROFILE_PREFIX = "select-profile-";
 	const MENU_ID_ASSOCIATE_WITH_PROFILE = "associate-with-profile";
 	const MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX = "associate-with-profile-";
@@ -52,6 +54,7 @@ singlefile.extension.ui.bg.menus = (() => {
 	const MENU_CREATE_DOMAIN_RULE_MESSAGE = browser.i18n.getMessage("menuCreateDomainRule");
 	const MENU_UPDATE_RULE_MESSAGE = browser.i18n.getMessage("menuUpdateRule");
 	const MENU_SAVE_PAGE_MESSAGE = browser.i18n.getMessage("menuSavePage");
+	const MENU_SAVE_WITH_PROFILE = browser.i18n.getMessage("menuSaveWithProfile");
 	const MENU_SAVE_SELECTED_LINKS = browser.i18n.getMessage("menuSaveSelectedLinks");
 	const MENU_EDIT_PAGE_MESSAGE = browser.i18n.getMessage("menuEditPage");
 	const MENU_EDIT_AND_SAVE_PAGE_MESSAGE = browser.i18n.getMessage("menuEditAndSavePage");
@@ -72,6 +75,7 @@ singlefile.extension.ui.bg.menus = (() => {
 	const MENU_TOP_VISIBLE_ENTRIES = [
 		MENU_ID_EDIT_AND_SAVE_PAGE,
 		MENU_ID_SAVE_SELECTED_LINKS,
+		MENU_ID_SAVE_WITH_PROFILE,
 		MENU_ID_VIEW_PENDINGS,
 		MENU_ID_SAVE_SELECTED,
 		MENU_ID_SAVE_FRAME,
@@ -144,6 +148,13 @@ singlefile.extension.ui.bg.menus = (() => {
 				contexts: options.contextMenuEnabled ? defaultContextsDisabled.concat(["selection"]) : defaultContextsDisabled,
 				title: MENU_SAVE_SELECTED_LINKS
 			});
+			if (Object.keys(profiles).length > 1) {
+				menus.create({
+					id: MENU_ID_SAVE_WITH_PROFILE,
+					contexts: defaultContexts,
+					title: MENU_SAVE_WITH_PROFILE
+				});
+			}
 			if (options.contextMenuEnabled) {
 				menus.create({
 					id: "separator-1",
@@ -214,6 +225,12 @@ singlefile.extension.ui.bg.menus = (() => {
 					title: MENU_SELECT_PROFILE_MESSAGE,
 					contexts: defaultContexts,
 				});
+				menus.create({
+					id: MENU_ID_SAVE_WITH_PROFILE_PREFIX + "default",
+					contexts: defaultContexts,
+					title: PROFILE_DEFAULT_SETTINGS_MESSAGE,
+					parentId: MENU_ID_SAVE_WITH_PROFILE
+				});
 				const defaultProfileId = MENU_ID_SELECT_PROFILE_PREFIX + "default";
 				const defaultProfileChecked = !tabsData.profileName || tabsData.profileName == config.DEFAULT_PROFILE_NAME;
 				menus.create({
@@ -261,7 +278,14 @@ singlefile.extension.ui.bg.menus = (() => {
 				profileIndexes = new Map();
 				Object.keys(profiles).forEach((profileName, profileIndex) => {
 					if (profileName != config.DEFAULT_PROFILE_NAME) {
-						let profileId = MENU_ID_SELECT_PROFILE_PREFIX + profileIndex;
+						let profileId = MENU_ID_SAVE_WITH_PROFILE_PREFIX + profileIndex;
+						menus.create({
+							id: profileId,
+							contexts: defaultContexts,
+							title: profileName,
+							parentId: MENU_ID_SAVE_WITH_PROFILE
+						});
+						profileId = MENU_ID_SELECT_PROFILE_PREFIX + profileIndex;
 						let profileChecked = tabsData.profileName == profileName;
 						menus.create({
 							id: profileId,
@@ -428,6 +452,18 @@ singlefile.extension.ui.bg.menus = (() => {
 					allTabsData.autoSaveUnpinned = event.checked;
 					await tabsData.set(allTabsData);
 					refreshExternalComponents(tab);
+				}
+				if (event.menuItemId.startsWith(MENU_ID_SAVE_WITH_PROFILE_PREFIX)) {
+					const profiles = await config.getProfiles();
+					const profileId = event.menuItemId.split(MENU_ID_SAVE_WITH_PROFILE_PREFIX)[1];
+					let profileName;
+					if (profileId == "default") {
+						profileName = config.DEFAULT_PROFILE_NAME;
+					} else {
+						const profileIndex = Number(profileId);
+						profileName = Object.keys(profiles)[profileIndex];
+					}
+					business.saveTabs([tab], profiles[profileName]);
 				}
 				if (event.menuItemId.startsWith(MENU_ID_SELECT_PROFILE_PREFIX)) {
 					const [profiles, allTabsData] = await Promise.all([config.getProfiles(), tabsData.get()]);

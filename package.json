@@ -1,9 +1,13 @@
 {
 	"name": "single-file",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "SingleFile",
 	"author": "Gildas Lormeau",
 	"license": "AGPL-3.0-or-later",
+	"main": "cli/singlefile-cli-api.js",
+	"bin": {
+		"single-file": "./cli/single-file"
+	},
 	"dependencies": {
 		"file-url": "^3.0.0",
 		"iconv-lite": "^0.5.2",
