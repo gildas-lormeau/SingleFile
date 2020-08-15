@@ -1,6 +1,6 @@
 {
 	"extensionDescription": {
-		"message": "Сохранить полную страницу в одном HTML-файле",
+		"message": "Сохранение полной страницы в едином HTML-файле",
 		"description": "Description of the extension."
 	},
 	"menuSavePage": {
@@ -20,7 +20,7 @@
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
 	"menuSaveWithProfile": {
-		"message": "Save page with profile",
+		"message": "Сохранить с профилем",
 		"description": "Menu entry: 'Save with profile'"
 	},
 	"menuViewPendingSaves": {
@@ -172,7 +172,7 @@
 		"description": "Options page label: 'template'"
 	},
 	"optionFilenameMaxLength": {
-		"message": "максимальная длина (байты)",
+		"message": "максимальная длина (байт)",
 		"description": "Options page label: 'max length (bytes)'"
 	},
 	"optionConfirmFilename": {
@@ -404,7 +404,7 @@
 		"description": "Options page label: 'save pages in background'"
 	},
 	"optionDisplayStats": {
-		"message": "показать статистику в консоли после обработки",
+		"message": "показывать статистику в консоли после обработки",
 		"description": "Options page label: 'display stats in the console after processing'"
 	},
 	"optionSetMaxResourceSize": {
