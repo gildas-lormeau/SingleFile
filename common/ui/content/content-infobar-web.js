@@ -99,7 +99,7 @@
 			setProperty(closeElement, "opacity", .7);
 			setProperty(closeElement, "padding-right", "8px");
 			setProperty(closeElement, "cursor", "pointer");
-			setProperty(closeElement, "color", "#9aa0a6");
+			setProperty(closeElement, "color", "#2d2d2d");
 			setProperty(closeElement, "line-height", "24px");
 			closeElement.onmouseover = () => setProperty(closeElement, "opacity", 1);
 			closeElement.onmouseout = () => setProperty(closeElement, "opacity", .7);
@@ -110,7 +110,7 @@
 			};
 			const infoElement = createElement("span", infobarElement);
 			setProperty(infoElement, "font-family", "Arial");
-			setProperty(infoElement, "color", "#9aa0a6");
+			setProperty(infoElement, "color", "#2d2d2d");
 			setProperty(infoElement, "font-size", "14px");
 			setProperty(infoElement, "line-height", "22px");
 			setProperty(infoElement, "word-break", "break-word");
@@ -160,7 +160,7 @@
 		setProperty(infobarElement, "width", "auto");
 		setProperty(infobarElement, "background-color", "#f9f9f9");
 		setProperty(infobarElement, "cursor", "auto");
-		setProperty(infobarElement, "color", "#9aa0a6");
+		setProperty(infobarElement, "color", "#2d2d2d");
 		setProperty(infobarElement, "padding-left", "8px");
 		setProperty(infobarElement, "padding-right", "4px");
 		setProperty(infobarElement, "padding-top", "2px");
