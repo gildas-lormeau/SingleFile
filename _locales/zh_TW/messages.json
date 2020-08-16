@@ -3,6 +3,14 @@
 		"message": "將一個完整的頁面保存到單個 HTML 文件中",
 		"description": "Description of the extension."
 	},
+	"commandSaveTab": {
+		"message": "Save the current tab or the selected content",
+		"description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
+	},
+	"commandSaveAllTabs": {
+		"message": "保存所有標籤頁",
+		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+	},
 	"menuSavePage": {
 		"message": "使用 SingleFile 保存頁面",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -374,7 +382,7 @@
 	"optionAutoSaveExternalSave": {
 		"message": "使用 SingleFile Companion 保存頁面",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
-	},	
+	},
 	"optionsEditorSubTitle": {
 		"message": "標註編輯器",
 		"description": "Options sub-title: 'Annotation editor'"
