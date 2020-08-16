@@ -62,17 +62,17 @@ SingleFile can be launched from the command line by running it into a (headless)
 
   - Dump the processed content of https://www.wikipedia.org into the console
 
-  `single-file https://www.wikipedia.org` --filename-template=""
+  `single-file https://www.wikipedia.org --filename-template=""`
 
-  - Save https://www.wikipedia.org into `wikipedia.html`
+  - Save https://www.wikipedia.org into `wikipedia.html` in the current folder
 
   `single-file https://www.wikipedia.org wikipedia.html`
 
-  - Save https://www.wikipedia.org into `wikipedia.html` with Firefox instead of Chrome
+  - Save https://www.wikipedia.org into `wikipedia.html` in the current folder with Firefox instead of Chrome
 
   `single-file https://www.wikipedia.org wikipedia.html --back-end=webdriver-gecko`
 
-  - Save a list of URLs stored into `list-urls.txt`
+  - Save a list of URLs stored into `list-urls.txt` in the current folder
 
   `single-file --urls-file=list-urls.txt`
 
