@@ -4,7 +4,7 @@
 		"description": "Description of the extension."
 	},
     "commandSaveTab": {
-        "message": "Save the current tab or the selected content",
+        "message": "Сохранить текущую вкладку или выделенное",
         "description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
     },
     "commandSaveAllTabs": {
