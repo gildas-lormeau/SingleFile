@@ -3,6 +3,14 @@
 		"message": "Зберегти всю сторінку в один HTML-файл",
 		"description": "Description of the extension."
 	},
+    "commandSaveTab": {
+        "message": "Save the current tab or the selected content",
+        "description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
+    },
+    "commandSaveAllTabs": {
+        "message": "Зберегти всі вкладки",
+        "description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+    },
 	"menuSavePage": {
 		"message": "Зберегти сторінку з допомогою SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"

@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /*
  * Copyright 2010-2020 Gildas Lormeau
  * contact : gildas.lormeau <at> gmail.com
