@@ -62,7 +62,7 @@ SingleFile can be launched from the command line by running it into a (headless)
 
   - Dump the processed content of https://www.wikipedia.org into the console
 
-  `single-file https://www.wikipedia.org --filename-template=""`
+  `single-file https://www.wikipedia.org --dump-content`
 
   - Save https://www.wikipedia.org into `wikipedia.html` in the current folder
 

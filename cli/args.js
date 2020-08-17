@@ -44,6 +44,7 @@ const args = require("yargs")
 		"browser-args": "",
 		"compress-CSS": false,
 		"compress-HTML": true,
+		"dump-content": false,
 		"filename-template": "{page-title} ({date-iso} {time-locale}).html",
 		"filename-replacement-character": "_",
 		"group-duplicate-images": true,
@@ -119,6 +120,8 @@ const args = require("yargs")
 	.boolean("crawl-replace-urls")
 	.options("crawl-rewrite-rules", { description: "List of rewrite rules used to rewrite URLs of internal and external links" })
 	.array("crawl-rewrite-rules")
+	.options("dump-content", { description: "Dump the content of the processed page in the console" })
+	.boolean("dump-content")
 	.options("error-file")
 	.string("error-file")
 	.options("filename-template", { description: "Template used to generate the output filename (see help page of the extension for more info)" })
@@ -177,6 +180,9 @@ const args = require("yargs")
 	.options("web-driver-executable-path", { description: "Path to Selenium WebDriver executable (webdriver-gecko, webdriver-chromium)" })
 	.string("web-driver-executable-path")
 	.argv;
+if (args.dumpContent) {
+	args.filenameTemplate = "";
+}
 args.compressCSS = args.compressCss;
 args.compressHTML = args.compressHtml;
 args.includeBOM = args.includeBom;
