@@ -66,11 +66,13 @@ async function finish(options) {
 			try {
 				let pageContent = fs.readFileSync(task.filename).toString();
 				tasks.forEach(otherTask => {
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("\"" + otherTask.originalUrl + "\""), "gi"), "\"" + otherTask.filename + "\"");
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("'" + otherTask.originalUrl + "'"), "gi"), "'" + otherTask.filename + "'");
-					const filename = otherTask.filename.replace(/ /g, "%20");
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.originalUrl + " "), "gi"), "=" + filename + " ");
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.originalUrl + ">"), "gi"), "=" + filename + ">");
+					if (otherTask.filename) {
+						pageContent = pageContent.replace(new RegExp(escapeRegExp("\"" + otherTask.originalUrl + "\""), "gi"), "\"" + otherTask.filename + "\"");
+						pageContent = pageContent.replace(new RegExp(escapeRegExp("'" + otherTask.originalUrl + "'"), "gi"), "'" + otherTask.filename + "'");
+						const filename = otherTask.filename.replace(/ /g, "%20");
+						pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.originalUrl + " "), "gi"), "=" + filename + " ");
+						pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.originalUrl + ">"), "gi"), "=" + filename + ">");
+					}
 				});
 				fs.writeFileSync(task.filename, pageContent);
 			} catch (error) {
