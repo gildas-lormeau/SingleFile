@@ -14,7 +14,6 @@ SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox (
  - [Integration with user scripts](#integration-with-user-scripts)
  - [SingleFileZ](#singlefilez)
  - [File format comparison](#file-format-comparison)
- - [Statistics (Firefox)](#statistics-firefox)
  - [Integration with WebKit](#integration-with-webkit)
  - [Privacy policy](#privacy-policy)
  - [Contributors](#contributors)
@@ -129,9 +128,6 @@ More info here: https://github.com/gildas-lormeau/SingleFileZ
 | **    | only in Chromium-based browsers and Internet Explorer                                                            |
 | ***   | only in Safari                                                                                                   |
 | \**** | an option must be enabled in the extension                                                                       |
-
-## Statistics (Firefox)
-See https://addons.mozilla.org/firefox/addon/single-file/statistics/?last=90
  
 ## Integration with WebKit
 Here is a Swift application (for macOS) made by [@captaindavepdx](https://github.com/captaindavepdx) that illustrates how to use SingleFile with WebKit: https://github.com/captaindavepdx/SingleFileMacOS
