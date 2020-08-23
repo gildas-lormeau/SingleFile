@@ -121,7 +121,7 @@ async function runNextTask() {
 
 function testMaxDepth(task) {
 	const options = task.options;
-	return (options.crawlMaxDepth == 0 || task.depth < options.crawlMaxDepth) &&
+	return (options.crawlMaxDepth == 0 || task.depth <= options.crawlMaxDepth) &&
 		(options.crawlExternalLinksMaxDepth == 0 || task.externalLinkDepth < options.crawlExternalLinksMaxDepth);
 }
 
