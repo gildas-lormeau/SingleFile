@@ -4,7 +4,7 @@
 		"description": "Description of the extension."
 	},
 	"commandSaveTab": {
-		"message": "Save the current tab or the selected content",
+		"message": "保存所選標籤頁或選中部分",
 		"description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
 	},
 	"commandSaveAllTabs": {
