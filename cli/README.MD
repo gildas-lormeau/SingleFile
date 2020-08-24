@@ -18,9 +18,9 @@ SingleFile can be launched from the command line by running it into a (headless)
   
     `cd SingleFile-master`
   
-    `cd cli`
-      
     `npm install`
+  
+    `cd cli`    
     
   - Download with `npm`
     
@@ -37,10 +37,10 @@ SingleFile can be launched from the command line by running it into a (headless)
     `git clone --depth 1 --recursive https://github.com/gildas-lormeau/SingleFile.git`
   
     `cd SingleFile`
+    
+    `npm install`
   
-    `cd cli`
-       
-    `npm install`        
+    `cd cli`           
   
 - Make `single-file` executable (Linux/Unix/BSD etc.).
 
