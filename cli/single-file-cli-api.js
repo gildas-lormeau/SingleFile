@@ -26,6 +26,9 @@
 const fs = require("fs");
 const VALID_URL_TEST = /^(https?|file):\/\//;
 
+const STATE_PROCESSING = "processing";
+const STATE_PROCESSED = "processed";
+
 const backEnds = {
 	jsdom: "./back-ends/jsdom.js",
 	puppeteer: "./back-ends/puppeteer.js",
@@ -101,7 +104,7 @@ async function finish(options) {
 
 async function runTasks() {
 	const availableTasks = tasks.filter(task => !task.status).length;
-	const processingTasks = tasks.filter(task => task.status == "processing").length;
+	const processingTasks = tasks.filter(task => task.status == STATE_PROCESSING).length;
 	const promisesTasks = [];
 	for (let workerIndex = 0; workerIndex < Math.min(availableTasks, maxParallelWorkers - processingTasks); workerIndex++) {
 		promisesTasks.push(runNextTask());
@@ -115,11 +118,11 @@ async function runNextTask() {
 		const options = task.options;
 		let taskOptions = JSON.parse(JSON.stringify(options));
 		taskOptions.url = task.url;
-		task.status = "processing";
+		task.status = STATE_PROCESSING;
 		saveTasks();
 		task.promise = capturePage(taskOptions);
 		const pageData = await task.promise;
-		task.status = "processed";
+		task.status = STATE_PROCESSED;
 		if (pageData) {
 			task.filename = pageData.filename;
 			if (options.crawlLinks && testMaxDepth(task)) {
@@ -162,9 +165,9 @@ function saveTasks() {
 	if (sessionFilename) {
 		fs.writeFileSync(sessionFilename, JSON.stringify(
 			tasks.map(task => Object.assign({}, task, {
-				status: task.status == "processing" ? undefined : task.status,
+				status: task.status == STATE_PROCESSING ? undefined : task.status,
 				promise: undefined,
-				options: task.status && task.status == "processed" ? undefined : task.options
+				options: task.status && task.status == STATE_PROCESSED ? undefined : task.options
 			}))
 		));
 	}
