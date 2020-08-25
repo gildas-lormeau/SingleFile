@@ -34,13 +34,25 @@ const backEnds = {
 	"webdriver-gecko": "./back-ends/webdriver-gecko.js"
 };
 
-let backend, tasks = [], maxParallelWorkers = 8;
+let backend, tasks = [], maxParallelWorkers = 8, sessionFilename;
 module.exports = initialize;
 
 async function initialize(options) {
 	maxParallelWorkers = options.maxParallelWorkers;
 	backend = require(backEnds[options.backEnd]);
 	await backend.initialize(options);
+	if (options.crawlSyncSession || options.crawlLoadSession) {
+		try {
+			tasks = JSON.parse(fs.readFileSync(options.crawlSyncSession || options.crawlLoadSession).toString());
+		} catch (error) {
+			if (options.crawlLoadSession) {
+				throw error;
+			}
+		}
+	}
+	if (options.crawlSyncSession || options.crawlSaveSession) {
+		sessionFilename = options.crawlSyncSession || options.crawlSaveSession;
+	}
 	return {
 		capture: urls => capture(urls, options),
 		finish: () => finish(options),
@@ -50,12 +62,14 @@ async function initialize(options) {
 
 async function capture(urls, options) {
 	let newTasks;
+	const taskUrls = tasks.map(task => task.url);
 	newTasks = urls.map(url => createTask(url, options));
-	newTasks = newTasks.filter(task => task);
+	newTasks = newTasks.filter(task => task && !taskUrls.includes(task.url));
 	if (newTasks.length) {
 		tasks = tasks.concat(newTasks);
-		await runTasks();
+		saveTasks();
 	}
+	await runTasks();
 }
 
 async function finish(options) {
@@ -102,9 +116,11 @@ async function runNextTask() {
 		let taskOptions = JSON.parse(JSON.stringify(options));
 		taskOptions.url = task.url;
 		task.status = "processing";
+		saveTasks();
 		task.promise = capturePage(taskOptions);
 		const pageData = await task.promise;
 		task.status = "processed";
+		saveTasks();
 		if (pageData) {
 			task.filename = pageData.filename;
 			if (options.crawlLinks && testMaxDepth(task)) {
@@ -115,6 +131,7 @@ async function runNextTask() {
 						!tasks.find(otherTask => otherTask.url == task.url) &&
 						(!options.crawlInnerLinksOnly || task.isInnerLink));
 				tasks.splice(tasks.length, 0, ...newTasks);
+				saveTasks();
 			}
 		}
 		await runTasks();
@@ -139,6 +156,18 @@ function createTask(url, options, parentTask, rootTask) {
 			externalLinkDepth: isInnerLink ? -1 : parentTask ? parentTask.externalLinkDepth + 1 : -1,
 			options
 		};
+	}
+}
+
+function saveTasks() {
+	if (sessionFilename) {
+		fs.writeFileSync(sessionFilename, JSON.stringify(
+			tasks.map(task => Object.assign({}, task, {
+				status: task.status == "processing" ? undefined : task.status,
+				promise: undefined,
+				options: task.status && task.status == "processed" ? undefined : task.options
+			}))
+		));
 	}
 }
 
