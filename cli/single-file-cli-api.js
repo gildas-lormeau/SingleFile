@@ -120,7 +120,6 @@ async function runNextTask() {
 		task.promise = capturePage(taskOptions);
 		const pageData = await task.promise;
 		task.status = "processed";
-		saveTasks();
 		if (pageData) {
 			task.filename = pageData.filename;
 			if (options.crawlLinks && testMaxDepth(task)) {
