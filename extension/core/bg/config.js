@@ -44,7 +44,7 @@ singlefile.extension.core.bg.config = (() => {
 		loadDeferredImagesBlockCookies: false,
 		loadDeferredImagesBlockStorage: false,
 		loadDeferredImagesKeepZoomLevel: false,
-		filenameTemplate: "{page-title} ({date-iso} {time-locale}).html",
+		filenameTemplate: "{page-title} ({date-locale} {time-locale}).html",
 		infobarTemplate: "",
 		includeInfobar: false,
 		confirmInfobarContent: false,
