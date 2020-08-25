@@ -130,9 +130,9 @@ async function runNextTask() {
 						!tasks.find(otherTask => otherTask.url == task.url) &&
 						(!options.crawlInnerLinksOnly || task.isInnerLink));
 				tasks.splice(tasks.length, 0, ...newTasks);
-				saveTasks();
 			}
 		}
+		saveTasks();
 		await runTasks();
 	}
 }
