@@ -65,7 +65,7 @@ function getBrowserOptions(options = {}) {
 		browserOptions.args.push("--disable-web-security");
 	}
 	browserOptions.args.push("--no-pings");
-	if (options.browserDebug) {
+	if (!options.browserStartMinimized && options.browserDebug) {
 		browserOptions.args.push("--auto-open-devtools-for-tabs");
 	}
 	if (options.browserWidth && options.browserHeight) {
@@ -87,6 +87,11 @@ async function setPageOptions(page, options) {
 	}
 	if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
 		await page.setBypassCSP(true);
+	}
+	if (options.browserStartMinimized) {
+		const session = await page.target().createCDPSession();
+		const { windowId } = await session.send("Browser.getWindowForTarget");
+		await session.send("Browser.setWindowBounds", { windowId, bounds: { windowState: "minimized" } });
 	}
 }
 

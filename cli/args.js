@@ -42,6 +42,7 @@ const args = require("yargs")
 		"browser-extensions": [],
 		"browser-scripts": [],
 		"browser-args": "",
+		"browser-start-minimized": false,
 		"compress-CSS": false,
 		"compress-HTML": true,
 		"dump-content": false,
@@ -102,6 +103,8 @@ const args = require("yargs")
 	.array("browser-scripts")
 	.options("browser-args", { description: "Arguments provided as a JSON array and passed to the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.string("browser-args")
+	.options("browser-start-minimized", { description: "Minimize the browser (puppeteer)" })
+	.boolean("browser-start-minimized")
 	.options("compress-CSS", { description: "Compress CSS stylesheets" })
 	.boolean("compress-CSS")
 	.options("compress-HTML", { description: "Compress HTML content" })
