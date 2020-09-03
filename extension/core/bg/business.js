@@ -189,12 +189,18 @@ singlefile.extension.core.bg.business = (() => {
 				tabs.remove(taskInfo.tab.id);
 			}
 		} catch (error) {
-			if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
+			if (error && (!error.message || !isIgnoredError(error))) {
 				console.log(error); // eslint-disable-line no-console
 				ui.onError(taskInfo.tab.id);
 				taskInfo.done();
 			}
 		}
+	}
+
+	function isIgnoredError(error) {
+		return error.message == ERROR_CONNECTION_LOST_CHROMIUM ||
+			error.message == ERROR_CONNECTION_ERROR_CHROMIUM ||
+			error.message == ERROR_CONNECTION_LOST_GECKO;
 	}
 
 	function cancelTab(tabId) {
