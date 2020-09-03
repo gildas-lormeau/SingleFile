@@ -181,19 +181,18 @@ singlefile.extension.core.bg.business = (() => {
 			}
 		}
 		taskInfo.options.taskId = taskId;
-		tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options })
-			.then(() => {
-				if (taskInfo.options.autoClose && !taskInfo.cancelled) {
-					tabs.remove(taskInfo.tab.id);
-				}
-			})
-			.catch(error => {
-				if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
-					console.log(error); // eslint-disable-line no-console
-					ui.onError(taskInfo.tab.id);
-					taskInfo.done();
-				}
-			});
+		try {
+			await tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options });
+			if (taskInfo.options.autoClose && !taskInfo.cancelled) {
+				tabs.remove(taskInfo.tab.id);
+			}
+		} catch (error) {
+			if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
+				console.log(error); // eslint-disable-line no-console
+				ui.onError(taskInfo.tab.id);
+				taskInfo.done();
+			}
+		}
 	}
 
 	function cancelTab(tabId) {
