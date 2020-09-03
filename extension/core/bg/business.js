@@ -66,7 +66,7 @@ singlefile.extension.core.bg.business = (() => {
 		openEditor,
 		onSaveEnd: taskId => {
 			const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
-			if (taskInfo && taskInfo.done) {
+			if (taskInfo) {
 				taskInfo.done();
 			}
 		},
@@ -95,7 +95,17 @@ singlefile.extension.core.bg.business = (() => {
 			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 			tabOptions.autoClose = true;
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
-			tasks.push({ id: currentTaskId, status: TASK_PENDING_STATE, tab: { url }, options: tabOptions, method: "content.save" });
+			tasks.push({
+				id: currentTaskId,
+				status: TASK_PENDING_STATE,
+				tab: { url },
+				options: tabOptions,
+				method: "content.save",
+				done: () => {
+					tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == this.id), 1);
+					runTasks();
+				}
+			});
 			currentTaskId++;
 		}));
 		runTasks();
@@ -160,10 +170,6 @@ singlefile.extension.core.bg.business = (() => {
 		const tabs = singlefile.extension.core.bg.tabs;
 		const taskId = taskInfo.id;
 		taskInfo.status = TASK_PROCESSING_STATE;
-		taskInfo.done = () => {
-			tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == taskId), 1);
-			runTasks();
-		};
 		if (!taskInfo.tab.id) {
 			let scriptsInjected;
 			try {
@@ -209,7 +215,6 @@ singlefile.extension.core.bg.business = (() => {
 
 	function cancelTask(taskInfo) {
 		const tabId = taskInfo.tab.id;
-		const taskId = taskInfo.id;
 		taskInfo.cancelled = true;
 		singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave", resetZoomLevel: taskInfo.options.loadDeferredImagesKeepZoomLevel });
 		if (taskInfo.cancel) {
@@ -219,10 +224,7 @@ singlefile.extension.core.bg.business = (() => {
 			singlefile.extension.ui.bg.main.onEnd(tabId, true);
 		}
 		singlefile.extension.ui.bg.main.onCancelled(taskInfo.tab);
-		tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == taskId), 1);
-		if (taskInfo.done) {
-			taskInfo.done();
-		}
+		taskInfo.done();
 	}
 
 	function mapTaskInfo(taskInfo) {
