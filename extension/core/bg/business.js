@@ -95,18 +95,12 @@ singlefile.extension.core.bg.business = (() => {
 			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 			tabOptions.autoClose = true;
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
-			tasks.push({
-				id: currentTaskId,
-				status: TASK_PENDING_STATE,
+			addTask({
 				tab: { url },
+				status: TASK_PENDING_STATE,
 				options: tabOptions,
-				method: "content.save",
-				done: () => {
-					tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == this.id), 1);
-					runTasks();
-				}
+				method: "content.save"
 			});
-			currentTaskId++;
 		}));
 		runTasks();
 	}
@@ -125,24 +119,48 @@ singlefile.extension.core.bg.business = (() => {
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
 			if (options.autoSave) {
 				if (autosave.isEnabled(tab)) {
-					const taskInfo = { id: currentTaskId, status: TASK_PROCESSING_STATE, tab, options: tabOptions, method: "content.autosave" };
-					tasks.push(taskInfo);
+					const taskInfo = addTask({
+						status: TASK_PROCESSING_STATE,
+						tab,
+						options: tabOptions,
+						method: "content.autosave"
+					});
 					runTask(taskInfo);
-					currentTaskId++;
 				}
 			} else {
 				ui.onStart(tabId, INJECT_SCRIPTS_STEP);
 				const scriptsInjected = await singlefile.extension.injectScript(tabId, tabOptions);
 				if (scriptsInjected) {
 					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
-					tasks.push({ id: currentTaskId, status: TASK_PENDING_STATE, tab, options: tabOptions, method: "content.save" });
-					currentTaskId++;
+					addTask({
+						status: TASK_PENDING_STATE,
+						tab,
+						options: tabOptions,
+						method: "content.save"
+					});
 				} else {
 					ui.onForbiddenDomain(tab);
 				}
 			}
 		}));
 		runTasks();
+	}
+
+	function addTask(info) {
+		const taskInfo = {
+			id: currentTaskId,
+			status: info.status,
+			tab: info.tab,
+			options: info.options,
+			method: info.method,
+			done: function () {
+				tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == this.id), 1);
+				runTasks();
+			}
+		};
+		tasks.push(taskInfo);
+		currentTaskId++;
+		return taskInfo;
 	}
 
 	function openEditor(tab) {
