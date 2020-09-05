@@ -30,6 +30,8 @@ const fs = require("fs");
 run(require("./args"));
 
 async function run(options) {
+	Object.keys(options).filter(optionName => optionName.includes("-"))
+		.forEach(optionName => delete options[optionName]);
 	const singlefile = await require("./single-file-cli-api")(options);
 	let urls;
 	if (options.url && !singlefile.VALID_URL_TEST.test(options.url)) {
