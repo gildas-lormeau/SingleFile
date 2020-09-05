@@ -27,7 +27,8 @@
 
 const fileUrl = require("file-url");
 const fs = require("fs");
-run(require("./args"));
+run(require("./args"))
+	.catch(error => console.error(error.message || error)); // eslint-disable-line no-console	
 
 async function run(options) {
 	Object.keys(options).filter(optionName => optionName.includes("-"))
