@@ -197,4 +197,8 @@ args.compressHTML = args.compressHtml;
 args.includeBOM = args.includeBom;
 args.crawlReplaceURLs = args.crawlReplaceUrls;
 args.crawlRemoveURLFragment = args.crawlRemoveUrlFragment;
+Object.keys(args).filter(optionName => optionName.includes("-"))
+	.forEach(optionName => delete args[optionName]);
+delete args["$0"];
+delete args["_"];
 module.exports = args;

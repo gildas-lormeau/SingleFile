@@ -31,10 +31,6 @@ run(require("./args"))
 	.catch(error => console.error(error.message || error)); // eslint-disable-line no-console	
 
 async function run(options) {
-	Object.keys(options).filter(optionName => optionName.includes("-"))
-		.forEach(optionName => delete options[optionName]);
-	delete options["$0"];
-	delete options["_"];
 	const singlefile = await require("./single-file-cli-api")(options);
 	let urls;
 	if (options.url && !singlefile.VALID_URL_TEST.test(options.url)) {
