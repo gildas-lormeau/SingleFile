@@ -87,10 +87,11 @@ async function getPageData(browser, page, options) {
 	const injectedScript = await scripts.get(options);
 	await page.evaluateOnNewDocument(injectedScript);
 	if (options.browserDebug) {
-		await page.waitFor(3000);
+		await page.waitForTimeout(3000);
 	}
 	await pageGoto(page, options);
 	try {
+		await page.evaluate(injectedScript);
 		return await page.evaluate(async options => {
 			const pageData = await singlefile.lib.getPageData(options);
 			if (options.includeInfobar) {
