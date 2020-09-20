@@ -21,29 +21,19 @@
  *   Source.
  */
 
-/* global require, exports */
+/* global require, exports, Buffer */
 
 const crypto = require("crypto");
 
 const { JSDOM, VirtualConsole } = require("jsdom");
 const iconv = require("iconv-lite");
-const request = require("request-promise-native");
 
 exports.initialize = async () => { };
 
 exports.getPageData = async options => {
-	const pageContent = (await request({
-		method: "GET",
-		uri: options.url,
-		resolveWithFullResponse: true,
-		encoding: null,
-		headers: {
-			"User-Agent": options.userAgent
-		}
-	})).body.toString();
 	let win;
 	try {
-		const dom = new JSDOM(pageContent, getBrowserOptions(options));
+		const dom = await JSDOM.fromURL(options.url, getBrowserOptions(options));
 		win = dom.window;
 		return await getPageData(win, options);
 	} finally {
@@ -63,7 +53,7 @@ async function getPageData(win, options) {
 			this.utfLabel = utfLabel;
 		}
 		decode(buffer) {
-			return iconv.decode(buffer, this.utfLabel);
+			return iconv.decode(Buffer.from(buffer), this.utfLabel);
 		}
 	};
 	win.crypto = {
@@ -83,16 +73,38 @@ async function getPageData(win, options) {
 	}
 	executeFrameScripts(doc, scripts);
 	options.removeHiddenElements = false;
+	options.loadDeferredImages = false;
 	const pageData = await win.singlefile.lib.getPageData(options, { fetch: url => fetchResource(url, options) }, doc, win);
 	if (options.includeInfobar) {
 		await win.singlefile.common.ui.content.infobar.includeScript(pageData);
 	}
 	return pageData;
+
+	async function fetchResource(resourceURL) {
+		return new Promise((resolve, reject) => {
+			const xhrRequest = new win.XMLHttpRequest();
+			xhrRequest.withCredentials = true;
+			xhrRequest.responseType = "arraybuffer";
+			xhrRequest.onerror = event => reject(new Error(event.detail));
+			xhrRequest.onreadystatechange = () => {
+				if (xhrRequest.readyState == win.XMLHttpRequest.DONE) {
+					resolve({
+						arrayBuffer: async () => new Uint8Array(xhrRequest.response).buffer,
+						headers: {
+							get: headerName => xhrRequest.getResponseHeader(headerName)
+						},
+						status: xhrRequest.status
+					});
+				}
+			};
+			xhrRequest.open("GET", resourceURL, true);
+			xhrRequest.send();
+		});
+	}
 }
 
 function getBrowserOptions(options) {
 	const jsdomOptions = {
-		url: options.url,
 		virtualConsole: new VirtualConsole(),
 		userAgent: options.userAgent,
 		pretendToBeVisual: true,
@@ -119,23 +131,4 @@ function executeFrameScripts(doc, scripts) {
 			// ignored
 		}
 	});
-}
-
-async function fetchResource(resourceURL, options) {
-	const response = await request({
-		method: "GET",
-		uri: resourceURL,
-		resolveWithFullResponse: true,
-		encoding: null,
-		headers: {
-			"User-Agent": options.userAgent
-		}
-	});
-	return {
-		status: response.statusCode,
-		headers: {
-			get: name => response.headers[name]
-		},
-		arrayBuffer: async () => response.body
-	};
 }
