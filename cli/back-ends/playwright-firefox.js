@@ -26,7 +26,7 @@
 const playwright = require("playwright").firefox;
 const scripts = require("./common/scripts.js");
 
-const NETWORK_IDLE_STATE = "networkidle0";
+const NETWORK_IDLE_STATE = "networkidle";
 
 let browser;
 
@@ -84,7 +84,7 @@ async function getPageData(page, options) {
 	}
 	await page.goto(options.url, {
 		timeout: options.browserLoadMaxTime || 0,
-		waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
+		waitUntil: options.browserWaitUntil && options.browserWaitUntil.startsWith("networkidle") ? NETWORK_IDLE_STATE : options.browserWaitUntil || NETWORK_IDLE_STATE
 	});
 	return await page.evaluate(async options => {
 		const pageData = await singlefile.lib.getPageData(options);
