@@ -64,7 +64,6 @@ function getBrowserOptions(options) {
 	if (options.browserExecutablePath) {
 		browserOptions.executablePath = options.browserExecutablePath || "firefox";
 	}
-	browserOptions.product = "firefox";
 	return browserOptions;
 }
 
