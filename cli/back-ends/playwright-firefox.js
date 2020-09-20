@@ -41,7 +41,7 @@ exports.getPageData = async options => {
 			bypassCSP: options.browserBypassCSP === undefined || options.browserBypassCSP
 		});
 		await setPageOptions(page, options);
-		return await getPageData(browser, page, options);
+		return await getPageData(page, options);
 	} finally {
 		if (page) {
 			await page.close();
@@ -77,7 +77,7 @@ async function setPageOptions(page, options) {
 	}
 }
 
-async function getPageData(browser, page, options) {
+async function getPageData(page, options) {
 	const injectedScript = await scripts.get(options);
 	await page.addInitScript(injectedScript);
 	if (options.browserDebug) {
