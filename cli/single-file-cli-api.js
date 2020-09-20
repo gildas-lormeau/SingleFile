@@ -34,7 +34,8 @@ const backEnds = {
 	puppeteer: "./back-ends/puppeteer.js",
 	"puppeteer-firefox": "./back-ends/puppeteer-firefox.js",
 	"webdriver-chromium": "./back-ends/webdriver-chromium.js",
-	"webdriver-gecko": "./back-ends/webdriver-gecko.js"
+	"webdriver-gecko": "./back-ends/webdriver-gecko.js",
+	"playwright-firefox": "./back-ends/playwright-firefox.js"
 };
 
 let backend, tasks = [], maxParallelWorkers = 8, sessionFilename;
