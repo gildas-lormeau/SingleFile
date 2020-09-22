@@ -844,7 +844,7 @@ table {
 		if (message.method == "disableRemoveHighlights") {
 			removeHighlightMode = false;
 		}
-		if (message.method == "enableEditPage") {			
+		if (message.method == "enableEditPage") {
 			document.body.contentEditable = true;
 			onUpdate(false);
 		}
@@ -879,7 +879,7 @@ table {
 		}
 		if (message.method == "getContent") {
 			onUpdate(true);
-			getContent(message.compressHTML);
+			getContent(message.compressHTML, message.updatedResources);
 		}
 	};
 	window.onresize = reflowNotes;
@@ -1380,7 +1380,7 @@ table {
 		onUpdate(false);
 	}
 
-	function getContent(compressHTML) {
+	function getContent(compressHTML, updatedResources) {
 		serializeShadowRoots(document);
 		const doc = document.cloneNode(true);
 		deserializeShadowRoots(doc);
@@ -1411,6 +1411,12 @@ table {
 		scriptElement.setAttribute(SCRIPT_TEMPLATE_SHADOW_ROOT, "");
 		scriptElement.textContent = getEmbedScript();
 		doc.body.appendChild(scriptElement);
+		const newResources = Object.keys(updatedResources).filter(url => updatedResources[url].type == "stylesheet").map(url => updatedResources[url]);
+		newResources.forEach(resource => {
+			const element = doc.createElement("style");
+			doc.body.appendChild(element);
+			element.textContent = resource.content;
+		});
 		window.parent.postMessage(JSON.stringify({ "method": "setContent", content: singlefile.lib.modules.serializer.process(doc, compressHTML) }), "*");
 	}
 

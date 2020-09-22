@@ -169,6 +169,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	savePageButton.onclick = () => {
 		savePage();
 	};
+	const updatedResources = {};
 	window.onmessage = event => {
 		const message = JSON.parse(event.data);
 		if (message.method == "setMetadata") {
@@ -186,6 +187,7 @@ singlefile.extension.ui.bg.editor = (() => {
 				filename: tabData.filename
 			};
 			tabData.options.openEditor = false;
+			// tabData.options.updatedResources = updatedResources;
 			singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
 		}
 		if (message.method == "disableFormatPage") {
@@ -204,6 +206,10 @@ singlefile.extension.ui.bg.editor = (() => {
 	};
 
 	browser.runtime.onMessage.addListener(message => {
+		if (message.method == "devtools.resourceCommitted") {
+			updatedResources[message.url] = { content: message.content, type: message.type, encoding: message.encoding };
+			return Promise.resolve({});
+		}
 		if (message.method == "content.save") {
 			tabData.options = message.options;
 			savePage();
@@ -232,7 +238,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	});
 
 	function savePage() {
-		editorElement.contentWindow.postMessage(JSON.stringify({ method: "getContent", compressHTML: tabData.options.compressHTML }), "*");
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "getContent", compressHTML: tabData.options.compressHTML, updatedResources }), "*");
 	}
 
 	return {};
