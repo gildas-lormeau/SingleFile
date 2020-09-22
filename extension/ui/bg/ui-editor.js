@@ -187,7 +187,6 @@ singlefile.extension.ui.bg.editor = (() => {
 				filename: tabData.filename
 			};
 			tabData.options.openEditor = false;
-			// tabData.options.updatedResources = updatedResources;
 			singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
 		}
 		if (message.method == "disableFormatPage") {
