@@ -148,6 +148,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	formatPageButton.onclick = () => {
 		if (formatPageButton.classList.contains("format-disabled")) {
 			formatPageButton.classList.remove("format-disabled");
+			updatedResources.length = 0;
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: tabData.options.applySystemTheme ? "formatPage" : "formatPageNoTheme" }), "*");
 		}
 	};
