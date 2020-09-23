@@ -883,7 +883,6 @@ table {
 		}
 	};
 	window.onresize = reflowNotes;
-	window.parent.postMessage(JSON.stringify({ "method": "onReady" }), "*");
 
 	async function init(content) {
 		await initConstants();

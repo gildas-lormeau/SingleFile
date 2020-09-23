@@ -170,78 +170,75 @@ singlefile.extension.ui.bg.editor = (() => {
 		savePage();
 	};
 	const updatedResources = {};
-	const frameReady = new Promise(resolve => {
-		window.onmessage = event => {
-			const message = JSON.parse(event.data);
-			if (message.method == "setMetadata") {
-				document.title = "[SingleFile] " + message.title;
-				if (message.icon) {
-					const linkElement = document.createElement("link");
-					linkElement.rel = "icon";
-					linkElement.href = message.icon;
-					document.head.appendChild(linkElement);
+
+	window.onmessage = event => {
+		const message = JSON.parse(event.data);
+		if (message.method == "setMetadata") {
+			document.title = "[SingleFile] " + message.title;
+			if (message.icon) {
+				const linkElement = document.createElement("link");
+				linkElement.rel = "icon";
+				linkElement.href = message.icon;
+				document.head.appendChild(linkElement);
+			}
+		}
+		if (message.method == "setContent") {
+			const pageData = {
+				content: message.content,
+				filename: tabData.filename
+			};
+			tabData.options.openEditor = false;
+			singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
+		}
+		if (message.method == "disableFormatPage") {
+			formatPageButton.remove();
+		}
+		if (message.method == "onUpdate") {
+			tabData.docSaved = message.saved;
+		}
+	};
+
+	window.onload = () => {
+		browser.runtime.sendMessage({ method: "editor.getTabData" });
+		browser.runtime.onMessage.addListener(message => {
+			if (message.method == "devtools.resourceCommitted") {
+				updatedResources[message.url] = { content: message.content, type: message.type, encoding: message.encoding };
+				return Promise.resolve({});
+			}
+			if (message.method == "content.save") {
+				tabData.options = message.options;
+				savePage();
+				browser.runtime.sendMessage({ method: "ui.processInit" });
+				return Promise.resolve({});
+			}
+			if (message.method == "common.promptValueRequest") {
+				browser.runtime.sendMessage({ method: "tabs.promptValueResponse", value: prompt(message.promptMessage) });
+				return Promise.resolve({});
+			}
+			if (message.method == "editor.setTabData") {
+				if (message.truncated) {
+					tabDataContents.push(message.content);
+				} else {
+					tabDataContents = [message.content];
 				}
+				if (!message.truncated || message.finished) {
+					tabData = JSON.parse(tabDataContents.join(""));
+					tabData.docSaved = true;
+					tabDataContents = [];
+					editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
+					delete tabData.content;
+				}
+				return Promise.resolve({});
 			}
-			if (message.method == "setContent") {
-				const pageData = {
-					content: message.content,
-					filename: tabData.filename
-				};
-				tabData.options.openEditor = false;
-				singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
-			}
-			if (message.method == "disableFormatPage") {
-				formatPageButton.remove();
-			}
-			if (message.method == "onUpdate") {
-				tabData.docSaved = message.saved;
-			}
-			if (message.method == "onReady") {
-				resolve();
-			}
-		};
-	});
-	window.onload = browser.runtime.sendMessage({ method: "editor.getTabData" });
+		});
+	};
+
 	window.onbeforeunload = event => {
 		if (tabData.options.warnUnsavedPage && !tabData.docSaved) {
 			event.preventDefault();
 			event.returnValue = "";
 		}
 	};
-
-	browser.runtime.onMessage.addListener(message => {
-		if (message.method == "devtools.resourceCommitted") {
-			updatedResources[message.url] = { content: message.content, type: message.type, encoding: message.encoding };
-			return Promise.resolve({});
-		}
-		if (message.method == "content.save") {
-			tabData.options = message.options;
-			savePage();
-			browser.runtime.sendMessage({ method: "ui.processInit" });
-			return Promise.resolve({});
-		}
-		if (message.method == "common.promptValueRequest") {
-			browser.runtime.sendMessage({ method: "tabs.promptValueResponse", value: prompt(message.promptMessage) });
-			return Promise.resolve({});
-		}
-		if (message.method == "editor.setTabData") {
-			if (message.truncated) {
-				tabDataContents.push(message.content);
-			} else {
-				tabDataContents = [message.content];
-			}
-			if (!message.truncated || message.finished) {
-				tabData = JSON.parse(tabDataContents.join(""));
-				tabData.docSaved = true;
-				tabDataContents = [];
-				frameReady.then(() => {
-					editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
-					delete tabData.content;
-				});
-			}
-			return Promise.resolve({});
-		}
-	});
 
 	function savePage() {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "getContent", compressHTML: tabData.options.compressHTML, updatedResources }), "*");
