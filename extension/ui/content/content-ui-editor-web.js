@@ -809,7 +809,7 @@ table {
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode;
-	let removedElements = [];	
+	let removedElements = [];
 
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
