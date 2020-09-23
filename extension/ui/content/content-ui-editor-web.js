@@ -811,6 +811,8 @@ table {
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode;
 	let removedElements = [];
 
+	window.parent.postMessage(JSON.stringify({ "method": "onReady" }), "*");
+
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
 		if (message.method == "init") {

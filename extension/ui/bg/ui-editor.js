@@ -170,32 +170,37 @@ singlefile.extension.ui.bg.editor = (() => {
 		savePage();
 	};
 	const updatedResources = {};
-	window.onmessage = event => {
-		const message = JSON.parse(event.data);
-		if (message.method == "setMetadata") {
-			document.title = "[SingleFile] " + message.title;
-			if (message.icon) {
-				const linkElement = document.createElement("link");
-				linkElement.rel = "icon";
-				linkElement.href = message.icon;
-				document.head.appendChild(linkElement);
+	const frameReady = new Promise(resolve => {
+		window.onmessage = event => {
+			const message = JSON.parse(event.data);
+			if (message.method == "setMetadata") {
+				document.title = "[SingleFile] " + message.title;
+				if (message.icon) {
+					const linkElement = document.createElement("link");
+					linkElement.rel = "icon";
+					linkElement.href = message.icon;
+					document.head.appendChild(linkElement);
+				}
 			}
-		}
-		if (message.method == "setContent") {
-			const pageData = {
-				content: message.content,
-				filename: tabData.filename
-			};
-			tabData.options.openEditor = false;
-			singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
-		}
-		if (message.method == "disableFormatPage") {
-			formatPageButton.remove();
-		}
-		if (message.method == "onUpdate") {
-			tabData.docSaved = message.saved;
-		}
-	};
+			if (message.method == "setContent") {
+				const pageData = {
+					content: message.content,
+					filename: tabData.filename
+				};
+				tabData.options.openEditor = false;
+				singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
+			}
+			if (message.method == "disableFormatPage") {
+				formatPageButton.remove();
+			}
+			if (message.method == "onUpdate") {
+				tabData.docSaved = message.saved;
+			}
+			if (message.method == "onReady") {
+				resolve();
+			}
+		};
+	});
 	window.onload = browser.runtime.sendMessage({ method: "editor.getTabData" });
 	window.onbeforeunload = event => {
 		if (tabData.options.warnUnsavedPage && !tabData.docSaved) {
@@ -229,10 +234,10 @@ singlefile.extension.ui.bg.editor = (() => {
 				tabData = JSON.parse(tabDataContents.join(""));
 				tabData.docSaved = true;
 				tabDataContents = [];
-				setTimeout(() => {
+				frameReady.then(() => {
 					editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
 					delete tabData.content;
-				}, 1);
+				});
 			}
 			return Promise.resolve({});
 		}
