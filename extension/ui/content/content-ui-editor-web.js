@@ -809,9 +809,7 @@ table {
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode;
-	let removedElements = [];
-
-	window.parent.postMessage(JSON.stringify({ "method": "onReady" }), "*");
+	let removedElements = [];	
 
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
@@ -885,6 +883,7 @@ table {
 		}
 	};
 	window.onresize = reflowNotes;
+	window.parent.postMessage(JSON.stringify({ "method": "onReady" }), "*");
 
 	async function init(content) {
 		await initConstants();
