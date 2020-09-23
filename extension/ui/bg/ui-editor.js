@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, singlefile, window, document, prompt */
+/* global browser, singlefile, window, document, prompt, setTimeout */
 
 singlefile.extension.ui.bg.editor = (() => {
 
@@ -229,8 +229,10 @@ singlefile.extension.ui.bg.editor = (() => {
 				tabData = JSON.parse(tabDataContents.join(""));
 				tabData.docSaved = true;
 				tabDataContents = [];
-				editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
-				delete tabData.content;
+				setTimeout(() => {
+					editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
+					delete tabData.content;
+				}, 1);
 			}
 			return Promise.resolve({});
 		}
