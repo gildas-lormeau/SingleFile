@@ -1406,7 +1406,7 @@ table {
 			element.style.setProperty(pointerEvents, element.style.getPropertyValue("-sf-" + pointerEvents), element.style.getPropertyPriority("-sf-" + pointerEvents));
 			element.style.removeProperty("-sf-" + pointerEvents);
 		});
-		delete doc.body.contentEditable;
+		doc.body.removeAttribute("contentEditable");
 		const scriptElement = doc.createElement("script");
 		scriptElement.setAttribute(SCRIPT_TEMPLATE_SHADOW_ROOT, "");
 		scriptElement.textContent = getEmbedScript();
