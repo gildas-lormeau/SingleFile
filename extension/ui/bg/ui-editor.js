@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, singlefile, window, document, prompt, setTimeout */
+/* global browser, singlefile, window, document, prompt */
 
 singlefile.extension.ui.bg.editor = (() => {
 
