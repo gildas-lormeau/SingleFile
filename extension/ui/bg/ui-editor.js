@@ -148,7 +148,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	formatPageButton.onclick = () => {
 		if (formatPageButton.classList.contains("format-disabled")) {
 			formatPageButton.classList.remove("format-disabled");
-			updatedResources.length = 0;
+			updatedResources = {};
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: tabData.options.applySystemTheme ? "formatPage" : "formatPageNoTheme" }), "*");
 		}
 	};
@@ -170,7 +170,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	savePageButton.onclick = () => {
 		savePage();
 	};
-	const updatedResources = {};
+	let updatedResources = {};
 
 	window.onmessage = event => {
 		const message = JSON.parse(event.data);
