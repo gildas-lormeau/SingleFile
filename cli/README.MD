@@ -104,6 +104,8 @@ SingleFile can be launched from the command line by running it into a (headless)
 
   `docker run singlefile "https://www.wikipedia.org" > wikipedia.html`
 
+- An alternative docker file can be found here https://github.com/screenbreak/SingleFile-dockerized. It allows you to save pages from the command line interface or through an HTTP server.
+
 ## License
 
 SingleFile is licensed under AGPL. Code derived from third-party projects is licensed under MIT. Please contact me at gildas.lormeau &lt;at&gt; gmail.com if you are interested in licensing the SingleFile code for a commercial service or product.
