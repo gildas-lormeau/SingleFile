@@ -607,6 +607,10 @@
 		"message": "还原所有被移除的元素",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
+	"editorRedoCutPage": {
+		"message": "Remove last restored element",
+		"description": "Title of the button 'Remove last restored element' in the editor"
+	},
 	"editorSavePage": {
 		"message": "保存该页面",
 		"description": "Title of the button 'Save the page' in the editor"

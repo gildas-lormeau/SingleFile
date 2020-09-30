@@ -607,6 +607,10 @@
 		"message": "削除されたすべての要素を復元する",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
+	"editorRedoCutPage": {
+		"message": "Remove last restored element",
+		"description": "Title of the button 'Remove last restored element' in the editor"
+	},
 	"editorSavePage": {
 		"message": "ページを保存する",
 		"description": "Title of the button 'Save the page' in the editor"

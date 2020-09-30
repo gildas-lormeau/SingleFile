@@ -43,6 +43,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	const cutPageButton = document.querySelector(".cut-page-button");
 	const undoCutPageButton = document.querySelector(".undo-cut-page-button");
 	const undoAllCutPageButton = document.querySelector(".undo-all-cut-page-button");
+	const redoCutPageButton = document.querySelector(".redo-cut-page-button");
 	const savePageButton = document.querySelector(".save-page-button");
 
 	let tabData, tabDataContents = [];
@@ -63,6 +64,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	cutPageButton.title = browser.i18n.getMessage("editorCutPage");
 	undoCutPageButton.title = browser.i18n.getMessage("editorUndoCutPage");
 	undoAllCutPageButton.title = browser.i18n.getMessage("editorUndoAllCutPage");
+	redoCutPageButton.title = browser.i18n.getMessage("editorRedoCutPage");
 	savePageButton.title = browser.i18n.getMessage("editorSavePage");
 
 	addYellowNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-yellow" }), "*");
@@ -166,6 +168,9 @@ singlefile.extension.ui.bg.editor = (() => {
 	};
 	undoAllCutPageButton.onclick = () => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "undoAllCutPage" }), "*");
+	};
+	redoCutPageButton.onclick = () => {
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "redoCutPage" }), "*");
 	};
 	savePageButton.onclick = () => {
 		savePage();

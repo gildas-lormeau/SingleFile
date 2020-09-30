@@ -809,7 +809,7 @@ table {
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode;
-	let removedElements = [];
+	let removedElements = [], removedElementIndex = 0;
 
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
@@ -868,13 +868,21 @@ table {
 			document.body.removeEventListener("mouseout", highlightElementToCut);
 		}
 		if (message.method == "undoCutPage") {
-			if (removedElements.length) {
-				removedElements.pop().classList.remove(REMOVED_CONTENT_CLASS);
+			if (removedElementIndex) {
+				removedElements[removedElementIndex - 1].classList.remove(REMOVED_CONTENT_CLASS);
+				removedElementIndex--;
 			}
 		}
 		if (message.method == "undoAllCutPage") {
-			while (removedElements.length) {
-				removedElements.pop().classList.remove(REMOVED_CONTENT_CLASS);
+			while (removedElementIndex) {
+				removedElements[removedElementIndex - 1].classList.remove(REMOVED_CONTENT_CLASS);
+				removedElementIndex--;
+			}
+		}
+		if (message.method == "redoCutPage") {
+			if (removedElementIndex < removedElements.length) {
+				removedElements[removedElementIndex].classList.add(REMOVED_CONTENT_CLASS);
+				removedElementIndex++;
 			}
 		}
 		if (message.method == "getContent") {
@@ -1184,7 +1192,9 @@ table {
 			let element = event.target;
 			if (document.documentElement != element && element.tagName.toLowerCase() != NOTE_TAGNAME) {
 				element.classList.add(REMOVED_CONTENT_CLASS);
-				removedElements.push(element);
+				removedElements[removedElementIndex] = element;
+				removedElementIndex++;
+				removedElements.length = removedElementIndex;
 				onUpdate(false);
 			}
 		}
@@ -1337,6 +1347,7 @@ table {
 		});
 		const article = new Readability(document, { classesToPreserve }).parse();
 		removedElements = [];
+		removedElementIndex = 0;
 		document.body.innerHTML = "";
 		const domParser = new DOMParser();
 		const doc = domParser.parseFromString(article.content, "text/html");
