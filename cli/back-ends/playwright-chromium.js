@@ -74,7 +74,7 @@ async function setPageOptions(page, options) {
 			height: options.browserHeight
 		});
 	}	
-	if (options.httpHeaders && options.httpHeaders.length) {
+	if (options.httpHeaders) {
 		page.setExtraHTTPHeaders(options.httpHeaders);
 	}
 }

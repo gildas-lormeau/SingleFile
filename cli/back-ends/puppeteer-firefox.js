@@ -81,7 +81,7 @@ async function setPageOptions(page, options) {
 			// ignored
 		}
 	}
-	if (options.httpHeaders && options.httpHeaders.length) {
+	if (options.httpHeaders) {
 		try {
 			await page.setExtraHTTPHeaders(options.httpHeaders);
 		} catch (error) {
