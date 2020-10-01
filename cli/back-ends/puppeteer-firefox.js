@@ -81,6 +81,13 @@ async function setPageOptions(page, options) {
 			// ignored
 		}
 	}
+	if (options.httpHeaders && options.httpHeaders.length) {
+		try {
+			await page.setExtraHTTPHeaders(options.httpHeaders);
+		} catch (error) {
+			// ignored
+		}
+	}
 }
 
 async function getPageData(browser, page, options) {

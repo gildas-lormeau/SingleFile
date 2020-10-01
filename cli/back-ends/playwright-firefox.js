@@ -74,6 +74,9 @@ async function setPageOptions(page, options) {
 			height: options.browserHeight
 		});
 	}
+	if (options.httpHeaders && options.httpHeaders.length) {
+		page.setExtraHTTPHeaders(options.httpHeaders);
+	}
 }
 
 async function getPageData(page, options) {

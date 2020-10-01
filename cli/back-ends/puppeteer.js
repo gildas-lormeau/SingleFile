@@ -88,6 +88,9 @@ async function setPageOptions(page, options) {
 	if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
 		await page.setBypassCSP(true);
 	}
+	if (options.httpHeaders && options.httpHeaders.length) {
+		page.setExtraHTTPHeaders(options.httpHeaders);
+	}
 	if (options.browserStartMinimized) {
 		const session = await page.target().createCDPSession();
 		const { windowId } = await session.send("Browser.getWindowForTarget");

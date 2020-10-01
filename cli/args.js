@@ -49,6 +49,7 @@ const args = require("yargs")
 		"filename-template": "{page-title} ({date-iso} {time-locale}).html",
 		"filename-replacement-character": "_",
 		"group-duplicate-images": true,
+		"http-header": [],
 		"include-infobar": false,
 		"load-deferred-images": true,
 		"load-deferred-images-max-idle-time": 1500,
@@ -140,6 +141,8 @@ const args = require("yargs")
 	.string("filename-replacement-character")
 	.options("group-duplicate-images", { description: "Group duplicate images into CSS custom properties" })
 	.boolean("group-duplicate-images")
+	.options("http-header", { description: "Extra HTTP header (puppeteer)" })
+	.array("http-header")
 	.options("include-BOM", { description: "Include the UTF-8 BOM into the HTML page" })
 	.boolean("include-BOM")
 	.options("include-infobar", { description: "Include the infobar" })
@@ -197,6 +200,15 @@ args.compressHTML = args.compressHtml;
 args.includeBOM = args.includeBom;
 args.crawlReplaceURLs = args.crawlReplaceUrls;
 args.crawlRemoveURLFragment = args.crawlRemoveUrlFragment;
+const headers = args.httpHeader;
+delete args.httpHeader;
+args.httpHeaders = {};
+headers.forEach(header => {
+	const matchedHeader = header.match(/^(.*?):(.*)$/);
+	if (matchedHeader.length == 3) {
+		args.httpHeaders[matchedHeader[1].trim()] = matchedHeader[2].trimLeft();
+	}
+});
 Object.keys(args).filter(optionName => optionName.includes("-"))
 	.forEach(optionName => delete args[optionName]);
 delete args["$0"];
