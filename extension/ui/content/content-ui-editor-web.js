@@ -1633,6 +1633,7 @@ table {
 			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});
 			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout, cuttingMode;
 			window.onresize = reflowNotes;
+			window.onUpdate = () => {};
 			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
 			window.addEventListener("DOMContentLoaded", () => {
 				processNode(document);
