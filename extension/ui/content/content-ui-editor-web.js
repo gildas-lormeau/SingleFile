@@ -1211,7 +1211,7 @@ table {
 				validateCutElement();
 				event.preventDefault();
 			}
-			if (event.code == "KeyW" && event.ctrlKey) {
+			if (event.key.toLowerCase() == "z" && event.ctrlKey) {
 				if (event.shiftKey) {
 					redoCutPage();
 				} else {
