@@ -158,6 +158,7 @@ singlefile.extension.ui.bg.editor = (() => {
 		if (cutPageButton.classList.contains("cut-disabled")) {
 			cutPageButton.classList.remove("cut-disabled");
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableCutPage" }), "*");
+			editorElement.contentWindow.focus();
 		} else {
 			cutPageButton.classList.add("cut-disabled");
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableCutPage" }), "*");
@@ -165,12 +166,15 @@ singlefile.extension.ui.bg.editor = (() => {
 	};
 	undoCutPageButton.onclick = () => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "undoCutPage" }), "*");
+		editorElement.contentWindow.focus();
 	};
 	undoAllCutPageButton.onclick = () => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "undoAllCutPage" }), "*");
+		editorElement.contentWindow.focus();
 	};
 	redoCutPageButton.onclick = () => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "redoCutPage" }), "*");
+		editorElement.contentWindow.focus();
 	};
 	savePageButton.onclick = () => {
 		savePage();

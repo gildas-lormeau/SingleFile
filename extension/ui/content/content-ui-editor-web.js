@@ -46,6 +46,7 @@
 	const REMOVED_CONTENT_CLASS = "single-file-removed";
 	const HIGHLIGHT_HIDDEN_CLASS = "single-file-highlight-hidden";
 	const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
+	const CUT_HOVER_CLASS = "single-file-hover";
 	const NOTE_INITIAL_POSITION_X = 20;
 	const NOTE_INITIAL_POSITION_Y = 20;
 	const NOTE_INITIAL_WIDTH = 150;
@@ -808,7 +809,7 @@ table {
 }`;
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode;
+	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode, cuttingPath, cuttingPathIndex;
 	let removedElements = [], removedElementIndex = 0;
 
 	window.onmessage = async event => {
@@ -866,12 +867,13 @@ table {
 			cuttingMode = false;
 			document.body.removeEventListener("mouseover", highlightElementToCut);
 			document.body.removeEventListener("mouseout", highlightElementToCut);
+			if (cuttingPath) {
+				cuttingPath[cuttingPathIndex].classList.remove(CUT_HOVER_CLASS);
+				cuttingPath = null;
+			}
 		}
 		if (message.method == "undoCutPage") {
-			if (removedElementIndex) {
-				removedElements[removedElementIndex - 1].classList.remove(REMOVED_CONTENT_CLASS);
-				removedElementIndex--;
-			}
+			undoCutPage();
 		}
 		if (message.method == "undoAllCutPage") {
 			while (removedElementIndex) {
@@ -880,10 +882,7 @@ table {
 			}
 		}
 		if (message.method == "redoCutPage") {
-			if (removedElementIndex < removedElements.length) {
-				removedElements[removedElementIndex].classList.add(REMOVED_CONTENT_CLASS);
-				removedElementIndex++;
-			}
+			redoCutPage();
 		}
 		if (message.method == "getContent") {
 			onUpdate(true);
@@ -925,6 +924,7 @@ table {
 		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
 		document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
+		document.documentElement.onkeydown = onKeyDown;
 		window.onclick = event => event.preventDefault();
 	}
 
@@ -1189,7 +1189,55 @@ table {
 			collapseNoteTimeout = null;
 		}
 		if (cuttingMode) {
-			let element = event.target;
+			validateCutElement();
+		}
+	}
+
+	function onKeyDown(event) {
+		if (cuttingMode) {
+			if (event.code == "Tab") {
+				if (cuttingPath) {
+					const delta = event.shiftKey ? -1 : 1;
+					const nextElement = cuttingPath[cuttingPathIndex + delta];
+					if (nextElement && nextElement.classList) {
+						cuttingPath[cuttingPathIndex].classList.remove(CUT_HOVER_CLASS);
+						cuttingPathIndex += delta;
+						cuttingPath[cuttingPathIndex].classList.add(CUT_HOVER_CLASS);
+					}
+				}
+				event.preventDefault();
+			}
+			if (event.code == "Space") {
+				validateCutElement();
+				event.preventDefault();
+			}
+			if (event.code == "KeyW" && event.ctrlKey) {
+				if (event.shiftKey) {
+					redoCutPage();
+				} else {
+					undoCutPage();
+				}
+			}
+		}
+	}
+
+	function undoCutPage() {
+		if (removedElementIndex) {
+			removedElements[removedElementIndex - 1].classList.remove(REMOVED_CONTENT_CLASS);
+			removedElementIndex--;
+		}
+	}
+
+	function redoCutPage() {
+		if (removedElementIndex < removedElements.length) {
+			removedElements[removedElementIndex].classList.add(REMOVED_CONTENT_CLASS);
+			removedElementIndex++;
+		}
+	}
+
+	function validateCutElement() {
+		if (cuttingPath) {
+			const element = cuttingPath[cuttingPathIndex];
 			if (document.documentElement != element && element.tagName.toLowerCase() != NOTE_TAGNAME) {
 				element.classList.add(REMOVED_CONTENT_CLASS);
 				removedElements[removedElementIndex] = element;
@@ -1328,12 +1376,27 @@ table {
 	}
 
 	function highlightElementToCut(event) {
-		if (event.type != "mouseover" && event.type != "mouseout") return;
-		var target = event.target;
-		if ("classList" in target) {
-			target.classList.toggle("single-file-hover");
+		const target = event.target;
+		if (cuttingPath) {
+			cuttingPath[cuttingPathIndex].classList.remove(CUT_HOVER_CLASS);
+			cuttingPath = null;
+		}
+		if (target.classList) {
+			target.classList.add(CUT_HOVER_CLASS);
+			cuttingPath = getEventPath(event);
+			cuttingPathIndex = 0;
 		}
 		event.stopPropagation();
+	}
+
+	function getEventPath(event) {
+		const path = [];
+		let element = event.target;
+		while (element) {
+			path.push(element);
+			element = element.parentElement;
+		}
+		return path;
 	}
 
 	function formatPage(applySystemTheme) {
