@@ -1217,6 +1217,7 @@ table {
 				} else {
 					undoCutPage();
 				}
+				event.preventDefault();
 			}
 		}
 	}
