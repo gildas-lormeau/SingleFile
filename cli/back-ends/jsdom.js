@@ -25,7 +25,8 @@
 
 const crypto = require("crypto");
 
-const { JSDOM, VirtualConsole } = require("jsdom");
+const jsdom = require("jsdom");
+const { JSDOM, VirtualConsole } = jsdom;
 const iconv = require("iconv-lite");
 
 exports.initialize = async () => { };
@@ -104,12 +105,24 @@ async function getPageData(win, options) {
 }
 
 function getBrowserOptions(options) {
+	class ResourceLoader extends jsdom.ResourceLoader {
+		_getRequestOptions(fetchOptions) {
+			const requestOptions = super._getRequestOptions(fetchOptions);
+			if (options.httpHeaders) {
+				requestOptions.headers = Object.assign(requestOptions.headers, options.httpHeaders);
+			}
+			return requestOptions;
+		}
+	}
+	const resourceLoader = new ResourceLoader({
+		userAgent: options.userAgent
+	});
 	const jsdomOptions = {
 		virtualConsole: new VirtualConsole(),
 		userAgent: options.userAgent,
 		pretendToBeVisual: true,
 		runScripts: "outside-only",
-		resources: "usable"
+		resources: resourceLoader
 	};
 	if (options.browserWidth && options.browserHeight) {
 		jsdomOptions.beforeParse = function (window) {
