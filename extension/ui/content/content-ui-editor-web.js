@@ -1203,8 +1203,13 @@ table {
 					let nextElement = cuttingPath[cuttingPathIndex + delta];
 					if (nextElement) {
 						let pathIndex = cuttingPathIndex;
-						while (element.getBoundingClientRect().width >= nextElement.getBoundingClientRect().width &&
-							element.getBoundingClientRect().height >= nextElement.getBoundingClientRect().height) {
+						while (
+							(delta == 1 &&
+								element.getBoundingClientRect().width >= nextElement.getBoundingClientRect().width &&
+								element.getBoundingClientRect().height >= nextElement.getBoundingClientRect().height) ||
+							(delta == -1 &&
+								element.getBoundingClientRect().width <= nextElement.getBoundingClientRect().width &&
+								element.getBoundingClientRect().height <= nextElement.getBoundingClientRect().height)) {
 							pathIndex += delta;
 							nextElement = cuttingPath[pathIndex];
 						}
