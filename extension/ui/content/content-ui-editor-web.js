@@ -47,6 +47,7 @@
 	const HIGHLIGHT_HIDDEN_CLASS = "single-file-highlight-hidden";
 	const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
 	const CUT_HOVER_CLASS = "single-file-hover";
+	const CUT_CONTAINER_HOVER_CLASS = "single-file-container-hover";
 	const NOTE_INITIAL_POSITION_X = 20;
 	const NOTE_INITIAL_POSITION_Y = 20;
 	const NOTE_INITIAL_WIDTH = 150;
@@ -809,7 +810,7 @@ table {
 }`;
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode, cuttingPath, cuttingPathIndex;
+	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode, cuttingPath, cuttingPathIndex, cuttingElementContainer;
 	let removedElements = [], removedElementIndex = 0;
 
 	window.onmessage = async event => {
@@ -868,7 +869,7 @@ table {
 			document.body.removeEventListener("mouseover", highlightElementToCut);
 			document.body.removeEventListener("mouseout", highlightElementToCut);
 			if (cuttingPath) {
-				cuttingPath[cuttingPathIndex].classList.remove(CUT_HOVER_CLASS);
+				unhighlightCutElement();
 				cuttingPath = null;
 			}
 		}
@@ -1198,11 +1199,21 @@ table {
 			if (event.code == "Tab") {
 				if (cuttingPath) {
 					const delta = event.shiftKey ? -1 : 1;
-					const nextElement = cuttingPath[cuttingPathIndex + delta];
-					if (nextElement && nextElement.classList) {
-						cuttingPath[cuttingPathIndex].classList.remove(CUT_HOVER_CLASS);
-						cuttingPathIndex += delta;
-						cuttingPath[cuttingPathIndex].classList.add(CUT_HOVER_CLASS);
+					let element = cuttingPath[cuttingPathIndex];
+					let nextElement = cuttingPath[cuttingPathIndex + delta];
+					if (nextElement) {
+						let pathIndex = cuttingPathIndex;
+						while (element.getBoundingClientRect().width >= nextElement.getBoundingClientRect().width &&
+							element.getBoundingClientRect().height >= nextElement.getBoundingClientRect().height) {
+							pathIndex += delta;
+							nextElement = cuttingPath[pathIndex];
+						}
+						if (nextElement && nextElement.classList) {
+							unhighlightCutElement();
+							cuttingPathIndex = pathIndex;
+							cuttingPathIndex += delta;
+							highlightCutElement(cuttingPath[cuttingPathIndex]);
+						}
 					}
 				}
 				event.preventDefault();
@@ -1219,6 +1230,29 @@ table {
 				}
 				event.preventDefault();
 			}
+		}
+	}
+
+	function highlightCutElement() {
+		const element = cuttingPath[cuttingPathIndex];
+		element.classList.add(CUT_HOVER_CLASS);
+		let parentElement = element.parentElement;
+		while (parentElement && getComputedStyle(parentElement).getPropertyValue("overflow") != "hidden") {
+			parentElement = parentElement.parentElement;
+		}
+		if (parentElement) {
+			cuttingElementContainer = parentElement;
+			cuttingElementContainer.classList.add(CUT_CONTAINER_HOVER_CLASS);
+		} else {
+			cuttingElementContainer = null;
+		}
+	}
+
+	function unhighlightCutElement() {
+		const element = cuttingPath[cuttingPathIndex];
+		element.classList.remove(CUT_HOVER_CLASS);
+		if (cuttingElementContainer) {
+			cuttingElementContainer.classList.remove(CUT_CONTAINER_HOVER_CLASS);
 		}
 	}
 
@@ -1379,13 +1413,13 @@ table {
 	function highlightElementToCut(event) {
 		const target = event.target;
 		if (cuttingPath) {
-			cuttingPath[cuttingPathIndex].classList.remove(CUT_HOVER_CLASS);
+			unhighlightCutElement();
 			cuttingPath = null;
 		}
 		if (target.classList) {
-			target.classList.add(CUT_HOVER_CLASS);
 			cuttingPath = getEventPath(event);
 			cuttingPathIndex = 0;
+			highlightCutElement(target);
 		}
 		event.stopPropagation();
 	}

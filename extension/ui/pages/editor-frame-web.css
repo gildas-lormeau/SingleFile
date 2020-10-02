@@ -54,7 +54,11 @@ single-file-note {
 }
 
 .single-file-hover {
-    outline: 1px solid red !important;
+    outline: 4px dotted red !important;
+}
+
+.single-file-container-hover {
+    overflow: visible !important;
 }
 
 .single-file-removed {
