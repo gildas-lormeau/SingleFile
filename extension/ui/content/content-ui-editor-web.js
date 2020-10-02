@@ -1202,7 +1202,7 @@ table {
 					let element = cuttingPath[cuttingPathIndex];
 					let nextElement = cuttingPath[cuttingPathIndex + delta];
 					if (nextElement) {
-						let pathIndex = cuttingPathIndex;
+						let pathIndex = cuttingPathIndex + delta;
 						while (
 							(delta == 1 &&
 								element.getBoundingClientRect().width >= nextElement.getBoundingClientRect().width &&
@@ -1216,7 +1216,6 @@ table {
 						if (nextElement && nextElement.classList) {
 							unhighlightCutElement();
 							cuttingPathIndex = pathIndex;
-							cuttingPathIndex += delta;
 							highlightCutElement(cuttingPath[cuttingPathIndex]);
 						}
 					}
