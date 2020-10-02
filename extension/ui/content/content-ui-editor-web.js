@@ -1204,6 +1204,7 @@ table {
 					if (nextElement) {
 						let pathIndex = cuttingPathIndex + delta;
 						while (
+							nextElement &&
 							(delta == 1 &&
 								element.getBoundingClientRect().width >= nextElement.getBoundingClientRect().width &&
 								element.getBoundingClientRect().height >= nextElement.getBoundingClientRect().height) ||
