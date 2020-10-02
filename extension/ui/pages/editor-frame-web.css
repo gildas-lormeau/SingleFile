@@ -55,7 +55,7 @@ single-file-note {
 
 .single-file-hover {
     outline: 4px dotted red !important;
-    cursor: crosshair;
+    cursor: crosshair !important;
 }
 
 .single-file-container-hover {
