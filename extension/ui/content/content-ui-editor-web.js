@@ -1254,10 +1254,12 @@ table {
 	}
 
 	function unhighlightCutElement() {
-		const element = cuttingPath[cuttingPathIndex];
-		element.classList.remove(CUT_HOVER_CLASS);
-		if (cuttingElementContainer) {
-			cuttingElementContainer.classList.remove(CUT_CONTAINER_HOVER_CLASS);
+		if (cuttingPath) {
+			const element = cuttingPath[cuttingPathIndex];
+			element.classList.remove(CUT_HOVER_CLASS);
+			if (cuttingElementContainer) {
+				cuttingElementContainer.classList.remove(CUT_CONTAINER_HOVER_CLASS);
+			}
 		}
 	}
 
