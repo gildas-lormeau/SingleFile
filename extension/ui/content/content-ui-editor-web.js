@@ -1494,6 +1494,7 @@ table {
 	}
 
 	function getContent(compressHTML, updatedResources) {
+		unhighlightCutElement();
 		serializeShadowRoots(document);
 		const doc = document.cloneNode(true);
 		deserializeShadowRoots(doc);
