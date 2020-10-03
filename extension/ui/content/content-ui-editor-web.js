@@ -861,13 +861,9 @@ table {
 		}
 		if (message.method == "enableCutPage") {
 			cuttingMode = true;
-			document.body.addEventListener("mouseover", highlightElementToCut);
-			document.body.addEventListener("mouseout", highlightElementToCut);
 		}
 		if (message.method == "disableCutPage") {
 			cuttingMode = false;
-			document.body.removeEventListener("mouseover", highlightElementToCut);
-			document.body.removeEventListener("mouseout", highlightElementToCut);
 			if (cuttingPath) {
 				unhighlightCutElement();
 				cuttingPath = null;
@@ -925,6 +921,8 @@ table {
 		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
 		document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
+		document.documentElement.onmouseover = onMouseOver;
+		document.documentElement.onmouseout = onMouseOut;
 		document.documentElement.onkeydown = onKeyDown;
 		window.onclick = event => event.preventDefault();
 	}
@@ -1194,6 +1192,26 @@ table {
 		}
 	}
 
+	function onMouseOver(event) {
+		if (cuttingMode) {
+			const target = event.target;
+			if (target.classList) {
+				cuttingPath = getEventPath(event);
+				cuttingPathIndex = 0;
+				highlightCutElement(target);
+			}
+		}
+	}
+
+	function onMouseOut() {
+		if (cuttingMode) {
+			if (cuttingPath) {
+				unhighlightCutElement();
+				cuttingPath = null;
+			}
+		}
+	}
+
 	function onKeyDown(event) {
 		if (cuttingMode) {
 			if (event.code == "Tab") {
@@ -1416,20 +1434,6 @@ table {
 			node.parentNode.replaceChild(spanElement, node);
 			return spanElement;
 		}
-	}
-
-	function highlightElementToCut(event) {
-		const target = event.target;
-		if (cuttingPath) {
-			unhighlightCutElement();
-			cuttingPath = null;
-		}
-		if (target.classList) {
-			cuttingPath = getEventPath(event);
-			cuttingPathIndex = 0;
-			highlightCutElement(target);
-		}
-		event.stopPropagation();
 	}
 
 	function getEventPath(event) {
