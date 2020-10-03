@@ -1205,16 +1205,17 @@ table {
 						let pathIndex = cuttingPathIndex + delta;
 						while (
 							nextElement &&
-							(delta == 1 &&
-								element.getBoundingClientRect().width >= nextElement.getBoundingClientRect().width &&
-								element.getBoundingClientRect().height >= nextElement.getBoundingClientRect().height) ||
-							(delta == -1 &&
-								element.getBoundingClientRect().width <= nextElement.getBoundingClientRect().width &&
-								element.getBoundingClientRect().height <= nextElement.getBoundingClientRect().height)) {
+							(
+								(delta == 1 &&
+									element.getBoundingClientRect().width >= nextElement.getBoundingClientRect().width &&
+									element.getBoundingClientRect().height >= nextElement.getBoundingClientRect().height) ||
+								(delta == -1 &&
+									element.getBoundingClientRect().width <= nextElement.getBoundingClientRect().width &&
+									element.getBoundingClientRect().height <= nextElement.getBoundingClientRect().height))) {
 							pathIndex += delta;
 							nextElement = cuttingPath[pathIndex];
 						}
-						if (nextElement && nextElement.classList) {
+						if (nextElement && nextElement.classList && nextElement != document.body) {
 							unhighlightCutElement();
 							cuttingPathIndex = pathIndex;
 							highlightCutElement(cuttingPath[cuttingPathIndex]);
