@@ -842,9 +842,11 @@ table {
 		}
 		if (message.method == "enableRemoveHighlights") {
 			removeHighlightMode = true;
+			document.documentElement.classList.add("single-file-remove-highlights-mode");
 		}
 		if (message.method == "disableRemoveHighlights") {
 			removeHighlightMode = false;
+			document.documentElement.classList.remove("single-file-remove-highlights-mode");
 		}
 		if (message.method == "enableEditPage") {
 			document.body.contentEditable = true;
@@ -860,10 +862,10 @@ table {
 			document.body.contentEditable = false;
 		}
 		if (message.method == "enableCutPage") {
-			cuttingMode = true;
+			cuttingMode = true;			
 		}
 		if (message.method == "disableCutPage") {
-			cuttingMode = false;
+			cuttingMode = false;			
 			if (cuttingPath) {
 				unhighlightCutElement();
 				cuttingPath = null;
