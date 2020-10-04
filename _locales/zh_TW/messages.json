@@ -395,6 +395,26 @@
 		"message": "在標註編輯器中打開用 SingleFile 保存的頁面",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
+	"optionDefaultEditorMode": {
+		"message": "default mode",
+		"description": "Options page label: 'default mode'"
+	},
+	"optionDefaultEditorModeNormal": {
+		"message": "normal",
+		"description": "Options page label: 'default mode > normal'"
+	},
+	"optionDefaultEditorModeEdit": {
+		"message": "edit the page",
+		"description": "Options page label: 'default mode > edit the page'"
+	},
+	"optionDefaultEditorModeFormat": {
+		"message": "format the page",
+		"description": "Options page label: 'default mode > format the page'"
+	},
+	"optionDefaultEditorModeCut": {
+		"message": "remove elements",
+		"description": "Options page label: 'default mode > remove elements'"
+	},
 	"optionApplySystemTheme": {
 		"message": "在標註編輯器中打開頁面時應用系統主題樣式",
 		"description": "Title of the button 'apply the system theme when formatting a page'"

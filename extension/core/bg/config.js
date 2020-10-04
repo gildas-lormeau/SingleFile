@@ -67,6 +67,7 @@ singlefile.extension.core.bg.config = (() => {
 		displayInfobar: true,
 		displayStats: false,
 		backgroundSave: true,
+		defaultEditorMode: "normal",
 		applySystemTheme: true,
 		autoSaveDelay: 1,
 		autoSaveLoad: false,

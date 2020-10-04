@@ -817,6 +817,7 @@ table {
 		const message = JSON.parse(event.data);
 		if (message.method == "init") {
 			await init(message.content);
+			window.parent.postMessage(JSON.stringify({ "method": "onInit" }), "*");
 		}
 		if (message.method == "addNote") {
 			addNote(message);

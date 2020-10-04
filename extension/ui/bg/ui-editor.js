@@ -119,27 +119,18 @@ singlefile.extension.ui.bg.editor = (() => {
 	};
 	editPageButton.onclick = () => {
 		if (editPageButton.classList.contains("edit-disabled")) {
-			editPageButton.classList.remove("edit-disabled");
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableEditPage" }), "*");
+			enableEditPage();
 		} else {
 			editPageButton.classList.add("edit-disabled");
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableEditPage" }), "*");
 		}
 	};
 	formatPageButton.onclick = () => {
-		if (formatPageButton.classList.contains("format-disabled")) {
-			formatPageButton.classList.remove("format-disabled");
-			updatedResources = {};
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: tabData.options.applySystemTheme ? "formatPage" : "formatPageNoTheme" }), "*");
-		}
+		enableFormatPage();
 	};
 	cutPageButton.onclick = () => {
 		if (cutPageButton.classList.contains("cut-disabled")) {
-			cutPageButton.classList.remove("cut-disabled");
-			toolbarElement.classList.add("cut-mode");
-			resetHighlightButtons();
-			disableRemoveHighlights();
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableCutPage" }), "*");
+			enableCutPage();
 			editorElement.contentWindow.focus();
 		} else {
 			cutPageButton.classList.add("cut-disabled");
@@ -184,10 +175,20 @@ singlefile.extension.ui.bg.editor = (() => {
 			singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
 		}
 		if (message.method == "disableFormatPage") {
+			tabData.options.disableFormatPage = true;
 			formatPageButton.remove();
 		}
 		if (message.method == "onUpdate") {
 			tabData.docSaved = message.saved;
+		}
+		if (message.method == "onInit") {
+			if (tabData.options.defaultEditorMode == "edit") {
+				enableEditPage();
+			} else if (tabData.options.defaultEditorMode == "format" && !tabData.options.disableFormatPage) {
+				enableFormatPage();
+			} else if (tabData.options.defaultEditorMode == "cut") {
+				enableCutPage();
+			}
 		}
 	};
 
@@ -247,6 +248,27 @@ singlefile.extension.ui.bg.editor = (() => {
 	function displayHighlights() {
 		toggleHighlightsButton.src = "/extension/ui/resources/button_highlighter_visible.png";
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "displayHighlights" }), "*");
+	}
+
+	function enableEditPage() {
+		editPageButton.classList.remove("edit-disabled");
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableEditPage" }), "*");
+	}
+
+	function enableFormatPage() {
+		if (formatPageButton.classList.contains("format-disabled")) {
+			formatPageButton.classList.remove("format-disabled");
+			updatedResources = {};
+			editorElement.contentWindow.postMessage(JSON.stringify({ method: tabData.options.applySystemTheme ? "formatPage" : "formatPageNoTheme" }), "*");
+		}
+	}
+
+	function enableCutPage() {
+		cutPageButton.classList.remove("cut-disabled");
+		toolbarElement.classList.add("cut-mode");
+		resetHighlightButtons();
+		disableRemoveHighlights();
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableCutPage" }), "*");
 	}
 
 	function savePage() {
