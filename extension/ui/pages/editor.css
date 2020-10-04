@@ -50,9 +50,15 @@ img[type=button].remove-highlight-disabled {
 
 img[type=button].edit-disabled:hover,
 img[type=button].cut-disabled:hover,
-img[type=button].highlight-disabled:hover,
-img[type=button].remove-highlight-disabled:hover {
+.toolbar:not(.cut-mode):not(.remove-highlight-mode) img[type=button].highlight-disabled:hover,
+.toolbar:not(.cut-mode) img[type=button].remove-highlight-disabled:hover {
     filter: brightness(0.875);
+}
+
+.cut-mode img[type=button].highlight-disabled:hover,
+.cut-mode img[type=button].remove-highlight-disabled:hover,
+.remove-highlight-mode img[type=button].highlight-disabled:hover {
+    cursor: not-allowed;
 }
 
 .format-page-button:not(.format-disabled):hover {

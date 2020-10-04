@@ -26,6 +26,7 @@
 singlefile.extension.ui.bg.editor = (() => {
 
 	const editorElement = document.querySelector(".editor");
+	const toolbarElement = document.querySelector(".toolbar");
 	const highlightYellowButton = document.querySelector(".highlight-yellow-button");
 	const highlightPinkButton = document.querySelector(".highlight-pink-button");
 	const highlightBlueButton = document.querySelector(".highlight-blue-button");
@@ -71,46 +72,20 @@ singlefile.extension.ui.bg.editor = (() => {
 	addPinkNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-pink" }), "*");
 	addBlueNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-blue" }), "*");
 	addGreenNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-green" }), "*");
-	highlightYellowButton.onclick = () => {
-		if (highlightYellowButton.classList.contains("highlight-disabled")) {
-			highlightButtons.forEach(highlightButton => highlightButton.classList.add("highlight-disabled"));
-			highlightYellowButton.classList.remove("highlight-disabled");
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableHighlight", color: "single-file-highlight-yellow" }), "*");
-		} else {
-			highlightYellowButton.classList.add("highlight-disabled");
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableHighlight" }), "*");
-		}
-	};
-	highlightPinkButton.onclick = () => {
-		if (highlightPinkButton.classList.contains("highlight-disabled")) {
-			highlightButtons.forEach(highlightButton => highlightButton.classList.add("highlight-disabled"));
-			highlightPinkButton.classList.remove("highlight-disabled");
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableHighlight", color: "single-file-highlight-pink" }), "*");
-		} else {
-			highlightPinkButton.classList.add("highlight-disabled");
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableHighlight" }), "*");
-		}
-	};
-	highlightBlueButton.onclick = () => {
-		if (highlightBlueButton.classList.contains("highlight-disabled")) {
-			highlightButtons.forEach(highlightButton => highlightButton.classList.add("highlight-disabled"));
-			highlightBlueButton.classList.remove("highlight-disabled");
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableHighlight", color: "single-file-highlight-blue" }), "*");
-		} else {
-			highlightBlueButton.classList.add("highlight-disabled");
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableHighlight" }), "*");
-		}
-	};
-	highlightGreenButton.onclick = () => {
-		if (highlightGreenButton.classList.contains("highlight-disabled")) {
-			highlightButtons.forEach(highlightButton => highlightButton.classList.add("highlight-disabled"));
-			highlightGreenButton.classList.remove("highlight-disabled");
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableHighlight", color: "single-file-highlight-green" }), "*");
-		} else {
-			highlightGreenButton.classList.add("highlight-disabled");
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableHighlight" }), "*");
-		}
-	};
+	highlightButtons.forEach(highlightButton => {
+		highlightButton.onclick = () => {
+			if (!toolbarElement.classList.contains("cut-mode") && !toolbarElement.classList.contains("remove-highlight-mode")) {
+				const disabled = highlightButton.classList.contains("highlight-disabled");
+				resetHighlightButtons();
+				if (disabled) {
+					highlightButton.classList.remove("highlight-disabled");
+					editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableHighlight", color: "single-file-highlight-" + highlightButton.dataset.color }), "*");
+				} else {
+					highlightButton.classList.add("highlight-disabled");
+				}
+			}
+		};
+	});
 	toggleNotesButton.onclick = () => {
 		if (toggleNotesButton.getAttribute("src") == "/extension/ui/resources/button_note_visible.png") {
 			toggleNotesButton.src = "/extension/ui/resources/button_note_hidden.png";
@@ -125,17 +100,21 @@ singlefile.extension.ui.bg.editor = (() => {
 			toggleHighlightsButton.src = "/extension/ui/resources/button_highlighter_hidden.png";
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "hideHighlights" }), "*");
 		} else {
-			toggleHighlightsButton.src = "/extension/ui/resources/button_highlighter_visible.png";
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "displayHighlights" }), "*");
+			displayHighlights();
 		}
 	};
 	removeHighlightButton.onclick = () => {
-		if (removeHighlightButton.classList.contains("remove-highlight-disabled")) {
-			removeHighlightButton.classList.remove("remove-highlight-disabled");
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableRemoveHighlights" }), "*");
-		} else {
-			removeHighlightButton.classList.add("remove-highlight-disabled");
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableRemoveHighlights" }), "*");
+		if (!toolbarElement.classList.contains("cut-mode")) {
+			if (removeHighlightButton.classList.contains("remove-highlight-disabled")) {
+				removeHighlightButton.classList.remove("remove-highlight-disabled");
+				toolbarElement.classList.add("remove-highlight-mode");
+				resetHighlightButtons();
+				displayHighlights();
+				editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableRemoveHighlights" }), "*");
+				editorElement.contentWindow.postMessage(JSON.stringify({ method: "displayHighlights" }), "*");
+			} else {
+				disableRemoveHighlights();
+			}
 		}
 	};
 	editPageButton.onclick = () => {
@@ -157,10 +136,14 @@ singlefile.extension.ui.bg.editor = (() => {
 	cutPageButton.onclick = () => {
 		if (cutPageButton.classList.contains("cut-disabled")) {
 			cutPageButton.classList.remove("cut-disabled");
+			toolbarElement.classList.add("cut-mode");
+			resetHighlightButtons();
+			disableRemoveHighlights();
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableCutPage" }), "*");
 			editorElement.contentWindow.focus();
 		} else {
 			cutPageButton.classList.add("cut-disabled");
+			toolbarElement.classList.remove("cut-mode");
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableCutPage" }), "*");
 		}
 	};
@@ -249,6 +232,22 @@ singlefile.extension.ui.bg.editor = (() => {
 			event.returnValue = "";
 		}
 	};
+
+	function resetHighlightButtons() {
+		highlightButtons.forEach(highlightButton => highlightButton.classList.add("highlight-disabled"));
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableHighlight" }), "*");
+	}
+
+	function disableRemoveHighlights() {
+		toolbarElement.classList.remove("remove-highlight-mode");
+		removeHighlightButton.classList.add("remove-highlight-disabled");
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableRemoveHighlights" }), "*");
+	}
+
+	function displayHighlights() {
+		toggleHighlightsButton.src = "/extension/ui/resources/button_highlighter_visible.png";
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "displayHighlights" }), "*");
+	}
 
 	function savePage() {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "getContent", compressHTML: tabData.options.compressHTML, updatedResources }), "*");
