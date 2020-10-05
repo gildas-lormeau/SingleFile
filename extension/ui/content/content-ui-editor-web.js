@@ -863,10 +863,10 @@ table {
 			document.body.contentEditable = false;
 		}
 		if (message.method == "enableCutPage") {
-			cuttingMode = true;			
+			cuttingMode = true;
 		}
 		if (message.method == "disableCutPage") {
-			cuttingMode = false;			
+			cuttingMode = false;
 			if (cuttingPath) {
 				unhighlightCutElement();
 				cuttingPath = null;
