@@ -123,17 +123,22 @@ singlefile.extension.ui.bg.editor = (() => {
 		}
 	};
 	editPageButton.onclick = () => {
+		if (toolbarElement.classList.contains("cut-mode")) {
+			disableCutePage();
+		}
 		if (editPageButton.classList.contains("edit-disabled")) {
 			enableEditPage();
 		} else {
-			editPageButton.classList.add("edit-disabled");
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableEditPage" }), "*");
+			disableEditPage();
 		}
 	};
 	formatPageButton.onclick = () => {
 		enableFormatPage();
 	};
 	cutPageButton.onclick = () => {
+		if (toolbarElement.classList.contains("edit-mode")) {
+			disableEditPage();
+		}
 		if (cutPageButton.classList.contains("cut-disabled")) {
 			enableCutPage();
 			editorElement.contentWindow.focus();
@@ -237,6 +242,12 @@ singlefile.extension.ui.bg.editor = (() => {
 		}
 	};
 
+	function disableEditPage() {
+		editPageButton.classList.add("edit-disabled");
+		toolbarElement.classList.remove("edit-mode");
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableEditPage" }), "*");
+	}
+
 	function disableCutePage() {
 		cutPageButton.classList.add("cut-disabled");
 		toolbarElement.classList.remove("cut-mode");
@@ -261,6 +272,7 @@ singlefile.extension.ui.bg.editor = (() => {
 
 	function enableEditPage() {
 		editPageButton.classList.remove("edit-disabled");
+		toolbarElement.classList.add("edit-mode");
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableEditPage" }), "*");
 	}
 
