@@ -55,12 +55,6 @@ img[type=button].cut-disabled:hover,
     filter: brightness(0.875);
 }
 
-.cut-mode img[type=button].highlight-disabled:hover,
-.cut-mode img[type=button].remove-highlight-disabled:hover,
-.remove-highlight-mode img[type=button].highlight-disabled:hover {
-    cursor: not-allowed;
-}
-
 .format-page-button:not(.format-disabled):hover {
     cursor: default;
     filter: brightness(1);
