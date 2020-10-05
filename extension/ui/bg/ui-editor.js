@@ -75,7 +75,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	highlightButtons.forEach(highlightButton => {
 		highlightButton.onclick = () => {
 			if (toolbarElement.classList.contains("cut-mode")) {
-				disableCutePage();
+				disableCutPage();
 			}
 			if (toolbarElement.classList.contains("remove-highlight-mode")) {
 				disableRemoveHighlights();
@@ -109,7 +109,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	};
 	removeHighlightButton.onclick = () => {
 		if (toolbarElement.classList.contains("cut-mode")) {
-			disableCutePage();
+			disableCutPage();
 		}
 		if (removeHighlightButton.classList.contains("remove-highlight-disabled")) {
 			removeHighlightButton.classList.remove("remove-highlight-disabled");
@@ -124,7 +124,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	};
 	editPageButton.onclick = () => {
 		if (toolbarElement.classList.contains("cut-mode")) {
-			disableCutePage();
+			disableCutPage();
 		}
 		if (editPageButton.classList.contains("edit-disabled")) {
 			enableEditPage();
@@ -143,7 +143,7 @@ singlefile.extension.ui.bg.editor = (() => {
 			enableCutPage();
 			editorElement.contentWindow.focus();
 		} else {
-			disableCutePage();
+			disableCutPage();
 		}
 	};
 	undoCutPageButton.onclick = () => {
@@ -248,7 +248,7 @@ singlefile.extension.ui.bg.editor = (() => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableEditPage" }), "*");
 	}
 
-	function disableCutePage() {
+	function disableCutPage() {
 		cutPageButton.classList.add("cut-disabled");
 		toolbarElement.classList.remove("cut-mode");
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableCutPage" }), "*");
