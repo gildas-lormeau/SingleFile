@@ -1236,7 +1236,7 @@ table {
 							pathIndex += delta;
 							nextElement = cuttingPath[pathIndex];
 						}
-						if (nextElement && nextElement.classList && nextElement != document.body) {
+						if (nextElement && nextElement.classList && nextElement != document.body && nextElement != document.documentElement) {
 							unhighlightCutElement();
 							cuttingPathIndex = pathIndex;
 							highlightCutElement(cuttingPath[cuttingPathIndex]);
