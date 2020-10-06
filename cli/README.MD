@@ -18,9 +18,9 @@ SingleFile can be launched from the command line by running it into a (headless)
   
     `cd SingleFile-master`
   
-    `cd cli`
-      
     `npm install`
+  
+    `cd cli`    
     
   - Download with `npm`
     
@@ -37,10 +37,10 @@ SingleFile can be launched from the command line by running it into a (headless)
     `git clone --depth 1 --recursive https://github.com/gildas-lormeau/SingleFile.git`
   
     `cd SingleFile`
+    
+    `npm install`
   
-    `cd cli`
-       
-    `npm install`        
+    `cd cli`           
   
 - Make `single-file` executable (Linux/Unix/BSD etc.).
 
@@ -62,7 +62,7 @@ SingleFile can be launched from the command line by running it into a (headless)
 
   - Dump the processed content of https://www.wikipedia.org into the console
 
-  `single-file https://www.wikipedia.org --filename-template=""`
+  `single-file https://www.wikipedia.org --dump-content`
 
   - Save https://www.wikipedia.org into `wikipedia.html` in the current folder
 
@@ -103,6 +103,8 @@ SingleFile can be launched from the command line by running it into a (headless)
 - Run and pipe the result into a file
 
   `docker run singlefile "https://www.wikipedia.org" > wikipedia.html`
+
+- An alternative docker file can be found here https://github.com/screenbreak/SingleFile-dockerized. It allows you to save pages from the command line interface or through an HTTP server.
 
 ## License
 

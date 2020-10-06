@@ -30,6 +30,8 @@ singlefile.extension.core.bg.business = (() => {
 	const ERROR_CONNECTION_LOST_GECKO = "Message manager disconnected";
 	const INJECT_SCRIPTS_STEP = 1;
 	const EXECUTE_SCRIPTS_STEP = 2;
+	const TASK_PENDING_STATE = "pending";
+	const TASK_PROCESSING_STATE = "processing";
 
 	const extensionScriptFiles = [
 		"common/index.js",
@@ -65,7 +67,7 @@ singlefile.extension.core.bg.business = (() => {
 		onSaveEnd: taskId => {
 			const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
 			if (taskInfo) {
-				taskInfo.resolve();
+				taskInfo.done();
 			}
 		},
 		onInit: tab => cancelTab(tab.id),
@@ -93,8 +95,12 @@ singlefile.extension.core.bg.business = (() => {
 			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 			tabOptions.autoClose = true;
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
-			tasks.push({ id: currentTaskId, status: "pending", tab: { url }, options: tabOptions, method: "content.save" });
-			currentTaskId++;
+			addTask({
+				tab: { url },
+				status: TASK_PENDING_STATE,
+				options: tabOptions,
+				method: "content.save"
+			});
 		}));
 		runTasks();
 	}
@@ -113,24 +119,48 @@ singlefile.extension.core.bg.business = (() => {
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
 			if (options.autoSave) {
 				if (autosave.isEnabled(tab)) {
-					const taskInfo = { id: currentTaskId, status: "processing", tab, options: tabOptions, method: "content.autosave" };
-					tasks.push(taskInfo);
+					const taskInfo = addTask({
+						status: TASK_PROCESSING_STATE,
+						tab,
+						options: tabOptions,
+						method: "content.autosave"
+					});
 					runTask(taskInfo);
-					currentTaskId++;
 				}
 			} else {
 				ui.onStart(tabId, INJECT_SCRIPTS_STEP);
 				const scriptsInjected = await singlefile.extension.injectScript(tabId, tabOptions);
 				if (scriptsInjected) {
 					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
-					tasks.push({ id: currentTaskId, status: "pending", tab, options: tabOptions, method: "content.save" });
-					currentTaskId++;
+					addTask({
+						status: TASK_PENDING_STATE,
+						tab,
+						options: tabOptions,
+						method: "content.save"
+					});
 				} else {
 					ui.onForbiddenDomain(tab);
 				}
 			}
 		}));
 		runTasks();
+	}
+
+	function addTask(info) {
+		const taskInfo = {
+			id: currentTaskId,
+			status: info.status,
+			tab: info.tab,
+			options: info.options,
+			method: info.method,
+			done: function () {
+				tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == this.id), 1);
+				runTasks();
+			}
+		};
+		tasks.push(taskInfo);
+		currentTaskId++;
+		return taskInfo;
 	}
 
 	function openEditor(tab) {
@@ -144,64 +174,57 @@ singlefile.extension.core.bg.business = (() => {
 	}
 
 	function runTasks() {
-		const processingCount = tasks.filter(taskInfo => taskInfo.status == "processing").length;
+		const processingCount = tasks.filter(taskInfo => taskInfo.status == TASK_PROCESSING_STATE).length;
 		for (let index = 0; index < Math.min(tasks.length - processingCount, (maxParallelWorkers - processingCount)); index++) {
-			const taskInfo = tasks.find(taskInfo => taskInfo.status == "pending");
+			const taskInfo = tasks.find(taskInfo => taskInfo.status == TASK_PENDING_STATE);
 			if (taskInfo) {
 				runTask(taskInfo);
 			}
 		}
 	}
 
-	function runTask(taskInfo) {
+	async function runTask(taskInfo) {
 		const ui = singlefile.extension.ui.bg.main;
 		const tabs = singlefile.extension.core.bg.tabs;
 		const taskId = taskInfo.id;
-		return new Promise(async (resolve, reject) => {
-			taskInfo.status = "processing";
-			taskInfo.resolve = () => {
-				tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == taskId), 1);
-				resolve();
-				runTasks();
-			};
-			taskInfo.reject = error => {
-				tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == taskId), 1);
-				reject(error);
-				runTasks();
-			};
-			if (!taskInfo.tab.id) {
-				let scriptsInjected;
-				try {
-					const tab = await tabs.createAndWait({ url: taskInfo.tab.url, active: false });
-					taskInfo.tab.id = taskInfo.options.tabId = tab.id;
-					taskInfo.tab.index = taskInfo.options.tabIndex = tab.index;
-					ui.onStart(taskInfo.tab.id, INJECT_SCRIPTS_STEP);
-					scriptsInjected = await singlefile.extension.injectScript(taskInfo.tab.id, taskInfo.options);
-				} catch (tabId) {
-					taskInfo.tab.id = tabId;
-				}
-				if (scriptsInjected) {
-					ui.onStart(taskInfo.tab.id, EXECUTE_SCRIPTS_STEP);
-				} else {
-					taskInfo.reject();
-					return;
-				}
+		taskInfo.status = TASK_PROCESSING_STATE;
+		if (!taskInfo.tab.id) {
+			let scriptsInjected;
+			try {
+				const tab = await tabs.createAndWait({ url: taskInfo.tab.url, active: false });
+				taskInfo.tab.id = taskInfo.options.tabId = tab.id;
+				taskInfo.tab.index = taskInfo.options.tabIndex = tab.index;
+				ui.onStart(taskInfo.tab.id, INJECT_SCRIPTS_STEP);
+				scriptsInjected = await singlefile.extension.injectScript(taskInfo.tab.id, taskInfo.options);
+			} catch (tabId) {
+				taskInfo.tab.id = tabId;
 			}
-			taskInfo.options.taskId = taskId;
-			tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options })
-				.then(() => {
-					if (taskInfo.options.autoClose && !taskInfo.cancelled) {
-						tabs.remove(taskInfo.tab.id);
-					}
-				})
-				.catch(error => {
-					if (error && (!error.message || (error.message != ERROR_CONNECTION_LOST_CHROMIUM && error.message != ERROR_CONNECTION_ERROR_CHROMIUM && error.message != ERROR_CONNECTION_LOST_GECKO))) {
-						console.log(error); // eslint-disable-line no-console
-						ui.onError(taskInfo.tab.id);
-						taskInfo.reject(error);
-					}
-				});
-		});
+			if (scriptsInjected) {
+				ui.onStart(taskInfo.tab.id, EXECUTE_SCRIPTS_STEP);
+			} else {
+				taskInfo.done();
+				return;
+			}
+		}
+		taskInfo.options.taskId = taskId;
+		try {
+			await tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options });
+			if (taskInfo.options.autoClose && !taskInfo.cancelled) {
+				tabs.remove(taskInfo.tab.id);
+			}
+		} catch (error) {
+			if (error && (!error.message || !isIgnoredError(error))) {
+				console.log(error); // eslint-disable-line no-console
+				ui.onError(taskInfo.tab.id);
+				taskInfo.done();
+			}
+		}
+	}
+
+	function isIgnoredError(error) {
+		return error.message == ERROR_CONNECTION_LOST_CHROMIUM ||
+			error.message == ERROR_CONNECTION_ERROR_CHROMIUM ||
+			error.message == ERROR_CONNECTION_LOST_GECKO;
 	}
 
 	function cancelTab(tabId) {
@@ -210,7 +233,6 @@ singlefile.extension.core.bg.business = (() => {
 
 	function cancelTask(taskInfo) {
 		const tabId = taskInfo.tab.id;
-		const taskId = taskInfo.id;
 		taskInfo.cancelled = true;
 		singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave", resetZoomLevel: taskInfo.options.loadDeferredImagesKeepZoomLevel });
 		if (taskInfo.cancel) {
@@ -220,10 +242,7 @@ singlefile.extension.core.bg.business = (() => {
 			singlefile.extension.ui.bg.main.onEnd(tabId, true);
 		}
 		singlefile.extension.ui.bg.main.onCancelled(taskInfo.tab);
-		tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == taskId), 1);
-		if (taskInfo.resolve) {
-			taskInfo.resolve();
-		}
+		taskInfo.done();
 	}
 
 	function mapTaskInfo(taskInfo) {

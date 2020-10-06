@@ -46,6 +46,8 @@
 	const REMOVED_CONTENT_CLASS = "single-file-removed";
 	const HIGHLIGHT_HIDDEN_CLASS = "single-file-highlight-hidden";
 	const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
+	const CUT_HOVER_CLASS = "single-file-hover";
+	const CUT_CONTAINER_HOVER_CLASS = "single-file-container-hover";
 	const NOTE_INITIAL_POSITION_X = 20;
 	const NOTE_INITIAL_POSITION_Y = 20;
 	const NOTE_INITIAL_WIDTH = 150;
@@ -808,13 +810,14 @@ table {
 }`;
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode;
-	let removedElements = [];
+	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode, cuttingPath, cuttingPathIndex, cuttingElementContainer;
+	let removedElements = [], removedElementIndex = 0;
 
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
 		if (message.method == "init") {
 			await init(message.content);
+			window.parent.postMessage(JSON.stringify({ "method": "onInit" }), "*");
 		}
 		if (message.method == "addNote") {
 			addNote(message);
@@ -840,11 +843,13 @@ table {
 		}
 		if (message.method == "enableRemoveHighlights") {
 			removeHighlightMode = true;
+			document.documentElement.classList.add("single-file-remove-highlights-mode");
 		}
 		if (message.method == "disableRemoveHighlights") {
 			removeHighlightMode = false;
+			document.documentElement.classList.remove("single-file-remove-highlights-mode");
 		}
-		if (message.method == "enableEditPage") {			
+		if (message.method == "enableEditPage") {
 			document.body.contentEditable = true;
 			onUpdate(false);
 		}
@@ -859,27 +864,29 @@ table {
 		}
 		if (message.method == "enableCutPage") {
 			cuttingMode = true;
-			document.body.addEventListener("mouseover", highlightElementToCut);
-			document.body.addEventListener("mouseout", highlightElementToCut);
 		}
 		if (message.method == "disableCutPage") {
 			cuttingMode = false;
-			document.body.removeEventListener("mouseover", highlightElementToCut);
-			document.body.removeEventListener("mouseout", highlightElementToCut);
+			if (cuttingPath) {
+				unhighlightCutElement();
+				cuttingPath = null;
+			}
 		}
 		if (message.method == "undoCutPage") {
-			if (removedElements.length) {
-				removedElements.pop().classList.remove(REMOVED_CONTENT_CLASS);
-			}
+			undoCutPage();
 		}
 		if (message.method == "undoAllCutPage") {
-			while (removedElements.length) {
-				removedElements.pop().classList.remove(REMOVED_CONTENT_CLASS);
+			while (removedElementIndex) {
+				removedElements[removedElementIndex - 1].classList.remove(REMOVED_CONTENT_CLASS);
+				removedElementIndex--;
 			}
+		}
+		if (message.method == "redoCutPage") {
+			redoCutPage();
 		}
 		if (message.method == "getContent") {
 			onUpdate(true);
-			getContent(message.compressHTML);
+			getContent(message.compressHTML, message.updatedResources);
 		}
 	};
 	window.onresize = reflowNotes;
@@ -917,6 +924,9 @@ table {
 		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
 		document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
+		document.documentElement.onmouseover = onMouseOver;
+		document.documentElement.onmouseout = onMouseOut;
+		document.documentElement.onkeydown = onKeyDown;
 		window.onclick = event => event.preventDefault();
 	}
 
@@ -1181,10 +1191,122 @@ table {
 			collapseNoteTimeout = null;
 		}
 		if (cuttingMode) {
-			let element = event.target;
+			validateCutElement();
+		}
+	}
+
+	function onMouseOver(event) {
+		if (cuttingMode) {
+			const target = event.target;
+			if (target.classList) {
+				cuttingPath = getEventPath(event);
+				cuttingPathIndex = 0;
+				highlightCutElement(target);
+			}
+		}
+	}
+
+	function onMouseOut() {
+		if (cuttingMode) {
+			if (cuttingPath) {
+				unhighlightCutElement();
+				cuttingPath = null;
+			}
+		}
+	}
+
+	function onKeyDown(event) {
+		if (cuttingMode) {
+			if (event.code == "Tab") {
+				if (cuttingPath) {
+					const delta = event.shiftKey ? -1 : 1;
+					let element = cuttingPath[cuttingPathIndex];
+					let nextElement = cuttingPath[cuttingPathIndex + delta];
+					if (nextElement) {
+						let pathIndex = cuttingPathIndex + delta;
+						while (
+							nextElement &&
+							(
+								(delta == 1 &&
+									element.getBoundingClientRect().width >= nextElement.getBoundingClientRect().width &&
+									element.getBoundingClientRect().height >= nextElement.getBoundingClientRect().height) ||
+								(delta == -1 &&
+									element.getBoundingClientRect().width <= nextElement.getBoundingClientRect().width &&
+									element.getBoundingClientRect().height <= nextElement.getBoundingClientRect().height))) {
+							pathIndex += delta;
+							nextElement = cuttingPath[pathIndex];
+						}
+						if (nextElement && nextElement.classList && nextElement != document.body && nextElement != document.documentElement) {
+							unhighlightCutElement();
+							cuttingPathIndex = pathIndex;
+							highlightCutElement(cuttingPath[cuttingPathIndex]);
+						}
+					}
+				}
+				event.preventDefault();
+			}
+			if (event.code == "Space") {
+				validateCutElement();
+				event.preventDefault();
+			}
+			if (event.key.toLowerCase() == "z" && event.ctrlKey) {
+				if (event.shiftKey) {
+					redoCutPage();
+				} else {
+					undoCutPage();
+				}
+				event.preventDefault();
+			}
+		}
+	}
+
+	function highlightCutElement() {
+		const element = cuttingPath[cuttingPathIndex];
+		element.classList.add(CUT_HOVER_CLASS);
+		let parentElement = element.parentElement;
+		while (parentElement && getComputedStyle(parentElement).getPropertyValue("overflow") != "hidden") {
+			parentElement = parentElement.parentElement;
+		}
+		if (parentElement) {
+			cuttingElementContainer = parentElement;
+			cuttingElementContainer.classList.add(CUT_CONTAINER_HOVER_CLASS);
+		} else {
+			cuttingElementContainer = null;
+		}
+	}
+
+	function unhighlightCutElement() {
+		if (cuttingPath) {
+			const element = cuttingPath[cuttingPathIndex];
+			element.classList.remove(CUT_HOVER_CLASS);
+			if (cuttingElementContainer) {
+				cuttingElementContainer.classList.remove(CUT_CONTAINER_HOVER_CLASS);
+			}
+		}
+	}
+
+	function undoCutPage() {
+		if (removedElementIndex) {
+			removedElements[removedElementIndex - 1].classList.remove(REMOVED_CONTENT_CLASS);
+			removedElementIndex--;
+		}
+	}
+
+	function redoCutPage() {
+		if (removedElementIndex < removedElements.length) {
+			removedElements[removedElementIndex].classList.add(REMOVED_CONTENT_CLASS);
+			removedElementIndex++;
+		}
+	}
+
+	function validateCutElement() {
+		if (cuttingPath) {
+			const element = cuttingPath[cuttingPathIndex];
 			if (document.documentElement != element && element.tagName.toLowerCase() != NOTE_TAGNAME) {
 				element.classList.add(REMOVED_CONTENT_CLASS);
-				removedElements.push(element);
+				removedElements[removedElementIndex] = element;
+				removedElementIndex++;
+				removedElements.length = removedElementIndex;
 				onUpdate(false);
 			}
 		}
@@ -1317,13 +1439,14 @@ table {
 		}
 	}
 
-	function highlightElementToCut(event) {
-		if (event.type != "mouseover" && event.type != "mouseout") return;
-		var target = event.target;
-		if ("classList" in target) {
-			target.classList.toggle("single-file-hover");
+	function getEventPath(event) {
+		const path = [];
+		let element = event.target;
+		while (element) {
+			path.push(element);
+			element = element.parentElement;
 		}
-		event.stopPropagation();
+		return path;
 	}
 
 	function formatPage(applySystemTheme) {
@@ -1337,6 +1460,7 @@ table {
 		});
 		const article = new Readability(document, { classesToPreserve }).parse();
 		removedElements = [];
+		removedElementIndex = 0;
 		document.body.innerHTML = "";
 		const domParser = new DOMParser();
 		const doc = domParser.parseFromString(article.content, "text/html");
@@ -1380,7 +1504,8 @@ table {
 		onUpdate(false);
 	}
 
-	function getContent(compressHTML) {
+	function getContent(compressHTML, updatedResources) {
+		unhighlightCutElement();
 		serializeShadowRoots(document);
 		const doc = document.cloneNode(true);
 		deserializeShadowRoots(doc);
@@ -1406,11 +1531,17 @@ table {
 			element.style.setProperty(pointerEvents, element.style.getPropertyValue("-sf-" + pointerEvents), element.style.getPropertyPriority("-sf-" + pointerEvents));
 			element.style.removeProperty("-sf-" + pointerEvents);
 		});
-		delete doc.body.contentEditable;
+		doc.body.removeAttribute("contentEditable");
 		const scriptElement = doc.createElement("script");
 		scriptElement.setAttribute(SCRIPT_TEMPLATE_SHADOW_ROOT, "");
 		scriptElement.textContent = getEmbedScript();
 		doc.body.appendChild(scriptElement);
+		const newResources = Object.keys(updatedResources).filter(url => updatedResources[url].type == "stylesheet").map(url => updatedResources[url]);
+		newResources.forEach(resource => {
+			const element = doc.createElement("style");
+			doc.body.appendChild(element);
+			element.textContent = resource.content;
+		});
 		window.parent.postMessage(JSON.stringify({ "method": "setContent", content: singlefile.lib.modules.serializer.process(doc, compressHTML) }), "*");
 	}
 
@@ -1553,6 +1684,7 @@ table {
 			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});
 			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout, cuttingMode;
 			window.onresize = reflowNotes;
+			window.onUpdate = () => {};
 			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
 			window.addEventListener("DOMContentLoaded", () => {
 				processNode(document);

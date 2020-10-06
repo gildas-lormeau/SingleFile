@@ -23,24 +23,25 @@
 
 /* global singlefile, require, exports */
 
-const puppeteer = require("puppeteer-core");
+const playwright = require("playwright").firefox;
 const scripts = require("./common/scripts.js");
 
-const EXECUTION_CONTEXT_DESTROYED_ERROR = "Execution context was destroyed";
-const NETWORK_IDLE_STATE = "networkidle0";
+const NETWORK_IDLE_STATE = "networkidle";
 
 let browser;
 
 exports.initialize = async options => {
-	browser = await puppeteer.launch(getBrowserOptions(options));
+	browser = await playwright.launch(getBrowserOptions(options));
 };
 
 exports.getPageData = async options => {
 	let page;
 	try {
-		page = await browser.newPage();
+		page = await browser.newPage({
+			bypassCSP: options.browserBypassCSP === undefined || options.browserBypassCSP
+		});
 		await setPageOptions(page, options);
-		return await getPageData(browser, page, options);
+		return await getPageData(page, options);
 	} finally {
 		if (page) {
 			await page.close();
@@ -63,89 +64,36 @@ function getBrowserOptions(options) {
 	if (options.browserExecutablePath) {
 		browserOptions.executablePath = options.browserExecutablePath || "firefox";
 	}
-	browserOptions.product = "firefox";
 	return browserOptions;
 }
 
 async function setPageOptions(page, options) {
 	if (options.browserWidth && options.browserHeight) {
-		await page.setViewport({
+		await page.setViewportSize({
 			width: options.browserWidth,
 			height: options.browserHeight
 		});
 	}
-	if ((options.browserBypassCSP === undefined || options.browserBypassCSP) && page.setBypassCSP) {
-		try {
-			await page.setBypassCSP(true);
-		} catch (error) {
-			// ignored
-		}
-	}
 	if (options.httpHeaders) {
-		try {
-			await page.setExtraHTTPHeaders(options.httpHeaders);
-		} catch (error) {
-			// ignored
-		}
+		page.setExtraHTTPHeaders(options.httpHeaders);
 	}
 }
 
-async function getPageData(browser, page, options) {
+async function getPageData(page, options) {
 	const injectedScript = await scripts.get(options);
-	await page.evaluateOnNewDocument(injectedScript);
+	await page.addInitScript(injectedScript);
 	if (options.browserDebug) {
 		await page.waitForTimeout(3000);
 	}
-	await pageGoto(page, options);
-	try {
-		await page.evaluate(injectedScript);
-		return await page.evaluate(async options => {
-			const pageData = await singlefile.lib.getPageData(options);
-			if (options.includeInfobar) {
-				await singlefile.common.ui.content.infobar.includeScript(pageData);
-			}
-			return pageData;
-		}, options);
-	} catch (error) {
-		if (error.message && error.message.includes(EXECUTION_CONTEXT_DESTROYED_ERROR)) {
-			const pageData = await handleJSRedirect(browser, options);
-			if (pageData) {
-				return pageData;
-			} else {
-				throw error;
-			}
-		} else {
-			throw error;
+	await page.goto(options.url, {
+		timeout: options.browserLoadMaxTime || 0,
+		waitUntil: options.browserWaitUntil && options.browserWaitUntil.startsWith("networkidle") ? NETWORK_IDLE_STATE : options.browserWaitUntil || NETWORK_IDLE_STATE
+	});
+	return await page.evaluate(async options => {
+		const pageData = await singlefile.lib.getPageData(options);
+		if (options.includeInfobar) {
+			await singlefile.common.ui.content.infobar.includeScript(pageData);
 		}
-	}
-}
-
-async function handleJSRedirect(browser, options) {
-	const pages = await browser.pages();
-	const page = pages[1] || pages[0];
-	await pageGoto(page, options);
-	const url = page.url();
-	if (url != options.url) {
-		options.url = url;
-		await browser.close();
-		return exports.getPageData(options);
-	}
-}
-
-async function pageGoto(page, options) {
-	try {
-		await page.goto(options.url, {
-			timeout: options.browserLoadMaxTime || 0,
-			waitUntil: options.browserWaitUntil || NETWORK_IDLE_STATE
-		});
-	} catch (error) {
-		if (error.message.includes("Unknown waitUntil condition")) {
-			await page.goto(options.url, {
-				timeout: options.browserLoadMaxTime || 0,
-				waitUntil: "load"
-			});
-		} else {
-			throw error;
-		}
-	}
+		return pageData;
+	}, options);
 }

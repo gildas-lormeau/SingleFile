@@ -395,6 +395,26 @@
 		"message": "open pages saved with SingleFile in the annotation editor",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
+	"optionDefaultEditorMode": {
+		"message": "Default-Modus",
+		"description": "Options page label: 'default mode'"
+	},
+	"optionDefaultEditorModeNormal": {
+		"message": "Normal",
+		"description": "Options page label: 'default mode > normal'"
+	},
+	"optionDefaultEditorModeEdit": {
+		"message": "Editieren der Seite",
+		"description": "Options page label: 'default mode > edit the page'"
+	},
+	"optionDefaultEditorModeFormat": {
+		"message": "Formatieren der Seite",
+		"description": "Options page label: 'default mode > format the page'"
+	},
+	"optionDefaultEditorModeCut": {
+		"message": "Entfernen von Elementen",
+		"description": "Options page label: 'default mode > remove elements'"
+	},
 	"optionApplySystemTheme": {
 		"message": "apply the system theme when formatting a page",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
@@ -606,6 +626,10 @@
 	"editorUndoAllCutPage": {
 		"message": "Wiederherstellen aller entfernten Elemente",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
+	},
+	"editorRedoCutPage": {
+		"message": "Entfernen des zuletzt wiederhergestellten Elements",
+		"description": "Title of the button 'Remove last restored element' in the editor"
 	},
 	"editorSavePage": {
 		"message": "Speichern der Webseite",

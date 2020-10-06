@@ -3,14 +3,14 @@
 		"message": "将一个完整的页面保存到单个 HTML 文件中",
 		"description": "Description of the extension."
 	},
-    "commandSaveTab": {
-        "message": "Save the current tab or the selected content",
-        "description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
-    },
-    "commandSaveAllTabs": {
-        "message": "保存所有标签页",
-        "description": "Command (Ctrl+Shift+U): 'Save all tabs'"
-    },
+	"commandSaveTab": {
+		"message": "保存所选标签页或选中部分",
+		"description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
+	},
+	"commandSaveAllTabs": {
+		"message": "保存所有标签页",
+		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+	},
 	"menuSavePage": {
 		"message": "使用 SingleFile 保存页面",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -382,7 +382,7 @@
 	"optionAutoSaveExternalSave": {
 		"message": "使用 SingleFile Companion 保存页面",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
-	},	
+	},
 	"optionsEditorSubTitle": {
 		"message": "标注编辑器",
 		"description": "Options sub-title: 'Annotation editor'"
@@ -394,6 +394,26 @@
 	"optionAutoOpenEditor": {
 		"message": "在标注编辑器中打开用 SingleFile 保存的页面",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
+	},
+	"optionDefaultEditorMode": {
+		"message": "default mode",
+		"description": "Options page label: 'default mode'"
+	},
+	"optionDefaultEditorModeNormal": {
+		"message": "normal",
+		"description": "Options page label: 'default mode > normal'"
+	},
+	"optionDefaultEditorModeEdit": {
+		"message": "edit the page",
+		"description": "Options page label: 'default mode > edit the page'"
+	},
+	"optionDefaultEditorModeFormat": {
+		"message": "format the page",
+		"description": "Options page label: 'default mode > format the page'"
+	},
+	"optionDefaultEditorModeCut": {
+		"message": "remove elements",
+		"description": "Options page label: 'default mode > remove elements'"
 	},
 	"optionApplySystemTheme": {
 		"message": "在标注编辑器中打开页面时应用系统主题样式",
@@ -606,6 +626,10 @@
 	"editorUndoAllCutPage": {
 		"message": "还原所有被移除的元素",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
+	},
+	"editorRedoCutPage": {
+		"message": "Remove last restored element",
+		"description": "Title of the button 'Remove last restored element' in the editor"
 	},
 	"editorSavePage": {
 		"message": "保存该页面",

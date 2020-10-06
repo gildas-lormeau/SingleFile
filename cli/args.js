@@ -42,11 +42,14 @@ const args = require("yargs")
 		"browser-extensions": [],
 		"browser-scripts": [],
 		"browser-args": "",
+		"browser-start-minimized": false,
 		"compress-CSS": false,
 		"compress-HTML": true,
+		"dump-content": false,
 		"filename-template": "{page-title} ({date-iso} {time-locale}).html",
 		"filename-replacement-character": "_",
 		"group-duplicate-images": true,
+		"http-header": [],
 		"include-infobar": false,
 		"load-deferred-images": true,
 		"load-deferred-images-max-idle-time": 1500,
@@ -78,7 +81,7 @@ const args = require("yargs")
 		"crawl-rewrite-rules": []
 	})
 	.options("back-end", { description: "Back-end to use" })
-	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chromium", "webdriver-gecko"])
+	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chromium", "webdriver-gecko", "puppeteer-firefox", "playwright-firefox", "playwright-chromium"])
 	.options("browser-headless", { description: "Run the browser in headless mode (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("browser-headless")
 	.options("browser-executable-path", { description: "Path to chrome/chromium executable (puppeteer, webdriver-gecko, webdriver-chromium)" })
@@ -101,6 +104,8 @@ const args = require("yargs")
 	.array("browser-scripts")
 	.options("browser-args", { description: "Arguments provided as a JSON array and passed to the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.string("browser-args")
+	.options("browser-start-minimized", { description: "Minimize the browser (puppeteer)" })
+	.boolean("browser-start-minimized")
 	.options("compress-CSS", { description: "Compress CSS stylesheets" })
 	.boolean("compress-CSS")
 	.options("compress-HTML", { description: "Compress HTML content" })
@@ -109,8 +114,14 @@ const args = require("yargs")
 	.boolean("crawl-links")
 	.options("crawl-inner-links-only", { description: "Crawl pages found via inner links only if they are hosted on the same domain" })
 	.boolean("crawl-inner-links-only")
+	.options("crawl-load-session", { description: "Name of the file of the session to load (previously saved with --crawl-save-session or --crawl-sync-session)" })
+	.string("crawl-load-session")
 	.options("crawl-remove-url-fragment", { description: "Remove URL fragments found in links" })
 	.boolean("crawl-remove-url-fragment")
+	.options("crawl-save-session", { description: "Name of the file where to save the state of the session" })
+	.string("crawl-save-session")
+	.options("crawl-sync-session", { description: "Name of the file where to load and save the state of the session" })
+	.string("crawl-sync-session")
 	.options("crawl-max-depth", { description: "Max depth when crawling pages found in internal and external links (0: infinite)" })
 	.number("crawl-max-depth")
 	.options("crawl-external-links-max-depth", { description: "Max depth when crawling pages found in external links (0: infinite)" })
@@ -119,15 +130,19 @@ const args = require("yargs")
 	.boolean("crawl-replace-urls")
 	.options("crawl-rewrite-rules", { description: "List of rewrite rules used to rewrite URLs of internal and external links" })
 	.array("crawl-rewrite-rules")
+	.options("dump-content", { description: "Dump the content of the processed page in the console" })
+	.boolean("dump-content")
 	.options("error-file")
 	.string("error-file")
 	.options("filename-template", { description: "Template used to generate the output filename (see help page of the extension for more info)" })
 	.string("filename-template")
 	.options("filename-replacement-character", { description: "The character used for replacing invalid characters in filenames" })
 	.string("filename-replacement-character")
-	.string("filename-template")
+	.string("filename-replacement-character")
 	.options("group-duplicate-images", { description: "Group duplicate images into CSS custom properties" })
 	.boolean("group-duplicate-images")
+	.options("http-header", { description: "Extra HTTP header (puppeteer, jsdom)" })
+	.array("http-header")
 	.options("include-BOM", { description: "Include the UTF-8 BOM into the HTML page" })
 	.boolean("include-BOM")
 	.options("include-infobar", { description: "Include the infobar" })
@@ -177,9 +192,25 @@ const args = require("yargs")
 	.options("web-driver-executable-path", { description: "Path to Selenium WebDriver executable (webdriver-gecko, webdriver-chromium)" })
 	.string("web-driver-executable-path")
 	.argv;
+if (args.dumpContent) {
+	args.filenameTemplate = "";
+}
 args.compressCSS = args.compressCss;
 args.compressHTML = args.compressHtml;
 args.includeBOM = args.includeBom;
 args.crawlReplaceURLs = args.crawlReplaceUrls;
 args.crawlRemoveURLFragment = args.crawlRemoveUrlFragment;
+const headers = args.httpHeader;
+delete args.httpHeader;
+args.httpHeaders = {};
+headers.forEach(header => {
+	const matchedHeader = header.match(/^(.*?):(.*)$/);
+	if (matchedHeader.length == 3) {
+		args.httpHeaders[matchedHeader[1].trim()] = matchedHeader[2].trimLeft();
+	}
+});
+Object.keys(args).filter(optionName => optionName.includes("-"))
+	.forEach(optionName => delete args[optionName]);
+delete args["$0"];
+delete args["_"];
 module.exports = args;

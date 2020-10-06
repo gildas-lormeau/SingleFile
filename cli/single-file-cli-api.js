@@ -26,21 +26,38 @@
 const fs = require("fs");
 const VALID_URL_TEST = /^(https?|file):\/\//;
 
+const STATE_PROCESSING = "processing";
+const STATE_PROCESSED = "processed";
+
 const backEnds = {
 	jsdom: "./back-ends/jsdom.js",
 	puppeteer: "./back-ends/puppeteer.js",
 	"puppeteer-firefox": "./back-ends/puppeteer-firefox.js",
 	"webdriver-chromium": "./back-ends/webdriver-chromium.js",
-	"webdriver-gecko": "./back-ends/webdriver-gecko.js"
+	"webdriver-gecko": "./back-ends/webdriver-gecko.js",
+	"playwright-firefox": "./back-ends/playwright-firefox.js",
+	"playwright-chromium": "./back-ends/playwright-chromium.js"
 };
 
-let backend, tasks = [], maxParallelWorkers = 8;
+let backend, tasks = [], maxParallelWorkers = 8, sessionFilename;
 module.exports = initialize;
 
 async function initialize(options) {
 	maxParallelWorkers = options.maxParallelWorkers;
 	backend = require(backEnds[options.backEnd]);
 	await backend.initialize(options);
+	if (options.crawlSyncSession || options.crawlLoadSession) {
+		try {
+			tasks = JSON.parse(fs.readFileSync(options.crawlSyncSession || options.crawlLoadSession).toString());
+		} catch (error) {
+			if (options.crawlLoadSession) {
+				throw error;
+			}
+		}
+	}
+	if (options.crawlSyncSession || options.crawlSaveSession) {
+		sessionFilename = options.crawlSyncSession || options.crawlSaveSession;
+	}
 	return {
 		capture: urls => capture(urls, options),
 		finish: () => finish(options),
@@ -50,12 +67,14 @@ async function initialize(options) {
 
 async function capture(urls, options) {
 	let newTasks;
+	const taskUrls = tasks.map(task => task.url);
 	newTasks = urls.map(url => createTask(url, options));
-	newTasks = newTasks.filter(task => task);
+	newTasks = newTasks.filter(task => task && !taskUrls.includes(task.url));
 	if (newTasks.length) {
 		tasks = tasks.concat(newTasks);
-		await runTasks();
+		saveTasks();
 	}
+	await runTasks();
 }
 
 async function finish(options) {
@@ -66,11 +85,13 @@ async function finish(options) {
 			try {
 				let pageContent = fs.readFileSync(task.filename).toString();
 				tasks.forEach(otherTask => {
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("\"" + otherTask.originalUrl + "\""), "gi"), "\"" + otherTask.filename + "\"");
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("'" + otherTask.originalUrl + "'"), "gi"), "'" + otherTask.filename + "'");
-					const filename = otherTask.filename.replace(/ /g, "%20");
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.originalUrl + " "), "gi"), "=" + filename + " ");
-					pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.originalUrl + ">"), "gi"), "=" + filename + ">");
+					if (otherTask.filename) {
+						pageContent = pageContent.replace(new RegExp(escapeRegExp("\"" + otherTask.originalUrl + "\""), "gi"), "\"" + otherTask.filename + "\"");
+						pageContent = pageContent.replace(new RegExp(escapeRegExp("'" + otherTask.originalUrl + "'"), "gi"), "'" + otherTask.filename + "'");
+						const filename = otherTask.filename.replace(/ /g, "%20");
+						pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.originalUrl + " "), "gi"), "=" + filename + " ");
+						pageContent = pageContent.replace(new RegExp(escapeRegExp("=" + otherTask.originalUrl + ">"), "gi"), "=" + filename + ">");
+					}
 				});
 				fs.writeFileSync(task.filename, pageContent);
 			} catch (error) {
@@ -85,7 +106,7 @@ async function finish(options) {
 
 async function runTasks() {
 	const availableTasks = tasks.filter(task => !task.status).length;
-	const processingTasks = tasks.filter(task => task.status == "processing").length;
+	const processingTasks = tasks.filter(task => task.status == STATE_PROCESSING).length;
 	const promisesTasks = [];
 	for (let workerIndex = 0; workerIndex < Math.min(availableTasks, maxParallelWorkers - processingTasks); workerIndex++) {
 		promisesTasks.push(runNextTask());
@@ -99,10 +120,11 @@ async function runNextTask() {
 		const options = task.options;
 		let taskOptions = JSON.parse(JSON.stringify(options));
 		taskOptions.url = task.url;
-		task.status = "processing";
+		task.status = STATE_PROCESSING;
+		saveTasks();
 		task.promise = capturePage(taskOptions);
 		const pageData = await task.promise;
-		task.status = "processed";
+		task.status = STATE_PROCESSED;
 		if (pageData) {
 			task.filename = pageData.filename;
 			if (options.crawlLinks && testMaxDepth(task)) {
@@ -115,13 +137,14 @@ async function runNextTask() {
 				tasks.splice(tasks.length, 0, ...newTasks);
 			}
 		}
+		saveTasks();
 		await runTasks();
 	}
 }
 
 function testMaxDepth(task) {
 	const options = task.options;
-	return (options.crawlMaxDepth == 0 || task.depth < options.crawlMaxDepth) &&
+	return (options.crawlMaxDepth == 0 || task.depth <= options.crawlMaxDepth) &&
 		(options.crawlExternalLinksMaxDepth == 0 || task.externalLinkDepth < options.crawlExternalLinksMaxDepth);
 }
 
@@ -137,6 +160,18 @@ function createTask(url, options, parentTask, rootTask) {
 			externalLinkDepth: isInnerLink ? -1 : parentTask ? parentTask.externalLinkDepth + 1 : -1,
 			options
 		};
+	}
+}
+
+function saveTasks() {
+	if (sessionFilename) {
+		fs.writeFileSync(sessionFilename, JSON.stringify(
+			tasks.map(task => Object.assign({}, task, {
+				status: task.status == STATE_PROCESSING ? undefined : task.status,
+				promise: undefined,
+				options: task.status && task.status == STATE_PROCESSED ? undefined : task.options
+			}))
+		));
 	}
 }
 

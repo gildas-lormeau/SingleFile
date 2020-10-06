@@ -4,7 +4,7 @@
 		"description": "Description of the extension."
 	},
 	"commandSaveTab": {
-		"message": "Save the current tab or the selected content",
+		"message": "保存所選標籤頁或選中部分",
 		"description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
 	},
 	"commandSaveAllTabs": {
@@ -395,6 +395,26 @@
 		"message": "在標註編輯器中打開用 SingleFile 保存的頁面",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
+	"optionDefaultEditorMode": {
+		"message": "default mode",
+		"description": "Options page label: 'default mode'"
+	},
+	"optionDefaultEditorModeNormal": {
+		"message": "normal",
+		"description": "Options page label: 'default mode > normal'"
+	},
+	"optionDefaultEditorModeEdit": {
+		"message": "edit the page",
+		"description": "Options page label: 'default mode > edit the page'"
+	},
+	"optionDefaultEditorModeFormat": {
+		"message": "format the page",
+		"description": "Options page label: 'default mode > format the page'"
+	},
+	"optionDefaultEditorModeCut": {
+		"message": "remove elements",
+		"description": "Options page label: 'default mode > remove elements'"
+	},
 	"optionApplySystemTheme": {
 		"message": "在標註編輯器中打開頁面時應用系統主題樣式",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
@@ -606,6 +626,10 @@
 	"editorUndoAllCutPage": {
 		"message": "還原所有被移除的元素",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
+	},
+	"editorRedoCutPage": {
+		"message": "Remove last restored element",
+		"description": "Title of the button 'Remove last restored element' in the editor"
 	},
 	"editorSavePage": {
 		"message": "保存該頁面",

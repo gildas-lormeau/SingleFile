@@ -25,7 +25,7 @@
 
 const fs = require("fs");
 
-const SCRIPTS = [		
+const SCRIPTS = [
 	"lib/single-file/processors/hooks/content/content-hooks.js",
 	"lib/single-file/processors/hooks/content/content-hooks-web.js",
 	"lib/single-file/processors/hooks/content/content-hooks-frames.js",
@@ -59,9 +59,9 @@ const INDEX_SCRIPTS = [
 ];
 
 const WEB_SCRIPTS = [
-	"lib/single-file/processors/hooks/content/content-hooks-web.js",
-	"lib/single-file/processors/hooks/content/content-hooks-frames-web.js",
-	"common/ui/content/content-infobar-web.js"
+	"/lib/single-file/processors/hooks/content/content-hooks-web.js",
+	"/lib/single-file/processors/hooks/content/content-hooks-frames-web.js",
+	"/common/ui/content/content-infobar-web.js"
 ];
 
 exports.get = async options => {

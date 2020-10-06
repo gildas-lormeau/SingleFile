@@ -149,7 +149,14 @@ singlefile.extension.core.bg.tabs = (() => {
 
 	async function onTabUpdated(tabId, changeInfo) {
 		if (changeInfo.status == "complete") {
-			setTimeout(() => browser.tabs.sendMessage(tabId, { method: "content.maybeInit" }), DELAY_MAYBE_INIT);
+			setTimeout(async () => {
+				try {
+					await browser.tabs.sendMessage(tabId, { method: "content.maybeInit" });
+				}
+				catch (error) {
+					// ignored
+				}
+			}, DELAY_MAYBE_INIT);
 			const tab = await browser.tabs.get(tabId);
 			if (singlefile.extension.core.bg.editor.isEditor(tab)) {
 				const tabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);

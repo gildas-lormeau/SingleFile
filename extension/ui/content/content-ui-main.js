@@ -68,8 +68,7 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 					}
 					maskElement.offsetWidth;
 					maskElement.style.setProperty("background-color", "black", "important");
-					maskElement.style.setProperty("opacity", .3, "important");
-					document.body.offsetWidth;
+					maskElement.style.setProperty("opacity", .3, "important");					
 				}
 			}
 		},
@@ -446,6 +445,7 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 		logsWindowElement.style.setProperty("min-height", "16px", "important");
 		logsWindowElement.style.setProperty("transition", "height 100ms", "important");
 		logsWindowElement.style.setProperty("will-change", "height", "important");
+		logsWindowElement.style.setProperty("inset-block", "auto");
 	}
 
 	function updateLog(id, textContent, textStatus, options) {

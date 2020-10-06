@@ -14,9 +14,10 @@
 			<h2>SingleFile</h2>
 			<h4>Save a complete page into a single HTML file</h4>
 		</div> <span id="index"> <a href="#getting-started">Getting started</a> - <a href="#general-notes">Additional
-				notes</a> - <a href="#options">Options description</a> - <a href="#notes">Technical notes</a> - <a
-				href="#template-variables">Template variables</a> - <a href="#known-issues">Known issues</a> - <a
-				href="#unknown-issues">Troubleshooting unknown issues</a> - <a href="#contributors">Contributors</a>
+				notes</a> - <a href="#options">Options description</a> - <a href="#annotation-editor">Anootation
+				editor</a> - <a href="#notes">Technical notes</a> - <a href="#template-variables">Template variables</a>
+			- <a href="#known-issues">Known issues</a> - <a href="#unknown-issues">Troubleshooting unknown issues</a> -
+			<a href="#contributors">Contributors</a>
 		</span>
 		<hr>
 		<ol>
@@ -52,8 +53,9 @@
 							<li>or all the tabs.</li>
 						</ul>
 					</li>
-					<li>You can highlight text, add notes, and remove content before saving the page by selecting
-						"Annotate and save the page..." in the context menu</li>
+					<li>You can highlight text, add notes, format and remove content before saving the page with the
+						<a href="#annotation-editor">Annotation editor</a> by selecting "Annotate and save the page..."
+						in the context menu</li>
 					<li>With auto-save active, pages are automatically saved every time after being loaded (or before
 						being unloaded if not). </li>
 					<li>Right-click on the SingleFile button and select "Options" to open the options page.</li>
@@ -343,6 +345,20 @@
 				</ul>
 				<p>Annotation editor</p>
 				<ul>
+					<li data-options-label="defaultEditorModeLabel"> <span class="option">Option: default mode</span>
+						<p>Select the default mode when opening the annotation editor. The available choices are:
+						<ul>
+							<li><code>normal</code>: default value</li>
+							<li><code>edit the page</code>: enable the button <img
+									src="../resources/button_note_edit.png" class="icon"></li>
+							<li><code>format the page</code>: enable the button <img
+									src="../resources/button_note_format.png" class="icon"> if the page can be
+								formatted</li>
+							<li><code>remove elements</code>: enable the button <img src="../resources/button_cut.png"
+									class="icon"></li>
+						</ul>
+						</p>
+					</li>
 					<li data-options-label="applySystemThemeLabel"> <span class="option">Option: apply the system theme
 							when formatting a page in the annotation editor</span>
 						<p>Uncheck this option if you do not want to apply the theme of the operating system or the
@@ -487,6 +503,49 @@
 						<p>Reset all options to their default values.</p>
 					</li>
 				</ul>
+			</li>
+			<li><a id="annotation-editor">Annotation editor</a>
+				<p>The annotation editor can be opened by selecting "Annotate and save the page" in the context menu or
+					by enabling the option "Annotation editor &gt; edit page before saving". It allows you to:
+				<ul>
+					<li>add notes by clicking one of these buttons: <img src="../resources/button_note_yellow.png"
+							class="icon">
+						<img src="../resources/button_note_pink.png" class="icon"> <img
+							src="../resources/button_note_blue.png" class="icon">
+						<img src="../resources/button_note_green.png" class="icon"></li>
+					<li>hide or show notes by clicking the button <img src="../resources/button_note_visible.png"
+							class="icon"></li>
+					<li>highlight text by clicking one of these buttons: <img
+							src="../resources/button_highlighter_yellow.png" class="icon"> <img
+							src="../resources/button_highlighter_pink.png" class="icon"> <img
+							src="../resources/button_highlighter_blue.png" class="icon"> <img
+							src="../resources/button_highlighter_green.png" class="icon"></li>
+					<li>hide or show highligted text by clicking the button <img
+							src="../resources/button_highlighter_visible.png" class="icon"></li>
+					<li>remove text highlighting by clicking the button <img
+							src="../resources/button_highlighter_delete.png" class="icon"></li>
+					<li>edit the page by clicking the button <img src="../resources/button_note_edit.png" class="icon">
+					</li>
+					<li>format the page to improve readability (when possible) by clicking the button <img
+							src="../resources/button_note_format.png" class="icon">
+					</li>
+					<li>remove contents by clicking the button <img src="../resources/button_cut.png" class="icon">,
+						undo removes by clicking the button <img src="../resources/button_undo_cut.png" class="icon"> or
+						the button <img src="../resources/button_undo_all_cut.png" class="icon">, and redo removes by
+						clicking the button <img src="../resources/button_redo_cut.png" class="icon">.
+						<br>
+						You can also use the following keyboard shortcuts when removing contents:
+						<ul>
+							<li><code>Tab</code>: expand the selection</li>
+							<li><code>Shift-Tab</code>: reduce the selection</li>
+							<li><code>Space</code>: remove the selected element</li>
+							<li><code>Ctrl-Z</code>: undo the last removal</li>
+							<li><code>Ctrl-Shift-Z</code>: redo the last removal</li>
+						</ul>
+					</li>
+					<li>save the page by clicking the button <img src="../resources/button_download.png" class="icon">.
+				</ul>
+				</p>
 			</li>
 			<li><a id="template-variables">Template variables</a>
 				<p>The template variables are used to customize the infobar content or the file name of a saved page.

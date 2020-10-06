@@ -115,7 +115,9 @@ singlefile.extension.core.bg.downloads = (() => {
 					compressHTML: message.compressHTML,
 					bookmarkId: message.bookmarkId,
 					replaceBookmarkURL: message.replaceBookmarkURL,
-					applySystemTheme: message.applySystemTheme
+					applySystemTheme: message.applySystemTheme,
+					defaultEditorMode: message.defaultEditorMode,
+					includeInfobar: message.includeInfobar
 				});
 			} else {
 				if (message.saveToClipboard) {
@@ -145,7 +147,8 @@ singlefile.extension.core.bg.downloads = (() => {
 					confirmFilename: message.confirmFilename,
 					incognito,
 					filenameConflictAction: message.filenameConflictAction,
-					filenameReplacementCharacter: message.filenameReplacementCharacter
+					filenameReplacementCharacter: message.filenameReplacementCharacter,
+					includeInfobar: message.includeInfobar
 				});
 			}
 			singlefile.extension.ui.bg.main.onEnd(tabId);

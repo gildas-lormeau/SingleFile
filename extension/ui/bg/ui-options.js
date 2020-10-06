@@ -93,6 +93,7 @@
 	const editorLabel = document.getElementById("editorLabel");
 	const openEditorLabel = document.getElementById("openEditorLabel");
 	const autoOpenEditorLabel = document.getElementById("autoOpenEditorLabel");
+	const defaultEditorModeLabel = document.getElementById("defaultEditorModeLabel");
 	const applySystemThemeLabel = document.getElementById("applySystemThemeLabel");
 	const warnUnsavedPageLabel = document.getElementById("warnUnsavedPageLabel");
 	const infobarTemplateLabel = document.getElementById("infobarTemplateLabel");
@@ -155,6 +156,11 @@
 	const autoCloseInput = document.getElementById("autoCloseInput");
 	const openEditorInput = document.getElementById("openEditorInput");
 	const autoOpenEditorInput = document.getElementById("autoOpenEditorInput");
+	const defaultEditorModeInput = document.getElementById("defaultEditorModeInput");
+	const defaultEditorModeNormalLabel = document.getElementById("defaultEditorModeNormalLabel");
+	const defaultEditorModeEditLabel = document.getElementById("defaultEditorModeEditLabel");
+	const defaultEditorModeFormatLabel = document.getElementById("defaultEditorModeFormatLabel");
+	const defaultEditorModeCutLabel = document.getElementById("defaultEditorModeCutLabel");
 	const applySystemThemeInput = document.getElementById("applySystemThemeInput");
 	const warnUnsavedPageInput = document.getElementById("warnUnsavedPageInput");
 	const expandAllButton = document.getElementById("expandAllButton");
@@ -494,6 +500,11 @@
 	editorLabel.textContent = browser.i18n.getMessage("optionsEditorSubTitle");
 	openEditorLabel.textContent = browser.i18n.getMessage("optionOpenEditor");
 	autoOpenEditorLabel.textContent = browser.i18n.getMessage("optionAutoOpenEditor");
+	defaultEditorModeLabel.textContent = browser.i18n.getMessage("optionDefaultEditorMode");
+	defaultEditorModeNormalLabel.textContent = browser.i18n.getMessage("optionDefaultEditorModeNormal");
+	defaultEditorModeEditLabel.textContent = browser.i18n.getMessage("optionDefaultEditorModeEdit");
+	defaultEditorModeFormatLabel.textContent = browser.i18n.getMessage("optionDefaultEditorModeFormat");
+	defaultEditorModeCutLabel.textContent = browser.i18n.getMessage("optionDefaultEditorModeCut");
 	applySystemThemeLabel.textContent = browser.i18n.getMessage("optionApplySystemTheme");
 	warnUnsavedPageLabel.textContent = browser.i18n.getMessage("optionWarnUnsavedPage");
 	resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
@@ -682,6 +693,7 @@
 		autoCloseInput.checked = profileOptions.autoClose;
 		openEditorInput.checked = profileOptions.openEditor;
 		autoOpenEditorInput.checked = profileOptions.autoOpenEditor;
+		defaultEditorModeInput.value = profileOptions.defaultEditorMode;
 		applySystemThemeInput.checked = profileOptions.applySystemTheme;
 		warnUnsavedPageInput.checked = profileOptions.warnUnsavedPage;
 		removeFramesInput.disabled = saveRawPageInput.checked;
@@ -749,6 +761,7 @@
 				autoClose: autoCloseInput.checked,
 				openEditor: openEditorInput.checked,
 				autoOpenEditor: autoOpenEditorInput.checked,
+				defaultEditorMode: defaultEditorModeInput.value,
 				applySystemTheme: applySystemThemeInput.checked,
 				warnUnsavedPage: warnUnsavedPageInput.checked
 			}

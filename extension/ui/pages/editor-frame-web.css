@@ -54,7 +54,16 @@ single-file-note {
 }
 
 .single-file-hover {
-    outline: 1px solid red !important;
+    outline: 4px dotted red !important;
+    transition: outline-width 125ms;
+}
+
+.single-file-hover, .single-file-remove-highlights-mode .single-file-highlight:hover {
+    cursor: crosshair !important;
+}
+
+.single-file-container-hover {
+    overflow: visible !important;
 }
 
 .single-file-removed {

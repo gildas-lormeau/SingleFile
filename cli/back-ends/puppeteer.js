@@ -65,7 +65,7 @@ function getBrowserOptions(options = {}) {
 		browserOptions.args.push("--disable-web-security");
 	}
 	browserOptions.args.push("--no-pings");
-	if (options.browserDebug) {
+	if (!options.browserStartMinimized && options.browserDebug) {
 		browserOptions.args.push("--auto-open-devtools-for-tabs");
 	}
 	if (options.browserWidth && options.browserHeight) {
@@ -88,13 +88,21 @@ async function setPageOptions(page, options) {
 	if (options.browserBypassCSP === undefined || options.browserBypassCSP) {
 		await page.setBypassCSP(true);
 	}
+	if (options.httpHeaders) {
+		page.setExtraHTTPHeaders(options.httpHeaders);
+	}
+	if (options.browserStartMinimized) {
+		const session = await page.target().createCDPSession();
+		const { windowId } = await session.send("Browser.getWindowForTarget");
+		await session.send("Browser.setWindowBounds", { windowId, bounds: { windowState: "minimized" } });
+	}
 }
 
 async function getPageData(browser, page, options) {
 	const injectedScript = await scripts.get(options);
 	await page.evaluateOnNewDocument(injectedScript);
 	if (options.browserDebug) {
-		await page.waitFor(3000);
+		await page.waitForTimeout(3000);
 	}
 	try {
 		await pageGoto(page, options);

@@ -4,7 +4,7 @@
 		"description": "Description of the extension."
 	},
     "commandSaveTab": {
-        "message": "Save the current tab or the selected content",
+        "message": "Zapisz bieżącą kartę lub wybraną zawartość",
         "description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
     },
     "commandSaveAllTabs": {
@@ -395,6 +395,26 @@
 		"message": "otwieraj strony zapisane z SingleFile w edytorze adnotacji",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
+	"optionDefaultEditorMode": {
+		"message": "tryb domyślny",
+		"description": "Options page label: 'default mode'"
+	},
+	"optionDefaultEditorModeNormal": {
+		"message": "normalny",
+		"description": "Options page label: 'default mode > normal'"
+	},
+	"optionDefaultEditorModeEdit": {
+		"message": "edytuj stronę",
+		"description": "Options page label: 'default mode > edit the page'"
+	},
+	"optionDefaultEditorModeFormat": {
+		"message": "formatuj stronę",
+		"description": "Options page label: 'default mode > format the page'"
+	},
+	"optionDefaultEditorModeCut": {
+		"message": "usuń elementy",
+		"description": "Options page label: 'default mode > remove elements'"
+	},
 	"optionApplySystemTheme": {
 		"message": "zastosuj motyw systemowy podczas formatowania strony",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
@@ -606,6 +626,10 @@
 	"editorUndoAllCutPage": {
 		"message": "Przywróć wszystkie usunięte elementy",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
+	},
+	"editorRedoCutPage": {
+		"message": "Usuń ostatni przywrócony element",
+		"description": "Title of the button 'Remove last restored element' in the editor"
 	},
 	"editorSavePage": {
 		"message": "Zapisz stronę",
