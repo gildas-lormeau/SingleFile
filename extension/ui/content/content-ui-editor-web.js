@@ -1104,7 +1104,7 @@ table {
 		}
 
 		function getTarget(clientX, clientY) {
-			const targets = Array.from(document.elementsFromPoint(clientX, clientY)).filter(element => element.tagName.toLowerCase() != NOTE_TAGNAME && !element.classList.contains(MASK_CLASS));
+			const targets = Array.from(document.elementsFromPoint(clientX, clientY)).filter(element => element.matches("html *"));
 			if (!targets.includes(document.documentElement)) {
 				targets.push(document.documentElement);
 			}
