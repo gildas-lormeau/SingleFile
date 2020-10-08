@@ -615,9 +615,13 @@
 		"message": "Format the page for better readability",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
-	"editorCutPage": {
-		"message": "クリック時にドキュメントの要素を削除することを有効/無効にする",
-		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
+	"editorCutInnerPage": {
+		"message": "Enable/disable removing of internal elements",
+		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+	},
+	"editorCutOuterPage": {
+		"message": "Enable/disable removing of external elements",
+		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
 		"message": "最後に削除された要素を復元する",

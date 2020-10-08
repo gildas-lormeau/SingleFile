@@ -53,12 +53,19 @@ single-file-note {
     display: contents !important;
 }
 
-.single-file-hover {
-    outline: 4px dotted red !important;
+.single-file-cut-hover, .single-file-cut-outer-hover {
     transition: outline-width 125ms;
 }
 
-.single-file-hover, .single-file-remove-highlights-mode .single-file-highlight:hover {
+.single-file-cut-hover {
+    outline: 4px dotted red !important;
+}
+
+.single-file-cut-outer-hover {
+    outline: 4px dotted green !important;
+}
+
+.single-file-cut-hover, .single-file-remove-highlights-mode .single-file-highlight:hover {
     cursor: crosshair !important;
 }
 

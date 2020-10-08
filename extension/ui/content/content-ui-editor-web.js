@@ -46,7 +46,8 @@
 	const REMOVED_CONTENT_CLASS = "single-file-removed";
 	const HIGHLIGHT_HIDDEN_CLASS = "single-file-highlight-hidden";
 	const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
-	const CUT_HOVER_CLASS = "single-file-hover";
+	const CUT_HOVER_CLASS = "single-file-cut-hover";
+	const CUT_OUTER_HOVER_CLASS = "single-file-cut-outer-hover";
 	const CUT_CONTAINER_HOVER_CLASS = "single-file-container-hover";
 	const NOTE_INITIAL_POSITION_X = 20;
 	const NOTE_INITIAL_POSITION_Y = 20;
@@ -810,7 +811,7 @@ table {
 }`;
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingMode, cuttingPath, cuttingPathIndex, cuttingElementContainer;
+	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingPath, cuttingPathIndex, cuttingElementContainer;
 	let removedElements = [], removedElementIndex = 0;
 
 	window.onmessage = async event => {
@@ -862,11 +863,21 @@ table {
 		if (message.method == "disableEditPage") {
 			document.body.contentEditable = false;
 		}
-		if (message.method == "enableCutPage") {
+		if (message.method == "enableCutInnerPage") {
 			cuttingMode = true;
 		}
-		if (message.method == "disableCutPage") {
+		if (message.method == "enableCutOuterPage") {
+			cuttingOuterMode = true;
+		}
+		if (message.method == "disableCutInnerPage") {
 			cuttingMode = false;
+			if (cuttingPath) {
+				unhighlightCutElement();
+				cuttingPath = null;
+			}
+		}
+		if (message.method == "disableCutOuterPage") {
+			cuttingOuterMode = false;
 			if (cuttingPath) {
 				unhighlightCutElement();
 				cuttingPath = null;
@@ -877,7 +888,7 @@ table {
 		}
 		if (message.method == "undoAllCutPage") {
 			while (removedElementIndex) {
-				removedElements[removedElementIndex - 1].classList.remove(REMOVED_CONTENT_CLASS);
+				removedElements[removedElementIndex - 1].forEach(element => element.classList.remove(REMOVED_CONTENT_CLASS));
 				removedElementIndex--;
 			}
 		}
@@ -1190,13 +1201,13 @@ table {
 			clearTimeout(collapseNoteTimeout);
 			collapseNoteTimeout = null;
 		}
-		if (cuttingMode) {
+		if (cuttingMode || cuttingOuterMode) {
 			validateCutElement();
 		}
 	}
 
 	function onMouseOver(event) {
-		if (cuttingMode) {
+		if (cuttingMode || cuttingOuterMode) {
 			const target = event.target;
 			if (target.classList) {
 				cuttingPath = getEventPath(event);
@@ -1207,7 +1218,7 @@ table {
 	}
 
 	function onMouseOut() {
-		if (cuttingMode) {
+		if (cuttingMode || cuttingOuterMode) {
 			if (cuttingPath) {
 				unhighlightCutElement();
 				cuttingPath = null;
@@ -1216,7 +1227,7 @@ table {
 	}
 
 	function onKeyDown(event) {
-		if (cuttingMode) {
+		if (cuttingMode || cuttingOuterMode) {
 			if (event.code == "Tab") {
 				if (cuttingPath) {
 					const delta = event.shiftKey ? -1 : 1;
@@ -1262,7 +1273,7 @@ table {
 
 	function highlightCutElement() {
 		const element = cuttingPath[cuttingPathIndex];
-		element.classList.add(CUT_HOVER_CLASS);
+		element.classList.add(cuttingMode ? CUT_HOVER_CLASS : CUT_OUTER_HOVER_CLASS);
 		let parentElement = element.parentElement;
 		while (parentElement && getComputedStyle(parentElement).getPropertyValue("overflow") != "hidden") {
 			parentElement = parentElement.parentElement;
@@ -1278,7 +1289,7 @@ table {
 	function unhighlightCutElement() {
 		if (cuttingPath) {
 			const element = cuttingPath[cuttingPathIndex];
-			element.classList.remove(CUT_HOVER_CLASS);
+			element.classList.remove(cuttingMode ? CUT_HOVER_CLASS : CUT_OUTER_HOVER_CLASS);
 			if (cuttingElementContainer) {
 				cuttingElementContainer.classList.remove(CUT_CONTAINER_HOVER_CLASS);
 			}
@@ -1287,27 +1298,44 @@ table {
 
 	function undoCutPage() {
 		if (removedElementIndex) {
-			removedElements[removedElementIndex - 1].classList.remove(REMOVED_CONTENT_CLASS);
+			removedElements[removedElementIndex - 1].forEach(element => element.classList.remove(REMOVED_CONTENT_CLASS));
 			removedElementIndex--;
 		}
 	}
 
 	function redoCutPage() {
 		if (removedElementIndex < removedElements.length) {
-			removedElements[removedElementIndex].classList.add(REMOVED_CONTENT_CLASS);
+			removedElements[removedElementIndex].forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
 			removedElementIndex++;
 		}
 	}
 
 	function validateCutElement() {
 		if (cuttingPath) {
-			const element = cuttingPath[cuttingPathIndex];
-			if (document.documentElement != element && element.tagName.toLowerCase() != NOTE_TAGNAME) {
-				element.classList.add(REMOVED_CONTENT_CLASS);
-				removedElements[removedElementIndex] = element;
-				removedElementIndex++;
-				removedElements.length = removedElementIndex;
-				onUpdate(false);
+			if (cuttingMode) {
+				const element = cuttingPath[cuttingPathIndex];
+				if (document.documentElement != element && element.tagName.toLowerCase() != NOTE_TAGNAME) {
+					element.classList.add(REMOVED_CONTENT_CLASS);
+					removedElements[removedElementIndex] = [element];
+					removedElementIndex++;
+					removedElements.length = removedElementIndex;
+					onUpdate(false);
+				}
+			}
+			if (cuttingOuterMode) {
+				const elementKept = cuttingPath[cuttingPathIndex];
+				if (document.documentElement != elementKept && elementKept.tagName.toLowerCase() != NOTE_TAGNAME) {
+					const elements = [];
+					document.body.querySelectorAll("*").forEach(element => {
+						if (elementKept != element && !isAncestor(elementKept, element) && !isAncestor(element, elementKept)) {
+							element.classList.add(REMOVED_CONTENT_CLASS);
+							elements.push(element);
+						}
+					});
+					removedElements[removedElementIndex] = elements;
+					removedElementIndex++;
+					removedElements.length = removedElementIndex;
+				}
 			}
 		}
 	}
@@ -1682,7 +1710,7 @@ table {
 			const onMouseUp = ${minifyText(onMouseUp.toString())};
 			const maskNoteElement = getMaskElement(${JSON.stringify(NOTE_MASK_CLASS)});
 			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});
-			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout, cuttingMode;
+			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout, cuttingMode, cuttingOuterMode;
 			window.onresize = reflowNotes;
 			window.onUpdate = () => {};
 			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
@@ -1730,6 +1758,10 @@ table {
 
 	function minifyText(text) {
 		return text.replace(/[\n\t\s]+/g, " ");
+	}
+
+	function isAncestor(element, otherElement) {
+		return otherElement.parentElement && (element == otherElement.parentElement || isAncestor(element, otherElement.parentElement));
 	}
 
 })();

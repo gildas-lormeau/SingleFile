@@ -615,9 +615,13 @@
 		"message": "Formater la  page pour une meilleure lisibilité",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
-	"editorCutPage": {
-		"message": "Activer/désactiver la supression des éléments du document au click",
-		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
+	"editorCutInnerPage": {
+		"message": "Activer/désactiver la supression des éléments internes",
+		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+	},
+	"editorCutOuterPage": {
+		"message": "Activer/désactiver la supression des éléments externes",
+		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
 		"message": "Restaurer le dernier élement supprimé",

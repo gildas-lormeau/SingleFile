@@ -615,9 +615,13 @@
 		"message": "Форматировать страницу для лучшей читаемости",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
-	"editorCutPage": {
-		"message": "Включить/отключить удаление элемента документа щелчком мыши",
-		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
+	"editorCutInnerPage": {
+		"message": "Enable/disable removing of internal elements",
+		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+	},
+	"editorCutOuterPage": {
+		"message": "Enable/disable removing of external elements",
+		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
 		"message": "Восстановить последний удалённый элемент",

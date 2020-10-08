@@ -3,14 +3,14 @@
 		"message": "Speichern einer kompletten Webseite in eine einzige HTML-Datei",
 		"description": "Description of the extension."
 	},
-    "commandSaveTab": {
-        "message": "Speichern der aktuellen Tab oder des ausgewählten Inhalts",
-        "description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
-    },
-    "commandSaveAllTabs": {
-        "message": "Speichern aller Tabs",
-        "description": "Command (Ctrl+Shift+U): 'Save all tabs'"
-    },
+	"commandSaveTab": {
+		"message": "Speichern der aktuellen Tab oder des ausgewählten Inhalts",
+		"description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
+	},
+	"commandSaveAllTabs": {
+		"message": "Speichern aller Tabs",
+		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+	},
 	"menuSavePage": {
 		"message": "Speichern der Webseite mit SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -615,9 +615,13 @@
 		"message": "Die Seite zur besseren Lesbarkeit formatieren",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
-	"editorCutPage": {
-		"message": "Aktivieren/Deaktivieren des Entfernens des Dokument-Elements auf Klick",
-		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
+	"editorCutInnerPage": {
+		"message": "Aktivieren/Deaktivieren der Entfernung interner Elemente",
+		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+	},
+	"editorCutOuterPage": {
+		"message": "Aktivieren/Deaktivieren der Entfernung externer Elemente",
+		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
 		"message": "Wiederherstellen des zuletzt entfernten Elements",
