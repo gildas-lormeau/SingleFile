@@ -54,23 +54,22 @@ single-file-note {
 }
 
 .single-file-cut-hover, .single-file-cut-outer-hover {
-    transition: outline-width 125ms;
+    transition: outline-width 125ms !important;
+    outline-offset: -4px !important;
+    outline-width: 4px !important;
+    outline-style: dotted !important;
 }
 
 .single-file-cut-hover {
-    outline: 4px dotted red !important;
+    outline-color: red !important;
 }
 
 .single-file-cut-outer-hover {
-    outline: 4px dotted green !important;
+    outline-color: green !important;
 }
 
 .single-file-cut-hover, .single-file-remove-highlights-mode .single-file-highlight:hover {
     cursor: crosshair !important;
-}
-
-.single-file-container-hover {
-    overflow: visible !important;
 }
 
 .single-file-removed {

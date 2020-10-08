@@ -48,7 +48,6 @@
 	const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
 	const CUT_HOVER_CLASS = "single-file-cut-hover";
 	const CUT_OUTER_HOVER_CLASS = "single-file-cut-outer-hover";
-	const CUT_CONTAINER_HOVER_CLASS = "single-file-container-hover";
 	const NOTE_INITIAL_POSITION_X = 20;
 	const NOTE_INITIAL_POSITION_Y = 20;
 	const NOTE_INITIAL_WIDTH = 150;
@@ -811,7 +810,7 @@ table {
 }`;
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingPath, cuttingPathIndex, cuttingElementContainer;
+	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingPath, cuttingPathIndex;
 	let removedElements = [], removedElementIndex = 0;
 
 	window.onmessage = async event => {
@@ -1274,25 +1273,12 @@ table {
 	function highlightCutElement() {
 		const element = cuttingPath[cuttingPathIndex];
 		element.classList.add(cuttingMode ? CUT_HOVER_CLASS : CUT_OUTER_HOVER_CLASS);
-		let parentElement = element.parentElement;
-		while (parentElement && getComputedStyle(parentElement).getPropertyValue("overflow") != "hidden") {
-			parentElement = parentElement.parentElement;
-		}
-		if (parentElement) {
-			cuttingElementContainer = parentElement;
-			cuttingElementContainer.classList.add(CUT_CONTAINER_HOVER_CLASS);
-		} else {
-			cuttingElementContainer = null;
-		}
 	}
 
 	function unhighlightCutElement() {
 		if (cuttingPath) {
 			const element = cuttingPath[cuttingPathIndex];
 			element.classList.remove(cuttingMode ? CUT_HOVER_CLASS : CUT_OUTER_HOVER_CLASS);
-			if (cuttingElementContainer) {
-				cuttingElementContainer.classList.remove(CUT_CONTAINER_HOVER_CLASS);
-			}
 		}
 	}
 
