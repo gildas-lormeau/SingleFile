@@ -616,11 +616,11 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "Enable/disable removing of internal elements",
+		"message": "Włącz/wyłącz usuwanie elementów wewnętrznych",
 		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "Enable/disable removing of external elements",
+		"message": "Włącz/wyłącz usuwanie elementów zewnętrznych",
 		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
