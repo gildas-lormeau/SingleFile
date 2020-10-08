@@ -68,6 +68,13 @@ ol>li>ul>li>ul {
     height: 1em;
 }
 
+.button {
+    height: .9em;
+    background-color: #8e8e8e;
+    padding: 3px;
+    border-radius: 4px;
+}
+
 #titleIcon {
     width: 1.2em;
     height: 1.2em;
@@ -196,5 +203,9 @@ kbd.light, .light-keys kbd, .key.light, .light-keys .key {
     }
     .option {
         color: #afafaf;
+    }
+    .button {
+        height: .9em;
+        background-color: #484848;
     }
 }
