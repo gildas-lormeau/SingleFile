@@ -1312,7 +1312,7 @@ table {
 				const elementKept = cuttingPath[cuttingPathIndex];
 				if (document.documentElement != elementKept && elementKept.tagName.toLowerCase() != NOTE_TAGNAME) {
 					const elements = [];
-					document.body.querySelectorAll("*:not(style)").forEach(element => {
+					document.body.querySelectorAll("*:not(style):not(." + REMOVED_CONTENT_CLASS + ")").forEach(element => {
 						if (elementKept != element && !isAncestor(elementKept, element) && !isAncestor(element, elementKept)) {
 							element.classList.add(REMOVED_CONTENT_CLASS);
 							elements.push(element);
