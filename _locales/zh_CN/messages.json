@@ -4,7 +4,7 @@
 		"description": "Description of the extension."
 	},
 	"commandSaveTab": {
-		"message": "保存所选标签页或选中部分",
+		"message": "保存当前标签页或选中部分",
 		"description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
 	},
 	"commandSaveAllTabs": {
@@ -60,7 +60,7 @@
 		"description": "Menu entry (SingleFile button only): 'Save tabs'"
 	},
 	"menuSaveSelectedTabs": {
-		"message": "保存所选标签页",
+		"message": "保存当前标签页",
 		"description": "Menu entry: 'Save selected tabs'"
 	},
 	"menuSaveUnpinnedTabs": {
@@ -396,23 +396,23 @@
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionDefaultEditorMode": {
-		"message": "default mode",
+		"message": "默认模式",
 		"description": "Options page label: 'default mode'"
 	},
 	"optionDefaultEditorModeNormal": {
-		"message": "normal",
+		"message": "常规",
 		"description": "Options page label: 'default mode > normal'"
 	},
 	"optionDefaultEditorModeEdit": {
-		"message": "edit the page",
+		"message": "编辑模式",
 		"description": "Options page label: 'default mode > edit the page'"
 	},
 	"optionDefaultEditorModeFormat": {
-		"message": "format the page",
+		"message": "格式化页面",
 		"description": "Options page label: 'default mode > format the page'"
 	},
 	"optionDefaultEditorModeCut": {
-		"message": "remove elements",
+		"message": "删除文档元素",
 		"description": "Options page label: 'default mode > remove elements'"
 	},
 	"optionApplySystemTheme": {
@@ -608,31 +608,31 @@
 		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
 	},
 	"editorEditPage": {
-		"message": "启用/禁用 只读模式",
+		"message": "启用/禁用 编辑模式",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorFormatPage": {
-		"message": "格式化该页面以提升可读性",
+		"message": "格式化页面以提升可读性",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "Enable/disable removing of internal elements",
+		"message": "启用/禁用 点击时删除内部文档元素",
 		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "Enable/disable removing of external elements",
+		"message": "启用/禁用 点击时删除外部文档元素",
 		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
-		"message": "还原上次被移除的元素",
+		"message": "撤销上次移除元素的操作",
 		"description": "Title of the button 'Restore last removed element' in the editor"
 	},
 	"editorUndoAllCutPage": {
-		"message": "还原所有被移除的元素",
+		"message": "撤销所有移除元素的操作",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
 	"editorRedoCutPage": {
-		"message": "Remove last restored element",
+		"message": "恢复上次移除元素的操作",
 		"description": "Title of the button 'Remove last restored element' in the editor"
 	},
 	"editorSavePage": {
