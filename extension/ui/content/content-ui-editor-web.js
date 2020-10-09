@@ -1114,7 +1114,7 @@ table {
 		}
 
 		function getTarget(clientX, clientY) {
-			const targets = Array.from(document.elementsFromPoint(clientX, clientY)).filter(element => element.matches("html *"));
+			const targets = Array.from(document.elementsFromPoint(clientX, clientY)).filter(element => element.matches("html *:not(" + NOTE_TAGNAME + "):not(." + MASK_CLASS + ")"));
 			if (!targets.includes(document.documentElement)) {
 				targets.push(document.documentElement);
 			}
