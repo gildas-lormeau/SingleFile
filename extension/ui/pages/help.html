@@ -14,7 +14,7 @@
 			<h2>SingleFile</h2>
 			<h4>Save a complete page into a single HTML file</h4>
 		</div> <span id="index"> <a href="#getting-started">Getting started</a> - <a href="#general-notes">Additional
-				notes</a> - <a href="#options">Options description</a> - <a href="#annotation-editor">Anootation
+				notes</a> - <a href="#options">Options description</a> - <a href="#annotation-editor">Annotation
 				editor</a> - <a href="#notes">Technical notes</a> - <a href="#template-variables">Template variables</a>
 			- <a href="#known-issues">Known issues</a> - <a href="#unknown-issues">Troubleshooting unknown issues</a> -
 			<a href="#contributors">Contributors</a>
@@ -175,7 +175,7 @@
 					</li>
 					<li data-options-label="filenameConflictActionLabel"> <span class="option">Option: file name
 							conflict resolution</span>
-						<p>Choose the most appropriate action when a the filename of the saved page is conflicting with
+						<p>Choose the most appropriate action when the filename of the saved page is conflicting with
 							existing ones on the filesystem. The "skip duplicate files" action only detects duplicates
 							among files downloaded during the current browsing session.</p>
 					</li>
@@ -350,12 +350,12 @@
 						<ul>
 							<li><code>normal</code>: default value</li>
 							<li><code>edit the page</code>: enable the button <img
-									src="../resources/button_note_edit.png" class="icon"></li>
+									src="../resources/button_note_edit.png" class="icon button"></li>
 							<li><code>format the page</code>: enable the button <img
-									src="../resources/button_note_format.png" class="icon"> if the page can be
+									src="../resources/button_note_format.png" class="icon button"> if the page can be
 								formatted</li>
-							<li><code>remove elements</code>: enable the button <img src="../resources/button_cut.png"
-									class="icon"></li>
+							<li><code>remove elements</code>: enable the button <img
+									src="../resources/button_cut_inner.png" class="icon button"></li>
 						</ul>
 						</p>
 					</li>
@@ -368,7 +368,7 @@
 					<li data-options-label="warnUnsavedPageLabel"> <span class="option">Option: warn if leaving page
 							with unsaved changes</span>
 						<p>Check this option to display a blocking popup when you leave the annotation editor (e.g.
-							close the tab) without saving the cahnges.</p>
+							close the tab) without saving the changes.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 					<li data-options-label="openEditorLabel"> <span class="option">Option: edit page before
@@ -509,30 +509,35 @@
 					by enabling the option "Annotation editor &gt; edit page before saving". It allows you to:
 				<ul>
 					<li>add notes by clicking one of these buttons: <img src="../resources/button_note_yellow.png"
-							class="icon">
-						<img src="../resources/button_note_pink.png" class="icon"> <img
-							src="../resources/button_note_blue.png" class="icon">
-						<img src="../resources/button_note_green.png" class="icon"></li>
+							class="icon button">
+						<img src="../resources/button_note_pink.png" class="icon button"> <img
+							src="../resources/button_note_blue.png" class="icon button">
+						<img src="../resources/button_note_green.png" class="icon button"></li>
 					<li>hide or show notes by clicking the button <img src="../resources/button_note_visible.png"
-							class="icon"></li>
+							class="icon button"></li>
 					<li>highlight text by clicking one of these buttons: <img
-							src="../resources/button_highlighter_yellow.png" class="icon"> <img
-							src="../resources/button_highlighter_pink.png" class="icon"> <img
-							src="../resources/button_highlighter_blue.png" class="icon"> <img
-							src="../resources/button_highlighter_green.png" class="icon"></li>
-					<li>hide or show highligted text by clicking the button <img
-							src="../resources/button_highlighter_visible.png" class="icon"></li>
+							src="../resources/button_highlighter_yellow.png" class="icon button"> <img
+							src="../resources/button_highlighter_pink.png" class="icon button"> <img
+							src="../resources/button_highlighter_blue.png" class="icon button"> <img
+							src="../resources/button_highlighter_green.png" class="icon button"></li>
+					<li>hide or show highlighted text by clicking the button <img
+							src="../resources/button_highlighter_visible.png" class="icon button"></li>
 					<li>remove text highlighting by clicking the button <img
-							src="../resources/button_highlighter_delete.png" class="icon"></li>
-					<li>edit the page by clicking the button <img src="../resources/button_note_edit.png" class="icon">
+							src="../resources/button_highlighter_delete.png" class="icon button"></li>
+					<li>edit the page by clicking the button <img src="../resources/button_note_edit.png"
+							class="icon button">
 					</li>
 					<li>format the page to improve readability (when possible) by clicking the button <img
-							src="../resources/button_note_format.png" class="icon">
+							src="../resources/button_note_format.png" class="icon button">
 					</li>
-					<li>remove contents by clicking the button <img src="../resources/button_cut.png" class="icon">,
-						undo removes by clicking the button <img src="../resources/button_undo_cut.png" class="icon"> or
-						the button <img src="../resources/button_undo_all_cut.png" class="icon">, and redo removes by
-						clicking the button <img src="../resources/button_redo_cut.png" class="icon">.
+					<li>remove contents by clicking the button <img src="../resources/button_cut_inner.png"
+							class="icon button"> (inner elements) or <img src="../resources/button_cut_outer.png"
+							class="icon button"> (outer elements),
+						undo removes by clicking the button <img src="../resources/button_undo_cut.png"
+							class="icon button"> or
+						the button <img src="../resources/button_undo_all_cut.png" class="icon button"> (undo all), and
+						redo removes by clicking the button <img src="../resources/button_redo_cut.png"
+							class="icon button">.
 						<br>
 						You can also use the following keyboard shortcuts when removing contents:
 						<ul>
@@ -543,7 +548,8 @@
 							<li><code>Ctrl-Shift-Z</code>: redo the last removal</li>
 						</ul>
 					</li>
-					<li>save the page by clicking the button <img src="../resources/button_download.png" class="icon">.
+					<li>save the page by clicking the button <img src="../resources/button_download.png"
+							class="icon button">.
 				</ul>
 				</p>
 			</li>

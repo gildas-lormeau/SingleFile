@@ -41,7 +41,8 @@ singlefile.extension.ui.bg.editor = (() => {
 	const addGreenNoteButton = document.querySelector(".add-note-green-button");
 	const editPageButton = document.querySelector(".edit-page-button");
 	const formatPageButton = document.querySelector(".format-page-button");
-	const cutPageButton = document.querySelector(".cut-page-button");
+	const cutInnerPageButton = document.querySelector(".cut-inner-page-button");
+	const cutOuterPageButton = document.querySelector(".cut-outer-page-button");
 	const undoCutPageButton = document.querySelector(".undo-cut-page-button");
 	const undoAllCutPageButton = document.querySelector(".undo-all-cut-page-button");
 	const redoCutPageButton = document.querySelector(".redo-cut-page-button");
@@ -62,7 +63,8 @@ singlefile.extension.ui.bg.editor = (() => {
 	removeHighlightButton.title = browser.i18n.getMessage("editorRemoveHighlight");
 	editPageButton.title = browser.i18n.getMessage("editorEditPage");
 	formatPageButton.title = browser.i18n.getMessage("editorFormatPage");
-	cutPageButton.title = browser.i18n.getMessage("editorCutPage");
+	cutInnerPageButton.title = browser.i18n.getMessage("editorCutInnerPage");
+	cutOuterPageButton.title = browser.i18n.getMessage("editorCutOuterPage");
 	undoCutPageButton.title = browser.i18n.getMessage("editorUndoCutPage");
 	undoAllCutPageButton.title = browser.i18n.getMessage("editorUndoAllCutPage");
 	redoCutPageButton.title = browser.i18n.getMessage("editorRedoCutPage");
@@ -74,8 +76,11 @@ singlefile.extension.ui.bg.editor = (() => {
 	addGreenNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-green" }), "*");
 	highlightButtons.forEach(highlightButton => {
 		highlightButton.onclick = () => {
-			if (toolbarElement.classList.contains("cut-mode")) {
-				disableCutPage();
+			if (toolbarElement.classList.contains("cut-inner-mode")) {
+				disableCutInnerPage();
+			}
+			if (toolbarElement.classList.contains("cut-outer-mode")) {
+				disableCutOuterPage();
 			}
 			if (toolbarElement.classList.contains("remove-highlight-mode")) {
 				disableRemoveHighlights();
@@ -108,8 +113,11 @@ singlefile.extension.ui.bg.editor = (() => {
 		}
 	};
 	removeHighlightButton.onclick = () => {
-		if (toolbarElement.classList.contains("cut-mode")) {
-			disableCutPage();
+		if (toolbarElement.classList.contains("cut-inner-mode")) {
+			disableCutInnerPage();
+		}
+		if (toolbarElement.classList.contains("cut-outer-mode")) {
+			disableCutOuterPage();
 		}
 		if (removeHighlightButton.classList.contains("remove-highlight-disabled")) {
 			removeHighlightButton.classList.remove("remove-highlight-disabled");
@@ -123,8 +131,11 @@ singlefile.extension.ui.bg.editor = (() => {
 		}
 	};
 	editPageButton.onclick = () => {
-		if (toolbarElement.classList.contains("cut-mode")) {
-			disableCutPage();
+		if (toolbarElement.classList.contains("cut-inner-mode")) {
+			disableCutInnerPage();
+		}
+		if (toolbarElement.classList.contains("cut-outer-mode")) {
+			disableCutOuterPage();
 		}
 		if (editPageButton.classList.contains("edit-disabled")) {
 			enableEditPage();
@@ -135,15 +146,32 @@ singlefile.extension.ui.bg.editor = (() => {
 	formatPageButton.onclick = () => {
 		enableFormatPage();
 	};
-	cutPageButton.onclick = () => {
+	cutInnerPageButton.onclick = () => {
 		if (toolbarElement.classList.contains("edit-mode")) {
 			disableEditPage();
 		}
-		if (cutPageButton.classList.contains("cut-disabled")) {
-			enableCutPage();
+		if (toolbarElement.classList.contains("cut-outer-mode")) {
+			disableCutOuterPage();
+		}
+		if (cutInnerPageButton.classList.contains("cut-disabled")) {
+			enableCutInnerPage();
 			editorElement.contentWindow.focus();
 		} else {
-			disableCutPage();
+			disableCutInnerPage();
+		}
+	};
+	cutOuterPageButton.onclick = () => {
+		if (toolbarElement.classList.contains("edit-mode")) {
+			disableEditPage();
+		}
+		if (toolbarElement.classList.contains("cut-inner-mode")) {
+			disableCutInnerPage();
+		}
+		if (cutOuterPageButton.classList.contains("cut-disabled")) {
+			enableCutOuterPage();
+			editorElement.contentWindow.focus();
+		} else {
+			disableCutOuterPage();
 		}
 	};
 	undoCutPageButton.onclick = () => {
@@ -195,7 +223,7 @@ singlefile.extension.ui.bg.editor = (() => {
 			} else if (tabData.options.defaultEditorMode == "format" && !tabData.options.disableFormatPage) {
 				enableFormatPage();
 			} else if (tabData.options.defaultEditorMode == "cut") {
-				enableCutPage();
+				enableCutInnerPage();
 			}
 		}
 	};
@@ -248,10 +276,16 @@ singlefile.extension.ui.bg.editor = (() => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableEditPage" }), "*");
 	}
 
-	function disableCutPage() {
-		cutPageButton.classList.add("cut-disabled");
-		toolbarElement.classList.remove("cut-mode");
-		editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableCutPage" }), "*");
+	function disableCutInnerPage() {
+		cutInnerPageButton.classList.add("cut-disabled");
+		toolbarElement.classList.remove("cut-inner-mode");
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableCutInnerPage" }), "*");
+	}
+
+	function disableCutOuterPage() {
+		cutOuterPageButton.classList.add("cut-disabled");
+		toolbarElement.classList.remove("cut-outer-mode");
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "disableCutOuterPage" }), "*");
 	}
 
 	function resetHighlightButtons() {
@@ -284,12 +318,20 @@ singlefile.extension.ui.bg.editor = (() => {
 		}
 	}
 
-	function enableCutPage() {
-		cutPageButton.classList.remove("cut-disabled");
-		toolbarElement.classList.add("cut-mode");
+	function enableCutInnerPage() {
+		cutInnerPageButton.classList.remove("cut-disabled");
+		toolbarElement.classList.add("cut-inner-mode");
 		resetHighlightButtons();
 		disableRemoveHighlights();
-		editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableCutPage" }), "*");
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableCutInnerPage" }), "*");
+	}
+
+	function enableCutOuterPage() {
+		cutOuterPageButton.classList.remove("cut-disabled");
+		toolbarElement.classList.add("cut-outer-mode");
+		resetHighlightButtons();
+		disableRemoveHighlights();
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableCutOuterPage" }), "*");
 	}
 
 	function savePage() {

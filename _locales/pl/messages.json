@@ -615,9 +615,13 @@
 		"message": "Sformatuj stronę dla lepszej czytelności",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
-	"editorCutPage": {
-		"message": "Włącz/wyłącz usuwanie elementu dokumentu po kliknięciu",
-		"description": "Title of the button 'Enable/disable removing document's element on click' in the editor"
+	"editorCutInnerPage": {
+		"message": "Włącz/wyłącz usuwanie elementów wewnętrznych",
+		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+	},
+	"editorCutOuterPage": {
+		"message": "Włącz/wyłącz usuwanie elementów zewnętrznych",
+		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
 		"message": "Przywróć ostatni usunięty element",
