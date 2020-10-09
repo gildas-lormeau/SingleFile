@@ -616,11 +616,11 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "Enable/disable removing of internal elements",
+		"message": "Включить/отключить удаление внутренних элементов",
 		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "Enable/disable removing of external elements",
+		"message": "Включить/отключить удаление внешних элементов",
 		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
@@ -632,7 +632,7 @@
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
 	"editorRedoCutPage": {
-		"message": "Remove last restored element",
+		"message": "Удалить последний восстановленный элемент",
 		"description": "Title of the button 'Remove last restored element' in the editor"
 	},
 	"editorSavePage": {
