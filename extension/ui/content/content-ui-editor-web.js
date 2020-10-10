@@ -1312,12 +1312,25 @@ table {
 				const elementKept = cuttingPath[cuttingPathIndex];
 				if (document.documentElement != elementKept && elementKept.tagName.toLowerCase() != NOTE_TAGNAME) {
 					const elements = [];
-					document.body.querySelectorAll("*:not(style):not(meta):not(." + REMOVED_CONTENT_CLASS + ")").forEach(element => {
+					const searchSelector = "*:not(style):not(meta):not(." + REMOVED_CONTENT_CLASS + ")";
+					document.body.querySelectorAll(searchSelector).forEach(element => {
 						if (elementKept != element && !isAncestor(elementKept, element) && !isAncestor(element, elementKept)) {
-							element.classList.add(REMOVED_CONTENT_CLASS);
 							elements.push(element);
 						}
 					});
+					const elementKeptRect = elementKept.getBoundingClientRect();
+					elementKept.querySelectorAll(searchSelector).forEach(descendant => {
+						const descendantRect = descendant.getBoundingClientRect();
+						if (descendantRect.width && descendantRect.height && (
+							descendantRect.left < elementKeptRect.left ||
+							descendantRect.right > elementKeptRect.right ||
+							descendantRect.top < elementKeptRect.top ||
+							descendantRect.bottom > elementKeptRect.bottom
+						)) {
+							elements.push(descendant);
+						}
+					});
+					elements.forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
 					removedElements[removedElementIndex] = elements;
 					removedElementIndex++;
 					removedElements.length = removedElementIndex;
