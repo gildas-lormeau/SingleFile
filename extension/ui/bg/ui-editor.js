@@ -144,7 +144,11 @@ singlefile.extension.ui.bg.editor = (() => {
 		}
 	};
 	formatPageButton.onclick = () => {
-		enableFormatPage();
+		if (formatPageButton.classList.contains("format-disabled")) {
+			formatPage();
+		} else {
+			cancelFormatPage();
+		}
 	};
 	cutInnerPageButton.onclick = () => {
 		if (toolbarElement.classList.contains("edit-mode")) {
@@ -221,7 +225,7 @@ singlefile.extension.ui.bg.editor = (() => {
 			if (tabData.options.defaultEditorMode == "edit") {
 				enableEditPage();
 			} else if (tabData.options.defaultEditorMode == "format" && !tabData.options.disableFormatPage) {
-				enableFormatPage();
+				formatPage();
 			} else if (tabData.options.defaultEditorMode == "cut") {
 				enableCutInnerPage();
 			}
@@ -310,12 +314,16 @@ singlefile.extension.ui.bg.editor = (() => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableEditPage" }), "*");
 	}
 
-	function enableFormatPage() {
-		if (formatPageButton.classList.contains("format-disabled")) {
-			formatPageButton.classList.remove("format-disabled");
-			updatedResources = {};
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: tabData.options.applySystemTheme ? "formatPage" : "formatPageNoTheme" }), "*");
-		}
+	function formatPage() {
+		formatPageButton.classList.remove("format-disabled");
+		updatedResources = {};
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: tabData.options.applySystemTheme ? "formatPage" : "formatPageNoTheme" }), "*");
+	}
+
+	function cancelFormatPage() {
+		formatPageButton.classList.add("format-disabled");
+		updatedResources = {};
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "cancelFormatPage" }), "*");
 	}
 
 	function enableCutInnerPage() {

@@ -810,7 +810,7 @@ table {
 }`;
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingPath, cuttingPathIndex;
+	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingPath, cuttingPathIndex, previousDoc;
 	let removedElements = [], removedElementIndex = 0;
 
 	window.onmessage = async event => {
@@ -858,6 +858,9 @@ table {
 		}
 		if (message.method == "formatPageNoTheme") {
 			formatPage(false);
+		}
+		if (message.method == "cancelFormatPage") {
+			cancelFormatPage();
 		}
 		if (message.method == "disableEditPage") {
 			document.body.contentEditable = false;
@@ -1477,6 +1480,7 @@ table {
 	}
 
 	function formatPage(applySystemTheme) {
+		previousDoc = document.documentElement.cloneNode(true);
 		const shadowRoots = {};
 		const classesToPreserve = ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"];
 		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
@@ -1529,6 +1533,20 @@ table {
 		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
 		reflowNotes();
 		onUpdate(false);
+	}
+
+	function cancelFormatPage() {
+		if (previousDoc) {
+			document.documentElement.replaceChild(previousDoc.querySelector("html > head"), document.head);
+			document.documentElement.replaceChild(previousDoc.querySelector("html > body"), document.body);
+			removedElements = [];
+			removedElementIndex = 0;
+			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
+			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+			reflowNotes();
+			onUpdate(false);
+			previousDoc = null;
+		}
 	}
 
 	function getContent(compressHTML, updatedResources) {
