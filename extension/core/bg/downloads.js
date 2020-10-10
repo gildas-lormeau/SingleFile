@@ -117,7 +117,8 @@ singlefile.extension.core.bg.downloads = (() => {
 					replaceBookmarkURL: message.replaceBookmarkURL,
 					applySystemTheme: message.applySystemTheme,
 					defaultEditorMode: message.defaultEditorMode,
-					includeInfobar: message.includeInfobar
+					includeInfobar: message.includeInfobar,
+					warnUnsavedPage: message.warnUnsavedPage
 				});
 			} else {
 				if (message.saveToClipboard) {
