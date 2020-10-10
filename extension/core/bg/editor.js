@@ -35,7 +35,8 @@ singlefile.extension.core.bg.editor = (() => {
 		onMessage,
 		onTabRemoved,
 		isEditor,
-		open
+		open,
+		EDITOR_URL
 	};
 
 	async function open({ tabIndex, content, filename }, options) {
