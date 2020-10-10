@@ -214,7 +214,7 @@ singlefile.extension.core.bg.business = (() => {
 			}
 		} catch (error) {
 			if (error && (!error.message || !isIgnoredError(error))) {
-				console.log(error); // eslint-disable-line no-console
+				console.log(error.message ? error.message : error); // eslint-disable-line no-console
 				ui.onError(taskInfo.tab.id);
 				taskInfo.done();
 			}
