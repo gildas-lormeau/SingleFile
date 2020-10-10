@@ -130,7 +130,7 @@ singlefile.extension.core.bg.business = (() => {
 			} else {
 				ui.onStart(tabId, INJECT_SCRIPTS_STEP);
 				const scriptsInjected = await singlefile.extension.injectScript(tabId, tabOptions);
-				if (scriptsInjected) {
+				if (scriptsInjected || singlefile.extension.core.bg.editor.isEditor(tab)) {
 					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
 					addTask({
 						status: TASK_PENDING_STATE,
