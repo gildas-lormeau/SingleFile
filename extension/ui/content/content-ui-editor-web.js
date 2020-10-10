@@ -1322,10 +1322,10 @@ table {
 					elementKept.querySelectorAll(searchSelector).forEach(descendant => {
 						const descendantRect = descendant.getBoundingClientRect();
 						if (descendantRect.width && descendantRect.height && (
-							descendantRect.left < elementKeptRect.left ||
-							descendantRect.right > elementKeptRect.right ||
-							descendantRect.top < elementKeptRect.top ||
-							descendantRect.bottom > elementKeptRect.bottom
+							descendantRect.left + descendantRect.width < elementKeptRect.left ||
+							descendantRect.right > elementKeptRect.right + elementKeptRect.width ||
+							descendantRect.top + descendantRect.height < elementKeptRect.top ||
+							descendantRect.bottom > elementKeptRect.bottom + elementKeptRect.height
 						)) {
 							elements.push(descendant);
 						}
