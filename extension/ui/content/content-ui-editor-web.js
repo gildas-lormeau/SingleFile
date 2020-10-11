@@ -810,7 +810,7 @@ table {
 }`;
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingPath, cuttingPathIndex, previousDoc;
+	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingPath, cuttingPathIndex, previousContent;
 	let removedElements = [], removedElementIndex = 0;
 
 	window.onmessage = async event => {
@@ -899,7 +899,7 @@ table {
 		}
 		if (message.method == "getContent") {
 			onUpdate(true);
-			getContent(message.compressHTML, message.updatedResources);
+			window.parent.postMessage(JSON.stringify({ "method": "setContent", content: getContent(message.compressHTML, message.updatedResources) }), "*");
 		}
 	};
 	window.onresize = reflowNotes;
@@ -1480,7 +1480,7 @@ table {
 	}
 
 	function formatPage(applySystemTheme) {
-		previousDoc = document.documentElement.cloneNode(true);
+		previousContent = getContent(false, []);
 		const shadowRoots = {};
 		const classesToPreserve = ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"];
 		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
@@ -1536,16 +1536,9 @@ table {
 	}
 
 	function cancelFormatPage() {
-		if (previousDoc) {
-			document.documentElement.replaceChild(previousDoc.querySelector("html > head"), document.head);
-			document.documentElement.replaceChild(previousDoc.querySelector("html > body"), document.body);
-			removedElements = [];
-			removedElementIndex = 0;
-			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
-			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
-			reflowNotes();
-			onUpdate(false);
-			previousDoc = null;
+		if (previousContent) {
+			init(previousContent);
+			previousContent = null;
 		}
 	}
 
@@ -1587,7 +1580,7 @@ table {
 			doc.body.appendChild(element);
 			element.textContent = resource.content;
 		});
-		window.parent.postMessage(JSON.stringify({ "method": "setContent", content: singlefile.lib.modules.serializer.process(doc, compressHTML) }), "*");
+		return singlefile.lib.modules.serializer.process(doc, compressHTML);
 	}
 
 	function onUpdate(saved) {
