@@ -1535,9 +1535,11 @@ table {
 		onUpdate(false);
 	}
 
-	function cancelFormatPage() {
+	async function cancelFormatPage() {
 		if (previousContent) {
-			init(previousContent);
+			const contentEditable = document.body.contentEditable;
+			await init(previousContent);
+			document.body.contentEditable = contentEditable;
 			previousContent = null;
 		}
 	}
