@@ -1540,6 +1540,7 @@ table {
 			const contentEditable = document.body.contentEditable;
 			await init(previousContent);
 			document.body.contentEditable = contentEditable;
+			onUpdate(false);
 			previousContent = null;
 		}
 	}
