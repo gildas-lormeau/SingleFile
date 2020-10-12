@@ -609,7 +609,7 @@
 								https://addons.mozilla.org and some other Mozilla domains. When this happens, 🚫 is
 								displayed on top of the SingleFile icon.</li>
 							<li>For security reasons, SingleFile is sometimes unable to save the image representation of
-								a canvas element.</li>
+								canvas and snapshots of video elements.</li>
 							<li>The last saved path cannot be remembered by default. To circumvent this limitation,
 								disable the option "Misc. &gt; Save pages in background".</li>
 							<li>The following characters are replaced with _ in filenames: ~, +, \, ?, %, *, :, |, ",
@@ -630,6 +630,9 @@
 					<li>Firefox <ul>
 							<li>The "file name conflict resolution" option does not work if set to "prompt for a name".
 							</li>
+							<li>Sometimes, SingleFile is unable to save the contents of sandboxed iframes.</li>
+							<li>When processing a page from the filesystem, external resources (e.g. images,
+								stylesheets, fonts etc.) will not be embedded into the saved page.</li>
 						</ul>
 					</li>
 				</ul>
