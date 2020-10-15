@@ -21,12 +21,16 @@
  *   Source.
  */
 
-/* global browser, window, addEventListener, fetch, CustomEvent, dispatchEvent, removeEventListener */
+/* global browser, window, CustomEvent */
 
 this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extension.lib.fetch.content.resources || (() => {
 
 	const FETCH_REQUEST_EVENT = "single-file-request-fetch";
 	const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
+	const addEventListener = window.addEventListener;
+	const dispatchEvent = window.dispatchEvent;
+	const removeEventListener = window.removeEventListener;
+	const fetch = window.fetch;
 
 	browser.runtime.onMessage.addListener(message => {
 		if (message.method == "singlefile.fetchFrame" && window.frameId && window.frameId == message.frameId) {
