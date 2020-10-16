@@ -1376,8 +1376,8 @@ table {
 		}
 	}
 
-	function resetSelectedElements() {
-		document.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS + ",." + CUT_SELECTED_CLASS).forEach(element => {
+	function resetSelectedElements(doc = document) {
+		doc.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS + ",." + CUT_SELECTED_CLASS).forEach(element => {
 			element.classList.remove(CUT_OUTER_SELECTED_CLASS);
 			element.classList.remove(CUT_SELECTED_CLASS);
 		});
@@ -1589,6 +1589,7 @@ table {
 		unhighlightCutElement();
 		serializeShadowRoots(document);
 		const doc = document.cloneNode(true);
+		resetSelectedElements(doc);
 		deserializeShadowRoots(doc);
 		deserializeShadowRoots(document);
 		doc.querySelectorAll("[" + DISABLED_NOSCRIPT_ATTRIBUTE_NAME + "]").forEach(element => {
