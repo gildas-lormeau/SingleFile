@@ -1285,8 +1285,8 @@ table {
 						element.classList.add(cuttingMode ? CUT_SELECTED_CLASS : CUT_OUTER_SELECTED_CLASS);
 					} else {
 						validateCutElement(event.shiftKey);
-						event.preventDefault();
 					}
+					event.preventDefault();
 				}
 			}
 			if (event.key.toLowerCase() == "z" && event.ctrlKey) {
