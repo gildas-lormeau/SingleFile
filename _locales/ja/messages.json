@@ -415,6 +415,10 @@
 		"message": "remove elements",
 		"description": "Options page label: 'default mode > remove elements'"
 	},
+	"optionDefaultEditorModeCutExternal": {
+		"message": "remove external elements",
+		"description": "Options page label: 'default mode > remove external elements'"
+	},
 	"optionApplySystemTheme": {
 		"message": "ページの書式設定時にシステムテーマを適用する",
 		"description": "Title of the button 'apply the system theme when formatting a page'"

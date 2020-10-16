@@ -222,12 +222,15 @@ singlefile.extension.ui.bg.editor = (() => {
 			tabData.docSaved = message.saved;
 		}
 		if (message.method == "onInit") {
-			if (tabData.options.defaultEditorMode == "edit") {
+			const defaultEditorMode = tabData.options.defaultEditorMode;
+			if (defaultEditorMode == "edit") {
 				enableEditPage();
-			} else if (tabData.options.defaultEditorMode == "format" && !tabData.options.disableFormatPage) {
+			} else if (defaultEditorMode == "format" && !tabData.options.disableFormatPage) {
 				formatPage();
-			} else if (tabData.options.defaultEditorMode == "cut") {
+			} else if (defaultEditorMode == "cut") {
 				enableCutInnerPage();
+			} else if (defaultEditorMode == "cut-external") {
+				enableCutOuterPage();
 			}
 		}
 	};

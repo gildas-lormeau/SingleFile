@@ -415,6 +415,10 @@
 		"message": "刪除文檔元素",
 		"description": "Options page label: 'default mode > remove elements'"
 	},
+	"optionDefaultEditorModeCutExternal": {
+		"message": "remove external elements",
+		"description": "Options page label: 'default mode > remove external elements'"
+	},
 	"optionApplySystemTheme": {
 		"message": "在標註編輯器中打開頁面時應用系統主題樣式",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
