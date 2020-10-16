@@ -27,9 +27,9 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 
 	const FETCH_REQUEST_EVENT = "single-file-request-fetch";
 	const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
-	const addEventListener = window.addEventListener;
-	const dispatchEvent = window.dispatchEvent;
-	const removeEventListener = window.removeEventListener;
+	const addEventListener = (type, listener, options) => window.addEventListener(type, listener, options);
+	const dispatchEvent = event => window.dispatchEvent(event);
+	const removeEventListener = (type, listener, options) => window.removeEventListener(type, listener, options);
 	const fetch = window.fetch;
 
 	browser.runtime.onMessage.addListener(message => {
