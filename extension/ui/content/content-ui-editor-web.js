@@ -1631,11 +1631,12 @@ table {
 
 	function serializeShadowRoots(node) {
 		node.querySelectorAll("*").forEach(element => {
-			if (element.shadowRoot) {
-				serializeShadowRoots(element.shadowRoot);
+			const shadowRoot = element.openOrClosedShadowRoot || element.shadowRoot;
+			if (shadowRoot) {
+				serializeShadowRoots(shadowRoot);
 				const templateElement = document.createElement("template");
 				templateElement.setAttribute(SHADOW_MODE_ATTRIBUTE_NAME, "open");
-				templateElement.appendChild(element.shadowRoot);
+				templateElement.appendChild(shadowRoot);
 				element.appendChild(templateElement);
 			}
 		});
@@ -1644,7 +1645,7 @@ table {
 	function deserializeShadowRoots(node) {
 		node.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(element => {
 			if (element.parentElement) {
-				let shadowRoot = element.parentElement.shadowRoot;
+				let shadowRoot = element.parentElement.openOrClosedShadowRoot || element.parentElement.shadowRoot;
 				if (shadowRoot) {
 					Array.from(element.childNodes).forEach(node => shadowRoot.appendChild(node));
 					element.remove();
@@ -1687,8 +1688,9 @@ table {
 			document.currentScript.remove();
 			const processNode = node => {
 				node.querySelectorAll("template[${SHADOW_MODE_ATTRIBUTE_NAME}]").forEach(element=>{
-					if (!element.parentElement.shadowRoot) {
-						const shadowRoot = element.parentElement.attachShadow({mode:element.getAttribute("${SHADOW_MODE_ATTRIBUTE_NAME}"),delegatesFocus:Boolean(element.getAttribute("${SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME}"))});
+					let shadowRoot = element.parentElement.openOrClosedShadowRoot || element.parentElement.shadowRoot;
+					if (!shadowRoot) {
+						shadowRoot = element.parentElement.attachShadow({mode:element.getAttribute("${SHADOW_MODE_ATTRIBUTE_NAME}"),delegatesFocus:Boolean(element.getAttribute("${SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME}"))});
 						shadowRoot.innerHTML = element.innerHTML;
 						element.remove();
 						processNode(shadowRoot);

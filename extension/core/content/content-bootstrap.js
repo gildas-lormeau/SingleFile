@@ -227,11 +227,12 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	function serializeShadowRoots(node) {
 		const SHADOW_MODE_ATTRIBUTE_NAME = "shadowmode";
 		node.querySelectorAll("*").forEach(element => {
-			if (element.shadowRoot) {
-				serializeShadowRoots(element.shadowRoot);
+			const shadowRoot = element.openOrClosedShadowRoot || element.shadowRoot;
+			if (shadowRoot) {
+				serializeShadowRoots(shadowRoot);
 				const templateElement = document.createElement("template");
 				templateElement.setAttribute(SHADOW_MODE_ATTRIBUTE_NAME, "open");
-				templateElement.appendChild(element.shadowRoot);
+				templateElement.appendChild(shadowRoot);
 				element.appendChild(templateElement);
 			}
 		});
