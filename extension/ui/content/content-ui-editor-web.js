@@ -1275,7 +1275,6 @@ table {
 						}
 					}
 				}
-
 				event.preventDefault();
 			}
 			if (event.code == "Space") {
