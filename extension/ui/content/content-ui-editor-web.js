@@ -48,6 +48,8 @@
 	const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
 	const CUT_HOVER_CLASS = "single-file-cut-hover";
 	const CUT_OUTER_HOVER_CLASS = "single-file-cut-outer-hover";
+	const CUT_SELECTED_CLASS = "single-file-cut-selected";
+	const CUT_OUTER_SELECTED_CLASS = "single-file-cut-outer-selected";
 	const NOTE_INITIAL_POSITION_X = 20;
 	const NOTE_INITIAL_POSITION_Y = 20;
 	const NOTE_INITIAL_WIDTH = 150;
@@ -873,6 +875,7 @@ table {
 		}
 		if (message.method == "disableCutInnerPage") {
 			cuttingMode = false;
+			resetSelectedElements();
 			if (cuttingPath) {
 				unhighlightCutElement();
 				cuttingPath = null;
@@ -880,6 +883,7 @@ table {
 		}
 		if (message.method == "disableCutOuterPage") {
 			cuttingOuterMode = false;
+			resetSelectedElements();
 			if (cuttingPath) {
 				unhighlightCutElement();
 				cuttingPath = null;
@@ -1203,8 +1207,13 @@ table {
 			clearTimeout(collapseNoteTimeout);
 			collapseNoteTimeout = null;
 		}
-		if (cuttingMode || cuttingOuterMode) {
-			validateCutElement();
+		if ((cuttingMode || cuttingOuterMode) && cuttingPath) {
+			if (event.ctrlKey) {
+				const element = cuttingPath[cuttingPathIndex];
+				element.classList.toggle(cuttingMode ? CUT_SELECTED_CLASS : CUT_OUTER_SELECTED_CLASS);
+			} else {
+				validateCutElement(event.shiftKey);
+			}
 		}
 	}
 
@@ -1212,9 +1221,19 @@ table {
 		if (cuttingMode || cuttingOuterMode) {
 			const target = event.target;
 			if (target.classList) {
-				cuttingPath = getEventPath(event);
+				let ancestorFound;
+				document.querySelectorAll("." + (cuttingMode ? CUT_SELECTED_CLASS : CUT_OUTER_SELECTED_CLASS)).forEach(element => {
+					if (element == target || isAncestor(element, target) || isAncestor(target, element)) {
+						ancestorFound = element;
+					}
+				});
+				if (ancestorFound) {
+					cuttingPath = [ancestorFound];
+				} else {
+					cuttingPath = getParents(event.target);
+				}
 				cuttingPathIndex = 0;
-				highlightCutElement(target);
+				highlightCutElement();
 			}
 		}
 	}
@@ -1252,15 +1271,23 @@ table {
 						if (nextElement && nextElement.classList && nextElement != document.body && nextElement != document.documentElement) {
 							unhighlightCutElement();
 							cuttingPathIndex = pathIndex;
-							highlightCutElement(cuttingPath[cuttingPathIndex]);
+							highlightCutElement();
 						}
 					}
 				}
+
 				event.preventDefault();
 			}
 			if (event.code == "Space") {
-				validateCutElement();
-				event.preventDefault();
+				if (cuttingPath) {
+					if (event.ctrlKey) {
+						const element = cuttingPath[cuttingPathIndex];
+						element.classList.add(cuttingMode ? CUT_SELECTED_CLASS : CUT_OUTER_SELECTED_CLASS);
+					} else {
+						validateCutElement(event.shiftKey);
+						event.preventDefault();
+					}
+				}
 			}
 			if (event.key.toLowerCase() == "z" && event.ctrlKey) {
 				if (event.shiftKey) {
@@ -1281,7 +1308,8 @@ table {
 	function unhighlightCutElement() {
 		if (cuttingPath) {
 			const element = cuttingPath[cuttingPathIndex];
-			element.classList.remove(cuttingMode ? CUT_HOVER_CLASS : CUT_OUTER_HOVER_CLASS);
+			element.classList.remove(CUT_HOVER_CLASS);
+			element.classList.remove(CUT_OUTER_HOVER_CLASS);
 		}
 	}
 
@@ -1299,28 +1327,33 @@ table {
 		}
 	}
 
-	function validateCutElement() {
-		if (cuttingPath) {
-			if (cuttingMode) {
-				const element = cuttingPath[cuttingPathIndex];
-				if (document.documentElement != element && element.tagName.toLowerCase() != NOTE_TAGNAME) {
+	function validateCutElement(invert) {
+		const selectedElement = cuttingPath[cuttingPathIndex];
+		const elementsRemoved = [selectedElement].concat(...document.querySelectorAll("." + CUT_SELECTED_CLASS));
+		const elementsKept = [selectedElement].concat(...document.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS));
+		if ((cuttingMode && (!invert || elementsRemoved.length > 1)) || (cuttingOuterMode && invert && elementsKept.length == 1)) {
+			if (document.documentElement != selectedElement && selectedElement.tagName.toLowerCase() != NOTE_TAGNAME) {
+				elementsRemoved.forEach(element => {
 					element.classList.add(REMOVED_CONTENT_CLASS);
-					removedElements[removedElementIndex] = [element];
-					removedElementIndex++;
-					removedElements.length = removedElementIndex;
-					onUpdate(false);
-				}
+					element.classList.remove(CUT_SELECTED_CLASS);
+				});
+				removedElements[removedElementIndex] = elementsRemoved;
+				removedElementIndex++;
+				removedElements.length = removedElementIndex;
+				onUpdate(false);
 			}
-			if (cuttingOuterMode) {
-				const elementKept = cuttingPath[cuttingPathIndex];
-				if (document.documentElement != elementKept && elementKept.tagName.toLowerCase() != NOTE_TAGNAME) {
-					const elements = [];
-					const searchSelector = "*:not(style):not(meta):not(." + REMOVED_CONTENT_CLASS + ")";
-					document.body.querySelectorAll(searchSelector).forEach(element => {
-						if (elementKept != element && !isAncestor(elementKept, element) && !isAncestor(element, elementKept)) {
-							elements.push(element);
-						}
-					});
+		} else {
+			if (document.documentElement != selectedElement && selectedElement.tagName.toLowerCase() != NOTE_TAGNAME) {
+				const elements = [];
+				const searchSelector = "*:not(style):not(meta):not(." + REMOVED_CONTENT_CLASS + ")";
+				document.body.querySelectorAll(searchSelector).forEach(element => {
+					let removed = true;
+					elementsKept.forEach(elementKept => removed = removed && (elementKept != element && !isAncestor(elementKept, element) && !isAncestor(element, elementKept)));
+					if (removed) {
+						elements.push(element);
+					}
+				});
+				elementsKept.forEach(elementKept => {
 					const elementKeptRect = elementKept.getBoundingClientRect();
 					elementKept.querySelectorAll(searchSelector).forEach(descendant => {
 						const descendantRect = descendant.getBoundingClientRect();
@@ -1333,13 +1366,22 @@ table {
 							elements.push(descendant);
 						}
 					});
-					elements.forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
-					removedElements[removedElementIndex] = elements;
-					removedElementIndex++;
-					removedElements.length = removedElementIndex;
-				}
+				});
+				document.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS).forEach(element => element.classList.remove(CUT_OUTER_SELECTED_CLASS));
+				elements.forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
+				removedElements[removedElementIndex] = elements;
+				removedElementIndex++;
+				removedElements.length = removedElementIndex;
+				onUpdate(false);
 			}
 		}
+	}
+
+	function resetSelectedElements() {
+		document.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS + ",." + CUT_SELECTED_CLASS).forEach(element => {
+			element.classList.remove(CUT_OUTER_SELECTED_CLASS);
+			element.classList.remove(CUT_SELECTED_CLASS);
+		});
 	}
 
 	function anchorNote(event, noteElement, deltaX, deltaY) {
@@ -1469,9 +1511,8 @@ table {
 		}
 	}
 
-	function getEventPath(event) {
+	function getParents(element) {
 		const path = [];
-		let element = event.target;
 		while (element) {
 			path.push(element);
 			element = element.parentElement;
