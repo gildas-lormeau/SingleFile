@@ -1295,6 +1295,10 @@ table {
 					event.preventDefault();
 				}
 			}
+			if (event.code == "Escape") {
+				resetSelectedElements();
+				event.preventDefault();
+			}
 			if (event.key.toLowerCase() == "z" && event.ctrlKey) {
 				if (event.shiftKey) {
 					redoCutPage();
