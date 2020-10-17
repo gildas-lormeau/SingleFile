@@ -159,7 +159,7 @@ singlefile.extension.ui.bg.editor = (() => {
 		}
 		if (cutInnerPageButton.classList.contains("cut-disabled")) {
 			enableCutInnerPage();
-			editorElement.contentWindow.focus();
+
 		} else {
 			disableCutInnerPage();
 		}
@@ -173,7 +173,6 @@ singlefile.extension.ui.bg.editor = (() => {
 		}
 		if (cutOuterPageButton.classList.contains("cut-disabled")) {
 			enableCutOuterPage();
-			editorElement.contentWindow.focus();
 		} else {
 			disableCutOuterPage();
 		}
@@ -335,6 +334,7 @@ singlefile.extension.ui.bg.editor = (() => {
 		resetHighlightButtons();
 		disableRemoveHighlights();
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableCutInnerPage" }), "*");
+		editorElement.contentWindow.focus();
 	}
 
 	function enableCutOuterPage() {
@@ -343,6 +343,7 @@ singlefile.extension.ui.bg.editor = (() => {
 		resetHighlightButtons();
 		disableRemoveHighlights();
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableCutOuterPage" }), "*");
+		editorElement.contentWindow.focus();
 	}
 
 	function savePage() {
