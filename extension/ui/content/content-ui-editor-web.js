@@ -940,6 +940,7 @@ table {
 		document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
 		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+		document.documentElement.onmousedown = document.documentElement.ontouchstart = onMouseDown;
 		document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
 		document.documentElement.onmouseover = onMouseOver;
 		document.documentElement.onmouseout = onMouseOut;
@@ -1169,6 +1170,12 @@ table {
 				target = parents[parents.length - Math[roundingMethod](widthDistance / SELECT_PX_THRESHOLD) - 1];
 			}
 			return target;
+		}
+	}
+
+	function onMouseDown(event) {
+		if ((cuttingMode || cuttingOuterMode) && cuttingPath) {
+			event.preventDefault();
 		}
 	}
 
