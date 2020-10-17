@@ -355,6 +355,8 @@
 								formatted</li>
 							<li><code>remove elements</code>: enable the button <img
 									src="../resources/button_cut_inner.png" class="icon button"></li>
+							<li><code>remove external elements</code>: enable the button <img
+									src="../resources/button_cut_outer.png" class="icon button"></li>
 						</ul>
 						</p>
 					</li>
@@ -510,22 +512,36 @@
 							src="../resources/button_note_format.png" class="icon button"> </li>
 					<li>remove contents by clicking the button <img src="../resources/button_cut_inner.png"
 							class="icon button"> (inner elements) or <img src="../resources/button_cut_outer.png"
-							class="icon button"> (outer elements), undo removes by clicking the button <img
-							src="../resources/button_undo_cut.png" class="icon button"> or the button <img
-							src="../resources/button_undo_all_cut.png" class="icon button"> (undo all), and redo removes
-						by clicking the button <img src="../resources/button_redo_cut.png" class="icon button">. <br>
-						You can also use the following keyboard shortcuts when removing contents: <ul>
-							<li><code>Tab</code>: expand the selection</li>
-							<li><code>Shift-Tab</code>: reduce the selection</li>
-							<li><code>Space</code>: remove the selected element</li>
-							<li><code>Ctrl-Z</code>: undo the last removal</li>
-							<li><code>Ctrl-Shift-Z</code>: redo the last removal</li>
-						</ul>
-					</li>
+							class="icon button"> (outer elements)</li>
+					<li>undo removes by clicking the button <img src="../resources/button_undo_cut.png"
+							class="icon button"> or the button <img src="../resources/button_undo_all_cut.png"
+							class="icon button"> (undo all)
+					<li>redo removes by clicking the button <img src="../resources/button_redo_cut.png"
+							class="icon button"></li>
 					<li>save the page by clicking the button <img src="../resources/button_download.png"
-							class="icon button">.
+							class="icon button"></li>
 				</ul>
 				</p>
+				<br>
+				<p>
+					You can use the following keyboard shortcuts when removing contents with <img
+						src="../resources/button_cut_inner.png" class="icon button"> or <img
+						src="../resources/button_cut_outer.png" class="icon button">:
+				<ul>
+					<li><code>Tab</code>: expand the selection</li>
+					<li><code>Shift-Tab</code>: reduce the selection</li>
+					<li><code>Space</code>: remove the selected element</li>
+					<li><code>Ctrl-Z</code>: undo the last removal</li>
+					<li><code>Ctrl-Shift-Z</code>: redo the last removal</li>
+					<li><code>Ctrl</code>: select/unselect multiple elements, releasing the <code>Ctrl</code> key
+						validates the selection</li>
+					<li><code>Shift</code>: temporarily reverse the type of removal (i.e. removal of inner elements or
+						removal of outer elements) on the last selected element and reset the other selected elements if
+						any</li>
+					<li><code>Escape</code>: reset selected elements</li>
+				</ul>
+				</p>
+				</ul>
 			</li>
 			<li><a id="template-variables">Template variables</a>
 				<p>The template variables are used to customize the infobar content or the file name of a saved page.
