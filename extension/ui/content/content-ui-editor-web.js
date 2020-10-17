@@ -1342,12 +1342,14 @@ table {
 		if ((cuttingMode && !invert) || (cuttingOuterMode && invert)) {
 			if (document.documentElement != selectedElement && selectedElement.tagName.toLowerCase() != NOTE_TAGNAME) {
 				const elementsRemoved = [selectedElement].concat(...document.querySelectorAll("." + CUT_SELECTED_CLASS));
-				elementsRemoved.forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
 				resetSelectedElements();
-				removedElements[removedElementIndex] = elementsRemoved;
-				removedElementIndex++;
-				removedElements.length = removedElementIndex;
-				onUpdate(false);
+				if (elementsRemoved.length) {
+					elementsRemoved.forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
+					removedElements[removedElementIndex] = elementsRemoved;
+					removedElementIndex++;
+					removedElements.length = removedElementIndex;
+					onUpdate(false);
+				}
 			}
 		} else {
 			if (document.documentElement != selectedElement && selectedElement.tagName.toLowerCase() != NOTE_TAGNAME) {
@@ -1376,11 +1378,13 @@ table {
 					});
 				});
 				resetSelectedElements();
-				elements.forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
-				removedElements[removedElementIndex] = elements;
-				removedElementIndex++;
-				removedElements.length = removedElementIndex;
-				onUpdate(false);
+				if (elements.length) {
+					elements.forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
+					removedElements[removedElementIndex] = elements;
+					removedElementIndex++;
+					removedElements.length = removedElementIndex;
+					onUpdate(false);
+				}
 			}
 		}
 	}
