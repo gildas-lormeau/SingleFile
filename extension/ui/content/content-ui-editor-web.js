@@ -1335,14 +1335,11 @@ table {
 
 	function validateCutElement(invert) {
 		const selectedElement = cuttingPath[cuttingPathIndex];
-		const elementsRemoved = [selectedElement].concat(...document.querySelectorAll("." + CUT_SELECTED_CLASS));
-		const elementsKept = [selectedElement].concat(...document.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS));
-		if ((cuttingMode && (!invert || elementsRemoved.length > 1)) || (cuttingOuterMode && invert && elementsKept.length == 1)) {
+		if ((cuttingMode && !invert) || (cuttingOuterMode && invert)) {
 			if (document.documentElement != selectedElement && selectedElement.tagName.toLowerCase() != NOTE_TAGNAME) {
-				elementsRemoved.forEach(element => {
-					element.classList.add(REMOVED_CONTENT_CLASS);
-					element.classList.remove(CUT_SELECTED_CLASS);
-				});
+				const elementsRemoved = [selectedElement].concat(...document.querySelectorAll("." + CUT_SELECTED_CLASS));
+				elementsRemoved.forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
+				resetSelectedElements();
 				removedElements[removedElementIndex] = elementsRemoved;
 				removedElementIndex++;
 				removedElements.length = removedElementIndex;
@@ -1352,6 +1349,7 @@ table {
 			if (document.documentElement != selectedElement && selectedElement.tagName.toLowerCase() != NOTE_TAGNAME) {
 				const elements = [];
 				const searchSelector = "*:not(style):not(meta):not(." + REMOVED_CONTENT_CLASS + ")";
+				const elementsKept = [selectedElement].concat(...document.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS));
 				document.body.querySelectorAll(searchSelector).forEach(element => {
 					let removed = true;
 					elementsKept.forEach(elementKept => removed = removed && (elementKept != element && !isAncestor(elementKept, element) && !isAncestor(element, elementKept)));
@@ -1373,7 +1371,7 @@ table {
 						}
 					});
 				});
-				document.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS).forEach(element => element.classList.remove(CUT_OUTER_SELECTED_CLASS));
+				resetSelectedElements();
 				elements.forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
 				removedElements[removedElementIndex] = elements;
 				removedElementIndex++;
