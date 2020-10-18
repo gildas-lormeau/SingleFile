@@ -231,6 +231,9 @@ singlefile.extension.ui.bg.editor = (() => {
 				enableCutOuterPage();
 			}
 		}
+		if (message.method == "savePage") {
+			savePage();
+		}
 	};
 
 	window.onload = () => {

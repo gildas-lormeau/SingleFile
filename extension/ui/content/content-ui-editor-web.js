@@ -1312,6 +1312,10 @@ table {
 				event.preventDefault();
 			}
 		}
+		if (event.key.toLowerCase() == "s" && event.ctrlKey) {
+			window.parent.postMessage(JSON.stringify({ "method": "savePage" }), "*");
+			event.preventDefault();
+		}
 	}
 
 	function highlightCutElement() {
