@@ -75,7 +75,7 @@ single-file-note {
     outline-color: green !important;
 }
 
-.single-file-cut-mode * {
+.single-file-cut-mode, .single-file-cut-mode * {
     pointer-events: auto !important;
 }
 
