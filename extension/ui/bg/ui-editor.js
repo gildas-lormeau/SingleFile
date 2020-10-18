@@ -74,6 +74,8 @@ singlefile.extension.ui.bg.editor = (() => {
 	addPinkNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-pink" }), "*");
 	addBlueNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-blue" }), "*");
 	addGreenNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-green" }), "*");
+	editorElement.contentWindow.focus();
+	document.onclick = () => editorElement.contentWindow.focus();
 	highlightButtons.forEach(highlightButton => {
 		highlightButton.onclick = () => {
 			if (toolbarElement.classList.contains("cut-inner-mode")) {
@@ -179,15 +181,12 @@ singlefile.extension.ui.bg.editor = (() => {
 	};
 	undoCutPageButton.onclick = () => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "undoCutPage" }), "*");
-		editorElement.contentWindow.focus();
 	};
 	undoAllCutPageButton.onclick = () => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "undoAllCutPage" }), "*");
-		editorElement.contentWindow.focus();
 	};
 	redoCutPageButton.onclick = () => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "redoCutPage" }), "*");
-		editorElement.contentWindow.focus();
 	};
 	savePageButton.onclick = () => {
 		savePage();
@@ -334,7 +333,6 @@ singlefile.extension.ui.bg.editor = (() => {
 		resetHighlightButtons();
 		disableRemoveHighlights();
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableCutInnerPage" }), "*");
-		editorElement.contentWindow.focus();
 	}
 
 	function enableCutOuterPage() {
@@ -343,7 +341,6 @@ singlefile.extension.ui.bg.editor = (() => {
 		resetHighlightButtons();
 		disableRemoveHighlights();
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "enableCutOuterPage" }), "*");
-		editorElement.contentWindow.focus();
 	}
 
 	function savePage() {
