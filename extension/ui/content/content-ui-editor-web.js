@@ -1426,7 +1426,7 @@ table {
 		const containerElement = noteElement.getRootNode().host;
 		if (positionedElement == document.documentElement) {
 			const firstMaskElement = document.querySelector("." + MASK_CLASS);
-			document.documentElement.insertBefore(containerElement, firstMaskElement);
+			firstMaskElement.parentElement.insertBefore(containerElement, firstMaskElement);
 		} else {
 			positionedElement.appendChild(containerElement);
 		}
