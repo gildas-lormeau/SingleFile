@@ -1345,10 +1345,16 @@ table {
 		const selectedElement = cuttingPath[cuttingPathIndex];
 		if ((cuttingMode && !invert) || (cuttingOuterMode && invert)) {
 			if (document.documentElement != selectedElement && selectedElement.tagName.toLowerCase() != NOTE_TAGNAME) {
-				const elementsRemoved = [selectedElement].concat(...document.querySelectorAll("." + CUT_SELECTED_CLASS));
+				const elementsRemoved = [selectedElement].concat(...document.querySelectorAll("." + CUT_SELECTED_CLASS + ",." + CUT_SELECTED_CLASS + " *,." + CUT_HOVER_CLASS + " *"));
 				resetSelectedElements();
 				if (elementsRemoved.length) {
-					elementsRemoved.forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
+					elementsRemoved.forEach(element => {
+						if (element.tagName.toLowerCase() == NOTE_TAGNAME) {
+							resetAnchorNote(element);
+						} else {
+							element.classList.add(REMOVED_CONTENT_CLASS);
+						}
+					});
 					removedElements[removedElementIndex] = elementsRemoved;
 					removedElementIndex++;
 					removedElements.length = removedElementIndex;
@@ -1361,10 +1367,14 @@ table {
 				const searchSelector = "*:not(style):not(meta):not(." + REMOVED_CONTENT_CLASS + ")";
 				const elementsKept = [selectedElement].concat(...document.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS));
 				document.body.querySelectorAll(searchSelector).forEach(element => {
-					let removed = element.tagName.toLowerCase() != NOTE_TAGNAME;
+					let removed = true;
 					elementsKept.forEach(elementKept => removed = removed && (elementKept != element && !isAncestor(elementKept, element) && !isAncestor(element, elementKept)));
 					if (removed) {
-						elements.push(element);
+						if (element.tagName.toLowerCase() == NOTE_TAGNAME) {
+							resetAnchorNote(element);
+						} else {
+							elements.push(element);
+						}
 					}
 				});
 				elementsKept.forEach(elementKept => {
@@ -1437,6 +1447,15 @@ table {
 		noteElement.style.setProperty("position", "absolute");
 		noteElement.style.setProperty("left", (clientX - boundingRectPositionedElement.x - deltaX - borderX) + "px");
 		noteElement.style.setProperty("top", (clientY - boundingRectPositionedElement.y - deltaY - borderY) + "px");
+	}
+
+	function resetAnchorNote(containerElement) {
+		const noteId = containerElement.dataset.noteId;
+		const noteElement = containerElement.shadowRoot.childNodes[1];
+		noteElement.classList.remove(NOTE_ANCHORED_CLASS);
+		deleteNoteRef(containerElement, noteId);
+		addNoteRef(document.documentElement, noteId);
+		document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
 	}
 
 	function getPosition(event) {
