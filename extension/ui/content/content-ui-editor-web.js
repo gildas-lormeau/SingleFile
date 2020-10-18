@@ -1361,7 +1361,7 @@ table {
 				const searchSelector = "*:not(style):not(meta):not(." + REMOVED_CONTENT_CLASS + ")";
 				const elementsKept = [selectedElement].concat(...document.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS));
 				document.body.querySelectorAll(searchSelector).forEach(element => {
-					let removed = true;
+					let removed = element.tagName.toLowerCase() != NOTE_TAGNAME;
 					elementsKept.forEach(elementKept => removed = removed && (elementKept != element && !isAncestor(elementKept, element) && !isAncestor(element, elementKept)));
 					if (removed) {
 						elements.push(element);
