@@ -869,12 +869,15 @@ table {
 		}
 		if (message.method == "enableCutInnerPage") {
 			cuttingMode = true;
+			document.documentElement.classList.add("single-file-cut-mode");
 		}
 		if (message.method == "enableCutOuterPage") {
 			cuttingOuterMode = true;
+			document.documentElement.classList.add("single-file-cut-mode");
 		}
 		if (message.method == "disableCutInnerPage") {
 			cuttingMode = false;
+			document.documentElement.classList.remove("single-file-cut-mode");
 			resetSelectedElements();
 			if (cuttingPath) {
 				unhighlightCutElement();
@@ -883,6 +886,7 @@ table {
 		}
 		if (message.method == "disableCutOuterPage") {
 			cuttingOuterMode = false;
+			document.documentElement.classList.remove("single-file-cut-mode");
 			resetSelectedElements();
 			if (cuttingPath) {
 				unhighlightCutElement();

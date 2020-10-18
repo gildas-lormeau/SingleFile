@@ -75,6 +75,10 @@ single-file-note {
     outline-color: green !important;
 }
 
+.single-file-cut-mode * {
+    pointer-events: auto !important;
+}
+
 .single-file-cut-hover, .single-file-cut-outer-hover, .single-file-remove-highlights-mode .single-file-highlight:hover {
     cursor: crosshair !important;
 }
