@@ -28,6 +28,7 @@ singlefile.extension.core.bg.business = (() => {
 	const ERROR_CONNECTION_ERROR_CHROMIUM = "Could not establish connection. Receiving end does not exist.";
 	const ERROR_CONNECTION_LOST_CHROMIUM = "The message port closed before a response was received.";
 	const ERROR_CONNECTION_LOST_GECKO = "Message manager disconnected";
+	const ERROR_EDITOR_PAGE_CHROMIUM = "Cannot access contents of url ";
 	const INJECT_SCRIPTS_STEP = 1;
 	const EXECUTE_SCRIPTS_STEP = 2;
 	const TASK_PENDING_STATE = "pending";
@@ -130,7 +131,7 @@ singlefile.extension.core.bg.business = (() => {
 			} else {
 				ui.onStart(tabId, INJECT_SCRIPTS_STEP);
 				const scriptsInjected = await singlefile.extension.injectScript(tabId, tabOptions);
-				if (scriptsInjected) {
+				if (scriptsInjected || singlefile.extension.core.bg.editor.isEditor(tab)) {
 					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
 					addTask({
 						status: TASK_PENDING_STATE,
@@ -214,7 +215,7 @@ singlefile.extension.core.bg.business = (() => {
 			}
 		} catch (error) {
 			if (error && (!error.message || !isIgnoredError(error))) {
-				console.log(error); // eslint-disable-line no-console
+				console.log(error.message ? error.message : error); // eslint-disable-line no-console
 				ui.onError(taskInfo.tab.id);
 				taskInfo.done();
 			}
@@ -224,7 +225,8 @@ singlefile.extension.core.bg.business = (() => {
 	function isIgnoredError(error) {
 		return error.message == ERROR_CONNECTION_LOST_CHROMIUM ||
 			error.message == ERROR_CONNECTION_ERROR_CHROMIUM ||
-			error.message == ERROR_CONNECTION_LOST_GECKO;
+			error.message == ERROR_CONNECTION_LOST_GECKO ||
+			error.message.startsWith(ERROR_EDITOR_PAGE_CHROMIUM + JSON.stringify(singlefile.extension.core.bg.editor.EDITOR_URL));
 	}
 
 	function cancelTab(tabId) {

@@ -48,6 +48,8 @@
 	const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
 	const CUT_HOVER_CLASS = "single-file-cut-hover";
 	const CUT_OUTER_HOVER_CLASS = "single-file-cut-outer-hover";
+	const CUT_SELECTED_CLASS = "single-file-cut-selected";
+	const CUT_OUTER_SELECTED_CLASS = "single-file-cut-outer-selected";
 	const NOTE_INITIAL_POSITION_X = 20;
 	const NOTE_INITIAL_POSITION_Y = 20;
 	const NOTE_INITIAL_WIDTH = 150;
@@ -810,7 +812,7 @@ table {
 }`;
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingPath, cuttingPathIndex;
+	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingPath, cuttingPathIndex, previousContent;
 	let removedElements = [], removedElementIndex = 0;
 
 	window.onmessage = async event => {
@@ -859,17 +861,24 @@ table {
 		if (message.method == "formatPageNoTheme") {
 			formatPage(false);
 		}
+		if (message.method == "cancelFormatPage") {
+			cancelFormatPage();
+		}
 		if (message.method == "disableEditPage") {
 			document.body.contentEditable = false;
 		}
 		if (message.method == "enableCutInnerPage") {
 			cuttingMode = true;
+			document.documentElement.classList.add("single-file-cut-mode");
 		}
 		if (message.method == "enableCutOuterPage") {
 			cuttingOuterMode = true;
+			document.documentElement.classList.add("single-file-cut-mode");
 		}
 		if (message.method == "disableCutInnerPage") {
 			cuttingMode = false;
+			document.documentElement.classList.remove("single-file-cut-mode");
+			resetSelectedElements();
 			if (cuttingPath) {
 				unhighlightCutElement();
 				cuttingPath = null;
@@ -877,6 +886,8 @@ table {
 		}
 		if (message.method == "disableCutOuterPage") {
 			cuttingOuterMode = false;
+			document.documentElement.classList.remove("single-file-cut-mode");
+			resetSelectedElements();
 			if (cuttingPath) {
 				unhighlightCutElement();
 				cuttingPath = null;
@@ -896,7 +907,7 @@ table {
 		}
 		if (message.method == "getContent") {
 			onUpdate(true);
-			getContent(message.compressHTML, message.updatedResources);
+			window.parent.postMessage(JSON.stringify({ "method": "setContent", content: getContent(message.compressHTML, message.updatedResources) }), "*");
 		}
 	};
 	window.onresize = reflowNotes;
@@ -933,6 +944,7 @@ table {
 		document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
 		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+		document.documentElement.onmousedown = document.documentElement.ontouchstart = onMouseDown;
 		document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
 		document.documentElement.onmouseover = onMouseOver;
 		document.documentElement.onmouseout = onMouseOut;
@@ -1114,7 +1126,7 @@ table {
 		}
 
 		function getTarget(clientX, clientY) {
-			const targets = Array.from(document.elementsFromPoint(clientX, clientY)).filter(element => element.matches("html *"));
+			const targets = Array.from(document.elementsFromPoint(clientX, clientY)).filter(element => element.matches("html *:not(" + NOTE_TAGNAME + "):not(." + MASK_CLASS + ")"));
 			if (!targets.includes(document.documentElement)) {
 				targets.push(document.documentElement);
 			}
@@ -1165,6 +1177,12 @@ table {
 		}
 	}
 
+	function onMouseDown(event) {
+		if ((cuttingMode || cuttingOuterMode) && cuttingPath) {
+			event.preventDefault();
+		}
+	}
+
 	function onMouseUp(event) {
 		if (highlightSelectionMode) {
 			highlightSelection();
@@ -1200,8 +1218,13 @@ table {
 			clearTimeout(collapseNoteTimeout);
 			collapseNoteTimeout = null;
 		}
-		if (cuttingMode || cuttingOuterMode) {
-			validateCutElement();
+		if ((cuttingMode || cuttingOuterMode) && cuttingPath) {
+			if (event.ctrlKey) {
+				const element = cuttingPath[cuttingPathIndex];
+				element.classList.toggle(cuttingMode ? CUT_SELECTED_CLASS : CUT_OUTER_SELECTED_CLASS);
+			} else {
+				validateCutElement(event.shiftKey);
+			}
 		}
 	}
 
@@ -1209,9 +1232,19 @@ table {
 		if (cuttingMode || cuttingOuterMode) {
 			const target = event.target;
 			if (target.classList) {
-				cuttingPath = getEventPath(event);
+				let ancestorFound;
+				document.querySelectorAll("." + (cuttingMode ? CUT_SELECTED_CLASS : CUT_OUTER_SELECTED_CLASS)).forEach(element => {
+					if (element == target || isAncestor(element, target) || isAncestor(target, element)) {
+						ancestorFound = element;
+					}
+				});
+				if (ancestorFound) {
+					cuttingPath = [ancestorFound];
+				} else {
+					cuttingPath = getParents(event.target);
+				}
 				cuttingPathIndex = 0;
-				highlightCutElement(target);
+				highlightCutElement();
 			}
 		}
 	}
@@ -1249,14 +1282,25 @@ table {
 						if (nextElement && nextElement.classList && nextElement != document.body && nextElement != document.documentElement) {
 							unhighlightCutElement();
 							cuttingPathIndex = pathIndex;
-							highlightCutElement(cuttingPath[cuttingPathIndex]);
+							highlightCutElement();
 						}
 					}
 				}
 				event.preventDefault();
 			}
 			if (event.code == "Space") {
-				validateCutElement();
+				if (cuttingPath) {
+					if (event.ctrlKey) {
+						const element = cuttingPath[cuttingPathIndex];
+						element.classList.add(cuttingMode ? CUT_SELECTED_CLASS : CUT_OUTER_SELECTED_CLASS);
+					} else {
+						validateCutElement(event.shiftKey);
+					}
+					event.preventDefault();
+				}
+			}
+			if (event.code == "Escape") {
+				resetSelectedElements();
 				event.preventDefault();
 			}
 			if (event.key.toLowerCase() == "z" && event.ctrlKey) {
@@ -1268,6 +1312,10 @@ table {
 				event.preventDefault();
 			}
 		}
+		if (event.key.toLowerCase() == "s" && event.ctrlKey) {
+			window.parent.postMessage(JSON.stringify({ "method": "savePage" }), "*");
+			event.preventDefault();
+		}
 	}
 
 	function highlightCutElement() {
@@ -1278,7 +1326,8 @@ table {
 	function unhighlightCutElement() {
 		if (cuttingPath) {
 			const element = cuttingPath[cuttingPathIndex];
-			element.classList.remove(cuttingMode ? CUT_HOVER_CLASS : CUT_OUTER_HOVER_CLASS);
+			element.classList.remove(CUT_HOVER_CLASS);
+			element.classList.remove(CUT_OUTER_HOVER_CLASS);
 		}
 	}
 
@@ -1296,34 +1345,73 @@ table {
 		}
 	}
 
-	function validateCutElement() {
-		if (cuttingPath) {
-			if (cuttingMode) {
-				const element = cuttingPath[cuttingPathIndex];
-				if (document.documentElement != element && element.tagName.toLowerCase() != NOTE_TAGNAME) {
-					element.classList.add(REMOVED_CONTENT_CLASS);
-					removedElements[removedElementIndex] = [element];
+	function validateCutElement(invert) {
+		const selectedElement = cuttingPath[cuttingPathIndex];
+		if ((cuttingMode && !invert) || (cuttingOuterMode && invert)) {
+			if (document.documentElement != selectedElement && selectedElement.tagName.toLowerCase() != NOTE_TAGNAME) {
+				const elementsRemoved = [selectedElement].concat(...document.querySelectorAll("." + CUT_SELECTED_CLASS + ",." + CUT_SELECTED_CLASS + " *,." + CUT_HOVER_CLASS + " *"));
+				resetSelectedElements();
+				if (elementsRemoved.length) {
+					elementsRemoved.forEach(element => {
+						if (element.tagName.toLowerCase() == NOTE_TAGNAME) {
+							resetAnchorNote(element);
+						} else {
+							element.classList.add(REMOVED_CONTENT_CLASS);
+						}
+					});
+					removedElements[removedElementIndex] = elementsRemoved;
 					removedElementIndex++;
 					removedElements.length = removedElementIndex;
 					onUpdate(false);
 				}
 			}
-			if (cuttingOuterMode) {
-				const elementKept = cuttingPath[cuttingPathIndex];
-				if (document.documentElement != elementKept && elementKept.tagName.toLowerCase() != NOTE_TAGNAME) {
-					const elements = [];
-					document.body.querySelectorAll("*:not(style):not(meta):not(." + REMOVED_CONTENT_CLASS + ")").forEach(element => {
-						if (elementKept != element && !isAncestor(elementKept, element) && !isAncestor(element, elementKept)) {
-							element.classList.add(REMOVED_CONTENT_CLASS);
+		} else {
+			if (document.documentElement != selectedElement && selectedElement.tagName.toLowerCase() != NOTE_TAGNAME) {
+				const elements = [];
+				const searchSelector = "*:not(style):not(meta):not(." + REMOVED_CONTENT_CLASS + ")";
+				const elementsKept = [selectedElement].concat(...document.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS));
+				document.body.querySelectorAll(searchSelector).forEach(element => {
+					let removed = true;
+					elementsKept.forEach(elementKept => removed = removed && (elementKept != element && !isAncestor(elementKept, element) && !isAncestor(element, elementKept)));
+					if (removed) {
+						if (element.tagName.toLowerCase() == NOTE_TAGNAME) {
+							resetAnchorNote(element);
+						} else {
 							elements.push(element);
 						}
+					}
+				});
+				elementsKept.forEach(elementKept => {
+					const elementKeptRect = elementKept.getBoundingClientRect();
+					elementKept.querySelectorAll(searchSelector).forEach(descendant => {
+						const descendantRect = descendant.getBoundingClientRect();
+						if (descendantRect.width && descendantRect.height && (
+							descendantRect.left + descendantRect.width < elementKeptRect.left ||
+							descendantRect.right > elementKeptRect.right + elementKeptRect.width ||
+							descendantRect.top + descendantRect.height < elementKeptRect.top ||
+							descendantRect.bottom > elementKeptRect.bottom + elementKeptRect.height
+						)) {
+							elements.push(descendant);
+						}
 					});
+				});
+				resetSelectedElements();
+				if (elements.length) {
+					elements.forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
 					removedElements[removedElementIndex] = elements;
 					removedElementIndex++;
 					removedElements.length = removedElementIndex;
+					onUpdate(false);
 				}
 			}
 		}
+	}
+
+	function resetSelectedElements(doc = document) {
+		doc.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS + ",." + CUT_SELECTED_CLASS).forEach(element => {
+			element.classList.remove(CUT_OUTER_SELECTED_CLASS);
+			element.classList.remove(CUT_SELECTED_CLASS);
+		});
 	}
 
 	function anchorNote(event, noteElement, deltaX, deltaY) {
@@ -1352,7 +1440,7 @@ table {
 		const containerElement = noteElement.getRootNode().host;
 		if (positionedElement == document.documentElement) {
 			const firstMaskElement = document.querySelector("." + MASK_CLASS);
-			document.documentElement.insertBefore(containerElement, firstMaskElement);
+			firstMaskElement.parentElement.insertBefore(containerElement, firstMaskElement);
 		} else {
 			positionedElement.appendChild(containerElement);
 		}
@@ -1363,6 +1451,15 @@ table {
 		noteElement.style.setProperty("position", "absolute");
 		noteElement.style.setProperty("left", (clientX - boundingRectPositionedElement.x - deltaX - borderX) + "px");
 		noteElement.style.setProperty("top", (clientY - boundingRectPositionedElement.y - deltaY - borderY) + "px");
+	}
+
+	function resetAnchorNote(containerElement) {
+		const noteId = containerElement.dataset.noteId;
+		const noteElement = containerElement.shadowRoot.childNodes[1];
+		noteElement.classList.remove(NOTE_ANCHORED_CLASS);
+		deleteNoteRef(containerElement, noteId);
+		addNoteRef(document.documentElement, noteId);
+		document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
 	}
 
 	function getPosition(event) {
@@ -1453,9 +1550,8 @@ table {
 		}
 	}
 
-	function getEventPath(event) {
+	function getParents(element) {
 		const path = [];
-		let element = event.target;
 		while (element) {
 			path.push(element);
 			element = element.parentElement;
@@ -1464,6 +1560,7 @@ table {
 	}
 
 	function formatPage(applySystemTheme) {
+		previousContent = getContent(false, []);
 		const shadowRoots = {};
 		const classesToPreserve = ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"];
 		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
@@ -1518,10 +1615,21 @@ table {
 		onUpdate(false);
 	}
 
+	async function cancelFormatPage() {
+		if (previousContent) {
+			const contentEditable = document.body.contentEditable;
+			await init(previousContent);
+			document.body.contentEditable = contentEditable;
+			onUpdate(false);
+			previousContent = null;
+		}
+	}
+
 	function getContent(compressHTML, updatedResources) {
 		unhighlightCutElement();
 		serializeShadowRoots(document);
 		const doc = document.cloneNode(true);
+		resetSelectedElements(doc);
 		deserializeShadowRoots(doc);
 		deserializeShadowRoots(document);
 		doc.querySelectorAll("[" + DISABLED_NOSCRIPT_ATTRIBUTE_NAME + "]").forEach(element => {
@@ -1556,7 +1664,7 @@ table {
 			doc.body.appendChild(element);
 			element.textContent = resource.content;
 		});
-		window.parent.postMessage(JSON.stringify({ "method": "setContent", content: singlefile.lib.modules.serializer.process(doc, compressHTML) }), "*");
+		return singlefile.lib.modules.serializer.process(doc, compressHTML);
 	}
 
 	function onUpdate(saved) {
@@ -1604,11 +1712,12 @@ table {
 
 	function serializeShadowRoots(node) {
 		node.querySelectorAll("*").forEach(element => {
-			if (element.shadowRoot) {
-				serializeShadowRoots(element.shadowRoot);
+			const shadowRoot = element.openOrClosedShadowRoot || element.shadowRoot;
+			if (shadowRoot) {
+				serializeShadowRoots(shadowRoot);
 				const templateElement = document.createElement("template");
 				templateElement.setAttribute(SHADOW_MODE_ATTRIBUTE_NAME, "open");
-				templateElement.appendChild(element.shadowRoot);
+				templateElement.appendChild(shadowRoot);
 				element.appendChild(templateElement);
 			}
 		});
@@ -1617,7 +1726,7 @@ table {
 	function deserializeShadowRoots(node) {
 		node.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(element => {
 			if (element.parentElement) {
-				let shadowRoot = element.parentElement.shadowRoot;
+				let shadowRoot = element.parentElement.openOrClosedShadowRoot || element.parentElement.shadowRoot;
 				if (shadowRoot) {
 					Array.from(element.childNodes).forEach(node => shadowRoot.appendChild(node));
 					element.remove();
@@ -1660,8 +1769,9 @@ table {
 			document.currentScript.remove();
 			const processNode = node => {
 				node.querySelectorAll("template[${SHADOW_MODE_ATTRIBUTE_NAME}]").forEach(element=>{
-					if (!element.parentElement.shadowRoot) {
-						const shadowRoot = element.parentElement.attachShadow({mode:element.getAttribute("${SHADOW_MODE_ATTRIBUTE_NAME}"),delegatesFocus:Boolean(element.getAttribute("${SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME}"))});
+					let shadowRoot = element.parentElement.openOrClosedShadowRoot || element.parentElement.shadowRoot;
+					if (!shadowRoot) {
+						shadowRoot = element.parentElement.attachShadow({mode:element.getAttribute("${SHADOW_MODE_ATTRIBUTE_NAME}"),delegatesFocus:Boolean(element.getAttribute("${SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME}"))});
 						shadowRoot.innerHTML = element.innerHTML;
 						element.remove();
 						processNode(shadowRoot);
@@ -1715,7 +1825,8 @@ table {
 	}
 
 	function getAnchorElement(containerElement) {
-		return document.querySelector("[data-single-file-note-refs^=" + JSON.stringify(containerElement.dataset.noteId) + "], [data-single-file-note-refs$=" + JSON.stringify(containerElement.dataset.noteId) + "], [data-single-file-note-refs*=" + JSON.stringify("," + containerElement.dataset.noteId + ",") + "]");
+		return document.querySelector("[data-single-file-note-refs^=" + JSON.stringify(containerElement.dataset.noteId) + "], [data-single-file-note-refs$=" + JSON.stringify(containerElement.dataset.noteId) + "], [data-single-file-note-refs*=" + JSON.stringify("," + containerElement.dataset.noteId + ",") + "]")
+			|| document.documentElement;
 	}
 
 	function addNoteRef(anchorElement, noteId) {

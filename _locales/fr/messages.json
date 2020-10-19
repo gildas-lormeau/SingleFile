@@ -3,14 +3,14 @@
 		"message": "Sauvegardez une page complète dans un simple fichier HTML",
 		"description": "Description of the extension."
 	},
-    "commandSaveTab": {
-        "message": "Sauver l'onglet courant ou le contenu sélectionné",
-        "description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
-    },
-    "commandSaveAllTabs": {
-        "message": "Sauver tous les onglets",
-        "description": "Command (Ctrl+Shift+U): 'Save all tabs'"
-    },
+	"commandSaveTab": {
+		"message": "Sauver l'onglet courant ou le contenu sélectionné",
+		"description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
+	},
+	"commandSaveAllTabs": {
+		"message": "Sauver tous les onglets",
+		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+	},
 	"menuSavePage": {
 		"message": "Sauver la page avec SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -382,7 +382,7 @@
 	"optionAutoSaveExternalSave": {
 		"message": "sauvegarder la page avec SingleFile Companion",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
-	},	
+	},
 	"optionsEditorSubTitle": {
 		"message": "Éditeur d'annotations",
 		"description": "Options sub-title: 'Éditeur d'annotations'"
@@ -414,6 +414,10 @@
 	"optionDefaultEditorModeCut": {
 		"message": "supprimer des éléments",
 		"description": "Options page label: 'default mode > remove elements'"
+	},
+	"optionDefaultEditorModeCutExternal": {
+		"message": "supprimer des éléments externes",
+		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
 		"message": "appliquer le thème système lors du formattage d'une page",

@@ -136,13 +136,11 @@ singlefile.extension.ui.bg.menus = (() => {
 				contexts: defaultContexts,
 				title: MENU_SAVE_PAGE_MESSAGE
 			});
-			if (!options.openEditor) {
-				menus.create({
-					id: MENU_ID_EDIT_AND_SAVE_PAGE,
-					contexts: defaultContexts,
-					title: MENU_EDIT_AND_SAVE_PAGE_MESSAGE
-				});
-			}
+			menus.create({
+				id: MENU_ID_EDIT_AND_SAVE_PAGE,
+				contexts: defaultContexts,
+				title: MENU_EDIT_AND_SAVE_PAGE_MESSAGE
+			});
 			menus.create({
 				id: MENU_ID_SAVE_SELECTED_LINKS,
 				contexts: options.contextMenuEnabled ? defaultContextsDisabled.concat(["selection"]) : defaultContextsDisabled,
@@ -534,6 +532,7 @@ singlefile.extension.ui.bg.menus = (() => {
 					promises.push(updateVisibleValue(tab, options.contextMenuEnabled));
 					promises.push(updateTitleValue(MENU_ID_EDIT_AND_SAVE_PAGE, tabsData[tab.id].savedPageDetected ? MENU_EDIT_PAGE_MESSAGE : MENU_EDIT_AND_SAVE_PAGE_MESSAGE));
 					promises.push(menus.update(MENU_ID_SAVE_SELECTED, { visible: !options.saveRawPage }));
+					promises.push(menus.update(MENU_ID_EDIT_AND_SAVE_PAGE, { visible: !options.openEditor || tabsData[tab.id].savedPageDetected }));
 					let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 					let title = MENU_CREATE_DOMAIN_RULE_MESSAGE;
 					const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url)]);

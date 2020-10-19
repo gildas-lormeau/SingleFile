@@ -17,8 +17,7 @@
 				notes</a> - <a href="#options">Options description</a> - <a href="#annotation-editor">Annotation
 				editor</a> - <a href="#notes">Technical notes</a> - <a href="#template-variables">Template variables</a>
 			- <a href="#known-issues">Known issues</a> - <a href="#unknown-issues">Troubleshooting unknown issues</a> -
-			<a href="#contributors">Contributors</a>
-		</span>
+			<a href="#contributors">Contributors</a> </span>
 		<hr>
 		<ol>
 			<li><a id="getting-started">Getting started</a>
@@ -53,18 +52,20 @@
 							<li>or all the tabs.</li>
 						</ul>
 					</li>
-					<li>You can highlight text, add notes, format and remove content before saving the page with the
-						<a href="#annotation-editor">Annotation editor</a> by selecting "Annotate and save the page..."
+					<li>You can highlight text, add notes, format and remove content before saving the page with the <a
+							href="#annotation-editor">Annotation editor</a> by selecting "Annotate and save the page..."
 						in the context menu</li>
 					<li>With auto-save active, pages are automatically saved every time after being loaded (or before
 						being unloaded if not). </li>
+					<li>Select "Save Selection" from the context menu without selecting any content first to display a
+						selector that will help you choose content by hovering over it with the mouse.</li>
 					<li>Right-click on the SingleFile button and select "Options" to open the options page.</li>
 					<li>Enable the option "Misc. &gt; save to Google Drive" to upload pages to Google Drive</li>
 					<li>You can use the customizable shortcut Ctrl+Shift+Y to save the current tab or the selected tabs.
 						Go to about:addons and select "Manage extension shortcuts" in the cogwheel menu to change it in
 						Firefox. Go to chrome://extensions/shortcuts to change it in Chrome..</li>
-					<li>The default save folder is the download folder configured in your browser, cf.
-						about:preferences in Firefox and chrome://settings in Chrome.</li>
+					<li>The default save folder is the download folder configured in your browser, cf. about:preferences
+						in Firefox and chrome://settings in Chrome.</li>
 				</ul>
 			</li>
 			<li><a id="options">Options description</a>
@@ -131,10 +132,9 @@
 						<p>Check this option to display a prompt dialog in order to confirm the infobar content before
 							saving the page. </p>
 					</li>
-					<li data-options-label="autoCloseLabel"> <span class="option">Option: auto-close the tab after
-							the page is saved</span>
-						<p>Check this option to automatically close the tab after saving the page displayed inside.
-						</p>
+					<li data-options-label="autoCloseLabel"> <span class="option">Option: auto-close the tab after the
+							page is saved</span>
+						<p>Check this option to automatically close the tab after saving the page displayed inside. </p>
 					</li>
 				</ul>
 				<p>File name</p>
@@ -206,9 +206,9 @@
 							considerably reduce the size of the file without altering the document most of the time. It
 							may also decrease the time needed to save a page.</p>
 					</li>
-					<li data-options-label="includeInfobarLabel">Option: include infobar in the saved page
-						<p>Check this option to display the ℹ button at the top right of the page when viewing a saved
-							page in a browser where SingleFile is not installed.</p>
+					<li data-options-label="includeInfobarLabel">Option: include infobar in the saved page <p>Check this
+							option to display the ℹ button at the top right of the page when viewing a saved page in a
+							browser where SingleFile is not installed.</p>
 					</li>
 				</ul>
 				<p>Stylesheets</p>
@@ -260,8 +260,7 @@
 					<li data-options-label="loadDeferredImagesKeepZoomLevelLabel"> <span class="option">Option: zoom out
 							the page</span>
 						<p>Check this option to save the entire content of a page by zooming out the page. This can help
-							saving pages using infinite virtual lists for example.
-						</p>
+							saving pages using infinite virtual lists for example. </p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 					<li data-options-label="removeAlternativeImagesLabel"> <span class="option">Option: remove images
@@ -338,8 +337,8 @@
 							SingleFile Companion</span>
 						<p>Check this option to delegate the saving process to SingleFile Companion. It is a program
 							that runs outside the browser and can help to make the saving process more transparent. It
-							also allows the pages to be saved in another directory than the download directory. You
-							can find more info <a
+							also allows the pages to be saved in another directory than the download directory. You can
+							find more info <a
 								href="https://github.com/gildas-lormeau/SingleFile/tree/master/companion">here</a></p>
 					</li>
 				</ul>
@@ -356,6 +355,8 @@
 								formatted</li>
 							<li><code>remove elements</code>: enable the button <img
 									src="../resources/button_cut_inner.png" class="icon button"></li>
+							<li><code>remove external elements</code>: enable the button <img
+									src="../resources/button_cut_outer.png" class="icon button"></li>
 						</ul>
 						</p>
 					</li>
@@ -411,8 +412,8 @@
 					</li>
 					<li data-options-label="saveRawPageLabel"> <span class="option">Option: save raw page</span>
 						<p>Check this option to save the page without interpreting JavaScript. Checking this option may
-							alter the document, will force the options "remove frames", "remove hidden elements" to
-							be enabled and "save deferred images" to be disabled.</p>
+							alter the document, will force the options "remove frames", "remove hidden elements" to be
+							enabled and "save deferred images" to be disabled.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 					<li data-options-label="saveToClipboardLabel"> <span class="option">Option: save to clipboard</span>
@@ -424,60 +425,42 @@
 						<p>Check this option to create a worldwide proof of the existence of the page you want to save.
 						</p>
 						<ul>
-							<li>
-								<strong>What is a proof of existence (data anchoring)?</strong><br>
-								Data anchoring consists in building a time-stamped proof of existence for a data by
-								linking it to a tamper resistant and time-stamped blockchain. Data anchoring
-								implementation relies on the resilience and immutability of the Bitcoin blockchain
-								to provide the best possible security level
-							</li>
-							<li>
-								<strong>How does this protect my data?</strong><br>
-								The anchoring mechanism only handles data impressions. Your data remains where you
-								calculate the fingerprints, i.e. in the browser. Their confidentiality is totally
-								preserved.
-							</li>
-							<li>
-								<strong>
-									The day after your backup you can get freely the proof receipt here: <a
+							<li> <strong>What is a proof of existence (data anchoring)?</strong><br> Data anchoring
+								consists in building a time-stamped proof of existence for a data by linking it to a
+								tamper resistant and time-stamped blockchain. Data anchoring implementation relies on
+								the resilience and immutability of the Bitcoin blockchain to provide the best possible
+								security level </li>
+							<li> <strong>How does this protect my data?</strong><br> The anchoring mechanism only
+								handles data impressions. Your data remains where you calculate the fingerprints, i.e.
+								in the browser. Their confidentiality is totally preserved. </li>
+							<li> <strong> The day after your backup you can get freely the proof receipt here: <a
 										href="https://gildas-lormeau.github.io/singlefile-woleet/index.html">gildas-lormeau.github.io/singlefile-woleet/index.html</a>.
-									A proof receipt will be used to verify the validity of the evidence
-								</strong>
-							</li>
+									A proof receipt will be used to verify the validity of the evidence </strong> </li>
 						</ul>
-						<p>
-							More information <a href="https://doc.woleet.io">doc.woleet.io</a>
-						</p>
+						<p> More information <a href="https://doc.woleet.io">doc.woleet.io</a> </p>
 					</li>
 					<li data-options-label="saveToGDriveLabel"> <span class="option">Option: save to Google Drive</span>
 						<p>Check this option to save the page on Google Drive instead of downloading it on your
-							computer. Checking this option will force some "File name" options to be disabled.
-							However, you can change the value of the "File name &gt; template" option to save files into
+							computer. Checking this option will force some "File name" options to be disabled. However,
+							you can change the value of the "File name &gt; template" option to save files into
 							sub-folders, e.g. "<code>SingleFile/{page-title} ({date-iso} {time-locale}).html</code>" to
-							save pages in the folder named "SingleFile".
-						</p>
-						<p>
-							The permissions requested by SingleFile allow it to access only to the files and folders it
+							save pages in the folder named "SingleFile". </p>
+						<p> The permissions requested by SingleFile allow it to access only to the files and folders it
 							has created. When you uncheck this option, SingleFile revokes automatically its access to
-							your Google Drive account.
-						</p>
+							your Google Drive account. </p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 					<li data-options-label="saveCreatedBookmarksLabel"> <span class="option">Option: save the page of a
 							newly created bookmark</span>
-						<p>
-							Check this option to save pages that you add into your bookmarks. Note that if the page is
-							to be saved is not already displayed in a tab, SingleFile will open temporarily
-							a new tab to save the page.
-						</p>
+						<p> Check this option to save pages that you add into your bookmarks. Note that if the page is
+							to be saved is not already displayed in a tab, SingleFile will open temporarily a new tab to
+							save the page. </p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 					<li data-options-label="replaceBookmarkURLLabel"> <span class="option">Option: link the new bookmark
 							to the saved page</span>
-						<p>
-							Check this option to replace the URL of the page added into your bookmark with the file URI
-							of the saved page on your disk.
-						</p>
+						<p> Check this option to replace the URL of the page added into your bookmark with the file URI
+							of the saved page on your disk. </p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 				</ul>
@@ -509,10 +492,9 @@
 					by enabling the option "Annotation editor &gt; edit page before saving". It allows you to:
 				<ul>
 					<li>add notes by clicking one of these buttons: <img src="../resources/button_note_yellow.png"
-							class="icon button">
-						<img src="../resources/button_note_pink.png" class="icon button"> <img
-							src="../resources/button_note_blue.png" class="icon button">
-						<img src="../resources/button_note_green.png" class="icon button"></li>
+							class="icon button"> <img src="../resources/button_note_pink.png" class="icon button"> <img
+							src="../resources/button_note_blue.png" class="icon button"> <img
+							src="../resources/button_note_green.png" class="icon button"></li>
 					<li>hide or show notes by clicking the button <img src="../resources/button_note_visible.png"
 							class="icon button"></li>
 					<li>highlight text by clicking one of these buttons: <img
@@ -525,39 +507,46 @@
 					<li>remove text highlighting by clicking the button <img
 							src="../resources/button_highlighter_delete.png" class="icon button"></li>
 					<li>edit the page by clicking the button <img src="../resources/button_note_edit.png"
-							class="icon button">
-					</li>
+							class="icon button"> </li>
 					<li>format the page to improve readability (when possible) by clicking the button <img
-							src="../resources/button_note_format.png" class="icon button">
-					</li>
+							src="../resources/button_note_format.png" class="icon button"> </li>
 					<li>remove contents by clicking the button <img src="../resources/button_cut_inner.png"
 							class="icon button"> (inner elements) or <img src="../resources/button_cut_outer.png"
-							class="icon button"> (outer elements),
-						undo removes by clicking the button <img src="../resources/button_undo_cut.png"
-							class="icon button"> or
-						the button <img src="../resources/button_undo_all_cut.png" class="icon button"> (undo all), and
-						redo removes by clicking the button <img src="../resources/button_redo_cut.png"
-							class="icon button">.
-						<br>
-						You can also use the following keyboard shortcuts when removing contents:
-						<ul>
-							<li><code>Tab</code>: expand the selection</li>
-							<li><code>Shift-Tab</code>: reduce the selection</li>
-							<li><code>Space</code>: remove the selected element</li>
-							<li><code>Ctrl-Z</code>: undo the last removal</li>
-							<li><code>Ctrl-Shift-Z</code>: redo the last removal</li>
-						</ul>
-					</li>
+							class="icon button"> (outer elements)</li>
+					<li>undo removes by clicking the button <img src="../resources/button_undo_cut.png"
+							class="icon button"> or the button <img src="../resources/button_undo_all_cut.png"
+							class="icon button"> (undo all)
+					<li>redo removes by clicking the button <img src="../resources/button_redo_cut.png"
+							class="icon button"></li>
 					<li>save the page by clicking the button <img src="../resources/button_download.png"
-							class="icon button">.
+							class="icon button"> or by pressing <code>Ctrl-S</code></li>
 				</ul>
 				</p>
+				<br>
+				<p>
+					You can use the following keyboard shortcuts when removing contents with <img
+						src="../resources/button_cut_inner.png" class="icon button"> or <img
+						src="../resources/button_cut_outer.png" class="icon button">:
+				<ul>
+					<li><code>Tab</code>: expand the selection</li>
+					<li><code>Shift-Tab</code>: reduce the selection</li>
+					<li><code>Space</code>: remove the selected element</li>
+					<li><code>Ctrl-Z</code>: undo the last removal</li>
+					<li><code>Ctrl-Shift-Z</code>: redo the last removal</li>
+					<li><code>Ctrl</code>: select/unselect multiple elements, releasing the <code>Ctrl</code> key
+						validates the selection</li>
+					<li><code>Shift</code>: temporarily reverse the type of removal (i.e. removal of inner elements or
+						removal of outer elements) on the last selected element and reset the other selected elements if
+						any</li>
+					<li><code>Escape</code>: reset selected elements</li>
+				</ul>
+				</p>
+				</ul>
 			</li>
 			<li><a id="template-variables">Template variables</a>
 				<p>The template variables are used to customize the infobar content or the file name of a saved page.
 					They help to insert dynamic values like the save date or the page title.</p>
-				<p>
-					You can limit the length of a dynamic value by adding <code>[<em>maxByteSize</em>]</code> just after
+				<p> You can limit the length of a dynamic value by adding <code>[<em>maxByteSize</em>]</code> just after
 					the variable name. The <code>maxByteSize</code> value is the maximum length of the value in bytes
 					(e.g. `{page-title}[20]` to limit the title to 20 bytes).</p>
 				<ul>
@@ -636,8 +625,7 @@
 								https://addons.mozilla.org and some other Mozilla domains. When this happens, 🚫 is
 								displayed on top of the SingleFile icon.</li>
 							<li>For security reasons, SingleFile is sometimes unable to save the image representation of
-								a
-								canvas element.</li>
+								canvas and snapshots of video elements.</li>
 							<li>The last saved path cannot be remembered by default. To circumvent this limitation,
 								disable the option "Misc. &gt; Save pages in background".</li>
 							<li>The following characters are replaced with _ in filenames: ~, +, \, ?, %, *, :, |, ",
@@ -658,6 +646,9 @@
 					<li>Firefox <ul>
 							<li>The "file name conflict resolution" option does not work if set to "prompt for a name".
 							</li>
+							<li>Sometimes, SingleFile is unable to save the contents of sandboxed iframes.</li>
+							<li>When processing a page from the filesystem, external resources (e.g. images,
+								stylesheets, fonts etc.) will not be embedded into the saved page.</li>
 						</ul>
 					</li>
 				</ul>
@@ -680,14 +671,12 @@
 				<ul>
 					<li>Chinese translation done by yfdyh000 (<a href="https://github.com/yfdyh000">GitHub profile</a>),
 						KrasnayaPloshchad (<a href="https://github.com/KrasnayaPloshchad">GitHub profile</a>),
-						frostblazergit (<a href="https://github.com/frostblazergit">GitHub profile</a>),
-						NightSharp (<a href="https://github.com/NightSharp">GitHub profile</a>)
-					</li>
+						frostblazergit (<a href="https://github.com/frostblazergit">GitHub profile</a>), NightSharp (<a
+							href="https://github.com/NightSharp">GitHub profile</a>) </li>
 					<li>Traditional Chinese translation done by frostblazergit (<a
 							href="https://github.com/frostblazergit">GitHub profile</a>)</li>
 					<li>German translation done by womotroll (<a href="https://github.com/womotroll">GitHub
-							profile</a>), bannmann (<a href="https://github.com/bannmann">GitHub profile</a>)
-					</li>
+							profile</a>), bannmann (<a href="https://github.com/bannmann">GitHub profile</a>) </li>
 					<li>Japanese translation, done by Shitennouji （四天王寺) (<a
 							href="https://github.com/Shitennouji">GitHub profile</a>)</li>
 					<li>Polish translation done by xesarni (<a href="https://github.com/xesarni">GitHub profile</a>)

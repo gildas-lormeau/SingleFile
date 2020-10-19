@@ -415,6 +415,10 @@
 		"message": "eliminar elementos",
 		"description": "Options page label: 'default mode > remove elements'"
 	},
+	"optionDefaultEditorModeCutExternal": {
+		"message": "eliminar los elementos externos",
+		"description": "Options page label: 'default mode > remove external elements'"
+	},
 	"optionApplySystemTheme": {
 		"message": "apply the system theme when formatting a page",
 		"description": "Title of the button 'apply the system theme when formatting a page'"

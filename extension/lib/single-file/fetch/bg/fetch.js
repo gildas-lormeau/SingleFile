@@ -30,7 +30,7 @@
 			return new Promise(resolve => {
 				onRequest(message, sender)
 					.then(resolve)
-					.catch(error => resolve({ error: error.toString() }));
+					.catch(error => resolve({ error: error && error.toString() }));
 			});
 		}
 	});
