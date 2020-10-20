@@ -412,11 +412,11 @@
 		"description": "Options page label: 'default mode > format the page'"
 	},
 	"optionDefaultEditorModeCut": {
-		"message": "删除文档元素",
+		"message": "删除内部文档元素",
 		"description": "Options page label: 'default mode > remove elements'"
 	},
 	"optionDefaultEditorModeCutExternal": {
-		"message": "remove external elements",
+		"message": "删除外部文档元素",
 		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
