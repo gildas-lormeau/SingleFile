@@ -76,7 +76,6 @@ singlefile.extension.ui.bg.editor = (() => {
 	addPinkNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-pink" }), "*");
 	addBlueNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-blue" }), "*");
 	addGreenNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-green" }), "*");
-	editorElement.contentWindow.focus();
 	document.onclick = () => editorElement.contentWindow.focus();
 	highlightButtons.forEach(highlightButton => {
 		highlightButton.onclick = () => {
@@ -269,6 +268,7 @@ singlefile.extension.ui.bg.editor = (() => {
 					tabData.docSaved = true;
 					tabDataContents = [];
 					editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
+					editorElement.contentWindow.focus();
 					delete tabData.content;
 				}
 				return Promise.resolve({});
