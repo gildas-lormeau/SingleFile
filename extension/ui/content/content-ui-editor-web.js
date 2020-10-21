@@ -909,6 +909,9 @@ table {
 			onUpdate(true);
 			window.parent.postMessage(JSON.stringify({ "method": "setContent", content: getContent(message.compressHTML, message.updatedResources) }), "*");
 		}
+		if (message.method == "printPage") {
+			window.print();
+		}
 	};
 	window.onresize = reflowNotes;
 
@@ -1314,6 +1317,10 @@ table {
 		}
 		if (event.key.toLowerCase() == "s" && event.ctrlKey) {
 			window.parent.postMessage(JSON.stringify({ "method": "savePage" }), "*");
+			event.preventDefault();
+		}
+		if (event.key.toLowerCase() == "p" && event.ctrlKey) {
+			window.print();
 			event.preventDefault();
 		}
 	}

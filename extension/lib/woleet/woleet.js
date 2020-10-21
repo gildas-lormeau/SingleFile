@@ -26,7 +26,7 @@
 this.woleet = this.woleet || (() => {
 
 	const urlService = "https://api.woleet.io/v1/anchor";
-	const apiKey = "__WOLEET_API_KEY__";
+	const apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYzZmZTMzMi0wODNjLTRjZmMtYmYxNC0xNWU5MTJmMWY4OWIiLCJpYXQiOjE1NzYxNzQzNDV9.n31j9ctJj7R1Vjwyc5yd1d6Cmg0NDnpwSaLWsqtZJQA";
 
 	return {
 		anchor

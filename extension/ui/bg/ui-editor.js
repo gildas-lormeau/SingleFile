@@ -47,6 +47,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	const undoAllCutPageButton = document.querySelector(".undo-all-cut-page-button");
 	const redoCutPageButton = document.querySelector(".redo-cut-page-button");
 	const savePageButton = document.querySelector(".save-page-button");
+	const printPageButton = document.querySelector(".print-page-button");
 
 	let tabData, tabDataContents = [];
 
@@ -69,6 +70,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	undoAllCutPageButton.title = browser.i18n.getMessage("editorUndoAllCutPage");
 	redoCutPageButton.title = browser.i18n.getMessage("editorRedoCutPage");
 	savePageButton.title = browser.i18n.getMessage("editorSavePage");
+	printPageButton.title = browser.i18n.getMessage("editorPrintPage");
 
 	addYellowNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-yellow" }), "*");
 	addPinkNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-pink" }), "*");
@@ -190,6 +192,9 @@ singlefile.extension.ui.bg.editor = (() => {
 	};
 	savePageButton.onclick = () => {
 		savePage();
+	};
+	printPageButton.onclick = () => {
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "printPage" }), "*");
 	};
 	let updatedResources = {};
 

@@ -643,6 +643,10 @@
 		"message": "保存该页面",
 		"description": "Title of the button 'Save the page' in the editor"
 	},
+	"editorPrintPage": {
+		"message": "Print the page",
+		"description": "Title of the button 'Print the page' in the editor"
+	},
 	"pendingsTitle": {
 		"message": "挂起保存项",
 		"description": "Title of the pending save page 'Pending saves' in the editor"

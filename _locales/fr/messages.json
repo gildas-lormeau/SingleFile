@@ -643,6 +643,10 @@
 		"message": "Sauver la page",
 		"description": "Title of the button 'Save the page' in the editor"
 	},
+	"editorPrintPage": {
+		"message": "Imprimer la page",
+		"description": "Title of the button 'Print the page' in the editor"
+	},
 	"pendingsTitle": {
 		"message": "Sauvegardes en cours",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
