@@ -644,7 +644,7 @@
 		"description": "Title of the button 'Save the page' in the editor"
 	},
 	"editorPrintPage": {
-		"message": "Print the page",
+		"message": "Wydrukuj stronę",
 		"description": "Title of the button 'Print the page' in the editor"
 	},
 	"pendingsTitle": {
