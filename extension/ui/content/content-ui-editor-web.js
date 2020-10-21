@@ -1327,6 +1327,7 @@ table {
 
 	function printPage() {
 		unhighlightCutElement();
+		resetSelectedElements();
 		window.print();
 	}
 
