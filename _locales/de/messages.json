@@ -643,6 +643,10 @@
 		"message": "Speichern der Webseite",
 		"description": "Title of the button 'Save the page' in the editor"
 	},
+	"editorPrintPage": {
+		"message": "Drucken der Webseite",
+		"description": "Title of the button 'Print the page' in the editor"
+	},	
 	"pendingsTitle": {
 		"message": "Pending saves",
 		"description": "Title of the pending save page 'Pending saves' in the editor"

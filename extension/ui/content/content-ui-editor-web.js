@@ -909,6 +909,9 @@ table {
 			onUpdate(true);
 			window.parent.postMessage(JSON.stringify({ "method": "setContent", content: getContent(message.compressHTML, message.updatedResources) }), "*");
 		}
+		if (message.method == "printPage") {
+			printPage();
+		}
 	};
 	window.onresize = reflowNotes;
 
@@ -1316,6 +1319,16 @@ table {
 			window.parent.postMessage(JSON.stringify({ "method": "savePage" }), "*");
 			event.preventDefault();
 		}
+		if (event.key.toLowerCase() == "p" && event.ctrlKey) {
+			printPage();
+			event.preventDefault();
+		}
+	}
+
+	function printPage() {
+		unhighlightCutElement();
+		resetSelectedElements();
+		window.print();
 	}
 
 	function highlightCutElement() {

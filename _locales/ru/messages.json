@@ -3,14 +3,14 @@
 		"message": "Сохранение полной страницы в едином HTML-файле",
 		"description": "Description of the extension."
 	},
-    "commandSaveTab": {
-        "message": "Сохранить текущую вкладку или выделенное",
-        "description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
-    },
-    "commandSaveAllTabs": {
-        "message": "Сохранить все вкладки",
-        "description": "Command (Ctrl+Shift+U): 'Save all tabs'"
-    },
+	"commandSaveTab": {
+		"message": "Сохранить текущую вкладку или выделенное",
+		"description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
+	},
+	"commandSaveAllTabs": {
+		"message": "Сохранить все вкладки",
+		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+	},
 	"menuSavePage": {
 		"message": "Сохранить страницу с помощью SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -382,7 +382,7 @@
 	"optionAutoSaveExternalSave": {
 		"message": "сохранять страницу с помощью SingleFile Companion",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
-	},	
+	},
 	"optionsEditorSubTitle": {
 		"message": "Редактор аннотаций",
 		"description": "Options sub-title: 'Annotation editor'"
@@ -416,7 +416,7 @@
 		"description": "Options page label: 'default mode > remove elements'"
 	},
 	"optionDefaultEditorModeCutExternal": {
-		"message": "удалить внешние элементы,
+		"message": "удалить внешние элементы",
 		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
@@ -642,6 +642,10 @@
 	"editorSavePage": {
 		"message": "Сохранить страницу",
 		"description": "Title of the button 'Save the page' in the editor"
+	},
+	"editorPrintPage": {
+		"message": "Print the page",
+		"description": "Title of the button 'Print the page' in the editor"
 	},
 	"pendingsTitle": {
 		"message": "Отложенное сохранение",

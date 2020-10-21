@@ -95,7 +95,8 @@ singlefile.extension.core.bg.config = (() => {
 		saveFavicon: true,
 		includeBOM: false,
 		warnUnsavedPage: true,
-		autoSaveExternalSave: false
+		autoSaveExternalSave: false,
+		insertMetaNoIndex: false
 	};
 
 	let configStorage;

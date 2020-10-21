@@ -412,11 +412,11 @@
 		"description": "Options page label: 'default mode > format the page'"
 	},
 	"optionDefaultEditorModeCut": {
-		"message": "删除文档元素",
+		"message": "删除内部文档元素",
 		"description": "Options page label: 'default mode > remove elements'"
 	},
 	"optionDefaultEditorModeCutExternal": {
-		"message": "remove external elements",
+		"message": "删除外部文档元素",
 		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
@@ -642,6 +642,10 @@
 	"editorSavePage": {
 		"message": "保存该页面",
 		"description": "Title of the button 'Save the page' in the editor"
+	},
+	"editorPrintPage": {
+		"message": "Print the page",
+		"description": "Title of the button 'Print the page' in the editor"
 	},
 	"pendingsTitle": {
 		"message": "挂起保存项",
