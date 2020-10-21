@@ -910,7 +910,7 @@ table {
 			window.parent.postMessage(JSON.stringify({ "method": "setContent", content: getContent(message.compressHTML, message.updatedResources) }), "*");
 		}
 		if (message.method == "printPage") {
-			window.print();
+			printPage();
 		}
 	};
 	window.onresize = reflowNotes;
@@ -1320,9 +1320,14 @@ table {
 			event.preventDefault();
 		}
 		if (event.key.toLowerCase() == "p" && event.ctrlKey) {
-			window.print();
+			printPage();
 			event.preventDefault();
 		}
+	}
+
+	function printPage() {
+		unhighlightCutElement();
+		window.print();
 	}
 
 	function highlightCutElement() {
