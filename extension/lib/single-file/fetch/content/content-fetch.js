@@ -27,10 +27,12 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 
 	const FETCH_REQUEST_EVENT = "single-file-request-fetch";
 	const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
+	const HOST_FETCH_MAX_DELAY = 5000;
 	const addEventListener = (type, listener, options) => window.addEventListener(type, listener, options);
 	const dispatchEvent = event => window.dispatchEvent(event);
 	const removeEventListener = (type, listener, options) => window.removeEventListener(type, listener, options);
 	const fetch = window.fetch;
+	const setTimeout = window.setTimeout;
 
 	browser.runtime.onMessage.addListener(message => {
 		if (message.method == "singlefile.fetchFrame" && window.frameId && window.frameId == message.frameId) {
@@ -42,7 +44,11 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 		try {
 			let response = await fetch(message.url, { cache: "force-cache" });
 			if (response.status == 401 || response.status == 403 || response.status == 404) {
-				response = await hostFetch(message.url);
+				response = await Promise.race(
+					[
+						hostFetch(message.url),
+						new Promise((resolve, reject) => setTimeout.call(window, () => reject(), HOST_FETCH_MAX_DELAY))
+					]);
 			}
 			return {
 				status: response.status,
