@@ -118,12 +118,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 						if (event.detail.response) {
 							resolve({
 								status: event.detail.status,
-								headers: {
-									get: name => {
-										const header = event.detail.headers.find(header => header[0] == name);
-										return header && header[1];
-									}
-								},
+								headers: new Map(event.detail.headers),
 								arrayBuffer: async () => event.detail.response
 							});
 						} else {
