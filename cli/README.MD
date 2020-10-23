@@ -22,15 +22,9 @@ SingleFile can be launched from the command line by running it into a (headless)
   
     `cd cli`    
     
-  - Download with `npm`
+  - Download and install globally with `npm`
     
-    `npm install 'gildas-lormeau/SingleFile#master'`
-       
-    `cd node-modules`
-       
-    `cd single-file`
-       
-    `cd cli`  
+    `npm install -g 'gildas-lormeau/SingleFile#master'`           
   
   - Download with `git`
 
