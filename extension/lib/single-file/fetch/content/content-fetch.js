@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, window, CustomEvent */
+/* global browser, window, CustomEvent, setTimeout */
 
 this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extension.lib.fetch.content.resources || (() => {
 
@@ -32,7 +32,6 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 	const dispatchEvent = event => window.dispatchEvent(event);
 	const removeEventListener = (type, listener, options) => window.removeEventListener(type, listener, options);
 	const fetch = window.fetch;
-	const setTimeout = window.setTimeout;
 
 	browser.runtime.onMessage.addListener(message => {
 		if (message.method == "singlefile.fetchFrame" && window.frameId && window.frameId == message.frameId) {
@@ -47,7 +46,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 				response = await Promise.race(
 					[
 						hostFetch(message.url),
-						new Promise((resolve, reject) => setTimeout.call(window, () => reject(), HOST_FETCH_MAX_DELAY))
+						new Promise((resolve, reject) => setTimeout(() => reject(), HOST_FETCH_MAX_DELAY))
 					]);
 			}
 			return {
