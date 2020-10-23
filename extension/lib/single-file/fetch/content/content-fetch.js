@@ -84,14 +84,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 			const response = await sendMessage({ method: "singlefile.fetchFrame", url, frameId });
 			return {
 				status: response.status,
-				headers: {
-					get: headerName => {
-						const headerArray = response.headers.find(headerArray => headerArray[0] == headerName);
-						if (headerArray) {
-							return headerArray[1];
-						}
-					}
-				},
+				headers: new Map(response.headers),
 				arrayBuffer: async () => new Uint8Array(response.array).buffer
 			};
 		}
