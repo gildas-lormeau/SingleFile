@@ -125,15 +125,20 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 				await autoSavePage();
 			} else {
 				let frames = [];
+				let framesSessionId;
 				autoSaveTimeout = null;
 				if (!options.removeFrames && singlefile.lib.processors.frameTree.content.frames && window.frames && window.frames.length) {
 					frames = await singlefile.lib.processors.frameTree.content.frames.getAsync(options);
 				}
+				framesSessionId = frames && frames.sessionId;
 				if (options.userScriptEnabled && helper.waitForUserScript) {
 					await helper.waitForUserScript(helper.ON_BEFORE_CAPTURE_EVENT_NAME);
 				}
 				const docData = helper.preProcessDoc(document, window, options);
 				savePage(docData, frames);
+				if (framesSessionId) {
+					singlefile.lib.processors.frameTree.content.frames.cleanup(framesSessionId);
+				}
 				helper.postProcessDoc(document, docData.markedElements);
 				if (options.userScriptEnabled && helper.waitForUserScript) {
 					await helper.waitForUserScript(helper.ON_AFTER_CAPTURE_EVENT_NAME);
