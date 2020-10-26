@@ -3,9 +3,9 @@
 		"message": "将一个完整的页面保存到单个 HTML 文件中",
 		"description": "Description of the extension."
 	},
-	"commandSaveTab": {
-		"message": "保存当前标签页或选中部分",
-		"description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
+	"commandSaveSelectedTabs": {
+		"message": "Save the selected tabs or their selected contents",
+		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
 	},
 	"commandSaveAllTabs": {
 		"message": "保存所有标签页",
