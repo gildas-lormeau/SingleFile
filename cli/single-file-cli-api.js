@@ -134,7 +134,7 @@ async function runNextTask() {
 						testMaxDepth(task) &&
 						!tasks.find(otherTask => otherTask.url == task.url) &&
 						(!options.crawlInnerLinksOnly || task.isInnerLink) &&
-						(!options.crawlNoParent || task.isChild));
+						(!options.crawlNoParent || (task.isChild || !task.isInnerLink)));
 				tasks.splice(tasks.length, 0, ...newTasks);
 			}
 		}
