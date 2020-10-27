@@ -192,9 +192,13 @@ singlefile.extension.ui.bg.editor = (() => {
 	savePageButton.onclick = () => {
 		savePage();
 	};
-	printPageButton.onclick = () => {
-		editorElement.contentWindow.postMessage(JSON.stringify({ method: "printPage" }), "*");
-	};
+	if (window.print) {
+		printPageButton.onclick = () => {
+			editorElement.contentWindow.postMessage(JSON.stringify({ method: "printPage" }), "*");
+		};
+	} else {
+		printPageButton.remove();
+	}
 	let updatedResources = {};
 
 	window.onmessage = event => {
