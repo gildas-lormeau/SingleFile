@@ -34,7 +34,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	browser.runtime.sendMessage({ method: "autosave.init" }).then(message => {
 		options = message.options;
 		autoSaveEnabled = message.autoSaveEnabled;
-		if (options.autoOpenEditor && detectSavedPage(document)) {
+		if (options && options.autoOpenEditor && detectSavedPage(document)) {
 			if (document.readyState == "loading") {
 				document.addEventListener("DOMContentLoaded", () => openEditor(document));
 			} else {
