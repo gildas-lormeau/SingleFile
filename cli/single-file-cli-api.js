@@ -133,7 +133,8 @@ async function runNextTask() {
 					.filter(task => task &&
 						testMaxDepth(task) &&
 						!tasks.find(otherTask => otherTask.url == task.url) &&
-						(!options.crawlInnerLinksOnly || task.isInnerLink));
+						(!options.crawlInnerLinksOnly || task.isInnerLink) &&
+						(!options.crawlNoParent || task.isChild));
 				tasks.splice(tasks.length, 0, ...newTasks);
 			}
 		}
@@ -152,10 +153,14 @@ function createTask(url, options, parentTask, rootTask) {
 	url = parentTask ? rewriteURL(url, options.crawlRemoveURLFragment, options.crawlRewriteRules) : url;
 	if (VALID_URL_TEST.test(url)) {
 		const isInnerLink = rootTask && url.startsWith(getHostURL(rootTask.url));
+		const rootBaseURIMatch = rootTask && rootTask.url.match(/(.*?)[^/]*$/);
+		const isChild = isInnerLink && rootBaseURIMatch && rootBaseURIMatch[1] && url.startsWith(rootBaseURIMatch[1]);
 		return {
 			url,
 			isInnerLink,
+			isChild,
 			originalUrl: url,
+			rootBaseURI: rootBaseURIMatch && rootBaseURIMatch[1],
 			depth: parentTask ? parentTask.depth + 1 : 0,
 			externalLinkDepth: isInnerLink ? -1 : parentTask ? parentTask.externalLinkDepth + 1 : -1,
 			options
