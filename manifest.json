@@ -8,7 +8,7 @@
 		"64": "extension/ui/resources/icon_64.png",
 		"128": "extension/ui/resources/icon_128.png"
 	},
-	"version": "1.18.20",
+	"version": "1.18.23",
 	"description": "__MSG_extensionDescription__",
 	"content_scripts": [
 		{
@@ -126,11 +126,11 @@
 		"default_title": "__MSG_buttonDefaultTooltip__"
 	},
 	"commands": {
-		"save-tab": {
+		"save-selected-tabs": {
 			"suggested_key": {
 				"default": "Ctrl+Shift+Y"
 			},
-			"description": "__MSG_commandSaveTab__"
+			"description": "__MSG_commandSaveSelectedTabs__"
 		},
 		"save-all-tabs": {
 			"suggested_key": {

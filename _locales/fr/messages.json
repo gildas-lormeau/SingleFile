@@ -3,9 +3,9 @@
 		"message": "Sauvegardez une page complète dans un simple fichier HTML",
 		"description": "Description of the extension."
 	},
-	"commandSaveTab": {
-		"message": "Sauver l'onglet courant ou le contenu sélectionné",
-		"description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
+	"commandSaveSelectedTabs": {
+		"message": "Sauvegarder les onglets sélectionnés ou leurs contenus sélectionnés",
+		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
 	},
 	"commandSaveAllTabs": {
 		"message": "Sauver tous les onglets",

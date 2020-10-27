@@ -3,9 +3,9 @@
 		"message": "完全なページを単一の HTML ファイルに保存する",
 		"description": "Description of the extension."
 	},
-    "commandSaveTab": {
-        "message": "Save the current tab or the selected content",
-        "description": "Command (Ctrl+Shift+Y): 'Save the current tab or the selected content'"
+    "commandSaveSelectedTabs": {
+        "message": "Save the selected tabs or their selected contents",
+        "description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
     },
     "commandSaveAllTabs": {
         "message": "すべてのタブを保存",

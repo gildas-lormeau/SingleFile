@@ -21,12 +21,13 @@
  *   Source.
  */
 
-/* global browser, window, CustomEvent */
+/* global browser, window, CustomEvent, setTimeout */
 
 this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extension.lib.fetch.content.resources || (() => {
 
 	const FETCH_REQUEST_EVENT = "single-file-request-fetch";
 	const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
+	const HOST_FETCH_MAX_DELAY = 5000;
 	const addEventListener = (type, listener, options) => window.addEventListener(type, listener, options);
 	const dispatchEvent = event => window.dispatchEvent(event);
 	const removeEventListener = (type, listener, options) => window.removeEventListener(type, listener, options);
@@ -42,7 +43,11 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 		try {
 			let response = await fetch(message.url, { cache: "force-cache" });
 			if (response.status == 401 || response.status == 403 || response.status == 404) {
-				response = hostFetch(message.url);
+				response = await Promise.race(
+					[
+						hostFetch(message.url),
+						new Promise((resolve, reject) => setTimeout(() => reject(), HOST_FETCH_MAX_DELAY))
+					]);
 			}
 			return {
 				status: response.status,
@@ -78,14 +83,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 			const response = await sendMessage({ method: "singlefile.fetchFrame", url, frameId });
 			return {
 				status: response.status,
-				headers: {
-					get: headerName => {
-						const headerArray = response.headers.find(headerArray => headerArray[0] == headerName);
-						if (headerArray) {
-							return headerArray[1];
-						}
-					}
-				},
+				headers: new Map(response.headers),
 				arrayBuffer: async () => new Uint8Array(response.array).buffer
 			};
 		}
@@ -112,12 +110,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 						if (event.detail.response) {
 							resolve({
 								status: event.detail.status,
-								headers: {
-									get: name => {
-										const header = event.detail.headers.find(header => header[0] == name);
-										return header && header[1];
-									}
-								},
+								headers: new Map(event.detail.headers),
 								arrayBuffer: async () => event.detail.response
 							});
 						} else {
