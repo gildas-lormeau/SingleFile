@@ -4,7 +4,7 @@
 		"description": "Description of the extension."
 	},
 	"commandSaveSelectedTabs": {
-		"message": "保存选中标签页或内容选择",
+		"message": "保存选中标签页或其中的选中内容",
 		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
 	},
 	"commandSaveAllTabs": {
@@ -492,7 +492,7 @@
 		"description": "Options 'Reset' button tooltip"
 	},
 	"optionsResetConfirm": {
-		"message": "请确认是否要对所有选项或当前配置文件进行重置",
+		"message": "确认重置所有选项或当前配置文件",
 		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
 	},
 	"optionsResetAllButton": {
@@ -644,7 +644,7 @@
 		"description": "Title of the button 'Save the page' in the editor"
 	},
 	"editorPrintPage": {
-		"message": "Print the page",
+		"message": "打印页面",
 		"description": "Title of the button 'Print the page' in the editor"
 	},
 	"pendingsTitle": {
