@@ -1725,7 +1725,7 @@ table {
 
 	function serializeShadowRoots(node) {
 		node.querySelectorAll("*").forEach(element => {
-			const shadowRoot = element.openOrClosedShadowRoot || element.shadowRoot;
+			const shadowRoot = getShadowRoot(element);
 			if (shadowRoot) {
 				serializeShadowRoots(shadowRoot);
 				const templateElement = document.createElement("template");
@@ -1739,7 +1739,7 @@ table {
 	function deserializeShadowRoots(node) {
 		node.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(element => {
 			if (element.parentElement) {
-				let shadowRoot = element.parentElement.openOrClosedShadowRoot || element.parentElement.shadowRoot;
+				let shadowRoot = getShadowRoot(element.parentElement);
 				if (shadowRoot) {
 					Array.from(element.childNodes).forEach(node => shadowRoot.appendChild(node));
 					element.remove();
@@ -1782,7 +1782,7 @@ table {
 			document.currentScript.remove();
 			const processNode = node => {
 				node.querySelectorAll("template[${SHADOW_MODE_ATTRIBUTE_NAME}]").forEach(element=>{
-					let shadowRoot = element.parentElement.openOrClosedShadowRoot || element.parentElement.shadowRoot;
+					let shadowRoot = getShadowRoot(element.parentElement);
 					if (!shadowRoot) {
 						shadowRoot = element.parentElement.attachShadow({mode:element.getAttribute("${SHADOW_MODE_ATTRIBUTE_NAME}"),delegatesFocus:Boolean(element.getAttribute("${SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME}"))});
 						shadowRoot.innerHTML = element.innerHTML;
@@ -1817,6 +1817,7 @@ table {
 			const anchorNote = ${minifyText(anchorNote.toString())};
 			const getPosition = ${minifyText(getPosition.toString())};
 			const onMouseUp = ${minifyText(onMouseUp.toString())};
+			const getShadowRoot = ${minifyText(getShadowRoot).toString()};
 			const maskNoteElement = getMaskElement(${JSON.stringify(NOTE_MASK_CLASS)});
 			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});
 			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout, cuttingMode, cuttingOuterMode;
@@ -1872,6 +1873,11 @@ table {
 
 	function isAncestor(element, otherElement) {
 		return otherElement.parentElement && (element == otherElement.parentElement || isAncestor(element, otherElement.parentElement));
+	}
+
+	function getShadowRoot(element) {
+		const chrome = window.chrome;
+		return element.openOrClosedShadowRoot || (chrome && chrome.dom && chrome.dom.openOrClosedShadowRoot && chrome.dom.openOrClosedShadowRoot(element)) || element.shadowRoot;
 	}
 
 })();
