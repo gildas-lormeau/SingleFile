@@ -1817,7 +1817,7 @@ table {
 			const anchorNote = ${minifyText(anchorNote.toString())};
 			const getPosition = ${minifyText(getPosition.toString())};
 			const onMouseUp = ${minifyText(onMouseUp.toString())};
-			const getShadowRoot = ${minifyText(getShadowRoot).toString()};
+			const getShadowRoot = ${minifyText(getShadowRoot.toString())};
 			const maskNoteElement = getMaskElement(${JSON.stringify(NOTE_MASK_CLASS)});
 			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});
 			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout, cuttingMode, cuttingOuterMode;
