@@ -1877,7 +1877,17 @@ table {
 
 	function getShadowRoot(element) {
 		const chrome = window.chrome;
-		return element.openOrClosedShadowRoot || (chrome && chrome.dom && chrome.dom.openOrClosedShadowRoot && chrome.dom.openOrClosedShadowRoot(element)) || element.shadowRoot;
+		if (element.openOrClosedShadowRoot) {
+			return element.openOrClosedShadowRoot;
+		} else if (chrome && chrome.dom && chrome.dom.openOrClosedShadowRoot) {
+			try {
+				return chrome.dom.openOrClosedShadowRoot(element);
+			} catch (error) {
+				return element.shadowRoot;
+			}
+		} else {
+			element.shadowRoot;
+		}
 	}
 
 })();
