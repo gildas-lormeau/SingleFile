@@ -1886,7 +1886,7 @@ table {
 				return element.shadowRoot;
 			}
 		} else {
-			element.shadowRoot;
+			return element.shadowRoot;
 		}
 	}
 
