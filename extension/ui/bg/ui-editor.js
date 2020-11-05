@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, singlefile, window, document, prompt */
+/* global browser, singlefile, window, document, prompt, matchMedia */
 
 singlefile.extension.ui.bg.editor = (() => {
 
@@ -48,6 +48,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	const redoCutPageButton = document.querySelector(".redo-cut-page-button");
 	const savePageButton = document.querySelector(".save-page-button");
 	const printPageButton = document.querySelector(".print-page-button");
+	const lastButton = toolbarElement.querySelector(".buttons:last-of-type [type=button]:last-of-type");
 
 	let tabData, tabDataContents = [];
 
@@ -72,13 +73,17 @@ singlefile.extension.ui.bg.editor = (() => {
 	savePageButton.title = browser.i18n.getMessage("editorSavePage");
 	printPageButton.title = browser.i18n.getMessage("editorPrintPage");
 
-	addYellowNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-yellow" }), "*");
-	addPinkNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-pink" }), "*");
-	addBlueNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-blue" }), "*");
-	addGreenNoteButton.onclick = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-green" }), "*");
-	document.onclick = () => editorElement.contentWindow.focus();
+	addYellowNoteButton.onmouseup = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-yellow" }), "*");
+	addPinkNoteButton.onmouseup = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-pink" }), "*");
+	addBlueNoteButton.onmouseup = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-blue" }), "*");
+	addGreenNoteButton.onmouseup = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-green" }), "*");
+	document.addEventListener("mouseup", event => {
+		editorElement.contentWindow.focus();
+		toolbarOnTouchEnd(event);
+	}, true);
+	document.onmousemove = toolbarOnTouchMove;
 	highlightButtons.forEach(highlightButton => {
-		highlightButton.onclick = () => {
+		highlightButton.onmouseup = () => {
 			if (toolbarElement.classList.contains("cut-inner-mode")) {
 				disableCutInnerPage();
 			}
@@ -98,7 +103,7 @@ singlefile.extension.ui.bg.editor = (() => {
 			}
 		};
 	});
-	toggleNotesButton.onclick = () => {
+	toggleNotesButton.onmouseup = () => {
 		if (toggleNotesButton.getAttribute("src") == "/extension/ui/resources/button_note_visible.png") {
 			toggleNotesButton.src = "/extension/ui/resources/button_note_hidden.png";
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "hideNotes" }), "*");
@@ -107,7 +112,7 @@ singlefile.extension.ui.bg.editor = (() => {
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "displayNotes" }), "*");
 		}
 	};
-	toggleHighlightsButton.onclick = () => {
+	toggleHighlightsButton.onmouseup = () => {
 		if (toggleHighlightsButton.getAttribute("src") == "/extension/ui/resources/button_highlighter_visible.png") {
 			toggleHighlightsButton.src = "/extension/ui/resources/button_highlighter_hidden.png";
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "hideHighlights" }), "*");
@@ -115,7 +120,7 @@ singlefile.extension.ui.bg.editor = (() => {
 			displayHighlights();
 		}
 	};
-	removeHighlightButton.onclick = () => {
+	removeHighlightButton.onmouseup = () => {
 		if (toolbarElement.classList.contains("cut-inner-mode")) {
 			disableCutInnerPage();
 		}
@@ -133,7 +138,7 @@ singlefile.extension.ui.bg.editor = (() => {
 			disableRemoveHighlights();
 		}
 	};
-	editPageButton.onclick = () => {
+	editPageButton.onmouseup = () => {
 		if (toolbarElement.classList.contains("cut-inner-mode")) {
 			disableCutInnerPage();
 		}
@@ -146,14 +151,14 @@ singlefile.extension.ui.bg.editor = (() => {
 			disableEditPage();
 		}
 	};
-	formatPageButton.onclick = () => {
+	formatPageButton.onmouseup = () => {
 		if (formatPageButton.classList.contains("format-disabled")) {
 			formatPage();
 		} else {
 			cancelFormatPage();
 		}
 	};
-	cutInnerPageButton.onclick = () => {
+	cutInnerPageButton.onmouseup = () => {
 		if (toolbarElement.classList.contains("edit-mode")) {
 			disableEditPage();
 		}
@@ -167,7 +172,7 @@ singlefile.extension.ui.bg.editor = (() => {
 			disableCutInnerPage();
 		}
 	};
-	cutOuterPageButton.onclick = () => {
+	cutOuterPageButton.onmouseup = () => {
 		if (toolbarElement.classList.contains("edit-mode")) {
 			disableEditPage();
 		}
@@ -180,27 +185,70 @@ singlefile.extension.ui.bg.editor = (() => {
 			disableCutOuterPage();
 		}
 	};
-	undoCutPageButton.onclick = () => {
+	undoCutPageButton.onmouseup = () => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "undoCutPage" }), "*");
 	};
-	undoAllCutPageButton.onclick = () => {
+	undoAllCutPageButton.onmouseup = () => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "undoAllCutPage" }), "*");
 	};
-	redoCutPageButton.onclick = () => {
+	redoCutPageButton.onmouseup = () => {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "redoCutPage" }), "*");
 	};
-	savePageButton.onclick = () => {
+	savePageButton.onmouseup = () => {
 		savePage();
 	};
 	if (window.print) {
-		printPageButton.onclick = () => {
+		printPageButton.onmouseup = () => {
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "printPage" }), "*");
 		};
 	} else {
 		printPageButton.remove();
 	}
+
+	let toolbarPositionPointer, toolbarMoving, toolbarTranslateMax;
+	let orientationPortrait = matchMedia("(orientation: portrait)").matches;
+	let toolbarTranslate = 0;
+	toolbarElement.ondragstart = event => event.preventDefault();
+	toolbarElement.ontouchstart = toolbarOnTouchStart;
+	toolbarElement.onmousedown = toolbarOnTouchStart;
+	toolbarElement.ontouchmove = toolbarOnTouchMove;
+	toolbarElement.ontouchend = toolbarOnTouchEnd;
+
+	function viewportSizeChange() {
+		orientationPortrait = matchMedia("(orientation: portrait)").matches;
+		toolbarElement.style.setProperty("transform", orientationPortrait ? `translate(0, ${toolbarTranslate}px)` : `translate(${toolbarTranslate}px, 0)`);
+	}
+
+	function toolbarOnTouchStart(event) {
+		const position = getPosition(event);
+		toolbarPositionPointer = (orientationPortrait ? position.screenY : position.screenX) - toolbarTranslate;
+		toolbarTranslateMax = ((orientationPortrait ? -lastButton.getBoundingClientRect().top + toolbarTranslate + window.innerHeight : -lastButton.getBoundingClientRect().left + toolbarTranslate + window.innerWidth)) - 35;
+	}
+
+	function toolbarOnTouchMove(event) {
+		if (toolbarPositionPointer != null) {
+			toolbarMoving = true;
+			const position = getPosition(event);
+			toolbarTranslate = Math.min(Math.max((orientationPortrait ? position.screenY : position.screenX) - toolbarPositionPointer, toolbarTranslateMax), 0);
+			toolbarElement.style.setProperty("transform", orientationPortrait ? `translate(0, ${toolbarTranslate}px)` : `translate(${toolbarTranslate}px, 0)`);
+			editorElement.style.setProperty("pointer-events", "none");
+			event.preventDefault();
+		}
+	}
+
+	function toolbarOnTouchEnd(event) {
+		if (toolbarMoving) {
+			editorElement.style.removeProperty("pointer-events");
+			event.preventDefault();
+			event.stopPropagation();
+		}
+		toolbarPositionPointer = null;
+		toolbarMoving = false;
+	}
+
 	let updatedResources = {};
 
+	window.onresize = viewportSizeChange;
 	window.onmessage = event => {
 		const message = JSON.parse(event.data);
 		if (message.method == "setMetadata") {
@@ -357,6 +405,15 @@ singlefile.extension.ui.bg.editor = (() => {
 
 	function savePage() {
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "getContent", compressHTML: tabData.options.compressHTML, updatedResources }), "*");
+	}
+
+	function getPosition(event) {
+		if (event.touches && event.touches.length) {
+			const touch = event.touches[0];
+			return touch;
+		} else {
+			return event;
+		}
 	}
 
 	return {};
