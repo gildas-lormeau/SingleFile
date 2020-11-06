@@ -21,6 +21,7 @@ body {
     display: flex;
     flex-direction: row;
     margin: 1px;
+    flex: none;
 }
 
 img[type=button] {
