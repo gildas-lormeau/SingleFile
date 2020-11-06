@@ -103,6 +103,7 @@
 					background-image: url(${IMAGE_ICON});
 					border-radius: 16px;
 					user-select: none;
+					-moz-user-select: none;
 					opacity: .7;
 					cursor: pointer;
 					padding-left: 0;
