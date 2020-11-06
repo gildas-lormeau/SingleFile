@@ -54,11 +54,6 @@ img[type=button].cut-disabled:hover,
     filter: brightness(0.875);
 }
 
-.format-page-button:not(.format-disabled):hover {
-    cursor: default;
-    filter: brightness(1);
-}
-
 .separator {
     display: inline-block;
     width: 2px;
