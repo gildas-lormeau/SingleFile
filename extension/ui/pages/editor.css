@@ -70,6 +70,7 @@ img[type=button].cut-disabled:hover,
 }
 
 .editor {
+    background-color: white;
     flex: auto;
     border: none;
     border-top-width: 1px;
