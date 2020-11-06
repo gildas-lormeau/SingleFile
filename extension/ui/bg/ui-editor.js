@@ -253,6 +253,9 @@ singlefile.extension.ui.bg.editor = (() => {
 		const message = JSON.parse(event.data);
 		if (message.method == "setMetadata") {
 			document.title = "[SingleFile] " + message.title;
+			if (message.filename) {
+				tabData.filename = message.filename;
+			}
 			if (message.icon) {
 				const linkElement = document.createElement("link");
 				linkElement.rel = "icon";

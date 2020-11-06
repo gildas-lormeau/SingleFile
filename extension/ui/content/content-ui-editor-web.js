@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia */
+/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node */
 
 (() => {
 
@@ -56,6 +56,8 @@
 	const NOTE_INITIAL_HEIGHT = 150;
 	const NOTE_HEADER_HEIGHT = 25;
 	const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-file-disabled-noscript";
+	const COMMENT_HEADER = "Page saved with SingleFile";
+	const COMMENT_HEADER_LEGACY = "Archive processed by SingleFile";
 
 	const STYLE_FORMATTED_PAGE = `
 	/* This Source Code Form is subject to the terms of the Mozilla Public
@@ -914,45 +916,56 @@ table {
 		}
 	};
 	window.onresize = reflowNotes;
+	document.ondragover = event => event.preventDefault();
+	document.ondrop = async event => {
+		if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+			const file = event.dataTransfer.files[0];
+			event.preventDefault();
+			const content = new TextDecoder().decode(await file.arrayBuffer());
+			await init(content, file.name);
+		}
+	};
 
-	async function init(content) {
+	async function init(content, filename) {
 		await initConstants();
 		const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
-		if (contentDocument.doctype) {
-			if (document.doctype) {
-				document.replaceChild(contentDocument.doctype, document.doctype);
+		if (detectSavedPage(contentDocument)) {
+			if (contentDocument.doctype) {
+				if (document.doctype) {
+					document.replaceChild(contentDocument.doctype, document.doctype);
+				} else {
+					document.insertBefore(contentDocument.doctype, document.documentElement);
+				}
 			} else {
-				document.insertBefore(contentDocument.doctype, document.documentElement);
+				document.doctype.remove();
 			}
-		} else {
-			document.doctype.remove();
+			contentDocument.querySelectorAll("noscript").forEach(element => {
+				element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
+				element.textContent = "";
+			});
+			contentDocument.querySelectorAll("iframe").forEach(element => {
+				const pointerEvents = "pointer-events";
+				element.style.setProperty("-sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
+				element.style.setProperty(pointerEvents, "none", "important");
+			});
+			document.replaceChild(contentDocument.documentElement, document.documentElement);
+			deserializeShadowRoots(document);
+			const iconElement = document.querySelector("link[rel*=icon]");
+			window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: iconElement && iconElement.href, filename }), "*");
+			if (!isProbablyReaderable(document)) {
+				window.parent.postMessage(JSON.stringify({ "method": "disableFormatPage" }), "*");
+			}
+			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
+			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
+			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
+			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+			document.documentElement.onmousedown = document.documentElement.ontouchstart = onMouseDown;
+			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
+			document.documentElement.onmouseover = onMouseOver;
+			document.documentElement.onmouseout = onMouseOut;
+			document.documentElement.onkeydown = onKeyDown;
+			window.onclick = event => event.preventDefault();
 		}
-		contentDocument.querySelectorAll("noscript").forEach(element => {
-			element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
-			element.textContent = "";
-		});
-		contentDocument.querySelectorAll("iframe").forEach(element => {
-			const pointerEvents = "pointer-events";
-			element.style.setProperty("-sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
-			element.style.setProperty(pointerEvents, "none", "important");
-		});
-		document.replaceChild(contentDocument.documentElement, document.documentElement);
-		deserializeShadowRoots(document);
-		const iconElement = document.querySelector("link[rel*=icon]");
-		window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: iconElement && iconElement.href }), "*");
-		if (!isProbablyReaderable(document)) {
-			window.parent.postMessage(JSON.stringify({ "method": "disableFormatPage" }), "*");
-		}
-		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
-		document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
-		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
-		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
-		document.documentElement.onmousedown = document.documentElement.ontouchstart = onMouseDown;
-		document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
-		document.documentElement.onmouseover = onMouseOver;
-		document.documentElement.onmouseout = onMouseOut;
-		document.documentElement.onkeydown = onKeyDown;
-		window.onclick = event => event.preventDefault();
 	}
 
 	async function initConstants() {
@@ -1888,6 +1901,12 @@ table {
 		} else {
 			return element.shadowRoot;
 		}
+	}
+
+	function detectSavedPage(document) {
+		const firstDocumentChild = document.documentElement.firstChild;
+		return firstDocumentChild.nodeType == Node.COMMENT_NODE &&
+			(firstDocumentChild.textContent.includes(COMMENT_HEADER) || firstDocumentChild.textContent.includes(COMMENT_HEADER_LEGACY));
 	}
 
 })();
