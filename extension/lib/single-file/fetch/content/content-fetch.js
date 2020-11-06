@@ -56,7 +56,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 			};
 		} catch (error) {
 			return {
-				error: error.toString()
+				error: error && error.toString()
 			};
 		}
 	}
@@ -92,7 +92,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 	async function sendMessage(message) {
 		const response = await browser.runtime.sendMessage(message);
 		if (!response || response.error) {
-			throw new Error(response && response.error.toString());
+			throw new Error(response && response.error && response.error.toString());
 		} else {
 			return response;
 		}

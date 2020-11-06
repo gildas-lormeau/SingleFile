@@ -147,7 +147,7 @@ function getPageDataScript() {
 	const [options, callback] = arguments;
 	getPageData()
 		.then(pageData => callback({ pageData }))
-		.catch(error => callback({ error: error.toString() }));
+		.catch(error => callback({ error: error && error.toString() }));
 
 	async function getPageData() {
 		const pageData = await singlefile.lib.getPageData(options);
