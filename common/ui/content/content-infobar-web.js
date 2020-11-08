@@ -114,21 +114,21 @@
 					border: 2px solid #eee;
 					background-size: 70% 70%;
 					transition: all 250ms;
-					font-size: 13px;					
+					font-size: 13px;
 				}
 				.infobar:hover {
-					opacity: 1;					
+					opacity: 1;
 				}
-				.infobar-open {					
-					opacity: 1;					
+				.infobar-open {
+					opacity: 1;
 					background-color: #f9f9f9;
 					cursor: auto;
-					color: #2d2d2d;					
+					color: #2d2d2d;
 					padding-top: 2px;
 					padding-bottom: 2px;
 					border: 2px solid #878787;
 					background-image: none;
-					border-radius: 8px;					
+					border-radius: 8px;
 					user-select: initial;
 					-moz-user-select: initial;
 				}
@@ -138,7 +138,7 @@
 					padding-top: 4px;
 					padding-left: 8px;
 					padding-right: 8px;
-					cursor: pointer;					
+					cursor: pointer;
 					transition: opacity 250ms;
 					height: 16px;
 				}
@@ -154,7 +154,7 @@
 					white-space: pre-wrap;
 					position: relative;
 					top: 1px;
-				}				
+				}
 				.infobar-link {
 					display: none;
 					padding-left: 8px;
