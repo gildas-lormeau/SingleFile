@@ -79,17 +79,7 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 		},
 		onLoadResource(index, maxIndex, options) {
 			if (options.shadowEnabled && options.progressBarEnabled) {
-				const maskElement = document.querySelector(MASK_TAGNAME);
-				if (maskElement) {
-					const progressBarElement = maskElement.shadowRoot.querySelector("." + PROGRESSBAR_CLASSNAME);
-					if (progressBarElement && maxIndex) {
-						const width = Math.floor((index / maxIndex) * 100) + "%";
-						if (progressBarElement.style.getPropertyValue("width") != width) {
-							progressBarElement.style.setProperty("width", width);
-							progressBarElement.offsetWidth;
-						}
-					}
-				}
+				updateProgressBar(index, maxIndex);
 			}
 		},
 		onLoadingDeferResources(options) {
@@ -375,12 +365,13 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 	}
 
 	function createMaskElement() {
-		let maskElement = document.querySelector(MASK_TAGNAME);
-		if (!maskElement) {
-			maskElement = createElement(MASK_TAGNAME, document.body);
-			const shadowRoot = maskElement.attachShadow({ mode: "open" });
-			const styleElement = document.createElement("style");
-			styleElement.textContent = `
+		try {
+			let maskElement = document.querySelector(MASK_TAGNAME);
+			if (!maskElement) {
+				maskElement = createElement(MASK_TAGNAME, document.body);
+				const shadowRoot = maskElement.attachShadow({ mode: "open" });
+				const styleElement = document.createElement("style");
+				styleElement.textContent = `
 				@keyframes single-file-progress { 
 					0% { 
 						left: -50px;
@@ -428,36 +419,44 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 					transition: opacity 250ms;
 				}
 			`;
-			shadowRoot.appendChild(styleElement);
-			let maskElementContent = document.createElement("div");
-			maskElementContent.classList.add(MASK_CONTENT_CLASSNAME);
-			shadowRoot.appendChild(maskElementContent);
-			maskElement.offsetWidth;
-			maskElementContent.style.setProperty("opacity", .3);
-			maskElement.offsetWidth;
+				shadowRoot.appendChild(styleElement);
+				let maskElementContent = document.createElement("div");
+				maskElementContent.classList.add(MASK_CONTENT_CLASSNAME);
+				shadowRoot.appendChild(maskElementContent);
+				maskElement.offsetWidth;
+				maskElementContent.style.setProperty("opacity", .3);
+				maskElement.offsetWidth;
+			}
+			return maskElement;
+		} catch (error) {
+			// ignored
 		}
-		return maskElement;
 	}
 
 	function createProgressBarElement(maskElement) {
-		let progressBarElement = maskElement.shadowRoot.querySelector("." + PROGRESSBAR_CLASSNAME);
-		if (!progressBarElement) {
-			let progressBarContent = document.createElement("div");
-			progressBarContent.classList.add(PROGRESSBAR_CLASSNAME);
-			maskElement.shadowRoot.appendChild(progressBarContent);
-			const progressBarContentElement = document.createElement("div");
-			progressBarContentElement.classList.add(PROGRESSBAR_CONTENT_CLASSNAME);
-			progressBarContent.appendChild(progressBarContentElement);
+		try {
+			let progressBarElement = maskElement.shadowRoot.querySelector("." + PROGRESSBAR_CLASSNAME);
+			if (!progressBarElement) {
+				let progressBarContent = document.createElement("div");
+				progressBarContent.classList.add(PROGRESSBAR_CLASSNAME);
+				maskElement.shadowRoot.appendChild(progressBarContent);
+				const progressBarContentElement = document.createElement("div");
+				progressBarContentElement.classList.add(PROGRESSBAR_CONTENT_CLASSNAME);
+				progressBarContent.appendChild(progressBarContentElement);
+			}
+		} catch (error) {
+			// ignored
 		}
 	}
 
 	function createLogsWindowElement() {
-		logsWindowElement = document.querySelector(LOGS_WINDOW_TAGNAME);
-		if (!logsWindowElement) {
-			logsWindowElement = createElement(LOGS_WINDOW_TAGNAME);
-			const shadowRoot = logsWindowElement.attachShadow({ mode: "open" });
-			const styleElement = document.createElement("style");
-			styleElement.textContent = `
+		try {
+			logsWindowElement = document.querySelector(LOGS_WINDOW_TAGNAME);
+			if (!logsWindowElement) {
+				logsWindowElement = createElement(LOGS_WINDOW_TAGNAME);
+				const shadowRoot = logsWindowElement.attachShadow({ mode: "open" });
+				const styleElement = document.createElement("style");
+				styleElement.textContent = `
 				@keyframes single-file-pulse { 
 					0% { 
 						opacity: .25;
@@ -499,31 +498,38 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 					top: 1px;
 				}
 			`;
-			shadowRoot.appendChild(styleElement);
-			const logsContentElement = document.createElement("div");
-			logsContentElement.classList.add(LOGS_CLASSNAME);
-			shadowRoot.appendChild(logsContentElement);
+				shadowRoot.appendChild(styleElement);
+				const logsContentElement = document.createElement("div");
+				logsContentElement.classList.add(LOGS_CLASSNAME);
+				shadowRoot.appendChild(logsContentElement);
+			}
+		} catch (error) {
+			// ignored
 		}
 	}
 
 	function updateLog(id, textContent, textStatus, options) {
-		if (options.logsEnabled) {
-			const logsContentElement = logsWindowElement.shadowRoot.querySelector("." + LOGS_CLASSNAME);
-			let lineElement = logsContentElement.querySelector("[data-id='" + id + "']");
-			if (!lineElement) {
-				lineElement = document.createElement("div");
-				lineElement.classList.add(LOGS_LINE_CLASSNAME);
-				logsContentElement.appendChild(lineElement);
-				lineElement.setAttribute("data-id", id);
-				const textElement = document.createElement("div");
-				textElement.classList.add(LOGS_LINE_TEXT_ELEMENT_CLASSNAME);
-				lineElement.appendChild(textElement);
-				textElement.textContent = textContent;
-				const statusElement = document.createElement("div");
-				statusElement.classList.add(LOGS_LINE_STATUS_ELEMENT_CLASSNAME);
-				lineElement.appendChild(statusElement);
+		try {
+			if (options.logsEnabled) {
+				const logsContentElement = logsWindowElement.shadowRoot.querySelector("." + LOGS_CLASSNAME);
+				let lineElement = logsContentElement.querySelector("[data-id='" + id + "']");
+				if (!lineElement) {
+					lineElement = document.createElement("div");
+					lineElement.classList.add(LOGS_LINE_CLASSNAME);
+					logsContentElement.appendChild(lineElement);
+					lineElement.setAttribute("data-id", id);
+					const textElement = document.createElement("div");
+					textElement.classList.add(LOGS_LINE_TEXT_ELEMENT_CLASSNAME);
+					lineElement.appendChild(textElement);
+					textElement.textContent = textContent;
+					const statusElement = document.createElement("div");
+					statusElement.classList.add(LOGS_LINE_STATUS_ELEMENT_CLASSNAME);
+					lineElement.appendChild(statusElement);
+				}
+				updateLogLine(lineElement, textContent, textStatus);
 			}
-			updateLogLine(lineElement, textContent, textStatus);
+		} catch (error) {
+			// ignored
 		}
 	}
 
@@ -540,6 +546,24 @@ this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content
 			statusElement.style.setProperty("animation", "1s ease-in-out 0s infinite alternate none running single-file-pulse");
 		}
 		statusElement.textContent = textStatus;
+	}
+
+	function updateProgressBar(index, maxIndex) {
+		try {
+			const maskElement = document.querySelector(MASK_TAGNAME);
+			if (maskElement) {
+				const progressBarElement = maskElement.shadowRoot.querySelector("." + PROGRESSBAR_CLASSNAME);
+				if (progressBarElement && maxIndex) {
+					const width = Math.floor((index / maxIndex) * 100) + "%";
+					if (progressBarElement.style.getPropertyValue("width") != width) {
+						progressBarElement.style.setProperty("width", width);
+						progressBarElement.offsetWidth;
+					}
+				}
+			}
+		} catch (error) {
+			// ignored
+		}
 	}
 
 	function clearLogs() {
