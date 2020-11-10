@@ -46,7 +46,6 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		z-index: 2147483647;
-		text-align: center;
 		margin: 0 0 0 16px;
 		background-image: url(${IMAGE_ICON});
 		border-radius: 16px;
