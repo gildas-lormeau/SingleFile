@@ -31,6 +31,7 @@
 	const IMAGE_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAABhmlDQ1BJQ0MgcHJvZmlsZQAAKJF9kj1Iw0AYht+mSkUrDnYQcchQnSyIijqWKhbBQmkrtOpgcukfNGlIUlwcBdeCgz+LVQcXZ10dXAVB8AfEydFJ0UVK/C4ptIjx4LiH9+59+e67A4RGhalm1wSgapaRisfEbG5VDLyiDwEAvZiVmKkn0osZeI6ve/j4ehfhWd7n/hz9St5kgE8kjjLdsIg3iGc2LZ3zPnGIlSSF+Jx43KACiR+5Lrv8xrnosMAzQ0YmNU8cIhaLHSx3MCsZKvE0cVhRNcoXsi4rnLc4q5Uaa9XJbxjMaytprtMcQRxLSCAJETJqKKMCCxFaNVJMpGg/5uEfdvxJcsnkKoORYwFVqJAcP/gb/O6tWZiadJOCMaD7xbY/RoHALtCs2/b3sW03TwD/M3Cltf3VBjD3SXq9rYWPgIFt4OK6rcl7wOUOMPSkS4bkSH6aQqEAvJ/RM+WAwVv6EGtu31r7OH0AMtSr5Rvg4BAYK1L2use9ezr79u+ZVv9+AFlNcp0UUpiqAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH5AsHADIRLMaOHwAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAPUExURQAAAIqKioyNjY2OjvDw8L2y1DEAAAABdFJOUwBA5thmAAAAAWJLR0QB/wIt3gAAAGNJREFUSMdjYCAJsLi4OBCQx6/CBQwIGIDPCBcXAkYQUsACU+AwlBVQHg6Eg5pgZBGOboIJZugDFwRwoJECJCUOhJI1wZwzqmBUwagCuipgIqTABG9h7YIKaKGAURAFEF/6AQAO4HqSoDP8bgAAAABJRU5ErkJggg==";
 	const SINGLEFILE_COMMENT = "SingleFile";
 	const SINGLE_FILE_UI_ELEMENT_CLASS = "single-file-ui-element";
+	let SHADOW_DOM_SUPPORTED = true;
 
 	const browser = this.browser;
 
@@ -56,7 +57,7 @@
 					options = { displayInfobar: true };
 				}
 				if (options.displayInfobar) {
-					initInfobar(url, saveDate, infoData);
+					await initInfobar(url, saveDate, infoData);
 				}
 			}
 		}
@@ -66,7 +67,7 @@
 		return node.nodeType == Node.COMMENT_NODE && node.textContent.includes(SINGLEFILE_COMMENT);
 	}
 
-	function initInfobar(url, saveDate, infoData) {
+	async function initInfobar(url, saveDate, infoData) {
 		let infobarElement = document.querySelector(INFOBAR_TAGNAME);
 		if (!infobarElement) {
 			url = url.split("url: ")[1];
@@ -82,7 +83,7 @@
 			}
 			infobarElement = createElement(INFOBAR_TAGNAME, document.body);
 			infobarElement.className = SINGLE_FILE_UI_ELEMENT_CLASS;
-			const shadowRoot = infobarElement.attachShadow({ mode: "open" });
+			const shadowRoot = await getShadowRoot(infobarElement);
 			const styleElement = document.createElement("style");
 			styleElement.textContent = `
 				.infobar {
@@ -223,9 +224,22 @@
 	}
 
 	function displayInfobar(infobarContent) {
+		if (!SHADOW_DOM_SUPPORTED) {
+			const infobarElement = document.querySelector(INFOBAR_TAGNAME);
+			const frameElement = infobarElement.childNodes[0];
+			frameElement.contentWindow.getSelection().removeAllRanges();
+		}
 		infobarContent.classList.add("infobar-open");
 		infobarContent.onclick = null;
 		infobarContent.onmouseout = null;
+		if (!SHADOW_DOM_SUPPORTED) {
+			const infobarElement = document.querySelector(INFOBAR_TAGNAME);
+			const frameElement = infobarElement.childNodes[0];
+			frameElement.style.setProperty("width", "100vw", "important");
+			frameElement.style.setProperty("height", "100vh", "important");
+			frameElement.style.setProperty("width", (infobarContent.getBoundingClientRect().width + 33) + "px", "important");
+			frameElement.style.setProperty("height", (infobarContent.getBoundingClientRect().height + 21) + "px", "important");
+		}
 	}
 
 	function hideInfobar(infobarContent) {
@@ -236,6 +250,12 @@
 				return false;
 			}
 		};
+		if (!SHADOW_DOM_SUPPORTED) {
+			const infobarElement = document.querySelector(INFOBAR_TAGNAME);
+			const frameElement = infobarElement.childNodes[0];
+			frameElement.style.setProperty("width", "44px", "important");
+			frameElement.style.setProperty("height", "48px", "important");
+		}
 	}
 
 	function createElement(tagName, parentElement) {
@@ -243,6 +263,26 @@
 		parentElement.appendChild(element);
 		Array.from(getComputedStyle(element)).forEach(property => element.style.setProperty(property, "initial", "important"));
 		return element;
+	}
+
+	async function getShadowRoot(element) {
+		if (element.attachShadow) {
+			return element.attachShadow({ mode: "open" });
+		} else {
+			SHADOW_DOM_SUPPORTED = false;
+			const iframe = createElement("iframe", element);
+			iframe.style.setProperty("background-color", "transparent", "important");
+			iframe.style.setProperty("position", "fixed", "important");
+			iframe.style.setProperty("top", 0, "important");
+			iframe.style.setProperty("right", 0, "important");
+			iframe.style.setProperty("width", "44px", "important");
+			iframe.style.setProperty("height", "48px", "important");
+			iframe.style.setProperty("z-index", 2147483647, "important");
+			return new Promise(resolve => {
+				iframe.contentDocument.body.style.setProperty("margin", 0);
+				iframe.onload = () => resolve(iframe.contentDocument.body);
+			});
+		}
 	}
 
 })();
