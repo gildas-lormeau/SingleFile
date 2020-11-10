@@ -952,7 +952,9 @@ table {
 			deserializeShadowRoots(document);
 			const iconElement = document.querySelector("link[rel*=icon]");
 			window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: iconElement && iconElement.href, filename }), "*");
-			if (!isProbablyReaderable(document)) {
+			if (isProbablyReaderable(document)) {
+				window.parent.postMessage(JSON.stringify({ "method": "enableFormatPage" }), "*");
+			} else {
 				window.parent.postMessage(JSON.stringify({ "method": "disableFormatPage" }), "*");
 			}
 			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));

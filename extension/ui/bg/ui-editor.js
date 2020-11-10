@@ -273,9 +273,13 @@ singlefile.extension.ui.bg.editor = (() => {
 			tabData.options.openEditor = false;
 			singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
 		}
+		if (message.method == "enableFormatPage") {
+			tabData.options.disableFormatPage = false;
+			formatPageButton.hidden = false;
+		}
 		if (message.method == "disableFormatPage") {
 			tabData.options.disableFormatPage = true;
-			formatPageButton.remove();
+			formatPageButton.hidden = true;
 		}
 		if (message.method == "onUpdate") {
 			tabData.docSaved = message.saved;
