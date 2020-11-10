@@ -31,6 +31,99 @@
 	const IMAGE_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAABhmlDQ1BJQ0MgcHJvZmlsZQAAKJF9kj1Iw0AYht+mSkUrDnYQcchQnSyIijqWKhbBQmkrtOpgcukfNGlIUlwcBdeCgz+LVQcXZ10dXAVB8AfEydFJ0UVK/C4ptIjx4LiH9+59+e67A4RGhalm1wSgapaRisfEbG5VDLyiDwEAvZiVmKkn0osZeI6ve/j4ehfhWd7n/hz9St5kgE8kjjLdsIg3iGc2LZ3zPnGIlSSF+Jx43KACiR+5Lrv8xrnosMAzQ0YmNU8cIhaLHSx3MCsZKvE0cVhRNcoXsi4rnLc4q5Uaa9XJbxjMaytprtMcQRxLSCAJETJqKKMCCxFaNVJMpGg/5uEfdvxJcsnkKoORYwFVqJAcP/gb/O6tWZiadJOCMaD7xbY/RoHALtCs2/b3sW03TwD/M3Cltf3VBjD3SXq9rYWPgIFt4OK6rcl7wOUOMPSkS4bkSH6aQqEAvJ/RM+WAwVv6EGtu31r7OH0AMtSr5Rvg4BAYK1L2use9ezr79u+ZVv9+AFlNcp0UUpiqAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH5AsHADIRLMaOHwAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAPUExURQAAAIqKioyNjY2OjvDw8L2y1DEAAAABdFJOUwBA5thmAAAAAWJLR0QB/wIt3gAAAGNJREFUSMdjYCAJsLi4OBCQx6/CBQwIGIDPCBcXAkYQUsACU+AwlBVQHg6Eg5pgZBGOboIJZugDFwRwoJECJCUOhJI1wZwzqmBUwagCuipgIqTABG9h7YIKaKGAURAFEF/6AQAO4HqSoDP8bgAAAABJRU5ErkJggg==";
 	const SINGLEFILE_COMMENT = "SingleFile";
 	const SINGLE_FILE_UI_ELEMENT_CLASS = "single-file-ui-element";
+	const INFOBAR_STYLES = `
+	.infobar {
+		background-color: #737373;
+		color: white;
+		display: flex;
+		position: fixed;
+		top: 16px;
+		right: 16px;
+		height: auto;
+		width: auto;
+		min-height: 24px;
+		min-width: 24px;
+		background-position: center;
+		background-repeat: no-repeat;
+		z-index: 2147483647;
+		text-align: center;
+		margin: 0 0 0 16px;
+		background-image: url(${IMAGE_ICON});
+		border-radius: 16px;
+		user-select: none;
+		-moz-user-select: none;
+		opacity: .7;
+		cursor: pointer;
+		padding-left: 0;
+		padding-right: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+		border: 2px solid #eee;
+		background-size: 70% 70%;
+		transition: all 250ms;
+		font-size: 13px;
+	}
+	.infobar:hover {
+		opacity: 1;
+	}
+	.infobar-open {
+		opacity: 1;
+		background-color: #f9f9f9;
+		cursor: auto;
+		color: #2d2d2d;
+		padding-top: 2px;
+		padding-bottom: 2px;
+		border: 2px solid #878787;
+		background-image: none;
+		border-radius: 8px;
+		user-select: initial;
+		-moz-user-select: initial;
+	}
+	.infobar-close-button {
+		display: none;
+		opacity: .7;
+		padding-top: 4px;
+		padding-left: 8px;
+		padding-right: 8px;
+		cursor: pointer;
+		transition: opacity 250ms;
+		height: 16px;
+	}
+	.infobar-close-button:hover {
+		opacity: 1;
+	}
+	.infobar-content {
+		display: none;
+		font-family: Arial;
+		font-size: 14px;
+		line-height: 22px;
+		word-break: break-word;
+		white-space: pre-wrap;
+		position: relative;
+		top: 1px;
+	}
+	.infobar-link {
+		display: none;
+		padding-left: 8px;
+		padding-right: 8px;
+		line-height: 11px;
+		cursor: pointer;
+		user-select: none;
+	}
+	.infobar-link-icon {
+		padding-top: 4px;
+		padding-left: 2px;
+		cursor: pointer;
+		opacity: .7;
+		transition: opacity 250ms;
+		height: 16px;
+	}
+	.infobar-link-icon:hover {
+		opacity: 1;
+	}
+	.infobar-open .infobar-close-button, .infobar-open .infobar-content, .infobar-open .infobar-link {
+		display: inline-block;
+	}`;
 	let SHADOW_DOM_SUPPORTED = true;
 
 	const browser = this.browser;
@@ -85,100 +178,7 @@
 			infobarElement.className = SINGLE_FILE_UI_ELEMENT_CLASS;
 			const shadowRoot = await getShadowRoot(infobarElement);
 			const styleElement = document.createElement("style");
-			styleElement.textContent = `
-				.infobar {
-					background-color: #737373;
-					color: white;
-					display: flex;
-					position: fixed;
-					top: 16px;
-					right: 16px;
-					height: auto;
-					width: auto;
-					min-height: 24px;
-					min-width: 24px;
-					background-position: center;
-					background-repeat: no-repeat;
-					z-index: 2147483647;
-					text-align: center;
-					margin: 0 0 0 16px;
-					background-image: url(${IMAGE_ICON});
-					border-radius: 16px;
-					user-select: none;
-					-moz-user-select: none;
-					opacity: .7;
-					cursor: pointer;
-					padding-left: 0;
-					padding-right: 0;
-					padding-top: 0;
-					padding-bottom: 0;
-					border: 2px solid #eee;
-					background-size: 70% 70%;
-					transition: all 250ms;
-					font-size: 13px;
-				}
-				.infobar:hover {
-					opacity: 1;
-				}
-				.infobar-open {
-					opacity: 1;
-					background-color: #f9f9f9;
-					cursor: auto;
-					color: #2d2d2d;
-					padding-top: 2px;
-					padding-bottom: 2px;
-					border: 2px solid #878787;
-					background-image: none;
-					border-radius: 8px;
-					user-select: initial;
-					-moz-user-select: initial;
-				}
-				.infobar-close-button {
-					display: none;
-					opacity: .7;
-					padding-top: 4px;
-					padding-left: 8px;
-					padding-right: 8px;
-					cursor: pointer;
-					transition: opacity 250ms;
-					height: 16px;
-				}
-				.infobar-close-button:hover {
-					opacity: 1;
-				}
-				.infobar-content {
-					display: none;
-					font-family: Arial;
-					font-size: 14px;
-					line-height: 22px;
-					word-break: break-word;
-					white-space: pre-wrap;
-					position: relative;
-					top: 1px;
-				}
-				.infobar-link {
-					display: none;
-					padding-left: 8px;
-					padding-right: 8px;
-					line-height: 11px;
-					cursor: pointer;
-					user-select: none;
-				}
-				.infobar-link-icon {
-					padding-top: 4px;
-					padding-left: 2px;
-					cursor: pointer;
-					opacity: .7;
-					transition: opacity 250ms;
-					height: 16px;
-				}
-				.infobar-link-icon:hover {
-					opacity: 1;
-				}
-				.infobar-open .infobar-close-button, .infobar-open .infobar-content, .infobar-open .infobar-link {
-					display: inline-block;
-				}
-			`;
+			styleElement.textContent = INFOBAR_STYLES;
 			shadowRoot.appendChild(styleElement);
 			const infobarContent = document.createElement("div");
 			infobarContent.classList.add("infobar");
