@@ -229,7 +229,7 @@ singlefile.extension.ui.bg.editor = (() => {
 		if (toolbarPositionPointer != null) {
 			const position = getPosition(event);
 			toolbarTranslate = Math.min(Math.max((orientationPortrait ? position.screenY : position.screenX) - toolbarPositionPointer, toolbarTranslateMax), 0);
-			if (toolbarTranslate) {
+			if (toolbarTranslate > 1) {
 				toolbarMoving = true;
 				toolbarElement.style.setProperty("transform", orientationPortrait ? `translate(0, ${toolbarTranslate}px)` : `translate(${toolbarTranslate}px, 0)`);
 				editorElement.style.setProperty("pointer-events", "none");
