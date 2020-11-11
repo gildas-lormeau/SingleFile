@@ -147,6 +147,7 @@
 		"common/ui/content/content-infobar-web.js",
 		"extension/lib/readability/Readability.js",
 		"extension/lib/readability/Readability-readerable.js",
+		"extension/ui/content/content-ui-editor-init-web.js",
 		"extension/ui/content/content-ui-editor-web.js",
 		"extension/ui/pages/editor-note-web.css",
 		"extension/ui/pages/editor-mask-web.css",

@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, singlefile, window, document, prompt, matchMedia */
+/* global browser, singlefile, window, document, prompt, matchMedia, fetch */
 
 singlefile.extension.ui.bg.editor = (() => {
 
@@ -251,7 +251,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	let updatedResources = {};
 
 	window.onresize = viewportSizeChange;
-	window.onmessage = event => {
+	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
 		if (message.method == "setMetadata") {
 			document.title = "[SingleFile] " + message.title;
@@ -266,6 +266,8 @@ singlefile.extension.ui.bg.editor = (() => {
 			}
 		}
 		if (message.method == "setContent") {
+			const initScriptContent = await (await fetch("../content/content-ui-editor-init-web.js")).text();
+			message.content = message.content.replace(/<script data-template-shadow-root.*<\/script>/g, `<script data-template-shadow-root>${initScriptContent.replace(/"/g, "&quot;")}</script>`);
 			const pageData = {
 				content: message.content,
 				filename: tabData.filename
@@ -328,6 +330,7 @@ singlefile.extension.ui.bg.editor = (() => {
 					tabData = JSON.parse(tabDataContents.join(""));
 					tabData.docSaved = true;
 					tabDataContents = [];
+					tabData.content = tabData.content.replace(/<script data-template-shadow-root.*<\/script>/g, `<script data-template-shadow-root src=${"../content/content-ui-editor-init-web.js"}></script>`);
 					editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
 					editorElement.contentWindow.focus();
 					delete tabData.content;
