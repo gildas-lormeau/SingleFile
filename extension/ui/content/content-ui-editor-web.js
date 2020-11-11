@@ -956,13 +956,6 @@ table {
 			});
 			document.replaceChild(contentDocument.documentElement, document.documentElement);
 			deserializeShadowRoots(document);
-			const iconElement = document.querySelector("link[rel*=icon]");
-			window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: iconElement && iconElement.href, filename }), "*");
-			if (isProbablyReaderable(document)) {
-				window.parent.postMessage(JSON.stringify({ "method": "enableFormatPage" }), "*");
-			} else {
-				window.parent.postMessage(JSON.stringify({ "method": "disableFormatPage" }), "*");
-			}
 			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
 			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
 			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
@@ -973,7 +966,14 @@ table {
 			document.documentElement.onmouseout = onMouseOut;
 			document.documentElement.onkeydown = onKeyDown;
 			window.onclick = event => event.preventDefault();
-			window.parent.postMessage(JSON.stringify({ "method": "onInit" }), "*");
+			const iconElement = document.querySelector("link[rel*=icon]");
+			window.parent.postMessage(JSON.stringify({
+				method: "onInit",
+				title: document.title,
+				icon: iconElement && iconElement.href,
+				filename,
+				formatPageEnabled: isProbablyReaderable(document)
+			}), "*");
 		}
 	}
 

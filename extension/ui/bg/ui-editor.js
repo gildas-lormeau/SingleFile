@@ -253,7 +253,20 @@ singlefile.extension.ui.bg.editor = (() => {
 	window.onresize = viewportSizeChange;
 	window.onmessage = event => {
 		const message = JSON.parse(event.data);
-		if (message.method == "setMetadata") {
+		if (message.method == "setContent") {
+			const pageData = {
+				content: message.content,
+				filename: tabData.filename
+			};
+			tabData.options.openEditor = false;
+			singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
+		}
+		if (message.method == "onUpdate") {
+			tabData.docSaved = message.saved;
+		}
+		if (message.method == "onInit") {
+			tabData.options.disableFormatPage = !message.formatPageEnabled;
+			formatPageButton.hidden = !message.formatPageEnabled;
 			document.title = "[SingleFile] " + message.title;
 			if (message.filename) {
 				tabData.filename = message.filename;
@@ -264,27 +277,6 @@ singlefile.extension.ui.bg.editor = (() => {
 				linkElement.href = message.icon;
 				document.head.appendChild(linkElement);
 			}
-		}
-		if (message.method == "setContent") {
-			const pageData = {
-				content: message.content,
-				filename: tabData.filename
-			};
-			tabData.options.openEditor = false;
-			singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
-		}
-		if (message.method == "enableFormatPage") {
-			tabData.options.disableFormatPage = false;
-			formatPageButton.hidden = false;
-		}
-		if (message.method == "disableFormatPage") {
-			tabData.options.disableFormatPage = true;
-			formatPageButton.hidden = true;
-		}
-		if (message.method == "onUpdate") {
-			tabData.docSaved = message.saved;
-		}
-		if (message.method == "onInit") {
 			tabData.docSaved = true;
 			const defaultEditorMode = tabData.options.defaultEditorMode;
 			if (defaultEditorMode == "edit") {
