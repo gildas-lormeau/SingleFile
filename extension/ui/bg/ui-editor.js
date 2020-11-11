@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, singlefile, window, document, prompt, matchMedia, fetch */
+/* global browser, singlefile, window, document, prompt, matchMedia */
 
 singlefile.extension.ui.bg.editor = (() => {
 
@@ -251,7 +251,7 @@ singlefile.extension.ui.bg.editor = (() => {
 	let updatedResources = {};
 
 	window.onresize = viewportSizeChange;
-	window.onmessage = async event => {
+	window.onmessage = event => {
 		const message = JSON.parse(event.data);
 		if (message.method == "setMetadata") {
 			document.title = "[SingleFile] " + message.title;
@@ -266,8 +266,6 @@ singlefile.extension.ui.bg.editor = (() => {
 			}
 		}
 		if (message.method == "setContent") {
-			const initScriptContent = await (await fetch("../content/content-ui-editor-init-web.js")).text();
-			message.content = message.content.replace(/<script data-template-shadow-root.*<\/script>/g, `<script data-template-shadow-root>${initScriptContent.replace(/"/g, "&quot;")}</script>`);
 			const pageData = {
 				content: message.content,
 				filename: tabData.filename
@@ -287,6 +285,7 @@ singlefile.extension.ui.bg.editor = (() => {
 			tabData.docSaved = message.saved;
 		}
 		if (message.method == "onInit") {
+			tabData.docSaved = true;
 			const defaultEditorMode = tabData.options.defaultEditorMode;
 			if (defaultEditorMode == "edit") {
 				enableEditPage();
@@ -328,9 +327,7 @@ singlefile.extension.ui.bg.editor = (() => {
 				}
 				if (!message.truncated || message.finished) {
 					tabData = JSON.parse(tabDataContents.join(""));
-					tabData.docSaved = true;
 					tabDataContents = [];
-					tabData.content = tabData.content.replace(/<script data-template-shadow-root.*<\/script>/g, `<script data-template-shadow-root src=${"../content/content-ui-editor-init-web.js"}></script>`);
 					editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
 					editorElement.contentWindow.focus();
 					delete tabData.content;

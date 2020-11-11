@@ -815,13 +815,12 @@ table {
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingPath, cuttingPathIndex, previousContent;
-	let removedElements = [], removedElementIndex = 0;
+	let removedElements = [], removedElementIndex = 0, initScriptContent;
 
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
 		if (message.method == "init") {
 			await init(message.content);
-			window.parent.postMessage(JSON.stringify({ "method": "onInit" }), "*");
 		}
 		if (message.method == "addNote") {
 			addNote(message);
@@ -909,7 +908,9 @@ table {
 		}
 		if (message.method == "getContent") {
 			onUpdate(true);
-			window.parent.postMessage(JSON.stringify({ "method": "setContent", content: getContent(message.compressHTML, message.updatedResources) }), "*");
+			let content = getContent(message.compressHTML, message.updatedResources);
+			content = content.replace(/<script data-template-shadow-root.*<\/script>/g, initScriptContent);
+			window.parent.postMessage(JSON.stringify({ method: "setContent", content }), "*");
 		}
 		if (message.method == "printPage") {
 			printPage();
@@ -928,6 +929,11 @@ table {
 
 	async function init(content, filename) {
 		await initConstants();
+		const initScriptContentMatch = content.match(/<script data-template-shadow-root.*<\/script>/);
+		if (initScriptContentMatch && initScriptContentMatch[0]) {
+			initScriptContent = initScriptContentMatch[0];
+		}
+		content = content.replace(/<script data-template-shadow-root.*<\/script>/g, "<script data-template-shadow-root src=../content/content-ui-editor-init-web.js></script>");
 		const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
 		if (detectSavedPage(contentDocument)) {
 			if (contentDocument.doctype) {
@@ -967,6 +973,7 @@ table {
 			document.documentElement.onmouseout = onMouseOut;
 			document.documentElement.onkeydown = onKeyDown;
 			window.onclick = event => event.preventDefault();
+			window.parent.postMessage(JSON.stringify({ "method": "onInit" }), "*");
 		}
 	}
 
