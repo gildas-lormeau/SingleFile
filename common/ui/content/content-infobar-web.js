@@ -109,6 +109,7 @@
 		line-height: 11px;
 		cursor: pointer;
 		user-select: none;
+		outline: 0;
 	}
 	.infobar-link-icon {
 		padding-top: 4px;
