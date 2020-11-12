@@ -137,7 +137,7 @@ Here is a Swift application (for macOS) made by [@captaindavepdx](https://github
 See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 
 ## Contributors
-- Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad), frostblazergit (https://github.com/frostblazergit)
+- Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad), frostblazergit (https://github.com/frostblazergit), dnknn (https://github.com/dnknn)
 - Traditional Chinese translation done by frostblazergit (https://github.com/frostblazergit)
 - German translation done by womotroll (https://github.com/womotroll), bannmann (https://github.com/bannmann)
 - Japanese translation done by Shitennouji（四天王寺) (https://github.com/Shitennouji)
