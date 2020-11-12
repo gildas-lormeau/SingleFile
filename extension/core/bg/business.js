@@ -236,7 +236,7 @@ singlefile.extension.core.bg.business = (() => {
 	function cancelTask(taskInfo) {
 		const tabId = taskInfo.tab.id;
 		taskInfo.cancelled = true;
-		singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave", resetZoomLevel: taskInfo.options.loadDeferredImagesKeepZoomLevel });
+		singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave", options: { loadDeferredImagesKeepZoomLevel: taskInfo.options.loadDeferredImagesKeepZoomLevel } });
 		if (taskInfo.cancel) {
 			taskInfo.cancel();
 		}
