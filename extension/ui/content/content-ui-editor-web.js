@@ -1775,7 +1775,9 @@ table {
 						// ignored
 					}
 				}
-				deserializeShadowRoots(shadowRoot);
+				if (shadowRoot) {
+					deserializeShadowRoots(shadowRoot);
+				}
 			}
 		});
 	}
