@@ -3,6 +3,8 @@
     position: fixed;
     z-index: 2147483645;
     pointer-events: none;
+    background-color: transparent;
+    transition: all 125ms;
 }
 
 .note-mask-moving.note-yellow {
