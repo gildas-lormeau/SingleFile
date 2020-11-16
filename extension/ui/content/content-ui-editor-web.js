@@ -832,10 +832,17 @@ table {
 			document.querySelectorAll(NOTE_TAGNAME).forEach(noteElement => noteElement.shadowRoot.querySelector("." + NOTE_CLASS).classList.add(NOTE_HIDDEN_CLASS));
 		}
 		if (message.method == "enableHighlight") {
+			if (highlightColor) {
+				document.documentElement.classList.remove(highlightColor + "-mode");
+			}
 			highlightColor = message.color;
 			highlightSelectionMode = true;
+			document.documentElement.classList.add(message.color + "-mode");
 		}
 		if (message.method == "disableHighlight") {
+			if (highlightColor) {
+				document.documentElement.classList.remove(highlightColor + "-mode");
+			}
 			highlightSelectionMode = false;
 		}
 		if (message.method == "displayHighlights") {

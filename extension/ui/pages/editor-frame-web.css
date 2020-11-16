@@ -1,36 +1,24 @@
-.single-file-highlight-yellow {
+.single-file-highlight-yellow, .single-file-highlight-yellow-mode ::selection {
     background-color: #ffff7c !important;
     color: black !important;
 }
 
-span.single-file-highlight-yellow {
-    display: inline !important;
-}
-
-.single-file-highlight-pink {
+.single-file-highlight-pink, .single-file-highlight-pink-mode ::selection {
     background-color: #ffbbb6 !important;
     color: black !important;
 }
 
-span.single-file-highlight-pink {
-    display: inline !important;
-}
-
-.single-file-highlight-blue {
+.single-file-highlight-blue, .single-file-highlight-blue-mode ::selection {
     background-color: #95d0ff !important;
     color: black !important;
 }
 
-span.single-file-highlight-blue {
-    display: inline !important;
-}
-
-.single-file-highlight-green {
+.single-file-highlight-green, .single-file-highlight-green-mode ::selection {
     background-color: #93ef8d !important;
     color: black !important;
 }
 
-span.single-file-highlight-green {
+span.single-file-highlight-yellow, span.single-file-highlight-pink, span.single-file-highlight-blue, span.single-file-highlight-green {
     display: inline !important;
 }
 
