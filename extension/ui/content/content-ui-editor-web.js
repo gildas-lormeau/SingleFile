@@ -1013,6 +1013,7 @@ table {
 		noteElement.classList.add(NOTE_CLASS);
 		noteElement.classList.add(NOTE_ANCHORED_CLASS);
 		noteElement.classList.add(color);
+		noteElement.dataset.color = color;
 		mainElement.dir = "auto";
 		const boundingRectDocument = document.documentElement.getBoundingClientRect();
 		let positionX = NOTE_INITIAL_WIDTH + NOTE_INITIAL_POSITION_X - 1 - boundingRectDocument.x;
@@ -1059,7 +1060,10 @@ table {
 		}
 		headerElement.ontouchstart = headerElement.onmousedown = event => {
 			if (event.target == headerElement) {
-				collapseNoteTimeout = setTimeout(() => noteElement.classList.toggle("note-collapsed"), COLLAPSING_NOTE_DELAY);
+				collapseNoteTimeout = setTimeout(() => {
+					noteElement.classList.toggle("note-collapsed");
+					hideMaskNote();
+				}, COLLAPSING_NOTE_DELAY);
 				event.preventDefault();
 				const position = getPosition(event);
 				const clientX = position.clientX;
@@ -1138,22 +1142,30 @@ table {
 
 		function displayMaskNote() {
 			if (anchorElement == document.documentElement || anchorElement == document.documentElement) {
-				maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
+				hideMaskNote();
 			} else {
 				const boundingRectAnchor = anchorElement.getBoundingClientRect();
 				maskNoteElement.classList.add(NOTE_MASK_MOVING_CLASS);
-				maskNoteElement.style.setProperty("top", boundingRectAnchor.y + "px");
-				maskNoteElement.style.setProperty("left", boundingRectAnchor.x + "px");
-				maskNoteElement.style.setProperty("width", boundingRectAnchor.width + "px");
-				maskNoteElement.style.setProperty("height", boundingRectAnchor.height + "px");
+				maskNoteElement.classList.add(selectedNote.dataset.color);
+				maskNoteElement.style.setProperty("top", (boundingRectAnchor.y - 3) + "px");
+				maskNoteElement.style.setProperty("left", (boundingRectAnchor.x - 3) + "px");
+				maskNoteElement.style.setProperty("width", (boundingRectAnchor.width + 3) + "px");
+				maskNoteElement.style.setProperty("height", (boundingRectAnchor.height + 3) + "px");
 			}
+		}
+
+		function hideMaskNote() {
+			maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
+			maskNoteElement.classList.remove(selectedNote.dataset.color);
 		}
 
 		function selectNote(noteElement) {
 			if (selectedNote) {
 				selectedNote.classList.remove(NOTE_SELECTED_CLASS);
+				maskNoteElement.classList.remove(selectedNote.dataset.color);
 			}
 			noteElement.classList.add(NOTE_SELECTED_CLASS);
+			noteElement.classList.add(noteElement.dataset.color);
 			selectedNote = noteElement;
 		}
 
@@ -1463,6 +1475,7 @@ table {
 		noteElement.classList.remove(NOTE_MOVING_CLASS);
 		maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
 		maskPageElement.classList.remove(PAGE_MASK_ACTIVE_CLASS);
+		maskNoteElement.classList.remove(noteElement.dataset.color);
 		const headerElement = noteElement.querySelector("header");
 		headerElement.ontouchmove = document.documentElement.onmousemove = null;
 		let currentElement = anchorElement;
