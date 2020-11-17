@@ -916,7 +916,9 @@ table {
 		if (message.method == "getContent") {
 			onUpdate(true);
 			let content = getContent(message.compressHTML, message.updatedResources);
-			content = content.replace(/<script data-template-shadow-root.*<\/script>/g, initScriptContent);
+			if (initScriptContent) {
+				content = content.replace(/<script data-template-shadow-root.*<\/script>/g, initScriptContent);
+			}
 			window.parent.postMessage(JSON.stringify({ method: "setContent", content }), "*");
 		}
 		if (message.method == "printPage") {
