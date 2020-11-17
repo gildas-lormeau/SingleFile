@@ -1157,8 +1157,10 @@ table {
 		}
 
 		function hideMaskNote() {
-			maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
-			maskNoteElement.classList.remove(selectedNote.dataset.color);
+			if (selectedNote) {
+				maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
+				maskNoteElement.classList.remove(selectedNote.dataset.color);
+			}
 		}
 
 		function selectNote(noteElement) {
