@@ -68,6 +68,9 @@ singlefile.extension.core.bg.business = (() => {
 		onSaveEnd: taskId => {
 			const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
 			if (taskInfo) {
+				if (taskInfo.options.autoClose && !taskInfo.cancelled) {
+					singlefile.extension.core.bg.tabs.remove(taskInfo.tab.id);
+				}
 				taskInfo.done();
 			}
 		},
@@ -210,9 +213,6 @@ singlefile.extension.core.bg.business = (() => {
 		taskInfo.options.taskId = taskId;
 		try {
 			await tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options });
-			if (taskInfo.options.autoClose && !taskInfo.cancelled) {
-				tabs.remove(taskInfo.tab.id);
-			}
 		} catch (error) {
 			if (error && (!error.message || !isIgnoredError(error))) {
 				console.log(error.message ? error.message : error); // eslint-disable-line no-console
