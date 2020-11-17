@@ -4,7 +4,7 @@
     z-index: 2147483645;
     pointer-events: none;
     background-color: transparent;
-    transition: all 125ms;
+    transition: background-color 125ms;
 }
 
 .note-mask-moving.note-yellow {
