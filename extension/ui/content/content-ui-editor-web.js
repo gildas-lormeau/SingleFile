@@ -1148,7 +1148,9 @@ table {
 			} else {
 				const boundingRectAnchor = anchorElement.getBoundingClientRect();
 				maskNoteElement.classList.add(NOTE_MASK_MOVING_CLASS);
-				maskNoteElement.classList.add(selectedNote.dataset.color);
+				if (selectedNote) {
+					maskNoteElement.classList.add(selectedNote.dataset.color);
+				}
 				maskNoteElement.style.setProperty("top", (boundingRectAnchor.y - 3) + "px");
 				maskNoteElement.style.setProperty("left", (boundingRectAnchor.x - 3) + "px");
 				maskNoteElement.style.setProperty("width", (boundingRectAnchor.width + 3) + "px");
@@ -1157,8 +1159,8 @@ table {
 		}
 
 		function hideMaskNote() {
+			maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
 			if (selectedNote) {
-				maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
 				maskNoteElement.classList.remove(selectedNote.dataset.color);
 			}
 		}
