@@ -154,6 +154,7 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 - parse-srcset: https://github.com/albell/parse-srcset
 - parse-css-font: https://github.com/jedmao/parse-css-font
 - Readability: https://github.com/mozilla/readability
+- whatwg-mimetype: https://github.com/jsdom/whatwg-mimetype
 
 ## Icons
 - Icon made by [Kiranshastry](https://www.flaticon.com/authors/kiranshastry) from  [Flaticon](https://www.flaticon.com/) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
