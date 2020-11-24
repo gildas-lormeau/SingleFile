@@ -121,6 +121,9 @@ singlefile.extension.core.bg.business = (() => {
 			tabOptions.tabId = tabId;
 			tabOptions.tabIndex = tab.index;
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
+			if (tabOptions.passReferrerOnError) {
+				await singlefile.extension.core.bg.requests.enableReferrerOnError();
+			}
 			if (options.autoSave) {
 				if (autosave.isEnabled(tab)) {
 					const taskInfo = addTask({

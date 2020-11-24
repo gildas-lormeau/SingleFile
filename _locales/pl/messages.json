@@ -447,6 +447,10 @@
 		"message": "maksymalny rozmiar (MB)",
 		"description": "Options page label: 'maximum size (MB)'"
 	},
+	"optionPassReferrerOnError": {
+		"message": "pass \"Referer\" header after a cross-origin request error",
+		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
+	},
 	"optionSaveRawPage": {
 		"message": "zapisuj surową stronę",
 		"description": "Options page label: 'save raw page'"

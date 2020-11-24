@@ -62,7 +62,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 	}
 
 	return {
-		fetch: async url => {
+		fetch: async (url, options) => {
 			try {
 				let response = await fetch(url, { cache: "force-cache" });
 				if (response.status == 401 || response.status == 403 || response.status == 404) {
@@ -71,7 +71,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 				return response;
 			}
 			catch (error) {
-				const response = await sendMessage({ method: "singlefile.fetch", url });
+				const response = await sendMessage({ method: "singlefile.fetch", url, referrer: options.referrer });
 				return {
 					status: response.status,
 					headers: { get: headerName => response.headers && response.headers[headerName] },
@@ -79,8 +79,8 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 				};
 			}
 		},
-		frameFetch: async (url, frameId) => {
-			const response = await sendMessage({ method: "singlefile.fetchFrame", url, frameId });
+		frameFetch: async (url, options) => {
+			const response = await sendMessage({ method: "singlefile.fetchFrame", url, frameId: options.frameId, referrer: options.referrer });
 			return {
 				status: response.status,
 				headers: new Map(response.headers),

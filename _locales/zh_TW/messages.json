@@ -447,6 +447,10 @@
 		"message": "大小上限（兆字節）",
 		"description": "Options page label: 'maximum size (MB)'"
 	},
+	"optionPassReferrerOnError": {
+		"message": "pass \"Referer\" header after a cross-origin request error",
+		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
+	},
 	"optionSaveRawPage": {
 		"message": "保存原始頁面",
 		"description": "Options page label: 'save raw page'"

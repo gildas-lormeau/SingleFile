@@ -97,6 +97,7 @@
 			"extension/core/bg/editor.js",
 			"extension/core/bg/bookmarks.js",
 			"extension/core/bg/companion.js",
+			"extension/core/bg/requests.js",
 			"extension/ui/bg/ui-main.js",
 			"extension/ui/bg/ui-menus.js",
 			"extension/ui/bg/ui-commands.js",
@@ -174,7 +175,9 @@
 	"optional_permissions": [
 		"identity",
 		"nativeMessaging",
-		"bookmarks"
+		"bookmarks",
+		"webRequest",
+		"webRequestBlocking"
 	],
 	"browser_specific_settings": {
 		"gecko": {

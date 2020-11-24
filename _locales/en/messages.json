@@ -3,14 +3,14 @@
 		"message": "Save a complete page into a single HTML file",
 		"description": "Description of the extension."
 	},
-    "commandSaveSelectedTabs": {
-        "message": "Save the selected tabs or their selected contents",
-        "description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
-    },
-    "commandSaveAllTabs": {
-        "message": "Save all tabs",
-        "description": "Command (Ctrl+Shift+U): 'Save all tabs'"
-    },
+	"commandSaveSelectedTabs": {
+		"message": "Save the selected tabs or their selected contents",
+		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
+	},
+	"commandSaveAllTabs": {
+		"message": "Save all tabs",
+		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+	},
 	"menuSavePage": {
 		"message": "Save page with SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -446,6 +446,10 @@
 	"optionMaxResourceSize": {
 		"message": "maximum size (MB)",
 		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionPassReferrerOnError": {
+		"message": "pass \"Referer\" header after a cross-origin request error",
+		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
 	},
 	"optionSaveRawPage": {
 		"message": "save raw page",

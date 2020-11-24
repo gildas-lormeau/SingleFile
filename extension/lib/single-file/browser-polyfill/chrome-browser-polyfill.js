@@ -253,6 +253,15 @@
 							resolve(result);
 						}
 					});
+				}),
+				remove: permissions => new Promise((resolve, reject) => {
+					nativeAPI.permissions.remove(permissions, result => {
+						if (nativeAPI.runtime.lastError) {
+							reject(nativeAPI.runtime.lastError);
+						} else {
+							resolve(result);
+						}
+					});
 				})
 			},
 			runtime: {
@@ -480,6 +489,12 @@
 					get tabId() {
 						return nativeAPI.devtools.inspectedWindow.tabId;
 					}
+				}
+			},
+			webRequest: {
+				onBeforeSendHeaders: {
+					addListener: (listener, filters, extraInfoSpec) => nativeAPI.webRequest.onBeforeSendHeaders.addListener(listener, filters, extraInfoSpec),
+					removeListener: listener => nativeAPI.webRequest.onBeforeSendHeaders.removeListener(listener)
 				}
 			}
 		}));

@@ -56,6 +56,9 @@ singlefile.extension.core.bg.messages = (() => {
 		if (message.method.startsWith("companion.")) {
 			return singlefile.extension.core.bg.companion.onMessage(message, sender);
 		}
+		if (message.method.startsWith("requests.")) {
+			return singlefile.extension.core.bg.requests.onMessage(message, sender);
+		}
 	});
 	if (browser.runtime.onMessageExternal) {
 		browser.runtime.onMessageExternal.addListener(async (message, sender) => {
