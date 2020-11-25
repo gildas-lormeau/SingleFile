@@ -34,7 +34,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	browser.runtime.sendMessage({ method: "autosave.init" }).then(message => {
 		options = message.options;
 		autoSaveEnabled = message.autoSaveEnabled;
-		if (options.autoOpenEditor && detectSavedPage(document)) {
+		if (options && options.autoOpenEditor && detectSavedPage(document)) {
 			if (document.readyState == "loading") {
 				document.addEventListener("DOMContentLoaded", () => openEditor(document));
 			} else {
@@ -232,7 +232,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	function serializeShadowRoots(node) {
 		const SHADOW_MODE_ATTRIBUTE_NAME = "shadowmode";
 		node.querySelectorAll("*").forEach(element => {
-			const shadowRoot = element.openOrClosedShadowRoot || element.shadowRoot;
+			const shadowRoot = singlefile.lib.helper.getShadowRoot(element);
 			if (shadowRoot) {
 				serializeShadowRoots(shadowRoot);
 				const templateElement = document.createElement("template");

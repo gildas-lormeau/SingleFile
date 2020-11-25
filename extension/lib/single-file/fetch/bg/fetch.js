@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, XMLHttpRequest */
+/* global singlefile, browser, XMLHttpRequest */
 
 (() => {
 
@@ -37,13 +37,13 @@
 
 	function onRequest(message, sender) {
 		if (message.method == "singlefile.fetch") {
-			return fetchResource(message.url);
+			return fetchResource(message.url, { referrer: message.referrer });
 		} else if (message.method == "singlefile.fetchFrame") {
 			return browser.tabs.sendMessage(sender.tab.id, message);
 		}
 	}
 
-	function fetchResource(url) {
+	function fetchResource(url, options, includeRequestId) {
 		return new Promise((resolve, reject) => {
 			const xhrRequest = new XMLHttpRequest();
 			xhrRequest.withCredentials = true;
@@ -51,14 +51,29 @@
 			xhrRequest.onerror = event => reject(new Error(event.detail));
 			xhrRequest.onreadystatechange = () => {
 				if (xhrRequest.readyState == XMLHttpRequest.DONE) {
-					resolve({
-						array: Array.from(new Uint8Array(xhrRequest.response)),
-						headers: { "content-type": xhrRequest.getResponseHeader("Content-Type") },
-						status: xhrRequest.status
-					});
+					if (xhrRequest.status || xhrRequest.response.byteLength) {
+						if ((xhrRequest.status == 401 || xhrRequest.status == 403 || xhrRequest.status == 404) && !includeRequestId) {
+							fetchResource(url, options, true)
+								.then(resolve)
+								.catch(reject);
+						} else {
+							resolve({
+								array: Array.from(new Uint8Array(xhrRequest.response)),
+								headers: { "content-type": xhrRequest.getResponseHeader("Content-Type") },
+								status: xhrRequest.status
+							});
+						}
+					} else {
+						reject();
+					}
 				}
 			};
 			xhrRequest.open("GET", url, true);
+			if (includeRequestId) {
+				const randomId = String(Math.random()).substring(2);
+				singlefile.extension.core.bg.requests.setReferrer(randomId, options.referrer);
+				xhrRequest.setRequestHeader(singlefile.extension.core.bg.requests.REQUEST_ID_HEADER_NAME, randomId);
+			}
 			xhrRequest.send();
 		});
 	}

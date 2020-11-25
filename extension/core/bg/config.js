@@ -96,7 +96,8 @@ singlefile.extension.core.bg.config = (() => {
 		includeBOM: false,
 		warnUnsavedPage: true,
 		autoSaveExternalSave: false,
-		insertMetaNoIndex: false
+		insertMetaNoIndex: false,
+		passReferrerOnError: false
 	};
 
 	let configStorage;

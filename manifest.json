@@ -8,7 +8,7 @@
 		"64": "extension/ui/resources/icon_64.png",
 		"128": "extension/ui/resources/icon_128.png"
 	},
-	"version": "1.18.23",
+	"version": "1.18.45",
 	"description": "__MSG_extensionDescription__",
 	"content_scripts": [
 		{
@@ -64,6 +64,7 @@
 			"lib/single-file/vendor/html-srcset-parser.js",
 			"lib/single-file/vendor/css-font-property-parser.js",
 			"lib/single-file/vendor/css-unescape.js",
+			"lib/single-file/vendor/mime-type-parser.js",
 			"lib/single-file/single-file-util.js",
 			"lib/single-file/single-file-helper.js",
 			"lib/single-file/modules/css-fonts-minifier.js",
@@ -96,6 +97,7 @@
 			"extension/core/bg/editor.js",
 			"extension/core/bg/bookmarks.js",
 			"extension/core/bg/companion.js",
+			"extension/core/bg/requests.js",
 			"extension/ui/bg/ui-main.js",
 			"extension/ui/bg/ui-menus.js",
 			"extension/ui/bg/ui-commands.js",
@@ -147,6 +149,7 @@
 		"common/ui/content/content-infobar-web.js",
 		"extension/lib/readability/Readability.js",
 		"extension/lib/readability/Readability-readerable.js",
+		"extension/ui/content/content-ui-editor-init-web.js",
 		"extension/ui/content/content-ui-editor-web.js",
 		"extension/ui/pages/editor-note-web.css",
 		"extension/ui/pages/editor-mask-web.css",
@@ -172,14 +175,16 @@
 	"optional_permissions": [
 		"identity",
 		"nativeMessaging",
-		"bookmarks"
+		"bookmarks",
+		"webRequest",
+		"webRequestBlocking"
 	],
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "{531906d3-e22f-4a6c-a102-8057b88a1a63}"
 		}
 	},
-	"devtools_page": "extension/ui/devtools/devtools.html",
+	"devtools_page": "extension/core/devtools/devtools.html",
 	"incognito": "spanning",
 	"manifest_version": 2,
 	"default_locale": "en"

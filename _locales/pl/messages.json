@@ -4,7 +4,7 @@
 		"description": "Description of the extension."
 	},
     "commandSaveSelectedTabs": {
-        "message": "Save the selected tabs or their selected contents",
+        "message": "Zapisz wybrane karty lub ich wybraną zawartość",
         "description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
     },
     "commandSaveAllTabs": {
@@ -446,6 +446,10 @@
 	"optionMaxResourceSize": {
 		"message": "maksymalny rozmiar (MB)",
 		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionPassReferrerOnError": {
+		"message": "przekazuj nagłówek \"Referer\" po błędzie żądania między źródłami",
+		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
 	},
 	"optionSaveRawPage": {
 		"message": "zapisuj surową stronę",

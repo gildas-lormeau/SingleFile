@@ -447,6 +447,10 @@
 		"message": "taille maximale (Mo)",
 		"description": "Options page label: 'maximum size (MB)'"
 	},
+	"optionPassReferrerOnError": {
+		"message": "passer l'en-tête \"Referer\" après une erreur de requête multi-origine",
+		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
+	},
 	"optionSaveRawPage": {
 		"message": "sauvegarder la page brute",
 		"description": "Options page label: 'save raw page'"

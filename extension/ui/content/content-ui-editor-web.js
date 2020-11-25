@@ -21,13 +21,13 @@
  *   Source.
  */
 
-/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia */
+/* global singlefile, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node */
 
 (() => {
 
 	const FORBIDDEN_TAG_NAMES = ["a", "area", "audio", "base", "br", "col", "command", "embed", "hr", "img", "iframe", "input", "keygen", "link", "meta", "param", "source", "track", "video", "wbr"];
-	const BUTTON_ANCHOR_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfjCh0VAjZTpsLvAAAA1klEQVQoz3XQMS8EURQF4O9txN9QSCjoNYRiy01EomDb3UbnR+j8BpSKrbaaQvwAyTZ2Qyg0WiwJiZjmKmasmWTnvObe8849971DFSe+/TjVgL6wpyMczxcMXYIzV/9kqyIY27Vsyb5J05KREMa1sQoS3r2W1Vxkcrms6Tph6q3usFARBJJUVjPBgZ6Je49u5ELCog0r1qy7YFMI4RxMfZRZFOxOa/bn28oi8rK7K6hrITw48uVT37MQBn9vOcS2l9K0OE9W0atHsqWtIwxlRk1ZdHXrxC+ueUcydrdI6QAAAABJRU5ErkJggg==";
-	const BUTTON_CLOSE_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wodFQUaLj84ywAAANxJREFUOMuN08tKAzEUgOGPSrU6fTL3PpuuperCSr22OFX0hQSXYkfHzRkIcW4Hskg4/5/kJAf2cIZ77BuOORa4aBZOUcfYDEjmuIncXSO5SwQ11h2SIoFrVHgRyU8Dkjb4GdMmoU9SYJnBZQqnknUmKXE1Bu6T1EnRtn1wKikz+AfvbfCkRTDFR7ZW47Mj/99TLbOdq2T+iNlYeBfHvs2u89AmKXCdVbsp2EHsnEsO0+/ZBTcx65OcD8Bdkl+sJtGNVRTsDcdx/zy+cBL/BL5DBC7xOrKdj6L1V/AHRf5yO+i79cQAAAAASUVORK5CYII=";
+	const BUTTON_ANCHOR_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAgMAAAAOFJJnAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtaIVETuIOASsThZERRylikWwUNoKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APEydFJ0UVK/F9SaBHjwXE/3t173L0DhFqJqWbbOKBqlpGMRcVMdkUMvKIbfQCG0SExU4+nFtLwHF/38PH1LsKzvM/9OXqUnMkAn0g8y3TDIl4nnt60dM77xCFWlBTic+Ixgy5I/Mh12eU3zgWHBZ4ZMtLJOeIQsVhoYbmFWdFQiaeIw4qqUb6QcVnhvMVZLVVY4578hcGctpziOs0hxLCIOBIQIaOCDZRgIUKrRoqJJO1HPfyDjj9BLplcG2DkmEcZKiTHD/4Hv7s185MTblIwCrS/2PbHCBDYBepV2/4+tu36CeB/Bq60pr9cA2Y+Sa82tfAR0LsNXFw3NXkPuNwBBp50yZAcyU9TyOeB9zP6pizQfwt0rbq9NfZx+gCkqaulG+DgEBgtUPaax7s7W3v790yjvx825XKP2aKCdAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+QLEQA4M3Y7LzIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAACVBMVEUAAAAAAACKioqjwG1pAAAAAXRSTlMAQObYZgAAAAFiS0dEAmYLfGQAAABkSURBVBjThc47CsNADIThWfD0bnSfbdIroP/+V0mhsN5gTNToK0YPaSvnF9B9wGykG54j/2GF1/hauE4E1AOuNxrBdA5KUXIqdiCnqC1zIZ2mFJQzKJ3wesOhcwDM4+fo7cOuD9C4HTQ9HAAQAAAAAElFTkSuQmCC";
+	const BUTTON_CLOSE_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAgMAAAAOFJJnAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtaIVETuIOASsThZERRylikWwUNoKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APEydFJ0UVK/F9SaBHjwXE/3t173L0DhFqJqWbbOKBqlpGMRcVMdkUMvKIbfQCG0SExU4+nFtLwHF/38PH1LsKzvM/9OXqUnMkAn0g8y3TDIl4nnt60dM77xCFWlBTic+Ixgy5I/Mh12eU3zgWHBZ4ZMtLJOeIQsVhoYbmFWdFQiaeIw4qqUb6QcVnhvMVZLVVY4578hcGctpziOs0hxLCIOBIQIaOCDZRgIUKrRoqJJO1HPfyDjj9BLplcG2DkmEcZKiTHD/4Hv7s185MTblIwCrS/2PbHCBDYBepV2/4+tu36CeB/Bq60pr9cA2Y+Sa82tfAR0LsNXFw3NXkPuNwBBp50yZAcyU9TyOeB9zP6pizQfwt0rbq9NfZx+gCkqaulG+DgEBgtUPaax7s7W3v790yjvx825XKP2aKCdAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+QLEQA6Na1u6IUAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAACVBMVEUAAAAAAACKioqjwG1pAAAAAXRSTlMAQObYZgAAAAFiS0dEAmYLfGQAAABlSURBVBhXTc/BEUQhCAPQ58ES6McSPED/rfwDI7vOMCoJIeGd6CvFgZXiwk47Ia5VUKdrVXcb39kfqxqmTg+I2xJ2tqhVTaGaQjTl7/GgIc/4CL4Vs3RsjLFndcxPnAn4iww8A3yQjRZjti1t6AAAAABJRU5ErkJggg==";
 	const SHADOW_MODE_ATTRIBUTE_NAME = "shadowmode";
 	const SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME = "delegatesfocus";
 	const SCRIPT_TEMPLATE_SHADOW_ROOT = "data-template-shadow-root";
@@ -56,6 +56,8 @@
 	const NOTE_INITIAL_HEIGHT = 150;
 	const NOTE_HEADER_HEIGHT = 25;
 	const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-file-disabled-noscript";
+	const COMMENT_HEADER = "Page saved with SingleFile";
+	const COMMENT_HEADER_LEGACY = "Archive processed by SingleFile";
 
 	const STYLE_FORMATTED_PAGE = `
 	/* This Source Code Form is subject to the terms of the Mozilla Public
@@ -813,13 +815,12 @@ table {
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingPath, cuttingPathIndex, previousContent;
-	let removedElements = [], removedElementIndex = 0;
+	let removedElements = [], removedElementIndex = 0, initScriptContent;
 
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
 		if (message.method == "init") {
 			await init(message.content);
-			window.parent.postMessage(JSON.stringify({ "method": "onInit" }), "*");
 		}
 		if (message.method == "addNote") {
 			addNote(message);
@@ -831,10 +832,17 @@ table {
 			document.querySelectorAll(NOTE_TAGNAME).forEach(noteElement => noteElement.shadowRoot.querySelector("." + NOTE_CLASS).classList.add(NOTE_HIDDEN_CLASS));
 		}
 		if (message.method == "enableHighlight") {
+			if (highlightColor) {
+				document.documentElement.classList.remove(highlightColor + "-mode");
+			}
 			highlightColor = message.color;
 			highlightSelectionMode = true;
+			document.documentElement.classList.add(message.color + "-mode");
 		}
 		if (message.method == "disableHighlight") {
+			if (highlightColor) {
+				document.documentElement.classList.remove(highlightColor + "-mode");
+			}
 			highlightSelectionMode = false;
 		}
 		if (message.method == "displayHighlights") {
@@ -907,52 +915,75 @@ table {
 		}
 		if (message.method == "getContent") {
 			onUpdate(true);
-			window.parent.postMessage(JSON.stringify({ "method": "setContent", content: getContent(message.compressHTML, message.updatedResources) }), "*");
+			let content = getContent(message.compressHTML, message.updatedResources);
+			if (initScriptContent) {
+				content = content.replace(/<script data-template-shadow-root.*<\/script>/g, initScriptContent);
+			}
+			window.parent.postMessage(JSON.stringify({ method: "setContent", content }), "*");
 		}
 		if (message.method == "printPage") {
 			printPage();
 		}
 	};
 	window.onresize = reflowNotes;
+	document.ondragover = event => event.preventDefault();
+	document.ondrop = async event => {
+		if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+			const file = event.dataTransfer.files[0];
+			event.preventDefault();
+			const content = new TextDecoder().decode(await file.arrayBuffer());
+			await init(content, file.name);
+		}
+	};
 
-	async function init(content) {
+	async function init(content, filename) {
 		await initConstants();
+		const initScriptContentMatch = content.match(/<script data-template-shadow-root.*<\/script>/);
+		if (initScriptContentMatch && initScriptContentMatch[0]) {
+			initScriptContent = initScriptContentMatch[0];
+		}
+		content = content.replace(/<script data-template-shadow-root.*<\/script>/g, "<script data-template-shadow-root src=../content/content-ui-editor-init-web.js></script>");
 		const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
-		if (contentDocument.doctype) {
-			if (document.doctype) {
-				document.replaceChild(contentDocument.doctype, document.doctype);
+		if (detectSavedPage(contentDocument)) {
+			if (contentDocument.doctype) {
+				if (document.doctype) {
+					document.replaceChild(contentDocument.doctype, document.doctype);
+				} else {
+					document.insertBefore(contentDocument.doctype, document.documentElement);
+				}
 			} else {
-				document.insertBefore(contentDocument.doctype, document.documentElement);
+				document.doctype.remove();
 			}
-		} else {
-			document.doctype.remove();
+			contentDocument.querySelectorAll("noscript").forEach(element => {
+				element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
+				element.textContent = "";
+			});
+			contentDocument.querySelectorAll("iframe").forEach(element => {
+				const pointerEvents = "pointer-events";
+				element.style.setProperty("-sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
+				element.style.setProperty(pointerEvents, "none", "important");
+			});
+			document.replaceChild(contentDocument.documentElement, document.documentElement);
+			deserializeShadowRoots(document);
+			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
+			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
+			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
+			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+			document.documentElement.onmousedown = document.documentElement.ontouchstart = onMouseDown;
+			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
+			document.documentElement.onmouseover = onMouseOver;
+			document.documentElement.onmouseout = onMouseOut;
+			document.documentElement.onkeydown = onKeyDown;
+			window.onclick = event => event.preventDefault();
+			const iconElement = document.querySelector("link[rel*=icon]");
+			window.parent.postMessage(JSON.stringify({
+				method: "onInit",
+				title: document.title,
+				icon: iconElement && iconElement.href,
+				filename,
+				formatPageEnabled: isProbablyReaderable(document)
+			}), "*");
 		}
-		contentDocument.querySelectorAll("noscript").forEach(element => {
-			element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
-			element.textContent = "";
-		});
-		contentDocument.querySelectorAll("iframe").forEach(element => {
-			const pointerEvents = "pointer-events";
-			element.style.setProperty("-sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
-			element.style.setProperty(pointerEvents, "none", "important");
-		});
-		document.replaceChild(contentDocument.documentElement, document.documentElement);
-		deserializeShadowRoots(document);
-		const iconElement = document.querySelector("link[rel*=icon]");
-		window.parent.postMessage(JSON.stringify({ "method": "setMetadata", title: document.title, icon: iconElement && iconElement.href }), "*");
-		if (!isProbablyReaderable(document)) {
-			window.parent.postMessage(JSON.stringify({ "method": "disableFormatPage" }), "*");
-		}
-		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
-		document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
-		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
-		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
-		document.documentElement.onmousedown = document.documentElement.ontouchstart = onMouseDown;
-		document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
-		document.documentElement.onmouseover = onMouseOver;
-		document.documentElement.onmouseout = onMouseOut;
-		document.documentElement.onkeydown = onKeyDown;
-		window.onclick = event => event.preventDefault();
 	}
 
 	async function initConstants() {
@@ -984,6 +1015,7 @@ table {
 		noteElement.classList.add(NOTE_CLASS);
 		noteElement.classList.add(NOTE_ANCHORED_CLASS);
 		noteElement.classList.add(color);
+		noteElement.dataset.color = color;
 		mainElement.dir = "auto";
 		const boundingRectDocument = document.documentElement.getBoundingClientRect();
 		let positionX = NOTE_INITIAL_WIDTH + NOTE_INITIAL_POSITION_X - 1 - boundingRectDocument.x;
@@ -1030,7 +1062,10 @@ table {
 		}
 		headerElement.ontouchstart = headerElement.onmousedown = event => {
 			if (event.target == headerElement) {
-				collapseNoteTimeout = setTimeout(() => noteElement.classList.toggle("note-collapsed"), COLLAPSING_NOTE_DELAY);
+				collapseNoteTimeout = setTimeout(() => {
+					noteElement.classList.toggle("note-collapsed");
+					hideMaskNote();
+				}, COLLAPSING_NOTE_DELAY);
 				event.preventDefault();
 				const position = getPosition(event);
 				const clientX = position.clientX;
@@ -1109,22 +1144,34 @@ table {
 
 		function displayMaskNote() {
 			if (anchorElement == document.documentElement || anchorElement == document.documentElement) {
-				maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
+				hideMaskNote();
 			} else {
 				const boundingRectAnchor = anchorElement.getBoundingClientRect();
 				maskNoteElement.classList.add(NOTE_MASK_MOVING_CLASS);
-				maskNoteElement.style.setProperty("top", boundingRectAnchor.y + "px");
-				maskNoteElement.style.setProperty("left", boundingRectAnchor.x + "px");
-				maskNoteElement.style.setProperty("width", boundingRectAnchor.width + "px");
-				maskNoteElement.style.setProperty("height", boundingRectAnchor.height + "px");
+				if (selectedNote) {
+					maskNoteElement.classList.add(selectedNote.dataset.color);
+				}
+				maskNoteElement.style.setProperty("top", (boundingRectAnchor.y - 3) + "px");
+				maskNoteElement.style.setProperty("left", (boundingRectAnchor.x - 3) + "px");
+				maskNoteElement.style.setProperty("width", (boundingRectAnchor.width + 3) + "px");
+				maskNoteElement.style.setProperty("height", (boundingRectAnchor.height + 3) + "px");
+			}
+		}
+
+		function hideMaskNote() {
+			maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
+			if (selectedNote) {
+				maskNoteElement.classList.remove(selectedNote.dataset.color);
 			}
 		}
 
 		function selectNote(noteElement) {
 			if (selectedNote) {
 				selectedNote.classList.remove(NOTE_SELECTED_CLASS);
+				maskNoteElement.classList.remove(selectedNote.dataset.color);
 			}
 			noteElement.classList.add(NOTE_SELECTED_CLASS);
+			noteElement.classList.add(noteElement.dataset.color);
 			selectedNote = noteElement;
 		}
 
@@ -1434,6 +1481,7 @@ table {
 		noteElement.classList.remove(NOTE_MOVING_CLASS);
 		maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
 		maskPageElement.classList.remove(PAGE_MASK_ACTIVE_CLASS);
+		maskNoteElement.classList.remove(noteElement.dataset.color);
 		const headerElement = noteElement.querySelector("header");
 		headerElement.ontouchmove = document.documentElement.onmousemove = null;
 		let currentElement = anchorElement;
@@ -1725,7 +1773,7 @@ table {
 
 	function serializeShadowRoots(node) {
 		node.querySelectorAll("*").forEach(element => {
-			const shadowRoot = element.openOrClosedShadowRoot || element.shadowRoot;
+			const shadowRoot = getShadowRoot(element);
 			if (shadowRoot) {
 				serializeShadowRoots(shadowRoot);
 				const templateElement = document.createElement("template");
@@ -1739,17 +1787,23 @@ table {
 	function deserializeShadowRoots(node) {
 		node.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(element => {
 			if (element.parentElement) {
-				let shadowRoot = element.parentElement.openOrClosedShadowRoot || element.parentElement.shadowRoot;
+				let shadowRoot = getShadowRoot(element.parentElement);
 				if (shadowRoot) {
 					Array.from(element.childNodes).forEach(node => shadowRoot.appendChild(node));
 					element.remove();
 				} else {
-					shadowRoot = element.parentElement.attachShadow({ mode: "open" });
-					const contentDocument = (new DOMParser()).parseFromString(element.innerHTML, "text/html");
-					Array.from(contentDocument.head.childNodes).forEach(node => shadowRoot.appendChild(node));
-					Array.from(contentDocument.body.childNodes).forEach(node => shadowRoot.appendChild(node));
+					try {
+						shadowRoot = element.parentElement.attachShadow({ mode: "open" });
+						const contentDocument = (new DOMParser()).parseFromString(element.innerHTML, "text/html");
+						Array.from(contentDocument.head.childNodes).forEach(node => shadowRoot.appendChild(node));
+						Array.from(contentDocument.body.childNodes).forEach(node => shadowRoot.appendChild(node));
+					} catch (error) {
+						// ignored
+					}
 				}
-				deserializeShadowRoots(shadowRoot);
+				if (shadowRoot) {
+					deserializeShadowRoots(shadowRoot);
+				}
 			}
 		});
 	}
@@ -1782,11 +1836,13 @@ table {
 			document.currentScript.remove();
 			const processNode = node => {
 				node.querySelectorAll("template[${SHADOW_MODE_ATTRIBUTE_NAME}]").forEach(element=>{
-					let shadowRoot = element.parentElement.openOrClosedShadowRoot || element.parentElement.shadowRoot;
+					let shadowRoot = getShadowRoot(element.parentElement);
 					if (!shadowRoot) {
-						shadowRoot = element.parentElement.attachShadow({mode:element.getAttribute("${SHADOW_MODE_ATTRIBUTE_NAME}"),delegatesFocus:Boolean(element.getAttribute("${SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME}"))});
-						shadowRoot.innerHTML = element.innerHTML;
-						element.remove();
+						try {
+							shadowRoot = element.parentElement.attachShadow({mode:element.getAttribute("${SHADOW_MODE_ATTRIBUTE_NAME}"),delegatesFocus:Boolean(element.getAttribute("${SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME}"))});
+							shadowRoot.innerHTML = element.innerHTML;
+							element.remove();
+						} catch (error) {}						
 						processNode(shadowRoot);
 					}
 				})
@@ -1817,6 +1873,7 @@ table {
 			const anchorNote = ${minifyText(anchorNote.toString())};
 			const getPosition = ${minifyText(getPosition.toString())};
 			const onMouseUp = ${minifyText(onMouseUp.toString())};
+			const getShadowRoot = ${minifyText(getShadowRoot.toString())};
 			const maskNoteElement = getMaskElement(${JSON.stringify(NOTE_MASK_CLASS)});
 			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});
 			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout, cuttingMode, cuttingOuterMode;
@@ -1872,6 +1929,27 @@ table {
 
 	function isAncestor(element, otherElement) {
 		return otherElement.parentElement && (element == otherElement.parentElement || isAncestor(element, otherElement.parentElement));
+	}
+
+	function getShadowRoot(element) {
+		const chrome = window.chrome;
+		if (element.openOrClosedShadowRoot) {
+			return element.openOrClosedShadowRoot;
+		} else if (chrome && chrome.dom && chrome.dom.openOrClosedShadowRoot) {
+			try {
+				return chrome.dom.openOrClosedShadowRoot(element);
+			} catch (error) {
+				return element.shadowRoot;
+			}
+		} else {
+			return element.shadowRoot;
+		}
+	}
+
+	function detectSavedPage(document) {
+		const firstDocumentChild = document.documentElement.firstChild;
+		return firstDocumentChild.nodeType == Node.COMMENT_NODE &&
+			(firstDocumentChild.textContent.includes(COMMENT_HEADER) || firstDocumentChild.textContent.includes(COMMENT_HEADER_LEGACY));
 	}
 
 })();

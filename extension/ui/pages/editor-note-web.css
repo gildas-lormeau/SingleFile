@@ -9,7 +9,7 @@
     left: 10px;
     border: 1px solid rgb(191, 191, 191);
     z-index: 2147483646;
-    box-shadow: 2px 2px 5px rgba(33, 33, 33, .7);
+    box-shadow: 3px 3px 3px rgba(33, 33, 33, .7);
     min-height: 100px;
     min-width: 100px;
 }
@@ -59,6 +59,8 @@
     opacity: .5;
     cursor: pointer;
     user-select: none;
+    width: 16px;
+    height: 16px;
 }
 
 .note .note-anchor {
@@ -69,6 +71,8 @@
     padding: 5px;
     opacity: .25;
     cursor: pointer;
+    width: 16px;
+    height: 16px;
 }
 
 .note .note-resize {
@@ -99,7 +103,8 @@
 }
 
 .note-moving {
-    opacity: .5;
+    opacity: .75;
+    box-shadow: 6px 6px 3px rgba(33, 33, 33, .7);
 }
 
 .note-moving * {

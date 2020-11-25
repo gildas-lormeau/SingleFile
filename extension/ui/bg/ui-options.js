@@ -71,6 +71,7 @@
 	const removeAlternativeImagesLabel = document.getElementById("removeAlternativeImagesLabel");
 	const removeAlternativeMediasLabel = document.getElementById("removeAlternativeMediasLabel");
 	const saveCreatedBookmarksLabel = document.getElementById("saveCreatedBookmarksLabel");
+	const passReferrerOnErrorLabel = document.getElementById("passReferrerOnErrorLabel");
 	const replaceBookmarkURLLabel = document.getElementById("replaceBookmarkURLLabel");
 	const titleLabel = document.getElementById("titleLabel");
 	const userInterfaceLabel = document.getElementById("userInterfaceLabel");
@@ -148,6 +149,7 @@
 	const removeAlternativeImagesInput = document.getElementById("removeAlternativeImagesInput");
 	const removeAlternativeMediasInput = document.getElementById("removeAlternativeMediasInput");
 	const saveCreatedBookmarksInput = document.getElementById("saveCreatedBookmarksInput");
+	const passReferrerOnErrorInput = document.getElementById("passReferrerOnErrorInput");
 	const replaceBookmarkURLInput = document.getElementById("replaceBookmarkURLInput");
 	const groupDuplicateImagesInput = document.getElementById("groupDuplicateImagesInput");
 	const infobarTemplateInput = document.getElementById("infobarTemplateInput");
@@ -378,6 +380,7 @@
 		}
 	}, false);
 	saveCreatedBookmarksInput.addEventListener("click", saveCreatedBookmarks, false);
+	passReferrerOnErrorInput.addEventListener("click", passReferrerOnError, false);
 	autoSaveExternalSaveInput.addEventListener("click", enableExternalSave, false);
 	saveToGDriveInput.addEventListener("click", async () => {
 		if (!saveToGDriveInput.checked) {
@@ -412,7 +415,8 @@
 			target != ruleEditProfileInput &&
 			target != ruleEditAutoSaveProfileInput &&
 			target != showAutoSaveProfileInput &&
-			target != saveCreatedBookmarksInput) {
+			target != saveCreatedBookmarksInput &&
+			target != passReferrerOnErrorInput) {
 			if (target != profileNamesInput && target != showAllProfilesInput) {
 				await update();
 			}
@@ -481,6 +485,7 @@
 	removeAlternativeImagesLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeImages");
 	removeAlternativeMediasLabel.textContent = browser.i18n.getMessage("optionRemoveAlternativeMedias");
 	saveCreatedBookmarksLabel.textContent = browser.i18n.getMessage("optionSaveCreatedBookmarks");
+	passReferrerOnErrorLabel.textContent = browser.i18n.getMessage("optionPassReferrerOnError");
 	replaceBookmarkURLLabel.textContent = browser.i18n.getMessage("optionReplaceBookmarkURL");
 	groupDuplicateImagesLabel.textContent = browser.i18n.getMessage("optionGroupDuplicateImages");
 	titleLabel.textContent = browser.i18n.getMessage("optionsTitle");
@@ -687,6 +692,7 @@
 		groupDuplicateImagesInput.checked = profileOptions.groupDuplicateImages;
 		removeAlternativeMediasInput.checked = profileOptions.removeAlternativeMedias;
 		saveCreatedBookmarksInput.checked = profileOptions.saveCreatedBookmarks;
+		passReferrerOnErrorInput.checked = profileOptions.passReferrerOnError;
 		replaceBookmarkURLInput.checked = profileOptions.saveCreatedBookmarks && profileOptions.backgroundSave && profileOptions.replaceBookmarkURL;
 		replaceBookmarkURLInput.disabled = !profileOptions.saveCreatedBookmarks || !profileOptions.backgroundSave || profileOptions.saveToClipboard || profileOptions.saveToGDrive;
 		infobarTemplateInput.value = profileOptions.infobarTemplate;
@@ -755,6 +761,7 @@
 				removeAlternativeImages: removeAlternativeImagesInput.checked,
 				removeAlternativeMedias: removeAlternativeMediasInput.checked,
 				saveCreatedBookmarks: saveCreatedBookmarksInput.checked,
+				passReferrerOnError: passReferrerOnErrorInput.checked,
 				replaceBookmarkURL: replaceBookmarkURLInput.checked,
 				groupDuplicateImages: groupDuplicateImagesInput.checked,
 				infobarTemplate: infobarTemplateInput.value,
@@ -808,6 +815,34 @@
 			await update();
 			await refresh();
 			await browser.runtime.sendMessage({ method: "bookmarks.disable" });
+		}
+	}
+
+	async function passReferrerOnError() {
+		if (passReferrerOnErrorInput.checked) {
+			passReferrerOnErrorInput.checked = false;
+			try {
+				const permissionGranted = await browser.permissions.request({ permissions: ["webRequest", "webRequestBlocking"] });
+				if (permissionGranted) {
+					passReferrerOnErrorInput.checked = true;
+					await update();
+					await refresh();
+					await browser.runtime.sendMessage({ method: "requests.enableReferrerOnError" });
+				} else {
+					await disableOption();
+				}
+			} catch (error) {
+				await disableOption();
+			}
+		} else {
+			await disableOption();
+		}
+
+		async function disableOption() {
+			await update();
+			await refresh();
+			await browser.runtime.sendMessage({ method: "requests.disableReferrerOnError" });
+			await browser.permissions.remove({ permissions: ["webRequest", "webRequestBlocking"] });
 		}
 	}
 

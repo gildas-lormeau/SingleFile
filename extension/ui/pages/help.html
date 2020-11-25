@@ -410,6 +410,13 @@
 					<li data-options-label="maxResourceSizeLabel"> <span class="option">Option: maximum size (MB)</span>
 						<p>Specify the maximum size of embedded resources in megabytes.</p>
 					</li>
+					<li data-options-label="passReferrerOnErrorLabel"> <span class="option">Option: pass \"Referer\" header on
+							cross-origin errors</span>
+						<p>Check this option to pass the HTTP header "Referer" with the "origin" policy after an 401,
+							403, or 404 HTTP error when downloading a cross-origin resource. You should enable this
+							option if you cannot download resources blocked by a hotlink protection.</p>
+						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+					</li>
 					<li data-options-label="saveRawPageLabel"> <span class="option">Option: save raw page</span>
 						<p>Check this option to save the page without interpreting JavaScript. Checking this option may
 							alter the document, will force the options "remove frames", "remove hidden elements" to be

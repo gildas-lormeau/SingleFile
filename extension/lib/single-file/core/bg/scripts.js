@@ -35,6 +35,7 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 		"lib/single-file/vendor/css-tree.js",
 		"lib/single-file/vendor/html-srcset-parser.js",
 		"lib/single-file/vendor/css-minifier.js",
+		"lib/single-file/vendor/mime-type-parser.js",
 		"lib/single-file/modules/html-minifier.js",
 		"lib/single-file/modules/html-serializer.js",
 		"lib/single-file/modules/html-images-alt-minifier.js",

@@ -4,7 +4,7 @@
 		"description": "Description of the extension."
 	},
 	"commandSaveSelectedTabs": {
-		"message": "Save the selected tabs or their selected contents",
+		"message": "保存选中标签页或其中的选中内容",
 		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
 	},
 	"commandSaveAllTabs": {
@@ -60,7 +60,7 @@
 		"description": "Menu entry (SingleFile button only): 'Save tabs'"
 	},
 	"menuSaveSelectedTabs": {
-		"message": "保存当前标签页",
+		"message": "保存选中标签页",
 		"description": "Menu entry: 'Save selected tabs'"
 	},
 	"menuSaveUnpinnedTabs": {
@@ -447,6 +447,10 @@
 		"message": "大小上限（兆字节）",
 		"description": "Options page label: 'maximum size (MB)'"
 	},
+	"optionPassReferrerOnError": {
+		"message": "pass \"Referer\" header after a cross-origin request error",
+		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
+	},
 	"optionSaveRawPage": {
 		"message": "保存原始页面",
 		"description": "Options page label: 'save raw page'"
@@ -492,7 +496,7 @@
 		"description": "Options 'Reset' button tooltip"
 	},
 	"optionsResetConfirm": {
-		"message": "请确认是否要对所有选项或当前配置文件进行重置",
+		"message": "确认重置所有选项或当前配置文件",
 		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
 	},
 	"optionsResetAllButton": {
@@ -644,7 +648,7 @@
 		"description": "Title of the button 'Save the page' in the editor"
 	},
 	"editorPrintPage": {
-		"message": "Print the page",
+		"message": "打印页面",
 		"description": "Title of the button 'Print the page' in the editor"
 	},
 	"pendingsTitle": {

@@ -3,14 +3,14 @@
 		"message": "Guarda una página completa en un único archivo HTML",
 		"description": "Description of the extension."
 	},
-    "commandSaveSelectedTabs": {
-        "message": "Guardar las pestañas seleccionadas o su contenidos seleccionados",
-        "description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
-    },
-    "commandSaveAllTabs": {
-        "message": "Guardar todas las pestañas",
-        "description": "Command (Ctrl+Shift+U): 'Save all tabs'"
-    },
+	"commandSaveSelectedTabs": {
+		"message": "Guardar las pestañas seleccionadas o su contenidos seleccionados",
+		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
+	},
+	"commandSaveAllTabs": {
+		"message": "Guardar todas las pestañas",
+		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+	},
 	"menuSavePage": {
 		"message": "Guardar página con SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -446,6 +446,10 @@
 	"optionMaxResourceSize": {
 		"message": "tamaño máximo (MB)",
 		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionPassReferrerOnError": {
+		"message": "pasar el encabezado \"Referer\" después de un error de solicitud de origen cruzado",
+		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
 	},
 	"optionSaveRawPage": {
 		"message": "guardar página en crudo",

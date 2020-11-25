@@ -68,6 +68,9 @@ singlefile.extension.core.bg.business = (() => {
 		onSaveEnd: taskId => {
 			const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
 			if (taskInfo) {
+				if (taskInfo.options.autoClose && !taskInfo.cancelled) {
+					singlefile.extension.core.bg.tabs.remove(taskInfo.tab.id);
+				}
 				taskInfo.done();
 			}
 		},
@@ -118,6 +121,9 @@ singlefile.extension.core.bg.business = (() => {
 			tabOptions.tabId = tabId;
 			tabOptions.tabIndex = tab.index;
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
+			if (tabOptions.passReferrerOnError) {
+				await singlefile.extension.core.bg.requests.enableReferrerOnError();
+			}
 			if (options.autoSave) {
 				if (autosave.isEnabled(tab)) {
 					const taskInfo = addTask({
@@ -210,9 +216,6 @@ singlefile.extension.core.bg.business = (() => {
 		taskInfo.options.taskId = taskId;
 		try {
 			await tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options });
-			if (taskInfo.options.autoClose && !taskInfo.cancelled) {
-				tabs.remove(taskInfo.tab.id);
-			}
 		} catch (error) {
 			if (error && (!error.message || !isIgnoredError(error))) {
 				console.log(error.message ? error.message : error); // eslint-disable-line no-console
@@ -236,7 +239,13 @@ singlefile.extension.core.bg.business = (() => {
 	function cancelTask(taskInfo) {
 		const tabId = taskInfo.tab.id;
 		taskInfo.cancelled = true;
-		singlefile.extension.core.bg.tabs.sendMessage(tabId, { method: "content.cancelSave", resetZoomLevel: taskInfo.options.loadDeferredImagesKeepZoomLevel });
+		singlefile.extension.core.bg.tabs.sendMessage(tabId, {
+			method: "content.cancelSave",
+			options: {
+				loadDeferredImages: taskInfo.options.loadDeferredImages,
+				loadDeferredImagesKeepZoomLevel: taskInfo.options.loadDeferredImagesKeepZoomLevel
+			}
+		});
 		if (taskInfo.cancel) {
 			taskInfo.cancel();
 		}

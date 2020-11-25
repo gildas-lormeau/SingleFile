@@ -86,6 +86,7 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
   - Sometimes, SingleFile is unable to save the contents of  sandboxed iframes because of [this bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1411641).
   - When processing a page from the filesystem, external resources (e.g. images, stylesheets, fonts etc.) will not be embedded into the saved page. You can find more info about this bug [here](https://bugzilla.mozilla.org/show_bug.cgi?id=1644488). This bug has been closed by Mozilla as "WontFix".
 - Waterfox Classic
+  - User interface elements displayed in the page (progress bar, logs panel) won't be displayed unless `dom.webcomponents.enabled` is enabled in `about:config`.
   - When opening pages saved with the option "Images > group duplicate images together" enabled, some duplicate images might not displayed. It is recommended to disable this option.  
 
 ## Troubleshooting unknown issues
@@ -136,7 +137,7 @@ Here is a Swift application (for macOS) made by [@captaindavepdx](https://github
 See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 
 ## Contributors
-- Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad), frostblazergit (https://github.com/frostblazergit)
+- Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad), frostblazergit (https://github.com/frostblazergit), dnknn (https://github.com/dnknn)
 - Traditional Chinese translation done by frostblazergit (https://github.com/frostblazergit)
 - German translation done by womotroll (https://github.com/womotroll), bannmann (https://github.com/bannmann)
 - Japanese translation done by Shitennouji（四天王寺) (https://github.com/Shitennouji)
@@ -153,6 +154,7 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 - parse-srcset: https://github.com/albell/parse-srcset
 - parse-css-font: https://github.com/jedmao/parse-css-font
 - Readability: https://github.com/mozilla/readability
+- whatwg-mimetype: https://github.com/jsdom/whatwg-mimetype
 
 ## Icons
 - Icon made by [Kiranshastry](https://www.flaticon.com/authors/kiranshastry) from  [Flaticon](https://www.flaticon.com/) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)

@@ -21,15 +21,111 @@
  *   Source.
  */
 
-/* global document, Node, window, top, getComputedStyle, setTimeout, XPathResult */
+/* global document, Node, window, top, getComputedStyle, XPathResult */
 
 (() => {
 
 	const INFOBAR_TAGNAME = "singlefile-infobar";
-	const LINK_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABmJLR0QABQDuAACS38mlAAAACXBIWXMAACfuAAAn7gExzuVDAAAAB3RJTUUH4ggCDDcMnYqGGAAAATtJREFUOMvNk19LwlAYxp+zhOoqpxJ1la3patFVINk/oRDBLuyreiPFMmcj/QQRSOOwpEINDCpwRr7d1HBMc4sufO7Oe877e5/zcA4wbWLDi8urGr2+vXsOFfJZdnPboDtuueoRcQEH6RQDgNBP8bxcpfvmA0QxPHF6u/MMInLVHFDP7kMUwyjks2xU8+ZGkgGAbtSp1e5gRhBc+0KQHHSjTg2TY0tVEItF/wYqV6+pYXKoiox0atvjOuQXYnILqiJj/ztceXUlGEirGGRyC0pCciDDmfm6mlYxiFtNKAkJmb0dV2OxpFGxpNFE0NmFTtxqQpbiHsgojQX1bBuyFMfR4S7zk+PYjE5PcizI0xD+6685jubnZvH41MJwgL+p233B8tKiF7SeXMPnYIB+/8OXg2hERO44wzC1+gJYGGpVbtoqiAAAAABJRU5ErkJggg==";
-	const IMAGE_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABIUlEQVQ4y+2TsarCMBSGvxTBRdqiUZAWOrhJB9EXcPKFfCvfQYfulUKHDqXg4CYUJSioYO4mSDX3ttzt3n87fMlHTpIjlsulxpDZbEYYhgghSNOUOI5Ny2mZYBAELBYLer0eAJ7ncTweKYri4x7LJJRS0u12n7XrukgpjSc0CpVSXK/XZ32/31FKNW85z3PW6zXT6RSAJEnIsqy5UGvNZrNhu90CcDqd+C6tT6J+v//2Th+PB2VZ1hN2Oh3G4zGTyQTbtl/YbrdjtVpxu91+Ljyfz0RRhG3bzOfzF+Y4TvNXvlwuaK2pE4tfzr/wzwsty0IIURlL0998KxRCMBqN8H2/wlzXJQxD2u12vVkeDoeUZUkURRU+GAw4HA7s9/sK+wK6CWHasQ/S/wAAAABJRU5ErkJggg==";
+	const LINK_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAgMAAADXB5lNAAABhmlDQ1BJQ0MgcHJvZmlsZQAAKJF9kj1Iw0AYht+mSkUrDnYQcchQnSyIijqWKhbBQmkrtOpgcukfNGlIUlwcBdeCgz+LVQcXZ10dXAVB8AfEydFJ0UVK/C4ptIjx4LiH9+59+e67A4RGhalm1wSgapaRisfEbG5VDLyiDwEAvZiVmKkn0osZeI6ve/j4ehfhWd7n/hz9St5kgE8kjjLdsIg3iGc2LZ3zPnGIlSSF+Jx43KACiR+5Lrv8xrnosMAzQ0YmNU8cIhaLHSx3MCsZKvE0cVhRNcoXsi4rnLc4q5Uaa9XJbxjMaytprtMcQRxLSCAJETJqKKMCCxFaNVJMpGg/5uEfdvxJcsnkKoORYwFVqJAcP/gb/O6tWZiadJOCMaD7xbY/RoHALtCs2/b3sW03TwD/M3Cltf3VBjD3SXq9rYWPgIFt4OK6rcl7wOUOMPSkS4bkSH6aQqEAvJ/RM+WAwVv6EGtu31r7OH0AMtSr5Rvg4BAYK1L2use9ezr79u+ZVv9+AFlNcp0UUpiqAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH5AsHAB8H+DhhoQAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAJUExURQAAAICHi4qKioTuJAkAAAABdFJOUwBA5thmAAAAAWJLR0QCZgt8ZAAAAJJJREFUOI3t070NRCEMA2CnYAOyDyPwpHj/Va7hJ3FzV7zy3ET5JIwoAF6Jk4wzAJAkzxAYG9YRTgB+24wBgKmfrGAKTcEfAY4KRlRoIeBTgKOCERVaCPgU4Khge2GqKOBTgKOCERVaAEC/4PNcnyoSWHpjqkhwKxbcig0Q6AorXYF/+A6eIYD1lVbwG/jdA6/kA2THRAURVubcAAAAAElFTkSuQmCC";
+	const CLOSE_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAgMAAADXB5lNAAABhmlDQ1BJQ0MgcHJvZmlsZQAAKJF9kj1Iw0AYht+mSkUrDnYQcchQnSyIijqWKhbBQmkrtOpgcukfNGlIUlwcBdeCgz+LVQcXZ10dXAVB8AfEydFJ0UVK/C4ptIjx4LiH9+59+e67A4RGhalm1wSgapaRisfEbG5VDLyiDwEAvZiVmKkn0osZeI6ve/j4ehfhWd7n/hz9St5kgE8kjjLdsIg3iGc2LZ3zPnGIlSSF+Jx43KACiR+5Lrv8xrnosMAzQ0YmNU8cIhaLHSx3MCsZKvE0cVhRNcoXsi4rnLc4q5Uaa9XJbxjMaytprtMcQRxLSCAJETJqKKMCCxFaNVJMpGg/5uEfdvxJcsnkKoORYwFVqJAcP/gb/O6tWZiadJOCMaD7xbY/RoHALtCs2/b3sW03TwD/M3Cltf3VBjD3SXq9rYWPgIFt4OK6rcl7wOUOMPSkS4bkSH6aQqEAvJ/RM+WAwVv6EGtu31r7OH0AMtSr5Rvg4BAYK1L2use9ezr79u+ZVv9+AFlNcp0UUpiqAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH5AsHAB8VC4EQ6QAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAJUExURQAAAICHi4qKioTuJAkAAAABdFJOUwBA5thmAAAAAWJLR0QCZgt8ZAAAAJtJREFUOI3NkrsBgCAMRLFwBPdxBArcfxXFkO8rbKWAAJfHJ9faf9vuYX/749T5NmShm3bEwbe2SxeuM4+2oxDL1cDoKtVUjRy+tH78Cv2CS+wIiQNC1AEhk4AQeUTMWUJMfUJMSEJMSEY8kIx4IONroaYAimNxsXp1PA7PxwfVL8QnowwoVC0lig07wDDVUjAdbAnjwtow/z/bDW7eI4M2KruJAAAAAElFTkSuQmCC";
+	const IMAGE_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABABAMAAABYR2ztAAABhmlDQ1BJQ0MgcHJvZmlsZQAAKJF9kj1Iw0AYht+mSkUrDnYQcchQnSyIijqWKhbBQmkrtOpgcukfNGlIUlwcBdeCgz+LVQcXZ10dXAVB8AfEydFJ0UVK/C4ptIjx4LiH9+59+e67A4RGhalm1wSgapaRisfEbG5VDLyiDwEAvZiVmKkn0osZeI6ve/j4ehfhWd7n/hz9St5kgE8kjjLdsIg3iGc2LZ3zPnGIlSSF+Jx43KACiR+5Lrv8xrnosMAzQ0YmNU8cIhaLHSx3MCsZKvE0cVhRNcoXsi4rnLc4q5Uaa9XJbxjMaytprtMcQRxLSCAJETJqKKMCCxFaNVJMpGg/5uEfdvxJcsnkKoORYwFVqJAcP/gb/O6tWZiadJOCMaD7xbY/RoHALtCs2/b3sW03TwD/M3Cltf3VBjD3SXq9rYWPgIFt4OK6rcl7wOUOMPSkS4bkSH6aQqEAvJ/RM+WAwVv6EGtu31r7OH0AMtSr5Rvg4BAYK1L2use9ezr79u+ZVv9+AFlNcp0UUpiqAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH5AsHADIRLMaOHwAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAPUExURQAAAIqKioyNjY2OjvDw8L2y1DEAAAABdFJOUwBA5thmAAAAAWJLR0QB/wIt3gAAAGNJREFUSMdjYCAJsLi4OBCQx6/CBQwIGIDPCBcXAkYQUsACU+AwlBVQHg6Eg5pgZBGOboIJZugDFwRwoJECJCUOhJI1wZwzqmBUwagCuipgIqTABG9h7YIKaKGAURAFEF/6AQAO4HqSoDP8bgAAAABJRU5ErkJggg==";
 	const SINGLEFILE_COMMENT = "SingleFile";
 	const SINGLE_FILE_UI_ELEMENT_CLASS = "single-file-ui-element";
+	const INFOBAR_STYLES = `
+	.infobar {
+		background-color: #737373;
+		color: white;
+		display: flex;
+		position: fixed;
+		top: 16px;
+		right: 16px;
+		height: auto;
+		width: auto;
+		min-height: 24px;
+		min-width: 24px;
+		background-position: center;
+		background-repeat: no-repeat;
+		z-index: 2147483647;
+		margin: 0 0 0 16px;
+		background-image: url(${IMAGE_ICON});
+		border-radius: 16px;
+		user-select: none;
+		-moz-user-select: none;
+		opacity: .7;
+		cursor: pointer;
+		padding-left: 0;
+		padding-right: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+		border: 2px solid #eee;
+		background-size: 70% 70%;
+		transition: all 250ms;
+		font-size: 13px;
+	}
+	.infobar:hover {
+		opacity: 1;
+	}
+	.infobar-open {
+		opacity: 1;
+		background-color: #f9f9f9;
+		cursor: auto;
+		color: #2d2d2d;
+		padding-top: 2px;
+		padding-bottom: 2px;
+		border: 2px solid #878787;
+		background-image: none;
+		border-radius: 8px;
+		user-select: initial;
+		-moz-user-select: initial;
+	}
+	.infobar-close-button {
+		display: none;
+		opacity: .7;
+		padding-top: 4px;
+		padding-left: 8px;
+		padding-right: 8px;
+		cursor: pointer;
+		transition: opacity 250ms;
+		height: 16px;
+	}
+	.infobar-close-button:hover {
+		opacity: 1;
+	}
+	.infobar-content {
+		display: none;
+		font-family: Arial;
+		font-size: 14px;
+		line-height: 22px;
+		word-break: break-word;
+		white-space: pre-wrap;
+		position: relative;
+		top: 1px;
+		text-align: left;
+	}
+	.infobar-link {
+		display: none;
+		padding-left: 8px;
+		padding-right: 8px;
+		line-height: 11px;
+		cursor: pointer;
+		user-select: none;
+		outline: 0;
+	}
+	.infobar-link-icon {
+		padding-top: 4px;
+		padding-left: 2px;
+		cursor: pointer;
+		opacity: .7;
+		transition: opacity 250ms;
+		height: 16px;
+	}
+	.infobar-link-icon:hover {
+		opacity: 1;
+	}
+	.infobar-open .infobar-close-button, .infobar-open .infobar-content, .infobar-open .infobar-link {
+		display: inline-block;
+	}`;
+	let SHADOW_DOM_SUPPORTED = true;
 
 	const browser = this.browser;
 
@@ -55,7 +151,7 @@
 					options = { displayInfobar: true };
 				}
 				if (options.displayInfobar) {
-					initInfobar(url, saveDate, infoData);
+					await initInfobar(url, saveDate, infoData);
 				}
 			}
 		}
@@ -65,7 +161,7 @@
 		return node.nodeType == Node.COMMENT_NODE && node.textContent.includes(SINGLEFILE_COMMENT);
 	}
 
-	function initInfobar(url, saveDate, infoData) {
+	async function initInfobar(url, saveDate, infoData) {
 		let infobarElement = document.querySelector(INFOBAR_TAGNAME);
 		if (!infobarElement) {
 			url = url.split("url: ")[1];
@@ -81,65 +177,39 @@
 			}
 			infobarElement = createElement(INFOBAR_TAGNAME, document.body);
 			infobarElement.className = SINGLE_FILE_UI_ELEMENT_CLASS;
-			setProperty(infobarElement, "background-color", "#f9f9f9");
-			setProperty(infobarElement, "display", "flex");
-			setProperty(infobarElement, "position", "fixed");
-			setProperty(infobarElement, "top", "16px");
-			setProperty(infobarElement, "right", "16px");
-			setProperty(infobarElement, "height", "auto");
-			setProperty(infobarElement, "min-height", "24px");
-			setProperty(infobarElement, "min-width", "24px");
-			setProperty(infobarElement, "background-position", "center");
-			setProperty(infobarElement, "background-repeat", "no-repeat");
-			setProperty(infobarElement, "z-index", 2147483647);
-			setProperty(infobarElement, "text-align", "center");
-			setProperty(infobarElement, "will-change", "opacity, padding-left, padding-right, width, background-color, color");
-			setProperty(infobarElement, "margin", "0 0 0 16px");
-			const closeElement = createElement("span", infobarElement);
-			closeElement.textContent = "✕";
-			setProperty(closeElement, "display", "none");
-			setProperty(closeElement, "opacity", .7);
-			setProperty(closeElement, "padding-right", "8px");
-			setProperty(closeElement, "cursor", "pointer");
-			setProperty(closeElement, "color", "rgb(126 135 140)");
-			setProperty(closeElement, "line-height", "24px");
-			closeElement.onmouseover = () => setProperty(closeElement, "opacity", 1);
-			closeElement.onmouseout = () => setProperty(closeElement, "opacity", .7);
+			const shadowRoot = await getShadowRoot(infobarElement);
+			const styleElement = document.createElement("style");
+			styleElement.textContent = INFOBAR_STYLES;
+			shadowRoot.appendChild(styleElement);
+			const infobarContent = document.createElement("div");
+			infobarContent.classList.add("infobar");
+			shadowRoot.appendChild(infobarContent);
+			const closeElement = document.createElement("img");
+			closeElement.classList.add("infobar-close-button");
+			infobarContent.appendChild(closeElement);
+			closeElement.src = CLOSE_ICON;
 			closeElement.onclick = event => {
 				if (event.button === 0) {
 					infobarElement.remove();
 				}
 			};
-			const infoElement = createElement("span", infobarElement);
-			setProperty(infoElement, "font-family", "Arial");
-			setProperty(infoElement, "color", "#2d2d2d");
-			setProperty(infoElement, "font-size", "14px");
-			setProperty(infoElement, "line-height", "22px");
-			setProperty(infoElement, "word-break", "break-word");
-			setProperty(infoElement, "white-space", "pre-wrap");
-			setProperty(infoElement, "position", "relative");
-			setProperty(infoElement, "top", "1px");
+			const infoElement = document.createElement("span");
+			infobarContent.appendChild(infoElement);
+			infoElement.classList.add("infobar-content");
 			infoElement.textContent = infoData;
-			const linkElement = createElement("a", infobarElement);
-			setProperty(linkElement, "display", "inline-block");
-			setProperty(linkElement, "padding-left", "8px");
-			setProperty(linkElement, "line-height", "11px");
-			setProperty(linkElement, "cursor", "pointer");
-			setProperty(linkElement, "user-select", "none");
+			const linkElement = document.createElement("a");
+			linkElement.classList.add("infobar-link");
+			infobarContent.appendChild(linkElement);
 			linkElement.target = "_blank";
 			linkElement.rel = "noopener noreferrer";
 			linkElement.title = "Open source URL: " + url;
 			linkElement.href = url;
-			const imgElement = createElement("img", linkElement);
-			setProperty(imgElement, "padding-top", "3px");
-			setProperty(imgElement, "-webkit-padding-after", "2px");
-			setProperty(imgElement, "padding-left", "2px");
-			setProperty(imgElement, "-webkit-padding-start", "2px");
-			setProperty(imgElement, "cursor", "pointer");
-			setProperty(infobarElement, "text-align", "right");
+			const imgElement = document.createElement("img");
+			imgElement.classList.add("infobar-link-icon");
+			linkElement.appendChild(imgElement);
 			imgElement.src = LINK_ICON;
-			hideInfobar(infobarElement, linkElement, infoElement, closeElement);
-			infobarElement.onmouseover = () => setProperty(infobarElement, "opacity", 1);
+			hideInfobar(infobarContent);
+
 			document.addEventListener("click", event => {
 				if (event.button === 0) {
 					let element = event.target;
@@ -147,89 +217,73 @@
 						element = element.parentElement;
 					}
 					if (element != infobarElement) {
-						hideInfobar(infobarElement, linkElement, infoElement, closeElement);
+						hideInfobar(infobarContent);
 					}
 				}
-			});
-			setTimeout(() => {
-				setProperty(infobarElement, "transition-property", "opacity");
-				setProperty(infobarElement, "transition-duration", "250ms");
 			});
 		}
 	}
 
-	function displayInfobar(infobarElement, linkElement, infoElement, closeElement) {
-		setProperty(infobarElement, "font-size", "13px");
-		setProperty(infobarElement, "opacity", 1);
-		setProperty(infobarElement, "width", "auto");
-		setProperty(infobarElement, "background-color", "#f9f9f9");
-		setProperty(infobarElement, "cursor", "auto");
-		setProperty(infobarElement, "color", "#2d2d2d");
-		setProperty(infobarElement, "padding-left", "8px");
-		setProperty(infobarElement, "padding-right", "4px");
-		setProperty(infobarElement, "padding-top", "2px");
-		setProperty(infobarElement, "padding-bottom", "2px");
-		setProperty(infobarElement, "-webkit-padding-start", "8px");
-		setProperty(infobarElement, "-webkit-padding-end", "4px");
-		setProperty(infobarElement, "border", "2px solid #555");
-		setProperty(infobarElement, "-webkit-border-start", "2px solid #555");
-		setProperty(infobarElement, "-webkit-border-before", "2px solid #555");
-		setProperty(infobarElement, "-webkit-border-end", "2px solid #555");
-		setProperty(infobarElement, "-webkit-border-after", "2px solid #555");
-		setProperty(infobarElement, "background-image", "none");
-		setProperty(infobarElement, "border-radius", "8px");
-		setProperty(infoElement, "display", "inline-block");
-		setProperty(linkElement, "display", "inline-block");
-		setProperty(closeElement, "display", "inline-block");
-		setProperty(infobarElement, "user-select", "initial");
-		setProperty(infobarElement, "-moz-user-select", "initial");
-		infobarElement.onclick = null;
-		infobarElement.onmouseout = null;
+	function displayInfobar(infobarContent) {
+		if (!SHADOW_DOM_SUPPORTED) {
+			const infobarElement = document.querySelector(INFOBAR_TAGNAME);
+			const frameElement = infobarElement.childNodes[0];
+			frameElement.contentWindow.getSelection().removeAllRanges();
+		}
+		infobarContent.classList.add("infobar-open");
+		infobarContent.onclick = null;
+		infobarContent.onmouseout = null;
+		if (!SHADOW_DOM_SUPPORTED) {
+			const infobarElement = document.querySelector(INFOBAR_TAGNAME);
+			const frameElement = infobarElement.childNodes[0];
+			frameElement.style.setProperty("width", "100vw", "important");
+			frameElement.style.setProperty("height", "100vh", "important");
+			frameElement.style.setProperty("width", (infobarContent.getBoundingClientRect().width + 33) + "px", "important");
+			frameElement.style.setProperty("height", (infobarContent.getBoundingClientRect().height + 21) + "px", "important");
+		}
 	}
 
-	function hideInfobar(infobarElement, linkElement, infoElement, closeElement) {
-		setProperty(infobarElement, "user-select", "none");
-		setProperty(infobarElement, "-moz-user-select", "none");
-		setProperty(infobarElement, "opacity", .7);
-		infobarElement.onmouseout = () => setProperty(infobarElement, "opacity", .7);
-		setProperty(infobarElement, "width", "24px");
-		setProperty(infobarElement, "background-color", "#737373");
-		setProperty(infobarElement, "cursor", "pointer");
-		setProperty(infobarElement, "color", "white");
-		setProperty(infobarElement, "padding-left", 0);
-		setProperty(infobarElement, "padding-right", 0);
-		setProperty(infobarElement, "padding-top", 0);
-		setProperty(infobarElement, "padding-bottom", 0);
-		setProperty(infobarElement, "-webkit-padding-start", 0);
-		setProperty(infobarElement, "-webkit-padding-end", 0);
-		setProperty(infobarElement, "border", "2px solid #eee");
-		setProperty(infobarElement, "-webkit-border-start", "2px solid #eee");
-		setProperty(infobarElement, "-webkit-border-before", "2px solid #eee");
-		setProperty(infobarElement, "-webkit-border-end", "2px solid #eee");
-		setProperty(infobarElement, "-webkit-border-after", "2px solid #eee");
-		setProperty(infobarElement, "background-image", "url(" + IMAGE_ICON + ")");
-		setProperty(infobarElement, "background-size", "70% 70%");
-		setProperty(infobarElement, "border-radius", "16px");
-		setProperty(closeElement, "display", "none");
-		setProperty(linkElement, "display", "none");
-		setProperty(infoElement, "display", "none");
-		infobarElement.onclick = event => {
+	function hideInfobar(infobarContent) {
+		infobarContent.classList.remove("infobar-open");
+		infobarContent.onclick = event => {
 			if (event.button === 0) {
-				displayInfobar(infobarElement, linkElement, infoElement, closeElement);
+				displayInfobar(infobarContent);
 				return false;
 			}
 		};
+		if (!SHADOW_DOM_SUPPORTED) {
+			const infobarElement = document.querySelector(INFOBAR_TAGNAME);
+			const frameElement = infobarElement.childNodes[0];
+			frameElement.style.setProperty("width", "44px", "important");
+			frameElement.style.setProperty("height", "48px", "important");
+		}
 	}
 
 	function createElement(tagName, parentElement) {
 		const element = document.createElement(tagName);
 		parentElement.appendChild(element);
-		Array.from(getComputedStyle(element)).forEach(property => setProperty(element, property, "initial"));
+		Array.from(getComputedStyle(element)).forEach(property => element.style.setProperty(property, "initial", "important"));
 		return element;
 	}
 
-	function setProperty(element, name, value) {
-		element.style.setProperty(name, value, "important");
+	async function getShadowRoot(element) {
+		if (element.attachShadow) {
+			return element.attachShadow({ mode: "open" });
+		} else {
+			SHADOW_DOM_SUPPORTED = false;
+			const iframe = createElement("iframe", element);
+			iframe.style.setProperty("background-color", "transparent", "important");
+			iframe.style.setProperty("position", "fixed", "important");
+			iframe.style.setProperty("top", 0, "important");
+			iframe.style.setProperty("right", 0, "important");
+			iframe.style.setProperty("width", "44px", "important");
+			iframe.style.setProperty("height", "48px", "important");
+			iframe.style.setProperty("z-index", 2147483647, "important");
+			return new Promise(resolve => {
+				iframe.contentDocument.body.style.setProperty("margin", 0);
+				iframe.onload = () => resolve(iframe.contentDocument.body);
+			});
+		}
 	}
 
 })();

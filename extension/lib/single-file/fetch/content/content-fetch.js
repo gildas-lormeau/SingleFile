@@ -56,22 +56,22 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 			};
 		} catch (error) {
 			return {
-				error: error.toString()
+				error: error && error.toString()
 			};
 		}
 	}
 
 	return {
-		fetch: async url => {
+		fetch: async (url, options) => {
 			try {
 				let response = await fetch(url, { cache: "force-cache" });
 				if (response.status == 401 || response.status == 403 || response.status == 404) {
-					response = hostFetch(url);
+					response = await hostFetch(url);
 				}
 				return response;
 			}
 			catch (error) {
-				const response = await sendMessage({ method: "singlefile.fetch", url });
+				const response = await sendMessage({ method: "singlefile.fetch", url, referrer: options.referrer });
 				return {
 					status: response.status,
 					headers: { get: headerName => response.headers && response.headers[headerName] },
@@ -79,8 +79,8 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 				};
 			}
 		},
-		frameFetch: async (url, frameId) => {
-			const response = await sendMessage({ method: "singlefile.fetchFrame", url, frameId });
+		frameFetch: async (url, options) => {
+			const response = await sendMessage({ method: "singlefile.fetchFrame", url, frameId: options.frameId, referrer: options.referrer });
 			return {
 				status: response.status,
 				headers: new Map(response.headers),
@@ -92,7 +92,7 @@ this.singlefile.extension.lib.fetch.content.resources = this.singlefile.extensio
 	async function sendMessage(message) {
 		const response = await browser.runtime.sendMessage(message);
 		if (!response || response.error) {
-			throw new Error(response && response.error.toString());
+			throw new Error(response && response.error && response.error.toString());
 		} else {
 			return response;
 		}
