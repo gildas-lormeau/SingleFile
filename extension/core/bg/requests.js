@@ -55,13 +55,11 @@ singlefile.extension.core.bg.requests = (() => {
 				const referrer = referrers.get(requestIdHeader.value);
 				if (referrer) {
 					referrers.delete(requestIdHeader.value);
-					let header = details.requestHeaders.find(header => header.name.toLowerCase() === "referer");
+					const header = details.requestHeaders.find(header => header.name.toLowerCase() === "referer");
 					if (!header) {
-						header = { name: "Referer" };
-						details.requestHeaders.push(header);
-						header.value = referrer;
+						details.requestHeaders.push({ name: "Referer", value: referrer });
+						return { requestHeaders: details.requestHeaders };
 					}
-					return { requestHeaders: details.requestHeaders };
 				}
 			}
 		}
