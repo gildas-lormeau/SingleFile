@@ -448,7 +448,7 @@
 		"description": "Options page label: 'maximum size (MB)'"
 	},
 	"optionPassReferrerOnError": {
-		"message": "pass \"Referer\" header after a cross-origin request error",
+		"message": "пропустить заголовок \"Referer\" после ошибки запроса перекрёстного источника",
 		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
 	},
 	"optionSaveRawPage": {
