@@ -30,7 +30,13 @@ singlefile.extension.core.bg.bookmarks = (() => {
 		onMessage,
 		saveCreatedBookmarks: enable,
 		disable,
-		update: (id, changes) => browser.bookmarks.update(id, changes)
+		update: async (id, changes) => {
+			try {
+				await browser.bookmarks.update(id, changes);
+			} catch (error) {
+				// ignored
+			}
+		}
 	};
 
 	function onMessage(message) {
