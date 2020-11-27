@@ -71,19 +71,21 @@ singlefile.extension.core.bg.bookmarks = (() => {
 		}
 	}
 
-	async function onCreated(id, bookmarkInfo) {
+	async function onCreated(bookmarkId, bookmarkInfo) {
 		const tabs = await singlefile.extension.core.bg.tabs.get({ lastFocusedWindow: true, active: true });
 		const options = await singlefile.extension.core.bg.config.getOptions(bookmarkInfo.url);
 		if (options.saveCreatedBookmarks) {
-			if (!(await findParentFolder(bookmarkInfo.parentId, options.ignoredBookmarkFolders))) {
+			const bookmarkFolders = await getParentFolders(bookmarkInfo.parentId);
+			const ignoredBookmark = bookmarkFolders.find(folder => options.ignoredBookmarkFolders.includes(folder));
+			if (!ignoredBookmark) {
 				if (tabs.length && tabs[0].url == bookmarkInfo.url) {
-					singlefile.extension.core.bg.business.saveTabs(tabs, { bookmarkId: bookmarkInfo.id });
+					singlefile.extension.core.bg.business.saveTabs(tabs, { bookmarkId });
 				} else {
 					const tabs = await singlefile.extension.core.bg.tabs.get({});
 					if (tabs.length) {
 						const tab = tabs.find(tab => tab.url == bookmarkInfo.url);
 						if (tab) {
-							singlefile.extension.core.bg.business.saveTabs([tab], { bookmarkId: bookmarkInfo.id });
+							singlefile.extension.core.bg.business.saveTabs([tab], { bookmarkId });
 						} else {
 							if (bookmarkInfo.url) {
 								if (bookmarkInfo.url == "about:blank") {
@@ -98,28 +100,26 @@ singlefile.extension.core.bg.bookmarks = (() => {
 			}
 		}
 
-		async function findParentFolder(id, folderNames) {
-			if (id && folderNames.length) {
+		async function getParentFolders(id, folderNames = []) {
+			if (id) {
 				const bookmarkNode = (await browser.bookmarks.get(id))[0];
-				if (bookmarkNode) {
-					return folderNames.includes(bookmarkNode.title) || findParentFolder(bookmarkNode.parentId, folderNames);
-				} else {
-					return false;
+				if (bookmarkNode && bookmarkNode.title) {
+					folderNames.unshift(bookmarkNode.title);
+					await getParentFolders(bookmarkNode.parentId, folderNames);
 				}
-			} else {
-				return false;
 			}
+			return folderNames;
 		}
 
 		function onChanged(id, changeInfo) {
-			if (id == bookmarkInfo.id && changeInfo.url) {
+			if (id == bookmarkId && changeInfo.url) {
 				browser.bookmarks.onChanged.removeListener(onChanged);
 				saveUrl(changeInfo.url);
 			}
 		}
 
 		function saveUrl(url) {
-			singlefile.extension.core.bg.business.saveUrls([url], { bookmarkId: bookmarkInfo.id });
+			singlefile.extension.core.bg.business.saveUrls([url], { bookmarkId });
 		}
 	}
 
