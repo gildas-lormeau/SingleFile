@@ -27,20 +27,32 @@
 
 	"use strict";
 
+	const timeouts = new Map();
+
 	browser.runtime.onMessage.addListener((message, sender) => {
 		if (message.method == "singlefile.lazyTimeout.setTimeout") {
+			const previousTimeoutId = timeouts.get(message.type);
+			if (previousTimeoutId) {
+				clearTimeout(previousTimeoutId);
+			}
 			const timeoutId = setTimeout(async () => {
 				try {
-					await browser.tabs.sendMessage(sender.tab.id, { method: "singlefile.lazyTimeout.onTimeout", id: timeoutId });
+					timeouts.delete(message.type);
+					await browser.tabs.sendMessage(sender.tab.id, { method: "singlefile.lazyTimeout.onTimeout", type: message.type });
 				} catch (error) {
 					// ignored
 				}
 			}, message.delay);
-			return Promise.resolve(timeoutId);
+			timeouts.set(message.type, timeoutId);
+			return Promise.resolve({});
 		}
 		if (message.method == "singlefile.lazyTimeout.clearTimeout") {
-			clearTimeout(message.id);
-			return Promise.resolve({ id: message.id });
+			const timeoutId = timeouts.get(message.type);
+			if (timeoutId) {
+				clearTimeout(timeoutId);
+			}
+			timeouts.delete(message.type);
+			return Promise.resolve({});
 		}
 	});
 
