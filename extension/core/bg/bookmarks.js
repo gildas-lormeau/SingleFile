@@ -85,13 +85,13 @@ singlefile.extension.core.bg.bookmarks = (() => {
 			const ignoredBookmark = bookmarkFolders.find(folder => options.ignoredBookmarkFolders.includes(folder));
 			if (!ignoredBookmark) {
 				if (tabs.length && tabs[0].url == bookmarkInfo.url) {
-					singlefile.extension.core.bg.business.saveTabs(tabs, { bookmarkId });
+					singlefile.extension.core.bg.business.saveTabs(tabs, { bookmarkId, bookmarkFolders });
 				} else {
 					const tabs = await singlefile.extension.core.bg.tabs.get({});
 					if (tabs.length) {
 						const tab = tabs.find(tab => tab.url == bookmarkInfo.url);
 						if (tab) {
-							singlefile.extension.core.bg.business.saveTabs([tab], { bookmarkId });
+							singlefile.extension.core.bg.business.saveTabs([tab], { bookmarkId, bookmarkFolders });
 						} else {
 							if (bookmarkInfo.url) {
 								if (bookmarkInfo.url == "about:blank") {
