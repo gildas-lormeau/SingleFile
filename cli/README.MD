@@ -94,6 +94,8 @@ SingleFile can be launched from the command line by running it into a (headless)
 
   `docker pull capsulecode/singlefile`
   
+  `docker tag capsulecode/singlefile singlefile`
+  
 - Run
 
   `docker run singlefile "https://www.wikipedia.org"`
