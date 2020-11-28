@@ -47,6 +47,7 @@ const args = require("yargs")
 		"compress-HTML": true,
 		"dump-content": false,
 		"filename-template": "{page-title} ({date-iso} {time-locale}).html",
+		"filename-conflict-action": "uniquify",
 		"filename-replacement-character": "_",
 		"group-duplicate-images": true,
 		"http-header": [],
@@ -138,6 +139,8 @@ const args = require("yargs")
 	.string("error-file")
 	.options("filename-template", { description: "Template used to generate the output filename (see help page of the extension for more info)" })
 	.string("filename-template")
+	.options("filename-conflict-action", { description: "Action when the filename is conflicting with existing one on the filesystem. The possible values are \"uniquify\" (default), \"overwrite\" and \"skip\"" })
+	.string("filename-conflict-action")
 	.options("filename-replacement-character", { description: "The character used for replacing invalid characters in filenames" })
 	.string("filename-replacement-character")
 	.string("filename-replacement-character")
