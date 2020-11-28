@@ -89,6 +89,10 @@ SingleFile can be launched from the command line by running it into a (headless)
 - Build
 
   `docker build -t singlefile .`
+
+- Pull from Docker Hub
+
+  `docker pull capsulecode/singlefile`
   
 - Run
 
