@@ -197,9 +197,6 @@ const args = require("yargs")
 	.options("web-driver-executable-path", { description: "Path to Selenium WebDriver executable (webdriver-gecko, webdriver-chromium)" })
 	.string("web-driver-executable-path")
 	.argv;
-if (args.dumpContent) {
-	args.filenameTemplate = "";
-}
 args.compressCSS = args.compressCss;
 args.compressHTML = args.compressHtml;
 args.includeBOM = args.includeBom;
