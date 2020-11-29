@@ -20,7 +20,7 @@ SingleFile can be launched from the command line by running it into a (headless)
 
   `docker run singlefile "https://www.wikipedia.org"`
   
-- Run and pipe the result into a file
+- Run and redirect the result into a file
 
   `docker run singlefile "https://www.wikipedia.org" > wikipedia.html`
 
