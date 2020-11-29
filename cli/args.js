@@ -79,7 +79,8 @@ const args = require("yargs")
 		"crawl-max-depth": 1,
 		"crawl-external-links-max-depth": 1,
 		"crawl-replace-urls": false,
-		"crawl-rewrite-rules": []
+		"crawl-rewrite-rules": [],
+		"output-directory": ""
 	})
 	.options("back-end", { description: "Back-end to use" })
 	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chromium", "webdriver-gecko", "puppeteer-firefox", "playwright-firefox", "playwright-chromium"])
@@ -196,6 +197,8 @@ const args = require("yargs")
 	.boolean("user-script-enabled")
 	.options("web-driver-executable-path", { description: "Path to Selenium WebDriver executable (webdriver-gecko, webdriver-chromium)" })
 	.string("web-driver-executable-path")
+	.options("output-directory", { description: "Path to where to save files, this path must exist." })
+	.string("output-directory")	
 	.argv;
 args.compressCSS = args.compressCss;
 args.compressHTML = args.compressHtml;
