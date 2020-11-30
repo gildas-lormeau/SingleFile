@@ -1843,8 +1843,10 @@ table {
 							shadowRoot.innerHTML = element.innerHTML;
 							element.remove();
 						} catch (error) {}						
-						processNode(shadowRoot);
-					}
+						if (shadowRoot) {
+							processNode(shadowRoot);
+						}
+					}					
 				})
 			};
 			const FORBIDDEN_TAG_NAMES = ${JSON.stringify(FORBIDDEN_TAG_NAMES)};
