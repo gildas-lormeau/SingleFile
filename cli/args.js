@@ -30,6 +30,7 @@ const args = require("yargs")
 		yargs.positional("output", { description: "Output filename", type: "string" });
 	})
 	.default({
+		"background-save": true,
 		"back-end": "puppeteer",
 		"browser-headless": true,
 		"browser-executable-path": "",
@@ -198,7 +199,7 @@ const args = require("yargs")
 	.options("web-driver-executable-path", { description: "Path to Selenium WebDriver executable (webdriver-gecko, webdriver-chromium)" })
 	.string("web-driver-executable-path")
 	.options("output-directory", { description: "Path to where to save files, this path must exist." })
-	.string("output-directory")	
+	.string("output-directory")
 	.argv;
 args.compressCSS = args.compressCss;
 args.compressHTML = args.compressHtml;
