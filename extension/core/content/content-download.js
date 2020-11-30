@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, URL, Blob, MouseEvent */
+/* global browser, document, URL, Blob, MouseEvent, setTimeout */
 
 this.singlefile.extension.core.content.download = this.singlefile.extension.core.content.download || (() => {
 
@@ -74,14 +74,14 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 			if (options.saveToClipboard) {
 				saveToClipboard(pageData);
 			} else {
-				downloadPageForeground(pageData);
+				await downloadPageForeground(pageData);
 			}
 			browser.runtime.sendMessage({ method: "ui.processEnd" });
 		}
 		await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId, hash: pageData.hash });
 	}
 
-	function downloadPageForeground(pageData) {
+	async function downloadPageForeground(pageData) {
 		if (pageData.filename && pageData.filename.length) {
 			const link = document.createElement("a");
 			link.download = pageData.filename;
@@ -89,6 +89,7 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 			link.dispatchEvent(new MouseEvent("click"));
 			URL.revokeObjectURL(link.href);
 		}
+		return new Promise(resolve => setTimeout(() => resolve, 1));
 	}
 
 	function saveToClipboard(page) {
