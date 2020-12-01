@@ -89,7 +89,7 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 			link.dispatchEvent(new MouseEvent("click"));
 			URL.revokeObjectURL(link.href);
 		}
-		return new Promise(resolve => setTimeout(() => resolve, 1));
+		return new Promise(resolve => setTimeout(resolve, 1));
 	}
 
 	function saveToClipboard(page) {
