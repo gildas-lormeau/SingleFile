@@ -6,16 +6,20 @@ SingleFile can be launched from the command line by running it into a (headless)
   
 ## Installation with Docker
 
-- Build
-
-  `docker build --no-cache -t singlefile .`
-
-- Pull from Docker Hub
+- Installation from Docker Hub
 
   `docker pull capsulecode/singlefile`
   
   `docker tag capsulecode/singlefile singlefile`
   
+- Manual installation
+
+  `git clone --depth 1 --recursive https://github.com/gildas-lormeau/SingleFile.git`
+  
+  `cd SingleFile/cli`
+
+  `docker build --no-cache -t singlefile .`
+
 - Run
 
   `docker run singlefile "https://www.wikipedia.org"`
