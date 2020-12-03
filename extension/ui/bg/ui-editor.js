@@ -278,15 +278,17 @@ singlefile.extension.ui.bg.editor = (() => {
 				document.head.appendChild(linkElement);
 			}
 			tabData.docSaved = true;
-			const defaultEditorMode = tabData.options.defaultEditorMode;
-			if (defaultEditorMode == "edit") {
-				enableEditPage();
-			} else if (defaultEditorMode == "format" && !tabData.options.disableFormatPage) {
-				formatPage();
-			} else if (defaultEditorMode == "cut") {
-				enableCutInnerPage();
-			} else if (defaultEditorMode == "cut-external") {
-				enableCutOuterPage();
+			if (!message.reset) {
+				const defaultEditorMode = tabData.options.defaultEditorMode;
+				if (defaultEditorMode == "edit") {
+					enableEditPage();
+				} else if (defaultEditorMode == "format" && !tabData.options.disableFormatPage) {
+					formatPage();
+				} else if (defaultEditorMode == "cut") {
+					enableCutInnerPage();
+				} else if (defaultEditorMode == "cut-external") {
+					enableCutOuterPage();
+				}
 			}
 		}
 		if (message.method == "savePage") {
