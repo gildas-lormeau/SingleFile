@@ -39,7 +39,7 @@ singlefile.extension.core.bg.bookmarks = (() => {
 		}
 	};
 
-	function onMessage(message) {
+	async function onMessage(message) {
 		if (message.method.endsWith(".saveCreatedBookmarks")) {
 			enable();
 			return {};
