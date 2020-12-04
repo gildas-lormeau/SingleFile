@@ -295,6 +295,14 @@
 		"message": "移除音頻資源",
 		"description": "Options page label: 'remove audio sources'"
 	},
+	"optionsDestionationSubTitle": {
+		"message": "Destination",
+		"description": "Options sub-title: 'Destination'"
+	},
+	"optionsBookmarkSubTitle": {
+		"message": "Bookmarks",
+		"description": "Options sub-title: 'Bookmarks'"
+	},
 	"optionsAutoSaveSubTitle": {
 		"message": "自動保存",
 		"description": "Options sub-title: 'Auto-save'"
@@ -457,7 +465,11 @@
 	},
 	"optionSaveToClipboard": {
 		"message": "保存到剪切板",
-		"description": "Options page label: 'save to clipboard'"
+		"description": "Options page label: 'copy to clipboard'"
+	},
+	"optionSaveToFilesystem": {
+		"message": "save to filesystem",
+		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionAddProof": {
 		"message": "添加證明文件存在的指紋",
@@ -469,7 +481,7 @@
 	},
 	"optionSaveToGDrive": {
 		"message": "保存到 Google Drive",
-		"description": "Options page label: 'save to Google Drive'"
+		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
 		"message": "將該頁面保存到一個新創建的書籤",
@@ -478,6 +490,10 @@
 	"optionReplaceBookmarkURL": {
 		"message": "將新書籤的鏈接指向已保存頁面",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
+	"optionIgnoredBookmarkFolders": {
+		"message": "ignored folders",
+		"description": "Options page label: 'ignored folders'"
 	},
 	"optionsHelpLink": {
 		"message": "幫助",

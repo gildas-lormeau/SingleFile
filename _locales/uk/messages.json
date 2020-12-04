@@ -3,14 +3,14 @@
 		"message": "Зберегти всю сторінку в один HTML-файл",
 		"description": "Description of the extension."
 	},
-    "commandSaveSelectedTabs": {
-        "message": "Save the selected tabs or their selected contents",
-        "description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
-    },
-    "commandSaveAllTabs": {
-        "message": "Зберегти всі вкладки",
-        "description": "Command (Ctrl+Shift+U): 'Save all tabs'"
-    },
+	"commandSaveSelectedTabs": {
+		"message": "Save the selected tabs or their selected contents",
+		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
+	},
+	"commandSaveAllTabs": {
+		"message": "Зберегти всі вкладки",
+		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+	},
 	"menuSavePage": {
 		"message": "Зберегти сторінку з допомогою SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -295,6 +295,14 @@
 		"message": "видалити джерела аудіо",
 		"description": "Options page label: 'remove audio sources'"
 	},
+	"optionsDestionationSubTitle": {
+		"message": "Destination",
+		"description": "Options sub-title: 'Destination'"
+	},
+	"optionsBookmarkSubTitle": {
+		"message": "Bookmarks",
+		"description": "Options sub-title: 'Bookmarks'"
+	},
 	"optionsAutoSaveSubTitle": {
 		"message": "Автозбереження",
 		"description": "Options sub-title: 'Auto-save'"
@@ -382,7 +390,7 @@
 	"optionAutoSaveExternalSave": {
 		"message": "save the page with SingleFile Companion",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
-	},	
+	},
 	"optionsEditorSubTitle": {
 		"message": "Annotation editor",
 		"description": "Options sub-title: 'Annotation editor'"
@@ -457,7 +465,11 @@
 	},
 	"optionSaveToClipboard": {
 		"message": "зберегти в буфер обміну",
-		"description": "Options page label: 'save to clipboard'"
+		"description": "Options page label: 'copy to clipboard'"
+	},
+	"optionSaveToFilesystem": {
+		"message": "save to filesystem",
+		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionAddProof": {
 		"message": "add proof of existence",
@@ -468,8 +480,8 @@
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionSaveToGDrive": {
-		"message": "save to Google Drive",
-		"description": "Options page label: 'save to Google Drive'"
+		"message": "upload to Google Drive",
+		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
 		"message": "save the page of a newly created bookmark",
@@ -478,6 +490,10 @@
 	"optionReplaceBookmarkURL": {
 		"message": "link the new bookmark to the saved page",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
+	"optionIgnoredBookmarkFolders": {
+		"message": "ignored folders",
+		"description": "Options page label: 'ignored folders'"
 	},
 	"optionsHelpLink": {
 		"message": "допомога",

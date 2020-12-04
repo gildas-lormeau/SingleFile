@@ -295,6 +295,14 @@
 		"message": "supprimer les sources audio",
 		"description": "Options page label: 'remove audio sources'"
 	},
+	"optionsDestionationSubTitle": {
+		"message": "Destination",
+		"description": "Options sub-title: 'Destination'"
+	},
+	"optionsBookmarkSubTitle": {
+		"message": "Signets",
+		"description": "Options sub-title: 'Bookmarks'"
+	},
 	"optionsAutoSaveSubTitle": {
 		"message": "Auto-sauvegarde",
 		"description": "Options sub-title: 'Auto-save'"
@@ -456,8 +464,12 @@
 		"description": "Options page label: 'save raw page'"
 	},
 	"optionSaveToClipboard": {
-		"message": "sauvegarder dans le presse-papiers",
-		"description": "Options page label: 'save to clipboard'"
+		"message": "copier dans le presse-papiers",
+		"description": "Options page label: 'copy to clipboard'"
+	},
+	"optionSaveToFilesystem": {
+		"message": "enregistrer dans le système de fichiers",
+		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionAddProof": {
 		"message": "ajouter une preuve d'existence",
@@ -468,8 +480,8 @@
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionSaveToGDrive": {
-		"message": "sauvegarder dans Google Drive",
-		"description": "Options page label: 'save to Google Drive'"
+		"message": "téléverser sur Google Drive",
+		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
 		"message": "sauvegarder la page d'un signet nouvellement créé",
@@ -478,6 +490,10 @@
 	"optionReplaceBookmarkURL": {
 		"message": "lier le nouveau signet à la page sauvegardée",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
+	"optionIgnoredBookmarkFolders": {
+		"message": "dossiers ignorés",
+		"description": "Options page label: 'ignored folders'"
 	},
 	"optionsHelpLink": {
 		"message": "aide (anglais)",

@@ -97,6 +97,10 @@
 				<label for="includeInfobarInput" id="includeInfobarLabel"></label>
 				<input type="checkbox" id="includeInfobarInput">
 			</div>
+			<div class="option">
+				<label for="saveRawPageInput" id="saveRawPageLabel"></label>
+				<input type="checkbox" id="saveRawPageInput">
+			</div>
 		</details>
 		<details>
 			<summary id="stylesheetsLabel"></summary>
@@ -163,34 +167,18 @@
 			</div>
 		</details>
 		<details>
-			<summary id="autoSaveLabel"></summary>
+			<summary id="destinationLabel"></summary>
 			<div class="option">
-				<label for="autoSaveLoadOrUnloadInput" id="autoSaveLoadOrUnloadLabel"></label>
-				<input type="checkbox" id="autoSaveLoadOrUnloadInput">
+				<label for="saveToFilesystemInput" id="saveToFilesystemLabel"></label>
+				<input type="radio" id="saveToFilesystemInput" name="destinationInput">
 			</div>
 			<div class="option">
-				<label for="autoSaveLoadInput" id="autoSaveLoadLabel"></label>
-				<input type="checkbox" id="autoSaveLoadInput">
+				<label for="saveToClipboardInput" id="saveToClipboardLabel"></label>
+				<input type="radio" id="saveToClipboardInput" name="destinationInput">
 			</div>
 			<div class="option">
-				<label for="autoSaveUnloadInput" id="autoSaveUnloadLabel"></label>
-				<input type="checkbox" id="autoSaveUnloadInput">
-			</div>
-			<div class="option">
-				<label for="autoSaveDelayInput" id="autoSaveDelayLabel"></label>
-				<input type="number" id="autoSaveDelayInput" min="0">
-			</div>
-			<div class="option">
-				<label for="autoSaveRepeatInput" id="autoSaveRepeatLabel"></label>
-				<input type="checkbox" id="autoSaveRepeatInput">
-			</div>
-			<div class="option second-level">
-				<label for="autoSaveRepeatDelayInput" id="autoSaveRepeatDelayLabel"></label>
-				<input type="number" id="autoSaveRepeatDelayInput" min="1">
-			</div>
-			<div class="option">
-				<label for="autoSaveExternalSaveInput" id="autoSaveExternalSaveLabel"></label>
-				<input type="checkbox" id="autoSaveExternalSaveInput">
+				<label for="saveToGDriveInput" id="saveToGDriveLabel"></label>
+				<input type="radio" id="saveToGDriveInput" name="destinationInput">
 			</div>
 		</details>
 		<details>
@@ -223,15 +211,53 @@
 			</div>
 		</details>
 		<details>
+			<summary id="bookmarksLabel"></summary>
+			<div class="option">
+				<label for="saveCreatedBookmarksInput" id="saveCreatedBookmarksLabel"></label>
+				<input type="checkbox" id="saveCreatedBookmarksInput">
+			</div>
+			<div class="option second-level">
+				<label for="replaceBookmarkURLInput" id="replaceBookmarkURLLabel"></label>
+				<input type="checkbox" id="replaceBookmarkURLInput">
+			</div>
+			<div class="option second-level vertical">
+				<label for="ignoredBookmarkFoldersInput" id="ignoredBookmarkFoldersLabel"></label>
+				<input type="text" id="ignoredBookmarkFoldersInput">
+			</div>
+		</details>
+		<details>
+			<summary id="autoSaveLabel"></summary>
+			<div class="option">
+				<label for="autoSaveLoadOrUnloadInput" id="autoSaveLoadOrUnloadLabel"></label>
+				<input type="checkbox" id="autoSaveLoadOrUnloadInput">
+			</div>
+			<div class="option">
+				<label for="autoSaveLoadInput" id="autoSaveLoadLabel"></label>
+				<input type="checkbox" id="autoSaveLoadInput">
+			</div>
+			<div class="option">
+				<label for="autoSaveUnloadInput" id="autoSaveUnloadLabel"></label>
+				<input type="checkbox" id="autoSaveUnloadInput">
+			</div>
+			<div class="option">
+				<label for="autoSaveDelayInput" id="autoSaveDelayLabel"></label>
+				<input type="number" id="autoSaveDelayInput" min="0">
+			</div>
+			<div class="option">
+				<label for="autoSaveRepeatInput" id="autoSaveRepeatLabel"></label>
+				<input type="checkbox" id="autoSaveRepeatInput">
+			</div>
+			<div class="option second-level">
+				<label for="autoSaveRepeatDelayInput" id="autoSaveRepeatDelayLabel"></label>
+				<input type="number" id="autoSaveRepeatDelayInput" min="1">
+			</div>
+			<div class="option">
+				<label for="autoSaveExternalSaveInput" id="autoSaveExternalSaveLabel"></label>
+				<input type="checkbox" id="autoSaveExternalSaveInput">
+			</div>
+		</details>
+		<details>
 			<summary id="miscLabel"></summary>
-			<div class="option">
-				<label for="backgroundSaveInput" id="backgroundSaveLabel"></label>
-				<input type="checkbox" id="backgroundSaveInput">
-			</div>
-			<div class="option">
-				<label for="displayStatsInput" id="displayStatsLabel"></label>
-				<input type="checkbox" id="displayStatsInput">
-			</div>
 			<div class="option">
 				<label for="maxResourceSizeEnabledInput" id="setMaxResourceSizeLabel"></label>
 				<input type="checkbox" id="maxResourceSizeEnabledInput">
@@ -245,28 +271,16 @@
 				<input type="checkbox" id="passReferrerOnErrorInput">
 			</div>
 			<div class="option">
-				<label for="saveRawPageInput" id="saveRawPageLabel"></label>
-				<input type="checkbox" id="saveRawPageInput">
-			</div>
-			<div class="option">
-				<label for="saveToClipboardInput" id="saveToClipboardLabel"></label>
-				<input type="checkbox" id="saveToClipboardInput">
-			</div>
-			<div class="option">
 				<label for="addProofInput" id="addProofLabel"></label>
 				<input type="checkbox" id="addProofInput">
 			</div>
 			<div class="option">
-				<label for="saveToGDriveInput" id="saveToGDriveLabel"></label>
-				<input type="checkbox" id="saveToGDriveInput">
+				<label for="backgroundSaveInput" id="backgroundSaveLabel"></label>
+				<input type="checkbox" id="backgroundSaveInput">
 			</div>
 			<div class="option">
-				<label for="saveCreatedBookmarksInput" id="saveCreatedBookmarksLabel"></label>
-				<input type="checkbox" id="saveCreatedBookmarksInput">
-			</div>
-			<div class="option second-level">
-				<label for="replaceBookmarkURLInput" id="replaceBookmarkURLLabel"></label>
-				<input type="checkbox" id="replaceBookmarkURLInput">
+				<label for="displayStatsInput" id="displayStatsLabel"></label>
+				<input type="checkbox" id="displayStatsInput">
 			</div>
 		</details>
 		<details>

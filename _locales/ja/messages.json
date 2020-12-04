@@ -3,14 +3,14 @@
 		"message": "完全なページを単一の HTML ファイルに保存する",
 		"description": "Description of the extension."
 	},
-    "commandSaveSelectedTabs": {
-        "message": "Save the selected tabs or their selected contents",
-        "description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
-    },
-    "commandSaveAllTabs": {
-        "message": "すべてのタブを保存",
-        "description": "Command (Ctrl+Shift+U): 'Save all tabs'"
-    },
+	"commandSaveSelectedTabs": {
+		"message": "Save the selected tabs or their selected contents",
+		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
+	},
+	"commandSaveAllTabs": {
+		"message": "すべてのタブを保存",
+		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+	},
 	"menuSavePage": {
 		"message": "SingleFile でページを保存",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -295,6 +295,14 @@
 		"message": "オーディオソースを削除する",
 		"description": "Options page label: 'remove audio sources'"
 	},
+	"optionsDestionationSubTitle": {
+		"message": "Destination",
+		"description": "Options sub-title: 'Destination'"
+	},
+	"optionsBookmarkSubTitle": {
+		"message": "Bookmarks",
+		"description": "Options sub-title: 'Bookmarks'"
+	},
 	"optionsAutoSaveSubTitle": {
 		"message": "自動保存",
 		"description": "Options sub-title: 'Auto-save'"
@@ -382,7 +390,7 @@
 	"optionAutoSaveExternalSave": {
 		"message": "save the page with SingleFile Companion",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
-	},	
+	},
 	"optionsEditorSubTitle": {
 		"message": "注釈エディタ",
 		"description": "Options sub-title: 'Annotation editor'"
@@ -457,7 +465,11 @@
 	},
 	"optionSaveToClipboard": {
 		"message": "クリップボードに保存する",
-		"description": "Options page label: 'save to clipboard'"
+		"description": "Options page label: 'copy to clipboard'"
+	},
+	"optionSaveToFilesystem": {
+		"message": "save to filesystem",
+		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionAddProof": {
 		"message": "ブロックチェーン証明を追加する",
@@ -469,7 +481,7 @@
 	},
 	"optionSaveToGDrive": {
 		"message": "Google Drive に保存",
-		"description": "Options page label: 'save to Google Drive'"
+		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
 		"message": "新しく作成したブックマークのページを保存する",
@@ -478,6 +490,10 @@
 	"optionReplaceBookmarkURL": {
 		"message": "新しいブックマークを保存したページにリンクさせることを可能にする",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
+	"optionIgnoredBookmarkFolders": {
+		"message": "ignored folders",
+		"description": "Options page label: 'ignored folders'"
 	},
 	"optionsHelpLink": {
 		"message": "ヘルプ",
