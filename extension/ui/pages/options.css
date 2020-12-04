@@ -1,3 +1,7 @@
+* {
+    box-sizing: content-box;
+}
+
 body {
     background-color: #fff;
     font-family: sans-serif;
@@ -354,6 +358,7 @@ a {
 
 .option.vertical label {
     align-self: flex-start;
+    min-height: 24px;
 }
 
 .option.vertical input {
