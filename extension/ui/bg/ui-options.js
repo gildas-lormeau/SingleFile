@@ -805,6 +805,7 @@
 					await disableOption();
 				}
 			} catch (error) {
+				saveCreatedBookmarksInput.checked = false;
 				await disableOption();
 			}
 		} else {
