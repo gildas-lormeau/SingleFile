@@ -120,6 +120,10 @@ h3 a {
     white-space: nowrap;
 }
 
+.help-icon-wrapper {
+    white-space: nowrap;
+}
+
 .help-icon {
     vertical-align: middle;
     display: inline-block;

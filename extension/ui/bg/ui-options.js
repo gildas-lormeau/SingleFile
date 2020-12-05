@@ -962,9 +962,16 @@
 		const items = doc.querySelectorAll("[data-options-label]");
 		items.forEach(itemElement => {
 			const optionLabel = document.getElementById(itemElement.dataset.optionsLabel);
+			const helpIconWrapper = document.createElement("span");
 			const helpIconContainer = document.createElement("span");
 			const helpIcon = document.createElement("img");
 			helpIcon.src = HELP_ICON_URL;
+			helpIconWrapper.className = "help-icon-wrapper";
+			const labelWords = optionLabel.textContent.split(/\s+/);
+			if (labelWords.length > 1) {
+				helpIconWrapper.textContent = labelWords.pop();
+				optionLabel.textContent = labelWords.join(" ") + " ";
+			}
 			helpIconContainer.className = "help-icon";
 			helpIconContainer.onclick = () => {
 				helpContent.hidden = !helpContent.hidden;
@@ -978,7 +985,8 @@
 				}
 			};
 			helpIconContainer.appendChild(helpIcon);
-			optionLabel.appendChild(helpIconContainer);
+			helpIconWrapper.appendChild(helpIconContainer);
+			optionLabel.appendChild(helpIconWrapper);
 			const helpContent = document.createElement("div");
 			helpContent.hidden = true;
 			helpContent.className = "help-content";
