@@ -539,6 +539,13 @@ html.maximized {
         justify-content: flex-start;
     }
 
+    .side-panel .profiles {
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 8px;
+        justify-content: inherit;
+    }
+
     .profiles select {
         text-align-last: auto;
     }
@@ -546,7 +553,7 @@ html.maximized {
 
 @media (max-width:479px) {
     body {
-        min-width: 220px;
+        min-width: auto;
     }
 
     body,
