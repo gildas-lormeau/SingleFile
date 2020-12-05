@@ -296,11 +296,11 @@
 		"description": "Options page label: 'remove audio sources'"
 	},
 	"optionsDestionationSubTitle": {
-		"message": "Destination",
+		"message": "Cel",
 		"description": "Options sub-title: 'Destination'"
 	},
 	"optionsBookmarkSubTitle": {
-		"message": "Bookmarks",
+		"message": "Zakładki",
 		"description": "Options sub-title: 'Bookmarks'"
 	},
 	"optionsAutoSaveSubTitle": {
@@ -464,11 +464,11 @@
 		"description": "Options page label: 'save raw page'"
 	},
 	"optionSaveToClipboard": {
-		"message": "zapisuj do schowka",
+		"message": "kopiuj do schowka",
 		"description": "Options page label: 'copy to clipboard'"
 	},
 	"optionSaveToFilesystem": {
-		"message": "save to filesystem",
+		"message": "zapisuj do systemu plików",
 		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionAddProof": {
@@ -480,7 +480,7 @@
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionSaveToGDrive": {
-		"message": "zapisuj na Dysku Google",
+		"message": "przesyłaj na Dysk Google",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
@@ -492,7 +492,7 @@
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
 	"optionIgnoredBookmarkFolders": {
-		"message": "ignored folders",
+		"message": "ignorowane foldery",
 		"description": "Options page label: 'ignored folders'"
 	},
 	"optionsHelpLink": {
