@@ -29,6 +29,7 @@ singlefile.extension.core.bg.config = (() => {
 	const DEFAULT_PROFILE_NAME = "__Default_Settings__";
 	const DISABLED_PROFILE_NAME = "__Disabled_Settings__";
 	const REGEXP_RULE_PREFIX = "regexp:";
+	const BACKGROUND_SAVE_DEFAULT = !/Mobile.*Firefox/.test(navigator.userAgent);
 
 	const DEFAULT_CONFIG = {
 		removeHiddenElements: true,
@@ -66,7 +67,7 @@ singlefile.extension.core.bg.config = (() => {
 		removeVideoSrc: true,
 		displayInfobar: true,
 		displayStats: false,
-		backgroundSave: true,
+		backgroundSave: BACKGROUND_SAVE_DEFAULT,
 		defaultEditorMode: "normal",
 		applySystemTheme: true,
 		autoSaveDelay: 1,
