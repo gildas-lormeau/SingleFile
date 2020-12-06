@@ -440,7 +440,7 @@ a {
 }
 
 .popup-content {
-    align-self: center;
+    align-self: flex-start;
     width: 90%;
     max-width: 320px;
     margin-top: 100px;
@@ -449,10 +449,6 @@ a {
     margin-right: auto;
     background-color: white;
     box-shadow: 5px 5px #ababab;
-}
-
-#formResetContainer .popup-content {
-    align-self: flex-end;
 }
 
 .popup-content header {

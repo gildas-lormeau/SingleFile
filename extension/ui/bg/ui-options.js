@@ -218,8 +218,8 @@
 	ruleAutoSaveProfileInput.onchange = () => {
 		autoSaveProfileChanged = true;
 	};
-	rulesDeleteAllButton.addEventListener("click", async () => {
-		if (await confirm(browser.i18n.getMessage("optionsDeleteDisplayedRulesConfirm"), "flex-end")) {
+	rulesDeleteAllButton.addEventListener("click", async event => {
+		if (await confirm(browser.i18n.getMessage("optionsDeleteDisplayedRulesConfirm"), event.clientY - 100)) {
 			await browser.runtime.sendMessage({ method: "config.deleteRules", profileName: !showAllProfilesInput.checked && profileNamesInput.value });
 			await refresh();
 			await refreshExternalComponents();
@@ -276,8 +276,8 @@
 			removeLocalStorageItem("optionShowAllProfiles");
 		}
 	}, false);
-	addProfileButton.addEventListener("click", async () => {
-		const profileName = await prompt(browser.i18n.getMessage("profileAddPrompt"), "flex-start");
+	addProfileButton.addEventListener("click", async event => {
+		const profileName = await prompt(browser.i18n.getMessage("profileAddPrompt"), event.clientY + 50);
 		if (profileName) {
 			try {
 				await browser.runtime.sendMessage({ method: "config.createProfile", profileName, fromProfileName: profileNamesInput.value });
@@ -292,8 +292,8 @@
 			await refreshExternalComponents();
 		}
 	}, false);
-	deleteProfileButton.addEventListener("click", async () => {
-		if (await confirm(browser.i18n.getMessage("profileDeleteConfirm"), "flex-start")) {
+	deleteProfileButton.addEventListener("click", async event => {
+		if (await confirm(browser.i18n.getMessage("profileDeleteConfirm"), event.clientY + 50)) {
 			try {
 				await browser.runtime.sendMessage({ method: "config.deleteProfile", profileName: profileNamesInput.value });
 			} catch (error) {
@@ -304,8 +304,8 @@
 			await refreshExternalComponents();
 		}
 	}, false);
-	renameProfileButton.addEventListener("click", async () => {
-		const profileName = await prompt(browser.i18n.getMessage("profileRenamePrompt"), "flex-start", profileNamesInput.value);
+	renameProfileButton.addEventListener("click", async event => {
+		const profileName = await prompt(browser.i18n.getMessage("profileRenamePrompt"), event.clientY + 50, profileNamesInput.value);
 		if (profileName) {
 			try {
 				await browser.runtime.sendMessage({ method: "config.renameProfile", profileName: profileNamesInput.value, newProfileName: profileName });
@@ -316,8 +316,8 @@
 			await refreshExternalComponents();
 		}
 	}, false);
-	resetButton.addEventListener("click", async () => {
-		const choice = await reset();
+	resetButton.addEventListener("click", async event => {
+		const choice = await reset(event.clientY - 250);
 		if (choice) {
 			if (choice == "all") {
 				await browser.runtime.sendMessage({ method: "config.resetProfiles" });
@@ -390,10 +390,10 @@
 	autoSaveExternalSaveInput.addEventListener("click", enableExternalSave, false);
 	saveToFilesystemInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
 	saveToClipboardInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
-	addProofInput.addEventListener("click", async () => {
+	addProofInput.addEventListener("click", async event => {
 		if (addProofInput.checked) {
 			addProofInput.checked = false;
-			if (await confirm(browser.i18n.getMessage("optionsAddProofConfirm"))) {
+			if (await confirm(browser.i18n.getMessage("optionsAddProofConfirm"), event.clientY - 100)) {
 				addProofInput.checked = true;
 			}
 			await update();
@@ -607,8 +607,8 @@
 				const ruleDeleteButton = ruleElement.querySelector(".rule-delete-button");
 				const ruleUpdateButton = ruleElement.querySelector(".rule-update-button");
 				ruleDeleteButton.title = browser.i18n.getMessage("optionsDeleteRuleTooltip");
-				ruleDeleteButton.addEventListener("click", async () => {
-					if (await confirm(browser.i18n.getMessage("optionsDeleteRuleConfirm"), "flex-end")) {
+				ruleDeleteButton.addEventListener("click", async event => {
+					if (await confirm(browser.i18n.getMessage("optionsDeleteRuleConfirm"), event.clientY - 100)) {
 						await browser.runtime.sendMessage({ method: "config.deleteRule", url: rule.url });
 						await refresh();
 						await refreshExternalComponents();
@@ -880,10 +880,10 @@
 		}
 	}
 
-	async function confirm(message, position = "center") {
+	async function confirm(message, positionY) {
 		document.getElementById("confirmLabel").textContent = message;
 		document.getElementById("formConfirmContainer").style.setProperty("display", "flex");
-		document.querySelector("#formConfirmContainer .popup-content").style.setProperty("align-self", position);
+		document.querySelector("#formConfirmContainer .popup-content").style.setProperty("margin-top", positionY + "px");
 		confirmButton.focus();
 		document.body.style.setProperty("overflow-y", "hidden");
 		return new Promise(resolve => {
@@ -904,8 +904,9 @@
 		});
 	}
 
-	async function reset() {
+	async function reset(positionY) {
 		document.getElementById("formResetContainer").style.setProperty("display", "flex");
+		document.querySelector("#formResetContainer .popup-content").style.setProperty("margin-top", positionY + "px");
 		resetCancelButton.focus();
 		document.body.style.setProperty("overflow-y", "hidden");
 		return new Promise(resolve => {
@@ -927,10 +928,10 @@
 		});
 	}
 
-	async function prompt(message, position = "center", defaultValue = "") {
+	async function prompt(message, positionY, defaultValue = "") {
 		document.getElementById("promptLabel").textContent = message;
 		document.getElementById("formPromptContainer").style.setProperty("display", "flex");
-		document.querySelector("#formPromptContainer .popup-content").style.setProperty("align-self", position);
+		document.querySelector("#formPromptContainer .popup-content").style.setProperty("margin-top", positionY + "px");
 		promptInput.value = defaultValue;
 		promptInput.focus();
 		document.body.style.setProperty("overflow-y", "hidden");
