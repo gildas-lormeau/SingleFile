@@ -40,6 +40,7 @@ const args = require("yargs")
 		"browser-wait-until-fallback": true,
 		"browser-debug": false,
 		"browser-script": [],
+		"browser-stylesheet": [],
 		"browser-args": "",
 		"browser-start-minimized": false,
 		"browser-cookie": [],
@@ -100,8 +101,10 @@ const args = require("yargs")
 	.boolean("browser-wait-until-fallback")
 	.options("browser-debug", { description: "Enable debug mode (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("browser-debug")
-	.options("browser-script", { description: "Path of a script executed before the page is loaded (and all the frames)." })
+	.options("browser-script", { description: "Path of a script executed in the page (and all the frames) before it is loaded" })
 	.array("browser-script")
+	.options("browser-stylesheet", { description: "Path of a stylesheet file inserted into the page (and all the frames) after it is loaded" })
+	.array("browser-stylesheet")
 	.options("browser-args", { description: "Arguments provided as a JSON array and passed to the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.string("browser-args")
 	.options("browser-start-minimized", { description: "Minimize the browser (puppeteer)" })
@@ -233,6 +236,8 @@ args.browserCookies = cookies.map(cookieValue => {
 });
 args.browserScripts = args.browserScript;
 delete args.browserScript;
+args.browserStylesheets = args.browserStylesheet;
+delete args.browserStylesheet;
 args.crawlRewriteRules = args.crawlRewriteRule;
 delete args.crawlRewriteRule;
 Object.keys(args).filter(optionName => optionName.includes("-"))
