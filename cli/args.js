@@ -39,7 +39,6 @@ const args = require("yargs")
 		"browser-wait-until": "networkidle0",
 		"browser-wait-until-fallback": true,
 		"browser-debug": false,
-		"browser-extensions": [],
 		"browser-script": [],
 		"browser-args": "",
 		"browser-start-minimized": false,
@@ -101,8 +100,6 @@ const args = require("yargs")
 	.boolean("browser-wait-until-fallback")
 	.options("browser-debug", { description: "Enable debug mode (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("browser-debug")
-	.options("browser-extensions", { description: "List of extension paths separated by a space and relative to the 'cli' folder (webdriver-gecko, webdriver-chromium)" })
-	.array("browser-extensions")
 	.options("browser-script", { description: "Path of a script executed before the page is loaded (and all the frames)." })
 	.array("browser-script")
 	.options("browser-args", { description: "Arguments provided as a JSON array and passed to the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
