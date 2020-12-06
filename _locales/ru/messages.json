@@ -100,7 +100,7 @@
 		"description": "Button badge when the page is blocked: '🚫'"
 	},
 	"buttonBlockedTooltip": {
-		"message": "Эта страница не может быть сохранена с SingleFile",
+		"message": "Эта страница не может быть сохранена SingleFile",
 		"description": "Button title: 'This page cannot be saved with SingleFile'"
 	},
 	"buttonInitializingTooltip": {
@@ -296,11 +296,11 @@
 		"description": "Options page label: 'remove audio sources'"
 	},
 	"optionsDestionationSubTitle": {
-		"message": "Destination",
+		"message": "Место назначения",
 		"description": "Options sub-title: 'Destination'"
 	},
 	"optionsBookmarkSubTitle": {
-		"message": "Bookmarks",
+		"message": "Закладки",
 		"description": "Options sub-title: 'Bookmarks'"
 	},
 	"optionsAutoSaveSubTitle": {
@@ -464,11 +464,11 @@
 		"description": "Options page label: 'save raw page'"
 	},
 	"optionSaveToClipboard": {
-		"message": "сохранить в буфер обмена",
+		"message": "копировать в буфер обмена",
 		"description": "Options page label: 'copy to clipboard'"
 	},
 	"optionSaveToFilesystem": {
-		"message": "save to filesystem",
+		"message": "сохранить как файл",
 		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionAddProof": {
@@ -480,7 +480,7 @@
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionSaveToGDrive": {
-		"message": "сохранить на Google Drive",
+		"message": "загрузить на Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
@@ -492,7 +492,7 @@
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
 	"optionIgnoredBookmarkFolders": {
-		"message": "ignored folders",
+		"message": "игнорируемые папки",
 		"description": "Options page label: 'ignored folders'"
 	},
 	"optionsHelpLink": {
