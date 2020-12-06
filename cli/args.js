@@ -40,7 +40,7 @@ const args = require("yargs")
 		"browser-wait-until-fallback": true,
 		"browser-debug": false,
 		"browser-extensions": [],
-		"browser-scripts": [],
+		"browser-script": [],
 		"browser-args": "",
 		"browser-start-minimized": false,
 		"browser-cookie": [],
@@ -103,8 +103,8 @@ const args = require("yargs")
 	.boolean("browser-debug")
 	.options("browser-extensions", { description: "List of extension paths separated by a space and relative to the 'cli' folder (webdriver-gecko, webdriver-chromium)" })
 	.array("browser-extensions")
-	.options("browser-scripts", { description: "List of script paths separated by a space and relative to the 'cli' folder. They will be executed in all the frames." })
-	.array("browser-scripts")
+	.options("browser-script", { description: "Path of a script executed before the page is loaded (and all the frames)." })
+	.array("browser-script")
 	.options("browser-args", { description: "Arguments provided as a JSON array and passed to the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.string("browser-args")
 	.options("browser-start-minimized", { description: "Minimize the browser (puppeteer)" })
@@ -234,6 +234,9 @@ args.browserCookies = cookies.map(cookieValue => {
 		url: value[8] || undefined
 	};
 });
+const scripts = args.browserScript;
+delete args.browserScript;
+args.browserScripts = scripts;
 Object.keys(args).filter(optionName => optionName.includes("-"))
 	.forEach(optionName => delete args[optionName]);
 delete args["$0"];

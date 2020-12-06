@@ -42,8 +42,6 @@ async function run(options) {
 		urls = [options.url];
 	}
 	options.retrieveLinks = true;
-	options.browserScripts = options.browserScripts.map(path => require.resolve(path));
-
 	await singlefile.capture(urls);
 	await singlefile.finish();
 }

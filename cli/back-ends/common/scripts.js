@@ -82,7 +82,7 @@ async function readScriptFiles(paths, basePath = "../../../") {
 
 function readScriptFile(path, basePath) {
 	return new Promise((resolve, reject) =>
-		fs.readFile(require.resolve(basePath + path), (err, data) => {
+		fs.readFile(basePath ? require.resolve(basePath + path) : path, (err, data) => {
 			if (err) {
 				reject(err);
 			} else {
