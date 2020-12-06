@@ -295,6 +295,14 @@
 		"message": "移除音頻資源",
 		"description": "Options page label: 'remove audio sources'"
 	},
+	"optionsDestionationSubTitle": {
+		"message": "Destination",
+		"description": "Options sub-title: 'Destination'"
+	},
+	"optionsBookmarkSubTitle": {
+		"message": "Bookmarks",
+		"description": "Options sub-title: 'Bookmarks'"
+	},
 	"optionsAutoSaveSubTitle": {
 		"message": "自動保存",
 		"description": "Options sub-title: 'Auto-save'"
@@ -448,7 +456,7 @@
 		"description": "Options page label: 'maximum size (MB)'"
 	},
 	"optionPassReferrerOnError": {
-		"message": "pass \"Referer\" header after a cross-origin request error",
+		"message": "跨域請求失敗時添加來源地址頭信息（Referer）",
 		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
 	},
 	"optionSaveRawPage": {
@@ -457,7 +465,11 @@
 	},
 	"optionSaveToClipboard": {
 		"message": "保存到剪切板",
-		"description": "Options page label: 'save to clipboard'"
+		"description": "Options page label: 'copy to clipboard'"
+	},
+	"optionSaveToFilesystem": {
+		"message": "save to filesystem",
+		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionAddProof": {
 		"message": "添加證明文件存在的指紋",
@@ -469,7 +481,7 @@
 	},
 	"optionSaveToGDrive": {
 		"message": "保存到 Google Drive",
-		"description": "Options page label: 'save to Google Drive'"
+		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
 		"message": "將該頁面保存到一個新創建的書籤",
@@ -478,6 +490,10 @@
 	"optionReplaceBookmarkURL": {
 		"message": "將新書籤的鏈接指向已保存頁面",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
+	"optionIgnoredBookmarkFolders": {
+		"message": "ignored folders",
+		"description": "Options page label: 'ignored folders'"
 	},
 	"optionsHelpLink": {
 		"message": "幫助",
@@ -548,7 +564,7 @@
 		"description": "Label 'Disabled' of the disabled profile name in the options page"
 	},
 	"profileAddButtonTooltip": {
-		"message": "添加一個新的配置文件",
+		"message": "新增配置文件",
 		"description": "Tooltip 'Add a new profile' in the options page"
 	},
 	"profileRenameButtonTooltip": {
@@ -560,15 +576,15 @@
 		"description": "Tooltip 'Delete the profile' in the options page"
 	},
 	"profileAddPrompt": {
-		"message": "請輸入這個新的配置文件名",
+		"message": "新增配置文件",
 		"description": "Popup text 'Enter a name for this new profile' in the options page"
 	},
 	"profileDeleteConfirm": {
-		"message": "請確認是否移除所選配置文件",
+		"message": "確認刪除所選配置文件？",
 		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
 	},
 	"profileRenamePrompt": {
-		"message": "請為所選配置文件輸入新的名稱",
+		"message": "重命名配置文件",
 		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
 	},
 	"editorAddYellowNote": {

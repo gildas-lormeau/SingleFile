@@ -36,6 +36,7 @@
 	const removeScriptsLabel = document.getElementById("removeScriptsLabel");
 	const saveRawPageLabel = document.getElementById("saveRawPageLabel");
 	const saveToClipboardLabel = document.getElementById("saveToClipboardLabel");
+	const saveToFilesystemLabel = document.getElementById("saveToFilesystemLabel");
 	const addProofLabel = document.getElementById("addProofLabel");
 	const saveToGDriveLabel = document.getElementById("saveToGDriveLabel");
 	const compressHTMLLabel = document.getElementById("compressHTMLLabel");
@@ -73,6 +74,7 @@
 	const saveCreatedBookmarksLabel = document.getElementById("saveCreatedBookmarksLabel");
 	const passReferrerOnErrorLabel = document.getElementById("passReferrerOnErrorLabel");
 	const replaceBookmarkURLLabel = document.getElementById("replaceBookmarkURLLabel");
+	const ignoredBookmarkFoldersLabel = document.getElementById("ignoredBookmarkFoldersLabel");
 	const titleLabel = document.getElementById("titleLabel");
 	const userInterfaceLabel = document.getElementById("userInterfaceLabel");
 	const filenameLabel = document.getElementById("filenameLabel");
@@ -81,6 +83,8 @@
 	const stylesheetsLabel = document.getElementById("stylesheetsLabel");
 	const fontsLabel = document.getElementById("fontsLabel");
 	const otherResourcesLabel = document.getElementById("otherResourcesLabel");
+	const destinationLabel = document.getElementById("destinationLabel");
+	const bookmarksLabel = document.getElementById("bookmarksLabel");
 	const autoSaveLabel = document.getElementById("autoSaveLabel");
 	const autoSettingsLabel = document.getElementById("autoSettingsLabel");
 	const autoSettingsUrlLabel = document.getElementById("autoSettingsUrlLabel");
@@ -120,6 +124,7 @@
 	const saveToClipboardInput = document.getElementById("saveToClipboardInput");
 	const addProofInput = document.getElementById("addProofInput");
 	const saveToGDriveInput = document.getElementById("saveToGDriveInput");
+	const saveToFilesystemInput = document.getElementById("saveToFilesystemInput");
 	const compressHTMLInput = document.getElementById("compressHTMLInput");
 	const compressCSSInput = document.getElementById("compressCSSInput");
 	const loadDeferredImagesInput = document.getElementById("loadDeferredImagesInput");
@@ -151,6 +156,7 @@
 	const saveCreatedBookmarksInput = document.getElementById("saveCreatedBookmarksInput");
 	const passReferrerOnErrorInput = document.getElementById("passReferrerOnErrorInput");
 	const replaceBookmarkURLInput = document.getElementById("replaceBookmarkURLInput");
+	const ignoredBookmarkFoldersInput = document.getElementById("ignoredBookmarkFoldersInput");
 	const groupDuplicateImagesInput = document.getElementById("groupDuplicateImagesInput");
 	const infobarTemplateInput = document.getElementById("infobarTemplateInput");
 	const includeInfobarInput = document.getElementById("includeInfobarInput");
@@ -450,6 +456,7 @@
 	removeScriptsLabel.textContent = browser.i18n.getMessage("optionRemoveScripts");
 	saveRawPageLabel.textContent = browser.i18n.getMessage("optionSaveRawPage");
 	saveToClipboardLabel.textContent = browser.i18n.getMessage("optionSaveToClipboard");
+	saveToFilesystemLabel.textContent = browser.i18n.getMessage("optionSaveToFilesystem");
 	addProofLabel.textContent = browser.i18n.getMessage("optionAddProof");
 	saveToGDriveLabel.textContent = browser.i18n.getMessage("optionSaveToGDrive");
 	compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
@@ -487,6 +494,7 @@
 	saveCreatedBookmarksLabel.textContent = browser.i18n.getMessage("optionSaveCreatedBookmarks");
 	passReferrerOnErrorLabel.textContent = browser.i18n.getMessage("optionPassReferrerOnError");
 	replaceBookmarkURLLabel.textContent = browser.i18n.getMessage("optionReplaceBookmarkURL");
+	ignoredBookmarkFoldersLabel.textContent = browser.i18n.getMessage("optionIgnoredBookmarkFolders");
 	groupDuplicateImagesLabel.textContent = browser.i18n.getMessage("optionGroupDuplicateImages");
 	titleLabel.textContent = browser.i18n.getMessage("optionsTitle");
 	userInterfaceLabel.textContent = browser.i18n.getMessage("optionsUserInterfaceSubTitle");
@@ -496,6 +504,8 @@
 	stylesheetsLabel.textContent = browser.i18n.getMessage("optionsStylesheetsSubTitle");
 	fontsLabel.textContent = browser.i18n.getMessage("optionsFontsSubTitle");
 	otherResourcesLabel.textContent = browser.i18n.getMessage("optionsOtherResourcesSubTitle");
+	destinationLabel.textContent = browser.i18n.getMessage("optionsDestionationSubTitle");
+	bookmarksLabel.textContent = browser.i18n.getMessage("optionsBookmarkSubTitle");
 	autoSaveLabel.textContent = browser.i18n.getMessage("optionsAutoSaveSubTitle");
 	miscLabel.textContent = browser.i18n.getMessage("optionsMiscSubTitle");
 	helpLabel.textContent = browser.i18n.getMessage("optionsHelpLink");
@@ -634,46 +644,38 @@
 		profileNamesInput.value = selectedProfileName;
 		renameProfileButton.disabled = deleteProfileButton.disabled = profileNamesInput.value == DEFAULT_PROFILE_NAME;
 		const profileOptions = profiles[selectedProfileName];
-		removeHiddenElementsInput.checked = profileOptions.removeHiddenElements || profileOptions.saveRawPage;
-		removeHiddenElementsInput.disabled = profileOptions.saveRawPage;
+		removeHiddenElementsInput.checked = profileOptions.removeHiddenElements;
 		removeUnusedStylesInput.checked = profileOptions.removeUnusedStyles;
 		removeUnusedFontsInput.checked = profileOptions.removeUnusedFonts;
-		removeFramesInput.checked = profileOptions.removeFrames || profileOptions.saveRawPage;
-		removeFramesInput.disabled = profileOptions.saveRawPage;
+		removeFramesInput.checked = profileOptions.removeFrames;
 		removeImportsInput.checked = profileOptions.removeImports;
 		removeScriptsInput.checked = profileOptions.removeScripts;
 		saveRawPageInput.checked = profileOptions.saveRawPage;
-		saveToClipboardInput.checked = profileOptions.saveToClipboard && !profileOptions.saveToGDrive;
-		saveToClipboardInput.disabled = profileOptions.saveToGDrive;
+		saveToClipboardInput.checked = profileOptions.saveToClipboard;
 		addProofInput.checked = profileOptions.addProof;
-		saveToGDriveInput.checked = profileOptions.saveToGDrive && !profileOptions.saveToClipboard;
-		saveToGDriveInput.disabled = profileOptions.saveToClipboard;
+		saveToGDriveInput.checked = profileOptions.saveToGDrive;
+		saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !saveToClipboardInput.checked;
 		compressHTMLInput.checked = profileOptions.compressHTML;
 		compressCSSInput.checked = profileOptions.compressCSS;
-		loadDeferredImagesInput.checked = profileOptions.loadDeferredImages && !profileOptions.saveRawPage;
-		loadDeferredImagesInput.disabled = profileOptions.saveRawPage;
+		loadDeferredImagesInput.checked = profileOptions.loadDeferredImages;
 		loadDeferredImagesMaxIdleTimeInput.value = profileOptions.loadDeferredImagesMaxIdleTime;
-		loadDeferredImagesKeepZoomLevelInput.checked = profileOptions.loadDeferredImagesKeepZoomLevel && !profileOptions.saveRawPage;
-		loadDeferredImagesKeepZoomLevelInput.disabled = !profileOptions.loadDeferredImages || profileOptions.saveRawPape;
-		loadDeferredImagesMaxIdleTimeInput.disabled = !profileOptions.loadDeferredImages || profileOptions.saveRawPage;
+		loadDeferredImagesKeepZoomLevelInput.checked = profileOptions.loadDeferredImagesKeepZoomLevel;
+		loadDeferredImagesKeepZoomLevelInput.disabled = !profileOptions.loadDeferredImages;
+		loadDeferredImagesMaxIdleTimeInput.disabled = !profileOptions.loadDeferredImages;
 		contextMenuEnabledInput.checked = profileOptions.contextMenuEnabled;
 		filenameTemplateInput.value = profileOptions.filenameTemplate;
 		filenameMaxLengthInput.value = profileOptions.filenameMaxLength;
-		filenameTemplateInput.disabled = profileOptions.saveToClipboard;
 		shadowEnabledInput.checked = profileOptions.shadowEnabled;
 		maxResourceSizeEnabledInput.checked = profileOptions.maxResourceSizeEnabled;
 		maxResourceSizeInput.value = profileOptions.maxResourceSize;
 		maxResourceSizeInput.disabled = !profileOptions.maxResourceSizeEnabled;
 		confirmFilenameInput.checked = profileOptions.confirmFilename;
-		confirmFilenameInput.disabled = profileOptions.saveToClipboard;
 		filenameConflictActionInput.value = profileOptions.filenameConflictAction;
-		filenameConflictActionInput.disabled = profileOptions.saveToClipboard || profileOptions.saveToGDrive;
 		removeAudioSrcInput.checked = profileOptions.removeAudioSrc;
 		removeVideoSrcInput.checked = profileOptions.removeVideoSrc;
 		displayInfobarInput.checked = profileOptions.displayInfobar;
 		displayStatsInput.checked = profileOptions.displayStats;
 		backgroundSaveInput.checked = profileOptions.backgroundSave;
-		backgroundSaveInput.disabled = profileOptions.saveToGDrive;
 		autoSaveDelayInput.value = profileOptions.autoSaveDelay;
 		autoSaveDelayInput.disabled = !profileOptions.autoSaveLoadOrUnload && !profileOptions.autoSaveLoad;
 		autoSaveLoadInput.checked = !profileOptions.autoSaveLoadOrUnload && profileOptions.autoSaveLoad;
@@ -693,8 +695,10 @@
 		removeAlternativeMediasInput.checked = profileOptions.removeAlternativeMedias;
 		saveCreatedBookmarksInput.checked = profileOptions.saveCreatedBookmarks;
 		passReferrerOnErrorInput.checked = profileOptions.passReferrerOnError;
-		replaceBookmarkURLInput.checked = profileOptions.saveCreatedBookmarks && profileOptions.backgroundSave && profileOptions.replaceBookmarkURL;
-		replaceBookmarkURLInput.disabled = !profileOptions.saveCreatedBookmarks || !profileOptions.backgroundSave || profileOptions.saveToClipboard || profileOptions.saveToGDrive;
+		replaceBookmarkURLInput.checked = profileOptions.replaceBookmarkURL;
+		replaceBookmarkURLInput.disabled = !profileOptions.saveCreatedBookmarks;
+		ignoredBookmarkFoldersInput.value = profileOptions.ignoredBookmarkFolders.map(folder => folder.replace(/,/g, "\\,")).join(","); // eslint-disable-line no-useless-escape
+		ignoredBookmarkFoldersInput.disabled = !profileOptions.saveCreatedBookmarks;
 		infobarTemplateInput.value = profileOptions.infobarTemplate;
 		includeInfobarInput.checked = profileOptions.includeInfobar;
 		confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
@@ -704,12 +708,6 @@
 		defaultEditorModeInput.value = profileOptions.defaultEditorMode;
 		applySystemThemeInput.checked = profileOptions.applySystemTheme;
 		warnUnsavedPageInput.checked = profileOptions.warnUnsavedPage;
-		removeFramesInput.disabled = saveRawPageInput.checked;
-		removeFramesInput.checked = removeFramesInput.checked || saveRawPageInput.checked;
-		loadDeferredImagesInput.disabled = saveRawPageInput.checked;
-		if (saveRawPageInput.checked) {
-			loadDeferredImagesInput.checked = false;
-		}
 	}
 
 	function getProfileText(profileName) {
@@ -717,7 +715,11 @@
 	}
 
 	async function update() {
-		await pendingSave;
+		try {
+			await pendingSave;
+		} catch (error) {
+			// ignored
+		}
 		pendingSave = browser.runtime.sendMessage({
 			method: "config.updateProfile",
 			profileName: profileNamesInput.value,
@@ -763,6 +765,7 @@
 				saveCreatedBookmarks: saveCreatedBookmarksInput.checked,
 				passReferrerOnError: passReferrerOnErrorInput.checked,
 				replaceBookmarkURL: replaceBookmarkURLInput.checked,
+				ignoredBookmarkFolders: ignoredBookmarkFoldersInput.value.replace(/([^\\]),/g, "$1 ,").split(/[^\\],/).map(folder => folder.replace(/\\,/g, ",")),
 				groupDuplicateImages: groupDuplicateImagesInput.checked,
 				infobarTemplate: infobarTemplateInput.value,
 				includeInfobar: includeInfobarInput.checked,
@@ -775,7 +778,11 @@
 				warnUnsavedPage: warnUnsavedPageInput.checked
 			}
 		});
-		await pendingSave;
+		try {
+			await pendingSave;
+		} catch (error) {
+			// ignored
+		}
 	}
 
 	async function refreshExternalComponents() {
@@ -805,6 +812,7 @@
 					await disableOption();
 				}
 			} catch (error) {
+				saveCreatedBookmarksInput.checked = false;
 				await disableOption();
 			}
 		} else {
@@ -954,9 +962,16 @@
 		const items = doc.querySelectorAll("[data-options-label]");
 		items.forEach(itemElement => {
 			const optionLabel = document.getElementById(itemElement.dataset.optionsLabel);
+			const helpIconWrapper = document.createElement("span");
 			const helpIconContainer = document.createElement("span");
 			const helpIcon = document.createElement("img");
 			helpIcon.src = HELP_ICON_URL;
+			helpIconWrapper.className = "help-icon-wrapper";
+			const labelWords = optionLabel.textContent.split(/\s+/);
+			if (labelWords.length > 1) {
+				helpIconWrapper.textContent = labelWords.pop();
+				optionLabel.textContent = labelWords.join(" ") + " ";
+			}
 			helpIconContainer.className = "help-icon";
 			helpIconContainer.onclick = () => {
 				helpContent.hidden = !helpContent.hidden;
@@ -970,7 +985,8 @@
 				}
 			};
 			helpIconContainer.appendChild(helpIcon);
-			optionLabel.appendChild(helpIconContainer);
+			helpIconWrapper.appendChild(helpIconContainer);
+			optionLabel.appendChild(helpIconWrapper);
 			const helpContent = document.createElement("div");
 			helpContent.hidden = true;
 			helpContent.className = "help-content";

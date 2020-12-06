@@ -932,11 +932,11 @@ table {
 			const file = event.dataTransfer.files[0];
 			event.preventDefault();
 			const content = new TextDecoder().decode(await file.arrayBuffer());
-			await init(content, file.name);
+			await init(content, { filename: file.name });
 		}
 	};
 
-	async function init(content, filename) {
+	async function init(content, { filename, reset } = {}) {
 		await initConstants();
 		const initScriptContentMatch = content.match(/<script data-template-shadow-root.*<\/script>/);
 		if (initScriptContentMatch && initScriptContentMatch[0]) {
@@ -981,6 +981,7 @@ table {
 				title: document.title,
 				icon: iconElement && iconElement.href,
 				filename,
+				reset,
 				formatPageEnabled: isProbablyReaderable(document)
 			}), "*");
 		}
@@ -1679,7 +1680,7 @@ table {
 	async function cancelFormatPage() {
 		if (previousContent) {
 			const contentEditable = document.body.contentEditable;
-			await init(previousContent);
+			await init(previousContent, { reset: true });
 			document.body.contentEditable = contentEditable;
 			onUpdate(false);
 			previousContent = null;
@@ -1843,8 +1844,10 @@ table {
 							shadowRoot.innerHTML = element.innerHTML;
 							element.remove();
 						} catch (error) {}						
-						processNode(shadowRoot);
-					}
+						if (shadowRoot) {
+							processNode(shadowRoot);
+						}
+					}					
 				})
 			};
 			const FORBIDDEN_TAG_NAMES = ${JSON.stringify(FORBIDDEN_TAG_NAMES)};

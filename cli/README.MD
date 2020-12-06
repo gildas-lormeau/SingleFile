@@ -3,8 +3,41 @@
 ## Introduction
 
 SingleFile can be launched from the command line by running it into a (headless) browser. It runs through Node.js as a standalone script injected into the web page instead of being embedded into a WebExtension. To connect to the browser, it can use [Puppeteer](https://github.com/GoogleChrome/puppeteer) or [Selenium WebDriver](https://www.npmjs.com/package/selenium-webdriver). Alternatively, it can also emulate a browser with JavaScript disabled by using [jsdom](https://github.com/jsdom/jsdom).
+  
+## Installation with Docker
 
-## Install
+- Installation from Docker Hub
+
+  `docker pull capsulecode/singlefile`
+  
+  `docker tag capsulecode/singlefile singlefile`
+  
+- Manual installation
+
+  `git clone --depth 1 --recursive https://github.com/gildas-lormeau/SingleFile.git`
+  
+  `cd SingleFile/cli`
+
+  `docker build --no-cache -t singlefile .`
+
+- Run
+
+  `docker run singlefile "https://www.wikipedia.org"`
+  
+- Run and redirect the result into a file
+
+  `docker run singlefile "https://www.wikipedia.org" > wikipedia.html`
+
+- Run and mount a volume to get the saved file in the current directory
+
+  `docker run -v %cd%:/out singlefile "https://www.wikipedia.org" wikipedia.html` (Windows)
+
+  `docker run -v $(pwd):/out singlefile "https://www.wikipedia.org" wikipedia.html` (Linux/UNIX)
+
+
+- An alternative docker file can be found here https://github.com/screenbreak/SingleFile-dockerized. It allows you to save pages from the command line interface or through an HTTP server.
+
+## Manual installation
 
 - Make sure Chrome or Firefox is installed and the executable can be found through the `PATH` environment variable. Otherwise you will need to set the `--browser-executable-path` option to help SingleFile locating it. As an alternative to Chrome and Firefox, you can use jsdom by setting the `--back-end` option to `jsdom`.
 
@@ -83,22 +116,6 @@ SingleFile can be launched from the command line by running it into a (headless)
  - If the error message `UnhandledPromiseRejectionWarning: Error: Browser is not downloaded. Run "npm install" or "yarn install" at ChromeLauncher.launch` is displayed, it probably means that `single-file` was not able to find the executable of the browser. Using the option `--browser-executable-path` to pass to `single-file` the complete path of the executable fixes this issue.
  
   - If saving a page takes an unusually long time, this may be due to a timeout error that was automatically recovered. Setting `--browser-wait-until` to a lower value (e.g. `networkidle0` or `load` instead of `networkidle2`) fixes this issue.
-  
-## Docker
-
-- Build
-
-  `docker build -t singlefile .`
-  
-- Run
-
-  `docker run singlefile "https://www.wikipedia.org"`
-  
-- Run and pipe the result into a file
-
-  `docker run singlefile "https://www.wikipedia.org" > wikipedia.html`
-
-- An alternative docker file can be found here https://github.com/screenbreak/SingleFile-dockerized. It allows you to save pages from the command line interface or through an HTTP server.
 
 ## License
 

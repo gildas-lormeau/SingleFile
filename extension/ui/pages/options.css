@@ -1,7 +1,12 @@
+* {
+    box-sizing: content-box;
+}
+
 body {
     background-color: #fff;
     font-family: sans-serif;
     font-size: 12px;
+    min-width: 480px;
     max-width: 1024px;
     width: 100%;
     margin: 0;
@@ -76,9 +81,11 @@ input.large-input {
 }
 
 h3 {
+    display: flex;
     padding-left: 8px;
     padding-top: 10px;
     margin-top: 4px;
+    margin-right: 10px;
     min-height: 28px;
 }
 
@@ -102,11 +109,19 @@ h3 a {
 }
 
 .profiles {
-    float: right;
-    margin-right: 12px;
-    position: relative;
-    top: 3px;
-    max-width: calc(100% - 115px);
+    display: flex;
+    flex: 0 1 auto;
+    margin-left: 8px;
+    justify-content: flex-end;
+}
+
+.options-title {
+    flex: 1;
+    white-space: nowrap;
+}
+
+.help-icon-wrapper {
+    white-space: nowrap;
 }
 
 .help-icon {
@@ -165,23 +180,28 @@ h3 a {
     margin: 2px;
 }
 
+.rules-table-container * {
+    box-sizing: border-box;
+}
+
 .rules-table-container {
-    width: 100%;
+    width: calc(100% - 10px);
     border-spacing: 0;
     border-color: rgb(191, 191, 191);
     border-style: solid;
     border-width: 1px;
     margin-top: 24px;
+    margin-left: 6px;
 }
 
 .rules-table-container .tr {
     height: 26px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 58px;
+    grid-template-columns: 1fr 1fr 1fr 64px;
 }
 
 .rules-table-container.compact .tr {
-    grid-template-columns: 1fr 1fr 58px;
+    grid-template-columns: 1fr 1fr 64px;
 }
 
 .rules-table-container.compact .tr .rule-autosave-profile {
@@ -234,8 +254,9 @@ h3 a {
 .rules-table-container button {
     padding: 0;
     margin: 0;
-    width: 22px;
     text-align: center;
+    margin-left: 4px;
+    min-width: 22px;
 }
 
 .rules-table-container .thead .tr {
@@ -270,7 +291,8 @@ h3 a {
 }
 
 .profiles select {
-    max-width: calc(100% - 78px);
+    width: calc(100% - 86px);
+    text-align-last: right;
 }
 
 .rules-table-container select {
@@ -354,6 +376,7 @@ a {
 
 .option.vertical label {
     align-self: flex-start;
+    min-height: 24px;
 }
 
 .option.vertical input {
@@ -486,7 +509,7 @@ a {
     margin-top: 8px;
 }
 
-.maximized main {
+.maximized body>main {
     margin: 0px;
     border: solid 1px rgb(191, 191, 191);
     background-color: #fbfbfb;
@@ -497,8 +520,8 @@ html.maximized {
 }
 
 .maximized .profiles {
+    position: relative;
     top: -4px;
-    max-width: calc(100% - 90px);
 }
 
 .maximized #helpLabel {
@@ -507,7 +530,35 @@ html.maximized {
     padding-top: 0;
 }
 
-@media (max-width:400px) {
+@media (max-width:279px) {
+    h3 {
+        flex-direction: column;
+    }
+
+    .profiles, .maximized .profiles {
+        position: static;
+        margin-top: 8px;
+        margin-left: 16px;
+        max-width: 100%;
+        justify-content: flex-start;
+    }
+
+    .side-panel .profiles {
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 8px;
+        justify-content: inherit;
+    }
+
+    .profiles select {
+        text-align-last: auto;
+    }
+}
+
+@media (max-width:479px) {
+    body {
+        min-width: auto;
+    }
 
     body,
     input,
@@ -542,7 +593,7 @@ html.maximized {
     }
 
     .side-panel,
-    .side-panel main,
+    .side-panel body>main,
     .side-panel details>summary,
     .side-panel button,
     .side-panel select,
@@ -550,7 +601,7 @@ html.maximized {
         background-color: #38383d;
     }
 
-    .maximized main {
+    .maximized body>main {
         border-color: rgb(81, 81, 81);
     }
 

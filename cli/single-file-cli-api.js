@@ -24,6 +24,7 @@
 /* global require, module, URL */
 
 const fs = require("fs");
+const path = require("path");
 const VALID_URL_TEST = /^(https?|file):\/\//;
 
 const STATE_PROCESSING = "processing";
@@ -201,15 +202,21 @@ function getHostURL(url) {
 
 async function capturePage(options) {
 	try {
+		let filename;
 		const pageData = await backend.getPageData(options);
 		if (options.output) {
-			fs.writeFileSync(getFilename(options.output), pageData.content);
+			filename = getFilename(options.output, options);
+		} else if (options.dumpContent) {
+			console.log(pageData.content); // eslint-disable-line no-console
 		} else {
-			if (options.filenameTemplate && pageData.filename) {
-				fs.writeFileSync(getFilename(pageData.filename), pageData.content);
-			} else {
-				console.log(pageData.content); // eslint-disable-line no-console
+			filename = getFilename(pageData.filename, options);
+		}
+		if (filename) {
+			const dirname = path.dirname(filename);
+			if (dirname) {
+				fs.mkdirSync(dirname, { recursive: true });
 			}
+			fs.writeFileSync(filename, pageData.content);
 		}
 		return pageData;
 	} catch (error) {
@@ -222,19 +229,27 @@ async function capturePage(options) {
 	}
 }
 
-function getFilename(filename, index = 1) {
-	let newFilename = filename;
-	if (index > 1) {
+function getFilename(filename, options, index = 1) {
+	let outputDirectory = options.outputDirectory;
+	if (outputDirectory && !outputDirectory.endsWith("/")) {
+		outputDirectory += "/";
+	}
+	let newFilename = outputDirectory + filename;
+	if (options.filenameConflictAction == "overwrite") {
+		return filename;
+	} else if (options.filenameConflictAction == "uniquify" && index > 1) {
 		const regExpMatchExtension = /(\.[^.]+)$/;
 		const matchExtension = newFilename.match(regExpMatchExtension);
 		if (matchExtension && matchExtension[1]) {
-			newFilename = newFilename.replace(regExpMatchExtension, " - " + index + matchExtension[1]);
+			newFilename = newFilename.replace(regExpMatchExtension, " (" + index + matchExtension[1]) + ")";
 		} else {
-			newFilename += " - " + index;
+			newFilename += " (" + index + ")";
 		}
 	}
 	if (fs.existsSync(newFilename)) {
-		return getFilename(filename, index + 1);
+		if (options.filenameConflictAction != "skip") {
+			return getFilename(filename, options, index + 1);
+		}
 	} else {
 		return newFilename;
 	}

@@ -99,6 +99,9 @@ singlefile.extension.core.bg.business = (() => {
 			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 			tabOptions.autoClose = true;
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
+			if (tabOptions.passReferrerOnError) {
+				await singlefile.extension.core.bg.requests.enableReferrerOnError();
+			}
 			addTask({
 				tab: { url },
 				status: TASK_PENDING_STATE,
