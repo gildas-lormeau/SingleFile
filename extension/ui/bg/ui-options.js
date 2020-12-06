@@ -388,11 +388,8 @@
 	saveCreatedBookmarksInput.addEventListener("click", saveCreatedBookmarks, false);
 	passReferrerOnErrorInput.addEventListener("click", passReferrerOnError, false);
 	autoSaveExternalSaveInput.addEventListener("click", enableExternalSave, false);
-	saveToGDriveInput.addEventListener("click", async () => {
-		if (!saveToGDriveInput.checked) {
-			await browser.runtime.sendMessage({ method: "downloads.disableGDrive" });
-		}
-	}, false);
+	saveToFilesystemInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
+	saveToClipboardInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
 	addProofInput.addEventListener("click", async () => {
 		if (addProofInput.checked) {
 			addProofInput.checked = false;
