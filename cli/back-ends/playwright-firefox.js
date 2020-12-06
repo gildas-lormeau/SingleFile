@@ -35,11 +35,13 @@ exports.initialize = async options => {
 };
 
 exports.getPageData = async options => {
-	let page;
+	let page, context;
 	try {
-		page = await browser.newPage({
+		context = await browser.newContext({
 			bypassCSP: options.browserBypassCSP === undefined || options.browserBypassCSP
 		});
+		await setContextOptions(context, options);
+		page = await context.newPage();
 		await setPageOptions(page, options);
 		return await getPageData(page, options);
 	} finally {
@@ -65,6 +67,12 @@ function getBrowserOptions(options) {
 		browserOptions.executablePath = options.browserExecutablePath || "firefox";
 	}
 	return browserOptions;
+}
+
+async function setContextOptions(context, options) {
+	if (options.browserCookies && options.browserCookies.length) {
+		await context.addCookies(options.browserCookies);
+	}
 }
 
 async function setPageOptions(page, options) {

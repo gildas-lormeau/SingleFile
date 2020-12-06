@@ -98,10 +98,23 @@ async function getPageData(driver, options) {
 		await driver.sleep(3000);
 	}
 	await driver.get(options.url);
-	scripts = scripts.replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||");
 	while (await driver.getCurrentUrl() == "about:blank") {
 		// do nothing
 	}
+	if (options.browserCookies) {
+		await Promise.all(options.browserCookies.map(cookie => {
+			if (cookie.expires) {
+				cookie.expiry = cookie.expires;
+			}
+			return driver.manage().addCookie(cookie);
+		}));
+		await driver.get("about:blank");
+		await driver.get(options.url);
+		while (await driver.getCurrentUrl() == "about:blank") {
+			// do nothing
+		}
+	}
+	scripts = scripts.replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||");
 	await driver.executeScript(scripts);
 	if (options.browserWaitUntil != "domcontentloaded") {
 		let scriptPromise;

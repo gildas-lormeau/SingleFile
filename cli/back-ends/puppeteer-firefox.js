@@ -88,6 +88,9 @@ async function setPageOptions(page, options) {
 			// ignored
 		}
 	}
+	if (options.browserCookies && options.browserCookies.length) {
+		await page.setCookie(...options.browserCookies);
+	}
 }
 
 async function getPageData(browser, page, options) {

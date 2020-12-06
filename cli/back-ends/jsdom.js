@@ -34,7 +34,7 @@ exports.initialize = async () => { };
 exports.getPageData = async options => {
 	let win;
 	try {
-		const dom = await JSDOM.fromURL(options.url, getBrowserOptions(options));
+		const dom = await JSDOM.fromURL(options.url, await getBrowserOptions(options));
 		win = dom.window;
 		return await getPageData(win, options);
 	} finally {
@@ -104,7 +104,7 @@ async function getPageData(win, options) {
 	}
 }
 
-function getBrowserOptions(options) {
+async function getBrowserOptions(options) {
 	class ResourceLoader extends jsdom.ResourceLoader {
 		_getRequestOptions(fetchOptions) {
 			const requestOptions = super._getRequestOptions(fetchOptions);
@@ -129,6 +129,31 @@ function getBrowserOptions(options) {
 			window.outerWidth = window.innerWidth = options.browserWidth;
 			window.outerHeight = window.innerHeight = options.browserHeight;
 		};
+	}
+	if (options.browserCookies && options.browserCookies.length) {
+		jsdomOptions.cookieJar = new jsdom.CookieJar();
+		await Promise.all(options.browserCookies.map(cookie => {
+			let cookieString = cookie.name + "=" + cookie.value;
+			if (cookie.path) {
+				cookieString += ";path=" + cookie.path;
+			}
+			if (cookie.domain) {
+				cookieString += ";domain=" + cookie.domain;
+			}
+			if (cookie.expires) {
+				cookieString += ";max-age=" + cookie.expires;
+			}
+			if (cookie.secure) {
+				cookieString += ";secure";
+			}
+			if (cookie.sameSite) {
+				cookieString += ";samesite=" + options.sameSite;
+			}
+			const cookieOptions = {
+				http: Boolean(cookie.httpOnly)
+			};
+			return new Promise((resolve, reject) => jsdomOptions.cookieJar.setCookie(cookieString, options.url, cookieOptions, error => error ? reject(error) : resolve()));
+		}));
 	}
 	return jsdomOptions;
 }

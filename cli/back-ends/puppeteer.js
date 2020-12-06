@@ -96,6 +96,9 @@ async function setPageOptions(page, options) {
 		const { windowId } = await session.send("Browser.getWindowForTarget");
 		await session.send("Browser.setWindowBounds", { windowId, bounds: { windowState: "minimized" } });
 	}
+	if (options.browserCookies && options.browserCookies.length) {
+		await page.setCookie(...options.browserCookies);
+	}
 }
 
 async function getPageData(browser, page, options) {

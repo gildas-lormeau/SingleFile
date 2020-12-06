@@ -43,6 +43,7 @@ const args = require("yargs")
 		"browser-scripts": [],
 		"browser-args": "",
 		"browser-start-minimized": false,
+		"browser-cookie": [],
 		"compress-CSS": false,
 		"compress-HTML": true,
 		"dump-content": false,
@@ -108,6 +109,8 @@ const args = require("yargs")
 	.string("browser-args")
 	.options("browser-start-minimized", { description: "Minimize the browser (puppeteer)" })
 	.boolean("browser-start-minimized")
+	.options("browser-cookie", { description: "Ordered list of cookie parameters separated by a comma: name,value,domain,path,expires,httpOnly,secure,sameSite,url (puppeteer, webdriver-gecko, webdriver-chromium, jsdom)" })
+	.array("browser-cookie")
 	.options("compress-CSS", { description: "Compress CSS stylesheets" })
 	.boolean("compress-CSS")
 	.options("compress-HTML", { description: "Compress HTML content" })
@@ -214,6 +217,22 @@ headers.forEach(header => {
 	if (matchedHeader.length == 3) {
 		args.httpHeaders[matchedHeader[1].trim()] = matchedHeader[2].trimLeft();
 	}
+});
+const cookies = args.browserCookie;
+delete args.browserCookie;
+args.browserCookies = cookies.map(cookieValue => {
+	const value = cookieValue.split(/(?<!\\),/);
+	return {
+		name: value[0],
+		value: value[1],
+		domain: value[2] || undefined,
+		path: value[3] || undefined,
+		expires: value[4] && Number(value[4]) || undefined,
+		httpOnly: value[5] && value[5] == "true" || undefined,
+		secure: value[6] && value[5] == "true" || undefined,
+		sameSite: value[7] || undefined,
+		url: value[8] || undefined
+	};
 });
 Object.keys(args).filter(optionName => optionName.includes("-"))
 	.forEach(optionName => delete args[optionName]);
