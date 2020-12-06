@@ -79,7 +79,7 @@ const args = require("yargs")
 		"crawl-max-depth": 1,
 		"crawl-external-links-max-depth": 1,
 		"crawl-replace-urls": false,
-		"crawl-rewrite-rules": [],
+		"crawl-rewrite-rule": [],
 		"output-directory": ""
 	})
 	.options("back-end", { description: "Back-end to use" })
@@ -132,8 +132,8 @@ const args = require("yargs")
 	.number("crawl-external-links-max-depth")
 	.options("crawl-replace-urls", { description: "Replace URLs of saved pages with relative paths of saved pages on the filesystem" })
 	.boolean("crawl-replace-urls")
-	.options("crawl-rewrite-rules", { description: "List of rewrite rules used to rewrite URLs of internal and external links" })
-	.array("crawl-rewrite-rules")
+	.options("crawl-rewrite-rule", { description: "Rewrite rule used to rewrite URLs of crawled pages" })
+	.array("crawl-rewrite-rule")
 	.options("dump-content", { description: "Dump the content of the processed page in the console" })
 	.boolean("dump-content")
 	.options("error-file")
@@ -231,9 +231,10 @@ args.browserCookies = cookies.map(cookieValue => {
 		url: value[8] || undefined
 	};
 });
-const scripts = args.browserScript;
+args.browserScripts = args.browserScript;
 delete args.browserScript;
-args.browserScripts = scripts;
+args.crawlRewriteRules = args.crawlRewriteRule;
+delete args.crawlRewriteRule;
 Object.keys(args).filter(optionName => optionName.includes("-"))
 	.forEach(optionName => delete args[optionName]);
 delete args["$0"];
