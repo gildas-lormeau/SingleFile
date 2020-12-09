@@ -296,11 +296,11 @@
 		"description": "Options page label: 'remove audio sources'"
 	},
 	"optionsDestionationSubTitle": {
-		"message": "Destination",
+		"message": "目的地",
 		"description": "Options sub-title: 'Destination'"
 	},
 	"optionsBookmarkSubTitle": {
-		"message": "Bookmarks",
+		"message": "書籤",
 		"description": "Options sub-title: 'Bookmarks'"
 	},
 	"optionsAutoSaveSubTitle": {
@@ -468,7 +468,7 @@
 		"description": "Options page label: 'copy to clipboard'"
 	},
 	"optionSaveToFilesystem": {
-		"message": "save to filesystem",
+		"message": "保存到文件系統",
 		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionAddProof": {
@@ -484,7 +484,7 @@
 		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveCreatedBookmarks": {
-		"message": "將該頁面保存到一個新創建的書籤",
+		"message": "創建新書籤時保存其對應頁面",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionReplaceBookmarkURL": {
@@ -492,7 +492,7 @@
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
 	"optionIgnoredBookmarkFolders": {
-		"message": "ignored folders",
+		"message": "忽略文件夾",
 		"description": "Options page label: 'ignored folders'"
 	},
 	"optionsHelpLink": {
