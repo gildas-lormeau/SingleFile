@@ -300,7 +300,7 @@
 		"description": "Options sub-title: 'Destination'"
 	},
 	"optionsBookmarkSubTitle": {
-		"message": "Bookmarks",
+		"message": "ブックマーク",
 		"description": "Options sub-title: 'Bookmarks'"
 	},
 	"optionsAutoSaveSubTitle": {
