@@ -49,32 +49,19 @@ singlefile.extension.core.bg.business = (() => {
 	let currentTaskId = 0, maxParallelWorkers;
 
 	return {
-		isSavingTab: tab => Boolean(tasks.find(taskInfo => taskInfo.tab.id == tab.id)),
+		isSavingTab,
 		saveTabs,
 		saveUrls,
 		saveSelectedLinks,
 		cancelTab,
-		cancelTask: taskId => cancelTask(tasks.find(taskInfo => taskInfo.id == taskId)),
-		cancelAllTasks: () => Array.from(tasks).forEach(cancelTask),
-		getTasksInfo: () => tasks.map(mapTaskInfo),
-		getTaskInfo: taskId => tasks.find(taskInfo => taskInfo.id == taskId),
-		setCancelCallback: (taskId, cancelCallback) => {
-			const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
-			if (taskInfo) {
-				taskInfo.cancel = cancelCallback;
-			}
-		},
+		cancelTask,
+		cancelAllTasks,
+		getTasksInfo,
+		getTaskInfo,
+		setCancelCallback,
 		openEditor,
-		onSaveEnd: taskId => {
-			const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
-			if (taskInfo) {
-				if (taskInfo.options.autoClose && !taskInfo.cancelled) {
-					singlefile.extension.core.bg.tabs.remove(taskInfo.tab.id);
-				}
-				taskInfo.done();
-			}
-		},
-		onInit: tab => cancelTab(tab.id),
+		onSaveEnd,
+		onInit,
 		onTabRemoved: cancelTab
 	};
 
@@ -235,11 +222,52 @@ singlefile.extension.core.bg.business = (() => {
 			error.message.startsWith(ERROR_EDITOR_PAGE_CHROMIUM + JSON.stringify(singlefile.extension.core.bg.editor.EDITOR_URL));
 	}
 
-	function cancelTab(tabId) {
-		Array.from(tasks).filter(taskInfo => taskInfo.tab.id == tabId && !taskInfo.options.autoSave).forEach(cancelTask);
+	function isSavingTab(tab) {
+		return Boolean(tasks.find(taskInfo => taskInfo.tab.id == tab.id));
 	}
 
-	function cancelTask(taskInfo) {
+	function onInit(tab) {
+		cancelTab(tab.id);
+	}
+
+	function onSaveEnd(taskId) {
+		const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
+		if (taskInfo) {
+			if (taskInfo.options.autoClose && !taskInfo.cancelled) {
+				singlefile.extension.core.bg.tabs.remove(taskInfo.tab.id);
+			}
+			taskInfo.done();
+		}
+	}
+
+	function setCancelCallback(taskId, cancelCallback) {
+		const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
+		if (taskInfo) {
+			taskInfo.cancel = cancelCallback;
+		}
+	}
+
+	function cancelTab(tabId) {
+		Array.from(tasks).filter(taskInfo => taskInfo.tab.id == tabId && !taskInfo.options.autoSave).forEach(cancel);
+	}
+
+	function cancelTask(taskId) {
+		cancel(tasks.find(taskInfo => taskInfo.id == taskId));
+	}
+
+	function cancelAllTasks() {
+		Array.from(tasks).forEach(cancel);
+	}
+
+	function getTasksInfo() {
+		return tasks.map(mapTaskInfo);
+	}
+
+	function getTaskInfo(taskId) {
+		return tasks.find(taskInfo => taskInfo.id == taskId);
+	}
+
+	function cancel(taskInfo) {
 		const tabId = taskInfo.tab.id;
 		taskInfo.cancelled = true;
 		singlefile.extension.core.bg.tabs.sendMessage(tabId, {

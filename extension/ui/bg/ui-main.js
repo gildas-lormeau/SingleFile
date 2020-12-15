@@ -26,46 +26,70 @@
 singlefile.extension.ui.bg.main = (() => {
 
 	return {
-		onMessage(message, sender) {
-			if (message.method.endsWith(".refreshMenu")) {
-				return singlefile.extension.ui.bg.menus.onMessage(message, sender);
-			} else {
-				return singlefile.extension.ui.bg.button.onMessage(message, sender);
-			}
-		},
-		async refreshTab(tab) {
-			return Promise.all([singlefile.extension.ui.bg.menus.refreshTab(tab), singlefile.extension.ui.bg.button.refreshTab(tab)]);
-		},
-		onForbiddenDomain(tab) {
-			singlefile.extension.ui.bg.button.onForbiddenDomain(tab);
-		},
-		onStart(tabId, step, autoSave) {
-			singlefile.extension.ui.bg.button.onStart(tabId, step, autoSave);
-		},
-		onError(tabId) {
-			singlefile.extension.ui.bg.button.onError(tabId);
-		},
-		onEdit(tabId) {
-			singlefile.extension.ui.bg.button.onEdit(tabId);
-		},
-		onEnd(tabId, autoSave) {
-			singlefile.extension.ui.bg.button.onEnd(tabId, autoSave);
-		},
-		onCancelled(tabId) {
-			singlefile.extension.ui.bg.button.onCancelled(tabId);
-		},
-		onUploadProgress(tabId, index, maxIndex) {
-			singlefile.extension.ui.bg.button.onUploadProgress(tabId, index, maxIndex);
-		},
-		onTabCreated(tab) {
-			singlefile.extension.ui.bg.menus.onTabCreated(tab);
-		},
-		onTabActivated(tab) {
-			singlefile.extension.ui.bg.menus.onTabActivated(tab);
-		},
-		onInit(tab) {
-			singlefile.extension.ui.bg.menus.onInit(tab);
-		}
+		onMessage,
+		refreshTab,
+		onForbiddenDomain,
+		onStart,
+		onError,
+		onEdit,
+		onEnd,
+		onCancelled,
+		onUploadProgress,
+		onTabCreated,
+		onTabActivated,
+		onInit
 	};
+
+	function onMessage(message, sender) {
+		if (message.method.endsWith(".refreshMenu")) {
+			return singlefile.extension.ui.bg.menus.onMessage(message, sender);
+		} else {
+			return singlefile.extension.ui.bg.button.onMessage(message, sender);
+		}
+	}
+
+	async function refreshTab(tab) {
+		return Promise.all([singlefile.extension.ui.bg.menus.refreshTab(tab), singlefile.extension.ui.bg.button.refreshTab(tab)]);
+	}
+
+	function onForbiddenDomain(tab) {
+		singlefile.extension.ui.bg.button.onForbiddenDomain(tab);
+	}
+
+	function onStart(tabId, step, autoSave) {
+		singlefile.extension.ui.bg.button.onStart(tabId, step, autoSave);
+	}
+
+	function onError(tabId) {
+		singlefile.extension.ui.bg.button.onError(tabId);
+	}
+
+	function onEdit(tabId) {
+		singlefile.extension.ui.bg.button.onEdit(tabId);
+	}
+
+	function onEnd(tabId, autoSave) {
+		singlefile.extension.ui.bg.button.onEnd(tabId, autoSave);
+	}
+
+	function onCancelled(tabId) {
+		singlefile.extension.ui.bg.button.onCancelled(tabId);
+	}
+
+	function onUploadProgress(tabId, index, maxIndex) {
+		singlefile.extension.ui.bg.button.onUploadProgress(tabId, index, maxIndex);
+	}
+
+	function onTabCreated(tab) {
+		singlefile.extension.ui.bg.menus.onTabCreated(tab);
+	}
+
+	function onTabActivated(tab) {
+		singlefile.extension.ui.bg.menus.onTabActivated(tab);
+	}
+
+	function onInit(tab) {
+		singlefile.extension.ui.bg.menus.onInit(tab);
+	}
 
 })();

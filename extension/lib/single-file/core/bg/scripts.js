@@ -69,30 +69,32 @@ singlefile.extension.lib.core.bg.scripts = (() => {
 	const basePath = "../../../";
 
 	return {
-		async inject(tabId, options) {
-			await initScripts(options);
-			let scriptsInjected;
-			if (!options.removeFrames) {
-				try {
-					await browser.tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
-				} catch (error) {
-					// ignored
-				}
-			}
+		inject
+	};
+
+	async function inject(tabId, options) {
+		await initScripts(options);
+		let scriptsInjected;
+		if (!options.removeFrames) {
 			try {
-				await browser.tabs.executeScript(tabId, { code: contentScript, allFrames: false, runAt: "document_idle" });
-				scriptsInjected = true;
+				await browser.tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
 			} catch (error) {
 				// ignored
 			}
-			if (scriptsInjected) {
-				if (options.frameId) {
-					await browser.tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: options.frameId, matchAboutBlank: true, runAt: "document_start" });
-				}
-			}
-			return scriptsInjected;
 		}
-	};
+		try {
+			await browser.tabs.executeScript(tabId, { code: contentScript, allFrames: false, runAt: "document_idle" });
+			scriptsInjected = true;
+		} catch (error) {
+			// ignored
+		}
+		if (scriptsInjected) {
+			if (options.frameId) {
+				await browser.tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: options.frameId, matchAboutBlank: true, runAt: "document_start" });
+			}
+		}
+		return scriptsInjected;
+	}
 
 	async function initScripts(options) {
 		const extensionScriptFiles = options.extensionScriptFiles || [];

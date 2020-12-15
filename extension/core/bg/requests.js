@@ -31,21 +31,25 @@ singlefile.extension.core.bg.requests = (() => {
 
 	return {
 		REQUEST_ID_HEADER_NAME,
-		onMessage(message) {
-			if (message.method.endsWith(".enableReferrerOnError")) {
-				enableReferrerOnError();
-				return {};
-			}
-			if (message.method.endsWith(".disableReferrerOnError")) {
-				disableReferrerOnError();
-				return {};
-			}
-		},
-		setReferrer(requestId, referrer) {
-			referrers.set(requestId, referrer);
-		},
+		onMessage,
+		setReferrer,
 		enableReferrerOnError
 	};
+
+	function onMessage(message) {
+		if (message.method.endsWith(".enableReferrerOnError")) {
+			enableReferrerOnError();
+			return {};
+		}
+		if (message.method.endsWith(".disableReferrerOnError")) {
+			disableReferrerOnError();
+			return {};
+		}
+	}
+
+	function setReferrer(requestId, referrer) {
+		referrers.set(requestId, referrer);
+	}
 
 	function injectRefererHeader(details) {
 		if (referrerOnErrorEnabled) {

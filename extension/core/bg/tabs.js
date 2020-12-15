@@ -33,89 +33,15 @@ singlefile.extension.core.bg.tabs = (() => {
 	browser.tabs.onUpdated.addListener((tabId, changeInfo) => onTabUpdated(tabId, changeInfo));
 	return {
 		onMessage,
-		get: async options => {
-			const tabs = await browser.tabs.query(options);
-			return tabs.sort((tab1, tab2) => tab1.index - tab2.index);
-		},
-		create: createProperties => browser.tabs.create(createProperties),
-		createAndWait: async createProperties => {
-			const tab = await browser.tabs.create(createProperties);
-			return new Promise((resolve, reject) => {
-				browser.tabs.onUpdated.addListener(onTabUpdated);
-				browser.tabs.onRemoved.addListener(onTabRemoved);
-				function onTabUpdated(tabId, changeInfo) {
-					if (tabId == tab.id && changeInfo.status == "complete") {
-						resolve(tab);
-						browser.tabs.onUpdated.removeListener(onTabUpdated);
-						browser.tabs.onRemoved.removeListener(onTabRemoved);
-					}
-				}
-				function onTabRemoved(tabId) {
-					if (tabId == tab.id) {
-						reject(tabId);
-						browser.tabs.onRemoved.removeListener(onTabRemoved);
-					}
-				}
-			});
-		},
-		sendMessage: (tabId, message, options) => browser.tabs.sendMessage(tabId, message, options),
-		update: (tabId, updateProperties) => browser.tabs.update(tabId, updateProperties),
-		remove: tabId => browser.tabs.remove(tabId),
-		promptValue: async promptMessage => {
-			const tabs = await browser.tabs.query({ currentWindow: true, active: true });
-			return new Promise((resolve, reject) => {
-				const selectedTabId = tabs[0].id;
-				browser.tabs.onRemoved.addListener(onTabRemoved);
-				pendingPrompts.set(selectedTabId, { resolve, reject });
-				browser.tabs.sendMessage(selectedTabId, { method: "common.promptValueRequest", promptMessage });
-
-				function onTabRemoved(tabId) {
-					if (tabId == selectedTabId) {
-						pendingPrompts.delete(tabId);
-						browser.tabs.onUpdated.removeListener(onTabRemoved);
-						reject();
-					}
-				}
-			});
-		},
-		extractAuthCode: authURL => {
-			return new Promise((resolve, reject) => {
-				let authTabId;
-				browser.tabs.onUpdated.addListener(onTabUpdated);
-				browser.tabs.onRemoved.addListener(onTabRemoved);
-
-				function onTabUpdated(tabId, changeInfo) {
-					if (changeInfo && changeInfo.url == authURL) {
-						authTabId = tabId;
-					}
-					if (authTabId == tabId && changeInfo && changeInfo.title && changeInfo.title.startsWith("Success code=")) {
-						browser.tabs.onUpdated.removeListener(onTabUpdated);
-						browser.tabs.onUpdated.removeListener(onTabRemoved);
-						resolve(changeInfo.title.substring(13, changeInfo.title.length - 49));
-					}
-				}
-
-				function onTabRemoved(tabId) {
-					if (tabId == authTabId) {
-						browser.tabs.onUpdated.removeListener(onTabUpdated);
-						browser.tabs.onUpdated.removeListener(onTabRemoved);
-						reject();
-					}
-				}
-			});
-		},
-		launchWebAuthFlow: async options => {
-			const tab = await browser.tabs.create({ url: options.url, active: true });
-			return new Promise((resolve, reject) => {
-				browser.tabs.onRemoved.addListener(onTabRemoved);
-				function onTabRemoved(tabId) {
-					if (tabId == tab.id) {
-						browser.tabs.onRemoved.removeListener(onTabRemoved);
-						reject(new Error("code_required"));
-					}
-				}
-			});
-		}
+		get,
+		create,
+		createAndWait,
+		sendMessage,
+		update,
+		remove,
+		promptValue,
+		extractAuthCode,
+		launchWebAuthFlow
 	};
 
 	async function onMessage(message, sender) {
@@ -138,6 +64,106 @@ singlefile.extension.core.bg.tabs = (() => {
 		if (message.method.endsWith(".activate")) {
 			await browser.tabs.update(message.tabId, { active: true });
 		}
+	}
+
+	function sendMessage(tabId, message, options) {
+		return browser.tabs.sendMessage(tabId, message, options);
+	}
+
+	function update(tabId, updateProperties) {
+		return browser.tabs.update(tabId, updateProperties);
+	}
+
+	function remove(tabId) {
+		return browser.tabs.remove(tabId);
+	}
+
+	function create(createProperties) {
+		return browser.tabs.create(createProperties);
+	}
+
+	async function createAndWait(createProperties) {
+		const tab = await browser.tabs.create(createProperties);
+		return new Promise((resolve, reject) => {
+			browser.tabs.onUpdated.addListener(onTabUpdated);
+			browser.tabs.onRemoved.addListener(onTabRemoved);
+			function onTabUpdated(tabId, changeInfo) {
+				if (tabId == tab.id && changeInfo.status == "complete") {
+					resolve(tab);
+					browser.tabs.onUpdated.removeListener(onTabUpdated);
+					browser.tabs.onRemoved.removeListener(onTabRemoved);
+				}
+			}
+			function onTabRemoved(tabId) {
+				if (tabId == tab.id) {
+					reject(tabId);
+					browser.tabs.onRemoved.removeListener(onTabRemoved);
+				}
+			}
+		});
+	}
+
+	async function get(options) {
+		const tabs = await browser.tabs.query(options);
+		return tabs.sort((tab1, tab2) => tab1.index - tab2.index);
+	}
+
+	async function promptValue(promptMessage) {
+		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
+		return new Promise((resolve, reject) => {
+			const selectedTabId = tabs[0].id;
+			browser.tabs.onRemoved.addListener(onTabRemoved);
+			pendingPrompts.set(selectedTabId, { resolve, reject });
+			browser.tabs.sendMessage(selectedTabId, { method: "common.promptValueRequest", promptMessage });
+
+			function onTabRemoved(tabId) {
+				if (tabId == selectedTabId) {
+					pendingPrompts.delete(tabId);
+					browser.tabs.onUpdated.removeListener(onTabRemoved);
+					reject();
+				}
+			}
+		});
+	}
+
+	function extractAuthCode(authURL) {
+		return new Promise((resolve, reject) => {
+			let authTabId;
+			browser.tabs.onUpdated.addListener(onTabUpdated);
+			browser.tabs.onRemoved.addListener(onTabRemoved);
+
+			function onTabUpdated(tabId, changeInfo) {
+				if (changeInfo && changeInfo.url == authURL) {
+					authTabId = tabId;
+				}
+				if (authTabId == tabId && changeInfo && changeInfo.title && changeInfo.title.startsWith("Success code=")) {
+					browser.tabs.onUpdated.removeListener(onTabUpdated);
+					browser.tabs.onUpdated.removeListener(onTabRemoved);
+					resolve(changeInfo.title.substring(13, changeInfo.title.length - 49));
+				}
+			}
+
+			function onTabRemoved(tabId) {
+				if (tabId == authTabId) {
+					browser.tabs.onUpdated.removeListener(onTabUpdated);
+					browser.tabs.onUpdated.removeListener(onTabRemoved);
+					reject();
+				}
+			}
+		});
+	}
+
+	async function launchWebAuthFlow(options) {
+		const tab = await browser.tabs.create({ url: options.url, active: true });
+		return new Promise((resolve, reject) => {
+			browser.tabs.onRemoved.addListener(onTabRemoved);
+			function onTabRemoved(tabId) {
+				if (tabId == tab.id) {
+					browser.tabs.onRemoved.removeListener(onTabRemoved);
+					reject(new Error("code_required"));
+				}
+			}
+		});
 	}
 
 	async function onInit(tab, options) {
