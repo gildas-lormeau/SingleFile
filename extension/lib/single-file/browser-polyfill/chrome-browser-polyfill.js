@@ -24,8 +24,9 @@
 (() => {
 
 	const FEATURE_TESTS = {};
+	const NON_COMPLIANT_IMPLEMENTATION = this.origin.startsWith("safari-web-extension://");
 
-	if (!this.browser && this.chrome) {
+	if ((!this.browser || NON_COMPLIANT_IMPLEMENTATION) && this.chrome) {
 		const nativeAPI = this.chrome;
 		this.__defineGetter__("browser", () => ({
 			browserAction: {
