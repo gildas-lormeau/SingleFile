@@ -579,7 +579,7 @@ html.maximized {
     }
 
     main,
-    .maximized main,
+    .maximized body>main,
     details>summary,
     button,
     select,
