@@ -494,6 +494,7 @@ a {
 
 .side-panel .profiles select {
     min-width: calc(100% - 78px);
+    text-align-last: auto;
 }
 
 .side-panel .options-title,
