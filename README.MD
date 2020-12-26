@@ -111,24 +111,27 @@ SingleFileZ is a fork of SingleFile that allows you to save a webpage as a self-
 More info here: https://github.com/gildas-lormeau/SingleFileZ
 
 ## File format comparison
-|   	                                                                        | HTML (SingleFile)  | HTML (SingleFileZ) | MAFF  | MHTML | Webarchive (Safari) | HTML+folder |
-| ---                                	                                        |       :---:        |       :---:        | :---: | :---: |         :---:       |    :---:    |
-| Pages are saved as a single file                                              | ✓ 	             | ✓ 	          | ✓     | ✓     | ✓                   |             | 
-| HTML and styles are minified                                                  | ✓                  | ✓ 	          |       |       |                     |   	      |
-| Unused HTML and styles are removed from files                                 | ✓                  | ✓ 	          |       |       |                     |   	      |
-| Binary resources are not encoded in base 64                                   |                    | ✓ 	          | ✓     |       | ✓                   | ✓ 	      |
-| Files are compressed                                                          |                    | ✓ 	          | ✓     |       |                     |   	      |
-| Files can be viewed without installing any extension                          | ✓                  | ✓*                 |       | ✓**   | ✓***                | ✓           |
-| Files can be viewed without running JavaScript                                | ✓                  |   	          | ✓     | ✓     | ✓                   | ✓ 	      |
-| Files can be unzipped to extract resources and view pages                     |                    | ✓ 	          | ✓     |       |                     | n/a         |
-| Files contains the text of the page (plain or formatted) which can be indexed | ✓ 	             | ✓****              |       | ✓     | ✓ 	                | ✓ 	      |
+|   	                                                                           | HTML (SingleFile)  | HTML (SingleFileZ) | MAFF  | MHTML | Webarchive (Safari) | HTML+folder |
+| ---                                	                                          |       :---:        |       :---:        | :---: | :---: |         :---:       |    :---:    |
+| Pages are saved as a single file                                              | ✓ 	                | ✓ 	                | ✓     | ✓     | ✓                   |             | 
+| HTML and styles are minified                                                  | ✓                  | ✓ 	                |       |       |                     |   	         |
+| Unused HTML and styles are removed from files                                 | ✓                  | ✓ 	                |       |       |                     |   	         |
+| Binary resources are not encoded in base 64                                   |                    | ✓ 	                | ✓     |       | ✓                   | ✓ 	         |
+| Files are compressed                                                          |                    | ✓ 	                | ✓     |       |                     |   	         |
+| Files can be viewed without installing any extension                          | ✓                  | ✓¹                 |       | ✓²    | ✓³                  | ✓           |
+| Files can be viewed without running JavaScript                                | ✓                  |         	          | ✓     | ✓     | ✓                   | ✓ 	         |
+| Files can be unzipped to extract resources and view pages                     |                    | ✓ 	                | ✓     |       |                     | n/a         |
+| Files contains the text of the page (plain or formatted) which can be indexed | ✓ 	                | ✓⁴                 |       | ✓     | ✓ 	                | ✓ 	          |
 
-|       | Notes                                                                                                            |
-| :---: | ---                                                                                                              |
-| *     | a switch must be passed from the command line in Chromium-based browsers and an option must be enabled in Safari |
-| **    | only in Chromium-based browsers and Internet Explorer                                                            |
-| ***   | only in Safari                                                                                                   |
-| \**** | an option must be enabled in the extension                                                                       |
+Footnotes:
+
+¹ A switch must be passed from the command line in Chromium-based browsers, and an option must be enabled in Safari.
+
+² Only in Chromium-based browsers, and Internet Explorer.
+
+³ Only in Safari.
+
+⁴ An option must be enabled in the extension.
  
 ## Integration with WebKit
 Here is a Swift application (for macOS) made by [@captaindavepdx](https://github.com/captaindavepdx) that illustrates how to use SingleFile with WebKit: https://github.com/captaindavepdx/SingleFileMacOS
