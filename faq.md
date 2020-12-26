@@ -34,3 +34,9 @@ You can also disable the options below. Some resources (e.g. images, frames) on 
 To integrate them into the HTML file, all binary resources such as images or fonts are transformed into [data URIs](https://en.wikipedia.org/wiki/Data_URI_scheme). These URIs allow the binary content to be encoded in [base64](https://en.wikipedia.org/wiki/Base64) and to be stored as text in the HTML file. When encoded in base64, a binary resource will weigh about 33% more. This overload also has an impact on the size of the saved page.
 
 You may consider using [SingleFileZ](https://github.com/gildas-lormeau/SingleFileZ) which is able to compress saved pages and their assets into a self extracting HTML/ZIP hybrid file. 
+
+## Filename templates aren't working on docker. Even if supplying multiple URLs, everything is dumped to stdout!
+The [Dockerfile](https://github.com/gildas-lormeau/SingleFile/blob/master/cli/Dockerfile) is compiled with `--dump-content`. Change the Dockerfile locally to exclude that option, build, and run it.
+
+For a single file, you may always just specify yournamehere.html after the supplied URL.
+
