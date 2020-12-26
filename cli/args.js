@@ -44,6 +44,7 @@ const args = require("yargs")
 		"browser-args": "",
 		"browser-start-minimized": false,
 		"browser-cookie": [],
+		"browser-cookies-file": "",
 		"compress-CSS": false,
 		"compress-HTML": true,
 		"dump-content": false,
@@ -111,6 +112,8 @@ const args = require("yargs")
 	.boolean("browser-start-minimized")
 	.options("browser-cookie", { description: "Ordered list of cookie parameters separated by a comma: name,value,domain,path,expires,httpOnly,secure,sameSite,url (puppeteer, webdriver-gecko, webdriver-chromium, jsdom)" })
 	.array("browser-cookie")
+	.options("browser-cookies-file", { description: "Path of the cookies file formatted as a JSON file or a Netscape text file (puppeteer, webdriver-gecko, webdriver-chromium, jsdom)" })
+	.string("browser-cookies-file")
 	.options("compress-CSS", { description: "Compress CSS stylesheets" })
 	.boolean("compress-CSS")
 	.options("compress-HTML", { description: "Compress HTML content" })

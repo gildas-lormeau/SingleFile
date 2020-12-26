@@ -41,7 +41,46 @@ async function run(options) {
 	} else {
 		urls = [options.url];
 	}
+	if (options.browserCookiesFile) {
+		const cookiesContent = fs.readFileSync(options.browserCookiesFile).toString();
+		try {
+			options.browserCookies = JSON.parse(cookiesContent);
+		} catch (error) {
+			options.browserCookies = parseCookies(cookiesContent);
+		}
+	}
 	options.retrieveLinks = true;
 	await singlefile.capture(urls);
 	await singlefile.finish();
+}
+
+function parseCookies(textValue) {
+	return textValue.split(/\r\n|\n/)
+		.filter(line => line.trim() && (!/^#/.test(line) || /^#HttpOnly_/.test(line)))
+		.map(line => {
+			let httpOnly;
+			if (/^#HttpOnly_/.test(line)) {
+				httpOnly = true;
+				line = line.replace(/^#HttpOnly_(.*)/, "$1");
+			} else {
+				httpOnly = false;
+			}
+			const values = line.split(/\t/);
+			if (values.length == 7) {
+				try {
+					return {
+						domain: values[0],
+						path: values[2],
+						secure: values[3] == "TRUE" ? true : false,
+						expires: (values[4] && Number(values[4])) || undefined,
+						name: values[5],
+						value: values[6],
+						httpOnly: httpOnly
+					};
+				} catch (error) {
+					// ignored
+				}
+			}
+		})
+		.filter(cookieData => cookieData);
 }
