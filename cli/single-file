@@ -55,15 +55,13 @@ async function run(options) {
 }
 
 function parseCookies(textValue) {
+	const httpOnlyRegExp = /^#HttpOnly_(.*)/;
 	return textValue.split(/\r\n|\n/)
-		.filter(line => line.trim() && (!/^#/.test(line) || /^#HttpOnly_/.test(line)))
+		.filter(line => line.trim() && (!/^#/.test(line) || httpOnlyRegExp.test(line)))
 		.map(line => {
-			let httpOnly;
-			if (/^#HttpOnly_/.test(line)) {
-				httpOnly = true;
-				line = line.replace(/^#HttpOnly_(.*)/, "$1");
-			} else {
-				httpOnly = false;
+			const httpOnly = httpOnlyRegExp.test(line);
+			if (httpOnly) {
+				line = line.replace(httpOnlyRegExp, "$1");
 			}
 			const values = line.split(/\t/);
 			if (values.length == 7) {
@@ -71,7 +69,7 @@ function parseCookies(textValue) {
 					return {
 						domain: values[0],
 						path: values[2],
-						secure: values[3] == "TRUE" ? true : false,
+						secure: values[3] == "TRUE",
 						expires: (values[4] && Number(values[4])) || undefined,
 						name: values[5],
 						value: values[6],
