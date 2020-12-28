@@ -73,7 +73,7 @@ function parseCookies(textValue) {
 					name: values[5],
 					value: values[6],
 					httpOnly
-				};				
+				};
 			}
 		})
 		.filter(cookieData => cookieData);
