@@ -34,16 +34,19 @@ let browser;
 
 exports.initialize = async options => {
 	browser = await puppeteer.launch(getBrowserOptions(options));
+	return browser;
 };
 
-exports.getPageData = async options => {
-	let page;
+exports.getPageData = async (options, page) => {
+	const privatePage = !page;
 	try {
-		page = await browser.newPage();
+		if (privatePage) {
+			page = await browser.newPage();
+		}
 		await setPageOptions(page, options);
 		return await getPageData(browser, page, options);
 	} finally {
-		if (page) {
+		if (privatePage) {
 			await page.close();
 		}
 	}

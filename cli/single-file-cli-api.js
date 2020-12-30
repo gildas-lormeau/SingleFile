@@ -21,12 +21,48 @@
  *   Source.
  */
 
-/* global require, module, URL */
+/* global require, exports, URL */
 
 const fs = require("fs");
 const path = require("path");
 const VALID_URL_TEST = /^(https?|file):\/\//;
 
+const DEFAULT_OPTIONS = {
+	removeHiddenElements: true,
+	removeUnusedStyles: true,
+	removeUnusedFonts: true,
+	removeFrames: false,
+	removeImports: true,
+	removeScripts: true,
+	compressHTML: true,
+	compressCSS: false,
+	loadDeferredImages: true,
+	loadDeferredImagesMaxIdleTime: 1500,
+	loadDeferredImagesBlockCookies: false,
+	loadDeferredImagesBlockStorage: false,
+	loadDeferredImagesKeepZoomLevel: false,
+	filenameTemplate: "{page-title} ({date-locale} {time-locale}).html",
+	infobarTemplate: "",
+	includeInfobar: false,
+	filenameMaxLength: 192,
+	filenameReplacedCharacters: ["~", "+", "\\\\", "?", "%", "*", ":", "|", "\"", "<", ">", "\x00-\x1f", "\x7F"],
+	filenameReplacementCharacter: "_",
+	maxResourceSizeEnabled: false,
+	maxResourceSize: 10,
+	removeAudioSrc: true,
+	removeVideoSrc: true,
+	backgroundSave: true,
+	removeAlternativeFonts: true,
+	removeAlternativeMedias: true,
+	removeAlternativeImages: true,
+	groupDuplicateImages: true,
+	saveRawPage: false,
+	resolveFragmentIdentifierURLs: false,
+	userScriptEnabled: false,
+	saveFavicon: true,
+	includeBOM: false,
+	insertMetaNoIndex: false
+};
 const STATE_PROCESSING = "processing";
 const STATE_PROCESSED = "processed";
 
@@ -41,9 +77,13 @@ const backEnds = {
 };
 
 let backend, tasks = [], maxParallelWorkers = 8, sessionFilename;
-module.exports = initialize;
+
+exports.getBackEnd = backEndName => require(backEnds[backEndName]);
+exports.DEFAULT_OPTIONS = DEFAULT_OPTIONS;
+exports.initialize = initialize;
 
 async function initialize(options) {
+	options = Object.assign({}, DEFAULT_OPTIONS, options);
 	maxParallelWorkers = options.maxParallelWorkers;
 	backend = require(backEnds[options.backEnd]);
 	await backend.initialize(options);
