@@ -8,7 +8,7 @@
 		"64": "extension/ui/resources/icon_64.png",
 		"128": "extension/ui/resources/icon_128.png"
 	},
-	"version": "1.18.64",
+	"version": "1.18.65",
 	"description": "__MSG_extensionDescription__",
 	"content_scripts": [
 		{
@@ -156,7 +156,7 @@
 		"extension/ui/pages/editor-frame-web.css"
 	],
 	"oauth2": {
-		"client_id": "207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj.apps.googleusercontent.com.apps.googleusercontent.com",
+		"client_id": "207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj.apps.googleusercontent.com",
 		"scopes": [
 			"https://www.googleapis.com/auth/drive.file"
 		]
