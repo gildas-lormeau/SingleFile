@@ -121,7 +121,7 @@ async function getPageData(browser, page, options) {
 			} else {
 				throw error;
 			}
-		} else {
+		} else if (error.name != "TimeoutError") {
 			throw error;
 		}
 	}
@@ -150,7 +150,13 @@ async function getPageData(browser, page, options) {
 async function handleJSRedirect(browser, options) {
 	const pages = await browser.pages();
 	const page = pages[1] || pages[0];
-	await pageGoto(page, options);
+	try {
+		await pageGoto(page, options);
+	} catch (error) {
+		if (error.name != "TimeoutError") {
+			throw error;
+		}
+	}
 	const url = page.url();
 	if (url != options.url) {
 		options.url = url;
