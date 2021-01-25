@@ -280,12 +280,14 @@ singlefile.extension.core.bg.config = (() => {
 	async function getOptions(url, autoSave) {
 		const [config, rule, tabsData] = await Promise.all([getConfig(), getRule(url), singlefile.extension.core.bg.tabsData.get()]);
 		const tabProfileName = tabsData.profileName || DEFAULT_PROFILE_NAME;
+		let selectedProfileName;
 		if (rule) {
 			const profileName = rule[autoSave ? "autoSaveProfile" : "profile"];
-			return config.profiles[profileName == CURRENT_PROFILE_NAME ? tabProfileName : profileName];
+			selectedProfileName = profileName == CURRENT_PROFILE_NAME ? tabProfileName : profileName;
 		} else {
-			return config.profiles[tabProfileName];
+			selectedProfileName = tabProfileName;
 		}
+		return Object.assign({ profileName: selectedProfileName }, config.profiles[selectedProfileName]);
 	}
 
 	async function updateProfile(profileName, profile) {
