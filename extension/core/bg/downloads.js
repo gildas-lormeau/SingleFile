@@ -36,7 +36,7 @@ singlefile.extension.core.bg.downloads = (() => {
 	const ERROR_INCOGNITO_GECKO_ALT = "\"incognito\"";
 	const ERROR_INVALID_FILENAME_GECKO = "illegal characters";
 	const ERROR_INVALID_FILENAME_CHROMIUM = "invalid filename";
-	const CLIENT_ID = "207618107333-bktohpfmdfnv5hfavi1ll18h74gqi27v.apps.googleusercontent.com";
+	const CLIENT_ID = "207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj.apps.googleusercontent.com";
 	const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 	const CONFLICT_ACTION_SKIP = "skip";
 	const CONFLICT_ACTION_UNIQUIFY = "uniquify";
