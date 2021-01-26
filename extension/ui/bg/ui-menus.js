@@ -461,6 +461,7 @@ singlefile.extension.ui.bg.menus = (() => {
 						const profileIndex = Number(profileId);
 						profileName = Object.keys(profiles)[profileIndex];
 					}
+					profiles[profileName].profileName = profileName;
 					business.saveTabs([tab], profiles[profileName]);
 				}
 				if (event.menuItemId.startsWith(MENU_ID_SELECT_PROFILE_PREFIX)) {
