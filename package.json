@@ -15,6 +15,6 @@
 		"puppeteer-core": "^5.3.0",
 		"selenium-webdriver": "4.0.0-alpha.7",
 		"strong-data-uri": "^1.0.6",
-		"yargs": "^16.0.3"
+		"yargs": "^16.2.0"
 	}
 }
