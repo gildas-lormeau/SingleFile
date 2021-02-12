@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global require, exports, Buffer */
+/* global require, exports, Buffer, setTimeout */
 
 const crypto = require("crypto");
 
@@ -75,6 +75,9 @@ async function getPageData(win, options) {
 	executeFrameScripts(doc, scripts);
 	options.removeHiddenElements = false;
 	options.loadDeferredImages = false;
+	if (options.browserWaitDelay) {
+		await new Promise(resolve => setTimeout(resolve, options.browserWaitDelay));
+	}
 	const pageData = await win.singlefile.lib.getPageData(options, { fetch: url => fetchResource(url, options) }, doc, win);
 	if (options.includeInfobar) {
 		await win.singlefile.common.ui.content.infobar.includeScript(pageData);

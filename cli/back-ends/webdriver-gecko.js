@@ -134,6 +134,9 @@ async function getPageData(driver, options) {
 	if (!options.removeFrames) {
 		await executeScriptInFrames(driver, scripts);
 	}
+	if (options.browserWaitDelay) {
+		await driver.sleep(options.browserWaitDelay);
+	}
 	const result = await driver.executeAsyncScript(getPageDataScript(), options);
 	if (result.error) {
 		throw result.error;

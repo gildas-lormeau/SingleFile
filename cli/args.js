@@ -36,6 +36,7 @@ const args = require("yargs")
 		"browser-width": 1280,
 		"browser-height": 720,
 		"browser-load-max-time": 60000,
+		"browser-wait-delay": 0,
 		"browser-wait-until": "networkidle0",
 		"browser-wait-until-fallback": true,
 		"browser-debug": false,
@@ -96,6 +97,8 @@ const args = require("yargs")
 	.number("browser-height")
 	.options("browser-load-max-time", { description: "Maximum delay of time to wait for page loading in ms (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.number("browser-load-max-time")
+	.options("browser-wait-delay", { description: "Time to wait before capturing the page in ms" })
+	.number("browser-wait-delay")
 	.options("browser-wait-until", { description: "When to consider the page is loaded (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.choices("browser-wait-until", ["networkidle0", "networkidle2", "load", "domcontentloaded"])
 	.options("browser-wait-until-fallback", { description: "Retry with the next value of --browser-wait-until when a timeout error is thrown" })

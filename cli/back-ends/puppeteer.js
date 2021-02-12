@@ -126,6 +126,9 @@ async function getPageData(browser, page, options) {
 		}
 	}
 	try {
+		if (options.browserWaitDelay) {
+			await page.waitForTimeout(options.browserWaitDelay);
+		}
 		return await page.evaluate(async options => {
 			const pageData = await singlefile.lib.getPageData(options);
 			if (options.includeInfobar) {

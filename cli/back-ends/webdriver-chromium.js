@@ -135,6 +135,9 @@ async function getPageData(driver, options) {
 		await Promise.race([scriptPromise, timeoutPromise]);
 		cancelTimeout();
 	}
+	if (options.browserWaitDelay) {
+		await driver.sleep(options.browserWaitDelay);
+	}
 	const result = await driver.executeAsyncScript(getPageDataScript(), options);
 	if (result.error) {
 		throw result.error;
