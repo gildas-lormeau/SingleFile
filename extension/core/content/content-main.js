@@ -73,6 +73,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 		const options = message.options;
 		if (!singlefile.extension.core.processing) {
 			options.updatedResources = singlefile.extension.core.content.updatedResources || {};
+			options.visitDate = singlefile.extension.core.content.visitDate; 
 			Object.keys(options.updatedResources).forEach(url => options.updatedResources[url].retrieved = false);
 			let selectionFound;
 			if (options.selected || options.optionallySelected) {

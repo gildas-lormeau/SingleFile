@@ -31,6 +31,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 
 	let unloadListenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved, previousLocationHref;
 	singlefile.extension.core.content.updatedResources = {};
+	singlefile.extension.core.content.visitDate = new Date();
 	browser.runtime.sendMessage({ method: "autosave.init" }).then(message => {
 		options = message.options;
 		autoSaveEnabled = message.autoSaveEnabled;
@@ -179,6 +180,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	function savePage(docData, frames) {
 		const helper = singlefile.lib.helper;
 		const updatedResources = singlefile.extension.core.content.updatedResources;
+		const visitDate = singlefile.extension.core.content.visitDate.getTime();
 		Object.keys(updatedResources).forEach(url => updatedResources[url].retrieved = false);
 		browser.runtime.sendMessage({
 			method: "autosave.save",
@@ -195,7 +197,8 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			referrer: docData.referrer,
 			frames: frames,
 			url: location.href,
-			updatedResources
+			updatedResources,
+			visitDate
 		});
 	}
 

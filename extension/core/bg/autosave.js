@@ -110,6 +110,7 @@ singlefile.extension.core.bg.autosave = (() => {
 		options.imports = message.imports;
 		options.referrer = message.referrer;
 		options.updatedResources = message.updatedResources;
+		options.visitDate = new Date(message.visitDate);
 		options.backgroundTab = true;
 		options.autoSave = true;
 		options.incognito = tab.incognito;
