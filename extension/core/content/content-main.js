@@ -32,7 +32,7 @@ this.extension.core.content.main = this.extension.core.content.main || (() => {
 
 	let ui, processor;
 
-	singlefile.lib.main.init({
+	singlefile.lib.init({
 		fetch: extension.lib.fetch.content.resources.fetch,
 		frameFetch: extension.lib.fetch.content.resources.frameFetch
 	});

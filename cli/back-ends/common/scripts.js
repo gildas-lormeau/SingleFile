@@ -50,7 +50,6 @@ const SCRIPTS = [
 	"lib/single-file/modules/html-images-alt-minifier.js",
 	"lib/single-file/modules/html-serializer.js",
 	"lib/single-file/single-file-core.js",
-	"lib/single-file/single-file.js",
 	"common/ui/content/content-infobar.js"
 ];
 

@@ -47,7 +47,6 @@ extension.lib.core.bg.scripts = (() => {
 		"lib/single-file/single-file-util.js",
 		"lib/single-file/single-file-helper.js",
 		"lib/single-file/single-file-core.js",
-		"lib/single-file/single-file.js",
 		"lib/single-file/processors/lazy/content/content-lazy-loader.js",
 		"lib/single-file/processors/hooks/content/content-hooks.js",
 		"extension/index.js",
