@@ -23,7 +23,7 @@
 
 /* global singlefile, fetch */
 
-this.singlefile.common.ui.content.infobar = this.singlefile.common.ui.content.infobar || (() => {
+this.common.ui.content.infobar = this.common.ui.content.infobar || (() => {
 
 	const SCRIPT_PATH = "/common/ui/content/content-infobar-web.js";
 

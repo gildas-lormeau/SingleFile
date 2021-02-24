@@ -21,7 +21,7 @@
  *   Source.
  */
 
-this.singlefile.extension.ui = this.singlefile.extension.ui || {
+this.extension.ui = this.extension.ui || {
 	bg: {},
 	content: {}
 };

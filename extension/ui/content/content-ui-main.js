@@ -23,7 +23,7 @@
 
 /* global browser, document, prompt, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, setTimeout, getSelection, Node */
 
-this.singlefile.extension.ui.content.main = this.singlefile.extension.ui.content.main || (() => {
+this.extension.ui.content.main = this.extension.ui.content.main || (() => {
 
 	const SELECTED_CONTENT_ATTRIBUTE_NAME = this.singlefile.lib.helper.SELECTED_CONTENT_ATTRIBUTE_NAME;
 

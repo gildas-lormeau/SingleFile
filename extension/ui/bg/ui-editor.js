@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global browser, singlefile, window, document, prompt, matchMedia */
+/* global extension, browser, window, document, prompt, matchMedia */
 
-singlefile.extension.ui.bg.editor = (() => {
+extension.ui.bg.editor = (() => {
 
 	const editorElement = document.querySelector(".editor");
 	const toolbarElement = document.querySelector(".toolbar");
@@ -259,7 +259,7 @@ singlefile.extension.ui.bg.editor = (() => {
 				filename: tabData.filename
 			};
 			tabData.options.openEditor = false;
-			singlefile.extension.core.content.download.downloadPage(pageData, tabData.options);
+			extension.core.content.download.downloadPage(pageData, tabData.options);
 		}
 		if (message.method == "onUpdate") {
 			tabData.docSaved = message.saved;

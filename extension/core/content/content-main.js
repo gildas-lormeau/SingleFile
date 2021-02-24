@@ -23,16 +23,18 @@
 
 /* global browser, document, window, location, setTimeout */
 
-this.singlefile.extension.core.content.main = this.singlefile.extension.core.content.main || (() => {
+this.extension.core.content.main = this.extension.core.content.main || (() => {
 
 	const singlefile = this.singlefile;
+	const extension = this.extension;
+	
 	const MOZ_EXTENSION_PROTOCOL = "moz-extension:";
 
 	let ui, processor;
 
 	singlefile.lib.main.init({
-		fetch: singlefile.extension.lib.fetch.content.resources.fetch,
-		frameFetch: singlefile.extension.lib.fetch.content.resources.frameFetch
+		fetch: extension.lib.fetch.content.resources.fetch,
+		frameFetch: extension.lib.fetch.content.resources.frameFetch
 	});
 	browser.runtime.onMessage.addListener(message => {
 		if (message.method == "content.save" || message.method == "content.cancelSave" || message.method == "content.getSelectedLinks") {
@@ -43,7 +45,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 
 	async function onMessage(message) {
 		if (!ui) {
-			ui = singlefile.extension.ui.content.main;
+			ui = extension.ui.content.main;
 		}
 		if (!location.href.startsWith(MOZ_EXTENSION_PROTOCOL)) {
 			if (message.method == "content.save") {
@@ -71,9 +73,9 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 
 	async function savePage(message) {
 		const options = message.options;
-		if (!singlefile.extension.core.processing) {
-			options.updatedResources = singlefile.extension.core.content.updatedResources || {};
-			options.visitDate = singlefile.extension.core.content.visitDate; 
+		if (!extension.core.processing) {
+			options.updatedResources = extension.core.content.updatedResources || {};
+			options.visitDate = extension.core.content.visitDate; 
 			Object.keys(options.updatedResources).forEach(url => options.updatedResources[url].retrieved = false);
 			let selectionFound;
 			if (options.selected || options.optionallySelected) {
@@ -83,14 +85,14 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 				options.selected = true;
 			}
 			if (!options.selected || selectionFound) {
-				singlefile.extension.core.processing = true;
+				extension.core.processing = true;
 				try {
 					const pageData = await processPage(options);
 					if (pageData) {
 						if (((!options.backgroundSave && !options.saveToClipboard) || options.saveToGDrive) && options.confirmFilename) {
 							pageData.filename = ui.prompt("Save as", pageData.filename) || pageData.filename;
 						}
-						await singlefile.extension.core.content.download.downloadPage(pageData, options);
+						await extension.core.content.download.downloadPage(pageData, options);
 					}
 				} catch (error) {
 					if (!processor.cancelled) {
@@ -101,7 +103,7 @@ this.singlefile.extension.core.content.main = this.singlefile.extension.core.con
 			} else {
 				browser.runtime.sendMessage({ method: "ui.processCancelled" });
 			}
-			singlefile.extension.core.processing = false;
+			extension.core.processing = false;
 		}
 	}
 

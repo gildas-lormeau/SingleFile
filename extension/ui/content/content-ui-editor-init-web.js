@@ -1,6 +1,7 @@
 /* global document */
 
 (() => {
+
 	document.currentScript.remove();
 	processNode(document);
 
@@ -22,6 +23,7 @@
 					processNode(shadowRoot);
 				}
 			}
-		})
+		});
 	}
-})()
+
+})();

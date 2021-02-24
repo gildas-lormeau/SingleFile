@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global singlefile, browser */
+/* global extension, browser */
 
-singlefile.extension.core.bg.bookmarks = (() => {
+extension.core.bg.bookmarks = (() => {
 
 	enable();
 	return {
@@ -51,7 +51,7 @@ singlefile.extension.core.bg.bookmarks = (() => {
 			// ignored
 		}
 		let enabled;
-		const profiles = await singlefile.extension.core.bg.config.getProfiles();
+		const profiles = await extension.core.bg.config.getProfiles();
 		Object.keys(profiles).forEach(profileName => {
 			if (profiles[profileName].saveCreatedBookmarks) {
 				enabled = true;
@@ -64,7 +64,7 @@ singlefile.extension.core.bg.bookmarks = (() => {
 
 	async function disable() {
 		let disabled;
-		const profiles = await singlefile.extension.core.bg.config.getProfiles();
+		const profiles = await extension.core.bg.config.getProfiles();
 		Object.keys(profiles).forEach(profileName => disabled = disabled || !profiles[profileName].saveCreatedBookmarks);
 		if (disabled) {
 			browser.bookmarks.onCreated.removeListener(onCreated);
@@ -80,20 +80,20 @@ singlefile.extension.core.bg.bookmarks = (() => {
 	}
 
 	async function onCreated(bookmarkId, bookmarkInfo) {
-		const tabs = await singlefile.extension.core.bg.tabs.get({ lastFocusedWindow: true, active: true });
-		const options = await singlefile.extension.core.bg.config.getOptions(bookmarkInfo.url);
+		const tabs = await extension.core.bg.tabs.get({ lastFocusedWindow: true, active: true });
+		const options = await extension.core.bg.config.getOptions(bookmarkInfo.url);
 		if (options.saveCreatedBookmarks) {
 			const bookmarkFolders = await getParentFolders(bookmarkInfo.parentId);
 			const ignoredBookmark = bookmarkFolders.find(folder => options.ignoredBookmarkFolders.includes(folder));
 			if (!ignoredBookmark) {
 				if (tabs.length && tabs[0].url == bookmarkInfo.url) {
-					singlefile.extension.core.bg.business.saveTabs(tabs, { bookmarkId, bookmarkFolders });
+					extension.core.bg.business.saveTabs(tabs, { bookmarkId, bookmarkFolders });
 				} else {
-					const tabs = await singlefile.extension.core.bg.tabs.get({});
+					const tabs = await extension.core.bg.tabs.get({});
 					if (tabs.length) {
 						const tab = tabs.find(tab => tab.url == bookmarkInfo.url);
 						if (tab) {
-							singlefile.extension.core.bg.business.saveTabs([tab], { bookmarkId, bookmarkFolders });
+							extension.core.bg.business.saveTabs([tab], { bookmarkId, bookmarkFolders });
 						} else {
 							if (bookmarkInfo.url) {
 								if (bookmarkInfo.url == "about:blank") {
@@ -127,7 +127,7 @@ singlefile.extension.core.bg.bookmarks = (() => {
 		}
 
 		function saveUrl(url) {
-			singlefile.extension.core.bg.business.saveUrls([url], { bookmarkId });
+			extension.core.bg.business.saveUrls([url], { bookmarkId });
 		}
 	}
 

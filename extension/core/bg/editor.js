@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global browser, singlefile */
+/* global extension, browser */
 
-singlefile.extension.core.bg.editor = (() => {
+extension.core.bg.editor = (() => {
 
 	const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 	const EDITOR_PAGE_URL = "/extension/ui/pages/editor.html";
@@ -44,7 +44,7 @@ singlefile.extension.core.bg.editor = (() => {
 		if (tabIndex != null) {
 			createTabProperties.index = tabIndex;
 		}
-		const tab = await singlefile.extension.core.bg.tabs.create(createTabProperties);
+		const tab = await extension.core.bg.tabs.create(createTabProperties);
 		tabsData.set(tab.id, { content, filename, options });
 	}
 
@@ -73,7 +73,7 @@ singlefile.extension.core.bg.editor = (() => {
 					} else {
 						message.content = content;
 					}
-					await singlefile.extension.core.bg.tabs.sendMessage(tab.id, message);
+					await extension.core.bg.tabs.sendMessage(tab.id, message);
 				}
 			}
 		}
@@ -94,9 +94,9 @@ singlefile.extension.core.bg.editor = (() => {
 				contents = [message.content];
 			}
 			if (!message.truncated || message.finished) {
-				const options = await singlefile.extension.core.bg.config.getOptions(tab && tab.url);
+				const options = await extension.core.bg.config.getOptions(tab && tab.url);
 				const updateTabProperties = { url: EDITOR_PAGE_URL };
-				await singlefile.extension.core.bg.tabs.update(tab.id, updateTabProperties);
+				await extension.core.bg.tabs.update(tab.id, updateTabProperties);
 				tabsData.set(tab.id, { content: contents.join(""), filename: message.filename, options });
 			}
 		}

@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global browser, singlefile, navigator, URL, Blob */
+/* global browser, extension, navigator, URL, Blob */
 
-singlefile.extension.core.bg.config = (() => {
+extension.core.bg.config = (() => {
 
 	const CURRENT_PROFILE_NAME = "-";
 	const DEFAULT_PROFILE_NAME = "__Default_Settings__";
@@ -278,7 +278,7 @@ singlefile.extension.core.bg.config = (() => {
 	}
 
 	async function getOptions(url, autoSave) {
-		const [config, rule, tabsData] = await Promise.all([getConfig(), getRule(url), singlefile.extension.core.bg.tabsData.get()]);
+		const [config, rule, tabsData] = await Promise.all([getConfig(), getRule(url), extension.core.bg.tabsData.get()]);
 		const tabProfileName = tabsData.profileName || DEFAULT_PROFILE_NAME;
 		let selectedProfileName;
 		if (rule) {
@@ -300,7 +300,7 @@ singlefile.extension.core.bg.config = (() => {
 	}
 
 	async function renameProfile(oldProfileName, profileName) {
-		const [config, tabsData] = await Promise.all([getConfig(), singlefile.extension.core.bg.tabsData.get()]);
+		const [config, tabsData] = await Promise.all([getConfig(), extension.core.bg.tabsData.get()]);
 		if (!Object.keys(config.profiles).includes(oldProfileName)) {
 			throw new Error("Profile not found");
 		}
@@ -312,7 +312,7 @@ singlefile.extension.core.bg.config = (() => {
 		}
 		if (tabsData.profileName == oldProfileName) {
 			tabsData.profileName = profileName;
-			await singlefile.extension.core.bg.tabsData.set(tabsData);
+			await extension.core.bg.tabsData.set(tabsData);
 		}
 		config.profiles[profileName] = config.profiles[oldProfileName];
 		config.rules.forEach(rule => {
@@ -328,7 +328,7 @@ singlefile.extension.core.bg.config = (() => {
 	}
 
 	async function deleteProfile(profileName) {
-		const [config, tabsData] = await Promise.all([getConfig(), singlefile.extension.core.bg.tabsData.get()]);
+		const [config, tabsData] = await Promise.all([getConfig(), extension.core.bg.tabsData.get()]);
 		if (!Object.keys(config.profiles).includes(profileName)) {
 			throw new Error("Profile not found");
 		}
@@ -337,7 +337,7 @@ singlefile.extension.core.bg.config = (() => {
 		}
 		if (tabsData.profileName == profileName) {
 			delete tabsData.profileName;
-			await singlefile.extension.core.bg.tabsData.set(tabsData);
+			await extension.core.bg.tabsData.set(tabsData);
 		}
 		config.rules.forEach(rule => {
 			if (rule.profile == profileName) {
@@ -424,9 +424,9 @@ singlefile.extension.core.bg.config = (() => {
 
 	async function resetProfiles() {
 		await pendingUpgradePromise;
-		const tabsData = await singlefile.extension.core.bg.tabsData.get();
+		const tabsData = await extension.core.bg.tabsData.get();
 		delete tabsData.profileName;
-		await singlefile.extension.core.bg.tabsData.set(tabsData);
+		await extension.core.bg.tabsData.set(tabsData);
 		await configStorage.remove(["profiles", "rules", "maxParallelWorkers"]);
 		await browser.storage.local.set({ sync: false });
 		configStorage = browser.storage.local;
@@ -451,7 +451,7 @@ singlefile.extension.core.bg.config = (() => {
 			saveAs: true
 		};
 		try {
-			await singlefile.extension.core.bg.downloads.download(downloadInfo, "_");
+			await extension.core.bg.downloads.download(downloadInfo, "_");
 		} finally {
 			URL.revokeObjectURL(url);
 		}

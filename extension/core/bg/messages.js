@@ -21,51 +21,51 @@
  *   Source.
  */
 
-/* global browser, singlefile, */
+/* global extension, browser */
 
-singlefile.extension.core.bg.messages = (() => {
+extension.core.bg.messages = (() => {
 
 	browser.runtime.onMessage.addListener((message, sender) => {
 		if (message.method.startsWith("tabs.")) {
-			return singlefile.extension.core.bg.tabs.onMessage(message, sender);
+			return extension.core.bg.tabs.onMessage(message, sender);
 		}
 		if (message.method.startsWith("downloads.")) {
-			return singlefile.extension.core.bg.downloads.onMessage(message, sender);
+			return extension.core.bg.downloads.onMessage(message, sender);
 		}
 		if (message.method.startsWith("autosave.")) {
-			return singlefile.extension.core.bg.autosave.onMessage(message, sender);
+			return extension.core.bg.autosave.onMessage(message, sender);
 		}
 		if (message.method.startsWith("ui.")) {
-			return singlefile.extension.ui.bg.main.onMessage(message, sender);
+			return extension.ui.bg.main.onMessage(message, sender);
 		}
 		if (message.method.startsWith("config.")) {
-			return singlefile.extension.core.bg.config.onMessage(message, sender);
+			return extension.core.bg.config.onMessage(message, sender);
 		}
 		if (message.method.startsWith("tabsData.")) {
-			return singlefile.extension.core.bg.tabsData.onMessage(message, sender);
+			return extension.core.bg.tabsData.onMessage(message, sender);
 		}
 		if (message.method.startsWith("devtools.")) {
-			return singlefile.extension.core.bg.devtools.onMessage(message, sender);
+			return extension.core.bg.devtools.onMessage(message, sender);
 		}
 		if (message.method.startsWith("editor.")) {
-			return singlefile.extension.core.bg.editor.onMessage(message, sender);
+			return extension.core.bg.editor.onMessage(message, sender);
 		}
 		if (message.method.startsWith("bookmarks.")) {
-			return singlefile.extension.core.bg.bookmarks.onMessage(message, sender);
+			return extension.core.bg.bookmarks.onMessage(message, sender);
 		}
 		if (message.method.startsWith("companion.")) {
-			return singlefile.extension.core.bg.companion.onMessage(message, sender);
+			return extension.core.bg.companion.onMessage(message, sender);
 		}
 		if (message.method.startsWith("requests.")) {
-			return singlefile.extension.core.bg.requests.onMessage(message, sender);
+			return extension.core.bg.requests.onMessage(message, sender);
 		}
 	});
 	if (browser.runtime.onMessageExternal) {
 		browser.runtime.onMessageExternal.addListener(async (message, sender) => {
-			const allTabs = await singlefile.extension.core.bg.tabs.get({ currentWindow: true, active: true });
+			const allTabs = await extension.core.bg.tabs.get({ currentWindow: true, active: true });
 			const currentTab = allTabs[0];
 			if (currentTab) {
-				return singlefile.extension.core.bg.autosave.onMessageExternal(message, currentTab, sender);
+				return extension.core.bg.autosave.onMessageExternal(message, currentTab, sender);
 			} else {
 				return false;
 			}

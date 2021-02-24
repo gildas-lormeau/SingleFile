@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global singlefile, browser, XMLHttpRequest */
+/* global extension, browser, XMLHttpRequest */
 
 (() => {
 
@@ -71,8 +71,8 @@
 			xhrRequest.open("GET", url, true);
 			if (includeRequestId) {
 				const randomId = String(Math.random()).substring(2);
-				singlefile.extension.core.bg.requests.setReferrer(randomId, options.referrer);
-				xhrRequest.setRequestHeader(singlefile.extension.core.bg.requests.REQUEST_ID_HEADER_NAME, randomId);
+				extension.core.bg.requests.setReferrer(randomId, options.referrer);
+				xhrRequest.setRequestHeader(extension.core.bg.requests.REQUEST_ID_HEADER_NAME, randomId);
 			}
 			xhrRequest.send();
 		});

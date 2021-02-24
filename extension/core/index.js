@@ -21,7 +21,7 @@
  *   Source.
  */
 
-this.singlefile.extension.core = this.singlefile.extension.core || {
+this.extension.core = this.extension.core || {
 	bg: {},
 	content: {}
 };

@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global browser, singlefile, fetch, TextDecoder */
+/* global extension, browser, fetch, TextDecoder */
 
-singlefile.extension.lib.core.bg.scripts = (() => {
+extension.lib.core.bg.scripts = (() => {
 
 	let contentScript, frameScript;
 

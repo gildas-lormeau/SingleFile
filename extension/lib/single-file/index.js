@@ -21,7 +21,7 @@
  *   Source.
  */
 
-this.singlefile.extension.lib = this.singlefile.extension.lib || {
+this.extension.lib = this.extension.lib || {
 	core: {
 		bg: {}
 	},

@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global browser, singlefile */
+/* global extension, browser */
 
-singlefile.extension.ui.bg.button = (() => {
+extension.ui.bg.button = (() => {
 
 	const DEFAULT_ICON_PATH = "/extension/ui/resources/icon_128.png";
 	const WAIT_ICON_PATH_PREFIX = "/extension/ui/resources/icon_128_wait";
@@ -108,8 +108,8 @@ singlefile.extension.ui.bg.button = (() => {
 	};
 
 	browser.browserAction.onClicked.addListener(async tab => {
-		const business = singlefile.extension.core.bg.business;
-		const allTabs = await singlefile.extension.core.bg.tabs.get({ currentWindow: true, highlighted: true });
+		const business = extension.core.bg.business;
+		const allTabs = await extension.core.bg.tabs.get({ currentWindow: true, highlighted: true });
 		if (allTabs.length <= 1) {
 			toggleSaveTab(tab);
 		} else {
@@ -139,7 +139,7 @@ singlefile.extension.ui.bg.button = (() => {
 
 	function onMessage(message, sender) {
 		if (message.method.endsWith(".processInit")) {
-			const tabsData = singlefile.extension.core.bg.tabsData.getTemporary(sender.tab.id);
+			const tabsData = extension.core.bg.tabsData.getTemporary(sender.tab.id);
 			delete tabsData[sender.tab.id].button;
 			refreshTab(sender.tab);
 		}
@@ -214,13 +214,13 @@ singlefile.extension.ui.bg.button = (() => {
 	}
 
 	async function refreshTab(tab) {
-		const autoSave = await singlefile.extension.core.bg.autosave.isEnabled(tab);
+		const autoSave = await extension.core.bg.autosave.isEnabled(tab);
 		const state = getButtonState("default", autoSave);
 		await refresh(tab.id, state);
 	}
 
 	async function refresh(tabId, state) {
-		const tabsData = singlefile.extension.core.bg.tabsData.getTemporary(tabId);
+		const tabsData = extension.core.bg.tabsData.getTemporary(tabId);
 		if (state) {
 			if (!tabsData[tabId].button) {
 				tabsData[tabId].button = { lastState: null };

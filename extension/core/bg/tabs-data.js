@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global browser, singlefile, setTimeout */
+/* global extension, browser, setTimeout */
 
-singlefile.extension.core.bg.tabsData = (() => {
+extension.core.bg.tabsData = (() => {
 
 	let persistentData, temporaryData, cleanedUp;
 	setTimeout(() => getPersistent().then(tabsData => persistentData = tabsData), 0);
@@ -84,9 +84,9 @@ singlefile.extension.core.bg.tabsData = (() => {
 	}
 
 	async function cleanup() {
-		if (!cleanedUp && singlefile.extension.core.bg.tabs) {
+		if (!cleanedUp && extension.core.bg.tabs) {
 			cleanedUp = true;
-			const allTabs = await singlefile.extension.core.bg.tabs.get({ currentWindow: true, highlighted: true });
+			const allTabs = await extension.core.bg.tabs.get({ currentWindow: true, highlighted: true });
 			Object.keys(persistentData).filter(key => {
 				if (key != "autoSaveAll" && key != "autoSaveUnpinned" && key != "profileName") {
 					return !allTabs.find(tab => tab.id == key);

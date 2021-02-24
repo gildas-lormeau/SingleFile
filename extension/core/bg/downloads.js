@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global browser, singlefile, Blob, URL, document, GDrive, woleet */
+/* global extension, browser, Blob, URL, document, GDrive, woleet */
 
-singlefile.extension.core.bg.downloads = (() => {
+extension.core.bg.downloads = (() => {
 
 	const partialContents = new Map();
 	const MIMETYPE_HTML = "text/html";
@@ -57,8 +57,8 @@ singlefile.extension.core.bg.downloads = (() => {
 			return downloadTabPage(message, sender.tab);
 		}
 		if (message.method.endsWith(".disableGDrive")) {
-			const authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
-			singlefile.extension.core.bg.config.removeAuthInfo();
+			const authInfo = await extension.core.bg.config.getAuthInfo();
+			extension.core.bg.config.removeAuthInfo();
 			await gDrive.revokeAuthToken(authInfo && (authInfo.accessToken || authInfo.revokableAccessToken));
 			return {};
 		}
@@ -66,22 +66,22 @@ singlefile.extension.core.bg.downloads = (() => {
 			if (message.hash) {
 				await woleet.anchor(message.hash);
 			}
-			singlefile.extension.core.bg.business.onSaveEnd(message.taskId);
+			extension.core.bg.business.onSaveEnd(message.taskId);
 			return {};
 		}
 		if (message.method.endsWith(".getInfo")) {
-			return singlefile.extension.core.bg.business.getTasksInfo();
+			return extension.core.bg.business.getTasksInfo();
 		}
 		if (message.method.endsWith(".cancel")) {
-			singlefile.extension.core.bg.business.cancelTask(message.taskId);
+			extension.core.bg.business.cancelTask(message.taskId);
 			return {};
 		}
 		if (message.method.endsWith(".cancelAll")) {
-			singlefile.extension.core.bg.business.cancelAllTasks();
+			extension.core.bg.business.cancelAllTasks();
 			return {};
 		}
 		if (message.method.endsWith(".saveUrls")) {
-			singlefile.extension.core.bg.business.saveUrls(message.urls);
+			extension.core.bg.business.saveUrls(message.urls);
 			return {};
 		}
 	}
@@ -103,8 +103,8 @@ singlefile.extension.core.bg.downloads = (() => {
 		}
 		if (!message.truncated || message.finished) {
 			if (message.openEditor) {
-				singlefile.extension.ui.bg.main.onEdit(tab.id);
-				await singlefile.extension.core.bg.editor.open({ tabIndex: tab.index + 1, filename: message.filename, content: contents.join("") }, {
+				extension.ui.bg.main.onEdit(tab.id);
+				await extension.core.bg.editor.open({ tabIndex: tab.index + 1, filename: message.filename, content: contents.join("") }, {
 					backgroundSave: message.backgroundSave,
 					saveToClipboard: message.saveToClipboard,
 					saveToGDrive: message.saveToGDrive,
@@ -124,7 +124,7 @@ singlefile.extension.core.bg.downloads = (() => {
 				if (message.saveToClipboard) {
 					message.content = contents.join("");
 					saveToClipboard(message);
-					singlefile.extension.ui.bg.main.onEnd(tab.id);
+					extension.ui.bg.main.onEnd(tab.id);
 				} else {
 					await downloadBlob(new Blob([contents], { type: MIMETYPE_HTML }), tab.id, tab.incognito, message);
 				}
@@ -140,7 +140,7 @@ singlefile.extension.core.bg.downloads = (() => {
 					forceWebAuthFlow: message.forceWebAuthFlow,
 					extractAuthCode: message.extractAuthCode
 				}, {
-					onProgress: (offset, size) => singlefile.extension.ui.bg.main.onUploadProgress(tabId, offset, size)
+					onProgress: (offset, size) => extension.ui.bg.main.onUploadProgress(tabId, offset, size)
 				});
 			} else {
 				message.url = URL.createObjectURL(blob);
@@ -152,11 +152,11 @@ singlefile.extension.core.bg.downloads = (() => {
 					includeInfobar: message.includeInfobar
 				});
 			}
-			singlefile.extension.ui.bg.main.onEnd(tabId);
+			extension.ui.bg.main.onEnd(tabId);
 		} catch (error) {
 			if (!error.message || error.message != "upload_cancelled") {
 				console.error(error); // eslint-disable-line no-console
-				singlefile.extension.ui.bg.main.onError(tabId);
+				extension.ui.bg.main.onError(tabId);
 			}
 		} finally {
 			if (message.url) {
@@ -170,23 +170,23 @@ singlefile.extension.core.bg.downloads = (() => {
 	}
 
 	async function getAuthInfo(authOptions, force) {
-		let authInfo = await singlefile.extension.core.bg.config.getAuthInfo();
+		let authInfo = await extension.core.bg.config.getAuthInfo();
 		const options = {
 			interactive: true,
 			auto: authOptions.extractAuthCode,
 			forceWebAuthFlow: authOptions.forceWebAuthFlow,
 			requestPermissionIdentity,
-			launchWebAuthFlow: options => singlefile.extension.core.bg.tabs.launchWebAuthFlow(options),
-			extractAuthCode: authURL => singlefile.extension.core.bg.tabs.extractAuthCode(authURL),
-			promptAuthCode: () => singlefile.extension.core.bg.tabs.promptValue("Please enter the access code for Google Drive")
+			launchWebAuthFlow: options => extension.core.bg.tabs.launchWebAuthFlow(options),
+			extractAuthCode: authURL => extension.core.bg.tabs.extractAuthCode(authURL),
+			promptAuthCode: () => extension.core.bg.tabs.promptValue("Please enter the access code for Google Drive")
 		};
 		gDrive.setAuthInfo(authInfo, options);
 		if (!authInfo || !authInfo.accessToken || force) {
 			authInfo = await gDrive.auth(options);
 			if (authInfo) {
-				await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
+				await extension.core.bg.config.setAuthInfo(authInfo);
 			} else {
-				await singlefile.extension.core.bg.config.removeAuthInfo();
+				await extension.core.bg.config.removeAuthInfo();
 			}
 		}
 		return authInfo;
@@ -195,10 +195,10 @@ singlefile.extension.core.bg.downloads = (() => {
 	async function uploadPage(taskId, filename, blob, authOptions, uploadOptions) {
 		try {
 			await getAuthInfo(authOptions);
-			const taskInfo = singlefile.extension.core.bg.business.getTaskInfo(taskId);
+			const taskInfo = extension.core.bg.business.getTaskInfo(taskId);
 			if (taskInfo && !taskInfo.cancelled) {
 				const uploadInfo = await gDrive.upload(filename, blob, uploadOptions);
-				singlefile.extension.core.bg.business.setCancelCallback(taskId, uploadInfo.cancelUpload);
+				extension.core.bg.business.setCancelCallback(taskId, uploadInfo.cancelUpload);
 				return await uploadInfo.uploadPromise;
 			}
 		}
@@ -215,9 +215,9 @@ singlefile.extension.core.bg.downloads = (() => {
 					}
 				}
 				if (authInfo) {
-					await singlefile.extension.core.bg.config.setAuthInfo(authInfo);
+					await extension.core.bg.config.setAuthInfo(authInfo);
 				} else {
-					await singlefile.extension.core.bg.config.removeAuthInfo();
+					await extension.core.bg.config.removeAuthInfo();
 				}
 				await uploadPage(taskId, filename, blob, authOptions, uploadOptions);
 			} else {
@@ -258,7 +258,7 @@ singlefile.extension.core.bg.downloads = (() => {
 					}
 					downloadData.filename = "file:///" + downloadData.filename;
 				}
-				await singlefile.extension.core.bg.bookmarks.update(pageData.bookmarkId, { url: downloadData.filename });
+				await extension.core.bg.bookmarks.update(pageData.bookmarkId, { url: downloadData.filename });
 			}
 		}
 	}

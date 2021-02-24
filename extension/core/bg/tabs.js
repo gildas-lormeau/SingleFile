@@ -20,9 +20,9 @@
  *   notice and a URL through which recipients can access the Corresponding 
  *   Source.
  */
-/* global browser, singlefile, setTimeout */
+/* global extension, browser, setTimeout */
 
-singlefile.extension.core.bg.tabs = (() => {
+extension.core.bg.tabs = (() => {
 
 	const DELAY_MAYBE_INIT = 1500;
 	const pendingPrompts = new Map();
@@ -47,9 +47,9 @@ singlefile.extension.core.bg.tabs = (() => {
 	async function onMessage(message, sender) {
 		if (message.method.endsWith(".init")) {
 			await onInit(sender.tab, message);
-			singlefile.extension.ui.bg.main.onInit(sender.tab);
-			singlefile.extension.core.bg.business.onInit(sender.tab);
-			singlefile.extension.core.bg.autosave.onInit(sender.tab);
+			extension.ui.bg.main.onInit(sender.tab);
+			extension.core.bg.business.onInit(sender.tab);
+			extension.core.bg.autosave.onInit(sender.tab);
 		}
 		if (message.method.endsWith(".promptValueResponse")) {
 			const promptPromise = pendingPrompts.get(sender.tab.id);
@@ -59,7 +59,7 @@ singlefile.extension.core.bg.tabs = (() => {
 			}
 		}
 		if (message.method.endsWith(".getOptions")) {
-			return singlefile.extension.core.bg.config.getOptions(message.url);
+			return extension.core.bg.config.getOptions(message.url);
 		}
 		if (message.method.endsWith(".activate")) {
 			await browser.tabs.update(message.tabId, { active: true });
@@ -167,10 +167,10 @@ singlefile.extension.core.bg.tabs = (() => {
 	}
 
 	async function onInit(tab, options) {
-		await singlefile.extension.core.bg.tabsData.remove(tab.id);
-		const tabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);
+		await extension.core.bg.tabsData.remove(tab.id);
+		const tabsData = await extension.core.bg.tabsData.get(tab.id);
 		tabsData[tab.id].savedPageDetected = options.savedPageDetected;
-		await singlefile.extension.core.bg.tabsData.set(tabsData);
+		await extension.core.bg.tabsData.set(tabsData);
 	}
 
 	async function onTabUpdated(tabId, changeInfo) {
@@ -184,28 +184,28 @@ singlefile.extension.core.bg.tabs = (() => {
 				}
 			}, DELAY_MAYBE_INIT);
 			const tab = await browser.tabs.get(tabId);
-			if (singlefile.extension.core.bg.editor.isEditor(tab)) {
-				const tabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);
+			if (extension.core.bg.editor.isEditor(tab)) {
+				const tabsData = await extension.core.bg.tabsData.get(tab.id);
 				tabsData[tab.id].editorDetected = true;
-				await singlefile.extension.core.bg.tabsData.set(tabsData);
-				singlefile.extension.ui.bg.main.onTabActivated(tab);
+				await extension.core.bg.tabsData.set(tabsData);
+				extension.ui.bg.main.onTabActivated(tab);
 			}
 		}
 	}
 
 	function onTabCreated(tab) {
-		singlefile.extension.ui.bg.main.onTabCreated(tab);
+		extension.ui.bg.main.onTabCreated(tab);
 	}
 
 	async function onTabActivated(activeInfo) {
 		const tab = await browser.tabs.get(activeInfo.tabId);
-		singlefile.extension.ui.bg.main.onTabActivated(tab);
+		extension.ui.bg.main.onTabActivated(tab);
 	}
 
 	function onTabRemoved(tabId) {
-		singlefile.extension.core.bg.tabsData.remove(tabId);
-		singlefile.extension.core.bg.editor.onTabRemoved(tabId);
-		singlefile.extension.core.bg.business.onTabRemoved(tabId);
+		extension.core.bg.tabsData.remove(tabId);
+		extension.core.bg.editor.onTabRemoved(tabId);
+		extension.core.bg.business.onTabRemoved(tabId);
 	}
 
 })();

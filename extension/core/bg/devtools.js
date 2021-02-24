@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global singlefile */
+/* global extension */
 
-singlefile.extension.core.bg.devtools = (() => {
+extension.core.bg.devtools = (() => {
 
 	return {
 		onMessage
@@ -32,7 +32,7 @@ singlefile.extension.core.bg.devtools = (() => {
 	async function onMessage(message) {
 		if (message.method.endsWith(".resourceCommitted")) {
 			if (message.tabId && message.url && (message.type == "stylesheet" || message.type == "script")) {
-				await singlefile.extension.core.bg.tabs.sendMessage(message.tabId, message);
+				await extension.core.bg.tabs.sendMessage(message.tabId, message);
 			}
 		}
 	}

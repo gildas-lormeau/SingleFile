@@ -80,7 +80,7 @@ async function getPageData(win, options) {
 	}
 	const pageData = await win.singlefile.lib.getPageData(options, { fetch: url => fetchResource(url, options) }, doc, win);
 	if (options.includeInfobar) {
-		await win.singlefile.common.ui.content.infobar.includeScript(pageData);
+		await win.common.ui.content.infobar.includeScript(pageData);
 	}
 	return pageData;
 

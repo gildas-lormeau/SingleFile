@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global singlefile, require, exports */
+/* global singlefile, common, require, exports */
 
 const puppeteer = require("puppeteer-core");
 const scripts = require("./common/scripts.js");
@@ -132,7 +132,7 @@ async function getPageData(browser, page, options) {
 		return await page.evaluate(async options => {
 			const pageData = await singlefile.lib.getPageData(options);
 			if (options.includeInfobar) {
-				await singlefile.common.ui.content.infobar.includeScript(pageData);
+				await common.ui.content.infobar.includeScript(pageData);
 			}
 			return pageData;
 		}, options);

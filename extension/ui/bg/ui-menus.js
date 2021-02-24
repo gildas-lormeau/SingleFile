@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global browser, singlefile, URL */
+/* global extension, browser, URL */
 
-singlefile.extension.ui.bg.menus = (() => {
+extension.ui.bg.menus = (() => {
 
 	const menus = browser.menus || browser.contextMenus;
 	const BROWSER_MENUS_API_SUPPORTED = menus && menus.onClicked && menus.create && menus.update && menus.removeAll;
@@ -107,8 +107,8 @@ singlefile.extension.ui.bg.menus = (() => {
 	}
 
 	async function createMenus(tab) {
-		const config = singlefile.extension.core.bg.config;
-		const [profiles, tabsData] = await Promise.all([config.getProfiles(), singlefile.extension.core.bg.tabsData.get()]);
+		const config = extension.core.bg.config;
+		const [profiles, tabsData] = await Promise.all([config.getProfiles(), extension.core.bg.tabsData.get()]);
 		const options = await config.getOptions(tab && tab.url);
 		if (BROWSER_MENUS_API_SUPPORTED && options) {
 			const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio", "selection"];
@@ -371,15 +371,15 @@ singlefile.extension.ui.bg.menus = (() => {
 		menusCreated = true;
 		if (pendingRefresh) {
 			pendingRefresh = false;
-			(await singlefile.extension.core.bg.tabs.get({})).forEach(async tab => await refreshTab(tab));
+			(await extension.core.bg.tabs.get({})).forEach(async tab => await refreshTab(tab));
 		}
 	}
 
 	async function initialize() {
-		const business = singlefile.extension.core.bg.business;
-		const tabs = singlefile.extension.core.bg.tabs;
-		const tabsData = singlefile.extension.core.bg.tabsData;
-		const config = singlefile.extension.core.bg.config;
+		const business = extension.core.bg.business;
+		const tabs = extension.core.bg.tabs;
+		const tabsData = extension.core.bg.tabsData;
+		const config = extension.core.bg.config;
 		if (BROWSER_MENUS_API_SUPPORTED) {
 			createMenus();
 			menus.onClicked.addListener(async (event, tab) => {
@@ -505,9 +505,9 @@ singlefile.extension.ui.bg.menus = (() => {
 	}
 
 	async function refreshExternalComponents(tab) {
-		const tabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);
-		await singlefile.extension.core.bg.autosave.refreshTabs();
-		await singlefile.extension.ui.bg.button.refreshTab(tab);
+		const tabsData = await extension.core.bg.tabsData.get(tab.id);
+		await extension.core.bg.autosave.refreshTabs();
+		await extension.ui.bg.button.refreshTab(tab);
 		try {
 			await browser.runtime.sendMessage({ method: "options.refresh", profileName: tabsData.profileName });
 		} catch (error) {
@@ -516,10 +516,10 @@ singlefile.extension.ui.bg.menus = (() => {
 	}
 
 	async function refreshTab(tab) {
-		const config = singlefile.extension.core.bg.config;
+		const config = extension.core.bg.config;
 		if (BROWSER_MENUS_API_SUPPORTED && menusCreated) {
 			const promises = [];
-			const tabsData = await singlefile.extension.core.bg.tabsData.get(tab.id);
+			const tabsData = await extension.core.bg.tabsData.get(tab.id);
 			if (tabsData[tab.id].editorDetected) {
 				updateAllVisibleValues(false);
 			} else {

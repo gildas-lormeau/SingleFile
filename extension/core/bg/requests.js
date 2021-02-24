@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global browser, singlefile, */
+/* global extension, browser */
 
-singlefile.extension.core.bg.requests = (() => {
+extension.core.bg.requests = (() => {
 
 	const REQUEST_ID_HEADER_NAME = "x-single-file-request-id";
 	const referrers = new Map();

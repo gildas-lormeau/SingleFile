@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global singlefile */
+/* global extension */
 
-singlefile.extension.core.bg.business = (() => {
+extension.core.bg.business = (() => {
 
 	const ERROR_CONNECTION_ERROR_CHROMIUM = "Could not establish connection. Receiving end does not exist.";
 	const ERROR_CONNECTION_LOST_CHROMIUM = "The message port closed before a response was received.";
@@ -67,28 +67,28 @@ singlefile.extension.core.bg.business = (() => {
 	};
 
 	async function saveSelectedLinks(tab) {
-		const tabs = singlefile.extension.core.bg.tabs;
+		const tabs = extension.core.bg.tabs;
 		const tabOptions = { extensionScriptFiles, tabId: tab.id, tabIndex: tab.index };
-		const scriptsInjected = await singlefile.extension.injectScript(tab.id, tabOptions);
+		const scriptsInjected = await extension.injectScript(tab.id, tabOptions);
 		if (scriptsInjected) {
 			const response = await tabs.sendMessage(tab.id, { method: "content.getSelectedLinks" });
 			if (response.urls && response.urls.length) {
 				await saveUrls(response.urls);
 			}
 		} else {
-			singlefile.extension.ui.bg.main.onForbiddenDomain(tab);
+			extension.ui.bg.main.onForbiddenDomain(tab);
 		}
 	}
 
 	async function saveUrls(urls, options = {}) {
 		await initMaxParallelWorkers();
 		await Promise.all(urls.map(async url => {
-			const tabOptions = await singlefile.extension.core.bg.config.getOptions(url);
+			const tabOptions = await extension.core.bg.config.getOptions(url);
 			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 			tabOptions.autoClose = true;
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
 			if (tabOptions.passReferrerOnError) {
-				await singlefile.extension.core.bg.requests.enableReferrerOnError();
+				await extension.core.bg.requests.enableReferrerOnError();
 			}
 			addTask({
 				tab: { url },
@@ -101,9 +101,9 @@ singlefile.extension.core.bg.business = (() => {
 	}
 
 	async function saveTabs(tabs, options = {}) {
-		const config = singlefile.extension.core.bg.config;
-		const autosave = singlefile.extension.core.bg.autosave;
-		const ui = singlefile.extension.ui.bg.main;
+		const config = extension.core.bg.config;
+		const autosave = extension.core.bg.autosave;
+		const ui = extension.ui.bg.main;
 		await initMaxParallelWorkers();
 		await Promise.all(tabs.map(async tab => {
 			const tabId = tab.id;
@@ -113,7 +113,7 @@ singlefile.extension.core.bg.business = (() => {
 			tabOptions.tabIndex = tab.index;
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
 			if (tabOptions.passReferrerOnError) {
-				await singlefile.extension.core.bg.requests.enableReferrerOnError();
+				await extension.core.bg.requests.enableReferrerOnError();
 			}
 			if (options.autoSave) {
 				if (autosave.isEnabled(tab)) {
@@ -127,8 +127,8 @@ singlefile.extension.core.bg.business = (() => {
 				}
 			} else {
 				ui.onStart(tabId, INJECT_SCRIPTS_STEP);
-				const scriptsInjected = await singlefile.extension.injectScript(tabId, tabOptions);
-				if (scriptsInjected || singlefile.extension.core.bg.editor.isEditor(tab)) {
+				const scriptsInjected = await extension.injectScript(tabId, tabOptions);
+				if (scriptsInjected || extension.core.bg.editor.isEditor(tab)) {
 					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
 					addTask({
 						status: TASK_PENDING_STATE,
@@ -162,12 +162,12 @@ singlefile.extension.core.bg.business = (() => {
 	}
 
 	function openEditor(tab) {
-		singlefile.extension.core.bg.tabs.sendMessage(tab.id, { method: "content.openEditor" });
+		extension.core.bg.tabs.sendMessage(tab.id, { method: "content.openEditor" });
 	}
 
 	async function initMaxParallelWorkers() {
 		if (!maxParallelWorkers) {
-			maxParallelWorkers = (await singlefile.extension.core.bg.config.get()).maxParallelWorkers;
+			maxParallelWorkers = (await extension.core.bg.config.get()).maxParallelWorkers;
 		}
 	}
 
@@ -182,8 +182,8 @@ singlefile.extension.core.bg.business = (() => {
 	}
 
 	async function runTask(taskInfo) {
-		const ui = singlefile.extension.ui.bg.main;
-		const tabs = singlefile.extension.core.bg.tabs;
+		const ui = extension.ui.bg.main;
+		const tabs = extension.core.bg.tabs;
 		const taskId = taskInfo.id;
 		taskInfo.status = TASK_PROCESSING_STATE;
 		if (!taskInfo.tab.id) {
@@ -193,7 +193,7 @@ singlefile.extension.core.bg.business = (() => {
 				taskInfo.tab.id = taskInfo.options.tabId = tab.id;
 				taskInfo.tab.index = taskInfo.options.tabIndex = tab.index;
 				ui.onStart(taskInfo.tab.id, INJECT_SCRIPTS_STEP);
-				scriptsInjected = await singlefile.extension.injectScript(taskInfo.tab.id, taskInfo.options);
+				scriptsInjected = await extension.injectScript(taskInfo.tab.id, taskInfo.options);
 			} catch (tabId) {
 				taskInfo.tab.id = tabId;
 			}
@@ -220,7 +220,7 @@ singlefile.extension.core.bg.business = (() => {
 		return error.message == ERROR_CONNECTION_LOST_CHROMIUM ||
 			error.message == ERROR_CONNECTION_ERROR_CHROMIUM ||
 			error.message == ERROR_CONNECTION_LOST_GECKO ||
-			error.message.startsWith(ERROR_EDITOR_PAGE_CHROMIUM + JSON.stringify(singlefile.extension.core.bg.editor.EDITOR_URL));
+			error.message.startsWith(ERROR_EDITOR_PAGE_CHROMIUM + JSON.stringify(extension.core.bg.editor.EDITOR_URL));
 	}
 
 	function isSavingTab(tab) {
@@ -235,7 +235,7 @@ singlefile.extension.core.bg.business = (() => {
 		const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
 		if (taskInfo) {
 			if (taskInfo.options.autoClose && !taskInfo.cancelled) {
-				singlefile.extension.core.bg.tabs.remove(taskInfo.tab.id);
+				extension.core.bg.tabs.remove(taskInfo.tab.id);
 			}
 			taskInfo.done();
 		}
@@ -271,7 +271,7 @@ singlefile.extension.core.bg.business = (() => {
 	function cancel(taskInfo) {
 		const tabId = taskInfo.tab.id;
 		taskInfo.cancelled = true;
-		singlefile.extension.core.bg.tabs.sendMessage(tabId, {
+		extension.core.bg.tabs.sendMessage(tabId, {
 			method: "content.cancelSave",
 			options: {
 				loadDeferredImages: taskInfo.options.loadDeferredImages,
@@ -282,9 +282,9 @@ singlefile.extension.core.bg.business = (() => {
 			taskInfo.cancel();
 		}
 		if (taskInfo.method == "content.autosave") {
-			singlefile.extension.ui.bg.main.onEnd(tabId, true);
+			extension.ui.bg.main.onEnd(tabId, true);
 		}
-		singlefile.extension.ui.bg.main.onCancelled(taskInfo.tab);
+		extension.ui.bg.main.onCancelled(taskInfo.tab);
 		taskInfo.done();
 	}
 

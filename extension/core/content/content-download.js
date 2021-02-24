@@ -23,9 +23,9 @@
 
 /* global browser, document, URL, Blob, MouseEvent, setTimeout */
 
-this.singlefile.extension.core.content.download = this.singlefile.extension.core.content.download || (() => {
+this.extension.core.content.download = this.extension.core.content.download || (() => {
 
-	const singlefile = this.singlefile;
+	const common = this.common;
 
 	const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 
@@ -33,7 +33,7 @@ this.singlefile.extension.core.content.download = this.singlefile.extension.core
 
 	async function downloadPage(pageData, options) {
 		if (options.includeInfobar) {
-			await singlefile.common.ui.content.infobar.includeScript(pageData);
+			await common.ui.content.infobar.includeScript(pageData);
 		}
 		if (options.includeBOM) {
 			pageData.content = "\ufeff" + pageData.content;

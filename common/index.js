@@ -21,7 +21,7 @@
  *   Source.
  */
 
-this.singlefile.common = this.singlefile.common || {
+this.common = this.common || {
 	ui: {
 		content: {}
 	}

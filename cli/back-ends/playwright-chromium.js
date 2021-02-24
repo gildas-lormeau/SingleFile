@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global singlefile, require, exports */
+/* global singlefile, common, require, exports */
 
 const playwright = require("playwright").chromium;
 const scripts = require("./common/scripts.js");
@@ -103,7 +103,7 @@ async function getPageData(page, options) {
 	return await page.evaluate(async options => {
 		const pageData = await singlefile.lib.getPageData(options);
 		if (options.includeInfobar) {
-			await singlefile.common.ui.content.infobar.includeScript(pageData);
+			await common.ui.content.infobar.includeScript(pageData);
 		}
 		return pageData;
 	}, options);

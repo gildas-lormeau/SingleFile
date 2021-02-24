@@ -21,9 +21,9 @@
  *   Source.
  */
 
-/* global singlefile, browser */
+/* global extension, browser */
 
-singlefile.extension.core.bg.companion = {
+extension.core.bg.companion = {
 	enabled: true,
 	async onMessage(message) {
 		if (message.method.endsWith(".state")) {
@@ -44,10 +44,10 @@ singlefile.extension.core.bg.companion = {
 					}
 				});
 			});
-			singlefile.extension.ui.bg.main.onEnd(options.tabId, options.autoSave);
+			extension.ui.bg.main.onEnd(options.tabId, options.autoSave);
 		} catch (error) {
 			console.error(error); // eslint-disable-line no-console			
-			singlefile.extension.ui.bg.main.onError(options.tabId);
+			extension.ui.bg.main.onError(options.tabId);
 		}
 	}
 };

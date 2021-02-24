@@ -23,15 +23,16 @@
 
 /* global browser, window, addEventListener, removeEventListener, document, location, setTimeout, prompt, Node */
 
-this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.core.content.bootstrap || (() => {
+this.extension.core.content.bootstrap = this.extension.core.content.bootstrap || (() => {
 
 	const singlefile = this.singlefile;
+	const extension = this.extension;
 
 	const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 
 	let unloadListenerAdded, options, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved, previousLocationHref;
-	singlefile.extension.core.content.updatedResources = {};
-	singlefile.extension.core.content.visitDate = new Date();
+	extension.core.content.updatedResources = {};
+	extension.core.content.visitDate = new Date();
 	browser.runtime.sendMessage({ method: "autosave.init" }).then(message => {
 		options = message.options;
 		autoSaveEnabled = message.autoSaveEnabled;
@@ -82,7 +83,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 			return {};
 		}
 		if (message.method == "devtools.resourceCommitted") {
-			singlefile.extension.core.content.updatedResources[message.url] = { content: message.content, type: message.type, encoding: message.encoding };
+			extension.core.content.updatedResources[message.url] = { content: message.content, type: message.type, encoding: message.encoding };
 			return {};
 		}
 		if (message.method == "common.promptValueRequest") {
@@ -92,7 +93,7 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 	}
 
 	function init() {
-		if (previousLocationHref != location.href && !singlefile.extension.core.processing) {
+		if (previousLocationHref != location.href && !extension.core.processing) {
 			pageAutoSaved = false;
 			previousLocationHref = location.href;
 			browser.runtime.sendMessage({ method: "tabs.init", savedPageDetected: detectSavedPage(document) });
@@ -179,8 +180,8 @@ this.singlefile.extension.core.content.bootstrap = this.singlefile.extension.cor
 
 	function savePage(docData, frames) {
 		const helper = singlefile.lib.helper;
-		const updatedResources = singlefile.extension.core.content.updatedResources;
-		const visitDate = singlefile.extension.core.content.visitDate.getTime();
+		const updatedResources = extension.core.content.updatedResources;
+		const visitDate = extension.core.content.visitDate.getTime();
 		Object.keys(updatedResources).forEach(url => updatedResources[url].retrieved = false);
 		browser.runtime.sendMessage({
 			method: "autosave.save",
