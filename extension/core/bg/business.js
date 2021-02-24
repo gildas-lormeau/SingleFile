@@ -37,6 +37,7 @@ singlefile.extension.core.bg.business = (() => {
 	const extensionScriptFiles = [
 		"common/index.js",
 		"common/ui/content/content-infobar.js",
+		"extension/index.js",
 		"extension/lib/single-file/index.js",
 		"extension/core/index.js",
 		"extension/ui/index.js",

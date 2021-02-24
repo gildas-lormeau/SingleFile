@@ -21,18 +21,7 @@
  *   Source.
  */
 
-this.singlefile.extension.lib = this.singlefile.extension.lib || {
-	core: {
-		bg: {}
-	},
-	fetch: {
-		bg: {},
-		content: {}
-	},
-	frameTree: {
-		bg: {}
-	},
-	lazy: {
-		bg: {}
-	}
+this.singlefile.extension = this.singlefile.extension || {
+	injectScript: (tabId, options) => this.singlefile.extension.lib.core.bg.scripts.inject(tabId, options),
+	getPageData: (options, doc, win, initOptions = { fetch: this.singlefile.extension.lib.fetch.content.resources.fetch }) => this.singlefile.lib.getPageData(options, initOptions, doc, win)
 };

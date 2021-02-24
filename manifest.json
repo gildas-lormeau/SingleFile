@@ -18,6 +18,7 @@
 			"run_at": "document_start",
 			"js": [
 				"lib/single-file/index.js",
+				"extension/index.js",
 				"extension/lib/single-file/index.js",
 				"extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js",
 				"lib/single-file/single-file-helper.js",
@@ -45,6 +46,7 @@
 				"lib/single-file/index.js",
 				"lib/single-file/processors/hooks/content/content-hooks.js",
 				"lib/single-file/modules/html-serializer.js",
+				"extension/index.js",
 				"extension/lib/single-file/index.js",
 				"extension/core/index.js",
 				"extension/core/content/content-bootstrap.js"
@@ -54,6 +56,7 @@
 	"background": {
 		"scripts": [
 			"lib/single-file/index.js",
+			"extension/index.js",
 			"extension/lib/single-file/index.js",
 			"extension/core/index.js",
 			"extension/ui/index.js",
