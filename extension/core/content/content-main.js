@@ -32,7 +32,7 @@ this.extension.core.content.main = this.extension.core.content.main || (() => {
 
 	let ui, processor;
 
-	singlefile.lib.init({
+	singlefile.init({
 		fetch: extension.lib.fetch.content.resources.fetch,
 		frameFetch: extension.lib.fetch.content.resources.frameFetch
 	});
@@ -59,7 +59,7 @@ this.extension.core.content.main = this.extension.core.content.main || (() => {
 					browser.runtime.sendMessage({ method: "ui.processCancelled" });
 				}
 				if (message.options.loadDeferredImages) {
-					singlefile.lib.processors.lazy.content.loader.resetZoomLevel(message.options);
+					singlefile.processors.lazy.resetZoomLevel(message.options);
 				}
 				return {};
 			}
@@ -108,11 +108,11 @@ this.extension.core.content.main = this.extension.core.content.main || (() => {
 	}
 
 	async function processPage(options) {
-		const frames = singlefile.lib.processors.frameTree.content.frames;
+		const frames = singlefile.processors.frameTree;
 		let framesSessionId;
-		singlefile.lib.helper.initDoc(document);
+		singlefile.helper.initDoc(document);
 		ui.onStartPage(options);
-		processor = new singlefile.lib.SingleFile(options);
+		processor = new singlefile.SingleFile(options);
 		const preInitializationPromises = [];
 		options.insertSingleFileComment = true;
 		options.insertCanonicalLink = true;
@@ -133,7 +133,7 @@ this.extension.core.content.main = this.extension.core.content.main || (() => {
 				preInitializationPromises.push(frameTreePromise);
 			}
 			if (options.loadDeferredImages) {
-				const lazyLoadPromise = singlefile.lib.processors.lazy.content.loader.process(options);
+				const lazyLoadPromise = singlefile.processors.lazy.process(options);
 				ui.onLoadingDeferResources(options);
 				lazyLoadPromise.then(() => {
 					if (!processor.cancelled) {
@@ -149,7 +149,7 @@ this.extension.core.content.main = this.extension.core.content.main || (() => {
 				if (event.type == event.RESOURCES_INITIALIZED) {
 					maxIndex = event.detail.max;
 					if (options.loadDeferredImages) {
-						singlefile.lib.processors.lazy.content.loader.resetZoomLevel(options);
+						singlefile.processors.lazy.resetZoomLevel(options);
 					}
 				}
 				if (event.type == event.RESOURCES_INITIALIZED || event.type == event.RESOURCE_LOADED) {

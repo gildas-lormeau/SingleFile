@@ -1,3 +1,5 @@
+/* global module */
+
 module.exports = {
 	"env": {
 		"es6": true,
@@ -12,6 +14,9 @@ module.exports = {
 		"ecmaVersion": 2017,
 		"sourceType": "module"
 	},
+	"ignorePatterns": [
+		"dist/"
+	],
 	"rules": {
 		"indent": [
 			"error",

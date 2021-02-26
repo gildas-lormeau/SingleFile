@@ -25,7 +25,7 @@
 
 this.extension.ui.content.main = this.extension.ui.content.main || (() => {
 
-	const SELECTED_CONTENT_ATTRIBUTE_NAME = this.singlefile.lib.helper.SELECTED_CONTENT_ATTRIBUTE_NAME;
+	const SELECTED_CONTENT_ATTRIBUTE_NAME = this.singlefile.helper.SELECTED_CONTENT_ATTRIBUTE_NAME;
 
 	const MASK_TAGNAME = "singlefile-mask";
 	const MASK_CONTENT_CLASSNAME = "singlefile-mask-content";
@@ -37,7 +37,7 @@ this.extension.ui.content.main = this.extension.ui.content.main || (() => {
 	const LOGS_LINE_CLASSNAME = "singlefile-logs-line";
 	const LOGS_LINE_TEXT_ELEMENT_CLASSNAME = "singlefile-logs-line-text";
 	const LOGS_LINE_STATUS_ELEMENT_CLASSNAME = "singlefile-logs-line-icon";
-	const SINGLE_FILE_UI_ELEMENT_CLASS = this.singlefile.lib.helper.SINGLE_FILE_UI_ELEMENT_CLASS;
+	const SINGLE_FILE_UI_ELEMENT_CLASS = this.singlefile.helper.SINGLE_FILE_UI_ELEMENT_CLASS;
 	const SELECT_PX_THRESHOLD = 8;
 	const LOG_PANEL_DEFERRED_IMAGES_MESSAGE = browser.i18n.getMessage("logPanelDeferredImages");
 	const LOG_PANEL_FRAME_CONTENTS_MESSAGE = browser.i18n.getMessage("logPanelFrameContents");

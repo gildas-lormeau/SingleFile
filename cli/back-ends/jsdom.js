@@ -78,7 +78,7 @@ async function getPageData(win, options) {
 	if (options.browserWaitDelay) {
 		await new Promise(resolve => setTimeout(resolve, options.browserWaitDelay));
 	}
-	const pageData = await win.singlefile.lib.getPageData(options, { fetch: url => fetchResource(url, options) }, doc, win);
+	const pageData = await win.singlefile.getPageData(options, { fetch: url => fetchResource(url, options) }, doc, win);
 	if (options.includeInfobar) {
 		await win.common.ui.content.infobar.includeScript(pageData);
 	}

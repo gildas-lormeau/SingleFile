@@ -23,5 +23,5 @@
 
 this.extension = this.extension || {
 	injectScript: (tabId, options) => this.extension.lib.core.bg.scripts.inject(tabId, options),
-	getPageData: (options, doc, win, initOptions = { fetch: this.extension.lib.fetch.content.resources.fetch }) => this.singlefile.lib.getPageData(options, initOptions, doc, win)
+	getPageData: (options, doc, win, initOptions = { fetch: this.extension.lib.fetch.content.resources.fetch }) => this.singlefile.getPageData(options, initOptions, doc, win)
 };

@@ -37,8 +37,8 @@ this.common.ui.content.infobar = this.common.ui.content.infobar || (() => {
 		let infobarContent;
 		if (browser && browser.runtime && browser.runtime.getURL) {
 			infobarContent = await (await fetch(browser.runtime.getURL(SCRIPT_PATH))).text();
-		} else if (singlefile.lib.getFileContent) {
-			infobarContent = singlefile.lib.getFileContent(SCRIPT_PATH);
+		} else if (singlefile.getFileContent) {
+			infobarContent = singlefile.getFileContent(SCRIPT_PATH);
 		}
 		let lastInfobarContent;
 		while (lastInfobarContent != infobarContent) {

@@ -1726,7 +1726,7 @@ table {
 			doc.body.appendChild(element);
 			element.textContent = resource.content;
 		});
-		return singlefile.lib.modules.serializer.process(doc, compressHTML);
+		return singlefile.modules.serializer.process(doc, compressHTML);
 	}
 
 	function onUpdate(saved) {
