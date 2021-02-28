@@ -30,8 +30,10 @@ const timeouts = new Map();
 browser.runtime.onMessage.addListener((message, sender) => {
 	if (message.method == "singlefile.lazyTimeout.setTimeout") {
 		let tabTimeouts = timeouts.get(sender.tab.id);
+		let frameTimeouts;
 		if (tabTimeouts) {
-			const previousTimeoutId = tabTimeouts.get(message.type);
+			frameTimeouts = tabTimeouts.get(sender.frameId);
+			const previousTimeoutId = frameTimeouts.get(message.type);
 			if (previousTimeoutId) {
 				clearTimeout(previousTimeoutId);
 			}
@@ -39,8 +41,9 @@ browser.runtime.onMessage.addListener((message, sender) => {
 		const timeoutId = setTimeout(async () => {
 			try {
 				const tabTimeouts = timeouts.get(sender.tab.id);
+				const frameTimeouts = tabTimeouts.get(sender.frameId);
 				if (tabTimeouts) {
-					deleteTimeout(tabTimeouts, sender.tab.id, message.type);
+					deleteTimeout(frameTimeouts, message.type);
 				}
 				await browser.tabs.sendMessage(sender.tab.id, { method: "singlefile.lazyTimeout.onTimeout", type: message.type });
 			} catch (error) {
@@ -49,19 +52,24 @@ browser.runtime.onMessage.addListener((message, sender) => {
 		}, message.delay);
 		if (!tabTimeouts) {
 			tabTimeouts = new Map();
+			frameTimeouts = new Map();
+			tabTimeouts.set(sender.frameId, frameTimeouts);
 			timeouts.set(sender.tab.id, tabTimeouts);
 		}
-		tabTimeouts.set(message.type, timeoutId);
+		frameTimeouts.set(message.type, timeoutId);
 		return Promise.resolve({});
 	}
 	if (message.method == "singlefile.lazyTimeout.clearTimeout") {
 		let tabTimeouts = timeouts.get(sender.tab.id);
 		if (tabTimeouts) {
-			const timeoutId = tabTimeouts.get(message.type);
-			if (timeoutId) {
-				clearTimeout(timeoutId);
+			const frameTimeouts = tabTimeouts.get(sender.frameId);
+			if (frameTimeouts) {
+				const timeoutId = frameTimeouts.get(message.type);
+				if (timeoutId) {
+					clearTimeout(timeoutId);
+				}
+				deleteTimeout(frameTimeouts, message.type);
 			}
-			deleteTimeout(tabTimeouts, sender.tab.id, message.type);
 		}
 		return Promise.resolve({});
 	}
@@ -69,9 +77,6 @@ browser.runtime.onMessage.addListener((message, sender) => {
 
 browser.tabs.onRemoved.addListener(tabId => timeouts.delete(tabId));
 
-function deleteTimeout(tabTimeouts, tabId, type) {
-	tabTimeouts.delete(type);
-	if (!tabTimeouts.size) {
-		timeouts.delete(tabId);
-	}
+function deleteTimeout(framesTimeouts, type) {
+	framesTimeouts.delete(type);
 }
