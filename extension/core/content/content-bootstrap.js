@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, globalThis, window, addEventListener, removeEventListener, document, location, setTimeout, prompt, Node */
+/* global browser, globalThis, window, document, location, setTimeout, prompt, Node */
 
 const singlefile = globalThis.singlefileBootstrap;
 
@@ -102,7 +102,7 @@ function init() {
 async function initAutoSavePage(message) {
 	options = message.options;
 	if (document.readyState != "complete") {
-		await new Promise(resolve => window.addEventListener("load", resolve));
+		await new Promise(resolve => globalThis.addEventListener("load", resolve));
 	}
 	await autoSavePage();
 	if (options.autoSaveRepeat) {
@@ -128,14 +128,14 @@ async function autoSavePage() {
 			let frames = [];
 			let framesSessionId;
 			autoSaveTimeout = null;
-			if (!options.removeFrames && window.frames && window.frames.length) {
+			if (!options.removeFrames && globalThis.frames && globalThis.frames.length) {
 				frames = await singlefile.processors.frameTree.getAsync(options);
 			}
 			framesSessionId = frames && frames.sessionId;
 			if (options.userScriptEnabled && waitForUserScript) {
 				await waitForUserScript(helper.ON_BEFORE_CAPTURE_EVENT_NAME);
 			}
-			const docData = helper.preProcessDoc(document, window, options);
+			const docData = helper.preProcessDoc(document, globalThis, options);
 			savePage(docData, frames);
 			if (framesSessionId) {
 				singlefile.processors.frameTree.cleanup(framesSessionId);
@@ -153,11 +153,11 @@ async function autoSavePage() {
 function refresh() {
 	if (autoSaveEnabled && options && (options.autoSaveUnload || options.autoSaveLoadOrUnload)) {
 		if (!unloadListenerAdded) {
-			addEventListener("unload", onUnload);
+			globalThis.addEventListener("unload", onUnload);
 			unloadListenerAdded = true;
 		}
 	} else {
-		removeEventListener("unload", onUnload);
+		globalThis.removeEventListener("unload", onUnload);
 		unloadListenerAdded = false;
 	}
 }
@@ -167,13 +167,13 @@ function onUnload() {
 	if (!pageAutoSaved || options.autoSaveUnload) {
 		const waitForUserScript = window._singleFile_waitForUserScript;
 		let frames = [];
-		if (!options.removeFrames && window.frames && window.frames.length) {
+		if (!options.removeFrames && globalThis.frames && globalThis.frames.length) {
 			frames = singlefile.processors.frameTree.getSync(options);
 		}
 		if (options.userScriptEnabled && waitForUserScript) {
 			waitForUserScript(helper.ON_BEFORE_CAPTURE_EVENT_NAME);
 		}
-		const docData = helper.preProcessDoc(document, window, options);
+		const docData = helper.preProcessDoc(document, globalThis, options);
 		savePage(docData, frames);
 	}
 }

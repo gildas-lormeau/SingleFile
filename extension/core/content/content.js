@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, globalThis, window, location, setTimeout */
+/* global browser, document, globalThis, location, setTimeout */
 
 import * as download from "./../common/download.js";
 import { fetch, frameFetch } from "./../../lib/single-file/fetch/content/content-fetch.js";
@@ -117,7 +117,7 @@ async function processPage(options) {
 	options.insertSingleFileComment = true;
 	options.insertCanonicalLink = true;
 	if (!options.saveRawPage) {
-		if (!options.removeFrames && frames && window.frames && window.frames.length) {
+		if (!options.removeFrames && frames && globalThis.frames && globalThis.frames.length) {
 			let frameTreePromise;
 			if (options.loadDeferredImages) {
 				frameTreePromise = new Promise(resolve => setTimeout(() => resolve(frames.getAsync(options)), options.loadDeferredImagesMaxIdleTime - frames.TIMEOUT_INIT_REQUEST_MESSAGE));
@@ -190,7 +190,7 @@ async function processPage(options) {
 	});
 	framesSessionId = options.frames && options.frames.sessionId;
 	const selectedFrame = options.frames && options.frames.find(frameData => frameData.requestedFrame);
-	options.win = window;
+	options.win = globalThis;
 	if (selectedFrame) {
 		options.content = selectedFrame.content;
 		options.url = selectedFrame.baseURI;
