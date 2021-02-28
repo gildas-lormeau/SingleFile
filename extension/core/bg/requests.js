@@ -21,72 +21,68 @@
  *   Source.
  */
 
-/* global extension, browser */
+/* global browser */
 
-extension.core.bg.requests = (() => {
+const REQUEST_ID_HEADER_NAME = "x-single-file-request-id";
+const referrers = new Map();
+let referrerOnErrorEnabled = false;
 
-	const REQUEST_ID_HEADER_NAME = "x-single-file-request-id";
-	const referrers = new Map();
-	let referrerOnErrorEnabled = false;
+export {
+	REQUEST_ID_HEADER_NAME,
+	onMessage,
+	setReferrer,
+	enableReferrerOnError
+};
 
-	return {
-		REQUEST_ID_HEADER_NAME,
-		onMessage,
-		setReferrer,
-		enableReferrerOnError
-	};
-
-	function onMessage(message) {
-		if (message.method.endsWith(".enableReferrerOnError")) {
-			enableReferrerOnError();
-			return {};
-		}
-		if (message.method.endsWith(".disableReferrerOnError")) {
-			disableReferrerOnError();
-			return {};
-		}
+function onMessage(message) {
+	if (message.method.endsWith(".enableReferrerOnError")) {
+		enableReferrerOnError();
+		return {};
 	}
-
-	function setReferrer(requestId, referrer) {
-		referrers.set(requestId, referrer);
+	if (message.method.endsWith(".disableReferrerOnError")) {
+		disableReferrerOnError();
+		return {};
 	}
+}
 
-	function injectRefererHeader(details) {
-		if (referrerOnErrorEnabled) {
-			let requestIdHeader = details.requestHeaders.find(header => header.name === REQUEST_ID_HEADER_NAME);
-			if (requestIdHeader) {
-				details.requestHeaders = details.requestHeaders.filter(header => header.name !== REQUEST_ID_HEADER_NAME);
-				const referrer = referrers.get(requestIdHeader.value);
-				if (referrer) {
-					referrers.delete(requestIdHeader.value);
-					const header = details.requestHeaders.find(header => header.name.toLowerCase() === "referer");
-					if (!header) {
-						details.requestHeaders.push({ name: "Referer", value: referrer });
-						return { requestHeaders: details.requestHeaders };
-					}
+function setReferrer(requestId, referrer) {
+	referrers.set(requestId, referrer);
+}
+
+function injectRefererHeader(details) {
+	if (referrerOnErrorEnabled) {
+		let requestIdHeader = details.requestHeaders.find(header => header.name === REQUEST_ID_HEADER_NAME);
+		if (requestIdHeader) {
+			details.requestHeaders = details.requestHeaders.filter(header => header.name !== REQUEST_ID_HEADER_NAME);
+			const referrer = referrers.get(requestIdHeader.value);
+			if (referrer) {
+				referrers.delete(requestIdHeader.value);
+				const header = details.requestHeaders.find(header => header.name.toLowerCase() === "referer");
+				if (!header) {
+					details.requestHeaders.push({ name: "Referer", value: referrer });
+					return { requestHeaders: details.requestHeaders };
 				}
 			}
 		}
 	}
+}
 
-	function enableReferrerOnError() {
-		if (!referrerOnErrorEnabled) {
-			try {
-				browser.webRequest.onBeforeSendHeaders.addListener(injectRefererHeader, { urls: ["<all_urls>"] }, ["blocking", "requestHeaders", "extraHeaders"]);
-			} catch (error) {
-				browser.webRequest.onBeforeSendHeaders.addListener(injectRefererHeader, { urls: ["<all_urls>"] }, ["blocking", "requestHeaders"]);
-			}
-			referrerOnErrorEnabled = true;
-		}
-	}
-
-	function disableReferrerOnError() {
+function enableReferrerOnError() {
+	if (!referrerOnErrorEnabled) {
 		try {
-			browser.webRequest.onBeforeSendHeaders.removeListener(injectRefererHeader);
+			browser.webRequest.onBeforeSendHeaders.addListener(injectRefererHeader, { urls: ["<all_urls>"] }, ["blocking", "requestHeaders", "extraHeaders"]);
 		} catch (error) {
-			// ignored
+			browser.webRequest.onBeforeSendHeaders.addListener(injectRefererHeader, { urls: ["<all_urls>"] }, ["blocking", "requestHeaders"]);
 		}
-		referrerOnErrorEnabled = false;
+		referrerOnErrorEnabled = true;
 	}
+}
 
-})();
+function disableReferrerOnError() {
+	try {
+		browser.webRequest.onBeforeSendHeaders.removeListener(injectRefererHeader);
+	} catch (error) {
+		// ignored
+	}
+	referrerOnErrorEnabled = false;
+}

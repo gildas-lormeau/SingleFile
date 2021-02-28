@@ -21,114 +21,114 @@
  *   Source.
  */
 
-/* global extension, browser */
+/* global browser */
 
-extension.core.bg.bookmarks = (() => {
+import * as config from "./config.js";
+import * as business from "./business.js";
 
-	enable();
-	return {
-		onMessage,
-		saveCreatedBookmarks: enable,
-		disable,
-		update
-	};
+Promise.resolve().then(enable);
 
-	async function onMessage(message) {
-		if (message.method.endsWith(".saveCreatedBookmarks")) {
-			enable();
-			return {};
-		}
-		if (message.method.endsWith(".disable")) {
-			disable();
-			return {};
-		}
+export {
+	onMessage,
+	enable as saveCreatedBookmarks,
+	disable,
+	update
+};
+
+async function onMessage(message) {
+	if (message.method.endsWith(".saveCreatedBookmarks")) {
+		enable();
+		return {};
 	}
-
-	async function enable() {
-		try {
-			browser.bookmarks.onCreated.removeListener(onCreated);
-		} catch (error) {
-			// ignored
-		}
-		let enabled;
-		const profiles = await extension.core.bg.config.getProfiles();
-		Object.keys(profiles).forEach(profileName => {
-			if (profiles[profileName].saveCreatedBookmarks) {
-				enabled = true;
-			}
-		});
-		if (enabled) {
-			browser.bookmarks.onCreated.addListener(onCreated);
-		}
+	if (message.method.endsWith(".disable")) {
+		disable();
+		return {};
 	}
+}
 
-	async function disable() {
-		let disabled;
-		const profiles = await extension.core.bg.config.getProfiles();
-		Object.keys(profiles).forEach(profileName => disabled = disabled || !profiles[profileName].saveCreatedBookmarks);
-		if (disabled) {
-			browser.bookmarks.onCreated.removeListener(onCreated);
-		}
+async function enable() {
+	try {
+		browser.bookmarks.onCreated.removeListener(onCreated);
+	} catch (error) {
+		// ignored
 	}
-
-	async function update(id, changes) {
-		try {
-			await browser.bookmarks.update(id, changes);
-		} catch (error) {
-			// ignored
+	let enabled;
+	const profiles = await config.getProfiles();
+	Object.keys(profiles).forEach(profileName => {
+		if (profiles[profileName].saveCreatedBookmarks) {
+			enabled = true;
 		}
+	});
+	if (enabled) {
+		browser.bookmarks.onCreated.addListener(onCreated);
 	}
+}
 
-	async function onCreated(bookmarkId, bookmarkInfo) {
-		const tabs = await extension.core.bg.tabs.get({ lastFocusedWindow: true, active: true });
-		const options = await extension.core.bg.config.getOptions(bookmarkInfo.url);
-		if (options.saveCreatedBookmarks) {
-			const bookmarkFolders = await getParentFolders(bookmarkInfo.parentId);
-			const ignoredBookmark = bookmarkFolders.find(folder => options.ignoredBookmarkFolders.includes(folder));
-			if (!ignoredBookmark) {
-				if (tabs.length && tabs[0].url == bookmarkInfo.url) {
-					extension.core.bg.business.saveTabs(tabs, { bookmarkId, bookmarkFolders });
-				} else {
-					const tabs = await extension.core.bg.tabs.get({});
-					if (tabs.length) {
-						const tab = tabs.find(tab => tab.url == bookmarkInfo.url);
-						if (tab) {
-							extension.core.bg.business.saveTabs([tab], { bookmarkId, bookmarkFolders });
-						} else {
-							if (bookmarkInfo.url) {
-								if (bookmarkInfo.url == "about:blank") {
-									browser.bookmarks.onChanged.addListener(onChanged);
-								} else {
-									saveUrl(bookmarkInfo.url);
-								}
+async function disable() {
+	let disabled;
+	const profiles = await config.getProfiles();
+	Object.keys(profiles).forEach(profileName => disabled = disabled || !profiles[profileName].saveCreatedBookmarks);
+	if (disabled) {
+		browser.bookmarks.onCreated.removeListener(onCreated);
+	}
+}
+
+async function update(id, changes) {
+	try {
+		await browser.bookmarks.update(id, changes);
+	} catch (error) {
+		// ignored
+	}
+}
+
+async function onCreated(bookmarkId, bookmarkInfo) {
+	const tabs = await tabs.get({ lastFocusedWindow: true, active: true });
+	const options = await config.getOptions(bookmarkInfo.url);
+	if (options.saveCreatedBookmarks) {
+		const bookmarkFolders = await getParentFolders(bookmarkInfo.parentId);
+		const ignoredBookmark = bookmarkFolders.find(folder => options.ignoredBookmarkFolders.includes(folder));
+		if (!ignoredBookmark) {
+			if (tabs.length && tabs[0].url == bookmarkInfo.url) {
+				business.saveTabs(tabs, { bookmarkId, bookmarkFolders });
+			} else {
+				const tabs = await tabs.get({});
+				if (tabs.length) {
+					const tab = tabs.find(tab => tab.url == bookmarkInfo.url);
+					if (tab) {
+						business.saveTabs([tab], { bookmarkId, bookmarkFolders });
+					} else {
+						if (bookmarkInfo.url) {
+							if (bookmarkInfo.url == "about:blank") {
+								browser.bookmarks.onChanged.addListener(onChanged);
+							} else {
+								saveUrl(bookmarkInfo.url);
 							}
 						}
 					}
 				}
 			}
 		}
+	}
 
-		async function getParentFolders(id, folderNames = []) {
-			if (id) {
-				const bookmarkNode = (await browser.bookmarks.get(id))[0];
-				if (bookmarkNode && bookmarkNode.title) {
-					folderNames.unshift(bookmarkNode.title);
-					await getParentFolders(bookmarkNode.parentId, folderNames);
-				}
-			}
-			return folderNames;
-		}
-
-		function onChanged(id, changeInfo) {
-			if (id == bookmarkId && changeInfo.url) {
-				browser.bookmarks.onChanged.removeListener(onChanged);
-				saveUrl(changeInfo.url);
+	async function getParentFolders(id, folderNames = []) {
+		if (id) {
+			const bookmarkNode = (await browser.bookmarks.get(id))[0];
+			if (bookmarkNode && bookmarkNode.title) {
+				folderNames.unshift(bookmarkNode.title);
+				await getParentFolders(bookmarkNode.parentId, folderNames);
 			}
 		}
+		return folderNames;
+	}
 
-		function saveUrl(url) {
-			extension.core.bg.business.saveUrls([url], { bookmarkId });
+	function onChanged(id, changeInfo) {
+		if (id == bookmarkId && changeInfo.url) {
+			browser.bookmarks.onChanged.removeListener(onChanged);
+			saveUrl(changeInfo.url);
 		}
 	}
 
-})();
+	function saveUrl(url) {
+		business.saveUrls([url], { bookmarkId });
+	}
+}

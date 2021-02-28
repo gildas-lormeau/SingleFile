@@ -21,24 +21,23 @@
  *   Source.
  */
 
-/* global extension, browser */
+/* global browser */
 
-extension.ui.bg.commands = (() => {
+import * as tabs from "./../../core/bg/tabs.js";
+import * as business from "./../../core/bg/business.js";
 
-	const commands = browser.commands;
-	const BROWSER_COMMANDS_API_SUPPORTED = commands && commands.onCommand && commands.onCommand.addListener;
+const commands = browser.commands;
+const BROWSER_COMMANDS_API_SUPPORTED = commands && commands.onCommand && commands.onCommand.addListener;
 
-	if (BROWSER_COMMANDS_API_SUPPORTED) {
-		commands.onCommand.addListener(async command => {
-			if (command == "save-selected-tabs") {
-				const allTabs = await extension.core.bg.tabs.get({ currentWindow: true, highlighted: true });
-				extension.core.bg.business.saveTabs(allTabs, { optionallySelected: true });
-			}
-			if (command == "save-all-tabs") {
-				const allTabs = await extension.core.bg.tabs.get({ currentWindow: true });
-				extension.core.bg.business.saveTabs(allTabs);
-			}
-		});
-	}
-
-})();
+if (BROWSER_COMMANDS_API_SUPPORTED) {
+	commands.onCommand.addListener(async command => {
+		if (command == "save-selected-tabs") {
+			const highlightedTabs = await tabs.get({ currentWindow: true, highlighted: true });
+			business.saveTabs(highlightedTabs, { optionallySelected: true });
+		}
+		if (command == "save-all-tabs") {
+			const allTabs = await tabs.get({ currentWindow: true });
+			business.saveTabs(allTabs);
+		}
+	});
+}

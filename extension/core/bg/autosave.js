@@ -21,149 +21,152 @@
  *   Source.
  */
 
-/* global extension, common, URL, Blob, XMLHttpRequest, woleet */
+/* global infobar, URL, Blob, XMLHttpRequest */
 
-extension.core.bg.autosave = (() => {
+import * as config from "./config.js";
+import * as business from "./business.js";
+import * as companion from "./companion.js";
+import * as downloads from "./downloads.js";
+import * as tabsData from "./tabs-data.js";
+import * as tabs from "./tabs.js";
+import * as ui from "./../../ui/bg/index.js";
+import { getPageData } from "./../../index.js";
+import * as woleet from "./../../lib/woleet/woleet.js";
 
-	return {
-		onMessage,
-		onMessageExternal,
-		onInit,
-		isEnabled,
-		refreshTabs
-	};
+export {
+	onMessage,
+	onMessageExternal,
+	onInit,
+	isEnabled,
+	refreshTabs
+};
 
-	async function onMessage(message, sender) {
-		const ui = extension.ui.bg.main;
-		if (message.method.endsWith(".init")) {
-			const [options, autoSaveEnabled] = await Promise.all([extension.core.bg.config.getOptions(sender.tab.url, true), isEnabled(sender.tab)]);
-			return { options, autoSaveEnabled };
-		}
-		if (message.method.endsWith(".save")) {
-			const tabId = sender.tab.id;
-			const options = await extension.core.bg.config.getOptions(sender.tab.url, true);
-			if (options) {
-				ui.onStart(tabId, 1, true);
-				await saveContent(message, sender.tab);
-				ui.onEnd(tabId, true);
-			}
-			return {};
-		}
+async function onMessage(message, sender) {
+	if (message.method.endsWith(".init")) {
+		const [options, autoSaveEnabled] = await Promise.all([config.getOptions(sender.tab.url, true), isEnabled(sender.tab)]);
+		return { options, autoSaveEnabled };
 	}
-
-	async function onMessageExternal(message, currentTab) {
-		if (message.method == "enableAutoSave") {
-			const tabsData = await extension.core.bg.tabsData.get(currentTab.id);
-			tabsData[currentTab.id].autoSave = message.enabled;
-			await extension.core.bg.tabsData.set(tabsData);
-			extension.ui.bg.main.refreshTab(currentTab);
+	if (message.method.endsWith(".save")) {
+		const tabId = sender.tab.id;
+		const options = await config.getOptions(sender.tab.url, true);
+		if (options) {
+			ui.onStart(tabId, 1, true);
+			await saveContent(message, sender.tab);
+			ui.onEnd(tabId, true);
 		}
-		if (message.method == "isAutoSaveEnabled") {
-			return isEnabled(currentTab);
-		}
+		return {};
 	}
+}
 
-	async function onInit(tab) {
-		const [options, autoSaveEnabled] = await Promise.all([extension.core.bg.config.getOptions(tab.url, true), isEnabled(tab)]);
-		if (options && ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && autoSaveEnabled)) {
-			extension.core.bg.business.saveTabs([tab], { autoSave: true });
-		}
+async function onMessageExternal(message, currentTab) {
+	if (message.method == "enableAutoSave") {
+		const allTabsData = await tabsData.get(currentTab.id);
+		allTabsData[currentTab.id].autoSave = message.enabled;
+		await tabsData.set(allTabsData);
+		ui.refreshTab(currentTab);
 	}
-
-	async function isEnabled(tab) {
-		const config = extension.core.bg.config;
-		if (tab) {
-			const [tabsData, rule] = await Promise.all([extension.core.bg.tabsData.get(), config.getRule(tab.url)]);
-			return Boolean(tabsData.autoSaveAll ||
-				(tabsData.autoSaveUnpinned && !tab.pinned) ||
-				(tabsData[tab.id] && tabsData[tab.id].autoSave)) &&
-				(!rule || rule.autoSaveProfile != config.DISABLED_PROFILE_NAME);
-		}
+	if (message.method == "isAutoSaveEnabled") {
+		return isEnabled(currentTab);
 	}
+}
 
-	async function refreshTabs() {
-		const tabs = extension.core.bg.tabs;
-		const allTabs = (await extension.core.bg.tabs.get({}));
-		return Promise.all(allTabs.map(async tab => {
-			const [options, autoSaveEnabled] = await Promise.all([extension.core.bg.config.getOptions(tab.url, true), isEnabled(tab)]);
-			try {
-				await tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options });
-			} catch (error) {
-				// ignored
-			}
-		}));
+async function onInit(tab) {
+	const [options, autoSaveEnabled] = await Promise.all([config.getOptions(tab.url, true), isEnabled(tab)]);
+	if (options && ((options.autoSaveLoad || options.autoSaveLoadOrUnload) && autoSaveEnabled)) {
+		business.saveTabs([tab], { autoSave: true });
 	}
+}
 
-	async function saveContent(message, tab) {
-		const options = await extension.core.bg.config.getOptions(tab.url, true);
-		const tabId = tab.id;
-		options.content = message.content;
-		options.url = message.url;
-		options.frames = message.frames;
-		options.canvases = message.canvases;
-		options.fonts = message.fonts;
-		options.stylesheets = message.stylesheets;
-		options.images = message.images;
-		options.posters = message.posters;
-		options.usedFonts = message.usedFonts;
-		options.shadowRoots = message.shadowRoots;
-		options.imports = message.imports;
-		options.referrer = message.referrer;
-		options.updatedResources = message.updatedResources;
-		options.visitDate = new Date(message.visitDate);
-		options.backgroundTab = true;
-		options.autoSave = true;
-		options.incognito = tab.incognito;
-		options.tabId = tabId;
-		options.tabIndex = tab.index;
-		let pageData;
+async function isEnabled(tab) {
+	if (tab) {
+		const [allTabsData, rule] = await Promise.all([tabsData.get(), config.getRule(tab.url)]);
+		return Boolean(allTabsData.autoSaveAll ||
+			(allTabsData.autoSaveUnpinned && !tab.pinned) ||
+			(allTabsData[tab.id] && allTabsData[tab.id].autoSave)) &&
+			(!rule || rule.autoSaveProfile != config.DISABLED_PROFILE_NAME);
+	}
+}
+
+async function refreshTabs() {
+	const allTabs = (await tabs.get({}));
+	return Promise.all(allTabs.map(async tab => {
+		const [options, autoSaveEnabled] = await Promise.all([config.getOptions(tab.url, true), isEnabled(tab)]);
 		try {
-			if (options.autoSaveExternalSave) {
-				await extension.core.bg.companion.save(options);
-			} else {
-				pageData = await extension.getPageData(options, null, null, { fetch });
-				if (options.includeInfobar) {
-					await common.ui.content.infobar.includeScript(pageData);
-				}
-				const blob = new Blob([pageData.content], { type: "text/html" });
-				if (options.saveToGDrive) {
-					await extension.core.bg.downloads.uploadPage(message.taskId, pageData.filename, blob, options, {});
-				} else {
-					pageData.url = URL.createObjectURL(blob);
-					await extension.core.bg.downloads.downloadPage(pageData, options);
-				}
-				if (pageData.hash) {
-					await woleet.anchor(pageData.hash);
-				}
+			await tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options });
+		} catch (error) {
+			// ignored
+		}
+	}));
+}
+
+async function saveContent(message, tab) {
+	const options = await config.getOptions(tab.url, true);
+	const tabId = tab.id;
+	options.content = message.content;
+	options.url = message.url;
+	options.frames = message.frames;
+	options.canvases = message.canvases;
+	options.fonts = message.fonts;
+	options.stylesheets = message.stylesheets;
+	options.images = message.images;
+	options.posters = message.posters;
+	options.usedFonts = message.usedFonts;
+	options.shadowRoots = message.shadowRoots;
+	options.imports = message.imports;
+	options.referrer = message.referrer;
+	options.updatedResources = message.updatedResources;
+	options.visitDate = new Date(message.visitDate);
+	options.backgroundTab = true;
+	options.autoSave = true;
+	options.incognito = tab.incognito;
+	options.tabId = tabId;
+	options.tabIndex = tab.index;	
+	let pageData;
+	try {
+		if (options.autoSaveExternalSave) {
+			await companion.save(options);
+		} else {
+			pageData = await getPageData(options, null, null, { fetch });
+			if (options.includeInfobar) {
+				await infobar.includeScript(pageData);
 			}
-		} finally {
-			extension.core.bg.business.onSaveEnd(message.taskId);
-			if (pageData && pageData.url) {
-				URL.revokeObjectURL(pageData.url);
+			const blob = new Blob([pageData.content], { type: "text/html" });
+			if (options.saveToGDrive) {
+				await downloads.uploadPage(message.taskId, pageData.filename, blob, options, {});
+			} else {
+				pageData.url = URL.createObjectURL(blob);
+				await downloads.downloadPage(pageData, options);
+			}
+			if (pageData.hash) {
+				await woleet.anchor(pageData.hash);
 			}
 		}
+	} finally {
+		business.onSaveEnd(message.taskId);
+		if (pageData && pageData.url) {
+			URL.revokeObjectURL(pageData.url);
+		}
 	}
+}
 
-	function fetch(url) {
-		return new Promise((resolve, reject) => {
-			const xhrRequest = new XMLHttpRequest();
-			xhrRequest.withCredentials = true;
-			xhrRequest.responseType = "arraybuffer";
-			xhrRequest.onerror = event => reject(new Error(event.detail));
-			xhrRequest.onreadystatechange = () => {
-				if (xhrRequest.readyState == XMLHttpRequest.DONE) {
-					resolve({
-						status: xhrRequest.status,
-						headers: {
-							get: name => xhrRequest.getResponseHeader(name)
-						},
-						arrayBuffer: async () => xhrRequest.response
-					});
-				}
-			};
-			xhrRequest.open("GET", url, true);
-			xhrRequest.send();
-		});
-	}
-
-})();
+function fetch(url) {
+	return new Promise((resolve, reject) => {
+		const xhrRequest = new XMLHttpRequest();
+		xhrRequest.withCredentials = true;
+		xhrRequest.responseType = "arraybuffer";
+		xhrRequest.onerror = event => reject(new Error(event.detail));
+		xhrRequest.onreadystatechange = () => {
+			if (xhrRequest.readyState == XMLHttpRequest.DONE) {
+				resolve({
+					status: xhrRequest.status,
+					headers: {
+						get: name => xhrRequest.getResponseHeader(name)
+					},
+					arrayBuffer: async () => xhrRequest.response
+				});
+			}
+		};
+		xhrRequest.open("GET", url, true);
+		xhrRequest.send();
+	});
+}

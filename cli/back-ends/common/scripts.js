@@ -26,18 +26,17 @@
 const fs = require("fs");
 
 const SCRIPTS = [
-	"common/ui/content/content-infobar.js"
+	"dist/infobar.js"
 ];
 
 const INDEX_SCRIPTS = [
-	"lib/single-file/dist/single-file.js",	
-	"common/index.js"
+	"dist/single-file.js"
 ];
 
 const WEB_SCRIPTS = [
-	"/lib/single-file/processors/hooks/content/content-hooks-web.js",
-	"/lib/single-file/processors/hooks/content/content-hooks-frames-web.js",
-	"/common/ui/content/content-infobar-web.js"
+	"/dist/web/hooks/hooks-web.js",
+	"/dist/web/hooks/hooks-frames-web.js",
+	"/dist/web/infobar-web.js"
 ];
 
 exports.get = async options => {
@@ -45,7 +44,7 @@ exports.get = async options => {
 	let scripts = await readScriptFiles(INDEX_SCRIPTS, basePath);
 	const webScripts = {};
 	await Promise.all(WEB_SCRIPTS.map(async path => webScripts[path] = await readScriptFile(path, basePath)));
-	scripts += "this.singlefile.getFileContent = filename => (" + JSON.stringify(webScripts) + ")[filename];\n";
+	scripts += "window.singlefile.getFileContent = filename => (" + JSON.stringify(webScripts) + ")[filename];\n";
 	scripts += await readScriptFiles(SCRIPTS, basePath);
 	scripts += await readScriptFiles(options && options.browserScripts ? options.browserScripts : [], "");
 	if (options.browserStylesheets && options.browserStylesheets.length) {

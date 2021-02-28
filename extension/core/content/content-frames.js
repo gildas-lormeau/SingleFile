@@ -21,18 +21,4 @@
  *   Source.
  */
 
-this.extension.lib = this.extension.lib || {
-	core: {
-		bg: {}
-	},
-	fetch: {
-		bg: {},
-		content: {}
-	},
-	frameTree: {
-		bg: {}
-	},
-	lazy: {
-		bg: {}
-	}
-};
+import "./../../lib/single-file/fetch/content/content-fetch.js";

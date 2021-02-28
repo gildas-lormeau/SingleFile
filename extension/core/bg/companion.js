@@ -21,33 +21,41 @@
  *   Source.
  */
 
-/* global extension, browser */
+/* global browser */
 
-extension.core.bg.companion = {
-	enabled: true,
-	async onMessage(message) {
-		if (message.method.endsWith(".state")) {
-			return { enabled: this.enabled };
-		}
-	},
-	async save(options) {
-		try {
-			options.autoSaveExternalSave = false;
-			const port = browser.runtime.connectNative("singlefile_companion");
-			port.postMessage(options);
-			await new Promise((resolve, reject) => {
-				port.onDisconnect.addListener(() => {
-					if (port.error) {
-						reject(port.error.message);
-					} else if (!browser.runtime.lastError || browser.runtime.lastError.message.includes("Native host has exited")) {
-						resolve();
-					}
-				});
-			});
-			extension.ui.bg.main.onEnd(options.tabId, options.autoSave);
-		} catch (error) {
-			console.error(error); // eslint-disable-line no-console			
-			extension.ui.bg.main.onError(options.tabId);
-		}
-	}
+import * as ui from "./../../ui/bg/index.js";
+
+let enabled = true;
+
+export {
+	enabled,
+	onMessage,
+	save
 };
+
+async function onMessage(message) {
+	if (message.method.endsWith(".state")) {
+		return { enabled };
+	}
+}
+
+async function save(options) {
+	try {
+		options.autoSaveExternalSave = false;
+		const port = browser.runtime.connectNative("singlefile_companion");
+		port.postMessage(options);
+		await new Promise((resolve, reject) => {
+			port.onDisconnect.addListener(() => {
+				if (port.error) {
+					reject(port.error.message);
+				} else if (!browser.runtime.lastError || browser.runtime.lastError.message.includes("Native host has exited")) {
+					resolve();
+				}
+			});
+		});
+		ui.onEnd(options.tabId, options.autoSave);
+	} catch (error) {
+		console.error(error); // eslint-disable-line no-console			
+		ui.onError(options.tabId);
+	}
+}

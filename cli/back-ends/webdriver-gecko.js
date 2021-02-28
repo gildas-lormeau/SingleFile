@@ -172,7 +172,7 @@ function getPageDataScript() {
 	async function getPageData() {
 		const pageData = await window.singlefile.getPageData(options);
 		if (options.includeInfobar) {
-			await window.common.ui.content.infobar.includeScript(pageData);
+			await infobar.includeScript(pageData);
 		}
 		return pageData;
 	}

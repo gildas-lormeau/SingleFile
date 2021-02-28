@@ -21,56 +21,63 @@
  *   Source.
  */
 
-/* global extension, browser */
+/* global browser */
 
-extension.core.bg.messages = (() => {
+import * as config from "./config.js";
+import * as autosave from "./autosave.js";
+import * as bookmarks from "./bookmarks.js";
+import * as companion from "./companion.js";
+import * as devtools from "./devtools.js";
+import * as downloads from "./downloads.js";
+import * as editor from "./editor.js";
+import * as requests from "./requests.js";
+import * as tabsData from "./tabs-data.js";
+import * as tabs from "./tabs.js";
+import * as ui from "./../../ui/bg/index.js";
 
-	browser.runtime.onMessage.addListener((message, sender) => {
-		if (message.method.startsWith("tabs.")) {
-			return extension.core.bg.tabs.onMessage(message, sender);
-		}
-		if (message.method.startsWith("downloads.")) {
-			return extension.core.bg.downloads.onMessage(message, sender);
-		}
-		if (message.method.startsWith("autosave.")) {
-			return extension.core.bg.autosave.onMessage(message, sender);
-		}
-		if (message.method.startsWith("ui.")) {
-			return extension.ui.bg.main.onMessage(message, sender);
-		}
-		if (message.method.startsWith("config.")) {
-			return extension.core.bg.config.onMessage(message, sender);
-		}
-		if (message.method.startsWith("tabsData.")) {
-			return extension.core.bg.tabsData.onMessage(message, sender);
-		}
-		if (message.method.startsWith("devtools.")) {
-			return extension.core.bg.devtools.onMessage(message, sender);
-		}
-		if (message.method.startsWith("editor.")) {
-			return extension.core.bg.editor.onMessage(message, sender);
-		}
-		if (message.method.startsWith("bookmarks.")) {
-			return extension.core.bg.bookmarks.onMessage(message, sender);
-		}
-		if (message.method.startsWith("companion.")) {
-			return extension.core.bg.companion.onMessage(message, sender);
-		}
-		if (message.method.startsWith("requests.")) {
-			return extension.core.bg.requests.onMessage(message, sender);
+browser.runtime.onMessage.addListener((message, sender) => {
+	if (message.method.startsWith("tabs.")) {
+		return tabs.onMessage(message, sender);
+	}
+	if (message.method.startsWith("downloads.")) {
+		return downloads.onMessage(message, sender);
+	}
+	if (message.method.startsWith("autosave.")) {
+		return autosave.onMessage(message, sender);
+	}
+	if (message.method.startsWith("ui.")) {
+		return ui.onMessage(message, sender);
+	}
+	if (message.method.startsWith("config.")) {
+		return config.onMessage(message, sender);
+	}
+	if (message.method.startsWith("tabsData.")) {
+		return tabsData.onMessage(message, sender);
+	}
+	if (message.method.startsWith("devtools.")) {
+		return devtools.onMessage(message, sender);
+	}
+	if (message.method.startsWith("editor.")) {
+		return editor.onMessage(message, sender);
+	}
+	if (message.method.startsWith("bookmarks.")) {
+		return bookmarks.onMessage(message, sender);
+	}
+	if (message.method.startsWith("companion.")) {
+		return companion.onMessage(message, sender);
+	}
+	if (message.method.startsWith("requests.")) {
+		return requests.onMessage(message, sender);
+	}
+});
+if (browser.runtime.onMessageExternal) {
+	browser.runtime.onMessageExternal.addListener(async (message, sender) => {
+		const allTabs = await tabs.get({ currentWindow: true, active: true });
+		const currentTab = allTabs[0];
+		if (currentTab) {
+			return autosave.onMessageExternal(message, currentTab, sender);
+		} else {
+			return false;
 		}
 	});
-	if (browser.runtime.onMessageExternal) {
-		browser.runtime.onMessageExternal.addListener(async (message, sender) => {
-			const allTabs = await extension.core.bg.tabs.get({ currentWindow: true, active: true });
-			const currentTab = allTabs[0];
-			if (currentTab) {
-				return extension.core.bg.autosave.onMessageExternal(message, currentTab, sender);
-			} else {
-				return false;
-			}
-		});
-	}
-	return {};
-
-})();
+}

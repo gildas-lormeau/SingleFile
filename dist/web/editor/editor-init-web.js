@@ -1,0 +1,1 @@
+!function(){"use strict";document.currentScript.remove(),function e(t){t.querySelectorAll("template[shadowmode]").forEach((t=>{let o=t.parentElement.shadowRoot;if(!o){try{o=t.parentElement.attachShadow({mode:t.getAttribute("shadowmode"),delegatesFocus:Boolean(t.getAttribute("delegatesfocus"))}),o.innerHTML=t.innerHTML,t.remove()}catch(e){}o&&e(o)}}))}(document)}();

@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global document, Node, window, top, getComputedStyle, XPathResult */
+/* global globalThis, document, Node, window, top, getComputedStyle, XPathResult */
 
 (() => {
 
@@ -127,7 +127,7 @@
 	}`;
 	let SHADOW_DOM_SUPPORTED = true;
 
-	const browser = this.browser;
+	const browser = globalThis.browser;
 
 	if (window == top) {
 		if (document.readyState == "loading") {

@@ -21,20 +21,16 @@
  *   Source.
  */
 
-/* global extension */
+import * as tabs from "./tabs.js";
 
-extension.core.bg.devtools = (() => {
+export {
+	onMessage
+};
 
-	return {
-		onMessage
-	};
-
-	async function onMessage(message) {
-		if (message.method.endsWith(".resourceCommitted")) {
-			if (message.tabId && message.url && (message.type == "stylesheet" || message.type == "script")) {
-				await extension.core.bg.tabs.sendMessage(message.tabId, message);
-			}
+async function onMessage(message) {
+	if (message.method.endsWith(".resourceCommitted")) {
+		if (message.tabId && message.url && (message.type == "stylesheet" || message.type == "script")) {
+			await tabs.sendMessage(message.tabId, message);
 		}
 	}
-
-})();
+}

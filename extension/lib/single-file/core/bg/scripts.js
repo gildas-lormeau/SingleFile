@@ -21,82 +21,72 @@
  *   Source.
  */
 
-/* global extension, browser, fetch, TextDecoder */
+/* global browser, fetch, TextDecoder */
 
-extension.lib.core.bg.scripts = (() => {
+let contentScript, frameScript;
 
-	let contentScript, frameScript;
+const contentScriptFiles = [
+	"dist/chrome-browser-polyfill.js",
+	"dist/single-file.js"
+];
 
-	const contentScriptFiles = [
-		"lib/single-file/dist/single-file.js",
-		"extension/index.js",
-		"extension/lib/single-file/index.js",
-		"extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js",
-		"extension/lib/single-file/fetch/content/content-fetch.js",
-	];
+const frameScriptFiles = [
+	"dist/chrome-browser-polyfill.js",
+	"dist/single-file-frames.js"
+];
 
-	const frameScriptFiles = [
-		"lib/single-file/dist/single-file-frames.js",
-		"extension/index.js",
-		"extension/lib/single-file/index.js",
-		"extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js",
-		"extension/lib/single-file/fetch/content/content-fetch.js"
-	];
+const basePath = "../../../";
 
-	const basePath = "../../../";
+export {
+	inject
+};
 
-	return {
-		inject
-	};
-
-	async function inject(tabId, options) {
-		await initScripts(options);
-		let scriptsInjected;
-		if (!options.removeFrames) {
-			try {
-				await browser.tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
-			} catch (error) {
-				// ignored
-			}
-		}
+async function inject(tabId, options) {
+	await initScripts(options);
+	let scriptsInjected;
+	if (!options.removeFrames) {
 		try {
-			await browser.tabs.executeScript(tabId, { code: contentScript, allFrames: false, runAt: "document_idle" });
-			scriptsInjected = true;
+			await browser.tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
 		} catch (error) {
 			// ignored
 		}
-		if (scriptsInjected) {
-			if (options.frameId) {
-				await browser.tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: options.frameId, matchAboutBlank: true, runAt: "document_start" });
-			}
-		}
-		return scriptsInjected;
 	}
-
-	async function initScripts(options) {
-		const extensionScriptFiles = options.extensionScriptFiles || [];
-		if (!contentScript && !frameScript) {
-			[contentScript, frameScript] = await Promise.all([
-				getScript(contentScriptFiles.concat(extensionScriptFiles)),
-				getScript(frameScriptFiles)
-			]);
+	try {
+		await browser.tabs.executeScript(tabId, { code: contentScript, allFrames: false, runAt: "document_idle" });
+		scriptsInjected = true;
+	} catch (error) {
+		// ignored
+	}
+	if (scriptsInjected) {
+		if (options.frameId) {
+			await browser.tabs.executeScript(tabId, { code: "document.documentElement.dataset.requestedFrameId = true", frameId: options.frameId, matchAboutBlank: true, runAt: "document_start" });
 		}
 	}
+	return scriptsInjected;
+}
 
-	async function getScript(scriptFiles) {
-		const scriptsPromises = scriptFiles.map(async scriptFile => {
-			if (typeof scriptFile == "function") {
-				return "(" + scriptFile.toString() + ")();";
-			} else {
-				const scriptResource = await fetch(browser.runtime.getURL(basePath + scriptFile));
-				return new TextDecoder().decode(await scriptResource.arrayBuffer());
-			}
-		});
-		let content = "";
-		for (const scriptPromise of scriptsPromises) {
-			content += await scriptPromise;
-		}
-		return content;
+async function initScripts(options) {
+	const extensionScriptFiles = options.extensionScriptFiles || [];
+	if (!contentScript && !frameScript) {
+		[contentScript, frameScript] = await Promise.all([
+			getScript(contentScriptFiles.concat(extensionScriptFiles)),
+			getScript(frameScriptFiles)
+		]);
 	}
+}
 
-})();
+async function getScript(scriptFiles) {
+	const scriptsPromises = scriptFiles.map(async scriptFile => {
+		if (typeof scriptFile == "function") {
+			return "(" + scriptFile.toString() + ")();";
+		} else {
+			const scriptResource = await fetch(browser.runtime.getURL(basePath + scriptFile));
+			return new TextDecoder().decode(await scriptResource.arrayBuffer());
+		}
+	});
+	let content = "";
+	for (const scriptPromise of scriptsPromises) {
+		content += await scriptPromise;
+	}
+	return content;
+}

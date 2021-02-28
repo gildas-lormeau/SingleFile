@@ -21,32 +21,28 @@
  *   Source.
  */
 
-/* global singlefile, fetch */
+/* global globalThis, singlefile, fetch */
 
-this.common.ui.content.infobar = this.common.ui.content.infobar || (() => {
+const SCRIPT_PATH = "/dist/web/infobar-web.js";
 
-	const SCRIPT_PATH = "/common/ui/content/content-infobar-web.js";
+const browser = globalThis.browser;
 
-	const browser = this.browser;
+export {
+	includeScript
+};
 
-	return {
-		includeScript
-	};
-
-	async function includeScript(pageData) {
-		let infobarContent;
-		if (browser && browser.runtime && browser.runtime.getURL) {
-			infobarContent = await (await fetch(browser.runtime.getURL(SCRIPT_PATH))).text();
-		} else if (singlefile.getFileContent) {
-			infobarContent = singlefile.getFileContent(SCRIPT_PATH);
-		}
-		let lastInfobarContent;
-		while (lastInfobarContent != infobarContent) {
-			lastInfobarContent = infobarContent;
-			infobarContent = infobarContent.replace(/\/\*(.|\n)*?\*\//, "");
-		}
-		infobarContent = infobarContent.replace(/\t+/g, " ").replace(/\nthis\.[^(]*/gi, "\n").replace(/\n+/g, "");
-		pageData.content += "<script>document.currentScript.remove();" + infobarContent + "</script>";
+async function includeScript(pageData) {
+	let infobarContent;
+	if (browser && browser.runtime && browser.runtime.getURL) {
+		infobarContent = await (await fetch(browser.runtime.getURL(SCRIPT_PATH))).text();
+	} else if (singlefile.getFileContent) {
+		infobarContent = singlefile.getFileContent(SCRIPT_PATH);
 	}
-
-})();
+	let lastInfobarContent;
+	while (lastInfobarContent != infobarContent) {
+		lastInfobarContent = infobarContent;
+		infobarContent = infobarContent.replace(/\/\*(.|\n)*?\*\//, "");
+	}
+	infobarContent = infobarContent.replace(/\t+/g, " ").replace(/\nthis\.[^(]*/gi, "\n").replace(/\n+/g, "");
+	pageData.content += "<script>document.currentScript.remove();" + infobarContent + "</script>";
+}

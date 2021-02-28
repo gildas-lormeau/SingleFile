@@ -23,24 +23,20 @@
 
 /* global browser, document */
 
-(() => {
+const optionsTab = document.getElementById("tab-options");
+const pendingsTab = document.getElementById("tab-pendings");
+const viewPanel = document.getElementById("view-panel");
 
-	const optionsTab = document.getElementById("tab-options");
-	const pendingsTab = document.getElementById("tab-pendings");
-	const viewPanel = document.getElementById("view-panel");
+optionsTab.textContent = browser.i18n.getMessage("optionsTitle");
+pendingsTab.textContent = browser.i18n.getMessage("pendingsTitle");
 
-	optionsTab.textContent = browser.i18n.getMessage("optionsTitle");
-	pendingsTab.textContent = browser.i18n.getMessage("pendingsTitle");
-
-	optionsTab.onclick = () => {
-		optionsTab.classList.add("tab-selected");
-		pendingsTab.classList.remove("tab-selected");
-		viewPanel.src = "options.html#side-panel";
-	};
-	pendingsTab.onclick = () => {
-		optionsTab.classList.remove("tab-selected");
-		pendingsTab.classList.add("tab-selected");
-		viewPanel.src = "pendings.html#side-panel";
-	};
-
-})();
+optionsTab.onclick = () => {
+	optionsTab.classList.add("tab-selected");
+	pendingsTab.classList.remove("tab-selected");
+	viewPanel.src = "options.html#side-panel";
+};
+pendingsTab.onclick = () => {
+	optionsTab.classList.remove("tab-selected");
+	pendingsTab.classList.add("tab-selected");
+	viewPanel.src = "pendings.html#side-panel";
+};

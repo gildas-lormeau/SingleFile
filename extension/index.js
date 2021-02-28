@@ -21,7 +21,20 @@
  *   Source.
  */
 
-this.extension = this.extension || {
-	injectScript: (tabId, options) => this.extension.lib.core.bg.scripts.inject(tabId, options),
-	getPageData: (options, doc, win, initOptions = { fetch: this.extension.lib.fetch.content.resources.fetch }) => this.singlefile.getPageData(options, initOptions, doc, win)
+/* global window */
+
+import * as scripts from "./lib/single-file/core/bg/scripts.js";
+import { fetch, frameFetch } from "./lib/single-file/fetch/content/content-fetch.js";
+
+export {
+	injectScript,
+	getPageData
 };
+
+function injectScript(tabId, options) {
+	return scripts.inject(tabId, options);
+}
+
+function getPageData(options, doc, win, initOptions = { fetch, frameFetch }) {
+	return window.singlefile.getPageData(options, initOptions, doc, win);
+}

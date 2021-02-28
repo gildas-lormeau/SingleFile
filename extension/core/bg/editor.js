@@ -21,85 +21,84 @@
  *   Source.
  */
 
-/* global extension, browser */
+/* global browser */
 
-extension.core.bg.editor = (() => {
+import * as config from "./config.js";
+import * as tabs from "./tabs.js";
 
-	const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
-	const EDITOR_PAGE_URL = "/extension/ui/pages/editor.html";
-	const tabsData = new Map();
-	const partialContents = new Map();
-	const EDITOR_URL = browser.runtime.getURL(EDITOR_PAGE_URL);
+const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
+const EDITOR_PAGE_URL = "/extension/ui/pages/editor.html";
+const tabsData = new Map();
+const partialContents = new Map();
+const EDITOR_URL = browser.runtime.getURL(EDITOR_PAGE_URL);
 
-	return {
-		onMessage,
-		onTabRemoved,
-		isEditor,
-		open,
-		EDITOR_URL
-	};
+export {
+	onMessage,
+	onTabRemoved,
+	isEditor,
+	open,
+	EDITOR_URL
+};
 
-	async function open({ tabIndex, content, filename }, options) {
-		const createTabProperties = { active: true, url: EDITOR_PAGE_URL };
-		if (tabIndex != null) {
-			createTabProperties.index = tabIndex;
-		}
-		const tab = await extension.core.bg.tabs.create(createTabProperties);
-		tabsData.set(tab.id, { content, filename, options });
+async function open({ tabIndex, content, filename }, options) {
+	const createTabProperties = { active: true, url: EDITOR_PAGE_URL };
+	if (tabIndex != null) {
+		createTabProperties.index = tabIndex;
 	}
+	const tab = await tabs.create(createTabProperties);
+	tabsData.set(tab.id, { content, filename, options });
+}
 
-	function onTabRemoved(tabId) {
-		tabsData.delete(tabId);
-	}
+function onTabRemoved(tabId) {
+	tabsData.delete(tabId);
+}
 
-	function isEditor(tab) {
-		return tab.url == EDITOR_URL;
-	}
+function isEditor(tab) {
+	return tab.url == EDITOR_URL;
+}
 
-	async function onMessage(message, sender) {
-		if (message.method.endsWith(".getTabData")) {
-			const tab = sender.tab;
-			const tabData = tabsData.get(tab.id);
-			if (tabData) {
-				const content = JSON.stringify(tabData);
-				for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
-					const message = {
-						method: "editor.setTabData"
-					};
-					message.truncated = content.length > MAX_CONTENT_SIZE;
-					if (message.truncated) {
-						message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > content.length;
-						message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
-					} else {
-						message.content = content;
-					}
-					await extension.core.bg.tabs.sendMessage(tab.id, message);
+async function onMessage(message, sender) {
+	if (message.method.endsWith(".getTabData")) {
+		const tab = sender.tab;
+		const tabData = tabsData.get(tab.id);
+		if (tabData) {
+			const content = JSON.stringify(tabData);
+			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
+				const message = {
+					method: "editor.setTabData"
+				};
+				message.truncated = content.length > MAX_CONTENT_SIZE;
+				if (message.truncated) {
+					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > content.length;
+					message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+				} else {
+					message.content = content;
 				}
-			}
-		}
-		if (message.method.endsWith(".open")) {
-			let contents;
-			const tab = sender.tab;
-			if (message.truncated) {
-				contents = partialContents.get(tab.id);
-				if (!contents) {
-					contents = [];
-					partialContents.set(tab.id, contents);
-				}
-				contents.push(message.content);
-				if (message.finished) {
-					partialContents.delete(tab.id);
-				}
-			} else if (message.content) {
-				contents = [message.content];
-			}
-			if (!message.truncated || message.finished) {
-				const options = await extension.core.bg.config.getOptions(tab && tab.url);
-				const updateTabProperties = { url: EDITOR_PAGE_URL };
-				await extension.core.bg.tabs.update(tab.id, updateTabProperties);
-				tabsData.set(tab.id, { content: contents.join(""), filename: message.filename, options });
+				await tabs.sendMessage(tab.id, message);
 			}
 		}
 	}
-
-})();
+	if (message.method.endsWith(".open")) {
+		let contents;
+		const tab = sender.tab;
+		if (message.truncated) {
+			contents = partialContents.get(tab.id);
+			if (!contents) {
+				contents = [];
+				partialContents.set(tab.id, contents);
+			}
+			contents.push(message.content);
+			if (message.finished) {
+				partialContents.delete(tab.id);
+			}
+		} else if (message.content) {
+			contents = [message.content];
+		}
+		if (!message.truncated || message.finished) {
+			const options = await config.getOptions(tab && tab.url);
+			const updateTabProperties = { url: EDITOR_PAGE_URL };
+			await tabs.update(tab.id, updateTabProperties);
+			tabsData.set(tab.id, { content: contents.join(""), filename: message.filename, options });
+		}
+	}
+}
