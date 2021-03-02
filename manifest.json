@@ -31,7 +31,8 @@
 			"run_at": "document_start",
 			"js": [
 				"dist/single-file-bootstrap.js",
-				"dist/extension-bootstrap.js"
+				"dist/extension-bootstrap.js",
+				"dist/web/infobar-web.js"
 			]
 		}
 	],
