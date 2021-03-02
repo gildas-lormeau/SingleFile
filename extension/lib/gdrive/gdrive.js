@@ -23,10 +23,6 @@
 
 /* global browser, fetch, setInterval */
 
-
-
-"use strict";
-
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 const REVOKE_ACCESS_URL = "https://accounts.google.com/o/oauth2/revoke";

@@ -23,8 +23,6 @@
 
 /* global browser, setTimeout, clearTimeout */
 
-"use strict";
-
 const timeouts = new Map();
 
 browser.runtime.onMessage.addListener((message, sender) => {

@@ -20,32 +20,25 @@
  *   notice and a URL through which recipients can access the Corresponding 
  *   Source.
  */
-
 /* global fetch */
-
-this.woleet = this.woleet || (() => {
-
-	const urlService = "https://api.woleet.io/v1/anchor";
-	const apiKey = "__WOLEET_API_KEY__";
-
-	return {
-		anchor
-	};
-
-	async function anchor(hash) {
-		return (await fetch(urlService, {
-			method: "POST",
-			headers: {
-				"Accept": "application/json",
-				"Content-Type": "application/json",
-				"Authorization": "Bearer " + apiKey
-			},
-			body: JSON.stringify({
-				"name": hash,
-				"hash": hash,
-				"public": true
-			})
-		})).json();
-	}
-
-})();
+const urlService = "https://api.woleet.io/v1/anchor";
+const apiKey = "__WOLEET_API_KEY__";
+export {
+	anchor
+};
+async function anchor(hash) {
+	return (await fetch(urlService, {
+		method: "POST",
+		headers: {
+			"Accept": "application/json",
+			"Content-Type": "application/json",
+			"Authorization": "Bearer " + apiKey
+		},
+		body: JSON.stringify({
+			"name": hash,
+			"hash": hash,
+			"public": true
+		})
+	}))
+		.json();
+}
