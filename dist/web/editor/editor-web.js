@@ -1,1 +1,1965 @@
-!function(){"use strict";(()=>{const e=globalThis.singlefileBootstrap,t=["a","area","audio","base","br","col","command","embed","hr","img","iframe","input","keygen","link","meta","param","source","track","video","wbr"],n="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAgMAAAAOFJJnAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtaIVETuIOASsThZERRylikWwUNoKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APEydFJ0UVK/F9SaBHjwXE/3t173L0DhFqJqWbbOKBqlpGMRcVMdkUMvKIbfQCG0SExU4+nFtLwHF/38PH1LsKzvM/9OXqUnMkAn0g8y3TDIl4nnt60dM77xCFWlBTic+Ixgy5I/Mh12eU3zgWHBZ4ZMtLJOeIQsVhoYbmFWdFQiaeIw4qqUb6QcVnhvMVZLVVY4578hcGctpziOs0hxLCIOBIQIaOCDZRgIUKrRoqJJO1HPfyDjj9BLplcG2DkmEcZKiTHD/4Hv7s185MTblIwCrS/2PbHCBDYBepV2/4+tu36CeB/Bq60pr9cA2Y+Sa82tfAR0LsNXFw3NXkPuNwBBp50yZAcyU9TyOeB9zP6pizQfwt0rbq9NfZx+gCkqaulG+DgEBgtUPaax7s7W3v790yjvx825XKP2aKCdAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+QLEQA4M3Y7LzIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAACVBMVEUAAAAAAACKioqjwG1pAAAAAXRSTlMAQObYZgAAAAFiS0dEAmYLfGQAAABkSURBVBjThc47CsNADIThWfD0bnSfbdIroP/+V0mhsN5gTNToK0YPaSvnF9B9wGykG54j/2GF1/hauE4E1AOuNxrBdA5KUXIqdiCnqC1zIZ2mFJQzKJ3wesOhcwDM4+fo7cOuD9C4HTQ9HAAQAAAAAElFTkSuQmCC",o="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAgMAAAAOFJJnAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtaIVETuIOASsThZERRylikWwUNoKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APEydFJ0UVK/F9SaBHjwXE/3t173L0DhFqJqWbbOKBqlpGMRcVMdkUMvKIbfQCG0SExU4+nFtLwHF/38PH1LsKzvM/9OXqUnMkAn0g8y3TDIl4nnt60dM77xCFWlBTic+Ixgy5I/Mh12eU3zgWHBZ4ZMtLJOeIQsVhoYbmFWdFQiaeIw4qqUb6QcVnhvMVZLVVY4578hcGctpziOs0hxLCIOBIQIaOCDZRgIUKrRoqJJO1HPfyDjj9BLplcG2DkmEcZKiTHD/4Hv7s185MTblIwCrS/2PbHCBDYBepV2/4+tu36CeB/Bq60pr9cA2Y+Sa82tfAR0LsNXFw3NXkPuNwBBp50yZAcyU9TyOeB9zP6pizQfwt0rbq9NfZx+gCkqaulG+DgEBgtUPaax7s7W3v790yjvx825XKP2aKCdAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+QLEQA6Na1u6IUAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAACVBMVEUAAAAAAACKioqjwG1pAAAAAXRSTlMAQObYZgAAAAFiS0dEAmYLfGQAAABlSURBVBhXTc/BEUQhCAPQ58ES6McSPED/rfwDI7vOMCoJIeGd6CvFgZXiwk47Ia5VUKdrVXcb39kfqxqmTg+I2xJ2tqhVTaGaQjTl7/GgIc/4CL4Vs3RsjLFndcxPnAn4iww8A3yQjRZjti1t6AAAAABJRU5ErkJggg==",r="shadowmode",i="single-file-note",l="note",d="note-mask",s="note-hidden",a="note-anchored",c="note-selected",m="note-moving",u="note-mask-moving",h="page-mask",p="single-file-mask",g="single-file-page-mask",f="single-file-highlight",b="single-file-removed",y="single-file-highlight-hidden",E="page-mask-active",A="single-file-cut-hover",w="single-file-cut-outer-hover",v="single-file-cut-selected",x="single-file-cut-outer-selected",S=150,C=150,L="data-single-file-disabled-noscript",z="Page saved with SingleFile",N="Archive processed by SingleFile";let k,R,T,O,M,P,B,q,I,D,H,F,J,V,X,K,U,Q,G,_=[],$=0;async function Y(e,{filename:t,reset:n}={}){await async function(){[k,R,T]=await Promise.all([ze(await(await fetch("../pages/editor-note-web.css")).text()),ze(await(await fetch("../pages/editor-mask-web.css")).text()),ze(await(await fetch("../pages/editor-frame-web.css")).text())])}();const o=e.match(/<script data-template-shadow-root.*<\/script>/);o&&o[0]&&(G=o[0]),e=e.replace(/<script data-template-shadow-root.*<\/script>/g,"<script data-template-shadow-root src=/dist/web/editor/editor-init-web.js><\/script>");const r=(new DOMParser).parseFromString(e,"text/html");if(function(e){const t=e.documentElement.firstChild;return t.nodeType==Node.COMMENT_NODE&&(t.textContent.includes(z)||t.textContent.includes(N))}(r)){r.doctype?document.doctype?document.replaceChild(r.doctype,document.doctype):document.insertBefore(r.doctype,document.documentElement):document.doctype.remove(),r.querySelectorAll("noscript").forEach((e=>{e.setAttribute(L,e.innerHTML),e.textContent=""})),r.querySelectorAll("iframe").forEach((e=>{const t="pointer-events";e.style.setProperty("-sf-pointer-events",e.style.getPropertyValue(t),e.style.getPropertyPriority(t)),e.style.setProperty(t,"none","important")})),document.replaceChild(r.documentElement,document.documentElement),Ee(document),document.querySelectorAll(i).forEach((e=>Z(e,!0))),document.documentElement.appendChild(we(T)),B=Ae(h,g),P=Ae(d),document.documentElement.onmousedown=document.documentElement.ontouchstart=W,document.documentElement.onmouseup=document.documentElement.ontouchend=j,document.documentElement.onmouseover=ee,document.documentElement.onmouseout=te,document.documentElement.onkeydown=ne,window.onclick=e=>e.preventDefault();const e=document.querySelector("link[rel*=icon]");window.parent.postMessage(JSON.stringify({method:"onInit",title:document.title,icon:e&&e.href,filename:t,reset:n,formatPageEnabled:isProbablyReaderable(document)}),"*")}}function Z(e,t=!1){const n=e.shadowRoot,o=n.childNodes[1],r=n.querySelector("header"),l=n.querySelector("textarea"),d=e.dataset.noteId,s=n.querySelector(".note-resize"),h=n.querySelector(".note-anchor"),g=n.querySelector(".note-remove");function f(n,r,i){n.preventDefault();const{clientX:l,clientY:s}=ue(n);o.classList.add(m),t&&(o.classList.contains(a)?(Se(e,d),M=function(e,t){const n=Array.from(document.elementsFromPoint(e,t)).filter((e=>e.matches("html *:not(single-file-note):not(."+p+")")));n.includes(document.documentElement)||n.push(document.documentElement);let o,r=n[0],i=r.getBoundingClientRect();o=v("floor",r,e-i.left,w(r,"left")),o==r&&(o=v("ceil",r,i.left+i.width-e,w(r,"right")));o==r&&(o=v("floor",r,t-i.top,w(r,"top")));o==r&&(o=v("ceil",r,i.top+i.height-t,w(r,"bottom")));r=o;for(;i=r&&r.getBoundingClientRect(),i&&i.width<=4&&i.height<=4;)r=r.parentElement;return r}(l,s)||document.documentElement,xe(M,d)):M=document.documentElement),document.documentElement.insertBefore(e,B.getRootNode().host),o.style.setProperty("left",l-r+"px"),o.style.setProperty("top",s-i+"px"),o.style.setProperty("position","fixed"),b()}function b(){if(M==document.documentElement||M==document.documentElement)y();else{const e=M.getBoundingClientRect();P.classList.add(u),O&&P.classList.add(O.dataset.color),P.style.setProperty("top",e.y-3+"px"),P.style.setProperty("left",e.x-3+"px"),P.style.setProperty("width",e.width+3+"px"),P.style.setProperty("height",e.height+3+"px")}}function y(){P.classList.remove(u),O&&P.classList.remove(O.dataset.color)}function A(e){O&&(O.classList.remove(c),P.classList.remove(O.dataset.color)),e.classList.add(c),e.classList.add(e.dataset.color),O=e}function w(e,t){let n,o=e,r=[];do{const e=o.getBoundingClientRect();if(o.parentElement&&!o.parentElement.tagName.toLowerCase()!=i&&!o.classList.contains(p)){const i=o.parentElement.getBoundingClientRect();n=Math.abs(i[t]-e[t])<=4,n&&(o.parentElement.clientWidth>4&&o.parentElement.clientHeight>4&&(o.parentElement.clientWidth-o.clientWidth>4||o.parentElement.clientHeight-o.clientHeight>4)&&r.push(o.parentElement),o=o.parentElement)}else n=!1}while(n&&o);return r}function v(e,t,n,o){return Math[e](n/4)<=o.length&&(t=o[o.length-Math[e](n/4)-1]),t}l.readOnly=!t,t?h.style.removeProperty("display"):h.style.setProperty("display","none","important"),r.ontouchstart=r.onmousedown=t=>{if(t.target==r){J=setTimeout((()=>{o.classList.toggle("note-collapsed"),y()}),750),t.preventDefault();const n=ue(t),r=n.clientX,i=n.clientY,l=o.getBoundingClientRect(),d=r-l.left,s=i-l.top;B.classList.add(E),document.documentElement.style.setProperty("user-select","none","important"),M=ve(e),b(),A(o),f(t,d,s),H={event:t,deltaX:d,deltaY:s},document.documentElement.ontouchmove=document.documentElement.onmousemove=e=>{clearTimeout(J),H||(H={deltaX:d,deltaY:s}),H.event=e,f(e,d,s)}}},s.ontouchstart=s.onmousedown=e=>{e.preventDefault(),D=!0,A(o),B.classList.add(E),document.documentElement.style.setProperty("user-select","none","important"),document.documentElement.ontouchmove=document.documentElement.onmousemove=e=>{e.preventDefault();const{clientX:t,clientY:n}=ue(e),r=o.getBoundingClientRect();o.style.width=t-r.left+"px",o.style.height=n-r.top+"px"}},h.ontouchend=h.onclick=t=>{t.preventDefault(),o.classList.toggle(a),o.classList.contains(a)||(Se(e,d),xe(document.documentElement,d)),ge(!1)},g.ontouchend=g.onclick=t=>{t.preventDefault(),Se(e,d),e.remove()},o.onmousedown=()=>{A(o)}}function W(e){(X||V)&&K&&e.preventDefault()}function j(e){if(q&&(!function(){let e=0;document.querySelectorAll("."+f).forEach((t=>e=Math.max(e,t.dataset.singlefileHighlightId))),e++;const t=window.getSelection(),n=new Set;for(let e=0;e<t.rangeCount;e++){const n=t.getRangeAt(e);if(!n.collapsed)if(n.commonAncestorContainer.nodeType==n.commonAncestorContainer.TEXT_NODE){let e=n.startContainer.splitText(n.startOffset);e=e.splitText(n.endOffset),o(e.previousSibling)}else{const e=document.createTreeWalker(n.commonAncestorContainer,NodeFilter.SHOW_ELEMENT|NodeFilter.SHOW_TEXT);let t;for(;e.nextNode();){if(t&&!e.currentNode.contains(n.endContainer)&&o(e.currentNode),e.currentNode==n.startContainer){if(n.startContainer.nodeType==n.startContainer.TEXT_NODE){const t=n.startContainer.splitText(n.startOffset);e.nextNode(),o(t)}else o(n.startContainer.childNodes[n.startOffset]);t=!0}if(e.currentNode==n.endContainer){if(n.endContainer.nodeType==n.endContainer.TEXT_NODE){const t=n.endContainer.splitText(n.endOffset);e.nextNode(),o(t.previousSibling)}else o(n.endContainer.childNodes[n.endOffset]);t=!1}}n.collapse()}}function o(e){e&&e.textContent.trim()&&(e.nodeType==e.TEXT_NODE&&1==e.parentElement.childNodes.length&&e.parentElement.classList.contains(f)?n.add(e.parentElement):n.add(e))}function r(t){t.nodeType==t.ELEMENT_NODE?(be(t),t.classList.add(f),t.classList.add(F),t.dataset.singlefileHighlightId=e):t.parentElement&&i(t)}function i(t){const n=document.createElement("span");return n.classList.add(f),n.classList.add(F),n.textContent=t.textContent,n.dataset.singlefileHighlightId=e,t.parentNode.replaceChild(n,t),n}n.forEach((e=>r(e)))}(),ge(!1)),I){let t,n=e.target;for(;n&&!t;)n.classList.contains(f)&&(document.querySelectorAll("."+f+"[data-singlefile-highlight-id="+JSON.stringify(n.dataset.singlefileHighlightId)+"]").forEach((e=>{be(e),ge(!1)})),t=!0),n=n.parentElement}if(D&&(D=!1,document.documentElement.style.removeProperty("user-select"),B.classList.remove(E),document.documentElement.ontouchmove=document.documentElement.onmousemove=null,ge(!1)),H&&(ce(H.event||e,O,H.deltaX,H.deltaY),H=null,document.documentElement.ontouchmove=document.documentElement.onmousemove=null,ge(!1)),J&&(clearTimeout(J),J=null),(X||V)&&K)if(e.ctrlKey){K[U].classList.toggle(X?v:x)}else se(e.shiftKey)}function ee(e){if(X||V){const t=e.target;if(t.classList){let n;document.querySelectorAll("."+(X?v:x)).forEach((e=>{(e==t||Ne(e,t)||Ne(t,e))&&(n=e)})),K=n?[n]:function(e){const t=[];for(;e;)t.push(e),e=e.parentElement;return t}(e.target),U=0,re()}}}function te(){(X||V)&&K&&(ie(),K=null)}function ne(e){if(X||V){if("Tab"==e.code){if(K){const t=e.shiftKey?-1:1;let n=K[U],o=K[U+t];if(o){let e=U+t;for(;o&&(1==t&&n.getBoundingClientRect().width>=o.getBoundingClientRect().width&&n.getBoundingClientRect().height>=o.getBoundingClientRect().height||-1==t&&n.getBoundingClientRect().width<=o.getBoundingClientRect().width&&n.getBoundingClientRect().height<=o.getBoundingClientRect().height);)e+=t,o=K[e];o&&o.classList&&o!=document.body&&o!=document.documentElement&&(ie(),U=e,re())}}e.preventDefault()}if("Space"==e.code&&K){if(e.ctrlKey){K[U].classList.add(X?v:x)}else se(e.shiftKey);e.preventDefault()}"Escape"==e.code&&(ae(),e.preventDefault()),"z"==e.key.toLowerCase()&&e.ctrlKey&&(e.shiftKey?de():le(),e.preventDefault())}"s"==e.key.toLowerCase()&&e.ctrlKey&&(window.parent.postMessage(JSON.stringify({method:"savePage"}),"*"),e.preventDefault()),"p"==e.key.toLowerCase()&&e.ctrlKey&&(oe(),e.preventDefault())}function oe(){ie(),ae(),window.print()}function re(){K[U].classList.add(X?A:w)}function ie(){if(K){const e=K[U];e.classList.remove(A),e.classList.remove(w)}}function le(){$&&(_[$-1].forEach((e=>e.classList.remove(b))),$--)}function de(){$<_.length&&(_[$].forEach((e=>e.classList.add(b))),$++)}function se(e){const t=K[U];if(X&&!e||V&&e){if(document.documentElement!=t&&t.tagName.toLowerCase()!=i){const e=[t].concat(...document.querySelectorAll("."+v+",."+v+" *,."+A+" *"));ae(),e.length&&(e.forEach((e=>{e.tagName.toLowerCase()==i?me(e):e.classList.add(b)})),_[$]=e,$++,_.length=$,ge(!1))}}else if(document.documentElement!=t&&t.tagName.toLowerCase()!=i){const e=[],n="*:not(style):not(meta):not(.single-file-removed)",o=[t].concat(...document.querySelectorAll("."+x));document.body.querySelectorAll(n).forEach((t=>{let n=!0;o.forEach((e=>n=n&&e!=t&&!Ne(e,t)&&!Ne(t,e))),n&&(t.tagName.toLowerCase()==i?me(t):e.push(t))})),o.forEach((t=>{const o=t.getBoundingClientRect();t.querySelectorAll(n).forEach((t=>{const n=t.getBoundingClientRect();n.width&&n.height&&(n.left+n.width<o.left||n.right>o.right+o.width||n.top+n.height<o.top||n.bottom>o.bottom+o.height)&&e.push(t)}))})),ae(),e.length&&(e.forEach((e=>e.classList.add(b))),_[$]=e,$++,_.length=$,ge(!1))}}function ae(e=document){e.querySelectorAll("."+x+",."+v).forEach((e=>{e.classList.remove(x),e.classList.remove(v)}))}function ce(e,n,o,r){e.preventDefault();const{clientX:i,clientY:l}=ue(e);document.documentElement.style.removeProperty("user-select"),n.classList.remove(m),P.classList.remove(u),B.classList.remove(E),P.classList.remove(n.dataset.color);n.querySelector("header").ontouchmove=document.documentElement.onmousemove=null;let d,s=M;for(;s.parentElement&&!d;){if(!t.includes(s.tagName.toLowerCase())){"static"!=getComputedStyle(s).position&&(d=s)}s=s.parentElement}d||(d=document.documentElement);const a=n.getRootNode().host;if(d==document.documentElement){const e=document.querySelector("."+p);e.parentElement.insertBefore(a,e)}else d.appendChild(a);const c=d.getBoundingClientRect(),h=window.getComputedStyle(d),g=parseInt(h.getPropertyValue("border-left-width")),f=parseInt(h.getPropertyValue("border-top-width"));n.style.setProperty("position","absolute"),n.style.setProperty("left",i-c.x-o-g+"px"),n.style.setProperty("top",l-c.y-r-f+"px")}function me(e){const t=e.dataset.noteId;e.shadowRoot.childNodes[1].classList.remove(a),Se(e,t),xe(document.documentElement,t),document.documentElement.insertBefore(e,B.getRootNode().host)}function ue(e){if(e.touches&&e.touches.length){return e.touches[0]}return e}function he(e){Q=pe(!1,[]);const t={},n=["single-file-highlight","single-file-highlight-yellow","single-file-highlight-green","single-file-highlight-pink","single-file-highlight-blue"];document.querySelectorAll(i).forEach((e=>{t[e.dataset.noteId]=e.shadowRoot;const o="singlefile-note-id-"+e.dataset.noteId;e.classList.add(o),n.push(o)}));const o=new Readability(document,{classesToPreserve:n}).parse();_=[],$=0,document.body.innerHTML="";const r=(new DOMParser).parseFromString(o.content,"text/html"),l=document.body.contentEditable;document.documentElement.replaceChild(r.body,document.body),document.querySelectorAll(i).forEach((e=>{const n=Array.from(e.classList).find((e=>/singlefile-note-id-\d+/.test(e))).split("singlefile-note-id-")[1];e.classList.remove("singlefile-note-id-"+n),e.dataset.noteId=n,e.shadowRoot||(e.attachShadow({mode:"open"}),e.shadowRoot.appendChild(t[n]))})),document.querySelectorAll(i).forEach((e=>e.shadowRoot=t[e.dataset.noteId])),document.body.contentEditable=l,document.head.querySelectorAll("style").forEach((e=>e.remove()));const s=document.createElement("style");s.textContent='\n\t/* This Source Code Form is subject to the terms of the Mozilla Public\n * License, v. 2.0. If a copy of the MPL was not distributed with this file,\n * You can obtain one at http://mozilla.org/MPL/2.0/. */\n\n/* Avoid adding ID selector rules in this style sheet, since they could\n * inadvertently match elements in the article content. */\n:root {\n   --close-button-hover: #d94141;\n}\nbody {\n  --toolbar-bgcolor: #fbfbfb;\n  --toolbar-border: #b5b5b5;\n  --toolbar-hover: #ebebeb;\n  --popup-bgcolor: #fbfbfb;\n  --popup-border: #b5b5b5;\n  --font-color: #4c4c4c;\n  --icon-fill: #808080;\n  /* light colours */\n}\n\nbody.dark {\n  --toolbar-bgcolor: #2a2a2d;\n  --toolbar-border: #4B4A50;\n  --toolbar-hover: #737373;\n  --popup-bgcolor: #4b4a50;\n  --popup-border: #65646a;\n  --font-color: #fff;\n  --icon-fill: #fff;\n  /* dark colours */\n}\n\nbody {\n  padding: 64px 51px;\n}\n\nbody.loaded {\n  transition: color 0.4s, background-color 0.4s;\n}\n\nbody.light {\n  color: #333333;\n  background-color: #ffffff;\n}\n\nbody.dark {\n  color: #eeeeee;\n  background-color: #333333;\n}\n\nbody.dark *::-moz-selection {\n  background-color: #FFFFFF;\n  color: #0095DD;\n}\nbody.dark a::-moz-selection {\n  color: #DD4800;\n}\n\nbody.sepia {\n  color: #5b4636;\n  background-color: #f4ecd8;\n}\n\nbody.sans-serif,\nbody.sans-serif .remove-button {\n  font-family: Helvetica, Arial, sans-serif;\n}\n\nbody.serif,\nbody.serif .remove-button  {\n  font-family: Georgia, "Times New Roman", serif;\n}\n\n.container {\n  --font-size: 12;\n  max-width: 30em;\n  margin: 0 auto;\n  font-size: var(--font-size);\n}\n\n.container.content-width1 {\n  max-width: 20em;\n}\n\n.container.content-width2 {\n  max-width: 25em;\n}\n\n.container.content-width3 {\n  max-width: 30em;\n}\n\n.container.content-width4  {\n  max-width: 35em;\n}\n\n.container.content-width5 {\n  max-width: 40em;\n}\n\n.container.content-width6 {\n  max-width: 45em;\n}\n\n.container.content-width7 {\n  max-width: 50em;\n}\n\n.container.content-width8 {\n  max-width: 55em;\n}\n\n.container.content-width9 {\n  max-width: 60em;\n}\n\n/* Override some controls and content styles based on color scheme */\n\nbody.light > .container > .header > .domain {\n  border-bottom-color: #333333 !important;\n}\n\nbody.sepia > .container > .header > .domain {\n  border-bottom-color: #5b4636 !important;\n}\n\nbody.dark > .container > .header > .domain {\n  border-bottom-color: #eeeeee !important;\n}\n\nbody.sepia > .container > .footer {\n  background-color: #dedad4 !important;\n}\n\nbody.light blockquote {\n  border-inline-start: 2px solid #333333 !important;\n}\n\nbody.sepia blockquote {\n  border-inline-start: 2px solid #5b4636 !important;\n}\n\nbody.dark blockquote {\n  border-inline-start: 2px solid #eeeeee !important;\n}\n\n/* Add toolbar transition base on loaded class  */\n\nbody.loaded .toolbar {\n  transition: transform 0.3s ease-out;\n}\n\nbody:not(.loaded) .toolbar:-moz-locale-dir(ltr) {\n  transform: translateX(-100%);\n}\n\nbody:not(.loaded) .toolbar:-moz-locale-dir(rtl) {\n  transform: translateX(100%);\n}\n\n.light-button {\n  color: #333333;\n  background-color: #ffffff;\n}\n\n.dark-button {\n  color: #eeeeee;\n  background-color: #333333;\n}\n\n.sepia-button {\n  color: #5b4636;\n  background-color: #f4ecd8;\n}\n\n.sans-serif-button {\n  font-family: Helvetica, Arial, sans-serif;\n}\n\n.serif-button {\n  font-family: Georgia, "Times New Roman", serif;\n}\n\n/* Loading/error message */\n\n.reader-message {\n  margin-top: 40px;\n  display: none;\n  text-align: center;\n  width: 100%;\n  font-size: 0.9em;\n}\n\n/* Header */\n\n.header {\n  text-align: start;\n  display: none;\n}\n\n.domain {\n  font-size: 0.9em;\n  line-height: 1.48em;\n  padding-bottom: 4px;\n  font-family: Helvetica, Arial, sans-serif;\n  text-decoration: none;\n  border-bottom: 1px solid;\n  color: #0095dd;\n}\n\n.header > h1 {\n  font-size: 1.6em;\n  line-height: 1.25em;\n  width: 100%;\n  margin: 30px 0;\n  padding: 0;\n}\n\n.header > .credits {\n  font-size: 0.9em;\n  line-height: 1.48em;\n  margin: 0 0 10px 0;\n  padding: 0;\n  font-style: italic;\n}\n\n.header > .meta-data {\n  font-size: 0.65em;\n  margin: 0 0 15px 0;\n}\n\n/*======= Controls toolbar =======*/\n\n.toolbar {\n  font-family: Helvetica, Arial, sans-serif;\n  position: fixed;\n  height: 100%;\n  top: 0;\n  left: 0;\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  background-color:  var(--toolbar-bgcolor);\n  -moz-user-select: none;\n  border-right: 1px solid  var(--toolbar-border);\n  z-index: 1;\n}\n\n.button {\n  display: block;\n  background-size: 24px 24px;\n  background-repeat: no-repeat;\n  color: #333;\n  background-color: var(--toolbar-bgcolor);\n  height: 40px;\n  padding: 0;\n}\n\nbutton {\n  -moz-context-properties: fill;\n  color: var(--font-color);\n  fill: var(--icon-fill);\n}\n\n.toolbar .button {\n  width: 40px;\n  background-position: center;\n  margin-right: -1px;\n  border-top: 0;\n  border-left: 0;\n  border-right: 1px solid var(--toolbar-border);\n  border-bottom: 1px solid var(--toolbar-border);\n  background-color:  var(--toolbar-bgcolor);\n}\n\n.button[hidden] {\n  display: none;\n}\n\n.dropdown {\n  text-align: center;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n\n.dropdown li {\n  margin: 0;\n  padding: 0;\n}\n\n/*======= Popup =======*/\n\n.dropdown-popup {\n  min-width: 300px;\n  text-align: start;\n  position: absolute;\n  left: 48px; /* offset to account for toolbar width */\n  z-index: 1000;\n  background-color: var(--popup-bgcolor);\n  visibility: hidden;\n  border-radius: 4px;\n  border: 1px solid var(--popup-border);\n  border-bottom-width: 0;\n  box-shadow: 0 1px 3px #c1c1c1;\n}\n\n.keep-open .dropdown-popup {\n  z-index: initial;\n}\n\n.dropdown-popup > hr {\n  display: none;\n}\n\n.open > .dropdown-popup {\n  visibility: visible;\n}\n\n.dropdown-arrow {\n  position: absolute;\n  top: 30px; /* offset arrow from top of popup */\n  left: -16px;\n  width: 16px;\n  height: 24px;\n  background-image: url("chrome://global/skin/reader/RM-Type-Controls-Arrow.svg");\n  display: block;\n  -moz-context-properties:  fill, stroke;\n  fill: var(--popup-bgcolor);\n  stroke: var(--popup-border);\n}\n\n\n/*======= Font style popup =======*/\n\n.font-type-buttons,\n.font-size-buttons,\n.color-scheme-buttons,\n.content-width-buttons,\n.line-height-buttons {\n  display: flex;\n  flex-direction: row;\n}\n\n.font-type-buttons > button:first-child {\n  border-top-left-radius: 3px;\n}\n.font-type-buttons > button:last-child {\n  border-top-right-radius: 3px;\n}\n.color-scheme-buttons > button:first-child {\n  border-bottom-left-radius: 3px;\n}\n.color-scheme-buttons > button:last-child {\n  border-bottom-right-radius: 3px;\n}\n\n.font-type-buttons > button,\n.font-size-buttons > button,\n.color-scheme-buttons > button,\n.content-width-buttons > button,\n.line-height-buttons > button {\n  text-align: center;\n  border: 0;\n}\n\n.font-type-buttons > button,\n.font-size-buttons > button,\n.content-width-buttons > button,\n.line-height-buttons > button {\n  width: 50%;\n  background-color: transparent;\n  border-left: 1px solid var(--popup-border);\n  border-bottom: 1px solid var(--popup-border);\n}\n\n.color-scheme-buttons > button {\n  width: 33.33%;\n  font-size: 14px;\n}\n\n.color-scheme-buttons > .dark-button {\n  margin-top: -1px;\n  height: 61px;\n}\n\n.font-type-buttons > button:first-child,\n.font-size-buttons > button:first-child,\n.content-width-buttons > button:first-child,\n.line-height-buttons > button:first-child {\n  border-left: 0;\n}\n\n.font-type-buttons > button {\n  display: inline-block;\n  font-size: 62px;\n  height: 100px;\n}\n\n.font-size-buttons > button,\n.color-scheme-buttons > button,\n.content-width-buttons > button,\n.line-height-buttons > button {\n  height: 60px;\n}\n\n.font-type-buttons > button:active:hover,\n.font-type-buttons > button.selected,\n.color-scheme-buttons > button:active:hover,\n.color-scheme-buttons > button.selected {\n  box-shadow: inset 0 -3px 0 0 #fc6420;\n}\n\n.font-type-buttons > button:active:hover,\n.font-type-buttons > button.selected {\n  border-bottom: 1px solid #FC6420;\n}\n\n/* Make the serif button content the same size as the sans-serif button content. */\n.font-type-buttons > button > .description {\n  font-size: 12px;\n  margin-top: -5px;\n}\n\n/* Font sizes are different per-platform, so we need custom CSS to line them up. */\n.font-type-buttons > .sans-serif-button > .name {\n  margin-top: 2px;\n}\n\n.font-type-buttons > .sans-serif-button > .description {\n  margin-top: -4px;\n}\n\n.font-type-buttons > .serif-button > .name {\n  font-size: 63px;\n}\n\n.button:hover,\n.font-size-buttons > button:hover,\n.font-type-buttons > button:hover,\n.content-width-buttons > button:hover,\n.line-height-buttons > button:hover {\n  background-color: var(--toolbar-hover);\n}\n\n.dropdown.open,\n.button:active,\n.font-size-buttons > button:active,\n.font-size-buttons > button.selected,\n.content-width-buttons > button:active,\n.content-width-buttons > button.selected,\n.line-height-buttons > button:active,\n.line-height-buttons > button.selected {\n  background-color: #dadada;\n}\n\n/* Only used on Android */\n.font-size-sample {\n  display: none;\n}\n\n.minus-button,\n.plus-button,\n.content-width-minus-button,\n.content-width-plus-button,\n.line-height-minus-button,\n.line-height-plus-button {\n  background-color: transparent;\n  border: 0;\n  background-size: 18px 18px;\n  background-repeat: no-repeat;\n  background-position: center;\n}\n\n/*======= Toolbar icons =======*/\n\n.close-button {\n  background-image: url("chrome://global/skin/reader/RM-Close-24x24.svg");\n  height: 68px;\n  background-position: center 8px;\n}\n\n.close-button:hover {\n  fill: #fff;\n  background-color: var(--close-button-hover);\n  border-bottom: 1px solid var(--close-button-hover);\n  border-right: 1px solid var(--close-button-hover);\n}\n\n.close-button:hover:active {\n  background-color: #AE2325;\n  border-bottom: 1px solid #AE2325;\n  border-right: 1px solid #AE2325;\n}\n\n.style-button {\n  background-image: url("chrome://global/skin/reader/RM-Type-Controls-24x24.svg");\n}\n\n.minus-button {\n  background-image: url("chrome://global/skin/reader/RM-Minus-24x24.svg");\n}\n\n.plus-button {\n  background-image: url("chrome://global/skin/reader/RM-Plus-24x24.svg");\n}\n\n.content-width-minus-button {\n  background-size: 42px 16px;\n  background-image: url("chrome://global/skin/reader/RM-Content-Width-Minus-42x16.svg");\n}\n\n.content-width-plus-button {\n  background-size: 44px 16px;\n  background-image: url("chrome://global/skin/reader/RM-Content-Width-Plus-44x16.svg");\n}\n\n.line-height-minus-button {\n  background-size: 34px 14px;\n  background-image: url("chrome://global/skin/reader/RM-Line-Height-Minus-38x14.svg");\n}\n\n.line-height-plus-button {\n  background-size: 34px 24px;\n  background-image: url("chrome://global/skin/reader/RM-Line-Height-Plus-38x24.svg");\n}\n\n@media print {\n  .toolbar {\n    display: none !important;\n  }\n}\n\n/*======= Article content =======*/\n\n/* Note that any class names from the original article that we want to match on\n * must be added to CLASSES_TO_PRESERVE in ReaderMode.jsm, so that\n * Readability.js doesn\'t strip them out */\n\n.moz-reader-content {\n  display: none;\n  font-size: 1em;\n  line-height: 1.6em;\n}\n\n.moz-reader-content.line-height1 {\n  line-height: 1em;\n}\n\n.moz-reader-content.line-height2 {\n  line-height: 1.2em;\n}\n\n.moz-reader-content.line-height3 {\n  line-height: 1.4em;\n}\n\n.moz-reader-content.line-height4 {\n  line-height: 1.6em;\n}\n\n.moz-reader-content.line-height5 {\n  line-height: 1.8em;\n}\n\n.moz-reader-content.line-height6 {\n  line-height: 2.0em;\n}\n\n.moz-reader-content.line-height7 {\n  line-height: 2.2em;\n}\n\n.moz-reader-content.line-height8 {\n  line-height: 2.4em;\n}\n\n.moz-reader-content.line-height9 {\n  line-height: 2.6em;\n}\n\n@media print {\n  .moz-reader-content p,\n  .moz-reader-content code,\n  .moz-reader-content pre,\n  .moz-reader-content blockquote,\n  .moz-reader-content ul,\n  .moz-reader-content ol,\n  .moz-reader-content li,\n  .moz-reader-content figure,\n  .moz-reader-content .wp-caption {\n    margin: 0 0 10px 0 !important;\n    padding: 0 !important;\n  }\n}\n\n.moz-reader-content h1,\n.moz-reader-content h2,\n.moz-reader-content h3 {\n  font-weight: bold;\n}\n\n.moz-reader-content h1 {\n  font-size: 1.6em;\n  line-height: 1.25em;\n}\n\n.moz-reader-content h2 {\n  font-size: 1.2em;\n  line-height: 1.51em;\n}\n\n.moz-reader-content h3 {\n  font-size: 1em;\n  line-height: 1.66em;\n}\n\n.moz-reader-content a:link {\n  text-decoration: underline;\n  font-weight: normal;\n}\n\n.moz-reader-content a:link,\n.moz-reader-content a:link:hover,\n.moz-reader-content a:link:active {\n  color: #0095dd;\n}\n\n.moz-reader-content a:visited {\n  color: #c2e;\n}\n\n.moz-reader-content * {\n  max-width: 100%;\n  height: auto;\n}\n\n.moz-reader-content p,\n.moz-reader-content p,\n.moz-reader-content code,\n.moz-reader-content pre,\n.moz-reader-content blockquote,\n.moz-reader-content ul,\n.moz-reader-content ol,\n.moz-reader-content li,\n.moz-reader-content figure,\n.moz-reader-content .wp-caption {\n  margin: -10px -10px 20px -10px;\n  padding: 10px;\n  border-radius: 5px;\n}\n\n.moz-reader-content li {\n  margin-bottom: 0;\n}\n\n.moz-reader-content li > ul,\n.moz-reader-content li > ol {\n  margin-bottom: -10px;\n}\n\n.moz-reader-content p > img:only-child,\n.moz-reader-content p > a:only-child > img:only-child,\n.moz-reader-content .wp-caption img,\n.moz-reader-content figure img {\n  display: block;\n}\n\n.moz-reader-content img[moz-reader-center] {\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.moz-reader-content .caption,\n.moz-reader-content .wp-caption-text\n.moz-reader-content figcaption {\n  font-size: 0.9em;\n  line-height: 1.48em;\n  font-style: italic;\n}\n\n.moz-reader-content code,\n.moz-reader-content pre {\n  white-space: pre-wrap;\n}\n\n.moz-reader-content blockquote {\n  padding: 0;\n  padding-inline-start: 16px;\n}\n\n.moz-reader-content ul,\n.moz-reader-content ol {\n  padding: 0;\n}\n\n.moz-reader-content ul {\n  padding-inline-start: 30px;\n  list-style: disc;\n}\n\n.moz-reader-content ol {\n  padding-inline-start: 30px;\n  list-style: decimal;\n}\n\ntable,\nth,\ntd {\n  border: 1px solid currentColor;\n  border-collapse: collapse;\n  padding: 6px;\n  vertical-align: top;\n}\n\ntable {\n  margin: 5px;\n}\n\n/* Visually hide (but don\'t display: none) screen reader elements */\n.moz-reader-content .visually-hidden,\n.moz-reader-content .visuallyhidden,\n.moz-reader-content .sr-only {\n  display: inline-block;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  overflow: hidden;\n  padding: 0;\n  border-width: 0;\n}\n\n/* Hide elements with common "hidden" class names */\n.moz-reader-content .hidden,\n.moz-reader-content .invisible {\n  display: none;\n}\n\n/* Enforce wordpress and similar emoji/smileys aren\'t sized to be full-width,\n * see bug 1399616 for context. */\n.moz-reader-content img.wp-smiley,\n.moz-reader-content img.emoji {\n  display: inline-block;\n  border-width: 0;\n  /* height: auto is implied from .moz-reader-content * rule. */\n  width: 1em;\n  margin: 0 .07em;\n  padding: 0;\n}\n\n.reader-show-element {\n  display: initial;\n}',document.head.appendChild(s),document.body.classList.add("moz-reader-content"),document.body.classList.add("content-width6"),document.body.classList.add("reader-show-element"),document.body.classList.add("sans-serif"),document.body.classList.add("container"),document.body.classList.add("line-height4");const a=matchMedia("(prefers-color-scheme: dark)");e&&a&&a.matches&&document.body.classList.add("dark"),document.body.style.setProperty("display","block"),document.body.style.setProperty("padding","24px");const c=document.createElement("h1");c.classList.add("reader-title"),c.textContent=o.title,document.body.insertBefore(c,document.body.firstChild),document.documentElement.appendChild(we(T)),B=Ae(h,g),P=Ae(d),fe(),ge(!1)}function pe(n,o){ie(),ye(document);const r=document.cloneNode(!0);ae(r),Ee(r),Ee(document),r.querySelectorAll("[data-single-file-disabled-noscript]").forEach((e=>{e.textContent=e.getAttribute(L),e.removeAttribute(L)})),r.querySelectorAll(".single-file-mask, .single-file-removed").forEach((e=>e.remove())),r.querySelectorAll("."+f).forEach((e=>e.classList.remove(y))),r.querySelectorAll("template[shadowmode]").forEach((e=>{const t=e.querySelector(".note");t&&t.classList.remove(s);const n=e.querySelector("textarea");n&&(n.textContent=n.value)})),r.querySelectorAll("iframe").forEach((e=>{const t="pointer-events";e.style.setProperty(t,e.style.getPropertyValue("-sf-pointer-events"),e.style.getPropertyPriority("-sf-pointer-events")),e.style.removeProperty("-sf-pointer-events")})),r.body.removeAttribute("contentEditable");const A=r.createElement("script");A.setAttribute("data-template-shadow-root",""),A.textContent=ze(`(() => {\n\t\t\tdocument.currentScript.remove();\n\t\t\tconst processNode = node => {\n\t\t\t\tnode.querySelectorAll("template[shadowmode]").forEach(element=>{\n\t\t\t\t\tlet shadowRoot = getShadowRoot(element.parentElement);\n\t\t\t\t\tif (!shadowRoot) {\n\t\t\t\t\t\ttry {\n\t\t\t\t\t\t\tshadowRoot = element.parentElement.attachShadow({mode:element.getAttribute("shadowmode"),delegatesFocus:Boolean(element.getAttribute("delegatesfocus"))});\n\t\t\t\t\t\t\tshadowRoot.innerHTML = element.innerHTML;\n\t\t\t\t\t\t\telement.remove();\n\t\t\t\t\t\t} catch (error) {}\t\t\t\t\t\t\n\t\t\t\t\t\tif (shadowRoot) {\n\t\t\t\t\t\t\tprocessNode(shadowRoot);\n\t\t\t\t\t\t}\n\t\t\t\t\t}\t\t\t\t\t\n\t\t\t\t})\n\t\t\t};\n\t\t\tconst FORBIDDEN_TAG_NAMES = ${JSON.stringify(t)};\n\t\t\tconst NOTE_TAGNAME = ${JSON.stringify(i)};\n\t\t\tconst NOTE_CLASS = ${JSON.stringify(l)};\n\t\t\tconst NOTE_ANCHORED_CLASS = ${JSON.stringify(a)};\n\t\t\tconst NOTE_SELECTED_CLASS = ${JSON.stringify(c)};\n\t\t\tconst NOTE_MOVING_CLASS = ${JSON.stringify(m)};\n\t\t\tconst NOTE_MASK_MOVING_CLASS = ${JSON.stringify(u)};\n\t\t\tconst MASK_CLASS = ${JSON.stringify(p)};\n\t\t\tconst HIGHLIGHT_CLASS = ${JSON.stringify(f)};\n\t\t\tconst NOTES_WEB_STYLESHEET = ${JSON.stringify(k)};\n\t\t\tconst MASK_WEB_STYLESHEET = ${JSON.stringify(R)};\n\t\t\tconst NOTE_HEADER_HEIGHT = ${JSON.stringify(25)};\n\t\t\tconst PAGE_MASK_ACTIVE_CLASS = ${JSON.stringify(E)};\n\t\t\tconst REMOVED_CONTENT_CLASS = ${JSON.stringify(b)};\n\t\t\tconst reflowNotes = ${ze(fe.toString())};\t\t\t\n\t\t\tconst addNoteRef = ${ze(xe.toString())};\n\t\t\tconst deleteNoteRef = ${ze(Se.toString())};\n\t\t\tconst getNoteRefs = ${ze(Ce.toString())};\n\t\t\tconst setNoteRefs = ${ze(Le.toString())};\n\t\t\tconst getAnchorElement = ${ze(ve.toString())};\n\t\t\tconst getMaskElement = ${ze(Ae.toString())};\n\t\t\tconst getStyleElement = ${ze(we.toString())};\n\t\t\tconst attachNoteListeners = ${ze(Z.toString())};\n\t\t\tconst anchorNote = ${ze(ce.toString())};\n\t\t\tconst getPosition = ${ze(ue.toString())};\n\t\t\tconst onMouseUp = ${ze(j.toString())};\n\t\t\tconst getShadowRoot = ${ze(ke.toString())};\n\t\t\tconst maskNoteElement = getMaskElement(${JSON.stringify(d)});\n\t\t\tconst maskPageElement = getMaskElement(${JSON.stringify(h)}, ${JSON.stringify(g)});\n\t\t\tlet selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout, cuttingMode, cuttingOuterMode;\n\t\t\twindow.onresize = reflowNotes;\n\t\t\twindow.onUpdate = () => {};\n\t\t\tdocument.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;\n\t\t\twindow.addEventListener("DOMContentLoaded", () => {\n\t\t\t\tprocessNode(document);\n\t\t\t\treflowNotes();\n\t\t\t\tdocument.querySelectorAll(${JSON.stringify(i)}).forEach(noteElement => attachNoteListeners(noteElement));\n\t\t\t});\n\t\t})()`),r.body.appendChild(A);return Object.keys(o).filter((e=>"stylesheet"==o[e].type)).map((e=>o[e])).forEach((e=>{const t=r.createElement("style");r.body.appendChild(t),t.textContent=e.content})),e.helper.serialize(r,n)}function ge(e){window.parent.postMessage(JSON.stringify({method:"onUpdate",saved:e}),"*")}function fe(){document.querySelectorAll(i).forEach((e=>{const t=e.shadowRoot.querySelector(".note"),n=t.getBoundingClientRect(),o=ve(e).getBoundingClientRect(),r=o.x+Math.max(0,o.width-n.width),i=o.x,l=o.y+Math.max(0,o.height-25),d=o.y;let s=parseInt(t.style.getPropertyValue("left")),a=parseInt(t.style.getPropertyValue("top"));n.x>r&&(s-=n.x-r),n.x<i&&(s+=i-n.x),n.y>l&&(a-=n.y-l),n.y<d&&(a+=d-n.y),t.style.setProperty("position","absolute"),t.style.setProperty("left",s+"px"),t.style.setProperty("top",a+"px")}))}function be(e){e.classList.remove(f),e.classList.remove("single-file-highlight-yellow"),e.classList.remove("single-file-highlight-pink"),e.classList.remove("single-file-highlight-blue"),e.classList.remove("single-file-highlight-green"),delete e.dataset.singlefileHighlightId}function ye(e){e.querySelectorAll("*").forEach((e=>{const t=ke(e);if(t){ye(t);const n=document.createElement("template");n.setAttribute(r,"open"),n.appendChild(t),e.appendChild(n)}}))}function Ee(e){e.querySelectorAll("template[shadowmode]").forEach((e=>{if(e.parentElement){let t=ke(e.parentElement);if(t)Array.from(e.childNodes).forEach((e=>t.appendChild(e))),e.remove();else try{t=e.parentElement.attachShadow({mode:"open"});const n=(new DOMParser).parseFromString(e.innerHTML,"text/html");Array.from(n.head.childNodes).forEach((e=>t.appendChild(e))),Array.from(n.body.childNodes).forEach((e=>t.appendChild(e)))}catch(e){}t&&Ee(t)}}))}function Ae(e,t){let n=document.documentElement.querySelector("."+e);if(!n){n=document.createElement("div");const o=document.createElement("div");t&&o.classList.add(t),o.classList.add(p);const r=document.querySelector(i);r&&r.parentElement==document.documentElement?document.documentElement.insertBefore(o,r):document.documentElement.appendChild(o),n.classList.add(e);const l=o.attachShadow({mode:"open"});return l.appendChild(we(R)),l.appendChild(n),n}}function we(e){const t=document.createElement("style");return t.textContent=e,t}function ve(e){return document.querySelector("[data-single-file-note-refs^="+JSON.stringify(e.dataset.noteId)+"], [data-single-file-note-refs$="+JSON.stringify(e.dataset.noteId)+"], [data-single-file-note-refs*="+JSON.stringify(","+e.dataset.noteId+",")+"]")||document.documentElement}function xe(e,t){const n=Ce(e);n.push(t),Le(e,n)}function Se(e,t){const n=ve(e),o=Ce(n).filter((e=>e!=t));o.length?Le(n,o):delete n.dataset.singleFileNoteRefs}function Ce(e){return JSON.parse("["+(e.dataset.singleFileNoteRefs||"")+"]")}function Le(e,t){e.dataset.singleFileNoteRefs=t.toString()}function ze(e){return e.replace(/[\n\t\s]+/g," ")}function Ne(e,t){return t.parentElement&&(e==t.parentElement||Ne(e,t.parentElement))}function ke(e){const t=window.chrome;if(e.openOrClosedShadowRoot)return e.openOrClosedShadowRoot;if(!(t&&t.dom&&t.dom.openOrClosedShadowRoot))return e.shadowRoot;try{return t.dom.openOrClosedShadowRoot(e)}catch(t){return e.shadowRoot}}window.onmessage=async e=>{const t=JSON.parse(e.data);if("init"==t.method&&await Y(t.content),"addNote"==t.method&&function({color:e}){const t=document.createElement(i),r=document.createElement("div"),d=document.createElement("header"),s=document.createElement("textarea"),m=document.createElement("div"),u=document.createElement("img"),h=document.createElement("img"),p=t.attachShadow({mode:"open"});d.appendChild(h),d.appendChild(u),r.appendChild(d),r.appendChild(s),r.appendChild(m),p.appendChild(we(k)),p.appendChild(r);const g=Array.from(document.querySelectorAll(i)),f=Math.max.call(Math,0,...g.map((e=>Number(e.dataset.noteId))))+1;r.classList.add(l),r.classList.add(a),r.classList.add(e),r.dataset.color=e,s.dir="auto";const b=document.documentElement.getBoundingClientRect();let y=169-b.x,E=169-b.y;for(;Array.from(document.elementsFromPoint(y-window.scrollX,E-window.scrollY)).find((e=>e.tagName.toLowerCase()==i));)y+=20,E+=20;r.style.setProperty("left",y-S-1+"px"),r.style.setProperty("top",E-C-1+"px"),m.className="note-resize",m.ondragstart=e=>e.preventDefault(),u.className="note-remove",u.src=o,u.ondragstart=e=>e.preventDefault(),h.className="note-anchor",h.src=n,h.ondragstart=e=>e.preventDefault(),t.dataset.noteId=f,xe(document.documentElement,f),Z(t,!0),document.documentElement.insertBefore(t,B.getRootNode().host),r.classList.add(c),O=r,ge(!1)}(t),"displayNotes"==t.method&&document.querySelectorAll(i).forEach((e=>e.shadowRoot.querySelector(".note").classList.remove(s))),"hideNotes"==t.method&&document.querySelectorAll(i).forEach((e=>e.shadowRoot.querySelector(".note").classList.add(s))),"enableHighlight"==t.method&&(F&&document.documentElement.classList.remove(F+"-mode"),F=t.color,q=!0,document.documentElement.classList.add(t.color+"-mode")),"disableHighlight"==t.method&&(F&&document.documentElement.classList.remove(F+"-mode"),q=!1),"displayHighlights"==t.method&&document.querySelectorAll("."+f).forEach((e=>e.classList.remove(y))),"hideHighlights"==t.method&&document.querySelectorAll("."+f).forEach((e=>e.classList.add(y))),"enableRemoveHighlights"==t.method&&(I=!0,document.documentElement.classList.add("single-file-remove-highlights-mode")),"disableRemoveHighlights"==t.method&&(I=!1,document.documentElement.classList.remove("single-file-remove-highlights-mode")),"enableEditPage"==t.method&&(document.body.contentEditable=!0,ge(!1)),"formatPage"==t.method&&he(!0),"formatPageNoTheme"==t.method&&he(!1),"cancelFormatPage"==t.method&&async function(){if(Q){const e=document.body.contentEditable;await Y(Q,{reset:!0}),document.body.contentEditable=e,ge(!1),Q=null}}(),"disableEditPage"==t.method&&(document.body.contentEditable=!1),"enableCutInnerPage"==t.method&&(X=!0,document.documentElement.classList.add("single-file-cut-mode")),"enableCutOuterPage"==t.method&&(V=!0,document.documentElement.classList.add("single-file-cut-mode")),"disableCutInnerPage"==t.method&&(X=!1,document.documentElement.classList.remove("single-file-cut-mode"),ae(),K&&(ie(),K=null)),"disableCutOuterPage"==t.method&&(V=!1,document.documentElement.classList.remove("single-file-cut-mode"),ae(),K&&(ie(),K=null)),"undoCutPage"==t.method&&le(),"undoAllCutPage"==t.method)for(;$;)_[$-1].forEach((e=>e.classList.remove(b))),$--;if("redoCutPage"==t.method&&de(),"getContent"==t.method){ge(!0);let e=pe(t.compressHTML,t.updatedResources);G&&(e=e.replace(/<script data-template-shadow-root src.*?<\/script>/g,G)),window.parent.postMessage(JSON.stringify({method:"setContent",content:e}),"*")}"printPage"==t.method&&oe()},window.onresize=fe,document.ondragover=e=>e.preventDefault(),document.ondrop=async e=>{if(e.dataTransfer.files&&e.dataTransfer.files[0]){const t=e.dataTransfer.files[0];e.preventDefault();const n=(new TextDecoder).decode(await t.arrayBuffer());await Y(n,{filename:t.name})}}})()}();
+(function () {
+	'use strict';
+
+	/*
+	 * Copyright 2010-2020 Gildas Lormeau
+	 * contact : gildas.lormeau <at> gmail.com
+	 * 
+	 * This file is part of SingleFile.
+	 *
+	 *   The code in this file is free software: you can redistribute it and/or 
+	 *   modify it under the terms of the GNU Affero General Public License 
+	 *   (GNU AGPL) as published by the Free Software Foundation, either version 3
+	 *   of the License, or (at your option) any later version.
+	 * 
+	 *   The code in this file is distributed in the hope that it will be useful, 
+	 *   but WITHOUT ANY WARRANTY; without even the implied warranty of 
+	 *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero 
+	 *   General Public License for more details.
+	 *
+	 *   As additional permission under GNU AGPL version 3 section 7, you may 
+	 *   distribute UNMODIFIED VERSIONS OF THIS file without the copy of the GNU 
+	 *   AGPL normally required by section 4, provided you include this license 
+	 *   notice and a URL through which recipients can access the Corresponding 
+	 *   Source.
+	 */
+
+	/* global globalThis, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node */
+
+	(globalThis => {
+
+		const singlefile = globalThis.singlefile;
+
+		const FORBIDDEN_TAG_NAMES = ["a", "area", "audio", "base", "br", "col", "command", "embed", "hr", "img", "iframe", "input", "keygen", "link", "meta", "param", "source", "track", "video", "wbr"];
+		const BUTTON_ANCHOR_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAgMAAAAOFJJnAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtaIVETuIOASsThZERRylikWwUNoKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APEydFJ0UVK/F9SaBHjwXE/3t173L0DhFqJqWbbOKBqlpGMRcVMdkUMvKIbfQCG0SExU4+nFtLwHF/38PH1LsKzvM/9OXqUnMkAn0g8y3TDIl4nnt60dM77xCFWlBTic+Ixgy5I/Mh12eU3zgWHBZ4ZMtLJOeIQsVhoYbmFWdFQiaeIw4qqUb6QcVnhvMVZLVVY4578hcGctpziOs0hxLCIOBIQIaOCDZRgIUKrRoqJJO1HPfyDjj9BLplcG2DkmEcZKiTHD/4Hv7s185MTblIwCrS/2PbHCBDYBepV2/4+tu36CeB/Bq60pr9cA2Y+Sa82tfAR0LsNXFw3NXkPuNwBBp50yZAcyU9TyOeB9zP6pizQfwt0rbq9NfZx+gCkqaulG+DgEBgtUPaax7s7W3v790yjvx825XKP2aKCdAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+QLEQA4M3Y7LzIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAACVBMVEUAAAAAAACKioqjwG1pAAAAAXRSTlMAQObYZgAAAAFiS0dEAmYLfGQAAABkSURBVBjThc47CsNADIThWfD0bnSfbdIroP/+V0mhsN5gTNToK0YPaSvnF9B9wGykG54j/2GF1/hauE4E1AOuNxrBdA5KUXIqdiCnqC1zIZ2mFJQzKJ3wesOhcwDM4+fo7cOuD9C4HTQ9HAAQAAAAAElFTkSuQmCC";
+		const BUTTON_CLOSE_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAgMAAAAOFJJnAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtaIVETuIOASsThZERRylikWwUNoKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APEydFJ0UVK/F9SaBHjwXE/3t173L0DhFqJqWbbOKBqlpGMRcVMdkUMvKIbfQCG0SExU4+nFtLwHF/38PH1LsKzvM/9OXqUnMkAn0g8y3TDIl4nnt60dM77xCFWlBTic+Ixgy5I/Mh12eU3zgWHBZ4ZMtLJOeIQsVhoYbmFWdFQiaeIw4qqUb6QcVnhvMVZLVVY4578hcGctpziOs0hxLCIOBIQIaOCDZRgIUKrRoqJJO1HPfyDjj9BLplcG2DkmEcZKiTHD/4Hv7s185MTblIwCrS/2PbHCBDYBepV2/4+tu36CeB/Bq60pr9cA2Y+Sa82tfAR0LsNXFw3NXkPuNwBBp50yZAcyU9TyOeB9zP6pizQfwt0rbq9NfZx+gCkqaulG+DgEBgtUPaax7s7W3v790yjvx825XKP2aKCdAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+QLEQA6Na1u6IUAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAACVBMVEUAAAAAAACKioqjwG1pAAAAAXRSTlMAQObYZgAAAAFiS0dEAmYLfGQAAABlSURBVBhXTc/BEUQhCAPQ58ES6McSPED/rfwDI7vOMCoJIeGd6CvFgZXiwk47Ia5VUKdrVXcb39kfqxqmTg+I2xJ2tqhVTaGaQjTl7/GgIc/4CL4Vs3RsjLFndcxPnAn4iww8A3yQjRZjti1t6AAAAABJRU5ErkJggg==";
+		const SHADOW_MODE_ATTRIBUTE_NAME = "shadowmode";
+		const SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME = "delegatesfocus";
+		const SCRIPT_TEMPLATE_SHADOW_ROOT = "data-template-shadow-root";
+		const NOTE_TAGNAME = "single-file-note";
+		const NOTE_CLASS = "note";
+		const NOTE_MASK_CLASS = "note-mask";
+		const NOTE_HIDDEN_CLASS = "note-hidden";
+		const NOTE_ANCHORED_CLASS = "note-anchored";
+		const NOTE_SELECTED_CLASS = "note-selected";
+		const NOTE_MOVING_CLASS = "note-moving";
+		const NOTE_MASK_MOVING_CLASS = "note-mask-moving";
+		const PAGE_MASK_CLASS = "page-mask";
+		const MASK_CLASS = "single-file-mask";
+		const PAGE_MASK_CONTAINER_CLASS = "single-file-page-mask";
+		const HIGHLIGHT_CLASS = "single-file-highlight";
+		const REMOVED_CONTENT_CLASS = "single-file-removed";
+		const HIGHLIGHT_HIDDEN_CLASS = "single-file-highlight-hidden";
+		const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
+		const CUT_HOVER_CLASS = "single-file-cut-hover";
+		const CUT_OUTER_HOVER_CLASS = "single-file-cut-outer-hover";
+		const CUT_SELECTED_CLASS = "single-file-cut-selected";
+		const CUT_OUTER_SELECTED_CLASS = "single-file-cut-outer-selected";
+		const NOTE_INITIAL_POSITION_X = 20;
+		const NOTE_INITIAL_POSITION_Y = 20;
+		const NOTE_INITIAL_WIDTH = 150;
+		const NOTE_INITIAL_HEIGHT = 150;
+		const NOTE_HEADER_HEIGHT = 25;
+		const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-file-disabled-noscript";
+		const COMMENT_HEADER = "Page saved with SingleFile";
+		const COMMENT_HEADER_LEGACY = "Archive processed by SingleFile";
+
+		const STYLE_FORMATTED_PAGE = `
+	/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/* Avoid adding ID selector rules in this style sheet, since they could
+ * inadvertently match elements in the article content. */
+:root {
+   --close-button-hover: #d94141;
+}
+body {
+  --toolbar-bgcolor: #fbfbfb;
+  --toolbar-border: #b5b5b5;
+  --toolbar-hover: #ebebeb;
+  --popup-bgcolor: #fbfbfb;
+  --popup-border: #b5b5b5;
+  --font-color: #4c4c4c;
+  --icon-fill: #808080;
+  /* light colours */
+}
+
+body.dark {
+  --toolbar-bgcolor: #2a2a2d;
+  --toolbar-border: #4B4A50;
+  --toolbar-hover: #737373;
+  --popup-bgcolor: #4b4a50;
+  --popup-border: #65646a;
+  --font-color: #fff;
+  --icon-fill: #fff;
+  /* dark colours */
+}
+
+body {
+  padding: 64px 51px;
+}
+
+body.loaded {
+  transition: color 0.4s, background-color 0.4s;
+}
+
+body.light {
+  color: #333333;
+  background-color: #ffffff;
+}
+
+body.dark {
+  color: #eeeeee;
+  background-color: #333333;
+}
+
+body.dark *::-moz-selection {
+  background-color: #FFFFFF;
+  color: #0095DD;
+}
+body.dark a::-moz-selection {
+  color: #DD4800;
+}
+
+body.sepia {
+  color: #5b4636;
+  background-color: #f4ecd8;
+}
+
+body.sans-serif,
+body.sans-serif .remove-button {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+body.serif,
+body.serif .remove-button  {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.container {
+  --font-size: 12;
+  max-width: 30em;
+  margin: 0 auto;
+  font-size: var(--font-size);
+}
+
+.container.content-width1 {
+  max-width: 20em;
+}
+
+.container.content-width2 {
+  max-width: 25em;
+}
+
+.container.content-width3 {
+  max-width: 30em;
+}
+
+.container.content-width4  {
+  max-width: 35em;
+}
+
+.container.content-width5 {
+  max-width: 40em;
+}
+
+.container.content-width6 {
+  max-width: 45em;
+}
+
+.container.content-width7 {
+  max-width: 50em;
+}
+
+.container.content-width8 {
+  max-width: 55em;
+}
+
+.container.content-width9 {
+  max-width: 60em;
+}
+
+/* Override some controls and content styles based on color scheme */
+
+body.light > .container > .header > .domain {
+  border-bottom-color: #333333 !important;
+}
+
+body.sepia > .container > .header > .domain {
+  border-bottom-color: #5b4636 !important;
+}
+
+body.dark > .container > .header > .domain {
+  border-bottom-color: #eeeeee !important;
+}
+
+body.sepia > .container > .footer {
+  background-color: #dedad4 !important;
+}
+
+body.light blockquote {
+  border-inline-start: 2px solid #333333 !important;
+}
+
+body.sepia blockquote {
+  border-inline-start: 2px solid #5b4636 !important;
+}
+
+body.dark blockquote {
+  border-inline-start: 2px solid #eeeeee !important;
+}
+
+/* Add toolbar transition base on loaded class  */
+
+body.loaded .toolbar {
+  transition: transform 0.3s ease-out;
+}
+
+body:not(.loaded) .toolbar:-moz-locale-dir(ltr) {
+  transform: translateX(-100%);
+}
+
+body:not(.loaded) .toolbar:-moz-locale-dir(rtl) {
+  transform: translateX(100%);
+}
+
+.light-button {
+  color: #333333;
+  background-color: #ffffff;
+}
+
+.dark-button {
+  color: #eeeeee;
+  background-color: #333333;
+}
+
+.sepia-button {
+  color: #5b4636;
+  background-color: #f4ecd8;
+}
+
+.sans-serif-button {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.serif-button {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* Loading/error message */
+
+.reader-message {
+  margin-top: 40px;
+  display: none;
+  text-align: center;
+  width: 100%;
+  font-size: 0.9em;
+}
+
+/* Header */
+
+.header {
+  text-align: start;
+  display: none;
+}
+
+.domain {
+  font-size: 0.9em;
+  line-height: 1.48em;
+  padding-bottom: 4px;
+  font-family: Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  border-bottom: 1px solid;
+  color: #0095dd;
+}
+
+.header > h1 {
+  font-size: 1.6em;
+  line-height: 1.25em;
+  width: 100%;
+  margin: 30px 0;
+  padding: 0;
+}
+
+.header > .credits {
+  font-size: 0.9em;
+  line-height: 1.48em;
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-style: italic;
+}
+
+.header > .meta-data {
+  font-size: 0.65em;
+  margin: 0 0 15px 0;
+}
+
+/*======= Controls toolbar =======*/
+
+.toolbar {
+  font-family: Helvetica, Arial, sans-serif;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color:  var(--toolbar-bgcolor);
+  -moz-user-select: none;
+  border-right: 1px solid  var(--toolbar-border);
+  z-index: 1;
+}
+
+.button {
+  display: block;
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  color: #333;
+  background-color: var(--toolbar-bgcolor);
+  height: 40px;
+  padding: 0;
+}
+
+button {
+  -moz-context-properties: fill;
+  color: var(--font-color);
+  fill: var(--icon-fill);
+}
+
+.toolbar .button {
+  width: 40px;
+  background-position: center;
+  margin-right: -1px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 1px solid var(--toolbar-border);
+  border-bottom: 1px solid var(--toolbar-border);
+  background-color:  var(--toolbar-bgcolor);
+}
+
+.button[hidden] {
+  display: none;
+}
+
+.dropdown {
+  text-align: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown li {
+  margin: 0;
+  padding: 0;
+}
+
+/*======= Popup =======*/
+
+.dropdown-popup {
+  min-width: 300px;
+  text-align: start;
+  position: absolute;
+  left: 48px; /* offset to account for toolbar width */
+  z-index: 1000;
+  background-color: var(--popup-bgcolor);
+  visibility: hidden;
+  border-radius: 4px;
+  border: 1px solid var(--popup-border);
+  border-bottom-width: 0;
+  box-shadow: 0 1px 3px #c1c1c1;
+}
+
+.keep-open .dropdown-popup {
+  z-index: initial;
+}
+
+.dropdown-popup > hr {
+  display: none;
+}
+
+.open > .dropdown-popup {
+  visibility: visible;
+}
+
+.dropdown-arrow {
+  position: absolute;
+  top: 30px; /* offset arrow from top of popup */
+  left: -16px;
+  width: 16px;
+  height: 24px;
+  background-image: url("chrome://global/skin/reader/RM-Type-Controls-Arrow.svg");
+  display: block;
+  -moz-context-properties:  fill, stroke;
+  fill: var(--popup-bgcolor);
+  stroke: var(--popup-border);
+}
+
+
+/*======= Font style popup =======*/
+
+.font-type-buttons,
+.font-size-buttons,
+.color-scheme-buttons,
+.content-width-buttons,
+.line-height-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.font-type-buttons > button:first-child {
+  border-top-left-radius: 3px;
+}
+.font-type-buttons > button:last-child {
+  border-top-right-radius: 3px;
+}
+.color-scheme-buttons > button:first-child {
+  border-bottom-left-radius: 3px;
+}
+.color-scheme-buttons > button:last-child {
+  border-bottom-right-radius: 3px;
+}
+
+.font-type-buttons > button,
+.font-size-buttons > button,
+.color-scheme-buttons > button,
+.content-width-buttons > button,
+.line-height-buttons > button {
+  text-align: center;
+  border: 0;
+}
+
+.font-type-buttons > button,
+.font-size-buttons > button,
+.content-width-buttons > button,
+.line-height-buttons > button {
+  width: 50%;
+  background-color: transparent;
+  border-left: 1px solid var(--popup-border);
+  border-bottom: 1px solid var(--popup-border);
+}
+
+.color-scheme-buttons > button {
+  width: 33.33%;
+  font-size: 14px;
+}
+
+.color-scheme-buttons > .dark-button {
+  margin-top: -1px;
+  height: 61px;
+}
+
+.font-type-buttons > button:first-child,
+.font-size-buttons > button:first-child,
+.content-width-buttons > button:first-child,
+.line-height-buttons > button:first-child {
+  border-left: 0;
+}
+
+.font-type-buttons > button {
+  display: inline-block;
+  font-size: 62px;
+  height: 100px;
+}
+
+.font-size-buttons > button,
+.color-scheme-buttons > button,
+.content-width-buttons > button,
+.line-height-buttons > button {
+  height: 60px;
+}
+
+.font-type-buttons > button:active:hover,
+.font-type-buttons > button.selected,
+.color-scheme-buttons > button:active:hover,
+.color-scheme-buttons > button.selected {
+  box-shadow: inset 0 -3px 0 0 #fc6420;
+}
+
+.font-type-buttons > button:active:hover,
+.font-type-buttons > button.selected {
+  border-bottom: 1px solid #FC6420;
+}
+
+/* Make the serif button content the same size as the sans-serif button content. */
+.font-type-buttons > button > .description {
+  font-size: 12px;
+  margin-top: -5px;
+}
+
+/* Font sizes are different per-platform, so we need custom CSS to line them up. */
+.font-type-buttons > .sans-serif-button > .name {
+  margin-top: 2px;
+}
+
+.font-type-buttons > .sans-serif-button > .description {
+  margin-top: -4px;
+}
+
+.font-type-buttons > .serif-button > .name {
+  font-size: 63px;
+}
+
+.button:hover,
+.font-size-buttons > button:hover,
+.font-type-buttons > button:hover,
+.content-width-buttons > button:hover,
+.line-height-buttons > button:hover {
+  background-color: var(--toolbar-hover);
+}
+
+.dropdown.open,
+.button:active,
+.font-size-buttons > button:active,
+.font-size-buttons > button.selected,
+.content-width-buttons > button:active,
+.content-width-buttons > button.selected,
+.line-height-buttons > button:active,
+.line-height-buttons > button.selected {
+  background-color: #dadada;
+}
+
+/* Only used on Android */
+.font-size-sample {
+  display: none;
+}
+
+.minus-button,
+.plus-button,
+.content-width-minus-button,
+.content-width-plus-button,
+.line-height-minus-button,
+.line-height-plus-button {
+  background-color: transparent;
+  border: 0;
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/*======= Toolbar icons =======*/
+
+.close-button {
+  background-image: url("chrome://global/skin/reader/RM-Close-24x24.svg");
+  height: 68px;
+  background-position: center 8px;
+}
+
+.close-button:hover {
+  fill: #fff;
+  background-color: var(--close-button-hover);
+  border-bottom: 1px solid var(--close-button-hover);
+  border-right: 1px solid var(--close-button-hover);
+}
+
+.close-button:hover:active {
+  background-color: #AE2325;
+  border-bottom: 1px solid #AE2325;
+  border-right: 1px solid #AE2325;
+}
+
+.style-button {
+  background-image: url("chrome://global/skin/reader/RM-Type-Controls-24x24.svg");
+}
+
+.minus-button {
+  background-image: url("chrome://global/skin/reader/RM-Minus-24x24.svg");
+}
+
+.plus-button {
+  background-image: url("chrome://global/skin/reader/RM-Plus-24x24.svg");
+}
+
+.content-width-minus-button {
+  background-size: 42px 16px;
+  background-image: url("chrome://global/skin/reader/RM-Content-Width-Minus-42x16.svg");
+}
+
+.content-width-plus-button {
+  background-size: 44px 16px;
+  background-image: url("chrome://global/skin/reader/RM-Content-Width-Plus-44x16.svg");
+}
+
+.line-height-minus-button {
+  background-size: 34px 14px;
+  background-image: url("chrome://global/skin/reader/RM-Line-Height-Minus-38x14.svg");
+}
+
+.line-height-plus-button {
+  background-size: 34px 24px;
+  background-image: url("chrome://global/skin/reader/RM-Line-Height-Plus-38x24.svg");
+}
+
+@media print {
+  .toolbar {
+    display: none !important;
+  }
+}
+
+/*======= Article content =======*/
+
+/* Note that any class names from the original article that we want to match on
+ * must be added to CLASSES_TO_PRESERVE in ReaderMode.jsm, so that
+ * Readability.js doesn't strip them out */
+
+.moz-reader-content {
+  display: none;
+  font-size: 1em;
+  line-height: 1.6em;
+}
+
+.moz-reader-content.line-height1 {
+  line-height: 1em;
+}
+
+.moz-reader-content.line-height2 {
+  line-height: 1.2em;
+}
+
+.moz-reader-content.line-height3 {
+  line-height: 1.4em;
+}
+
+.moz-reader-content.line-height4 {
+  line-height: 1.6em;
+}
+
+.moz-reader-content.line-height5 {
+  line-height: 1.8em;
+}
+
+.moz-reader-content.line-height6 {
+  line-height: 2.0em;
+}
+
+.moz-reader-content.line-height7 {
+  line-height: 2.2em;
+}
+
+.moz-reader-content.line-height8 {
+  line-height: 2.4em;
+}
+
+.moz-reader-content.line-height9 {
+  line-height: 2.6em;
+}
+
+@media print {
+  .moz-reader-content p,
+  .moz-reader-content code,
+  .moz-reader-content pre,
+  .moz-reader-content blockquote,
+  .moz-reader-content ul,
+  .moz-reader-content ol,
+  .moz-reader-content li,
+  .moz-reader-content figure,
+  .moz-reader-content .wp-caption {
+    margin: 0 0 10px 0 !important;
+    padding: 0 !important;
+  }
+}
+
+.moz-reader-content h1,
+.moz-reader-content h2,
+.moz-reader-content h3 {
+  font-weight: bold;
+}
+
+.moz-reader-content h1 {
+  font-size: 1.6em;
+  line-height: 1.25em;
+}
+
+.moz-reader-content h2 {
+  font-size: 1.2em;
+  line-height: 1.51em;
+}
+
+.moz-reader-content h3 {
+  font-size: 1em;
+  line-height: 1.66em;
+}
+
+.moz-reader-content a:link {
+  text-decoration: underline;
+  font-weight: normal;
+}
+
+.moz-reader-content a:link,
+.moz-reader-content a:link:hover,
+.moz-reader-content a:link:active {
+  color: #0095dd;
+}
+
+.moz-reader-content a:visited {
+  color: #c2e;
+}
+
+.moz-reader-content * {
+  max-width: 100%;
+  height: auto;
+}
+
+.moz-reader-content p,
+.moz-reader-content p,
+.moz-reader-content code,
+.moz-reader-content pre,
+.moz-reader-content blockquote,
+.moz-reader-content ul,
+.moz-reader-content ol,
+.moz-reader-content li,
+.moz-reader-content figure,
+.moz-reader-content .wp-caption {
+  margin: -10px -10px 20px -10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.moz-reader-content li {
+  margin-bottom: 0;
+}
+
+.moz-reader-content li > ul,
+.moz-reader-content li > ol {
+  margin-bottom: -10px;
+}
+
+.moz-reader-content p > img:only-child,
+.moz-reader-content p > a:only-child > img:only-child,
+.moz-reader-content .wp-caption img,
+.moz-reader-content figure img {
+  display: block;
+}
+
+.moz-reader-content img[moz-reader-center] {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.moz-reader-content .caption,
+.moz-reader-content .wp-caption-text
+.moz-reader-content figcaption {
+  font-size: 0.9em;
+  line-height: 1.48em;
+  font-style: italic;
+}
+
+.moz-reader-content code,
+.moz-reader-content pre {
+  white-space: pre-wrap;
+}
+
+.moz-reader-content blockquote {
+  padding: 0;
+  padding-inline-start: 16px;
+}
+
+.moz-reader-content ul,
+.moz-reader-content ol {
+  padding: 0;
+}
+
+.moz-reader-content ul {
+  padding-inline-start: 30px;
+  list-style: disc;
+}
+
+.moz-reader-content ol {
+  padding-inline-start: 30px;
+  list-style: decimal;
+}
+
+table,
+th,
+td {
+  border: 1px solid currentColor;
+  border-collapse: collapse;
+  padding: 6px;
+  vertical-align: top;
+}
+
+table {
+  margin: 5px;
+}
+
+/* Visually hide (but don't display: none) screen reader elements */
+.moz-reader-content .visually-hidden,
+.moz-reader-content .visuallyhidden,
+.moz-reader-content .sr-only {
+  display: inline-block;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  border-width: 0;
+}
+
+/* Hide elements with common "hidden" class names */
+.moz-reader-content .hidden,
+.moz-reader-content .invisible {
+  display: none;
+}
+
+/* Enforce wordpress and similar emoji/smileys aren't sized to be full-width,
+ * see bug 1399616 for context. */
+.moz-reader-content img.wp-smiley,
+.moz-reader-content img.emoji {
+  display: inline-block;
+  border-width: 0;
+  /* height: auto is implied from .moz-reader-content * rule. */
+  width: 1em;
+  margin: 0 .07em;
+  padding: 0;
+}
+
+.reader-show-element {
+  display: initial;
+}`;
+
+		let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
+		let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingPath, cuttingPathIndex, previousContent;
+		let removedElements = [], removedElementIndex = 0, initScriptContent;
+
+		window.onmessage = async event => {
+			const message = JSON.parse(event.data);
+			if (message.method == "init") {
+				await init(message.content);
+			}
+			if (message.method == "addNote") {
+				addNote(message);
+			}
+			if (message.method == "displayNotes") {
+				document.querySelectorAll(NOTE_TAGNAME).forEach(noteElement => noteElement.shadowRoot.querySelector("." + NOTE_CLASS).classList.remove(NOTE_HIDDEN_CLASS));
+			}
+			if (message.method == "hideNotes") {
+				document.querySelectorAll(NOTE_TAGNAME).forEach(noteElement => noteElement.shadowRoot.querySelector("." + NOTE_CLASS).classList.add(NOTE_HIDDEN_CLASS));
+			}
+			if (message.method == "enableHighlight") {
+				if (highlightColor) {
+					document.documentElement.classList.remove(highlightColor + "-mode");
+				}
+				highlightColor = message.color;
+				highlightSelectionMode = true;
+				document.documentElement.classList.add(message.color + "-mode");
+			}
+			if (message.method == "disableHighlight") {
+				if (highlightColor) {
+					document.documentElement.classList.remove(highlightColor + "-mode");
+				}
+				highlightSelectionMode = false;
+			}
+			if (message.method == "displayHighlights") {
+				document.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.remove(HIGHLIGHT_HIDDEN_CLASS));
+			}
+			if (message.method == "hideHighlights") {
+				document.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.add(HIGHLIGHT_HIDDEN_CLASS));
+			}
+			if (message.method == "enableRemoveHighlights") {
+				removeHighlightMode = true;
+				document.documentElement.classList.add("single-file-remove-highlights-mode");
+			}
+			if (message.method == "disableRemoveHighlights") {
+				removeHighlightMode = false;
+				document.documentElement.classList.remove("single-file-remove-highlights-mode");
+			}
+			if (message.method == "enableEditPage") {
+				document.body.contentEditable = true;
+				onUpdate(false);
+			}
+			if (message.method == "formatPage") {
+				formatPage(true);
+			}
+			if (message.method == "formatPageNoTheme") {
+				formatPage(false);
+			}
+			if (message.method == "cancelFormatPage") {
+				cancelFormatPage();
+			}
+			if (message.method == "disableEditPage") {
+				document.body.contentEditable = false;
+			}
+			if (message.method == "enableCutInnerPage") {
+				cuttingMode = true;
+				document.documentElement.classList.add("single-file-cut-mode");
+			}
+			if (message.method == "enableCutOuterPage") {
+				cuttingOuterMode = true;
+				document.documentElement.classList.add("single-file-cut-mode");
+			}
+			if (message.method == "disableCutInnerPage") {
+				cuttingMode = false;
+				document.documentElement.classList.remove("single-file-cut-mode");
+				resetSelectedElements();
+				if (cuttingPath) {
+					unhighlightCutElement();
+					cuttingPath = null;
+				}
+			}
+			if (message.method == "disableCutOuterPage") {
+				cuttingOuterMode = false;
+				document.documentElement.classList.remove("single-file-cut-mode");
+				resetSelectedElements();
+				if (cuttingPath) {
+					unhighlightCutElement();
+					cuttingPath = null;
+				}
+			}
+			if (message.method == "undoCutPage") {
+				undoCutPage();
+			}
+			if (message.method == "undoAllCutPage") {
+				while (removedElementIndex) {
+					removedElements[removedElementIndex - 1].forEach(element => element.classList.remove(REMOVED_CONTENT_CLASS));
+					removedElementIndex--;
+				}
+			}
+			if (message.method == "redoCutPage") {
+				redoCutPage();
+			}
+			if (message.method == "getContent") {
+				onUpdate(true);
+				let content = getContent(message.compressHTML, message.updatedResources);
+				if (initScriptContent) {
+					content = content.replace(/<script data-template-shadow-root src.*?<\/script>/g, initScriptContent);
+				}
+				window.parent.postMessage(JSON.stringify({ method: "setContent", content }), "*");
+			}
+			if (message.method == "printPage") {
+				printPage();
+			}
+		};
+		window.onresize = reflowNotes;
+		document.ondragover = event => event.preventDefault();
+		document.ondrop = async event => {
+			if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+				const file = event.dataTransfer.files[0];
+				event.preventDefault();
+				const content = new TextDecoder().decode(await file.arrayBuffer());
+				await init(content, { filename: file.name });
+			}
+		};
+
+		async function init(content, { filename, reset } = {}) {
+			await initConstants();
+			const initScriptContentMatch = content.match(/<script data-template-shadow-root.*<\/script>/);
+			if (initScriptContentMatch && initScriptContentMatch[0]) {
+				initScriptContent = initScriptContentMatch[0];
+			}
+			content = content.replace(/<script data-template-shadow-root.*<\/script>/g, "<script data-template-shadow-root src=/dist/web/editor/editor-init-web.js></script>");
+			const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
+			if (detectSavedPage(contentDocument)) {
+				if (contentDocument.doctype) {
+					if (document.doctype) {
+						document.replaceChild(contentDocument.doctype, document.doctype);
+					} else {
+						document.insertBefore(contentDocument.doctype, document.documentElement);
+					}
+				} else {
+					document.doctype.remove();
+				}
+				contentDocument.querySelectorAll("noscript").forEach(element => {
+					element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
+					element.textContent = "";
+				});
+				contentDocument.querySelectorAll("iframe").forEach(element => {
+					const pointerEvents = "pointer-events";
+					element.style.setProperty("-sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
+					element.style.setProperty(pointerEvents, "none", "important");
+				});
+				document.replaceChild(contentDocument.documentElement, document.documentElement);
+				deserializeShadowRoots(document);
+				document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
+				document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
+				maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
+				maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+				document.documentElement.onmousedown = document.documentElement.ontouchstart = onMouseDown;
+				document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
+				document.documentElement.onmouseover = onMouseOver;
+				document.documentElement.onmouseout = onMouseOut;
+				document.documentElement.onkeydown = onKeyDown;
+				window.onclick = event => event.preventDefault();
+				const iconElement = document.querySelector("link[rel*=icon]");
+				window.parent.postMessage(JSON.stringify({
+					method: "onInit",
+					title: document.title,
+					icon: iconElement && iconElement.href,
+					filename,
+					reset,
+					formatPageEnabled: isProbablyReaderable(document)
+				}), "*");
+			}
+		}
+
+		async function initConstants() {
+			[NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET] = await Promise.all([
+				minifyText(await ((await fetch("../pages/editor-note-web.css")).text())),
+				minifyText(await ((await fetch("../pages/editor-mask-web.css")).text())),
+				minifyText(await ((await fetch("../pages/editor-frame-web.css")).text()))
+			]);
+		}
+
+		function addNote({ color }) {
+			const containerElement = document.createElement(NOTE_TAGNAME);
+			const noteElement = document.createElement("div");
+			const headerElement = document.createElement("header");
+			const mainElement = document.createElement("textarea");
+			const resizeElement = document.createElement("div");
+			const removeNoteElement = document.createElement("img");
+			const anchorIconElement = document.createElement("img");
+			const noteShadow = containerElement.attachShadow({ mode: "open" });
+			headerElement.appendChild(anchorIconElement);
+			headerElement.appendChild(removeNoteElement);
+			noteElement.appendChild(headerElement);
+			noteElement.appendChild(mainElement);
+			noteElement.appendChild(resizeElement);
+			noteShadow.appendChild(getStyleElement(NOTES_WEB_STYLESHEET));
+			noteShadow.appendChild(noteElement);
+			const notesElements = Array.from(document.querySelectorAll(NOTE_TAGNAME));
+			const noteId = Math.max.call(Math, 0, ...notesElements.map(noteElement => Number(noteElement.dataset.noteId))) + 1;
+			noteElement.classList.add(NOTE_CLASS);
+			noteElement.classList.add(NOTE_ANCHORED_CLASS);
+			noteElement.classList.add(color);
+			noteElement.dataset.color = color;
+			mainElement.dir = "auto";
+			const boundingRectDocument = document.documentElement.getBoundingClientRect();
+			let positionX = NOTE_INITIAL_WIDTH + NOTE_INITIAL_POSITION_X - 1 - boundingRectDocument.x;
+			let positionY = NOTE_INITIAL_HEIGHT + NOTE_INITIAL_POSITION_Y - 1 - boundingRectDocument.y;
+			while (Array.from(document.elementsFromPoint(positionX - window.scrollX, positionY - window.scrollY)).find(element => element.tagName.toLowerCase() == NOTE_TAGNAME)) {
+				positionX += NOTE_INITIAL_POSITION_X;
+				positionY += NOTE_INITIAL_POSITION_Y;
+			}
+			noteElement.style.setProperty("left", (positionX - NOTE_INITIAL_WIDTH - 1) + "px");
+			noteElement.style.setProperty("top", (positionY - NOTE_INITIAL_HEIGHT - 1) + "px");
+			resizeElement.className = "note-resize";
+			resizeElement.ondragstart = event => event.preventDefault();
+			removeNoteElement.className = "note-remove";
+			removeNoteElement.src = BUTTON_CLOSE_URL;
+			removeNoteElement.ondragstart = event => event.preventDefault();
+			anchorIconElement.className = "note-anchor";
+			anchorIconElement.src = BUTTON_ANCHOR_URL;
+			anchorIconElement.ondragstart = event => event.preventDefault();
+			containerElement.dataset.noteId = noteId;
+			addNoteRef(document.documentElement, noteId);
+			attachNoteListeners(containerElement, true);
+			document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
+			noteElement.classList.add(NOTE_SELECTED_CLASS);
+			selectedNote = noteElement;
+			onUpdate(false);
+		}
+
+		function attachNoteListeners(containerElement, editable = false) {
+			const SELECT_PX_THRESHOLD = 4;
+			const COLLAPSING_NOTE_DELAY = 750;
+			const noteShadow = containerElement.shadowRoot;
+			const noteElement = noteShadow.childNodes[1];
+			const headerElement = noteShadow.querySelector("header");
+			const mainElement = noteShadow.querySelector("textarea");
+			const noteId = containerElement.dataset.noteId;
+			const resizeElement = noteShadow.querySelector(".note-resize");
+			const anchorIconElement = noteShadow.querySelector(".note-anchor");
+			const removeNoteElement = noteShadow.querySelector(".note-remove");
+			mainElement.readOnly = !editable;
+			if (!editable) {
+				anchorIconElement.style.setProperty("display", "none", "important");
+			} else {
+				anchorIconElement.style.removeProperty("display");
+			}
+			headerElement.ontouchstart = headerElement.onmousedown = event => {
+				if (event.target == headerElement) {
+					collapseNoteTimeout = setTimeout(() => {
+						noteElement.classList.toggle("note-collapsed");
+						hideMaskNote();
+					}, COLLAPSING_NOTE_DELAY);
+					event.preventDefault();
+					const position = getPosition(event);
+					const clientX = position.clientX;
+					const clientY = position.clientY;
+					const boundingRect = noteElement.getBoundingClientRect();
+					const deltaX = clientX - boundingRect.left;
+					const deltaY = clientY - boundingRect.top;
+					maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
+					document.documentElement.style.setProperty("user-select", "none", "important");
+					anchorElement = getAnchorElement(containerElement);
+					displayMaskNote();
+					selectNote(noteElement);
+					moveNote(event, deltaX, deltaY);
+					movingNoteMode = { event, deltaX, deltaY };
+					document.documentElement.ontouchmove = document.documentElement.onmousemove = event => {
+						clearTimeout(collapseNoteTimeout);
+						if (!movingNoteMode) {
+							movingNoteMode = { deltaX, deltaY };
+						}
+						movingNoteMode.event = event;
+						moveNote(event, deltaX, deltaY);
+					};
+				}
+			};
+			resizeElement.ontouchstart = resizeElement.onmousedown = event => {
+				event.preventDefault();
+				resizingNoteMode = true;
+				selectNote(noteElement);
+				maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
+				document.documentElement.style.setProperty("user-select", "none", "important");
+				document.documentElement.ontouchmove = document.documentElement.onmousemove = event => {
+					event.preventDefault();
+					const { clientX, clientY } = getPosition(event);
+					const boundingRectNote = noteElement.getBoundingClientRect();
+					noteElement.style.width = clientX - boundingRectNote.left + "px";
+					noteElement.style.height = clientY - boundingRectNote.top + "px";
+				};
+			};
+			anchorIconElement.ontouchend = anchorIconElement.onclick = event => {
+				event.preventDefault();
+				noteElement.classList.toggle(NOTE_ANCHORED_CLASS);
+				if (!noteElement.classList.contains(NOTE_ANCHORED_CLASS)) {
+					deleteNoteRef(containerElement, noteId);
+					addNoteRef(document.documentElement, noteId);
+				}
+				onUpdate(false);
+			};
+			removeNoteElement.ontouchend = removeNoteElement.onclick = event => {
+				event.preventDefault();
+				deleteNoteRef(containerElement, noteId);
+				containerElement.remove();
+			};
+			noteElement.onmousedown = () => {
+				selectNote(noteElement);
+			};
+
+			function moveNote(event, deltaX, deltaY) {
+				event.preventDefault();
+				const { clientX, clientY } = getPosition(event);
+				noteElement.classList.add(NOTE_MOVING_CLASS);
+				if (editable) {
+					if (noteElement.classList.contains(NOTE_ANCHORED_CLASS)) {
+						deleteNoteRef(containerElement, noteId);
+						anchorElement = getTarget(clientX, clientY) || document.documentElement;
+						addNoteRef(anchorElement, noteId);
+					} else {
+						anchorElement = document.documentElement;
+					}
+				}
+				document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
+				noteElement.style.setProperty("left", (clientX - deltaX) + "px");
+				noteElement.style.setProperty("top", (clientY - deltaY) + "px");
+				noteElement.style.setProperty("position", "fixed");
+				displayMaskNote();
+			}
+
+			function displayMaskNote() {
+				if (anchorElement == document.documentElement || anchorElement == document.documentElement) {
+					hideMaskNote();
+				} else {
+					const boundingRectAnchor = anchorElement.getBoundingClientRect();
+					maskNoteElement.classList.add(NOTE_MASK_MOVING_CLASS);
+					if (selectedNote) {
+						maskNoteElement.classList.add(selectedNote.dataset.color);
+					}
+					maskNoteElement.style.setProperty("top", (boundingRectAnchor.y - 3) + "px");
+					maskNoteElement.style.setProperty("left", (boundingRectAnchor.x - 3) + "px");
+					maskNoteElement.style.setProperty("width", (boundingRectAnchor.width + 3) + "px");
+					maskNoteElement.style.setProperty("height", (boundingRectAnchor.height + 3) + "px");
+				}
+			}
+
+			function hideMaskNote() {
+				maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
+				if (selectedNote) {
+					maskNoteElement.classList.remove(selectedNote.dataset.color);
+				}
+			}
+
+			function selectNote(noteElement) {
+				if (selectedNote) {
+					selectedNote.classList.remove(NOTE_SELECTED_CLASS);
+					maskNoteElement.classList.remove(selectedNote.dataset.color);
+				}
+				noteElement.classList.add(NOTE_SELECTED_CLASS);
+				noteElement.classList.add(noteElement.dataset.color);
+				selectedNote = noteElement;
+			}
+
+			function getTarget(clientX, clientY) {
+				const targets = Array.from(document.elementsFromPoint(clientX, clientY)).filter(element => element.matches("html *:not(" + NOTE_TAGNAME + "):not(." + MASK_CLASS + ")"));
+				if (!targets.includes(document.documentElement)) {
+					targets.push(document.documentElement);
+				}
+				let newTarget, target = targets[0], boundingRect = target.getBoundingClientRect();
+				newTarget = determineTargetElement("floor", target, clientX - boundingRect.left, getMatchedParents(target, "left"));
+				if (newTarget == target) {
+					newTarget = determineTargetElement("ceil", target, boundingRect.left + boundingRect.width - clientX, getMatchedParents(target, "right"));
+				}
+				if (newTarget == target) {
+					newTarget = determineTargetElement("floor", target, clientY - boundingRect.top, getMatchedParents(target, "top"));
+				}
+				if (newTarget == target) {
+					newTarget = determineTargetElement("ceil", target, boundingRect.top + boundingRect.height - clientY, getMatchedParents(target, "bottom"));
+				}
+				target = newTarget;
+				while (boundingRect = target && target.getBoundingClientRect(), boundingRect && boundingRect.width <= SELECT_PX_THRESHOLD && boundingRect.height <= SELECT_PX_THRESHOLD) {
+					target = target.parentElement;
+				}
+				return target;
+			}
+
+			function getMatchedParents(target, property) {
+				let element = target, matchedParent, parents = [];
+				do {
+					const boundingRect = element.getBoundingClientRect();
+					if (element.parentElement && !element.parentElement.tagName.toLowerCase() != NOTE_TAGNAME && !element.classList.contains(MASK_CLASS)) {
+						const parentBoundingRect = element.parentElement.getBoundingClientRect();
+						matchedParent = Math.abs(parentBoundingRect[property] - boundingRect[property]) <= SELECT_PX_THRESHOLD;
+						if (matchedParent) {
+							if (element.parentElement.clientWidth > SELECT_PX_THRESHOLD && element.parentElement.clientHeight > SELECT_PX_THRESHOLD &&
+								((element.parentElement.clientWidth - element.clientWidth > SELECT_PX_THRESHOLD) || (element.parentElement.clientHeight - element.clientHeight > SELECT_PX_THRESHOLD))) {
+								parents.push(element.parentElement);
+							}
+							element = element.parentElement;
+						}
+					} else {
+						matchedParent = false;
+					}
+				} while (matchedParent && element);
+				return parents;
+			}
+
+			function determineTargetElement(roundingMethod, target, widthDistance, parents) {
+				if (Math[roundingMethod](widthDistance / SELECT_PX_THRESHOLD) <= parents.length) {
+					target = parents[parents.length - Math[roundingMethod](widthDistance / SELECT_PX_THRESHOLD) - 1];
+				}
+				return target;
+			}
+		}
+
+		function onMouseDown(event) {
+			if ((cuttingMode || cuttingOuterMode) && cuttingPath) {
+				event.preventDefault();
+			}
+		}
+
+		function onMouseUp(event) {
+			if (highlightSelectionMode) {
+				highlightSelection();
+				onUpdate(false);
+			}
+			if (removeHighlightMode) {
+				let element = event.target, done;
+				while (element && !done) {
+					if (element.classList.contains(HIGHLIGHT_CLASS)) {
+						document.querySelectorAll("." + HIGHLIGHT_CLASS + "[data-singlefile-highlight-id=" + JSON.stringify(element.dataset.singlefileHighlightId) + "]").forEach(highlightedElement => {
+							resetHighlightedElement(highlightedElement);
+							onUpdate(false);
+						});
+						done = true;
+					}
+					element = element.parentElement;
+				}
+			}
+			if (resizingNoteMode) {
+				resizingNoteMode = false;
+				document.documentElement.style.removeProperty("user-select");
+				maskPageElement.classList.remove(PAGE_MASK_ACTIVE_CLASS);
+				document.documentElement.ontouchmove = document.documentElement.onmousemove = null;
+				onUpdate(false);
+			}
+			if (movingNoteMode) {
+				anchorNote(movingNoteMode.event || event, selectedNote, movingNoteMode.deltaX, movingNoteMode.deltaY);
+				movingNoteMode = null;
+				document.documentElement.ontouchmove = document.documentElement.onmousemove = null;
+				onUpdate(false);
+			}
+			if (collapseNoteTimeout) {
+				clearTimeout(collapseNoteTimeout);
+				collapseNoteTimeout = null;
+			}
+			if ((cuttingMode || cuttingOuterMode) && cuttingPath) {
+				if (event.ctrlKey) {
+					const element = cuttingPath[cuttingPathIndex];
+					element.classList.toggle(cuttingMode ? CUT_SELECTED_CLASS : CUT_OUTER_SELECTED_CLASS);
+				} else {
+					validateCutElement(event.shiftKey);
+				}
+			}
+		}
+
+		function onMouseOver(event) {
+			if (cuttingMode || cuttingOuterMode) {
+				const target = event.target;
+				if (target.classList) {
+					let ancestorFound;
+					document.querySelectorAll("." + (cuttingMode ? CUT_SELECTED_CLASS : CUT_OUTER_SELECTED_CLASS)).forEach(element => {
+						if (element == target || isAncestor(element, target) || isAncestor(target, element)) {
+							ancestorFound = element;
+						}
+					});
+					if (ancestorFound) {
+						cuttingPath = [ancestorFound];
+					} else {
+						cuttingPath = getParents(event.target);
+					}
+					cuttingPathIndex = 0;
+					highlightCutElement();
+				}
+			}
+		}
+
+		function onMouseOut() {
+			if (cuttingMode || cuttingOuterMode) {
+				if (cuttingPath) {
+					unhighlightCutElement();
+					cuttingPath = null;
+				}
+			}
+		}
+
+		function onKeyDown(event) {
+			if (cuttingMode || cuttingOuterMode) {
+				if (event.code == "Tab") {
+					if (cuttingPath) {
+						const delta = event.shiftKey ? -1 : 1;
+						let element = cuttingPath[cuttingPathIndex];
+						let nextElement = cuttingPath[cuttingPathIndex + delta];
+						if (nextElement) {
+							let pathIndex = cuttingPathIndex + delta;
+							while (
+								nextElement &&
+								(
+									(delta == 1 &&
+										element.getBoundingClientRect().width >= nextElement.getBoundingClientRect().width &&
+										element.getBoundingClientRect().height >= nextElement.getBoundingClientRect().height) ||
+									(delta == -1 &&
+										element.getBoundingClientRect().width <= nextElement.getBoundingClientRect().width &&
+										element.getBoundingClientRect().height <= nextElement.getBoundingClientRect().height))) {
+								pathIndex += delta;
+								nextElement = cuttingPath[pathIndex];
+							}
+							if (nextElement && nextElement.classList && nextElement != document.body && nextElement != document.documentElement) {
+								unhighlightCutElement();
+								cuttingPathIndex = pathIndex;
+								highlightCutElement();
+							}
+						}
+					}
+					event.preventDefault();
+				}
+				if (event.code == "Space") {
+					if (cuttingPath) {
+						if (event.ctrlKey) {
+							const element = cuttingPath[cuttingPathIndex];
+							element.classList.add(cuttingMode ? CUT_SELECTED_CLASS : CUT_OUTER_SELECTED_CLASS);
+						} else {
+							validateCutElement(event.shiftKey);
+						}
+						event.preventDefault();
+					}
+				}
+				if (event.code == "Escape") {
+					resetSelectedElements();
+					event.preventDefault();
+				}
+				if (event.key.toLowerCase() == "z" && event.ctrlKey) {
+					if (event.shiftKey) {
+						redoCutPage();
+					} else {
+						undoCutPage();
+					}
+					event.preventDefault();
+				}
+			}
+			if (event.key.toLowerCase() == "s" && event.ctrlKey) {
+				window.parent.postMessage(JSON.stringify({ "method": "savePage" }), "*");
+				event.preventDefault();
+			}
+			if (event.key.toLowerCase() == "p" && event.ctrlKey) {
+				printPage();
+				event.preventDefault();
+			}
+		}
+
+		function printPage() {
+			unhighlightCutElement();
+			resetSelectedElements();
+			window.print();
+		}
+
+		function highlightCutElement() {
+			const element = cuttingPath[cuttingPathIndex];
+			element.classList.add(cuttingMode ? CUT_HOVER_CLASS : CUT_OUTER_HOVER_CLASS);
+		}
+
+		function unhighlightCutElement() {
+			if (cuttingPath) {
+				const element = cuttingPath[cuttingPathIndex];
+				element.classList.remove(CUT_HOVER_CLASS);
+				element.classList.remove(CUT_OUTER_HOVER_CLASS);
+			}
+		}
+
+		function undoCutPage() {
+			if (removedElementIndex) {
+				removedElements[removedElementIndex - 1].forEach(element => element.classList.remove(REMOVED_CONTENT_CLASS));
+				removedElementIndex--;
+			}
+		}
+
+		function redoCutPage() {
+			if (removedElementIndex < removedElements.length) {
+				removedElements[removedElementIndex].forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
+				removedElementIndex++;
+			}
+		}
+
+		function validateCutElement(invert) {
+			const selectedElement = cuttingPath[cuttingPathIndex];
+			if ((cuttingMode && !invert) || (cuttingOuterMode && invert)) {
+				if (document.documentElement != selectedElement && selectedElement.tagName.toLowerCase() != NOTE_TAGNAME) {
+					const elementsRemoved = [selectedElement].concat(...document.querySelectorAll("." + CUT_SELECTED_CLASS + ",." + CUT_SELECTED_CLASS + " *,." + CUT_HOVER_CLASS + " *"));
+					resetSelectedElements();
+					if (elementsRemoved.length) {
+						elementsRemoved.forEach(element => {
+							if (element.tagName.toLowerCase() == NOTE_TAGNAME) {
+								resetAnchorNote(element);
+							} else {
+								element.classList.add(REMOVED_CONTENT_CLASS);
+							}
+						});
+						removedElements[removedElementIndex] = elementsRemoved;
+						removedElementIndex++;
+						removedElements.length = removedElementIndex;
+						onUpdate(false);
+					}
+				}
+			} else {
+				if (document.documentElement != selectedElement && selectedElement.tagName.toLowerCase() != NOTE_TAGNAME) {
+					const elements = [];
+					const searchSelector = "*:not(style):not(meta):not(." + REMOVED_CONTENT_CLASS + ")";
+					const elementsKept = [selectedElement].concat(...document.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS));
+					document.body.querySelectorAll(searchSelector).forEach(element => {
+						let removed = true;
+						elementsKept.forEach(elementKept => removed = removed && (elementKept != element && !isAncestor(elementKept, element) && !isAncestor(element, elementKept)));
+						if (removed) {
+							if (element.tagName.toLowerCase() == NOTE_TAGNAME) {
+								resetAnchorNote(element);
+							} else {
+								elements.push(element);
+							}
+						}
+					});
+					elementsKept.forEach(elementKept => {
+						const elementKeptRect = elementKept.getBoundingClientRect();
+						elementKept.querySelectorAll(searchSelector).forEach(descendant => {
+							const descendantRect = descendant.getBoundingClientRect();
+							if (descendantRect.width && descendantRect.height && (
+								descendantRect.left + descendantRect.width < elementKeptRect.left ||
+								descendantRect.right > elementKeptRect.right + elementKeptRect.width ||
+								descendantRect.top + descendantRect.height < elementKeptRect.top ||
+								descendantRect.bottom > elementKeptRect.bottom + elementKeptRect.height
+							)) {
+								elements.push(descendant);
+							}
+						});
+					});
+					resetSelectedElements();
+					if (elements.length) {
+						elements.forEach(element => element.classList.add(REMOVED_CONTENT_CLASS));
+						removedElements[removedElementIndex] = elements;
+						removedElementIndex++;
+						removedElements.length = removedElementIndex;
+						onUpdate(false);
+					}
+				}
+			}
+		}
+
+		function resetSelectedElements(doc = document) {
+			doc.querySelectorAll("." + CUT_OUTER_SELECTED_CLASS + ",." + CUT_SELECTED_CLASS).forEach(element => {
+				element.classList.remove(CUT_OUTER_SELECTED_CLASS);
+				element.classList.remove(CUT_SELECTED_CLASS);
+			});
+		}
+
+		function anchorNote(event, noteElement, deltaX, deltaY) {
+			event.preventDefault();
+			const { clientX, clientY } = getPosition(event);
+			document.documentElement.style.removeProperty("user-select");
+			noteElement.classList.remove(NOTE_MOVING_CLASS);
+			maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
+			maskPageElement.classList.remove(PAGE_MASK_ACTIVE_CLASS);
+			maskNoteElement.classList.remove(noteElement.dataset.color);
+			const headerElement = noteElement.querySelector("header");
+			headerElement.ontouchmove = document.documentElement.onmousemove = null;
+			let currentElement = anchorElement;
+			let positionedElement;
+			while (currentElement.parentElement && !positionedElement) {
+				if (!FORBIDDEN_TAG_NAMES.includes(currentElement.tagName.toLowerCase())) {
+					const currentElementStyle = getComputedStyle(currentElement);
+					if (currentElementStyle.position != "static") {
+						positionedElement = currentElement;
+					}
+				}
+				currentElement = currentElement.parentElement;
+			}
+			if (!positionedElement) {
+				positionedElement = document.documentElement;
+			}
+			const containerElement = noteElement.getRootNode().host;
+			if (positionedElement == document.documentElement) {
+				const firstMaskElement = document.querySelector("." + MASK_CLASS);
+				firstMaskElement.parentElement.insertBefore(containerElement, firstMaskElement);
+			} else {
+				positionedElement.appendChild(containerElement);
+			}
+			const boundingRectPositionedElement = positionedElement.getBoundingClientRect();
+			const stylePositionedElement = window.getComputedStyle(positionedElement);
+			const borderX = parseInt(stylePositionedElement.getPropertyValue("border-left-width"));
+			const borderY = parseInt(stylePositionedElement.getPropertyValue("border-top-width"));
+			noteElement.style.setProperty("position", "absolute");
+			noteElement.style.setProperty("left", (clientX - boundingRectPositionedElement.x - deltaX - borderX) + "px");
+			noteElement.style.setProperty("top", (clientY - boundingRectPositionedElement.y - deltaY - borderY) + "px");
+		}
+
+		function resetAnchorNote(containerElement) {
+			const noteId = containerElement.dataset.noteId;
+			const noteElement = containerElement.shadowRoot.childNodes[1];
+			noteElement.classList.remove(NOTE_ANCHORED_CLASS);
+			deleteNoteRef(containerElement, noteId);
+			addNoteRef(document.documentElement, noteId);
+			document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
+		}
+
+		function getPosition(event) {
+			if (event.touches && event.touches.length) {
+				const touch = event.touches[0];
+				return touch;
+			} else {
+				return event;
+			}
+		}
+
+		function highlightSelection() {
+			let highlightId = 0;
+			document.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(highlightedElement => highlightId = Math.max(highlightId, highlightedElement.dataset.singlefileHighlightId));
+			highlightId++;
+			const selection = window.getSelection();
+			const highlightedNodes = new Set();
+			for (let indexRange = 0; indexRange < selection.rangeCount; indexRange++) {
+				const range = selection.getRangeAt(indexRange);
+				if (!range.collapsed) {
+					if (range.commonAncestorContainer.nodeType == range.commonAncestorContainer.TEXT_NODE) {
+						let contentText = range.startContainer.splitText(range.startOffset);
+						contentText = contentText.splitText(range.endOffset);
+						addHighLightedNode(contentText.previousSibling);
+					} else {
+						const treeWalker = document.createTreeWalker(range.commonAncestorContainer, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
+						let highlightNodes;
+						while (treeWalker.nextNode()) {
+							if (highlightNodes && !treeWalker.currentNode.contains(range.endContainer)) {
+								addHighLightedNode(treeWalker.currentNode);
+							}
+							if (treeWalker.currentNode == range.startContainer) {
+								if (range.startContainer.nodeType == range.startContainer.TEXT_NODE) {
+									const contentText = range.startContainer.splitText(range.startOffset);
+									treeWalker.nextNode();
+									addHighLightedNode(contentText);
+								} else {
+									addHighLightedNode(range.startContainer.childNodes[range.startOffset]);
+								}
+								highlightNodes = true;
+							}
+							if (treeWalker.currentNode == range.endContainer) {
+								if (range.endContainer.nodeType == range.endContainer.TEXT_NODE) {
+									const contentText = range.endContainer.splitText(range.endOffset);
+									treeWalker.nextNode();
+									addHighLightedNode(contentText.previousSibling);
+								} else {
+									addHighLightedNode(range.endContainer.childNodes[range.endOffset]);
+								}
+								highlightNodes = false;
+							}
+						}
+						range.collapse();
+					}
+				}
+			}
+			highlightedNodes.forEach(node => highlightNode(node));
+
+			function addHighLightedNode(node) {
+				if (node && node.textContent.trim()) {
+					if (node.nodeType == node.TEXT_NODE && node.parentElement.childNodes.length == 1 && node.parentElement.classList.contains(HIGHLIGHT_CLASS)) {
+						highlightedNodes.add(node.parentElement);
+					} else {
+						highlightedNodes.add(node);
+					}
+				}
+			}
+
+			function highlightNode(node) {
+				if (node.nodeType == node.ELEMENT_NODE) {
+					resetHighlightedElement(node);
+					node.classList.add(HIGHLIGHT_CLASS);
+					node.classList.add(highlightColor);
+					node.dataset.singlefileHighlightId = highlightId;
+				} else if (node.parentElement) {
+					highlightTextNode(node);
+				}
+			}
+
+			function highlightTextNode(node) {
+				const spanElement = document.createElement("span");
+				spanElement.classList.add(HIGHLIGHT_CLASS);
+				spanElement.classList.add(highlightColor);
+				spanElement.textContent = node.textContent;
+				spanElement.dataset.singlefileHighlightId = highlightId;
+				node.parentNode.replaceChild(spanElement, node);
+				return spanElement;
+			}
+		}
+
+		function getParents(element) {
+			const path = [];
+			while (element) {
+				path.push(element);
+				element = element.parentElement;
+			}
+			return path;
+		}
+
+		function formatPage(applySystemTheme) {
+			previousContent = getContent(false, []);
+			const shadowRoots = {};
+			const classesToPreserve = ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"];
+			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
+				shadowRoots[containerElement.dataset.noteId] = containerElement.shadowRoot;
+				const className = "singlefile-note-id-" + containerElement.dataset.noteId;
+				containerElement.classList.add(className);
+				classesToPreserve.push(className);
+			});
+			const article = new Readability(document, { classesToPreserve }).parse();
+			removedElements = [];
+			removedElementIndex = 0;
+			document.body.innerHTML = "";
+			const domParser = new DOMParser();
+			const doc = domParser.parseFromString(article.content, "text/html");
+			const contentEditable = document.body.contentEditable;
+			document.documentElement.replaceChild(doc.body, document.body);
+			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
+				const noteId = (Array.from(containerElement.classList).find(className => /singlefile-note-id-\d+/.test(className))).split("singlefile-note-id-")[1];
+				containerElement.classList.remove("singlefile-note-id-" + noteId);
+				containerElement.dataset.noteId = noteId;
+				if (!containerElement.shadowRoot) {
+					containerElement.attachShadow({ mode: "open" });
+					containerElement.shadowRoot.appendChild(shadowRoots[noteId]);
+				}
+			});
+			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => containerElement.shadowRoot = shadowRoots[containerElement.dataset.noteId]);
+			document.body.contentEditable = contentEditable;
+			document.head.querySelectorAll("style").forEach(styleElement => styleElement.remove());
+			const styleElement = document.createElement("style");
+			styleElement.textContent = STYLE_FORMATTED_PAGE;
+			document.head.appendChild(styleElement);
+			document.body.classList.add("moz-reader-content");
+			document.body.classList.add("content-width6");
+			document.body.classList.add("reader-show-element");
+			document.body.classList.add("sans-serif");
+			document.body.classList.add("container");
+			document.body.classList.add("line-height4");
+			const prefersColorSchemeDark = matchMedia("(prefers-color-scheme: dark)");
+			if (applySystemTheme && prefersColorSchemeDark && prefersColorSchemeDark.matches) {
+				document.body.classList.add("dark");
+			}
+			document.body.style.setProperty("display", "block");
+			document.body.style.setProperty("padding", "24px");
+			const titleElement = document.createElement("h1");
+			titleElement.classList.add("reader-title");
+			titleElement.textContent = article.title;
+			document.body.insertBefore(titleElement, document.body.firstChild);
+			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
+			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
+			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+			reflowNotes();
+			onUpdate(false);
+		}
+
+		async function cancelFormatPage() {
+			if (previousContent) {
+				const contentEditable = document.body.contentEditable;
+				await init(previousContent, { reset: true });
+				document.body.contentEditable = contentEditable;
+				onUpdate(false);
+				previousContent = null;
+			}
+		}
+
+		function getContent(compressHTML, updatedResources) {
+			unhighlightCutElement();
+			serializeShadowRoots(document);
+			const doc = document.cloneNode(true);
+			resetSelectedElements(doc);
+			deserializeShadowRoots(doc);
+			deserializeShadowRoots(document);
+			doc.querySelectorAll("[" + DISABLED_NOSCRIPT_ATTRIBUTE_NAME + "]").forEach(element => {
+				element.textContent = element.getAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
+				element.removeAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
+			});
+			doc.querySelectorAll("." + MASK_CLASS + ", ." + REMOVED_CONTENT_CLASS).forEach(maskElement => maskElement.remove());
+			doc.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.remove(HIGHLIGHT_HIDDEN_CLASS));
+			doc.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(templateElement => {
+				const noteElement = templateElement.querySelector("." + NOTE_CLASS);
+				if (noteElement) {
+					noteElement.classList.remove(NOTE_HIDDEN_CLASS);
+				}
+				const mainElement = templateElement.querySelector("textarea");
+				if (mainElement) {
+					mainElement.textContent = mainElement.value;
+				}
+			});
+			doc.querySelectorAll("iframe").forEach(element => {
+				const pointerEvents = "pointer-events";
+				element.style.setProperty(pointerEvents, element.style.getPropertyValue("-sf-" + pointerEvents), element.style.getPropertyPriority("-sf-" + pointerEvents));
+				element.style.removeProperty("-sf-" + pointerEvents);
+			});
+			doc.body.removeAttribute("contentEditable");
+			const scriptElement = doc.createElement("script");
+			scriptElement.setAttribute(SCRIPT_TEMPLATE_SHADOW_ROOT, "");
+			scriptElement.textContent = getEmbedScript();
+			doc.body.appendChild(scriptElement);
+			const newResources = Object.keys(updatedResources).filter(url => updatedResources[url].type == "stylesheet").map(url => updatedResources[url]);
+			newResources.forEach(resource => {
+				const element = doc.createElement("style");
+				doc.body.appendChild(element);
+				element.textContent = resource.content;
+			});
+			return singlefile.helper.serialize(doc, compressHTML);
+		}
+
+		function onUpdate(saved) {
+			window.parent.postMessage(JSON.stringify({ "method": "onUpdate", saved }), "*");
+		}
+
+		function reflowNotes() {
+			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
+				const noteElement = containerElement.shadowRoot.querySelector("." + NOTE_CLASS);
+				const noteBoundingRect = noteElement.getBoundingClientRect();
+				const anchorElement = getAnchorElement(containerElement);
+				const anchorBoundingRect = anchorElement.getBoundingClientRect();
+				const maxX = anchorBoundingRect.x + Math.max(0, anchorBoundingRect.width - noteBoundingRect.width);
+				const minX = anchorBoundingRect.x;
+				const maxY = anchorBoundingRect.y + Math.max(0, anchorBoundingRect.height - NOTE_HEADER_HEIGHT);
+				const minY = anchorBoundingRect.y;
+				let left = parseInt(noteElement.style.getPropertyValue("left"));
+				let top = parseInt(noteElement.style.getPropertyValue("top"));
+				if (noteBoundingRect.x > maxX) {
+					left -= noteBoundingRect.x - maxX;
+				}
+				if (noteBoundingRect.x < minX) {
+					left += minX - noteBoundingRect.x;
+				}
+				if (noteBoundingRect.y > maxY) {
+					top -= noteBoundingRect.y - maxY;
+				}
+				if (noteBoundingRect.y < minY) {
+					top += minY - noteBoundingRect.y;
+				}
+				noteElement.style.setProperty("position", "absolute");
+				noteElement.style.setProperty("left", left + "px");
+				noteElement.style.setProperty("top", top + "px");
+			});
+		}
+
+		function resetHighlightedElement(element) {
+			element.classList.remove(HIGHLIGHT_CLASS);
+			element.classList.remove("single-file-highlight-yellow");
+			element.classList.remove("single-file-highlight-pink");
+			element.classList.remove("single-file-highlight-blue");
+			element.classList.remove("single-file-highlight-green");
+			delete element.dataset.singlefileHighlightId;
+		}
+
+		function serializeShadowRoots(node) {
+			node.querySelectorAll("*").forEach(element => {
+				const shadowRoot = getShadowRoot(element);
+				if (shadowRoot) {
+					serializeShadowRoots(shadowRoot);
+					const templateElement = document.createElement("template");
+					templateElement.setAttribute(SHADOW_MODE_ATTRIBUTE_NAME, "open");
+					templateElement.appendChild(shadowRoot);
+					element.appendChild(templateElement);
+				}
+			});
+		}
+
+		function deserializeShadowRoots(node) {
+			node.querySelectorAll(`template[${SHADOW_MODE_ATTRIBUTE_NAME}]`).forEach(element => {
+				if (element.parentElement) {
+					let shadowRoot = getShadowRoot(element.parentElement);
+					if (shadowRoot) {
+						Array.from(element.childNodes).forEach(node => shadowRoot.appendChild(node));
+						element.remove();
+					} else {
+						try {
+							shadowRoot = element.parentElement.attachShadow({ mode: "open" });
+							const contentDocument = (new DOMParser()).parseFromString(element.innerHTML, "text/html");
+							Array.from(contentDocument.head.childNodes).forEach(node => shadowRoot.appendChild(node));
+							Array.from(contentDocument.body.childNodes).forEach(node => shadowRoot.appendChild(node));
+						} catch (error) {
+							// ignored
+						}
+					}
+					if (shadowRoot) {
+						deserializeShadowRoots(shadowRoot);
+					}
+				}
+			});
+		}
+
+		function getMaskElement(className, containerClassName) {
+			let maskElement = document.documentElement.querySelector("." + className);
+			if (!maskElement) {
+				maskElement = document.createElement("div");
+				const maskContainerElement = document.createElement("div");
+				if (containerClassName) {
+					maskContainerElement.classList.add(containerClassName);
+				}
+				maskContainerElement.classList.add(MASK_CLASS);
+				const firstNote = document.querySelector(NOTE_TAGNAME);
+				if (firstNote && firstNote.parentElement == document.documentElement) {
+					document.documentElement.insertBefore(maskContainerElement, firstNote);
+				} else {
+					document.documentElement.appendChild(maskContainerElement);
+				}
+				maskElement.classList.add(className);
+				const maskShadow = maskContainerElement.attachShadow({ mode: "open" });
+				maskShadow.appendChild(getStyleElement(MASK_WEB_STYLESHEET));
+				maskShadow.appendChild(maskElement);
+				return maskElement;
+			}
+		}
+
+		function getEmbedScript() {
+			return minifyText(`(() => {
+			document.currentScript.remove();
+			const processNode = node => {
+				node.querySelectorAll("template[${SHADOW_MODE_ATTRIBUTE_NAME}]").forEach(element=>{
+					let shadowRoot = getShadowRoot(element.parentElement);
+					if (!shadowRoot) {
+						try {
+							shadowRoot = element.parentElement.attachShadow({mode:element.getAttribute("${SHADOW_MODE_ATTRIBUTE_NAME}"),delegatesFocus:Boolean(element.getAttribute("${SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME}"))});
+							shadowRoot.innerHTML = element.innerHTML;
+							element.remove();
+						} catch (error) {}						
+						if (shadowRoot) {
+							processNode(shadowRoot);
+						}
+					}					
+				})
+			};
+			const FORBIDDEN_TAG_NAMES = ${JSON.stringify(FORBIDDEN_TAG_NAMES)};
+			const NOTE_TAGNAME = ${JSON.stringify(NOTE_TAGNAME)};
+			const NOTE_CLASS = ${JSON.stringify(NOTE_CLASS)};
+			const NOTE_ANCHORED_CLASS = ${JSON.stringify(NOTE_ANCHORED_CLASS)};
+			const NOTE_SELECTED_CLASS = ${JSON.stringify(NOTE_SELECTED_CLASS)};
+			const NOTE_MOVING_CLASS = ${JSON.stringify(NOTE_MOVING_CLASS)};
+			const NOTE_MASK_MOVING_CLASS = ${JSON.stringify(NOTE_MASK_MOVING_CLASS)};
+			const MASK_CLASS = ${JSON.stringify(MASK_CLASS)};
+			const HIGHLIGHT_CLASS = ${JSON.stringify(HIGHLIGHT_CLASS)};
+			const NOTES_WEB_STYLESHEET = ${JSON.stringify(NOTES_WEB_STYLESHEET)};
+			const MASK_WEB_STYLESHEET = ${JSON.stringify(MASK_WEB_STYLESHEET)};
+			const NOTE_HEADER_HEIGHT = ${JSON.stringify(NOTE_HEADER_HEIGHT)};
+			const PAGE_MASK_ACTIVE_CLASS = ${JSON.stringify(PAGE_MASK_ACTIVE_CLASS)};
+			const REMOVED_CONTENT_CLASS = ${JSON.stringify(REMOVED_CONTENT_CLASS)};
+			const reflowNotes = ${minifyText(reflowNotes.toString())};			
+			const addNoteRef = ${minifyText(addNoteRef.toString())};
+			const deleteNoteRef = ${minifyText(deleteNoteRef.toString())};
+			const getNoteRefs = ${minifyText(getNoteRefs.toString())};
+			const setNoteRefs = ${minifyText(setNoteRefs.toString())};
+			const getAnchorElement = ${minifyText(getAnchorElement.toString())};
+			const getMaskElement = ${minifyText(getMaskElement.toString())};
+			const getStyleElement = ${minifyText(getStyleElement.toString())};
+			const attachNoteListeners = ${minifyText(attachNoteListeners.toString())};
+			const anchorNote = ${minifyText(anchorNote.toString())};
+			const getPosition = ${minifyText(getPosition.toString())};
+			const onMouseUp = ${minifyText(onMouseUp.toString())};
+			const getShadowRoot = ${minifyText(getShadowRoot.toString())};
+			const maskNoteElement = getMaskElement(${JSON.stringify(NOTE_MASK_CLASS)});
+			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});
+			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout, cuttingMode, cuttingOuterMode;
+			window.onresize = reflowNotes;
+			window.onUpdate = () => {};
+			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
+			window.addEventListener("DOMContentLoaded", () => {
+				processNode(document);
+				reflowNotes();
+				document.querySelectorAll(${JSON.stringify(NOTE_TAGNAME)}).forEach(noteElement => attachNoteListeners(noteElement));
+			});
+		})()`);
+		}
+
+		function getStyleElement(stylesheet) {
+			const linkElement = document.createElement("style");
+			linkElement.textContent = stylesheet;
+			return linkElement;
+		}
+
+		function getAnchorElement(containerElement) {
+			return document.querySelector("[data-single-file-note-refs^=" + JSON.stringify(containerElement.dataset.noteId) + "], [data-single-file-note-refs$=" + JSON.stringify(containerElement.dataset.noteId) + "], [data-single-file-note-refs*=" + JSON.stringify("," + containerElement.dataset.noteId + ",") + "]")
+				|| document.documentElement;
+		}
+
+		function addNoteRef(anchorElement, noteId) {
+			const noteRefs = getNoteRefs(anchorElement);
+			noteRefs.push(noteId);
+			setNoteRefs(anchorElement, noteRefs);
+		}
+
+		function deleteNoteRef(containerElement, noteId) {
+			const anchorElement = getAnchorElement(containerElement);
+			const noteRefs = getNoteRefs(anchorElement).filter(noteRefs => noteRefs != noteId);
+			if (noteRefs.length) {
+				setNoteRefs(anchorElement, noteRefs);
+			} else {
+				delete anchorElement.dataset.singleFileNoteRefs;
+			}
+		}
+
+		function getNoteRefs(anchorElement) {
+			return JSON.parse("[" + (anchorElement.dataset.singleFileNoteRefs || "") + "]");
+		}
+
+		function setNoteRefs(anchorElement, noteRefs) {
+			anchorElement.dataset.singleFileNoteRefs = noteRefs.toString();
+		}
+
+		function minifyText(text) {
+			return text.replace(/[\n\t\s]+/g, " ");
+		}
+
+		function isAncestor(element, otherElement) {
+			return otherElement.parentElement && (element == otherElement.parentElement || isAncestor(element, otherElement.parentElement));
+		}
+
+		function getShadowRoot(element) {
+			const chrome = window.chrome;
+			if (element.openOrClosedShadowRoot) {
+				return element.openOrClosedShadowRoot;
+			} else if (chrome && chrome.dom && chrome.dom.openOrClosedShadowRoot) {
+				try {
+					return chrome.dom.openOrClosedShadowRoot(element);
+				} catch (error) {
+					return element.shadowRoot;
+				}
+			} else {
+				return element.shadowRoot;
+			}
+		}
+
+		function detectSavedPage(document) {
+			const firstDocumentChild = document.documentElement.firstChild;
+			return firstDocumentChild.nodeType == Node.COMMENT_NODE &&
+				(firstDocumentChild.textContent.includes(COMMENT_HEADER) || firstDocumentChild.textContent.includes(COMMENT_HEADER_LEGACY));
+		}
+
+	})(typeof globalThis == "object" ? globalThis : window);
+
+}());

@@ -54,6 +54,14 @@ export default [{
 		plugins: [terser()]
 	}]
 }, {
+	input: ["extension/lib/single-file/single-file-editor.js"],
+	output: [{
+		file: "dist/single-file-editor.js",
+		format: "umd",
+		name: "singlefile",
+		plugins: [terser()]
+	}]
+}, {
 	input: ["lib/single-file/processors/hooks/content/content-hooks-web.js"],
 	output: [{
 		file: "dist/web/hooks/hooks-web.js",
@@ -86,7 +94,7 @@ export default [{
 	output: [{
 		file: "dist/web/editor/editor-web.js",
 		format: "iife",
-		plugins: [terser()]
+		plugins: []
 	}]
 }, {
 	input: ["extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"],

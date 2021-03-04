@@ -77,7 +77,7 @@
 		}
 	},
 	"web_accessible_resources": [
-		"dist/single-file-bootstrap.js",
+		"dist/single-file-editor.js",
 		"dist/web/hooks/hooks-web.js",
 		"dist/web/hooks/hooks-frames-web.js",
 		"dist/web/infobar-web.js",
