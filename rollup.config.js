@@ -94,7 +94,7 @@ export default [{
 		file: "dist/web/editor/editor-helper-web.js",
 		format: "umd",
 		name: "singlefile",
-		plugins: []
+		plugins: [terser()]
 	}]
 }, {
 	input: ["extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"],
