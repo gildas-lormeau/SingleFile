@@ -31,16 +31,20 @@ browser.runtime.onMessage.addListener((message, sender) => {
 		let frameTimeouts;
 		if (tabTimeouts) {
 			frameTimeouts = tabTimeouts.get(sender.frameId);
-			const previousTimeoutId = frameTimeouts.get(message.type);
-			if (previousTimeoutId) {
-				clearTimeout(previousTimeoutId);
+			if (frameTimeouts) {
+				const previousTimeoutId = frameTimeouts.get(message.type);
+				if (previousTimeoutId) {
+					clearTimeout(previousTimeoutId);
+				}
+			} else {
+				frameTimeouts = new Map();
 			}
 		}
 		const timeoutId = setTimeout(async () => {
 			try {
 				const tabTimeouts = timeouts.get(sender.tab.id);
 				const frameTimeouts = tabTimeouts.get(sender.frameId);
-				if (tabTimeouts) {
+				if (tabTimeouts && frameTimeouts) {
 					deleteTimeout(frameTimeouts, message.type);
 				}
 				await browser.tabs.sendMessage(sender.tab.id, { method: "singlefile.lazyTimeout.onTimeout", type: message.type });
