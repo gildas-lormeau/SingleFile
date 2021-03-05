@@ -77,12 +77,12 @@
 		}
 	},
 	"web_accessible_resources": [
-		"dist/single-file-editor.js",
 		"dist/web/hooks/hooks-web.js",
 		"dist/web/hooks/hooks-frames-web.js",
 		"dist/web/infobar-web.js",
 		"dist/web/editor/editor-init-web.js",
 		"dist/web/editor/editor-web.js",
+		"dist/web/editor/editor-helper-web.js",
 		"extension/lib/readability/Readability.js",
 		"extension/lib/readability/Readability-readerable.js",
 		"extension/ui/pages/editor-note-web.css",
