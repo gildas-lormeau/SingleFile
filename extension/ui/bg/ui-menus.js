@@ -434,7 +434,11 @@ async function initialize() {
 			}
 			if (event.menuItemId == MENU_ID_AUTO_SAVE_DISABLED) {
 				const allTabsData = await tabsData.get();
-				Object.keys(allTabsData).forEach(tabId => allTabsData[tabId].autoSave = false);
+				Object.keys(allTabsData).forEach(tabId => {
+					if (typeof allTabsData[tabId] == "object" && allTabsData[tabId].autoSave) {
+						allTabsData[tabId].autoSave = false;
+					}
+				});
 				allTabsData.autoSaveUnpinned = allTabsData.autoSaveAll = false;
 				await tabsData.set(allTabsData);
 				refreshExternalComponents(tab);
