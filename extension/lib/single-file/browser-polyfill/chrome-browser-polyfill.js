@@ -26,7 +26,7 @@
 (() => {
 
 	const FEATURE_TESTS = {};
-	const NON_COMPLIANT_IMPLEMENTATION = globalThis.origin.startsWith("safari-web-extension://");
+	const NON_COMPLIANT_IMPLEMENTATION = globalThis.origin && globalThis.origin.startsWith("safari-web-extension://");
 
 	if ((!globalThis.browser || NON_COMPLIANT_IMPLEMENTATION) && globalThis.chrome) {
 		const nativeAPI = globalThis.chrome;
