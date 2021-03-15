@@ -293,6 +293,7 @@ h3 a {
 .profiles select {
     width: calc(100% - 86px);
     text-align-last: right;
+    padding: 0px;
 }
 
 .rules-table-container select {
