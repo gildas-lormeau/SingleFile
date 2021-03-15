@@ -64,7 +64,7 @@ export {
 	frameFetch
 };
 
-async function fetchResource(url, options) {
+async function fetchResource(url, options = {}) {
 	try {
 		let response = await fetch(url, { cache: "force-cache" });
 		if (response.status == 401 || response.status == 403 || response.status == 404) {
