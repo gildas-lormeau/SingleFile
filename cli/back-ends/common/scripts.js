@@ -30,7 +30,8 @@ const SCRIPTS = [
 ];
 
 const INDEX_SCRIPTS = [
-	"dist/single-file.js"
+	"dist/single-file.js",
+	"dist/single-file-bootstrap.js"
 ];
 
 const WEB_SCRIPTS = [
