@@ -21,7 +21,11 @@
  *   Source.
  */
 
-/* global globalThis */
+/* global globalThis, window */
+
+if (typeof globalThis == "undefined") {
+	window.globalThis = window;
+}
 
 (() => {
 
