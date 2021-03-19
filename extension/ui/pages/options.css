@@ -294,6 +294,7 @@ h3 a {
     width: calc(100% - 86px);
     text-align-last: right;
     padding: 0px;
+    padding-right: 4px;
 }
 
 .rules-table-container select {
@@ -496,6 +497,7 @@ a {
 .side-panel .profiles select {
     min-width: calc(100% - 78px);
     text-align-last: auto;
+    padding-right: 0;
 }
 
 .side-panel .options-title,
@@ -550,6 +552,7 @@ html.maximized {
 
     .profiles select {
         text-align-last: auto;
+        padding-right: 0;
     }
 }
 
