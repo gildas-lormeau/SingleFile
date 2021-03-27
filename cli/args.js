@@ -31,6 +31,7 @@ const args = require("yargs")
 	})
 	.default({
 		"back-end": "puppeteer",
+		"browser-server": "",
 		"browser-headless": true,
 		"browser-executable-path": "",
 		"browser-width": 1280,
@@ -87,6 +88,7 @@ const args = require("yargs")
 	})
 	.options("back-end", { description: "Back-end to use" })
 	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chromium", "webdriver-gecko", "puppeteer-firefox", "playwright-firefox", "playwright-chromium"])
+	.options("browser-server", { description: "Server to connect to (puppeteer only for now)" })
 	.options("browser-headless", { description: "Run the browser in headless mode (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("browser-headless")
 	.options("browser-executable-path", { description: "Path to chrome/chromium executable (puppeteer, webdriver-gecko, webdriver-chromium)" })

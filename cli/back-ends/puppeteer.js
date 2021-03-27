@@ -33,7 +33,11 @@ const NETWORK_STATES = ["networkidle0", "networkidle2", "load", "domcontentloade
 let browser;
 
 exports.initialize = async options => {
-	browser = await puppeteer.launch(getBrowserOptions(options));
+	if (options.browserServer) {
+		browser = await puppeteer.connect({ browserWSEndpoint: options.browserServer });
+	} else {
+		browser = await puppeteer.launch(getBrowserOptions(options));
+	}
 	return browser;
 };
 
