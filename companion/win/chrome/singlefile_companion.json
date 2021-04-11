@@ -4,6 +4,7 @@
     "path": "singlefile_companion.bat",
     "type": "stdio",
     "allowed_origins": [
-        "chrome-extension://mpiodijhokgodhhofbcjdecpffjipkle/"
+        "chrome-extension://mpiodijhokgodhhofbcjdecpffjipkle/",
+        "chrome-extension://efnbkdcfmcmnhlkaijjjmhjjgladedno/"
     ]
 }
