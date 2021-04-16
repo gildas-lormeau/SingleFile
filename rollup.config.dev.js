@@ -45,6 +45,14 @@ export default [{
 		plugins: []
 	}]
 }, {
+	input: ["extension/index.js"],
+	output: [{
+		file: "dist/extension-core.js",
+		format: "umd",
+		name: "extension",
+		plugins: []
+	}]
+}, {
 	input: ["extension/core/content/content.js"],
 	output: [{
 		file: "dist/extension.js",
