@@ -23,14 +23,15 @@
 
 /* global browser */
 
-const REQUEST_ID_HEADER_NAME = "x-single-file-request-id";
-const referrers = new Map();
+import {
+	REQUEST_ID_HEADER_NAME,
+	referrers
+} from "../../lib/single-file/fetch/bg/fetch.js";
+
 let referrerOnErrorEnabled = false;
 
 export {
-	REQUEST_ID_HEADER_NAME,
 	onMessage,
-	setReferrer,
 	enableReferrerOnError
 };
 
@@ -43,10 +44,6 @@ function onMessage(message) {
 		disableReferrerOnError();
 		return {};
 	}
-}
-
-function setReferrer(requestId, referrer) {
-	referrers.set(requestId, referrer);
 }
 
 function injectRefererHeader(details) {
