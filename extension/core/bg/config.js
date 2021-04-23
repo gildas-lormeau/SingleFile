@@ -448,7 +448,7 @@ async function exportConfig() {
 	const url = URL.createObjectURL(new Blob([JSON.stringify({ profiles: config.profiles, rules: config.rules, maxParallelWorkers: config.maxParallelWorkers }, null, 2)], { type: "text/json" }));
 	const downloadInfo = {
 		url,
-		filename: "singlefile-settings.json",
+		filename: `singlefile-settings-${(new Date()).toISOString().replace(/:/g, "_")}.json`,
 		saveAs: true
 	};
 	try {
