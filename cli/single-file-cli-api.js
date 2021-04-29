@@ -102,7 +102,7 @@ async function initialize(options) {
 	}
 	return {
 		capture: urls => capture(urls, options),
-		finish: () => finish(options),		
+		finish: () => finish(options),
 	};
 }
 
@@ -264,7 +264,7 @@ async function capturePage(options) {
 		if (options.errorFile) {
 			fs.writeFileSync(options.errorFile, message, { flag: "a" });
 		} else {
-			console.error(message); // eslint-disable-line no-console
+			console.error(error.message || error, message); // eslint-disable-line no-console
 		}
 	}
 }
