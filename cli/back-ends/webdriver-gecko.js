@@ -109,7 +109,7 @@ async function getPageData(driver, options) {
 			// do nothing
 		}
 	}
-	scripts = scripts.replace(/\n(this)\.([^ ]+) = (this)\.([^ ]+) \|\|/g, "\nwindow.$2 = window.$4 ||");
+	scripts = scripts.replace(/globalThis/g, "window");
 	await driver.executeScript(scripts);
 	if (options.browserWaitUntil != "domcontentloaded") {
 		let scriptPromise;
