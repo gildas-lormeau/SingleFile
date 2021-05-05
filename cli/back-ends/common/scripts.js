@@ -42,7 +42,8 @@ const WEB_SCRIPTS = [
 
 exports.get = async options => {
 	const basePath = "../../../";
-	let scripts = await readScriptFiles(INDEX_SCRIPTS, basePath);
+	let scripts = "let _singleFileDefine; if (define) { _singleFileDefine = define; define = null }";
+	scripts += await readScriptFiles(INDEX_SCRIPTS, basePath);
 	const webScripts = {};
 	await Promise.all(WEB_SCRIPTS.map(async path => webScripts[path] = await readScriptFile(path, basePath)));
 	scripts += "window.singlefile.getFileContent = filename => (" + JSON.stringify(webScripts) + ")[filename];\n";
@@ -51,6 +52,7 @@ exports.get = async options => {
 	if (options.browserStylesheets && options.browserStylesheets.length) {
 		scripts += "addEventListener(\"load\",()=>{const styleElement=document.createElement(\"style\");styleElement.textContent=" + JSON.stringify(await readScriptFiles(options.browserStylesheets, "")) + ";document.body.appendChild(styleElement);});";
 	}
+	scripts += "if (_singleFileDefine) { define = _singleFileDefine; _singleFileDefine = null }";
 	return scripts;
 };
 
