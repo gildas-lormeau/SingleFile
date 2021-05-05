@@ -42,7 +42,7 @@ const WEB_SCRIPTS = [
 
 exports.get = async options => {
 	const basePath = "../../../";
-	let scripts = "let _singleFileDefine; if (define) { _singleFileDefine = define; define = null }";
+	let scripts = "let _singleFileDefine; if (typeof define !== 'undefined') { _singleFileDefine = define; define = null }";
 	scripts += await readScriptFiles(INDEX_SCRIPTS, basePath);
 	const webScripts = {};
 	await Promise.all(WEB_SCRIPTS.map(async path => webScripts[path] = await readScriptFile(path, basePath)));
