@@ -68,14 +68,14 @@ async function onMessage(message) {
 
 async function savePage(message) {
 	const options = message.options;
+	let selectionFound;
+	if (options.selected || options.optionallySelected) {
+		selectionFound = await ui.markSelection(options.optionallySelected);
+	}
 	if (!processing && (!bootstrap || !bootstrap.pageInfo.processing)) {
 		options.updatedResources = bootstrap ? bootstrap.pageInfo.updatedResources : {};
 		options.visitDate = bootstrap ? bootstrap.pageInfo.visitDate : new Date();
 		Object.keys(options.updatedResources).forEach(url => options.updatedResources[url].retrieved = false);
-		let selectionFound;
-		if (options.selected || options.optionallySelected) {
-			selectionFound = await ui.markSelection(options.optionallySelected);
-		}
 		if (options.optionallySelected && selectionFound) {
 			options.selected = true;
 		}
