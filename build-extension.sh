@@ -1,5 +1,5 @@
 #!/bin/sh
-rollup -c rollup.config.js
+npx rollup -c rollup.config.js
 
 rm singlefile-extension-firefox.zip singlefile-extension-chromium.zip singlefile-extension-edge.zip
 cp manifest.json manifest.copy.json
