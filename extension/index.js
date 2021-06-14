@@ -21,10 +21,12 @@
  *   Source.
  */
 
-/* global window */
+/* global globalThis */
 
 import * as scripts from "./lib/single-file/core/bg/scripts.js";
 import { fetch, frameFetch } from "./lib/single-file/fetch/content/content-fetch.js";
+
+const singlefile = globalThis.singlefile;
 
 export {
 	injectScript,
@@ -36,5 +38,5 @@ function injectScript(tabId, options) {
 }
 
 function getPageData(options, doc, win, initOptions = { fetch, frameFetch }) {
-	return window.singlefile.getPageData(options, initOptions, doc, win);
+	return singlefile.getPageData(options, initOptions, doc, win);
 }
