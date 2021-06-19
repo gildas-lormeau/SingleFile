@@ -26,8 +26,6 @@
 import * as scripts from "./lib/single-file/core/bg/scripts.js";
 import { fetch, frameFetch } from "./lib/single-file/fetch/content/content-fetch.js";
 
-const singlefile = globalThis.singlefile;
-
 export {
 	injectScript,
 	getPageData
@@ -38,5 +36,5 @@ function injectScript(tabId, options) {
 }
 
 function getPageData(options, doc, win, initOptions = { fetch, frameFetch }) {
-	return singlefile.getPageData(options, initOptions, doc, win);
+	return globalThis.singlefile.getPageData(options, initOptions, doc, win);
 }
