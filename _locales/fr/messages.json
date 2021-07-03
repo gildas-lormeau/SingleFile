@@ -376,7 +376,7 @@
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
-		"message": "auto-save on tab discard",
+		"message": "auto-sauvegarder à la fermeture de l'onglet",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveDelay": {
