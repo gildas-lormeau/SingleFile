@@ -33,12 +33,15 @@ import * as ui from "./../../ui/bg/index.js";
 import { getPageData } from "./../../index.js";
 import * as woleet from "./../../lib/woleet/woleet.js";
 
+const pendingDiscardedTabs = {};
+
 export {
 	onMessage,
 	onMessageExternal,
 	onInit,
 	isEnabled,
-	refreshTabs
+	refreshTabs,
+	onTabRemoved
 };
 
 async function onMessage(message, sender) {
@@ -48,13 +51,25 @@ async function onMessage(message, sender) {
 	}
 	if (message.method.endsWith(".save")) {
 		const tabId = sender.tab.id;
-		const options = await config.getOptions(sender.tab.url, true);
-		if (options) {
-			ui.onStart(tabId, 1, true);
+		let resolvePendingDiscardedTab;
+		pendingDiscardedTabs[tabId] = new Promise(resolve => resolvePendingDiscardedTab = resolve);
+		if (message.autoSaveDiscard) {
+			message.tab = sender.tab;
+			resolvePendingDiscardedTab(message);
+			if (message.autoSaveUnload) {
+				await saveContent(message, sender.tab);
+			}
+		} else {
 			await saveContent(message, sender.tab);
-			ui.onEnd(tabId, true);
 		}
 		return {};
+	}
+}
+
+async function onTabRemoved(tabId) {
+	const pendingDiscardedTab = await pendingDiscardedTabs[tabId];
+	if (pendingDiscardedTab) {
+		await saveContent(pendingDiscardedTab, pendingDiscardedTab.tab);
 	}
 }
 
@@ -101,50 +116,55 @@ async function refreshTabs() {
 
 async function saveContent(message, tab) {
 	const options = await config.getOptions(tab.url, true);
-	const tabId = tab.id;
-	options.content = message.content;
-	options.url = message.url;
-	options.frames = message.frames;
-	options.canvases = message.canvases;
-	options.fonts = message.fonts;
-	options.stylesheets = message.stylesheets;
-	options.images = message.images;
-	options.posters = message.posters;
-	options.usedFonts = message.usedFonts;
-	options.shadowRoots = message.shadowRoots;
-	options.imports = message.imports;
-	options.referrer = message.referrer;
-	options.updatedResources = message.updatedResources;
-	options.visitDate = new Date(message.visitDate);
-	options.backgroundTab = true;
-	options.autoSave = true;
-	options.incognito = tab.incognito;
-	options.tabId = tabId;
-	options.tabIndex = tab.index;	
-	let pageData;
-	try {
-		if (options.autoSaveExternalSave) {
-			await companion.save(options);
-		} else {
-			pageData = await getPageData(options, null, null, { fetch });
-			if (options.includeInfobar) {
-				await infobar.includeScript(pageData);
-			}
-			const blob = new Blob([pageData.content], { type: "text/html" });
-			if (options.saveToGDrive) {
-				await downloads.uploadPage(message.taskId, pageData.filename, blob, options, {});
+	if (options) {
+		const tabId = tab.id;
+		delete pendingDiscardedTabs[tabId];
+		ui.onStart(tabId, 1, true);
+		options.content = message.content;
+		options.url = message.url;
+		options.frames = message.frames;
+		options.canvases = message.canvases;
+		options.fonts = message.fonts;
+		options.stylesheets = message.stylesheets;
+		options.images = message.images;
+		options.posters = message.posters;
+		options.usedFonts = message.usedFonts;
+		options.shadowRoots = message.shadowRoots;
+		options.imports = message.imports;
+		options.referrer = message.referrer;
+		options.updatedResources = message.updatedResources;
+		options.visitDate = new Date(message.visitDate);
+		options.backgroundTab = true;
+		options.autoSave = true;
+		options.incognito = tab.incognito;
+		options.tabId = tabId;
+		options.tabIndex = tab.index;
+		let pageData;
+		try {
+			if (options.autoSaveExternalSave) {
+				await companion.save(options);
 			} else {
-				pageData.url = URL.createObjectURL(blob);
-				await downloads.downloadPage(pageData, options);
+				pageData = await getPageData(options, null, null, { fetch });
+				if (options.includeInfobar) {
+					await infobar.includeScript(pageData);
+				}
+				const blob = new Blob([pageData.content], { type: "text/html" });
+				if (options.saveToGDrive) {
+					await downloads.uploadPage(message.taskId, pageData.filename, blob, options, {});
+				} else {
+					pageData.url = URL.createObjectURL(blob);
+					await downloads.downloadPage(pageData, options);
+				}
+				if (pageData.hash) {
+					await woleet.anchor(pageData.hash);
+				}
 			}
-			if (pageData.hash) {
-				await woleet.anchor(pageData.hash);
+		} finally {
+			business.onSaveEnd(message.taskId);
+			if (pageData && pageData.url) {
+				URL.revokeObjectURL(pageData.url);
 			}
-		}
-	} finally {
-		business.onSaveEnd(message.taskId);
-		if (pageData && pageData.url) {
-			URL.revokeObjectURL(pageData.url);
+			ui.onEnd(tabId, true);
 		}
 	}
 }

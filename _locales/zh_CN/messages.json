@@ -375,6 +375,10 @@
 		"message": "在页面开始卸载时进行自动保存",
 		"description": "Options page label: 'auto-save on page unload'"
 	},
+	"optionAutoSaveDiscard": {
+		"message": "auto-save on tab discard",
+		"description": "Options page label: 'auto-save on tab discard'"
+	},
 	"optionAutoSaveDelay": {
 		"message": "页面加载完成后延迟该时间再进行自动保存（秒）",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"

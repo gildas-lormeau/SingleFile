@@ -375,6 +375,10 @@
 		"message": "auto-guardar al purgar la página",
 		"description": "Options page label: 'auto-save on page unload'"
 	},
+	"optionAutoSaveDiscard": {
+		"message": "auto-save on tab discard",
+		"description": "Options page label: 'auto-save on tab discard'"
+	},
 	"optionAutoSaveDelay": {
 		"message": "retardo de auto-guardado tras cargar la página (s)",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"

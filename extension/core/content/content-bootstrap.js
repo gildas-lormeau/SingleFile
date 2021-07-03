@@ -151,7 +151,7 @@ async function autoSavePage() {
 }
 
 function refresh() {
-	if (autoSaveEnabled && options && (options.autoSaveUnload || options.autoSaveLoadOrUnload)) {
+	if (autoSaveEnabled && options && (options.autoSaveUnload || options.autoSaveLoadOrUnload || options.autoSaveDiscard)) {
 		if (!unloadListenerAdded) {
 			globalThis.addEventListener("unload", onUnload);
 			unloadListenerAdded = true;
@@ -164,7 +164,7 @@ function refresh() {
 
 function onUnload() {
 	const helper = singlefile.helper;
-	if (!pageAutoSaved || options.autoSaveUnload) {
+	if (!pageAutoSaved || options.autoSaveUnload || options.autoSaveDiscard) {
 		const waitForUserScript = window._singleFile_waitForUserScript;
 		let frames = [];
 		if (!options.removeFrames && globalThis.frames && globalThis.frames.length) {
@@ -174,11 +174,11 @@ function onUnload() {
 			waitForUserScript(helper.ON_BEFORE_CAPTURE_EVENT_NAME);
 		}
 		const docData = helper.preProcessDoc(document, globalThis, options);
-		savePage(docData, frames);
+		savePage(docData, frames, options.autoSaveUnload, options.autoSaveDiscard);
 	}
 }
 
-function savePage(docData, frames) {
+function savePage(docData, frames, autoSaveUnload, autoSaveDiscard) {
 	const helper = singlefile.helper;
 	const updatedResources = singlefile.pageInfo.updatedResources;
 	const visitDate = singlefile.pageInfo.visitDate.getTime();
@@ -199,7 +199,9 @@ function savePage(docData, frames) {
 		frames: frames,
 		url: location.href,
 		updatedResources,
-		visitDate
+		visitDate,
+		autoSaveUnload,
+		autoSaveDiscard
 	});
 }
 

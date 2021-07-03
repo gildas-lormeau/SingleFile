@@ -212,4 +212,5 @@ function onTabRemoved(tabId) {
 	tabsData.remove(tabId);
 	editor.onTabRemoved(tabId);
 	business.onTabRemoved(tabId);
+	autosave.onTabRemoved(tabId);
 }

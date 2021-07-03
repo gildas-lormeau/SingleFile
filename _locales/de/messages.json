@@ -375,6 +375,10 @@
 		"message": "Automatische Speicherung beim Schließen der Seite",
 		"description": "Options page label: 'auto-save on page unload'"
 	},
+	"optionAutoSaveDiscard": {
+		"message": "auto-save on tab discard",
+		"description": "Options page label: 'auto-save on tab discard'"
+	},
 	"optionAutoSaveDelay": {
 		"message": "Automatische Speicherung nach Seitenaufbau verzögern (s)",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"

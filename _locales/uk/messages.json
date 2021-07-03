@@ -375,6 +375,10 @@
 		"message": "автозбереження після розвантаження сторінки",
 		"description": "Options page label: 'auto-save on page unload'"
 	},
+	"optionAutoSaveDiscard": {
+		"message": "auto-save on tab discard",
+		"description": "Options page label: 'auto-save on tab discard'"
+	},
 	"optionAutoSaveDelay": {
 		"message": "затримка автозбереження після завантаження сторінки (с)",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"

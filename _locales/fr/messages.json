@@ -375,6 +375,10 @@
 		"message": "auto-sauvegarder au déchargement de la page",
 		"description": "Options page label: 'auto-save on page unload'"
 	},
+	"optionAutoSaveDiscard": {
+		"message": "auto-save on tab discard",
+		"description": "Options page label: 'auto-save on tab discard'"
+	},
 	"optionAutoSaveDelay": {
 		"message": "délai d'attente après le chargement de la page (s)",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
