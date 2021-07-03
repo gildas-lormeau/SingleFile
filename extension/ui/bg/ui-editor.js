@@ -259,6 +259,7 @@ addEventListener("message", event => {
 			filename: tabData.filename
 		};
 		tabData.options.openEditor = false;
+		tabData.options.openSavedPage = false;
 		download.downloadPage(pageData, tabData.options);
 	}
 	if (message.method == "onUpdate") {

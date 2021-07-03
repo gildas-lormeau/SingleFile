@@ -96,6 +96,7 @@ const confirmInfobarLabel = document.getElementById("confirmInfobarLabel");
 const autoCloseLabel = document.getElementById("autoCloseLabel");
 const editorLabel = document.getElementById("editorLabel");
 const openEditorLabel = document.getElementById("openEditorLabel");
+const openSavedPageLabel = document.getElementById("openSavedPageLabel");
 const autoOpenEditorLabel = document.getElementById("autoOpenEditorLabel");
 const defaultEditorModeLabel = document.getElementById("defaultEditorModeLabel");
 const applySystemThemeLabel = document.getElementById("applySystemThemeLabel");
@@ -162,6 +163,7 @@ const includeInfobarInput = document.getElementById("includeInfobarInput");
 const confirmInfobarInput = document.getElementById("confirmInfobarInput");
 const autoCloseInput = document.getElementById("autoCloseInput");
 const openEditorInput = document.getElementById("openEditorInput");
+const openSavedPageInput = document.getElementById("openSavedPageInput");
 const autoOpenEditorInput = document.getElementById("autoOpenEditorInput");
 const defaultEditorModeInput = document.getElementById("defaultEditorModeInput");
 const defaultEditorModeNormalLabel = document.getElementById("defaultEditorModeNormalLabel");
@@ -511,6 +513,7 @@ confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar"
 autoCloseLabel.textContent = browser.i18n.getMessage("optionAutoClose");
 editorLabel.textContent = browser.i18n.getMessage("optionsEditorSubTitle");
 openEditorLabel.textContent = browser.i18n.getMessage("optionOpenEditor");
+openSavedPageLabel.textContent = browser.i18n.getMessage("optionOpenSavedPage");
 autoOpenEditorLabel.textContent = browser.i18n.getMessage("optionAutoOpenEditor");
 defaultEditorModeLabel.textContent = browser.i18n.getMessage("optionDefaultEditorMode");
 defaultEditorModeNormalLabel.textContent = browser.i18n.getMessage("optionDefaultEditorModeNormal");
@@ -703,6 +706,7 @@ async function refresh(profileName) {
 	confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
 	autoCloseInput.checked = profileOptions.autoClose;
 	openEditorInput.checked = profileOptions.openEditor;
+	openSavedPageInput.checked = profileOptions.openSavedPage;
 	autoOpenEditorInput.checked = profileOptions.autoOpenEditor;
 	defaultEditorModeInput.value = profileOptions.defaultEditorMode;
 	applySystemThemeInput.checked = profileOptions.applySystemTheme;
@@ -771,6 +775,7 @@ async function update() {
 			confirmInfobarContent: confirmInfobarInput.checked,
 			autoClose: autoCloseInput.checked,
 			openEditor: openEditorInput.checked,
+			openSavedPage: openSavedPageInput.checked,
 			autoOpenEditor: autoOpenEditorInput.checked,
 			defaultEditorMode: defaultEditorModeInput.value,
 			applySystemTheme: applySystemThemeInput.checked,

@@ -90,6 +90,7 @@ const DEFAULT_CONFIG = {
 	resolveFragmentIdentifierURLs: false,
 	userScriptEnabled: false,
 	openEditor: false,
+	openSavedPage: false,
 	autoOpenEditor: false,
 	saveCreatedBookmarks: false,
 	ignoredBookmarkFolders: [],

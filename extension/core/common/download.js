@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, infobar, document, URL, Blob, MouseEvent, setTimeout */
+/* global browser, infobar, document, URL, Blob, MouseEvent, setTimeout, open */
 
 const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 
@@ -50,6 +50,7 @@ async function downloadPage(pageData, options) {
 				extractAuthCode: options.extractAuthCode,
 				filenameReplacementCharacter: options.filenameReplacementCharacter,
 				openEditor: options.openEditor,
+				openSavedPage: options.openSavedPage,
 				compressHTML: options.compressHTML,
 				backgroundSave: options.backgroundSave,
 				bookmarkId: options.bookmarkId,
@@ -73,6 +74,9 @@ async function downloadPage(pageData, options) {
 			saveToClipboard(pageData);
 		} else {
 			await downloadPageForeground(pageData);
+		}
+		if (options.openSavedPage) {
+			open(URL.createObjectURL(new Blob([pageData.content], { type: "text/html" })));
 		}
 		browser.runtime.sendMessage({ method: "ui.processEnd" });
 	}

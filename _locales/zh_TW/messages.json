@@ -399,6 +399,10 @@
 		"message": "在保存前對該頁面進行標註編輯",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
+	"optionOpenSavedPage": {
+		"message": "open saved pages in a new tab",
+		"description": "Options page label: 'open saved pages in a new tab'"
+	},
 	"optionAutoOpenEditor": {
 		"message": "在標註編輯器中打開用 SingleFile 保存的頁面",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"

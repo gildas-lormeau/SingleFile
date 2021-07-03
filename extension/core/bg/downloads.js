@@ -133,21 +133,21 @@ async function downloadTabPage(message, tab) {
 				saveToClipboard(message);
 				ui.onEnd(tab.id);
 			} else {
-				await downloadBlob(new Blob([contents], { type: MIMETYPE_HTML }), tab.id, tab.incognito, message);
+				await downloadBlob(new Blob([contents], { type: MIMETYPE_HTML }), tab, tab.incognito, message);
 			}
 		}
 	}
 	return {};
 }
 
-async function downloadBlob(blob, tabId, incognito, message) {
+async function downloadBlob(blob, tab, incognito, message) {
 	try {
 		if (message.saveToGDrive) {
 			await uploadPage(message.taskId, message.filename, blob, {
 				forceWebAuthFlow: message.forceWebAuthFlow,
 				extractAuthCode: message.extractAuthCode
 			}, {
-				onProgress: (offset, size) => ui.onUploadProgress(tabId, offset, size)
+				onProgress: (offset, size) => ui.onUploadProgress(tab.id, offset, size)
 			});
 		} else {
 			message.url = URL.createObjectURL(blob);
@@ -159,11 +159,18 @@ async function downloadBlob(blob, tabId, incognito, message) {
 				includeInfobar: message.includeInfobar
 			});
 		}
-		ui.onEnd(tabId);
+		ui.onEnd(tab.id);
+		if (message.openSavedPage) {
+			const createTabProperties = { active: true, url: URL.createObjectURL(blob) };
+			if (tab.index != null) {
+				createTabProperties.index = tab.index + 1;
+			}
+			tabs.create(createTabProperties);
+		}
 	} catch (error) {
 		if (!error.message || error.message != "upload_cancelled") {
 			console.error(error); // eslint-disable-line no-console
-			ui.onError(tabId);
+			ui.onError(tab.id);
 		}
 	} finally {
 		if (message.url) {
