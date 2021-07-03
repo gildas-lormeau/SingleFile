@@ -400,7 +400,7 @@
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionOpenSavedPage": {
-		"message": "open saved pages in a new tab",
+		"message": "otwieraj zapisane strony w nowej karcie",
 		"description": "Options page label: 'open saved pages in a new tab'"
 	},
 	"optionAutoOpenEditor": {
