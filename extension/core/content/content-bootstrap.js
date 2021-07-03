@@ -200,6 +200,7 @@ function savePage(docData, frames, autoSaveUnload, autoSaveDiscard) {
 		url: location.href,
 		updatedResources,
 		visitDate,
+		openSavedPage: options.openSavedPage,
 		autoSaveUnload,
 		autoSaveDiscard
 	});

@@ -139,6 +139,7 @@ async function saveContent(message, tab) {
 		options.incognito = tab.incognito;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
+		options.openSavedPage = message.openSavedPage;
 		let pageData;
 		try {
 			if (options.autoSaveExternalSave) {
@@ -153,6 +154,13 @@ async function saveContent(message, tab) {
 					await downloads.uploadPage(message.taskId, pageData.filename, blob, options, {});
 				} else {
 					pageData.url = URL.createObjectURL(blob);
+					if (message.openSavedPage) {
+						const createTabProperties = { active: true, url: pageData.url };
+						if (tab.index != null) {
+							createTabProperties.index = tab.index + 1;
+						}
+						tabs.create(createTabProperties);
+					}
 					await downloads.downloadPage(pageData, options);
 				}
 				if (pageData.hash) {
