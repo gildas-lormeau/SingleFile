@@ -139,7 +139,6 @@ async function saveContent(message, tab) {
 		options.incognito = tab.incognito;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
-		options.openSavedPage = message.openSavedPage;
 		let pageData;
 		try {
 			if (options.autoSaveExternalSave) {
