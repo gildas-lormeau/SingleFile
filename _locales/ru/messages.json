@@ -376,7 +376,7 @@
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
-		"message": "auto-save on tab discard",
+		"message": "автосохранение при сбросе вкладки",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveDelay": {
@@ -404,7 +404,7 @@
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionOpenSavedPage": {
-		"message": "open saved pages in a new tab",
+		"message": "открывать сохранённые страницы в новой вкладке",
 		"description": "Options page label: 'open saved pages in a new tab'"
 	},
 	"optionAutoOpenEditor": {
