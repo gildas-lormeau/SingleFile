@@ -115,10 +115,10 @@ async function refreshTabs() {
 }
 
 async function saveContent(message, tab) {
+	const tabId = tab.id;
+	delete pendingDiscardedTabs[tabId];
 	const options = await config.getOptions(tab.url, true);
 	if (options) {
-		const tabId = tab.id;
-		delete pendingDiscardedTabs[tabId];
 		ui.onStart(tabId, 1, true);
 		options.content = message.content;
 		options.url = message.url;
