@@ -153,14 +153,14 @@ async function saveContent(message, tab) {
 					await downloads.uploadPage(message.taskId, pageData.filename, blob, options, {});
 				} else {
 					pageData.url = URL.createObjectURL(blob);
-					if (message.openSavedPage) {
-						const createTabProperties = { active: true, url: pageData.url };
+					await downloads.downloadPage(pageData, options);
+					if (options.openSavedPage) {
+						const createTabProperties = { active: true, url: URL.createObjectURL(blob) };
 						if (tab.index != null) {
-							createTabProperties.index = tab.index + 1;
+							createTabProperties.index = tab.index + (pendingDiscardedTabs[tabId] ? 1 : 0);
 						}
 						tabs.create(createTabProperties);
 					}
-					await downloads.downloadPage(pageData, options);
 				}
 				if (pageData.hash) {
 					await woleet.anchor(pageData.hash);
