@@ -197,6 +197,9 @@ async function onTabUpdated(tabId, changeInfo) {
 			ui.onTabActivated(tab);
 		}
 	}
+	if (changeInfo.discarded) {
+		autosave.onTabRemoved(tabId);
+	}
 }
 
 function onTabCreated(tab) {
