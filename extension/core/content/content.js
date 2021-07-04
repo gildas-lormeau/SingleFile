@@ -114,7 +114,6 @@ async function processPage(options) {
 	ui.onStartPage(options);
 	processor = new singlefile.SingleFile(options);
 	const preInitializationPromises = [];
-	options.insertSingleFileComment = true;
 	options.insertCanonicalLink = true;
 	if (!options.saveRawPage) {
 		if (!options.removeFrames && frames && globalThis.frames && globalThis.frames.length) {

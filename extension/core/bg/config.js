@@ -101,7 +101,8 @@ const DEFAULT_CONFIG = {
 	warnUnsavedPage: true,
 	autoSaveExternalSave: false,
 	insertMetaNoIndex: false,
-	passReferrerOnError: false
+	passReferrerOnError: false,
+	insertSingleFileComment: true
 };
 
 let configStorage;
