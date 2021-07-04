@@ -110,8 +110,12 @@ async function createAndWait(createProperties) {
 }
 
 async function get(options) {
-	const tabs = await browser.tabs.query(options);
-	return tabs.sort((tab1, tab2) => tab1.index - tab2.index);
+	if (options.id) {
+		return browser.tabs.get(options.id);
+	} else {
+		const tabs = await browser.tabs.query(options);
+		return tabs.sort((tab1, tab2) => tab1.index - tab2.index);
+	}
 }
 
 async function promptValue(promptMessage) {

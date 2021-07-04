@@ -156,8 +156,12 @@ async function saveContent(message, tab) {
 					await downloads.downloadPage(pageData, options);
 					if (options.openSavedPage) {
 						const createTabProperties = { active: true, url: URL.createObjectURL(blob) };
-						if (tab.index != null) {
-							createTabProperties.index = tab.index + (pendingDiscardedTabs[tabId] ? 1 : 0);
+						const index = tab.index;
+						try {
+							await tabs.get({ id: tabId });
+							createTabProperties.index = index + 1;
+						} catch (error) {
+							createTabProperties.index = index;
 						}
 						tabs.create(createTabProperties);
 					}
