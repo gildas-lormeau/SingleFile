@@ -61,7 +61,8 @@ const DEFAULT_OPTIONS = {
 	userScriptEnabled: false,
 	saveFavicon: true,
 	includeBOM: false,
-	insertMetaNoIndex: false
+	insertMetaNoIndex: false,
+	insertSingleFileComment: true
 };
 const STATE_PROCESSING = "processing";
 const STATE_PROCESSED = "processed";
