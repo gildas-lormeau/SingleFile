@@ -499,6 +499,10 @@
 		"message": "enlazar el nuevo marcador a la página guardada",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
+	"optionAllowedBookmarkFolders": {
+		"message": "carpetas permitidas",
+		"description": "Options page label: 'allowed folders'"
+	},
 	"optionIgnoredBookmarkFolders": {
 		"message": "carpetas ignoradas",
 		"description": "Options page label: 'ignored folders'"

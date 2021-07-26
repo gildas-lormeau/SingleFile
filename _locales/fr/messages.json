@@ -499,6 +499,10 @@
 		"message": "lier le nouveau signet à la page sauvegardée",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
+	"optionAllowedBookmarkFolders": {
+		"message": "dossiers autorisés",
+		"description": "Options page label: 'allowed folders'"
+	},
 	"optionIgnoredBookmarkFolders": {
 		"message": "dossiers ignorés",
 		"description": "Options page label: 'ignored folders'"

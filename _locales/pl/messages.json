@@ -499,6 +499,10 @@
 		"message": "łącz nową zakładkę z zapisaną stroną",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
+	"optionAllowedBookmarkFolders": {
+		"message": "allowed folders",
+		"description": "Options page label: 'allowed folders'"
+	},
 	"optionIgnoredBookmarkFolders": {
 		"message": "ignorowane foldery",
 		"description": "Options page label: 'ignored folders'"

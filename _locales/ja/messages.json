@@ -499,6 +499,10 @@
 		"message": "新しいブックマークを保存したページにリンクさせることを可能にする",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
+	"optionAllowedBookmarkFolders": {
+		"message": "allowed folders",
+		"description": "Options page label: 'allowed folders'"
+	},
 	"optionIgnoredBookmarkFolders": {
 		"message": "ignored folders",
 		"description": "Options page label: 'ignored folders'"

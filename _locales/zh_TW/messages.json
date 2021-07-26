@@ -499,6 +499,10 @@
 		"message": "將新書籤的鏈接指向已保存頁面",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
+	"optionAllowedBookmarkFolders": {
+		"message": "allowed folders",
+		"description": "Options page label: 'allowed folders'"
+	},
 	"optionIgnoredBookmarkFolders": {
 		"message": "忽略文件夾",
 		"description": "Options page label: 'ignored folders'"

@@ -499,6 +499,10 @@
 		"message": "Das neue Bookmark mit der gespeicherten Seite verlinken",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
+	"optionAllowedBookmarkFolders": {
+		"message": "Erlaubte Ordner",
+		"description": "Options page label: 'allowed folders'"
+	},
 	"optionIgnoredBookmarkFolders": {
 		"message": "Ignorierte Ordner",
 		"description": "Options page label: 'ignored folders'"

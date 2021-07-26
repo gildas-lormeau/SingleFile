@@ -94,6 +94,7 @@ const DEFAULT_CONFIG = {
 	openSavedPage: false,
 	autoOpenEditor: false,
 	saveCreatedBookmarks: false,
+	allowedBookmarkFolders: [],
 	ignoredBookmarkFolders: [],
 	replaceBookmarkURL: true,
 	saveFavicon: true,

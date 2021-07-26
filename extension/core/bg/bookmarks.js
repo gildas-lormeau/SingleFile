@@ -87,8 +87,14 @@ async function onCreated(bookmarkId, bookmarkInfo) {
 	const options = await config.getOptions(bookmarkInfo.url);
 	if (options.saveCreatedBookmarks) {
 		const bookmarkFolders = await getParentFolders(bookmarkInfo.parentId);
+		const allowedBookmarkSet = options.allowedBookmarkFolders.toString();
+		const allowedBookmark = bookmarkFolders.find(folder => options.allowedBookmarkFolders.includes(folder));
+		const ignoredBookmarkSet = options.ignoredBookmarkFolders.toString();
 		const ignoredBookmark = bookmarkFolders.find(folder => options.ignoredBookmarkFolders.includes(folder));
-		if (!ignoredBookmark) {
+		if (
+			((allowedBookmarkSet && allowedBookmark) || !allowedBookmarkSet) &&
+			((ignoredBookmarkSet && !ignoredBookmark) || !ignoredBookmarkSet)
+		) {
 			if (activeTabs.length && activeTabs[0].url == bookmarkInfo.url) {
 				business.saveTabs(activeTabs, { bookmarkId, bookmarkFolders });
 			} else {

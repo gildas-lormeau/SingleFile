@@ -499,6 +499,10 @@
 		"message": "связать новую закладку с сохранённой страницей",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
+	"optionAllowedBookmarkFolders": {
+		"message": "allowed folders",
+		"description": "Options page label: 'allowed folders'"
+	},
 	"optionIgnoredBookmarkFolders": {
 		"message": "игнорируемые папки",
 		"description": "Options page label: 'ignored folders'"
