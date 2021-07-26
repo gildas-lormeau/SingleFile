@@ -471,6 +471,10 @@
 		"message": "guardar página en crudo",
 		"description": "Options page label: 'save raw page'"
 	},
+	"optionInsertMetaCSP": {
+		"message": "establecer la política de seguridad del contenido",
+		"description": "Options page label: 'set content security policy'"
+	},
 	"optionSaveToClipboard": {
 		"message": "guardar en el portapapeles",
 		"description": "Options page label: 'copy to clipboard'"

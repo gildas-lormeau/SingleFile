@@ -102,6 +102,7 @@ const DEFAULT_CONFIG = {
 	warnUnsavedPage: true,
 	autoSaveExternalSave: false,
 	insertMetaNoIndex: false,
+	insertMetaCSP: true,
 	passReferrerOnError: false,
 	insertSingleFileComment: true
 };

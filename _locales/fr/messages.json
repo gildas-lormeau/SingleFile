@@ -471,6 +471,10 @@
 		"message": "sauvegarder la page brute",
 		"description": "Options page label: 'save raw page'"
 	},
+	"optionInsertMetaCSP": {
+		"message": "définir la stratégie de sécurité du contenu",
+		"description": "Options page label: 'set content security policy'"
+	},
 	"optionSaveToClipboard": {
 		"message": "copier dans le presse-papiers",
 		"description": "Options page label: 'copy to clipboard'"

@@ -471,6 +471,10 @@
 		"message": "生のページを保存",
 		"description": "Options page label: 'save raw page'"
 	},
+	"optionInsertMetaCSP": {
+		"message": "set content security policy",
+		"description": "Options page label: 'set content security policy'"
+	},
 	"optionSaveToClipboard": {
 		"message": "クリップボードに保存する",
 		"description": "Options page label: 'copy to clipboard'"

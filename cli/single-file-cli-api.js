@@ -61,6 +61,7 @@ const DEFAULT_OPTIONS = {
 	userScriptEnabled: false,
 	saveFavicon: true,
 	includeBOM: false,
+	insertMetaCSP: true,
 	insertMetaNoIndex: false,
 	insertSingleFileComment: true
 };

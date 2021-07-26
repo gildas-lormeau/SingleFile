@@ -34,6 +34,7 @@ const removeFramesLabel = document.getElementById("removeFramesLabel");
 const removeImportsLabel = document.getElementById("removeImportsLabel");
 const removeScriptsLabel = document.getElementById("removeScriptsLabel");
 const saveRawPageLabel = document.getElementById("saveRawPageLabel");
+const insertMetaCSPLabel = document.getElementById("insertMetaCSPLabel");
 const saveToClipboardLabel = document.getElementById("saveToClipboardLabel");
 const saveToFilesystemLabel = document.getElementById("saveToFilesystemLabel");
 const addProofLabel = document.getElementById("addProofLabel");
@@ -123,6 +124,7 @@ const removeFramesInput = document.getElementById("removeFramesInput");
 const removeImportsInput = document.getElementById("removeImportsInput");
 const removeScriptsInput = document.getElementById("removeScriptsInput");
 const saveRawPageInput = document.getElementById("saveRawPageInput");
+const insertMetaCSPInput = document.getElementById("insertMetaCSPInput");
 const saveToClipboardInput = document.getElementById("saveToClipboardInput");
 const addProofInput = document.getElementById("addProofInput");
 const saveToGDriveInput = document.getElementById("saveToGDriveInput");
@@ -462,6 +464,7 @@ removeFramesLabel.textContent = browser.i18n.getMessage("optionRemoveFrames");
 removeImportsLabel.textContent = browser.i18n.getMessage("optionRemoveImports");
 removeScriptsLabel.textContent = browser.i18n.getMessage("optionRemoveScripts");
 saveRawPageLabel.textContent = browser.i18n.getMessage("optionSaveRawPage");
+insertMetaCSPLabel.textContent = browser.i18n.getMessage("optionInsertMetaCSP");
 saveToClipboardLabel.textContent = browser.i18n.getMessage("optionSaveToClipboard");
 saveToFilesystemLabel.textContent = browser.i18n.getMessage("optionSaveToFilesystem");
 addProofLabel.textContent = browser.i18n.getMessage("optionAddProof");
@@ -664,6 +667,7 @@ async function refresh(profileName) {
 	removeImportsInput.checked = profileOptions.removeImports;
 	removeScriptsInput.checked = profileOptions.removeScripts;
 	saveRawPageInput.checked = profileOptions.saveRawPage;
+	insertMetaCSPInput.checked = profileOptions.insertMetaCSP;
 	saveToClipboardInput.checked = profileOptions.saveToClipboard;
 	addProofInput.checked = profileOptions.addProof;
 	saveToGDriveInput.checked = profileOptions.saveToGDrive;
@@ -748,6 +752,7 @@ async function update() {
 			removeImports: removeImportsInput.checked,
 			removeScripts: removeScriptsInput.checked,
 			saveRawPage: saveRawPageInput.checked,
+			insertMetaCSP: insertMetaCSPInput.checked,
 			saveToClipboard: saveToClipboardInput.checked,
 			addProof: addProofInput.checked,
 			saveToGDrive: saveToGDriveInput.checked,
