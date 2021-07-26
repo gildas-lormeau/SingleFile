@@ -714,7 +714,7 @@ async function refresh(profileName) {
 	allowedBookmarkFoldersInput.value = profileOptions.allowedBookmarkFolders.map(folder => folder.replace(/,/g, "\\,")).join(","); // eslint-disable-line no-useless-escape
 	allowedBookmarkFoldersInput.disabled = !profileOptions.saveCreatedBookmarks;
 	ignoredBookmarkFoldersInput.value = profileOptions.ignoredBookmarkFolders.map(folder => folder.replace(/,/g, "\\,")).join(","); // eslint-disable-line no-useless-escape
-	ignoredBookmarkFoldersInput.disabled = !profileOptions.saveCreatedBookmarks;	
+	ignoredBookmarkFoldersInput.disabled = !profileOptions.saveCreatedBookmarks;
 	infobarTemplateInput.value = profileOptions.infobarTemplate;
 	includeInfobarInput.checked = profileOptions.includeInfobar;
 	confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
