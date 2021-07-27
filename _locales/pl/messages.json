@@ -472,7 +472,7 @@
 		"description": "Options page label: 'save raw page'"
 	},
 	"optionInsertMetaCSP": {
-		"message": "set content security policy",
+		"message": "ustaw politykę bezpieczeństwa treści",
 		"description": "Options page label: 'set content security policy'"
 	},
 	"optionSaveToClipboard": {
@@ -504,7 +504,7 @@
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
 	"optionAllowedBookmarkFolders": {
-		"message": "allowed folders",
+		"message": "dozwolone foldery",
 		"description": "Options page label: 'allowed folders'"
 	},
 	"optionIgnoredBookmarkFolders": {
