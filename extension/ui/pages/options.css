@@ -250,6 +250,10 @@ h3 a {
     background-color: #cdcdcd;
 }
 
+::-webkit-scrollbar-thumb {
+    background-color: #38383d;
+}
+
 .profiles button,
 .rules-table-container button {
     padding: 0;
@@ -570,6 +574,14 @@ html.maximized {
 }
 
 @media (prefers-color-scheme: dark) {
+
+    ::-webkit-scrollbar {
+        background-color: #2A2A2E;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background-color: #555;
+    }
 
     details {
         color: #ccc;
