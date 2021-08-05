@@ -379,6 +379,10 @@
 		"message": "automatycznie zapisuj przy odrzucaniu karty",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
+	"optionAutoSaveRemove": {
+		"message": "auto-save on tab removal",
+		"description": "Options page label: 'auto-save on tab removal'"
+	},
 	"optionAutoSaveDelay": {
 		"message": "opóźnienie oczekiwania automatycznego zapisywania po załadowaniu strony (s.)",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"

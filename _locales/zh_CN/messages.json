@@ -379,6 +379,10 @@
 		"message": "在页面丢弃时进行自动保存",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
+	"optionAutoSaveRemove": {
+		"message": "auto-save on tab removal",
+		"description": "Options page label: 'auto-save on tab removal'"
+	},
 	"optionAutoSaveDelay": {
 		"message": "页面加载完成后延迟该时间再进行自动保存（秒）",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"

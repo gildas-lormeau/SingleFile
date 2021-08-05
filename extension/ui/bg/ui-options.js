@@ -66,6 +66,7 @@ const autoSaveLoadLabel = document.getElementById("autoSaveLoadLabel");
 const autoSaveUnloadLabel = document.getElementById("autoSaveUnloadLabel");
 const autoSaveLoadOrUnloadLabel = document.getElementById("autoSaveLoadOrUnloadLabel");
 const autoSaveDiscardLabel = document.getElementById("autoSaveDiscardLabel");
+const autoSaveRemoveLabel = document.getElementById("autoSaveRemoveLabel");
 const autoSaveRepeatLabel = document.getElementById("autoSaveRepeatLabel");
 const autoSaveRepeatDelayLabel = document.getElementById("autoSaveRepeatDelayLabel");
 const autoSaveExternalSaveLabel = document.getElementById("autoSaveExternalSaveLabel");
@@ -151,6 +152,7 @@ const autoSaveDelayInput = document.getElementById("autoSaveDelayInput");
 const autoSaveLoadInput = document.getElementById("autoSaveLoadInput");
 const autoSaveUnloadInput = document.getElementById("autoSaveUnloadInput");
 const autoSaveDiscardInput = document.getElementById("autoSaveDiscardInput");
+const autoSaveRemoveInput = document.getElementById("autoSaveRemoveInput");
 const autoSaveLoadOrUnloadInput = document.getElementById("autoSaveLoadOrUnloadInput");
 const autoSaveRepeatInput = document.getElementById("autoSaveRepeatInput");
 const autoSaveRepeatDelayInput = document.getElementById("autoSaveRepeatDelayInput");
@@ -361,26 +363,20 @@ importButton.addEventListener("click", () => {
 	fileInput.click();
 }, false);
 autoSaveUnloadInput.addEventListener("click", async () => {
-	if (!autoSaveLoadInput.checked && !autoSaveUnloadInput.checked && !autoSaveDiscardInput.checked) {
+	if (!autoSaveLoadInput.checked && !autoSaveUnloadInput.checked) {
 		autoSaveLoadOrUnloadInput.checked = true;
 	}
 }, false);
 autoSaveLoadInput.addEventListener("click", async () => {
-	if (!autoSaveLoadInput.checked && !autoSaveUnloadInput.checked && !autoSaveDiscardInput.checked) {
-		autoSaveLoadOrUnloadInput.checked = true;
-	}
-}, false);
-autoSaveDiscardInput.addEventListener("click", async () => {
-	if (!autoSaveLoadInput.checked && !autoSaveUnloadInput.checked && !autoSaveDiscardInput.checked) {
+	if (!autoSaveLoadInput.checked && !autoSaveUnloadInput.checked) {
 		autoSaveLoadOrUnloadInput.checked = true;
 	}
 }, false);
 autoSaveLoadOrUnloadInput.addEventListener("click", async () => {
 	if (autoSaveLoadOrUnloadInput.checked) {
 		autoSaveUnloadInput.checked = autoSaveLoadInput.checked = false;
-	} else if (!autoSaveDiscardInput.checked) {
+	} else {
 		autoSaveUnloadInput.checked = false;
-		autoSaveLoadInput.checked = true;
 	}
 }, false);
 expandAllButton.addEventListener("click", () => {
@@ -496,6 +492,7 @@ autoSaveLoadLabel.textContent = browser.i18n.getMessage("optionAutoSaveLoad");
 autoSaveUnloadLabel.textContent = browser.i18n.getMessage("optionAutoSaveUnload");
 autoSaveLoadOrUnloadLabel.textContent = browser.i18n.getMessage("optionAutoSaveLoadOrUnload");
 autoSaveDiscardLabel.textContent = browser.i18n.getMessage("optionAutoSaveDiscard");
+autoSaveRemoveLabel.textContent = browser.i18n.getMessage("optionAutoSaveRemove");
 autoSaveRepeatLabel.textContent = browser.i18n.getMessage("optionAutoSaveRepeat");
 autoSaveRepeatDelayLabel.textContent = browser.i18n.getMessage("optionAutoSaveRepeatDelay");
 autoSaveExternalSaveLabel.textContent = browser.i18n.getMessage("optionAutoSaveExternalSave");
@@ -694,15 +691,14 @@ async function refresh(profileName) {
 	displayStatsInput.checked = profileOptions.displayStats;
 	backgroundSaveInput.checked = profileOptions.backgroundSave;
 	autoSaveDelayInput.value = profileOptions.autoSaveDelay;
-	autoSaveDelayInput.disabled = !profileOptions.autoSaveLoadOrUnload && !profileOptions.autoSaveLoad;
 	autoSaveLoadInput.checked = !profileOptions.autoSaveLoadOrUnload && profileOptions.autoSaveLoad;
 	autoSaveLoadOrUnloadInput.checked = profileOptions.autoSaveLoadOrUnload;
 	autoSaveUnloadInput.checked = !profileOptions.autoSaveLoadOrUnload && profileOptions.autoSaveUnload;
 	autoSaveLoadInput.disabled = profileOptions.autoSaveLoadOrUnload;
 	autoSaveUnloadInput.disabled = profileOptions.autoSaveLoadOrUnload;
 	autoSaveDiscardInput.checked = profileOptions.autoSaveDiscard;
+	autoSaveRemoveInput.checked = profileOptions.autoSaveRemove;
 	autoSaveRepeatInput.checked = profileOptions.autoSaveRepeat;
-	autoSaveRepeatInput.disabled = !profileOptions.autoSaveLoadOrUnload && !profileOptions.autoSaveLoad;
 	autoSaveRepeatDelayInput.value = profileOptions.autoSaveRepeatDelay;
 	autoSaveRepeatDelayInput.disabled = !profileOptions.autoSaveRepeat;
 	autoSaveExternalSaveInput.checked = profileOptions.autoSaveExternalSave;
@@ -778,6 +774,7 @@ async function update() {
 			autoSaveLoad: autoSaveLoadInput.checked,
 			autoSaveUnload: autoSaveUnloadInput.checked,
 			autoSaveDiscard: autoSaveDiscardInput.checked,
+			autoSaveRemove: autoSaveRemoveInput.checked,
 			autoSaveLoadOrUnload: autoSaveLoadOrUnloadInput.checked,
 			autoSaveRepeat: autoSaveRepeatInput.checked,
 			autoSaveRepeatDelay: Math.max(autoSaveRepeatDelayInput.value, 1),

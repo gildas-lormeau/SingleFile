@@ -33,7 +33,8 @@ import * as ui from "./../../ui/bg/index.js";
 import { getPageData } from "./../../index.js";
 import * as woleet from "./../../lib/woleet/woleet.js";
 
-const pendingDiscardedTabs = {};
+const pendingMessages = {};
+const replacedTabIds = {};
 
 export {
 	onMessage,
@@ -41,35 +42,67 @@ export {
 	onInit,
 	isEnabled,
 	refreshTabs,
-	onTabRemoved
+	onTabUpdated,
+	onTabRemoved,
+	onTabDiscarded,
+	onTabReplaced
 };
 
 async function onMessage(message, sender) {
 	if (message.method.endsWith(".init")) {
 		const [options, autoSaveEnabled] = await Promise.all([config.getOptions(sender.tab.url, true), isEnabled(sender.tab)]);
-		return { options, autoSaveEnabled };
+		return { options, autoSaveEnabled, tabId: sender.tab.id, tabIndex: sender.tab.index };
 	}
 	if (message.method.endsWith(".save")) {
-		const tabId = sender.tab.id;
-		let resolvePendingDiscardedTab;
-		pendingDiscardedTabs[tabId] = new Promise(resolve => resolvePendingDiscardedTab = resolve);
-		if (message.autoSaveDiscard) {
-			message.tab = sender.tab;
-			resolvePendingDiscardedTab(message);
+		if (message.autoSaveDiscard || message.autoSaveRemove) {
+			if (sender.tab) {
+				message.tab = sender.tab;
+				pendingMessages[sender.tab.id] = message;
+			} else if (pendingMessages[message.tabId] && pendingMessages[message.tabId].removed && message.autoSaveRemove) {
+				delete pendingMessages[message.tabId];
+				await saveContent(message, { id: message.tabId, index: message.tabIndex, url: sender.url });
+			}
 			if (message.autoSaveUnload) {
+				delete pendingMessages[message.tabId];
 				await saveContent(message, sender.tab);
 			}
 		} else {
+			delete pendingMessages[message.tabId];
 			await saveContent(message, sender.tab);
 		}
 		return {};
 	}
 }
 
+function onTabUpdated(tabId) {
+	delete pendingMessages[tabId];
+}
+
 async function onTabRemoved(tabId) {
-	const pendingDiscardedTab = await pendingDiscardedTabs[tabId];
-	if (pendingDiscardedTab) {
-		await saveContent(pendingDiscardedTab, pendingDiscardedTab.tab);
+	const message = pendingMessages[tabId];
+	if (message) {
+		if (message.autoSaveRemove) {
+			delete pendingMessages[tabId];
+			await saveContent(message, message.tab);
+		}
+	} else {
+		pendingMessages[tabId] = { removed: true };
+	}
+}
+
+async function onTabDiscarded(tabId) {
+	const message = pendingMessages[tabId];
+	if (message) {
+		delete pendingMessages[tabId];
+		await saveContent(message, message.tab);
+	}
+}
+
+function onTabReplaced(addedTabId, removedTabId) {
+	if (pendingMessages[removedTabId] && !pendingMessages[addedTabId]) {
+		pendingMessages[addedTabId] = pendingMessages[removedTabId];
+		delete pendingMessages[removedTabId];
+		replacedTabIds[removedTabId] = addedTabId;
 	}
 }
 
@@ -116,7 +149,6 @@ async function refreshTabs() {
 
 async function saveContent(message, tab) {
 	const tabId = tab.id;
-	delete pendingDiscardedTabs[tabId];
 	const options = await config.getOptions(tab.url, true);
 	if (options) {
 		ui.onStart(tabId, 1, true);
@@ -171,7 +203,12 @@ async function saveContent(message, tab) {
 				}
 			}
 		} finally {
-			business.onSaveEnd(message.taskId);
+			if (message.taskId) {
+				business.onSaveEnd(message.taskId);
+			} else if (options.autoSaveDiscard && options.autoClose) {
+				tabs.remove(replacedTabIds[tabId] || tabId);
+				delete replacedTabIds[tabId];
+			}
 			if (pageData && pageData.url) {
 				URL.revokeObjectURL(pageData.url);
 			}

@@ -376,8 +376,12 @@
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
-		"message": "auto-sauvegarder à la fermeture de l'onglet",
+		"message": "auto-sauvegarder à la mise à l'écart de l'onglet",
 		"description": "Options page label: 'auto-save on tab discard'"
+	},
+	"optionAutoSaveRemove": {
+		"message": "auto-save à la supression de l'onglet",
+		"description": "Options page label: 'auto-save on tab removal'"
 	},
 	"optionAutoSaveDelay": {
 		"message": "délai d'attente après le chargement de la page (s)",

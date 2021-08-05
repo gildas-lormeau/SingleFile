@@ -421,6 +421,10 @@ if (typeof globalThis == "undefined") {
 					addListener: listener => nativeAPI.tabs.onRemoved.addListener(listener),
 					removeListener: listener => nativeAPI.tabs.onRemoved.removeListener(listener)
 				},
+				onReplaced: {
+					addListener: listener => nativeAPI.tabs.onReplaced.addListener(listener),
+					removeListener: listener => nativeAPI.tabs.onReplaced.removeListener(listener)
+				},
 				executeScript: (tabId, details) => new Promise((resolve, reject) => {
 					nativeAPI.tabs.executeScript(tabId, details, () => {
 						if (nativeAPI.runtime.lastError) {

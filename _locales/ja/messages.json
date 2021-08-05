@@ -379,6 +379,10 @@
 		"message": "auto-save on tab discard",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
+	"optionAutoSaveRemove": {
+		"message": "auto-save on tab removal",
+		"description": "Options page label: 'auto-save on tab removal'"
+	},
 	"optionAutoSaveDelay": {
 		"message": "ページ読み込み後の自動保存待ち時間（秒）",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"

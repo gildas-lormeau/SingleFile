@@ -37,6 +37,7 @@ browser.tabs.onCreated.addListener(tab => onTabCreated(tab));
 browser.tabs.onActivated.addListener(activeInfo => onTabActivated(activeInfo));
 browser.tabs.onRemoved.addListener(tabId => onTabRemoved(tabId));
 browser.tabs.onUpdated.addListener((tabId, changeInfo) => onTabUpdated(tabId, changeInfo));
+browser.tabs.onReplaced.addListener((addedTabId, removedTabId) => onTabReplaced(addedTabId, removedTabId));
 export {
 	onMessage,
 	get,
@@ -193,6 +194,7 @@ async function onTabUpdated(tabId, changeInfo) {
 				// ignored
 			}
 		}, DELAY_MAYBE_INIT);
+		autosave.onTabUpdated(tabId);
 		const tab = await browser.tabs.get(tabId);
 		if (editor.isEditor(tab)) {
 			const allTabsData = await tabsData.get(tab.id);
@@ -202,8 +204,12 @@ async function onTabUpdated(tabId, changeInfo) {
 		}
 	}
 	if (changeInfo.discarded) {
-		autosave.onTabRemoved(tabId);
+		autosave.onTabDiscarded(tabId);
 	}
+}
+
+function onTabReplaced(addedTabId, removedTabId) {
+	autosave.onTabReplaced(addedTabId, removedTabId);
 }
 
 function onTabCreated(tab) {
