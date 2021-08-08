@@ -58,7 +58,10 @@ async function onMessage(message, sender) {
 			if (sender.tab) {
 				message.tab = sender.tab;
 				pendingMessages[sender.tab.id] = message;
-			} else if (pendingMessages[message.tabId] && pendingMessages[message.tabId].removed && message.autoSaveRemove) {
+			} else if (pendingMessages[message.tabId] &&
+				((pendingMessages[message.tabId].removed && message.autoSaveRemove) ||
+					(pendingMessages[message.tabId].discarded && message.autoSaveDiscard))
+			) {
 				delete pendingMessages[message.tabId];
 				await saveContent(message, { id: message.tabId, index: message.tabIndex, url: sender.url });
 			}
@@ -95,6 +98,8 @@ async function onTabDiscarded(tabId) {
 	if (message) {
 		delete pendingMessages[tabId];
 		await saveContent(message, message.tab);
+	} else {
+		pendingMessages[tabId] = { discarded: true };
 	}
 }
 
