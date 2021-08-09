@@ -192,7 +192,7 @@ async function saveContent(message, tab) {
 					pageData.url = URL.createObjectURL(blob);
 					await downloads.downloadPage(pageData, options);
 					if (options.openSavedPage) {
-						const createTabProperties = { active: true, url: URL.createObjectURL(blob) };
+						const createTabProperties = { active: true, url: URL.createObjectURL(blob), windowId: tab.windowId };
 						const index = tab.index;
 						try {
 							await tabs.get({ id: tabId });
