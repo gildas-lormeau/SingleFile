@@ -103,11 +103,17 @@ async function onTabDiscarded(tabId) {
 	}
 }
 
-function onTabReplaced(addedTabId, removedTabId) {
+async function onTabReplaced(addedTabId, removedTabId) {
 	if (pendingMessages[removedTabId] && !pendingMessages[addedTabId]) {
 		pendingMessages[addedTabId] = pendingMessages[removedTabId];
 		delete pendingMessages[removedTabId];
 		replacedTabIds[removedTabId] = addedTabId;
+	}
+	const allTabsData = await tabsData.get();
+	if (allTabsData[removedTabId] && !allTabsData[addedTabId]) {
+		allTabsData[addedTabId] = allTabsData[removedTabId];
+		delete allTabsData[removedTabId];
+		await tabsData.set(allTabsData);
 	}
 }
 
