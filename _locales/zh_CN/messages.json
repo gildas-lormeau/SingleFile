@@ -499,6 +499,10 @@
 		"message": "保存到 Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
+	"optionSaveWithCompanion": {
+		"message": "save with SingleFile Companion",
+		"description": "Options page label: 'save with SingleFile Companion'"
+	},
 	"optionSaveCreatedBookmarks": {
 		"message": "创建新书签时保存其对应页面",
 		"description": "Options page label: 'save the page of a newly created bookmark'"

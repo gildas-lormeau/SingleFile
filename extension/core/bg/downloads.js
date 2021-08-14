@@ -25,6 +25,7 @@
 
 import * as config from "./config.js";
 import * as bookmarks from "./bookmarks.js";
+import * as companion from "./companion.js";
 import * as business from "./business.js";
 import * as editor from "./editor.js";
 import * as tabs from "./tabs.js";
@@ -115,6 +116,7 @@ async function downloadTabPage(message, tab) {
 				backgroundSave: message.backgroundSave,
 				saveToClipboard: message.saveToClipboard,
 				saveToGDrive: message.saveToGDrive,
+				saveWithCompanion: message.saveWithCompanion,
 				confirmFilename: message.confirmFilename,
 				incognito: tab.incognito,
 				filenameConflictAction: message.filenameConflictAction,
@@ -148,6 +150,12 @@ async function downloadBlob(blob, tab, incognito, message) {
 				extractAuthCode: message.extractAuthCode
 			}, {
 				onProgress: (offset, size) => ui.onUploadProgress(tab.id, offset, size)
+			});
+		} else if (message.saveWithCompanion) {
+			await companion.save({
+				filename: message.filename,
+				content: message.content,
+				filenameConflictAction: message.filenameConflictAction
 			});
 		} else {
 			message.url = URL.createObjectURL(blob);

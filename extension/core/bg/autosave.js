@@ -185,7 +185,7 @@ async function saveContent(message, tab) {
 		let pageData;
 		try {
 			if (options.autoSaveExternalSave) {
-				await companion.save(options);
+				await companion.externalSave(options);
 			} else {
 				pageData = await getPageData(options, null, null, { fetch });
 				if (options.includeInfobar) {
@@ -194,6 +194,12 @@ async function saveContent(message, tab) {
 				const blob = new Blob([pageData.content], { type: "text/html" });
 				if (options.saveToGDrive) {
 					await downloads.uploadPage(message.taskId, pageData.filename, blob, options, {});
+				} else if (options.saveWithCompanion) {
+					await companion.save({
+						filename: pageData.filename,
+						content: pageData.content,
+						filenameConflictAction: pageData.filenameConflictAction
+					});
 				} else {
 					pageData.url = URL.createObjectURL(blob);
 					await downloads.downloadPage(pageData, options);

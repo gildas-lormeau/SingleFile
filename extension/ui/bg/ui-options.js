@@ -39,6 +39,7 @@ const saveToClipboardLabel = document.getElementById("saveToClipboardLabel");
 const saveToFilesystemLabel = document.getElementById("saveToFilesystemLabel");
 const addProofLabel = document.getElementById("addProofLabel");
 const saveToGDriveLabel = document.getElementById("saveToGDriveLabel");
+const saveWithCompanionLabel = document.getElementById("saveWithCompanionLabel");
 const compressHTMLLabel = document.getElementById("compressHTMLLabel");
 const compressCSSLabel = document.getElementById("compressCSSLabel");
 const loadDeferredImagesLabel = document.getElementById("loadDeferredImagesLabel");
@@ -129,6 +130,7 @@ const insertMetaCSPInput = document.getElementById("insertMetaCSPInput");
 const saveToClipboardInput = document.getElementById("saveToClipboardInput");
 const addProofInput = document.getElementById("addProofInput");
 const saveToGDriveInput = document.getElementById("saveToGDriveInput");
+const saveWithCompanionInput = document.getElementById("saveWithCompanionInput");
 const saveToFilesystemInput = document.getElementById("saveToFilesystemInput");
 const compressHTMLInput = document.getElementById("compressHTMLInput");
 const compressCSSInput = document.getElementById("compressCSSInput");
@@ -465,6 +467,7 @@ saveToClipboardLabel.textContent = browser.i18n.getMessage("optionSaveToClipboar
 saveToFilesystemLabel.textContent = browser.i18n.getMessage("optionSaveToFilesystem");
 addProofLabel.textContent = browser.i18n.getMessage("optionAddProof");
 saveToGDriveLabel.textContent = browser.i18n.getMessage("optionSaveToGDrive");
+saveWithCompanionLabel.textContent = browser.i18n.getMessage("optionSaveWithCompanion");
 compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
 compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
 loadDeferredImagesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImages");
@@ -668,7 +671,8 @@ async function refresh(profileName) {
 	saveToClipboardInput.checked = profileOptions.saveToClipboard;
 	addProofInput.checked = profileOptions.addProof;
 	saveToGDriveInput.checked = profileOptions.saveToGDrive;
-	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !saveToClipboardInput.checked;
+	saveWithCompanionInput.checked = profileOptions.saveWithCompanion;
+	// saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !saveToClipboardInput.checked;
 	compressHTMLInput.checked = profileOptions.compressHTML;
 	compressCSSInput.checked = profileOptions.compressCSS;
 	loadDeferredImagesInput.checked = profileOptions.loadDeferredImages;
@@ -752,6 +756,7 @@ async function update() {
 			saveToClipboard: saveToClipboardInput.checked,
 			addProof: addProofInput.checked,
 			saveToGDrive: saveToGDriveInput.checked,
+			saveWithCompanion: saveWithCompanionInput.checked,
 			compressHTML: compressHTMLInput.checked,
 			compressCSS: compressCSSInput.checked,
 			loadDeferredImages: loadDeferredImagesInput.checked,

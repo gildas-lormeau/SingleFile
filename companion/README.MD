@@ -28,12 +28,13 @@ SingleFile Companion is a program that runs outside the browser. It:
 
 `install.bat` (Windows)
 
- - Enable the option `Misc. > save the page with SingleFile Companion` in SingleFile
+ - Enable the option `Destination > save with SingleFile Companion` or `Auto-save > save the page with SingleFile Companion` in SingleFile
 
 ## Options
 
 The `options.json` file allows configuring SingleFile Companion. Here are the entries you can edit:
  - `savePath`: path where to save files (default: `SingleFile/companion` path)
+These options are also available when the option `Auto-save > save the page with SingleFile Companion` is enabled:
  - `backEnd`: backend used to save the page (default: `"puppeteer"`)
  - `errorFile`: path of the file where errors are stored (default: `undefined`)
  - `browserHeadless`: whether the browser is launched in headless mode (default: `true`)

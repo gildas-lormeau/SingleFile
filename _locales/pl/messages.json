@@ -499,6 +499,10 @@
 		"message": "przesyłaj na Dysk Google",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
+	"optionSaveWithCompanion": {
+		"message": "save with SingleFile Companion",
+		"description": "Options page label: 'save with SingleFile Companion'"
+	},
 	"optionSaveCreatedBookmarks": {
 		"message": "zapisuj stronę nowo utworzonej zakładki",
 		"description": "Options page label: 'save the page of a newly created bookmark'"

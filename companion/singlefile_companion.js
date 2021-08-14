@@ -40,7 +40,7 @@ process.stdin
 	.pipe(new nativeMessage.Input())
 	.pipe(new nativeMessage.Transform(async function (message, push, done) {
 		try {
-			await capturePage(message);
+			await processMessage(message);
 			push({});
 		} catch (error) {
 			push({ error });
@@ -51,19 +51,34 @@ process.stdin
 	.pipe(new nativeMessage.Output())
 	.pipe(process.stdout);
 
-async function capturePage(options) {
+async function processMessage(message) {
+	if (message.method == "save") {
+		return save(message.pageData);
+	}
+	if (message.method == "externalSave") {
+		return externalSave(message.pageData);
+	}
+}
+
+async function save(message) {
+	const companionOptions = require("./options.json");
+	const filename = path.resolve("../../", (companionOptions.savePath || ""), message.filename);
+	fs.writeFileSync(getFilename(filename), message.content);
+}
+
+async function externalSave(message) {
 	const companionOptions = require("./options.json");
 	const backend = require(backEnds[companionOptions.backEnd || "puppeteer"]);
 	await backend.initialize(companionOptions);
 	try {
-		const pageData = await backend.getPageData(options);
+		const pageData = await backend.getPageData(message);
 		pageData.filename = path.resolve("../../", (companionOptions.savePath || ""), pageData.filename);
 		fs.writeFileSync(getFilename(pageData.filename), pageData.content);
 		return pageData;
 	} catch (error) {
 		if (companionOptions.errorFile) {
-			const message = "URL: " + options.url + "\nStack: " + error.stack + "\n";
-			fs.writeFileSync(options.errorFile, message, { flag: "a" });
+			const message = "URL: " + message.url + "\nStack: " + error.stack + "\n";
+			fs.writeFileSync(message.errorFile, message, { flag: "a" });
 		}
 		throw error;
 	} finally {

@@ -87,6 +87,7 @@ const DEFAULT_CONFIG = {
 	saveToClipboard: false,
 	addProof: false,
 	saveToGDrive: false,
+	saveWithCompanion: false,
 	forceWebAuthFlow: false,
 	extractAuthCode: true,
 	resolveFragmentIdentifierURLs: false,

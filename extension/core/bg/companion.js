@@ -30,6 +30,7 @@ let enabled = true;
 export {
 	enabled,
 	onMessage,
+	externalSave,
 	save
 };
 
@@ -39,11 +40,14 @@ async function onMessage(message) {
 	}
 }
 
-async function save(options) {
+async function externalSave(options) {
 	try {
 		options.autoSaveExternalSave = false;
 		const port = browser.runtime.connectNative("singlefile_companion");
-		port.postMessage(options);
+		port.postMessage({
+			method: "externalSave",
+			pageData: options
+		});
 		await new Promise((resolve, reject) => {
 			port.onDisconnect.addListener(() => {
 				if (port.error) {
@@ -58,4 +62,21 @@ async function save(options) {
 		console.error(error); // eslint-disable-line no-console			
 		ui.onError(options.tabId);
 	}
+}
+
+async function save(pageData) {
+	const port = browser.runtime.connectNative("singlefile_companion");
+	port.postMessage({
+		method: "save",
+		pageData
+	});
+	await new Promise((resolve, reject) => {
+		port.onDisconnect.addListener(() => {
+			if (port.error) {
+				reject(port.error.message);
+			} else if (!browser.runtime.lastError || browser.runtime.lastError.message.includes("Native host has exited")) {
+				resolve();
+			}
+		});
+	});
 }

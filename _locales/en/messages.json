@@ -499,6 +499,10 @@
 		"message": "upload to Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
+	"optionSaveWithCompanion": {
+		"message": "save with SingleFile Companion",
+		"description": "Options page label: 'save with SingleFile Companion'"
+	},
 	"optionSaveCreatedBookmarks": {
 		"message": "save the page of a newly created bookmark",
 		"description": "Options page label: 'save the page of a newly created bookmark'"

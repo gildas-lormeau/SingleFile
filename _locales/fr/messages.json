@@ -499,6 +499,10 @@
 		"message": "téléverser sur Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
+	"optionSaveWithCompanion": {
+		"message": "sauvegarder avec SingleFile Companion",
+		"description": "Options page label: 'save with SingleFile Companion'"
+	},
 	"optionSaveCreatedBookmarks": {
 		"message": "sauvegarder la page d'un signet nouvellement créé",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
