@@ -30,7 +30,7 @@
 
 .note textarea {
     all: initial;
-    white-space: pre;
+    white-space: break-spaces;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     padding: 3px;
