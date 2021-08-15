@@ -278,7 +278,7 @@ async function downloadPage(pageData, options) {
 				if (downloadData.filename.startsWith("/")) {
 					downloadData.filename = downloadData.filename.substring(1);
 				}
-				downloadData.filename = "file:///" + downloadData.filename;
+				downloadData.filename = "file:///" + downloadData.filename.replace(/#/g, "%23");
 			}
 			await bookmarks.update(pageData.bookmarkId, { url: downloadData.filename });
 		}
