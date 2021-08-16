@@ -96,8 +96,8 @@ function init() {
 	if (previousLocationHref != location.href && !singlefile.pageInfo.processing) {
 		pageAutoSaved = false;
 		previousLocationHref = location.href;
-		browser.runtime.sendMessage({ method: "tabs.init", savedPageDetected: detectSavedPage(document) });
-		browser.runtime.sendMessage({ method: "ui.processInit" });
+		browser.runtime.sendMessage({ method: "tabs.init", savedPageDetected: detectSavedPage(document) }).catch(() => { });
+		browser.runtime.sendMessage({ method: "ui.processInit" }).catch(() => { });;
 	}
 }
 
