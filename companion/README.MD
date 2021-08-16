@@ -1,8 +1,8 @@
 # SingleFile Companion
-SingleFile Companion is a program that runs outside the browser. It:
- - makes the saving process more transparent when the auto-save is active in SingleFile,  
- - allows you to save pages in another directory than the download directory,
- - saves pages in an anonymous session in a separate browser.
+SingleFile Companion is a program that runs outside the browser. It can:
+ - make the saving process more transparent when the auto-save is active in SingleFile,  
+ - auto-save pages in an anonymous session in a separate browser,
+ - save pages in another directory than the download directory.
  
  It uses the [Native Messaging API](https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/Native_messaging) to communicate with SingleFile.
 
