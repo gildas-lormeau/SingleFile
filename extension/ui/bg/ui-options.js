@@ -672,7 +672,7 @@ async function refresh(profileName) {
 	addProofInput.checked = profileOptions.addProof;
 	saveToGDriveInput.checked = profileOptions.saveToGDrive;
 	saveWithCompanionInput.checked = profileOptions.saveWithCompanion;
-	// saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !saveToClipboardInput.checked;
+	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveWithCompanion && !saveToClipboardInput.checked;
 	compressHTMLInput.checked = profileOptions.compressHTML;
 	compressCSSInput.checked = profileOptions.compressCSS;
 	loadDeferredImagesInput.checked = profileOptions.loadDeferredImages;
