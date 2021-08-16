@@ -8,7 +8,7 @@ SingleFile Companion is a program that runs outside the browser. It:
 
 ## Install
 
- - Install [SingleFile CLI](https://github.com/gildas-lormeau/SingleFile/tree/master/cli)
+ - Install [SingleFile CLI](https://github.com/gildas-lormeau/SingleFile/tree/master/cli) with NPM
 
  - In the `companion` folder of SingleFile, go into the subfolder corresponding to your OS and your browser. For example, if you use Chome on Windows:
 
