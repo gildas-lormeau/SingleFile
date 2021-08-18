@@ -500,7 +500,7 @@
 		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveWithCompanion": {
-		"message": "save with SingleFile Companion",
+		"message": "使用 SingleFile Companion 保存",
 		"description": "Options page label: 'save with SingleFile Companion'"
 	},
 	"optionSaveCreatedBookmarks": {
