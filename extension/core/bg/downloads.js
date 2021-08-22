@@ -112,23 +112,7 @@ async function downloadTabPage(message, tab) {
 	if (!message.truncated || message.finished) {
 		if (message.openEditor) {
 			ui.onEdit(tab.id);
-			await editor.open({ tabIndex: tab.index + 1, filename: message.filename, content: contents.join("") }, {
-				backgroundSave: message.backgroundSave,
-				saveToClipboard: message.saveToClipboard,
-				saveToGDrive: message.saveToGDrive,
-				saveWithCompanion: message.saveWithCompanion,
-				confirmFilename: message.confirmFilename,
-				incognito: tab.incognito,
-				filenameConflictAction: message.filenameConflictAction,
-				filenameReplacementCharacter: message.filenameReplacementCharacter,
-				compressHTML: message.compressHTML,
-				bookmarkId: message.bookmarkId,
-				replaceBookmarkURL: message.replaceBookmarkURL,
-				applySystemTheme: message.applySystemTheme,
-				defaultEditorMode: message.defaultEditorMode,
-				includeInfobar: message.includeInfobar,
-				warnUnsavedPage: message.warnUnsavedPage
-			});
+			await editor.open({ tabIndex: tab.index + 1, filename: message.filename, content: contents.join("") });
 		} else {
 			if (message.saveToClipboard) {
 				message.content = contents.join("");

@@ -320,12 +320,16 @@ browser.runtime.onMessage.addListener(message => {
 		}
 		if (!message.truncated || message.finished) {
 			tabData = JSON.parse(tabDataContents.join(""));
+			tabData.options = message.options;
 			tabDataContents = [];
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
 			editorElement.contentWindow.focus();
 			delete tabData.content;
 		}
 		return Promise.resolve({});
+	}
+	if (message.method == "options.refresh") {
+		return refreshOptions(message.profileName);
 	}
 });
 
@@ -339,6 +343,11 @@ addEventListener("beforeunload", event => {
 		event.returnValue = "";
 	}
 });
+
+async function refreshOptions(profileName) {
+	const profiles = await browser.runtime.sendMessage({ method: "config.getProfiles" });
+	tabData.options = profiles[profileName];
+}
 
 function disableEditPage() {
 	editPageButton.classList.add("edit-disabled");

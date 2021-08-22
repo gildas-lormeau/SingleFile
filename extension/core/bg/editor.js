@@ -40,13 +40,13 @@ export {
 	EDITOR_URL
 };
 
-async function open({ tabIndex, content, filename }, options) {
+async function open({ tabIndex, content, filename }) {
 	const createTabProperties = { active: true, url: EDITOR_PAGE_URL };
 	if (tabIndex != null) {
 		createTabProperties.index = tabIndex;
 	}
 	const tab = await tabs.create(createTabProperties);
-	tabsData.set(tab.id, { content, filename, options });
+	tabsData.set(tab.id, { content, filename });
 }
 
 function onTabRemoved(tabId) {
@@ -61,6 +61,7 @@ async function onMessage(message, sender) {
 	if (message.method.endsWith(".getTabData")) {
 		const tab = sender.tab;
 		const tabData = tabsData.get(tab.id);
+		const options = await config.getOptions(tabData.url);
 		if (tabData) {
 			const content = JSON.stringify(tabData);
 			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
@@ -73,6 +74,7 @@ async function onMessage(message, sender) {
 					message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
 				} else {
 					message.content = content;
+					message.options = options;
 				}
 				await tabs.sendMessage(tab.id, message);
 			}
@@ -95,10 +97,9 @@ async function onMessage(message, sender) {
 			contents = [message.content];
 		}
 		if (!message.truncated || message.finished) {
-			const options = await config.getOptions(tab && tab.url);
 			const updateTabProperties = { url: EDITOR_PAGE_URL };
 			await tabs.update(tab.id, updateTabProperties);
-			tabsData.set(tab.id, { content: contents.join(""), filename: message.filename, options });
+			tabsData.set(tab.id, { url: tab.url, content: contents.join(""), filename: message.filename });
 		}
 	}
 }
