@@ -59,7 +59,7 @@ You can also download the zip file (https://github.com/gildas-lormeau/SingleFile
    - all the tabs. 
  - With auto-save active, pages are automatically saved every time after being loaded (or before being unloaded if not).
  - Right-click on the SingleFile button and select "Manage extension" (Firefox) / "Options" (Chrome) to open the options page.
- - Enable the option "Misc. > save to Google Drive" to upload pages to Google Drive.
+ - Enable the option "Destination > save to Google Drive" or "Destination > upload to GitHub" to upload pages to Google Drive or GitHub respectively.
  - Enable the option "Misc. > add proof of existence" to prove the existence of saved pages by linking the SHA256 of the pages into the blockchain.
  - You can use the customizable shortkey Ctrl+Shift+Y to save the current tab or the selected tabs. Go to about:addons and select "Manage extension shortcuts" in the cogwheel menu to change it in Firefox. Go to chrome://extensions/shortcuts to change it in Chrome.
  - The default save folder is the download folder configured in your browser, cf. about:addons in Firefox and chrome://settings in Chrome.
