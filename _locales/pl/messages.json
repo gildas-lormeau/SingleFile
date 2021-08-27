@@ -500,23 +500,23 @@
 		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveToGitHub": {
-		"message": "upload to GitHub",
+		"message": "przesyłaj do GitHuba",
 		"description": "Options page label: 'upload to GitHub'"
 	},
 	"optionGitHubToken": {
-		"message": "access token",
+		"message": "token dostępu",
 		"description": "Options page label: 'access token'"
 	},
 	"optionGitHubUser": {
-		"message": "user name",
+		"message": "nazwa użytkownika",
 		"description": "Options page label: 'user name'"
 	},
 	"optionGitHubRepository": {
-		"message": "repository name",
+		"message": "nazwa repozytorium",
 		"description": "Options page label: 'repository name'"
 	},
 	"optionGitHubBranch": {
-		"message": "branch name",
+		"message": "nazwa gałęzi",
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveWithCompanion": {
