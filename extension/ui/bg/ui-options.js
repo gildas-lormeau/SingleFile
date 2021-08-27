@@ -39,6 +39,11 @@ const saveToClipboardLabel = document.getElementById("saveToClipboardLabel");
 const saveToFilesystemLabel = document.getElementById("saveToFilesystemLabel");
 const addProofLabel = document.getElementById("addProofLabel");
 const saveToGDriveLabel = document.getElementById("saveToGDriveLabel");
+const saveToGitHubLabel = document.getElementById("saveToGitHubLabel");
+const githubTokenLabel = document.getElementById("githubTokenLabel");
+const githubUserLabel = document.getElementById("githubUserLabel");
+const githubRepositoryLabel = document.getElementById("githubRepositoryLabel");
+const githubBranchLabel = document.getElementById("githubBranchLabel");
 const saveWithCompanionLabel = document.getElementById("saveWithCompanionLabel");
 const compressHTMLLabel = document.getElementById("compressHTMLLabel");
 const compressCSSLabel = document.getElementById("compressCSSLabel");
@@ -130,6 +135,11 @@ const insertMetaCSPInput = document.getElementById("insertMetaCSPInput");
 const saveToClipboardInput = document.getElementById("saveToClipboardInput");
 const addProofInput = document.getElementById("addProofInput");
 const saveToGDriveInput = document.getElementById("saveToGDriveInput");
+const saveToGitHubInput = document.getElementById("saveToGitHubInput");
+const githubTokenInput = document.getElementById("githubTokenInput");
+const githubUserInput = document.getElementById("githubUserInput");
+const githubRepositoryInput = document.getElementById("githubRepositoryInput");
+const githubBranchInput = document.getElementById("githubBranchInput");
 const saveWithCompanionInput = document.getElementById("saveWithCompanionInput");
 const saveToFilesystemInput = document.getElementById("saveToFilesystemInput");
 const compressHTMLInput = document.getElementById("compressHTMLInput");
@@ -467,6 +477,11 @@ saveToClipboardLabel.textContent = browser.i18n.getMessage("optionSaveToClipboar
 saveToFilesystemLabel.textContent = browser.i18n.getMessage("optionSaveToFilesystem");
 addProofLabel.textContent = browser.i18n.getMessage("optionAddProof");
 saveToGDriveLabel.textContent = browser.i18n.getMessage("optionSaveToGDrive");
+saveToGitHubLabel.textContent = browser.i18n.getMessage("optionSaveToGitHub");
+githubTokenLabel.textContent = browser.i18n.getMessage("optionGitHubToken");
+githubUserLabel.textContent = browser.i18n.getMessage("optionGitHubUser");
+githubRepositoryLabel.textContent = browser.i18n.getMessage("optionGitHubRepository");
+githubBranchLabel.textContent = browser.i18n.getMessage("optionGitHubBranch");
 saveWithCompanionLabel.textContent = browser.i18n.getMessage("optionSaveWithCompanion");
 compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
 compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
@@ -671,8 +686,17 @@ async function refresh(profileName) {
 	saveToClipboardInput.checked = profileOptions.saveToClipboard;
 	addProofInput.checked = profileOptions.addProof;
 	saveToGDriveInput.checked = profileOptions.saveToGDrive;
+	saveToGitHubInput.checked = profileOptions.saveToGitHub;
+	githubTokenInput.value = profileOptions.githubToken;
+	githubTokenInput.disabled = !profileOptions.saveToGitHub;
+	githubUserInput.value = profileOptions.githubUser;
+	githubUserInput.disabled = !profileOptions.saveToGitHub;
+	githubRepositoryInput.value = profileOptions.githubRepository;
+	githubRepositoryInput.disabled = !profileOptions.saveToGitHub;
+	githubBranchInput.value = profileOptions.githubBranch;
+	githubBranchInput.disabled = !profileOptions.saveToGitHub;
 	saveWithCompanionInput.checked = profileOptions.saveWithCompanion;
-	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveWithCompanion && !saveToClipboardInput.checked;
+	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveWithCompanion && !saveToClipboardInput.checked;
 	compressHTMLInput.checked = profileOptions.compressHTML;
 	compressCSSInput.checked = profileOptions.compressCSS;
 	loadDeferredImagesInput.checked = profileOptions.loadDeferredImages;
@@ -756,6 +780,11 @@ async function update() {
 			saveToClipboard: saveToClipboardInput.checked,
 			addProof: addProofInput.checked,
 			saveToGDrive: saveToGDriveInput.checked,
+			saveToGitHub: saveToGitHubInput.checked,
+			githubToken: githubTokenInput.value,
+			githubUser: githubUserInput.value,
+			githubRepository: githubRepositoryInput.value,
+			githubBranch: githubBranchInput.value,
 			saveWithCompanion: saveWithCompanionInput.checked,
 			compressHTML: compressHTMLInput.checked,
 			compressCSS: compressCSSInput.checked,

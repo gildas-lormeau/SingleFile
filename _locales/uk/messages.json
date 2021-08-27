@@ -499,6 +499,26 @@
 		"message": "upload to Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
+	"optionSaveToGitHub": {
+		"message": "upload to GitHub",
+		"description": "Options page label: 'upload to GitHub'"
+	},
+	"optionGitHubToken": {
+		"message": "access token",
+		"description": "Options page label: 'access token'"
+	},
+	"optionGitHubUser": {
+		"message": "user name",
+		"description": "Options page label: 'user name'"
+	},
+	"optionGitHubRepository": {
+		"message": "repository name",
+		"description": "Options page label: 'repository name'"
+	},
+	"optionGitHubBranch": {
+		"message": "branch name",
+		"description": "Options page label: 'branch name'"
+	},
 	"optionSaveWithCompanion": {
 		"message": "save with SingleFile Companion",
 		"description": "Options page label: 'save with SingleFile Companion'"

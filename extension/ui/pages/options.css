@@ -76,6 +76,10 @@ select {
     max-height: 22px;
 }
 
+input.medium-input {
+    min-width: 50%;
+}
+
 input.large-input {
     min-width: 60px;
 }

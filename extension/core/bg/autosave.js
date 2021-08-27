@@ -191,9 +191,11 @@ async function saveContent(message, tab) {
 				if (options.includeInfobar) {
 					await infobar.includeScript(pageData);
 				}
-				const blob = new Blob([pageData.content], { type: "text/html" });
 				if (options.saveToGDrive) {
-					await downloads.uploadPage(message.taskId, pageData.filename, blob, options, {});
+					const blob = new Blob([pageData.content], { type: "text/html" });
+					await downloads.saveToGDrive(message.taskId, pageData.filename, blob, options, {});
+				} if (options.saveToGitHub) {
+					await downloads.saveToGitHub(pageData.filename, pageData.content, options.githubToken, options.githubUser, options.githubRepository, options.githubBranch);
 				} else if (options.saveWithCompanion) {
 					await companion.save({
 						filename: pageData.filename,
@@ -201,6 +203,7 @@ async function saveContent(message, tab) {
 						filenameConflictAction: pageData.filenameConflictAction
 					});
 				} else {
+					const blob = new Blob([pageData.content], { type: "text/html" });
 					pageData.url = URL.createObjectURL(blob);
 					await downloads.downloadPage(pageData, options);
 					if (options.openSavedPage) {

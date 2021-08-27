@@ -32,6 +32,7 @@ import * as tabs from "./tabs.js";
 import * as ui from "./../../ui/bg/index.js";
 import * as woleet from "./../../lib/woleet/woleet.js";
 import { GDrive } from "./../../lib/gdrive/gdrive.js";
+import { pushGitHub } from "./../../lib/github/github.js";
 
 const partialContents = new Map();
 const MIMETYPE_HTML = "text/html";
@@ -57,7 +58,8 @@ export {
 	onMessage,
 	download,
 	downloadPage,
-	uploadPage
+	saveToGDrive,
+	saveToGitHub
 };
 
 async function onMessage(message, sender) {
@@ -119,22 +121,24 @@ async function downloadTabPage(message, tab) {
 				saveToClipboard(message);
 				ui.onEnd(tab.id);
 			} else {
-				await downloadBlob(new Blob([contents], { type: MIMETYPE_HTML }), tab, tab.incognito, message);
+				await downloadContent(contents, tab, tab.incognito, message);
 			}
 		}
 	}
 	return {};
 }
 
-async function downloadBlob(blob, tab, incognito, message) {
+async function downloadContent(contents, tab, incognito, message) {
 	try {
 		if (message.saveToGDrive) {
-			await uploadPage(message.taskId, message.filename, blob, {
+			await saveToGDrive(message.taskId, message.filename, new Blob([contents], { type: MIMETYPE_HTML }), {
 				forceWebAuthFlow: message.forceWebAuthFlow,
 				extractAuthCode: message.extractAuthCode
 			}, {
 				onProgress: (offset, size) => ui.onUploadProgress(tab.id, offset, size)
 			});
+		} else if (message.saveToGitHub) {
+			await saveToGitHub(message.filename, contents.join(""), message.githubToken, message.githubUser, message.githubRepository, message.githubBranch);
 		} else if (message.saveWithCompanion) {
 			await companion.save({
 				filename: message.filename,
@@ -142,7 +146,7 @@ async function downloadBlob(blob, tab, incognito, message) {
 				filenameConflictAction: message.filenameConflictAction
 			});
 		} else {
-			message.url = URL.createObjectURL(blob);
+			message.url = URL.createObjectURL(new Blob([contents], { type: MIMETYPE_HTML }));
 			await downloadPage(message, {
 				confirmFilename: message.confirmFilename,
 				incognito,
@@ -153,7 +157,7 @@ async function downloadBlob(blob, tab, incognito, message) {
 		}
 		ui.onEnd(tab.id);
 		if (message.openSavedPage) {
-			const createTabProperties = { active: true, url: URL.createObjectURL(blob) };
+			const createTabProperties = { active: true, url: URL.createObjectURL(new Blob([contents], { type: MIMETYPE_HTML })) };
 			if (tab.index != null) {
 				createTabProperties.index = tab.index + 1;
 			}
@@ -198,7 +202,11 @@ async function getAuthInfo(authOptions, force) {
 	return authInfo;
 }
 
-async function uploadPage(taskId, filename, blob, authOptions, uploadOptions) {
+function saveToGitHub(filename, content, githubToken, githubUser, githubRepository, githubBranch) {
+	return pushGitHub(githubToken, githubUser, githubRepository, githubBranch, filename, content);
+}
+
+async function saveToGDrive(taskId, filename, blob, authOptions, uploadOptions) {
 	try {
 		await getAuthInfo(authOptions);
 		const taskInfo = business.getTaskInfo(taskId);
@@ -225,7 +233,7 @@ async function uploadPage(taskId, filename, blob, authOptions, uploadOptions) {
 			} else {
 				await config.removeAuthInfo();
 			}
-			await uploadPage(taskId, filename, blob, authOptions, uploadOptions);
+			await saveToGDrive(taskId, filename, blob, authOptions, uploadOptions);
 		} else {
 			throw error;
 		}
