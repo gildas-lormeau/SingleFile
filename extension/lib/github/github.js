@@ -47,7 +47,7 @@ async function pushGitHub(token, userName, repositoryName, branchName, path, con
 				["Authorization", `token ${token}`],
 				["Accept", "application/vnd.github.v3+json"]
 			]),
-			body: JSON.stringify({ content: btoa(content), message })
+			body: JSON.stringify({ content: btoa(content), message, branch: branchName })
 		});
 		const responseData = await response.json();
 		if (response.status < 400) {
