@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global fetch */
+/* global fetch, btoa */
 
 export { pushGitHub };
 
@@ -33,52 +33,21 @@ async function pushGitHub(token, userName, repositoryName, branchName, path, con
 	}
 	pendingPush = async () => {
 		try {
-			const refData = await getRefData(`heads/${branchName}`);
-			const commitSHA = refData.object.sha;
-			let commitData = await getCommitData(commitSHA);
-			const treeData = await createTree({ path, content }, commitData.tree.sha);
-			commitData = await commit(commitSHA, treeData.sha);
-			await updateHead(commitData.sha);
+			await createContent({ path, content });
 		} finally {
 			pendingPush = null;
 		}
 	};
 	await pendingPush();
 
-	function getRefData(ref) {
-		return fetchAPI(`refs/${ref}`);
-	}
-
-	function getCommitData(commitSHA) {
-		return fetchAPI(`commits/${commitSHA}`);
-	}
-
-	function createTree({ path, content }, treeSHA) {
-		return fetchAPI("trees", {
-			tree: [{ path, content, mode: "100644" }],
-			base_tree: treeSHA
-		});
-	}
-
-	function commit(commitSHA, treeSHA, message = "") {
-		return fetchAPI("commits", {
-			message,
-			parents: [commitSHA],
-			tree: treeSHA
-		});
-	}
-
-	function updateHead(commitSHA) {
-		return fetchAPI(`refs/heads/${branchName}`, {
-			sha: commitSHA
-		}, "patch", [["accept", "application/vnd.github.v3+json"]]);
-	}
-
-	async function fetchAPI(path, data, method, extraHeaders = []) {
-		const response = await fetch(`https://api.github.com/repos/${userName}/${repositoryName}/git/${path}`, {
-			method: method ? method.toUpperCase() : data ? "POST" : "GET",
-			headers: new Map([["authorization", `token ${token}`]].concat(extraHeaders)),
-			body: data ? JSON.stringify(data) : null
+	async function createContent({ path, content, message = "" }) {
+		const response = await fetch(`https://api.github.com/repos/${userName}/${repositoryName}/contents/${path}`, {
+			method: "PUT",
+			headers: new Map([
+				["Authorization", `token ${token}`],
+				["Accept", "application/vnd.github.v3+json"]
+			]),
+			body: JSON.stringify({ content: btoa(content), message })
 		});
 		const responseData = await response.json();
 		if (response.status < 400) {
