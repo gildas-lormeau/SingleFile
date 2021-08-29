@@ -136,7 +136,7 @@ async function downloadContent(contents, tab, incognito, message) {
 				extractAuthCode: message.extractAuthCode
 			}, {
 				onProgress: (offset, size) => ui.onUploadProgress(tab.id, offset, size)
-			});
+			}).uploadPromise;
 		} else if (message.saveToGitHub) {
 			await saveToGitHub(message.filename, contents.join(""), message.githubToken, message.githubUser, message.githubRepository, message.githubBranch);
 		} else if (message.saveWithCompanion) {

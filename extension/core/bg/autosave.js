@@ -193,7 +193,7 @@ async function saveContent(message, tab) {
 				}
 				if (options.saveToGDrive) {
 					const blob = new Blob([pageData.content], { type: "text/html" });
-					await downloads.saveToGDrive(message.taskId, pageData.filename, blob, options, {});
+					await downloads.saveToGDrive(message.taskId, pageData.filename, blob, options, {}).uploadPromise;
 				} if (options.saveToGitHub) {
 					await downloads.saveToGitHub(pageData.filename, pageData.content, options.githubToken, options.githubUser, options.githubRepository, options.githubBranch);
 				} else if (options.saveWithCompanion) {
