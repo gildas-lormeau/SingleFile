@@ -218,7 +218,7 @@ async function saveToGDrive(taskId, filename, blob, authOptions, uploadOptions) 
 		if (taskInfo && !taskInfo.cancelled) {
 			const uploadInfo = await gDrive.upload(filename, blob, uploadOptions);
 			business.setCancelCallback(taskId, uploadInfo.cancelUpload);
-			return await uploadInfo.uploadPromise;
+			return uploadInfo;
 		}
 	}
 	catch (error) {
