@@ -32,16 +32,16 @@ async function pushGitHub(token, userName, repositoryName, branchName, path, con
 		await pendingPush;
 	}
 	const controller = new AbortController();
-	pendingPush = async () => {
+	pendingPush = (async () => {
 		try {
 			await createContent({ path, content }, controller.signal);
 		} finally {
 			pendingPush = null;
 		}
-	};
+	})();
 	return {
 		cancelPush: () => controller.abort(),
-		pushPromise: pendingPush()
+		pushPromise: pendingPush
 	};
 
 	async function createContent({ path, content, message = "" }, signal) {
