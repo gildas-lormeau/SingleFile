@@ -500,7 +500,7 @@
 		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveToGitHub": {
-		"message": "upload to GitHub",
+		"message": "subir a GitHub",
 		"description": "Options page label: 'upload to GitHub'"
 	},
 	"optionGitHubToken": {
