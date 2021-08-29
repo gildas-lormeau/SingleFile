@@ -25,11 +25,23 @@
 
 export { pushGitHub };
 
+let pendingPush;
+
 async function pushGitHub(token, userName, repositoryName, branchName, path, content) {
+	while (pendingPush) {
+		await pendingPush;
+	}
 	const controller = new AbortController();
+	pendingPush = async () => {
+		try {
+			await createContent({ path, content }, controller.signal);
+		} finally {
+			pendingPush = null;
+		}
+	};
 	return {
 		cancelPush: () => controller.abort(),
-		pushPromise: createContent({ path, content }, controller.signal)
+		pushPromise: pendingPush()
 	};
 
 	async function createContent({ path, content, message = "" }, signal) {
