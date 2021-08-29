@@ -195,7 +195,7 @@ async function saveContent(message, tab) {
 					const blob = new Blob([pageData.content], { type: "text/html" });
 					await downloads.saveToGDrive(message.taskId, pageData.filename, blob, options, {}).uploadPromise;
 				} if (options.saveToGitHub) {
-					await downloads.saveToGitHub(pageData.filename, pageData.content, options.githubToken, options.githubUser, options.githubRepository, options.githubBranch);
+					await downloads.saveToGitHub(message.taskId, pageData.filename, pageData.content, options.githubToken, options.githubUser, options.githubRepository, options.githubBranch).pushPromise;
 				} else if (options.saveWithCompanion) {
 					await companion.save({
 						filename: pageData.filename,

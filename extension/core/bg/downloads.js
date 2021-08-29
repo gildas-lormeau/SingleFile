@@ -138,7 +138,7 @@ async function downloadContent(contents, tab, incognito, message) {
 				onProgress: (offset, size) => ui.onUploadProgress(tab.id, offset, size)
 			}).uploadPromise;
 		} else if (message.saveToGitHub) {
-			await saveToGitHub(message.filename, contents.join(""), message.githubToken, message.githubUser, message.githubRepository, message.githubBranch);
+			await saveToGitHub(message.taskId, message.filename, contents.join(""), message.githubToken, message.githubUser, message.githubRepository, message.githubBranch).pushPromise;
 		} else if (message.saveWithCompanion) {
 			await companion.save({
 				filename: message.filename,
@@ -202,8 +202,13 @@ async function getAuthInfo(authOptions, force) {
 	return authInfo;
 }
 
-function saveToGitHub(filename, content, githubToken, githubUser, githubRepository, githubBranch) {
-	return pushGitHub(githubToken, githubUser, githubRepository, githubBranch, filename, content);
+function saveToGitHub(taskId, filename, content, githubToken, githubUser, githubRepository, githubBranch) {
+	const taskInfo = business.getTaskInfo(taskId);
+	if (taskInfo && !taskInfo.cancelled) {
+		const pushInfo = pushGitHub(githubToken, githubUser, githubRepository, githubBranch, filename, content);
+		business.setCancelCallback(taskId, pushInfo.cancelPush);
+		return pushInfo;
+	}
 }
 
 async function saveToGDrive(taskId, filename, blob, authOptions, uploadOptions) {
