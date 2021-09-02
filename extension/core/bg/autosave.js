@@ -193,9 +193,9 @@ async function saveContent(message, tab) {
 				}
 				if (options.saveToGDrive) {
 					const blob = new Blob([pageData.content], { type: "text/html" });
-					await downloads.saveToGDrive(message.taskId, pageData.filename, blob, options, {}).uploadPromise;
+					await (await downloads.saveToGDrive(message.taskId, pageData.filename, blob, options, {})).uploadPromise;
 				} if (options.saveToGitHub) {
-					await downloads.saveToGitHub(message.taskId, pageData.filename, pageData.content, options.githubToken, options.githubUser, options.githubRepository, options.githubBranch).pushPromise;
+					await (await downloads.saveToGitHub(message.taskId, pageData.filename, pageData.content, options.githubToken, options.githubUser, options.githubRepository, options.githubBranch)).pushPromise;
 				} else if (options.saveWithCompanion) {
 					await companion.save({
 						filename: pageData.filename,

@@ -131,14 +131,14 @@ async function downloadTabPage(message, tab) {
 async function downloadContent(contents, tab, incognito, message) {
 	try {
 		if (message.saveToGDrive) {
-			await saveToGDrive(message.taskId, message.filename, new Blob([contents], { type: MIMETYPE_HTML }), {
+			await (await saveToGDrive(message.taskId, message.filename, new Blob([contents], { type: MIMETYPE_HTML }), {
 				forceWebAuthFlow: message.forceWebAuthFlow,
 				extractAuthCode: message.extractAuthCode
 			}, {
 				onProgress: (offset, size) => ui.onUploadProgress(tab.id, offset, size)
-			}).uploadPromise;
+			})).uploadPromise;
 		} else if (message.saveToGitHub) {
-			await saveToGitHub(message.taskId, message.filename, contents.join(""), message.githubToken, message.githubUser, message.githubRepository, message.githubBranch).pushPromise;
+			await (await saveToGitHub(message.taskId, message.filename, contents.join(""), message.githubToken, message.githubUser, message.githubRepository, message.githubBranch)).pushPromise;
 		} else if (message.saveWithCompanion) {
 			await companion.save({
 				filename: message.filename,
