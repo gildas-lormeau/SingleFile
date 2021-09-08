@@ -225,7 +225,7 @@ async function saveContent(message, tab) {
 		} finally {
 			if (message.taskId) {
 				business.onSaveEnd(message.taskId);
-			} else if (options.autoSaveDiscard && options.autoClose) {
+			} else if (options.autoClose) {
 				tabs.remove(replacedTabIds[tabId] || tabId);
 				delete replacedTabIds[tabId];
 			}
