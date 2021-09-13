@@ -91,6 +91,13 @@ async function setPageOptions(page, options) {
 	if (options.browserCookies && options.browserCookies.length) {
 		await page.setCookie(...options.browserCookies);
 	}
+	if (options.emulateMediaFeatures) {
+		try {
+			await page.emulateMediaFeatures(options.emulateMediaFeatures);
+		} catch (error) {
+			// ignored
+		}
+	}
 }
 
 async function getPageData(browser, page, options) {

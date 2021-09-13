@@ -50,6 +50,7 @@ const args = require("yargs")
 		"compress-CSS": false,
 		"compress-HTML": true,
 		"dump-content": false,
+		"emulateMediaFeature": [],
 		"filename-template": "{page-title} ({date-iso} {time-locale}).html",
 		"filename-conflict-action": "uniquify",
 		"filename-replacement-character": "_",
@@ -148,6 +149,8 @@ const args = require("yargs")
 	.array("crawl-rewrite-rule")
 	.options("dump-content", { description: "Dump the content of the processed page in the console" })
 	.boolean("dump-content")
+	.options("emulate-media-feature", { description: "Emulate a media feature. The syntax is <name>:<value>, e.g. \"prefers-color-scheme:dark\" (puppeteer)" })
+	.array("emulate-media-feature")
 	.options("error-file")
 	.string("error-file")
 	.options("filename-template", { description: "Template used to generate the output filename (see help page of the extension for more info)" })
@@ -249,6 +252,15 @@ args.browserStylesheets = args.browserStylesheet;
 delete args.browserStylesheet;
 args.crawlRewriteRules = args.crawlRewriteRule;
 delete args.crawlRewriteRule;
+args.emulateMediaFeatures = args.emulateMediaFeature
+	.map(value => {
+		const splitValue = value.match(/^([^:]+):(.*)$/);
+		if (splitValue.length >= 3) {
+			return { name: splitValue[1].trim(), value: splitValue[2].trim() };
+		}
+	})
+	.filter(identity => identity);
+delete args.emulateMediaFeature;
 Object.keys(args).filter(optionName => optionName.includes("-"))
 	.forEach(optionName => delete args[optionName]);
 delete args["$0"];

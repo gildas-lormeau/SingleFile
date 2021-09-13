@@ -85,6 +85,9 @@ async function setPageOptions(page, options) {
 	if (options.httpHeaders) {
 		page.setExtraHTTPHeaders(options.httpHeaders);
 	}
+	if (options.emulateMediaFeatures) {
+		await page.emulateMediaFeatures(options.emulateMediaFeatures);
+	}
 }
 
 async function getPageData(page, options) {
