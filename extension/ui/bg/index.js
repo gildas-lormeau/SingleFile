@@ -23,6 +23,7 @@
 
 import * as button from "./ui-button.js";
 import * as menus from "./ui-menus.js";
+import * as tabs from "./../../core/bg/tabs.js";
 
 export {
 	onMessage,
@@ -59,8 +60,11 @@ function onStart(tabId, step, autoSave) {
 	button.onStart(tabId, step, autoSave);
 }
 
-function onError(tabId) {
+async function onError(tabId, message) {
 	button.onError(tabId);
+	if (message) {
+		await tabs.sendMessage(tabId, { method: "content.error", error: message.toString() });
+	}
 }
 
 function onEdit(tabId) {

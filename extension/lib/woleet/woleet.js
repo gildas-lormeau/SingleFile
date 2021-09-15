@@ -27,7 +27,7 @@ export {
 	anchor
 };
 async function anchor(hash) {
-	return (await fetch(urlService, {
+	const response = await fetch(urlService, {
 		method: "POST",
 		headers: {
 			"Accept": "application/json",
@@ -39,6 +39,9 @@ async function anchor(hash) {
 			"hash": hash,
 			"public": true
 		})
-	}))
-		.json();
+	});
+	if (response.status >= 400) {
+		throw new Error((response.statusText || ("Error " + response.status)));
+	}
+	return response.json();
 }

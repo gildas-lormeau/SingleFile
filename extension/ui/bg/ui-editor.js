@@ -24,6 +24,7 @@
 /* global browser, document, prompt, matchMedia, addEventListener, innerHeight, innerWidth */
 
 import * as download from "../../core/common/download.js";
+import { onError } from "./../common/content-error.js";
 
 const editorElement = document.querySelector(".editor");
 const toolbarElement = document.querySelector(".toolbar");
@@ -330,6 +331,9 @@ browser.runtime.onMessage.addListener(message => {
 	}
 	if (message.method == "options.refresh") {
 		return refreshOptions(message.profileName);
+	}
+	if (message.method == "content.error") {
+		onError(message.error);
 	}
 });
 

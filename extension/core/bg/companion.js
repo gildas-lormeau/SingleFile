@@ -23,8 +23,6 @@
 
 /* global browser */
 
-import * as ui from "./../../ui/bg/index.js";
-
 let enabled = true;
 
 export {
@@ -41,27 +39,21 @@ async function onMessage(message) {
 }
 
 async function externalSave(options) {
-	try {
-		options.autoSaveExternalSave = false;
-		const port = browser.runtime.connectNative("singlefile_companion");
-		port.postMessage({
-			method: "externalSave",
-			pageData: options
+	options.autoSaveExternalSave = false;
+	const port = browser.runtime.connectNative("singlefile_companion");
+	port.postMessage({
+		method: "externalSave",
+		pageData: options
+	});
+	await new Promise((resolve, reject) => {
+		port.onDisconnect.addListener(() => {
+			if (port.error) {
+				reject(new Error(port.error.message + " (Companion)"));
+			} else if (!browser.runtime.lastError || browser.runtime.lastError.message.includes("Native host has exited")) {
+				resolve();
+			}
 		});
-		await new Promise((resolve, reject) => {
-			port.onDisconnect.addListener(() => {
-				if (port.error) {
-					reject(port.error.message);
-				} else if (!browser.runtime.lastError || browser.runtime.lastError.message.includes("Native host has exited")) {
-					resolve();
-				}
-			});
-		});
-		ui.onEnd(options.tabId, options.autoSave);
-	} catch (error) {
-		console.error(error); // eslint-disable-line no-console			
-		ui.onError(options.tabId);
-	}
+	});
 }
 
 async function save(pageData) {
@@ -73,7 +65,7 @@ async function save(pageData) {
 	await new Promise((resolve, reject) => {
 		port.onDisconnect.addListener(() => {
 			if (port.error) {
-				reject(port.error.message);
+				reject(new Error(port.error.message + " (Companion)"));
 			} else if (!browser.runtime.lastError || browser.runtime.lastError.message.includes("Native host has exited")) {
 				resolve();
 			}

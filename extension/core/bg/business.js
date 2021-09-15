@@ -201,7 +201,7 @@ async function runTask(taskInfo) {
 	} catch (error) {
 		if (error && (!error.message || !isIgnoredError(error))) {
 			console.log(error.message ? error.message : error); // eslint-disable-line no-console
-			ui.onError(taskInfo.tab.id);
+			ui.onError(taskInfo.tab.id, error.message);
 			taskInfo.done();
 		}
 	}
