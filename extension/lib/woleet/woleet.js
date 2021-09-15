@@ -41,7 +41,11 @@ async function anchor(hash, userKey) {
 			"public": true
 		})
 	});
-	if (response.status >= 400) {
+	if (response.status == 401) {
+		throw new Error("Your access token on Woleet is invalid. Go to https://app.woleet.io/ to create your account.");
+	} else if (response.status == 402) {
+		throw new Error("You have no more credits on Woleet. Go to https://app.woleet.io/ to recharge them.");
+	} else if (response.status >= 400) {
 		throw new Error((response.statusText || ("Error " + response.status)));
 	}
 	return response.json();
