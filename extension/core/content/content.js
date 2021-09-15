@@ -65,7 +65,7 @@ async function onMessage(message) {
 			};
 		}
 		if (message.method == "content.error") {
-			onError(message.error);
+			onError(message.error, message.link);
 		}
 	}
 }

@@ -60,10 +60,10 @@ function onStart(tabId, step, autoSave) {
 	button.onStart(tabId, step, autoSave);
 }
 
-async function onError(tabId, message) {
+async function onError(tabId, message, link) {
 	button.onError(tabId);
 	if (message) {
-		await tabs.sendMessage(tabId, { method: "content.error", error: message.toString() });
+		await tabs.sendMessage(tabId, { method: "content.error", error: message.toString(), link });
 	}
 }
 

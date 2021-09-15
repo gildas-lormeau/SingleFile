@@ -333,7 +333,7 @@ browser.runtime.onMessage.addListener(message => {
 		return refreshOptions(message.profileName);
 	}
 	if (message.method == "content.error") {
-		onError(message.error);
+		onError(message.error, message.link);
 	}
 });
 

@@ -77,7 +77,7 @@ async function onMessage(message, sender) {
 			try {
 				await woleet.anchor(message.hash, message.woleetKey);
 			} catch (error) {
-				ui.onError(sender.tab.id, error.message + " (Woleet)");
+				ui.onError(sender.tab.id, error.message, error.link);
 			}
 		}
 		business.onSaveEnd(message.taskId);
@@ -170,7 +170,7 @@ async function downloadContent(contents, tab, incognito, message) {
 	} catch (error) {
 		if (!error.message || error.message != "upload_cancelled") {
 			console.error(error); // eslint-disable-line no-console
-			ui.onError(tab.id, error.message);
+			ui.onError(tab.id, error.message, error.link);
 		}
 	} finally {
 		if (message.url) {

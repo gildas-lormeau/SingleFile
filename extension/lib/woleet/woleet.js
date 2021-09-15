@@ -42,11 +42,15 @@ async function anchor(hash, userKey) {
 		})
 	});
 	if (response.status == 401) {
-		throw new Error("Your access token on Woleet is invalid. Go to https://app.woleet.io/ to create your account.");
+		const error = new Error("Your access token on Woleet is invalid. Go to __DOC_LINK__ to create your account.");
+		error.link = "https://app.woleet.io/";
+		throw error;
 	} else if (response.status == 402) {
-		throw new Error("You have no more credits on Woleet. Go to https://app.woleet.io/ to recharge them.");
+		const error = new Error("You have no more credits on Woleet. Go to __DOC_LINK__ to recharge them.");
+		error.link = "https://app.woleet.io/";
+		throw error;
 	} else if (response.status >= 400) {
-		throw new Error((response.statusText || ("Error " + response.status)));
+		throw new Error((response.statusText || ("Error " + response.status)) + " (Woleet)");
 	}
 	return response.json();
 }
