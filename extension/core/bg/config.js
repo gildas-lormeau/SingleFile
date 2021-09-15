@@ -111,7 +111,8 @@ const DEFAULT_CONFIG = {
 	insertMetaNoIndex: false,
 	insertMetaCSP: true,
 	passReferrerOnError: false,
-	insertSingleFileComment: true
+	insertSingleFileComment: true,
+	woleetKey: ""
 };
 
 let configStorage;

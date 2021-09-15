@@ -219,7 +219,7 @@ async function saveContent(message, tab) {
 					}
 				}
 				if (pageData.hash) {
-					await woleet.anchor(pageData.hash);
+					await woleet.anchor(pageData.hash, options.woleetKey);
 				}
 			}
 		} finally {

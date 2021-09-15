@@ -38,6 +38,7 @@ const insertMetaCSPLabel = document.getElementById("insertMetaCSPLabel");
 const saveToClipboardLabel = document.getElementById("saveToClipboardLabel");
 const saveToFilesystemLabel = document.getElementById("saveToFilesystemLabel");
 const addProofLabel = document.getElementById("addProofLabel");
+const woleetKeyLabel = document.getElementById("woleetKeyLabel");
 const saveToGDriveLabel = document.getElementById("saveToGDriveLabel");
 const saveToGitHubLabel = document.getElementById("saveToGitHubLabel");
 const githubTokenLabel = document.getElementById("githubTokenLabel");
@@ -134,6 +135,7 @@ const saveRawPageInput = document.getElementById("saveRawPageInput");
 const insertMetaCSPInput = document.getElementById("insertMetaCSPInput");
 const saveToClipboardInput = document.getElementById("saveToClipboardInput");
 const addProofInput = document.getElementById("addProofInput");
+const woleetKeyInput = document.getElementById("woleetKeyInput");
 const saveToGDriveInput = document.getElementById("saveToGDriveInput");
 const saveToGitHubInput = document.getElementById("saveToGitHubInput");
 const githubTokenInput = document.getElementById("githubTokenInput");
@@ -415,6 +417,7 @@ addProofInput.addEventListener("click", async event => {
 		addProofInput.checked = false;
 		if (await confirm(browser.i18n.getMessage("optionsAddProofConfirm"), event.clientY - 100)) {
 			addProofInput.checked = true;
+			woleetKeyInput.disabled = false;
 		}
 		await update();
 	}
@@ -476,6 +479,7 @@ insertMetaCSPLabel.textContent = browser.i18n.getMessage("optionInsertMetaCSP");
 saveToClipboardLabel.textContent = browser.i18n.getMessage("optionSaveToClipboard");
 saveToFilesystemLabel.textContent = browser.i18n.getMessage("optionSaveToFilesystem");
 addProofLabel.textContent = browser.i18n.getMessage("optionAddProof");
+woleetKeyLabel.textContent = browser.i18n.getMessage("optionWoleetKey");
 saveToGDriveLabel.textContent = browser.i18n.getMessage("optionSaveToGDrive");
 saveToGitHubLabel.textContent = browser.i18n.getMessage("optionSaveToGitHub");
 githubTokenLabel.textContent = browser.i18n.getMessage("optionGitHubToken");
@@ -685,6 +689,8 @@ async function refresh(profileName) {
 	insertMetaCSPInput.checked = profileOptions.insertMetaCSP;
 	saveToClipboardInput.checked = profileOptions.saveToClipboard;
 	addProofInput.checked = profileOptions.addProof;
+	woleetKeyInput.value = profileOptions.woleetKey;
+	woleetKeyInput.disabled = !profileOptions.addProof;
 	saveToGDriveInput.checked = profileOptions.saveToGDrive;
 	saveToGitHubInput.checked = profileOptions.saveToGitHub;
 	githubTokenInput.value = profileOptions.githubToken;
@@ -779,6 +785,7 @@ async function update() {
 			insertMetaCSP: insertMetaCSPInput.checked,
 			saveToClipboard: saveToClipboardInput.checked,
 			addProof: addProofInput.checked,
+			woleetKey: woleetKeyInput.value,
 			saveToGDrive: saveToGDriveInput.checked,
 			saveToGitHub: saveToGitHubInput.checked,
 			githubToken: githubTokenInput.value,

@@ -495,6 +495,10 @@
 		"message": "请确认您是否允许 SingleFile 将您要保存的每个页面的 SHA256 哈希值发送给 Woleet API 。您可以在帮助页面或者通过点击该选项旁的问号找到此功能的更多信息。",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
+	"optionWoleetKey": {
+		"message": "access token",
+		"description": "Options page label: 'access token'"
+	},
 	"optionSaveToGDrive": {
 		"message": "保存到 Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"

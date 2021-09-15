@@ -495,6 +495,10 @@
 		"message": "Подтвердите, что разрешаете SingleFile отправлять в Woleet API SHA256-хеш каждой сохраняемой вами страницы. Дополнительную информацию об этой функции можно найти на странице помощи или нажав на знак вопроса рядом с параметром.",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
+	"optionWoleetKey": {
+		"message": "токен доступа",
+		"description": "Options page label: 'access token'"
+	},
 	"optionSaveToGDrive": {
 		"message": "загрузить на Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"

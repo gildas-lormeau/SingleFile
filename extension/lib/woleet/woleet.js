@@ -26,13 +26,14 @@ const apiKey = "";
 export {
 	anchor
 };
-async function anchor(hash) {
+async function anchor(hash, userKey) {
+	let bearer = userKey || apiKey;
 	const response = await fetch(urlService, {
 		method: "POST",
 		headers: {
 			"Accept": "application/json",
 			"Content-Type": "application/json",
-			"Authorization": "Bearer " + apiKey
+			"Authorization": "Bearer " + bearer
 		},
 		body: JSON.stringify({
 			"name": hash,

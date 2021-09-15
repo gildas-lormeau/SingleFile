@@ -495,6 +495,10 @@
 		"message": "Potwierdź, że zezwalasz SingleFile na wysyłanie do interfejsu API Woleet skrótu SHA256 każdej strony, którą chcesz zapisać. Więcej informacji na temat tej funkcji można znaleźć na stronie pomocy lub klikając znak zapytania obok opcji.",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
+	"optionWoleetKey": {
+		"message": "token dostępu",
+		"description": "Options page label: 'access token'"
+	},
 	"optionSaveToGDrive": {
 		"message": "przesyłaj na Dysk Google",
 		"description": "Options page label: 'upload to Google Drive'"

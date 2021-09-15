@@ -75,7 +75,7 @@ async function onMessage(message, sender) {
 	if (message.method.endsWith(".end")) {
 		if (message.hash) {
 			try {
-				await woleet.anchor(message.hash);
+				await woleet.anchor(message.hash, message.woleetKey);
 			} catch (error) {
 				ui.onError(sender.tab.id, error.message + " (Woleet)");
 			}

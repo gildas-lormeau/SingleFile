@@ -86,7 +86,7 @@ async function downloadPage(pageData, options) {
 		}
 		browser.runtime.sendMessage({ method: "ui.processEnd" });
 	}
-	await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId, hash: pageData.hash });
+	await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId, hash: pageData.hash, woleetKey: options.woleetKey });
 }
 
 async function downloadPageForeground(pageData) {
