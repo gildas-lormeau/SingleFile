@@ -112,7 +112,7 @@ export default [{
 		plugins: [terser()]
 	}]
 }, {
-	input: ["extension/core/bg/messages.js"],
+	input: ["extension/core/bg/index.js"],
 	output: [{
 		file: "dist/extension-background.js",
 		format: "iife",
