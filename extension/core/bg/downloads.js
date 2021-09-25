@@ -28,23 +28,15 @@ import * as bookmarks from "./bookmarks.js";
 import * as companion from "./companion.js";
 import * as business from "./business.js";
 import * as editor from "./editor.js";
-import * as tabs from "./tabs.js";
+import { launchWebAuthFlow, extractAuthCode, promptValue } from "./tabs-util.js";
 import * as ui from "./../../ui/bg/index.js";
 import * as woleet from "./../../lib/woleet/woleet.js";
 import { GDrive } from "./../../lib/gdrive/gdrive.js";
 import { pushGitHub } from "./../../lib/github/github.js";
+import { download } from "./download-util.js";
 
 const partialContents = new Map();
 const MIMETYPE_HTML = "text/html";
-const STATE_DOWNLOAD_COMPLETE = "complete";
-const STATE_DOWNLOAD_INTERRUPTED = "interrupted";
-const STATE_ERROR_CANCELED_CHROMIUM = "USER_CANCELED";
-const ERROR_DOWNLOAD_CANCELED_GECKO = "canceled";
-const ERROR_CONFLICT_ACTION_GECKO = "conflictaction prompt not yet implemented";
-const ERROR_INCOGNITO_GECKO = "'incognito'";
-const ERROR_INCOGNITO_GECKO_ALT = "\"incognito\"";
-const ERROR_INVALID_FILENAME_GECKO = "illegal characters";
-const ERROR_INVALID_FILENAME_CHROMIUM = "invalid filename";
 const CLIENT_ID = "207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj.apps.googleusercontent.com";
 const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 const CONFLICT_ACTION_SKIP = "skip";
@@ -56,7 +48,6 @@ const requestPermissionIdentity = manifest.optional_permissions && manifest.opti
 const gDrive = new GDrive(CLIENT_ID, SCOPES);
 export {
 	onMessage,
-	download,
 	downloadPage,
 	saveToGDrive,
 	saveToGitHub
@@ -165,7 +156,7 @@ async function downloadContent(contents, tab, incognito, message) {
 			if (tab.index != null) {
 				createTabProperties.index = tab.index + 1;
 			}
-			tabs.create(createTabProperties);
+			browser.tabs.create(createTabProperties);
 		}
 	} catch (error) {
 		if (!error.message || error.message != "upload_cancelled") {
@@ -190,9 +181,9 @@ async function getAuthInfo(authOptions, force) {
 		auto: authOptions.extractAuthCode,
 		forceWebAuthFlow: authOptions.forceWebAuthFlow,
 		requestPermissionIdentity,
-		launchWebAuthFlow: options => tabs.launchWebAuthFlow(options),
-		extractAuthCode: authURL => tabs.extractAuthCode(authURL),
-		promptAuthCode: () => tabs.promptValue("Please enter the access code for Google Drive")
+		launchWebAuthFlow: options => launchWebAuthFlow(options),
+		extractAuthCode: authURL => extractAuthCode(authURL),
+		promptAuthCode: () => promptValue("Please enter the access code for Google Drive")
 	};
 	gDrive.setAuthInfo(authInfo, options);
 	if (!authInfo || !authInfo.accessToken || force) {
@@ -289,62 +280,6 @@ async function downloadPage(pageData, options) {
 			await bookmarks.update(pageData.bookmarkId, { url: downloadData.filename });
 		}
 	}
-}
-
-async function download(downloadInfo, replacementCharacter) {
-	let downloadId;
-	try {
-		downloadId = await browser.downloads.download(downloadInfo);
-	} catch (error) {
-		if (error.message) {
-			const errorMessage = error.message.toLowerCase();
-			const invalidFilename = errorMessage.includes(ERROR_INVALID_FILENAME_GECKO) || errorMessage.includes(ERROR_INVALID_FILENAME_CHROMIUM);
-			if (invalidFilename && downloadInfo.filename.startsWith(".")) {
-				downloadInfo.filename = replacementCharacter + downloadInfo.filename;
-				return download(downloadInfo, replacementCharacter);
-			} else if (invalidFilename && downloadInfo.filename.includes(",")) {
-				downloadInfo.filename = downloadInfo.filename.replace(/,/g, replacementCharacter);
-				return download(downloadInfo, replacementCharacter);
-			} else if (invalidFilename && !downloadInfo.filename.match(/^[\x00-\x7F]+$/)) { // eslint-disable-line  no-control-regex
-				downloadInfo.filename = downloadInfo.filename.replace(/[^\x00-\x7F]+/g, replacementCharacter); // eslint-disable-line  no-control-regex
-				return download(downloadInfo, replacementCharacter);
-			} else if ((errorMessage.includes(ERROR_INCOGNITO_GECKO) || errorMessage.includes(ERROR_INCOGNITO_GECKO_ALT)) && downloadInfo.incognito) {
-				delete downloadInfo.incognito;
-				return download(downloadInfo, replacementCharacter);
-			} else if (errorMessage == ERROR_CONFLICT_ACTION_GECKO && downloadInfo.conflictAction) {
-				delete downloadInfo.conflictAction;
-				return download(downloadInfo, replacementCharacter);
-			} else if (errorMessage.includes(ERROR_DOWNLOAD_CANCELED_GECKO)) {
-				return {};
-			} else {
-				throw error;
-			}
-		} else {
-			throw error;
-		}
-	}
-	return new Promise((resolve, reject) => {
-		browser.downloads.onChanged.addListener(onChanged);
-
-		function onChanged(event) {
-			if (event.id == downloadId && event.state) {
-				if (event.state.current == STATE_DOWNLOAD_COMPLETE) {
-					browser.downloads.search({ id: downloadId })
-						.then(downloadItems => resolve({ filename: downloadItems[0] && downloadItems[0].filename }))
-						.catch(() => resolve({}));
-					browser.downloads.onChanged.removeListener(onChanged);
-				}
-				if (event.state.current == STATE_DOWNLOAD_INTERRUPTED) {
-					if (event.error && event.error.current == STATE_ERROR_CANCELED_CHROMIUM) {
-						resolve({});
-					} else {
-						reject(new Error(event.state.current));
-					}
-					browser.downloads.onChanged.removeListener(onChanged);
-				}
-			}
-		}
-	});
 }
 
 function saveToClipboard(pageData) {

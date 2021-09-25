@@ -23,7 +23,7 @@
 
 /* global browser, navigator, URL, Blob */
 
-import * as downloads from "./downloads.js";
+import { download } from "./download-util.js";
 import * as tabsData from "./tabs-data.js";
 
 const CURRENT_PROFILE_NAME = "-";
@@ -465,7 +465,7 @@ async function exportConfig() {
 		saveAs: true
 	};
 	try {
-		await downloads.download(downloadInfo, "_");
+		await download(downloadInfo, "_");
 	} finally {
 		URL.revokeObjectURL(url);
 	}

@@ -21,11 +21,12 @@
  *   Source.
  */
 
+/* global browser */
+
 import * as config from "./config.js";
-import * as autosave from "./autosave.js";
+import { autoSaveIsEnabled } from "./autosave-util.js";
 import * as editor from "./editor.js";
 import * as requests from "./requests.js";
-import * as tabs from "./tabs.js";
 import * as ui from "./../../ui/bg/index.js";
 import { injectScript } from "./../../index.js";
 
@@ -45,6 +46,7 @@ const extensionScriptFiles = [
 
 const tasks = [];
 let currentTaskId = 0, maxParallelWorkers;
+ui.setBusiness({ isSavingTab, saveTabs, saveUrls, cancelTab, openEditor, saveSelectedLinks });
 
 export {
 	isSavingTab,
@@ -67,7 +69,7 @@ async function saveSelectedLinks(tab) {
 	const tabOptions = { extensionScriptFiles, tabId: tab.id, tabIndex: tab.index };
 	const scriptsInjected = await injectScript(tab.id, tabOptions);
 	if (scriptsInjected) {
-		const response = await tabs.sendMessage(tab.id, { method: "content.getSelectedLinks" });
+		const response = await browser.tabs.sendMessage(tab.id, { method: "content.getSelectedLinks" });
 		if (response.urls && response.urls.length) {
 			await saveUrls(response.urls);
 		}
@@ -109,7 +111,7 @@ async function saveTabs(tabs, options = {}) {
 			await requests.enableReferrerOnError();
 		}
 		if (options.autoSave) {
-			if (autosave.isEnabled(tab)) {
+			if (autoSaveIsEnabled(tab)) {
 				const taskInfo = addTask({
 					status: TASK_PROCESSING_STATE,
 					tab,
@@ -155,7 +157,7 @@ function addTask(info) {
 }
 
 function openEditor(tab) {
-	tabs.sendMessage(tab.id, { method: "content.openEditor" });
+	browser.tabs.sendMessage(tab.id, { method: "content.openEditor" });
 }
 
 async function initMaxParallelWorkers() {
@@ -180,7 +182,7 @@ async function runTask(taskInfo) {
 	if (!taskInfo.tab.id) {
 		let scriptsInjected;
 		try {
-			const tab = await tabs.createAndWait({ url: taskInfo.tab.url, active: false });
+			const tab = await createTabAndWaitUntilComplete({ url: taskInfo.tab.url, active: false });
 			taskInfo.tab.id = taskInfo.options.tabId = tab.id;
 			taskInfo.tab.index = taskInfo.options.tabIndex = tab.index;
 			ui.onStart(taskInfo.tab.id, INJECT_SCRIPTS_STEP);
@@ -197,7 +199,7 @@ async function runTask(taskInfo) {
 	}
 	taskInfo.options.taskId = taskId;
 	try {
-		await tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options });
+		await browser.tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options });
 	} catch (error) {
 		if (error && (!error.message || !isIgnoredError(error))) {
 			console.log(error.message ? error.message : error); // eslint-disable-line no-console
@@ -226,10 +228,32 @@ function onSaveEnd(taskId) {
 	const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
 	if (taskInfo) {
 		if (taskInfo.options.autoClose && !taskInfo.cancelled) {
-			tabs.remove(taskInfo.tab.id);
+			browser.tabs.remove(taskInfo.tab.id);
 		}
 		taskInfo.done();
 	}
+}
+
+
+async function createTabAndWaitUntilComplete(createProperties) {
+	const tab = await browser.tabs.create(createProperties);
+	return new Promise((resolve, reject) => {
+		browser.tabs.onUpdated.addListener(onTabUpdated);
+		browser.tabs.onRemoved.addListener(onTabRemoved);
+		function onTabUpdated(tabId, changeInfo) {
+			if (tabId == tab.id && changeInfo.status == "complete") {
+				resolve(tab);
+				browser.tabs.onUpdated.removeListener(onTabUpdated);
+				browser.tabs.onRemoved.removeListener(onTabRemoved);
+			}
+		}
+		function onTabRemoved(tabId) {
+			if (tabId == tab.id) {
+				reject(tabId);
+				browser.tabs.onRemoved.removeListener(onTabRemoved);
+			}
+		}
+	});
 }
 
 function setCancelCallback(taskId, cancelCallback) {
@@ -262,7 +286,7 @@ function getTaskInfo(taskId) {
 function cancel(taskInfo) {
 	const tabId = taskInfo.tab.id;
 	taskInfo.cancelled = true;
-	tabs.sendMessage(tabId, {
+	browser.tabs.sendMessage(tabId, {
 		method: "content.cancelSave",
 		options: {
 			loadDeferredImages: taskInfo.options.loadDeferredImages,

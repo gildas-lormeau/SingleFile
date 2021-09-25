@@ -109,4 +109,18 @@ export default [{
 		format: "iife",
 		plugins: []
 	}]
+}, {
+	input: ["extension/core/bg/messages.js"],
+	output: [{
+		file: "dist/extension-background.js",
+		format: "iife",
+		plugins: []
+	}]
+}, {
+	input: ["extension/lib/single-file/background.js"],
+	output: [{
+		file: "dist/single-file-background.js",
+		format: "iife",
+		plugins: []
+	}]
 }];

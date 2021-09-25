@@ -24,10 +24,10 @@
 /* global browser, URL */
 
 import * as config from "./../../core/bg/config.js";
-import * as tabs from "./../../core/bg/tabs.js";
+import { queryTabs } from "./../../core/bg/tabs-util.js";
 import * as tabsData from "./../../core/bg/tabs-data.js";
-import * as business from "./../../core/bg/business.js";
-import * as autosave from "./../../core/bg/autosave.js";
+
+import { refreshAutoSaveTabs } from "./../../core/bg/autosave-util.js";
 import * as button from "./ui-button.js";
 
 const menus = browser.menus || browser.contextMenus;
@@ -91,15 +91,20 @@ const menusTitleState = new Map();
 let contextMenuVisibleState = true;
 let allMenuVisibleState = true;
 let profileIndexes = new Map();
-let menusCreated, pendingRefresh;
+let menusCreated, pendingRefresh, business;
 Promise.resolve().then(initialize);
 export {
 	onMessage,
 	refreshTab as onTabCreated,
 	refreshTab as onTabActivated,
 	refreshTab as onInit,
-	createMenus as refreshTab
+	createMenus as refreshTab,
+	setBusiness
 };
+
+function setBusiness(businessApi) {
+	business = businessApi;
+}
 
 function onMessage(message) {
 	if (message.method.endsWith("refreshMenu")) {
@@ -372,7 +377,7 @@ async function createMenus(tab) {
 	menusCreated = true;
 	if (pendingRefresh) {
 		pendingRefresh = false;
-		(await tabs.get({})).forEach(async tab => await refreshTab(tab));
+		(await browser.tabs.query({})).forEach(async tab => await refreshTab(tab));
 	}
 }
 
@@ -403,7 +408,7 @@ async function initialize() {
 				business.saveSelectedLinks(tab);
 			}
 			if (event.menuItemId == MENU_ID_VIEW_PENDINGS) {
-				await tabs.create({ active: true, url: "/extension/ui/pages/pendings.html" });
+				await browser.tabs.create({ active: true, url: "/extension/ui/pages/pendings.html" });
 			}
 			if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
 				business.saveTabs([tab], { selected: true });
@@ -412,16 +417,16 @@ async function initialize() {
 				business.saveTabs([tab], { frameId: event.frameId });
 			}
 			if (event.menuItemId == MENU_ID_SAVE_SELECTED_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_SELECTED_TABS) {
-				const allTabs = await tabs.get({ currentWindow: true, highlighted: true });
-				business.saveTabs(allTabs);
+				const tabs = await queryTabs({ currentWindow: true, highlighted: true });
+				business.saveTabs(tabs);
 			}
 			if (event.menuItemId == MENU_ID_SAVE_UNPINNED_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_UNPINNED_TABS) {
-				const allTabs = await tabs.get({ currentWindow: true, pinned: false });
-				business.saveTabs(allTabs);
+				const tabs = await queryTabs({ currentWindow: true, pinned: false });
+				business.saveTabs(tabs);
 			}
 			if (event.menuItemId == MENU_ID_SAVE_ALL_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_ALL_TABS) {
-				const allTabs = await tabs.get({ currentWindow: true });
-				business.saveTabs(allTabs);
+				const tabs = await queryTabs({ currentWindow: true });
+				business.saveTabs(tabs);
 			}
 			if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
 				const allTabsData = await tabsData.get(tab.id);
@@ -500,14 +505,14 @@ async function initialize() {
 		if (menusCreated) {
 			pendingRefresh = true;
 		} else {
-			(await tabs.get({})).forEach(async tab => await refreshTab(tab));
+			(await browser.tabs.query({})).forEach(async tab => await refreshTab(tab));
 		}
 	}
 }
 
 async function refreshExternalComponents(tab) {
 	const allTabsData = await tabsData.get(tab.id);
-	await autosave.refreshTabs();
+	await refreshAutoSaveTabs();
 	await button.refreshTab(tab);
 	try {
 		await browser.runtime.sendMessage({ method: "options.refresh", profileName: allTabsData.profileName });

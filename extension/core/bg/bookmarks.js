@@ -25,7 +25,6 @@
 
 import * as config from "./config.js";
 import * as business from "./business.js";
-import * as tabs from "./tabs.js";
 
 Promise.resolve().then(enable);
 
@@ -83,7 +82,7 @@ async function update(id, changes) {
 }
 
 async function onCreated(bookmarkId, bookmarkInfo) {
-	const activeTabs = await tabs.get({ lastFocusedWindow: true, active: true });
+	const activeTabs = await browser.tabs.query({ lastFocusedWindow: true, active: true });
 	const options = await config.getOptions(bookmarkInfo.url);
 	if (options.saveCreatedBookmarks) {
 		const bookmarkFolders = await getParentFolders(bookmarkInfo.parentId);
@@ -98,9 +97,9 @@ async function onCreated(bookmarkId, bookmarkInfo) {
 			if (activeTabs.length && activeTabs[0].url == bookmarkInfo.url) {
 				business.saveTabs(activeTabs, { bookmarkId, bookmarkFolders });
 			} else {
-				const allTabs = await tabs.get({});
-				if (allTabs.length) {
-					const tab = allTabs.find(tab => tab.url == bookmarkInfo.url);
+				const tabs = await browser.tabs.query({});
+				if (tabs.length) {
+					const tab = tabs.find(tab => tab.url == bookmarkInfo.url);
 					if (tab) {
 						business.saveTabs([tab], { bookmarkId, bookmarkFolders });
 					} else {

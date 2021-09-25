@@ -23,21 +23,30 @@
 
 /* global browser */
 
-import * as tabs from "./../../core/bg/tabs.js";
-import * as business from "./../../core/bg/business.js";
+import { queryTabs } from "./../../core/bg/tabs-util.js";
 
 const commands = browser.commands;
 const BROWSER_COMMANDS_API_SUPPORTED = commands && commands.onCommand && commands.onCommand.addListener;
 
+let business;
+
+export {
+	setBusiness
+};
+
+function setBusiness(businessApi) {
+	business = businessApi;
+}
+
 if (BROWSER_COMMANDS_API_SUPPORTED) {
 	commands.onCommand.addListener(async command => {
 		if (command == "save-selected-tabs") {
-			const highlightedTabs = await tabs.get({ currentWindow: true, highlighted: true });
+			const highlightedTabs = await queryTabs({ currentWindow: true, highlighted: true });
 			business.saveTabs(highlightedTabs, { optionallySelected: true });
 		}
 		if (command == "save-all-tabs") {
-			const allTabs = await tabs.get({ currentWindow: true });
-			business.saveTabs(allTabs);
+			const tabs = await queryTabs({ currentWindow: true });
+			business.saveTabs(tabs);
 		}
 	});
 }

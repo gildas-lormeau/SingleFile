@@ -23,14 +23,32 @@
 
 /* global browser */
 
+import * as config from "./config.js";
+import * as tabsData from "./tabs-data.js";
+
 export {
-	onMessage
+	autoSaveIsEnabled,
+	refreshAutoSaveTabs
 };
 
-async function onMessage(message) {
-	if (message.method.endsWith(".resourceCommitted")) {
-		if (message.tabId && message.url && (message.type == "stylesheet" || message.type == "script")) {
-			await browser.tabs.sendMessage(message.tabId, message);
-		}
+async function autoSaveIsEnabled(tab) {
+	if (tab) {
+		const [allTabsData, rule] = await Promise.all([tabsData.get(), config.getRule(tab.url)]);
+		return Boolean(allTabsData.autoSaveAll ||
+			(allTabsData.autoSaveUnpinned && !tab.pinned) ||
+			(allTabsData[tab.id] && allTabsData[tab.id].autoSave)) &&
+			(!rule || rule.autoSaveProfile != config.DISABLED_PROFILE_NAME);
 	}
+}
+
+async function refreshAutoSaveTabs() {
+	const tabs = (await browser.tabs.query({}));
+	return Promise.all(tabs.map(async tab => {
+		const [options, autoSaveEnabled] = await Promise.all([config.getOptions(tab.url, true), autoSaveIsEnabled(tab)]);
+		try {
+			await browser.tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options });
+		} catch (error) {
+			// ignored
+		}
+	}));
 }

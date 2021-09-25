@@ -72,8 +72,8 @@ browser.runtime.onMessage.addListener((message, sender) => {
 });
 if (browser.runtime.onMessageExternal) {
 	browser.runtime.onMessageExternal.addListener(async (message, sender) => {
-		const allTabs = await tabs.get({ currentWindow: true, active: true });
-		const currentTab = allTabs[0];
+		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
+		const currentTab = tabs[0];
 		if (currentTab) {
 			return autosave.onMessageExternal(message, currentTab, sender);
 		} else {

@@ -23,8 +23,6 @@
 
 /* global browser, setTimeout */
 
-import * as tabs from "./tabs.js";
-
 let persistentData, temporaryData, cleanedUp;
 setTimeout(() => getPersistent().then(tabsData => persistentData = tabsData), 0);
 export {
@@ -86,10 +84,10 @@ async function setPersistent(tabsData) {
 async function cleanup() {
 	if (!cleanedUp) {
 		cleanedUp = true;
-		const allTabs = await tabs.get({ currentWindow: true, highlighted: true });
+		const tabs = await browser.tabs.query({ currentWindow: true, highlighted: true });
 		Object.keys(persistentData).filter(key => {
 			if (key != "autoSaveAll" && key != "autoSaveUnpinned" && key != "profileName") {
-				return !allTabs.find(tab => tab.id == key);
+				return !tabs.find(tab => tab.id == key);
 			}
 		}).forEach(tabId => delete persistentData[tabId]);
 		await browser.storage.local.set({ tabsData: persistentData });

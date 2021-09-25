@@ -21,16 +21,6 @@
  *   Source.
  */
 
-/* global browser */
-
-export {
-	onMessage
-};
-
-async function onMessage(message) {
-	if (message.method.endsWith(".resourceCommitted")) {
-		if (message.tabId && message.url && (message.type == "stylesheet" || message.type == "script")) {
-			await browser.tabs.sendMessage(message.tabId, message);
-		}
-	}
-}
+import "./fetch/bg/fetch.js";
+import "./frame-tree/bg/frame-tree.js";
+import "./lazy/bg/lazy-timeout.js";

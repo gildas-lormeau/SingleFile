@@ -21,9 +21,11 @@
  *   Source.
  */
 
+/* global browser */
+
 import * as button from "./ui-button.js";
 import * as menus from "./ui-menus.js";
-import * as tabs from "./../../core/bg/tabs.js";
+import * as command from "./ui-commands.js";
 
 export {
 	onMessage,
@@ -37,8 +39,15 @@ export {
 	onUploadProgress,
 	onTabCreated,
 	onTabActivated,
-	onInit
+	onInit,
+	setBusiness
 };
+
+function setBusiness(businessApi) {
+	menus.setBusiness(businessApi);
+	button.setBusiness(businessApi);
+	command.setBusiness(businessApi);
+}
 
 function onMessage(message, sender) {
 	if (message.method.endsWith(".refreshMenu")) {
@@ -63,7 +72,7 @@ function onStart(tabId, step, autoSave) {
 async function onError(tabId, message, link) {
 	button.onError(tabId);
 	if (message) {
-		await tabs.sendMessage(tabId, { method: "content.error", error: message.toString(), link });
+		await browser.tabs.sendMessage(tabId, { method: "content.error", error: message.toString(), link });
 	}
 }
 
