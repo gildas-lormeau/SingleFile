@@ -30,7 +30,7 @@ const CLOSE_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAA
 const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CLASS;
 const ERROR_BAR_TAGNAME = "singlefile-error-bar";
 
-const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.body)));
+const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
 
 let errorBarElement;
 

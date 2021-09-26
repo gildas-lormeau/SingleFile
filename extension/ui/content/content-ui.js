@@ -43,7 +43,7 @@ const LOG_PANEL_DEFERRED_IMAGES_MESSAGE = browser.i18n.getMessage("logPanelDefer
 const LOG_PANEL_FRAME_CONTENTS_MESSAGE = browser.i18n.getMessage("logPanelFrameContents");
 const LOG_PANEL_STEP_MESSAGE = browser.i18n.getMessage("logPanelStep");
 const LOG_PANEL_WIDTH = browser.i18n.getMessage("logPanelWidth");
-const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.body)));
+const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
 
 let selectedAreaElement, logsWindowElement;
 createLogsWindowElement();
