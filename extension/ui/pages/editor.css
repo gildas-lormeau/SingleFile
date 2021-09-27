@@ -82,9 +82,6 @@ img[type=button].cut-disabled:hover,
         flex-direction: column;
         min-width: 34px;
         max-width: 34px;
-        border-bottom-width: 0px;
-        border-right-width: 1px;
-        border-right-style: solid;
     }
 
     .buttons {
