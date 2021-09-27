@@ -32,7 +32,7 @@ singlefile.pageInfo = {
 	updatedResources: {},
 	visitDate: new Date()
 };
-browser.runtime.sendMessage({ method: "autosave.init" }).then(message => {
+browser.runtime.sendMessage({ method: "bootstrap.init" }).then(message => {
 	options = message.options;
 	tabId = message.tabId;
 	tabIndex = message.tabIndex;
