@@ -409,7 +409,8 @@ removeScriptsInput.addEventListener("click", () => {
 }, false);
 saveCreatedBookmarksInput.addEventListener("click", saveCreatedBookmarks, false);
 passReferrerOnErrorInput.addEventListener("click", passReferrerOnError, false);
-autoSaveExternalSaveInput.addEventListener("click", enableExternalSave, false);
+autoSaveExternalSaveInput.addEventListener("click", () => enableExternalSave(autoSaveExternalSaveInput), false);
+saveWithCompanionInput.addEventListener("click", () => enableExternalSave(saveWithCompanionInput), false);
 saveToFilesystemInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
 saveToClipboardInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
 addProofInput.addEventListener("click", async event => {
@@ -917,13 +918,13 @@ async function passReferrerOnError() {
 	}
 }
 
-async function enableExternalSave() {
-	if (autoSaveExternalSaveInput.checked) {
-		autoSaveExternalSaveInput.checked = false;
+async function enableExternalSave(input) {
+	if (input.checked) {
+		input.checked = false;
 		try {
 			const permissionGranted = await browser.permissions.request({ permissions: ["nativeMessaging"] });
 			if (permissionGranted) {
-				autoSaveExternalSaveInput.checked = true;
+				input.checked = true;
 				await refreshOption();
 				if (window.chrome) {
 					window.chrome.runtime.reload();
@@ -933,7 +934,7 @@ async function enableExternalSave() {
 				await refreshOption();
 			}
 		} catch (error) {
-			autoSaveExternalSaveInput.checked = true;
+			input.checked = true;
 			await refreshOption();
 		}
 	} else {
