@@ -69,59 +69,98 @@
 /* Avoid adding ID selector rules in this style sheet, since they could
  * inadvertently match elements in the article content. */
 :root {
-   --close-button-hover: #d94141;
+  --body-padding: 64px;
+  --popup-border: rgba(0, 0, 0, 0.12);
+  --opaque-popup-border: #e0e0e0;
+  --popup-shadow: rgba(49, 49, 49, 0.3);
+  --grey-90-a10: rgba(12, 12, 13, 0.1);
+  --grey-90-a20: rgba(12, 12, 13, 0.2);
+  --grey-90-a30: rgba(12, 12, 13, 0.3);
+  --grey-90-a80: rgba(12, 12, 13, 0.8);
+  --grey-30: #d7d7db;
+  --blue-40: #45a1ff;
+  --blue-40-a30: rgba(69, 161, 255, 0.3);
+  --blue-60: #0060df;
+  --active-color: #0B83FF;
+  --font-size: 12;
+  --content-width: 30em;
+  --line-height: 1.6em;
+  --tooltip-background: var(--grey-90-a80);
+  --tooltip-foreground: white;
+  --toolbar-button-hover: var(--grey-90-a10);
+  --toolbar-button-active: var(--grey-90-a20);
 }
+
 body {
-  --toolbar-bgcolor: #fbfbfb;
-  --toolbar-border: #b5b5b5;
-  --toolbar-hover: #ebebeb;
-  --popup-bgcolor: #fbfbfb;
-  --popup-border: #b5b5b5;
-  --font-color: #4c4c4c;
-  --icon-fill: #808080;
+  --main-background: #fff;
+  --main-foreground: #333;
+  --toolbar-border: var(--grey-90-a20);
+  --toolbar-box-shadow: var(--grey-90-a10);
+  --popup-button-hover: hsla(0,0%,70%,.4);
+  --popup-button-active: hsla(240,5%,5%,.15);
+  --popup-bgcolor: white;
+  --popup-button: #edecf0;
+  --selected-background: var(--blue-40-a30);
+  --selected-border: var(--blue-40);
+  --popup-line: var(--grey-30);
+  --font-value-border: var(--grey-30);
+  --font-color: #000000;
+  --icon-fill: #3b3b3c;
+  --icon-disabled-fill: #8080807F;
+  --link-foreground: var(--blue-60);
+  --link-selected-foreground: #333;
+  --visited-link-foreground: #b5007f;
   /* light colours */
 }
 
+body.sepia {
+  --main-background: #f4ecd8;
+  --main-foreground: #5b4636;
+  --toolbar-border: #5b4636;
+}
+
 body.dark {
-  --toolbar-bgcolor: #2a2a2d;
-  --toolbar-border: #4B4A50;
-  --toolbar-hover: #737373;
-  --popup-bgcolor: #4b4a50;
-  --popup-border: #65646a;
+  --main-background: rgb(28, 27, 34);
+  --main-foreground: #eee;
+  --toolbar-border: #4a4a4b;
+  --toolbar-box-shadow: black;
+  --toolbar-button-hover: var(--grey-90-a30);
+  --toolbar-button-active: var(--grey-90-a80);
+  --popup-button-active: hsla(0,0%,70%,.6);
+  --popup-bgcolor: rgb(66,65,77);
+  --popup-button: #5c5c61;
+  --popup-line: rgb(82, 82, 94);
+  --selected-background: #3E6D9A;
+  --link-foreground: #45a1ff;
+  --visited-link-foreground: #e675fd;
+  --link-selected-foreground: #fff;
+  --opaque-popup-border: #434146;
+  --font-value-border: #656468;
   --font-color: #fff;
   --icon-fill: #fff;
+  --icon-disabled-fill: #ffffff66;
+  --tooltip-background: black;
+  --tooltip-foreground: white;
   /* dark colours */
 }
 
 body {
-  padding: 64px 51px;
+  margin: 0;
+  padding: var(--body-padding);
+  background-color: var(--main-background);
+  color: var(--main-foreground);
 }
 
 body.loaded {
   transition: color 0.4s, background-color 0.4s;
 }
 
-body.light {
-  color: #333333;
-  background-color: #ffffff;
-}
-
-body.dark {
-  color: #eeeeee;
-  background-color: #333333;
-}
-
 body.dark *::-moz-selection {
-  background-color: #FFFFFF;
-  color: #0095DD;
-}
-body.dark a::-moz-selection {
-  color: #DD4800;
+  background-color: var(--selected-background);
 }
 
-body.sepia {
-  color: #5b4636;
-  background-color: #f4ecd8;
+a::-moz-selection {
+  color: var(--link-selected-foreground);
 }
 
 body.sans-serif,
@@ -130,51 +169,15 @@ body.sans-serif .remove-button {
 }
 
 body.serif,
-body.serif .remove-button  {
+body.serif .remove-button {
   font-family: Georgia, "Times New Roman", serif;
 }
 
 .container {
-  --font-size: 12;
-  max-width: 30em;
   margin: 0 auto;
   font-size: var(--font-size);
-}
-
-.container.content-width1 {
-  max-width: 20em;
-}
-
-.container.content-width2 {
-  max-width: 25em;
-}
-
-.container.content-width3 {
-  max-width: 30em;
-}
-
-.container.content-width4  {
-  max-width: 35em;
-}
-
-.container.content-width5 {
-  max-width: 40em;
-}
-
-.container.content-width6 {
-  max-width: 45em;
-}
-
-.container.content-width7 {
-  max-width: 50em;
-}
-
-.container.content-width8 {
-  max-width: 55em;
-}
-
-.container.content-width9 {
-  max-width: 60em;
+  max-width: var(--content-width);
+  line-height: var(--line-height);
 }
 
 /* Override some controls and content styles based on color scheme */
@@ -207,20 +210,6 @@ body.dark blockquote {
   border-inline-start: 2px solid #eeeeee !important;
 }
 
-/* Add toolbar transition base on loaded class  */
-
-body.loaded .toolbar {
-  transition: transform 0.3s ease-out;
-}
-
-body:not(.loaded) .toolbar:-moz-locale-dir(ltr) {
-  transform: translateX(-100%);
-}
-
-body:not(.loaded) .toolbar:-moz-locale-dir(rtl) {
-  transform: translateX(100%);
-}
-
 .light-button {
   color: #333333;
   background-color: #ffffff;
@@ -228,20 +217,12 @@ body:not(.loaded) .toolbar:-moz-locale-dir(rtl) {
 
 .dark-button {
   color: #eeeeee;
-  background-color: #333333;
+  background-color: #1c1b22;
 }
 
 .sepia-button {
   color: #5b4636;
   background-color: #f4ecd8;
-}
-
-.sans-serif-button {
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-.serif-button {
-  font-family: Georgia, "Times New Roman", serif;
 }
 
 /* Loading/error message */
@@ -252,6 +233,15 @@ body:not(.loaded) .toolbar:-moz-locale-dir(rtl) {
   text-align: center;
   width: 100%;
   font-size: 0.9em;
+}
+
+/* Detector element to see if we're at the top of the doc or not. */
+.top-anchor {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 5px;
+  pointer-events: none;
 }
 
 /* Header */
@@ -268,7 +258,7 @@ body:not(.loaded) .toolbar:-moz-locale-dir(rtl) {
   font-family: Helvetica, Arial, sans-serif;
   text-decoration: none;
   border-bottom: 1px solid;
-  color: #0095dd;
+  color: var(--link-foreground);
 }
 
 .header > h1 {
@@ -282,41 +272,158 @@ body:not(.loaded) .toolbar:-moz-locale-dir(rtl) {
 .header > .credits {
   font-size: 0.9em;
   line-height: 1.48em;
-  margin: 0 0 10px 0;
+  margin: 0 0 10px;
   padding: 0;
   font-style: italic;
 }
 
 .header > .meta-data {
   font-size: 0.65em;
-  margin: 0 0 15px 0;
+  margin: 0 0 15px;
+}
+
+.reader-estimated-time {
+  text-align: match-parent;
 }
 
 /*======= Controls toolbar =======*/
 
+.toolbar-container {
+  position: sticky;
+  z-index: 2;
+  top: 32px;
+  height: 0; /* take up no space, so body is at the top. */
+
+  /* As a stick container, we're positioned relative to the body. Move us to
+   * the edge of the viewport using margins, and take the width of
+   * the body padding into account for calculating our width.
+   */
+  margin-inline-start: calc(-1 * var(--body-padding));
+  width: max(var(--body-padding), calc((100% - var(--content-width)) / 2 + var(--body-padding)));
+  font-size: var(--font-size); /* Needed to ensure em units match, is reset for .reader-controls */
+}
+
 .toolbar {
+  padding-block: 16px;
+  border: 1px solid var(--toolbar-border);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px var(--toolbar-box-shadow);
+
+  width: 32px; /* basic width, without padding/border */
+
+  /* padding should be 16px, except if there's not enough space for that, in
+   * which case use half the available space for padding (=25% on each side).
+   * The 34px here is the width + borders. We use a variable because we need
+   * to know this size for the margin calculation.
+   */
+  --inline-padding: min(16px, calc(25% - 0.25 * 34px));
+  padding-inline: var(--inline-padding);
+
+  /* Keep a maximum of 96px distance to the body, but center once the margin
+   * gets too small. We need to set the start margin, however...
+   * To center, we'd want 50% of the container, but we'd subtract half our
+   * own width (16px) and half the border (1px) and the inline padding.
+   * When the other margin would be 96px, we want 100% - 96px - the complete
+   * width of the actual toolbar (34px + 2 * padding)
+   */
+  margin-inline-start: max(calc(50% - 17px - var(--inline-padding)), calc(100% - 96px - 34px - 2 * var(--inline-padding)));
+
   font-family: Helvetica, Arial, sans-serif;
-  position: fixed;
-  height: 100%;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
   list-style: none;
-  background-color:  var(--toolbar-bgcolor);
-  -moz-user-select: none;
-  border-right: 1px solid  var(--toolbar-border);
-  z-index: 1;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .toolbar {
+    transition-property: border-color, box-shadow;
+    transition-duration: 250ms;
+  }
+
+  .toolbar .button {
+    transition-property: opacity;
+    transition-duration: 250ms;
+  }
+
+  .toolbar-container.scrolled .toolbar:not(:hover, :focus-within) {
+    border-color: transparent;
+    box-shadow: 0 2px 8px transparent;
+  }
+
+  .toolbar-container.scrolled .toolbar:not(:hover, :focus-within) .button {
+    opacity: 0.6;
+  }
+
+  .toolbar-container.transition-location {
+    transition-duration: 250ms;
+    transition-property: width;
+  }
+}
+
+.toolbar-container.overlaps .button {
+  opacity: 0.1;
+}
+
+.dropdown-open .toolbar {
+  border-color: transparent;
+  box-shadow: 0 2px 8px transparent;
+}
+
+.reader-controls {
+  /* We use ems above this node to get it to the right size. However,
+   * the UI inside the toolbar should use a fixed, smaller size. */
+  font-size: 11px;
 }
 
 .button {
-  display: block;
-  background-size: 24px 24px;
-  background-repeat: no-repeat;
-  color: #333;
-  background-color: var(--toolbar-bgcolor);
-  height: 40px;
+  position: relative;
+  width: 32px;
+  height: 32px;
   padding: 0;
+  border: none;
+  border-radius: 4px;
+  margin: 4px 0;
+  background-color: transparent;
+  background-size: 16px 16px;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--font-color);
+}
+
+.button:hover,
+.button:-moz-focusring {
+  background-color: var(--toolbar-button-hover);
+}
+
+.open .button,
+.button:active {
+  background-color: var(--toolbar-button-active);
+  color: var(--active-color);
+  fill: var(--active-color);
+}
+
+.hover-label {
+  position: absolute;
+  top: 4px;
+  inset-inline-start: 36px;
+  line-height: 16px;
+  white-space: pre; /* make sure we don't wrap */
+  background-color: var(--tooltip-background);
+  color: var(--tooltip-foreground);
+  padding: 4px 8px;
+  border-radius: 2px;
+  visibility: hidden;
+  pointer-events: none;
+  /* Put above .dropdown .dropdown-popup, which has z-index: 1000. */
+  z-index: 1001;
+}
+
+/* Show the hover tooltip on non-dropdown buttons. */
+.button:not(.dropdown-toggle):hover > .hover-label,
+.button:not(.dropdown-toggle):-moz-focusring > .hover-label,
+/* Show the hover tooltip for dropdown buttons unless its dropdown is open. */
+:not(.open) > li > .dropdown-toggle:hover > .hover-label,
+:not(.open) > li > .dropdown-toggle:-moz-focusring > .hover-label {
+  visibility: visible;
 }
 
 button {
@@ -325,19 +432,12 @@ button {
   fill: var(--icon-fill);
 }
 
-.toolbar .button {
-  width: 40px;
-  background-position: center;
-  margin-right: -1px;
-  border-top: 0;
-  border-left: 0;
-  border-right: 1px solid var(--toolbar-border);
-  border-bottom: 1px solid var(--toolbar-border);
-  background-color:  var(--toolbar-bgcolor);
+button:disabled {
+  fill: var(--icon-disabled-fill);
 }
 
-.button[hidden] {
-  display: none;
+.toolbar button::-moz-focus-inner {
+  border: 0;
 }
 
 .dropdown {
@@ -345,6 +445,7 @@ button {
   list-style: none;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 .dropdown li {
@@ -354,26 +455,18 @@ button {
 
 /*======= Popup =======*/
 
-.dropdown-popup {
-  min-width: 300px;
+.dropdown .dropdown-popup {
   text-align: start;
   position: absolute;
-  left: 48px; /* offset to account for toolbar width */
+  inset-inline-start: 40px;
   z-index: 1000;
   background-color: var(--popup-bgcolor);
   visibility: hidden;
   border-radius: 4px;
   border: 1px solid var(--popup-border);
+  box-shadow: 0 0px 10px 0 var(--popup-shadow);
   border-bottom-width: 0;
-  box-shadow: 0 1px 3px #c1c1c1;
-}
-
-.keep-open .dropdown-popup {
-  z-index: initial;
-}
-
-.dropdown-popup > hr {
-  display: none;
+  top: 0;
 }
 
 .open > .dropdown-popup {
@@ -382,178 +475,175 @@ button {
 
 .dropdown-arrow {
   position: absolute;
-  top: 30px; /* offset arrow from top of popup */
-  left: -16px;
-  width: 16px;
   height: 24px;
+  width: 16px;
+  inset-inline-start: -16px;
   background-image: url("chrome://global/skin/reader/RM-Type-Controls-Arrow.svg");
   display: block;
-  -moz-context-properties:  fill, stroke;
+  -moz-context-properties: fill, stroke;
   fill: var(--popup-bgcolor);
-  stroke: var(--popup-border);
+  stroke: var(--opaque-popup-border);
+  pointer-events: none;
 }
 
+.dropdown-arrow:dir(rtl) {
+  transform: scaleX(-1);
+}
+
+/* Align the style dropdown arrow (narrate does its own) */
+.style-dropdown .dropdown-arrow {
+  top: 7px;
+}
 
 /*======= Font style popup =======*/
 
-.font-type-buttons,
-.font-size-buttons,
-.color-scheme-buttons,
-.content-width-buttons,
-.line-height-buttons {
+.radio-button {
+  /* We visually hide these, but we keep them around so they can be focused
+   * and changed by interacting with them via the label, or the keyboard, or
+   * assistive technology.
+   */
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.radiorow,
+.buttonrow {
   display: flex;
-  flex-direction: row;
 }
 
-.font-type-buttons > button:first-child {
-  border-top-left-radius: 3px;
-}
-.font-type-buttons > button:last-child {
-  border-top-right-radius: 3px;
-}
-.color-scheme-buttons > button:first-child {
-  border-bottom-left-radius: 3px;
-}
-.color-scheme-buttons > button:last-child {
-  border-bottom-right-radius: 3px;
+.content-width-value,
+.font-size-value,
+.line-height-value {
+  box-sizing: border-box;
+  width: 36px;
+  height: 15px;
+  line-height: 15px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: auto;
+  border-radius: 10px;
+  border: 1px solid var(--font-value-border);
+  background-color: var(--popup-button);
 }
 
-.font-type-buttons > button,
-.font-size-buttons > button,
-.color-scheme-buttons > button,
-.content-width-buttons > button,
-.line-height-buttons > button {
-  text-align: center;
+.buttonrow > button {
   border: 0;
-}
-
-.font-type-buttons > button,
-.font-size-buttons > button,
-.content-width-buttons > button,
-.line-height-buttons > button {
-  width: 50%;
-  background-color: transparent;
-  border-left: 1px solid var(--popup-border);
-  border-bottom: 1px solid var(--popup-border);
-}
-
-.color-scheme-buttons > button {
-  width: 33.33%;
-  font-size: 14px;
-}
-
-.color-scheme-buttons > .dark-button {
-  margin-top: -1px;
-  height: 61px;
-}
-
-.font-type-buttons > button:first-child,
-.font-size-buttons > button:first-child,
-.content-width-buttons > button:first-child,
-.line-height-buttons > button:first-child {
-  border-left: 0;
-}
-
-.font-type-buttons > button {
-  display: inline-block;
-  font-size: 62px;
-  height: 100px;
-}
-
-.font-size-buttons > button,
-.color-scheme-buttons > button,
-.content-width-buttons > button,
-.line-height-buttons > button {
   height: 60px;
-}
-
-.font-type-buttons > button:active:hover,
-.font-type-buttons > button.selected,
-.color-scheme-buttons > button:active:hover,
-.color-scheme-buttons > button.selected {
-  box-shadow: inset 0 -3px 0 0 #fc6420;
-}
-
-.font-type-buttons > button:active:hover,
-.font-type-buttons > button.selected {
-  border-bottom: 1px solid #FC6420;
-}
-
-/* Make the serif button content the same size as the sans-serif button content. */
-.font-type-buttons > button > .description {
-  font-size: 12px;
-  margin-top: -5px;
-}
-
-/* Font sizes are different per-platform, so we need custom CSS to line them up. */
-.font-type-buttons > .sans-serif-button > .name {
-  margin-top: 2px;
-}
-
-.font-type-buttons > .sans-serif-button > .description {
-  margin-top: -4px;
-}
-
-.font-type-buttons > .serif-button > .name {
-  font-size: 63px;
-}
-
-.button:hover,
-.font-size-buttons > button:hover,
-.font-type-buttons > button:hover,
-.content-width-buttons > button:hover,
-.line-height-buttons > button:hover {
-  background-color: var(--toolbar-hover);
-}
-
-.dropdown.open,
-.button:active,
-.font-size-buttons > button:active,
-.font-size-buttons > button.selected,
-.content-width-buttons > button:active,
-.content-width-buttons > button.selected,
-.line-height-buttons > button:active,
-.line-height-buttons > button.selected {
-  background-color: #dadada;
-}
-
-/* Only used on Android */
-.font-size-sample {
-  display: none;
-}
-
-.minus-button,
-.plus-button,
-.content-width-minus-button,
-.content-width-plus-button,
-.line-height-minus-button,
-.line-height-plus-button {
+  width: 90px;
   background-color: transparent;
-  border: 0;
-  background-size: 18px 18px;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.buttonrow > button:enabled:hover,
+.buttonrow > button:enabled:-moz-focusring {
+  background-color: var(--popup-button-hover);
+}
+
+.buttonrow > button:enabled:active {
+  background-color: var(--popup-button-active);
+}
+
+.radiorow:not(:last-child),
+.buttonrow:not(:last-child) {
+  border-bottom: 1px solid var(--popup-line);
+}
+
+.radiorow > label {
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 2px solid var(--popup-border);
+}
+
+.radiorow > label[checked] {
+  border-color: var(--selected-border);
+}
+
+/* For the hover style, we draw a line under the item by means of a
+ * pseudo-element. Because these items are variable height, and
+ * because their contents are variable height, position it absolutely,
+ * and give it a width of 100% (the content width) + 4px for the 2 * 2px
+ * border width.
+ */
+.radiorow > input[type=radio]:-moz-focusring + label::after,
+.radiorow > label:hover::after {
+  content: "";
+  display: block;
+  border-bottom: 2px solid var(--blue-40);
+  width: calc(100% + 4px);
+  position: absolute;
+  /* to skip the 2 * 2px border + 2px spacing. */
+  bottom: -6px;
+  /* Match the start of the 2px border of the element: */
+  inset-inline-start: -2px;
+}
+
+.color-scheme-buttons > label {
+  height: 34px;
+  width: 70px;
+  font-size: 12px;
+  /* Center the labels horizontally as well as vertically */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* We want 10px between items, but there's no margin collapsing in flexbox. */
+  margin: 10px 5px;
+}
+
+.color-scheme-buttons > input:first-child + label {
+  margin-inline-start: 10px;
+}
+
+.color-scheme-buttons > label:last-child {
+  margin-inline-end: 10px;
+}
+
+.font-type-buttons > label {
+  height: 64px;
+  width: 105px;
+  /* Slightly more space between these items. */
+  margin: 10px;
+  /* Center the Sans-serif / Serif labels */
+  text-align: center;
+  background-size: 63px 39px;
+  background-repeat: no-repeat;
+  background-position: center 18px;
+  background-color: var(--popup-button);
+  fill: currentColor;
+  -moz-context-properties: fill;
+  /* This mostly matches baselines, but because of differences in font
+   * baselines between serif and sans-serif, this isn't always enough. */
+  line-height: 1;
+  padding-top: 2px;
+}
+
+.font-type-buttons > label[checked] {
+  background-color: var(--selected-background);
+}
+
+.sans-serif-button {
+  font-family: Helvetica, Arial, sans-serif;
+  background-image: url("chrome://global/skin/reader/RM-Sans-Serif.svg");
+}
+
+/* Tweak padding to match the baseline on mac */
+:root[platform=macosx] .sans-serif-button {
+  padding-top: 3px;
+}
+
+.serif-button {
+  font-family: Georgia, "Times New Roman", serif;
+  background-image: url("chrome://global/skin/reader/RM-Serif.svg");
 }
 
 /*======= Toolbar icons =======*/
 
 .close-button {
-  background-image: url("chrome://global/skin/reader/RM-Close-24x24.svg");
-  height: 68px;
-  background-position: center 8px;
-}
-
-.close-button:hover {
-  fill: #fff;
-  background-color: var(--close-button-hover);
-  border-bottom: 1px solid var(--close-button-hover);
-  border-right: 1px solid var(--close-button-hover);
-}
-
-.close-button:hover:active {
-  background-color: #AE2325;
-  border-bottom: 1px solid #AE2325;
-  border-right: 1px solid #AE2325;
+  -moz-context-properties: fill;
+  background-image: url("chrome://global/skin/icons/close.svg");
 }
 
 .style-button {
@@ -561,10 +651,12 @@ button {
 }
 
 .minus-button {
+  background-size: 18px 18px;
   background-image: url("chrome://global/skin/reader/RM-Minus-24x24.svg");
 }
 
 .plus-button {
+  background-size: 18px 18px;
   background-image: url("chrome://global/skin/reader/RM-Plus-24x24.svg");
 }
 
@@ -588,6 +680,12 @@ button {
   background-image: url("chrome://global/skin/reader/RM-Line-Height-Plus-38x24.svg");
 }
 
+/* Mirror the line height buttons if the article is RTL. */
+.reader-controls[articledir="rtl"] .line-height-minus-button,
+.reader-controls[articledir="rtl"] .line-height-plus-button {
+  transform: scaleX(-1);
+}
+
 @media print {
   .toolbar {
     display: none !important;
@@ -603,43 +701,6 @@ button {
 .moz-reader-content {
   display: none;
   font-size: 1em;
-  line-height: 1.6em;
-}
-
-.moz-reader-content.line-height1 {
-  line-height: 1em;
-}
-
-.moz-reader-content.line-height2 {
-  line-height: 1.2em;
-}
-
-.moz-reader-content.line-height3 {
-  line-height: 1.4em;
-}
-
-.moz-reader-content.line-height4 {
-  line-height: 1.6em;
-}
-
-.moz-reader-content.line-height5 {
-  line-height: 1.8em;
-}
-
-.moz-reader-content.line-height6 {
-  line-height: 2.0em;
-}
-
-.moz-reader-content.line-height7 {
-  line-height: 2.2em;
-}
-
-.moz-reader-content.line-height8 {
-  line-height: 2.4em;
-}
-
-.moz-reader-content.line-height9 {
-  line-height: 2.6em;
 }
 
 @media print {
@@ -652,7 +713,7 @@ button {
   .moz-reader-content li,
   .moz-reader-content figure,
   .moz-reader-content .wp-caption {
-    margin: 0 0 10px 0 !important;
+    margin: 0 0 10px !important;
     padding: 0 !important;
   }
 }
@@ -686,11 +747,11 @@ button {
 .moz-reader-content a:link,
 .moz-reader-content a:link:hover,
 .moz-reader-content a:link:active {
-  color: #0095dd;
+  color: var(--link-foreground);
 }
 
 .moz-reader-content a:visited {
-  color: #c2e;
+  color: var(--visited-link-foreground);
 }
 
 .moz-reader-content * {
@@ -708,7 +769,7 @@ button {
 .moz-reader-content li,
 .moz-reader-content figure,
 .moz-reader-content .wp-caption {
-  margin: -10px -10px 20px -10px;
+  margin: -10px -10px 20px;
   padding: 10px;
   border-radius: 5px;
 }
@@ -730,8 +791,7 @@ button {
 }
 
 .moz-reader-content img[moz-reader-center] {
-  margin-left: auto;
-  margin-right: auto;
+  margin-inline: auto;
 }
 
 .moz-reader-content .caption,
@@ -764,7 +824,6 @@ button {
 
 .moz-reader-content ol {
   padding-inline-start: 30px;
-  list-style: decimal;
 }
 
 table,
