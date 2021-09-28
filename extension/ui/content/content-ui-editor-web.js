@@ -1672,6 +1672,12 @@ table {
 		titleElement.classList.add("reader-title");
 		titleElement.textContent = article.title;
 		document.body.insertBefore(titleElement, document.body.firstChild);
+		document.querySelectorAll("a[href]").forEach(element => {
+			const href = element.getAttribute("href").trim();
+			if (href.startsWith(document.baseURI + "#")) {
+				element.setAttribute("href", href.substring(document.baseURI.length));
+			}
+		});
 		document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
 		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
