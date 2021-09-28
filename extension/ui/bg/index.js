@@ -40,13 +40,13 @@ export {
 	onTabCreated,
 	onTabActivated,
 	onInit,
-	setBusiness
+	init
 };
 
-function setBusiness(businessApi) {
-	menus.setBusiness(businessApi);
-	button.setBusiness(businessApi);
-	command.setBusiness(businessApi);
+function init(businessApi) {
+	menus.init(businessApi);
+	button.init(businessApi);
+	command.init(businessApi);
 }
 
 function onMessage(message, sender) {

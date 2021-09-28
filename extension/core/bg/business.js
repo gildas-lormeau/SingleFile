@@ -46,7 +46,7 @@ const extensionScriptFiles = [
 
 const tasks = [];
 let currentTaskId = 0, maxParallelWorkers;
-ui.setBusiness({ isSavingTab, saveTabs, saveUrls, cancelTab, openEditor, saveSelectedLinks });
+ui.init({ isSavingTab, saveTabs, saveUrls, cancelTab, openEditor, saveSelectedLinks });
 
 export {
 	saveTabs,

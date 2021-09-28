@@ -99,10 +99,10 @@ export {
 	refreshTab as onTabActivated,
 	refreshTab as onInit,
 	createMenus as refreshTab,
-	setBusiness
+	init
 };
 
-function setBusiness(businessApi) {
+function init(businessApi) {
 	business = businessApi;
 }
 

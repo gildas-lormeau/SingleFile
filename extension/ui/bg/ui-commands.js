@@ -31,10 +31,10 @@ const BROWSER_COMMANDS_API_SUPPORTED = commands && commands.onCommand && command
 let business;
 
 export {
-	setBusiness
+	init
 };
 
-function setBusiness(businessApi) {
+function init(businessApi) {
 	business = businessApi;
 }
 
