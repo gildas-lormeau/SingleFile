@@ -60,8 +60,8 @@ async function onMessage(message, sender) {
 	if (message.method.endsWith(".getTabData")) {
 		const tab = sender.tab;
 		const tabData = tabsData.get(tab.id);
-		const options = await config.getOptions(tabData.url);
 		if (tabData) {
+			const options = await config.getOptions(tabData.url);
 			const content = JSON.stringify(tabData);
 			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
 				const message = {
