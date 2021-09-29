@@ -413,6 +413,7 @@ autoSaveExternalSaveInput.addEventListener("click", () => enableExternalSave(aut
 saveWithCompanionInput.addEventListener("click", () => enableExternalSave(saveWithCompanionInput), false);
 saveToFilesystemInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
 saveToClipboardInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
+saveWithCompanionInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
 addProofInput.addEventListener("click", async event => {
 	if (addProofInput.checked) {
 		addProofInput.checked = false;
