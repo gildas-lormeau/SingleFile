@@ -126,7 +126,7 @@ async function downloadTabPage(message, tab) {
 async function downloadContent(contents, tab, incognito, message) {
 	try {
 		if (message.saveToGDrive) {
-			await (await saveToGDrive(message.taskId, message.filename, new Blob([contents], { type: MIMETYPE_HTML }), {
+			await (await saveToGDrive(message.taskId, message.filename, new Blob(contents, { type: MIMETYPE_HTML }), {
 				forceWebAuthFlow: message.forceWebAuthFlow,
 				extractAuthCode: message.extractAuthCode
 			}, {
@@ -141,7 +141,7 @@ async function downloadContent(contents, tab, incognito, message) {
 				filenameConflictAction: message.filenameConflictAction
 			});
 		} else {
-			message.url = URL.createObjectURL(new Blob([contents], { type: MIMETYPE_HTML }));
+			message.url = URL.createObjectURL(new Blob(contents, { type: MIMETYPE_HTML }));
 			await downloadPage(message, {
 				confirmFilename: message.confirmFilename,
 				incognito,
@@ -152,7 +152,7 @@ async function downloadContent(contents, tab, incognito, message) {
 		}
 		ui.onEnd(tab.id);
 		if (message.openSavedPage) {
-			const createTabProperties = { active: true, url: URL.createObjectURL(new Blob([contents], { type: MIMETYPE_HTML })) };
+			const createTabProperties = { active: true, url: URL.createObjectURL(new Blob(contents, { type: MIMETYPE_HTML })) };
 			if (tab.index != null) {
 				createTabProperties.index = tab.index + 1;
 			}
