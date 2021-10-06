@@ -496,7 +496,7 @@
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionWoleetKey": {
-		"message": "access token",
+		"message": "訪問令牌",
 		"description": "Options page label: 'access token'"
 	},
 	"optionSaveToGDrive": {
@@ -504,23 +504,23 @@
 		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveToGitHub": {
-		"message": "upload to GitHub",
+		"message": "保存到 GitHub",
 		"description": "Options page label: 'upload to GitHub'"
 	},
 	"optionGitHubToken": {
-		"message": "access token",
+		"message": "訪問令牌",
 		"description": "Options page label: 'access token'"
 	},
 	"optionGitHubUser": {
-		"message": "user name",
+		"message": "用戶名",
 		"description": "Options page label: 'user name'"
 	},
 	"optionGitHubRepository": {
-		"message": "repository name",
+		"message": "倉庫名稱",
 		"description": "Options page label: 'repository name'"
 	},
 	"optionGitHubBranch": {
-		"message": "branch name",
+		"message": "分支名稱",
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveWithCompanion": {
