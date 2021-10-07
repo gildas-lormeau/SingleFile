@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, prompt, matchMedia, addEventListener, innerHeight, innerWidth */
+/* global browser, document, prompt, matchMedia, addEventListener */
 
 import * as download from "../../core/common/download.js";
 import { onError } from "./../common/content-error.js";
@@ -222,18 +222,29 @@ function viewportSizeChange() {
 
 function toolbarOnTouchStart(event) {
 	const position = getPosition(event);
-	toolbarPositionPointer = (orientationPortrait ? position.screenY : position.screenX) - toolbarTranslate;
-	toolbarTranslateMax = ((orientationPortrait ? -lastButton.getBoundingClientRect().top + toolbarTranslate + innerHeight : -lastButton.getBoundingClientRect().left + toolbarTranslate + innerWidth)) - 35;
+	toolbarPositionPointer = (orientationPortrait ? position.pageY : position.pageX) - toolbarTranslate;
+	toolbarTranslateMax = (orientationPortrait ? -lastButton.getBoundingClientRect().top : -lastButton.getBoundingClientRect().left) + toolbarTranslate;
 }
 
 function toolbarOnTouchMove(event) {
-	if (toolbarPositionPointer != null) {
+	if (toolbarPositionPointer != null && (event.buttons === undefined || event.buttons == 1)) {
 		const position = getPosition(event);
-		toolbarTranslate = Math.min(Math.max((orientationPortrait ? position.screenY : position.screenX) - toolbarPositionPointer, toolbarTranslateMax - toolbarPositionPointer), 0);
-		toolbarMoving = true;
-		toolbarElement.style.setProperty("transform", orientationPortrait ? `translate(0, ${toolbarTranslate}px)` : `translate(${toolbarTranslate}px, 0)`);
-		editorElement.style.setProperty("pointer-events", "none");
-		event.preventDefault();
+		const lastToolbarTranslate = toolbarTranslate;
+		let newToolbarTranslate = (orientationPortrait ? position.pageY : position.pageX) - toolbarPositionPointer;
+		if (newToolbarTranslate > 0) {
+			newToolbarTranslate = 0;
+		}
+		if (newToolbarTranslate < toolbarTranslateMax) {
+			newToolbarTranslate = toolbarTranslateMax;
+		}
+		if (Math.abs(lastToolbarTranslate - newToolbarTranslate) > (toolbarMoving ? 1 : 8)) {
+			toolbarTranslate = newToolbarTranslate;
+			const newTransform = orientationPortrait ? `translate(0px, ${toolbarTranslate}px)` : `translate(${toolbarTranslate}px, 0px)`;
+			toolbarMoving = true;
+			toolbarElement.style.setProperty("transform", newTransform);
+			editorElement.style.setProperty("pointer-events", "none");
+			event.preventDefault();
+		}
 	}
 }
 
