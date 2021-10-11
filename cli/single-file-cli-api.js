@@ -272,6 +272,9 @@ async function capturePage(options) {
 }
 
 function getFilename(filename, options, index = 1) {
+	if (Array.isArray(options.outputDirectory)) {
+		options.outputDirectory = options.outputDirectory.join("");
+	}
 	let outputDirectory = options.outputDirectory || "";
 	if (outputDirectory && !outputDirectory.endsWith("/")) {
 		outputDirectory += "/";
