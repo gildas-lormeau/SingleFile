@@ -60,7 +60,7 @@ const args = require("yargs")
 		"load-deferred-images": true,
 		"load-deferred-images-max-idle-time": 1500,
 		"load-deferred-images-keep-zoom-level": false,
-		"maxParallelWorkers": 8,
+		"max-parallel-workers": 8,
 		"max-resource-size-enabled": false,
 		"max-resource-size": 10,
 		"remove-hidden-elements": true,
