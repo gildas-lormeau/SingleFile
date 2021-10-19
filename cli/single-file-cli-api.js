@@ -291,7 +291,7 @@ function getFilename(filename, options, index = 1) {
 		const regExpMatchExtension = /(\.[^.]+)$/;
 		const matchExtension = newFilename.match(regExpMatchExtension);
 		if (matchExtension && matchExtension[1]) {
-			newFilename = newFilename.replace(regExpMatchExtension, " (" + index + matchExtension[1]) + ")";
+			newFilename = newFilename.replace(regExpMatchExtension, " (" + index + ")" + matchExtension[1]);
 		} else {
 			newFilename += " (" + index + ")";
 		}
