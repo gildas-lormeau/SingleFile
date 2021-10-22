@@ -14,7 +14,7 @@ SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox (
  - [Integration with user scripts](#integration-with-user-scripts)
  - [SingleFileZ](#singlefilez)
  - [File format comparison](#file-format-comparison)
- - [Integration with WebKit](#integration-with-webkit)
+ - [Projects using SingleFile](#projects-using-singlefile)
  - [Privacy policy](#privacy-policy)
  - [Contributors](#contributors)
  - [Icons](#icons)
@@ -132,9 +132,13 @@ Footnotes:
 ³ Only in Safari.
 
 ⁴ An option must be enabled in the extension.
- 
-## Integration with WebKit
-Here is a Swift application (for macOS) made by [@captaindavepdx](https://github.com/captaindavepdx) that illustrates how to use SingleFile with WebKit: https://github.com/captaindavepdx/SingleFileMacOS
+
+## Projects using SingleFile
+ - ArchiveBox - Open-source self-hosted web archiving: https://github.com/ArchiveBox/ArchiveBox
+ - htmls-to-datasette - Tool to index HTML files into a Sqlite database: https://github.com/pjamar/htmls-to-datasette
+ - singlefile2trilium - Save faithful copy of a web page as a Trilium note with SingleFile: https://github.com/nil0x42/singlefile2trilium
+ - SingleFileMacOS - Integration of SingleFile in a swift application using webkit: https://github.com/captaindavepdx/SingleFileMacOS
+ - Zotero - Tool to help you collect, organize, cite, and share your research sources: https://github.com/zotero/zotero
 
 ## Privacy Policy
 See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
