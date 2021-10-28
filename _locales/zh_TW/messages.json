@@ -159,6 +159,10 @@
 		"message": "信息欄內容模板",
 		"description": "Options page label: 'template of the infobar content'"
 	},
+	"optionBlockMixedContent": {
+		"message": "block mixed content",
+		"description": "Options page label: 'block mixed content'"
+	},
 	"optionIncludeInfobar": {
 		"message": "在已保存頁面中將信息欄包括在內",
 		"description": "Options page label: 'include the infobar in the saved page'"

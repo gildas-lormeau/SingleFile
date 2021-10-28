@@ -159,6 +159,10 @@
 		"message": "plantilla del contenido de la barra informativa",
 		"description": "Options page label: 'template of the infobar content'"
 	},
+	"optionBlockMixedContent": {
+		"message": "bloqueo de contenido mixto",
+		"description": "Options page label: 'block mixed content'"
+	},
 	"optionIncludeInfobar": {
 		"message": "incluir la barra informativa en la página guardada",
 		"description": "Options page label: 'include the infobar in the saved page'"

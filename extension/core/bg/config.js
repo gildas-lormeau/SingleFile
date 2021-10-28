@@ -112,6 +112,7 @@ const DEFAULT_CONFIG = {
 	insertMetaCSP: true,
 	passReferrerOnError: false,
 	insertSingleFileComment: true,
+	blockMixedContent: false,
 	woleetKey: ""
 };
 

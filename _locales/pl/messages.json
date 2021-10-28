@@ -159,6 +159,10 @@
 		"message": "szablon zawartości paska informacyjnego",
 		"description": "Options page label: 'template of the infobar content'"
 	},
+	"optionBlockMixedContent": {
+		"message": "block mixed content",
+		"description": "Options page label: 'block mixed content'"
+	},
 	"optionIncludeInfobar": {
 		"message": "dołączaj pasek informacyjny do zapisanej strony",
 		"description": "Options page label: 'include the infobar in the saved page'"

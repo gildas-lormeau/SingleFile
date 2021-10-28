@@ -159,6 +159,10 @@
 		"message": "Modello del contenuto della barra informativa",
 		"description": "Options page label: 'template of the infobar content'"
 	},
+	"optionBlockMixedContent": {
+		"message": "block mixed content",
+		"description": "Options page label: 'block mixed content'"
+	},
 	"optionIncludeInfobar": {
 		"message": "includi una barra informativa nella pagina salvata",
 		"description": "Options page label: 'include the infobar in the saved page'"

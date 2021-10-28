@@ -159,6 +159,10 @@
 		"message": "infobar コンテンツのテンプレート",
 		"description": "Options page label: 'template of the infobar content'"
 	},
+	"optionBlockMixedContent": {
+		"message": "block mixed content",
+		"description": "Options page label: 'block mixed content'"
+	},
 	"optionIncludeInfobar": {
 		"message": "保存されたページに、infobar を含める",
 		"description": "Options page label: 'include the infobar in the saved page'"

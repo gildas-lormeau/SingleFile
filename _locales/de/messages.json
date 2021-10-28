@@ -159,6 +159,10 @@
 		"message": "Muster für Inhalt des Infoknopfs",
 		"description": "Options page label: 'template of the infobar content'"
 	},
+	"optionBlockMixedContent": {
+		"message": "Blockieren gemischter Inhalte",
+		"description": "Options page label: 'block mixed content'"
+	},
 	"optionIncludeInfobar": {
 		"message": "Einfügen Inhalt des Infoknopfs in die gespeicherte Seite",
 		"description": "Options page label: 'include the infobar in the saved page'"

@@ -159,6 +159,10 @@
 		"message": "шаблон содержимого информационной панели",
 		"description": "Options page label: 'template of the infobar content'"
 	},
+	"optionBlockMixedContent": {
+		"message": "block mixed content",
+		"description": "Options page label: 'block mixed content'"
+	},
 	"optionIncludeInfobar": {
 		"message": "добавить информационную панель в сохраняемую страницу",
 		"description": "Options page label: 'include the infobar in the saved page'"
