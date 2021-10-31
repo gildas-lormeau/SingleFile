@@ -160,7 +160,7 @@
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionBlockMixedContent": {
-		"message": "block mixed content",
+		"message": "блокировать смешанное содержимое",
 		"description": "Options page label: 'block mixed content'"
 	},
 	"optionIncludeInfobar": {
@@ -528,7 +528,7 @@
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveWithCompanion": {
-		"message": "сохранить с помощью SingleFile Companion",
+		"message": "сохранять с помощью SingleFile Companion",
 		"description": "Options page label: 'save with SingleFile Companion'"
 	},
 	"optionSaveCreatedBookmarks": {
