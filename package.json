@@ -12,13 +12,13 @@
 		"file-url": "^3.0.0",
 		"iconv-lite": "^0.6.3",
 		"jsdom": "^17.0.0",
-		"puppeteer-core": "^10.2.0",
+		"puppeteer-core": "^10.4.0",
 		"selenium-webdriver": "4.0.0-rc-1",
 		"strong-data-uri": "^1.0.6",
-		"yargs": "^17.1.1"
+		"yargs": "^17.2.1"
 	},
 	"devDependencies": {
-		"rollup": "^2.56.3",
+		"rollup": "^2.59.0",
 		"rollup-plugin-terser": "^7.0.2"
 	}
 }
