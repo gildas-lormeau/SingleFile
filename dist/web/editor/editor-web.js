@@ -2027,4 +2027,4 @@ table {
 
 	})(typeof globalThis == "object" ? globalThis : window);
 
-}());
+})();
