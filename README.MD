@@ -136,9 +136,9 @@ Footnotes:
 ## Projects using SingleFile
  - ArchiveBox - Open-source self-hosted web archiving: https://github.com/ArchiveBox/ArchiveBox
  - htmls-to-datasette - Tool to index HTML files into a Sqlite database: https://github.com/pjamar/htmls-to-datasette
- - singlefile2trilium - Save faithful copy of a web page as a Trilium note with SingleFile: https://github.com/nil0x42/singlefile2trilium
+ - singlefile2trilium - Tool to save faithful copy of a web page as a Trilium note with SingleFile: https://github.com/nil0x42/singlefile2trilium
  - SingleFileMacOS - Integration of SingleFile in a swift application using webkit: https://github.com/captaindavepdx/SingleFileMacOS
- - Zotero - Tool to help you collect, organize, cite, and share your research sources: https://github.com/zotero/zotero
+ - Zotero Connector - Browser extension for Zotero, a tool to help you collect, organize, cite, and share your research sources: https://github.com/zotero/zotero-connectors
 
 ## Privacy Policy
 See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
