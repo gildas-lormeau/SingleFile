@@ -1,6 +1,8 @@
 #!/bin/sh
 npx rollup -c rollup.config.js
 
+zip -r singlefile-extension-source.zip manifest.json package.json _locales extension common lib rollup*.js .eslintrc.js build-extension.sh
+
 rm singlefile-extension-firefox.zip singlefile-extension-chromium.zip singlefile-extension-edge.zip
 cp manifest.json manifest.copy.json
 cp extension/core/bg/downloads.js downloads.copy.js
@@ -13,7 +15,6 @@ sed -i 's/207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj/207618107333-7tjs1im1pig
 sed -i 's/forceWebAuthFlow: false/forceWebAuthFlow: true/g' extension/core/bg/config.js
 sed -i 's/enabled: true/enabled: false/g' extension/core/bg/companion.js
 zip -r singlefile-extension-firefox.zip manifest.json dist _locales extension
-zip -r singlefile-extension-source.zip manifest.json package.json _locales extension common lib rollup*.js .eslintrc.js
 mv config.copy.js extension/core/bg/config.js
 mv companion.copy.js extension/core/bg/companion.js
 
