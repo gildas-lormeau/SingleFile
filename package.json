@@ -18,7 +18,7 @@
 		"yargs": "^17.2.1"
 	},
 	"devDependencies": {
-		"rollup": "^2.59.0",
-		"rollup-plugin-terser": "^7.0.2"
+		"rollup": "2.59.0",
+		"rollup-plugin-terser": "7.0.2"
 	}
 }
