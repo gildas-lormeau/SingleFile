@@ -92,6 +92,7 @@ async function getPageData(driver, options) {
 		await driver.findElement(By.css("html")).sendKeys(Key.SHIFT + Key.F5);
 		await driver.sleep(3000);
 	}
+	scripts = scripts.replace(/globalThis/g, "window");
 	await driver.get(options.url);
 	if (options.browserCookies) {
 		await Promise.all(options.browserCookies.map(cookie => {
@@ -105,8 +106,7 @@ async function getPageData(driver, options) {
 		while (await driver.getCurrentUrl() == "about:blank") {
 			// do nothing
 		}
-	}
-	scripts = scripts.replace(/globalThis/g, "window");
+	}	
 	await driver.executeScript(scripts);
 	if (options.browserWaitUntil != "domcontentloaded") {
 		let scriptPromise;
