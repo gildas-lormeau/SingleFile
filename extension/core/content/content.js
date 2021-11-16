@@ -87,6 +87,7 @@ async function savePage(message) {
 			if (bootstrap) {
 				bootstrap.pageInfo.processing = true;
 			}
+			processing = true;
 			try {
 				const pageData = await processPage(options);
 				if (pageData) {
