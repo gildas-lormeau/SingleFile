@@ -230,7 +230,6 @@ function onSaveEnd(taskId) {
 	}
 }
 
-
 async function createTabAndWaitUntilComplete(createProperties) {
 	const tab = await browser.tabs.create(createProperties);
 	return new Promise((resolve, reject) => {
