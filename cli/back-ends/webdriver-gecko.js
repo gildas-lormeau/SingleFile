@@ -93,9 +93,6 @@ async function getPageData(driver, options) {
 		await driver.sleep(3000);
 	}
 	await driver.get(options.url);
-	while (await driver.getCurrentUrl() == "about:blank") {
-		// do nothing
-	}
 	if (options.browserCookies) {
 		await Promise.all(options.browserCookies.map(cookie => {
 			if (cookie.expires) {
