@@ -160,7 +160,7 @@
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionBlockMixedContent": {
-		"message": "block mixed content",
+		"message": "blokuj zawartość mieszaną",
 		"description": "Options page label: 'block mixed content'"
 	},
 	"optionIncludeInfobar": {
