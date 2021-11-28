@@ -160,7 +160,7 @@
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionBlockMixedContent": {
-		"message": "block mixed content",
+		"message": "攔截混合內容",
 		"description": "Options page label: 'block mixed content'"
 	},
 	"optionIncludeInfobar": {
