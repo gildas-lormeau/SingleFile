@@ -58,11 +58,6 @@ input {
     margin-left: 5px;
 }
 
-label,
-input {
-    align-self: center;
-}
-
 input[type="text"] {
     min-width: 70%;
 }
