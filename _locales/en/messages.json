@@ -162,6 +162,10 @@
 	"optionBlockMixedContent": {
 		"message": "block mixed content",
 		"description": "Options page label: 'block mixed content'"
+	},
+	"optionSaveOriginalURLs": {
+		"message": "save original URLs of embedded resources",
+		"description": "Options page label: 'save original URLs of embedded resources'"
 	},	
 	"optionIncludeInfobar": {
 		"message": "include the infobar in the saved page",

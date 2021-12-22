@@ -163,6 +163,10 @@
 		"message": "блокировать смешанное содержимое",
 		"description": "Options page label: 'block mixed content'"
 	},
+	"optionSaveOriginalURLs": {
+		"message": "save original URLs of embedded resources",
+		"description": "Options page label: 'save original URLs of embedded resources'"
+	},
 	"optionIncludeInfobar": {
 		"message": "добавить информационную панель в сохраняемую страницу",
 		"description": "Options page label: 'include the infobar in the saved page'"

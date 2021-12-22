@@ -113,7 +113,8 @@ const DEFAULT_CONFIG = {
 	passReferrerOnError: false,
 	insertSingleFileComment: true,
 	blockMixedContent: false,
-	woleetKey: ""
+	saveOriginalURLs: false,
+	woleetKey: "",	
 };
 
 let configStorage;

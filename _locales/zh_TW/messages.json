@@ -163,6 +163,10 @@
 		"message": "攔截混合內容",
 		"description": "Options page label: 'block mixed content'"
 	},
+	"optionSaveOriginalURLs": {
+		"message": "save original URLs of embedded resources",
+		"description": "Options page label: 'save original URLs of embedded resources'"
+	},
 	"optionIncludeInfobar": {
 		"message": "在已保存頁面中將信息欄包括在內",
 		"description": "Options page label: 'include the infobar in the saved page'"
