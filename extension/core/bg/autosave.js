@@ -209,7 +209,7 @@ async function saveContent(message, tab) {
 	}
 }
 
-function fetch(url) {
+function fetch(url, options = {}) {
 	return new Promise((resolve, reject) => {
 		const xhrRequest = new XMLHttpRequest();
 		xhrRequest.withCredentials = true;
@@ -227,6 +227,11 @@ function fetch(url) {
 			}
 		};
 		xhrRequest.open("GET", url, true);
+		if (options.headers) {
+			for (const entry of Object.entries(options.headers)) {
+				xhrRequest.setRequestHeader(entry[0], entry[1]);
+			}
+		}
 		xhrRequest.send();
 	});
 }

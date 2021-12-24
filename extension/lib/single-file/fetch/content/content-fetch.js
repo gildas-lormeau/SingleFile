@@ -29,7 +29,7 @@ const HOST_FETCH_MAX_DELAY = 5000;
 const addEventListener = (type, listener, options) => window.addEventListener(type, listener, options);
 const dispatchEvent = event => window.dispatchEvent(event);
 const removeEventListener = (type, listener, options) => window.removeEventListener(type, listener, options);
-const fetch = window.fetch;
+const fetch = (url, options) => window.fetch(url, options);
 
 browser.runtime.onMessage.addListener(message => {
 	if (message.method == "singlefile.fetchFrame" && window.frameId && window.frameId == message.frameId) {
@@ -39,7 +39,7 @@ browser.runtime.onMessage.addListener(message => {
 
 async function onMessage(message) {
 	try {
-		let response = await fetch(message.url, { cache: "force-cache" });
+		let response = await fetch(message.url, { cache: "force-cache", headers: message.headers });
 		if (response.status == 401 || response.status == 403 || response.status == 404) {
 			response = await Promise.race(
 				[
@@ -66,14 +66,14 @@ export {
 
 async function fetchResource(url, options = {}) {
 	try {
-		let response = await fetch(url, { cache: "force-cache" });
+		let response = await fetch(url, { cache: "force-cache", headers: options.headers });
 		if (response.status == 401 || response.status == 403 || response.status == 404) {
 			response = await hostFetch(url);
 		}
 		return response;
 	}
 	catch (error) {
-		const response = await sendMessage({ method: "singlefile.fetch", url, referrer: options.referrer });
+		const response = await sendMessage({ method: "singlefile.fetch", url, referrer: options.referrer, headers: options.headers });
 		return {
 			status: response.status,
 			headers: { get: headerName => response.headers && response.headers[headerName] },
@@ -83,7 +83,7 @@ async function fetchResource(url, options = {}) {
 }
 
 async function frameFetch(url, options) {
-	const response = await sendMessage({ method: "singlefile.fetchFrame", url, frameId: options.frameId, referrer: options.referrer });
+	const response = await sendMessage({ method: "singlefile.fetchFrame", url, frameId: options.frameId, referrer: options.referrer, headers: options.headers });
 	return {
 		status: response.status,
 		headers: new Map(response.headers),

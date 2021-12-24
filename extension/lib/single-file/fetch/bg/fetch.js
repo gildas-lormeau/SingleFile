@@ -42,13 +42,13 @@ browser.runtime.onMessage.addListener((message, sender) => {
 
 function onRequest(message, sender) {
 	if (message.method == "singlefile.fetch") {
-		return fetchResource(message.url, { referrer: message.referrer });
+		return fetchResource(message.url, { referrer: message.referrer, headers: message.headers });
 	} else if (message.method == "singlefile.fetchFrame") {
 		return browser.tabs.sendMessage(sender.tab.id, message);
 	}
 }
 
-function fetchResource(url, options, includeRequestId) {
+function fetchResource(url, options = {}, includeRequestId) {
 	return new Promise((resolve, reject) => {
 		const xhrRequest = new XMLHttpRequest();
 		xhrRequest.withCredentials = true;
@@ -74,6 +74,11 @@ function fetchResource(url, options, includeRequestId) {
 			}
 		};
 		xhrRequest.open("GET", url, true);
+		if (options.headers) {
+			for (const entry of Object.entries(options.headers)) {
+				xhrRequest.setRequestHeader(entry[0], entry[1]);
+			}
+		}
 		if (includeRequestId) {
 			const randomId = String(Math.random()).substring(2);
 			setReferrer(randomId, options.referrer);
