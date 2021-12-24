@@ -1,778 +1,778 @@
 {
-	"extensionDescription": {
-		"message": "将一个完整的页面保存到单个 HTML 文件中",
-		"description": "Description of the extension."
-	},
-	"commandSaveSelectedTabs": {
-		"message": "保存选中标签页或其中的选中内容",
-		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
-	},
-	"commandSaveAllTabs": {
-		"message": "保存所有标签页",
-		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
-	},
-	"menuSavePage": {
-		"message": "使用 SingleFile 保存页面",
-		"description": "Menu entry: 'Save page with SingleFile'"
-	},
-	"menuSaveSelectedLinks": {
-		"message": "保存所选链接",
-		"description": "Menu entry: 'Save selected links'"
-	},
-	"menuEditPage": {
-		"message": "标注页面...",
-		"description": "Menu entry: 'Annotate the page...'"
-	},
-	"menuEditAndSavePage": {
-		"message": "标注并保存该页面...",
-		"description": "Menu entry: 'Annotate and save the page...'"
-	},
-	"menuSaveWithProfile": {
-		"message": "使用指定的配置文件保存页面",
-		"description": "Menu entry: 'Save with profile'"
-	},
-	"menuViewPendingSaves": {
-		"message": "查看挂起的保存项...",
-		"description": "Menu entry: 'View pending saves...'"
-	},
-	"menuSelectProfile": {
-		"message": "选择默认配置文件",
-		"description": "Menu entry: 'Select the default profile'"
-	},
-	"menuUpdateRule": {
-		"message": "选择当前规则的配置文件",
-		"description": "Menu entry: 'Select the profile of the current rule'"
-	},
-	"menuCreateDomainRule": {
-		"message": "选择当前域名的配置文件",
-		"description": "Menu entry: 'Select the profile of the current domain'"
-	},
-	"menuSaveSelection": {
-		"message": "保存选中部分",
-		"description": "Menu entry: 'Save selection'"
-	},
-	"menuSaveFrame": {
-		"message": "保存框架",
-		"description": "Menu entry: 'Save frame'"
-	},
-	"menuSaveTabs": {
-		"message": "保存标签页",
-		"description": "Menu entry (SingleFile button only): 'Save tabs'"
-	},
-	"menuSaveSelectedTabs": {
-		"message": "保存选中标签页",
-		"description": "Menu entry: 'Save selected tabs'"
-	},
-	"menuSaveUnpinnedTabs": {
-		"message": "保存未固定标签页",
-		"description": "Menu entry: 'Save unpinned tabs'"
-	},
-	"menuSaveAllTabs": {
-		"message": "保存所有标签页",
-		"description": "Menu entry: 'Save all tabs'"
-	},
-	"menuAutoSave": {
-		"message": "自动保存",
-		"description": "Menu entry: 'Auto-save'"
-	},
-	"menuAutoSaveDisabled": {
-		"message": "已禁用",
-		"description": "Menu entry: 'Auto-save' > Disabled'"
-	},
-	"menuAutoSaveTab": {
-		"message": "自动保存此标签页",
-		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
-	},
-	"menuAutoSaveUnpinnedTabs": {
-		"message": "自动保存未固定标签页",
-		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
-	},
-	"menuAutoSaveAllTabs": {
-		"message": "自动保存所有标签页",
-		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
-	},
-	"buttonDefaultTooltip": {
-		"message": "使用 SingleFile 保存页面",
-		"description": "Button title: 'Save page with SingleFile'"
-	},
-	"buttonBlockedBadge": {
-		"message": "🚫",
-		"description": "Button badge when the page is blocked: '🚫'"
-	},
-	"buttonBlockedTooltip": {
-		"message": "SingleFile 无法保存此页面",
-		"description": "Button title: 'This page cannot be saved with SingleFile'"
-	},
-	"buttonInitializingTooltip": {
-		"message": "正在初始化 SingleFile",
-		"description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
-	},
-	"buttonInitializingBadge": {
-		"message": "•••",
-		"description": "Badge label during initialization: '•••'"
-	},
-	"buttonSaveProgressTooltip": {
-		"message": "保存进度：",
-		"description": "Button title during save: 'Save progress: xx%'"
-	},
-	"buttonUploadProgressTooltip": {
-		"message": "上传进度: ",
-		"description": "Button title during save: 'Upload progress: xx%'"
-	},
-	"buttonOKBadge": {
-		"message": "完成",
-		"description": "Badge label: 'OK'"
-	},
-	"buttonErrorBadge": {
-		"message": "错误",
-		"description": "Badge label for unexpected errors"
-	},
-	"buttonAutoSaveActiveTooltip": {
-		"message": "自动保存活动页面",
-		"description": "Button title: 'Auto-save active'"
-	},
-	"buttonAutoSaveActiveBadge": {
-		"message": "[自动]",
-		"description": "Badge label when auto-save is active"
-	},
-	"optionsTitle": {
-		"message": "选项",
-		"description": "Options page title"
-	},
-	"optionsUserInterfaceSubTitle": {
-		"message": "用户界面",
-		"description": "Options sub-title: 'User interface'"
-	},
-	"optionAddMenuEntry": {
-		"message": "在页面的上下文菜单中添加 SingleFile 条目",
-		"description": "Options page label: 'add entry in the context menu of the webpage'"
-	},
-	"optionDisplayShadow": {
-		"message": "在处理过程中用阴影覆盖页面",
-		"description": "Options page label: 'overlay a shadow on the page during processing'"
-	},
-	"optionDisplayInfobar": {
-		"message": "在查看一个已保存的页面时显示信息栏",
-		"description": "Options page label: 'display an infobar when viewing a saved page'"
-	},
-	"optionInfobarTemplate": {
-		"message": "信息栏内容模板",
-		"description": "Options page label: 'template of the infobar content'"
-	},
-	"optionBlockMixedContent": {
-		"message": "拦截混合內容",
-		"description": "Options page label: 'block mixed content'"
-	},
-	"optionSaveOriginalURLs": {
-		"message": "save original URLs of embedded resources",
-		"description": "Options page label: 'save original URLs of embedded resources'"
-	},
-	"optionIncludeInfobar": {
-		"message": "在已保存页面中将信息栏包括在内",
-		"description": "Options page label: 'include the infobar in the saved page'"
-	},
-	"optionConfirmInfobar": {
-		"message": "打开一个提示对话框来编辑信息栏内容",
-		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
-	},
-	"optionAutoClose": {
-		"message": "页面保存后自动关闭该标签页",
-		"description": "Options page label: 'auto-close the tab after the page is saved'"
-	},
-	"optionsFileNameSubTitle": {
-		"message": "文件名",
-		"description": "Options sub-title: 'File name'"
-	},
-	"optionFilenameTemplate": {
-		"message": "模板",
-		"description": "Options page label: 'template'"
-	},
-	"optionFilenameMaxLength": {
-		"message": "最大长度（字节）",
-		"description": "Options page label: 'max length (bytes)'"
-	},
-	"optionConfirmFilename": {
-		"message": "打开 “另存为” 对话框以确认文件名",
-		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
-	},
-	"optionFilenameConflictAction": {
-		"message": "文件名冲突解决方案",
-		"description": "Options page label: 'filename conflict resolution'"
-	},
-	"optionFilenameConflictActionUniquify": {
-		"message": "创建一个唯一名称",
-		"description": "Value for 'filename conflict resolution' option: 'create a unique name'"
-	},
-	"optionFilenameConflictActionOverwrite": {
-		"message": "覆盖现有文件",
-		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
-	},
-	"optionFilenameConflictActionPrompt": {
-		"message": "指定一个新名称",
-		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
-	},
-	"optionFilenameConflictActionSkip": {
-		"message": "跳过重复文件",
-		"description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
-	},
-	"optionsHTMLContentSubTitle": {
-		"message": "HTML 内容",
-		"description": "Options sub-title: 'HTML content'"
-	},
-	"optionCompressHTML": {
-		"message": "压缩 HTML 内容",
-		"description": "Options page label: 'compress HTML content'"
-	},
-	"optionRemoveImports": {
-		"message": "移除 HTML 导入",
-		"description": "Options page label: 'remove HTML imports'"
-	},
-	"optionRemoveFrames": {
-		"message": "移除框架",
-		"description": "Options page label: 'remove frames'"
-	},
-	"optionRemoveHiddenElements": {
-		"message": "移除隐藏元素",
-		"description": "Options page label: 'remove hidden elements'"
-	},
-	"optionsImagesSubTitle": {
-		"message": "图片",
-		"description": "Options sub-title: 'Images'"
-	},
-	"optionGroupDuplicateImages": {
-		"message": "将重复图片分组到一起",
-		"description": "Options page label: 'group duplicate images together'"
-	},
-	"optionLoadDeferredImages": {
-		"message": "保存延迟加载的图像",
-		"description": "Options page label: 'save deferred images'"
-	},
-	"optionLoadDeferredImagesMaxIdleTime": {
-		"message": "最长空闲时间（毫秒）",
-		"description": "Options page label: 'maximum idle time (ms)'"
-	},
-	"optionLoadDeferredImagesKeepZoomLevel": {
-		"message": "缩小页面",
-		"description": "Options page label: 'zoom out the page'"
-	},
-	"optionRemoveAlternativeImages": {
-		"message": "移除用于备选分辨率的图片",
-		"description": "Options page label: 'remove images for alternative screen resolutions'"
-	},
-	"optionsFontsSubTitle": {
-		"message": "字体",
-		"description": "Options sub-title: 'Fonts'"
-	},
-	"optionRemoveUnusedFonts": {
-		"message": "移除未使用字体",
-		"description": "Options page label: 'remove unused fonts'"
-	},
-	"optionRemoveAlternativeFonts": {
-		"message": "移除备选字体",
-		"description": "Options page label: 'remove alternative fonts'"
-	},
-	"optionsStylesheetsSubTitle": {
-		"message": "样式表",
-		"description": "Options sub-title: 'Stylesheets'"
-	},
-	"optionCompressCSS": {
-		"message": "压缩 CSS 内容",
-		"description": "Options page label: 'compress CSS content'"
-	},
-	"optionRemoveUnusedStyles": {
-		"message": "移除未使用的样式",
-		"description": "Options page label: 'remove unused styles'"
-	},
-	"optionRemoveAlternativeMedias": {
-		"message": "移除用于备选设备屏幕的样式表",
-		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
-	},
-	"optionsOtherResourcesSubTitle": {
-		"message": "其他资源",
-		"description": "Options sub-title: 'Other resources'"
-	},
-	"optionRemoveScripts": {
-		"message": "移除脚本",
-		"description": "Options page label: 'remove scripts'"
-	},
-	"optionRemoveVideo": {
-		"message": "移除视频资源",
-		"description": "Options page label: 'remove video sources'"
-	},
-	"optionRemoveAudio": {
-		"message": "移除音频资源",
-		"description": "Options page label: 'remove audio sources'"
-	},
-	"optionsDestionationSubTitle": {
-		"message": "目的地",
-		"description": "Options sub-title: 'Destination'"
-	},
-	"optionsBookmarkSubTitle": {
-		"message": "书签",
-		"description": "Options sub-title: 'Bookmarks'"
-	},
-	"optionsAutoSaveSubTitle": {
-		"message": "自动保存",
-		"description": "Options sub-title: 'Auto-save'"
-	},
-	"optionsDeleteDisplayedRulesConfirm": {
-		"message": "确认删除所有已显示规则",
-		"description": "Popup text 'Confirm the deletion of all displayed rules'"
-	},
-	"optionsDeleteRulesTooltip": {
-		"message": "删除所有已显示规则",
-		"description": "Popup text 'Delete all displayed rules'"
-	},
-	"optionsAutoSettingsSubTitle": {
-		"message": "自动设置 规则",
-		"description": "Options sub-title: 'Auto-settings rules'"
-	},
-	"optionsAutoSettingsUrl": {
-		"message": "网址",
-		"description": "Options label in the Auto-settings rules: 'URL'"
-	},
-	"optionsAutoSettingsUrlPlaceholder": {
-		"message": "输入完整的或部分网址 （例如 example.com）",
-		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
-	},
-	"optionsAutoSettingsProfile": {
-		"message": "配置文件",
-		"description": "Options label in the Auto-settings rules: 'Profile'"
-	},
-	"optionsAutoSettingsAutoSaveProfile": {
-		"message": "自动保存配置文件",
-		"description": "Options label in the Auto-settings rules: 'Auto-save profile'"
-	},
-	"optionsAutoSettingsShowAllProfiles": {
-		"message": "显示所有配置文件",
-		"description": "Options label in the Auto-settings rules: 'display all profiles'"
-	},
-	"optionsAutoSettingsShowAutoSaveProfile": {
-		"message": "显示 “自动保存配置文件” 列",
-		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
-	},
-	"optionsUpdateRuleTooltip": {
-		"message": "更新规则",
-		"description": "Popup text 'Update the rule' in the options page"
-	},
-	"optionsDeleteRuleTooltip": {
-		"message": "删除规则",
-		"description": "Popup text 'Delete the rule' in the options page"
-	},
-	"optionsAddRuleTooltip": {
-		"message": "添加规则",
-		"description": "Popup text 'Add the rule' in the options page"
-	},
-	"optionsValidateChangesTooltip": {
-		"message": "验证更改",
-		"description": "Popup text 'Validate changes' in the options page"
-	},
-	"optionsDeleteRuleConfirm": {
-		"message": "确认删除所选规则",
-		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
-	},
-	"optionAutoSaveLoadOrUnload": {
-		"message": "在页面加载完成后或开始卸载时进行自动保存",
-		"description": "auto-save after page load or on page unload"
-	},
-	"optionAutoSaveLoad": {
-		"message": "在页面加载完成后进行自动保存",
-		"description": "Options page label: 'auto-save after page load'"
-	},
-	"optionAutoSaveUnload": {
-		"message": "在页面开始卸载时进行自动保存",
-		"description": "Options page label: 'auto-save on page unload'"
-	},
-	"optionAutoSaveDiscard": {
-		"message": "在页面丢弃时进行自动保存",
-		"description": "Options page label: 'auto-save on tab discard'"
-	},
-	"optionAutoSaveRemove": {
-		"message": "在页面移除时进行自动保存",
-		"description": "Options page label: 'auto-save on tab removal'"
-	},
-	"optionAutoSaveDelay": {
-		"message": "页面加载完成后延迟该时间再进行自动保存（秒）",
-		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
-	},
-	"optionAutoSaveRepeat": {
-		"message": "定期自动保存",
-		"description": "Options page label: 'auto-save periodically'"
-	},
-	"optionAutoSaveRepeatDelay": {
-		"message": "周期（秒）",
-		"description": "Options page label: 'period (s)'"
-	},
-	"optionAutoSaveExternalSave": {
-		"message": "使用 SingleFile Companion 保存页面",
-		"description": "Options page label: 'save the page with SingleFile Companion'"
-	},
-	"optionsEditorSubTitle": {
-		"message": "标注编辑器",
-		"description": "Options sub-title: 'Annotation editor'"
-	},
-	"optionOpenEditor": {
-		"message": "在保存前对该页面进行标注编辑",
-		"description": "Options page label: 'annotate the page before saving'"
-	},
-	"optionOpenSavedPage": {
-		"message": "在新标签页中打开保存后的页面",
-		"description": "Options page label: 'open saved pages in a new tab'"
-	},
-	"optionAutoOpenEditor": {
-		"message": "在标注编辑器中打开用 SingleFile 保存的页面",
-		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
-	},
-	"optionDefaultEditorMode": {
-		"message": "默认模式",
-		"description": "Options page label: 'default mode'"
-	},
-	"optionDefaultEditorModeNormal": {
-		"message": "常规",
-		"description": "Options page label: 'default mode > normal'"
-	},
-	"optionDefaultEditorModeEdit": {
-		"message": "编辑模式",
-		"description": "Options page label: 'default mode > edit the page'"
-	},
-	"optionDefaultEditorModeFormat": {
-		"message": "格式化页面",
-		"description": "Options page label: 'default mode > format the page'"
-	},
-	"optionDefaultEditorModeCut": {
-		"message": "删除内部文档元素",
-		"description": "Options page label: 'default mode > remove elements'"
-	},
-	"optionDefaultEditorModeCutExternal": {
-		"message": "删除外部文档元素",
-		"description": "Options page label: 'default mode > remove external elements'"
-	},
-	"optionApplySystemTheme": {
-		"message": "在标注编辑器中打开页面时应用系统主题样式",
-		"description": "Title of the button 'apply the system theme when formatting a page'"
-	},
-	"optionWarnUnsavedPage": {
-		"message": "离开标注编辑器时提醒保存已修改的内容",
-		"description": "Title of the button 'warn if leaving page with unsaved changes'"
-	},
-	"optionsMiscSubTitle": {
-		"message": "杂项",
-		"description": "Options sub-title: 'Misc.'"
-	},
-	"optionBackgroundSave": {
-		"message": "在后台保存页面",
-		"description": "Options page label: 'save pages in background'"
-	},
-	"optionDisplayStats": {
-		"message": "处理完成后在控制台中显示统计数据",
-		"description": "Options page label: 'display stats in the console after processing'"
-	},
-	"optionSetMaxResourceSize": {
-		"message": "设置嵌入式资源的大小上限",
-		"description": "Options page label: 'set a maximum size for embedded resources'"
-	},
-	"optionMaxResourceSize": {
-		"message": "大小上限（兆字节）",
-		"description": "Options page label: 'maximum size (MB)'"
-	},
-	"optionPassReferrerOnError": {
-		"message": "跨域请求失败时添加来源地址头信息（Referer）",
-		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
-	},
-	"optionSaveRawPage": {
-		"message": "保存原始页面",
-		"description": "Options page label: 'save raw page'"
-	},
-	"optionInsertMetaCSP": {
-		"message": "设置内容安全策略",
-		"description": "Options page label: 'set content security policy'"
-	},
-	"optionSaveToClipboard": {
-		"message": "保存到剪切板",
-		"description": "Options page label: 'copy to clipboard'"
-	},
-	"optionSaveToFilesystem": {
-		"message": "保存到文件系统",
-		"description": "Options page label: 'save to filesystem'"
-	},
-	"optionAddProof": {
-		"message": "添加证明文件存在的指纹",
-		"description": "Options page label: 'add proof of existence'"
-	},
-	"optionsAddProofConfirm": {
-		"message": "请确认您是否允许 SingleFile 将您要保存的每个页面的 SHA256 哈希值发送给 Woleet API 。您可以在帮助页面或者通过点击该选项旁的问号找到此功能的更多信息。",
-		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
-	},
-	"optionWoleetKey": {
-		"message": "访问令牌",
-		"description": "Options page label: 'access token'"
-	},
-	"optionSaveToGDrive": {
-		"message": "保存到 Google Drive",
-		"description": "Options page label: 'upload to Google Drive'"
-	},
-	"optionSaveToGitHub": {
-		"message": "保存到 GitHub",
-		"description": "Options page label: 'upload to GitHub'"
-	},
-	"optionGitHubToken": {
-		"message": "访问令牌",
-		"description": "Options page label: 'access token'"
-	},
-	"optionGitHubUser": {
-		"message": "用户名",
-		"description": "Options page label: 'user name'"
-	},
-	"optionGitHubRepository": {
-		"message": "仓库名称",
-		"description": "Options page label: 'repository name'"
-	},
-	"optionGitHubBranch": {
-		"message": "分支名称",
-		"description": "Options page label: 'branch name'"
-	},
-	"optionSaveWithCompanion": {
-		"message": "使用 SingleFile Companion 保存",
-		"description": "Options page label: 'save with SingleFile Companion'"
-	},
-	"optionSaveCreatedBookmarks": {
-		"message": "创建新书签时保存其对应页面",
-		"description": "Options page label: 'save the page of a newly created bookmark'"
-	},
-	"optionReplaceBookmarkURL": {
-		"message": "将新书签的链接指向已保存页面",
-		"description": "Options page label: 'link the new bookmark to the saved page'"
-	},
-	"optionAllowedBookmarkFolders": {
-		"message": "允许文件夹",
-		"description": "Options page label: 'allowed folders'"
-	},
-	"optionIgnoredBookmarkFolders": {
-		"message": "忽略文件夹",
-		"description": "Options page label: 'ignored folders'"
-	},
-	"optionsHelpLink": {
-		"message": "帮助",
-		"description": "Options help link"
-	},
-	"optionSynchronize": {
-		"message": "同步选项",
-		"description": "Options label: 'synchronize options'"
-	},
-	"optionsResetButton": {
-		"message": "重置",
-		"description": "Options button: 'Reset'"
-	},
-	"optionsResetTooltip": {
-		"message": "重置所有选项为默认值",
-		"description": "Options 'Reset' button tooltip"
-	},
-	"optionsResetConfirm": {
-		"message": "确认重置所有选项或当前配置文件",
-		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
-	},
-	"optionsResetAllButton": {
-		"message": "重置所有选项",
-		"description": "Options confirm button: 'Reset all options'"
-	},
-	"optionsResetCurrentButton": {
-		"message": "重置当前配置文件",
-		"description": "Options confirm button: 'Reset current profile'"
-	},
-	"optionsOKButton": {
-		"message": "确定",
-		"description": "Options confirm button: 'OK'"
-	},
-	"optionsCancelButton": {
-		"message": "取消",
-		"description": "Options confirm button: 'Cancel'"
-	},
-	"optionsExportButton": {
-		"message": "导出",
-		"description": "Options button: 'Export'"
-	},
-	"optionsImportButton": {
-		"message": "导入",
-		"description": "Options button: 'Import'"
-	},
-	"logPanelDeferredImages": {
-		"message": "延迟加载的图像",
-		"description": "Label 'Deferred images' in the log panel"
-	},
-	"logPanelFrameContents": {
-		"message": "框架内容",
-		"description": "Label 'Frame contents' in the log panel"
-	},
-	"logPanelStep": {
-		"message": "步骤",
-		"description": "Label 'Step' (for 'Step x / 4') in the log panel"
-	},
-	"logPanelWidth": {
-		"message": "122",
-		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
-	},
-	"profileDefaultSettings": {
-		"message": "默认设置",
-		"description": "Label 'Default settings' of the default settings in the options page"
-	},
-	"profileDisabled": {
-		"message": "已禁用",
-		"description": "Label 'Disabled' of the disabled profile name in the options page"
-	},
-	"profileAddButtonTooltip": {
-		"message": "新增配置文件",
-		"description": "Tooltip 'Add a new profile' in the options page"
-	},
-	"profileRenameButtonTooltip": {
-		"message": "重命名配置文件",
-		"description": "Tooltip 'Rename the profile' in the options page"
-	},
-	"profileDeleteButtonTooltip": {
-		"message": "删除配置文件",
-		"description": "Tooltip 'Delete the profile' in the options page"
-	},
-	"profileAddPrompt": {
-		"message": "新增配置文件",
-		"description": "Popup text 'Enter a name for this new profile' in the options page"
-	},
-	"profileDeleteConfirm": {
-		"message": "确认删除所选配置文件？",
-		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
-	},
-	"profileRenamePrompt": {
-		"message": "重命名配置文件",
-		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
-	},
-	"editorAddYellowNote": {
-		"message": "添加黄色标注",
-		"description": "Title of the button 'Add a yellow note' in the editor"
-	},
-	"editorAddPinkNote": {
-		"message": "添加粉色标注",
-		"description": "Title of the button 'Add a pink note' in the editor"
-	},
-	"editorAddBlueNote": {
-		"message": "添加蓝色标注",
-		"description": "Title of the button 'Add a blue note' in the editor"
-	},
-	"editorAddGreenNote": {
-		"message": "添加绿色标注",
-		"description": "Title of the button 'Add a green note' in the editor"
-	},
-	"editorHighlightYellow": {
-		"message": "将所选文本高亮为黄色",
-		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
-	},
-	"editorHighlightPink": {
-		"message": "将所选文本高亮为粉色",
-		"description": "Title of the button 'Highlight selected text in pink' in the editor"
-	},
-	"editorHighlightBlue": {
-		"message": "将所选文本高亮为蓝色",
-		"description": "Title of the button 'Highlight selected text in blue' in the editor"
-	},
-	"editorHighlightGreen": {
-		"message": "将所选文本高亮为绿色",
-		"description": "Title of the button 'Highlight selected text in green' in the editor"
-	},
-	"editorToggleNotes": {
-		"message": "显示/隐藏 标注",
-		"description": "Title of the button 'Display/hide notes' in the editor"
-	},
-	"editorToggleHighlights": {
-		"message": "显示/隐藏 高亮文本",
-		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
-	},
-	"editorRemoveHighlight": {
-		"message": "移除所选高亮文本",
-		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
-	},
-	"editorEditPage": {
-		"message": "启用/禁用 编辑模式",
-		"description": "Title of the button 'Enable/disable read-only' in the editor"
-	},
-	"editorFormatPage": {
-		"message": "格式化页面以提升可读性",
-		"description": "Title of the button 'Format the page for better readability' in the editor"
-	},
-	"editorCutInnerPage": {
-		"message": "启用/禁用 点击时删除内部文档元素",
-		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
-	},
-	"editorCutOuterPage": {
-		"message": "启用/禁用 点击时删除外部文档元素",
-		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
-	},
-	"editorUndoCutPage": {
-		"message": "撤销上次移除元素的操作",
-		"description": "Title of the button 'Restore last removed element' in the editor"
-	},
-	"editorUndoAllCutPage": {
-		"message": "撤销所有移除元素的操作",
-		"description": "Title of the button 'Restore all removed elements' in the editor"
-	},
-	"editorRedoCutPage": {
-		"message": "恢复上次移除元素的操作",
-		"description": "Title of the button 'Remove last restored element' in the editor"
-	},
-	"editorSavePage": {
-		"message": "保存该页面",
-		"description": "Title of the button 'Save the page' in the editor"
-	},
-	"editorPrintPage": {
-		"message": "打印页面",
-		"description": "Title of the button 'Print the page' in the editor"
-	},
-	"pendingsTitle": {
-		"message": "挂起保存项",
-		"description": "Title of the pending save page 'Pending saves' in the editor"
-	},
-	"pendingsCancelAllButton": {
-		"message": "取消全部",
-		"description": "Pending saves button 'Cancel all'"
-	},
-	"pendingsTitleTitle": {
-		"message": "标题",
-		"description": "Title of the first column in the table of the pending saves 'Title'"
-	},
-	"pendingsURLTitle": {
-		"message": "网址",
-		"description": "Title of the first column in the table of the pending saves 'URL'"
-	},
-	"pendingsStatusTitle": {
-		"message": "状态",
-		"description": "Title of the second column in the table of the pending saves 'status'"
-	},
-	"pendingsPendingStatus": {
-		"message": "正在挂起",
-		"description": "Value of 'status' for pending saves"
-	},
-	"pendingsProcessingStatus": {
-		"message": "正在处理",
-		"description": "Value of 'status' for current saves"
-	},
-	"pendingsCancellingStatus": {
-		"message": "正在取消",
-		"description": "Value of 'status' for cancelled saves"
-	},
-	"pendingsNoPendings": {
-		"message": "没有挂起中的保存项",
-		"description": "Label displayed when they are no pending saves"
-	},
-	"pendingsAddUrlsButton": {
-		"message": "添加网址",
-		"description": "button 'Add URLs'"
-	},
-	"pendingsAddUrls": {
-		"message": "请按行输入网址列表",
-		"description": "Label of the add URLs input"
-	},
-	"pendingsAddUrlsOKButton": {
-		"message": "确定",
-		"description": "Add URLs popup confirm button: 'OK'"
-	},
-	"pendingsAddUrlsCancelButton": {
-		"message": "取消",
-		"description": "Add URLs popup cancel button: 'Cancel'"
-	}
+    "extensionDescription": {
+        "message": "将一个完整的页面保存到单个 HTML 文件中",
+        "description": "Description of the extension."
+    },
+    "commandSaveSelectedTabs": {
+        "message": "保存选中标签页或其中的选中内容",
+        "description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
+    },
+    "commandSaveAllTabs": {
+        "message": "保存所有标签页",
+        "description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+    },
+    "menuSavePage": {
+        "message": "使用 SingleFile 保存页面",
+        "description": "Menu entry: 'Save page with SingleFile'"
+    },
+    "menuSaveSelectedLinks": {
+        "message": "保存所选链接",
+        "description": "Menu entry: 'Save selected links'"
+    },
+    "menuEditPage": {
+        "message": "标注页面...",
+        "description": "Menu entry: 'Annotate the page...'"
+    },
+    "menuEditAndSavePage": {
+        "message": "标注并保存该页面...",
+        "description": "Menu entry: 'Annotate and save the page...'"
+    },
+    "menuSaveWithProfile": {
+        "message": "使用指定的配置文件保存页面",
+        "description": "Menu entry: 'Save with profile'"
+    },
+    "menuViewPendingSaves": {
+        "message": "查看挂起的保存项...",
+        "description": "Menu entry: 'View pending saves...'"
+    },
+    "menuSelectProfile": {
+        "message": "选择默认配置文件",
+        "description": "Menu entry: 'Select the default profile'"
+    },
+    "menuUpdateRule": {
+        "message": "选择当前规则的配置文件",
+        "description": "Menu entry: 'Select the profile of the current rule'"
+    },
+    "menuCreateDomainRule": {
+        "message": "选择当前域名的配置文件",
+        "description": "Menu entry: 'Select the profile of the current domain'"
+    },
+    "menuSaveSelection": {
+        "message": "保存选中部分",
+        "description": "Menu entry: 'Save selection'"
+    },
+    "menuSaveFrame": {
+        "message": "保存框架",
+        "description": "Menu entry: 'Save frame'"
+    },
+    "menuSaveTabs": {
+        "message": "保存标签页",
+        "description": "Menu entry (SingleFile button only): 'Save tabs'"
+    },
+    "menuSaveSelectedTabs": {
+        "message": "保存选中标签页",
+        "description": "Menu entry: 'Save selected tabs'"
+    },
+    "menuSaveUnpinnedTabs": {
+        "message": "保存未固定标签页",
+        "description": "Menu entry: 'Save unpinned tabs'"
+    },
+    "menuSaveAllTabs": {
+        "message": "保存所有标签页",
+        "description": "Menu entry: 'Save all tabs'"
+    },
+    "menuAutoSave": {
+        "message": "自动保存",
+        "description": "Menu entry: 'Auto-save'"
+    },
+    "menuAutoSaveDisabled": {
+        "message": "已禁用",
+        "description": "Menu entry: 'Auto-save' > Disabled'"
+    },
+    "menuAutoSaveTab": {
+        "message": "自动保存此标签页",
+        "description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+    },
+    "menuAutoSaveUnpinnedTabs": {
+        "message": "自动保存未固定标签页",
+        "description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+    },
+    "menuAutoSaveAllTabs": {
+        "message": "自动保存所有标签页",
+        "description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+    },
+    "buttonDefaultTooltip": {
+        "message": "使用 SingleFile 保存页面",
+        "description": "Button title: 'Save page with SingleFile'"
+    },
+    "buttonBlockedBadge": {
+        "message": "🚫",
+        "description": "Button badge when the page is blocked: '🚫'"
+    },
+    "buttonBlockedTooltip": {
+        "message": "SingleFile 无法保存此页面",
+        "description": "Button title: 'This page cannot be saved with SingleFile'"
+    },
+    "buttonInitializingTooltip": {
+        "message": "正在初始化 SingleFile",
+        "description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
+    },
+    "buttonInitializingBadge": {
+        "message": "•••",
+        "description": "Badge label during initialization: '•••'"
+    },
+    "buttonSaveProgressTooltip": {
+        "message": "保存进度：",
+        "description": "Button title during save: 'Save progress: xx%'"
+    },
+    "buttonUploadProgressTooltip": {
+        "message": "上传进度: ",
+        "description": "Button title during save: 'Upload progress: xx%'"
+    },
+    "buttonOKBadge": {
+        "message": "完成",
+        "description": "Badge label: 'OK'"
+    },
+    "buttonErrorBadge": {
+        "message": "错误",
+        "description": "Badge label for unexpected errors"
+    },
+    "buttonAutoSaveActiveTooltip": {
+        "message": "自动保存活动页面",
+        "description": "Button title: 'Auto-save active'"
+    },
+    "buttonAutoSaveActiveBadge": {
+        "message": "[自动]",
+        "description": "Badge label when auto-save is active"
+    },
+    "optionsTitle": {
+        "message": "选项",
+        "description": "Options page title"
+    },
+    "optionsUserInterfaceSubTitle": {
+        "message": "用户界面",
+        "description": "Options sub-title: 'User interface'"
+    },
+    "optionAddMenuEntry": {
+        "message": "在页面的上下文菜单中添加 SingleFile 条目",
+        "description": "Options page label: 'add entry in the context menu of the webpage'"
+    },
+    "optionDisplayShadow": {
+        "message": "在处理过程中用阴影覆盖页面",
+        "description": "Options page label: 'overlay a shadow on the page during processing'"
+    },
+    "optionDisplayInfobar": {
+        "message": "在查看一个已保存的页面时显示信息栏",
+        "description": "Options page label: 'display an infobar when viewing a saved page'"
+    },
+    "optionInfobarTemplate": {
+        "message": "信息栏内容模板",
+        "description": "Options page label: 'template of the infobar content'"
+    },
+    "optionBlockMixedContent": {
+        "message": "拦截混合內容",
+        "description": "Options page label: 'block mixed content'"
+    },
+    "optionSaveOriginalURLs": {
+        "message": "嵌入原始资源链接",
+        "description": "Options page label: 'save original URLs of embedded resources'"
+    },
+    "optionIncludeInfobar": {
+        "message": "在已保存页面中将信息栏包括在内",
+        "description": "Options page label: 'include the infobar in the saved page'"
+    },
+    "optionConfirmInfobar": {
+        "message": "打开一个提示对话框来编辑信息栏内容",
+        "description": "Options page label: 'open a prompt dialog to edit the infobar content'"
+    },
+    "optionAutoClose": {
+        "message": "页面保存后自动关闭该标签页",
+        "description": "Options page label: 'auto-close the tab after the page is saved'"
+    },
+    "optionsFileNameSubTitle": {
+        "message": "文件名",
+        "description": "Options sub-title: 'File name'"
+    },
+    "optionFilenameTemplate": {
+        "message": "模板",
+        "description": "Options page label: 'template'"
+    },
+    "optionFilenameMaxLength": {
+        "message": "最大长度（字节）",
+        "description": "Options page label: 'max length (bytes)'"
+    },
+    "optionConfirmFilename": {
+        "message": "打开 “另存为” 对话框以确认文件名",
+        "description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
+    },
+    "optionFilenameConflictAction": {
+        "message": "文件名冲突解决方案",
+        "description": "Options page label: 'filename conflict resolution'"
+    },
+    "optionFilenameConflictActionUniquify": {
+        "message": "创建一个唯一名称",
+        "description": "Value for 'filename conflict resolution' option: 'create a unique name'"
+    },
+    "optionFilenameConflictActionOverwrite": {
+        "message": "覆盖现有文件",
+        "description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+    },
+    "optionFilenameConflictActionPrompt": {
+        "message": "指定一个新名称",
+        "description": "Value for 'name conflict resolution' option: 'prompt for a name'"
+    },
+    "optionFilenameConflictActionSkip": {
+        "message": "跳过重复文件",
+        "description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+    },
+    "optionsHTMLContentSubTitle": {
+        "message": "HTML 内容",
+        "description": "Options sub-title: 'HTML content'"
+    },
+    "optionCompressHTML": {
+        "message": "压缩 HTML 内容",
+        "description": "Options page label: 'compress HTML content'"
+    },
+    "optionRemoveImports": {
+        "message": "移除 HTML 导入",
+        "description": "Options page label: 'remove HTML imports'"
+    },
+    "optionRemoveFrames": {
+        "message": "移除框架",
+        "description": "Options page label: 'remove frames'"
+    },
+    "optionRemoveHiddenElements": {
+        "message": "移除隐藏元素",
+        "description": "Options page label: 'remove hidden elements'"
+    },
+    "optionsImagesSubTitle": {
+        "message": "图片",
+        "description": "Options sub-title: 'Images'"
+    },
+    "optionGroupDuplicateImages": {
+        "message": "将重复图片分组到一起",
+        "description": "Options page label: 'group duplicate images together'"
+    },
+    "optionLoadDeferredImages": {
+        "message": "保存延迟加载的图像",
+        "description": "Options page label: 'save deferred images'"
+    },
+    "optionLoadDeferredImagesMaxIdleTime": {
+        "message": "最长空闲时间（毫秒）",
+        "description": "Options page label: 'maximum idle time (ms)'"
+    },
+    "optionLoadDeferredImagesKeepZoomLevel": {
+        "message": "缩小页面",
+        "description": "Options page label: 'zoom out the page'"
+    },
+    "optionRemoveAlternativeImages": {
+        "message": "移除用于备选分辨率的图片",
+        "description": "Options page label: 'remove images for alternative screen resolutions'"
+    },
+    "optionsFontsSubTitle": {
+        "message": "字体",
+        "description": "Options sub-title: 'Fonts'"
+    },
+    "optionRemoveUnusedFonts": {
+        "message": "移除未使用字体",
+        "description": "Options page label: 'remove unused fonts'"
+    },
+    "optionRemoveAlternativeFonts": {
+        "message": "移除备选字体",
+        "description": "Options page label: 'remove alternative fonts'"
+    },
+    "optionsStylesheetsSubTitle": {
+        "message": "样式表",
+        "description": "Options sub-title: 'Stylesheets'"
+    },
+    "optionCompressCSS": {
+        "message": "压缩 CSS 内容",
+        "description": "Options page label: 'compress CSS content'"
+    },
+    "optionRemoveUnusedStyles": {
+        "message": "移除未使用的样式",
+        "description": "Options page label: 'remove unused styles'"
+    },
+    "optionRemoveAlternativeMedias": {
+        "message": "移除用于备选设备屏幕的样式表",
+        "description": "Options page label: 'remove stylesheets for alternative devices to screens'"
+    },
+    "optionsOtherResourcesSubTitle": {
+        "message": "其他资源",
+        "description": "Options sub-title: 'Other resources'"
+    },
+    "optionRemoveScripts": {
+        "message": "移除脚本",
+        "description": "Options page label: 'remove scripts'"
+    },
+    "optionRemoveVideo": {
+        "message": "移除视频资源",
+        "description": "Options page label: 'remove video sources'"
+    },
+    "optionRemoveAudio": {
+        "message": "移除音频资源",
+        "description": "Options page label: 'remove audio sources'"
+    },
+    "optionsDestionationSubTitle": {
+        "message": "目的地",
+        "description": "Options sub-title: 'Destination'"
+    },
+    "optionsBookmarkSubTitle": {
+        "message": "书签",
+        "description": "Options sub-title: 'Bookmarks'"
+    },
+    "optionsAutoSaveSubTitle": {
+        "message": "自动保存",
+        "description": "Options sub-title: 'Auto-save'"
+    },
+    "optionsDeleteDisplayedRulesConfirm": {
+        "message": "确认删除所有已显示规则",
+        "description": "Popup text 'Confirm the deletion of all displayed rules'"
+    },
+    "optionsDeleteRulesTooltip": {
+        "message": "删除所有已显示规则",
+        "description": "Popup text 'Delete all displayed rules'"
+    },
+    "optionsAutoSettingsSubTitle": {
+        "message": "自动设置 规则",
+        "description": "Options sub-title: 'Auto-settings rules'"
+    },
+    "optionsAutoSettingsUrl": {
+        "message": "网址",
+        "description": "Options label in the Auto-settings rules: 'URL'"
+    },
+    "optionsAutoSettingsUrlPlaceholder": {
+        "message": "输入完整的或部分网址 （例如 example.com）",
+        "description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
+    },
+    "optionsAutoSettingsProfile": {
+        "message": "配置文件",
+        "description": "Options label in the Auto-settings rules: 'Profile'"
+    },
+    "optionsAutoSettingsAutoSaveProfile": {
+        "message": "自动保存配置文件",
+        "description": "Options label in the Auto-settings rules: 'Auto-save profile'"
+    },
+    "optionsAutoSettingsShowAllProfiles": {
+        "message": "显示所有配置文件",
+        "description": "Options label in the Auto-settings rules: 'display all profiles'"
+    },
+    "optionsAutoSettingsShowAutoSaveProfile": {
+        "message": "显示 “自动保存配置文件” 列",
+        "description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
+    },
+    "optionsUpdateRuleTooltip": {
+        "message": "更新规则",
+        "description": "Popup text 'Update the rule' in the options page"
+    },
+    "optionsDeleteRuleTooltip": {
+        "message": "删除规则",
+        "description": "Popup text 'Delete the rule' in the options page"
+    },
+    "optionsAddRuleTooltip": {
+        "message": "添加规则",
+        "description": "Popup text 'Add the rule' in the options page"
+    },
+    "optionsValidateChangesTooltip": {
+        "message": "验证更改",
+        "description": "Popup text 'Validate changes' in the options page"
+    },
+    "optionsDeleteRuleConfirm": {
+        "message": "确认删除所选规则",
+        "description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
+    },
+    "optionAutoSaveLoadOrUnload": {
+        "message": "在页面加载完成后或开始卸载时进行自动保存",
+        "description": "auto-save after page load or on page unload"
+    },
+    "optionAutoSaveLoad": {
+        "message": "在页面加载完成后进行自动保存",
+        "description": "Options page label: 'auto-save after page load'"
+    },
+    "optionAutoSaveUnload": {
+        "message": "在页面开始卸载时进行自动保存",
+        "description": "Options page label: 'auto-save on page unload'"
+    },
+    "optionAutoSaveDiscard": {
+        "message": "在页面丢弃时进行自动保存",
+        "description": "Options page label: 'auto-save on tab discard'"
+    },
+    "optionAutoSaveRemove": {
+        "message": "在页面移除时进行自动保存",
+        "description": "Options page label: 'auto-save on tab removal'"
+    },
+    "optionAutoSaveDelay": {
+        "message": "页面加载完成后延迟该时间再进行自动保存（秒）",
+        "description": "Options page label: 'auto-save waiting delay after page load (s)'"
+    },
+    "optionAutoSaveRepeat": {
+        "message": "定期自动保存",
+        "description": "Options page label: 'auto-save periodically'"
+    },
+    "optionAutoSaveRepeatDelay": {
+        "message": "周期（秒）",
+        "description": "Options page label: 'period (s)'"
+    },
+    "optionAutoSaveExternalSave": {
+        "message": "使用 SingleFile Companion 保存页面",
+        "description": "Options page label: 'save the page with SingleFile Companion'"
+    },
+    "optionsEditorSubTitle": {
+        "message": "标注编辑器",
+        "description": "Options sub-title: 'Annotation editor'"
+    },
+    "optionOpenEditor": {
+        "message": "在保存前对该页面进行标注编辑",
+        "description": "Options page label: 'annotate the page before saving'"
+    },
+    "optionOpenSavedPage": {
+        "message": "在新标签页中打开保存后的页面",
+        "description": "Options page label: 'open saved pages in a new tab'"
+    },
+    "optionAutoOpenEditor": {
+        "message": "在标注编辑器中打开用 SingleFile 保存的页面",
+        "description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
+    },
+    "optionDefaultEditorMode": {
+        "message": "默认模式",
+        "description": "Options page label: 'default mode'"
+    },
+    "optionDefaultEditorModeNormal": {
+        "message": "常规",
+        "description": "Options page label: 'default mode > normal'"
+    },
+    "optionDefaultEditorModeEdit": {
+        "message": "编辑模式",
+        "description": "Options page label: 'default mode > edit the page'"
+    },
+    "optionDefaultEditorModeFormat": {
+        "message": "格式化页面",
+        "description": "Options page label: 'default mode > format the page'"
+    },
+    "optionDefaultEditorModeCut": {
+        "message": "删除内部文档元素",
+        "description": "Options page label: 'default mode > remove elements'"
+    },
+    "optionDefaultEditorModeCutExternal": {
+        "message": "删除外部文档元素",
+        "description": "Options page label: 'default mode > remove external elements'"
+    },
+    "optionApplySystemTheme": {
+        "message": "在标注编辑器中打开页面时应用系统主题样式",
+        "description": "Title of the button 'apply the system theme when formatting a page'"
+    },
+    "optionWarnUnsavedPage": {
+        "message": "离开标注编辑器时提醒保存已修改的内容",
+        "description": "Title of the button 'warn if leaving page with unsaved changes'"
+    },
+    "optionsMiscSubTitle": {
+        "message": "杂项",
+        "description": "Options sub-title: 'Misc.'"
+    },
+    "optionBackgroundSave": {
+        "message": "在后台保存页面",
+        "description": "Options page label: 'save pages in background'"
+    },
+    "optionDisplayStats": {
+        "message": "处理完成后在控制台中显示统计数据",
+        "description": "Options page label: 'display stats in the console after processing'"
+    },
+    "optionSetMaxResourceSize": {
+        "message": "设置嵌入式资源的大小上限",
+        "description": "Options page label: 'set a maximum size for embedded resources'"
+    },
+    "optionMaxResourceSize": {
+        "message": "大小上限（兆字节）",
+        "description": "Options page label: 'maximum size (MB)'"
+    },
+    "optionPassReferrerOnError": {
+        "message": "跨域请求失败时添加来源地址头信息（Referer）",
+        "description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
+    },
+    "optionSaveRawPage": {
+        "message": "保存原始页面",
+        "description": "Options page label: 'save raw page'"
+    },
+    "optionInsertMetaCSP": {
+        "message": "设置内容安全策略",
+        "description": "Options page label: 'set content security policy'"
+    },
+    "optionSaveToClipboard": {
+        "message": "保存到剪切板",
+        "description": "Options page label: 'copy to clipboard'"
+    },
+    "optionSaveToFilesystem": {
+        "message": "保存到文件系统",
+        "description": "Options page label: 'save to filesystem'"
+    },
+    "optionAddProof": {
+        "message": "添加证明文件存在的指纹",
+        "description": "Options page label: 'add proof of existence'"
+    },
+    "optionsAddProofConfirm": {
+        "message": "请确认您是否允许 SingleFile 将您要保存的每个页面的 SHA256 哈希值发送给 Woleet API 。您可以在帮助页面或者通过点击该选项旁的问号找到此功能的更多信息。",
+        "description": "Popup text displayed wen enabling the option 'add proof of existence'"
+    },
+    "optionWoleetKey": {
+        "message": "访问令牌",
+        "description": "Options page label: 'access token'"
+    },
+    "optionSaveToGDrive": {
+        "message": "保存到 Google Drive",
+        "description": "Options page label: 'upload to Google Drive'"
+    },
+    "optionSaveToGitHub": {
+        "message": "保存到 GitHub",
+        "description": "Options page label: 'upload to GitHub'"
+    },
+    "optionGitHubToken": {
+        "message": "访问令牌",
+        "description": "Options page label: 'access token'"
+    },
+    "optionGitHubUser": {
+        "message": "用户名",
+        "description": "Options page label: 'user name'"
+    },
+    "optionGitHubRepository": {
+        "message": "仓库名称",
+        "description": "Options page label: 'repository name'"
+    },
+    "optionGitHubBranch": {
+        "message": "分支名称",
+        "description": "Options page label: 'branch name'"
+    },
+    "optionSaveWithCompanion": {
+        "message": "使用 SingleFile Companion 保存",
+        "description": "Options page label: 'save with SingleFile Companion'"
+    },
+    "optionSaveCreatedBookmarks": {
+        "message": "创建新书签时保存其对应页面",
+        "description": "Options page label: 'save the page of a newly created bookmark'"
+    },
+    "optionReplaceBookmarkURL": {
+        "message": "将新书签的链接指向已保存页面",
+        "description": "Options page label: 'link the new bookmark to the saved page'"
+    },
+    "optionAllowedBookmarkFolders": {
+        "message": "允许文件夹",
+        "description": "Options page label: 'allowed folders'"
+    },
+    "optionIgnoredBookmarkFolders": {
+        "message": "忽略文件夹",
+        "description": "Options page label: 'ignored folders'"
+    },
+    "optionsHelpLink": {
+        "message": "帮助",
+        "description": "Options help link"
+    },
+    "optionSynchronize": {
+        "message": "同步选项",
+        "description": "Options label: 'synchronize options'"
+    },
+    "optionsResetButton": {
+        "message": "重置",
+        "description": "Options button: 'Reset'"
+    },
+    "optionsResetTooltip": {
+        "message": "重置所有选项为默认值",
+        "description": "Options 'Reset' button tooltip"
+    },
+    "optionsResetConfirm": {
+        "message": "确认重置所有选项或当前配置文件",
+        "description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+    },
+    "optionsResetAllButton": {
+        "message": "重置所有选项",
+        "description": "Options confirm button: 'Reset all options'"
+    },
+    "optionsResetCurrentButton": {
+        "message": "重置当前配置文件",
+        "description": "Options confirm button: 'Reset current profile'"
+    },
+    "optionsOKButton": {
+        "message": "确定",
+        "description": "Options confirm button: 'OK'"
+    },
+    "optionsCancelButton": {
+        "message": "取消",
+        "description": "Options confirm button: 'Cancel'"
+    },
+    "optionsExportButton": {
+        "message": "导出",
+        "description": "Options button: 'Export'"
+    },
+    "optionsImportButton": {
+        "message": "导入",
+        "description": "Options button: 'Import'"
+    },
+    "logPanelDeferredImages": {
+        "message": "延迟加载的图像",
+        "description": "Label 'Deferred images' in the log panel"
+    },
+    "logPanelFrameContents": {
+        "message": "框架内容",
+        "description": "Label 'Frame contents' in the log panel"
+    },
+    "logPanelStep": {
+        "message": "步骤",
+        "description": "Label 'Step' (for 'Step x / 4') in the log panel"
+    },
+    "logPanelWidth": {
+        "message": "122",
+        "description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+    },
+    "profileDefaultSettings": {
+        "message": "默认设置",
+        "description": "Label 'Default settings' of the default settings in the options page"
+    },
+    "profileDisabled": {
+        "message": "已禁用",
+        "description": "Label 'Disabled' of the disabled profile name in the options page"
+    },
+    "profileAddButtonTooltip": {
+        "message": "新增配置文件",
+        "description": "Tooltip 'Add a new profile' in the options page"
+    },
+    "profileRenameButtonTooltip": {
+        "message": "重命名配置文件",
+        "description": "Tooltip 'Rename the profile' in the options page"
+    },
+    "profileDeleteButtonTooltip": {
+        "message": "删除配置文件",
+        "description": "Tooltip 'Delete the profile' in the options page"
+    },
+    "profileAddPrompt": {
+        "message": "新增配置文件",
+        "description": "Popup text 'Enter a name for this new profile' in the options page"
+    },
+    "profileDeleteConfirm": {
+        "message": "确认删除所选配置文件？",
+        "description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
+    },
+    "profileRenamePrompt": {
+        "message": "重命名配置文件",
+        "description": "Popup text 'Enter a new name for the selected profile' in the options page"
+    },
+    "editorAddYellowNote": {
+        "message": "添加黄色标注",
+        "description": "Title of the button 'Add a yellow note' in the editor"
+    },
+    "editorAddPinkNote": {
+        "message": "添加粉色标注",
+        "description": "Title of the button 'Add a pink note' in the editor"
+    },
+    "editorAddBlueNote": {
+        "message": "添加蓝色标注",
+        "description": "Title of the button 'Add a blue note' in the editor"
+    },
+    "editorAddGreenNote": {
+        "message": "添加绿色标注",
+        "description": "Title of the button 'Add a green note' in the editor"
+    },
+    "editorHighlightYellow": {
+        "message": "将所选文本高亮为黄色",
+        "description": "Title of the button 'Highlight selected text in yellow' in the editor"
+    },
+    "editorHighlightPink": {
+        "message": "将所选文本高亮为粉色",
+        "description": "Title of the button 'Highlight selected text in pink' in the editor"
+    },
+    "editorHighlightBlue": {
+        "message": "将所选文本高亮为蓝色",
+        "description": "Title of the button 'Highlight selected text in blue' in the editor"
+    },
+    "editorHighlightGreen": {
+        "message": "将所选文本高亮为绿色",
+        "description": "Title of the button 'Highlight selected text in green' in the editor"
+    },
+    "editorToggleNotes": {
+        "message": "显示/隐藏 标注",
+        "description": "Title of the button 'Display/hide notes' in the editor"
+    },
+    "editorToggleHighlights": {
+        "message": "显示/隐藏 高亮文本",
+        "description": "Title of the button 'Display/hide the highlighted text' in the editor"
+    },
+    "editorRemoveHighlight": {
+        "message": "移除所选高亮文本",
+        "description": "Title of the button 'Remove the selected highlighted text' in the editor"
+    },
+    "editorEditPage": {
+        "message": "启用/禁用 编辑模式",
+        "description": "Title of the button 'Enable/disable read-only' in the editor"
+    },
+    "editorFormatPage": {
+        "message": "格式化页面以提升可读性",
+        "description": "Title of the button 'Format the page for better readability' in the editor"
+    },
+    "editorCutInnerPage": {
+        "message": "启用/禁用 点击时删除内部文档元素",
+        "description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+    },
+    "editorCutOuterPage": {
+        "message": "启用/禁用 点击时删除外部文档元素",
+        "description": "Title of the button 'Enable/disable removing of external elements' in the editor"
+    },
+    "editorUndoCutPage": {
+        "message": "撤销上次移除元素的操作",
+        "description": "Title of the button 'Restore last removed element' in the editor"
+    },
+    "editorUndoAllCutPage": {
+        "message": "撤销所有移除元素的操作",
+        "description": "Title of the button 'Restore all removed elements' in the editor"
+    },
+    "editorRedoCutPage": {
+        "message": "恢复上次移除元素的操作",
+        "description": "Title of the button 'Remove last restored element' in the editor"
+    },
+    "editorSavePage": {
+        "message": "保存该页面",
+        "description": "Title of the button 'Save the page' in the editor"
+    },
+    "editorPrintPage": {
+        "message": "打印页面",
+        "description": "Title of the button 'Print the page' in the editor"
+    },
+    "pendingsTitle": {
+        "message": "挂起保存项",
+        "description": "Title of the pending save page 'Pending saves' in the editor"
+    },
+    "pendingsCancelAllButton": {
+        "message": "取消全部",
+        "description": "Pending saves button 'Cancel all'"
+    },
+    "pendingsTitleTitle": {
+        "message": "标题",
+        "description": "Title of the first column in the table of the pending saves 'Title'"
+    },
+    "pendingsURLTitle": {
+        "message": "网址",
+        "description": "Title of the first column in the table of the pending saves 'URL'"
+    },
+    "pendingsStatusTitle": {
+        "message": "状态",
+        "description": "Title of the second column in the table of the pending saves 'status'"
+    },
+    "pendingsPendingStatus": {
+        "message": "正在挂起",
+        "description": "Value of 'status' for pending saves"
+    },
+    "pendingsProcessingStatus": {
+        "message": "正在处理",
+        "description": "Value of 'status' for current saves"
+    },
+    "pendingsCancellingStatus": {
+        "message": "正在取消",
+        "description": "Value of 'status' for cancelled saves"
+    },
+    "pendingsNoPendings": {
+        "message": "没有挂起中的保存项",
+        "description": "Label displayed when they are no pending saves"
+    },
+    "pendingsAddUrlsButton": {
+        "message": "添加网址",
+        "description": "button 'Add URLs'"
+    },
+    "pendingsAddUrls": {
+        "message": "请按行输入网址列表",
+        "description": "Label of the add URLs input"
+    },
+    "pendingsAddUrlsOKButton": {
+        "message": "确定",
+        "description": "Add URLs popup confirm button: 'OK'"
+    },
+    "pendingsAddUrlsCancelButton": {
+        "message": "取消",
+        "description": "Add URLs popup cancel button: 'Cancel'"
+    }
 }
