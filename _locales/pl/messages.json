@@ -164,7 +164,7 @@
 		"description": "Options page label: 'block mixed content'"
 	},
 	"optionSaveOriginalURLs": {
-		"message": "save original URLs of embedded resources",
+		"message": "zapisuj oryginalne adresy URL zasobów osadzonych",
 		"description": "Options page label: 'save original URLs of embedded resources'"
 	},
 	"optionIncludeInfobar": {
