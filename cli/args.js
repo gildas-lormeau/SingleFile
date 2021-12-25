@@ -86,7 +86,8 @@ const args = require("yargs")
 		"crawl-external-links-max-depth": 1,
 		"crawl-replace-urls": false,
 		"crawl-rewrite-rule": [],
-		"output-directory": "blockMixedContent": false,
+		"output-directory": "",
+		"blockMixedContent": false,
 		"saveOriginalURLs": false,
 		"acceptHeaders": {
 			"font": "application/font-woff2;q=1.0,application/font-woff;q=0.9,*/*;q=0.8",
