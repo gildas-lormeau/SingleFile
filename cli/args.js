@@ -30,7 +30,15 @@ const args = require("yargs")
 		yargs.positional("output", { description: "Output filename", type: "string" });
 	})
 	.default({
+		"accept-headers": {
+			"font": "application/font-woff2;q=1.0,application/font-woff;q=0.9,*/*;q=0.8",
+			"image": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+			"stylesheet": "text/css,*/*;q=0.1",
+			"script": "*/*",
+			"document": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+		},
 		"back-end": "puppeteer",
+		"block-mixed-content": false,
 		"browser-server": "",
 		"browser-headless": true,
 		"browser-executable-path": "",
@@ -64,6 +72,8 @@ const args = require("yargs")
 		"max-parallel-workers": 8,
 		"max-resource-size-enabled": false,
 		"max-resource-size": 10,
+		"move-styles-in-head": false,
+		"output-directory": "",
 		"remove-hidden-elements": true,
 		"remove-unused-styles": true,
 		"remove-unused-fonts": true,
@@ -75,6 +85,7 @@ const args = require("yargs")
 		"remove-alternative-fonts": true,
 		"remove-alternative-medias": true,
 		"remove-alternative-images": true,
+		"save-original-urls": false,
 		"save-raw-page": false,
 		"web-driver-executable-path": "",
 		"user-script-enabled": true,
@@ -85,20 +96,12 @@ const args = require("yargs")
 		"crawl-max-depth": 1,
 		"crawl-external-links-max-depth": 1,
 		"crawl-replace-urls": false,
-		"crawl-rewrite-rule": [],
-		"output-directory": "",
-		"blockMixedContent": false,
-		"saveOriginalURLs": false,
-		"acceptHeaders": {
-			"font": "application/font-woff2;q=1.0,application/font-woff;q=0.9,*/*;q=0.8",
-			"image": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
-			"stylesheet": "text/css,*/*;q=0.1",
-			"script": "*/*",
-			"document": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-		}
+		"crawl-rewrite-rule": []		
 	})
 	.options("back-end", { description: "Back-end to use" })
 	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chromium", "webdriver-gecko", "puppeteer-firefox", "playwright-firefox", "playwright-chromium"])
+	.options("block-mixed-content", { description: "Block mixed contents" })
+	.boolean("block-mixed-content")
 	.options("browser-server", { description: "Server to connect to (puppeteer only for now)" })
 	.string("browser-server")
 	.options("browser-headless", { description: "Run the browser in headless mode (puppeteer, webdriver-gecko, webdriver-chromium)" })
@@ -191,6 +194,8 @@ const args = require("yargs")
 	.boolean("max-resource-size-enabled")
 	.options("max-resource-size", { description: "Maximum size of embedded resources in MB (i.e. images, stylesheets, scripts and iframes)" })
 	.number("max-resource-size")
+	.options("move-styles-in-head", { description: "Move style elements outside the head element into the head element" })
+	.boolean("move-styles-in-head")
 	.options("remove-frames", { description: "Remove frames (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("remove-frames")
 	.options("remove-hidden-elements", { description: "Remove HTML elements which are not displayed" })
@@ -213,6 +218,8 @@ const args = require("yargs")
 	.boolean("remove-alternative-medias")
 	.options("remove-alternative-images", { description: "Remove images for alternative sizes of screen" })
 	.boolean("remove-alternative-images")
+	.options("save-original-urls", { description: "Save the original URLS in the embedded contents" })
+	.boolean("save-original-urls")
 	.options("save-raw-page", { description: "Save the original page without interpreting it into the browser (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("save-raw-page")
 	.options("urls-file", { description: "Path to a text file containing a list of URLs (separated by a newline) to save" })

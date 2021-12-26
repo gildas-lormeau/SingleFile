@@ -279,6 +279,10 @@
 		"message": "стискати вміст CSS ",
 		"description": "Options page label: 'compress CSS content'"
 	},
+	"optionMoveStylesInHead": {
+		"message": "move in the head element the styles found outside of it",
+		"description": "Options page label: 'move in the head element the styles found outside of it'"
+	},
 	"optionRemoveUnusedStyles": {
 		"message": "видалити невикористовувані стилі",
 		"description": "Options page label: 'remove unused styles'"

@@ -166,7 +166,7 @@
 	"optionSaveOriginalURLs": {
 		"message": "save original URLs of embedded resources",
 		"description": "Options page label: 'save original URLs of embedded resources'"
-	},	
+	},
 	"optionIncludeInfobar": {
 		"message": "include the infobar in the saved page",
 		"description": "Options page label: 'include the infobar in the saved page'"
@@ -278,6 +278,10 @@
 	"optionCompressCSS": {
 		"message": "compress CSS content",
 		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionMoveStylesInHead": {
+		"message": "move in the head element the styles found outside of it",
+		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionRemoveUnusedStyles": {
 		"message": "remove unused styles",
