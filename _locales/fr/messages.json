@@ -279,6 +279,10 @@
 		"message": "compresser le contenu CSS",
 		"description": "Options page label: 'compress CSS content'"
 	},
+	"optionMoveStylesInHead": {
+		"message": "déplacer dans l'élément head les styles trouvés en dehors de celui-ci",
+		"description": "Options page label: 'move in the head element the styles found outside of it'"
+	},
 	"optionRemoveUnusedStyles": {
 		"message": "supprimer les styles inutilisés",
 		"description": "Options page label: 'remove unused styles'"
