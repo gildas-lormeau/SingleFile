@@ -144,8 +144,8 @@ Footnotes:
 See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 
 ## Contributors
-- Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad), frostblazergit (https://github.com/frostblazergit), dnknn (https://github.com/dnknn)
-- Traditional Chinese translation done by frostblazergit (https://github.com/frostblazergit)
+- Chinese translation done by yfdyh000 (https://github.com/yfdyh000), KrasnayaPloshchad (https://github.com/KrasnayaPloshchad), frostblazergit (https://github.com/frostblazergit), dnknn (https://github.com/dnknn), lqzhgood (https://github.com/lqzhgood)
+- Traditional Chinese translation done by frostblazergit (https://github.com/frostblazergit), lqzhgood (https://github.com/lqzhgood)
 - German translation done by womotroll (https://github.com/womotroll), bannmann (https://github.com/bannmann)
 - Italian translation done by Fastbyte01 (https://github.com/Fastbyte01)
 - Japanese translation done by Shitennouji（四天王寺) (https://github.com/Shitennouji)
