@@ -47,10 +47,6 @@
 		"message": "現在のドメインのプロファイルを選択",
 		"description": "Menu entry: 'Select the profile of the current domain'"
 	},
-	"menuSaveTabs": {
-		"message": "タブを保存",
-		"description": "Menu entry (SingleFile button only): 'Save tabs'"
-	},
 	"menuSaveSelection": {
 		"message": "選択を保存",
 		"description": "Menu entry: 'Save selection'"
@@ -58,6 +54,10 @@
 	"menuSaveFrame": {
 		"message": "フレームを保存",
 		"description": "Menu entry: 'Save frame'"
+	},
+	"menuSaveTabs": {
+		"message": "タブを保存",
+		"description": "Menu entry (SingleFile button only): 'Save tabs'"
 	},
 	"menuSaveSelectedTabs": {
 		"message": "選択したタブを保存",
@@ -735,13 +735,13 @@
 		"message": "すべてをキャンセルする",
 		"description": "Pending saves button 'Cancel all'"
 	},
-	"pendingsTitleTitle": {
-		"message": "タイトル",
-		"description": "Title of the first column in the table of the pending saves 'Title'"
-	},
 	"pendingsURLTitle": {
 		"message": "URL",
 		"description": "Title of the first column in the table of the pending saves 'URL'"
+	},
+	"pendingsTitleTitle": {
+		"message": "タイトル",
+		"description": "Title of the first column in the table of the pending saves 'Title'"
 	},
 	"pendingsStatusTitle": {
 		"message": "状態",

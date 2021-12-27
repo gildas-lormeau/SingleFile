@@ -319,6 +319,10 @@
 		"message": "自动保存",
 		"description": "Options sub-title: 'Auto-save'"
 	},
+	"optionsAutoSettingsSubTitle": {
+		"message": "自动设置 规则",
+		"description": "Options sub-title: 'Auto-settings rules'"
+	},
 	"optionsDeleteDisplayedRulesConfirm": {
 		"message": "确认删除所有已显示规则",
 		"description": "Popup text 'Confirm the deletion of all displayed rules'"
@@ -326,10 +330,6 @@
 	"optionsDeleteRulesTooltip": {
 		"message": "删除所有已显示规则",
 		"description": "Popup text 'Delete all displayed rules'"
-	},
-	"optionsAutoSettingsSubTitle": {
-		"message": "自动设置 规则",
-		"description": "Options sub-title: 'Auto-settings rules'"
 	},
 	"optionsAutoSettingsUrl": {
 		"message": "网址",
@@ -735,13 +735,13 @@
 		"message": "取消全部",
 		"description": "Pending saves button 'Cancel all'"
 	},
-	"pendingsTitleTitle": {
-		"message": "标题",
-		"description": "Title of the first column in the table of the pending saves 'Title'"
-	},
 	"pendingsURLTitle": {
 		"message": "网址",
 		"description": "Title of the first column in the table of the pending saves 'URL'"
+	},
+	"pendingsTitleTitle": {
+		"message": "标题",
+		"description": "Title of the first column in the table of the pending saves 'Title'"
 	},
 	"pendingsStatusTitle": {
 		"message": "状态",

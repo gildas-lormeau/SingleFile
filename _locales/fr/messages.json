@@ -47,10 +47,6 @@
 		"message": "Sélectionner le profil du domaine courant",
 		"description": "Menu entry: 'Select the profile of the current domain'"
 	},
-	"menuSaveTabs": {
-		"message": "Sauver les onglets",
-		"description": "Menu entry (SingleFile button only): 'Save tabs'"
-	},
 	"menuSaveSelection": {
 		"message": "Sauver la sélection",
 		"description": "Menu entry: 'Save selection'"
@@ -58,6 +54,10 @@
 	"menuSaveFrame": {
 		"message": "Sauver le cadre",
 		"description": "Menu entry: 'Save frame'"
+	},
+	"menuSaveTabs": {
+		"message": "Sauver les onglets",
+		"description": "Menu entry (SingleFile button only): 'Save tabs'"
 	},
 	"menuSaveSelectedTabs": {
 		"message": "Sauver les onglets sélectionnés",
@@ -735,13 +735,13 @@
 		"message": "Annuler tout",
 		"description": "Pending saves button 'Cancel all'"
 	},
-	"pendingsTitleTitle": {
-		"message": "Titre",
-		"description": "Title of the first column in the table of the pending saves 'Title'"
-	},
 	"pendingsURLTitle": {
 		"message": "URL",
 		"description": "Title of the first column in the table of the pending saves 'URL'"
+	},
+	"pendingsTitleTitle": {
+		"message": "Titre",
+		"description": "Title of the first column in the table of the pending saves 'Title'"
 	},
 	"pendingsStatusTitle": {
 		"message": "statut",

@@ -15,6 +15,10 @@
 		"message": "Salva pagina con SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
 	},
+	"menuSaveSelectedLinks": {
+		"message": "Salva link selezionati",
+		"description": "Menu entry: 'Save selected links'"
+	},
 	"menuEditPage": {
 		"message": "Annota la pagina...",
 		"description": "Menu entry: 'Annotate the page...'"
@@ -26,10 +30,6 @@
 	"menuSaveWithProfile": {
 		"message": "Salva pagina con profilo",
 		"description": "Menu entry: 'Save with profile'"
-	},
-	"menuSaveSelectedLinks": {
-		"message": "Salva link selezionati",
-		"description": "Menu entry: 'Save selected links'"
 	},
 	"menuViewPendingSaves": {
 		"message": "Mostra salvataggi in attesa...",
