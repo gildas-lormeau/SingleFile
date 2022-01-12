@@ -164,7 +164,7 @@
 		"description": "Options page label: 'block mixed content'"
 	},
 	"optionSaveOriginalURLs": {
-		"message": "嵌入原始资源链接",
+		"message": "保存嵌入资源的原始网址",
 		"description": "Options page label: 'save original URLs of embedded resources'"
 	},
 	"optionIncludeInfobar": {
@@ -280,7 +280,7 @@
 		"description": "Options page label: 'compress CSS content'"
 	},
 	"optionMoveStylesInHead": {
-		"message": "move in the head element the styles found outside of it",
+		"message": "移动 head 标签之外的样式到其内",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionRemoveUnusedStyles": {
