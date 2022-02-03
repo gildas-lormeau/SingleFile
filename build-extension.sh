@@ -10,7 +10,7 @@ sed -i 's/207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj/207618107333-7tjs1im1pig
 
 cp extension/core/bg/config.js config.copy.js
 cp extension/core/bg/companion.js companion.copy.js
-jq "del(.options_page,.background.persistent,.optional_permissions[0],.optional_permissions[1],.permissions[2],.oauth2)" manifest.copy.json > manifest.json
+jq "del(.options_page,.background.persistent,.optional_permissions[0],.optional_permissions[1],.permissions[0],.oauth2)" manifest.copy.json > manifest.json
 sed -i 's/207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj/207618107333-7tjs1im1pighftpoepea2kvkubnfjj44/g' manifest.json
 sed -i 's/forceWebAuthFlow: false/forceWebAuthFlow: true/g' extension/core/bg/config.js
 sed -i 's/enabled: true/enabled: false/g' extension/core/bg/companion.js
