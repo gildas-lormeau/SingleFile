@@ -63,6 +63,7 @@ const args = require("yargs")
 		"filename-conflict-action": "uniquify",
 		"filename-replacement-character": "_",
 		"filename-max-length": 192,
+		"filename-max-length-unit": "bytes",
 		"group-duplicate-images": true,
 		"http-header": [],
 		"include-infobar": false,
@@ -96,7 +97,7 @@ const args = require("yargs")
 		"crawl-max-depth": 1,
 		"crawl-external-links-max-depth": 1,
 		"crawl-replace-urls": false,
-		"crawl-rewrite-rule": []		
+		"crawl-rewrite-rule": []
 	})
 	.options("back-end", { description: "Back-end to use" })
 	.choices("back-end", ["jsdom", "puppeteer", "webdriver-chromium", "webdriver-gecko", "puppeteer-firefox", "playwright-firefox", "playwright-chromium"])
@@ -172,8 +173,10 @@ const args = require("yargs")
 	.string("filename-conflict-action")
 	.options("filename-replacement-character", { description: "The character used for replacing invalid characters in filenames" })
 	.string("filename-replacement-character")
-	.options("filename-max-length", { description: "Specify the maximum length in bytes of the filename " })
-	.string("filename-max-length")
+	.options("filename-max-length", { description: "Specify the maximum length of the filename" })
+	.number("filename-max-length")
+	.options("filename-max-length-unit", { description: "Specify the unit of the maximum length of the filename ('bytes' or 'chars')" })
+	.string("filename-max-length-unit")
 	.options("group-duplicate-images", { description: "Group duplicate images into CSS custom properties" })
 	.boolean("group-duplicate-images")
 	.options("http-header", { description: "Extra HTTP header (puppeteer, jsdom)" })

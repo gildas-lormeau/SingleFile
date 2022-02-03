@@ -188,8 +188,16 @@
 		"description": "Options page label: 'template'"
 	},
 	"optionFilenameMaxLength": {
-		"message": "максимальная длина (байт)",
-		"description": "Options page label: 'max length (bytes)'"
+		"message": "максимальная длина",
+		"description": "Options page label: 'max length'"
+	},
+	"optionFilenameMaxLengthBytesUnit": {
+		"message": "байт",
+		"description": "Options page label: 'bytes'"
+	},
+	"optionFilenameMaxLengthCharsUnit": {
+		"message": "characters",
+		"description": "Options page label: 'characters'"
 	},
 	"optionConfirmFilename": {
 		"message": "открыть диалоговое окно \"Сохранить как\" для подтверждения имени файла",

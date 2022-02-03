@@ -188,8 +188,16 @@
 		"description": "Options page label: 'template'"
 	},
 	"optionFilenameMaxLength": {
-		"message": "maksymalna długość (bajty)",
-		"description": "Options page label: 'max length (bytes)'"
+		"message": "maksymalna długość",
+		"description": "Options page label: 'max length'"
+	},
+	"optionFilenameMaxLengthBytesUnit": {
+		"message": "bajty",
+		"description": "Options page label: 'bytes'"
+	},
+	"optionFilenameMaxLengthCharsUnit": {
+		"message": "characters",
+		"description": "Options page label: 'characters'"
 	},
 	"optionConfirmFilename": {
 		"message": "otwieraj okno \"Zapisz jako\", aby potwierdzić nazwę pliku",

@@ -188,8 +188,16 @@
 		"description": "Options page label: 'template'"
 	},
 	"optionFilenameMaxLength": {
-		"message": "longueur maximale (octets)",
-		"description": "Options page label: 'max length (bytes)'"
+		"message": "longueur maximale",
+		"description": "Options page label: 'max length'"
+	},
+	"optionFilenameMaxLengthBytesUnit": {
+		"message": "octets",
+		"description": "Options page label: 'bytes'"
+	},
+	"optionFilenameMaxLengthCharsUnit": {
+		"message": "caractères",
+		"description": "Options page label: 'characters'"
 	},
 	"optionConfirmFilename": {
 		"message": "ouvrir la boite de dialogue \"Sauver sous\" pour confimer le nom de fichier",

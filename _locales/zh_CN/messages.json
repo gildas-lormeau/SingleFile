@@ -188,8 +188,16 @@
 		"description": "Options page label: 'template'"
 	},
 	"optionFilenameMaxLength": {
-		"message": "最大长度（字节）",
-		"description": "Options page label: 'max length (bytes)'"
+		"message": "最大长度",
+		"description": "Options page label: 'max length'"
+	},
+	"optionFilenameMaxLengthBytesUnit": {
+		"message": "字节",
+		"description": "Options page label: 'bytes'"
+	},
+	"optionFilenameMaxLengthCharsUnit": {
+		"message": "characters",
+		"description": "Options page label: 'characters'"
 	},
 	"optionConfirmFilename": {
 		"message": "打开 “另存为” 对话框以确认文件名",

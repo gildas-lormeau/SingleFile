@@ -188,8 +188,16 @@
 		"description": "Options page label: 'template'"
 	},
 	"optionFilenameMaxLength": {
-		"message": "maximale Länge (bytes)",
-		"description": "Options page label: 'max length (bytes)'"
+		"message": "Maximale Länge",
+		"description": "Options page label: 'max length'"
+	},
+	"optionFilenameMaxLengthBytesUnit": {
+		"message": "Bytes",
+		"description": "Options page label: 'bytes'"
+	},
+	"optionFilenameMaxLengthCharsUnit": {
+		"message": "Zeichen",
+		"description": "Options page label: 'characters'"
 	},
 	"optionConfirmFilename": {
 		"message": "Dialogfenster \"Sichern als\" zur Bestätigung des Dateinamens öffnen",

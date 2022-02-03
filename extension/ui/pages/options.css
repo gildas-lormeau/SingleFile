@@ -67,8 +67,11 @@ input[type="number"] {
 }
 
 select {
+    min-height: 20px;
+}
+
+#profileNamesInput {
     min-height: 22px;
-    max-height: 22px;
 }
 
 input.medium-input {
@@ -77,6 +80,14 @@ input.medium-input {
 
 input.large-input {
     min-width: 60px;
+}
+
+.option-input {
+    display: flex;
+}
+
+#filenameMaxLengthUnitInput {
+    margin-left: 2px;
 }
 
 h3 {
@@ -577,7 +588,7 @@ html.maximized {
     ::-webkit-scrollbar {
         background-color: #2A2A2E;
     }
-    
+
     ::-webkit-scrollbar-thumb {
         background-color: #555;
     }

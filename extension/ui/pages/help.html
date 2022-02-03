@@ -170,9 +170,9 @@
 								"2018/9/15/Introduction to SingleFile.html").</li>
 						</ul>
 					</li>
-					<li data-options-label="filenameMaxLengthLabel"> <span class="option">Option: max length
-							(bytes)</span>
-						<p>Specify the maximum length in bytes of the filename.</p>
+					<li data-options-label="filenameMaxLengthLabel"> <span class="option">Option: max length</span>
+						<p>Specify the maximum length of the filename (without the extension) and its unit (bytes or
+							characters).</p>
 					</li>
 					<li data-options-label="confirmFilenameLabel"> <span class="option">Option: open the "Save as"
 							dialog to confirm the file name</span>
@@ -671,9 +671,12 @@
 			<li><a id="template-variables">Template variables</a>
 				<p>The template variables are used to customize the infobar content or the file name of a saved page.
 					They help to insert dynamic values like the save date or the page title.</p>
-				<p> You can limit the length of a dynamic value by adding <code>[<em>maxByteSize</em>]</code> just after
-					the variable name. The <code>maxByteSize</code> value is the maximum length of the value in bytes
-					(e.g. `{page-title}[20]` to limit the title to 20 bytes).</p>
+				<p> You can limit the length of a dynamic value by adding <code>[<em>maxByteSize</em>]</code> or
+					<code>[<em>maxCharSize</em>ch]</code> just after the variable name. The <code>maxByteSize</code>
+					value is the maximum length of the value in bytes (e.g. `{page-title}[20]` to limit the title to 20
+					bytes). The <code>maxCharSize</code> value is the maximum length in characters (e.g.
+					`{page-title}[10ch]` to limit the title to 10 characters).
+				</p>
 				<ul>
 					<li><code>{page-title}</code>: the title of the page</li>
 					<li><code>{page-heading}</code>: the content of the H1 tag in the page</li>

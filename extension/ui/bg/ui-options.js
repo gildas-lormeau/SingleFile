@@ -55,6 +55,8 @@ const loadDeferredImagesKeepZoomLevelLabel = document.getElementById("loadDeferr
 const addMenuEntryLabel = document.getElementById("addMenuEntryLabel");
 const filenameTemplateLabel = document.getElementById("filenameTemplateLabel");
 const filenameMaxLengthLabel = document.getElementById("filenameMaxLengthLabel");
+const filenameMaxLengthBytesUnitLabel = document.getElementById("filenameMaxLengthBytesUnitLabel");
+const filenameMaxLengthCharsUnitLabel = document.getElementById("filenameMaxLengthCharsUnitLabel");
 const shadowEnabledLabel = document.getElementById("shadowEnabledLabel");
 const setMaxResourceSizeLabel = document.getElementById("setMaxResourceSizeLabel");
 const maxResourceSizeLabel = document.getElementById("maxResourceSizeLabel");
@@ -156,6 +158,7 @@ const loadDeferredImagesKeepZoomLevelInput = document.getElementById("loadDeferr
 const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 const filenameTemplateInput = document.getElementById("filenameTemplateInput");
 const filenameMaxLengthInput = document.getElementById("filenameMaxLengthInput");
+const filenameMaxLengthUnitInput = document.getElementById("filenameMaxLengthUnitInput");
 const shadowEnabledInput = document.getElementById("shadowEnabledInput");
 const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
@@ -504,6 +507,8 @@ loadDeferredImagesKeepZoomLevelLabel.textContent = browser.i18n.getMessage("opti
 addMenuEntryLabel.textContent = browser.i18n.getMessage("optionAddMenuEntry");
 filenameTemplateLabel.textContent = browser.i18n.getMessage("optionFilenameTemplate");
 filenameMaxLengthLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLength");
+filenameMaxLengthBytesUnitLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLengthBytesUnit");
+filenameMaxLengthCharsUnitLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLengthCharsUnit");
 shadowEnabledLabel.textContent = browser.i18n.getMessage("optionDisplayShadow");
 setMaxResourceSizeLabel.textContent = browser.i18n.getMessage("optionSetMaxResourceSize");
 maxResourceSizeLabel.textContent = browser.i18n.getMessage("optionMaxResourceSize");
@@ -725,6 +730,7 @@ async function refresh(profileName) {
 	contextMenuEnabledInput.checked = profileOptions.contextMenuEnabled;
 	filenameTemplateInput.value = profileOptions.filenameTemplate;
 	filenameMaxLengthInput.value = profileOptions.filenameMaxLength;
+	filenameMaxLengthUnitInput.value = profileOptions.filenameMaxLengthUnit;
 	shadowEnabledInput.checked = profileOptions.shadowEnabled;
 	maxResourceSizeEnabledInput.checked = profileOptions.maxResourceSizeEnabled;
 	maxResourceSizeInput.value = profileOptions.maxResourceSize;
@@ -816,6 +822,7 @@ async function update() {
 			contextMenuEnabled: contextMenuEnabledInput.checked,
 			filenameTemplate: filenameTemplateInput.value,
 			filenameMaxLength: filenameMaxLengthInput.value,
+			filenameMaxLengthUnit: filenameMaxLengthUnitInput.value,
 			shadowEnabled: shadowEnabledInput.checked,
 			maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
 			maxResourceSize: Math.max(maxResourceSizeInput.value, 0),

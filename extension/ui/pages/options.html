@@ -64,7 +64,13 @@
 			</div>
 			<div class="option">
 				<label for="filenameMaxLengthInput" id="filenameMaxLengthLabel"></label>
-				<input type="number" id="filenameMaxLengthInput" min="1">
+				<div class="option-input">
+					<input type="number" id="filenameMaxLengthInput" min="1">
+					<select id="filenameMaxLengthUnitInput">
+						<option id="filenameMaxLengthBytesUnitLabel" value="bytes"></option>
+						<option id="filenameMaxLengthCharsUnitLabel" value="chars"></option>
+					</select>
+				</div>
 			</div>
 			<div class="option">
 				<label for="confirmFilenameInput" id="confirmFilenameLabel"></label>

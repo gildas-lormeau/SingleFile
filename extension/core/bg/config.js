@@ -54,6 +54,7 @@ const DEFAULT_CONFIG = {
 	confirmFilename: false,
 	filenameConflictAction: "uniquify",
 	filenameMaxLength: 192,
+	filenameMaxLengthUnit: "bytes",
 	filenameReplacedCharacters: ["~", "+", "\\\\", "?", "%", "*", ":", "|", "\"", "<", ">", "\x00-\x1f", "\x7F"],
 	filenameReplacementCharacter: "_",
 	contextMenuEnabled: true,

@@ -45,6 +45,7 @@ const DEFAULT_OPTIONS = {
 	infobarTemplate: "",
 	includeInfobar: false,
 	filenameMaxLength: 192,
+	filenameMaxLengthUnit: "bytes",
 	filenameReplacedCharacters: ["~", "+", "\\\\", "?", "%", "*", ":", "|", "\"", "<", ">", "\x00-\x1f", "\x7F"],
 	filenameReplacementCharacter: "_",
 	maxResourceSizeEnabled: false,
