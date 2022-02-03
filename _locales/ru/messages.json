@@ -196,7 +196,7 @@
 		"description": "Options page label: 'bytes'"
 	},
 	"optionFilenameMaxLengthCharsUnit": {
-		"message": "characters",
+		"message": "символов",
 		"description": "Options page label: 'characters'"
 	},
 	"optionConfirmFilename": {
