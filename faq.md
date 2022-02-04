@@ -20,6 +20,7 @@ The permissions requested by SingleFile are defined in the [manifest.json](https
  - `tabs` (all_urls): allows SingleFile to inject the code needed to process a page in any tab. This permission is needed for saving several tabs in one click, for example.
  - `downloads`: allows SingleFile to save pages as if they were downloaded from the web.
  - `clipboardWrite`: allows SingleFile to copy the content of a page into the clipboard instead of saving it.
+ - 'nativeMessaging': allows you to use [SingleFile companion](https://github.com/gildas-lormeau/SingleFile/tree/master/companion) to save pages.
 
 ## SingleFile is slow on my computer/tablet/phone, can it run faster?
 The default configuration of SingleFile is optimized to produce small pages. This can sometimes slow down the save process considerably. Below are the options you can disable to save time and CPU.
