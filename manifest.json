@@ -97,6 +97,7 @@
 		]
 	},
 	"permissions": [
+		"identity",
 		"menus",
 		"clipboardWrite",
 		"contextMenus",
