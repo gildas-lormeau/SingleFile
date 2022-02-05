@@ -30,7 +30,7 @@ import * as tabsData from "./../../core/bg/tabs-data.js";
 import { refreshAutoSaveTabs } from "./../../core/bg/autosave-util.js";
 import * as button from "./ui-button.js";
 
-const menus = browser.menus || browser.contextMenus;
+const menus = browser.menus;
 const BROWSER_MENUS_API_SUPPORTED = menus && menus.onClicked && menus.create && menus.update && menus.removeAll;
 const MENU_ID_SAVE_PAGE = "save-page";
 const MENU_ID_EDIT_AND_SAVE_PAGE = "edit-and-save-page";
