@@ -25,6 +25,8 @@
 
 const referrers = new Map();
 const REQUEST_ID_HEADER_NAME = "x-single-file-request-id";
+const MAX_CONTENT_SIZE = 8 * (1024 * 1024);
+
 export {
 	REQUEST_ID_HEADER_NAME,
 	referrers
@@ -40,12 +42,38 @@ browser.runtime.onMessage.addListener((message, sender) => {
 	}
 });
 
-function onRequest(message, sender) {
+async function onRequest(message, sender) {
 	if (message.method == "singlefile.fetch") {
-		return fetchResource(message.url, { referrer: message.referrer, headers: message.headers });
+		try {
+			const response = await fetchResource(message.url, { referrer: message.referrer, headers: message.headers });
+			return sendResponse(sender.tab.id, message.requestId, response);
+		} catch (error) {
+			return sendResponse(sender.tab.id, message.requestId, { error: error.message, arrray: [] });
+		}
 	} else if (message.method == "singlefile.fetchFrame") {
 		return browser.tabs.sendMessage(sender.tab.id, message);
 	}
+}
+
+async function sendResponse(tabId, requestId, response) {
+	for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < response.array.length; blockIndex++) {
+		const message = {
+			method: "singlefile.fetchResponse",
+			requestId,
+			headers: response.headers,
+			status: response.status,
+			error: response.error
+		};
+		message.truncated = response.array.length > MAX_CONTENT_SIZE;
+		if (message.truncated) {
+			message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > response.array.length;
+			message.array = response.array.slice(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+		} else {
+			message.array = response.array;
+		}
+		await browser.tabs.sendMessage(tabId, message);
+	}
+	return {};
 }
 
 function fetchResource(url, options = {}, includeRequestId) {
