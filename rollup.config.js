@@ -1,127 +1,127 @@
 import { terser } from "rollup-plugin-terser";
 
 export default [{
-	input: ["lib/single-file/index.js"],
+	input: ["src/single-file/index.js"],
 	output: [{
-		file: "dist/single-file.js",
+		file: "lib/single-file.js",
 		format: "umd",
 		name: "singlefile",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["lib/single-file/single-file-frames.js"],
+	input: ["src/single-file/single-file-frames.js"],
 	output: [{
-		file: "dist/single-file-frames.js",
+		file: "lib/single-file-frames.js",
 		format: "umd",
 		name: "singlefile",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["lib/single-file/single-file-bootstrap.js"],
+	input: ["src/single-file/single-file-bootstrap.js"],
 	output: [{
-		file: "dist/single-file-bootstrap.js",
+		file: "lib/single-file-bootstrap.js",
 		format: "umd",
 		name: "singlefileBootstrap",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["common/ui/content/content-infobar.js"],
+	input: ["src/common/ui/content/content-infobar.js"],
 	output: [{
-		file: "dist/infobar.js",
+		file: "lib/infobar.js",
 		format: "umd",
 		name: "infobar",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["extension/core/content/content-bootstrap.js"],
+	input: ["src/extension/core/content/content-bootstrap.js"],
 	output: [{
-		file: "dist/extension-bootstrap.js",
+		file: "lib/extension-bootstrap.js",
 		format: "iife",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["extension/core/content/content-frames.js"],
+	input: ["src/extension/core/content/content-frames.js"],
 	output: [{
-		file: "dist/extension-frames.js",
+		file: "lib/extension-frames.js",
 		format: "iife",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["extension/index.js"],
+	input: ["src/extension/index.js"],
 	output: [{
-		file: "dist/extension-core.js",
+		file: "lib/extension-core.js",
 		format: "umd",
 		name: "extension",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["extension/core/content/content.js"],
+	input: ["src/extension/core/content/content.js"],
 	output: [{
-		file: "dist/extension.js",
+		file: "lib/extension.js",
 		format: "iife",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["lib/single-file/processors/hooks/content/content-hooks-web.js"],
+	input: ["src/single-file/processors/hooks/content/content-hooks-web.js"],
 	output: [{
-		file: "dist/web/hooks/hooks-web.js",
+		file: "lib/web/hooks/hooks-web.js",
 		format: "iife",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["lib/single-file/processors/hooks/content/content-hooks-frames-web.js"],
+	input: ["src/single-file/processors/hooks/content/content-hooks-frames-web.js"],
 	output: [{
-		file: "dist/web/hooks/hooks-frames-web.js",
+		file: "lib/web/hooks/hooks-frames-web.js",
 		format: "iife",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["common/ui/content/content-infobar-web.js"],
+	input: ["src/common/ui/content/content-infobar-web.js"],
 	output: [{
-		file: "dist/web/infobar-web.js",
+		file: "lib/web/infobar-web.js",
 		format: "iife",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["extension/ui/content/content-ui-editor-init-web.js"],
+	input: ["src/extension/ui/content/content-ui-editor-init-web.js"],
 	output: [{
-		file: "dist/web/editor/editor-init-web.js",
+		file: "lib/web/editor/editor-init-web.js",
 		format: "iife",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["extension/ui/content/content-ui-editor-web.js"],
+	input: ["src/extension/ui/content/content-ui-editor-web.js"],
 	output: [{
-		file: "dist/web/editor/editor-web.js",
+		file: "lib/web/editor/editor-web.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
-	input: ["extension/ui/content/content-ui-editor-helper-web"],
+	input: ["src/extension/ui/content/content-ui-editor-helper-web"],
 	output: [{
-		file: "dist/web/editor/editor-helper-web.js",
+		file: "lib/web/editor/editor-helper-web.js",
 		format: "umd",
 		name: "singlefile",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"],
+	input: ["src/extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"],
 	output: [{
-		file: "dist/chrome-browser-polyfill.js",
+		file: "lib/chrome-browser-polyfill.js",
 		format: "iife",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["extension/core/bg/index.js"],
+	input: ["src/extension/core/bg/index.js"],
 	output: [{
-		file: "dist/extension-background.js",
+		file: "lib/extension-background.js",
 		format: "iife",
 		plugins: [terser()]
 	}]
 }, {
-	input: ["extension/lib/single-file/background.js"],
+	input: ["src/extension/lib/single-file/background.js"],
 	output: [{
-		file: "dist/single-file-background.js",
+		file: "lib/single-file-background.js",
 		format: "iife",
 		plugins: [terser()]
 	}]

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>&nbsp;</title>
+	<link rel="stylesheet" href="pendings.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+</head>
+
+<body>
+	<header>
+		<div class="header-buttons">
+			<button id="addUrlsButton"></button>
+			<button id="cancelAllButton"></button>
+		</div>
+	</header>
+	<main>
+		<div class="result-row result-head">
+			<span class="result-url-title" id="URLTitleLabel">
+				<span id="URLLabel"></span> / <span id="titleLabel"></span>
+			</span>
+			<span class="result-status" id="statusLabel"></span>
+			<span class="result-cancel">&nbsp;</span>
+		</div>
+		<div id="resultsTable">
+		</div>
+	</main>
+	<div id="formAddUrls" class="popup">
+		<form class="popup-content">
+			<header>
+				<span id="addUrlsLabel"></span>
+			</header>
+			<main><textarea id="addUrlsInput" type="text"></textarea></main>
+			<footer>
+				<button type="submit" id="addUrlsOKButton"></button>
+				<button id="addUrlsCancelButton"></button>
+			</footer>
+		</form>
+	</div>
+	<script src="/lib/chrome-browser-polyfill.js"></script>
+	<script type="module" src="../bg/ui-pendings.js"></script>
+</body>
+
+</html>

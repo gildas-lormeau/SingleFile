@@ -3,10 +3,10 @@
 	"author": "Gildas Lormeau",
 	"homepage_url": "https://github.com/gildas-lormeau/SingleFile",
 	"icons": {
-		"16": "extension/ui/resources/icon_16.png",
-		"48": "extension/ui/resources/icon_48.png",
-		"64": "extension/ui/resources/icon_64.png",
-		"128": "extension/ui/resources/icon_128.png"
+		"16": "src/extension/ui/resources/icon_16.png",
+		"48": "src/extension/ui/resources/icon_48.png",
+		"64": "src/extension/ui/resources/icon_64.png",
+		"128": "src/extension/ui/resources/icon_128.png"
 	},
 	"version": "1.19.30",
 	"description": "__MSG_extensionDescription__",
@@ -17,9 +17,9 @@
 			],
 			"run_at": "document_start",
 			"js": [
-				"dist/chrome-browser-polyfill.js",
-				"dist/single-file-frames.js",
-				"dist/extension-frames.js"
+				"lib/chrome-browser-polyfill.js",
+				"lib/single-file-frames.js",
+				"lib/extension-frames.js"
 			],
 			"all_frames": true,
 			"match_about_blank": true
@@ -30,36 +30,36 @@
 			],
 			"run_at": "document_start",
 			"js": [
-				"dist/chrome-browser-polyfill.js",
-				"dist/single-file-bootstrap.js",
-				"dist/extension-bootstrap.js",
-				"dist/web/infobar-web.js"
+				"lib/chrome-browser-polyfill.js",
+				"lib/single-file-bootstrap.js",
+				"lib/extension-bootstrap.js",
+				"lib/web/infobar-web.js"
 			]
 		}
 	],
 	"background": {
-		"page": "extension/core/bg/background.html",
+		"page": "src/extension/core/bg/background.html",
 		"persistent": false
 	},
-	"options_page": "extension/ui/pages/options.html",
+	"options_page": "src/extension/ui/pages/options.html",
 	"sidebar_action": {
 		"browser_style": true,
 		"default_title": "SingleFile",
-		"default_panel": "extension/ui/pages/panel.html",
-		"default_icon": "extension/ui/resources/icon_128.png",
+		"default_panel": "src/extension/ui/pages/panel.html",
+		"default_icon": "src/extension/ui/resources/icon_128.png",
 		"open_at_install": false
 	},
 	"options_ui": {
 		"browser_style": true,
-		"page": "extension/ui/pages/options.html",
+		"page": "src/extension/ui/pages/options.html",
 		"open_in_tab": false
 	},
 	"browser_action": {
 		"default_icon": {
-			"16": "extension/ui/resources/icon_16.png",
-			"48": "extension/ui/resources/icon_48.png",
-			"64": "extension/ui/resources/icon_64.png",
-			"128": "extension/ui/resources/icon_128.png"
+			"16": "src/extension/ui/resources/icon_16.png",
+			"48": "src/extension/ui/resources/icon_48.png",
+			"64": "src/extension/ui/resources/icon_64.png",
+			"128": "src/extension/ui/resources/icon_128.png"
 		},
 		"default_title": "__MSG_buttonDefaultTooltip__"
 	},
@@ -78,17 +78,17 @@
 		}
 	},
 	"web_accessible_resources": [
-		"dist/web/hooks/hooks-web.js",
-		"dist/web/hooks/hooks-frames-web.js",
-		"dist/web/infobar-web.js",
-		"dist/web/editor/editor-init-web.js",
-		"dist/web/editor/editor-web.js",
-		"dist/web/editor/editor-helper-web.js",
-		"extension/lib/readability/Readability.js",
-		"extension/lib/readability/Readability-readerable.js",
-		"extension/ui/pages/editor-note-web.css",
-		"extension/ui/pages/editor-mask-web.css",
-		"extension/ui/pages/editor-frame-web.css"
+		"lib/web/hooks/hooks-web.js",
+		"lib/web/hooks/hooks-frames-web.js",
+		"lib/web/infobar-web.js",
+		"lib/web/editor/editor-init-web.js",
+		"lib/web/editor/editor-web.js",
+		"lib/web/editor/editor-helper-web.js",
+		"src/extension/lib/readability/Readability.js",
+		"src/extension/lib/readability/Readability-readerable.js",
+		"src/extension/ui/pages/editor-note-web.css",
+		"src/extension/ui/pages/editor-mask-web.css",
+		"src/extension/ui/pages/editor-frame-web.css"
 	],
 	"oauth2": {
 		"client_id": "207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj.apps.googleusercontent.com",
@@ -118,7 +118,7 @@
 			"id": "{531906d3-e22f-4a6c-a102-8057b88a1a63}"
 		}
 	},
-	"devtools_page": "extension/core/devtools/devtools.html",
+	"devtools_page": "src/extension/core/devtools/devtools.html",
 	"incognito": "spanning",
 	"manifest_version": 2,
 	"default_locale": "en"

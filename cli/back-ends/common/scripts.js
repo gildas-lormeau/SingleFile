@@ -26,18 +26,18 @@
 const fs = require("fs");
 
 const SCRIPTS = [
-	"dist/infobar.js"
+	"lib/infobar.js"
 ];
 
 const INDEX_SCRIPTS = [
-	"dist/single-file.js",
-	"dist/single-file-bootstrap.js"
+	"lib/single-file.js",
+	"lib/single-file-bootstrap.js"
 ];
 
 const WEB_SCRIPTS = [
-	"/dist/web/hooks/hooks-web.js",
-	"/dist/web/hooks/hooks-frames-web.js",
-	"/dist/web/infobar-web.js"
+	"/lib/web/hooks/hooks-web.js",
+	"/lib/web/hooks/hooks-frames-web.js",
+	"/lib/web/infobar-web.js"
 ];
 
 exports.get = async options => {
