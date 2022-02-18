@@ -120,7 +120,9 @@ const DEFAULT_CONFIG = {
 		image: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
 		stylesheet: "text/css,*/*;q=0.1",
 		script: "*/*",
-		document: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+		document: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+		video: "video/webm,video/ogg,video/*;q=0.9,application/ogg;q=0.7,audio/*;q=0.6,*/*;q=0.5",
+		audio: "audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5"
 	},
 	moveStylesInHead: false,
 	woleetKey: ""

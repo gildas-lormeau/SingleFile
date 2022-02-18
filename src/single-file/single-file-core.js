@@ -1210,17 +1210,17 @@ class Processor {
 			["image", "href"]
 		];
 		let resourcePromises = processAttributeArgs.map(([selector, attributeName, processDuplicates, removeElementIfMissing]) =>
-			ProcessorHelper.processAttribute(this.doc.querySelectorAll(selector), attributeName, this.baseURI, this.options, this.cssVariables, this.styles, this.batchRequest, processDuplicates, removeElementIfMissing)
+			ProcessorHelper.processAttribute(this.doc.querySelectorAll(selector), attributeName, this.baseURI, this.options, "image", this.cssVariables, this.styles, this.batchRequest, processDuplicates, removeElementIfMissing)
 		);
 		resourcePromises = resourcePromises.concat([
 			ProcessorHelper.processXLinks(this.doc.querySelectorAll("use"), this.doc, this.baseURI, this.options, this.batchRequest),
 			ProcessorHelper.processSrcset(this.doc.querySelectorAll("img[srcset], source[srcset]"), "srcset", this.baseURI, this.batchRequest)
 		]);
 		if (!this.options.removeAudioSrc) {
-			resourcePromises.push(ProcessorHelper.processAttribute(this.doc.querySelectorAll("audio[src], audio > source[src]"), "src", this.baseURI, this.options, this.cssVariables, this.styles, this.batchRequest));
+			resourcePromises.push(ProcessorHelper.processAttribute(this.doc.querySelectorAll("audio[src], audio > source[src]"), "src", this.baseURI, this.options, "audio", this.cssVariables, this.styles, this.batchRequest));
 		}
 		if (!this.options.removeVideoSrc) {
-			resourcePromises.push(ProcessorHelper.processAttribute(this.doc.querySelectorAll("video[src], video > source[src]"), "src", this.baseURI, this.options, this.cssVariables, this.styles, this.batchRequest));
+			resourcePromises.push(ProcessorHelper.processAttribute(this.doc.querySelectorAll("video[src], video > source[src]"), "src", this.baseURI, this.options, "video", this.cssVariables, this.styles, this.batchRequest));
 		}
 		await Promise.all(resourcePromises);
 		if (this.options.saveFavicon) {
@@ -1904,7 +1904,7 @@ class ProcessorHelper {
 		}
 	}
 
-	static async processAttribute(resourceElements, attributeName, baseURI, options, cssVariables, styles, batchRequest, processDuplicates, removeElementIfMissing) {
+	static async processAttribute(resourceElements, attributeName, baseURI, options, expectedType, cssVariables, styles, batchRequest, processDuplicates, removeElementIfMissing) {
 		await Promise.all(Array.from(resourceElements).map(async resourceElement => {
 			let resourceURL = resourceElement.getAttribute(attributeName);
 			if (resourceURL != null) {
@@ -1924,7 +1924,7 @@ class ProcessorHelper {
 						}
 						if (testValidURL(resourceURL)) {
 							let { content, indexResource, duplicate } = await batchRequest.addURL(resourceURL,
-								{ asBinary: true, expectedType: "image", groupDuplicates: options.groupDuplicateImages && resourceElement.tagName == "IMG" && attributeName == "src" });
+								{ asBinary: true, expectedType: expectedType, groupDuplicates: options.groupDuplicateImages && resourceElement.tagName == "IMG" && attributeName == "src" });
 							if (originURL) {
 								if (content == EMPTY_DATA_URI) {
 									try {
