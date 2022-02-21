@@ -53,7 +53,7 @@ function isProbablyReaderable(doc, options = {}) {
   var defaultOptions = { minScore: 20, minContentLength: 140, visibilityChecker: isNodeVisible };
   options = Object.assign(defaultOptions, options);
 
-  var nodes = doc.querySelectorAll("p, pre");
+  var nodes = doc.querySelectorAll("p, pre, article");
 
   // Get <div> nodes which have <br> node(s) and append them into the `nodes` variable.
   // Some articles' DOM structures might look like
