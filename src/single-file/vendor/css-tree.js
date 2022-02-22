@@ -9397,6 +9397,6 @@ function encode3(str) {
 
 // lib/index.js
 export {
-    parse42 as parse,
-    generate42 as generate
+    parse,
+    generate
 };
