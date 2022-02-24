@@ -160,6 +160,7 @@ function getNewSessionId() {
 function initRequestSync(message) {
 	const sessionId = message.sessionId;
 	const waitForUserScript = globalThis._singleFile_waitForUserScript;
+	delete globalThis._singleFile_cleaningUp;
 	if (!TOP_WINDOW) {
 		windowId = globalThis.frameId = message.windowId;
 	}
@@ -179,6 +180,7 @@ function initRequestSync(message) {
 async function initRequestAsync(message) {
 	const sessionId = message.sessionId;
 	const waitForUserScript = globalThis._singleFile_waitForUserScript;
+	delete globalThis._singleFile_cleaningUp;
 	if (!TOP_WINDOW) {
 		windowId = globalThis.frameId = message.windowId;
 	}
@@ -196,8 +198,11 @@ async function initRequestAsync(message) {
 }
 
 function cleanupRequest(message) {
-	const sessionId = message.sessionId;
-	cleanupFrames(getFrames(document), message.windowId, sessionId);
+	if (!globalThis._singleFile_cleaningUp) {
+		globalThis._singleFile_cleaningUp = true;
+		const sessionId = message.sessionId;
+		cleanupFrames(getFrames(document), message.windowId, sessionId);
+	}
 }
 
 function initResponse(message) {
