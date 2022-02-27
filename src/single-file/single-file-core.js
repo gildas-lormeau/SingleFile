@@ -1701,7 +1701,7 @@ class ProcessorHelper {
 				expectedType: "stylesheet",
 				acceptHeaders: options.acceptHeaders
 			});
-			if (!matchCharsetEquals(content.data, content.charset || options.charset)) {
+			if (!(matchCharsetEquals(content.data, content.charset) || matchCharsetEquals(content.data, options.charset))) {
 				options = Object.assign({}, options, { charset: getCharset(content.data) });
 				return util.getContent(resourceURL, {
 					maxResourceSize: options.maxResourceSize,
@@ -1779,7 +1779,7 @@ class ProcessorHelper {
 				expectedType: "stylesheet",
 				acceptHeaders: options.acceptHeaders
 			});
-			if (!matchCharsetEquals(content.data, content.charset || options.charset)) {
+			if (!(matchCharsetEquals(content.data, content.charset) || matchCharsetEquals(content.data, options.charset))) {
 				options = Object.assign({}, options, { charset: getCharset(content.data) });
 				return ProcessorHelper.resolveLinkStylesheetURLs(resourceURL, baseURI, options, workStylesheet);
 			}
