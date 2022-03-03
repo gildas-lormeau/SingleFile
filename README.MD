@@ -22,7 +22,7 @@ SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox (
  - [License](#license)
 
 ## Demo
-https://user-images.githubusercontent.com/396787/156660362-2801951d-2ba9-4e95-be13-b647ebce4519.mp4
+https://user-images.githubusercontent.com/396787/156664907-cc458e35-f41b-45ca-91eb-372213812b44.mp4
 
 
 ## Install
