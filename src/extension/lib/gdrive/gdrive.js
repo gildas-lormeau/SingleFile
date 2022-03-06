@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, fetch, setInterval */
+/* global browser, fetch, setInterval, URLSearchParams, URL */
 
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
@@ -32,13 +32,14 @@ const GDRIVE_UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files";
 let requestPermissionIdentityNeeded = true;
 
 class GDrive {
-	constructor(clientId, scopes) {
+	constructor(clientId, clientKey, scopes) {
 		this.clientId = clientId;
+		this.clientKey = clientKey;
 		this.scopes = scopes;
 		this.folderIds = new Map();
 		setInterval(() => this.folderIds.clear(), 60 * 1000);
 	}
-	async auth(options = { interactive: true, auto: true }) {
+	async auth(options = { interactive: true }) {
 		if (options.requestPermissionIdentity && requestPermissionIdentityNeeded) {
 			try {
 				await browser.permissions.request({ permissions: ["identity"] });
@@ -52,7 +53,12 @@ class GDrive {
 			this.accessToken = await browser.identity.getAuthToken({ interactive: options.interactive });
 			return { revokableAccessToken: this.accessToken };
 		} else {
-			getAuthURL(this, options);
+			this.authURL = AUTH_URL +
+				"?client_id=" + this.clientId +
+				"&response_type=code" +
+				"&access_type=offline" +
+				"&redirect_uri=" + browser.identity.getRedirectURL() +
+				"&scope=" + this.scopes.join(" ");
 			return options.code ? authFromCode(this, options) : initAuth(this, options);
 		}
 	}
@@ -192,9 +198,10 @@ async function authFromCode(gdrive, options) {
 		method: "POST",
 		headers: { "Content-Type": "application/x-www-form-urlencoded" },
 		body: "client_id=" + gdrive.clientId +
+			"&client_secret=" + gdrive.clientKey +
 			"&grant_type=authorization_code" +
 			"&code=" + options.code +
-			"&redirect_uri=" + gdrive.redirectURI
+			"&redirect_uri=" + browser.identity.getRedirectURL()
 	});
 	const response = await getJSON(httpResponse);
 	gdrive.accessToken = response.access_token;
@@ -205,18 +212,18 @@ async function authFromCode(gdrive, options) {
 
 async function initAuth(gdrive, options) {
 	let code;
-	if (options.extractAuthCode) {
-		options.extractAuthCode(getAuthURL(gdrive, options))
-			.then(authCode => code = authCode)
-			.catch(() => { /* ignored */ });
-	}
 	try {
 		if (browser.identity && browser.identity.launchWebAuthFlow && !options.forceWebAuthFlow) {
-			return await browser.identity.launchWebAuthFlow({
+			const authURL = await browser.identity.launchWebAuthFlow({
 				interactive: options.interactive,
 				url: gdrive.authURL
 			});
+			options.code = new URLSearchParams(new URL(authURL).search).get("code");
+			return await authFromCode(gdrive, options);
 		} else if (options.launchWebAuthFlow) {
+			options.extractAuthCode(browser.identity.getRedirectURL())
+				.then(authCode => code = authCode)
+				.catch(() => { /* ignored */ });
 			return await options.launchWebAuthFlow({ url: gdrive.authURL });
 		} else {
 			throw new Error("auth_not_supported");
@@ -224,9 +231,6 @@ async function initAuth(gdrive, options) {
 	}
 	catch (error) {
 		if (error.message && (error.message == "code_required" || error.message.includes("access"))) {
-			if (!options.auto && !code && options.promptAuthCode) {
-				code = await options.promptAuthCode();
-			}
 			if (code) {
 				options.code = code;
 				return await authFromCode(gdrive, options);
@@ -237,17 +241,6 @@ async function initAuth(gdrive, options) {
 			throw error;
 		}
 	}
-}
-
-function getAuthURL(gdrive, options = {}) {
-	gdrive.redirectURI = encodeURIComponent("urn:ietf:wg:oauth:2.0:oob" + (options.auto ? ":auto" : ""));
-	gdrive.authURL = AUTH_URL +
-		"?client_id=" + gdrive.clientId +
-		"&response_type=code" +
-		"&access_type=offline" +
-		"&redirect_uri=" + gdrive.redirectURI +
-		"&scope=" + gdrive.scopes.join(" ");
-	return gdrive.authURL;
 }
 
 function nativeAuth(options = {}) {

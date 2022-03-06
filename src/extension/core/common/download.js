@@ -53,7 +53,6 @@ async function downloadPage(pageData, options) {
 				githubBranch: options.githubBranch,
 				saveWithCompanion: options.saveWithCompanion,
 				forceWebAuthFlow: options.forceWebAuthFlow,
-				extractAuthCode: options.extractAuthCode,
 				filenameReplacementCharacter: options.filenameReplacementCharacter,
 				openEditor: options.openEditor,
 				openSavedPage: options.openSavedPage,

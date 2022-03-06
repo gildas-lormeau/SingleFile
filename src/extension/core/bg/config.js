@@ -95,7 +95,6 @@ const DEFAULT_CONFIG = {
 	githubBranch: "main",
 	saveWithCompanion: false,
 	forceWebAuthFlow: false,
-	extractAuthCode: true,
 	resolveFragmentIdentifierURLs: false,
 	userScriptEnabled: false,
 	openEditor: false,

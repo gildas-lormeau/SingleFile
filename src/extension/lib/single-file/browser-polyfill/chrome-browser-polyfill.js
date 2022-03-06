@@ -193,6 +193,9 @@ if (typeof globalThis == "undefined") {
 				getMessage: (messageName, substitutions) => nativeAPI.i18n.getMessage(messageName, substitutions)
 			},
 			identity: {
+				getRedirectURL() {
+					return nativeAPI.identity.getRedirectURL();
+				},
 				get getAuthToken() {
 					return nativeAPI.identity && nativeAPI.identity.getAuthToken && (details => new Promise((resolve, reject) =>
 						nativeAPI.identity.getAuthToken(details, token => {

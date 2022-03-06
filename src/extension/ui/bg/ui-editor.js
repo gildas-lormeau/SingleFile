@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, prompt, matchMedia, addEventListener */
+/* global browser, document, matchMedia, addEventListener */
 
 import * as download from "../../core/common/download.js";
 import { onError } from "./../common/content-error.js";
@@ -316,10 +316,6 @@ browser.runtime.onMessage.addListener(message => {
 		tabData.options = message.options;
 		savePage();
 		browser.runtime.sendMessage({ method: "ui.processInit" });
-		return Promise.resolve({});
-	}
-	if (message.method == "common.promptValueRequest") {
-		browser.runtime.sendMessage({ method: "tabs.promptValueResponse", value: prompt(message.promptMessage) });
 		return Promise.resolve({});
 	}
 	if (message.method == "editor.setTabData") {
