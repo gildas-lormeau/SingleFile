@@ -56,7 +56,7 @@ async function onRequest(message, sender) {
 }
 
 async function sendResponse(tabId, requestId, response) {
-	for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < response.array.length; blockIndex++) {
+	for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE <= response.array.length; blockIndex++) {
 		const message = {
 			method: "singlefile.fetchResponse",
 			requestId,
