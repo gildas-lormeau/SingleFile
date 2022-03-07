@@ -37,8 +37,8 @@ import { download } from "./download-util.js";
 
 const partialContents = new Map();
 const MIMETYPE_HTML = "text/html";
-const GDRIVE_CLIENT_ID = "207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj.apps.googleusercontent.com";
-const GDRIVE_CLIENT_KEY = "000000000000000000000000";
+const GDRIVE_CLIENT_ID = "207618107333-h1220p1oasj3050kr5r416661adm091a.apps.googleusercontent.com"; // 3pj2pmelhnl4sf3rpctghs9cean3q8nj
+const GDRIVE_CLIENT_KEY = "VQJ8Gq8Vxx72QyxPyeLtWvUt"; // "000000000000000000000000";
 const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 const CONFLICT_ACTION_SKIP = "skip";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
