@@ -175,6 +175,7 @@ class Runner {
 			this.options.stylesheets = docData.stylesheets;
 			this.options.images = docData.images;
 			this.options.posters = docData.posters;
+			this.options.videos = docData.videos;
 			this.options.usedFonts = docData.usedFonts;
 			this.options.shadowRoots = docData.shadowRoots;
 			this.options.imports = docData.imports;
@@ -686,30 +687,34 @@ class Processor {
 		const LINK_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAgMAAADXB5lNAAABhmlDQ1BJQ0MgcHJvZmlsZQAAKJF9kj1Iw0AYht+mSkUrDnYQcchQnSyIijqWKhbBQmkrtOpgcukfNGlIUlwcBdeCgz+LVQcXZ10dXAVB8AfEydFJ0UVK/C4ptIjx4LiH9+59+e67A4RGhalm1wSgapaRisfEbG5VDLyiDwEAvZiVmKkn0osZeI6ve/j4ehfhWd7n/hz9St5kgE8kjjLdsIg3iGc2LZ3zPnGIlSSF+Jx43KACiR+5Lrv8xrnosMAzQ0YmNU8cIhaLHSx3MCsZKvE0cVhRNcoXsi4rnLc4q5Uaa9XJbxjMaytprtMcQRxLSCAJETJqKKMCCxFaNVJMpGg/5uEfdvxJcsnkKoORYwFVqJAcP/gb/O6tWZiadJOCMaD7xbY/RoHALtCs2/b3sW03TwD/M3Cltf3VBjD3SXq9rYWPgIFt4OK6rcl7wOUOMPSkS4bkSH6aQqEAvJ/RM+WAwVv6EGtu31r7OH0AMtSr5Rvg4BAYK1L2use9ezr79u+ZVv9+AFlNcp0UUpiqAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAB3RJTUUH5AsHAB8H+DhhoQAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAJUExURQAAAICHi4qKioTuJAkAAAABdFJOUwBA5thmAAAAAWJLR0QCZgt8ZAAAAJJJREFUOI3t070NRCEMA2CnYAOyDyPwpHj/Va7hJ3FzV7zy3ET5JIwoAF6Jk4wzAJAkzxAYG9YRTgB+24wBgKmfrGAKTcEfAY4KRlRoIeBTgKOCERVaCPgU4Khge2GqKOBTgKOCERVaAEC/4PNcnyoSWHpjqkhwKxbcig0Q6AorXYF/+A6eIYD1lVbwG/jdA6/kA2THRAURVubcAAAAAElFTkSuQmCC";
 		const ICON_SIZE = "16px";
 		this.doc.querySelectorAll("video").forEach(videoElement => {
-			if (videoElement && videoElement.currentSrc) {
-				const linkElement = this.doc.createElement("a");
-				const imgElement = this.doc.createElement("img");
-				linkElement.href = videoElement.currentSrc;
-				linkElement.target = "_blank";
-				linkElement.style.setProperty("z-index", 2147483647, "important");
-				linkElement.style.setProperty("position", "absolute", "important");
-				linkElement.style.setProperty("top", "8px", "important");
-				linkElement.style.setProperty("right", "8px", "important");
-				linkElement.style.setProperty("width", ICON_SIZE, "important");
-				linkElement.style.setProperty("height", ICON_SIZE, "important");
-				linkElement.style.setProperty("min-width", ICON_SIZE, "important");
-				linkElement.style.setProperty("min-height", ICON_SIZE, "important");
-				linkElement.style.setProperty("max-width", ICON_SIZE, "important");
-				linkElement.style.setProperty("max-height", ICON_SIZE, "important");
-				imgElement.src = LINK_ICON;
-				imgElement.style.setProperty("width", ICON_SIZE, "important");
-				imgElement.style.setProperty("height", ICON_SIZE, "important");
-				imgElement.style.setProperty("min-width", ICON_SIZE, "important");
-				imgElement.style.setProperty("min-height", ICON_SIZE, "important");
-				imgElement.style.setProperty("max-width", ICON_SIZE, "important");
-				imgElement.style.setProperty("max-height", ICON_SIZE, "important");
-				linkElement.appendChild(imgElement);
-				videoElement.insertAdjacentElement("afterend", linkElement);
+			const attributeValue = videoElement.getAttribute(util.VIDEO_ATTRIBUTE_NAME);
+			if (attributeValue) {
+				const src = this.options.videos[Number(attributeValue)] || videoElement.src;
+				if (videoElement && src) {
+					const linkElement = this.doc.createElement("a");
+					const imgElement = this.doc.createElement("img");
+					linkElement.href = src;
+					linkElement.target = "_blank";
+					linkElement.style.setProperty("z-index", 2147483647, "important");
+					linkElement.style.setProperty("position", "absolute", "important");
+					linkElement.style.setProperty("top", "8px", "important");
+					linkElement.style.setProperty("right", "8px", "important");
+					linkElement.style.setProperty("width", ICON_SIZE, "important");
+					linkElement.style.setProperty("height", ICON_SIZE, "important");
+					linkElement.style.setProperty("min-width", ICON_SIZE, "important");
+					linkElement.style.setProperty("min-height", ICON_SIZE, "important");
+					linkElement.style.setProperty("max-width", ICON_SIZE, "important");
+					linkElement.style.setProperty("max-height", ICON_SIZE, "important");
+					imgElement.src = LINK_ICON;
+					imgElement.style.setProperty("width", ICON_SIZE, "important");
+					imgElement.style.setProperty("height", ICON_SIZE, "important");
+					imgElement.style.setProperty("min-width", ICON_SIZE, "important");
+					imgElement.style.setProperty("min-height", ICON_SIZE, "important");
+					imgElement.style.setProperty("max-width", ICON_SIZE, "important");
+					imgElement.style.setProperty("max-height", ICON_SIZE, "important");
+					linkElement.appendChild(imgElement);
+					videoElement.insertAdjacentElement("afterend", linkElement);
+				}
 			}
 		});
 	}
@@ -1088,6 +1093,7 @@ class Processor {
 				options.stylesheets = frameData.stylesheets;
 				options.images = frameData.images;
 				options.posters = frameData.posters;
+				options.videos = frameData.videos;
 				options.usedFonts = frameData.usedFonts;
 				options.shadowRoots = frameData.shadowRoots;
 				options.imports = frameData.imports;

@@ -227,6 +227,7 @@ function initResponse(message) {
 				frameData.stylesheets = messageFrameData.stylesheets;
 				frameData.images = messageFrameData.images;
 				frameData.posters = messageFrameData.posters;
+				frameData.videos = messageFrameData.videos;
 				frameData.usedFonts = messageFrameData.usedFonts;
 				frameData.shadowRoots = messageFrameData.shadowRoots;
 				frameData.imports = messageFrameData.imports;
@@ -394,6 +395,7 @@ function getFrameData(document, globalThis, windowId, options) {
 		stylesheets: docData.stylesheets,
 		images: docData.images,
 		posters: docData.posters,
+		videos: docData.videos,
 		usedFonts: docData.usedFonts,
 		shadowRoots: docData.shadowRoots,
 		imports: docData.imports,
