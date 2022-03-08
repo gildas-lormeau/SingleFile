@@ -203,6 +203,7 @@ async function processPage(options) {
 		options.stylesheets = selectedFrame.stylesheets;
 		options.images = selectedFrame.images;
 		options.posters = selectedFrame.posters;
+		options.videos = selectedFrame.videos;
 		options.usedFonts = selectedFrame.usedFonts;
 		options.shadowRoots = selectedFrame.shadowRoots;
 		options.imports = selectedFrame.imports;

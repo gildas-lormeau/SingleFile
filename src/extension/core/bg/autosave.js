@@ -143,6 +143,7 @@ async function saveContent(message, tab) {
 		options.stylesheets = message.stylesheets;
 		options.images = message.images;
 		options.posters = message.posters;
+		options.videos = message.videos;
 		options.usedFonts = message.usedFonts;
 		options.shadowRoots = message.shadowRoots;
 		options.imports = message.imports;
