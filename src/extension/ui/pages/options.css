@@ -333,6 +333,7 @@ h3 a {
 .rules-table-container+.option+.option label {
     text-align: right;
     width: 100%;
+    align-self: center;
 }
 
 #profilesLabel {
