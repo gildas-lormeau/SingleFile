@@ -127,6 +127,12 @@ const DEFAULT_CONFIG = {
 	woleetKey: ""
 };
 
+const DEFAULT_RULES = [{
+	"url": "file:",
+	"profile": "__Default_Settings__",
+	"autoSaveProfile": "__Disabled_Settings__"
+}];
+
 let configStorage;
 let pendingUpgradePromise = upgrade();
 export {
@@ -157,13 +163,13 @@ async function upgrade() {
 		const defaultConfig = config;
 		delete defaultConfig.tabsData;
 		applyUpgrade(defaultConfig);
-		const newConfig = { profiles: {}, rules: [] };
+		const newConfig = { profiles: {}, rules: DEFAULT_RULES };
 		newConfig.profiles[DEFAULT_PROFILE_NAME] = defaultConfig;
 		configStorage.remove(Object.keys(DEFAULT_CONFIG));
 		await configStorage.set(newConfig);
 	} else {
 		if (!config.rules) {
-			config.rules = [];
+			config.rules = DEFAULT_RULES;
 		}
 		Object.keys(config.profiles).forEach(profileName => applyUpgrade(config.profiles[profileName]));
 		await configStorage.remove(["profiles", "defaultProfile", "rules"]);
