@@ -274,8 +274,10 @@ function getResourcesInfo(win, doc, element, options, data, elementHidden, compu
 		}
 	}
 	if (element.tagName == "VIDEO") {
-		if (element.currentSrc) {
-			data.videos.push(element.currentSrc);
+		const src = element.currentSrc;
+		if (src && !src.startsWith("blob:") && !src.startsWith("data:")) {
+			const positionParent = win.getComputedStyle(element.parentNode).getPropertyValue("position");
+			data.videos.push({ positionParent, src });
 			element.setAttribute(VIDEO_ATTRIBUTE_NAME, data.videos.length - 1);
 		}
 		if (!element.poster) {

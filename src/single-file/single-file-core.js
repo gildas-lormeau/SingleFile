@@ -689,7 +689,8 @@ class Processor {
 		this.doc.querySelectorAll("video").forEach(videoElement => {
 			const attributeValue = videoElement.getAttribute(util.VIDEO_ATTRIBUTE_NAME);
 			if (attributeValue) {
-				const src = this.options.videos[Number(attributeValue)] || videoElement.src;
+				const videoData = this.options.videos[Number(attributeValue)];
+				const src = videoData.src || videoElement.src;
 				if (videoElement && src) {
 					const linkElement = this.doc.createElement("a");
 					const imgElement = this.doc.createElement("img");
@@ -698,7 +699,7 @@ class Processor {
 					linkElement.style.setProperty("z-index", 2147483647, "important");
 					linkElement.style.setProperty("position", "absolute", "important");
 					linkElement.style.setProperty("top", "8px", "important");
-					linkElement.style.setProperty("right", "8px", "important");
+					linkElement.style.setProperty("left", "8px", "important");
 					linkElement.style.setProperty("width", ICON_SIZE, "important");
 					linkElement.style.setProperty("height", ICON_SIZE, "important");
 					linkElement.style.setProperty("min-width", ICON_SIZE, "important");
@@ -714,6 +715,10 @@ class Processor {
 					imgElement.style.setProperty("max-height", ICON_SIZE, "important");
 					linkElement.appendChild(imgElement);
 					videoElement.insertAdjacentElement("afterend", linkElement);
+					const positionInlineParent = videoElement.parentNode.style.getPropertyValue("position");
+					if ((!videoData.positionParent && (!positionInlineParent || positionInlineParent != "static")) || videoData.positionParent == "static") {
+						videoElement.parentNode.style.setProperty("position", "relative", "important");
+					}
 				}
 			}
 		});
