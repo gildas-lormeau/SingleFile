@@ -39,6 +39,9 @@ SingleFile can be installed on:
 - Microsoft Edge:
   https://microsoftedge.microsoft.com/addons/detail/efnbkdcfmcmnhlkaijjjmhjjgladedno
 
+You can install SingleFile on Firefox for Android Nightly by following this procedure:
+https://support.mozilla.org/en-US/kb/find-and-install-add-ons-firefox-android
+
 You can also download the zip file
 (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project
 and install it manually by unzipping it somewhere on your disk and following
