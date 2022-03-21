@@ -38,6 +38,8 @@ SingleFile can be installed on:
   https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
 - Microsoft Edge:
   https://microsoftedge.microsoft.com/addons/detail/efnbkdcfmcmnhlkaijjjmhjjgladedno
+- Firefox for Android Nightly by following this procedure:
+  https://blog.mozilla.org/addons/2020/09/29/expanded-extension-support-in-firefox-for-android-nightly/
 
 You can also download the zip file
 (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project
@@ -240,7 +242,7 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 - Japanese translation done by Shitennouji（四天王寺)
   (https://github.com/Shitennouji)
 - Polish translation done by xesarni (https://github.com/xesarni)
-- Russian translation done by rstp14 (https://github.com/rstp14), kramola-RU
+- Russian translation done by rstp14, kramola-RU
   (https://github.com/kramola-RU), solokot (https://github.com/solokot),
   TotalCaesar659 (https://github.com/TotalCaesar659)
 - Ukrainian translation done by perdolka (https://github.com/perdolka)
