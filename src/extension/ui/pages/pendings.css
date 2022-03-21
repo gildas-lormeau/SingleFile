@@ -310,4 +310,8 @@ html.side-panel,
     .side-panel .result-cancel button {
         color: #fdfdfd;
     }
+
+    .popup-content main textarea {
+        color: black;
+    }
 }
