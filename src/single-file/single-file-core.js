@@ -181,6 +181,7 @@ class Runner {
 			this.options.imports = docData.imports;
 			this.options.referrer = docData.referrer;
 			this.markedElements = docData.markedElements;
+			this.invalidElements = docData.invalidElements;
 		}
 		if (this.options.saveRawPage) {
 			this.options.removeFrames = true;
@@ -200,7 +201,7 @@ class Runner {
 		await this.executeStage(RESOLVE_URLS_STAGE);
 		this.pendingPromises = this.executeStage(REPLACE_DATA_STAGE);
 		if (this.root && this.options.doc) {
-			util.postProcessDoc(this.options.doc, this.markedElements);
+			util.postProcessDoc(this.options.doc, this.markedElements, this.invalidElements);
 		}
 	}
 
@@ -777,7 +778,6 @@ class Processor {
 
 	removeDiscardedResources() {
 		this.doc.querySelectorAll("." + util.SINGLE_FILE_UI_ELEMENT_CLASS).forEach(element => element.remove());
-		this.doc.querySelectorAll("button button").forEach(element => element.remove());
 		this.doc.querySelectorAll("meta[http-equiv=refresh], meta[disabled-http-equiv], meta[http-equiv=\"content-security-policy\"]").forEach(element => element.remove());
 		const objectElements = this.doc.querySelectorAll("applet, object[data]:not([type=\"image/svg+xml\"]):not([type=\"image/svg-xml\"]):not([type=\"text/html\"]), embed[src]:not([src*=\".svg\"]):not([src*=\".pdf\"])");
 		this.stats.set("discarded", "objects", objectElements.length);

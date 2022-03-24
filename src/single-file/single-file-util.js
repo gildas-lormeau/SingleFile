@@ -157,8 +157,8 @@ function getInstance(utilOptions) {
 		preProcessDoc(doc, win, options) {
 			return helper.preProcessDoc(doc, win, options);
 		},
-		postProcessDoc(doc, markedElements) {
-			helper.postProcessDoc(doc, markedElements);
+		postProcessDoc(doc, markedElements, invalidElements) {
+			helper.postProcessDoc(doc, markedElements, invalidElements);
 		},
 		serialize(doc, compressHTML) {
 			return modules.serializer.process(doc, compressHTML);

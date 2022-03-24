@@ -383,7 +383,7 @@ function sendMessage(targetWindow, message, useChannel) {
 function getFrameData(document, globalThis, windowId, options) {
 	const docData = helper.preProcessDoc(document, globalThis, options);
 	const content = helper.serialize(document);
-	helper.postProcessDoc(document, docData.markedElements);
+	helper.postProcessDoc(document, docData.markedElements, docData.invalidElements);
 	const baseURI = document.baseURI.split("#")[0];
 	return {
 		windowId,

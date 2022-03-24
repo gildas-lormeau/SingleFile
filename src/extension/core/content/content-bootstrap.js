@@ -137,7 +137,7 @@ async function autoSavePage() {
 			if (framesSessionId) {
 				singlefile.processors.frameTree.cleanup(framesSessionId);
 			}
-			helper.postProcessDoc(document, docData.markedElements);
+			helper.postProcessDoc(document, docData.markedElements, docData.invalidElements);
 			if (options.userScriptEnabled && waitForUserScript) {
 				await waitForUserScript(helper.ON_AFTER_CAPTURE_EVENT_NAME);
 			}
