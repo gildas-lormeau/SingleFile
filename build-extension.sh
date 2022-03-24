@@ -8,7 +8,6 @@ cp manifest.json manifest.copy.json
 cp src/extension/core/bg/downloads.js downloads.copy.js
 sed -i 's/207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj/207618107333-h1220p1oasj3050kr5r416661adm091a/g' src/extension/core/bg/downloads.js
 sed -i 's/000000000000000000000000/VQJ8Gq8Vxx72QyxPyeLtWvUt/g' src/extension/core/bg/downloads.js
-sed -i 's/207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj/207618107333-7tjs1im1pighftpoepea2kvkubnfjj44/g' manifest.json
 
 cp src/extension/core/bg/config.js config.copy.js
 cp src/extension/core/bg/companion.js companion.copy.js
@@ -20,10 +19,12 @@ mv config.copy.js src/extension/core/bg/config.js
 mv companion.copy.js src/extension/core/bg/companion.js
 
 jq "del(.browser_specific_settings,.permissions[0],.permissions[1],.options_ui.browser_style)" manifest.copy.json > manifest.json
+sed -i 's/207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj/207618107333-7tjs1im1pighftpoepea2kvkubnfjj44/g' manifest.json
 zip -r singlefile-extension-chromium.zip manifest.json lib _locales src/extension
 
 cp src/extension/core/bg/config.js config.copy.js
 jq "del(.browser_specific_settings,.permissions[0],.permissions[1],.options_ui.browser_style)" manifest.copy.json > manifest.json
+sed -i 's/207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj/207618107333-7tjs1im1pighftpoepea2kvkubnfjj44/g' manifest.json
 sed -i 's/forceWebAuthFlow: false/forceWebAuthFlow: true/g' src/extension/core/bg/config.js
 mkdir _locales.copy
 cp -R _locales/* _locales.copy
