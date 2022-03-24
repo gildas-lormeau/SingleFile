@@ -157,8 +157,8 @@ html.side-panel,
 
 .popup-content {
     align-self: center;
-    width: 90%;
-    max-width: 320px;
+    min-width: min(calc(100% - 16px), 480px);
+    max-width: calc(100% - 16px);
     margin-top: 100px;
     margin-bottom: 100px;
     margin-left: auto;
@@ -191,6 +191,7 @@ html.side-panel,
     min-width: calc(100% - 16px);
     max-width: calc(100% - 16px);
     height: 60px;
+    min-height: 30px;
 }
 
 .popup-content footer {
