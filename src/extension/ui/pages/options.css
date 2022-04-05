@@ -118,6 +118,10 @@ h3 a {
     white-space: nowrap;
 }
 
+.buttons button {
+    margin-left: 4px;
+}
+
 .profiles {
     display: flex;
     flex: 0 1 auto;
@@ -498,6 +502,7 @@ a {
 
 .popup-content footer button {
     margin-bottom: 10px;
+    margin-left: 4px;
 }
 
 .side-panel .profiles {

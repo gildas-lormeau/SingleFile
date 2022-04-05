@@ -239,6 +239,7 @@ html.side-panel,
 
 .popup-content footer button {
     margin-bottom: 10px;
+    margin-left: 4px;
 }
 
 @media (max-width:450px) {
