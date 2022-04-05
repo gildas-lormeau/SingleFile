@@ -332,7 +332,7 @@
 		"description": "Options sub-title: 'Auto-save'"
 	},
 	"optionsAutoSettingsSubTitle": {
-		"message": "Regras da configuração aromática",
+		"message": "Regras da configuração automática",
 		"description": "Options sub-title: 'Auto-settings rules'"
 	},
 	"optionsDeleteDisplayedRulesConfirm": {
