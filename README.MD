@@ -51,7 +51,7 @@ these instructions:
 - Chrome: https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked (omit the
   manifest creation)
 - Microsoft Edge:
-  https://docs.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/part1-simple-extension#run-your-extension-locally-in-your-browser-while-developing-it-side-loading
+  https://docs.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/extension-sideloading
 
 ## Getting started
 
