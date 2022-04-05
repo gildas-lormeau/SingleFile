@@ -31,7 +31,6 @@ const addUrlsButton = document.getElementById("addUrlsButton");
 document.title = browser.i18n.getMessage("pendingsTitle");
 cancelAllButton.textContent = browser.i18n.getMessage("pendingsCancelAllButton");
 addUrlsButton.textContent = browser.i18n.getMessage("pendingsAddUrlsButton");
-document.getElementById("addUrlsLabel").textContent = browser.i18n.getMessage("pendingsAddUrls");
 URLLabel.textContent = browser.i18n.getMessage("pendingsURLTitle");
 titleLabel.textContent = browser.i18n.getMessage("pendingsTitleTitle");
 document.getElementById("statusLabel").textContent = browser.i18n.getMessage("pendingsStatusTitle");
