@@ -20,7 +20,8 @@ body>main {
 }
 
 body>main,
-body>header {
+body>header,
+body>footer {
     font-size: 12px;
     font-family: sans-serif;
     margin: 0;
@@ -29,10 +30,39 @@ body>header {
     max-width: 1024px;
 }
 
-body>header {
+body>header, body>footer {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+}
+
+.header-buttons {
+    display: flex;
+    width: 100%;
+}
+
+.header-buttons-group {
+    display: flex;
+    align-self: end;
+}
+
+.header-buttons>form {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.header-buttons>form>input {
+    background-color: white;
+    color: black;
+    min-height: 18px;
+    width: 100%;
+    flex: 1;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    padding: 2px;  
+    border: solid 1px rgb(191, 191, 191);
 }
 
 button {
@@ -42,13 +72,14 @@ button {
     border-radius: 2px;
     border-width: 1px;
     color: black;
+    white-space: nowrap;
 }
 
 button:not([disabled]):hover {
     background-color: #ededed;
 }
 
-body>header button {
+body>header button, body>footer button {
     margin-top: 5px;
     margin-bottom: 5px;
     align-self: flex-end;
@@ -58,38 +89,31 @@ body>header button {
     margin-left: 8px;
 }
 
-.result-row {
+.urls-row {
     display: flex;
     flex-direction: row;
     padding-top: 5px;
     padding-bottom: 5px;
     min-height: 40px;
+    padding-left: 0px;
 }
 
-.result-row:not(:first-child) {
+.urls-row:not(:first-child) {
     border-top: #bfbfbf 1px dashed;
 }
 
-.result-head {
+.urls-head {
     background-color: #ececec;
+    padding-left: 5px;
 }
 
-.result-row>span {
+.urls-row>span {
     padding: 10px;
     align-self: center;
 }
 
-.result-row>span>span {
-    padding: 5px;
-}
-
-.result-head .unselected {
+.urls-head .unselected {
     opacity: .5;
-}
-
-.result-row.result-head .result-head-separator {
-    padding-left: 2px;
-    padding-right: 2px;
 }
 
 .result-url-title {
@@ -99,15 +123,6 @@ body>header button {
     display: inline-block;
     white-space: nowrap;
     user-select: none;
-    cursor: pointer;
-}
-
-.result-row:not(.result-head) .result-url-title {
-    cursor: pointer;
-}
-
-.result-status {
-    min-width: 120px;
 }
 
 .result-cancel {
@@ -130,49 +145,123 @@ html.side-panel body {
 }
 
 html.side-panel,
-.side-panel .result-head,
+.side-panel .urls-head,
 .side-panel body>main {
     background-color: #fbfbfb;
 }
 
 .side-panel .header-buttons {
-    position: absolute;
-    right: 12px;
     display: flex;
 }
 
-html.side-panel #addUrlsButton {
-    display: none;
-}
-
-.side-panel body>main {
+.side-panel body>header,
+.side-panel body>main,
+.side-panel body>footer {
     border: 0;
     margin-left: 8px;
     margin-right: 12px;
 }
 
-.side-panel .result-status {
+.side-panel .urls-head {
+    min-height: 0;
+    padding-top: 3px;
+}
+
+.side-panel #URLLabel {
     display: none;
 }
 
-.side-panel .result-row>span,
-.side-panel .result-row>span>span {
+.side-panel .urls-row>span,
+.side-panel .urls-row>span>span {
     padding: 0px;
 }
 
-.side-panel .result-head {
+.side-panel .urls-head {
     border-bottom: dashed 1px rgb(191, 191, 191);
+}
+
+.popup {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(191, 191, 191, .75);
+    display: none;
+}
+
+.popup-content {
+    align-self: center;
+    min-width: min(calc(100% - 16px), 480px);
+    max-width: calc(100% - 16px);
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    box-shadow: 5px 5px #ababab;
+}
+
+.popup-content header {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.popup-content main {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.popup-content main textarea {
+    background-color: white;
+    color: black;
+    margin-bottom: 10px;
+    padding: 2px;
+    font-size: 13px;
+    margin-left: 0px;
+    width: calc(100% - 16px);
+    min-width: calc(100% - 16px);
+    max-width: calc(100% - 16px);
+    height: 60px;
+    min-height: 30px;
+}
+
+.popup-content footer {
+    text-align: right;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.popup-content footer button {
+    margin-bottom: 10px;
+}
+
+@media (max-width:450px) {
+
+    .header-buttons {
+        flex-direction: column;
+    }
 }
 
 @media (max-width:400px) {
 
     body>main,
     body>header,
-    .header-buttons>button {
+    .header-buttons button,
+    .footer-buttons button {
         font-size: 11px;
     }
 
-    .result-row {
+    .header-buttons>form>input {
+        padding: 1px;
+    }
+
+    .urls-row {
         padding-top: 3px;
         padding-bottom: 3px;
         min-height: 30px;
@@ -191,9 +280,17 @@ html.side-panel #addUrlsButton {
     .side-panel .header-buttons {
         flex-direction: column;
     }
+}
 
-    .result-head {
-        padding-bottom: 40px;
+@media (max-width:250px) {
+    .header-buttons > form {
+        flex-direction: column;
+    }
+}
+
+@media (max-width:200px) {
+    .header-buttons-group {
+        flex-direction: column;
     }
 }
 
@@ -208,18 +305,24 @@ html.side-panel #addUrlsButton {
     }
 
     body>main,
-    button {
+    button,
+    .popup-content {
         background-color: #202023;
         color: #fdfdfd;
     }
 
-    .result-row {
+    .urls-row {
         color: #dedede;
     }
 
-    .result-head {
+    .urls-head {
         background-color: #191919;
         color: #fdfdfd;
+    }
+
+    .header-buttons>form>input {
+        background-color: white;
+        color: black;
     }
 
     .no-result {
@@ -248,14 +351,31 @@ html.side-panel #addUrlsButton {
         background-color: #d2d2d2;
     }
 
+    .popup {
+        background-color: rgba(59, 59, 59, 0.95);
+    }
+
+    .popup-content {
+        box-shadow: 5px 5px #000000;
+    }
+
     html.side-panel,
-    .side-panel .result-head,
+    .side-panel .urls-head,
     .side-panel body>main,
-    .side-panel button {
+    .side-panel button,
+    .side-panel .popup-content {
         background-color: #38383d;
+    }
+
+    .side-panel .urls-head {
+        border-bottom: dashed 1px rgb(191, 191, 191);
     }
 
     .side-panel .result-cancel button {
         color: #fdfdfd;
+    }
+
+    .popup-content main textarea {
+        color: black;
     }
 }

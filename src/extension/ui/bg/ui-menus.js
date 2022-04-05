@@ -48,6 +48,7 @@ const MENU_ID_SAVE_TABS = "save-tabs";
 const MENU_ID_SAVE_SELECTED_TABS = "save-selected-tabs";
 const MENU_ID_SAVE_UNPINNED_TABS = "save-unpinned-tabs";
 const MENU_ID_SAVE_ALL_TABS = "save-all-tabs";
+const MENU_ID_BATCH_SAVE_URLS = "batch-save-urls";
 const MENU_ID_BUTTON_SAVE_SELECTED_TABS = "button-" + MENU_ID_SAVE_SELECTED_TABS;
 const MENU_ID_BUTTON_SAVE_UNPINNED_TABS = "button-" + MENU_ID_SAVE_UNPINNED_TABS;
 const MENU_ID_BUTTON_SAVE_ALL_TABS = "button-" + MENU_ID_SAVE_ALL_TABS;
@@ -70,6 +71,7 @@ const MENU_SAVE_TABS_MESSAGE = browser.i18n.getMessage("menuSaveTabs");
 const MENU_SAVE_SELECTED_TABS_MESSAGE = browser.i18n.getMessage("menuSaveSelectedTabs");
 const MENU_SAVE_UNPINNED_TABS_MESSAGE = browser.i18n.getMessage("menuSaveUnpinnedTabs");
 const MENU_SAVE_ALL_TABS_MESSAGE = browser.i18n.getMessage("menuSaveAllTabs");
+const MENU_BATCH_SAVE_URLS_MESSAGE = browser.i18n.getMessage("menuBatchSaveUrls");
 const MENU_SELECT_PROFILE_MESSAGE = browser.i18n.getMessage("menuSelectProfile");
 const PROFILE_DEFAULT_SETTINGS_MESSAGE = browser.i18n.getMessage("profileDefaultSettings");
 const MENU_AUTOSAVE_MESSAGE = browser.i18n.getMessage("menuAutoSave");
@@ -369,6 +371,11 @@ async function createMenus(tab) {
 			type: "separator"
 		});
 		menus.create({
+			id: MENU_ID_BATCH_SAVE_URLS,
+			contexts: defaultContexts,
+			title: MENU_BATCH_SAVE_URLS_MESSAGE
+		});
+		menus.create({
 			id: MENU_ID_VIEW_PENDINGS,
 			contexts: defaultContexts,
 			title: MENU_VIEW_PENDINGS_MESSAGE
@@ -427,6 +434,9 @@ async function initialize() {
 			if (event.menuItemId == MENU_ID_SAVE_ALL_TABS || event.menuItemId == MENU_ID_BUTTON_SAVE_ALL_TABS) {
 				const tabs = await queryTabs({ currentWindow: true });
 				business.saveTabs(tabs);
+			}
+			if (event.menuItemId == MENU_ID_BATCH_SAVE_URLS) {
+				business.batchSaveUrls();
 			}
 			if (event.menuItemId == MENU_ID_AUTO_SAVE_TAB) {
 				const allTabsData = await tabsData.get(tab.id);

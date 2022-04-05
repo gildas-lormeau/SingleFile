@@ -46,7 +46,7 @@ const extensionScriptFiles = [
 
 const tasks = [];
 let currentTaskId = 0, maxParallelWorkers;
-ui.init({ isSavingTab, saveTabs, saveUrls, cancelTab, openEditor, saveSelectedLinks });
+ui.init({ isSavingTab, saveTabs, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
 
 export {
 	saveTabs,
@@ -67,11 +67,22 @@ async function saveSelectedLinks(tab) {
 	if (scriptsInjected) {
 		const response = await browser.tabs.sendMessage(tab.id, { method: "content.getSelectedLinks" });
 		if (response.urls && response.urls.length) {
-			await saveUrls(response.urls);
+			const tab = await batchSaveUrls();
+			const onTabUpdated = (tabId, changeInfo) => {
+				if (changeInfo.status == "complete" && tabId == tab.id) {
+					browser.tabs.onUpdated.removeListener(onTabUpdated);
+					browser.tabs.sendMessage(tab.id, { method: "newUrls.addURLs", urls: response.urls });
+				}
+			};
+			browser.tabs.onUpdated.addListener(onTabUpdated);
 		}
 	} else {
 		ui.onForbiddenDomain(tab);
 	}
+}
+
+async function batchSaveUrls() {
+	return browser.tabs.create({ active: true, url: "/src/extension/ui/pages/batch-save-urls.html" });
 }
 
 async function saveUrls(urls, options = {}) {

@@ -71,6 +71,10 @@
 		"message": "Sauver tous les onglets",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuBatchSaveUrls": {
+		"message": "Sauver des URLs par lot...",
+		"description": "Menu entry: 'Batch save URLs...'"
+	},
 	"menuAutoSave": {
 		"message": "Auto-sauvegarde",
 		"description": "Menu entry: 'Auto-save'"
@@ -786,5 +790,33 @@
 	"pendingsAddUrlsCancelButton": {
 		"message": "Annuler",
 		"description": "Add URLs popup cancel button: 'Cancel'"
+	},
+	"batchSaveUrlsTitle": {
+		"message": "Sauver des URLs par lot",
+		"description": "Title of the 'batch save URLs' page"
+	},
+	"batchSaveUrlsNoURLs": {
+		"message": "Pas d'URLs",
+		"description": "Label displayed when they are no URLs"
+	},
+	"batchSaveUrlsAddUrlButton": {
+		"message": "Ajouter une URL",
+		"description": "label of the button 'Add URL'"
+	},
+	"batchSaveUrlsAddUrlsButton": {
+		"message": "Ajouter des URLs...",
+		"description": "label of the button 'Add URLs...'"
+	},
+	"batchSaveUrlsRemoveAllButton": {
+		"message": "Supprimer tout",
+		"description": "label of the button 'Remove all'"
+	},
+	"batchSaveUrlsSavePagesButton": {
+		"message": "Sauver les pages",
+		"description": "label of the button 'Save pages'"
+	},
+	"batchSaveUrlsURLTitle": {
+		"message": "URL",
+		"description": "Title of the column in the table of the URLs"
 	}
 }
