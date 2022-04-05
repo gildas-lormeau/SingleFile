@@ -72,7 +72,7 @@
 		"description": "Menu entry: 'Save all tabs'"
 	},
 	"menuBatchSaveUrls": {
-		"message": "Batch save URLs...",
+		"message": "Пакетное сохранение URL...",
 		"description": "Menu entry: 'Batch save URLs...'"
 	},
 	"menuAutoSave": {
