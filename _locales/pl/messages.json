@@ -72,7 +72,7 @@
 		"description": "Menu entry: 'Save all tabs'"
 	},
 	"menuBatchSaveUrls": {
-		"message": "Batch save URLs...",
+		"message": "Zapisz wsadowo adresy URL...",
 		"description": "Menu entry: 'Batch save URLs...'"
 	},
 	"menuAutoSave": {
@@ -792,31 +792,31 @@
 		"description": "Add URLs popup cancel button: 'Cancel'"
 	},
 	"batchSaveUrlsTitle": {
-		"message": "Batch save URLs",
+		"message": "Zapisz wsadowo adresy URL",
 		"description": "Title of the 'batch save URLs' page"
 	},
 	"batchSaveUrlsNoURLs": {
-		"message": "No URLs",
+		"message": "Brak adresów URL",
 		"description": "Label displayed when they are no URLs"
 	},
 	"batchSaveUrlsAddUrlButton": {
-		"message": "Add URL",
+		"message": "Dodaj adres URL",
 		"description": "label of the button 'Add URL'"
 	},
 	"batchSaveUrlsAddUrlsButton": {
-		"message": "Add URLs...",
+		"message": "Dodaj adresy URL...",
 		"description": "label of the button 'Add URLs...'"
 	},
 	"batchSaveUrlsRemoveAllButton": {
-		"message": "Remove all",
+		"message": "Usuń wszystkie",
 		"description": "label of the button 'Remove all'"
 	},
 	"batchSaveUrlsSavePagesButton": {
-		"message": "Save pages",
+		"message": "Zapisz strony",
 		"description": "label of the button 'Save pages'"
 	},
 	"batchSaveUrlsURLTitle": {
-		"message": "URL",
+		"message": "Adres URL",
 		"description": "Title of the column in the table of the URLs"
 	}
 }
