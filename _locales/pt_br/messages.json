@@ -72,7 +72,7 @@
 		"description": "Menu entry: 'Save all tabs'"
 	},
 	"menuBatchSaveUrls": {
-		"message": "Batch save URLs...",
+		"message": "Salvar em lote as URLs...",
 		"description": "Menu entry: 'Batch save URLs...'"
 	},
 	"menuAutoSave": {
@@ -792,27 +792,27 @@
 		"description": "Add URLs popup cancel button: 'Cancel'"
 	},
 	"batchSaveUrlsTitle": {
-		"message": "Batch save URLs",
+		"message": "Salvar URLs em lote",
 		"description": "Title of the 'batch save URLs' page"
 	},
 	"batchSaveUrlsNoURLs": {
-		"message": "No URLs",
+		"message": "Nenhuma URL",
 		"description": "Label displayed when they are no URLs"
 	},
 	"batchSaveUrlsAddUrlButton": {
-		"message": "Add URL",
+		"message": "Adicionar URL",
 		"description": "label of the button 'Add URL'"
 	},
 	"batchSaveUrlsAddUrlsButton": {
-		"message": "Add URLs...",
+		"message": "Adicionar URLs...",
 		"description": "label of the button 'Add URLs...'"
 	},
 	"batchSaveUrlsRemoveAllButton": {
-		"message": "Remove all",
+		"message": "Remover tudo",
 		"description": "label of the button 'Remove all'"
 	},
 	"batchSaveUrlsSavePagesButton": {
-		"message": "Save pages",
+		"message": "Salvar os sites",
 		"description": "label of the button 'Save pages'"
 	},
 	"batchSaveUrlsURLTitle": {
