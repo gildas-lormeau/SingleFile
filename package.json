@@ -9,13 +9,13 @@
 		"single-file": "./cli/single-file"
 	},
 	"dependencies": {
-		"file-url": "^3.0.0",
-		"iconv-lite": "^0.6.3",
-		"jsdom": "^18.1.0",
-		"puppeteer-core": "^11.0.0",
-		"selenium-webdriver": "^4.0.0",
-		"strong-data-uri": "^1.0.6",
-		"yargs": "^17.2.1"
+		"file-url": "3.0.0",
+		"iconv-lite": "0.6.3",
+		"jsdom": "19.0.0",
+		"puppeteer-core": "13.5.2",
+		"selenium-webdriver": "4.1.1",
+		"strong-data-uri": "1.0.6",
+		"yargs": "17.4.0"
 	},
 	"devDependencies": {
 		"rollup": "2.60.0",
