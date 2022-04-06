@@ -60,8 +60,9 @@ body>footer {
     cursor: pointer;
     transition: filter 200ms;
     user-select: none;
-    width: 21px;
+    width: 11px;
     height: 13px;
+    margin-right: 10px;
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -312,9 +313,9 @@ html.side-panel,
     }
 
     #filterButton {
-        width: 17px;
         height: 8px;
         margin-bottom: 0px;
+        margin-right: 7px;
     }
 
     .header-buttons>form>input {
