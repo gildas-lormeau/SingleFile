@@ -25,6 +25,9 @@
 
 const URLLabel = document.getElementById("URLLabel");
 const addUrlsLabel = document.getElementById("addUrlsLabel");
+const filterButton = document.getElementById("filterButton");
+const filterPanel = document.getElementById("filterPanel");
+const filterInput = document.getElementById("filterInput");
 const urlsTable = document.getElementById("urlsTable");
 const removeAllButton = document.getElementById("removeAllButton");
 const addUrlForm = document.getElementById("addUrlForm");
@@ -55,7 +58,8 @@ addUrlForm.onsubmit = () => {
 	return false;
 };
 removeAllButton.onclick = async () => {
-	urls = [];
+	const displayedUrls = getDisplayedUrls();
+	urls = urls.filter(url => !displayedUrls.includes(url));
 	await refresh();
 };
 addUrlsButton.onclick = displayAddUrlsPopup;
@@ -63,15 +67,43 @@ if (location.href.endsWith("#side-panel")) {
 	document.documentElement.classList.add("side-panel");
 }
 saveUrlsButton.onclick = async () => {
-	if (urls.length) {
-		await browser.runtime.sendMessage({ method: "downloads.saveUrls", urls });
-		urls.length = 0;
+	const displayedUrls = getDisplayedUrls();
+	if (displayedUrls.length) {
+		await browser.runtime.sendMessage({ method: "downloads.saveUrls", urls: displayedUrls });
+		urls = urls.filter(url => !displayedUrls.includes(url));
 		refresh();
 	}
 };
 
 let previousState;
 let urls = [];
+
+filterButton.onclick = () => {
+	filterPanel.hidden = !filterPanel.hidden;
+	if (!filterPanel.hidden) {
+		filterButton.classList.add("filter-displayed");
+		filterInput.focus();
+	} else {
+		filterButton.classList.remove("filter-displayed");
+	}
+	refresh(true);
+};
+filterButton.onkeyup = event => {
+	if (event.key == "Enter") {
+		filterButton.onclick();
+	}
+};
+filterInput.oninput = () => {
+	refresh();
+};
+filterInput.onkeyup = event => {
+	if (event.key == "Escape") {
+		filterPanel.hidden = true;
+		filterButton.classList.remove("filter-displayed");
+		filterButton.focus();
+		refresh(true);
+	}
+};
 browser.runtime.onMessage.addListener(message => {
 	if (message.method == "newUrls.addURLs") {
 		urls = message.urls;
@@ -137,19 +169,30 @@ async function displayAddUrlsPopup() {
 }
 
 async function refresh(force) {
-	const currentState = JSON.stringify(urls);
+	const displayedUrls = getDisplayedUrls();
+	const currentState = JSON.stringify(displayedUrls);
 	if (previousState != currentState || force) {
 		previousState = currentState;
 		resetTable();
-		updateTable(urls);
-		if (!urls.length) {
+		updateTable(displayedUrls);
+		if (!displayedUrls.length) {
 			const row = document.createElement("div");
 			row.className = "urls-row";
 			const cell = document.createElement("span");
 			cell.className = "no-result";
-			cell.textContent = noPendingsText;
+			if (filterPanel.hidden) {
+				cell.textContent = noPendingsText;
+			}
 			row.appendChild(cell);
 			urlsTable.appendChild(row);
 		}
 	}
+}
+
+function getDisplayedUrls() {
+	let displayedUrls = urls;
+	if (!filterPanel.hidden) {
+		displayedUrls = urls.filter(url => url.includes(filterInput.value));
+	}
+	return displayedUrls;
 }
