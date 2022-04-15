@@ -2006,7 +2006,7 @@ class ProcessorHelper {
 							}
 							if (removeElementIfMissing && content == EMPTY_DATA_URI) {
 								resourceElement.remove();
-							} else {
+							} else if (content !== EMPTY_DATA_URI) {
 								const forbiddenPrefixFound = PREFIXES_FORBIDDEN_DATA_URI.filter(prefixDataURI => content.startsWith(prefixDataURI)).length;
 								if (!forbiddenPrefixFound) {
 									const isSVG = content.startsWith(PREFIX_DATA_URI_IMAGE_SVG);
