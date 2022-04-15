@@ -25,7 +25,7 @@ import * as config from "./config.js";
 import { autoSaveIsEnabled } from "./autosave-util.js";
 
 export {
-	onMessage	
+	onMessage
 };
 
 async function onMessage(message, sender) {
