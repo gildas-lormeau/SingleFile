@@ -30,7 +30,7 @@ export {
 
 async function onMessage(message, sender) {
 	if (message.method.endsWith(".init")) {
-		const [options, autoSaveEnabled] = await Promise.all([config.getOptions(sender.tab.url, true), autoSaveIsEnabled(sender.tab)]);
-		return { options, autoSaveEnabled, tabId: sender.tab.id, tabIndex: sender.tab.index };
+		const [optionsAutoSave, options, autoSaveEnabled] = await Promise.all([config.getOptions(sender.tab.url, true), config.getOptions(sender.tab.url), autoSaveIsEnabled(sender.tab)]);
+		return { optionsAutoSave, options, autoSaveEnabled, tabId: sender.tab.id, tabIndex: sender.tab.index };
 	}
 }
