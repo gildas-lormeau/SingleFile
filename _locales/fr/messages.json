@@ -404,7 +404,7 @@
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
-		"message": "auto-save à la supression de l'onglet",
+		"message": "auto-sauvegarder à la supression de l'onglet",
 		"description": "Options page label: 'auto-save on tab removal'"
 	},
 	"optionAutoSaveDelay": {
