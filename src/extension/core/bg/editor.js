@@ -71,6 +71,9 @@ async function onMessage(message, sender) {
 				if (message.truncated) {
 					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > content.length;
 					message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+					if (message.finished) {
+						message.options = options;
+					}
 				} else {
 					message.content = content;
 					message.options = options;
