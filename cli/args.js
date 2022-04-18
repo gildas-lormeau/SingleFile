@@ -67,6 +67,7 @@ const args = require("yargs")
 		"group-duplicate-images": true,
 		"http-header": [],
 		"include-infobar": false,
+		"insert-meta-csp": true,
 		"load-deferred-images": true,
 		"load-deferred-images-max-idle-time": 1500,
 		"load-deferred-images-keep-zoom-level": false,
@@ -185,6 +186,8 @@ const args = require("yargs")
 	.boolean("include-BOM")
 	.options("include-infobar", { description: "Include the infobar" })
 	.boolean("include-infobar")
+	.options("insert-meta-csp", { description: "Include a <meta> tag with a CSP to avoid potential requests to internet when viewing a page" })
+	.boolean("insert-meta-csp")
 	.options("load-deferred-images", { description: "Load deferred (a.k.a. lazy-loaded) images (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("load-deferred-images")
 	.options("load-deferred-images-max-idle-time", { description: "Maximum delay of time to wait for deferred images in ms (puppeteer, webdriver-gecko, webdriver-chromium)" })
@@ -242,6 +245,7 @@ args.compressHTML = args.compressHtml;
 args.includeBOM = args.includeBom;
 args.crawlReplaceURLs = args.crawlReplaceUrls;
 args.crawlRemoveURLFragment = args.crawlRemoveUrlFragment;
+args.insertMetaCSP = args.insertMetaCsp;
 const headers = args.httpHeader;
 delete args.httpHeader;
 args.httpHeaders = {};
