@@ -2187,7 +2187,7 @@ function getCSSValue(value) {
 	return result;
 }
 
-function matchCharsetEquals(stylesheetContent, charset = "utf-8") {
+function matchCharsetEquals(stylesheetContent, charset = UTF8_CHARSET) {
 	const stylesheetCharset = getCharset(stylesheetContent);
 	if (stylesheetCharset) {
 		return stylesheetCharset == charset.toLowerCase();
