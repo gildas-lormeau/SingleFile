@@ -26,6 +26,8 @@
 import * as config from "./config.js";
 import * as business from "./business.js";
 
+const pendingSaves = new Set();
+
 Promise.resolve().then(enable);
 
 export {
@@ -49,6 +51,7 @@ async function onMessage(message) {
 async function enable() {
 	try {
 		browser.bookmarks.onCreated.removeListener(onCreated);
+		browser.bookmarks.onMoved.removeListener(onMoved);
 	} catch (error) {
 		// ignored
 	}
@@ -61,6 +64,7 @@ async function enable() {
 	});
 	if (enabled) {
 		browser.bookmarks.onCreated.addListener(onCreated);
+		browser.bookmarks.onMoved.addListener(onMoved);
 	}
 }
 
@@ -70,6 +74,7 @@ async function disable() {
 	Object.keys(profiles).forEach(profileName => disabled = disabled || !profiles[profileName].saveCreatedBookmarks);
 	if (disabled) {
 		browser.bookmarks.onCreated.removeListener(onCreated);
+		browser.bookmarks.onMoved.removeListener(onMoved);
 	}
 }
 
@@ -82,8 +87,22 @@ async function update(id, changes) {
 }
 
 async function onCreated(bookmarkId, bookmarkInfo) {
+	pendingSaves.add(bookmarkId);
+	await saveBookmark(bookmarkId, bookmarkInfo.url, bookmarkInfo);
+}
+
+async function onMoved(bookmarkId, bookmarkInfo) {
+	if (pendingSaves.has(bookmarkId)) {
+		const bookmarks = await browser.bookmarks.get(bookmarkId);
+		if (bookmarks[0]) {
+			await saveBookmark(bookmarkId, bookmarks[0].url, bookmarkInfo);
+		}
+	}
+}
+
+async function saveBookmark(bookmarkId, url, bookmarkInfo) {
 	const activeTabs = await browser.tabs.query({ lastFocusedWindow: true, active: true });
-	const options = await config.getOptions(bookmarkInfo.url);
+	const options = await config.getOptions(url);
 	if (options.saveCreatedBookmarks) {
 		const bookmarkFolders = await getParentFolders(bookmarkInfo.parentId);
 		const allowedBookmarkSet = options.allowedBookmarkFolders.toString();
@@ -94,20 +113,22 @@ async function onCreated(bookmarkId, bookmarkInfo) {
 			((allowedBookmarkSet && allowedBookmark) || !allowedBookmarkSet) &&
 			((ignoredBookmarkSet && !ignoredBookmark) || !ignoredBookmarkSet)
 		) {
-			if (activeTabs.length && activeTabs[0].url == bookmarkInfo.url) {
+			if (activeTabs.length && activeTabs[0].url == url) {
+				pendingSaves.delete(bookmarkId);
 				business.saveTabs(activeTabs, { bookmarkId, bookmarkFolders });
 			} else {
 				const tabs = await browser.tabs.query({});
 				if (tabs.length) {
-					const tab = tabs.find(tab => tab.url == bookmarkInfo.url);
+					const tab = tabs.find(tab => tab.url == url);
 					if (tab) {
+						pendingSaves.delete(bookmarkId);
 						business.saveTabs([tab], { bookmarkId, bookmarkFolders });
 					} else {
-						if (bookmarkInfo.url) {
-							if (bookmarkInfo.url == "about:blank") {
+						if (url) {
+							if (url == "about:blank") {
 								browser.bookmarks.onChanged.addListener(onChanged);
 							} else {
-								saveUrl(bookmarkInfo.url);
+								saveUrl(url);
 							}
 						}
 					}
@@ -135,6 +156,7 @@ async function onCreated(bookmarkId, bookmarkInfo) {
 	}
 
 	function saveUrl(url) {
+		pendingSaves.delete(bookmarkId);
 		business.saveUrls([url], { bookmarkId });
 	}
 }
