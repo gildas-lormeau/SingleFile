@@ -189,7 +189,7 @@ function getInstance(utilOptions) {
 	};
 
 	async function getContent(resourceURL, options) {
-		let response, startTime;
+		let response, startTime, networkTimeoutId, networkTimeoutPromise, resolveNetworkTimeoutPromise;
 		const fetchResource = utilOptions.fetch;
 		const fetchFrameResource = utilOptions.frameFetch;
 		if (DEBUG) {
@@ -199,19 +199,43 @@ function getInstance(utilOptions) {
 		if (options.blockMixedContent && /^https:/i.test(options.baseURI) && !/^https:/i.test(resourceURL)) {
 			return { data: options.asBinary ? "data:null;base64," : "", resourceURL };
 		}
+		if (options.networkTimeout) {
+			networkTimeoutPromise = new Promise((resolve, reject) => {
+				resolveNetworkTimeoutPromise = resolve;
+				networkTimeoutId = globalThis.setTimeout(() => reject(new Error("network timeout")), options.networkTimeout);
+			});
+		} else {
+			networkTimeoutPromise = new Promise(resolve => {
+				resolveNetworkTimeoutPromise = resolve;
+			});
+		}
 		try {
 			const accept = options.acceptHeaders ? options.acceptHeaders[options.expectedType] : "*/*";
 			if (options.frameId) {
 				try {
-					response = await fetchFrameResource(resourceURL, { frameId: options.frameId, referrer: options.resourceReferrer, headers: { accept } });
+					response = await Promise.race([
+						fetchFrameResource(resourceURL, { frameId: options.frameId, referrer: options.resourceReferrer, headers: { accept } }),
+						networkTimeoutPromise
+					]);
 				} catch (error) {
-					response = await fetchResource(resourceURL, { headers: { accept } });
+					response = await Promise.race([
+						fetchResource(resourceURL, { headers: { accept } }),
+						networkTimeoutPromise
+					]);
 				}
 			} else {
-				response = await fetchResource(resourceURL, { referrer: options.resourceReferrer, headers: { accept } });
+				response = await await Promise.race([
+					fetchResource(resourceURL, { referrer: options.resourceReferrer, headers: { accept } }),
+					networkTimeoutPromise
+				]);
 			}
 		} catch (error) {
 			return { data: options.asBinary ? "data:null;base64," : "", resourceURL };
+		} finally {
+			resolveNetworkTimeoutPromise();
+			if (options.networkTimeout) {
+				globalThis.clearTimeout(networkTimeoutId);
+			}
 		}
 		let buffer;
 		try {

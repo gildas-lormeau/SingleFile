@@ -363,7 +363,8 @@ class BatchRequest {
 					resourceReferrer: options.resourceReferrer,
 					baseURI,
 					blockMixedContent,
-					acceptHeaders: options.acceptHeaders
+					acceptHeaders: options.acceptHeaders,
+					networkTimeout: options.networkTimeout
 				});
 				onloadListener({ url: resourceURL });
 				if (!this.cancelled) {
@@ -445,7 +446,8 @@ class Processor {
 				frameId: this.options.windowId,
 				resourceReferrer: this.options.resourceReferrer,
 				expectedType: "document",
-				acceptHeaders: this.options.acceptHeaders
+				acceptHeaders: this.options.acceptHeaders,
+				networkTimeout: this.options.networkTimeout
 			});
 			pageContent = content.data;
 		}
@@ -1010,7 +1012,8 @@ class Processor {
 				resourceReferrer: this.options.resourceReferrer,
 				blockMixedContent: this.options.blockMixedContent,
 				saveOriginalURLs: this.options.saveOriginalURLs,
-				acceptHeaders: this.options.acceptHeaders
+				acceptHeaders: this.options.acceptHeaders,
+				networkTimeout: this.options.networkTimeout
 			};
 			let mediaText;
 			if (element.media) {
@@ -1323,7 +1326,8 @@ class Processor {
 					baseURI: this.options.baseURI,
 					blockMixedContent: this.options.blockMixedContent,
 					expectedType: "script",
-					acceptHeaders: this.options.acceptHeaders
+					acceptHeaders: this.options.acceptHeaders,
+					networkTimeout: this.options.networkTimeout
 				});
 				content.data = getUpdatedResourceContent(resourceURL, content, this.options);
 				if (element.tagName == "SCRIPT") {
@@ -1755,7 +1759,8 @@ class ProcessorHelper {
 				baseURI: options.baseURI,
 				blockMixedContent: options.blockMixedContent,
 				expectedType: "stylesheet",
-				acceptHeaders: options.acceptHeaders
+				acceptHeaders: options.acceptHeaders,
+				networkTimeout: options.networkTimeout
 			});
 			if (!(matchCharsetEquals(content.data, content.charset) || matchCharsetEquals(content.data, options.charset))) {
 				options = Object.assign({}, options, { charset: getCharset(content.data) });
@@ -1769,7 +1774,8 @@ class ProcessorHelper {
 					baseURI: options.baseURI,
 					blockMixedContent: options.blockMixedContent,
 					expectedType: "stylesheet",
-					acceptHeaders: options.acceptHeaders
+					acceptHeaders: options.acceptHeaders,
+					networkTimeout: options.networkTimeout
 				});
 			} else {
 				return content;
@@ -1833,7 +1839,8 @@ class ProcessorHelper {
 				baseURI: baseURI,
 				blockMixedContent: options.blockMixedContent,
 				expectedType: "stylesheet",
-				acceptHeaders: options.acceptHeaders
+				acceptHeaders: options.acceptHeaders,
+				networkTimeout: options.networkTimeout
 			});
 			if (!(matchCharsetEquals(content.data, content.charset) || matchCharsetEquals(content.data, options.charset))) {
 				options = Object.assign({}, options, { charset: getCharset(content.data) });
@@ -1980,7 +1987,7 @@ class ProcessorHelper {
 						}
 						if (testValidURL(resourceURL)) {
 							let { content, indexResource, duplicate } = await batchRequest.addURL(resourceURL,
-								{ asBinary: true, expectedType: expectedType, groupDuplicates: options.groupDuplicateImages && resourceElement.tagName == "IMG" && attributeName == "src" });
+								{ asBinary: true, expectedType, groupDuplicates: options.groupDuplicateImages && resourceElement.tagName == "IMG" && attributeName == "src" });
 							if (originURL) {
 								if (content == EMPTY_DATA_URI) {
 									try {
@@ -1997,7 +2004,8 @@ class ProcessorHelper {
 											maxResourceSizeEnabled: options.maxResourceSizeEnabled,
 											frameId: options.windowId,
 											resourceReferrer: options.resourceReferrer,
-											acceptHeaders: options.acceptHeaders
+											acceptHeaders: options.acceptHeaders,
+											networkTimeout: options.networkTimeout
 										})).data;
 									} catch (error) {
 										// ignored

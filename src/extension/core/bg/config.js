@@ -124,6 +124,7 @@ const DEFAULT_CONFIG = {
 		audio: "audio/webm,audio/ogg,audio/wav,audio/*;q=0.9,application/ogg;q=0.7,video/*;q=0.6,*/*;q=0.5"
 	},
 	moveStylesInHead: false,
+	networkTimeout: 0,
 	woleetKey: ""
 };
 
