@@ -294,6 +294,14 @@ function getInstance(utilOptions) {
 				return { data: "", resourceURL, charset };
 			} else {
 				try {
+					const firstBytes = new Uint8Array(buffer.slice(0, 4));
+					if (firstBytes[0] == 132 && firstBytes[1] == 49 && firstBytes[2] == 149 && firstBytes[3] == 51) {
+						charset = "gb18030";
+					} else if (firstBytes[0] == 255 && firstBytes[1] == 254) {
+						charset = "utf-16le";
+					} else if (firstBytes[0] == 254 && firstBytes[1] == 255) {
+						charset = "utf-16be";
+					}
 					return { data: new TextDecoder(charset).decode(buffer), resourceURL, charset };
 				} catch (error) {
 					try {
