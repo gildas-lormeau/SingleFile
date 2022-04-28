@@ -483,10 +483,14 @@ class Processor {
 			let infobarURL = this.options.saveUrl, infobarSaveDate = this.options.saveDate;
 			if (firstComment.nodeType == 8 && (firstComment.textContent.includes(util.COMMENT_HEADER_LEGACY) || firstComment.textContent.includes(util.COMMENT_HEADER))) {
 				const info = this.doc.documentElement.firstChild.textContent.split("\n");
-				const [, , url, saveDate] = info;
-				infobarURL = url.split("url: ")[1];
-				infobarSaveDate = saveDate.split("saved date: ")[1];
-				firstComment.remove();
+				try {
+					const [, , url, saveDate] = info;
+					infobarURL = url.split("url: ")[1];
+					infobarSaveDate = saveDate.split("saved date: ")[1];
+					firstComment.remove();
+				} catch (error) {
+					// ignored
+				}
 			}
 			const infobarContent = (this.options.infobarContent || "").replace(/\\n/g, "\n").replace(/\\t/g, "\t");
 			const commentNode = this.doc.createComment("\n " + (this.options.useLegacyCommentHeader ? util.COMMENT_HEADER_LEGACY : util.COMMENT_HEADER) +
