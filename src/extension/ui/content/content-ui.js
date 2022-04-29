@@ -76,7 +76,7 @@ function onStartPage(options) {
 	let maskElement = document.querySelector(MASK_TAGNAME);
 	if (!maskElement) {
 		if (options.logsEnabled) {
-			document.body.appendChild(logsWindowElement);
+			document.documentElement.appendChild(logsWindowElement);
 		}
 		if (options.shadowEnabled) {
 			const maskElement = createMaskElement();
@@ -396,7 +396,7 @@ function createMaskElement() {
 	try {
 		let maskElement = document.querySelector(MASK_TAGNAME);
 		if (!maskElement) {
-			maskElement = createElement(MASK_TAGNAME, document.body);
+			maskElement = createElement(MASK_TAGNAME, document.documentElement);
 			const shadowRoot = maskElement.attachShadow({ mode: "open" });
 			const styleElement = document.createElement("style");
 			styleElement.textContent = `
