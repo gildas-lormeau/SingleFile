@@ -141,11 +141,7 @@ function preProcessDoc(doc, win, options) {
 			invalidElements.set(element, placeHolderElement);
 			element.replaceWith(placeHolderElement);
 		});
-		try {
-			elementsInfo = getElementsInfo(win, doc, doc.documentElement, options);
-		} catch (error) {
-			debugger;
-		}
+		elementsInfo = getElementsInfo(win, doc, doc.documentElement, options);
 		if (options.moveStylesInHead) {
 			doc.querySelectorAll("body style, body ~ style").forEach(element => {
 				const computedStyle = win.getComputedStyle(element);
