@@ -1012,7 +1012,7 @@ table {
 				} else {
 					document.insertBefore(contentDocument.doctype, document.documentElement);
 				}
-			} else {
+			} else if (document.doctype) {
 				document.doctype.remove();
 			}
 			contentDocument.querySelectorAll("noscript").forEach(element => {
