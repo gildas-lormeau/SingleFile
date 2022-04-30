@@ -224,7 +224,7 @@ function getInstance(utilOptions) {
 					]);
 				}
 			} else {
-				response = await await Promise.race([
+				response = await Promise.race([
 					fetchResource(resourceURL, { referrer: options.resourceReferrer, headers: { accept } }),
 					networkTimeoutPromise
 				]);
