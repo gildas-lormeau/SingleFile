@@ -172,7 +172,7 @@ function testUsedFont(ruleData, familyName, declaredFonts, filteredUsedFonts) {
 			const declaredFontsWeights = declaredFonts
 				.filter(fontInfo => fontInfo.fontFamily == familyName && fontInfo.fontStyle == fontStyle)
 				.map(fontInfo => fontInfo.fontWeight)
-				.sort((weight1, weight2) => weight1 - weight2);
+				.sort((weight1, weight2) => Number.parseInt(weight1, 10) - Number.parseInt(weight2, 10));
 			let usedFontWeights = optionalUsedFonts.map(fontInfo => getUsedFontWeight(fontInfo, fontStyle, declaredFontsWeights));
 			test = testFontweight(fontWeight, usedFontWeights);
 			if (!test) {
@@ -193,7 +193,8 @@ function testUsedFont(ruleData, familyName, declaredFonts, filteredUsedFonts) {
 }
 
 function testFontweight(fontWeight, usedFontWeights) {
-	return fontWeight.split(",").find(weightValue => usedFontWeights.includes(helper.getFontWeight(helper.removeQuotes(weightValue))));
+	fontWeight = fontWeight.split(/[ ,]/)[0];
+	return usedFontWeights.includes(helper.getFontWeight(helper.removeQuotes(fontWeight)));
 }
 
 function getDeclarationValue(declarations, propertyName) {
@@ -245,6 +246,7 @@ function getFontFamilyNames(declarations) {
 
 function getUsedFontWeight(fontInfo, fontStyle, fontWeights) {
 	let foundWeight;
+	fontWeights = fontWeights.map(weight => String(Number.parseInt(weight, 10)));
 	if (fontInfo[2] == fontStyle) {
 		let fontWeight = Number(fontInfo[1]);
 		if (fontWeights.length > 1) {
