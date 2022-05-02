@@ -1249,7 +1249,7 @@ class Processor {
 	}
 
 	async processStylesheets() {
-		this.options.fontURLs = new Map();
+		this.options.fontDeclarations = new Map();
 		await Promise.all([...this.stylesheets].map(([, stylesheetInfo]) =>
 			ProcessorHelper.processStylesheet(stylesheetInfo.stylesheet.children, this.baseURI, this.options, this.cssVariables, this.batchRequest)
 		));
@@ -1354,7 +1354,7 @@ class Processor {
 	}
 
 	async removeAlternativeFonts() {
-		await util.removeAlternativeFonts(this.doc, this.stylesheets, this.options.fontURLs, this.options.fontTests);
+		await util.removeAlternativeFonts(this.doc, this.stylesheets, this.options.fontDeclarations, this.options.fontTests);
 	}
 
 	async processFrames() {
@@ -1877,14 +1877,14 @@ class ProcessorHelper {
 				} else if (ruleData.type == "Atrule" && (ruleData.name == "media" || ruleData.name == "supports")) {
 					promises.push(this.processStylesheet(ruleData.block.children, baseURI, options, cssVariables, batchRequest));
 				} else if (ruleData.type == "Atrule" && ruleData.name == "font-face") {
-					promises.push(processFontFaceRule(ruleData, options.fontURLs));
+					promises.push(processFontFaceRule(ruleData));
 				}
 			}
 		}
 		removedRules.forEach(cssRule => cssRules.remove(cssRule));
 		await Promise.all(promises);
 
-		async function processFontFaceRule(ruleData, fontURLs) {
+		async function processFontFaceRule(ruleData) {
 			await Promise.all(ruleData.block.children.toArray().map(async declaration => {
 				if (declaration.type == "Declaration" && declaration.value.children) {
 					const urlFunctions = getUrlFunctions(getCSSValue(declaration.value), true);
@@ -1895,10 +1895,10 @@ class ProcessorHelper {
 							if (testValidURL(resourceURL)) {
 								let { content } = await batchRequest.addURL(resourceURL,
 									{ asBinary: true, expectedType: "font", baseURI, blockMixedContent: options.blockMixedContent });
-								let resourceURLs = fontURLs.get(declaration);
+								let resourceURLs = options.fontDeclarations.get(declaration);
 								if (!resourceURLs) {
 									resourceURLs = [];
-									fontURLs.set(declaration, resourceURLs);
+									options.fontDeclarations.set(declaration, resourceURLs);
 								}
 								resourceURLs.push(resourceURL);
 								replaceURLs(declaration, originalResourceURL, content);

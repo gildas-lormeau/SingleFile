@@ -136,8 +136,8 @@ function getInstance(utilOptions) {
 		removeUnusedFonts(doc, stylesheets, styles, options) {
 			return modules.fontsMinifier.process(doc, stylesheets, styles, options);
 		},
-		removeAlternativeFonts(doc, stylesheets, fontURLs, fontTests) {
-			return modules.fontsAltMinifier.process(doc, stylesheets, fontURLs, fontTests);
+		removeAlternativeFonts(doc, stylesheets, fontDeclarations, fontTests) {
+			return modules.fontsAltMinifier.process(doc, stylesheets, fontDeclarations, fontTests);
 		},
 		getMediaAllInfo(doc, stylesheets, styles) {
 			return modules.matchedRules.getMediaAllInfo(doc, stylesheets, styles);
