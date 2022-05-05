@@ -81,9 +81,9 @@ const args = require("yargs")
 		"remove-unused-fonts": true,
 		"remove-frames": false,
 		"remove-imports": true,
-		"remove-scripts": true,
-		"remove-audio-src": true,
-		"remove-video-src": true,
+		"block-scripts": true,
+		"block-audios": true,
+		"block-videos": true,
 		"remove-alternative-fonts": true,
 		"remove-alternative-medias": true,
 		"remove-alternative-images": true,
@@ -212,12 +212,12 @@ const args = require("yargs")
 	.boolean("remove-unused-fonts")
 	.options("remove-imports", { description: "Remove HTML imports" })
 	.boolean("remove-imports")
-	.options("remove-scripts", { description: "Remove JavaScript scripts" })
-	.boolean("remove-scripts")
-	.options("remove-audio-src", { description: "Remove source of audio elements" })
-	.boolean("remove-audio-src")
-	.options("remove-video-src", { description: "Remove source of video elements" })
-	.boolean("remove-video-src")
+	.options("block-scripts", { description: "Block scripts" })
+	.boolean("block-scripts")
+	.options("block-audios", { description: "Block audio elements" })
+	.boolean("block-audios")
+	.options("block-videos", { description: "Block video elements" })
+	.boolean("block-videos")
 	.options("remove-alternative-fonts", { description: "Remove alternative fonts to the ones displayed" })
 	.boolean("remove-alternative-fonts")
 	.options("remove-alternative-medias", { description: "Remove alternative CSS stylesheets" })
