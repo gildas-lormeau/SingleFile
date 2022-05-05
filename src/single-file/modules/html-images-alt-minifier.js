@@ -23,7 +23,7 @@
 
 import * as srcsetParser from "./../vendor/html-srcset-parser.js";
 
-const EMPTY_IMAGE = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+const EMPTY_RESOURCE = "data:,";
 
 export {
 	process
@@ -49,11 +49,11 @@ function process(doc) {
 
 function getImgSrcData(imgElement) {
 	let src = imgElement.getAttribute("src");
-	if (src == EMPTY_IMAGE) {
+	if (src == EMPTY_RESOURCE) {
 		src = null;
 	}
 	let srcset = getSourceSrc(imgElement.getAttribute("srcset"));
-	if (srcset == EMPTY_IMAGE) {
+	if (srcset == EMPTY_RESOURCE) {
 		srcset = null;
 	}
 	return { src, srcset };
@@ -66,14 +66,14 @@ function getSourceSrcData(sources) {
 	if (!src) {
 		source = sources.find(source => getSourceSrc(source.src));
 		src = source && source.src;
-		if (src == EMPTY_IMAGE) {
+		if (src == EMPTY_RESOURCE) {
 			src = null;
 		}
 	}
 	if (!srcset) {
 		source = sources.find(source => getSourceSrc(source.srcset));
 		srcset = source && source.srcset;
-		if (srcset == EMPTY_IMAGE) {
+		if (srcset == EMPTY_RESOURCE) {
 			srcset = null;
 		}
 	}
@@ -86,7 +86,7 @@ function setSrc(srcData, imgElement, pictureElement) {
 		imgElement.setAttribute("srcset", "");
 		imgElement.setAttribute("sizes", "");
 	} else {
-		imgElement.setAttribute("src", EMPTY_IMAGE);
+		imgElement.setAttribute("src", EMPTY_RESOURCE);
 		if (srcData.srcset) {
 			imgElement.setAttribute("srcset", srcData.srcset);
 		} else {

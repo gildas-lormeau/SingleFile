@@ -185,7 +185,8 @@ function getInstance(utilOptions) {
 		SELECTED_CONTENT_ATTRIBUTE_NAME: helper.SELECTED_CONTENT_ATTRIBUTE_NAME,
 		COMMENT_HEADER: helper.COMMENT_HEADER,
 		COMMENT_HEADER_LEGACY: helper.COMMENT_HEADER_LEGACY,
-		SINGLE_FILE_UI_ELEMENT_CLASS: helper.SINGLE_FILE_UI_ELEMENT_CLASS
+		SINGLE_FILE_UI_ELEMENT_CLASS: helper.SINGLE_FILE_UI_ELEMENT_CLASS,
+		EMPTY_RESOURCE: helper.EMPTY_RESOURCE
 	};
 
 	async function getContent(resourceURL, options) {
@@ -241,7 +242,7 @@ function getInstance(utilOptions) {
 		try {
 			buffer = await response.arrayBuffer();
 		} catch (error) {
-			return { data: options.asBinary ? "data:null;base64," : "", resourceURL };
+			return { data: options.asBinary ? helper.EMPTY_RESOURCE : "", resourceURL };
 		}
 		resourceURL = response.url || resourceURL;
 		let contentType = "", charset;
@@ -323,7 +324,7 @@ async function getFetchResponse(resourceURL, options, data, charset, contentType
 			}
 		}
 	} else {
-		data = options.asBinary ? "data:null;base64" : "";
+		data = options.asBinary ? helper.EMPTY_RESOURCE : "";
 	}
 	return { data, resourceURL, charset };
 }

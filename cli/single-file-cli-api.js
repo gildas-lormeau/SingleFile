@@ -33,7 +33,6 @@ const DEFAULT_OPTIONS = {
 	removeUnusedFonts: true,
 	removeFrames: false,
 	removeImports: true,
-	removeScripts: true,
 	compressHTML: true,
 	compressCSS: false,
 	loadDeferredImages: true,
@@ -50,8 +49,6 @@ const DEFAULT_OPTIONS = {
 	filenameReplacementCharacter: "_",
 	maxResourceSizeEnabled: false,
 	maxResourceSize: 10,
-	removeAudioSrc: true,
-	removeVideoSrc: true,
 	backgroundSave: true,
 	removeAlternativeFonts: true,
 	removeAlternativeMedias: true,
@@ -64,7 +61,13 @@ const DEFAULT_OPTIONS = {
 	includeBOM: false,
 	insertMetaCSP: true,
 	insertMetaNoIndex: false,
-	insertSingleFileComment: true
+	insertSingleFileComment: true,
+	blockImages: false,
+	blockStylesheets: false,
+	blockFont: false,
+	blockScripts: true,
+	blockVideos: true,
+	blockAudios: true
 };
 const STATE_PROCESSING = "processing";
 const STATE_PROCESSED = "processed";

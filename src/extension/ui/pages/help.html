@@ -171,7 +171,7 @@
 						</ul>
 					</li>
 					<li data-options-label="filenameMaxLengthLabel"> <span class="option">Option: max length</span>
-						<p>Specify the maximum length of the filename (without the extension) and its unit (bytes or
+						<p>Enter the maximum length of the filename (without the extension) and its unit (bytes or
 							characters).</p>
 					</li>
 					<li data-options-label="confirmFilenameLabel"> <span class="option">Option: open the "Save as"
@@ -218,13 +218,6 @@
 						<p>Check this option to remove all frame and iframe elements. Checking this option can
 							considerably reduce the size of the file without altering the document most of the time. It
 							may also decrease the time needed to save a page.</p>
-					</li>
-					<li data-options-label="blockMixedContentLabel"> <span class="option"></span>Option: block mixed
-						contents</span>
-						<p>Check this option to block active content served from HTTP when viewing a page in HTTPS. You
-							can find more information about mixed content pages <a
-								href="https://developer.mozilla.org/docs/Web/Security/Mixed_content"
-								target="_blank">here</a>.</p>
 					</li>
 					<li data-options-label="saveOriginalURLsLabel"> <span class="option"></span>Option: save original
 						URLs of embedded resources</span>
@@ -296,7 +289,7 @@
 					</li>
 					<li data-options-label="loadDeferredImagesMaxIdleTimeLabel"> <span class="option">Option: maximum
 							idle time (ms)</span>
-						<p>Specify the maximum delay of time to wait for deferred images. You can increase this value if
+						<p>Enter the maximum delay of time to wait for deferred images. You can increase this value if
 							for example the network or system conditions are degraded. You can also decrease this value
 							otherwise.</p>
 					</li>
@@ -325,22 +318,6 @@
 							alternative fonts</span>
 						<p>Check this option to remove fonts that are alternatives to the ones used. Checking this
 							option should not alter the document and can considerably reduce the size of the file.</p>
-						<p class="notice">It is recommended to <u>check</u> this option</p>
-					</li>
-				</ul>
-				<p>Other resources</p>
-				<ul>
-					<li data-options-label="removeScriptsLabel"> <span class="option">Option: remove scripts</span>
-						<p>Check this option to remove all the JavaScript scripts. Unchecking this option may alter the
-							document and may introduce privacy or security issues.</p>
-						<p class="notice">It is recommended to <u>check</u> this option</p>
-					</li>
-					<li data-options-label="removeVideoLabel"> <span class="option">Option: remove video sources</span>
-						<p>Check this option to empty the "src" attribute of all video elements.</p>
-						<p class="notice">It is recommended to <u>check</u> this option</p>
-					</li>
-					<li data-options-label="removeAudioLabel"> <span class="option">Option: remove audio sources</span>
-						<p>Check this option to empty the "src" attribute of all audio elements.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 				</ul>
@@ -404,6 +381,54 @@
 							also allows the pages to be saved in another directory than the download directory. You can
 							find more info <a href="https://github.com/gildas-lormeau/SingleFile/tree/master/companion"
 								target="_blank">here</a></p>
+						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+					</li>
+				</ul>
+				<p>Network</p>
+				<ul>
+					<li data-options-label="blockResourcesLabel"> <span class="option">Option: blocked resources</span>
+						<p>
+							Check the options below to block the download of the corresponding resource types.
+						</p>
+					</li>
+					<li data-options-label="blockMixedContentLabel"> <span class="option"></span>Option: block mixed
+						contents</span>
+						<p>Check this option to block active content served from HTTP when viewing a page in HTTPS. You
+							can find more information about mixed content pages <a
+								href="https://developer.mozilla.org/docs/Web/Security/Mixed_content"
+								target="_blank">here</a>.</p>
+					</li>
+					<li data-options-label="acceptHeadersLabel"> <span class="option">Option: "Accept" headers</span>
+						<p>
+							Enter the <a href="https://developer.mozilla.org/docs/Web/HTTP/Headers/Accept"
+								target="_blank">"Accept" HTTP
+								header</a> values below to adjust support for the corresponding resource types.
+						</p>
+						<p class="notice">It is recommended to leave these values <u>as they are</u></p>
+					</li>
+					<li data-options-label="setMaxResourceSizeLabel"> <span class="option">Option: set maximum size
+							(MB)</span>
+						<p>Check this option to remove from the saved page embedded resources (i.e. images, stylesheets,
+							scripts and iframes) that exceeds a given size.</p>
+					</li>
+					<li data-options-label="maxResourceSizeLabel"> <span class="option">Option: maximum size (MB)</span>
+						<p>Enter the maximum size in megabytes.</p>
+					</li>
+					<li data-options-label="setMaxResourceDelayLabel"> <span class="option">Option: set maximum
+							download delay (s)</span>
+						<p>Check this option to remove from the saved page embedded resources (i.e. images, stylesheets,
+							scripts and iframes) that exceeds a given download time.</p>
+					</li>
+					<li data-options-label="maxResourceDelayLabel"> <span class="option">Option: maximum download delay
+							(s)</span>
+						<p>Enter the maximum download delay in seconds.</p>
+					</li>
+					<li data-options-label="passReferrerOnErrorLabel"> <span class="option">Option: pass \"Referer\"
+							header on
+							cross-origin errors</span>
+						<p>Check this option to pass the HTTP header "Referer" with the "origin" policy after an 401,
+							403, or 404 HTTP error when downloading a cross-origin resource. You should enable this
+							option if you cannot download resources blocked by a hotlink protection.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 				</ul>
@@ -509,7 +534,7 @@
 					</li>
 					<li data-options-label="autoSaveDelayLabel"> <span class="option">Option: auto-save waiting delay
 							after load (s)</span>
-						<p>Specify the delay in seconds to wait before saving a page when the "auto-save on page load or
+						<p>Enter the delay in seconds to wait before saving a page when the "auto-save on page load or
 							on page unload" or "auto-save on page load" is checked. </p>
 					</li>
 					<li data-options-label="autoSaveRepeatLabel"> <span class="option">Option: auto-save
@@ -517,7 +542,7 @@
 						<p>Check this option to auto-save pages periodically after load.</p>
 					</li>
 					<li data-options-label="autoSaveRepeatDelayLabel"> <span class="option">Option: period (s)</span>
-						<p>Specify the delay in seconds to wait before each page saving when the "auto-save
+						<p>Enter the delay in seconds to wait before each page saving when the "auto-save
 							periodically" option is checked. </p>
 					</li>
 					<li data-options-label="autoSaveExternalSaveLabel"> <span class="option">Option: save the page with
@@ -532,22 +557,6 @@
 				</ul>
 				<p>Misc.</p>
 				<ul>
-					<li data-options-label="setMaxResourceSizeLabel"> <span class="option">Option: set a maximum size
-							for embedded resources (MB)</span>
-						<p>Check this option to remove from the saved page embedded resources (i.e. images, stylesheets,
-							scripts and iframes) that exceeds a given size.</p>
-					</li>
-					<li data-options-label="maxResourceSizeLabel"> <span class="option">Option: maximum size (MB)</span>
-						<p>Specify the maximum size of embedded resources in megabytes.</p>
-					</li>
-					<li data-options-label="passReferrerOnErrorLabel"> <span class="option">Option: pass \"Referer\"
-							header on
-							cross-origin errors</span>
-						<p>Check this option to pass the HTTP header "Referer" with the "origin" policy after an 401,
-							403, or 404 HTTP error when downloading a cross-origin resource. You should enable this
-							option if you cannot download resources blocked by a hotlink protection.</p>
-						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
-					</li>
 					<li data-options-label="addProofLabel"> <span class="option">Option: add proof od existence</span>
 						<p>Check this option to create a worldwide proof of the existence of the page you want to save.
 						</p>

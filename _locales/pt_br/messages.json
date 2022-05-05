@@ -303,23 +303,47 @@
 		"message": "remover folhas de estilo para dispositivos além de telas",
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
-	"optionsOtherResourcesSubTitle": {
-		"message": "Outros recursos",
-		"description": "Options sub-title: 'Other resources'"
+	"optionsNetworkSubTitle": {
+		"message": "Network",
+		"description": "Options sub-title: 'Network'"
 	},
-	"optionRemoveScripts": {
-		"message": "remover scripts",
-		"description": "Options page label: 'remove scripts'"
+	"optionsBlockedResources": {
+		"message": "blocked resources",
+		"description": "Options page label: 'blocked resources'"
 	},
-	"optionRemoveVideo": {
-		"message": "remover fontes de vídeo",
-		"description": "Options page label: 'remove video sources'"
+	"optionsAcceptHeaders": {
+		"message": "\"Accept\" header",
+		"description": "Options page label: '\"Accept\" header'"
 	},
-	"optionRemoveAudio": {
-		"message": "remover fontes de áudio",
-		"description": "Options page label: 'remove audio sources'"
+	"optionResourceScript": {
+		"message": "scripts",
+		"description": "Options page label: 'scripts'"
 	},
-	"optionsDestionationSubTitle": {
+	"optionResourceVideo": {
+		"message": "videos",
+		"description": "Options page label: 'videos'"
+	},
+	"optionResourceAudio": {
+		"message": "audios",
+		"description": "Options page label: 'audios'"
+	},
+	"optionResourceDocument": {
+		"message": "documents",
+		"description": "Options page label: 'documents'"
+	},
+	"optionResourceFont": {
+		"message": "fonts",
+		"description": "Options page label: 'fonts'"
+	},
+	"optionResourceStylesheet": {
+		"message": "stylesheets",
+		"description": "Options page label: 'stylesheets'"
+	},
+	"optionResourceImage": {
+		"message": "images",
+		"description": "Options page label: 'images'"
+	},
+	"optionsDestinationSubTitle": {
 		"message": "Destino",
 		"description": "Options sub-title: 'Destination'"
 	},
@@ -484,12 +508,20 @@
 		"description": "Options page label: 'display stats in the console after processing'"
 	},
 	"optionSetMaxResourceSize": {
-		"message": "estabelecer um tamanho máximo para os recursos integrados",
-		"description": "Options page label: 'set a maximum size for embedded resources'"
+		"message": "set maximum size",
+		"description": "Options page label: 'set maximum size'"
 	},
 	"optionMaxResourceSize": {
 		"message": "tamanho máximo (MB)",
 		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionSetMaxResourceDelay": {
+		"message": "set maximum download time",
+		"description": "Options page label: 'set maximum download time'"
+	},
+	"optionMaxResourceDelay": {
+		"message": "maximum download time (s)",
+		"description": "Options page label: 'maximum download time (s)'"
 	},
 	"optionPassReferrerOnError": {
 		"message": "passar \"Referer\" header após um erro de pedido de origem cruzada",

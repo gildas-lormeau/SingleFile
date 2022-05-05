@@ -303,23 +303,47 @@
 		"message": "移除用于备选设备屏幕的样式表",
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
-	"optionsOtherResourcesSubTitle": {
-		"message": "其他资源",
-		"description": "Options sub-title: 'Other resources'"
+	"optionsNetworkSubTitle": {
+		"message": "Network",
+		"description": "Options sub-title: 'Network'"
 	},
-	"optionRemoveScripts": {
-		"message": "移除脚本",
-		"description": "Options page label: 'remove scripts'"
+	"optionsBlockedResources": {
+		"message": "blocked resources",
+		"description": "Options page label: 'blocked resources'"
 	},
-	"optionRemoveVideo": {
-		"message": "移除视频资源",
-		"description": "Options page label: 'remove video sources'"
+	"optionsAcceptHeaders": {
+		"message": "\"Accept\" header",
+		"description": "Options page label: '\"Accept\" header'"
 	},
-	"optionRemoveAudio": {
-		"message": "移除音频资源",
-		"description": "Options page label: 'remove audio sources'"
+	"optionResourceScript": {
+		"message": "scripts",
+		"description": "Options page label: 'scripts'"
 	},
-	"optionsDestionationSubTitle": {
+	"optionResourceVideo": {
+		"message": "videos",
+		"description": "Options page label: 'videos'"
+	},
+	"optionResourceAudio": {
+		"message": "audios",
+		"description": "Options page label: 'audios'"
+	},
+	"optionResourceDocument": {
+		"message": "documents",
+		"description": "Options page label: 'documents'"
+	},
+	"optionResourceFont": {
+		"message": "fonts",
+		"description": "Options page label: 'fonts'"
+	},
+	"optionResourceStylesheet": {
+		"message": "stylesheets",
+		"description": "Options page label: 'stylesheets'"
+	},
+	"optionResourceImage": {
+		"message": "images",
+		"description": "Options page label: 'images'"
+	},
+	"optionsDestinationSubTitle": {
 		"message": "保存位置",
 		"description": "Options sub-title: 'Destination'"
 	},
@@ -484,12 +508,20 @@
 		"description": "Options page label: 'display stats in the console after processing'"
 	},
 	"optionSetMaxResourceSize": {
-		"message": "设置嵌入式资源的大小上限",
-		"description": "Options page label: 'set a maximum size for embedded resources'"
+		"message": "set maximum size",
+		"description": "Options page label: 'set maximum size'"
 	},
 	"optionMaxResourceSize": {
 		"message": "大小上限（兆字节）",
 		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionSetMaxResourceDelay": {
+		"message": "set maximum download time",
+		"description": "Options page label: 'set maximum download time'"
+	},
+	"optionMaxResourceDelay": {
+		"message": "maximum download time (s)",
+		"description": "Options page label: 'maximum download time (s)'"
 	},
 	"optionPassReferrerOnError": {
 		"message": "跨域请求失败时添加来源地址头信息（Referer）",

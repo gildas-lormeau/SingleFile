@@ -61,6 +61,7 @@ const FONT_WEIGHTS = {
 const COMMENT_HEADER = "Page saved with SingleFile";
 const COMMENT_HEADER_LEGACY = "Archive processed by SingleFile";
 const SINGLE_FILE_UI_ELEMENT_CLASS = "single-file-ui-element";
+const EMPTY_RESOURCE = "data:,";
 const addEventListener = (type, listener, options) => globalThis.addEventListener(type, listener, options);
 const dispatchEvent = event => globalThis.dispatchEvent(event);
 
@@ -96,7 +97,8 @@ export {
 	ASYNC_SCRIPT_ATTRIBUTE_NAME,
 	COMMENT_HEADER,
 	COMMENT_HEADER_LEGACY,
-	SINGLE_FILE_UI_ELEMENT_CLASS
+	SINGLE_FILE_UI_ELEMENT_CLASS,
+	EMPTY_RESOURCE
 };
 
 function initUserScriptHandler() {
@@ -261,7 +263,7 @@ function getResourcesInfo(win, doc, element, options, data, elementHidden, compu
 	if (element.tagName == "IMG") {
 		const imageData = {
 			currentSrc: elementHidden ?
-				"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" :
+				EMPTY_RESOURCE :
 				(options.loadDeferredImages && element.getAttribute(LAZY_SRC_ATTRIBUTE_NAME)) || element.currentSrc
 		};
 		data.images.push(imageData);

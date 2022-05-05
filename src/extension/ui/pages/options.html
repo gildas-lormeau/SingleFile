@@ -109,10 +109,6 @@
 				<input type="checkbox" id="removeFramesInput">
 			</div>
 			<div class="option">
-				<label for="blockMixedContentInput" id="blockMixedContentLabel"></label>
-				<input type="checkbox" id="blockMixedContentInput">
-			</div>
-			<div class="option">
 				<label for="saveOriginalURLsInput" id="saveOriginalURLsLabel"></label>
 				<input type="checkbox" id="saveOriginalURLsInput">
 			</div>
@@ -179,21 +175,6 @@
 			</div>
 		</details>
 		<details>
-			<summary id="otherResourcesLabel"></summary>
-			<div class="option">
-				<label for="removeScriptsInput" id="removeScriptsLabel"></label>
-				<input type="checkbox" id="removeScriptsInput">
-			</div>
-			<div class="option">
-				<label for="removeVideoSrcInput" id="removeVideoLabel"></label>
-				<input type="checkbox" id="removeVideoSrcInput">
-			</div>
-			<div class="option">
-				<label for="removeAudioSrcInput" id="removeAudioLabel"></label>
-				<input type="checkbox" id="removeAudioSrcInput">
-			</div>
-		</details>
-		<details>
 			<summary id="destinationLabel"></summary>
 			<div class="option">
 				<label for="saveToFilesystemInput" id="saveToFilesystemLabel"></label>
@@ -230,6 +211,91 @@
 			<div class="option">
 				<label for="saveWithCompanionInput" id="saveWithCompanionLabel"></label>
 				<input type="radio" id="saveWithCompanionInput" name="destinationInput">
+			</div>
+		</details>
+		<details>
+			<summary id="networkLabel"></summary>
+			<div class="option">
+				<label id="blockResourcesLabel"></label>
+			</div>
+			<div class="option second-level">
+				<label for="blockImagesInput" id="blockImagesLabel"></label>
+				<input type="checkbox" id="blockImagesInput">
+			</div>
+			<div class="option second-level">
+				<label for="blockStylesheetsInput" id="blockStylesheetsLabel"></label>
+				<input type="checkbox" id="blockStylesheetsInput">
+			</div>
+			<div class="option second-level">
+				<label for="blockFontsInput" id="blockFontsLabel"></label>
+				<input type="checkbox" id="blockFontsInput">
+			</div>
+			<div class="option second-level">
+				<label for="blockScriptsInput" id="blockScriptsLabel"></label>
+				<input type="checkbox" id="blockScriptsInput">
+			</div>
+			<div class="option second-level">
+				<label for="blockVideosInput" id="blockVideosLabel"></label>
+				<input type="checkbox" id="blockVideosInput">
+			</div>
+			<div class="option second-level">
+				<label for="blockAudiosInput" id="blockAudiosLabel"></label>
+				<input type="checkbox" id="blockAudiosInput">
+			</div>
+			<div class="option">
+				<label for="blockMixedContentInput" id="blockMixedContentLabel"></label>
+				<input type="checkbox" id="blockMixedContentInput">
+			</div>
+			<div class="option">
+				<label id="acceptHeadersLabel"></label>
+			</div>
+			<div class="option second-level">
+				<label for="acceptHeaderDocumentInput" id="acceptHeaderDocumentLabel"></label>
+				<input type="text" id="acceptHeaderDocumentInput">
+			</div>
+			<div class="option second-level">
+				<label for="acceptHeaderImageInput" id="acceptHeaderImageLabel"></label>
+				<input type="text" id="acceptHeaderImageInput">
+			</div>
+			<div class="option second-level">
+				<label for="acceptHeaderStylesheetInput" id="acceptHeaderStylesheetLabel"></label>
+				<input type="text" id="acceptHeaderStylesheetInput">
+			</div>
+			<div class="option second-level">
+				<label for="acceptHeaderFontInput" id="acceptHeaderFontLabel"></label>
+				<input type="text" id="acceptHeaderFontInput">
+			</div>
+			<div class="option second-level">
+				<label for="acceptHeaderScriptInput" id="acceptHeaderScriptLabel"></label>
+				<input type="text" id="acceptHeaderScriptInput">
+			</div>
+			<div class="option second-level">
+				<label for="acceptHeaderVideoInput" id="acceptHeaderVideoLabel"></label>
+				<input type="text" id="acceptHeaderVideoInput">
+			</div>
+			<div class="option second-level">
+				<label for="acceptHeaderAudioInput" id="acceptHeaderAudioLabel"></label>
+				<input type="text" id="acceptHeaderAudioInput">
+			</div>
+			<div class="option">
+				<label for="maxResourceSizeEnabledInput" id="setMaxResourceSizeLabel"></label>
+				<input type="checkbox" id="maxResourceSizeEnabledInput">
+			</div>
+			<div class="option second-level">
+				<label for="maxResourceSizeInput" id="maxResourceSizeLabel"></label>
+				<input type="number" id="maxResourceSizeInput" min="1">
+			</div>
+			<div class="option">
+				<label for="maxResourceDelayEnabledInput" id="setMaxResourceDelayLabel"></label>
+				<input type="checkbox" id="maxResourceDelayEnabledInput">
+			</div>
+			<div class="option second-level">
+				<label for="maxResourceDelayInput" id="maxResourceDelayLabel"></label>
+				<input type="number" id="maxResourceDelayInput" min="1">
+			</div>
+			<div class="option">
+				<label for="passReferrerOnErrorInput" id="passReferrerOnErrorLabel"></label>
+				<input type="checkbox" id="passReferrerOnErrorInput">
 			</div>
 		</details>
 		<details>
@@ -321,18 +387,6 @@
 		</details>
 		<details>
 			<summary id="miscLabel"></summary>
-			<div class="option">
-				<label for="maxResourceSizeEnabledInput" id="setMaxResourceSizeLabel"></label>
-				<input type="checkbox" id="maxResourceSizeEnabledInput">
-			</div>
-			<div class="option second-level">
-				<label for="maxResourceSizeInput" id="maxResourceSizeLabel"></label>
-				<input type="number" id="maxResourceSizeInput" min="1">
-			</div>
-			<div class="option">
-				<label for="passReferrerOnErrorInput" id="passReferrerOnErrorLabel"></label>
-				<input type="checkbox" id="passReferrerOnErrorInput">
-			</div>
 			<div class="option">
 				<label for="addProofInput" id="addProofLabel"></label>
 				<input type="checkbox" id="addProofInput">

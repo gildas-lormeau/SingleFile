@@ -38,7 +38,6 @@ const DEFAULT_CONFIG = {
 	removeUnusedFonts: true,
 	removeFrames: false,
 	removeImports: true,
-	removeScripts: true,
 	compressHTML: true,
 	compressCSS: false,
 	loadDeferredImages: true,
@@ -65,8 +64,6 @@ const DEFAULT_CONFIG = {
 	progressBarEnabled: true,
 	maxResourceSizeEnabled: false,
 	maxResourceSize: 10,
-	removeAudioSrc: true,
-	removeVideoSrc: true,
 	displayInfobar: true,
 	displayStats: false,
 	backgroundSave: BACKGROUND_SAVE_DEFAULT,
@@ -125,7 +122,13 @@ const DEFAULT_CONFIG = {
 	},
 	moveStylesInHead: false,
 	networkTimeout: 0,
-	woleetKey: ""
+	woleetKey: "",
+	blockImages: false,
+	blockStylesheets: false,
+	blockFont: false,
+	blockScripts: true,
+	blockVideos: true,
+	blockAudios: true
 };
 
 const DEFAULT_RULES = [{
@@ -173,7 +176,7 @@ async function upgrade() {
 			config.rules = DEFAULT_RULES;
 		}
 		Object.keys(config.profiles).forEach(profileName => applyUpgrade(config.profiles[profileName]));
-		await configStorage.remove(["profiles", "defaultProfile", "rules"]);
+		await configStorage.remove(["profiles", "rules"]);
 		await configStorage.set({ profiles: config.profiles, rules: config.rules });
 	}
 	if (!config.maxParallelWorkers) {
@@ -182,6 +185,9 @@ async function upgrade() {
 }
 
 function applyUpgrade(config) {
+	upgradeOldConfig(config, "removeScripts", "blockScripts");
+	upgradeOldConfig(config, "removeVideoSrc", "blockVideos");
+	upgradeOldConfig(config, "removeAudioSrc", "blockAudios");
 	Object.keys(DEFAULT_CONFIG).forEach(configKey => upgradeConfig(config, configKey));
 }
 
