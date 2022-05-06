@@ -1930,7 +1930,7 @@ class ProcessorHelper {
 				delete resourceElement.dataset.singleFileOriginURL;
 				if (!options["block" + expectedType.charAt(0).toUpperCase() + expectedType.substring(1) + "s"]) {
 					if (!testIgnoredPath(resourceURL)) {
-						resourceElement.setAttribute(attributeName, util.EMPTY_RESOURCE);
+						setAttributeEmpty(resourceElement, attributeName, expectedType);
 						if (testValidPath(resourceURL)) {
 							try {
 								resourceURL = util.resolveURL(resourceURL, baseURI);
@@ -1987,10 +1987,18 @@ class ProcessorHelper {
 						}
 					}
 				} else {
-					resourceElement.setAttribute(attributeName, util.EMPTY_RESOURCE);
+					setAttributeEmpty(resourceElement, attributeName, expectedType);
 				}
 			}
 		}));
+
+		function setAttributeEmpty(resourceElement, attributeName, expectedType) {
+			if (expectedType == "video" || expectedType == "audio") {
+				resourceElement.removeAttribute(attributeName);
+			} else {
+				resourceElement.setAttribute(attributeName, util.EMPTY_RESOURCE);
+			}
+		}
 	}
 
 	static async processXLinks(resourceElements, doc, baseURI, options, batchRequest) {
