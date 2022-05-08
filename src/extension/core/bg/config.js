@@ -185,7 +185,7 @@ async function upgrade() {
 }
 
 function applyUpgrade(config) {
-	upgradeOldConfig(config, "blockScripts", "removeScripts",);
+	upgradeOldConfig(config, "blockScripts", "removeScripts");
 	upgradeOldConfig(config, "blockVideos", "removeVideoSrc");
 	upgradeOldConfig(config, "blockAudios", "removeAudioSrc");
 	Object.keys(DEFAULT_CONFIG).forEach(configKey => upgradeConfig(config, configKey));
