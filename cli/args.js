@@ -246,6 +246,15 @@ args.includeBOM = args.includeBom;
 args.crawlReplaceURLs = args.crawlReplaceUrls;
 args.crawlRemoveURLFragment = args.crawlRemoveUrlFragment;
 args.insertMetaCSP = args.insertMetaCsp;
+if (args.removeScripts) {
+	args.blockScripts = true;
+}
+if (args.removeAudioSrc) {
+	args.blockAudios = true;
+}
+if (args.removeVideoSrc) {
+	args.blockVideos = true;
+}
 const headers = args.httpHeader;
 delete args.httpHeader;
 args.httpHeaders = {};
