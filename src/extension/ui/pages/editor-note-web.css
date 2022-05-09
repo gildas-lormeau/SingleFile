@@ -37,6 +37,7 @@
     height: 100%;
     border: 1px solid transparent;
     resize: none;
+    color: black;
 }
 
 .note textarea:focus {
