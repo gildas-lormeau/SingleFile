@@ -228,22 +228,26 @@ async function refreshTab(tab) {
 }
 
 async function refresh(tabId, state) {
-	const allTabsData = tabsData.getTemporary(tabId);
-	if (state) {
-		if (!allTabsData[tabId].button) {
-			allTabsData[tabId].button = { lastState: null };
-		}
-		const lastState = allTabsData[tabId].button.lastState || {};
-		const newState = {};
-		Object.keys(state).forEach(property => {
-			if (state[property] !== undefined && (JSON.stringify(lastState[property]) != JSON.stringify(state[property]))) {
-				newState[property] = state[property];
+	try {
+		const allTabsData = tabsData.getTemporary(tabId);
+		if (state) {
+			if (!allTabsData[tabId].button) {
+				allTabsData[tabId].button = { lastState: null };
 			}
-		});
-		if (Object.keys(newState).length) {
-			allTabsData[tabId].button.lastState = state;
-			await refreshAsync(tabId, newState);
+			const lastState = allTabsData[tabId].button.lastState || {};
+			const newState = {};
+			Object.keys(state).forEach(property => {
+				if (state[property] !== undefined && (JSON.stringify(lastState[property]) != JSON.stringify(state[property]))) {
+					newState[property] = state[property];
+				}
+			});
+			if (Object.keys(newState).length) {
+				allTabsData[tabId].button.lastState = state;
+				await refreshAsync(tabId, newState);
+			}
 		}
+	} catch (error) {
+		// ignored
 	}
 }
 
