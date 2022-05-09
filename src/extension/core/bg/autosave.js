@@ -103,12 +103,6 @@ async function onTabReplaced(addedTabId, removedTabId) {
 		delete pendingMessages[removedTabId];
 		replacedTabIds[removedTabId] = addedTabId;
 	}
-	const allTabsData = await tabsData.get();
-	if (allTabsData[removedTabId] && !allTabsData[addedTabId]) {
-		allTabsData[addedTabId] = allTabsData[removedTabId];
-		delete allTabsData[removedTabId];
-		await tabsData.set(allTabsData);
-	}
 }
 
 async function onMessageExternal(message, currentTab) {

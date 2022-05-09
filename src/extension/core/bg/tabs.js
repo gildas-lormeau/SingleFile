@@ -88,7 +88,9 @@ async function onTabUpdated(tabId, changeInfo) {
 }
 
 function onTabReplaced(addedTabId, removedTabId) {
+	tabsData.onTabReplaced(addedTabId, removedTabId);
 	autosave.onTabReplaced(addedTabId, removedTabId);
+	business.onTabReplaced(addedTabId, removedTabId);
 }
 
 function onTabCreated(tab) {

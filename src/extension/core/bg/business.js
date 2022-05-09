@@ -58,6 +58,7 @@ export {
 	setCancelCallback,
 	onSaveEnd,
 	onInit,
+	onTabReplaced,
 	cancelTab as onTabRemoved
 };
 
@@ -117,11 +118,17 @@ async function saveTabs(tabs, options = {}) {
 		if (tabOptions.passReferrerOnError) {
 			await requests.enableReferrerOnError();
 		}
+		const tabData = {
+			id: tab.id,
+			index: tab.index,
+			url: tab.url,
+			title: tab.title
+		};
 		if (options.autoSave) {
 			if (autoSaveIsEnabled(tab)) {
 				const taskInfo = addTask({
 					status: TASK_PROCESSING_STATE,
-					tab,
+					tab: tabData,
 					options: tabOptions,
 					method: "content.autosave"
 				});
@@ -134,7 +141,7 @@ async function saveTabs(tabs, options = {}) {
 				ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
 				addTask({
 					status: TASK_PENDING_STATE,
-					tab,
+					tab: tabData,
 					options: tabOptions,
 					method: "content.save"
 				});
@@ -229,6 +236,14 @@ function isSavingTab(tab) {
 
 function onInit(tab) {
 	cancelTab(tab.id);
+}
+
+function onTabReplaced(addedTabId, removedTabId) {
+	tasks.forEach(taskInfo => {
+		if (taskInfo.tab.id == removedTabId) {
+			taskInfo.tab.id = addedTabId;
+		}
+	});
 }
 
 function onSaveEnd(taskId) {

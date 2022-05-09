@@ -30,6 +30,7 @@ export {
 	getTemporary,
 	getPersistent as get,
 	setPersistent as set,
+	onTabReplaced,
 	remove
 };
 
@@ -39,6 +40,20 @@ function onMessage(message) {
 	}
 	if (message.method.endsWith(".set")) {
 		return setPersistent(message.tabsData);
+	}
+}
+
+async function onTabReplaced(addedTabId, removedTabId) {
+	let tabsData = await getPersistent();
+	await updateTabsData(tabsData, addedTabId, removedTabId);
+	setPersistent(tabsData);
+	await updateTabsData(temporaryData, addedTabId, removedTabId);
+}
+
+async function updateTabsData(tabsData, addedTabId, removedTabId) {
+	if (tabsData[removedTabId] && !tabsData[addedTabId]) {
+		tabsData[addedTabId] = tabsData[removedTabId];
+		delete tabsData[removedTabId];
 	}
 }
 
