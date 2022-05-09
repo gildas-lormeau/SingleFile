@@ -71,8 +71,12 @@ function onStart(tabId, step, autoSave) {
 
 async function onError(tabId, message, link) {
 	button.onError(tabId);
-	if (message) {
-		await browser.tabs.sendMessage(tabId, { method: "content.error", error: message.toString(), link });
+	try {
+		if (message) {
+			await browser.tabs.sendMessage(tabId, { method: "content.error", error: message.toString(), link });
+		}
+	} catch (error) {
+		// ignored
 	}
 }
 
@@ -97,7 +101,9 @@ function onTabCreated(tab) {
 }
 
 function onTabActivated(tab) {
-	menus.onTabActivated(tab);
+	if (tab) {
+		menus.onTabActivated(tab);
+	}
 }
 
 function onInit(tab) {
