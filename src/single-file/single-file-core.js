@@ -2058,7 +2058,9 @@ class ProcessorHelper {
 		await Promise.all(Array.from(resourceElements).map(async resourceElement => {
 			const originSrcset = resourceElement.getAttribute("srcset");
 			const srcset = util.parseSrcset(originSrcset);
-			resourceElement.setAttribute("data-sf-original-srcset", originSrcset);
+			if (options.saveOriginalURLs && !isDataURL(originSrcset)) {
+				resourceElement.setAttribute("data-sf-original-srcset", originSrcset);
+			}
 			if (!options.blockImages) {
 				const srcsetValues = await Promise.all(srcset.map(async srcsetValue => {
 					let resourceURL = normalizeURL(srcsetValue.url);
