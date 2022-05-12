@@ -283,6 +283,7 @@ addEventListener("message", event => {
 			tabData.filename = message.filename;
 		}
 		if (message.icon) {
+			document.querySelectorAll("head > link[rel=icon]").forEach(element => element.remove());
 			const linkElement = document.createElement("link");
 			linkElement.rel = "icon";
 			linkElement.href = message.icon;
