@@ -113,6 +113,7 @@ const STAGES = [{
 		{ action: "resolveStyleAttributeURLs" }
 	],
 	parallel: [
+		{ option: "blockVideos", action: "insertMissingVideoPosters" },
 		{ action: "resolveStylesheetURLs" },
 		{ option: "!removeFrames", action: "resolveFrameURLs" },
 		{ action: "resolveHtmlImportURLs" }
@@ -957,6 +958,54 @@ class Processor {
 				}
 			}
 		});
+	}
+
+	async insertMissingVideoPosters() {
+		await Promise.all(Array.from(this.doc.querySelectorAll("video[src], video > source[src]")).map(async element => {
+			let videoElement;
+			if (element.tagName == "VIDEO") {
+				videoElement = element;
+			} else {
+				videoElement = element.parentElement;
+			}
+			if (!videoElement.poster) {
+				const attributeValue = videoElement.getAttribute(util.VIDEO_ATTRIBUTE_NAME);
+				if (attributeValue) {
+					const videoData = this.options.videos[Number(attributeValue)];
+					const src = videoData.src || videoElement.src;
+					if (src) {
+						const temporaryVideoElement = this.doc.createElement("video");
+						temporaryVideoElement.src = src;
+						temporaryVideoElement.style.setProperty("width", videoData.size.pxWidth + "px", "important");
+						temporaryVideoElement.style.setProperty("height", videoData.size.pxHeight + "px", "important");
+						temporaryVideoElement.style.setProperty("display", "none", "important");
+						temporaryVideoElement.crossOrigin = "anonymous";
+						const canvasElement = this.doc.createElement("canvas");
+						const context = canvasElement.getContext("2d");
+						this.options.doc.body.appendChild(temporaryVideoElement);
+						return new Promise(resolve => {
+							temporaryVideoElement.currentTime = videoData.currentTime;
+							temporaryVideoElement.oncanplay = () => {
+								canvasElement.width = videoData.size.pxWidth;
+								canvasElement.height = videoData.size.pxHeight;
+								context.drawImage(temporaryVideoElement, 0, 0, canvasElement.width, canvasElement.height);
+								try {
+									videoElement.poster = canvasElement.toDataURL("image/png", "");
+								} catch (error) {
+									// ignored
+								}
+								temporaryVideoElement.remove();
+								resolve();
+							};
+							temporaryVideoElement.onerror = () => {
+								temporaryVideoElement.remove();
+								resolve();
+							};
+						});
+					}
+				}
+			}
+		}));
 	}
 
 	resolveStyleAttributeURLs() {

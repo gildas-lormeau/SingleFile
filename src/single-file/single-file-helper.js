@@ -290,7 +290,15 @@ function getResourcesInfo(win, doc, element, options, data, elementHidden, compu
 		const src = element.currentSrc;
 		if (src && !src.startsWith("blob:") && !src.startsWith("data:")) {
 			const positionParent = win.getComputedStyle(element.parentNode).getPropertyValue("position");
-			data.videos.push({ positionParent, src });
+			data.videos.push({
+				positionParent,
+				src,
+				size: {
+					pxWidth: element.clientWidth,
+					pxHeight: element.clientHeight
+				},
+				currentTime: element.currentTime
+			});
 			element.setAttribute(VIDEO_ATTRIBUTE_NAME, data.videos.length - 1);
 		}
 		if (!element.poster) {
