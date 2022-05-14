@@ -69,6 +69,7 @@ const args = require("yargs")
 		"include-infobar": false,
 		"insert-meta-csp": true,
 		"load-deferred-images": true,
+		"load-deferred-images-dispatch-scroll-event": false,
 		"load-deferred-images-max-idle-time": 1500,
 		"load-deferred-images-keep-zoom-level": false,
 		"max-parallel-workers": 8,
@@ -190,6 +191,8 @@ const args = require("yargs")
 	.boolean("insert-meta-csp")
 	.options("load-deferred-images", { description: "Load deferred (a.k.a. lazy-loaded) images (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.boolean("load-deferred-images")
+	.options("load-deferred-images-dispatch-scroll-event", { description: "Dispatch 'scroll' event when loading deferred images" })
+	.boolean("load-deferred-images-dispatch-scroll-event")
 	.options("load-deferred-images-max-idle-time", { description: "Maximum delay of time to wait for deferred images in ms (puppeteer, webdriver-gecko, webdriver-chromium)" })
 	.number("load-deferred-images-max-idle-time")
 	.options("load-deferred-images-keep-zoom-level", { description: "Load deferred images by keeping zoomed out the page" })
