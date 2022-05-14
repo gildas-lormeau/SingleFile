@@ -267,6 +267,10 @@
 		"message": "Seite verkleinern",
 		"description": "Options page label: 'zoom out the page'"
 	},
+	"optionLoadDeferredImagesDispatchScrollEvent": {
+		"message": "Ereignis \"scroll\" versenden",
+		"description": "Options page label: 'dispatch \"scroll\" event'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "Bilder für alternative Bildschirmauflösungen entfernen",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"

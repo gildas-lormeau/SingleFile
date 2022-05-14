@@ -35,6 +35,8 @@
 	const BLOCK_COOKIES_END_EVENT = "single-file-block-cookies-end";
 	const BLOCK_STORAGE_START_EVENT = "single-file-block-storage-start";
 	const BLOCK_STORAGE_END_EVENT = "single-file-block-storage-end";
+	const DISPATCH_SCROLL_START_EVENT = "single-file-dispatch-scroll-event-start";
+	const DISPATCH_SCROLL_END_EVENT = "single-file-dispatch-scroll-event-end";
 	const LAZY_LOAD_ATTRIBUTE = "single-file-lazy-load";
 	const LOAD_IMAGE_EVENT = "single-file-load-image";
 	const IMAGE_LOADED_EVENT = "single-file-image-loaded";
@@ -66,6 +68,7 @@
 	const observers = new Map();
 	const observedElements = new Map();
 
+	let dispatchScrollEvent;
 	addEventListener(LOAD_DEFERRED_IMAGES_START_EVENT, () => loadDeferredImagesStart());
 	addEventListener(LOAD_DEFERRED_IMAGES_KEEP_ZOOM_LEVEL_START_EVENT, () => loadDeferredImagesStart(true));
 
@@ -246,6 +249,14 @@
 		delete screen.width;
 	}
 
+	addEventListener(DISPATCH_SCROLL_START_EVENT, () => {
+		dispatchScrollEvent = true;
+	});
+
+	addEventListener(DISPATCH_SCROLL_END_EVENT, () => {
+		dispatchScrollEvent = false;
+	});
+
 	addEventListener(BLOCK_COOKIES_START_EVENT, () => {
 		try {
 			document.__defineGetter__("cookie", () => { throw new Error("document.cookie temporary blocked by SingleFile"); });
@@ -382,6 +393,9 @@
 	function dispatchResizeEvent() {
 		try {
 			dispatchEvent(new UIEvent("resize"));
+			if (dispatchScrollEvent) {
+				dispatchEvent(new UIEvent("scroll"));
+			}
 		} catch (error) {
 			// ignored
 		}

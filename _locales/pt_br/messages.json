@@ -267,6 +267,10 @@
 		"message": "diminuir zoom no site",
 		"description": "Options page label: 'zoom out the page'"
 	},
+	"optionLoadDeferredImagesDispatchScrollEvent": {
+		"message": "dispatch \"scroll\" event",
+		"description": "Options page label: 'dispatch \"scroll\" event'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "remover imagens para resoluções alternativas de tela",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"

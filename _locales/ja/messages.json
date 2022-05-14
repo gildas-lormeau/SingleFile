@@ -267,6 +267,10 @@
 		"message": "zoom out the page",
 		"description": "Options page label: 'zoom out the page'"
 	},
+	"optionLoadDeferredImagesDispatchScrollEvent": {
+		"message": "dispatch \"scroll\" event",
+		"description": "Options page label: 'dispatch \"scroll\" event'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "代替画面解像度用の画像を削除します",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"

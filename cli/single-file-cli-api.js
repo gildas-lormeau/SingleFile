@@ -40,6 +40,7 @@ const DEFAULT_OPTIONS = {
 	loadDeferredImagesBlockCookies: false,
 	loadDeferredImagesBlockStorage: false,
 	loadDeferredImagesKeepZoomLevel: false,
+	loadDeferredImagesDispatchScrollEvent: false,
 	filenameTemplate: "{page-title} ({date-locale} {time-locale}).html",
 	infobarTemplate: "",
 	includeInfobar: false,

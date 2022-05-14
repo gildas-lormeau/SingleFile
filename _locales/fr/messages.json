@@ -267,6 +267,10 @@
 		"message": "dézoomer la page",
 		"description": "Options page label: 'zoom out the page'"
 	},
+	"optionLoadDeferredImagesDispatchScrollEvent": {
+		"message": "envoyer l'évènement \"scroll\"",
+		"description": "Options page label: 'dispatch \"scroll\" event'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "supprimer les images pour des résolutions d'écran alternatives",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"

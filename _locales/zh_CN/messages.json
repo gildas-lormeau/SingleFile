@@ -267,6 +267,10 @@
 		"message": "缩小页面",
 		"description": "Options page label: 'zoom out the page'"
 	},
+	"optionLoadDeferredImagesDispatchScrollEvent": {
+		"message": "dispatch \"scroll\" event",
+		"description": "Options page label: 'dispatch \"scroll\" event'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "移除用于备选分辨率的图片",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"
