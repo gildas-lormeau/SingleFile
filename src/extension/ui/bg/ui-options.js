@@ -443,7 +443,7 @@ passReferrerOnErrorInput.addEventListener("click", passReferrerOnError, false);
 autoSaveExternalSaveInput.addEventListener("click", () => enableExternalSave(autoSaveExternalSaveInput), false);
 saveWithCompanionInput.addEventListener("click", () => enableExternalSave(saveWithCompanionInput), false);
 saveToFilesystemInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
-saveToClipboardInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
+saveToClipboardInput.addEventListener("click", onClickSaveToClipboard, false);
 saveWithCompanionInput.addEventListener("click", async () => await browser.runtime.sendMessage({ method: "downloads.disableGDrive" }), false);
 addProofInput.addEventListener("click", async event => {
 	if (addProofInput.checked) {
@@ -977,6 +977,23 @@ async function saveCreatedBookmarks() {
 		await refresh();
 		await browser.runtime.sendMessage({ method: "bookmarks.disable" });
 	}
+}
+
+async function onClickSaveToClipboard() {
+	if (saveToClipboardInput.checked) {
+		saveToClipboardInput.checked = false;
+		try {
+			const permissionGranted = await browser.permissions.request({ permissions: ["clipboardWrite"] });
+			if (permissionGranted) {
+				saveToClipboardInput.checked = true;
+				await browser.runtime.sendMessage({ method: "downloads.disableGDrive" });
+			}
+		} catch (error) {
+			saveToClipboardInput.checked = false;
+		}
+	}
+	await update();
+	await refresh();
 }
 
 async function passReferrerOnError() {

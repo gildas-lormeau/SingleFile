@@ -11,7 +11,7 @@ sed -i 's/000000000000000000000000/VQJ8Gq8Vxx72QyxPyeLtWvUt/g' src/extension/cor
 
 cp src/extension/core/bg/config.js config.copy.js
 cp src/extension/core/bg/companion.js companion.copy.js
-jq "del(.options_page,.background.persistent,.optional_permissions[0],.permissions[3],.oauth2)" manifest.copy.json > manifest.json
+jq "del(.options_page,.background.persistent,.optional_permissions[0],.permissions[2],.oauth2)" manifest.copy.json > manifest.json
 sed -i 's/forceWebAuthFlow: false/forceWebAuthFlow: true/g' src/extension/core/bg/config.js
 sed -i 's/enabled: true/enabled: false/g' src/extension/core/bg/companion.js
 zip -r singlefile-extension-firefox.zip manifest.json lib _locales src/extension
