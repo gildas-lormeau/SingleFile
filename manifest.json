@@ -8,7 +8,7 @@
 		"64": "src/extension/ui/resources/icon_64.png",
 		"128": "src/extension/ui/resources/icon_128.png"
 	},
-	"version": "1.21.4",
+	"version": "1.21.5",
 	"description": "__MSG_extensionDescription__",
 	"content_scripts": [
 		{
