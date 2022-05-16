@@ -268,7 +268,7 @@
 		"description": "Options page label: 'zoom out the page'"
 	},
 	"optionLoadDeferredImagesDispatchScrollEvent": {
-		"message": "dispatch \"scroll\" event",
+		"message": "wysyłaj zdarzenie \"scroll\"",
 		"description": "Options page label: 'dispatch \"scroll\" event'"
 	},
 	"optionRemoveAlternativeImages": {
