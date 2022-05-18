@@ -86,6 +86,7 @@ function process(doc, stylesheets, styles, options) {
 	}
 	const variableFound = fontsInfo.used.find(fontNames => fontNames.find(fontName => fontName.startsWith("var(--")));
 	let unusedFonts, filteredUsedFonts;
+	// debugger;
 	if (variableFound) {
 		unusedFonts = [];
 	} else {
@@ -163,6 +164,10 @@ function filterUnusedFonts(cssRules, declaredFonts, unusedFonts, filteredUsedFon
 }
 
 function testUsedFont(ruleData, familyName, declaredFonts, filteredUsedFonts) {
+	if (familyName.includes("proxima nova condensed")) {
+		debugger
+	}
+
 	let test;
 	const optionalUsedFonts = filteredUsedFonts && filteredUsedFonts.get(familyName);
 	if (optionalUsedFonts && optionalUsedFonts.length) {
@@ -193,8 +198,11 @@ function testUsedFont(ruleData, familyName, declaredFonts, filteredUsedFonts) {
 }
 
 function testFontweight(fontWeight, usedFontWeights) {
-	fontWeight = fontWeight.split(/[ ,]/)[0];
-	return usedFontWeights.includes(helper.getFontWeight(helper.removeQuotes(fontWeight)));
+	let test;
+	for (const value of fontWeight.split(/[ ,]/)) {
+		test = test || usedFontWeights.includes(helper.getFontWeight(helper.removeQuotes(value)));
+	}
+	return test;
 }
 
 function getDeclarationValue(declarations, propertyName) {
