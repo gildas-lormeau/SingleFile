@@ -78,7 +78,7 @@ function getBrowserOptions(options) {
 }
 
 async function getPageData(driver, options) {
-	driver.manage().setTimeouts({ script: options.browserLoadMaxTime, pageLoad: options.browserLoadMaxTime, implicit: options.browserLoadMaxTime });
+	driver.manage().setTimeouts({ script: options.browserLoadMaxTime || 0, pageLoad: options.browserLoadMaxTime || 0, implicit: options.browserLoadMaxTime || 0 });
 	if (options.browserWidth && options.browserHeight) {
 		const window = driver.manage().window();
 		if (window.setRect) {
@@ -106,7 +106,7 @@ async function getPageData(driver, options) {
 		while (await driver.getCurrentUrl() == "about:blank") {
 			// do nothing
 		}
-	}	
+	}
 	await driver.executeScript(scripts);
 	if (options.browserWaitUntil != "domcontentloaded") {
 		let scriptPromise;
