@@ -164,10 +164,6 @@ function filterUnusedFonts(cssRules, declaredFonts, unusedFonts, filteredUsedFon
 }
 
 function testUsedFont(ruleData, familyName, declaredFonts, filteredUsedFonts) {
-	if (familyName.includes("proxima nova condensed")) {
-		debugger
-	}
-
 	let test;
 	const optionalUsedFonts = filteredUsedFonts && filteredUsedFonts.get(familyName);
 	if (optionalUsedFonts && optionalUsedFonts.length) {
