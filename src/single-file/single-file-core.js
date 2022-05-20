@@ -401,8 +401,7 @@ const PREFIX_DATA_URI_IMAGE_SVG = "data:image/svg+xml";
 const SCRIPT_TAG_FOUND = /<script/gi;
 const NOSCRIPT_TAG_FOUND = /<noscript/gi;
 const CANVAS_TAG_FOUND = /<canvas/gi;
-const SHADOW_MODE_ATTRIBUTE_NAME = "shadowmode";
-const SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME = "delegatesfocus";
+const SHADOWROOT_ATTRIBUTE_NAME = "shadowroot";
 const SCRIPT_TEMPLATE_SHADOW_ROOT = "data-template-shadow-root";
 const UTF8_CHARSET = "utf-8";
 
@@ -1028,7 +1027,7 @@ class Processor {
 				mediaText = element.media.toLowerCase();
 			}
 			const stylesheetInfo = { mediaText };
-			if (element.closest("[" + SHADOW_MODE_ATTRIBUTE_NAME + "]")) {
+			if (element.closest("[" + SHADOWROOT_ATTRIBUTE_NAME + "]")) {
 				stylesheetInfo.scoped = true;
 			}
 			if (element.tagName == "LINK" && element.charset) {
@@ -1148,7 +1147,7 @@ class Processor {
 			}
 			const scriptElement = doc.createElement("script");
 			scriptElement.setAttribute(SCRIPT_TEMPLATE_SHADOW_ROOT, "");
-			scriptElement.textContent = `(()=>{document.currentScript.remove();processNode(document);function processNode(node){node.querySelectorAll("template[${SHADOW_MODE_ATTRIBUTE_NAME}]").forEach(element=>{let shadowRoot = element.parentElement.shadowRoot;if (!shadowRoot) {try {shadowRoot=element.parentElement.attachShadow({mode:element.getAttribute("${SHADOW_MODE_ATTRIBUTE_NAME}"),delegatesFocus:Boolean(element.getAttribute("${SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME}"))});shadowRoot.innerHTML=element.innerHTML;element.remove()} catch (error) {} if (shadowRoot) {processNode(shadowRoot)}}})}})()`;
+			scriptElement.textContent = `(()=>{document.currentScript.remove();processNode(document);function processNode(node){node.querySelectorAll("template[${SHADOWROOT_ATTRIBUTE_NAME}]").forEach(element=>{let shadowRoot = element.parentElement.shadowRoot;if (!shadowRoot) {try {shadowRoot=element.parentElement.attachShadow({mode:element.getAttribute("${SHADOWROOT_ATTRIBUTE_NAME}")});shadowRoot.innerHTML=element.innerHTML;element.remove()} catch (error) {} if (shadowRoot) {processNode(shadowRoot)}}})}})()`;
 			doc.body.appendChild(scriptElement);
 		}
 
@@ -1160,10 +1159,7 @@ class Processor {
 					const shadowRootData = options.shadowRoots[Number(attributeValue)];
 					if (shadowRootData) {
 						const templateElement = doc.createElement("template");
-						templateElement.setAttribute(SHADOW_MODE_ATTRIBUTE_NAME, shadowRootData.mode);
-						if (shadowRootData.delegatesFocus) {
-							templateElement.setAttribute(SHADOW_DELEGATE_FOCUS_ATTRIBUTE_NAME, "");
-						}
+						templateElement.setAttribute(SHADOWROOT_ATTRIBUTE_NAME, shadowRootData.mode);
 						if (shadowRootData.adoptedStyleSheets) {
 							shadowRootData.adoptedStyleSheets.forEach(stylesheetContent => {
 								const styleElement = doc.createElement("style");

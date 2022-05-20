@@ -250,13 +250,13 @@ function detectSavedPage(document) {
 }
 
 function serializeShadowRoots(node) {
-	const SHADOW_MODE_ATTRIBUTE_NAME = "shadowmode";
+	const SHADOWROOT_ATTRIBUTE_NAME = "shadowroot";
 	node.querySelectorAll("*").forEach(element => {
 		const shadowRoot = singlefile.helper.getShadowRoot(element);
 		if (shadowRoot) {
 			serializeShadowRoots(shadowRoot);
 			const templateElement = document.createElement("template");
-			templateElement.setAttribute(SHADOW_MODE_ATTRIBUTE_NAME, "open");
+			templateElement.setAttribute(SHADOWROOT_ATTRIBUTE_NAME, "open");
 			templateElement.appendChild(shadowRoot);
 			element.appendChild(templateElement);
 		}

@@ -224,7 +224,6 @@ function getElementsInfo(win, doc, element, options, data = { usedFonts: new Map
 			data.shadowRoots.push(shadowRootInfo);
 			getElementsInfo(win, doc, shadowRoot, options, data, elementHidden);
 			shadowRootInfo.content = shadowRoot.innerHTML;
-			shadowRootInfo.delegatesFocus = shadowRoot.delegatesFocus;
 			shadowRootInfo.mode = shadowRoot.mode;
 			try {
 				if (shadowRoot.adoptedStyleSheets && shadowRoot.adoptedStyleSheets.length) {
