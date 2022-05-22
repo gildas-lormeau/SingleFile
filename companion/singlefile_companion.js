@@ -78,7 +78,7 @@ async function externalSave(message) {
 	} catch (error) {
 		if (companionOptions.errorFile) {
 			const message = "URL: " + message.url + "\nStack: " + error.stack + "\n";
-			fs.writeFileSync(message.errorFile, message, { flag: "a" });
+			fs.writeFileSync(companionOptions.errorFile, message, { flag: "a" });
 		}
 		throw error;
 	} finally {
