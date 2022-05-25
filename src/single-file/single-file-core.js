@@ -1600,7 +1600,7 @@ class ProcessorHelper {
 		template = await evalTemplateVariable(template, "url-port", () => url.port || "No port", dontReplaceSlash, options.filenameReplacementCharacter);
 		template = await evalTemplateVariable(template, "url-protocol", () => url.protocol || "No protocol", dontReplaceSlash, options.filenameReplacementCharacter);
 		template = await evalTemplateVariable(template, "url-search", () => url.search.substring(1) || "No search", dontReplaceSlash, options.filenameReplacementCharacter);
-		const params = url.search.substring(1).split("&").map(parameter => parameter.split("="));
+		const params = util.getSearchParams(url.search);
 		for (const [name, value] of params) {
 			template = await evalTemplateVariable(template, "url-search-" + name, () => value || "", dontReplaceSlash, options.filenameReplacementCharacter);
 		}

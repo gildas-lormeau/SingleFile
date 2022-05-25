@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global globalThis */
+/* global globalThis, URLSearchParams */
 
 import * as vendor from "./vendor/index.js";
 import * as modules from "./modules/index.js";
@@ -61,6 +61,9 @@ function getInstance(utilOptions) {
 		},
 		resolveURL(resourceURL, baseURI) {
 			return this.parseURL(resourceURL, baseURI).href;
+		},
+		getSearchParams(searchParams) {
+			return Array.from(new URLSearchParams(searchParams));
 		},
 		getValidFilename(filename, replacedCharacters = DEFAULT_REPLACED_CHARACTERS, replacementCharacter = DEFAULT_REPLACEMENT_CHARACTER) {
 			replacedCharacters.forEach(replacedCharacter => filename = filename.replace(new RegExp("[" + replacedCharacter + "]+", "g"), replacementCharacter));
