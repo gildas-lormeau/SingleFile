@@ -24,5 +24,6 @@
 /* global window, CustomEvent */
 
 const browserAPI = this.browser || this.chrome;
+const dispatchEvent = event => { try { window.dispatchEvent(event); } catch (error) {  /* ignored */ } };
 
-browserAPI.runtime.onMessage.addListener(message => window.dispatchEvent(new CustomEvent("single-file-" + message)));
+browserAPI.runtime.onMessage.addListener(message => dispatchEvent(new CustomEvent("single-file-" + message)));

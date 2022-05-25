@@ -54,7 +54,7 @@
 	};
 
 	const addEventListener = (type, listener, options) => globalThis.addEventListener(type, listener, options);
-	const dispatchEvent = event => globalThis.dispatchEvent(event);
+	const dispatchEvent = event => { try { globalThis.dispatchEvent(event); } catch (error) {  /* ignored */ } };
 	const CustomEvent = globalThis.CustomEvent;
 	const document = globalThis.document;
 	const screen = globalThis.screen;

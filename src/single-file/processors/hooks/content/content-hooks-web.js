@@ -31,7 +31,7 @@
 	const CustomEvent = globalThis.CustomEvent;
 	const fetch = globalThis.fetch;
 	const addEventListener = (type, listener, options) => globalThis.addEventListener(type, listener, options);
-	const dispatchEvent = event => globalThis.dispatchEvent(event);
+	const dispatchEvent = event => { try { globalThis.dispatchEvent(event); } catch (error) {  /* ignored */ } };
 
 	addEventListener(FETCH_REQUEST_EVENT, async event => {
 		const url = event.detail;

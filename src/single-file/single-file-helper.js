@@ -63,7 +63,7 @@ const COMMENT_HEADER_LEGACY = "Archive processed by SingleFile";
 const SINGLE_FILE_UI_ELEMENT_CLASS = "single-file-ui-element";
 const EMPTY_RESOURCE = "data:,";
 const addEventListener = (type, listener, options) => globalThis.addEventListener(type, listener, options);
-const dispatchEvent = event => globalThis.dispatchEvent(event);
+const dispatchEvent = event => { try { globalThis.dispatchEvent(event); } catch (error) {  /* ignored */ } };
 
 export {
 	initUserScriptHandler,
