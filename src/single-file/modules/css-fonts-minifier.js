@@ -58,8 +58,8 @@ function process(doc, stylesheets, styles, options) {
 	stylesheets.forEach(stylesheetInfo => {
 		const cssRules = stylesheetInfo.stylesheet.children;
 		if (cssRules) {
-			stats.processed += cssRules.getSize();
-			stats.discarded += cssRules.getSize();
+			stats.processed += cssRules.size;
+			stats.discarded += cssRules.size;
 			getFontsInfo(cssRules, fontsInfo);
 			docContent = getRulesTextContent(doc, cssRules, workStyleElement, docContent);
 		}
@@ -86,7 +86,6 @@ function process(doc, stylesheets, styles, options) {
 	}
 	const variableFound = fontsInfo.used.find(fontNames => fontNames.find(fontName => fontName.startsWith("var(--")));
 	let unusedFonts, filteredUsedFonts;
-	// debugger;
 	if (variableFound) {
 		unusedFonts = [];
 	} else {
@@ -105,7 +104,7 @@ function process(doc, stylesheets, styles, options) {
 		const cssRules = stylesheetInfo.stylesheet.children;
 		if (cssRules) {
 			filterUnusedFonts(cssRules, fontsInfo.declared, unusedFonts, filteredUsedFonts, docContent);
-			stats.rules.discarded -= cssRules.getSize();
+			stats.rules.discarded -= cssRules.size;
 		}
 	});
 	return stats;

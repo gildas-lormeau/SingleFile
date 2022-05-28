@@ -36,8 +36,8 @@ function process(stylesheets, styles, mediaAllInfo) {
 		if (!stylesheetInfo.scoped) {
 			const cssRules = stylesheetInfo.stylesheet.children;
 			if (cssRules) {
-				stats.processed += cssRules.getSize();
-				stats.discarded += cssRules.getSize();
+				stats.processed += cssRules.size;
+				stats.discarded += cssRules.size;
 				let mediaInfo;
 				if (stylesheetInfo.mediaText && stylesheetInfo.mediaText != "all") {
 					mediaInfo = mediaAllInfo.medias.get("style-" + sheetIndex + "-" + stylesheetInfo.mediaText);
@@ -45,7 +45,7 @@ function process(stylesheets, styles, mediaAllInfo) {
 					mediaInfo = mediaAllInfo;
 				}
 				processRules(cssRules, sheetIndex, mediaInfo);
-				stats.discarded -= cssRules.getSize();
+				stats.discarded -= cssRules.size;
 			}
 		}
 		sheetIndex++;
@@ -64,9 +64,9 @@ function process(stylesheets, styles, mediaAllInfo) {
 
 function processRules(cssRules, sheetIndex, mediaInfo) {
 	let mediaRuleIndex = 0, startTime;
-	if (DEBUG && cssRules.getSize() > 1) {
+	if (DEBUG && cssRules.size > 1) {
 		startTime = Date.now();
-		log("  -- STARTED processRules", "rules.length =", cssRules.getSize());
+		log("  -- STARTED processRules", "rules.length =", cssRules.size);
 	}
 	const removedCssRules = [];
 	for (let cssRule = cssRules.head; cssRule; cssRule = cssRule.next) {
@@ -75,7 +75,7 @@ function processRules(cssRules, sheetIndex, mediaInfo) {
 			if (ruleData.type == "Atrule" && ruleData.name == "media") {
 				const mediaText = cssTree.generate(ruleData.prelude);
 				processRules(ruleData.block.children, sheetIndex, mediaInfo.medias.get("rule-" + sheetIndex + "-" + mediaRuleIndex + "-" + mediaText));
-				if (!ruleData.prelude.children.getSize() || !ruleData.block.children.getSize()) {
+				if (!ruleData.prelude.children.size || !ruleData.block.children.size) {
 					removedCssRules.push(cssRule);
 				}
 				mediaRuleIndex++;
@@ -86,7 +86,7 @@ function processRules(cssRules, sheetIndex, mediaInfo) {
 					removedCssRules.push(cssRule);
 				} else if (ruleInfo) {
 					processRuleInfo(ruleData, ruleInfo, pseudoSelectors);
-					if (!ruleData.prelude.children.getSize() || !ruleData.block.children.getSize()) {
+					if (!ruleData.prelude.children.size || !ruleData.block.children.size) {
 						removedCssRules.push(cssRule);
 					}
 				}
@@ -98,7 +98,7 @@ function processRules(cssRules, sheetIndex, mediaInfo) {
 		}
 	}
 	removedCssRules.forEach(cssRule => cssRules.remove(cssRule));
-	if (DEBUG && cssRules.getSize() > 1) {
+	if (DEBUG && cssRules.size > 1) {
 		log("  -- ENDED   processRules delay =", Date.now() - startTime);
 	}
 }

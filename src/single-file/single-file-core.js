@@ -1901,7 +1901,7 @@ class ProcessorHelper {
 			function replaceURLs(declaration, oldURL, newURL) {
 				declaration.value.children.forEach(token => {
 					if (token.type == "Url" && util.removeQuotes(getCSSValue(token.value)) == oldURL) {
-						token.value.value = newURL;
+						token.value = newURL;
 					}
 				});
 			}
@@ -1935,7 +1935,7 @@ class ProcessorHelper {
 										tokens.push({ parent, token, value });
 										variableDefined = true;
 									} else {
-										token.data.value.value = content;
+										token.data.value = content;
 									}
 								}
 							});
@@ -1945,7 +1945,7 @@ class ProcessorHelper {
 							}
 						}
 					} else {
-						findURLToken(originalResourceURL, declaration.value.children, token => token.data.value.value = util.EMPTY_RESOURCE);
+						findURLToken(originalResourceURL, declaration.value.children, token => token.data.value = util.EMPTY_RESOURCE);
 					}
 				}));
 			}
@@ -2204,13 +2204,17 @@ function normalizeURL(url) {
 }
 
 function getCSSValue(value) {
-	let result = "";
-	try {
-		result = cssTree.generate(value);
-	} catch (error) {
-		// ignored
+	if (typeof value == "string") {
+		return value;
+	} else {
+		let result = "";
+		try {
+			result = cssTree.generate(value);
+		} catch (error) {
+			// ignored
+		}
+		return result;
 	}
-	return result;
 }
 
 function matchCharsetEquals(stylesheetContent, charset = UTF8_CHARSET) {

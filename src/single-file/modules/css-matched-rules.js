@@ -176,7 +176,7 @@ function getFilteredSelector(selector, selectorText) {
 	filterPseudoClasses(selector);
 	if (removedSelectors.length) {
 		removedSelectors.forEach(({ parentSelector, selector }) => {
-			if (parentSelector.data.children.getSize() == 0 || !selector.prev || selector.prev.data.type == "Combinator" || selector.prev.data.type == "WhiteSpace") {
+			if (parentSelector.data.children.size == 0 || !selector.prev || selector.prev.data.type == "Combinator" || selector.prev.data.type == "WhiteSpace") {
 				parentSelector.data.children.replace(selector, cssTree.parse("*", { context: "selector" }).children.head);
 			} else {
 				parentSelector.data.children.remove(selector);
