@@ -1,7 +1,7 @@
 import resolve from "@rollup/plugin-node-resolve";
 
 const PLUGINS = [
-	resolve({ moduleDirectories: ["node_modules"] })
+	resolve({ moduleDirectories: [".."] })
 ];
 const EXTERNAL = ["single-file-core"];
 
