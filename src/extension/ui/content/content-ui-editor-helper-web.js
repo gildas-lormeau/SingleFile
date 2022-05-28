@@ -21,7 +21,7 @@
  *   Source.
  */
 
-import * as serializer from "../../../../src/single-file/modules/html-serializer.js";
+import * as serializer from "single-file-core/modules/html-serializer.js";
 
 const helper = {
 	serialize(doc, compressHTML) {

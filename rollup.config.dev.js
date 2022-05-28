@@ -1,11 +1,20 @@
+import resolve from "@rollup/plugin-node-resolve";
+
+const PLUGINS = [
+	resolve({ moduleDirectories: ["node_modules"] })
+];
+const EXTERNAL = ["single-file-core"];
+
 export default [{
-	input: ["src/single-file/index.js"],
+	input: ["src/single-file/single-file.js"],
 	output: [{
 		file: "lib/single-file.js",
 		format: "umd",
 		name: "singlefile",
 		plugins: []
-	}]
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
 }, {
 	input: ["src/single-file/single-file-frames.js"],
 	output: [{
@@ -13,7 +22,9 @@ export default [{
 		format: "umd",
 		name: "singlefile",
 		plugins: []
-	}]
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
 }, {
 	input: ["src/single-file/single-file-bootstrap.js"],
 	output: [{
@@ -21,7 +32,9 @@ export default [{
 		format: "umd",
 		name: "singlefileBootstrap",
 		plugins: []
-	}]
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
 }, {
 	input: ["src/common/ui/content/content-infobar.js"],
 	output: [{
@@ -60,19 +73,23 @@ export default [{
 		plugins: []
 	}]
 }, {
-	input: ["src/single-file/processors/hooks/content/content-hooks-web.js"],
+	input: ["src/single-file/single-file-hooks-web.js"],
 	output: [{
 		file: "lib/web/hooks/hooks-web.js",
 		format: "iife",
 		plugins: []
-	}]
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
 }, {
-	input: ["src/single-file/processors/hooks/content/content-hooks-frames-web.js"],
+	input: ["src/single-file/single-file-hooks-frames-web.js"],
 	output: [{
 		file: "lib/web/hooks/hooks-frames-web.js",
 		format: "iife",
 		plugins: []
-	}]
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
 }, {
 	input: ["src/common/ui/content/content-infobar-web.js"],
 	output: [{
@@ -101,7 +118,9 @@ export default [{
 		format: "umd",
 		name: "singlefile",
 		plugins: []
-	}]
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
 }, {
 	input: ["src/extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"],
 	output: [{
