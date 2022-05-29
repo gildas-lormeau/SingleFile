@@ -23,7 +23,7 @@
 
 /* global globalThis, singlefile, fetch */
 
-const SCRIPT_PATH = "/lib/web/infobar-web.js";
+const SCRIPT_PATH = "/lib/single-file-infobar.js";
 
 const browser = globalThis.browser;
 

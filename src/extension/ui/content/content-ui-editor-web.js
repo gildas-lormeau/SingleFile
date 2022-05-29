@@ -1002,7 +1002,7 @@ table {
 		if (initScriptContentMatch && initScriptContentMatch[0]) {
 			initScriptContent = initScriptContentMatch[0];
 		}
-		content = content.replace(/<script data-template-shadow-root.*<\/script>/g, "<script data-template-shadow-root src=/lib/web/editor/editor-init-web.js></script>");
+		content = content.replace(/<script data-template-shadow-root.*<\/script>/g, "<script data-template-shadow-root src=/lib/single-file-editor-init.js></script>");
 		const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
 		if (detectSavedPage(contentDocument)) {
 			if (contentDocument.doctype) {

@@ -33,7 +33,7 @@
 				"lib/chrome-browser-polyfill.js",
 				"lib/single-file-bootstrap.js",
 				"lib/extension-bootstrap.js",
-				"lib/web/infobar-web.js"
+				"lib/single-file-infobar.js"
 			]
 		}
 	],
@@ -78,12 +78,12 @@
 		}
 	},
 	"web_accessible_resources": [
-		"lib/web/hooks/hooks-web.js",
-		"lib/web/hooks/hooks-frames-web.js",
-		"lib/web/infobar-web.js",
-		"lib/web/editor/editor-init-web.js",
-		"lib/web/editor/editor-web.js",
-		"lib/web/editor/editor-helper-web.js",
+		"lib/single-file-hooks.js",
+		"lib/single-file-hooks-frames.js",
+		"lib/single-file-infobar.js",
+		"lib/single-file-editor-init.js",
+		"lib/single-file-editor.js",
+		"lib/single-file-editor-helper.js",
 		"src/extension/lib/readability/Readability.js",
 		"src/extension/lib/readability/Readability-readerable.js",
 		"src/extension/ui/pages/editor-note-web.css",

@@ -35,9 +35,9 @@ const INDEX_SCRIPTS = [
 ];
 
 const WEB_SCRIPTS = [
-	"/lib/web/hooks/hooks-web.js",
-	"/lib/web/hooks/hooks-frames-web.js",
-	"/lib/web/infobar-web.js"
+	"/lib/single-file-hooks.js",
+	"/lib/single-file-hooks-frames.js",
+	"/lib/single-file-infobar.js"
 ];
 
 exports.get = async options => {

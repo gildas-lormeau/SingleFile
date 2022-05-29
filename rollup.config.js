@@ -1,9 +1,7 @@
 import { terser } from "rollup-plugin-terser";
 import resolve from "@rollup/plugin-node-resolve";
 
-const PLUGINS = [
-	resolve({ moduleDirectories: ["node_modules"] })
-];
+const PLUGINS = [resolve({ moduleDirectories: ["node_modules"] })];
 const EXTERNAL = ["single-file-core"];
 
 export default [{
@@ -76,7 +74,7 @@ export default [{
 }, {
 	input: ["src/single-file/single-file-hooks-web.js"],
 	output: [{
-		file: "lib/web/hooks/hooks-web.js",
+		file: "lib/single-file-hooks.js",
 		format: "iife",
 		plugins: [terser()]
 	}],
@@ -85,7 +83,7 @@ export default [{
 }, {
 	input: ["src/single-file/single-file-hooks-frames-web.js"],
 	output: [{
-		file: "lib/web/hooks/hooks-frames-web.js",
+		file: "lib/single-file-hooks-frames.js",
 		format: "iife",
 		plugins: [terser()]
 	}],
@@ -94,28 +92,28 @@ export default [{
 }, {
 	input: ["src/common/ui/content/content-infobar-web.js"],
 	output: [{
-		file: "lib/web/infobar-web.js",
+		file: "lib/single-file-infobar.js",
 		format: "iife",
 		plugins: [terser()]
 	}]
 }, {
 	input: ["src/extension/ui/content/content-ui-editor-init-web.js"],
 	output: [{
-		file: "lib/web/editor/editor-init-web.js",
+		file: "lib/single-file-editor-init.js",
 		format: "iife",
 		plugins: [terser()]
 	}]
 }, {
 	input: ["src/extension/ui/content/content-ui-editor-web.js"],
 	output: [{
-		file: "lib/web/editor/editor-web.js",
+		file: "lib/single-file-editor.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
 	input: ["src/extension/ui/content/content-ui-editor-helper-web"],
 	output: [{
-		file: "lib/web/editor/editor-helper-web.js",
+		file: "lib/single-file-editor-helper.js",
 		format: "umd",
 		name: "singlefile",
 		plugins: [terser()]
