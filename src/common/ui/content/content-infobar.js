@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global globalThis, singlefile, fetch */
+/* global globalThis, fetch */
 
 const SCRIPT_PATH = "/lib/single-file-infobar.js";
 
@@ -35,8 +35,6 @@ async function includeScript(pageData) {
 	let infobarContent;
 	if (browser && browser.runtime && browser.runtime.getURL) {
 		infobarContent = await (await fetch(browser.runtime.getURL(SCRIPT_PATH))).text();
-	} else if (singlefile.getFileContent) {
-		infobarContent = singlefile.getFileContent(SCRIPT_PATH);
 	}
 	let lastInfobarContent;
 	while (lastInfobarContent != infobarContent) {
