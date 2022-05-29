@@ -66,7 +66,7 @@ export default [{
 }, {
 	input: ["src/extension/core/content/content.js"],
 	output: [{
-		file: "lib/extension.js",
+		file: "lib/single-file-extension.js",
 		format: "iife",
 		plugins: []
 	}]

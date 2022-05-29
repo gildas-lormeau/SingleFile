@@ -41,7 +41,7 @@ const TASK_PROCESSING_STATE = "processing";
 
 const extensionScriptFiles = [
 	"lib/extension-infobar.js",
-	"lib/extension.js"
+	"lib/single-file-extension.js"
 ];
 
 const tasks = [];
