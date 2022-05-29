@@ -19,7 +19,7 @@
 			"js": [
 				"lib/chrome-browser-polyfill.js",
 				"lib/single-file-frames.js",
-				"lib/extension-frames.js"
+				"lib/single-file-extension-frames.js"
 			],
 			"all_frames": true,
 			"match_about_blank": true

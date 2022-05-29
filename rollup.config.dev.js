@@ -51,14 +51,14 @@ export default [{
 }, {
 	input: ["src/extension/core/content/content-frames.js"],
 	output: [{
-		file: "lib/extension-frames.js",
+		file: "lib/single-file-extension-frames.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
 	input: ["src/extension/index.js"],
 	output: [{
-		file: "lib/extension-core.js",
+		file: "lib/single-file-extension-core.js",
 		format: "umd",
 		name: "extension",
 		plugins: []
