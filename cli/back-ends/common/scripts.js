@@ -26,29 +26,23 @@
 const fs = require("fs");
 
 const SCRIPTS = [
+	"lib/single-file.js",
+	"lib/single-file-bootstrap.js",
+	"/lib/single-file-hooks.js",
+	"/lib/single-file-hooks-frames.js",
 	"lib/extension-infobar.js"
 ];
 
-const INDEX_SCRIPTS = [
-	"lib/single-file.js",
-	"lib/single-file-bootstrap.js"
-];
-
-const WEB_SCRIPTS = [
-	"/lib/single-file-hooks.js",
-	"/lib/single-file-hooks-frames.js",
-	"/lib/single-file-infobar.js"
-];
+const INFOBAR_SCRIPT = "/lib/single-file-infobar.js";
 
 exports.get = async options => {
 	const basePath = "../../../";
 	let scripts = "let _singleFileDefine; if (typeof define !== 'undefined') { _singleFileDefine = define; define = null }";
-	scripts += await readScriptFiles(INDEX_SCRIPTS, basePath);
-	const webScripts = {};
-	await Promise.all(WEB_SCRIPTS.map(async path => webScripts[path] = await readScriptFile(path, basePath)));
-	scripts += "window.singlefile.getFileContent = filename => (" + JSON.stringify(webScripts) + ")[filename];\n";
 	scripts += await readScriptFiles(SCRIPTS, basePath);
-	scripts += await readScriptFiles(options && options.browserScripts ? options.browserScripts : [], "");
+	scripts += await readScriptFiles([INFOBAR_SCRIPT], basePath);
+	if (options.includeInfobar) {
+		scripts += await readScriptFiles(options && options.browserScripts ? options.browserScripts : [], "");
+	}
 	if (options.browserStylesheets && options.browserStylesheets.length) {
 		scripts += "addEventListener(\"load\",()=>{const styleElement=document.createElement(\"style\");styleElement.textContent=" + JSON.stringify(await readScriptFiles(options.browserStylesheets, "")) + ";document.body.appendChild(styleElement);});";
 	}
