@@ -26,7 +26,7 @@
 const fs = require("fs");
 
 const SCRIPTS = [
-	"lib/infobar.js"
+	"lib/extension-infobar.js"
 ];
 
 const INDEX_SCRIPTS = [

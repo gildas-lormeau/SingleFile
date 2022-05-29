@@ -37,7 +37,7 @@ export default [{
 }, {
 	input: ["src/common/ui/content/content-infobar.js"],
 	output: [{
-		file: "lib/infobar.js",
+		file: "lib/extension-infobar.js",
 		format: "umd",
 		name: "infobar",
 		plugins: [terser()]
@@ -99,21 +99,21 @@ export default [{
 }, {
 	input: ["src/extension/ui/content/content-ui-editor-init-web.js"],
 	output: [{
-		file: "lib/single-file-editor-init.js",
+		file: "lib/extension-editor-init.js",
 		format: "iife",
 		plugins: [terser()]
 	}]
 }, {
 	input: ["src/extension/ui/content/content-ui-editor-web.js"],
 	output: [{
-		file: "lib/single-file-editor.js",
+		file: "lib/extension-editor.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
 	input: ["src/extension/ui/content/content-ui-editor-helper-web"],
 	output: [{
-		file: "lib/single-file-editor-helper.js",
+		file: "lib/extension-editor-helper.js",
 		format: "umd",
 		name: "singlefile",
 		plugins: [terser()]
