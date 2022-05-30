@@ -40,7 +40,7 @@ const TASK_PENDING_STATE = "pending";
 const TASK_PROCESSING_STATE = "processing";
 
 const extensionScriptFiles = [
-	"lib/extension-infobar.js",
+	"lib/single-file-extension-infobar.js",
 	"lib/single-file-extension.js"
 ];
 

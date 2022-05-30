@@ -32,7 +32,7 @@
 			"js": [
 				"lib/chrome-browser-polyfill.js",
 				"lib/single-file-bootstrap.js",
-				"lib/extension-bootstrap.js",
+				"lib/single-file-extension-bootstrap.js",
 				"lib/single-file-infobar.js"
 			]
 		}
@@ -81,9 +81,9 @@
 		"lib/single-file-hooks.js",
 		"lib/single-file-hooks-frames.js",
 		"lib/single-file-infobar.js",
-		"lib/extension-editor-init.js",
-		"lib/extension-editor.js",
-		"lib/extension-editor-helper.js",
+		"lib/single-file-extension-editor-init.js",
+		"lib/single-file-extension-editor.js",
+		"lib/single-file-extension-editor-helper.js",
 		"src/extension/lib/readability/Readability.js",
 		"src/extension/lib/readability/Readability-readerable.js",
 		"src/extension/ui/pages/editor-note-web.css",

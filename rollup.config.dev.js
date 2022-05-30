@@ -36,7 +36,7 @@ export default [{
 }, {
 	input: ["src/extension/core/content/content-infobar.js"],
 	output: [{
-		file: "lib/extension-infobar.js",
+		file: "lib/single-file-extension-infobar.js",
 		format: "umd",
 		name: "infobar",
 		plugins: []
@@ -44,7 +44,7 @@ export default [{
 }, {
 	input: ["src/extension/core/content/content-bootstrap.js"],
 	output: [{
-		file: "lib/extension-bootstrap.js",
+		file: "lib/single-file-extension-bootstrap.js",
 		format: "iife",
 		plugins: []
 	}]
@@ -100,21 +100,21 @@ export default [{
 }, {
 	input: ["src/extension/ui/content/content-ui-editor-init-web.js"],
 	output: [{
-		file: "lib/extension-editor-init.js",
+		file: "lib/single-file-extension-editor-init.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
 	input: ["src/extension/ui/content/content-ui-editor-web.js"],
 	output: [{
-		file: "lib/extension-editor.js",
+		file: "lib/single-file-extension-editor.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
 	input: ["src/extension/ui/content/content-ui-editor-helper-web"],
 	output: [{
-		file: "lib/extension-editor-helper.js",
+		file: "lib/single-file-extension-editor-helper.js",
 		format: "umd",
 		name: "singlefile",
 		plugins: []
@@ -131,7 +131,7 @@ export default [{
 }, {
 	input: ["src/extension/core/bg/index.js"],
 	output: [{
-		file: "lib/extension-background.js",
+		file: "lib/single-file-extension-background.js",
 		format: "iife",
 		plugins: []
 	}]
