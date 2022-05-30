@@ -32,8 +32,9 @@ const SCRIPTS = [
 	"lib/single-file-hooks-frames.js"
 ];
 
+const basePath = "../../../";
+
 exports.get = async options => {
-	const basePath = "../../../";
 	let scripts = "let _singleFileDefine; if (typeof define !== 'undefined') { _singleFileDefine = define; define = null }";
 	scripts += await readScriptFiles(SCRIPTS, basePath);
 	scripts += await readScriptFiles(options && options.browserScripts ? options.browserScripts : [], "");
@@ -42,6 +43,10 @@ exports.get = async options => {
 	}
 	scripts += "if (_singleFileDefine) { define = _singleFileDefine; _singleFileDefine = null }";
 	return scripts;
+};
+
+exports.getInfobarScript = () => {
+	return readScriptFile("lib/single-file-infobar.js", basePath);
 };
 
 async function readScriptFiles(paths, basePath = "../../../") {
