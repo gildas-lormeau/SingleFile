@@ -35,7 +35,7 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/common/ui/content/content-infobar.js"],
+	input: ["src/extension/core/content/content-infobar.js"],
 	output: [{
 		file: "lib/extension-infobar.js",
 		format: "umd",
