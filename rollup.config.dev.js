@@ -1,4 +1,5 @@
 import resolve from "@rollup/plugin-node-resolve";
+import { terser } from "rollup-plugin-terser";
 
 const PLUGINS = [resolve({ moduleDirectories: [".."] })];
 const EXTERNAL = ["single-file-core"];
@@ -93,7 +94,7 @@ export default [{
 	output: [{
 		file: "lib/single-file-infobar.js",
 		format: "iife",
-		plugins: []
+		plugins: [terser()]
 	}],
 	plugins: PLUGINS,
 	external: EXTERNAL
