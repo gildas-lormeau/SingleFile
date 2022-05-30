@@ -89,12 +89,14 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/common/ui/content/content-infobar-web.js"],
+	input: ["src/single-file/single-file-infobar-web.js"],
 	output: [{
 		file: "lib/single-file-infobar.js",
 		format: "iife",
 		plugins: []
-	}]
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
 }, {
 	input: ["src/extension/ui/content/content-ui-editor-init-web.js"],
 	output: [{

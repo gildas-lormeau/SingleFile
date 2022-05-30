@@ -319,12 +319,6 @@ function escapeRegExp(string) {
 }
 
 async function includeInfobarScript(pageData) {
-	let infobarContent = await scripts.getInfobarScript();
-	let lastInfobarContent;
-	while (lastInfobarContent != infobarContent) {
-		lastInfobarContent = infobarContent;
-		infobarContent = infobarContent.replace(/\/\*(.|\n)*?\*\//, "");
-	}
-	infobarContent = infobarContent.replace(/\t+/g, " ").replace(/\nthis\.[^(]*/gi, "\n").replace(/\n+/g, "");
+	const infobarContent = await scripts.getInfobarScript();
 	pageData.content += "<script>document.currentScript.remove();" + infobarContent + "</script>";
 }
