@@ -72,7 +72,7 @@ export default [{
 		plugins: []
 	}]
 }, {
-	input: ["src/single-file/single-file-hooks-web.js"],
+	input: ["src/single-file/single-file-hooks.js"],
 	output: [{
 		file: "lib/single-file-hooks.js",
 		format: "iife",
@@ -81,7 +81,7 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/single-file/single-file-hooks-frames-web.js"],
+	input: ["src/single-file/single-file-hooks-frames.js"],
 	output: [{
 		file: "lib/single-file-hooks-frames.js",
 		format: "iife",
@@ -90,7 +90,7 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/single-file/single-file-infobar-web.js"],
+	input: ["src/single-file/single-file-infobar.js"],
 	output: [{
 		file: "lib/single-file-infobar.js",
 		format: "iife",
