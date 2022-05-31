@@ -48,8 +48,8 @@ these instructions:
 
 - Firefox:
   https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/
-- Chrome: https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked (omit the
-  manifest creation)
+- Chrome: https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked
+  (omit the manifest creation)
 - Microsoft Edge:
   https://docs.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/extension-sideloading
 
@@ -167,8 +167,7 @@ Please follow these steps if you find an unknown issue:
 ## Command Line Interface
 
 You can save web pages to HTML from the command line interface. See here for
-more info:
-https://github.com/gildas-lormeau/SingleFile/blob/master/cli/README.MD.
+more info: https://github.com/gildas-lormeau/single-file-cli/README.MD.
 
 ## Integration with user scripts
 
@@ -187,17 +186,18 @@ view the page in a browser that would not support pages saved with SingleFileZ.
 More info here: https://github.com/gildas-lormeau/SingleFileZ
 
 ## File format comparison
-|   	                                                                          | HTML (SingleFile)  | HTML (SingleFileZ) | MAFF  | MHTML | Webarchive (Safari) | HTML+folder |
-| ---                                	                                          |       :---:        |       :---:        | :---: | :---: |         :---:       |    :---:    |
-| Pages are saved as a single file                                              | ✓ 	               | ✓ 	                | ✓     | ✓     | ✓                   |             | 
-| HTML and styles are minified                                                  | ✓                  | ✓ 	                |       |       |   	                |             |
-| Unused HTML and styles are removed from files                                 | ✓                  | ✓ 	                |       |       |                     |   	         |
-| Binary resources are not encoded in base 64                                   |                    | ✓ 	                | ✓     |       | ✓                   | ✓ 	         |
-| Files are compressed                                                          |                    | ✓ 	                | ✓     |       |                     |   	         |
-| Files can be viewed without installing any extension                          | ✓                  | ✓¹                 |       | ✓²    | ✓³                  | ✓           |
-| Files can be viewed without running JavaScript                                | ✓                  |         	          | ✓     | ✓     | ✓                   | ✓ 	         |
-| Files can be unzipped to extract resources and view pages                     |                    | ✓ 	                | ✓     |       |                     | n/a         |
-| Files contains the text of the page (plain or formatted) which can be indexed | ✓ 	               | ✓⁴                 |       | ✓     | ✓ 	                | ✓ 	         |
+
+| 	 | HTML (SingleFile) | HTML (SingleFileZ) | MAFF | MHTML | Webarchive
+(Safari) | HTML+folder | | --- 	 | :---: | :---: | :---: | :---: | :---: | :---:
+| | Pages are saved as a single file | ✓ 	 | ✓ 	 | ✓ | ✓ | ✓ | | | HTML and
+styles are minified | ✓ | ✓ 	 | | | 	 | | | Unused HTML and styles are removed
+from files | ✓ | ✓ 	 | | | | 	 | | Binary resources are not encoded in base 64 |
+| ✓ 	 | ✓ | | ✓ | ✓ 	 | | Files are compressed | | ✓ 	 | ✓ | | | 	 | | Files can
+be viewed without installing any extension | ✓ | ✓¹ | | ✓² | ✓³ | ✓ | | Files
+can be viewed without running JavaScript | ✓ | 	 | ✓ | ✓ | ✓ | ✓ 	 | | Files can
+be unzipped to extract resources and view pages | | ✓ 	 | ✓ | | | n/a | | Files
+contains the text of the page (plain or formatted) which can be indexed | ✓ 	 |
+✓⁴ | | ✓ | ✓ 	 | ✓ 	 |
 
 Footnotes:
 

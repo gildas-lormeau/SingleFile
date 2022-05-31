@@ -29,11 +29,11 @@ const fs = require("fs");
 const path = require("path");
 const nativeMessage = require("./lib/messaging.js");
 const backEnds = {
-	jsdom: "./../cli/back-ends/jsdom.js",
-	puppeteer: "./../cli/back-ends/puppeteer.js",
-	"puppeteer-firefox": "./../cli/back-ends/puppeteer-firefox.js",
-	"webdriver-chromium": "./../cli/back-ends/webdriver-chromium.js",
-	"webdriver-gecko": "./../cli/back-ends/webdriver-gecko.js"
+	jsdom: "single-file-cli/back-ends/jsdom.js",
+	puppeteer: "single-file-cli/back-ends/puppeteer.js",
+	"puppeteer-firefox": "single-file-cli/back-ends/puppeteer-firefox.js",
+	"webdriver-chromium": "single-file-cli/back-ends/webdriver-chromium.js",
+	"webdriver-gecko": "single-file-cli/back-ends/webdriver-gecko.js"
 };
 
 process.stdin

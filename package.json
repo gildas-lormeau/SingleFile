@@ -9,14 +9,8 @@
 		"single-file": "./cli/single-file"
 	},
 	"dependencies": {
-		"file-url": "3.0.0",
-		"iconv-lite": "0.6.3",
-		"jsdom": "19.0.0",
-		"puppeteer-core": "13.5.2",
-		"selenium-webdriver": "4.1.1",
 		"single-file-core": "1.0.6",
-		"strong-data-uri": "1.0.6",
-		"yargs": "17.4.0"
+		"single-file-cli": "1.0.0"
 	},
 	"devDependencies": {
 		"@rollup/plugin-node-resolve": "13.3.0",
