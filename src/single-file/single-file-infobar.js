@@ -1,1 +1,0 @@
-import "single-file-core/common/content-infobar-web.js";

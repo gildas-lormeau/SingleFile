@@ -5,7 +5,7 @@ const PLUGINS = [resolve({ moduleDirectories: [".."] })];
 const EXTERNAL = ["single-file-core"];
 
 export default [{
-	input: ["src/single-file/single-file.js"],
+	input: ["single-file-core/index.js"],
 	output: [{
 		file: "lib/single-file.js",
 		format: "umd",
@@ -15,7 +15,7 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/single-file/single-file-frames.js"],
+	input: ["single-file-core/processors/frame-tree/content/content-frame-tree.js"],
 	output: [{
 		file: "lib/single-file-frames.js",
 		format: "umd",
@@ -25,7 +25,7 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/single-file/single-file-bootstrap.js"],
+	input: ["single-file-core/single-file-bootstrap.js"],
 	output: [{
 		file: "lib/single-file-bootstrap.js",
 		format: "umd",
@@ -35,7 +35,7 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/single-file/single-file-hooks.js"],
+	input: ["single-file-core/processors/hooks/content/content-hooks-web.js"],
 	output: [{
 		file: "lib/single-file-hooks.js",
 		format: "iife",
@@ -44,7 +44,7 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/single-file/single-file-hooks-frames.js"],
+	input: ["single-file-core/processors/hooks/content/content-hooks-frames-web.js"],
 	output: [{
 		file: "lib/single-file-hooks-frames.js",
 		format: "iife",
@@ -53,7 +53,7 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/single-file/single-file-infobar.js"],
+	input: ["single-file-core/common/content-infobar-web.js"],
 	output: [{
 		file: "lib/single-file-infobar.js",
 		format: "iife",
