@@ -83,7 +83,7 @@ async function saveSelectedLinks(tab) {
 }
 
 async function batchSaveUrls() {
-	return browser.tabs.create({ active: true, url: "/src/extension/ui/pages/batch-save-urls.html" });
+	return browser.tabs.create({ active: true, url: "/src/ui/pages/batch-save-urls.html" });
 }
 
 async function saveUrls(urls, options = {}) {

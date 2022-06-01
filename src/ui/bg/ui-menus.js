@@ -415,7 +415,7 @@ async function initialize() {
 				business.saveSelectedLinks(tab);
 			}
 			if (event.menuItemId == MENU_ID_VIEW_PENDINGS) {
-				await browser.tabs.create({ active: true, url: "/src/extension/ui/pages/pendings.html" });
+				await browser.tabs.create({ active: true, url: "/src/ui/pages/pendings.html" });
 			}
 			if (event.menuItemId == MENU_ID_SAVE_SELECTED) {
 				business.saveTabs([tab], { selected: true });

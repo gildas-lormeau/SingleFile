@@ -26,7 +26,7 @@
 import * as config from "./config.js";
 
 const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
-const EDITOR_PAGE_URL = "/src/extension/ui/pages/editor.html";
+const EDITOR_PAGE_URL = "/src/ui/pages/editor.html";
 const tabsData = new Map();
 const partialContents = new Map();
 const EDITOR_URL = browser.runtime.getURL(EDITOR_PAGE_URL);

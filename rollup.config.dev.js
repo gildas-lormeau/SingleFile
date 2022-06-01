@@ -62,7 +62,7 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/extension/core/content/content-infobar.js"],
+	input: ["src/core/content/content-infobar.js"],
 	output: [{
 		file: "lib/single-file-extension-infobar.js",
 		format: "umd",
@@ -70,21 +70,21 @@ export default [{
 		plugins: []
 	}]
 }, {
-	input: ["src/extension/core/content/content-bootstrap.js"],
+	input: ["src/core/content/content-bootstrap.js"],
 	output: [{
 		file: "lib/single-file-extension-bootstrap.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
-	input: ["src/extension/core/content/content-frames.js"],
+	input: ["src/core/content/content-frames.js"],
 	output: [{
 		file: "lib/single-file-extension-frames.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
-	input: ["src/extension/index.js"],
+	input: ["src/index.js"],
 	output: [{
 		file: "lib/single-file-extension-core.js",
 		format: "umd",
@@ -92,28 +92,28 @@ export default [{
 		plugins: []
 	}]
 }, {
-	input: ["src/extension/core/content/content.js"],
+	input: ["src/core/content/content.js"],
 	output: [{
 		file: "lib/single-file-extension.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
-	input: ["src/extension/ui/content/content-ui-editor-init-web.js"],
+	input: ["src/ui/content/content-ui-editor-init-web.js"],
 	output: [{
 		file: "lib/single-file-extension-editor-init.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
-	input: ["src/extension/ui/content/content-ui-editor-web.js"],
+	input: ["src/ui/content/content-ui-editor-web.js"],
 	output: [{
 		file: "lib/single-file-extension-editor.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
-	input: ["src/extension/ui/content/content-ui-editor-helper-web"],
+	input: ["src/ui/content/content-ui-editor-helper-web"],
 	output: [{
 		file: "lib/single-file-extension-editor-helper.js",
 		format: "umd",
@@ -123,21 +123,21 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/extension/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"],
+	input: ["src/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"],
 	output: [{
 		file: "lib/chrome-browser-polyfill.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
-	input: ["src/extension/core/bg/index.js"],
+	input: ["src/core/bg/index.js"],
 	output: [{
 		file: "lib/single-file-extension-background.js",
 		format: "iife",
 		plugins: []
 	}]
 }, {
-	input: ["src/extension/lib/single-file/background.js"],
+	input: ["src/lib/single-file/background.js"],
 	output: [{
 		file: "lib/single-file-background.js",
 		format: "iife",

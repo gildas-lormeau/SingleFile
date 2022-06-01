@@ -105,17 +105,17 @@ highlightButtons.forEach(highlightButton => {
 	};
 });
 toggleNotesButton.onmouseup = () => {
-	if (toggleNotesButton.getAttribute("src") == "/src/extension/ui/resources/button_note_visible.png") {
-		toggleNotesButton.src = "/src/extension/ui/resources/button_note_hidden.png";
+	if (toggleNotesButton.getAttribute("src") == "/src/ui/resources/button_note_visible.png") {
+		toggleNotesButton.src = "/src/ui/resources/button_note_hidden.png";
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "hideNotes" }), "*");
 	} else {
-		toggleNotesButton.src = "/src/extension/ui/resources/button_note_visible.png";
+		toggleNotesButton.src = "/src/ui/resources/button_note_visible.png";
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "displayNotes" }), "*");
 	}
 };
 toggleHighlightsButton.onmouseup = () => {
-	if (toggleHighlightsButton.getAttribute("src") == "/src/extension/ui/resources/button_highlighter_visible.png") {
-		toggleHighlightsButton.src = "/src/extension/ui/resources/button_highlighter_hidden.png";
+	if (toggleHighlightsButton.getAttribute("src") == "/src/ui/resources/button_highlighter_visible.png") {
+		toggleHighlightsButton.src = "/src/ui/resources/button_highlighter_hidden.png";
 		editorElement.contentWindow.postMessage(JSON.stringify({ method: "hideHighlights" }), "*");
 	} else {
 		displayHighlights();
@@ -389,7 +389,7 @@ function disableRemoveHighlights() {
 }
 
 function displayHighlights() {
-	toggleHighlightsButton.src = "/src/extension/ui/resources/button_highlighter_visible.png";
+	toggleHighlightsButton.src = "/src/ui/resources/button_highlighter_visible.png";
 	editorElement.contentWindow.postMessage(JSON.stringify({ method: "displayHighlights" }), "*");
 }
 

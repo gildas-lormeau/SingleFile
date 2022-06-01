@@ -3,10 +3,10 @@
 	"author": "Gildas Lormeau",
 	"homepage_url": "https://github.com/gildas-lormeau/SingleFile",
 	"icons": {
-		"16": "src/extension/ui/resources/icon_16.png",
-		"48": "src/extension/ui/resources/icon_48.png",
-		"64": "src/extension/ui/resources/icon_64.png",
-		"128": "src/extension/ui/resources/icon_128.png"
+		"16": "src/ui/resources/icon_16.png",
+		"48": "src/ui/resources/icon_48.png",
+		"64": "src/ui/resources/icon_64.png",
+		"128": "src/ui/resources/icon_128.png"
 	},
 	"version": "1.21.7",
 	"description": "__MSG_extensionDescription__",
@@ -38,28 +38,28 @@
 		}
 	],
 	"background": {
-		"page": "src/extension/core/bg/background.html",
+		"page": "src/core/bg/background.html",
 		"persistent": false
 	},
-	"options_page": "src/extension/ui/pages/options.html",
+	"options_page": "src/ui/pages/options.html",
 	"sidebar_action": {
 		"browser_style": true,
 		"default_title": "SingleFile",
-		"default_panel": "src/extension/ui/pages/panel.html",
-		"default_icon": "src/extension/ui/resources/icon_128.png",
+		"default_panel": "src/ui/pages/panel.html",
+		"default_icon": "src/ui/resources/icon_128.png",
 		"open_at_install": false
 	},
 	"options_ui": {
 		"browser_style": true,
-		"page": "src/extension/ui/pages/options.html",
+		"page": "src/ui/pages/options.html",
 		"open_in_tab": false
 	},
 	"browser_action": {
 		"default_icon": {
-			"16": "src/extension/ui/resources/icon_16.png",
-			"48": "src/extension/ui/resources/icon_48.png",
-			"64": "src/extension/ui/resources/icon_64.png",
-			"128": "src/extension/ui/resources/icon_128.png"
+			"16": "src/ui/resources/icon_16.png",
+			"48": "src/ui/resources/icon_48.png",
+			"64": "src/ui/resources/icon_64.png",
+			"128": "src/ui/resources/icon_128.png"
 		},
 		"default_title": "__MSG_buttonDefaultTooltip__"
 	},
@@ -84,11 +84,11 @@
 		"lib/single-file-extension-editor-init.js",
 		"lib/single-file-extension-editor.js",
 		"lib/single-file-extension-editor-helper.js",
-		"src/extension/lib/readability/Readability.js",
-		"src/extension/lib/readability/Readability-readerable.js",
-		"src/extension/ui/pages/editor-note-web.css",
-		"src/extension/ui/pages/editor-mask-web.css",
-		"src/extension/ui/pages/editor-frame-web.css"
+		"src/lib/readability/Readability.js",
+		"src/lib/readability/Readability-readerable.js",
+		"src/ui/pages/editor-note-web.css",
+		"src/ui/pages/editor-mask-web.css",
+		"src/ui/pages/editor-frame-web.css"
 	],
 	"oauth2": {
 		"client_id": "207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj.apps.googleusercontent.com",
@@ -118,7 +118,7 @@
 			"id": "{531906d3-e22f-4a6c-a102-8057b88a1a63}"
 		}
 	},
-	"devtools_page": "src/extension/core/devtools/devtools.html",
+	"devtools_page": "src/core/devtools/devtools.html",
 	"incognito": "spanning",
 	"manifest_version": 2,
 	"default_locale": "en"

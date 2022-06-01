@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="editor.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+	<link rel="icon" href="/src/ui/resources/icon_128.png">
+	<title>Please wait...</title>
+</head>
+
+<body>
+	<div class="toolbar">
+		<div class="buttons">
+			<img type="button" class="add-note-yellow-button" src="/src/ui/resources/button_note_yellow.png"
+				draggable="false">
+			<img type="button" class="add-note-pink-button" src="/src/ui/resources/button_note_pink.png"
+				draggable="false">
+			<img type="button" class="add-note-blue-button" src="/src/ui/resources/button_note_blue.png"
+				draggable="false">
+			<img type="button" class="add-note-green-button" src="/src/ui/resources/button_note_green.png"
+				draggable="false">
+			<img type="button" class="toggle-notes-button" src="/src/ui/resources/button_note_visible.png"
+				draggable="false">
+			<div class="separator"></div>
+		</div>
+		<div class="buttons">
+			<img type="button" class="highlight-button highlight-yellow-button highlight-disabled" data-color="yellow"
+				src="/src/ui/resources/button_highlighter_yellow.png" draggable="false">
+			<img type="button" class="highlight-button highlight-pink-button highlight-disabled" data-color="pink"
+				src="/src/ui/resources/button_highlighter_pink.png" draggable="false">
+			<img type="button" class="highlight-button highlight-blue-button highlight-disabled" data-color="blue"
+				src="/src/ui/resources/button_highlighter_blue.png" draggable="false">
+			<img type="button" class="highlight-button highlight-green-button highlight-disabled" data-color="green"
+				src="/src/ui/resources/button_highlighter_green.png" draggable="false">
+			<img type="button" class="toggle-highlights-button"
+				src="/src/ui/resources/button_highlighter_visible.png" draggable="false">
+			<img type="button" class="remove-highlight-button remove-highlight-disabled"
+				src="/src/ui/resources/button_highlighter_delete.png" draggable="false">
+			<div class="separator"></div>
+		</div>
+		<div class="buttons">
+			<img type="button" class="edit-page-button edit-disabled"
+				src="/src/ui/resources/button_note_edit.png" draggable="false">
+			<img type="button" class="format-page-button format-disabled"
+				src="/src/ui/resources/button_note_format.png" draggable="false">
+			<div class="separator"></div>
+		</div>
+		<div class="buttons">
+			<img type="button" class="cut-inner-page-button cut-disabled"
+				src="/src/ui/resources/button_cut_inner.png" draggable="false">
+			<img type="button" class="cut-outer-page-button cut-disabled"
+				src="/src/ui/resources/button_cut_outer.png" draggable="false">
+			<img type="button" class="undo-cut-page-button" src="/src/ui/resources/button_undo_cut.png"
+				draggable="false">
+			<img type="button" class="undo-all-cut-page-button"
+				src="/src/ui/resources/button_undo_all_cut.png" draggable="false">
+			<img type="button" class="redo-cut-page-button" src="/src/ui/resources/button_redo_cut.png"
+				draggable="false">
+			<div class="separator"></div>
+		</div>
+		<div class="buttons">
+			<img type="button" class="print-page-button" src="/src/ui/resources/button_print.png"
+				draggable="false">
+			<img type="button" class="save-page-button" src="/src/ui/resources/button_download.png"
+				draggable="false">
+		</div>
+	</div>
+	<iframe class="editor"
+		srcdoc="&lt;!DOCTYPE html&gt;&lt;body&gt;&lt;script src=/lib/single-file-extension-editor-helper.js&gt;&lt;/script&gt;&lt;script src=/lib/single-file-extension-editor.js&gt;&lt;/script&gt;&lt;script src=/src/lib/readability/Readability.js&gt;&lt;/script&gt;&lt;/script&gt;&lt;script src=/src/lib/readability/Readability-readerable.js&gt;&lt;/script&gt;&lt;/body&gt;"
+		sandbox="allow-scripts allow-modals"></iframe>
+	<script src="/lib/chrome-browser-polyfill.js"></script>
+	<script src="/lib/single-file.js"></script>
+	<script src="/lib/single-file-extension-infobar.js"></script>
+	<script type="module" src="/src/ui/bg/ui-editor.js"></script>
+</body>
+
+</html>
