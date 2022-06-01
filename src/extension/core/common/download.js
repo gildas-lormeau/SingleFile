@@ -30,11 +30,11 @@ export {
 };
 
 async function downloadPage(pageData, options) {
-	if (options.includeInfobar) {
-		await infobar.includeScript(pageData);
-	}
 	if (options.includeBOM) {
 		pageData.content = "\ufeff" + pageData.content;
+	}
+	if (options.includeInfobar) {
+		pageData.content += await infobar.getScript();
 	}
 	if (options.backgroundSave || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion) {
 		for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {

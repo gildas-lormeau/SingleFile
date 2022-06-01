@@ -156,7 +156,7 @@ async function saveContent(message, tab) {
 			} else {
 				pageData = await getPageData(options, null, null, { fetch });
 				if (options.includeInfobar) {
-					await infobar.includeScript(pageData);
+					pageData.content += await infobar.getScript();
 				}
 				if (options.saveToGDrive) {
 					const blob = new Blob([pageData.content], { type: "text/html" });

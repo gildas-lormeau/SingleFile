@@ -28,12 +28,12 @@ const SCRIPT_PATH = "/lib/single-file-infobar.js";
 const browser = globalThis.browser;
 
 export {
-	includeScript
+	getScript
 };
 
-async function includeScript(pageData) {
+async function getScript() {
 	if (browser && browser.runtime && browser.runtime.getURL) {
 		const infobarContent = await (await fetch(browser.runtime.getURL(SCRIPT_PATH))).text();
-		pageData.content += "<script>document.currentScript.remove();" + infobarContent + "</script>";
+		return "<script>document.currentScript.remove();" + infobarContent + "</script>";
 	}
 }
