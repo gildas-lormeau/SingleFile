@@ -140,7 +140,6 @@ async function saveContent(message, tab) {
 		options.videos = message.videos;
 		options.usedFonts = message.usedFonts;
 		options.shadowRoots = message.shadowRoots;
-		options.imports = message.imports;
 		options.referrer = message.referrer;
 		options.updatedResources = message.updatedResources;
 		options.visitDate = new Date(message.visitDate);

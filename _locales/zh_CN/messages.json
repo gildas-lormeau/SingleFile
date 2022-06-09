@@ -235,10 +235,6 @@
 		"message": "压缩 HTML 内容",
 		"description": "Options page label: 'compress HTML content'"
 	},
-	"optionRemoveImports": {
-		"message": "移除 HTML 导入",
-		"description": "Options page label: 'remove HTML imports'"
-	},
 	"optionRemoveFrames": {
 		"message": "移除框架",
 		"description": "Options page label: 'remove frames'"

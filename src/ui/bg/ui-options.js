@@ -31,7 +31,6 @@ const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsL
 const removeUnusedStylesLabel = document.getElementById("removeUnusedStylesLabel");
 const removeUnusedFontsLabel = document.getElementById("removeUnusedFontsLabel");
 const removeFramesLabel = document.getElementById("removeFramesLabel");
-const removeImportsLabel = document.getElementById("removeImportsLabel");
 const blockScriptsLabel = document.getElementById("blockScriptsLabel");
 const blockAudiosLabel = document.getElementById("blockAudiosLabel");
 const blockVideosLabel = document.getElementById("blockVideosLabel");
@@ -149,7 +148,6 @@ const removeHiddenElementsInput = document.getElementById("removeHiddenElementsI
 const removeUnusedStylesInput = document.getElementById("removeUnusedStylesInput");
 const removeUnusedFontsInput = document.getElementById("removeUnusedFontsInput");
 const removeFramesInput = document.getElementById("removeFramesInput");
-const removeImportsInput = document.getElementById("removeImportsInput");
 const blockScriptsInput = document.getElementById("blockScriptsInput");
 const blockVideosInput = document.getElementById("blockVideosInput");
 const blockAudiosInput = document.getElementById("blockAudiosInput");
@@ -507,7 +505,6 @@ removeHiddenElementsLabel.textContent = browser.i18n.getMessage("optionRemoveHid
 removeUnusedStylesLabel.textContent = browser.i18n.getMessage("optionRemoveUnusedStyles");
 removeUnusedFontsLabel.textContent = browser.i18n.getMessage("optionRemoveUnusedFonts");
 removeFramesLabel.textContent = browser.i18n.getMessage("optionRemoveFrames");
-removeImportsLabel.textContent = browser.i18n.getMessage("optionRemoveImports");
 blockScriptsLabel.textContent = browser.i18n.getMessage("optionResourceScript");
 blockAudiosLabel.textContent = browser.i18n.getMessage("optionResourceAudio");
 blockVideosLabel.textContent = browser.i18n.getMessage("optionResourceVideo");
@@ -738,7 +735,6 @@ async function refresh(profileName) {
 	removeUnusedStylesInput.checked = profileOptions.removeUnusedStyles;
 	removeUnusedFontsInput.checked = profileOptions.removeUnusedFonts;
 	removeFramesInput.checked = profileOptions.removeFrames;
-	removeImportsInput.checked = profileOptions.removeImports;
 	blockScriptsInput.checked = profileOptions.blockScripts;
 	blockVideosInput.checked = profileOptions.blockVideos;
 	blockAudiosInput.checked = profileOptions.blockAudios;
@@ -853,7 +849,6 @@ async function update() {
 			removeUnusedStyles: removeUnusedStylesInput.checked,
 			removeUnusedFonts: removeUnusedFontsInput.checked,
 			removeFrames: removeFramesInput.checked,
-			removeImports: removeImportsInput.checked,
 			blockScripts: blockScriptsInput.checked,
 			blockVideos: blockVideosInput.checked,
 			blockAudios: blockAudiosInput.checked,

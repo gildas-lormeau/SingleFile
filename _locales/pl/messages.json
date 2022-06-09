@@ -235,10 +235,6 @@
 		"message": "kompresuj zawartość HTML",
 		"description": "Options page label: 'compress HTML content'"
 	},
-	"optionRemoveImports": {
-		"message": "usuwaj importy HTML",
-		"description": "Options page label: 'remove HTML imports'"
-	},
 	"optionRemoveFrames": {
 		"message": "usuwaj ramki",
 		"description": "Options page label: 'remove frames'"

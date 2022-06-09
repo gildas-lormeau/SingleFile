@@ -235,10 +235,6 @@
 		"message": "сжать содержимое HTML",
 		"description": "Options page label: 'compress HTML content'"
 	},
-	"optionRemoveImports": {
-		"message": "удалить импорт HTML",
-		"description": "Options page label: 'remove HTML imports'"
-	},
 	"optionRemoveFrames": {
 		"message": "удалить фреймы",
 		"description": "Options page label: 'remove frames'"

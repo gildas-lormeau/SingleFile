@@ -207,7 +207,6 @@ function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRe
 		usedFonts: docData.usedFonts,
 		shadowRoots: docData.shadowRoots,
 		videos: docData.videos,
-		imports: docData.imports,
 		referrer: docData.referrer,
 		frames: frames,
 		url: location.href,

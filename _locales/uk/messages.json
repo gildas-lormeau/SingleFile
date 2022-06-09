@@ -235,10 +235,6 @@
 		"message": "стискати вміст HTML ",
 		"description": "Options page label: 'compress HTML content'"
 	},
-	"optionRemoveImports": {
-		"message": "видалити HTML-імпорт ",
-		"description": "Options page label: 'remove HTML imports'"
-	},
 	"optionRemoveFrames": {
 		"message": "видалити фрейми",
 		"description": "Options page label: 'remove frames'"

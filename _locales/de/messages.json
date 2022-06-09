@@ -235,10 +235,6 @@
 		"message": "HTML-Inhalt komprimieren",
 		"description": "Options page label: 'compress HTML content'"
 	},
-	"optionRemoveImports": {
-		"message": "Eingebundene HTML-Inhalte entfernen",
-		"description": "Options page label: 'remove HTML imports'"
-	},
 	"optionRemoveFrames": {
 		"message": "Rahmen entfernen",
 		"description": "Options page label: 'remove frames'"

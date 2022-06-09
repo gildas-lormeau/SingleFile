@@ -37,7 +37,6 @@ const DEFAULT_CONFIG = {
 	removeUnusedStyles: true,
 	removeUnusedFonts: true,
 	removeFrames: false,
-	removeImports: true,
 	compressHTML: true,
 	compressCSS: false,
 	loadDeferredImages: true,
