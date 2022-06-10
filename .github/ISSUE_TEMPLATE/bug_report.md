@@ -1,13 +1,13 @@
-Please ensure that you do not find an answer before reporting the issue:
- - in the FAQ: https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md
- - in the list of known issues: https://github.com/gildas-lormeau/SingleFile#known-issues
- - in the help page embedded in the extension
-
 ---
 name: Bug report
 about: Create a report to help us improve
 
 ---
+
+Please ensure that you do not find an answer before reporting the issue:
+ - in the FAQ: https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md
+ - in the list of known issues: https://github.com/gildas-lormeau/SingleFile#known-issues
+ - in the help page embedded in the extension
 
 **Describe the bug**
 A clear and concise description of what the bug is.
