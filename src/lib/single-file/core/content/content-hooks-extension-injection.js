@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2020 Gildas Lormeau
+ * Copyright 2010-2022 Gildas Lormeau
  * contact : gildas.lormeau <at> gmail.com
  * 
  * This file is part of SingleFile.
@@ -21,6 +21,19 @@
  *   Source.
  */
 
-import "./../../lib/single-file/core/content/content-hooks-frames-inline-injection.js";
-import "./../../lib/single-file/core/content/content-hooks-frames-extension-injection.js";
-import "./../../lib/single-file/fetch/content/content-fetch.js";
+/* global globalThis */
+
+const browser = globalThis.browser;
+const document = globalThis.document;
+const Document = globalThis.Document;
+
+if (document instanceof Document) {
+	const scriptElement = document.createElement("script");
+	scriptElement.async = false;
+	if (browser && browser.runtime && browser.runtime.getURL) {
+		scriptElement.src = browser.runtime.getURL("/lib/single-file-hooks.js");
+		scriptElement.async = false;
+	}
+	(document.documentElement || document).appendChild(scriptElement);
+	scriptElement.remove();
+}
