@@ -21,14 +21,8 @@
  *   Source.
  */
 
-/* global browser, window, CustomEvent, setTimeout */
+/* global browser, window */
 
-const FETCH_REQUEST_EVENT = "single-file-request-fetch";
-const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
-const HOST_FETCH_MAX_DELAY = 5000;
-const addEventListener = (type, listener, options) => window.addEventListener(type, listener, options);
-const dispatchEvent = event => window.dispatchEvent(event);
-const removeEventListener = (type, listener, options) => window.removeEventListener(type, listener, options);
 const fetch = (url, options) => window.fetch(url, options);
 
 let requestId = 0, pendingResponses = new Map();
@@ -44,14 +38,7 @@ browser.runtime.onMessage.addListener(message => {
 
 async function onFetchFrame(message) {
 	try {
-		let response = await fetch(message.url, { cache: "force-cache", headers: message.headers });
-		if (response.status == 401 || response.status == 403 || response.status == 404) {
-			response = await Promise.race(
-				[
-					hostFetch(message.url),
-					new Promise((resolve, reject) => setTimeout(() => reject(), HOST_FETCH_MAX_DELAY))
-				]);
-		}
+		const response = await fetch(message.url, { cache: "force-cache", headers: message.headers });
 		return {
 			status: response.status,
 			headers: [...response.headers],
@@ -102,11 +89,7 @@ export {
 
 async function fetchResource(url, options = {}) {
 	try {
-		let response = await fetch(url, { cache: "force-cache", headers: options.headers });
-		if (response.status == 401 || response.status == 403 || response.status == 404) {
-			response = await hostFetch(url);
-		}
-		return response;
+		return fetch(url, { cache: "force-cache", headers: options.headers });
 	}
 	catch (error) {
 		requestId++;
@@ -132,30 +115,4 @@ async function sendMessage(message) {
 	} else {
 		return response;
 	}
-}
-
-function hostFetch(url) {
-	return new Promise((resolve, reject) => {
-		dispatchEvent(new CustomEvent(FETCH_REQUEST_EVENT, { detail: url }));
-		addEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
-
-		function onResponseFetch(event) {
-			if (event.detail) {
-				if (event.detail.url == url) {
-					removeEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
-					if (event.detail.response) {
-						resolve({
-							status: event.detail.status,
-							headers: new Map(event.detail.headers),
-							arrayBuffer: async () => event.detail.response
-						});
-					} else {
-						reject(event.detail.error);
-					}
-				}
-			} else {
-				reject();
-			}
-		}
-	});
 }
