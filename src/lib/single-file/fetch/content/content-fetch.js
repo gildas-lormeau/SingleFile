@@ -89,7 +89,7 @@ export {
 
 async function fetchResource(url, options = {}) {
 	try {
-		return fetch(url, { cache: "force-cache", headers: options.headers });
+		return await fetch(url, { cache: "force-cache", headers: options.headers });
 	}
 	catch (error) {
 		requestId++;
