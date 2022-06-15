@@ -35,15 +35,6 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["single-file-core/single-file-hooks.js"],
-	output: [{
-		file: "lib/single-file-hooks.js",
-		format: "iife",
-		plugins: []
-	}],
-	plugins: PLUGINS,
-	external: EXTERNAL
-}, {
 	input: ["single-file-core/single-file-hooks-frames.js"],
 	output: [{
 		file: "lib/single-file-hooks-frames.js",
