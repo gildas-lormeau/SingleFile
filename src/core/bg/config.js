@@ -81,6 +81,7 @@ const DEFAULT_CONFIG = {
 	removeAlternativeMedias: true,
 	removeAlternativeImages: true,
 	groupDuplicateImages: true,
+	maxSizeDuplicateImages: 512 * 1024,
 	saveRawPage: false,
 	saveToClipboard: false,
 	addProof: false,
