@@ -236,7 +236,7 @@ async function saveToGDrive(taskId, filename, blob, authOptions, uploadOptions) 
 			} else {
 				await config.removeAuthInfo();
 			}
-			await saveToGDrive(taskId, filename, blob, authOptions, uploadOptions);
+			return await saveToGDrive(taskId, filename, blob, authOptions, uploadOptions);
 		} else {
 			throw new Error(error.message + " (Google Drive)");
 		}

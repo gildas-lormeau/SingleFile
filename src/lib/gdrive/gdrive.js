@@ -82,7 +82,8 @@ class GDrive {
 				headers: { "Content-Type": "application/x-www-form-urlencoded" },
 				body: "client_id=" + this.clientId +
 					"&refresh_token=" + this.refreshToken +
-					"&grant_type=refresh_token"
+					"&grant_type=refresh_token" +
+					"&client_secret=" + this.clientKey
 			});
 			if (httpResponse.status == 400) {
 				throw new Error("unknown_token");
@@ -141,7 +142,7 @@ class GDrive {
 		try {
 			return {
 				cancelUpload: () => uploader.cancelled = true,
-				uploadPromise: uploader.upload()
+				uploadPromise: await uploader.upload()
 			};
 		}
 		catch (error) {
