@@ -55,7 +55,6 @@ these instructions:
 
 ## Getting started
 
-- Wait until the page is fully loaded.
 - Click on the SingleFile button in the extension toolbar to save the page.
 - You can click again on the button to cancel the action when processing a page.
 
