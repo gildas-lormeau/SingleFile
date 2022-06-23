@@ -91,7 +91,7 @@ async function savePage(message) {
 			try {
 				const pageData = await processPage(options);
 				if (pageData) {
-					if (((!options.backgroundSave && !options.saveToClipboard) || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion) && options.confirmFilename) {
+					if (((!options.backgroundSave && !options.saveToClipboard) || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV) && options.confirmFilename) {
 						pageData.filename = ui.prompt("Save as", pageData.filename) || pageData.filename;
 					}
 					await download.downloadPage(pageData, options);

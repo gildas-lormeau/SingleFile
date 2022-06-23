@@ -36,7 +36,7 @@ async function downloadPage(pageData, options) {
 	if (options.includeInfobar) {
 		pageData.content += await infobar.getScript();
 	}
-	if (options.backgroundSave || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion) {
+	if (options.backgroundSave || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV) {
 		for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
 			const message = {
 				method: "downloads.download",
@@ -46,6 +46,10 @@ async function downloadPage(pageData, options) {
 				filename: pageData.filename,
 				saveToClipboard: options.saveToClipboard,
 				saveToGDrive: options.saveToGDrive,
+				saveWithWebDAV: options.saveWithWebDAV,
+				webDAVURL: options.webDAVURL,
+				webDAVUser: options.webDAVUser,
+				webDAVPassword: options.webDAVPassword,
 				saveToGitHub: options.saveToGitHub,
 				githubToken: options.githubToken,
 				githubUser: options.githubUser,

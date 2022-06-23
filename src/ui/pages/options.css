@@ -32,7 +32,8 @@ button:not([disabled]):hover {
 
 button,
 select,
-input[type=text] {
+input[type=text],
+input[type=password] {
     background-color: transparent;
     border-color: rgb(191, 191, 191);
     border-style: solid;
@@ -58,7 +59,8 @@ input {
     margin-left: 5px;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
     min-width: 70%;
 }
 
@@ -665,7 +667,8 @@ html.maximized {
         opacity: .8;
     }
 
-    input[type="text"] {
+    input[type="text"],
+    input[type="password"] {
         background-color: #fff;
     }
 

@@ -579,6 +579,22 @@
 		"message": "название ветки",
 		"description": "Options page label: 'branch name'"
 	},
+	"optionSaveWithWebDAV": {
+		"message": "upload to a WebDAV server",
+		"description": "Options page label: 'upload to a WebDAV server'"
+	},
+	"optionWebDAVURL": {
+		"message": "URL",
+		"description": "Options page label: 'URL'"
+	},
+	"optionWebDAVUser": {
+		"message": "user identifier",
+		"description": "Options page label: 'user identifier'"
+	},
+	"optionWebDAVPassword": {
+		"message": "password",
+		"description": "Options page label: 'password'"
+	},
 	"optionSaveWithCompanion": {
 		"message": "сохранять с помощью SingleFile Companion",
 		"description": "Options page label: 'save with SingleFile Companion'"

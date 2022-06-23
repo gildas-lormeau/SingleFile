@@ -536,11 +536,11 @@
 		"description": "Options page label: 'set content security policy'"
 	},
 	"optionSaveToClipboard": {
-		"message": "In die Zwischenablage speichern",
+		"message": "Kopieren in die Zwischenablage",
 		"description": "Options page label: 'copy to clipboard'"
 	},
 	"optionSaveToFilesystem": {
-		"message": "save to filesystem",
+		"message": "Speichern im Dateisystem",
 		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionAddProof": {
@@ -552,43 +552,59 @@
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionWoleetKey": {
-		"message": "access token",
+		"message": "Zugangstoken",
 		"description": "Options page label: 'access token'"
 	},
 	"optionSaveToGDrive": {
-		"message": "In Google Drive speichern",
+		"message": "Hochladen auf Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveToGitHub": {
-		"message": "upload to GitHub",
+		"message": "Hochladen auf GitHub",
 		"description": "Options page label: 'upload to GitHub'"
 	},
 	"optionGitHubToken": {
-		"message": "access token",
+		"message": "Zugangstoken",
 		"description": "Options page label: 'access token'"
 	},
 	"optionGitHubUser": {
-		"message": "user name",
+		"message": "Nutzername",
 		"description": "Options page label: 'user name'"
 	},
 	"optionGitHubRepository": {
-		"message": "repository name",
+		"message": "Repository-Name",
 		"description": "Options page label: 'repository name'"
 	},
 	"optionGitHubBranch": {
-		"message": "branch name",
+		"message": "Zweigname ",
 		"description": "Options page label: 'branch name'"
+	},
+	"optionSaveWithWebDAV": {
+		"message": "Hochladen auf einen WebDAV-Server",
+		"description": "Options page label: 'upload to a WebDAV server'"
+	},
+	"optionWebDAVURL": {
+		"message": "URL",
+		"description": "Options page label: 'URL'"
+	},
+	"optionWebDAVUser": {
+		"message": "Benutzerkennwort",
+		"description": "Options page label: 'user identifier'"
+	},
+	"optionWebDAVPassword": {
+		"message": "Passwort",
+		"description": "Options page label: 'password'"
 	},
 	"optionSaveWithCompanion": {
 		"message": "Speichern mit SingleFile Companion",
 		"description": "Options page label: 'save with SingleFile Companion'"
 	},
 	"optionSaveCreatedBookmarks": {
-		"message": "Die Seite eines neu angelegten Bookmark speichern",
+		"message": "Speichern der Seite eines neu angelegten Lesezeichens",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionReplaceBookmarkURL": {
-		"message": "Das neue Bookmark mit der gespeicherten Seite verlinken",
+		"message": "Verlinken Das neue Bookmark mit der gespeicherten Seite",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
 	"optionAllowedBookmarkFolders": {

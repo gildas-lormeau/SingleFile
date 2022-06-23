@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, Blob, URL, document */
+/* global browser, Blob, URL, document, fetch, btoa, AbortController */
 
 import * as config from "./config.js";
 import * as bookmarks from "./bookmarks.js";
@@ -51,7 +51,8 @@ export {
 	onMessage,
 	downloadPage,
 	saveToGDrive,
-	saveToGitHub
+	saveToGitHub,
+	saveWithWebDAV
 };
 
 async function onMessage(message, sender) {
@@ -126,7 +127,9 @@ async function downloadTabPage(message, tab) {
 
 async function downloadContent(contents, tab, incognito, message) {
 	try {
-		if (message.saveToGDrive) {
+		if (message.saveWithWebDAV) {
+			await saveWithWebDAV(message.taskId, message.filename, contents.join(""), message.webDAVURL, message.webDAVUser, message.webDAVPassword);
+		} else if (message.saveToGDrive) {
 			await (await saveToGDrive(message.taskId, message.filename, new Blob(contents, { type: MIMETYPE_HTML }), {
 				forceWebAuthFlow: message.forceWebAuthFlow
 			}, {
@@ -206,6 +209,56 @@ async function saveToGitHub(taskId, filename, content, githubToken, githubUser, 
 		} catch (error) {
 			throw new Error(error.message + " (GitHub)");
 		}
+	}
+}
+
+async function saveWithWebDAV(taskId, filename, content, url, username, password) {
+	const taskInfo = business.getTaskInfo(taskId);
+	const controller = new AbortController();
+	const { signal } = controller;
+	const authorization = "Basic " + btoa(username + ":" + password);
+	if (!url.endsWith("/")) {
+		url += "/";
+	}
+	if (!taskInfo || !taskInfo.cancelled) {
+		business.setCancelCallback(taskId, () => controller.abort());
+		try {
+			const response = await sendRequest(url + filename, "PUT", content);
+			if (response.status == 404 && filename.includes("/")) {
+				const filenameParts = filename.split(/\/+/);
+				filenameParts.pop();
+				let path = "";
+				for (const filenamePart of filenameParts) {
+					if (filenamePart) {
+						path += filenamePart;
+						const response = await sendRequest(url + path, "MKCOL");
+						if (response.status >= 400) {
+							throw new Error("Error " + response.status + " (WebDAV)");
+						}
+						path += "/";
+					}
+				}
+				return saveWithWebDAV(taskId, filename, content, url, username, password);
+			} else if (response.status >= 400) {
+				throw new Error("Error " + response.status + " (WebDAV)");
+			} else {
+				return response;
+			}
+		} catch (error) {
+			if (error.name != "AbortError") {
+				throw new Error(error.message + " (WebDAV)");
+			}
+		}
+	}
+
+	function sendRequest(url, method, body) {
+		const headers = {
+			"Authorization": authorization
+		};
+		if (body) {
+			headers["Content-Type"] = "text/html";
+		}
+		return fetch(url, { method, headers, signal, body, credentials: "omit" });
 	}
 }
 

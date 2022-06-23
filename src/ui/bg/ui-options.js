@@ -51,6 +51,10 @@ const saveToFilesystemLabel = document.getElementById("saveToFilesystemLabel");
 const addProofLabel = document.getElementById("addProofLabel");
 const woleetKeyLabel = document.getElementById("woleetKeyLabel");
 const saveToGDriveLabel = document.getElementById("saveToGDriveLabel");
+const saveWithWebDAVLabel = document.getElementById("saveWithWebDAVLabel");
+const webDAVURLLabel = document.getElementById("webDAVURLLabel");
+const webDAVUserLabel = document.getElementById("webDAVUserLabel");
+const webDAVPasswordLabel = document.getElementById("webDAVPasswordLabel");
 const saveToGitHubLabel = document.getElementById("saveToGitHubLabel");
 const githubTokenLabel = document.getElementById("githubTokenLabel");
 const githubUserLabel = document.getElementById("githubUserLabel");
@@ -167,6 +171,10 @@ const saveToClipboardInput = document.getElementById("saveToClipboardInput");
 const addProofInput = document.getElementById("addProofInput");
 const woleetKeyInput = document.getElementById("woleetKeyInput");
 const saveToGDriveInput = document.getElementById("saveToGDriveInput");
+const saveWithWebDAVInput = document.getElementById("saveWithWebDAVInput");
+const webDAVURLInput = document.getElementById("webDAVURLInput");
+const webDAVUserInput = document.getElementById("webDAVUserInput");
+const webDAVPasswordInput = document.getElementById("webDAVPasswordInput");
 const saveToGitHubInput = document.getElementById("saveToGitHubInput");
 const githubTokenInput = document.getElementById("githubTokenInput");
 const githubUserInput = document.getElementById("githubUserInput");
@@ -440,6 +448,7 @@ saveToFilesystemInput.addEventListener("click", () => disableDestinationPermissi
 saveToClipboardInput.addEventListener("click", () => disableDestinationPermissions(["nativeMessaging"]), false);
 saveWithCompanionInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite"]), false);
 saveToGDriveInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"], false), false);
+saveWithWebDAVInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"]), false);
 saveCreatedBookmarksInput.addEventListener("click", saveCreatedBookmarks, false);
 passReferrerOnErrorInput.addEventListener("click", passReferrerOnError, false);
 autoSaveExternalSaveInput.addEventListener("click", () => enableExternalSave(autoSaveExternalSaveInput), false);
@@ -498,6 +507,7 @@ document.body.onchange = async event => {
 		}
 	}
 };
+
 addProfileButton.title = browser.i18n.getMessage("profileAddButtonTooltip");
 deleteProfileButton.title = browser.i18n.getMessage("profileDeleteButtonTooltip");
 renameProfileButton.title = browser.i18n.getMessage("profileRenameButtonTooltip");
@@ -525,6 +535,10 @@ saveToFilesystemLabel.textContent = browser.i18n.getMessage("optionSaveToFilesys
 addProofLabel.textContent = browser.i18n.getMessage("optionAddProof");
 woleetKeyLabel.textContent = browser.i18n.getMessage("optionWoleetKey");
 saveToGDriveLabel.textContent = browser.i18n.getMessage("optionSaveToGDrive");
+saveWithWebDAVLabel.textContent = browser.i18n.getMessage("optionSaveWithWebDAV");
+webDAVURLLabel.textContent = browser.i18n.getMessage("optionWebDAVURL");
+webDAVUserLabel.textContent = browser.i18n.getMessage("optionWebDAVUser");
+webDAVPasswordLabel.textContent = browser.i18n.getMessage("optionWebDAVPassword");
 saveToGitHubLabel.textContent = browser.i18n.getMessage("optionSaveToGitHub");
 githubTokenLabel.textContent = browser.i18n.getMessage("optionGitHubToken");
 githubUserLabel.textContent = browser.i18n.getMessage("optionGitHubUser");
@@ -755,6 +769,13 @@ async function refresh(profileName) {
 	woleetKeyInput.value = profileOptions.woleetKey;
 	woleetKeyInput.disabled = !profileOptions.addProof;
 	saveToGDriveInput.checked = profileOptions.saveToGDrive;
+	saveWithWebDAVInput.checked = profileOptions.saveWithWebDAV;
+	webDAVURLInput.value = profileOptions.webDAVURL;
+	webDAVURLInput.disabled = !profileOptions.saveWithWebDAV;
+	webDAVUserInput.value = profileOptions.webDAVUser;
+	webDAVUserInput.disabled = !profileOptions.saveWithWebDAV;
+	webDAVPasswordInput.value = profileOptions.webDAVPassword;
+	webDAVPasswordInput.disabled = !profileOptions.saveWithWebDAV;
 	saveToGitHubInput.checked = profileOptions.saveToGitHub;
 	githubTokenInput.value = profileOptions.githubToken;
 	githubTokenInput.disabled = !profileOptions.saveToGitHub;
@@ -765,7 +786,7 @@ async function refresh(profileName) {
 	githubBranchInput.value = profileOptions.githubBranch;
 	githubBranchInput.disabled = !profileOptions.saveToGitHub;
 	saveWithCompanionInput.checked = profileOptions.saveWithCompanion;
-	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveWithCompanion && !saveToClipboardInput.checked;
+	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveWithCompanion && !profileOptions.saveToClipboard && !profileOptions.saveWithWebDAV;
 	compressHTMLInput.checked = profileOptions.compressHTML;
 	compressCSSInput.checked = profileOptions.compressCSS;
 	moveStylesInHeadInput.checked = profileOptions.moveStylesInHead;
@@ -870,6 +891,10 @@ async function update() {
 			addProof: addProofInput.checked,
 			woleetKey: woleetKeyInput.value,
 			saveToGDrive: saveToGDriveInput.checked,
+			saveWithWebDAV: saveWithWebDAVInput.checked,
+			webDAVURL: webDAVURLInput.value,
+			webDAVUser: webDAVUserInput.value,
+			webDAVPassword: webDAVPasswordInput.value,
 			saveToGitHub: saveToGitHubInput.checked,
 			githubToken: githubTokenInput.value,
 			githubUser: githubUserInput.value,
