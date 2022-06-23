@@ -580,19 +580,19 @@
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveWithWebDAV": {
-		"message": "upload to a WebDAV server",
+		"message": "przesyłaj na serwer WebDAV",
 		"description": "Options page label: 'upload to a WebDAV server'"
 	},
 	"optionWebDAVURL": {
-		"message": "URL",
+		"message": "adres URL",
 		"description": "Options page label: 'URL'"
 	},
 	"optionWebDAVUser": {
-		"message": "user identifier",
+		"message": "identyfikator użytkownika",
 		"description": "Options page label: 'user identifier'"
 	},
 	"optionWebDAVPassword": {
-		"message": "password",
+		"message": "hasło",
 		"description": "Options page label: 'password'"
 	},
 	"optionSaveWithCompanion": {
