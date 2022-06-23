@@ -105,7 +105,7 @@ class GDrive {
 				this.accessToken = await browser.identity.getAuthToken({ interactive: false });
 				return { revokableAccessToken: this.accessToken };
 			} catch (error) {
-				// ignored
+				delete this.accessToken;
 			}
 		}
 	}
