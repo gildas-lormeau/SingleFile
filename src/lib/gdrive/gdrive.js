@@ -97,6 +97,16 @@ class GDrive {
 				this.expirationDate = Date.now() + (response.expires_in * 1000);
 			}
 			return { accessToken: this.accessToken, refreshToken: this.refreshToken, expirationDate: this.expirationDate };
+		} else {
+			try {
+				if (browser.identity && browser.identity.removeCachedAuthToken && this.accessToken) {
+					await browser.identity.removeCachedAuthToken({ token: this.accessToken });
+				}
+				this.accessToken = await browser.identity.getAuthToken({ interactive: false });
+				return { revokableAccessToken: this.accessToken };
+			} catch (error) {
+				// ignored
+			}
 		}
 	}
 	async revokeAuthToken(accessToken) {
