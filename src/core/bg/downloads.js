@@ -231,9 +231,12 @@ async function saveWithWebDAV(taskId, filename, content, url, username, password
 				for (const filenamePart of filenameParts) {
 					if (filenamePart) {
 						path += filenamePart;
-						const response = await sendRequest(url + path, "MKCOL");
-						if (response.status >= 400) {
-							throw new Error("Error " + response.status + " (WebDAV)");
+						const response = await sendRequest(url + path, "PROPFIND");
+						if (response.status == 404) {
+							const response = await sendRequest(url + path, "MKCOL");
+							if (response.status >= 400) {
+								throw new Error("Error " + response.status + " (WebDAV)");
+							}
 						}
 						path += "/";
 					}
