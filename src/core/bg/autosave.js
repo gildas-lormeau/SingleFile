@@ -159,7 +159,9 @@ async function saveContent(message, tab) {
 				}
 				if (options.saveToGDrive) {
 					const blob = new Blob([pageData.content], { type: "text/html" });
-					await (await downloads.saveToGDrive(message.taskId, pageData.filename, blob, options, {})).uploadPromise;
+					await downloads.saveToGDrive(message.taskId, pageData.filename, blob, options, {
+						forceWebAuthFlow: options.forceWebAuthFlow
+					});
 				} else if (options.saveWithWebDAV) {
 					await downloads.saveWithWebDAV(message.taskId, pageData.filename, pageData.content, options.webDAVURL, options.webDAVUser, options.webDAVPassword);
 				} else if (options.saveToGitHub) {
