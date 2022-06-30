@@ -14,7 +14,7 @@ and Opera. It helps you to save a complete web page into a single HTML file.
 - [Release notes](#release-notes)
 - [Known issues](#known-issues)
 - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
-- [Command Line Interface](#command-line-interface)
+- [Command Line Interface (SingleFile CLI)](#command-line-interface)
 - [Integration with user scripts](#integration-with-user-scripts)
 - [SingleFileZ](#singlefilez)
 - [File format comparison](#file-format-comparison)
@@ -163,7 +163,7 @@ Please follow these steps if you find an unknown issue:
 - Please report the issue with a short description on how to reproduce it here:
   https://github.com/gildas-lormeau/SingleFile/issues.
 
-## Command Line Interface
+## Command Line Interface (SingleFile CLI)
 
 You can save web pages to HTML from the command line interface. See here for
 more info: https://github.com/gildas-lormeau/single-file-cli.
