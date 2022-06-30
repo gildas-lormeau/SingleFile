@@ -14,7 +14,7 @@ and Opera. It helps you to save a complete web page into a single HTML file.
 - [Release notes](#release-notes)
 - [Known issues](#known-issues)
 - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
-- [Command Line Interface (SingleFile CLI)](#command-line-interface)
+- [Command Line Interface (SingleFile CLI)](#command-line-interface-singlefile-cli)
 - [Integration with user scripts](#integration-with-user-scripts)
 - [SingleFileZ](#singlefilez)
 - [File format comparison](#file-format-comparison)
