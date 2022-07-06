@@ -130,7 +130,7 @@ const DEFAULT_CONFIG = {
 	woleetKey: "",
 	blockImages: false,
 	blockStylesheets: false,
-	blockFont: false,
+	blockFonts: false,
 	blockScripts: true,
 	blockVideos: true,
 	blockAudios: true
