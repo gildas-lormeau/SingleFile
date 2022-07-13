@@ -1,6 +1,6 @@
 {
 	"name": "single-file",
-	"version": "1.0.10",
+	"version": "1.0.11",
 	"description": "SingleFile",
 	"author": "Gildas Lormeau",
 	"license": "AGPL-3.0-or-later",
@@ -12,8 +12,8 @@
 		"single-file": "./cli/single-file"
 	},
 	"dependencies": {
-		"single-file-core": "1.0.17",
-		"single-file-cli": "1.0.12"
+		"single-file-core": "1.0.18",
+		"single-file-cli": "1.0.13"
 	},
 	"devDependencies": {
 		"@rollup/plugin-node-resolve": "13.3.0",
