@@ -262,6 +262,8 @@ const cancelButton = document.getElementById("cancelButton");
 const promptInput = document.getElementById("promptInput");
 const promptCancelButton = document.getElementById("promptCancelButton");
 const promptConfirmButton = document.getElementById("promptConfirmButton");
+const manifest = browser.runtime.getManifest();
+const requestPermissionIdentity = manifest.optional_permissions && manifest.optional_permissions.includes("identity");
 
 let sidePanelDisplay;
 if (location.href.endsWith("#side-panel")) {
@@ -454,6 +456,7 @@ passReferrerOnErrorInput.addEventListener("click", passReferrerOnError, false);
 autoSaveExternalSaveInput.addEventListener("click", () => enableExternalSave(autoSaveExternalSaveInput), false);
 saveWithCompanionInput.addEventListener("click", () => enableExternalSave(saveWithCompanionInput), false);
 saveToClipboardInput.addEventListener("click", onClickSaveToClipboard, false);
+saveToGDriveInput.addEventListener("click", onClickSaveToGDrive, false);
 addProofInput.addEventListener("click", async event => {
 	if (addProofInput.checked) {
 		addProofInput.checked = false;
@@ -1017,6 +1020,25 @@ async function onClickSaveToClipboard() {
 			}
 		} catch (error) {
 			saveToClipboardInput.checked = false;
+		}
+	}
+	await update();
+	await refresh();
+}
+
+async function onClickSaveToGDrive() {
+	if (saveToGDriveInput.checked) {
+		saveToGDriveInput.checked = false;
+		try {
+			if (requestPermissionIdentity) {
+				const permissionGranted = await browser.permissions.request({ permissions: ["identity"] });
+				if (permissionGranted) {
+					saveToGDriveInput.checked = true;
+				}
+			}
+		} catch (error) {
+			saveToGDriveInput.checked = false;
+			await browser.runtime.sendMessage({ method: "downloads.disableGDrive" });
 		}
 	}
 	await update();

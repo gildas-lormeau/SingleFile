@@ -29,8 +29,6 @@ const REVOKE_ACCESS_URL = "https://accounts.google.com/o/oauth2/revoke";
 const GDRIVE_URL = "https://www.googleapis.com/drive/v3/files";
 const GDRIVE_UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files";
 
-let requestPermissionIdentityNeeded = true;
-
 class GDrive {
 	constructor(clientId, clientKey, scopes) {
 		this.clientId = clientId;
@@ -40,15 +38,6 @@ class GDrive {
 		setInterval(() => this.folderIds.clear(), 60 * 1000);
 	}
 	async auth(options = { interactive: true }) {
-		if (options.requestPermissionIdentity && requestPermissionIdentityNeeded) {
-			try {
-				await browser.permissions.request({ permissions: ["identity"] });
-				requestPermissionIdentityNeeded = false;
-			}
-			catch (error) {
-				// ignored;
-			}
-		}
 		if (nativeAuth(options)) {
 			this.accessToken = await browser.identity.getAuthToken({ interactive: options.interactive });
 			return { revokableAccessToken: this.accessToken };

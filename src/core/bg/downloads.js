@@ -44,8 +44,6 @@ const CONFLICT_ACTION_SKIP = "skip";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
 const REGEXP_ESCAPE = /([{}()^$&.*?/+|[\\\\]|\]|-)/g;
 
-const manifest = browser.runtime.getManifest();
-const requestPermissionIdentity = manifest.optional_permissions && manifest.optional_permissions.includes("identity");
 const gDrive = new GDrive(GDRIVE_CLIENT_ID, GDRIVE_CLIENT_KEY, SCOPES);
 export {
 	onMessage,
@@ -182,7 +180,6 @@ async function getAuthInfo(authOptions, force) {
 	const options = {
 		interactive: true,
 		forceWebAuthFlow: authOptions.forceWebAuthFlow,
-		requestPermissionIdentity,
 		launchWebAuthFlow: options => launchWebAuthFlow(options),
 		extractAuthCode: authURL => extractAuthCode(authURL)
 	};
