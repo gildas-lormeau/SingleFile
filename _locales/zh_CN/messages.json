@@ -580,19 +580,19 @@
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveWithWebDAV": {
-		"message": "upload to a WebDAV server",
+		"message": "保存到 WebDAV 服务器",
 		"description": "Options page label: 'upload to a WebDAV server'"
 	},
 	"optionWebDAVURL": {
-		"message": "URL",
+		"message": "地址",
 		"description": "Options page label: 'URL'"
 	},
 	"optionWebDAVUser": {
-		"message": "user identifier",
+		"message": "用户名",
 		"description": "Options page label: 'user identifier'"
 	},
 	"optionWebDAVPassword": {
-		"message": "password",
+		"message": "密码",
 		"description": "Options page label: 'password'"
 	},
 	"optionSaveWithCompanion": {

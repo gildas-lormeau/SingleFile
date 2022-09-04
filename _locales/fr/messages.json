@@ -204,7 +204,7 @@
 		"description": "Options page label: 'characters'"
 	},
 	"optionConfirmFilename": {
-		"message": "ouvrir la boite de dialogue \"Sauver sous\" pour confimer le nom de fichier",
+		"message": "ouvrir la boite de dialogue \"Sauver sous\" pour confirmer le nom de fichier",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
 	},
 	"optionFilenameConflictAction": {
@@ -408,7 +408,7 @@
 		"description": "Popup text 'Valider les changements' in the options page"
 	},
 	"optionsDeleteRuleConfirm": {
-		"message": "Confimer la suppression de la règle selectionnée",
+		"message": "Confirmer la suppression de la règle selectionnée",
 		"description": "Popup text 'Confirm deletion of the selected rule' in the options page"
 	},
 	"optionAutoSaveLoadOrUnload": {
