@@ -18,7 +18,7 @@ and Opera. It helps you to save a complete web page into a single HTML file.
 - [Integration with user scripts](#integration-with-user-scripts)
 - [SingleFileZ](#singlefilez)
 - [File format comparison](#file-format-comparison)
-- [Projects using SingleFile](#projects-using-singlefile)
+- [Projects using/compatible with SingleFile](#projects-usingcompatible-with-singlefile)
 - [Privacy policy](#privacy-policy)
 - [Contributors](#contributors)
 - [Icons](#icons)
