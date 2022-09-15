@@ -215,7 +215,7 @@ an option must be enabled in Safari.
   https://github.com/ArchiveBox/ArchiveBox
 - htmls-to-datasette - Tool to index HTML files into a Sqlite database:
   https://github.com/pjamar/htmls-to-datasette
-- obsidian-html-plugin - Plugin for reading HTML pages in Obsidian
+- obsidian-html-plugin - Plugin for reading HTML pages in Obsidian:
   https://github.com/nuthrash/obsidian-html-plugin 
 - singlefile2trilium - Tool to save faithful copy of a web page as a Trilium
   note with SingleFile: https://github.com/nil0x42/singlefile2trilium
