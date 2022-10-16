@@ -18,7 +18,7 @@ and Opera. It helps you to save a complete web page into a single HTML file.
 - [Integration with user scripts](#integration-with-user-scripts)
 - [SingleFileZ](#singlefilez)
 - [File format comparison](#file-format-comparison)
-- [Projects using SingleFile](#projects-using-singlefile)
+- [Projects using/compatible with SingleFile](#projects-usingcompatible-with-singlefile)
 - [Privacy policy](#privacy-policy)
 - [Contributors](#contributors)
 - [Icons](#icons)
@@ -209,12 +209,14 @@ an option must be enabled in Safari.
 
 ⁴ An option must be enabled in the extension.
 
-## Projects using SingleFile
+## Projects using/compatible with SingleFile
 
 - ArchiveBox - Open-source self-hosted web archiving:
   https://github.com/ArchiveBox/ArchiveBox
 - htmls-to-datasette - Tool to index HTML files into a Sqlite database:
   https://github.com/pjamar/htmls-to-datasette
+- obsidian-html-plugin - Plugin for reading HTML pages in Obsidian:
+  https://github.com/nuthrash/obsidian-html-plugin 
 - singlefile2trilium - Tool to save faithful copy of a web page as a Trilium
   note with SingleFile: https://github.com/nil0x42/singlefile2trilium
 - SingleFileMacOS - Integration of SingleFile in a swift application using
