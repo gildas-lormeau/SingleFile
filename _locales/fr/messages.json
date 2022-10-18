@@ -361,7 +361,7 @@
 	},
 	"optionsDeleteDisplayedRulesConfirm": {
 		"message": "Confirmez la suppression de toutes les règles affichées",
-		"description": "Popup text 'Confirm deletion of all displayed rules'"
+		"description": "Popup text 'Confirm the deletion of all displayed rules'"
 	},
 	"optionsDeleteRulesTooltip": {
 		"message": "Supprimer toutes les règles affichées",
@@ -449,7 +449,7 @@
 	},
 	"optionsEditorSubTitle": {
 		"message": "Éditeur d'annotations",
-		"description": "Options sub-title: 'Éditeur d'annotations'"
+		"description": "Options sub-title: 'Annotation editor'"
 	},
 	"optionOpenEditor": {
 		"message": "annoter la page avant de la sauvegarder",
@@ -621,7 +621,7 @@
 	},
 	"optionSynchronize": {
 		"message": "synchronizer les options",
-		"description": "Options label: 'Synchronize options'"
+		"description": "Options label: 'synchronize options'"
 	},
 	"optionsResetButton": {
 		"message": "Remise à zéro",
@@ -701,7 +701,7 @@
 	},
 	"profileDeleteConfirm": {
 		"message": "Confirmez la suppression du profil selectionné",
-		"description": "Popup text 'Confirm deletion of the selected profile' in the options page"
+		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
 	},
 	"profileRenamePrompt": {
 		"message": "Saisissez un nouveau nom pour le profil sélectionné",

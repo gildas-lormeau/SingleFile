@@ -369,7 +369,7 @@
 	},
 	"optionsAutoSettingsUrl": {
 		"message": "URL",
-		"description": "Options label in the Auto-settings rules: 'URL'"
+		"description": "Options label in the auto-settings rules: 'URL'"
 	},
 	"optionsAutoSettingsUrlPlaceholder": {
 		"message": "Введите полный или частичный URL (например, example.com)",

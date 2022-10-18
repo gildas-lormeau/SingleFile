@@ -128,7 +128,7 @@
 		"description": "Badge label: 'OK'"
 	},
 	"buttonErrorBadge": {
-		"message": "ERROR",
+		"message": "ERR",
 		"description": "Badge label for unexpected errors"
 	},
 	"buttonAutoSaveActiveTooltip": {
