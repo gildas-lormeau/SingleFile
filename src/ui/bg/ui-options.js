@@ -1035,6 +1035,8 @@ async function onClickSaveToGDrive() {
 				if (permissionGranted) {
 					saveToGDriveInput.checked = true;
 				}
+			} else {
+				saveToGDriveInput.checked = true;
 			}
 		} catch (error) {
 			saveToGDriveInput.checked = false;
