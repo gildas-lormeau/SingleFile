@@ -217,7 +217,7 @@ an option must be enabled in Safari.
   https://github.com/pjamar/htmls-to-datasette
 - obsidian-html-plugin - Plugin for reading HTML pages in Obsidian:
   https://github.com/nuthrash/obsidian-html-plugin 
-- Petal Cite Browser Extension - Extension to save PDFs and capture web pages in Petal Cite:
+- Petal Cite Web Importer - Browser extension to save PDFs and capture web pages in Petal Cite:
   https://github.com/ks-collab/cite-extension
 - singlefile2trilium - Tool to save faithful copy of a web page as a Trilium
   note with SingleFile: https://github.com/nil0x42/singlefile2trilium
