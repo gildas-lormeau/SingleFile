@@ -238,7 +238,15 @@ if (typeof globalThis == "undefined") {
 				onClicked: {
 					addListener: listener => nativeAPI.contextMenus.onClicked.addListener(listener)
 				},
-				create: options => nativeAPI.contextMenus.create(options),
+				create: options => new Promise((resolve, reject) => {
+					nativeAPI.contextMenus.create(options, () => {
+						if (nativeAPI.runtime.lastError) {
+							reject(nativeAPI.runtime.lastError);
+						} else {
+							resolve();
+						}
+					});
+				}),
 				update: (menuItemId, options) => new Promise((resolve, reject) => {
 					nativeAPI.contextMenus.update(menuItemId, options, () => {
 						if (nativeAPI.runtime.lastError) {

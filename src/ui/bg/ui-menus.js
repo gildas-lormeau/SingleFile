@@ -126,7 +126,7 @@ async function createMenus(tab) {
 		}
 		if (options.tabMenuEnabled) {
 			try {
-				menus.create({
+				await menus.create({
 					id: "temporary-id",
 					contexts: ["tab"],
 					title: "title"
