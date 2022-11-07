@@ -30,7 +30,7 @@ const CURRENT_PROFILE_NAME = "-";
 const DEFAULT_PROFILE_NAME = "__Default_Settings__";
 const DISABLED_PROFILE_NAME = "__Disabled_Settings__";
 const REGEXP_RULE_PREFIX = "regexp:";
-const BACKGROUND_SAVE_DEFAULT = !/(Mobile.*Firefox|Safari)/.test(navigator.userAgent);
+const BACKGROUND_SAVE_DEFAULT = !/(Mobile.*Firefox|Chrome.*Safari)/.test(navigator.userAgent);
 
 const DEFAULT_CONFIG = {
 	removeHiddenElements: true,
