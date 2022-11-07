@@ -314,6 +314,7 @@ h3 a {
     width: calc(100% - 86px);
     text-align-last: right;
     padding: 0px;
+    padding-left: 4px;
     padding-right: 4px;
 }
 
