@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, URL */
+/* global browser, URL, navigator */
 
 import * as config from "./../../core/bg/config.js";
 import { queryTabs } from "./../../core/bg/tabs-util.js";
@@ -32,6 +32,9 @@ import * as button from "./ui-button.js";
 
 const menus = browser.menus;
 const BROWSER_MENUS_API_SUPPORTED = menus && menus.onClicked && menus.create && menus.update && menus.removeAll;
+const AUTO_SAVE_SUPPORTED = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent);
+const SELECTABLE_TABS_SUPPORTED = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent);
+
 const MENU_ID_SAVE_PAGE = "save-page";
 const MENU_ID_EDIT_AND_SAVE_PAGE = "edit-and-save-page";
 const MENU_ID_SAVE_WITH_PROFILE = "save-with-profile";
@@ -204,11 +207,13 @@ async function createMenus(tab) {
 			parentId: MENU_ID_SAVE_TABS
 		});
 		if (options.contextMenuEnabled) {
-			menus.create({
-				id: MENU_ID_SAVE_SELECTED_TABS,
-				contexts: pageContextsEnabled,
-				title: MENU_SAVE_SELECTED_TABS_MESSAGE
-			});
+			if (SELECTABLE_TABS_SUPPORTED) {
+				menus.create({
+					id: MENU_ID_SAVE_SELECTED_TABS,
+					contexts: pageContextsEnabled,
+					title: MENU_SAVE_SELECTED_TABS_MESSAGE
+				});
+			}
 			menus.create({
 				id: MENU_ID_SAVE_UNPINNED_TABS,
 				contexts: pageContextsEnabled,
@@ -324,52 +329,54 @@ async function createMenus(tab) {
 				});
 			}
 		}
-		menus.create({
-			id: MENU_ID_AUTO_SAVE,
-			contexts: defaultContexts,
-			title: MENU_AUTOSAVE_MESSAGE
-		});
-		menus.create({
-			id: MENU_ID_AUTO_SAVE_DISABLED,
-			type: "radio",
-			title: MENU_AUTOSAVE_DISABLED_MESSAGE,
-			contexts: defaultContexts,
-			checked: true,
-			parentId: MENU_ID_AUTO_SAVE
-		});
-		menusCheckedState.set(MENU_ID_AUTO_SAVE_DISABLED, true);
-		menus.create({
-			id: MENU_ID_AUTO_SAVE_TAB,
-			type: "radio",
-			title: MENU_AUTOSAVE_TAB_MESSAGE,
-			contexts: defaultContexts,
-			checked: false,
-			parentId: MENU_ID_AUTO_SAVE
-		});
-		menusCheckedState.set(MENU_ID_AUTO_SAVE_TAB, false);
-		menus.create({
-			id: MENU_ID_AUTO_SAVE_UNPINNED,
-			type: "radio",
-			title: MENU_AUTOSAVE_UNPINNED_TABS_MESSAGE,
-			contexts: defaultContexts,
-			checked: false,
-			parentId: MENU_ID_AUTO_SAVE
-		});
-		menusCheckedState.set(MENU_ID_AUTO_SAVE_UNPINNED, false);
-		menus.create({
-			id: MENU_ID_AUTO_SAVE_ALL,
-			type: "radio",
-			title: MENU_AUTOSAVE_ALL_TABS_MESSAGE,
-			contexts: defaultContexts,
-			checked: false,
-			parentId: MENU_ID_AUTO_SAVE
-		});
-		menusCheckedState.set(MENU_ID_AUTO_SAVE_ALL, false);
-		menus.create({
-			id: "separator-4",
-			contexts: defaultContexts,
-			type: "separator"
-		});
+		if (AUTO_SAVE_SUPPORTED) {
+			menus.create({
+				id: MENU_ID_AUTO_SAVE,
+				contexts: defaultContexts,
+				title: MENU_AUTOSAVE_MESSAGE
+			});
+			menus.create({
+				id: MENU_ID_AUTO_SAVE_DISABLED,
+				type: "radio",
+				title: MENU_AUTOSAVE_DISABLED_MESSAGE,
+				contexts: defaultContexts,
+				checked: true,
+				parentId: MENU_ID_AUTO_SAVE
+			});
+			menusCheckedState.set(MENU_ID_AUTO_SAVE_DISABLED, true);
+			menus.create({
+				id: MENU_ID_AUTO_SAVE_TAB,
+				type: "radio",
+				title: MENU_AUTOSAVE_TAB_MESSAGE,
+				contexts: defaultContexts,
+				checked: false,
+				parentId: MENU_ID_AUTO_SAVE
+			});
+			menusCheckedState.set(MENU_ID_AUTO_SAVE_TAB, false);
+			menus.create({
+				id: MENU_ID_AUTO_SAVE_UNPINNED,
+				type: "radio",
+				title: MENU_AUTOSAVE_UNPINNED_TABS_MESSAGE,
+				contexts: defaultContexts,
+				checked: false,
+				parentId: MENU_ID_AUTO_SAVE
+			});
+			menusCheckedState.set(MENU_ID_AUTO_SAVE_UNPINNED, false);
+			menus.create({
+				id: MENU_ID_AUTO_SAVE_ALL,
+				type: "radio",
+				title: MENU_AUTOSAVE_ALL_TABS_MESSAGE,
+				contexts: defaultContexts,
+				checked: false,
+				parentId: MENU_ID_AUTO_SAVE
+			});
+			menusCheckedState.set(MENU_ID_AUTO_SAVE_ALL, false);
+			menus.create({
+				id: "separator-4",
+				contexts: defaultContexts,
+				type: "separator"
+			});
+		}
 		menus.create({
 			id: MENU_ID_BATCH_SAVE_URLS,
 			contexts: defaultContexts,
