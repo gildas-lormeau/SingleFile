@@ -32,6 +32,7 @@ const OPEN_SAVED_PAGE_SUPPORT = !/Safari/.test(navigator.userAgent) || /Chrome/.
 const INFOBAR_SUPPORT = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent);
 const BOOKMARKS_API_SUPPORTED = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent);
 const IDENTITY_API_SUPPORT = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent);
+const CLIPBOARD_API_SUPPORT = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent);
 
 browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => ({ DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME, CURRENT_PROFILE_NAME } = data));
 const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsLabel");
@@ -682,6 +683,9 @@ if (!INFOBAR_SUPPORT) {
 }
 if (!IDENTITY_API_SUPPORT) {
 	document.getElementById("saveToGDriveOption").hidden = true;
+}
+if (!CLIPBOARD_API_SUPPORT) {
+	document.getElementById("saveToClipboardOption").hidden = true;
 }
 
 getHelpContents();
