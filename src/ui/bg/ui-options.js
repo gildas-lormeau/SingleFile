@@ -27,7 +27,7 @@ const HELP_ICON_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAY
 const HELP_PAGE_PATH = "/src/ui/pages/help.html";
 let DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME, CURRENT_PROFILE_NAME;
 const AUTO_SAVE_SUPPORTED = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent);
-const BACKGROUND_SAVE_SUPPORTED = !/(Mobile.*Firefox|Chrome.*Safari)/.test(navigator.userAgent);
+const BACKGROUND_SAVE_SUPPORTED = !(/Mobile.*Firefox/.test(navigator.userAgent) || /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent));
 
 browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => ({ DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME, CURRENT_PROFILE_NAME } = data));
 const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsLabel");
