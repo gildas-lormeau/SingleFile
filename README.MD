@@ -48,8 +48,7 @@ these instructions:
 
 - Firefox:
   https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/
-- Chrome: https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked
-  (omit the manifest creation)
+- Chrome: https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked
 - Microsoft Edge:
   https://docs.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/extension-sideloading
 
@@ -188,7 +187,7 @@ More info here: https://github.com/gildas-lormeau/SingleFileZ
 
 |   	                                                                          | HTML (SingleFile)  | HTML (SingleFileZ) | MAFF  | MHTML | Webarchive (Safari) | HTML+folder |
 | ---                                	                                          |       :---:        |       :---:        | :---: | :---: |         :---:       |    :---:    |
-| Pages are saved as a single file                                              | ✓ 	               | ✓ 	                | ✓     | ✓     | ✓                   |             | 
+| Pages are saved as a single file                                              | ✓ 	               | ✓ 	                | ✓     | ✓     | ✓                   |             |
 | HTML and styles are minified                                                  | ✓                  | ✓ 	                |       |       |   	                |             |
 | Unused HTML and styles are removed from files                                 | ✓                  | ✓ 	                |       |       |                     |   	        |
 | Binary resources are not encoded in base 64                                   |                    | ✓ 	                | ✓     |       | ✓                   | ✓ 	        |
@@ -216,7 +215,7 @@ an option must be enabled in Safari.
 - htmls-to-datasette - Tool to index HTML files into a Sqlite database:
   https://github.com/pjamar/htmls-to-datasette
 - obsidian-html-plugin - Plugin for reading HTML pages in Obsidian:
-  https://github.com/nuthrash/obsidian-html-plugin 
+  https://github.com/nuthrash/obsidian-html-plugin
 - Petal Cite Web Importer - Browser extension to save PDFs and capture web pages in Petal Cite:
   https://github.com/ks-collab/cite-extension
 - singlefile2trilium - Tool to save faithful copy of a web page as a Trilium
