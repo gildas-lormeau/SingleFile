@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global globalThis, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node */
+/* global globalThis, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, URL, MouseEvent */
 
 (globalThis => {
 
@@ -1077,7 +1077,17 @@ pre code {
 			if (initScriptContent) {
 				content = content.replace(/<script data-template-shadow-root src.*?<\/script>/g, initScriptContent);
 			}
-			window.parent.postMessage(JSON.stringify({ method: "setContent", content }), "*");
+			if (message.foregroundSave) {
+				if (message.filename && message.filename.length) {
+					const link = document.createElement("a");
+					link.download = message.filename;
+					link.href = URL.createObjectURL(new Blob([content], { type: "text/html" }));
+					link.dispatchEvent(new MouseEvent("click"));
+				}
+				return new Promise(resolve => setTimeout(resolve, 1));
+			} else {
+				window.parent.postMessage(JSON.stringify({ method: "setContent", content }), "*");
+			}
 		}
 		if (message.method == "printPage") {
 			printPage();

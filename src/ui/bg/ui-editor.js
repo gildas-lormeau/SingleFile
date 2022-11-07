@@ -21,10 +21,12 @@
  *   Source.
  */
 
-/* global browser, document, matchMedia, addEventListener */
+/* global browser, document, matchMedia, addEventListener, navigator */
 
 import * as download from "../../core/common/download.js";
 import { onError } from "./../common/content-error.js";
+
+const FOREGROUND_SAVE = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
 
 const editorElement = document.querySelector(".editor");
 const toolbarElement = document.querySelector(".toolbar");
@@ -428,7 +430,13 @@ function enableCutOuterPage() {
 }
 
 function savePage() {
-	editorElement.contentWindow.postMessage(JSON.stringify({ method: "getContent", compressHTML: tabData.options.compressHTML, updatedResources }), "*");
+	editorElement.contentWindow.postMessage(JSON.stringify({
+		method: "getContent",
+		compressHTML: tabData.options.compressHTML,
+		updatedResources,
+		filename: tabData.filename,
+		foregroundSave: FOREGROUND_SAVE
+	}), "*");
 }
 
 function getPosition(event) {
