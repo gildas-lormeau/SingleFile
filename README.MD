@@ -1,8 +1,9 @@
 # SingleFile
 
 SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox
-(Desktop and Mobile), Microsoft Edge, Vivaldi, Brave, Waterfox, Yandex browser,
-and Opera. It helps you to save a complete web page into a single HTML file.
+(Desktop and Mobile), Microsoft Edge, Safari, Vivaldi, Brave, Waterfox, Yandex
+browser, and Opera. It helps you to save a complete web page into a single HTML
+file.
 
 ## Table of Contents
 
@@ -36,6 +37,7 @@ SingleFile can be installed on:
 - Firefox: https://addons.mozilla.org/firefox/addon/single-file
 - Chrome:
   https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
+- Safari: https://apps.apple.com/us/app/singlefile-for-safari/id6444322545
 - Microsoft Edge:
   https://microsoftedge.microsoft.com/addons/detail/efnbkdcfmcmnhlkaijjjmhjjgladedno
 - Firefox for Android Nightly by following this procedure:
@@ -48,7 +50,8 @@ these instructions:
 
 - Firefox:
   https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/
-- Chrome: https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked
+- Chrome:
+  https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked
 - Microsoft Edge:
   https://docs.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/extension-sideloading
 
@@ -216,8 +219,8 @@ an option must be enabled in Safari.
   https://github.com/pjamar/htmls-to-datasette
 - obsidian-html-plugin - Plugin for reading HTML pages in Obsidian:
   https://github.com/nuthrash/obsidian-html-plugin
-- Petal Cite Web Importer - Browser extension to save PDFs and capture web pages in Petal Cite:
-  https://github.com/ks-collab/cite-extension
+- Petal Cite Web Importer - Browser extension to save PDFs and capture web pages
+  in Petal Cite: https://github.com/ks-collab/cite-extension
 - singlefile2trilium - Tool to save faithful copy of a web page as a Trilium
   note with SingleFile: https://github.com/nil0x42/singlefile2trilium
 - SingleFileMacOS - Integration of SingleFile in a swift application using
