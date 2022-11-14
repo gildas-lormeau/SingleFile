@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, URL, navigator */
+/* global browser, URL */
 
 import * as config from "./../../core/bg/config.js";
 import { queryTabs } from "./../../core/bg/tabs-util.js";
@@ -32,8 +32,6 @@ import * as button from "./ui-button.js";
 
 const menus = browser.menus;
 const BROWSER_MENUS_API_SUPPORTED = menus && menus.onClicked && menus.create && menus.update && menus.removeAll;
-const AUTO_SAVE_SUPPORTED = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent);
-const SELECTABLE_TABS_SUPPORTED = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent);
 
 const MENU_ID_SAVE_PAGE = "save-page";
 const MENU_ID_EDIT_AND_SAVE_PAGE = "edit-and-save-page";
@@ -207,7 +205,7 @@ async function createMenus(tab) {
 			parentId: MENU_ID_SAVE_TABS
 		});
 		if (options.contextMenuEnabled) {
-			if (SELECTABLE_TABS_SUPPORTED) {
+			if (config.SELECTABLE_TABS_SUPPORTED) {
 				menus.create({
 					id: MENU_ID_SAVE_SELECTED_TABS,
 					contexts: pageContextsEnabled,
@@ -329,7 +327,7 @@ async function createMenus(tab) {
 				});
 			}
 		}
-		if (AUTO_SAVE_SUPPORTED) {
+		if (config.AUTO_SAVE_SUPPORTED) {
 			menus.create({
 				id: MENU_ID_AUTO_SAVE,
 				contexts: defaultContexts,
@@ -546,7 +544,7 @@ async function refreshTab(tab) {
 			updateAllVisibleValues(false);
 		} else {
 			updateAllVisibleValues(true);
-			if (AUTO_SAVE_SUPPORTED) {
+			if (config.AUTO_SAVE_SUPPORTED) {
 				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, !allTabsData[tab.id].autoSave));
 				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, allTabsData[tab.id].autoSave));
 				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(allTabsData.autoSaveUnpinned)));
@@ -556,7 +554,7 @@ async function refreshTab(tab) {
 				const options = await config.getOptions(tab.url);
 				promises.push(updateVisibleValue(tab, options.contextMenuEnabled));
 				promises.push(updateTitleValue(MENU_ID_EDIT_AND_SAVE_PAGE, allTabsData[tab.id].savedPageDetected ? MENU_EDIT_PAGE_MESSAGE : MENU_EDIT_AND_SAVE_PAGE_MESSAGE));
-				if (SELECTABLE_TABS_SUPPORTED) {
+				if (config.SELECTABLE_TABS_SUPPORTED) {
 					promises.push(menus.update(MENU_ID_SAVE_SELECTED, { visible: !options.saveRawPage }));
 				}
 				promises.push(menus.update(MENU_ID_EDIT_AND_SAVE_PAGE, { visible: !options.openEditor || allTabsData[tab.id].savedPageDetected }));

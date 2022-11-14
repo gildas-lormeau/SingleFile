@@ -30,7 +30,20 @@ const CURRENT_PROFILE_NAME = "-";
 const DEFAULT_PROFILE_NAME = "__Default_Settings__";
 const DISABLED_PROFILE_NAME = "__Disabled_Settings__";
 const REGEXP_RULE_PREFIX = "regexp:";
-const BACKGROUND_SAVE_DEFAULT = !(/Mobile.*Firefox/.test(navigator.userAgent) || /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent));
+
+const IS_NOT_SAFARI = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent);
+const BACKGROUND_SAVE_SUPPORTED = !(/Mobile.*Firefox/.test(navigator.userAgent) || /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent));
+const BADGE_COLOR_SUPPORTED = IS_NOT_SAFARI;
+const AUTO_SAVE_SUPPORTED = IS_NOT_SAFARI;
+const SELECTABLE_TABS_SUPPORTED = IS_NOT_SAFARI;
+const AUTO_OPEN_EDITOR_SUPPORTED = IS_NOT_SAFARI;
+const OPEN_SAVED_PAGE_SUPPORTED = IS_NOT_SAFARI;
+const INFOBAR_SUPPORTED = IS_NOT_SAFARI;
+const BOOKMARKS_API_SUPPORTED = IS_NOT_SAFARI;
+const IDENTITY_API_SUPPORTED = IS_NOT_SAFARI;
+const CLIPBOARD_API_SUPPORTED = IS_NOT_SAFARI;
+const NATIVE_API_API_SUPPORTED = IS_NOT_SAFARI;
+const WEB_BLOCKING_API_SUPPORTED = IS_NOT_SAFARI;
 
 const DEFAULT_CONFIG = {
 	removeHiddenElements: true,
@@ -66,7 +79,7 @@ const DEFAULT_CONFIG = {
 	maxResourceSize: 10,
 	displayInfobar: true,
 	displayStats: false,
-	backgroundSave: BACKGROUND_SAVE_DEFAULT,
+	backgroundSave: BACKGROUND_SAVE_SUPPORTED,
 	defaultEditorMode: "normal",
 	applySystemTheme: true,
 	autoSaveDelay: 1,
@@ -148,6 +161,18 @@ export {
 	DEFAULT_PROFILE_NAME,
 	DISABLED_PROFILE_NAME,
 	CURRENT_PROFILE_NAME,
+	BACKGROUND_SAVE_SUPPORTED,
+	BADGE_COLOR_SUPPORTED,
+	AUTO_SAVE_SUPPORTED,
+	SELECTABLE_TABS_SUPPORTED,
+	OPEN_SAVED_PAGE_SUPPORTED,
+	AUTO_OPEN_EDITOR_SUPPORTED,
+	INFOBAR_SUPPORTED,
+	BOOKMARKS_API_SUPPORTED,
+	IDENTITY_API_SUPPORTED,
+	CLIPBOARD_API_SUPPORTED,
+	NATIVE_API_API_SUPPORTED,
+	WEB_BLOCKING_API_SUPPORTED,
 	getConfig as get,
 	getRule,
 	getOptions,
@@ -271,7 +296,19 @@ async function onMessage(message) {
 		return {
 			DISABLED_PROFILE_NAME,
 			DEFAULT_PROFILE_NAME,
-			CURRENT_PROFILE_NAME
+			CURRENT_PROFILE_NAME,
+			BACKGROUND_SAVE_SUPPORTED,
+			BADGE_COLOR_SUPPORTED,
+			AUTO_SAVE_SUPPORTED,
+			SELECTABLE_TABS_SUPPORTED,
+			OPEN_SAVED_PAGE_SUPPORTED,
+			AUTO_OPEN_EDITOR_SUPPORTED,
+			INFOBAR_SUPPORTED,
+			BOOKMARKS_API_SUPPORTED,
+			IDENTITY_API_SUPPORTED,
+			CLIPBOARD_API_SUPPORTED,
+			NATIVE_API_API_SUPPORTED,
+			WEB_BLOCKING_API_SUPPORTED
 		};
 	}
 	if (message.method.endsWith(".getRules")) {
