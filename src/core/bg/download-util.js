@@ -51,6 +51,9 @@ async function download(downloadInfo, replacementCharacter) {
 			} else if (invalidFilename && downloadInfo.filename.includes(",")) {
 				downloadInfo.filename = downloadInfo.filename.replace(/,/g, replacementCharacter);
 				return download(downloadInfo, replacementCharacter);
+			} else if (invalidFilename && downloadInfo.filename.match(/\u200C/)) {
+				downloadInfo.filename = downloadInfo.filename.replace(/\u200C/g, replacementCharacter);
+				return download(downloadInfo, replacementCharacter);
 			} else if (invalidFilename && !downloadInfo.filename.match(/^[\x00-\x7F]+$/)) { // eslint-disable-line  no-control-regex
 				downloadInfo.filename = downloadInfo.filename.replace(/[^\x00-\x7F]+/g, replacementCharacter); // eslint-disable-line  no-control-regex
 				return download(downloadInfo, replacementCharacter);
