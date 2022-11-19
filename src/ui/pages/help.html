@@ -43,12 +43,12 @@
 						</ul>
 					</li>
 					<li>You can also process multiple tabs in one click and save: <ul>
-							<li>the selected tabs,</li>
+							<li id="selectableTabsMenu">the selected tabs,</li>
 							<li>or the unpinned tabs,</li>
 							<li>or all the tabs.</li>
 						</ul>
 					</li>
-					<li>The context menu also allows you to activate the auto-save of: <ul>
+					<li id="autoSaveMenu">The context menu also allows you to activate the auto-save of: <ul>
 							<li>the current tab,</li>
 							<li>or the unpinned tabs,</li>
 							<li>or all the tabs.</li>
@@ -57,17 +57,21 @@
 					<li>You can highlight text, add notes, format and remove content before saving the page with the <a
 							href="#annotation-editor">Annotation editor</a> by selecting "Annotate and save the page..."
 						in the context menu</li>
-					<li>With auto-save active, pages are automatically saved every time after being loaded (or before
+					<li id="autoSaveHint">With auto-save active, pages are automatically saved every time after being
+						loaded (or before
 						being unloaded if not). </li>
 					<li>Select "Save Selection" from the context menu without selecting any content first to display a
 						selector that will help you choose content by hovering over it with the mouse.</li>
 					<li>Right-click on the SingleFile button and select "Options" to open the options page.</li>
-					<li>Enable the option "Destination &gt; upload to Google Drive" to upload pages to Google Drive</li>
-					<li>You can use the customizable shortcut Ctrl+Shift+Y to save the current tab or the selected tabs.
+					<li id="saveToGDriveHint">Enable the option "Destination &gt; upload to Google Drive" to upload
+						pages to Google Drive</li>
+					<li id="shortcutsSection">You can use the customizable shortcut Ctrl+Shift+Y to save the current tab
+						or the selected tabs.
 						Go to about:addons and select "Manage extension shortcuts" in the cogwheel menu to change it in
 						Firefox. Go to chrome://extensions/shortcuts to change it in Chrome..</li>
 					<li>The default save folder is the download folder configured in your browser, cf. about:preferences
-						in Firefox and chrome://settings in Chrome.</li>
+						in Firefox, chrome://settings in Chrome, and Settings > General > File download location in
+						Safari.</li>
 				</ul>
 			</li>
 			<li><a id="options">Options description</a>
@@ -107,7 +111,8 @@
 							resources. This reminds you that you should not close the tab. </p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="displayInfobarLabel"> <span class="option">Option: display an infobar when
+					<li data-options-label="displayInfobarLabel" id="displayInfobarOption"> <span class="option">Option:
+							display an infobar when
 							viewing a saved page</span>
 						<p>Check this option to display the ℹ button at the top right of the page when viewing a saved
 							page. By clicking this button, you can get more information about the saved date and open
@@ -134,7 +139,8 @@
 						<p>Check this option to display a prompt dialog in order to confirm the infobar content before
 							saving the page. </p>
 					</li>
-					<li data-options-label="openSavedPageLabel"> <span class="option">Option: open saved pages in a new
+					<li data-options-label="openSavedPageLabel" id="openSavedPageOption"> <span class="option">Option:
+							open saved pages in a new
 							tab</span>
 						<p>Check this option to display the saved page in a new tab. This option can be useful, for
 							example, in order to check the page is properly saved.</p>
@@ -175,13 +181,15 @@
 						<p>Enter the maximum length of the filename (without the extension) and its unit (bytes or
 							characters).</p>
 					</li>
-					<li data-options-label="confirmFilenameLabel"> <span class="option">Option: open the "Save as"
+					<li data-options-label="confirmFilenameLabel" id="confirmFilenameOption"> <span
+							class="option">Option: open the "Save as"
 							dialog to confirm the file name</span>
 						<p>Check this option to display the "Save as" dialog in order to confirm the file name before
 							saving the page. If the option "save pages in background" is unchecked then a prompt dialog
 							will be displayed instead of the "Save as" dialog. </p>
 					</li>
-					<li data-options-label="filenameConflictActionLabel"> <span class="option">Option: file name
+					<li data-options-label="filenameConflictActionLabel" id="filenameConflictActionOption"> <span
+							class="option">Option: file name
 							conflict resolution</span>
 						<p>Choose the most appropriate action when the filename of the saved page is conflicting with
 							existing ones on the filesystem. The "skip duplicate files" action only detects duplicates
@@ -215,14 +223,14 @@
 							considerably reduce the size of the file without altering the document most of the time. It
 							may also decrease the time needed to save a page.</p>
 					</li>
-					<li data-options-label="saveOriginalURLsLabel"> <span class="option"></span>Option: save original
+					<li data-options-label="saveOriginalURLsLabel"> <span class="option"></span>: save original
 						URLs of embedded resources</span>
 						<p>Check this option to save the URLs of the resources embedded into the saved page. URLs
 							are stored in attributes with a name prefixed with "data-sf-original-" and suffixed with the
 							original attribute name (e.g. "data-sf-original-src", "data-sf-original-href") for HTML
 							contents. For CSS contents, URLs are stored as comments beginning with "original URL:".
 					</li>
-					<li data-options-label="includeInfobarLabel"> <span class="option"></span>Option: include infobar in
+					<li data-options-label="includeInfobarLabel"> <span class="option"></span>: include infobar in
 						the saved page</span>
 						<p>Check this
 							option to display the ℹ button at the top right of the page when viewing a saved page in a
@@ -333,7 +341,8 @@
 						<p>Check this option to save the downloaded page on the filesystem of your computer.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="saveToClipboardLabel"> <span class="option">Option: copy to clipboard</span>
+					<li data-options-label="saveToClipboardLabel" id="saveToClipboardOption"> <span
+							class="option">Option: copy to clipboard</span>
 						<p>Check this option to copy the page to the clipboard.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
@@ -385,7 +394,8 @@
 					<li data-options-label="webDAVPasswordLabel"> <span class="option">Option: password</span>
 						<p>Enter your password.</p>
 					</li>
-					<li data-options-label="saveToGDriveLabel"> <span class="option">Option: upload to Google
+					<li data-options-label="saveToGDriveLabel" id="saveToGDriveOption"> <span class="option">Option:
+							upload to Google
 							Drive</span>
 						<p>Check this option to save the page on Google Drive.</p>
 						<p>The permissions requested by SingleFile allow it to access only to the files and folders it
@@ -393,7 +403,8 @@
 							your Google Drive account. </p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="saveWithCompanionLabel"> <span class="option">Option: save with
+					<li data-options-label="saveWithCompanionLabel" id="saveWithCompanionOption"> <span
+							class="option">Option: save with
 							SingleFile Companion</span>
 						<p>Check this option to delegate the saving process to SingleFile Companion. It is a program
 							that runs outside the browser and can help to make the saving process more transparent. It
@@ -410,8 +421,8 @@
 							Check the options below to block the download of the corresponding resource types.
 						</p>
 					</li>
-					<li data-options-label="blockMixedContentLabel"> <span class="option"></span>Option: block mixed
-						contents</span>
+					<li data-options-label="blockMixedContentLabel"> <span class="option">Option: block mixed
+							contents</span>
 						<p>Check this option to block active content served from HTTP when viewing a page in HTTPS. You
 							can find more information about mixed content pages <a
 								href="https://developer.mozilla.org/docs/Web/Security/Mixed_content"
@@ -442,7 +453,8 @@
 							(s)</span>
 						<p>Enter the maximum download delay in seconds.</p>
 					</li>
-					<li data-options-label="passReferrerOnErrorLabel"> <span class="option">Option: pass \"Referer\"
+					<li data-options-label="passReferrerOnErrorLabel" id="passReferrerOnErrorOption"> <span
+							class="option">Option: pass \"Referer\"
 							header on
 							cross-origin errors</span>
 						<p>Check this option to pass the HTTP header "Referer" with the "origin" policy after an 401,
@@ -487,15 +499,16 @@
 							removes the entry "Annotate and save the page..." from the context menu.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="autoOpenEditorLabel"> <span class="option">Option: open the annotation
+					<li data-options-label="autoOpenEditorLabel" id="autoOpenEditorOption"> <span class="option">Option:
+							open the annotation
 							editor when viewing a page saved with SingleFile </span>
 						<p>Check this option to open the annotation editor when displaying a page saved by SingleFile.
 						</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 				</ul>
-				<p>Bookmarks</p>
-				<ul>
+				<p id="bookmarksSection">Bookmarks</p>
+				<ul id="bookmarksOptions">
 					<li data-options-label="saveCreatedBookmarksLabel"> <span class="option">Option: save the page of a
 							newly created bookmark</span>
 						<p>Check this option to save pages that you add into your bookmarks. Note that if the page is to
@@ -522,8 +535,8 @@
 						</p>
 					</li>
 				</ul>
-				<p>Auto-save</p>
-				<ul>
+				<p id="autoSaveSection">Auto-save</p>
+				<ul id="autoSaveOptions">
 					<li data-options-label="autoSaveLoadOrUnloadLabel"> <span class="option">Option: auto-save after
 							page load or on page unload</span>
 						<p>Check this option to auto-save pages after being loaded. If you browse to another page before
@@ -599,7 +612,8 @@
 						<p>Enter your personal access token on Woleet, see the <a href="http://app.woleet.io/"
 								target="_blank">registration page</a> on Woleet for more information.</p>
 					</li>
-					<li data-options-label="backgroundSaveLabel"> <span class="option">Option: save pages in
+					<li data-options-label="backgroundSaveLabel" id="backgroundSaveOption"> <span class="option">Option:
+							save pages in
 							background</span>
 						<p>Uncheck this option if you get invalid file names like
 							"37bec68b-446a-46a5-8642-19a89c231b46.html" or interrupted downloads when saving pages. You
@@ -910,6 +924,7 @@
 			</li>
 		</ol>
 	</div>
+	<script type="module" src="../bg/ui-help.js"></script>
 </body>
 
 </html>
