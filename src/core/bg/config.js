@@ -60,7 +60,7 @@ const DEFAULT_CONFIG = {
 	loadDeferredImagesDispatchScrollEvent: false,
 	filenameTemplate: "{page-title} ({date-locale} {time-locale}).html",
 	infobarTemplate: "",
-	includeInfobar: false,
+	includeInfobar: !INFOBAR_SUPPORTED,
 	confirmInfobarContent: false,
 	autoClose: false,
 	confirmFilename: false,
