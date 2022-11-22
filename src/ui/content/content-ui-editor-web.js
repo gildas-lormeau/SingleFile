@@ -1890,17 +1890,13 @@ pre code {
 			element.style.removeProperty("-sf-" + pointerEvents);
 		});
 		doc.body.removeAttribute("contentEditable");
-		const scriptElement = doc.createElement("script");
-		scriptElement.setAttribute(SCRIPT_TEMPLATE_SHADOW_ROOT, "");
-		scriptElement.textContent = getEmbedScript();
-		doc.body.appendChild(scriptElement);
 		const newResources = Object.keys(updatedResources).filter(url => updatedResources[url].type == "stylesheet").map(url => updatedResources[url]);
 		newResources.forEach(resource => {
 			const element = doc.createElement("style");
 			doc.body.appendChild(element);
 			element.textContent = resource.content;
 		});
-		return singlefile.helper.serialize(doc, compressHTML);
+		return singlefile.helper.serialize(doc, compressHTML) + "<script " + SCRIPT_TEMPLATE_SHADOW_ROOT + ">" + getEmbedScript() + "</script>";
 	}
 
 	function onUpdate(saved) {
@@ -2057,11 +2053,9 @@ pre code {
 			window.onresize = reflowNotes;
 			window.onUpdate = () => {};
 			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
-			window.addEventListener("DOMContentLoaded", () => {
-				processNode(document);
-				reflowNotes();
-				document.querySelectorAll(${JSON.stringify(NOTE_TAGNAME)}).forEach(noteElement => attachNoteListeners(noteElement));
-			});
+			processNode(document);
+			reflowNotes();
+			document.querySelectorAll(${JSON.stringify(NOTE_TAGNAME)}).forEach(noteElement => attachNoteListeners(noteElement));
 		})()`);
 	}
 
