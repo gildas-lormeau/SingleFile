@@ -27,7 +27,6 @@ import * as download from "../../core/common/download.js";
 import { onError } from "./../common/content-error.js";
 
 const FOREGROUND_SAVE = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
-const PING_BG_PAGE = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
 
 const editorElement = document.querySelector(".editor");
 const toolbarElement = document.querySelector(".toolbar");
@@ -334,9 +333,7 @@ browser.runtime.onMessage.addListener(message => {
 			tabDataContents = [];
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
 			editorElement.contentWindow.focus();
-			if (PING_BG_PAGE) {
-				setInterval(() => browser.runtime.sendMessage({ method: "editor.ping" }), 15000);
-			}
+			setInterval(() => browser.runtime.sendMessage({ method: "editor.ping" }), 15000);
 			delete tabData.content;
 		}
 		return Promise.resolve({});
