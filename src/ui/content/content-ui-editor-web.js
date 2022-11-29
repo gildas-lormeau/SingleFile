@@ -998,9 +998,7 @@ pre code {
 			document.documentElement.classList.add(message.color + "-mode");
 		}
 		if (message.method == "disableHighlight") {
-			if (highlightColor) {
-				document.documentElement.classList.remove(highlightColor + "-mode");
-			}
+			disableHighlight();
 			highlightSelectionMode = false;
 		}
 		if (message.method == "displayHighlights") {
@@ -1564,6 +1562,12 @@ pre code {
 		}
 	}
 
+	function disableHighlight(doc = document) {
+		if (highlightColor) {
+			doc.documentElement.classList.remove(highlightColor + "-mode");
+		}
+	}
+
 	function undoCutPage() {
 		if (removedElementIndex) {
 			removedElements[removedElementIndex - 1].forEach(element => element.classList.remove(REMOVED_CONTENT_CLASS));
@@ -1869,6 +1873,7 @@ pre code {
 		unhighlightCutElement();
 		serializeShadowRoots(document);
 		const doc = document.cloneNode(true);
+		disableHighlight(doc);
 		resetSelectedElements(doc);
 		deserializeShadowRoots(doc);
 		deserializeShadowRoots(document);
