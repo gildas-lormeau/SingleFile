@@ -111,34 +111,6 @@
 							resources. This reminds you that you should not close the tab. </p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="displayInfobarLabel" id="displayInfobarOption"> <span class="option">Option:
-							display an infobar when
-							viewing a saved page</span>
-						<p>Check this option to display the ℹ button at the top right of the page when viewing a saved
-							page. By clicking this button, you can get more information about the saved date and open
-							the original URL.</p>
-						<p class="notice">It is recommended to <u>check</u> this option</p>
-					</li>
-					<li data-options-label="infobarTemplateLabel"> <span class="option">Option: template of the infobar
-							content</span>
-						<p>The template allows you to customize the content displayed in the infobar. You can use any
-							valid character, <code>\n</code> for new lines or <code>\t</code> for tabs. You can also use
-							any variables from <a href="#template-variables">this list</a> anywhere in the template. If
-							the template or the resulting content is empty, the infobar will display the saved date by
-							default. </p>
-						<p>Template examples:</p>
-						<ul>
-							<li><code>{url-href} ({date-iso})</code> will produce contents like "https://www.example.com
-								(2018-09-15 11 06 03 PM)".</li>
-							<li><code>Title: {page-title}</code> will produce contents like "Title: Example Domain" for
-								a page having "Example Domain" as title.</li>
-						</ul>
-					</li>
-					<li data-options-label="confirmInfobarLabel"> <span class="option">Option: open a prompt dialog to
-							edit the infobar content</span>
-						<p>Check this option to display a prompt dialog in order to confirm the infobar content before
-							saving the page. </p>
-					</li>
 					<li data-options-label="openSavedPageLabel" id="openSavedPageOption"> <span class="option">Option:
 							open saved pages in a new
 							tab</span>
@@ -230,17 +202,53 @@
 							original attribute name (e.g. "data-sf-original-src", "data-sf-original-href") for HTML
 							contents. For CSS contents, URLs are stored as comments beginning with "original URL:".
 					</li>
-					<li data-options-label="includeInfobarLabel"> <span class="option"></span>: include infobar in
-						the saved page</span>
-						<p>Check this
-							option to display the ℹ button at the top right of the page when viewing a saved page in a
-							browser where SingleFile is not installed.</p>
+					<li data-options-label="removeInfobarSavedDateLabel">
+						<span class="option">Option: do not include the saved date</span>
+						<p>Check this option to remove the saved date included in the saved page and displayed in the
+							infobar.</p>
 					</li>
 					<li data-options-label="saveRawPageLabel"> <span class="option">Option: save raw page</span>
 						<p>Check this option to save the raw HTML file that the browser received. When this option is
 							checked, the page will be saved as if JavaScript was disabled. Checking this option may
 							alter the document.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+					</li>
+				</ul>
+				<p>Infobar</p>
+				<ul>
+					<li data-options-label="displayInfobarLabel" id="displayInfobarOption"> <span class="option">Option:
+							display an infobar when
+							viewing a saved page</span>
+						<p>Check this option to display the ℹ button at the top right of the page when viewing a saved
+							page. By clicking this button, you can get more information about the saved date and open
+							the original URL.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
+					</li>
+					<li data-options-label="infobarTemplateLabel"> <span class="option">Option: template of the infobar
+							content</span>
+						<p>The template allows you to customize the content displayed in the infobar. You can use any
+							valid character, <code>\n</code> for new lines or <code>\t</code> for tabs. You can also use
+							any variables from <a href="#template-variables">this list</a> anywhere in the template. If
+							the template or the resulting content is empty, the infobar will display the saved date by
+							default. </p>
+						<p>Template examples:</p>
+						<ul>
+							<li><code>{url-href} ({date-iso})</code> will produce contents like "https://www.example.com
+								(2018-09-15 11 06 03 PM)".</li>
+							<li><code>Title: {page-title}</code> will produce contents like "Title: Example Domain" for
+								a page having "Example Domain" as title.</li>
+						</ul>
+					</li>
+					<li data-options-label="confirmInfobarLabel"> <span class="option">Option: open a prompt dialog to
+							edit the infobar content</span>
+						<p>Check this option to display a prompt dialog in order to confirm the infobar content before
+							saving the page. </p>
+					</li>
+					<li data-options-label="includeInfobarLabel"> <span class="option"></span>Option: include infobar in
+						the saved page</span>
+						<p>Check this
+							option to display the ℹ button at the top right of the page when viewing a saved page in a
+							browser where SingleFile is not installed.</p>
 					</li>
 				</ul>
 				<p>Stylesheets</p>
