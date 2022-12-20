@@ -176,7 +176,7 @@
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionRemoveInfobarSavedDate": {
-		"message": "do not include the saved date",
+		"message": "nie dołączaj zapisanej daty",
 		"description": "Options page label: 'do not include the saved date'"
 	},
 	"optionConfirmInfobar": {
@@ -248,7 +248,7 @@
 		"description": "Options page label: 'remove hidden elements'"
 	},
 	"optionsInfobarSubTitle": {
-		"message": "Infobar",
+		"message": "Pasek informacyjny",
 		"description": "Options sub-title: 'Infobar'"
 	},
 	"optionsImagesSubTitle": {
