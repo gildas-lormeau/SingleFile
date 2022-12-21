@@ -275,3 +275,4 @@ you are interested in licensing the SingleFile code for a commercial service or
 product.
 
 Suggestions are welcome :)
+
