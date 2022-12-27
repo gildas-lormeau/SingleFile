@@ -248,7 +248,7 @@
 		"description": "Options page label: 'remove hidden elements'"
 	},
 	"optionsInfobarSubTitle": {
-		"message": "Infobar",
+		"message": "Информационная панель",
 		"description": "Options sub-title: 'Infobar'"
 	},
 	"optionsImagesSubTitle": {
