@@ -65,6 +65,7 @@ single-file-note {
 
 .single-file-cut-mode, .single-file-cut-mode * {
     pointer-events: auto !important;
+    touch-action: none !important;
 }
 
 .single-file-cut-hover, .single-file-cut-outer-hover, .single-file-remove-highlights-mode .single-file-highlight:hover {
@@ -76,4 +77,8 @@ single-file-note {
     float: none !important;
     position: static !important;
     visibility: collapse !important;
+}
+
+a[href], img {
+    -webkit-touch-callout: none;
 }
