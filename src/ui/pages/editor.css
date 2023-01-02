@@ -14,7 +14,7 @@ body {
 
 .toolbar {
     display: flex;
-    background-color: transparent;    
+    background-color: transparent;
 }
 
 .buttons {
@@ -34,8 +34,10 @@ img[type=button] {
     max-height: 24px;
 }
 
-img[type=button]:hover {
-    filter: brightness(0.75);
+@media (hover: hover) {
+    img[type=button]:hover {
+        filter: brightness(0.75);
+    }
 }
 
 img[type=button].edit-disabled,
@@ -47,11 +49,13 @@ img[type=button].remove-highlight-disabled {
     filter: brightness(1.25);
 }
 
-img[type=button].edit-disabled:hover,
-img[type=button].cut-disabled:hover,
-.toolbar:not(.cut-inner-mode):not(.remove-highlight-mode) img[type=button].highlight-disabled:hover,
-.toolbar:not(.cut-inner-mode) img[type=button].remove-highlight-disabled:hover {
-    filter: brightness(0.875);
+@media (hover: hover) {
+    img[type=button].edit-disabled:hover,
+    img[type=button].cut-disabled:hover,
+    .toolbar:not(.cut-inner-mode):not(.remove-highlight-mode) img[type=button].highlight-disabled:hover,
+    .toolbar:not(.cut-inner-mode) img[type=button].remove-highlight-disabled:hover {
+        filter: brightness(0.875);
+    }
 }
 
 .separator {
