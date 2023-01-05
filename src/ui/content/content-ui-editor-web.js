@@ -51,6 +51,7 @@
 	const CUT_OUTER_HOVER_CLASS = "single-file-cut-outer-hover";
 	const CUT_SELECTED_CLASS = "single-file-cut-selected";
 	const CUT_OUTER_SELECTED_CLASS = "single-file-cut-outer-selected";
+	const CUT_MODE_CLASS = "single-file-cut-mode";
 	const NOTE_INITIAL_POSITION_X = 20;
 	const NOTE_INITIAL_POSITION_Y = 20;
 	const NOTE_INITIAL_WIDTH = 150;
@@ -1033,24 +1034,19 @@ pre code {
 		}
 		if (message.method == "enableCutInnerPage") {
 			cuttingMode = true;
-			document.documentElement.classList.add("single-file-cut-mode");
+			document.documentElement.classList.add(CUT_MODE_CLASS);
 		}
 		if (message.method == "enableCutOuterPage") {
 			cuttingOuterMode = true;
-			document.documentElement.classList.add("single-file-cut-mode");
+			document.documentElement.classList.add(CUT_MODE_CLASS);
 		}
-		if (message.method == "disableCutInnerPage") {
-			cuttingMode = false;
-			document.documentElement.classList.remove("single-file-cut-mode");
-			resetSelectedElements();
-			if (cuttingPath) {
-				unhighlightCutElement();
-				cuttingPath = null;
+		if (message.method == "disableCutInnerPage" || message.method == "disableCutOuterPage") {
+			if (message.method == "disableCutInnerPage") {
+				cuttingMode = false;
+			} else {
+				cuttingOuterMode = false;
 			}
-		}
-		if (message.method == "disableCutOuterPage") {
-			cuttingOuterMode = false;
-			document.documentElement.classList.remove("single-file-cut-mode");
+			document.documentElement.classList.remove(CUT_MODE_CLASS);
 			resetSelectedElements();
 			if (cuttingPath) {
 				unhighlightCutElement();
@@ -1902,6 +1898,7 @@ pre code {
 		resetSelectedElements(doc);
 		deserializeShadowRoots(doc);
 		deserializeShadowRoots(document);
+		doc.documentElement.classList.remove(CUT_MODE_CLASS);
 		doc.querySelectorAll("[" + DISABLED_NOSCRIPT_ATTRIBUTE_NAME + "]").forEach(element => {
 			element.textContent = element.getAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
 			element.removeAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
