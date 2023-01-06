@@ -526,16 +526,25 @@ async function resetProfile(profileName) {
 
 async function exportConfig() {
 	const config = await getConfig();
-	const url = URL.createObjectURL(new Blob([JSON.stringify({ profiles: config.profiles, rules: config.rules, maxParallelWorkers: config.maxParallelWorkers }, null, 2)], { type: "text/json" }));
-	const downloadInfo = {
-		url,
-		filename: `singlefile-settings-${(new Date()).toISOString().replace(/:/g, "_")}.json`,
-		saveAs: true
-	};
-	try {
-		await download(downloadInfo, "_");
-	} finally {
-		URL.revokeObjectURL(url);
+	const textContent = JSON.stringify({ profiles: config.profiles, rules: config.rules, maxParallelWorkers: config.maxParallelWorkers }, null, 2);
+	const filename = `singlefile-settings-${(new Date()).toISOString().replace(/:/g, "_")}.json`;
+	if (IS_NOT_SAFARI) {
+		const url = URL.createObjectURL(new Blob([textContent], { type: "text/json" }));
+		try {
+			await download({
+				url,
+				filename,
+				saveAs: true
+			}, "_");
+		} finally {
+			URL.revokeObjectURL(url);
+		}
+		return {};
+	} else {
+		return {
+			filename,
+			textContent
+		};
 	}
 }
 
