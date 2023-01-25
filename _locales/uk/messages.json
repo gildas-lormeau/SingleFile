@@ -4,7 +4,7 @@
 		"description": "Description of the extension."
 	},
 	"commandSaveSelectedTabs": {
-		"message": "Save the selected tabs or their selected contents",
+		"message": "Зберегти вибрані вкладки або їх вибраний вміст",
 		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
 	},
 	"commandSaveAllTabs": {
@@ -16,11 +16,11 @@
 		"description": "Menu entry: 'Save page with SingleFile'"
 	},
 	"menuSaveSelectedLinks": {
-		"message": "Save selected links",
+		"message": "Зберегти вибрані посилання",
 		"description": "Menu entry: 'Save selected links'"
 	},
 	"menuEditPage": {
-		"message": "Annotate the page...",
+		"message": "Анотувати сторінку...",
 		"description": "Menu entry: 'Annotate the page...'"
 	},
 	"menuEditAndSavePage": {
@@ -28,11 +28,11 @@
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
 	"menuSaveWithProfile": {
-		"message": "Save page with profile",
+		"message": "Зберегти сторінку з профілем",
 		"description": "Menu entry: 'Save with profile'"
 	},
 	"menuViewPendingSaves": {
-		"message": "View pending saves...",
+		"message": "Перегляд відкладених збережень...",
 		"description": "Menu entry: 'View pending saves...'"
 	},
 	"menuSelectProfile": {
@@ -72,7 +72,7 @@
 		"description": "Menu entry: 'Save all tabs'"
 	},
 	"menuBatchSaveUrls": {
-		"message": "Batch save URLs...",
+		"message": "Пакетне збереження URL-адрес...",
 		"description": "Menu entry: 'Batch save URLs...'"
 	},
 	"menuAutoSave": {
@@ -120,7 +120,7 @@
 		"description": "Button title during save: 'Save progress: xx%'"
 	},
 	"buttonUploadProgressTooltip": {
-		"message": "Upload progress: ",
+		"message": "Прогрес завантаження: ",
 		"description": "Button title during save: 'Upload progress: xx%'"
 	},
 	"buttonOKBadge": {
@@ -128,7 +128,7 @@
 		"description": "Badge label: 'OK'"
 	},
 	"buttonErrorBadge": {
-		"message": "ERROR",
+		"message": "ERR",
 		"description": "Badge label for unexpected errors"
 	},
 	"buttonAutoSaveActiveTooltip": {
@@ -164,16 +164,20 @@
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionBlockMixedContent": {
-		"message": "block mixed content",
+		"message": "блок змішаного наповнення",
 		"description": "Options page label: 'block mixed content'"
 	},
 	"optionSaveOriginalURLs": {
-		"message": "save original URLs of embedded resources",
+		"message": "зберігати оригінальні URL-адреси вбудованих ресурсів",
 		"description": "Options page label: 'save original URLs of embedded resources'"
 	},
 	"optionIncludeInfobar": {
 		"message": "додавати інформ. панель в сторінку що зберігається",
 		"description": "Options page label: 'include the infobar in the saved page'"
+	},
+	"optionRemoveInfobarSavedDate": {
+		"message": "не включати збережену дату",
+		"description": "Options page label: 'do not include the saved date'"
 	},
 	"optionConfirmInfobar": {
 		"message": "відкривати діалогове вікно для редагування вмісту інформаційної панелі",
@@ -200,7 +204,7 @@
 		"description": "Options page label: 'bytes'"
 	},
 	"optionFilenameMaxLengthCharsUnit": {
-		"message": "characters",
+		"message": "символи",
 		"description": "Options page label: 'characters'"
 	},
 	"optionConfirmFilename": {
@@ -224,7 +228,7 @@
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionFilenameConflictActionSkip": {
-		"message": "skip duplicate files",
+		"message": "пропускати дублікати файлів",
 		"description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
 	},
 	"optionsHTMLContentSubTitle": {
@@ -232,7 +236,7 @@
 		"description": "Options sub-title: 'HTML content'"
 	},
 	"optionCompressHTML": {
-		"message": "стискати вміст HTML ",
+		"message": "стискати вміст HTML",
 		"description": "Options page label: 'compress HTML content'"
 	},
 	"optionRemoveFrames": {
@@ -242,6 +246,10 @@
 	"optionRemoveHiddenElements": {
 		"message": "видалити приховані елементи",
 		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsInfobarSubTitle": {
+		"message": "Інфобар",
+		"description": "Options sub-title: 'Infobar'"
 	},
 	"optionsImagesSubTitle": {
 		"message": "Зображення",
@@ -260,11 +268,11 @@
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
 	"optionLoadDeferredImagesKeepZoomLevel": {
-		"message": "zoom out the page",
+		"message": "зменшити масштаб сторінки",
 		"description": "Options page label: 'zoom out the page'"
 	},
 	"optionLoadDeferredImagesDispatchScrollEvent": {
-		"message": "dispatch \"scroll\" event",
+		"message": "відправка події \"прокрутка\"",
 		"description": "Options page label: 'dispatch \"scroll\" event'"
 	},
 	"optionRemoveAlternativeImages": {
@@ -292,7 +300,7 @@
 		"description": "Options page label: 'compress CSS content'"
 	},
 	"optionMoveStylesInHead": {
-		"message": "move in the head element the styles found outside of it",
+		"message": "переміщати в елемент head стилі, що знаходяться за його межами",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionRemoveUnusedStyles": {
@@ -304,51 +312,51 @@
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
 	"optionsNetworkSubTitle": {
-		"message": "Network",
+		"message": "Мережа",
 		"description": "Options sub-title: 'Network'"
 	},
 	"optionsBlockedResources": {
-		"message": "blocked resources",
+		"message": "заблоковані ресурси",
 		"description": "Options page label: 'blocked resources'"
 	},
 	"optionsAcceptHeaders": {
-		"message": "\"Accept\" header",
+		"message": "заголовок \"Accept\"",
 		"description": "Options page label: '\"Accept\" header'"
 	},
 	"optionResourceScript": {
-		"message": "scripts",
+		"message": "скрипти",
 		"description": "Options page label: 'scripts'"
 	},
 	"optionResourceVideo": {
-		"message": "videos",
+		"message": "відеоролики",
 		"description": "Options page label: 'videos'"
 	},
 	"optionResourceAudio": {
-		"message": "audios",
+		"message": "аудіозаписи",
 		"description": "Options page label: 'audios'"
 	},
 	"optionResourceDocument": {
-		"message": "documents",
+		"message": "документи",
 		"description": "Options page label: 'documents'"
 	},
 	"optionResourceFont": {
-		"message": "fonts",
+		"message": "шрифти",
 		"description": "Options page label: 'fonts'"
 	},
 	"optionResourceStylesheet": {
-		"message": "stylesheets",
+		"message": "таблиці стилів",
 		"description": "Options page label: 'stylesheets'"
 	},
 	"optionResourceImage": {
-		"message": "images",
+		"message": "зображення",
 		"description": "Options page label: 'images'"
 	},
 	"optionsDestinationSubTitle": {
-		"message": "Destination",
+		"message": "Пункт призначення",
 		"description": "Options sub-title: 'Destination'"
 	},
 	"optionsBookmarkSubTitle": {
-		"message": "Bookmarks",
+		"message": "Закладки",
 		"description": "Options sub-title: 'Bookmarks'"
 	},
 	"optionsAutoSaveSubTitle": {
@@ -424,11 +432,11 @@
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
-		"message": "auto-save on tab discard",
+		"message": "автозбереження на вкладці відкинути",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
-		"message": "auto-save on tab removal",
+		"message": "автозбереження при видаленні вкладки",
 		"description": "Options page label: 'auto-save on tab removal'"
 	},
 	"optionAutoSaveDelay": {
@@ -444,11 +452,11 @@
 		"description": "Options page label: 'period (s)'"
 	},
 	"optionAutoSaveExternalSave": {
-		"message": "save the page with SingleFile Companion",
+		"message": "зберегти сторінку за допомогою програми SingleFile Companion",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
 	},
 	"optionsEditorSubTitle": {
-		"message": "Annotation editor",
+		"message": "Редактор анотацій",
 		"description": "Options sub-title: 'Annotation editor'"
 	},
 	"optionOpenEditor": {
@@ -456,43 +464,43 @@
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionOpenSavedPage": {
-		"message": "open saved pages in a new tab",
+		"message": "відкривати збережені сторінки в новій вкладці",
 		"description": "Options page label: 'open saved pages in a new tab'"
 	},
 	"optionAutoOpenEditor": {
-		"message": "open pages saved with SingleFile in the annotation editor",
+		"message": "відкривати сторінки, збережені за допомогою SingleFile, в редакторі анотацій",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionDefaultEditorMode": {
-		"message": "default mode",
+		"message": "режим за замовчуванням",
 		"description": "Options page label: 'default mode'"
 	},
 	"optionDefaultEditorModeNormal": {
-		"message": "normal",
+		"message": "нормальний",
 		"description": "Options page label: 'default mode > normal'"
 	},
 	"optionDefaultEditorModeEdit": {
-		"message": "edit the page",
+		"message": "редагувати сторінку",
 		"description": "Options page label: 'default mode > edit the page'"
 	},
 	"optionDefaultEditorModeFormat": {
-		"message": "format the page",
+		"message": "відформатувати сторінку",
 		"description": "Options page label: 'default mode > format the page'"
 	},
 	"optionDefaultEditorModeCut": {
-		"message": "remove elements",
+		"message": "зняти елементи",
 		"description": "Options page label: 'default mode > remove elements'"
 	},
 	"optionDefaultEditorModeCutExternal": {
-		"message": "remove external elements",
+		"message": "зняти зовнішні елементи",
 		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
-		"message": "apply the system theme when formatting a page",
+		"message": "застосовувати системну тему при форматуванні сторінки",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionWarnUnsavedPage": {
-		"message": "warn if leaving page with unsaved changes",
+		"message": "попереджати при виході зі сторінки з незбереженими змінами",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
 	"optionsMiscSubTitle": {
@@ -508,7 +516,7 @@
 		"description": "Options page label: 'display stats in the console after processing'"
 	},
 	"optionSetMaxResourceSize": {
-		"message": "set maximum size",
+		"message": "встановити максимальний розмір",
 		"description": "Options page label: 'set maximum size'"
 	},
 	"optionMaxResourceSize": {
@@ -516,15 +524,15 @@
 		"description": "Options page label: 'maximum size (MB)'"
 	},
 	"optionSetMaxResourceDelay": {
-		"message": "set maximum download time",
+		"message": "встановити максимальний час завантаження",
 		"description": "Options page label: 'set maximum download time'"
 	},
 	"optionMaxResourceDelay": {
-		"message": "maximum download time (s)",
+		"message": "максимальний час завантаження (с)",
 		"description": "Options page label: 'maximum download time (s)'"
 	},
 	"optionPassReferrerOnError": {
-		"message": "pass \"Referer\" header after a cross-origin request error",
+		"message": "передача заголовка \"Referer\" після помилки перехресного запиту",
 		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
 	},
 	"optionSaveRawPage": {
@@ -532,7 +540,7 @@
 		"description": "Options page label: 'save raw page'"
 	},
 	"optionInsertMetaCSP": {
-		"message": "set content security policy",
+		"message": "встановити політику безпеки контенту",
 		"description": "Options page label: 'set content security policy'"
 	},
 	"optionSaveToClipboard": {
@@ -540,11 +548,11 @@
 		"description": "Options page label: 'copy to clipboard'"
 	},
 	"optionSaveToFilesystem": {
-		"message": "save to filesystem",
+		"message": "збереження у файлову систему",
 		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionAddProof": {
-		"message": "add proof of existence",
+		"message": "додати докази існування",
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
@@ -552,35 +560,35 @@
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionWoleetKey": {
-		"message": "access token",
+		"message": "токен доступу",
 		"description": "Options page label: 'access token'"
 	},
 	"optionSaveToGDrive": {
-		"message": "upload to Google Drive",
+		"message": "завантажити на Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveToGitHub": {
-		"message": "upload to GitHub",
+		"message": "завантажити на GitHub",
 		"description": "Options page label: 'upload to GitHub'"
 	},
 	"optionGitHubToken": {
-		"message": "access token",
+		"message": "токен доступу",
 		"description": "Options page label: 'access token'"
 	},
 	"optionGitHubUser": {
-		"message": "user name",
+		"message": "ім'я користувача",
 		"description": "Options page label: 'user name'"
 	},
 	"optionGitHubRepository": {
-		"message": "repository name",
+		"message": "назва сховища",
 		"description": "Options page label: 'repository name'"
 	},
 	"optionGitHubBranch": {
-		"message": "branch name",
+		"message": "назва філії",
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveWithWebDAV": {
-		"message": "upload to a WebDAV server",
+		"message": "вивантаження на WebDAV-сервер",
 		"description": "Options page label: 'upload to a WebDAV server'"
 	},
 	"optionWebDAVURL": {
@@ -588,31 +596,31 @@
 		"description": "Options page label: 'URL'"
 	},
 	"optionWebDAVUser": {
-		"message": "user identifier",
+		"message": "ідентифікатор користувача",
 		"description": "Options page label: 'user identifier'"
 	},
 	"optionWebDAVPassword": {
-		"message": "password",
+		"message": "пароль",
 		"description": "Options page label: 'password'"
 	},
 	"optionSaveWithCompanion": {
-		"message": "save with SingleFile Companion",
+		"message": "зберегти за допомогою програми SingleFile Companion",
 		"description": "Options page label: 'save with SingleFile Companion'"
 	},
 	"optionSaveCreatedBookmarks": {
-		"message": "save the page of a newly created bookmark",
+		"message": "зберегти сторінку новоствореної закладки",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionReplaceBookmarkURL": {
-		"message": "link the new bookmark to the saved page",
+		"message": "прив'язати нову закладку до збереженої сторінки",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
 	"optionAllowedBookmarkFolders": {
-		"message": "allowed folders",
+		"message": "дозволені папки",
 		"description": "Options page label: 'allowed folders'"
 	},
 	"optionIgnoredBookmarkFolders": {
-		"message": "ignored folders",
+		"message": "ігноровані папки",
 		"description": "Options page label: 'ignored folders'"
 	},
 	"optionsHelpLink": {
@@ -620,7 +628,7 @@
 		"description": "Options help link"
 	},
 	"optionSynchronize": {
-		"message": "synchronize options",
+		"message": "параметри синхронізації",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionsResetButton": {
@@ -756,27 +764,27 @@
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorFormatPage": {
-		"message": "Format the page for better readability",
+		"message": "Відформатуйте сторінку для кращої читабельності",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "Enable/disable removing of internal elements",
+		"message": "Увімкнути/вимкнути зняття внутрішніх елементів",
 		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "Enable/disable removing of external elements",
+		"message": "Увімкнути/вимкнути зняття зовнішніх елементів",
 		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
-		"message": "Restore last removed element",
+		"message": "Відновлення останнього видаленого елемента",
 		"description": "Title of the button 'Restore last removed element' in the editor"
 	},
 	"editorUndoAllCutPage": {
-		"message": "Restore all removed elements",
+		"message": "Відновити всі видалені елементи",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
 	"editorRedoCutPage": {
-		"message": "Remove last restored element",
+		"message": "Видалити останній відновлений елемент",
 		"description": "Title of the button 'Remove last restored element' in the editor"
 	},
 	"editorSavePage": {
@@ -784,15 +792,15 @@
 		"description": "Title of the button 'Save the page' in the editor"
 	},
 	"editorPrintPage": {
-		"message": "Print the page",
+		"message": "Роздрукувати сторінку",
 		"description": "Title of the button 'Print the page' in the editor"
 	},
 	"pendingsTitle": {
-		"message": "Pending saves",
+		"message": "Очікують на збереження",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
 	},
 	"pendingsCancelAllButton": {
-		"message": "Cancel all",
+		"message": "Скасувати все",
 		"description": "Pending saves button 'Cancel all'"
 	},
 	"pendingsURLTitle": {
@@ -800,35 +808,35 @@
 		"description": "Title of the first column in the table of the pending saves 'URL'"
 	},
 	"pendingsTitleTitle": {
-		"message": "Title",
+		"message": "Назва",
 		"description": "Title of the first column in the table of the pending saves 'Title'"
 	},
 	"pendingsStatusTitle": {
-		"message": "status",
+		"message": "статус",
 		"description": "Title of the second column in the table of the pending saves 'status'"
 	},
 	"pendingsPendingStatus": {
-		"message": "pending",
+		"message": "на розгляді",
 		"description": "Value of 'status' for pending saves"
 	},
 	"pendingsProcessingStatus": {
-		"message": "processing",
+		"message": "переробка",
 		"description": "Value of 'status' for current saves"
 	},
 	"pendingsCancellingStatus": {
-		"message": "cancelling",
+		"message": "скасування",
 		"description": "Value of 'status' for cancelled saves"
 	},
 	"pendingsNoPendings": {
-		"message": "No pending saves",
+		"message": "Відкладених збережень немає",
 		"description": "Label displayed when they are no pending saves"
 	},
 	"pendingsAddUrlsButton": {
-		"message": "Add URLs",
+		"message": "Додати URL-адреси",
 		"description": "button 'Add URLs'"
 	},
 	"pendingsAddUrls": {
-		"message": "Enter a list of URLs separated by a new line",
+		"message": "Введіть список URL-адрес через новий рядок",
 		"description": "Label of the add URLs input"
 	},
 	"pendingsAddUrlsOKButton": {
@@ -836,31 +844,31 @@
 		"description": "Add URLs popup confirm button: 'OK'"
 	},
 	"pendingsAddUrlsCancelButton": {
-		"message": "Cancel",
+		"message": "Скасувати",
 		"description": "Add URLs popup cancel button: 'Cancel'"
 	},
 	"batchSaveUrlsTitle": {
-		"message": "Batch save URLs",
+		"message": "Пакетне збереження URL-адрес",
 		"description": "Title of the 'batch save URLs' page"
 	},
 	"batchSaveUrlsNoURLs": {
-		"message": "No URLs",
+		"message": "Немає URL-адрес",
 		"description": "Label displayed when they are no URLs"
 	},
 	"batchSaveUrlsAddUrlButton": {
-		"message": "Add URL",
+		"message": "Додати URL-адресу",
 		"description": "label of the button 'Add URL'"
 	},
 	"batchSaveUrlsAddUrlsButton": {
-		"message": "Add URLs...",
+		"message": "Додати URL-адреси",
 		"description": "label of the button 'Add URLs...'"
 	},
 	"batchSaveUrlsRemoveAllButton": {
-		"message": "Remove all",
+		"message": "Видалити всі",
 		"description": "label of the button 'Remove all'"
 	},
 	"batchSaveUrlsSavePagesButton": {
-		"message": "Save pages",
+		"message": "Зберегти сторінки",
 		"description": "label of the button 'Save pages'"
 	},
 	"batchSaveUrlsURLTitle": {

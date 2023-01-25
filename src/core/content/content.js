@@ -115,6 +115,7 @@ async function savePage(message) {
 async function processPage(options) {
 	const frames = singlefile.processors.frameTree;
 	let framesSessionId;
+	options.keepFilename = options.saveToGDrive || options.saveToGitHub || options.saveWithWebDAV;
 	singlefile.helper.initDoc(document);
 	ui.onStartPage(options);
 	processor = new singlefile.SingleFile(options);

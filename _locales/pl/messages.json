@@ -175,6 +175,10 @@
 		"message": "dołączaj pasek informacyjny do zapisanej strony",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
+	"optionRemoveInfobarSavedDate": {
+		"message": "nie dołączaj zapisanej daty",
+		"description": "Options page label: 'do not include the saved date'"
+	},
 	"optionConfirmInfobar": {
 		"message": "otwieraj okno dialogowe z monitem, aby edytować zawartość paska informacyjnego",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
@@ -242,6 +246,10 @@
 	"optionRemoveHiddenElements": {
 		"message": "usuwaj ukryte elementy",
 		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsInfobarSubTitle": {
+		"message": "Pasek informacyjny",
+		"description": "Options sub-title: 'Infobar'"
 	},
 	"optionsImagesSubTitle": {
 		"message": "Obrazy",
@@ -361,7 +369,7 @@
 	},
 	"optionsDeleteDisplayedRulesConfirm": {
 		"message": "Potwierdź usunięcie wszystkich wyświetlanych reguł",
-		"description": "Popup text 'Confirm deletion of all displayed rules'"
+		"description": "Popup text 'Confirm the deletion of all displayed rules'"
 	},
 	"optionsDeleteRulesTooltip": {
 		"message": "Usuń wszystkie wyświetlane reguły",
@@ -701,7 +709,7 @@
 	},
 	"profileDeleteConfirm": {
 		"message": "Potwierdź usunięcie wybranego profilu",
-		"description": "Popup text 'Confirm deletion of the selected profile' in the options page"
+		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
 	},
 	"profileRenamePrompt": {
 		"message": "Wpisz nową nazwę wybranego profilu",

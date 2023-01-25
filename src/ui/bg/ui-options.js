@@ -21,12 +21,41 @@
  *   Source.
  */
 
-/* global browser, window, document, localStorage, FileReader, location, fetch, TextDecoder, DOMParser, HTMLElement */
+/* global browser, window, document, localStorage, FileReader, location, fetch, TextDecoder, DOMParser, HTMLElement, MouseEvent */
 
 const HELP_ICON_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABIUlEQVQ4y+2TsarCMBSGvxTBRdqiUZAWOrhJB9EXcPKFfCvfQYfulUKHDqXg4CYUJSioYO4mSDX3ttzt3n87fMlHTpIjlsulxpDZbEYYhgghSNOUOI5Ny2mZYBAELBYLer0eAJ7ncTweKYri4x7LJJRS0u12n7XrukgpjSc0CpVSXK/XZ32/31FKNW85z3PW6zXT6RSAJEnIsqy5UGvNZrNhu90CcDqd+C6tT6J+v//2Th+PB2VZ1hN2Oh3G4zGTyQTbtl/YbrdjtVpxu91+Ljyfz0RRhG3bzOfzF+Y4TvNXvlwuaK2pE4tfzr/wzwsty0IIURlL0998KxRCMBqN8H2/wlzXJQxD2u12vVkeDoeUZUkURRU+GAw4HA7s9/sK+wK6CWHasQ/S/wAAAABJRU5ErkJggg==";
 const HELP_PAGE_PATH = "/src/ui/pages/help.html";
-let DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME, CURRENT_PROFILE_NAME;
-browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => ({ DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME, CURRENT_PROFILE_NAME } = data));
+let DEFAULT_PROFILE_NAME,
+	DISABLED_PROFILE_NAME,
+	CURRENT_PROFILE_NAME,
+	BACKGROUND_SAVE_SUPPORTED,
+	AUTO_SAVE_SUPPORTED,
+	OPEN_SAVED_PAGE_SUPPORTED,
+	AUTO_OPEN_EDITOR_SUPPORTED,
+	INFOBAR_SUPPORTED,
+	BOOKMARKS_API_SUPPORTED,
+	IDENTITY_API_SUPPORTED,
+	CLIPBOARD_API_SUPPORTED,
+	NATIVE_API_API_SUPPORTED,
+	WEB_BLOCKING_API_SUPPORTED;
+browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
+	({
+		DEFAULT_PROFILE_NAME,
+		DISABLED_PROFILE_NAME,
+		CURRENT_PROFILE_NAME,
+		BACKGROUND_SAVE_SUPPORTED,
+		AUTO_SAVE_SUPPORTED,
+		OPEN_SAVED_PAGE_SUPPORTED,
+		AUTO_OPEN_EDITOR_SUPPORTED,
+		INFOBAR_SUPPORTED,
+		BOOKMARKS_API_SUPPORTED,
+		IDENTITY_API_SUPPORTED,
+		CLIPBOARD_API_SUPPORTED,
+		NATIVE_API_API_SUPPORTED,
+		WEB_BLOCKING_API_SUPPORTED
+	} = data);
+	init();
+});
 const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsLabel");
 const removeUnusedStylesLabel = document.getElementById("removeUnusedStylesLabel");
 const removeUnusedFontsLabel = document.getElementById("removeUnusedFontsLabel");
@@ -108,6 +137,7 @@ const titleLabel = document.getElementById("titleLabel");
 const userInterfaceLabel = document.getElementById("userInterfaceLabel");
 const filenameLabel = document.getElementById("filenameLabel");
 const htmlContentLabel = document.getElementById("htmlContentLabel");
+const infobarLabel = document.getElementById("infobarLabel");
 const imagesLabel = document.getElementById("imagesLabel");
 const stylesheetsLabel = document.getElementById("stylesheetsLabel");
 const fontsLabel = document.getElementById("fontsLabel");
@@ -137,6 +167,7 @@ const infobarTemplateLabel = document.getElementById("infobarTemplateLabel");
 const blockMixedContentLabel = document.getElementById("blockMixedContentLabel");
 const saveOriginalURLsLabel = document.getElementById("saveOriginalURLsLabel");
 const includeInfobarLabel = document.getElementById("includeInfobarLabel");
+const removeInfobarSavedDateLabel = document.getElementById("removeInfobarSavedDateLabel");
 const miscLabel = document.getElementById("miscLabel");
 const helpLabel = document.getElementById("helpLabel");
 const synchronizeLabel = document.getElementById("synchronizeLabel");
@@ -225,6 +256,7 @@ const infobarTemplateInput = document.getElementById("infobarTemplateInput");
 const blockMixedContentInput = document.getElementById("blockMixedContentInput");
 const saveOriginalURLsInput = document.getElementById("saveOriginalURLsInput");
 const includeInfobarInput = document.getElementById("includeInfobarInput");
+const removeInfobarSavedDateInput = document.getElementById("removeInfobarSavedDateInput");
 const confirmInfobarInput = document.getElementById("confirmInfobarInput");
 const autoCloseInput = document.getElementById("autoCloseInput");
 const openEditorInput = document.getElementById("openEditorInput");
@@ -264,7 +296,6 @@ const promptCancelButton = document.getElementById("promptCancelButton");
 const promptConfirmButton = document.getElementById("promptConfirmButton");
 const manifest = browser.runtime.getManifest();
 const requestPermissionIdentity = manifest.optional_permissions && manifest.optional_permissions.includes("identity");
-
 let sidePanelDisplay;
 if (location.href.endsWith("#side-panel")) {
 	sidePanelDisplay = true;
@@ -401,7 +432,14 @@ resetButton.addEventListener("click", async event => {
 	}
 }, false);
 exportButton.addEventListener("click", async () => {
-	await browser.runtime.sendMessage({ method: "config.exportConfig" });
+	const response = await browser.runtime.sendMessage({ method: "config.exportConfig" });
+	if (response.filename && response.textContent) {
+		const link = document.createElement("a");
+		link.download = response.filename;
+		link.href = "data:application/octet-stream," + response.textContent;
+		link.target = "_blank";
+		link.dispatchEvent(new MouseEvent("click"));
+	}
 }, false);
 importButton.addEventListener("click", () => {
 	fileInput.onchange = async () => {
@@ -596,6 +634,7 @@ titleLabel.textContent = browser.i18n.getMessage("optionsTitle");
 userInterfaceLabel.textContent = browser.i18n.getMessage("optionsUserInterfaceSubTitle");
 filenameLabel.textContent = browser.i18n.getMessage("optionsFileNameSubTitle");
 htmlContentLabel.textContent = browser.i18n.getMessage("optionsHTMLContentSubTitle");
+infobarLabel.textContent = browser.i18n.getMessage("optionsInfobarSubTitle");
 imagesLabel.textContent = browser.i18n.getMessage("optionsImagesSubTitle");
 stylesheetsLabel.textContent = browser.i18n.getMessage("optionsStylesheetsSubTitle");
 fontsLabel.textContent = browser.i18n.getMessage("optionsFontsSubTitle");
@@ -611,6 +650,7 @@ infobarTemplateLabel.textContent = browser.i18n.getMessage("optionInfobarTemplat
 blockMixedContentLabel.textContent = browser.i18n.getMessage("optionBlockMixedContent");
 saveOriginalURLsLabel.textContent = browser.i18n.getMessage("optionSaveOriginalURLs");
 includeInfobarLabel.textContent = browser.i18n.getMessage("optionIncludeInfobar");
+removeInfobarSavedDateLabel.textContent = browser.i18n.getMessage("optionRemoveInfobarSavedDate");
 confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
 autoCloseLabel.textContent = browser.i18n.getMessage("optionAutoClose");
 editorLabel.textContent = browser.i18n.getMessage("optionsEditorSubTitle");
@@ -655,6 +695,43 @@ browser.runtime.sendMessage({ method: "tabsData.get" }).then(allTabsData => {
 	return refresh(tabsData.profileName);
 });
 getHelpContents();
+
+function init() {
+	if (!AUTO_SAVE_SUPPORTED) {
+		document.getElementById("autoSaveSection").hidden = true;
+		document.getElementById("showAutoSaveProfileOption").hidden = true;
+		rulesContainerElement.classList.add("compact");
+	}
+	if (!BACKGROUND_SAVE_SUPPORTED) {
+		document.getElementById("backgroundSaveOptions").hidden = true;
+		document.getElementById("confirmFilenameOption").hidden = true;
+		document.getElementById("filenameConflictAction").hidden = true;
+	}
+	if (!BOOKMARKS_API_SUPPORTED) {
+		document.getElementById("bookmarksOptions").hidden = true;
+	}
+	if (!OPEN_SAVED_PAGE_SUPPORTED) {
+		document.getElementById("openSavedPageOption").hidden = true;
+	}
+	if (!AUTO_OPEN_EDITOR_SUPPORTED) {
+		document.getElementById("autoOpenEditorOption").hidden = true;
+	}
+	if (!INFOBAR_SUPPORTED) {
+		document.getElementById("displayInfobarOption").hidden = true;
+	}
+	if (!IDENTITY_API_SUPPORTED) {
+		document.getElementById("saveToGDriveOption").hidden = true;
+	}
+	if (!CLIPBOARD_API_SUPPORTED) {
+		document.getElementById("saveToClipboardOption").hidden = true;
+	}
+	if (!NATIVE_API_API_SUPPORTED) {
+		document.getElementById("saveWithCompanionOption").hidden = true;
+	}
+	if (!WEB_BLOCKING_API_SUPPORTED) {
+		document.getElementById("passReferrerOnErrorOption").hidden = true;
+	}
+}
 
 async function refresh(profileName) {
 	const [profiles, rules, companionState] = await Promise.all([
@@ -845,6 +922,7 @@ async function refresh(profileName) {
 	blockMixedContentInput.checked = profileOptions.blockMixedContent;
 	saveOriginalURLsInput.checked = profileOptions.saveOriginalURLs;
 	includeInfobarInput.checked = profileOptions.includeInfobar;
+	removeInfobarSavedDateInput.checked = profileOptions.removeSavedDate;
 	confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
 	autoCloseInput.checked = profileOptions.autoClose;
 	openEditorInput.checked = profileOptions.openEditor;
@@ -946,6 +1024,7 @@ async function update() {
 			blockMixedContent: blockMixedContentInput.checked,
 			saveOriginalURLs: saveOriginalURLsInput.checked,
 			includeInfobar: includeInfobarInput.checked,
+			removeSavedDate: removeInfobarSavedDateInput.checked,
 			confirmInfobarContent: confirmInfobarInput.checked,
 			autoClose: autoCloseInput.checked,
 			openEditor: openEditorInput.checked,
@@ -1035,6 +1114,8 @@ async function onClickSaveToGDrive() {
 				if (permissionGranted) {
 					saveToGDriveInput.checked = true;
 				}
+			} else {
+				saveToGDriveInput.checked = true;
 			}
 		} catch (error) {
 			saveToGDriveInput.checked = false;

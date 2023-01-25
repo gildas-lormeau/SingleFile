@@ -175,6 +175,10 @@
 		"message": "добавить информационную панель в сохраняемую страницу",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
+	"optionRemoveInfobarSavedDate": {
+		"message": "не включать дату сохранения",
+		"description": "Options page label: 'do not include the saved date'"
+	},
 	"optionConfirmInfobar": {
 		"message": "открыть диалоговое окно для редактирования содержимого информационной панели",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
@@ -242,6 +246,10 @@
 	"optionRemoveHiddenElements": {
 		"message": "удалить скрытые элементы",
 		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsInfobarSubTitle": {
+		"message": "Информационная панель",
+		"description": "Options sub-title: 'Infobar'"
 	},
 	"optionsImagesSubTitle": {
 		"message": "Изображения",
@@ -369,7 +377,7 @@
 	},
 	"optionsAutoSettingsUrl": {
 		"message": "URL",
-		"description": "Options label in the Auto-settings rules: 'URL'"
+		"description": "Options label in the auto-settings rules: 'URL'"
 	},
 	"optionsAutoSettingsUrlPlaceholder": {
 		"message": "Введите полный или частичный URL (например, example.com)",

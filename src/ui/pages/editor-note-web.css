@@ -28,13 +28,20 @@
     overflow: hidden;
 }
 
+.note blockquote {
+    all: initial;
+    padding: 1px;
+    height: 100%;
+}
+
 .note textarea {
     all: initial;
     white-space: break-spaces;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
-    padding: 3px;
     height: 100%;
+    width: 100%;
+    padding: 2px;
     border: 1px solid transparent;
     resize: none;
     color: black;
@@ -116,7 +123,7 @@
     background-color: #f5f545;
 }
 
-.note-yellow textarea {
+.note-yellow blockquote {
     background-color: #ffff7c;
 }
 
@@ -124,7 +131,7 @@
     background-color: #ffa59f;
 }
 
-.note-pink textarea {
+.note-pink blockquote {
     background-color: #ffbbb6;
 }
 
@@ -132,7 +139,7 @@
     background-color: #84c8ff;
 }
 
-.note-blue textarea {
+.note-blue blockquote {
     background-color: #95d0ff;
 }
 
@@ -140,6 +147,6 @@
     background-color: #93ef8d;
 }
 
-.note-green textarea {
+.note-green blockquote {
     background-color: #9cff95;
 }

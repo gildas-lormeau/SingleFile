@@ -23,6 +23,7 @@
 
 /* global browser */
 
+import * as config from "./../../core/bg/config.js";
 import { queryTabs } from "./../../core/bg/tabs-util.js";
 import * as tabsData from "./../../core/bg/tabs-data.js";
 import { autoSaveIsEnabled } from "../../core/bg/autosave-util.js";
@@ -258,7 +259,8 @@ async function refreshAsync(tabId, state) {
 }
 
 async function refreshProperty(tabId, browserActionMethod, browserActionParameter) {
-	if (browser.browserAction[browserActionMethod]) {
+	const actionMethodSupported = browserActionMethod != "setBadgeBackgroundColor" || config.BADGE_COLOR_SUPPORTED;
+	if (browser.browserAction[browserActionMethod] && actionMethodSupported) {
 		const parameter = JSON.parse(JSON.stringify(browserActionParameter));
 		parameter.tabId = tabId;
 		await browser.browserAction[browserActionMethod](parameter);

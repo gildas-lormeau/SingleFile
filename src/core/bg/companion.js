@@ -38,37 +38,37 @@ async function onMessage(message) {
 	}
 }
 
-async function externalSave(options) {
-	options.autoSaveExternalSave = false;
-	const port = browser.runtime.connectNative("singlefile_companion");
-	port.postMessage({
-		method: "externalSave",
-		pageData: options
-	});
-	await new Promise((resolve, reject) => {
-		port.onDisconnect.addListener(() => {
-			if (port.error) {
-				reject(new Error(port.error.message + " (Companion)"));
-			} else if (!browser.runtime.lastError || browser.runtime.lastError.message.includes("Native host has exited")) {
-				resolve();
-			}
+async function externalSave(pageData) {
+	pageData.autoSaveExternalSave = false;
+	let response;
+	try {
+		response = await browser.runtime.sendNativeMessage("singlefile_companion", {
+			method: "externalSave",
+			pageData
 		});
-	});
+	} catch (error) {
+		if (!error.message || !error.message.includes("Native host has exited")) {
+			throw error;
+		}
+	}
+	if (response && response.error) {
+		throw new Error(response.error + " (Companion)");
+	}
 }
 
 async function save(pageData) {
-	const port = browser.runtime.connectNative("singlefile_companion");
-	port.postMessage({
-		method: "save",
-		pageData
-	});
-	await new Promise((resolve, reject) => {
-		port.onDisconnect.addListener(() => {
-			if (port.error) {
-				reject(new Error(port.error.message + " (Companion)"));
-			} else if (!browser.runtime.lastError || browser.runtime.lastError.message.includes("Native host has exited")) {
-				resolve();
-			}
+	let response;
+	try {
+		response = await browser.runtime.sendNativeMessage("singlefile_companion", {
+			method: "save",
+			pageData
 		});
-	});
+	} catch (error) {
+		if (!error.message || !error.message.includes("Native host has exited")) {
+			throw error;
+		}
+	}
+	if (response && response.error) {
+		throw new Error(response.error + " (Companion)");
+	}
 }

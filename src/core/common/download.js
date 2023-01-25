@@ -98,7 +98,7 @@ async function downloadPageForeground(pageData) {
 		link.download = pageData.filename;
 		link.href = URL.createObjectURL(new Blob([pageData.content], { type: "text/html" }));
 		link.dispatchEvent(new MouseEvent("click"));
-		URL.revokeObjectURL(link.href);
+		setTimeout(() => URL.revokeObjectURL(link.href), 1000);
 	}
 	return new Promise(resolve => setTimeout(resolve, 1));
 }

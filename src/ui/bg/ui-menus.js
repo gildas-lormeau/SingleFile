@@ -32,6 +32,7 @@ import * as button from "./ui-button.js";
 
 const menus = browser.menus;
 const BROWSER_MENUS_API_SUPPORTED = menus && menus.onClicked && menus.create && menus.update && menus.removeAll;
+
 const MENU_ID_SAVE_PAGE = "save-page";
 const MENU_ID_EDIT_AND_SAVE_PAGE = "edit-and-save-page";
 const MENU_ID_SAVE_WITH_PROFILE = "save-with-profile";
@@ -126,7 +127,7 @@ async function createMenus(tab) {
 		}
 		if (options.tabMenuEnabled) {
 			try {
-				menus.create({
+				await menus.create({
 					id: "temporary-id",
 					contexts: ["tab"],
 					title: "title"
@@ -204,11 +205,13 @@ async function createMenus(tab) {
 			parentId: MENU_ID_SAVE_TABS
 		});
 		if (options.contextMenuEnabled) {
-			menus.create({
-				id: MENU_ID_SAVE_SELECTED_TABS,
-				contexts: pageContextsEnabled,
-				title: MENU_SAVE_SELECTED_TABS_MESSAGE
-			});
+			if (config.SELECTABLE_TABS_SUPPORTED) {
+				menus.create({
+					id: MENU_ID_SAVE_SELECTED_TABS,
+					contexts: pageContextsEnabled,
+					title: MENU_SAVE_SELECTED_TABS_MESSAGE
+				});
+			}
 			menus.create({
 				id: MENU_ID_SAVE_UNPINNED_TABS,
 				contexts: pageContextsEnabled,
@@ -324,52 +327,54 @@ async function createMenus(tab) {
 				});
 			}
 		}
-		menus.create({
-			id: MENU_ID_AUTO_SAVE,
-			contexts: defaultContexts,
-			title: MENU_AUTOSAVE_MESSAGE
-		});
-		menus.create({
-			id: MENU_ID_AUTO_SAVE_DISABLED,
-			type: "radio",
-			title: MENU_AUTOSAVE_DISABLED_MESSAGE,
-			contexts: defaultContexts,
-			checked: true,
-			parentId: MENU_ID_AUTO_SAVE
-		});
-		menusCheckedState.set(MENU_ID_AUTO_SAVE_DISABLED, true);
-		menus.create({
-			id: MENU_ID_AUTO_SAVE_TAB,
-			type: "radio",
-			title: MENU_AUTOSAVE_TAB_MESSAGE,
-			contexts: defaultContexts,
-			checked: false,
-			parentId: MENU_ID_AUTO_SAVE
-		});
-		menusCheckedState.set(MENU_ID_AUTO_SAVE_TAB, false);
-		menus.create({
-			id: MENU_ID_AUTO_SAVE_UNPINNED,
-			type: "radio",
-			title: MENU_AUTOSAVE_UNPINNED_TABS_MESSAGE,
-			contexts: defaultContexts,
-			checked: false,
-			parentId: MENU_ID_AUTO_SAVE
-		});
-		menusCheckedState.set(MENU_ID_AUTO_SAVE_UNPINNED, false);
-		menus.create({
-			id: MENU_ID_AUTO_SAVE_ALL,
-			type: "radio",
-			title: MENU_AUTOSAVE_ALL_TABS_MESSAGE,
-			contexts: defaultContexts,
-			checked: false,
-			parentId: MENU_ID_AUTO_SAVE
-		});
-		menusCheckedState.set(MENU_ID_AUTO_SAVE_ALL, false);
-		menus.create({
-			id: "separator-4",
-			contexts: defaultContexts,
-			type: "separator"
-		});
+		if (config.AUTO_SAVE_SUPPORTED) {
+			menus.create({
+				id: MENU_ID_AUTO_SAVE,
+				contexts: defaultContexts,
+				title: MENU_AUTOSAVE_MESSAGE
+			});
+			menus.create({
+				id: MENU_ID_AUTO_SAVE_DISABLED,
+				type: "radio",
+				title: MENU_AUTOSAVE_DISABLED_MESSAGE,
+				contexts: defaultContexts,
+				checked: true,
+				parentId: MENU_ID_AUTO_SAVE
+			});
+			menusCheckedState.set(MENU_ID_AUTO_SAVE_DISABLED, true);
+			menus.create({
+				id: MENU_ID_AUTO_SAVE_TAB,
+				type: "radio",
+				title: MENU_AUTOSAVE_TAB_MESSAGE,
+				contexts: defaultContexts,
+				checked: false,
+				parentId: MENU_ID_AUTO_SAVE
+			});
+			menusCheckedState.set(MENU_ID_AUTO_SAVE_TAB, false);
+			menus.create({
+				id: MENU_ID_AUTO_SAVE_UNPINNED,
+				type: "radio",
+				title: MENU_AUTOSAVE_UNPINNED_TABS_MESSAGE,
+				contexts: defaultContexts,
+				checked: false,
+				parentId: MENU_ID_AUTO_SAVE
+			});
+			menusCheckedState.set(MENU_ID_AUTO_SAVE_UNPINNED, false);
+			menus.create({
+				id: MENU_ID_AUTO_SAVE_ALL,
+				type: "radio",
+				title: MENU_AUTOSAVE_ALL_TABS_MESSAGE,
+				contexts: defaultContexts,
+				checked: false,
+				parentId: MENU_ID_AUTO_SAVE
+			});
+			menusCheckedState.set(MENU_ID_AUTO_SAVE_ALL, false);
+			menus.create({
+				id: "separator-4",
+				contexts: defaultContexts,
+				type: "separator"
+			});
+		}
 		menus.create({
 			id: MENU_ID_BATCH_SAVE_URLS,
 			contexts: defaultContexts,
@@ -539,15 +544,19 @@ async function refreshTab(tab) {
 			updateAllVisibleValues(false);
 		} else {
 			updateAllVisibleValues(true);
-			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, !allTabsData[tab.id].autoSave));
-			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, allTabsData[tab.id].autoSave));
-			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(allTabsData.autoSaveUnpinned)));
-			promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(allTabsData.autoSaveAll)));
+			if (config.AUTO_SAVE_SUPPORTED) {
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_DISABLED, !allTabsData[tab.id].autoSave));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_TAB, allTabsData[tab.id].autoSave));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_UNPINNED, Boolean(allTabsData.autoSaveUnpinned)));
+				promises.push(updateCheckedValue(MENU_ID_AUTO_SAVE_ALL, Boolean(allTabsData.autoSaveAll)));
+			}
 			if (tab && tab.url) {
 				const options = await config.getOptions(tab.url);
 				promises.push(updateVisibleValue(tab, options.contextMenuEnabled));
 				promises.push(updateTitleValue(MENU_ID_EDIT_AND_SAVE_PAGE, allTabsData[tab.id].savedPageDetected ? MENU_EDIT_PAGE_MESSAGE : MENU_EDIT_AND_SAVE_PAGE_MESSAGE));
-				promises.push(menus.update(MENU_ID_SAVE_SELECTED, { visible: !options.saveRawPage }));
+				if (config.SELECTABLE_TABS_SUPPORTED) {
+					promises.push(menus.update(MENU_ID_SAVE_SELECTED, { visible: !options.saveRawPage }));
+				}
 				promises.push(menus.update(MENU_ID_EDIT_AND_SAVE_PAGE, { visible: !options.openEditor || allTabsData[tab.id].savedPageDetected }));
 				let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 				let title = MENU_CREATE_DOMAIN_RULE_MESSAGE;

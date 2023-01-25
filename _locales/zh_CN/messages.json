@@ -175,6 +175,10 @@
 		"message": "在已保存页面中将信息栏包括在内",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
+	"optionRemoveInfobarSavedDate": {
+		"message": "不包括保存日期",
+		"description": "Options page label: 'do not include the saved date'"
+	},
 	"optionConfirmInfobar": {
 		"message": "打开一个提示对话框来编辑信息栏内容",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
@@ -242,6 +246,10 @@
 	"optionRemoveHiddenElements": {
 		"message": "移除隐藏元素",
 		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsInfobarSubTitle": {
+		"message": "信息栏",
+		"description": "Options sub-title: 'Infobar'"
 	},
 	"optionsImagesSubTitle": {
 		"message": "图片",

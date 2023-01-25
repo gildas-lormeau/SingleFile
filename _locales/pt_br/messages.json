@@ -175,6 +175,10 @@
 		"message": "incluir o infobar no site salvo",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
+	"optionRemoveInfobarSavedDate": {
+		"message": "não incluir data de salvamento",
+		"description": "Options page label: 'do not include the saved date'"
+	},
 	"optionConfirmInfobar": {
 		"message": "abrir um diálogo com aviso para editar conteúdo do infobar",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
@@ -242,6 +246,10 @@
 	"optionRemoveHiddenElements": {
 		"message": "remover elementos escondidos",
 		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsInfobarSubTitle": {
+		"message": "Infobar",
+		"description": "Options sub-title: 'Infobar'"
 	},
 	"optionsImagesSubTitle": {
 		"message": "Imagens",

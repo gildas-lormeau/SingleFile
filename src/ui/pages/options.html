@@ -36,19 +36,7 @@
 				<label for="shadowEnabledInput" id="shadowEnabledLabel"></label>
 				<input type="checkbox" id="shadowEnabledInput">
 			</div>
-			<div class="option">
-				<label for="displayInfobarInput" id="displayInfobarLabel"></label>
-				<input type="checkbox" id="displayInfobarInput">
-			</div>
-			<div class="option vertical">
-				<label for="infobarTemplateInput" id="infobarTemplateLabel"></label>
-				<input type="text" id="infobarTemplateInput">
-			</div>
-			<div class="option">
-				<label for="confirmInfobarInput" id="confirmInfobarLabel"></label>
-				<input type="checkbox" id="confirmInfobarInput">
-			</div>
-			<div class="option">
+			<div class="option" id="openSavedPageOption">
 				<label for="openSavedPageInput" id="openSavedPageLabel"></label>
 				<input type="checkbox" id="openSavedPageInput">
 			</div>
@@ -73,11 +61,11 @@
 					</select>
 				</div>
 			</div>
-			<div class="option">
+			<div class="option" id="confirmFilenameOption">
 				<label for="confirmFilenameInput" id="confirmFilenameLabel"></label>
 				<input type="checkbox" id="confirmFilenameInput">
 			</div>
-			<div class="option">
+			<div class="option" id="filenameConflictAction">
 				<label for="filenameConflictActionInput" id="filenameConflictActionLabel"></label>
 				<select id="filenameConflictActionInput">
 					<option id="filenameConflictActionUniquifyLabel" value="uniquify"></option>
@@ -110,12 +98,31 @@
 				<input type="checkbox" id="saveOriginalURLsInput">
 			</div>
 			<div class="option">
-				<label for="includeInfobarInput" id="includeInfobarLabel"></label>
-				<input type="checkbox" id="includeInfobarInput">
+				<label for="removeInfobarSavedDateInput" id="removeInfobarSavedDateLabel"></label>
+				<input type="checkbox" id="removeInfobarSavedDateInput">
 			</div>
 			<div class="option">
 				<label for="saveRawPageInput" id="saveRawPageLabel"></label>
 				<input type="checkbox" id="saveRawPageInput">
+			</div>
+		</details>
+		<details>
+			<summary id="infobarLabel"></summary>
+			<div class="option" id="displayInfobarOption">
+				<label for="displayInfobarInput" id="displayInfobarLabel"></label>
+				<input type="checkbox" id="displayInfobarInput">
+			</div>
+			<div class="option vertical">
+				<label for="infobarTemplateInput" id="infobarTemplateLabel"></label>
+				<input type="text" id="infobarTemplateInput">
+			</div>
+			<div class="option">
+				<label for="confirmInfobarInput" id="confirmInfobarLabel"></label>
+				<input type="checkbox" id="confirmInfobarInput">
+			</div>
+			<div class="option">
+				<label for="includeInfobarInput" id="includeInfobarLabel"></label>
+				<input type="checkbox" id="includeInfobarInput">
 			</div>
 		</details>
 		<details>
@@ -182,7 +189,7 @@
 				<label for="saveToFilesystemInput" id="saveToFilesystemLabel"></label>
 				<input type="radio" id="saveToFilesystemInput" name="destinationInput">
 			</div>
-			<div class="option">
+			<div class="option" id="saveToClipboardOption">
 				<label for="saveToClipboardInput" id="saveToClipboardLabel"></label>
 				<input type="radio" id="saveToClipboardInput" name="destinationInput">
 			</div>
@@ -222,11 +229,11 @@
 				<label for="webDAVPasswordInput" id="webDAVPasswordLabel"></label>
 				<input type="password" id="webDAVPasswordInput" class="medium-input">
 			</div>
-			<div class="option">
+			<div class="option" id="saveToGDriveOption">
 				<label for="saveToGDriveInput" id="saveToGDriveLabel"></label>
 				<input type="radio" id="saveToGDriveInput" name="destinationInput">
 			</div>
-			<div class="option">
+			<div class="option" id="saveWithCompanionOption">
 				<label for="saveWithCompanionInput" id="saveWithCompanionLabel"></label>
 				<input type="radio" id="saveWithCompanionInput" name="destinationInput">
 			</div>
@@ -311,7 +318,7 @@
 				<label for="maxResourceDelayInput" id="maxResourceDelayLabel"></label>
 				<input type="number" id="maxResourceDelayInput" min="1">
 			</div>
-			<div class="option">
+			<div class="option" id="passReferrerOnErrorOption">
 				<label for="passReferrerOnErrorInput" id="passReferrerOnErrorLabel"></label>
 				<input type="checkbox" id="passReferrerOnErrorInput">
 			</div>
@@ -340,12 +347,12 @@
 				<label for="openEditorInput" id="openEditorLabel"></label>
 				<input type="checkbox" id="openEditorInput">
 			</div>
-			<div class="option">
+			<div class="option" id="autoOpenEditorOption">
 				<label for="autoOpenEditorInput" id="autoOpenEditorLabel"></label>
 				<input type="checkbox" id="autoOpenEditorInput">
 			</div>
 		</details>
-		<details>
+		<details id="bookmarksOptions">
 			<summary id="bookmarksLabel"></summary>
 			<div class="option">
 				<label for="saveCreatedBookmarksInput" id="saveCreatedBookmarksLabel"></label>
@@ -364,7 +371,7 @@
 				<input type="text" id="allowedBookmarkFoldersInput">
 			</div>
 		</details>
-		<details>
+		<details id="autoSaveSection">
 			<summary id="autoSaveLabel"></summary>
 			<div class="option">
 				<label for="autoSaveLoadOrUnloadInput" id="autoSaveLoadOrUnloadLabel"></label>
@@ -413,7 +420,7 @@
 				<label for="woleetKeyInput" id="woleetKeyLabel"></label>
 				<input type="text" id="woleetKeyInput">
 			</div>
-			<div class="option">
+			<div class="option" id="backgroundSaveOptions">
 				<label for="backgroundSaveInput" id="backgroundSaveLabel"></label>
 				<input type="checkbox" id="backgroundSaveInput">
 			</div>
@@ -467,7 +474,7 @@
 				<label for="showAllProfilesInput" id="showAllProfilesLabel"></label>
 				<input type="checkbox" id="showAllProfilesInput">
 			</div>
-			<div class="option">
+			<div class="option" id="showAutoSaveProfileOption">
 				<label for="showAutoSaveProfileInput" id="showAutoSaveProfileLabel"></label>
 				<input type="checkbox" id="showAutoSaveProfileInput">
 			</div>

@@ -21,10 +21,12 @@
  *   Source.
  */
 
-/* global browser, document, matchMedia, addEventListener */
+/* global browser, document, matchMedia, addEventListener, navigator, setInterval */
 
 import * as download from "../../core/common/download.js";
 import { onError } from "./../common/content-error.js";
+
+const FOREGROUND_SAVE = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent) && !/Vivaldi/.test(navigator.userAgent) && !/OPR/.test(navigator.userAgent);
 
 const editorElement = document.querySelector(".editor");
 const toolbarElement = document.querySelector(".toolbar");
@@ -331,6 +333,7 @@ browser.runtime.onMessage.addListener(message => {
 			tabDataContents = [];
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content }), "*");
 			editorElement.contentWindow.focus();
+			setInterval(() => browser.runtime.sendMessage({ method: "editor.ping" }), 15000);
 			delete tabData.content;
 		}
 		return Promise.resolve({});
@@ -428,7 +431,13 @@ function enableCutOuterPage() {
 }
 
 function savePage() {
-	editorElement.contentWindow.postMessage(JSON.stringify({ method: "getContent", compressHTML: tabData.options.compressHTML, updatedResources }), "*");
+	editorElement.contentWindow.postMessage(JSON.stringify({
+		method: "getContent",
+		compressHTML: tabData.options.compressHTML,
+		updatedResources,
+		filename: tabData.filename,
+		foregroundSave: FOREGROUND_SAVE
+	}), "*");
 }
 
 function getPosition(event) {

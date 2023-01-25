@@ -1,8 +1,9 @@
 # SingleFile
 
 SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox
-(Desktop and Mobile), Microsoft Edge, Vivaldi, Brave, Waterfox, Yandex browser,
-and Opera. It helps you to save a complete web page into a single HTML file.
+(Desktop and Mobile), Microsoft Edge, Safari, Vivaldi, Brave, Waterfox, Yandex
+browser, and Opera. It helps you to save a complete web page into a single HTML
+file.
 
 ## Table of Contents
 
@@ -18,7 +19,7 @@ and Opera. It helps you to save a complete web page into a single HTML file.
 - [Integration with user scripts](#integration-with-user-scripts)
 - [SingleFileZ](#singlefilez)
 - [File format comparison](#file-format-comparison)
-- [Projects using SingleFile](#projects-using-singlefile)
+- [Projects using/compatible with SingleFile](#projects-usingcompatible-with-singlefile)
 - [Privacy policy](#privacy-policy)
 - [Contributors](#contributors)
 - [Icons](#icons)
@@ -36,6 +37,7 @@ SingleFile can be installed on:
 - Firefox: https://addons.mozilla.org/firefox/addon/single-file
 - Chrome:
   https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
+- Safari: https://apps.apple.com/us/app/singlefile-for-safari/id6444322545
 - Microsoft Edge:
   https://microsoftedge.microsoft.com/addons/detail/efnbkdcfmcmnhlkaijjjmhjjgladedno
 - Firefox for Android Nightly by following this procedure:
@@ -48,11 +50,13 @@ these instructions:
 
 - Firefox:
   https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/
-- Chrome: https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked
-  (omit the manifest creation)
+- Chrome:
+  https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked
 - Microsoft Edge:
   https://docs.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/extension-sideloading
-
+- Safari:
+  https://github.com/gildas-lormeau/SingleFile-Safari-Extension
+  
 ## Getting started
 
 - Click on the SingleFile button in the extension toolbar to save the page.
@@ -188,7 +192,7 @@ More info here: https://github.com/gildas-lormeau/SingleFileZ
 
 |   	                                                                          | HTML (SingleFile)  | HTML (SingleFileZ) | MAFF  | MHTML | Webarchive (Safari) | HTML+folder |
 | ---                                	                                          |       :---:        |       :---:        | :---: | :---: |         :---:       |    :---:    |
-| Pages are saved as a single file                                              | ✓ 	               | ✓ 	                | ✓     | ✓     | ✓                   |             | 
+| Pages are saved as a single file                                              | ✓ 	               | ✓ 	                | ✓     | ✓     | ✓                   |             |
 | HTML and styles are minified                                                  | ✓                  | ✓ 	                |       |       |   	                |             |
 | Unused HTML and styles are removed from files                                 | ✓                  | ✓ 	                |       |       |                     |   	        |
 | Binary resources are not encoded in base 64                                   |                    | ✓ 	                | ✓     |       | ✓                   | ✓ 	        |
@@ -209,12 +213,16 @@ an option must be enabled in Safari.
 
 ⁴ An option must be enabled in the extension.
 
-## Projects using SingleFile
+## Projects using/compatible with SingleFile
 
 - ArchiveBox - Open-source self-hosted web archiving:
   https://github.com/ArchiveBox/ArchiveBox
 - htmls-to-datasette - Tool to index HTML files into a Sqlite database:
   https://github.com/pjamar/htmls-to-datasette
+- obsidian-html-plugin - Plugin for reading HTML pages in Obsidian:
+  https://github.com/nuthrash/obsidian-html-plugin
+- Petal Cite Web Importer - Browser extension to save PDFs and capture web pages
+  in Petal Cite: https://github.com/ks-collab/cite-extension
 - singlefile2trilium - Tool to save faithful copy of a web page as a Trilium
   note with SingleFile: https://github.com/nil0x42/singlefile2trilium
 - SingleFileMacOS - Integration of SingleFile in a swift application using

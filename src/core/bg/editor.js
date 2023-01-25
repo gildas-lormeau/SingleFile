@@ -106,4 +106,7 @@ async function onMessage(message, sender) {
 		}
 		return {};
 	}
+	if (message.method.endsWith(".ping")) {
+		return {};
+	}
 }
