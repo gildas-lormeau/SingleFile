@@ -1,5 +1,10 @@
 #!/bin/sh
 
+sudo apt install zip jq
+
+npm install
+npm update
+
 npx rollup -c rollup.config.js
 
 cp package.json package.copy.json
