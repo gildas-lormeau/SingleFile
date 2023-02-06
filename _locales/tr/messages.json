@@ -1,0 +1,878 @@
+{
+	"extensionDescription": {
+		"message": "Tam bir sayfayı tek bir HTML dosyasına kaydet",
+		"description": "Description of the extension."
+	},
+	"commandSaveSelectedTabs": {
+		"message": "Seçili sekmeleri veya seçili içeriklerini kaydet",
+		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
+	},
+	"commandSaveAllTabs": {
+		"message": "Tüm sekmeleri kaydet",
+		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+	},
+	"menuSavePage": {
+		"message": "Sayfayı SingleFile ile kaydet",
+		"description": "Menu entry: 'Save page with SingleFile'"
+	},
+	"menuSaveSelectedLinks": {
+		"message": "Seçilen bağlantıları kaydet",
+		"description": "Menu entry: 'Save selected links'"
+	},
+	"menuEditPage": {
+		"message": "Sayfaya açıklama ekle...",
+		"description": "Menu entry: 'Annotate the page...'"
+	},
+	"menuEditAndSavePage": {
+		"message": "Sayfaya açıklama ekle ve sayfayı kaydet...",
+		"description": "Menu entry: 'Annotate and save the page...'"
+	},
+	"menuSaveWithProfile": {
+		"message": "Sayfayı profille kaydet",
+		"description": "Menu entry: 'Save with profile'"
+	},
+	"menuViewPendingSaves": {
+		"message": "Bekleyen kaydetmeleri görüntüle...",
+		"description": "Menu entry: 'View pending saves...'"
+	},
+	"menuSelectProfile": {
+		"message": "Varsayılan profili seçin",
+		"description": "Menu entry: 'Select the default profile'"
+	},
+	"menuUpdateRule": {
+		"message": "Geçerli kuralın profilini seçin",
+		"description": "Menu entry: 'Select the profile of the current rule'"
+	},
+	"menuCreateDomainRule": {
+		"message": "Geçerli etki alanının profilini seçin",
+		"description": "Menu entry: 'Select the profile of the current domain'"
+	},
+	"menuSaveSelection": {
+		"message": "Seçimi kaydet",
+		"description": "Menu entry: 'Save selection'"
+	},
+	"menuSaveFrame": {
+		"message": "Çerçeveyi kaydet",
+		"description": "Menu entry: 'Save frame'"
+	},
+	"menuSaveTabs": {
+		"message": "Sekmeleri kaydet",
+		"description": "Menu entry (SingleFile button only): 'Save tabs'"
+	},
+	"menuSaveSelectedTabs": {
+		"message": "Seçili sekmeleri kaydet",
+		"description": "Menu entry: 'Save selected tabs'"
+	},
+	"menuSaveUnpinnedTabs": {
+		"message": "Sabitlenmemiş sekmeleri kaydet",
+		"description": "Menu entry: 'Save unpinned tabs'"
+	},
+	"menuSaveAllTabs": {
+		"message": "Tüm sekmeleri kaydet",
+		"description": "Menu entry: 'Save all tabs'"
+	},
+	"menuBatchSaveUrls": {
+		"message": "URL'leri toplu olarak kaydedin...",
+		"description": "Menu entry: 'Batch save URLs...'"
+	},
+	"menuAutoSave": {
+		"message": "Otomatik-kaydet",
+		"description": "Menu entry: 'Auto-save'"
+	},
+	"menuAutoSaveDisabled": {
+		"message": "Devre dışı",
+		"description": "Menu entry: 'Auto-save' > Disabled'"
+	},
+	"menuAutoSaveTab": {
+		"message": "Bu sekmeyi otomatik-kaydet",
+		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+	},
+	"menuAutoSaveUnpinnedTabs": {
+		"message": "Sabitlenmemiş sekmeleri otomatik-kaydet",
+		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+	},
+	"menuAutoSaveAllTabs": {
+		"message": "Auto-save all tabs",
+		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+	},
+	"buttonDefaultTooltip": {
+		"message": "Sayfayı SingleFile ile kaydet",
+		"description": "Button title: 'Save page with SingleFile'"
+	},
+	"buttonBlockedBadge": {
+		"message": "🚫",
+		"description": "Button badge when the page is blocked: '🚫'"
+	},
+	"buttonBlockedTooltip": {
+		"message": "Bu sayfa SinglePage ile kaydedilemiyor",
+		"description": "Button title: 'This page cannot be saved with SingleFile'"
+	},
+	"buttonInitializingTooltip": {
+		"message": "SingleFile Başlatılıyor",
+		"description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
+	},
+	"buttonInitializingBadge": {
+		"message": "•••",
+		"description": "Badge label during initialization: '•••'"
+	},
+	"buttonSaveProgressTooltip": {
+		"message": "İlerlemeyi kaydet: ",
+		"description": "Button title during save: 'Save progress: xx%'"
+	},
+	"buttonUploadProgressTooltip": {
+		"message": "İlerlemeyi yükle: ",
+		"description": "Button title during save: 'Upload progress: xx%'"
+	},
+	"buttonOKBadge": {
+		"message": "Onay",
+		"description": "Badge label: 'OK'"
+	},
+	"buttonErrorBadge": {
+		"message": "HATA",
+		"description": "Badge label for unexpected errors"
+	},
+	"buttonAutoSaveActiveTooltip": {
+		"message": "Otomatik-kaydet aktif",
+		"description": "Button title: 'Auto-save active'"
+	},
+	"buttonAutoSaveActiveBadge": {
+		"message": "[A]",
+		"description": "Badge label when auto-save is active"
+	},
+	"optionsTitle": {
+		"message": "Seçenekler",
+		"description": "Options page title"
+	},
+	"optionsUserInterfaceSubTitle": {
+		"message": "Kullanıcı arayüzü",
+		"description": "Options sub-title: 'User interface'"
+	},
+	"optionAddMenuEntry": {
+		"message": "web sayfasının içerik menüsüne giriş ekle",
+		"description": "Options page label: 'add entry in the context menu of the webpage'"
+	},
+	"optionDisplayShadow": {
+		"message": "işleme sırasında sayfaya bir gölge bindir",
+		"description": "Options page label: 'overlay a shadow on the page during processing'"
+	},
+	"optionDisplayInfobar": {
+		"message": "kayıtlı bir sayfayı görüntülerken bir bilgi çubuğu görüntüle",
+		"description": "Options page label: 'display an infobar when viewing a saved page'"
+	},
+	"optionInfobarTemplate": {
+		"message": "bilgi çubuğu içeriği şablonu",
+		"description": "Options page label: 'template of the infobar content'"
+	},
+	"optionBlockMixedContent": {
+		"message": "karışık içeriği engelle",
+		"description": "Options page label: 'block mixed content'"
+	},
+	"optionSaveOriginalURLs": {
+		"message": "gömülü kaynakların orijinal URL'lerini kaydet",
+		"description": "Options page label: 'save original URLs of embedded resources'"
+	},
+	"optionIncludeInfobar": {
+		"message": "bilgi çubuğunu kaydedilen sayfaya dahil et",
+		"description": "Options page label: 'include the infobar in the saved page'"
+	},
+	"optionRemoveInfobarSavedDate": {
+		"message": "kaydedilen tarihi dahil etme",
+		"description": "Options page label: 'do not include the saved date'"
+	},
+	"optionConfirmInfobar": {
+		"message": "bilgi çubuğu içeriğini düzenlemek için bir bilgi istemi iletişim kutusu aç",
+		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
+	},
+	"optionAutoClose": {
+		"message": "sayfa kaydedildikten sonra sekmeyi otomatik kapat",
+		"description": "Options page label: 'auto-close the tab after the page is saved'"
+	},
+	"optionsFileNameSubTitle": {
+		"message": "Dosya ismi",
+		"description": "Options sub-title: 'File name'"
+	},
+	"optionFilenameTemplate": {
+		"message": "şablon",
+		"description": "Options page label: 'template'"
+	},
+	"optionFilenameMaxLength": {
+		"message": "maksimum uzunluk",
+		"description": "Options page label: 'max length'"
+	},
+	"optionFilenameMaxLengthBytesUnit": {
+		"message": "baytlar",
+		"description": "Options page label: 'bytes'"
+	},
+	"optionFilenameMaxLengthCharsUnit": {
+		"message": "karakterler",
+		"description": "Options page label: 'characters'"
+	},
+	"optionConfirmFilename": {
+		"message": "dosya adını onaylamak için \"Farklı kaydet\" iletişim kutusunu aç",
+		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
+	},
+	"optionFilenameConflictAction": {
+		"message": "dosya adı çakışma çözümü",
+		"description": "Options page label: 'filename conflict resolution'"
+	},
+	"optionFilenameConflictActionUniquify": {
+		"message": "benzersiz bir ad oluştur",
+		"description": "Value for 'filename conflict resolution' option: 'create a unique name'"
+	},
+	"optionFilenameConflictActionOverwrite": {
+		"message": "mevcut dosyanın üzerine yaz",
+		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+	},
+	"optionFilenameConflictActionPrompt": {
+		"message": "isim sor",
+		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
+	},
+	"optionFilenameConflictActionSkip": {
+		"message": "yinelenen dosyaları atla",
+		"description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+	},
+	"optionsHTMLContentSubTitle": {
+		"message": "HTML içeriği",
+		"description": "Options sub-title: 'HTML content'"
+	},
+	"optionCompressHTML": {
+		"message": "HTML içeriğini sıkıştır",
+		"description": "Options page label: 'compress HTML content'"
+	},
+	"optionRemoveFrames": {
+		"message": "çerçeveleri kaldır",
+		"description": "Options page label: 'remove frames'"
+	},
+	"optionRemoveHiddenElements": {
+		"message": "gizli öğeleri kaldır",
+		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsInfobarSubTitle": {
+		"message": "Bilgi çubuğu",
+		"description": "Options sub-title: 'Infobar'"
+	},
+	"optionsImagesSubTitle": {
+		"message": "Görüntüler",
+		"description": "Options sub-title: 'Images'"
+	},
+	"optionGroupDuplicateImages": {
+		"message": "yinelenen görüntüleri gruplandır",
+		"description": "Options page label: 'group duplicate images together'"
+	},
+	"optionLoadDeferredImages": {
+		"message": "ertelenen görüntüleri kaydet",
+		"description": "Options page label: 'save deferred images'"
+	},
+	"optionLoadDeferredImagesMaxIdleTime": {
+		"message": "maksimum boşta kalma süresi (ms)",
+		"description": "Options page label: 'maximum idle time (ms)'"
+	},
+	"optionLoadDeferredImagesKeepZoomLevel": {
+		"message": "sayfayı uzaklaştır",
+		"description": "Options page label: 'zoom out the page'"
+	},
+	"optionLoadDeferredImagesDispatchScrollEvent": {
+		"message": "\"scroll\" olayını gönder",
+		"description": "Options page label: 'dispatch \"scroll\" event'"
+	},
+	"optionRemoveAlternativeImages": {
+		"message": "alternatif ekran çözünürlükleri için görüntüleri kaldır",
+		"description": "Options page label: 'remove images for alternative screen resolutions'"
+	},
+	"optionsFontsSubTitle": {
+		"message": "Yazı tipleri",
+		"description": "Options sub-title: 'Fonts'"
+	},
+	"optionRemoveUnusedFonts": {
+		"message": "kullanılmayan yazı tiplerini kaldır",
+		"description": "Options page label: 'remove unused fonts'"
+	},
+	"optionRemoveAlternativeFonts": {
+		"message": "alternatif yazı tiplerini kaldır",
+		"description": "Options page label: 'remove alternative fonts'"
+	},
+	"optionsStylesheetsSubTitle": {
+		"message": "Stil sayfaları",
+		"description": "Options sub-title: 'Stylesheets'"
+	},
+	"optionCompressCSS": {
+		"message": "CSS içeriğini sıkıştır ",
+		"description": "Options page label: 'compress CSS content'"
+	},
+	"optionMoveStylesInHead": {
+		"message": "dışında bulunan stilleri baş öğesinde taşı",
+		"description": "Options page label: 'move in the head element the styles found outside of it'"
+	},
+	"optionRemoveUnusedStyles": {
+		"message": "kullanılmayan stilleri kaldır",
+		"description": "Options page label: 'remove unused styles'"
+	},
+	"optionRemoveAlternativeMedias": {
+		"message": "Alternatif ekranlar için stil sayfalarını silin",
+		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
+	},
+	"optionsNetworkSubTitle": {
+		"message": "Ağ",
+		"description": "Options sub-title: 'Network'"
+	},
+	"optionsBlockedResources": {
+		"message": "engellenen kaynaklar",
+		"description": "Options page label: 'blocked resources'"
+	},
+	"optionsAcceptHeaders": {
+		"message": "\"Accept\" başlığı",
+		"description": "Options page label: '\"Accept\" header'"
+	},
+	"optionResourceScript": {
+		"message": "kodlar",
+		"description": "Options page label: 'scripts'"
+	},
+	"optionResourceVideo": {
+		"message": "videolar",
+		"description": "Options page label: 'videos'"
+	},
+	"optionResourceAudio": {
+		"message": "sesler",
+		"description": "Options page label: 'audios'"
+	},
+	"optionResourceDocument": {
+		"message": "belgeler",
+		"description": "Options page label: 'documents'"
+	},
+	"optionResourceFont": {
+		"message": "yazı tipleri",
+		"description": "Options page label: 'fonts'"
+	},
+	"optionResourceStylesheet": {
+		"message": "stil sayfaları",
+		"description": "Options page label: 'stylesheets'"
+	},
+	"optionResourceImage": {
+		"message": "görseller",
+		"description": "Options page label: 'images'"
+	},
+	"optionsDestinationSubTitle": {
+		"message": "Hedef",
+		"description": "Options sub-title: 'Destination'"
+	},
+	"optionsBookmarkSubTitle": {
+		"message": "Yer işaretleri",
+		"description": "Options sub-title: 'Bookmarks'"
+	},
+	"optionsAutoSaveSubTitle": {
+		"message": "Otomatik-kaydet",
+		"description": "Options sub-title: 'Auto-save'"
+	},
+	"optionsAutoSettingsSubTitle": {
+		"message": "Otomatik-ayarlar kuralları",
+		"description": "Options sub-title: 'Auto-settings rules'"
+	},
+	"optionsDeleteDisplayedRulesConfirm": {
+		"message": "Görüntülenen tüm kuralların silinmesini onaylayın",
+		"description": "Popup text 'Confirm the deletion of all displayed rules'"
+	},
+	"optionsDeleteRulesTooltip": {
+		"message": "Görüntülenen tüm kuralları sil",
+		"description": "Popup text 'Delete all displayed rules'"
+	},
+	"optionsAutoSettingsUrl": {
+		"message": "URL",
+		"description": "Options label in the Auto-settings rules: 'URL'"
+	},
+	"optionsAutoSettingsUrlPlaceholder": {
+		"message": "Tam veya kısmi bir URL yazın (ör. example.com)",
+		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
+	},
+	"optionsAutoSettingsProfile": {
+		"message": "Profil",
+		"description": "Options label in the Auto-settings rules: 'Profile'"
+	},
+	"optionsAutoSettingsAutoSaveProfile": {
+		"message": "Profili otomatik kaydet",
+		"description": "Options label in the Auto-settings rules: 'Auto-save profile'"
+	},
+	"optionsAutoSettingsShowAllProfiles": {
+		"message": "tüm profilleri göster",
+		"description": "Options label in the Auto-settings rules: 'display all profiles'"
+	},
+	"optionsAutoSettingsShowAutoSaveProfile": {
+		"message": "'Profili otomatik kaydet' sütununu göster",
+		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
+	},
+	"optionsUpdateRuleTooltip": {
+		"message": "kuralı güncelle",
+		"description": "Popup text 'Update the rule' in the options page"
+	},
+	"optionsDeleteRuleTooltip": {
+		"message": "Kuralı sil",
+		"description": "Popup text 'Delete the rule' in the options page"
+	},
+	"optionsAddRuleTooltip": {
+		"message": "Kuralı ekle",
+		"description": "Popup text 'Add the rule' in the options page"
+	},
+	"optionsValidateChangesTooltip": {
+		"message": "Değişiklikleri doğrula",
+		"description": "Popup text 'Validate changes' in the options page"
+	},
+	"optionsDeleteRuleConfirm": {
+		"message": "Seçilen kuralın silinmesini onaylayın",
+		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
+	},
+	"optionAutoSaveLoadOrUnload": {
+		"message": "sayfa yüklendikten sonra veya sayfa kaldırıldığında otomatik kaydet",
+		"description": "auto-save after page load or on page unload"
+	},
+	"optionAutoSaveLoad": {
+		"message": "Sayfa yükünden sonra otomatik kaydet",
+		"description": "Options page label: 'auto-save after page load'"
+	},
+	"optionAutoSaveUnload": {
+		"message": "sayfa boşaltmada otomatik kaydet",
+		"description": "Options page label: 'auto-save on page unload'"
+	},
+	"optionAutoSaveDiscard": {
+		"message": "sekme atıldığında otomatik kaydet",
+		"description": "Options page label: 'auto-save on tab discard'"
+	},
+	"optionAutoSaveRemove": {
+		"message": "sekme kaldırmada otomatik kaydetme",
+		"description": "Options page label: 'auto-save on tab removal'"
+	},
+	"optionAutoSaveDelay": {
+		"message": "sayfa yüklemesinden sonra otomatik kaydetme bekleme gecikmesi (s)",
+		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
+	},
+	"optionAutoSaveRepeat": {
+		"message": "periyodik olarak otomatik kaydet",
+		"description": "Options page label: 'auto-save periodically'"
+	},
+	"optionAutoSaveRepeatDelay": {
+		"message": "periyot (s.)",
+		"description": "Options page label: 'period (s)'"
+	},
+	"optionAutoSaveExternalSave": {
+		"message": "sayfayı SingleFile Companion ile kaydedin",
+		"description": "Options page label: 'save the page with SingleFile Companion'"
+	},
+	"optionsEditorSubTitle": {
+		"message": "Ek açıklama düzenleyici",
+		"description": "Options sub-title: 'Annotation editor'"
+	},
+	"optionOpenEditor": {
+		"message": "kaydetmeden önce sayfaya açıklama ekleyin",
+		"description": "Options page label: 'annotate the page before saving'"
+	},
+	"optionOpenSavedPage": {
+		"message": "kayıtlı sayfaları yeni bir sekmede aç",
+		"description": "Options page label: 'open saved pages in a new tab'"
+	},
+	"optionAutoOpenEditor": {
+		"message": "açıklama düzenleyicide SingleFile ile kaydedilen sayfaları açın",
+		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
+	},
+	"optionDefaultEditorMode": {
+		"message": "varsayılan mod",
+		"description": "Options page label: 'default mode'"
+	},
+	"optionDefaultEditorModeNormal": {
+		"message": "normal",
+		"description": "Options page label: 'default mode > normal'"
+	},
+	"optionDefaultEditorModeEdit": {
+		"message": "sayfayı düzenle",
+		"description": "Options page label: 'default mode > edit the page'"
+	},
+	"optionDefaultEditorModeFormat": {
+		"message": "sayfayı biçimlendir",
+		"description": "Options page label: 'default mode > format the page'"
+	},
+	"optionDefaultEditorModeCut": {
+		"message": "öğeleri kaldır",
+		"description": "Options page label: 'default mode > remove elements'"
+	},
+	"optionDefaultEditorModeCutExternal": {
+		"message": "dış öğeleri kaldır",
+		"description": "Options page label: 'default mode > remove external elements'"
+	},
+	"optionApplySystemTheme": {
+		"message": "bir sayfayı biçimlendirirken sistem temasını uygula",
+		"description": "Title of the button 'apply the system theme when formatting a page'"
+	},
+	"optionWarnUnsavedPage": {
+		"message": "kaydedilmemiş değişiklikle sayfadan ayrılırsa uyar",
+		"description": "Title of the button 'warn if leaving page with unsaved changes'"
+	},
+	"optionsMiscSubTitle": {
+		"message": "Çeşitli.",
+		"description": "Options sub-title: 'Misc.'"
+	},
+	"optionBackgroundSave": {
+		"message": "sayfaları arka planda kaydet",
+		"description": "Options page label: 'save pages in background'"
+	},
+	"optionDisplayStats": {
+		"message": "işledikten sonra istatistikleri konsolda göster",
+		"description": "Options page label: 'display stats in the console after processing'"
+	},
+	"optionSetMaxResourceSize": {
+		"message": "maksimum boyutu ayarla",
+		"description": "Options page label: 'set maximum size'"
+	},
+	"optionMaxResourceSize": {
+		"message": "maksimum boyut (MB)",
+		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionSetMaxResourceDelay": {
+		"message": "maksimum indirme süresini ayarla",
+		"description": "Options page label: 'set maximum download time'"
+	},
+	"optionMaxResourceDelay": {
+		"message": "maksimum indirme süresi (s)",
+		"description": "Options page label: 'maximum download time (s)'"
+	},
+	"optionPassReferrerOnError": {
+		"message": "kaynaklar arası istek hatasından sonra \"Referer\" başlığını iletin",
+		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
+	},
+	"optionSaveRawPage": {
+		"message": "ham sayfayı kaydet",
+		"description": "Options page label: 'save raw page'"
+	},
+	"optionInsertMetaCSP": {
+		"message": "içerik güvenlik politikası belirle",
+		"description": "Options page label: 'set content security policy'"
+	},
+	"optionSaveToClipboard": {
+		"message": "panoya kopyala",
+		"description": "Options page label: 'copy to clipboard'"
+	},
+	"optionSaveToFilesystem": {
+		"message": "dosya sistemine kaydet",
+		"description": "Options page label: 'save to filesystem'"
+	},
+	"optionAddProof": {
+		"message": "varlığın kanıtını ekle",
+		"description": "Options page label: 'add proof of existence'"
+	},
+	"optionsAddProofConfirm": {
+		"message": "SingleFile'ın Woleet API'ye kaydedeceğiniz her sayfanın bir SHA256 hash'ini göndermesine izin verdiğinizi onaylayın. Bu özellikle ilgili daha fazla bilgiyi yardım sayfasında veya seçeneğin yanındaki soru işaretine tıklayarak bulabilirsiniz.",
+		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
+	},
+	"optionWoleetKey": {
+		"message": "erişim belirteci",
+		"description": "Options page label: 'access token'"
+	},
+	"optionSaveToGDrive": {
+		"message": "Google Drive'a yükle",
+		"description": "Options page label: 'upload to Google Drive'"
+	},
+	"optionSaveToGitHub": {
+		"message": "GitHub'a yükle",
+		"description": "Options page label: 'upload to GitHub'"
+	},
+	"optionGitHubToken": {
+		"message": "erişim belirteci",
+		"description": "Options page label: 'access token'"
+	},
+	"optionGitHubUser": {
+		"message": "kullanıcı adı",
+		"description": "Options page label: 'user name'"
+	},
+	"optionGitHubRepository": {
+		"message": "havuz adı",
+		"description": "Options page label: 'repository name'"
+	},
+	"optionGitHubBranch": {
+		"message": "şube adı",
+		"description": "Options page label: 'branch name'"
+	},
+	"optionSaveWithWebDAV": {
+		"message": "bir WebDAV sunucusuna yükle",
+		"description": "Options page label: 'upload to a WebDAV server'"
+	},
+	"optionWebDAVURL": {
+		"message": "URL",
+		"description": "Options page label: 'URL'"
+	},
+	"optionWebDAVUser": {
+		"message": "kullanıcı tanımlayıcı",
+		"description": "Options page label: 'user identifier'"
+	},
+	"optionWebDAVPassword": {
+		"message": "şifre",
+		"description": "Options page label: 'password'"
+	},
+	"optionSaveWithCompanion": {
+		"message": "SingleFile Companion ile kaydet",
+		"description": "Options page label: 'save with SingleFile Companion'"
+	},
+	"optionSaveCreatedBookmarks": {
+		"message": "yeni oluşturulan yer iminin sayfasını kaydet",
+		"description": "Options page label: 'save the page of a newly created bookmark'"
+	},
+	"optionReplaceBookmarkURL": {
+		"message": "yeni yer imini kaydedilen sayfaya bağla",
+		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
+	"optionAllowedBookmarkFolders": {
+		"message": "izin verilen klasörler",
+		"description": "Options page label: 'allowed folders'"
+	},
+	"optionIgnoredBookmarkFolders": {
+		"message": "yok sayılan klasörler",
+		"description": "Options page label: 'ignored folders'"
+	},
+	"optionsHelpLink": {
+		"message": "yardım",
+		"description": "Options help link"
+	},
+	"optionSynchronize": {
+		"message": "senkronizasyon seçenekleri",
+		"description": "Options label: 'synchronize options'"
+	},
+	"optionsResetButton": {
+		"message": "Sıfırla",
+		"description": "Options button: 'Reset'"
+	},
+	"optionsResetTooltip": {
+		"message": "Tüm seçenekleri varsayılan değerlerine sıfırlayın",
+		"description": "Options 'Reset' button tooltip"
+	},
+	"optionsResetConfirm": {
+		"message": "Tüm seçeneklerin veya geçerli profilin sıfırlanmasını onayla",
+		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+	},
+	"optionsResetAllButton": {
+		"message": "Tüm seçenekleri sıfırla",
+		"description": "Options confirm button: 'Reset all options'"
+	},
+	"optionsResetCurrentButton": {
+		"message": "Geçerli profili sıfırla",
+		"description": "Options confirm button: 'Reset current profile'"
+	},
+	"optionsOKButton": {
+		"message": "TAMAM",
+		"description": "Options confirm button: 'OK'"
+	},
+	"optionsCancelButton": {
+		"message": "İPTAL",
+		"description": "Options confirm button: 'Cancel'"
+	},
+	"optionsExportButton": {
+		"message": "Dışarı aktar",
+		"description": "Options button: 'Export'"
+	},
+	"optionsImportButton": {
+		"message": "İçe aktar",
+		"description": "Options button: 'Import'"
+	},
+	"logPanelDeferredImages": {
+		"message": "Ertelenmiş resimler",
+		"description": "Label 'Deferred images' in the log panel"
+	},
+	"logPanelFrameContents": {
+		"message": "çerçeve içeriği",
+		"description": "Label 'Frame contents' in the log panel"
+	},
+	"logPanelStep": {
+		"message": "Adım",
+		"description": "Label 'Step' (for 'Step x / 4') in the log panel"
+	},
+	"logPanelWidth": {
+		"message": "122",
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+	},
+	"profileDefaultSettings": {
+		"message": "Varsayılan ayarlar",
+		"description": "Label 'Default settings' of the default settings in the options page"
+	},
+	"profileDisabled": {
+		"message": "Devre dışı",
+		"description": "Label 'Disabled' of the disabled profile name in the options page"
+	},
+	"profileAddButtonTooltip": {
+		"message": "Yeni profil ekle",
+		"description": "Tooltip 'Add a new profile' in the options page"
+	},
+	"profileRenameButtonTooltip": {
+		"message": "profili yeniden adlandır",
+		"description": "Tooltip 'Rename the profile' in the options page"
+	},
+	"profileDeleteButtonTooltip": {
+		"message": "Profili sil",
+		"description": "Tooltip 'Delete the profile' in the options page"
+	},
+	"profileAddPrompt": {
+		"message": "Yeni profil için bir isim gir",
+		"description": "Popup text 'Enter a name for this new profile' in the options page"
+	},
+	"profileDeleteConfirm": {
+		"message": "Seçilen profilin silinmesini onaylayın",
+		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
+	},
+	"profileRenamePrompt": {
+		"message": "Seçilen profil için yeni bir ad girin",
+		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
+	},
+	"editorAddYellowNote": {
+		"message": "Sarı bir not ekle",
+		"description": "Title of the button 'Add a yellow note' in the editor"
+	},
+	"editorAddPinkNote": {
+		"message": "Pembe bir not ekle",
+		"description": "Title of the button 'Add a pink note' in the editor"
+	},
+	"editorAddBlueNote": {
+		"message": "Mavi bir not ekle",
+		"description": "Title of the button 'Add a blue note' in the editor"
+	},
+	"editorAddGreenNote": {
+		"message": "Yeşil bir not ekle",
+		"description": "Title of the button 'Add a green note' in the editor"
+	},
+	"editorHighlightYellow": {
+		"message": "Seçili metni sarı renkle vurgula",
+		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
+	},
+	"editorHighlightPink": {
+		"message": "Seçili metni pembe renkle vurgula",
+		"description": "Title of the button 'Highlight selected text in pink' in the editor"
+	},
+	"editorHighlightBlue": {
+		"message": "Seçili metni mavi renkle vurgula",
+		"description": "Title of the button 'Highlight selected text in blue' in the editor"
+	},
+	"editorHighlightGreen": {
+		"message": "Seçili metni yeşil renkle vurgula",
+		"description": "Title of the button 'Highlight selected text in green' in the editor"
+	},
+	"editorToggleNotes": {
+		"message": "Notları göster/gizle",
+		"description": "Title of the button 'Display/hide notes' in the editor"
+	},
+	"editorToggleHighlights": {
+		"message": "Vurgulanan metni göster/gizle",
+		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
+	},
+	"editorRemoveHighlight": {
+		"message": "Seçili vurgulanan metni kaldır",
+		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
+	},
+	"editorEditPage": {
+		"message": "Salt okunuru etkinleştir/devre dışı bırak",
+		"description": "Title of the button 'Enable/disable read-only' in the editor"
+	},
+	"editorFormatPage": {
+		"message": "Daha iyi okunabilirlik için sayfayı biçimlendir",
+		"description": "Title of the button 'Format the page for better readability' in the editor"
+	},
+	"editorCutInnerPage": {
+		"message": "Dahili elemanların kaldırılmasını etkinleştirin/devre dışı bırak",
+		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+	},
+	"editorCutOuterPage": {
+		"message": "Harici öğelerin kaldırılmasını etkinleştirin/devre dışı bırak",
+		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
+	},
+	"editorUndoCutPage": {
+		"message": "Son kaldırılan öğeyi geri yükle",
+		"description": "Title of the button 'Restore last removed element' in the editor"
+	},
+	"editorUndoAllCutPage": {
+		"message": "Kaldırılan tüm öğeleri geri yükle",
+		"description": "Title of the button 'Restore all removed elements' in the editor"
+	},
+	"editorRedoCutPage": {
+		"message": "Son geri yüklenen öğeyi kaldır",
+		"description": "Title of the button 'Remove last restored element' in the editor"
+	},
+	"editorSavePage": {
+		"message": "Sayfayı kaydet",
+		"description": "Title of the button 'Save the page' in the editor"
+	},
+	"editorPrintPage": {
+		"message": "Sayfayı yazdır",
+		"description": "Title of the button 'Print the page' in the editor"
+	},
+	"pendingsTitle": {
+		"message": "Bekleyen kaydetmeler",
+		"description": "Title of the pending save page 'Pending saves' in the editor"
+	},
+	"pendingsCancelAllButton": {
+		"message": "Hepsini iptal et",
+		"description": "Pending saves button 'Cancel all'"
+	},
+	"pendingsURLTitle": {
+		"message": "URL",
+		"description": "Title of the first column in the table of the pending saves 'URL'"
+	},
+	"pendingsTitleTitle": {
+		"message": "Başlık",
+		"description": "Title of the first column in the table of the pending saves 'Title'"
+	},
+	"pendingsStatusTitle": {
+		"message": "durum",
+		"description": "Title of the second column in the table of the pending saves 'status'"
+	},
+	"pendingsPendingStatus": {
+		"message": "askıda",
+		"description": "Value of 'status' for pending saves"
+	},
+	"pendingsProcessingStatus": {
+		"message": "işleniyor",
+		"description": "Value of 'status' for current saves"
+	},
+	"pendingsCancellingStatus": {
+		"message": "iptal ediliyor",
+		"description": "Value of 'status' for cancelled saves"
+	},
+	"pendingsNoPendings": {
+		"message": "bekleyen kayıt yok",
+		"description": "Label displayed when they are no pending saves"
+	},
+	"pendingsAddUrlsButton": {
+		"message": "URL ekle",
+		"description": "button 'Add URLs'"
+	},
+	"pendingsAddUrls": {
+		"message": "Yeni satır kayıtlarıyla ayrılmış bir URL listesi girin",
+		"description": "Label of the add URLs input"
+	},
+	"pendingsAddUrlsOKButton": {
+		"message": "TAMAM",
+		"description": "Add URLs popup confirm button: 'OK'"
+	},
+	"pendingsAddUrlsCancelButton": {
+		"message": "İPTAL",
+		"description": "Add URLs popup cancel button: 'Cancel'"
+	},
+	"batchSaveUrlsTitle": {
+		"message": "Toplu kaydetme URL'leri",
+		"description": "Title of the 'batch save URLs' page"
+	},
+	"batchSaveUrlsNoURLs": {
+		"message": "URL yok",
+		"description": "Label displayed when they are no URLs"
+	},
+	"batchSaveUrlsAddUrlButton": {
+		"message": "URL ekle",
+		"description": "label of the button 'Add URL'"
+	},
+	"batchSaveUrlsAddUrlsButton": {
+		"message": "URL ekle...",
+		"description": "label of the button 'Add URLs...'"
+	},
+	"batchSaveUrlsRemoveAllButton": {
+		"message": "Hepsini sil",
+		"description": "label of the button 'Remove all'"
+	},
+	"batchSaveUrlsSavePagesButton": {
+		"message": "Sayfaları kaydet",
+		"description": "label of the button 'Save pages'"
+	},
+	"batchSaveUrlsURLTitle": {
+		"message": "URL",
+		"description": "Title of the column in the table of the URLs"
+	}
+}
