@@ -4,6 +4,9 @@ about: Create a report to help us improve
 
 ---
 
+For questions, please create or update a thread here: 
+https://github.com/gildas-lormeau/SingleFile/discussions
+
 Please ensure that you do not find an answer before reporting the issue:
  - in the FAQ: https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md
  - in the list of known issues: https://github.com/gildas-lormeau/SingleFile#known-issues
