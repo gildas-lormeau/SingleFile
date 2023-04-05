@@ -556,7 +556,7 @@
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
-		"message": "Confirm you allow SingleFile to send to the Woleet API a SHA256 hash of each page you are going to save. You can find more information about this feature in the help page or by clicking on the question mark next to the option.",
+		"message": "Підтвердьте, що ви дозволяєте SingleFile надсилати в Woleet API хеш SHA256 кожної сторінки, яку ви збираєтеся зберегти. Ви можете знайти більше інформації про цю функцію на сторінці довідки або натиснувши на знак питання поруч із опцією.",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionWoleetKey": {
