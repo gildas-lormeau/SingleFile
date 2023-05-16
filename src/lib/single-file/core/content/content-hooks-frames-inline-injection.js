@@ -61,11 +61,7 @@ function injectedScript() {
 
 	if (globalThis.FontFace) {
 		const FontFace = globalThis.FontFace;
-		let warningFontFaceDisplayed;
 		globalThis.FontFace = function () {
-			if (!warningFontFaceDisplayed) {
-				warningFontFaceDisplayed = true;
-			}
 			getDetailObject(...arguments).then(detail => dispatchEvent(new CustomEvent(NEW_FONT_FACE_EVENT, { detail })));
 			return new FontFace(...arguments);
 		};
