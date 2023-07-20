@@ -207,6 +207,10 @@
 		"message": "znaki",
 		"description": "Options page label: 'characters'"
 	},
+	"optionReplaceEmojisInFilename" : {
+		"message": "zamień emotikony na tekst",
+		"description": "Options page label: 'replace emojis with text'"
+	},
 	"optionConfirmFilename": {
 		"message": "otwieraj okno \"Zapisz jako\", aby potwierdzić nazwę pliku",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"

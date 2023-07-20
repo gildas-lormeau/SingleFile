@@ -102,6 +102,7 @@ const filenameTemplateLabel = document.getElementById("filenameTemplateLabel");
 const filenameMaxLengthLabel = document.getElementById("filenameMaxLengthLabel");
 const filenameMaxLengthBytesUnitLabel = document.getElementById("filenameMaxLengthBytesUnitLabel");
 const filenameMaxLengthCharsUnitLabel = document.getElementById("filenameMaxLengthCharsUnitLabel");
+const replaceEmojisInFilenameLabel = document.getElementById("replaceEmojisInFilenameLabel");
 const shadowEnabledLabel = document.getElementById("shadowEnabledLabel");
 const setMaxResourceSizeLabel = document.getElementById("setMaxResourceSizeLabel");
 const maxResourceSizeLabel = document.getElementById("maxResourceSizeLabel");
@@ -224,6 +225,7 @@ const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput
 const filenameTemplateInput = document.getElementById("filenameTemplateInput");
 const filenameMaxLengthInput = document.getElementById("filenameMaxLengthInput");
 const filenameMaxLengthUnitInput = document.getElementById("filenameMaxLengthUnitInput");
+const replaceEmojisInFilenameInput = document.getElementById("replaceEmojisInFilenameInput");
 const shadowEnabledInput = document.getElementById("shadowEnabledInput");
 const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
@@ -598,6 +600,7 @@ filenameTemplateLabel.textContent = browser.i18n.getMessage("optionFilenameTempl
 filenameMaxLengthLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLength");
 filenameMaxLengthBytesUnitLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLengthBytesUnit");
 filenameMaxLengthCharsUnitLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLengthCharsUnit");
+replaceEmojisInFilenameLabel.textContent = browser.i18n.getMessage("optionReplaceEmojisInFilename");
 shadowEnabledLabel.textContent = browser.i18n.getMessage("optionDisplayShadow");
 setMaxResourceSizeLabel.textContent = browser.i18n.getMessage("optionSetMaxResourceSize");
 maxResourceSizeLabel.textContent = browser.i18n.getMessage("optionMaxResourceSize");
@@ -881,6 +884,7 @@ async function refresh(profileName) {
 	filenameTemplateInput.value = profileOptions.filenameTemplate;
 	filenameMaxLengthInput.value = profileOptions.filenameMaxLength;
 	filenameMaxLengthUnitInput.value = profileOptions.filenameMaxLengthUnit;
+	replaceEmojisInFilenameInput.checked = profileOptions.replaceEmojisInFilename;
 	shadowEnabledInput.checked = profileOptions.shadowEnabled;
 	maxResourceSizeEnabledInput.checked = profileOptions.maxResourceSizeEnabled;
 	maxResourceSizeInput.value = profileOptions.maxResourceSizeEnabled ? profileOptions.maxResourceSize : 10;
@@ -993,6 +997,7 @@ async function update() {
 			filenameTemplate: filenameTemplateInput.value,
 			filenameMaxLength: filenameMaxLengthInput.value,
 			filenameMaxLengthUnit: filenameMaxLengthUnitInput.value,
+			replaceEmojisInFilename: replaceEmojisInFilenameInput.checked,
 			shadowEnabled: shadowEnabledInput.checked,
 			maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
 			maxResourceSize: maxResourceSizeEnabledInput.checked ? Math.max(maxResourceSizeInput.value, 0) : 10,

@@ -207,6 +207,10 @@
 		"message": "caratteri",
 		"description": "Options page label: 'characters'"
 	},
+	"optionReplaceEmojisInFilename" : {
+		"message": "sostituisci le emoji con il testo",
+		"description": "Options page label: 'replace emojis with text'"
+	},
 	"optionConfirmFilename": {
 		"message": "Apri la finesta di dialogo \"Salva come\" per confermare il nome del file",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
