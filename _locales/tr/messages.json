@@ -279,6 +279,10 @@
 		"message": "\"scroll\" olayını gönder",
 		"description": "Options page label: 'dispatch \"scroll\" event'"
 	},
+	"optionLoadDeferredImagesBeforeFrames": {
+		"message": "ertelenen çerçeveleri kaydet",
+		"description": "Options page label: 'load deferred frames'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "alternatif ekran çözünürlükleri için görüntüleri kaldır",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"

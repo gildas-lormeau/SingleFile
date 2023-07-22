@@ -279,6 +279,10 @@
 		"message": "dispatch \"scroll\" event",
 		"description": "Options page label: 'dispatch \"scroll\" event'"
 	},
+	"optionLoadDeferredImagesBeforeFrames": {
+		"message": "load deferred frames",
+		"description": "Options page label: 'load deferred frames'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "remove images for alternative screen resolutions",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"

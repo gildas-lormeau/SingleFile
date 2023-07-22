@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, globalThis, location, setTimeout */
+/* global browser, document, globalThis, location */
 
 import * as download from "./../common/download.js";
 import { fetch, frameFetch } from "./../../lib/single-file/fetch/content/content-fetch.js";
@@ -121,33 +121,6 @@ async function processPage(options) {
 	processor = new singlefile.SingleFile(options);
 	const preInitializationPromises = [];
 	options.insertCanonicalLink = true;
-	if (!options.saveRawPage) {
-		if (!options.removeFrames && frames && globalThis.frames && globalThis.frames.length) {
-			let frameTreePromise;
-			if (options.loadDeferredImages) {
-				frameTreePromise = new Promise(resolve => setTimeout(() => resolve(frames.getAsync(options)), options.loadDeferredImagesMaxIdleTime - frames.TIMEOUT_INIT_REQUEST_MESSAGE));
-			} else {
-				frameTreePromise = frames.getAsync(options);
-			}
-			ui.onLoadingFrames(options);
-			frameTreePromise.then(() => {
-				if (!processor.cancelled) {
-					ui.onLoadFrames(options);
-				}
-			});
-			preInitializationPromises.push(frameTreePromise);
-		}
-		if (options.loadDeferredImages) {
-			const lazyLoadPromise = singlefile.processors.lazy.process(options);
-			ui.onLoadingDeferResources(options);
-			lazyLoadPromise.then(() => {
-				if (!processor.cancelled) {
-					ui.onLoadDeferResources(options);
-				}
-			});
-			preInitializationPromises.push(lazyLoadPromise);
-		}
-	}
 	let index = 0, maxIndex = 0;
 	options.onprogress = event => {
 		if (!processor.cancelled) {
@@ -184,15 +157,58 @@ async function processPage(options) {
 			}
 		}
 	};
-	[options.frames] = await new Promise(resolve => {
-		const preInitializationAllPromises = Promise.all(preInitializationPromises);
-		const cancelProcessor = processor.cancel.bind(processor);
-		processor.cancel = function () {
-			cancelProcessor();
-			resolve([[]]);
-		};
-		preInitializationAllPromises.then(() => resolve(preInitializationAllPromises));
-	});
+	const cancelProcessor = processor.cancel.bind(processor);
+	if (!options.saveRawPage) {
+		if (options.loadDeferredImages) {
+			const lazyLoadPromise = singlefile.processors.lazy.process(options);
+			ui.onLoadingDeferResources(options);
+			lazyLoadPromise.then(() => {
+				if (!processor.cancelled) {
+					ui.onLoadDeferResources(options);
+				}
+			});
+			if (options.loadDeferredImagesBeforeFrames) {
+				await lazyLoadPromise;
+			} else {
+				preInitializationPromises.push(lazyLoadPromise);
+			}
+		}
+		if (!options.removeFrames && frames && globalThis.frames) {
+			let frameTreePromise;
+			if (options.loadDeferredImages) {
+				frameTreePromise = new Promise(resolve => globalThis.setTimeout(() => resolve(frames.getAsync(options)), options.loadDeferredImagesBeforeFrames ? 0 : options.loadDeferredImagesMaxIdleTime / 2));
+			} else {
+				frameTreePromise = frames.getAsync(options);
+			}
+			ui.onLoadingFrames(options);
+			frameTreePromise.then(() => {
+				if (!processor.cancelled) {
+					ui.onLoadFrames(options);
+				}
+			});
+			if (options.loadDeferredImagesBeforeFrames) {
+				options.frames = await new Promise(resolve => {
+					processor.cancel = function () {
+						cancelProcessor();
+						resolve([]);
+					};
+					frameTreePromise.then(resolve);
+				});
+			} else {
+				preInitializationPromises.push(frameTreePromise);
+			}
+		}
+	}
+	if (!options.loadDeferredImagesBeforeFrames) {
+		[,options.frames] = await new Promise(resolve => {
+			const preInitializationAllPromises = Promise.all(preInitializationPromises);
+			processor.cancel = function () {
+				cancelProcessor();
+				resolve([[]]);
+			};
+			preInitializationAllPromises.then(() => resolve(preInitializationAllPromises));
+		});
+	}
 	framesSessionId = options.frames && options.frames.sessionId;
 	const selectedFrame = options.frames && options.frames.find(frameData => frameData.requestedFrame);
 	options.win = globalThis;

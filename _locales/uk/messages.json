@@ -279,6 +279,10 @@
 		"message": "відправка події \"прокрутка\"",
 		"description": "Options page label: 'dispatch \"scroll\" event'"
 	},
+	"optionLoadDeferredImagesBeforeFrames": {
+		"message": "зберегти відстрочені фрейми",
+		"description": "Options page label: 'load deferred frames'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "видалити зображення для альтернативних розширень екрану ",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"

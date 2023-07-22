@@ -279,6 +279,10 @@
 		"message": "触发滚动事件",
 		"description": "Options page label: 'dispatch \"scroll\" event'"
 	},
+	"optionLoadDeferredImagesBeforeFrames": {
+		"message": "load deferred frames",
+		"description": "Options page label: 'load deferred frames'"
+	},
 	"optionRemoveAlternativeImages": {
 		"message": "移除用于备选分辨率的图片",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"
