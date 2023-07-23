@@ -18,7 +18,8 @@
 		</div> <span id="index"> <a href="#getting-started">Getting started</a> - <a href="#general-notes">Additional
 				notes</a> - <a href="#options">Options description</a> - <a href="#annotation-editor">Annotation
 				editor</a> - <a href="#notes">Technical notes</a> - <a href="#template-variables">Template variables</a>
-			- <a href="#known-issues">Known issues</a> - <a href="#unknown-issues">Troubleshooting unknown issues</a> -
+			- <a href="#external-messages">Integration with other extensions</a> - <a href="#known-issues">Known
+				issues</a> - <a href="#unknown-issues">Troubleshooting unknown issues</a> -
 			<a href="#contributors">Contributors</a> </span>
 		<hr>
 		<ol>
@@ -834,6 +835,35 @@
 					<li><code>{digest-sha-512}</code>: the SHA-512 hash value of the entire page content</li>
 					<li><code>{profile-name}</code>: the name of the profile used to save the page</li>
 				</ul>
+			</li>
+			<li>
+				<a id="external-messages">Integration with other extensions</a>
+				<p>SingleFile can receive messages from other extensions. The messages must be sent to the extension ID
+					of SingleFile and must be a string containing one of the following values:
+				<ul>
+					<li>
+						<code>"save-page"</code>: save the current page
+					</li>
+					<li>
+						<code>"edit-and-save-page"</code>: edit the current page in the annotation editor and save it
+					</li>
+					<li>
+						<code>"save-selected-links"</code>: save the selected links
+					</li>
+					<li>
+						<code>"save-selected-content"</code>: save the selected content
+					</li>
+					<li>
+						<code>"save-selected-tabs"</code>: save the selected tabs
+					</li>
+					<li>
+						<code>"save-unpinned-tabs"</code>: save the unpinned tabs
+					</li>
+					<li>
+						<code>"save-all-tabs"</code>: save all the tabs
+					</li>
+				</ul>
+				</p>
 			</li>
 			<li><a id="notes">Technical notes</a>
 				<ul>
