@@ -279,13 +279,13 @@
 		"message": "wysyłaj zdarzenie \"scroll\"",
 		"description": "Options page label: 'dispatch \"scroll\" event'"
 	},
-	"optionRemoveAlternativeImages": {
-		"message": "usuwaj obrazy dla alternatywnych rozdzielczości ekranu",
-		"description": "Options page label: 'remove images for alternative screen resolutions'"
-	},
 	"optionLoadDeferredImagesBeforeFrames": {
 		"message": "ładuj odroczone ramki",
 		"description": "Options page label: 'load deferred frames'"
+	},
+	"optionRemoveAlternativeImages": {
+		"message": "usuwaj obrazy dla alternatywnych rozdzielczości ekranu",
+		"description": "Options page label: 'remove images for alternative screen resolutions'"
 	},
 	"optionsFontsSubTitle": {
 		"message": "Czcionki",
