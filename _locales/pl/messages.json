@@ -284,7 +284,7 @@
 		"description": "Options page label: 'remove images for alternative screen resolutions'"
 	},
 	"optionLoadDeferredImagesBeforeFrames": {
-		"message": "zapisuj odroczone ramki",
+		"message": "ładuj odroczone ramki",
 		"description": "Options page label: 'load deferred frames'"
 	},
 	"optionsFontsSubTitle": {
