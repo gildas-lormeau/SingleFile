@@ -51,6 +51,7 @@ ui.init({ isSavingTab, saveTabs, saveUrls, cancelTab, openEditor, saveSelectedLi
 export {
 	saveTabs,
 	saveUrls,
+	saveSelectedLinks,
 	cancelTask,
 	cancelAllTasks,
 	getTasksInfo,

@@ -42,12 +42,10 @@ function injectedScript() {
 		window.globalThis = window;
 	}
 	const document = globalThis.document;
-	const console = globalThis.console;
 	const dispatchEvent = event => globalThis.dispatchEvent(event);
 	const CustomEvent = globalThis.CustomEvent;
 	const FileReader = globalThis.FileReader;
 	const Blob = globalThis.Blob;
-	const warn = (console && console.warn && ((...args) => console.warn(...args))) || (() => { });
 	const NEW_FONT_FACE_EVENT = "single-file-new-font-face";
 	const DELETE_FONT_EVENT = "single-file-delete-font";
 	const CLEAR_FONTS_EVENT = "single-file-clear-fonts";
@@ -63,16 +61,12 @@ function injectedScript() {
 
 	if (globalThis.FontFace) {
 		const FontFace = globalThis.FontFace;
-		let warningFontFaceDisplayed;
 		globalThis.FontFace = function () {
-			if (!warningFontFaceDisplayed) {
-				warn("SingleFile is hooking the FontFace constructor, document.fonts.delete and document.fonts.clear to handle dynamically loaded fonts.");
-				warningFontFaceDisplayed = true;
-			}
 			getDetailObject(...arguments).then(detail => dispatchEvent(new CustomEvent(NEW_FONT_FACE_EVENT, { detail })));
 			return new FontFace(...arguments);
 		};
 		globalThis.FontFace.toString = function () { return "function FontFace() { [native code] }"; };
+		globalThis.FontFace.prototype = FontFace.prototype;
 		const deleteFont = document.fonts.delete;
 		document.fonts.delete = function (fontFace) {
 			getDetailObject(fontFace.family).then(detail => dispatchEvent(new CustomEvent(DELETE_FONT_EVENT, { detail })));

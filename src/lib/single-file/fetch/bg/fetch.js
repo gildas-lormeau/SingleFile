@@ -29,7 +29,8 @@ const MAX_CONTENT_SIZE = 8 * (1024 * 1024);
 
 export {
 	REQUEST_ID_HEADER_NAME,
-	referrers
+	referrers,
+	fetchResource
 };
 
 browser.runtime.onMessage.addListener((message, sender) => {
@@ -91,6 +92,7 @@ function fetchResource(url, options = {}, includeRequestId) {
 							.catch(reject);
 					} else {
 						resolve({
+							arrayBuffer: xhrRequest.response,
 							array: Array.from(new Uint8Array(xhrRequest.response)),
 							headers: { "content-type": xhrRequest.getResponseHeader("Content-Type") },
 							status: xhrRequest.status

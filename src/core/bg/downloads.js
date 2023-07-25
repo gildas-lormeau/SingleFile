@@ -214,7 +214,7 @@ async function saveToGitHub(taskId, filename, content, githubToken, githubUser, 
 	}
 }
 
-async function saveWithWebDAV(taskId, filename, content, url, username, password) {
+async function saveWithWebDAV(taskId, filename, content, url, username, password, retry = true) {
 	const taskInfo = business.getTaskInfo(taskId);
 	const controller = new AbortController();
 	const { signal } = controller;
@@ -243,7 +243,11 @@ async function saveWithWebDAV(taskId, filename, content, url, username, password
 						path += "/";
 					}
 				}
-				return saveWithWebDAV(taskId, filename, content, url, username, password);
+				if (retry) {
+					return saveWithWebDAV(taskId, filename, content, url, username, password, false);
+				} else {
+					throw new Error("Error 404 (WebDAV)");
+				}
 			} else if (response.status >= 400) {
 				throw new Error("Error " + response.status + " (WebDAV)");
 			} else {

@@ -97,11 +97,13 @@ const loadDeferredImagesLabel = document.getElementById("loadDeferredImagesLabel
 const loadDeferredImagesMaxIdleTimeLabel = document.getElementById("loadDeferredImagesMaxIdleTimeLabel");
 const loadDeferredImagesKeepZoomLevelLabel = document.getElementById("loadDeferredImagesKeepZoomLevelLabel");
 const loadDeferredImagesDispatchScrollEventLabel = document.getElementById("loadDeferredImagesDispatchScrollEventLabel");
+const loadDeferredImagesBeforeFramesLabel = document.getElementById("loadDeferredImagesBeforeFramesLabel");
 const addMenuEntryLabel = document.getElementById("addMenuEntryLabel");
 const filenameTemplateLabel = document.getElementById("filenameTemplateLabel");
 const filenameMaxLengthLabel = document.getElementById("filenameMaxLengthLabel");
 const filenameMaxLengthBytesUnitLabel = document.getElementById("filenameMaxLengthBytesUnitLabel");
 const filenameMaxLengthCharsUnitLabel = document.getElementById("filenameMaxLengthCharsUnitLabel");
+const replaceEmojisInFilenameLabel = document.getElementById("replaceEmojisInFilenameLabel");
 const shadowEnabledLabel = document.getElementById("shadowEnabledLabel");
 const setMaxResourceSizeLabel = document.getElementById("setMaxResourceSizeLabel");
 const maxResourceSizeLabel = document.getElementById("maxResourceSizeLabel");
@@ -137,8 +139,8 @@ const titleLabel = document.getElementById("titleLabel");
 const userInterfaceLabel = document.getElementById("userInterfaceLabel");
 const filenameLabel = document.getElementById("filenameLabel");
 const htmlContentLabel = document.getElementById("htmlContentLabel");
-const infobarLabel = document.getElementById("infobarLabel");
 const imagesLabel = document.getElementById("imagesLabel");
+const infobarLabel = document.getElementById("infobarLabel");
 const stylesheetsLabel = document.getElementById("stylesheetsLabel");
 const fontsLabel = document.getElementById("fontsLabel");
 const networkLabel = document.getElementById("networkLabel");
@@ -220,10 +222,12 @@ const loadDeferredImagesInput = document.getElementById("loadDeferredImagesInput
 const loadDeferredImagesMaxIdleTimeInput = document.getElementById("loadDeferredImagesMaxIdleTimeInput");
 const loadDeferredImagesKeepZoomLevelInput = document.getElementById("loadDeferredImagesKeepZoomLevelInput");
 const loadDeferredImagesDispatchScrollEventInput = document.getElementById("loadDeferredImagesDispatchScrollEventInput");
+const loadDeferredImagesBeforeFramesInput = document.getElementById("loadDeferredImagesBeforeFramesInput");
 const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 const filenameTemplateInput = document.getElementById("filenameTemplateInput");
 const filenameMaxLengthInput = document.getElementById("filenameMaxLengthInput");
 const filenameMaxLengthUnitInput = document.getElementById("filenameMaxLengthUnitInput");
+const replaceEmojisInFilenameInput = document.getElementById("replaceEmojisInFilenameInput");
 const shadowEnabledInput = document.getElementById("shadowEnabledInput");
 const maxResourceSizeInput = document.getElementById("maxResourceSizeInput");
 const maxResourceSizeEnabledInput = document.getElementById("maxResourceSizeEnabledInput");
@@ -593,11 +597,13 @@ loadDeferredImagesLabel.textContent = browser.i18n.getMessage("optionLoadDeferre
 loadDeferredImagesMaxIdleTimeLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesMaxIdleTime");
 loadDeferredImagesKeepZoomLevelLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesKeepZoomLevel");
 loadDeferredImagesDispatchScrollEventLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesDispatchScrollEvent");
+loadDeferredImagesBeforeFramesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesBeforeFrames");
 addMenuEntryLabel.textContent = browser.i18n.getMessage("optionAddMenuEntry");
 filenameTemplateLabel.textContent = browser.i18n.getMessage("optionFilenameTemplate");
 filenameMaxLengthLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLength");
 filenameMaxLengthBytesUnitLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLengthBytesUnit");
 filenameMaxLengthCharsUnitLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLengthCharsUnit");
+replaceEmojisInFilenameLabel.textContent = browser.i18n.getMessage("optionReplaceEmojisInFilename");
 shadowEnabledLabel.textContent = browser.i18n.getMessage("optionDisplayShadow");
 setMaxResourceSizeLabel.textContent = browser.i18n.getMessage("optionSetMaxResourceSize");
 maxResourceSizeLabel.textContent = browser.i18n.getMessage("optionMaxResourceSize");
@@ -877,10 +883,13 @@ async function refresh(profileName) {
 	loadDeferredImagesMaxIdleTimeInput.disabled = !profileOptions.loadDeferredImages;
 	loadDeferredImagesDispatchScrollEventInput.checked = profileOptions.loadDeferredImagesDispatchScrollEvent;
 	loadDeferredImagesDispatchScrollEventInput.disabled = !profileOptions.loadDeferredImages;
+	loadDeferredImagesBeforeFramesInput.checked = profileOptions.loadDeferredImagesBeforeFrames;
+	loadDeferredImagesBeforeFramesInput.disabled = !profileOptions.loadDeferredImages;
 	contextMenuEnabledInput.checked = profileOptions.contextMenuEnabled;
 	filenameTemplateInput.value = profileOptions.filenameTemplate;
 	filenameMaxLengthInput.value = profileOptions.filenameMaxLength;
 	filenameMaxLengthUnitInput.value = profileOptions.filenameMaxLengthUnit;
+	replaceEmojisInFilenameInput.checked = profileOptions.replaceEmojisInFilename;
 	shadowEnabledInput.checked = profileOptions.shadowEnabled;
 	maxResourceSizeEnabledInput.checked = profileOptions.maxResourceSizeEnabled;
 	maxResourceSizeInput.value = profileOptions.maxResourceSizeEnabled ? profileOptions.maxResourceSize : 10;
@@ -989,10 +998,12 @@ async function update() {
 			loadDeferredImagesMaxIdleTime: Math.max(loadDeferredImagesMaxIdleTimeInput.value, 0),
 			loadDeferredImagesKeepZoomLevel: loadDeferredImagesKeepZoomLevelInput.checked,
 			loadDeferredImagesDispatchScrollEvent: loadDeferredImagesDispatchScrollEventInput.checked,
+			loadDeferredImagesBeforeFrames: loadDeferredImagesBeforeFramesInput.checked,
 			contextMenuEnabled: contextMenuEnabledInput.checked,
 			filenameTemplate: filenameTemplateInput.value,
 			filenameMaxLength: filenameMaxLengthInput.value,
 			filenameMaxLengthUnit: filenameMaxLengthUnitInput.value,
+			replaceEmojisInFilename: replaceEmojisInFilenameInput.checked,
 			shadowEnabled: shadowEnabledInput.checked,
 			maxResourceSizeEnabled: maxResourceSizeEnabledInput.checked,
 			maxResourceSize: maxResourceSizeEnabledInput.checked ? Math.max(maxResourceSizeInput.value, 0) : 10,

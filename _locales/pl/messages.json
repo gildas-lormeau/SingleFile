@@ -207,6 +207,10 @@
 		"message": "znaki",
 		"description": "Options page label: 'characters'"
 	},
+	"optionReplaceEmojisInFilename" : {
+		"message": "zamień emotikony na tekst",
+		"description": "Options page label: 'replace emojis with text'"
+	},
 	"optionConfirmFilename": {
 		"message": "otwieraj okno \"Zapisz jako\", aby potwierdzić nazwę pliku",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
@@ -274,6 +278,10 @@
 	"optionLoadDeferredImagesDispatchScrollEvent": {
 		"message": "wysyłaj zdarzenie \"scroll\"",
 		"description": "Options page label: 'dispatch \"scroll\" event'"
+	},
+	"optionLoadDeferredImagesBeforeFrames": {
+		"message": "ładuj odroczone ramki",
+		"description": "Options page label: 'load deferred frames'"
 	},
 	"optionRemoveAlternativeImages": {
 		"message": "usuwaj obrazy dla alternatywnych rozdzielczości ekranu",

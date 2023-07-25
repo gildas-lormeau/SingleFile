@@ -1,5 +1,10 @@
 #!/bin/sh
 
+sudo apt install zip jq
+
+npm install
+npm update
+
 npx rollup -c rollup.config.js
 
 cp package.json package.copy.json
@@ -31,14 +36,7 @@ jq "del(.browser_specific_settings,.permissions[0],.permissions[1],.options_ui.b
 sed -i 's/207618107333-3pj2pmelhnl4sf3rpctghs9cean3q8nj/207618107333-7tjs1im1pighftpoepea2kvkubnfjj44/g' manifest.json
 sed -i 's/forceWebAuthFlow: false/forceWebAuthFlow: true/g' src/core/bg/config.js
 sed -i 's/image\/avif,//g' src/core/bg/config.js
-mkdir _locales.copy
-cp -R _locales/* _locales.copy
-rm -rf _locales/*
-cp -R _locales.copy/en _locales
 zip -r singlefile-extension-edge.zip manifest.json lib _locales src
-rm -rf _locales/*
-mv _locales.copy/* _locales
-rmdir _locales.copy
 mv config.copy.js src/core/bg/config.js
 
 mv manifest.copy.json manifest.json

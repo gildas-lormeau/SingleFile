@@ -207,6 +207,10 @@
 		"message": "字符",
 		"description": "Options page label: 'characters'"
 	},
+	"optionReplaceEmojisInFilename" : {
+		"message": "用文字替換表情符號",
+		"description": "Options page label: 'replace emojis with text'"
+	},
 	"optionConfirmFilename": {
 		"message": "打開 “另存為” 對話框以確認文件名",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
@@ -274,6 +278,10 @@
 	"optionLoadDeferredImagesDispatchScrollEvent": {
 		"message": "觸發滾動事件",
 		"description": "Options page label: 'dispatch \"scroll\" event'"
+	},
+	"optionLoadDeferredImagesBeforeFrames": {
+		"message": "load deferred frames",
+		"description": "Options page label: 'load deferred frames'"
 	},
 	"optionRemoveAlternativeImages": {
 		"message": "移除用於備選分辨率的圖片",

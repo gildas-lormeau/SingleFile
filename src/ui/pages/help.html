@@ -18,7 +18,8 @@
 		</div> <span id="index"> <a href="#getting-started">Getting started</a> - <a href="#general-notes">Additional
 				notes</a> - <a href="#options">Options description</a> - <a href="#annotation-editor">Annotation
 				editor</a> - <a href="#notes">Technical notes</a> - <a href="#template-variables">Template variables</a>
-			- <a href="#known-issues">Known issues</a> - <a href="#unknown-issues">Troubleshooting unknown issues</a> -
+			- <a href="#external-messages">Integration with other extensions</a> - <a href="#known-issues">Known
+				issues</a> - <a href="#unknown-issues">Troubleshooting unknown issues</a> -
 			<a href="#contributors">Contributors</a> </span>
 		<hr>
 		<ol>
@@ -167,6 +168,11 @@
 							existing ones on the filesystem. The "skip duplicate files" action only detects duplicates
 							among files downloaded during the current browsing session.</p>
 					</li>
+					<li data-options-label="replaceEmojisInFilenameLabel">
+						<span class="option">Option: replace emojis with text</span>
+						<p>Check this option to replace emojis in the file name with their unicode text representation.
+						</p>
+					</li>
 				</ul>
 				<p>HTML content</p>
 				<ul>
@@ -293,9 +299,10 @@
 					</li>
 					<li data-options-label="loadDeferredImagesLabel"> <span class="option">Option: save deferred
 							images</span>
-						<p>Check this option to save all the deferred images that are not yet displayed. This may help
-							to save all the images without scrolling the page. This feature does its best effort and is
-							not guaranteed to work on all sites. It will also increase the time needed to save a page.
+						<p>Check this option to save all the deferred images (or frames) that are not yet displayed.
+							This may help to save all the images without scrolling the page. This feature does its best
+							effort and is not guaranteed to work on all sites. It will also increase the time needed to
+							save a page.
 						</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
@@ -318,6 +325,13 @@
 							the page</span>
 						<p>Check this option to save the entire content of a page by zooming out the page. This can help
 							saving pages using infinite virtual lists for example. </p>
+						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+					</li>
+					<li data-options-label="loadDeferredImagesBeforeFramesLabel"> <span class="option">Option: load
+							deferred frames</span>
+						<p>Check this option to load deferred frames and images before saving frame contents. It will
+							increase the time needed to save a page.
+						</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 					<li data-options-label="removeAlternativeImagesLabel"> <span class="option">Option: remove images
@@ -822,6 +836,35 @@
 					<li><code>{profile-name}</code>: the name of the profile used to save the page</li>
 				</ul>
 			</li>
+			<li>
+				<a id="external-messages">Integration with other extensions</a>
+				<p>SingleFile can receive messages from other extensions. The messages must be sent to the extension ID
+					of SingleFile and must be a string containing one of the following values:
+				<ul>
+					<li>
+						<code>"save-page"</code>: save the current page
+					</li>
+					<li>
+						<code>"edit-and-save-page"</code>: edit the current page in the annotation editor and save it
+					</li>
+					<li>
+						<code>"save-selected-links"</code>: save the selected links
+					</li>
+					<li>
+						<code>"save-selected-content"</code>: save the selected content
+					</li>
+					<li>
+						<code>"save-selected-tabs"</code>: save the selected tabs
+					</li>
+					<li>
+						<code>"save-unpinned-tabs"</code>: save the unpinned tabs
+					</li>
+					<li>
+						<code>"save-all-tabs"</code>: save all the tabs
+					</li>
+				</ul>
+				</p>
+			</li>
 			<li><a id="notes">Technical notes</a>
 				<ul>
 					<li>All images are converted into <a href="http://en.wikipedia.org/wiki/Base64"
@@ -915,10 +958,12 @@
 							profile</a>), kramola-RU (<a href="https://github.com/kramola-RU" target="_blank">GitHub
 							profile</a>), solokot (<a href="https://github.com/solokot" target="_blank">GitHub
 							profile</a>)</li>
-					<li>Ukrainian translation done by perdolka (<a href="https://github.com/perdolka"
-							target="_blank">GitHub profile</a>)</li>
 					<li>Spanish translation done by strel (<a href="https://github.com/strel" target="_blank">GitHub
 							profile</a>)</li>
+					<li>Turkish translation done by hbaklan943 (<a href="https://github.com/hbaklan943"
+							target="_blank">GitHub profile</a>)</li>
+					<li>Ukrainian translation done by perdolka (<a href="https://github.com/perdolka"
+							target="_blank">GitHub profile</a>), gildas-lormeau</li>
 				</ul>
 			</li>
 			<li><a id="icons">Icons</a>

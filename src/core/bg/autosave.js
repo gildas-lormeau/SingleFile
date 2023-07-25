@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, infobar, URL, Blob, XMLHttpRequest */
+/* global browser, infobar, URL, Blob */
 
 import * as config from "./config.js";
 import * as business from "./business.js";
@@ -32,6 +32,8 @@ import * as ui from "./../../ui/bg/index.js";
 import { getPageData } from "./../../index.js";
 import * as woleet from "./../../lib/woleet/woleet.js";
 import { autoSaveIsEnabled } from "./autosave-util.js";
+import { enableReferrerOnError } from "./requests.js";
+import { fetchResource } from "./../../lib/single-file/fetch/bg/fetch.js";
 
 const pendingMessages = {};
 const replacedTabIds = {};
@@ -154,6 +156,9 @@ async function saveContent(message, tab) {
 			if (options.autoSaveExternalSave) {
 				await companion.externalSave(options);
 			} else {
+				if (options.passReferrerOnError) {
+					enableReferrerOnError();
+				}
 				pageData = await getPageData(options, null, null, { fetch });
 				if (options.includeInfobar) {
 					pageData.content += await infobar.getScript();
@@ -208,29 +213,13 @@ async function saveContent(message, tab) {
 	}
 }
 
-function fetch(url, options = {}) {
-	return new Promise((resolve, reject) => {
-		const xhrRequest = new XMLHttpRequest();
-		xhrRequest.withCredentials = true;
-		xhrRequest.responseType = "arraybuffer";
-		xhrRequest.onerror = event => reject(new Error(event.detail));
-		xhrRequest.onreadystatechange = () => {
-			if (xhrRequest.readyState == XMLHttpRequest.DONE) {
-				resolve({
-					status: xhrRequest.status,
-					headers: {
-						get: name => xhrRequest.getResponseHeader(name)
-					},
-					arrayBuffer: async () => xhrRequest.response
-				});
-			}
-		};
-		xhrRequest.open("GET", url, true);
-		if (options.headers) {
-			for (const entry of Object.entries(options.headers)) {
-				xhrRequest.setRequestHeader(entry[0], entry[1]);
-			}
-		}
-		xhrRequest.send();
-	});
+async function fetch(url, options = {}) {
+	const response = await fetchResource(url, options);
+	return {
+		status: response.status,
+		headers: {
+			get: name => response.headers.get(name)
+		},
+		arrayBuffer: () => response.arrayBuffer
+	};
 }
