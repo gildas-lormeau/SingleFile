@@ -511,6 +511,10 @@
 		"message": "離開標註編輯器時提醒保存已修改的內容",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
+	"optionDisplayInfobarInEditor": {
+		"message": "顯示信息欄",
+		"description": "Title of the button 'display the infobar'"
+	},
 	"optionsMiscSubTitle": {
 		"message": "雜項",
 		"description": "Options sub-title: 'Misc.'"

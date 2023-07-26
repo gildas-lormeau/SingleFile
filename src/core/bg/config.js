@@ -124,6 +124,7 @@ const DEFAULT_CONFIG = {
 	saveFavicon: true,
 	includeBOM: false,
 	warnUnsavedPage: true,
+	displayInfobarInEditor: false,
 	autoSaveExternalSave: false,
 	insertMetaNoIndex: false,
 	insertMetaCSP: true,

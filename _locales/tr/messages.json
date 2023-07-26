@@ -511,6 +511,10 @@
 		"message": "kaydedilmemiş değişiklikle sayfadan ayrılırsa uyar",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
+	"optionDisplayInfobarInEditor": {
+		"message": "bilgi çubuğunu görüntüleme",
+		"description": "Title of the button 'display the infobar'"
+	},
 	"optionsMiscSubTitle": {
 		"message": "Çeşitli.",
 		"description": "Options sub-title: 'Misc.'"

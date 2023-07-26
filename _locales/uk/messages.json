@@ -511,6 +511,10 @@
 		"message": "попереджати при виході зі сторінки з незбереженими змінами",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
+	"optionDisplayInfobarInEditor": {
+		"message": "display the infobar",
+		"description": "Title of the button 'display the infobar'"
+	},
 	"optionsMiscSubTitle": {
 		"message": "Різне",
 		"description": "Options sub-title: 'Misc.'"

@@ -511,6 +511,10 @@
 		"message": "dar aviso ao sair do site sem previamente salvar as mudanças ",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
+	"optionDisplayInfobarInEditor": {
+		"message": "exibir o infobar",
+		"description": "Title of the button 'display the infobar'"
+	},
 	"optionsMiscSubTitle": {
 		"message": "Diversos",
 		"description": "Options sub-title: 'Misc.'"

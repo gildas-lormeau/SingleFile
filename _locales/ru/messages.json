@@ -511,6 +511,10 @@
 		"message": "предупреждать при закрытии страницы с несохранёнными изменениями",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
+	"optionDisplayInfobarInEditor": {
+		"message": "display the infobar",
+		"description": "Title of the button 'display the infobar'"
+	},
 	"optionsMiscSubTitle": {
 		"message": "Разное",
 		"description": "Options sub-title: 'Misc.'"

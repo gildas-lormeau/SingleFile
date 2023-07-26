@@ -1086,6 +1086,9 @@ pre code {
 		if (message.method == "printPage") {
 			printPage();
 		}
+		if (message.method == "displayInfobar") {
+			singlefile.infobar.displayIcon();
+		}
 	};
 	window.onresize = reflowNotes;
 	document.ondragover = event => event.preventDefault();
