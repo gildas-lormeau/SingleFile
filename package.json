@@ -12,8 +12,8 @@
 		"single-file": "./cli/single-file"
 	},
 	"dependencies": {
-		"single-file-core": "1.0.55",
-		"single-file-cli": "1.0.47"
+		"single-file-core": "1.0.56",
+		"single-file-cli": "1.0.49"
 	},
 	"devDependencies": {
 		"@rollup/plugin-node-resolve": "15.0.1",
