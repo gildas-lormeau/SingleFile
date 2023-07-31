@@ -320,15 +320,15 @@
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
 	"optionsNetworkSubTitle": {
-		"message": "Network",
+		"message": "Rede",
 		"description": "Options sub-title: 'Network'"
 	},
 	"optionsBlockedResources": {
-		"message": "blocked resources",
+		"message": "recursos bloqueados",
 		"description": "Options page label: 'blocked resources'"
 	},
 	"optionsAcceptHeaders": {
-		"message": "\"Accept\" header",
+		"message": "\"Cabeçalho\" Accept",
 		"description": "Options page label: '\"Accept\" header'"
 	},
 	"optionResourceScript": {
