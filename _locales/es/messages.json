@@ -32,7 +32,7 @@
 		"description": "Menu entry: 'Save with profile'"
 	},
 	"menuViewPendingSaves": {
-		"message": "View pending saves...",
+		"message": "Ver guardados pendientes...",
 		"description": "Menu entry: 'View pending saves...'"
 	},
 	"menuSelectProfile": {
@@ -440,11 +440,11 @@
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
-		"message": "auto-save on tab discard",
+		"message": "auto-guardado al descartar la pestaña",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
-		"message": "auto-save on tab removal",
+		"message": "auto-guardado al cerrar la pestaña",
 		"description": "Options page label: 'auto-save on tab removal'"
 	},
 	"optionAutoSaveDelay": {
@@ -464,11 +464,11 @@
 		"description": "Options page label: 'save the page with SingleFile Companion'"
 	},
 	"optionsEditorSubTitle": {
-		"message": "Annotation editor",
+		"message": "editor de anotaciones",
 		"description": "Options sub-title: 'Annotation editor'"
 	},
 	"optionOpenEditor": {
-		"message": "annotate the page before saving",
+		"message": "anotar página antes de guardarla",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionOpenSavedPage": {
@@ -476,11 +476,11 @@
 		"description": "Options page label: 'open saved pages in a new tab'"
 	},
 	"optionAutoOpenEditor": {
-		"message": "open pages saved with SingleFile in the annotation editor",
+		"message": "abrir páginas guardadas con SingleFile en el editor de anotaciones",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionDefaultEditorMode": {
-		"message": "modo por defecto",
+		"message": "modo predeterminado",
 		"description": "Options page label: 'default mode'"
 	},
 	"optionDefaultEditorModeNormal": {
@@ -504,11 +504,11 @@
 		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
-		"message": "apply the system theme when formatting a page",
+		"message": "aplicar diseño del sistema al formatear una páginae",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionWarnUnsavedPage": {
-		"message": "warn if leaving page with unsaved changes",
+		"message": "mostrar advertencia al salir de una página con cambios no guardados",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
 	"optionDisplayInfobarInEditor": {
@@ -560,7 +560,7 @@
 		"description": "Options page label: 'copy to clipboard'"
 	},
 	"optionSaveToFilesystem": {
-		"message": "save to filesystem",
+		"message": "guardar en el sistema de archivos",
 		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionAddProof": {
@@ -572,7 +572,7 @@
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionWoleetKey": {
-		"message": "access token",
+		"message": "token de acceso",
 		"description": "Options page label: 'access token'"
 	},
 	"optionSaveToGDrive": {
@@ -584,19 +584,19 @@
 		"description": "Options page label: 'upload to GitHub'"
 	},
 	"optionGitHubToken": {
-		"message": "access token",
+		"message": "token de acceso",
 		"description": "Options page label: 'access token'"
 	},
 	"optionGitHubUser": {
-		"message": "user name",
+		"message": "nombre de usuario",
 		"description": "Options page label: 'user name'"
 	},
 	"optionGitHubRepository": {
-		"message": "repository name",
+		"message": "nombre del repositorio",
 		"description": "Options page label: 'repository name'"
 	},
 	"optionGitHubBranch": {
-		"message": "branch name",
+		"message": "nombre de la rama",
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveWithWebDAV": {
@@ -728,91 +728,91 @@
 		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
 	},
 	"editorAddYellowNote": {
-		"message": "Add a yellow note",
+		"message": "Añadir una nota amarilla",
 		"description": "Title of the button 'Add a yellow note' in the editor"
 	},
 	"editorAddPinkNote": {
-		"message": "Add a pink note",
+		"message": "Añadir una nota rosa",
 		"description": "Title of the button 'Add a pink note' in the editor"
 	},
 	"editorAddBlueNote": {
-		"message": "Add a blue note",
+		"message": "Añadir una nota azul",
 		"description": "Title of the button 'Add a blue note' in the editor"
 	},
 	"editorAddGreenNote": {
-		"message": "Add a green note",
+		"message": "Añadir una nota verde",
 		"description": "Title of the button 'Add a green note' in the editor"
 	},
 	"editorHighlightYellow": {
-		"message": "Highlight selected text in yellow",
+		"message": "Resaltar texto seleccionado en amarillo",
 		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
 	},
 	"editorHighlightPink": {
-		"message": "Highlight selected text in pink",
+		"message": "Resaltar texto seleccionado en rosa",
 		"description": "Title of the button 'Highlight selected text in pink' in the editor"
 	},
 	"editorHighlightBlue": {
-		"message": "Highlight selected text in blue",
+		"message": "Resaltar texto seleccionado en azul",
 		"description": "Title of the button 'Highlight selected text in blue' in the editor"
 	},
 	"editorHighlightGreen": {
-		"message": "Highlight selected text in green",
+		"message": "Resaltar texto seleccionado en verde",
 		"description": "Title of the button 'Highlight selected text in green' in the editor"
 	},
 	"editorToggleNotes": {
-		"message": "Display/hide notes",
+		"message": "Mostrar/ocultar notas",
 		"description": "Title of the button 'Display/hide notes' in the editor"
 	},
 	"editorToggleHighlights": {
-		"message": "Display/hide the highlighted text",
+		"message": "Mostrar/ocultar el texto resaltado",
 		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
 	},
 	"editorRemoveHighlight": {
-		"message": "Remove the selected highlighted text",
+		"message": "Eliminar el texto resaltado seleccionado",
 		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
 	},
 	"editorEditPage": {
-		"message": "Enable/disable read-only",
+		"message": "Activar/desactivar solo lectura",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorFormatPage": {
-		"message": "Format the page for better readability",
+		"message": "Formatear la página para una mejor legibilidad",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "Enable/disable removing of internal elements",
+		"message": "Activar/desactivar la eliminación de elementos internos",
 		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "Enable/disable removing of external elements",
+		"message": "Activar/desactivar la eliminación de elementos externos",
 		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
-		"message": "Restore last removed element",
+		"message": "Restaurar el último elemento eliminado",
 		"description": "Title of the button 'Restore last removed element' in the editor"
 	},
 	"editorUndoAllCutPage": {
-		"message": "Restore all removed elements",
+		"message": "Restaurar todos los elementos eliminados",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
 	"editorRedoCutPage": {
-		"message": "Remove last restored element",
+		"message": "Eliminar el último elemento restaurado",
 		"description": "Title of the button 'Remove last restored element' in the editor"
 	},
 	"editorSavePage": {
-		"message": "Save the page",
+		"message": "Guardar la página",
 		"description": "Title of the button 'Save the page' in the editor"
 	},
 	"editorPrintPage": {
-		"message": "Print the page",
+		"message": "Imprimir la página",
 		"description": "Title of the button 'Print the page' in the editor"
 	},
 	"pendingsTitle": {
-		"message": "Pending saves",
+		"message": "Guardados pendientes",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
 	},
 	"pendingsCancelAllButton": {
-		"message": "Cancel all",
+		"message": "Cancelar todo",
 		"description": "Pending saves button 'Cancel all'"
 	},
 	"pendingsURLTitle": {
@@ -820,35 +820,35 @@
 		"description": "Title of the first column in the table of the pending saves 'URL'"
 	},
 	"pendingsTitleTitle": {
-		"message": "Title",
+		"message": "Título",
 		"description": "Title of the first column in the table of the pending saves 'Title'"
 	},
 	"pendingsStatusTitle": {
-		"message": "status",
+		"message": "estado",
 		"description": "Title of the second column in the table of the pending saves 'status'"
 	},
 	"pendingsPendingStatus": {
-		"message": "pending",
+		"message": "pendiente",
 		"description": "Value of 'status' for pending saves"
 	},
 	"pendingsProcessingStatus": {
-		"message": "processing",
+		"message": "procesando",
 		"description": "Value of 'status' for current saves"
 	},
 	"pendingsCancellingStatus": {
-		"message": "cancelling",
+		"message": "cancelando",
 		"description": "Value of 'status' for cancelled saves"
 	},
 	"pendingsNoPendings": {
-		"message": "No pending saves",
+		"message": "No hay guardados pendientes",
 		"description": "Label displayed when they are no pending saves"
 	},
 	"pendingsAddUrlsButton": {
-		"message": "Add URLs",
+		"message": "Añadir URLs",
 		"description": "button 'Add URLs'"
 	},
 	"pendingsAddUrls": {
-		"message": "Enter a list of URLs separated by a new line",
+		"message": "Introduce una lista de URLs separadas por una nueva línea",
 		"description": "Label of the add URLs input"
 	},
 	"pendingsAddUrlsOKButton": {
@@ -856,31 +856,31 @@
 		"description": "Add URLs popup confirm button: 'OK'"
 	},
 	"pendingsAddUrlsCancelButton": {
-		"message": "Cancel",
+		"message": "Cancelar",
 		"description": "Add URLs popup cancel button: 'Cancel'"
 	},
 	"batchSaveUrlsTitle": {
-		"message": "Batch save URLs",
+		"message": "Guardar URLs en lote",
 		"description": "Title of the 'batch save URLs' page"
 	},
 	"batchSaveUrlsNoURLs": {
-		"message": "No URLs",
+		"message": "Sin URLs",
 		"description": "Label displayed when they are no URLs"
 	},
 	"batchSaveUrlsAddUrlButton": {
-		"message": "Add URL",
+		"message": "Añadir URL",
 		"description": "label of the button 'Add URL'"
 	},
 	"batchSaveUrlsAddUrlsButton": {
-		"message": "Add URLs...",
+		"message": "Añadir URLs...",
 		"description": "label of the button 'Add URLs...'"
 	},
 	"batchSaveUrlsRemoveAllButton": {
-		"message": "Remove all",
+		"message": "Eliminar todo",
 		"description": "label of the button 'Remove all'"
 	},
 	"batchSaveUrlsSavePagesButton": {
-		"message": "Save pages",
+		"message": "Guardar páginas",
 		"description": "label of the button 'Save pages'"
 	},
 	"batchSaveUrlsURLTitle": {

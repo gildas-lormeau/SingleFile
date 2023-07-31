@@ -207,7 +207,7 @@
 		"message": "Zeichen",
 		"description": "Options page label: 'characters'"
 	},
-	"optionReplaceEmojisInFilename" : {
+	"optionReplaceEmojisInFilename": {
 		"message": "Emojis durch Text ersetzen",
 		"description": "Options page label: 'replace emojis with text'"
 	},
@@ -440,11 +440,11 @@
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
-		"message": "auto-save on tab discard",
+		"message": "Automatische Speicherung beim Schließen des Tabs",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
-		"message": "auto-save on tab removal",
+		"message": "Automatisches Speichern beim Entfernen des Tabs",
 		"description": "Options page label: 'auto-save on tab removal'"
 	},
 	"optionAutoSaveDelay": {
@@ -464,19 +464,19 @@
 		"description": "Options page label: 'save the page with SingleFile Companion'"
 	},
 	"optionsEditorSubTitle": {
-		"message": "Annotation editor",
+		"message": "Annotation-Editor",
 		"description": "Options sub-title: 'Annotation editor'"
 	},
 	"optionOpenEditor": {
-		"message": "annotate the page before saving",
+		"message": "Seite vor dem Speichern annotieren",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionOpenSavedPage": {
-		"message": "open saved pages in a new tab",
+		"message": "Gespeicherte Seiten in einem neuen Tab öffnen",
 		"description": "Options page label: 'open saved pages in a new tab'"
 	},
 	"optionAutoOpenEditor": {
-		"message": "open pages saved with SingleFile in the annotation editor",
+		"message": "Seiten, die mit SingleFile gespeichert wurden, im Annotation-Editor öffnen",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionDefaultEditorMode": {
@@ -504,7 +504,7 @@
 		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
-		"message": "apply the system theme when formatting a page",
+		"message": "System-Design beim Formatieren einer Seite anwenden",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionWarnUnsavedPage": {
@@ -552,7 +552,7 @@
 		"description": "Options page label: 'save raw page'"
 	},
 	"optionInsertMetaCSP": {
-		"message": "set content security policy",
+		"message": "Content Security Policy einfügen",
 		"description": "Options page label: 'set content security policy'"
 	},
 	"optionSaveToClipboard": {
@@ -596,7 +596,7 @@
 		"description": "Options page label: 'repository name'"
 	},
 	"optionGitHubBranch": {
-		"message": "Zweigname ",
+		"message": "Zweigname",
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveWithWebDAV": {

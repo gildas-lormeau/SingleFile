@@ -72,7 +72,7 @@
 		"description": "Menu entry: 'Save all tabs'"
 	},
 	"menuBatchSaveUrls": {
-		"message": "Batch save URLs...",
+		"message": "Salvataggio batch di URL...",
 		"description": "Menu entry: 'Batch save URLs...'"
 	},
 	"menuAutoSave": {
@@ -164,11 +164,11 @@
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionBlockMixedContent": {
-		"message": "block mixed content",
+		"message": "blocca contenuti misti",
 		"description": "Options page label: 'block mixed content'"
 	},
 	"optionSaveOriginalURLs": {
-		"message": "save original URLs of embedded resources",
+		"message": "salva gli URL originali delle risorse incorporate",
 		"description": "Options page label: 'save original URLs of embedded resources'"
 	},
 	"optionIncludeInfobar": {
@@ -308,7 +308,7 @@
 		"description": "Options page label: 'compress CSS content'"
 	},
 	"optionMoveStylesInHead": {
-		"message": "move in the head element the styles found outside of it",
+		"message": "sposta nell'elemento head gli stili trovati al di fuori di esso",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionRemoveUnusedStyles": {
@@ -320,15 +320,15 @@
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
 	"optionsNetworkSubTitle": {
-		"message": "Network",
+		"message": "Rete",
 		"description": "Options sub-title: 'Network'"
 	},
 	"optionsBlockedResources": {
-		"message": "blocked resources",
+		"message": "risorse bloccate",
 		"description": "Options page label: 'blocked resources'"
 	},
 	"optionsAcceptHeaders": {
-		"message": "\"Accept\" header",
+		"message": "Intestazione \"Accept\"",
 		"description": "Options page label: '\"Accept\" header'"
 	},
 	"optionResourceScript": {
@@ -344,19 +344,19 @@
 		"description": "Options page label: 'audios'"
 	},
 	"optionResourceDocument": {
-		"message": "documents",
+		"message": "documenti",
 		"description": "Options page label: 'documents'"
 	},
 	"optionResourceFont": {
-		"message": "fonts",
+		"message": "caratteri",
 		"description": "Options page label: 'fonts'"
 	},
 	"optionResourceStylesheet": {
-		"message": "stylesheets",
+		"message": "fogli di stile",
 		"description": "Options page label: 'stylesheets'"
 	},
 	"optionResourceImage": {
-		"message": "images",
+		"message": "immagini",
 		"description": "Options page label: 'images'"
 	},
 	"optionsDestinationSubTitle": {
@@ -860,27 +860,27 @@
 		"description": "Add URLs popup cancel button: 'Cancel'"
 	},
 	"batchSaveUrlsTitle": {
-		"message": "Batch save URLs",
+		"message": "Salvataggio batch di URL",
 		"description": "Title of the 'batch save URLs' page"
 	},
 	"batchSaveUrlsNoURLs": {
-		"message": "No URLs",
+		"message": "Nessun URL",
 		"description": "Label displayed when they are no URLs"
 	},
 	"batchSaveUrlsAddUrlButton": {
-		"message": "Add URL",
+		"message": "Aggiungi URL",
 		"description": "label of the button 'Add URL'"
 	},
 	"batchSaveUrlsAddUrlsButton": {
-		"message": "Add URLs...",
+		"message": "Aggiungi URL...",
 		"description": "label of the button 'Add URLs...'"
 	},
 	"batchSaveUrlsRemoveAllButton": {
-		"message": "Remove all",
+		"message": "Rimuovi tutto",
 		"description": "label of the button 'Remove all'"
 	},
 	"batchSaveUrlsSavePagesButton": {
-		"message": "Save pages",
+		"message": "Salva le pagine",
 		"description": "label of the button 'Save pages'"
 	},
 	"batchSaveUrlsURLTitle": {
