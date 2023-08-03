@@ -280,7 +280,7 @@
 		"description": "Options page label: 'dispatch \"scroll\" event'"
 	},
 	"optionLoadDeferredImagesBeforeFrames": {
-		"message": "load deferred frames",
+		"message": "加載延遲加載的框架",
 		"description": "Options page label: 'load deferred frames'"
 	},
 	"optionRemoveAlternativeImages": {

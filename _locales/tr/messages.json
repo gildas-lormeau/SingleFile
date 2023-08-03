@@ -92,7 +92,7 @@
 		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
 	},
 	"menuAutoSaveAllTabs": {
-		"message": "Auto-save all tabs",
+		"message": "Tüm sekmeleri otomatik olarak kaydet",
 		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
 	},
 	"buttonDefaultTooltip": {

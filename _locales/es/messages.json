@@ -512,7 +512,7 @@
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
 	"optionDisplayInfobarInEditor": {
-		"message": "mostrar la barra de información",
+		"message": "mostrar la barra informativa",
 		"description": "Title of the button 'display the infobar'"
 	},
 	"optionsMiscSubTitle": {
