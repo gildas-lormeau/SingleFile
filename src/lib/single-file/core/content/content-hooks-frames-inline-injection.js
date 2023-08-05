@@ -64,9 +64,11 @@ function injectedScript() {
 
 	addEventListener(GET_ADOPTED_STYLESHEETS_REQUEST_EVENT, event => {
 		const shadowRoot = event.target.shadowRoot;
-		const adoptedStyleSheets = Array.from(shadowRoot.adoptedStyleSheets).map(stylesheet => Array.from(stylesheet.cssRules).map(cssRule => cssRule.cssText).join("\n"));
-		if (adoptedStyleSheets.length) {
-			event.target.dispatchEvent(new CustomEvent(GET_ADOPTED_STYLESHEETS_RESPONSE_EVENT, { detail: { adoptedStyleSheets } }));
+		if (shadowRoot) {
+			const adoptedStyleSheets = Array.from(shadowRoot.adoptedStyleSheets).map(stylesheet => Array.from(stylesheet.cssRules).map(cssRule => cssRule.cssText).join("\n"));
+			if (adoptedStyleSheets.length) {
+				event.target.dispatchEvent(new CustomEvent(GET_ADOPTED_STYLESHEETS_RESPONSE_EVENT, { detail: { adoptedStyleSheets } }));
+			}
 		}
 	}, { capture: true });
 
