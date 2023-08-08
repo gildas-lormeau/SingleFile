@@ -30,6 +30,7 @@ const CURRENT_PROFILE_NAME = "-";
 const DEFAULT_PROFILE_NAME = "__Default_Settings__";
 const DISABLED_PROFILE_NAME = "__Disabled_Settings__";
 const REGEXP_RULE_PREFIX = "regexp:";
+const PROFILE_NAME_PREFIX = "profile_";
 
 const IS_NOT_SAFARI = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent) || /Vivaldi/.test(navigator.userAgent) || /OPR/.test(navigator.userAgent);
 const BACKGROUND_SAVE_SUPPORTED = !(/Mobile.*Firefox/.test(navigator.userAgent) || /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent) && !/Vivaldi/.test(navigator.userAgent) && !/OPR/.test(navigator.userAgent));
@@ -189,7 +190,7 @@ export {
 	removeAuthInfo
 };
 
-async function upgrade() {
+async function upgrade(ignoreOldProfiles) {
 	const { sync } = await browser.storage.local.get();
 	if (sync) {
 		configStorage = browser.storage.sync;
@@ -197,53 +198,32 @@ async function upgrade() {
 		configStorage = browser.storage.local;
 	}
 	const config = await configStorage.get();
-	if (!config.profiles) {
-		const defaultConfig = config;
-		delete defaultConfig.tabsData;
-		applyUpgrade(defaultConfig);
-		const newConfig = { profiles: {}, rules: DEFAULT_RULES };
-		newConfig.profiles[DEFAULT_PROFILE_NAME] = defaultConfig;
-		configStorage.remove(Object.keys(DEFAULT_CONFIG));
-		await configStorage.set(newConfig);
-	} else {
-		if (!config.rules) {
-			config.rules = DEFAULT_RULES;
+	if (!config[PROFILE_NAME_PREFIX + DEFAULT_PROFILE_NAME]) {
+		if (config.profiles && !ignoreOldProfiles) {
+			const profileNames = Object.keys(config.profiles);
+			for (const profileName of profileNames) {
+				await setProfile(profileName, config.profiles[profileName]);
+			}
+			// uncomment when migration is done
+			// await configStorage.remove(["profiles"]);
+		} else {
+			await setProfile(DEFAULT_PROFILE_NAME, DEFAULT_CONFIG);
 		}
-		Object.keys(config.profiles).forEach(profileName => applyUpgrade(config.profiles[profileName]));
-		await configStorage.remove(["profiles", "rules"]);
-		await configStorage.set({ profiles: config.profiles, rules: config.rules });
+	}
+	if (!config.rules) {
+		await configStorage.set({ rules: DEFAULT_RULES });
 	}
 	if (!config.maxParallelWorkers) {
 		await configStorage.set({ maxParallelWorkers: navigator.hardwareConcurrency || 4 });
 	}
 }
 
-function applyUpgrade(config) {
-	upgradeOldConfig(config, "blockScripts", "removeScripts");
-	upgradeOldConfig(config, "blockVideos", "removeVideoSrc");
-	upgradeOldConfig(config, "blockAudios", "removeAudioSrc");
-	Object.keys(DEFAULT_CONFIG).forEach(configKey => upgradeConfig(config, configKey));
-}
-
-function upgradeOldConfig(config, newKey, oldKey) { // eslint-disable-line no-unused-vars
-	if (config[newKey] === undefined && config[oldKey] !== undefined) {
-		config[newKey] = config[oldKey];
-		delete config[oldKey];
-	}
-}
-
-function upgradeConfig(config, key) {
-	if (config[key] === undefined) {
-		config[key] = DEFAULT_CONFIG[key];
-	}
-}
-
 async function getRule(url, ignoreWildcard) {
-	const config = await getConfig();
-	const regExpRules = config.rules.filter(rule => testRegExpRule(rule));
+	const { rules } = await configStorage.get(["rules"]);
+	const regExpRules = rules.filter(rule => testRegExpRule(rule));
 	let rule = regExpRules.sort(sortRules).find(rule => url && url.match(new RegExp(rule.url.split(REGEXP_RULE_PREFIX)[1])));
 	if (!rule) {
-		const normalRules = config.rules.filter(rule => !testRegExpRule(rule));
+		const normalRules = rules.filter(rule => !testRegExpRule(rule));
 		rule = normalRules.sort(sortRules).find(rule => (!ignoreWildcard && rule.url == "*") || (url && url.includes(rule.url)));
 	}
 	return rule;
@@ -251,7 +231,10 @@ async function getRule(url, ignoreWildcard) {
 
 async function getConfig() {
 	await pendingUpgradePromise;
-	return configStorage.get(["profiles", "rules", "maxParallelWorkers"]);
+	const { maxParallelWorkers } = await configStorage.get(["maxParallelWorkers"]);
+	const rules = await getRules();
+	const profiles = await getProfiles();
+	return { profiles, rules, maxParallelWorkers };
 }
 
 function sortRules(ruleLeft, ruleRight) {
@@ -327,20 +310,28 @@ async function onMessage(message) {
 	if (message.method.endsWith(".enableSync")) {
 		await browser.storage.local.set({ sync: true });
 		const syncConfig = await browser.storage.sync.get();
-		if (!syncConfig || !syncConfig.profiles) {
-			const localConfig = await browser.storage.local.get();
-			await browser.storage.sync.set({ profiles: localConfig.profiles, rules: localConfig.rules, maxParallelWorkers: localConfig.maxParallelWorkers });
+		if (!syncConfig || !syncConfig.rules) {
+			const profileKeyNames = await getProfileKeyNames();
+			const localConfig = await browser.storage.local.get(["rules", "maxParallelWorkers", ...profileKeyNames]);
+			await browser.storage.sync.set(localConfig);
 		}
 		configStorage = browser.storage.sync;
+		await upgrade();
 		return {};
 	}
 	if (message.method.endsWith(".disableSync")) {
 		await browser.storage.local.set({ sync: false });
 		const syncConfig = await browser.storage.sync.get();
-		if (syncConfig && syncConfig.profiles) {
-			await browser.storage.local.set({ profiles: syncConfig.profiles, rules: syncConfig.rules, maxParallelWorkers: syncConfig.maxParallelWorkers });
+		const localConfig = await browser.storage.local.get();
+		if (syncConfig && syncConfig.rules && (!localConfig || !localConfig.rules)) {
+			await browser.storage.local.set({ rules: syncConfig.rules, maxParallelWorkers: syncConfig.maxParallelWorkers });
+			const profiles = {};
+			// syncConfig.profileNames.forEach(profileKeyName => profiles[PROFILE_NAME_PREFIX + profileKeyName] = syncConfig[profileKeyName]);
+			await browser.storage.local.set(profiles);
 		}
 		configStorage = browser.storage.local;
+		await upgrade();
+		return {};
 	}
 	if (message.method.endsWith(".isSync")) {
 		return { sync: (await browser.storage.local.get()).sync };
@@ -349,21 +340,27 @@ async function onMessage(message) {
 }
 
 async function createProfile(profileName, fromProfileName) {
-	const config = await getConfig();
-	if (Object.keys(config.profiles).includes(profileName)) {
+	const profileNames = await getProfileNames();
+	if (profileNames.includes(profileName)) {
 		throw new Error("Duplicate profile name");
 	}
-	config.profiles[profileName] = JSON.parse(JSON.stringify(config.profiles[fromProfileName]));
-	await configStorage.set({ profiles: config.profiles });
+	const profileFrom = await getProfile(fromProfileName);
+	const profile = JSON.parse(JSON.stringify(profileFrom));
+	await setProfile(profileName, profile);
 }
 
 async function getProfiles() {
-	const config = await getConfig();
-	return config.profiles;
+	await pendingUpgradePromise;
+	const profileKeyNames = await getProfileKeyNames();
+	const profiles = await configStorage.get(profileKeyNames);
+	const result = {};
+	Object.keys(profiles).forEach(profileName => result[profileName.substring(PROFILE_NAME_PREFIX.length)] = profiles[profileName]);
+	return result;
 }
 
 async function getOptions(url, autoSave) {
-	const [config, rule, allTabsData] = await Promise.all([getConfig(), getRule(url), tabsData.get()]);
+	await pendingUpgradePromise;
+	const [rule, allTabsData] = await Promise.all([getRule(url), tabsData.get()]);
 	const tabProfileName = allTabsData.profileName || DEFAULT_PROFILE_NAME;
 	let selectedProfileName;
 	if (rule) {
@@ -372,24 +369,30 @@ async function getOptions(url, autoSave) {
 	} else {
 		selectedProfileName = tabProfileName;
 	}
-	return Object.assign({ profileName: selectedProfileName }, config.profiles[selectedProfileName]);
+	const profile = await getProfile(selectedProfileName);
+	return Object.assign({ profileName: selectedProfileName }, profile);
 }
 
 async function updateProfile(profileName, profile) {
-	const config = await getConfig();
-	if (!Object.keys(config.profiles).includes(profileName)) {
+	const profileNames = await getProfileNames();
+	if (!profileNames.includes(profileName)) {
 		throw new Error("Profile not found");
 	}
-	Object.keys(profile).forEach(key => config.profiles[profileName][key] = profile[key]);
-	await configStorage.set({ profiles: config.profiles });
+	const previousProfile = await getProfile(profileName);
+	Object.keys(previousProfile).forEach(key => {
+		profile[key] = profile[key] === undefined ? previousProfile[key] : profile[key];
+	});
+	await setProfile(profileName, profile);
 }
 
 async function renameProfile(oldProfileName, profileName) {
-	const [config, allTabsData] = await Promise.all([getConfig(), tabsData.get()]);
-	if (!Object.keys(config.profiles).includes(oldProfileName)) {
+	const profileNames = await getProfileNames();
+	const allTabsData = await tabsData.get();
+	const rules = await getRules();
+	if (!profileNames.includes(oldProfileName)) {
 		throw new Error("Profile not found");
 	}
-	if (Object.keys(config.profiles).includes(profileName)) {
+	if (profileNames.includes(profileName)) {
 		throw new Error("Duplicate profile name");
 	}
 	if (oldProfileName == DEFAULT_PROFILE_NAME) {
@@ -399,8 +402,7 @@ async function renameProfile(oldProfileName, profileName) {
 		allTabsData.profileName = profileName;
 		await tabsData.set(allTabsData);
 	}
-	config.profiles[profileName] = config.profiles[oldProfileName];
-	config.rules.forEach(rule => {
+	rules.forEach(rule => {
 		if (rule.profile == oldProfileName) {
 			rule.profile = profileName;
 		}
@@ -408,13 +410,16 @@ async function renameProfile(oldProfileName, profileName) {
 			rule.autoSaveProfile = profileName;
 		}
 	});
-	delete config.profiles[oldProfileName];
-	await configStorage.set({ profiles: config.profiles, rules: config.rules });
+	const profile = await getProfile(oldProfileName);
+	await configStorage.remove([PROFILE_NAME_PREFIX + oldProfileName]);
+	await configStorage.set({ [PROFILE_NAME_PREFIX + profileName]: profile, rules });
 }
 
 async function deleteProfile(profileName) {
-	const [config, allTabsData] = await Promise.all([getConfig(), tabsData.get()]);
-	if (!Object.keys(config.profiles).includes(profileName)) {
+	const profileNames = await getProfileNames();
+	const allTabsData = await tabsData.get();
+	const rules = await getRules();
+	if (!profileNames.includes(profileName)) {
 		throw new Error("Profile not found");
 	}
 	if (profileName == DEFAULT_PROFILE_NAME) {
@@ -424,7 +429,7 @@ async function deleteProfile(profileName) {
 		delete allTabsData.profileName;
 		await tabsData.set(allTabsData);
 	}
-	config.rules.forEach(rule => {
+	rules.forEach(rule => {
 		if (rule.profile == profileName) {
 			rule.profile = DEFAULT_PROFILE_NAME;
 		}
@@ -432,62 +437,78 @@ async function deleteProfile(profileName) {
 			rule.autoSaveProfile = DEFAULT_PROFILE_NAME;
 		}
 	});
-	delete config.profiles[profileName];
-	await configStorage.set({ profiles: config.profiles, rules: config.rules });
+	configStorage.remove([PROFILE_NAME_PREFIX + profileName]);
+	await configStorage.set({ rules });
 }
 
 async function getRules() {
-	const config = await getConfig();
-	return config.rules;
+	return (await configStorage.get(["rules"])).rules;
+}
+
+async function getProfileNames() {
+	return Object.keys(await configStorage.get()).filter(key => key.startsWith(PROFILE_NAME_PREFIX)).map(key => key.substring(PROFILE_NAME_PREFIX.length));
+}
+
+async function getProfileKeyNames() {
+	return Object.keys(await configStorage.get()).filter(key => key.startsWith(PROFILE_NAME_PREFIX));
+}
+
+async function getProfile(profileName) {
+	const profileKey = PROFILE_NAME_PREFIX + profileName;
+	const data = await configStorage.get([profileKey]);
+	return data[profileKey];
+}
+
+async function setProfile(profileName, profileData) {
+	const profileKey = PROFILE_NAME_PREFIX + profileName;
+	await configStorage.set({ [profileKey]: profileData });
 }
 
 async function addRule(url, profile, autoSaveProfile) {
 	if (!url) {
 		throw new Error("URL is empty");
 	}
-	const config = await getConfig();
-	if (config.rules.find(rule => rule.url == url)) {
+	const rules = await getRules();
+	if (rules.find(rule => rule.url == url)) {
 		throw new Error("URL already exists");
 	}
-	config.rules.push({
+	rules.push({
 		url,
 		profile,
 		autoSaveProfile
 	});
-	await configStorage.set({ rules: config.rules });
+	await configStorage.set({ rules });
 }
 
 async function deleteRule(url) {
 	if (!url) {
 		throw new Error("URL is empty");
 	}
-	const config = await getConfig();
-	config.rules = config.rules.filter(rule => rule.url != url);
-	await configStorage.set({ rules: config.rules });
+	const rules = await getRules();
+	await configStorage.set({ rules: rules.filter(rule => rule.url != url) });
 }
 
 async function deleteRules(profileName) {
-	const config = await getConfig();
-	config.rules = config.rules = profileName ? config.rules.filter(rule => rule.autoSaveProfile != profileName && rule.profile != profileName) : [];
-	await configStorage.set({ rules: config.rules });
+	const rules = await getRules();
+	await configStorage.set({ rules: profileName ? rules.filter(rule => rule.autoSaveProfile != profileName && rule.profile != profileName) : [] });
 }
 
 async function updateRule(url, newURL, profile, autoSaveProfile) {
 	if (!url || !newURL) {
 		throw new Error("URL is empty");
 	}
-	const config = await getConfig();
-	const urlConfig = config.rules.find(rule => rule.url == url);
+	const rules = await getRules();
+	const urlConfig = rules.find(rule => rule.url == url);
 	if (!urlConfig) {
 		throw new Error("URL not found");
 	}
-	if (config.rules.find(rule => rule.url == newURL && rule.url != url)) {
+	if (rules.find(rule => rule.url == newURL && rule.url != url)) {
 		throw new Error("New URL already exists");
 	}
 	urlConfig.url = newURL;
 	urlConfig.profile = profile;
 	urlConfig.autoSaveProfile = autoSaveProfile;
-	await configStorage.set({ rules: config.rules });
+	await configStorage.set({ rules });
 }
 
 async function getAuthInfo() {
@@ -512,19 +533,17 @@ async function resetProfiles() {
 	const allTabsData = await tabsData.get();
 	delete allTabsData.profileName;
 	await tabsData.set(allTabsData);
-	await configStorage.remove(["profiles", "rules", "maxParallelWorkers"]);
-	await browser.storage.local.set({ sync: false });
-	configStorage = browser.storage.local;
-	await upgrade();
+	let profileKeyNames = await getProfileKeyNames();
+	await configStorage.remove([...profileKeyNames, "rules", "maxParallelWorkers"]);
+	await upgrade(true);
 }
 
 async function resetProfile(profileName) {
-	const config = await getConfig();
-	if (!Object.keys(config.profiles).includes(profileName)) {
+	const profileNames = await getProfileNames();
+	if (!profileNames.includes(profileName)) {
 		throw new Error("Profile not found");
 	}
-	config.profiles[profileName] = DEFAULT_CONFIG;
-	await configStorage.set({ profiles: config.profiles });
+	await setProfile(profileName, DEFAULT_CONFIG);
 }
 
 async function exportConfig() {
@@ -552,7 +571,16 @@ async function exportConfig() {
 }
 
 async function importConfig(config) {
-	await configStorage.remove(["profiles", "rules", "maxParallelWorkers"]);
-	await configStorage.set({ profiles: config.profiles, rules: config.rules, maxParallelWorkers: config.maxParallelWorkers });
+	const profileNames = await getProfileNames();
+	const profileKeyNames = await getProfileKeyNames();
+	const allTabsData = await tabsData.get();
+	if (profileNames.includes(allTabsData.profileName)) {
+		delete allTabsData.profileName;
+		await tabsData.set(allTabsData);
+	}
+	await configStorage.remove([...profileKeyNames, "rules", "maxParallelWorkers"]);
+	const newConfig = { rules: config.rules, maxParallelWorkers: config.maxParallelWorkers };
+	Object.keys(config.profiles).forEach(profileName => newConfig[PROFILE_NAME_PREFIX + profileName] = config.profiles[profileName]);
+	await configStorage.set(newConfig);
 	await upgrade();
 }
