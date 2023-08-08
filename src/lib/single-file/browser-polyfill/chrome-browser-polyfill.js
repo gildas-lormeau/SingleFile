@@ -362,8 +362,8 @@ if (typeof globalThis == "undefined") {
 							}
 						});
 					}),
-					get: () => new Promise((resolve, reject) => {
-						nativeAPI.storage.local.get(null, value => {
+					get: keys => new Promise((resolve, reject) => {
+						nativeAPI.storage.local.get(keys, value => {
 							if (nativeAPI.runtime.lastError) {
 								reject(nativeAPI.runtime.lastError);
 							} else {
@@ -400,8 +400,8 @@ if (typeof globalThis == "undefined") {
 							}
 						});
 					}),
-					get: () => new Promise((resolve, reject) => {
-						nativeAPI.storage.sync.get(null, value => {
+					get: keys => new Promise((resolve, reject) => {
+						nativeAPI.storage.sync.get(keys, value => {
 							if (nativeAPI.runtime.lastError) {
 								reject(nativeAPI.runtime.lastError);
 							} else {
