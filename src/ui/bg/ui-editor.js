@@ -291,6 +291,9 @@ addEventListener("message", event => {
 			linkElement.href = message.icon;
 			document.head.appendChild(linkElement);
 		}
+		if (tabData.options.displayInfobarInEditor) {
+			displayInfobar();
+		}
 		tabData.docSaved = true;
 		if (!message.reset) {
 			const defaultEditorMode = tabData.options.defaultEditorMode;
@@ -437,6 +440,12 @@ function savePage() {
 		updatedResources,
 		filename: tabData.filename,
 		foregroundSave: FOREGROUND_SAVE
+	}), "*");
+}
+
+function displayInfobar() {
+	editorElement.contentWindow.postMessage(JSON.stringify({
+		method: "displayInfobar"
 	}), "*");
 }
 

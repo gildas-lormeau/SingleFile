@@ -42,6 +42,7 @@ function injectedScript() {
 		window.globalThis = window;
 	}
 	const document = globalThis.document;
+	const addEventListener = (name, listener, options) => globalThis.addEventListener(name, listener, options);
 	const dispatchEvent = event => globalThis.dispatchEvent(event);
 	const CustomEvent = globalThis.CustomEvent;
 	const FileReader = globalThis.FileReader;
@@ -49,6 +50,8 @@ function injectedScript() {
 	const NEW_FONT_FACE_EVENT = "single-file-new-font-face";
 	const DELETE_FONT_EVENT = "single-file-delete-font";
 	const CLEAR_FONTS_EVENT = "single-file-clear-fonts";
+	const GET_ADOPTED_STYLESHEETS_REQUEST_EVENT = "single-file-request-get-adopted-stylesheets";
+	const GET_ADOPTED_STYLESHEETS_RESPONSE_EVENT = "single-file-response-get-adopted-stylesheets";
 	const FONT_STYLE_PROPERTIES = {
 		family: "font-family",
 		style: "font-style",
@@ -58,6 +61,16 @@ function injectedScript() {
 		variant: "font-variant",
 		featureSettings: "font-feature-settings"
 	};
+
+	addEventListener(GET_ADOPTED_STYLESHEETS_REQUEST_EVENT, event => {
+		const shadowRoot = event.target.shadowRoot;
+		if (shadowRoot) {
+			const adoptedStyleSheets = Array.from(shadowRoot.adoptedStyleSheets).map(stylesheet => Array.from(stylesheet.cssRules).map(cssRule => cssRule.cssText).join("\n"));
+			if (adoptedStyleSheets.length) {
+				event.target.dispatchEvent(new CustomEvent(GET_ADOPTED_STYLESHEETS_RESPONSE_EVENT, { detail: { adoptedStyleSheets } }));
+			}
+		}
+	}, { capture: true });
 
 	if (globalThis.FontFace) {
 		const FontFace = globalThis.FontFace;

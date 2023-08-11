@@ -320,15 +320,15 @@
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
 	"optionsNetworkSubTitle": {
-		"message": "Network",
+		"message": "Rede",
 		"description": "Options sub-title: 'Network'"
 	},
 	"optionsBlockedResources": {
-		"message": "blocked resources",
+		"message": "recursos bloqueados",
 		"description": "Options page label: 'blocked resources'"
 	},
 	"optionsAcceptHeaders": {
-		"message": "\"Accept\" header",
+		"message": "\"Cabeçalho\" Accept",
 		"description": "Options page label: '\"Accept\" header'"
 	},
 	"optionResourceScript": {
@@ -336,27 +336,27 @@
 		"description": "Options page label: 'scripts'"
 	},
 	"optionResourceVideo": {
-		"message": "videos",
+		"message": "vídeos",
 		"description": "Options page label: 'videos'"
 	},
 	"optionResourceAudio": {
-		"message": "audios",
+		"message": "áudios",
 		"description": "Options page label: 'audios'"
 	},
 	"optionResourceDocument": {
-		"message": "documents",
+		"message": "documentos",
 		"description": "Options page label: 'documents'"
 	},
 	"optionResourceFont": {
-		"message": "fonts",
+		"message": "fontes",
 		"description": "Options page label: 'fonts'"
 	},
 	"optionResourceStylesheet": {
-		"message": "stylesheets",
+		"message": "folhas de estilo",
 		"description": "Options page label: 'stylesheets'"
 	},
 	"optionResourceImage": {
-		"message": "images",
+		"message": "imagens",
 		"description": "Options page label: 'images'"
 	},
 	"optionsDestinationSubTitle": {
@@ -511,6 +511,10 @@
 		"message": "dar aviso ao sair do site sem previamente salvar as mudanças ",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
+	"optionDisplayInfobarInEditor": {
+		"message": "exibir o infobar",
+		"description": "Title of the button 'display the infobar'"
+	},
 	"optionsMiscSubTitle": {
 		"message": "Diversos",
 		"description": "Options sub-title: 'Misc.'"
@@ -524,7 +528,7 @@
 		"description": "Options page label: 'display stats in the console after processing'"
 	},
 	"optionSetMaxResourceSize": {
-		"message": "set maximum size",
+		"message": "definir tamanho máximo",
 		"description": "Options page label: 'set maximum size'"
 	},
 	"optionMaxResourceSize": {
@@ -532,11 +536,11 @@
 		"description": "Options page label: 'maximum size (MB)'"
 	},
 	"optionSetMaxResourceDelay": {
-		"message": "set maximum download time",
+		"message": "definir tempo máximo de download",
 		"description": "Options page label: 'set maximum download time'"
 	},
 	"optionMaxResourceDelay": {
-		"message": "maximum download time (s)",
+		"message": "tempo máximo de download (s)",
 		"description": "Options page label: 'maximum download time (s)'"
 	},
 	"optionPassReferrerOnError": {
@@ -596,7 +600,7 @@
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveWithWebDAV": {
-		"message": "upload to a WebDAV server",
+		"message": "enviar para um servidor WebDAV",
 		"description": "Options page label: 'upload to a WebDAV server'"
 	},
 	"optionWebDAVURL": {
@@ -604,11 +608,11 @@
 		"description": "Options page label: 'URL'"
 	},
 	"optionWebDAVUser": {
-		"message": "user identifier",
+		"message": "identificador do usuário",
 		"description": "Options page label: 'user identifier'"
 	},
 	"optionWebDAVPassword": {
-		"message": "password",
+		"message": "senha",
 		"description": "Options page label: 'password'"
 	},
 	"optionSaveWithCompanion": {

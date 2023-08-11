@@ -213,7 +213,7 @@ html.side-panel,
     padding-top: 3px;
 }
 
-.side-panel #URLLabel {
+.side-panel #URLLabel, .side-panel #filterButton {
     display: none;
 }
 

@@ -169,6 +169,7 @@ const infobarTemplateLabel = document.getElementById("infobarTemplateLabel");
 const blockMixedContentLabel = document.getElementById("blockMixedContentLabel");
 const saveOriginalURLsLabel = document.getElementById("saveOriginalURLsLabel");
 const includeInfobarLabel = document.getElementById("includeInfobarLabel");
+const displayInfobarInEditorLabel = document.getElementById("displayInfobarInEditorLabel");
 const removeInfobarSavedDateLabel = document.getElementById("removeInfobarSavedDateLabel");
 const miscLabel = document.getElementById("miscLabel");
 const helpLabel = document.getElementById("helpLabel");
@@ -274,6 +275,7 @@ const defaultEditorModeCutLabel = document.getElementById("defaultEditorModeCutL
 const defaultEditorModeCutExternalLabel = document.getElementById("defaultEditorModeCutExternalLabel");
 const applySystemThemeInput = document.getElementById("applySystemThemeInput");
 const warnUnsavedPageInput = document.getElementById("warnUnsavedPageInput");
+const displayInfobarInEditorInput = document.getElementById("displayInfobarInEditorInput");
 const expandAllButton = document.getElementById("expandAllButton");
 const rulesDeleteAllButton = document.getElementById("rulesDeleteAllButton");
 const ruleUrlInput = document.getElementById("ruleUrlInput");
@@ -671,6 +673,7 @@ defaultEditorModeCutLabel.textContent = browser.i18n.getMessage("optionDefaultEd
 defaultEditorModeCutExternalLabel.textContent = browser.i18n.getMessage("optionDefaultEditorModeCutExternal");
 applySystemThemeLabel.textContent = browser.i18n.getMessage("optionApplySystemTheme");
 warnUnsavedPageLabel.textContent = browser.i18n.getMessage("optionWarnUnsavedPage");
+displayInfobarInEditorLabel.textContent = browser.i18n.getMessage("optiondisplayInfobarInEditor");
 resetButton.textContent = browser.i18n.getMessage("optionsResetButton");
 exportButton.textContent = browser.i18n.getMessage("optionsExportButton");
 importButton.textContent = browser.i18n.getMessage("optionsImportButton");
@@ -940,6 +943,7 @@ async function refresh(profileName) {
 	defaultEditorModeInput.value = profileOptions.defaultEditorMode;
 	applySystemThemeInput.checked = profileOptions.applySystemTheme;
 	warnUnsavedPageInput.checked = profileOptions.warnUnsavedPage;
+	displayInfobarInEditorInput.checked = profileOptions.displayInfobarInEditor;
 }
 
 function getProfileText(profileName) {
@@ -1043,7 +1047,8 @@ async function update() {
 			autoOpenEditor: autoOpenEditorInput.checked,
 			defaultEditorMode: defaultEditorModeInput.value,
 			applySystemTheme: applySystemThemeInput.checked,
-			warnUnsavedPage: warnUnsavedPageInput.checked
+			warnUnsavedPage: warnUnsavedPageInput.checked,
+			displayInfobarInEditor: displayInfobarInEditorInput.checked
 		}
 	});
 	try {

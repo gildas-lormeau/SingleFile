@@ -280,7 +280,7 @@
 		"description": "Options page label: 'dispatch \"scroll\" event'"
 	},
 	"optionLoadDeferredImagesBeforeFrames": {
-		"message": "load deferred frames",
+		"message": "加载延迟帧",
 		"description": "Options page label: 'load deferred frames'"
 	},
 	"optionRemoveAlternativeImages": {
@@ -510,6 +510,10 @@
 	"optionWarnUnsavedPage": {
 		"message": "离开标注编辑器时提醒保存已修改的内容",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
+	},
+	"optionDisplayInfobarInEditor": {
+		"message": "显示信息栏",
+		"description": "Title of the button 'display the infobar'"
 	},
 	"optionsMiscSubTitle": {
 		"message": "杂项",

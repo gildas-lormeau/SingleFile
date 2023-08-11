@@ -511,6 +511,10 @@
 		"message": "ostrzegaj, jeśli opuszczasz stronę z niezapisanymi zmianami",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
+	"optionDisplayInfobarInEditor": {
+		"message": "wyświetlanie paska informacyjnego",
+		"description": "Title of the button 'display the infobar'"
+	},
 	"optionsMiscSubTitle": {
 		"message": "Różne",
 		"description": "Options sub-title: 'Misc.'"
