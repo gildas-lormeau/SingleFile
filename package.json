@@ -12,7 +12,7 @@
 		"single-file": "./cli/single-file"
 	},
 	"dependencies": {
-		"single-file-core": "1.0.64",
+		"single-file-core": "1.0.66",
 		"single-file-cli": "1.0.58"
 	},
 	"devDependencies": {

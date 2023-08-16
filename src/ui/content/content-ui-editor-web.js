@@ -974,7 +974,7 @@ pre code {
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingTouchTarget, cuttingPath, cuttingPathIndex, previousContent;
-	let removedElements = [], removedElementIndex = 0, initScriptContent;
+	let removedElements = [], removedElementIndex = 0, initScriptContent, includeInfobar;
 
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
@@ -1021,10 +1021,7 @@ pre code {
 			onUpdate(false);
 		}
 		if (message.method == "formatPage") {
-			formatPage(true);
-		}
-		if (message.method == "formatPageNoTheme") {
-			formatPage(false);
+			formatPage(!message.applySystemTheme);
 		}
 		if (message.method == "cancelFormatPage") {
 			cancelFormatPage();
@@ -1067,6 +1064,7 @@ pre code {
 		}
 		if (message.method == "getContent") {
 			onUpdate(true);
+			includeInfobar = message.includeInfobar;
 			let content = getContent(message.compressHTML, message.updatedResources);
 			if (initScriptContent) {
 				content = content.replace(/<script data-template-shadow-root src.*?<\/script>/g, initScriptContent);
@@ -1087,7 +1085,7 @@ pre code {
 			printPage();
 		}
 		if (message.method == "displayInfobar") {
-			singlefile.infobar.displayIcon();
+			singlefile.helper.displayIcon(document, true);
 		}
 	};
 	window.onresize = reflowNotes;
@@ -1118,6 +1116,10 @@ pre code {
 				}
 			} else if (document.doctype) {
 				document.doctype.remove();
+			}
+			const infobarElement = contentDocument.querySelector(singlefile.helper.INFOBAR_TAGNAME);
+			if (infobarElement) {
+				infobarElement.remove();
 			}
 			contentDocument.querySelectorAll("noscript").forEach(element => {
 				element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
@@ -1906,7 +1908,10 @@ pre code {
 			element.textContent = element.getAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
 			element.removeAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
 		});
-		doc.querySelectorAll("." + MASK_CLASS + ", ." + REMOVED_CONTENT_CLASS).forEach(maskElement => maskElement.remove());
+		doc.querySelectorAll("." + MASK_CLASS + ", " + singlefile.helper.INFOBAR_TAGNAME + ", ." + REMOVED_CONTENT_CLASS).forEach(maskElement => maskElement.remove());
+		if (includeInfobar) {
+			singlefile.helper.appendInfobar(doc, singlefile.helper.extractInfobarData(doc));
+		}
 		doc.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.remove(HIGHLIGHT_HIDDEN_CLASS));
 		doc.querySelectorAll(`template[${SHADOWROOT_ATTRIBUTE_NAME}]`).forEach(templateElement => {
 			const noteElement = templateElement.querySelector("." + NOTE_CLASS);

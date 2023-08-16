@@ -219,10 +219,6 @@ function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRe
 }
 
 async function openEditor(document) {
-	const infobarElement = document.querySelector("singlefile-infobar");
-	if (infobarElement) {
-		infobarElement.remove();
-	}
 	serializeShadowRoots(document);
 	const content = singlefile.helper.serialize(document);
 	for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {

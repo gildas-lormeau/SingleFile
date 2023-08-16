@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, infobar, URL, Blob */
+/* global browser, URL, Blob */
 
 import * as config from "./config.js";
 import * as business from "./business.js";
@@ -160,9 +160,6 @@ async function saveContent(message, tab) {
 					enableReferrerOnError();
 				}
 				pageData = await getPageData(options, null, null, { fetch });
-				if (options.includeInfobar) {
-					pageData.content += await infobar.getScript();
-				}
 				if (options.saveToGDrive) {
 					const blob = new Blob([pageData.content], { type: "text/html" });
 					await downloads.saveToGDrive(message.taskId, downloads.encodeSharpCharacter(pageData.filename), blob, options, {

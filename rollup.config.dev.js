@@ -53,13 +53,15 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/core/content/content-infobar.js"],
+	input: ["single-file-core/single-file-mini-helper.js"],
 	output: [{
-		file: "lib/single-file-extension-infobar.js",
+		file: "lib/single-file-extension-editor-helper.js",
 		format: "umd",
-		name: "infobar",
+		name: "singlefile",
 		plugins: []
-	}]
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
 }, {
 	input: ["src/core/content/content-bootstrap.js"],
 	output: [{
@@ -103,16 +105,6 @@ export default [{
 		format: "iife",
 		plugins: []
 	}]
-}, {
-	input: ["src/ui/content/content-ui-editor-helper-web"],
-	output: [{
-		file: "lib/single-file-extension-editor-helper.js",
-		format: "umd",
-		name: "singlefile",
-		plugins: []
-	}],
-	plugins: PLUGINS,
-	external: EXTERNAL
 }, {
 	input: ["src/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"],
 	output: [{
