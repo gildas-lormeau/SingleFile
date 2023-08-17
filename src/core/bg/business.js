@@ -44,7 +44,7 @@ const extensionScriptFiles = [
 ];
 
 const tasks = [];
-let currentTaskId = 0, maxParallelWorkers;
+let currentTaskId = 0, maxParallelWorkers, processInForeground;
 ui.init({ isSavingTab, saveTabs, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
 
 export {
@@ -176,7 +176,9 @@ function openEditor(tab) {
 
 async function initMaxParallelWorkers() {
 	if (!maxParallelWorkers) {
-		maxParallelWorkers = (await config.get()).maxParallelWorkers;
+		const configData = await config.get();
+		processInForeground = configData.processInForeground;
+		maxParallelWorkers = processInForeground ? 1 : configData.maxParallelWorkers;
 	}
 }
 
@@ -213,6 +215,9 @@ async function runTask(taskInfo) {
 	}
 	taskInfo.options.taskId = taskId;
 	try {
+		if (processInForeground) {
+			await browser.tabs.update(taskInfo.tab.id, { active: true });
+		}
 		await browser.tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options });
 	} catch (error) {
 		if (error && (!error.message || !isIgnoredError(error))) {
