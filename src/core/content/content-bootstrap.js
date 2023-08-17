@@ -219,9 +219,9 @@ function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRe
 }
 
 async function openEditor(document) {
-	const infobarElement = document.querySelector("singlefile-infobar");
-	if (infobarElement) {
-		infobarElement.remove();
+	const legacyInfobarElement = document.querySelector("singlefile-infobar");
+	if (legacyInfobarElement) {
+		legacyInfobarElement.remove();
 	}
 	serializeShadowRoots(document);
 	const content = singlefile.helper.serialize(document);
