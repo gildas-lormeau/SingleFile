@@ -89,6 +89,10 @@ async function onMessage(message) {
 }
 
 function init() {
+	const legacyInfobarElement = document.querySelector("singlefile-infobar");
+	if (legacyInfobarElement) {
+		legacyInfobarElement.remove();
+	}
 	if (previousLocationHref != location.href && !singlefile.pageInfo.processing) {
 		pageAutoSaved = false;
 		previousLocationHref = location.href;
@@ -219,10 +223,6 @@ function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRe
 }
 
 async function openEditor(document) {
-	const legacyInfobarElement = document.querySelector("singlefile-infobar");
-	if (legacyInfobarElement) {
-		legacyInfobarElement.remove();
-	}
 	serializeShadowRoots(document);
 	const content = singlefile.helper.serialize(document);
 	for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
