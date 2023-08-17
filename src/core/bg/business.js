@@ -94,7 +94,7 @@ async function saveUrls(urls, options = {}) {
 		tabOptions.autoClose = true;
 		tabOptions.extensionScriptFiles = extensionScriptFiles;
 		if (tabOptions.passReferrerOnError) {
-			await requests.enableReferrerOnError();
+			requests.enableReferrerOnError();
 		}
 		addTask({
 			tab: { url },
@@ -116,7 +116,7 @@ async function saveTabs(tabs, options = {}) {
 		tabOptions.tabIndex = tab.index;
 		tabOptions.extensionScriptFiles = extensionScriptFiles;
 		if (tabOptions.passReferrerOnError) {
-			await requests.enableReferrerOnError();
+			requests.enableReferrerOnError();
 		}
 		const tabData = {
 			id: tab.id,
