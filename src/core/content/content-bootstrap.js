@@ -256,7 +256,7 @@ function serializeShadowRoots(node) {
 			serializeShadowRoots(shadowRoot);
 			const templateElement = document.createElement("template");
 			templateElement.setAttribute(SHADOWROOT_ATTRIBUTE_NAME, "open");
-			templateElement.appendChild(shadowRoot);
+			Array.from(shadowRoot.childNodes).forEach(childNode => templateElement.appendChild(childNode));
 			element.appendChild(templateElement);
 		}
 	});
