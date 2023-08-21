@@ -212,6 +212,7 @@ function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRe
 		shadowRoots: docData.shadowRoots,
 		videos: docData.videos,
 		referrer: docData.referrer,
+		adoptedStyleSheets: docData.adoptedStyleSheets,
 		frames: frames,
 		url: location.href,
 		updatedResources,

@@ -144,6 +144,7 @@ async function saveContent(message, tab) {
 		options.shadowRoots = message.shadowRoots;
 		options.referrer = message.referrer;
 		options.updatedResources = message.updatedResources;
+		options.adoptedStyleSheets = message.adoptedStyleSheets;
 		options.visitDate = new Date(message.visitDate);
 		options.backgroundTab = true;
 		options.autoSave = true;
