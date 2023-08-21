@@ -1,7 +1,7 @@
 # FAQ
 
 ## I am a web archivist, is it ok to use SingleFile to archive content?
-No, SingleFile is not a tool used by professionals to archive content on the Web. Professionals prefer to rely on tools based on the [WARC specification](https://iipc.github.io/warc-specifications/) instead. 
+No, SingleFile is not a tool used by professionals to archive content on the Web, especially in the academic field. Professionals prefer to rely on tools based on the [WARC specification](https://iipc.github.io/warc-specifications/) instead. 
 
 ## Does SingleFile upload any data to third-party servers?
 As stated in the [privacy policy](https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md), SingleFile does not upload any data to third-party servers. All the work is done in your browser. However, when you save a page with SingleFile, it can download resources (images, CSS, frame contents, fonts etc.) that are not displayed or not already cached but present in the page.
