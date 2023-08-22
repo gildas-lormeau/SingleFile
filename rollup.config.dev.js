@@ -55,16 +55,6 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["single-file-core/single-file-mini-helper.js"],
-	output: [{
-		file: "lib/single-file-extension-editor-helper.js",
-		format: "umd",
-		name: "singlefile",
-		plugins: []
-	}],
-	plugins: PLUGINS,
-	external: EXTERNAL
-}, {
 	input: ["src/core/content/content-bootstrap.js"],
 	output: [{
 		file: "lib/single-file-extension-bootstrap.js",
@@ -107,6 +97,16 @@ export default [{
 		format: "iife",
 		plugins: []
 	}]
+}, {
+	input: ["single-file-core/single-file-editor-helper.js"],
+	output: [{
+		file: "lib/single-file-extension-editor-helper.js",
+		format: "umd",
+		name: "singlefile",
+		plugins: []
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
 }, {
 	input: ["src/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"],
 	output: [{
