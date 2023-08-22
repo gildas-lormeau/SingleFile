@@ -40,12 +40,11 @@ const TASK_PENDING_STATE = "pending";
 const TASK_PROCESSING_STATE = "processing";
 
 const extensionScriptFiles = [
-	"lib/single-file-extension-infobar.js",
 	"lib/single-file-extension.js"
 ];
 
 const tasks = [];
-let currentTaskId = 0, maxParallelWorkers;
+let currentTaskId = 0, maxParallelWorkers, processInForeground;
 ui.init({ isSavingTab, saveTabs, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
 
 export {
@@ -95,7 +94,7 @@ async function saveUrls(urls, options = {}) {
 		tabOptions.autoClose = true;
 		tabOptions.extensionScriptFiles = extensionScriptFiles;
 		if (tabOptions.passReferrerOnError) {
-			await requests.enableReferrerOnError();
+			requests.enableReferrerOnError();
 		}
 		addTask({
 			tab: { url },
@@ -117,7 +116,7 @@ async function saveTabs(tabs, options = {}) {
 		tabOptions.tabIndex = tab.index;
 		tabOptions.extensionScriptFiles = extensionScriptFiles;
 		if (tabOptions.passReferrerOnError) {
-			await requests.enableReferrerOnError();
+			requests.enableReferrerOnError();
 		}
 		const tabData = {
 			id: tab.id,
@@ -177,7 +176,9 @@ function openEditor(tab) {
 
 async function initMaxParallelWorkers() {
 	if (!maxParallelWorkers) {
-		maxParallelWorkers = (await config.get()).maxParallelWorkers;
+		const configData = await config.get();
+		processInForeground = configData.processInForeground;
+		maxParallelWorkers = processInForeground ? 1 : configData.maxParallelWorkers;
 	}
 }
 
@@ -214,6 +215,9 @@ async function runTask(taskInfo) {
 	}
 	taskInfo.options.taskId = taskId;
 	try {
+		if (processInForeground) {
+			await browser.tabs.update(taskInfo.tab.id, { active: true });
+		}
 		await browser.tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options });
 	} catch (error) {
 		if (error && (!error.message || !isIgnoredError(error))) {

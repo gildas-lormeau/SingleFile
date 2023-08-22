@@ -1,7 +1,7 @@
 # FAQ
 
 ## I am a web archivist, is it ok to use SingleFile to archive content?
-No, SingleFile is not a tool used by professionals to archive content on the Web. Professionals prefer to rely on tools based on the [WARC specification](https://iipc.github.io/warc-specifications/) instead. 
+No, SingleFile is not a tool used by professionals to archive content on the Web, especially in the academic field. Professionals prefer to rely on tools based on the [WARC specification](https://iipc.github.io/warc-specifications/) instead. 
 
 ## Does SingleFile upload any data to third-party servers?
 As stated in the [privacy policy](https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md), SingleFile does not upload any data to third-party servers. All the work is done in your browser. However, when you save a page with SingleFile, it can download resources (images, CSS, frame contents, fonts etc.) that are not displayed or not already cached but present in the page.
@@ -23,7 +23,7 @@ The permissions requested by SingleFile are defined in the [manifest.json](https
  - `tabs` (all_urls): allows SingleFile to inject the code needed to process a page in any tab. This permission is needed for saving several tabs in one click, for example.
  - `downloads`: allows SingleFile to save pages as if they were downloaded from the web.
  - `clipboardWrite`: allows SingleFile to copy the content of a page into the clipboard instead of saving it.
- - 'nativeMessaging': allows you to use [SingleFile Companion](https://github.com/gildas-lormeau/single-file-companion) to save pages.
+ - `nativeMessaging`: allows you to use [SingleFile Companion](https://github.com/gildas-lormeau/single-file-companion) to save pages.
 
 ## SingleFile is slow on my computer/tablet/phone, can it run faster?
 The default configuration of SingleFile is optimized to produce small pages. This can sometimes slow down the save process considerably. Below are the options you can disable to save time and CPU.

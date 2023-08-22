@@ -208,7 +208,7 @@
 		"description": "Options page label: 'characters'"
 	},
 	"optionReplaceEmojisInFilename" : {
-		"message": "用文本替换表情符号",
+		"message": "用文字替换表情符号",
 		"description": "Options page label: 'replace emojis with text'"
 	},
 	"optionConfirmFilename": {
@@ -280,7 +280,7 @@
 		"description": "Options page label: 'dispatch \"scroll\" event'"
 	},
 	"optionLoadDeferredImagesBeforeFrames": {
-		"message": "加载延迟帧",
+		"message": "加载延迟框架",
 		"description": "Options page label: 'load deferred frames'"
 	},
 	"optionRemoveAlternativeImages": {

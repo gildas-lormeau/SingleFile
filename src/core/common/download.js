@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, infobar, document, URL, Blob, MouseEvent, setTimeout, open */
+/* global browser, document, URL, Blob, MouseEvent, setTimeout, open */
 
 const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 
@@ -32,9 +32,6 @@ export {
 async function downloadPage(pageData, options) {
 	if (options.includeBOM) {
 		pageData.content = "\ufeff" + pageData.content;
-	}
-	if (options.includeInfobar) {
-		pageData.content += await infobar.getScript();
 	}
 	if (options.backgroundSave || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV) {
 		for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {

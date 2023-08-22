@@ -89,6 +89,10 @@ async function onMessage(message) {
 }
 
 function init() {
+	const legacyInfobarElement = document.querySelector("singlefile-infobar");
+	if (legacyInfobarElement) {
+		legacyInfobarElement.remove();
+	}
 	if (previousLocationHref != location.href && !singlefile.pageInfo.processing) {
 		pageAutoSaved = false;
 		previousLocationHref = location.href;
@@ -208,6 +212,7 @@ function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRe
 		shadowRoots: docData.shadowRoots,
 		videos: docData.videos,
 		referrer: docData.referrer,
+		adoptedStyleSheets: docData.adoptedStyleSheets,
 		frames: frames,
 		url: location.href,
 		updatedResources,
@@ -219,10 +224,6 @@ function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRe
 }
 
 async function openEditor(document) {
-	const infobarElement = document.querySelector("singlefile-infobar");
-	if (infobarElement) {
-		infobarElement.remove();
-	}
 	serializeShadowRoots(document);
 	const content = singlefile.helper.serialize(document);
 	for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
@@ -256,7 +257,7 @@ function serializeShadowRoots(node) {
 			serializeShadowRoots(shadowRoot);
 			const templateElement = document.createElement("template");
 			templateElement.setAttribute(SHADOWROOT_ATTRIBUTE_NAME, "open");
-			templateElement.appendChild(shadowRoot);
+			Array.from(shadowRoot.childNodes).forEach(childNode => templateElement.appendChild(childNode));
 			element.appendChild(templateElement);
 		}
 	});

@@ -175,7 +175,7 @@ async function processPage(options) {
 		if (!options.removeFrames && frames && globalThis.frames) {
 			let frameTreePromise;
 			if (options.loadDeferredImages) {
-				frameTreePromise = new Promise(resolve => globalThis.setTimeout(() => resolve(frames.getAsync(options)), options.loadDeferredImagesBeforeFrames ? 0 : options.loadDeferredImagesMaxIdleTime));
+				frameTreePromise = new Promise(resolve => globalThis.setTimeout(() => resolve(frames.getAsync(options)), options.loadDeferredImagesBeforeFrames || !options.loadDeferredImages ? 0 : options.loadDeferredImagesMaxIdleTime));
 			} else {
 				frameTreePromise = frames.getAsync(options);
 			}
@@ -225,6 +225,7 @@ async function processPage(options) {
 		options.videos = selectedFrame.videos;
 		options.usedFonts = selectedFrame.usedFonts;
 		options.shadowRoots = selectedFrame.shadowRoots;
+		options.adoptedStyleSheets = selectedFrame.adoptedStyleSheets;
 	} else {
 		options.doc = document;
 	}

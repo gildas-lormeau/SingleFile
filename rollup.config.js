@@ -1,5 +1,7 @@
-import { terser } from "rollup-plugin-terser";
-import resolve from "@rollup/plugin-node-resolve";
+/* global require */
+
+const resolve = require("@rollup/plugin-node-resolve");
+const { terser } = require("rollup-plugin-terser");
 
 const PLUGINS = [resolve({ moduleDirectories: ["node_modules"] })];
 const EXTERNAL = ["single-file-core"];
@@ -53,14 +55,6 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
-	input: ["src/core/content/content-infobar.js"],
-	output: [{
-		file: "lib/single-file-extension-infobar.js",
-		format: "umd",
-		name: "infobar",
-		plugins: [terser()]
-	}]
-}, {
 	input: ["src/core/content/content-bootstrap.js"],
 	output: [{
 		file: "lib/single-file-extension-bootstrap.js",
@@ -104,7 +98,7 @@ export default [{
 		plugins: []
 	}]
 }, {
-	input: ["src/ui/content/content-ui-editor-helper-web"],
+	input: ["single-file-core/single-file-editor-helper.js"],
 	output: [{
 		file: "lib/single-file-extension-editor-helper.js",
 		format: "umd",
