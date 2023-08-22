@@ -207,6 +207,10 @@
 		"message": "字符",
 		"description": "Options page label: 'characters'"
 	},
+	"optionFilenameReplacementCharacter": {
+		"message": "replacement character",
+		"description": "Options page label: 'replacement character'"
+	},
 	"optionReplaceEmojisInFilename" : {
 		"message": "用文字替換表情符號",
 		"description": "Options page label: 'replace emojis with text'"

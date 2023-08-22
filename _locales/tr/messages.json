@@ -207,6 +207,10 @@
 		"message": "karakterler",
 		"description": "Options page label: 'characters'"
 	},
+	"optionFilenameReplacementCharacter": {
+		"message": "yerine geçen karakter",
+		"description": "Options page label: 'replacement character'"
+	},
 	"optionReplaceEmojisInFilename" : {
 		"message": "emoji'leri metinle değiştir",
 		"description": "Options page label: 'replace emojis with text'"

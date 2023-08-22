@@ -207,6 +207,10 @@
 		"message": "文字数",
 		"description": "Options page label: 'characters'"
 	},
+	"optionFilenameReplacementCharacter": {
+		"message": "置換文字",
+		"description": "Options page label: 'replacement character'"
+	},
 	"optionReplaceEmojisInFilename" : {
 		"message": "絵文字をテキストに置き換える",
 		"description": "Options page label: 'replace emojis with text'"
