@@ -1,5 +1,8 @@
 # FAQ
 
+## What does SingleFile do?
+SingleFile is a browser extension designed to help users save web pages as complete, self-contained files. The extension's primary function is to capture an entire web page, including its HTML, CSS, JavaScript, images, and other resources, and package them into a single HTML file.
+
 ## I am a web archivist, is it ok to use SingleFile to archive content?
 No, SingleFile is not a tool used by professionals to archive content on the Web, especially in the academic field. Professionals prefer to rely on tools based on the [WARC specification](https://iipc.github.io/warc-specifications/) instead. 
 
