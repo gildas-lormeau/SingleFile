@@ -208,7 +208,7 @@
 		"description": "Options page label: 'characters'"
 	},
 	"optionFilenameReplacementCharacter": {
-		"message": "replacement character",
+		"message": "znak zastępczy",
 		"description": "Options page label: 'replacement character'"
 	},
 	"optionReplaceEmojisInFilename" : {
