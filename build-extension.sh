@@ -1,6 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 
-sudo apt install zip jq
+dpkg -s zip &> /dev/null
+if [ $? -ne 0 ]
+then
+    echo "Installing zip"
+    sudo apt install zip
+fi
+
+dpkg -s jq &> /dev/null
+if [ $? -ne 0 ]
+then
+    echo "Installing jq"
+    sudo apt install jq
+fi
 
 npm install
 npm update
