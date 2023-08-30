@@ -94,6 +94,13 @@ async function onMessage(message, sender) {
 
 async function downloadTabPage(message, tab) {
 	let contents;
+	if (message.blobURL) {
+		try {
+			message.content = await (await fetch(message.blobURL)).text();
+		} catch (error) {
+			return { error: true };
+		}
+	}
 	if (message.truncated) {
 		contents = partialContents.get(tab.id);
 		if (!contents) {

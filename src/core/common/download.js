@@ -34,46 +34,53 @@ async function downloadPage(pageData, options) {
 		pageData.content = "\ufeff" + pageData.content;
 	}
 	if (options.backgroundSave || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV) {
-		for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
-			const message = {
-				method: "downloads.download",
-				taskId: options.taskId,
-				confirmFilename: options.confirmFilename,
-				filenameConflictAction: options.filenameConflictAction,
-				filename: pageData.filename,
-				saveToClipboard: options.saveToClipboard,
-				saveToGDrive: options.saveToGDrive,
-				saveWithWebDAV: options.saveWithWebDAV,
-				webDAVURL: options.webDAVURL,
-				webDAVUser: options.webDAVUser,
-				webDAVPassword: options.webDAVPassword,
-				saveToGitHub: options.saveToGitHub,
-				githubToken: options.githubToken,
-				githubUser: options.githubUser,
-				githubRepository: options.githubRepository,
-				githubBranch: options.githubBranch,
-				saveWithCompanion: options.saveWithCompanion,
-				forceWebAuthFlow: options.forceWebAuthFlow,
-				filenameReplacementCharacter: options.filenameReplacementCharacter,
-				openEditor: options.openEditor,
-				openSavedPage: options.openSavedPage,
-				compressHTML: options.compressHTML,
-				backgroundSave: options.backgroundSave,
-				bookmarkId: options.bookmarkId,
-				replaceBookmarkURL: options.replaceBookmarkURL,
-				applySystemTheme: options.applySystemTheme,
-				defaultEditorMode: options.defaultEditorMode,
-				includeInfobar: options.includeInfobar,
-				warnUnsavedPage: options.warnUnsavedPage
-			};
-			message.truncated = pageData.content.length > MAX_CONTENT_SIZE;
-			if (message.truncated) {
-				message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > pageData.content.length;
-				message.content = pageData.content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
-			} else {
-				message.content = pageData.content;
+		const blobURL = URL.createObjectURL(new Blob([pageData.content], { type: "text/html" }));
+		const message = {
+			method: "downloads.download",
+			taskId: options.taskId,
+			confirmFilename: options.confirmFilename,
+			filenameConflictAction: options.filenameConflictAction,
+			filename: pageData.filename,
+			saveToClipboard: options.saveToClipboard,
+			saveToGDrive: options.saveToGDrive,
+			saveWithWebDAV: options.saveWithWebDAV,
+			webDAVURL: options.webDAVURL,
+			webDAVUser: options.webDAVUser,
+			webDAVPassword: options.webDAVPassword,
+			saveToGitHub: options.saveToGitHub,
+			githubToken: options.githubToken,
+			githubUser: options.githubUser,
+			githubRepository: options.githubRepository,
+			githubBranch: options.githubBranch,
+			saveWithCompanion: options.saveWithCompanion,
+			forceWebAuthFlow: options.forceWebAuthFlow,
+			filenameReplacementCharacter: options.filenameReplacementCharacter,
+			openEditor: options.openEditor,
+			openSavedPage: options.openSavedPage,
+			compressHTML: options.compressHTML,
+			backgroundSave: options.backgroundSave,
+			bookmarkId: options.bookmarkId,
+			replaceBookmarkURL: options.replaceBookmarkURL,
+			applySystemTheme: options.applySystemTheme,
+			defaultEditorMode: options.defaultEditorMode,
+			includeInfobar: options.includeInfobar,
+			warnUnsavedPage: options.warnUnsavedPage,
+			blobURL
+		};
+		const result = await browser.runtime.sendMessage(message);
+		URL.revokeObjectURL(blobURL);
+		if (result.error) {
+			message.blobURL = null;
+			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
+				message.truncated = pageData.content.length > MAX_CONTENT_SIZE;
+				if (message.truncated) {
+					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > pageData.content.length;
+					message.content = pageData.content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+				} else {
+					message.content = pageData.content;
+				}
+				await browser.runtime.sendMessage(message);
 			}
-			await browser.runtime.sendMessage(message);
 		}
 	} else {
 		if (options.saveToClipboard) {
