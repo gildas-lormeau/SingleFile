@@ -65,12 +65,14 @@ async function downloadPage(pageData, options) {
 			defaultEditorMode: options.defaultEditorMode,
 			includeInfobar: options.includeInfobar,
 			warnUnsavedPage: options.warnUnsavedPage,
-			blobURL
+			blobURL,
+			finished: true
 		};
 		const result = await browser.runtime.sendMessage(message);
 		URL.revokeObjectURL(blobURL);
 		if (result.error) {
 			message.blobURL = null;
+			message.finished = null;
 			for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
 				message.truncated = pageData.content.length > MAX_CONTENT_SIZE;
 				if (message.truncated) {
