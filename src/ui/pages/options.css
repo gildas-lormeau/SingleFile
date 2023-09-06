@@ -76,6 +76,10 @@ select {
     min-height: 22px;
 }
 
+input.small-input {
+    max-width: 3ch;
+}
+
 input.medium-input {
     min-width: 50%;
 }
@@ -392,6 +396,7 @@ a {
     padding-left: 8px;
     padding-bottom: 2px;
     min-height: 24px;
+    align-items: center;
 }
 
 .option.vertical {

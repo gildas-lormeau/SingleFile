@@ -207,6 +207,10 @@
 		"message": "znaki",
 		"description": "Options page label: 'characters'"
 	},
+	"optionFilenameReplacementCharacter": {
+		"message": "znak zastępczy",
+		"description": "Options page label: 'replacement character'"
+	},
 	"optionReplaceEmojisInFilename" : {
 		"message": "zamień emotikony na tekst",
 		"description": "Options page label: 'replace emojis with text'"

@@ -62,7 +62,7 @@ const DEFAULT_CONFIG = {
 	loadDeferredImagesBeforeFrames: false,
 	filenameTemplate: "{page-title} ({date-locale} {time-locale}).html",
 	infobarTemplate: "",
-	includeInfobar: false,
+	includeInfobar: !IS_NOT_SAFARI,
 	confirmInfobarContent: false,
 	autoClose: false,
 	confirmFilename: false,
