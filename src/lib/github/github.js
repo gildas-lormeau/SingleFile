@@ -40,6 +40,7 @@ async function pushGitHub(token, userName, repositoryName, branchName, path, con
 		}
 	})();
 	return {
+		url: `https://github.com/${userName}/${repositoryName}/blob/${branchName}/${path}`,
 		cancelPush: () => controller.abort(),
 		pushPromise: pendingPush
 	};
