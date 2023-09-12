@@ -28,6 +28,9 @@ const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 const REVOKE_ACCESS_URL = "https://accounts.google.com/o/oauth2/revoke";
 const GDRIVE_URL = "https://www.googleapis.com/drive/v3/files";
 const GDRIVE_UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files";
+const CONFLICT_ACTION_UNIQUIFY = "uniquify";
+const CONFLICT_ACTION_OVERWRITE = "overwrite";
+const CONFLICT_ACTION_SKIP = "skip";
 
 class GDrive {
 	constructor(clientId, clientKey, scopes) {
@@ -136,7 +139,8 @@ class GDrive {
 			file: blob,
 			parents: [parentFolderId],
 			filename,
-			onProgress: options.onProgress
+			onProgress: options.onProgress,
+			filenameConflictAction: options.filenameConflictAction
 		});
 		try {
 			if (setCancelCallback) {
@@ -168,10 +172,50 @@ class MediaUploader {
 		this.token = options.token;
 		this.offset = 0;
 		this.chunkSize = options.chunkSize || 512 * 1024;
+		this.filenameConflictAction = options.filenameConflictAction;
 	}
-	async upload() {
-		const httpResponse = getResponse(await fetch(GDRIVE_UPLOAD_URL + "?uploadType=resumable", {
-			method: "POST",
+	async upload(indexFilename = 1) {
+		let method = "POST";
+		let fileId;
+		const httpListResponse = getResponse(await fetch(GDRIVE_URL + `?q=name = '${this.metadata.name}' and trashed != true and '${this.metadata.parents[0]}' in parents`, {
+			headers: {
+				"Authorization": "Bearer " + this.token,
+				"Content-Type": "application/json"
+			}
+		}));
+		const response = await httpListResponse.json();
+		if (response.files.length) {
+			if (this.filenameConflictAction == CONFLICT_ACTION_OVERWRITE) {
+				method = "PATCH";
+				fileId = response.files[0].id;
+				this.metadata.parents = null;
+			} else if (this.filenameConflictAction == CONFLICT_ACTION_UNIQUIFY) {
+				let nameWithoutExtension = this.metadata.name;
+				let extension = "";
+				const dotIndex = this.metadata.name.lastIndexOf(".");
+				if (dotIndex > -1) {
+					nameWithoutExtension = this.metadata.name.substring(0, dotIndex);
+					extension = this.metadata.name.substring(dotIndex + 1);
+				}
+				const name = nameWithoutExtension + " (" + indexFilename + ")." + extension;
+				const httpResponse = getResponse(await fetch(GDRIVE_URL + `?q=name = '${name}' and trashed != true and '${this.metadata.parents[0]}' in parents`, {
+					headers: {
+						"Authorization": "Bearer " + this.token,
+						"Content-Type": "application/json"
+					}
+				}));
+				const response = await httpResponse.json();
+				if (response.files.length) {
+					return this.upload(indexFilename + 1);
+				} else {
+					this.metadata.name = name;
+				}
+			} else if (this.filenameConflictAction == CONFLICT_ACTION_SKIP) {
+				return {};
+			}
+		}
+		const httpResponse = getResponse(await fetch(GDRIVE_UPLOAD_URL + (fileId ? "/" + fileId : "") + "?uploadType=resumable", {
+			method,
 			headers: {
 				"Authorization": "Bearer " + this.token,
 				"Content-Type": "application/json",
