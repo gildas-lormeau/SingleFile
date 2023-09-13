@@ -31,6 +31,7 @@ const GDRIVE_UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
 const CONFLICT_ACTION_OVERWRITE = "overwrite";
 const CONFLICT_ACTION_SKIP = "skip";
+const CONFLICT_ACTION_PROMPT = "prompt";
 
 class GDrive {
 	constructor(clientId, clientKey, scopes) {
@@ -140,7 +141,8 @@ class GDrive {
 			parents: [parentFolderId],
 			filename,
 			onProgress: options.onProgress,
-			filenameConflictAction: options.filenameConflictAction
+			filenameConflictAction: options.filenameConflictAction,
+			prompt: options.prompt
 		});
 		try {
 			if (setCancelCallback) {
@@ -173,6 +175,7 @@ class MediaUploader {
 		this.offset = 0;
 		this.chunkSize = options.chunkSize || 512 * 1024;
 		this.filenameConflictAction = options.filenameConflictAction;
+		this.prompt = options.prompt;
 	}
 	async upload(indexFilename = 1) {
 		let method = "POST";
@@ -210,8 +213,16 @@ class MediaUploader {
 				} else {
 					this.metadata.name = name;
 				}
+			} else if (this.filenameConflictAction == CONFLICT_ACTION_PROMPT) {
+				const name = await this.prompt(this.metadata.name);
+				if (name) {
+					this.metadata.name = name;
+					return this.upload();
+				} else {
+					return response;
+				}
 			} else if (this.filenameConflictAction == CONFLICT_ACTION_SKIP) {
-				return {};
+				return response;
 			}
 		}
 		const httpResponse = getResponse(await fetch(GDRIVE_UPLOAD_URL + (fileId ? "/" + fileId : "") + "?uploadType=resumable", {

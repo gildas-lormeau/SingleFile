@@ -43,6 +43,7 @@ const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 const CONFLICT_ACTION_SKIP = "skip";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
 const CONFLICT_ACTION_OVERWRITE = "overwrite";
+const CONFLICT_ACTION_PROMPT = "prompt";
 const REGEXP_ESCAPE = /([{}()^$&.*?/+|[\\\\]|\]|-)/g;
 
 const gDrive = new GDrive(GDRIVE_CLIENT_ID, GDRIVE_CLIENT_KEY, SCOPES);
@@ -134,18 +135,23 @@ async function downloadTabPage(message, tab) {
 
 async function downloadContent(contents, tab, incognito, message) {
 	try {
+		const prompt = filename => promptFilename(tab.id, filename);
 		let response;
 		if (message.saveWithWebDAV) {
-			response = await saveWithWebDAV(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.webDAVURL, message.webDAVUser, message.webDAVPassword, message.filenameConflictAction);
+			response = await saveWithWebDAV(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.webDAVURL, message.webDAVUser, message.webDAVPassword, { filenameConflictAction: message.filenameConflictAction, prompt });
 		} else if (message.saveToGDrive) {
 			await saveToGDrive(message.taskId, encodeSharpCharacter(message.filename), new Blob(contents, { type: MIMETYPE_HTML }), {
 				forceWebAuthFlow: message.forceWebAuthFlow
 			}, {
 				onProgress: (offset, size) => ui.onUploadProgress(tab.id, offset, size),
-				filenameConflictAction: message.filenameConflictAction
+				filenameConflictAction: message.filenameConflictAction,
+				prompt
 			});
 		} else if (message.saveToGitHub) {
-			response = await saveToGitHub(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.githubToken, message.githubUser, message.githubRepository, message.githubBranch, message.filenameConflictAction);
+			response = await saveToGitHub(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.githubToken, message.githubUser, message.githubRepository, message.githubBranch, { 
+				filenameConflictAction: message.filenameConflictAction,
+				prompt
+			});
 			await response.pushPromise;
 		} else if (message.saveWithCompanion) {
 			await companion.save({
@@ -214,10 +220,10 @@ async function getAuthInfo(authOptions, force) {
 	return authInfo;
 }
 
-async function saveToGitHub(taskId, filename, content, githubToken, githubUser, githubRepository, githubBranch, filenameConflictAction) {
+async function saveToGitHub(taskId, filename, content, githubToken, githubUser, githubRepository, githubBranch, { filenameConflictAction, prompt }) {
 	const taskInfo = business.getTaskInfo(taskId);
 	if (!taskInfo || !taskInfo.cancelled) {
-		const pushInfo = pushGitHub(githubToken, githubUser, githubRepository, githubBranch, filename, content, { filenameConflictAction });
+		const pushInfo = pushGitHub(githubToken, githubUser, githubRepository, githubBranch, filename, content, { filenameConflictAction, prompt });
 		business.setCancelCallback(taskId, pushInfo.cancelPush);
 		try {
 			await (await pushInfo).pushPromise;
@@ -228,7 +234,7 @@ async function saveToGitHub(taskId, filename, content, githubToken, githubUser, 
 	}
 }
 
-async function saveWithWebDAV(taskId, filename, content, url, username, password, filenameConflictAction) {
+async function saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt }) {
 	const taskInfo = business.getTaskInfo(taskId);
 	const controller = new AbortController();
 	const { signal } = controller;
@@ -250,7 +256,7 @@ async function saveWithWebDAV(taskId, filename, content, url, username, password
 						if (response.status >= 400) {
 							throw new Error("Error " + response.status);
 						}
-						return saveWithWebDAV(taskId, filename, content, url, username, password, filenameConflictAction);
+						return saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt });
 					}
 				} else if (filenameConflictAction == CONFLICT_ACTION_UNIQUIFY) {
 					let filenameWithoutExtension = filename;
@@ -266,10 +272,17 @@ async function saveWithWebDAV(taskId, filename, content, url, username, password
 						filename = filenameWithoutExtension + " (" + indexFilename + ")." + extension;
 						const response = await sendRequest(url + filename, "HEAD");
 						if (response.status == 404) {
-							return saveWithWebDAV(taskId, filename, content, url, username, password, filenameConflictAction);
+							return saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt });
 						} else {
 							indexFilename++;
 						}
+					}
+				} else if (filenameConflictAction == CONFLICT_ACTION_PROMPT) {
+					filename = await prompt(filename);
+					if (filename) {
+						return saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt });
+					} else {
+						return response;
 					}
 				} else if (filenameConflictAction == CONFLICT_ACTION_SKIP) {
 					return response;
@@ -350,6 +363,10 @@ async function saveToGDrive(taskId, filename, blob, authOptions, uploadOptions) 
 			throw new Error(error.message + " (Google Drive)");
 		}
 	}
+}
+
+function promptFilename(tabId, filename) {
+	return browser.tabs.sendMessage(tabId, { method: "content.prompt", message: "Filename conflict, please enter a new filename", value: filename });
 }
 
 async function downloadPage(pageData, options) {

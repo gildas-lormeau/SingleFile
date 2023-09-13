@@ -26,12 +26,13 @@
 const CONFLICT_ACTION_SKIP = "skip";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
 const CONFLICT_ACTION_OVERWRITE = "overwrite";
+const CONFLICT_ACTION_PROMPT = "prompt";
 
 export { pushGitHub };
 
 let pendingPush;
 
-async function pushGitHub(token, userName, repositoryName, branchName, path, content, { filenameConflictAction } = {}) {
+async function pushGitHub(token, userName, repositoryName, branchName, path, content, { filenameConflictAction, prompt }) {
 	while (pendingPush) {
 		await pendingPush;
 	}
@@ -85,6 +86,13 @@ async function pushGitHub(token, userName, repositoryName, branchName, path, con
 					}
 				} else if (filenameConflictAction == CONFLICT_ACTION_SKIP) {
 					return responseData;
+				} else if (filenameConflictAction == CONFLICT_ACTION_PROMPT) {
+					path = await prompt(path); 
+					if (path) {
+						return createContent({ path, content, message }, signal);
+					} else {
+						return responseData;
+					}
 				} else {
 					throw new Error("File already exists");
 				}
