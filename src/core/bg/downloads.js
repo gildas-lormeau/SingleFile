@@ -148,7 +148,7 @@ async function downloadContent(contents, tab, incognito, message) {
 				prompt
 			});
 		} else if (message.saveToGitHub) {
-			response = await saveToGitHub(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.githubToken, message.githubUser, message.githubRepository, message.githubBranch, { 
+			response = await saveToGitHub(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.githubToken, message.githubUser, message.githubRepository, message.githubBranch, {
 				filenameConflictAction: message.filenameConflictAction,
 				prompt
 			});
