@@ -278,11 +278,15 @@ async function saveWithWebDAV(taskId, filename, content, url, username, password
 						}
 					}
 				} else if (filenameConflictAction == CONFLICT_ACTION_PROMPT) {
-					filename = await prompt(filename);
-					if (filename) {
-						return saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt });
+					if (prompt) {
+						filename = await prompt(filename);
+						if (filename) {
+							return saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt });
+						} else {
+							return response;
+						}
 					} else {
-						return response;
+						return saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction: CONFLICT_ACTION_UNIQUIFY });
 					}
 				} else if (filenameConflictAction == CONFLICT_ACTION_SKIP) {
 					return response;

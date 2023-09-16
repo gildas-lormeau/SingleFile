@@ -214,12 +214,17 @@ class MediaUploader {
 					this.metadata.name = name;
 				}
 			} else if (this.filenameConflictAction == CONFLICT_ACTION_PROMPT) {
-				const name = await this.prompt(this.metadata.name);
-				if (name) {
-					this.metadata.name = name;
-					return this.upload();
+				if (this.prompt) {
+					const name = await this.prompt(this.metadata.name);
+					if (name) {
+						this.metadata.name = name;
+						return this.upload(indexFilename);
+					} else {
+						return response;
+					}
 				} else {
-					return response;
+					this.filenameConflictAction = CONFLICT_ACTION_UNIQUIFY;
+					return this.upload(indexFilename);
 				}
 			} else if (this.filenameConflictAction == CONFLICT_ACTION_SKIP) {
 				return response;

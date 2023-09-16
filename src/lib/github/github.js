@@ -87,11 +87,16 @@ async function pushGitHub(token, userName, repositoryName, branchName, path, con
 				} else if (filenameConflictAction == CONFLICT_ACTION_SKIP) {
 					return responseData;
 				} else if (filenameConflictAction == CONFLICT_ACTION_PROMPT) {
-					path = await prompt(path); 
-					if (path) {
-						return createContent({ path, content, message }, signal);
+					if (prompt) {
+						path = await prompt(path);
+						if (path) {
+							return createContent({ path, content, message }, signal);
+						} else {
+							return responseData;
+						}
 					} else {
-						return responseData;
+						filenameConflictAction = CONFLICT_ACTION_UNIQUIFY;
+						return createContent({ path, content, message }, signal);
 					}
 				} else {
 					throw new Error("File already exists");
