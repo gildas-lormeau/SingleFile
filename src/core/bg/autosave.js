@@ -152,7 +152,6 @@ async function saveContent(message, tab) {
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
 		options.keepFilename = options.saveToGDrive || options.saveToGitHub || options.saveWithWebDAV;
-		options.filenameConflictAction = message.filenameConflictAction;
 		let pageData;
 		try {
 			if (options.autoSaveExternalSave) {
