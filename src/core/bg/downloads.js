@@ -234,7 +234,7 @@ async function saveToGitHub(taskId, filename, content, githubToken, githubUser, 
 	}
 }
 
-async function saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt }) {
+async function saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt, preventRetry }) {
 	const taskInfo = business.getTaskInfo(taskId);
 	const controller = new AbortController();
 	const { signal } = controller;
@@ -292,27 +292,29 @@ async function saveWithWebDAV(taskId, filename, content, url, username, password
 					return response;
 				}
 			} else if (response.status == 404) {
-				if (filename.includes("/")) {
-					const filenameParts = filename.split(/\/+/);
-					filenameParts.pop();
-					let path = "";
-					for (const filenamePart of filenameParts) {
-						if (filenamePart) {
-							path += filenamePart;
-							const response = await sendRequest(url + path, "PROPFIND");
-							if (response.status == 404) {
-								const response = await sendRequest(url + path, "MKCOL");
-								if (response.status >= 400) {
-									throw new Error("Error " + response.status);
-								}
-							}
-							path += "/";
-						}
-					}
-				}
 				response = await sendRequest(url + filename, "PUT", content);
-				if (response.status >= 400) {
-					throw new Error("Error " + response.status);
+				if (response.status >= 400 && !preventRetry) {
+					if (filename.includes("/")) {
+						const filenameParts = filename.split(/\/+/);
+						filenameParts.pop();
+						let path = "";
+						for (const filenamePart of filenameParts) {
+							if (filenamePart) {
+								path += filenamePart;
+								const response = await sendRequest(url + path, "PROPFIND");
+								if (response.status == 404) {
+									const response = await sendRequest(url + path, "MKCOL");
+									if (response.status >= 400) {
+										throw new Error("Error " + response.status);
+									}
+								}
+								path += "/";
+							}
+						}
+						return saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt, preventRetry: true });
+					} else {
+						throw new Error("Error " + response.status);
+					}
 				} else {
 					return response;
 				}
