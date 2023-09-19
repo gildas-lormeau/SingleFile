@@ -33,7 +33,7 @@ import * as ui from "./../../ui/bg/index.js";
 import * as woleet from "./../../lib/woleet/woleet.js";
 import { GDrive } from "./../../lib/gdrive/gdrive.js";
 import { WebDAV } from "./../../lib/webdav/webdav.js";
-import { pushGitHub } from "./../../lib/github/github.js";
+import { GitHub } from "./../../lib/github/github.js";
 import { download } from "./download-util.js";
 
 const partialContents = new Map();
@@ -220,16 +220,15 @@ async function getAuthInfo(authOptions, force) {
 }
 
 async function saveToGitHub(taskId, filename, content, githubToken, githubUser, githubRepository, githubBranch, { filenameConflictAction, prompt }) {
-	const taskInfo = business.getTaskInfo(taskId);
-	if (!taskInfo || !taskInfo.cancelled) {
-		const pushInfo = pushGitHub(githubToken, githubUser, githubRepository, githubBranch, filename, content, { filenameConflictAction, prompt });
-		business.setCancelCallback(taskId, pushInfo.cancelPush);
-		try {
-			await (await pushInfo).pushPromise;
-			return pushInfo;
-		} catch (error) {
-			throw new Error(error.message + " (GitHub)");
+	try {
+		const taskInfo = business.getTaskInfo(taskId);
+		if (!taskInfo || !taskInfo.cancelled) {
+			const client = new GitHub(githubToken, githubUser, githubRepository, githubBranch);
+			business.setCancelCallback(taskId, () => client.abort());
+			return await client.upload(filename, content, { filenameConflictAction, prompt });
 		}
+	} catch (error) {
+		throw new Error(error.message + " (GitHub)");
 	}
 }
 

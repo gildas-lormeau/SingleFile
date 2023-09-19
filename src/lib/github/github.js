@@ -23,83 +23,108 @@
 
 /* global fetch, btoa, AbortController */
 
+const EMPTY_STRING = "";
 const CONFLICT_ACTION_SKIP = "skip";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
 const CONFLICT_ACTION_OVERWRITE = "overwrite";
 const CONFLICT_ACTION_PROMPT = "prompt";
+const AUTHORIZATION_HEADER = "Authorization";
+const BEARER_PREFIX_AUTHORIZATION = "Bearer ";
+const ACCEPT_HEADER = "Accept";
+const GITHUB_API_CONTENT_TYPE = "application/vnd.github+json";
+const GITHUB_API_VERSION_HEADER = "X-GitHub-Api-Version";
+const GITHUB_API_VERSION = "2022-11-28";
+const EXTENSION_SEPARATOR = ".";
+const INDEX_FILENAME_PREFIX = " (";
+const INDEX_FILENAME_SUFFIX = ")";
+const INDEX_FILENAME_REGEXP = /\s\((\d+)\)$/;
+const ABORT_ERROR_NAME = "AbortError";
+const GET_METHOD = "GET";
+const PUT_METHOD = "PUT";
+const GITHUB_URL = "https://github.com";
+const GITHUB_API_URL = "https://api.github.com";
+const BLOB_PATH = "blob";
+const REPOS_PATH = "repos";
+const CONTENTS_PATH = "contents";
 
-export { pushGitHub };
+export { GitHub };
 
 let pendingPush;
 
-async function pushGitHub(token, userName, repositoryName, branchName, path, content, { filenameConflictAction, prompt }) {
+class GitHub {
+	constructor(token, userName, repositoryName, branch) {
+		this.headers = new Map([
+			[AUTHORIZATION_HEADER, BEARER_PREFIX_AUTHORIZATION + token],
+			[ACCEPT_HEADER, GITHUB_API_CONTENT_TYPE],
+			[GITHUB_API_VERSION_HEADER, GITHUB_API_VERSION]
+		]);
+		this.userName = userName;
+		this.repositoryName = repositoryName;
+		this.branch = branch;
+	}
+
+	upload(path, content, options) {
+		this.controller = new AbortController();
+		options.signal = this.controller.signal;
+		options.headers = this.headers;
+		return upload(this.userName, this.repositoryName, this.branch, path, content, options);
+	}
+
+	abort() {
+		if (this.controller) {
+			this.controller.abort();
+		}
+	}
+}
+
+async function upload(userName, repositoryName, branch, path, content, options) {
+	const { filenameConflictAction, prompt, signal, headers } = options;
 	while (pendingPush) {
 		await pendingPush;
 	}
-	const controller = new AbortController();
-	pendingPush = (async () => {
-		try {
-			await createContent({ path, content }, controller.signal);
-		} finally {
-			pendingPush = null;
-		}
-	})();
+	try {
+		pendingPush = await createContent({ path, content });
+	} finally {
+		pendingPush = null;
+	}
 	return {
-		url: `https://github.com/${userName}/${repositoryName}/blob/${branchName}/${path}`,
-		cancelPush: () => controller.abort(),
-		pushPromise: pendingPush
+		url: `${GITHUB_URL}/${userName}/${repositoryName}/${BLOB_PATH}/${branch}/${path}`
 	};
 
-	async function createContent({ path, content, message = "", sha }, signal) {
-		const headers = new Map([
-			["Authorization", `Bearer ${token}`],
-			["Accept", "application/vnd.github+json"],
-			["X-GitHub-Api-Version", "2022-11-28"]
-		]);
+	async function createContent({ path, content, message = EMPTY_STRING, sha }) {
 		try {
-			const response = await fetchContentData("PUT", JSON.stringify({ content: btoa(unescape(encodeURIComponent(content))), message, branch: branchName, sha }));
+			const response = await fetchContentData(PUT_METHOD, JSON.stringify({
+				content: btoa(unescape(encodeURIComponent(content))),
+				message,
+				branch,
+				sha
+			}));
 			const responseData = await response.json();
 			if (response.status == 422) {
 				if (filenameConflictAction == CONFLICT_ACTION_OVERWRITE) {
-					const response = await fetchContentData();
+					const response = await fetchContentData(GET_METHOD);
 					const responseData = await response.json();
 					const sha = responseData.sha;
-					return createContent({ path, content, message, sha }, signal);
+					return await createContent({ path, content, message, sha });
 				} else if (filenameConflictAction == CONFLICT_ACTION_UNIQUIFY) {
-					let pathWithoutExtension = path;
-					let extension = "";
-					const dotIndex = path.lastIndexOf(".");
-					if (dotIndex > -1) {
-						pathWithoutExtension = path.substring(0, dotIndex);
-						extension = path.substring(dotIndex + 1);
-					}
-					let saved = false;
-					let indexFilename = 1;
-					while (!saved) {
-						path = pathWithoutExtension + " (" + indexFilename + ")." + extension;
-						const response = await fetchContentData();
-						if (response.status == 404) {
-							return createContent({ path, content, message }, signal);
-						} else {
-							indexFilename++;
-						}
-					}
+					const { filenameWithoutExtension, extension, indexFilename } = splitFilename(path);
+					options.indexFilename = indexFilename + 1;
+					path = getFilename(filenameWithoutExtension, extension);
+					return await createContent({ path, content, message });
 				} else if (filenameConflictAction == CONFLICT_ACTION_SKIP) {
 					return responseData;
 				} else if (filenameConflictAction == CONFLICT_ACTION_PROMPT) {
 					if (prompt) {
 						path = await prompt(path);
 						if (path) {
-							return createContent({ path, content, message }, signal);
+							return await createContent({ path, content, message });
 						} else {
 							return responseData;
 						}
 					} else {
-						filenameConflictAction = CONFLICT_ACTION_UNIQUIFY;
-						return createContent({ path, content, message }, signal);
+						options.filenameConflictAction = CONFLICT_ACTION_UNIQUIFY;
+						return await createContent({ path, content, message });
 					}
-				} else {
-					throw new Error("File already exists");
 				}
 			}
 			if (response.status < 400) {
@@ -108,18 +133,50 @@ async function pushGitHub(token, userName, repositoryName, branchName, path, con
 				throw new Error(responseData.message);
 			}
 		} catch (error) {
-			if (error.name != "AbortError") {
+			if (error.name != ABORT_ERROR_NAME) {
 				throw error;
 			}
 		}
 
-		function fetchContentData(method = "GET", body) {
-			return fetch(`https://api.github.com/repos/${userName}/${repositoryName}/contents/${path}`, {
+		function fetchContentData(method, body) {
+			return fetch(`${GITHUB_API_URL}/${REPOS_PATH}/${userName}/${repositoryName}/${CONTENTS_PATH}/${path}`, {
 				method,
 				headers,
 				body,
 				signal
 			});
 		}
+	}
+
+	function splitFilename(filename) {
+		let filenameWithoutExtension = filename;
+		let extension = EMPTY_STRING;
+		const indexExtensionSeparator = filename.lastIndexOf(EXTENSION_SEPARATOR);
+		if (indexExtensionSeparator > -1) {
+			filenameWithoutExtension = filename.substring(0, indexExtensionSeparator);
+			extension = filename.substring(indexExtensionSeparator + 1);
+		}
+		let indexFilename;
+		({ filenameWithoutExtension, indexFilename } = extractIndexFilename(filenameWithoutExtension));
+		return { filenameWithoutExtension, extension, indexFilename };
+	}
+
+	function extractIndexFilename(filenameWithoutExtension) {
+		const indexFilenameMatch = filenameWithoutExtension.match(INDEX_FILENAME_REGEXP);
+		let indexFilename = 0;
+		if (indexFilenameMatch && indexFilenameMatch.length > 1) {
+			const parsedIndexFilename = Number(indexFilenameMatch[indexFilenameMatch.length - 1]);
+			if (!Number.isNaN(parsedIndexFilename)) {
+				indexFilename = parsedIndexFilename;
+				filenameWithoutExtension = filenameWithoutExtension.replace(INDEX_FILENAME_REGEXP, EMPTY_STRING);
+			}
+		}
+		return { filenameWithoutExtension, indexFilename };
+	}
+
+	function getFilename(filenameWithoutExtension, extension) {
+		return filenameWithoutExtension +
+			INDEX_FILENAME_PREFIX + options.indexFilename + INDEX_FILENAME_SUFFIX +
+			(extension ? EXTENSION_SEPARATOR + extension : EMPTY_STRING);
 	}
 }
