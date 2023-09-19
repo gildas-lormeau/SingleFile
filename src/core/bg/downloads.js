@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, Blob, URL, document, fetch, btoa, AbortController */
+/* global browser, Blob, URL, document, fetch */
 
 import * as config from "./config.js";
 import * as bookmarks from "./bookmarks.js";
@@ -32,6 +32,7 @@ import { launchWebAuthFlow, extractAuthCode } from "./tabs-util.js";
 import * as ui from "./../../ui/bg/index.js";
 import * as woleet from "./../../lib/woleet/woleet.js";
 import { GDrive } from "./../../lib/gdrive/gdrive.js";
+import { WebDAV } from "./../../lib/webdav/webdav.js";
 import { pushGitHub } from "./../../lib/github/github.js";
 import { download } from "./download-util.js";
 
@@ -42,8 +43,6 @@ const GDRIVE_CLIENT_KEY = "VQJ8Gq8Vxx72QyxPyeLtWvUt";
 const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 const CONFLICT_ACTION_SKIP = "skip";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
-const CONFLICT_ACTION_OVERWRITE = "overwrite";
-const CONFLICT_ACTION_PROMPT = "prompt";
 const REGEXP_ESCAPE = /([{}()^$&.*?/+|[\\\\]|\]|-)/g;
 
 const gDrive = new GDrive(GDRIVE_CLIENT_ID, GDRIVE_CLIENT_KEY, SCOPES);
@@ -234,108 +233,16 @@ async function saveToGitHub(taskId, filename, content, githubToken, githubUser, 
 	}
 }
 
-async function saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt, preventRetry }) {
-	const taskInfo = business.getTaskInfo(taskId);
-	const controller = new AbortController();
-	const { signal } = controller;
-	const authorization = "Basic " + btoa(username + ":" + password);
-	if (!url.endsWith("/")) {
-		url += "/";
-	}
-	if (!taskInfo || !taskInfo.cancelled) {
-		business.setCancelCallback(taskId, () => controller.abort());
-		try {
-			let response = await sendRequest(url + filename, "HEAD");
-			if (response.status == 200) {
-				if (filenameConflictAction == CONFLICT_ACTION_OVERWRITE) {
-					response = await sendRequest(url + filename, "PUT", content);
-					if (response.status == 201) {
-						return response;
-					} else if (response.status >= 400) {
-						response = await sendRequest(url + filename, "DELETE");
-						if (response.status >= 400) {
-							throw new Error("Error " + response.status);
-						}
-						return saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt });
-					}
-				} else if (filenameConflictAction == CONFLICT_ACTION_UNIQUIFY) {
-					let filenameWithoutExtension = filename;
-					let extension = "";
-					const dotIndex = filename.lastIndexOf(".");
-					if (dotIndex > -1) {
-						filenameWithoutExtension = filename.substring(0, dotIndex);
-						extension = filename.substring(dotIndex + 1);
-					}
-					let saved = false;
-					let indexFilename = 1;
-					while (!saved) {
-						filename = filenameWithoutExtension + " (" + indexFilename + ")." + extension;
-						const response = await sendRequest(url + filename, "HEAD");
-						if (response.status == 404) {
-							return saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt });
-						} else {
-							indexFilename++;
-						}
-					}
-				} else if (filenameConflictAction == CONFLICT_ACTION_PROMPT) {
-					if (prompt) {
-						filename = await prompt(filename);
-						if (filename) {
-							return saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt });
-						} else {
-							return response;
-						}
-					} else {
-						return saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction: CONFLICT_ACTION_UNIQUIFY });
-					}
-				} else if (filenameConflictAction == CONFLICT_ACTION_SKIP) {
-					return response;
-				}
-			} else if (response.status == 404) {
-				response = await sendRequest(url + filename, "PUT", content);
-				if (response.status >= 400 && !preventRetry) {
-					if (filename.includes("/")) {
-						const filenameParts = filename.split(/\/+/);
-						filenameParts.pop();
-						let path = "";
-						for (const filenamePart of filenameParts) {
-							if (filenamePart) {
-								path += filenamePart;
-								const response = await sendRequest(url + path, "PROPFIND");
-								if (response.status == 404) {
-									const response = await sendRequest(url + path, "MKCOL");
-									if (response.status >= 400) {
-										throw new Error("Error " + response.status);
-									}
-								}
-								path += "/";
-							}
-						}
-						return saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt, preventRetry: true });
-					} else {
-						throw new Error("Error " + response.status);
-					}
-				} else {
-					return response;
-				}
-			} else if (response.status >= 400) {
-				throw new Error("Error " + response.status);
-			}
-		} catch (error) {
-			if (error.name != "AbortError") {
-				throw new Error(error.message + " (WebDAV)");
-			}
+async function saveWithWebDAV(taskId, filename, content, url, username, password, { filenameConflictAction, prompt }) {
+	try {
+		const taskInfo = business.getTaskInfo(taskId);
+		if (!taskInfo || !taskInfo.cancelled) {
+			const client = new WebDAV(url, username, password);
+			business.setCancelCallback(taskId, () => client.abort());
+			return await client.upload(filename, content, { filenameConflictAction, prompt });
 		}
-	}
-
-	function sendRequest(url, method, body) {
-		const headers = {
-			"Authorization": authorization
-		};
-		if (body) {
-			headers["Content-Type"] = "text/html";
-		}
-		return fetch(url, { method, headers, signal, body, credentials: "omit" });
+	} catch (error) {
+		throw new Error(error.message + " (WebDAV)");
 	}
 }
 
@@ -344,7 +251,7 @@ async function saveToGDrive(taskId, filename, blob, authOptions, uploadOptions) 
 		await getAuthInfo(authOptions);
 		const taskInfo = business.getTaskInfo(taskId);
 		if (!taskInfo || !taskInfo.cancelled) {
-			return gDrive.upload(filename, blob, uploadOptions, callback => business.setCancelCallback(taskId, callback));
+			return await gDrive.upload(filename, blob, uploadOptions, callback => business.setCancelCallback(taskId, callback));
 		}
 	}
 	catch (error) {
