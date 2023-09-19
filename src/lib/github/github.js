@@ -67,7 +67,7 @@ class GitHub {
 		this.controller = new AbortController();
 		options.signal = this.controller.signal;
 		options.headers = this.headers;
-		return upload(this.userName, this.repositoryName, this.branch, path, content, options);
+		return upload(this.userName, this.repositoryName, this.branch, path, btoa(unescape(encodeURIComponent(content))), options);
 	}
 
 	abort() {
@@ -94,7 +94,7 @@ async function upload(userName, repositoryName, branch, path, content, options) 
 	async function createContent({ path, content, message = EMPTY_STRING, sha }) {
 		try {
 			const response = await fetchContentData(PUT_METHOD, JSON.stringify({
-				content: btoa(unescape(encodeURIComponent(content))),
+				content,
 				message,
 				branch,
 				sha
