@@ -83,44 +83,46 @@ async function upload(filename, content, options) {
 	const { authorization, filenameConflictAction, prompt, signal, preventRetry } = options;
 	let { url } = options;
 	try {
-		let response = await sendRequest(filename, HEAD_METHOD);
-		if (response.status == FOUND_STATUS) {
-			if (filenameConflictAction == CONFLICT_ACTION_OVERWRITE) {
-				response = await sendRequest(filename, PUT_METHOD, content);
-				if (response.status == CREATED_STATUS) {
-					return response;
-				} else if (response.status >= MIN_ERROR_STATUS) {
-					response = await sendRequest(filename, DELETE_METHOD);
-					if (response.status >= MIN_ERROR_STATUS) {
-						throw new Error(ERROR_PREFIX_MESSAGE + response.status);
-					}
-					return await upload(filename, content, options);
-				}
-			} else if (filenameConflictAction == CONFLICT_ACTION_UNIQUIFY || (filenameConflictAction == CONFLICT_ACTION_PROMPT && !prompt)) {
-				const { filenameWithoutExtension, extension, indexFilename } = splitFilename(filename);
-				options.indexFilename = indexFilename + 1;
-				return await upload(getFilename(filenameWithoutExtension, extension), content, options);
-			} else if (filenameConflictAction == CONFLICT_ACTION_PROMPT) {
-				filename = await prompt(filename);
-				return filename ? upload(filename, content, options) : response;
-			} else if (filenameConflictAction == CONFLICT_ACTION_SKIP) {
+		if (filenameConflictAction == CONFLICT_ACTION_OVERWRITE) {
+			let response = await sendRequest(filename, PUT_METHOD, content);
+			if (response.status == CREATED_STATUS) {
 				return response;
-			}
-		} else if (response.status == NOT_FOUND_STATUS) {
-			response = await sendRequest(filename, PUT_METHOD, content);
-			if (response.status >= MIN_ERROR_STATUS && !preventRetry) {
-				if (filename.includes(DIRECTORY_SEPARATOR)) {
-					await createDirectories();
-					options.preventRetry = true;
-					return await upload(filename, content, options);
-				} else {
+			} else if (response.status >= MIN_ERROR_STATUS) {
+				response = await sendRequest(filename, DELETE_METHOD);
+				if (response.status >= MIN_ERROR_STATUS) {
 					throw new Error(ERROR_PREFIX_MESSAGE + response.status);
 				}
-			} else {
-				return response;
+				return await upload(filename, content, options);
 			}
-		} else if (response.status >= MIN_ERROR_STATUS) {
-			throw new Error(ERROR_PREFIX_MESSAGE + response.status);
+		} else {
+			let response = await sendRequest(filename, HEAD_METHOD);
+			if (response.status == FOUND_STATUS) {
+				if (filenameConflictAction == CONFLICT_ACTION_UNIQUIFY || (filenameConflictAction == CONFLICT_ACTION_PROMPT && !prompt)) {
+					const { filenameWithoutExtension, extension, indexFilename } = splitFilename(filename);
+					options.indexFilename = indexFilename + 1;
+					return await upload(getFilename(filenameWithoutExtension, extension), content, options);
+				} else if (filenameConflictAction == CONFLICT_ACTION_PROMPT) {
+					filename = await prompt(filename);
+					return filename ? upload(filename, content, options) : response;
+				} else if (filenameConflictAction == CONFLICT_ACTION_SKIP) {
+					return response;
+				}
+			} else if (response.status == NOT_FOUND_STATUS) {
+				response = await sendRequest(filename, PUT_METHOD, content);
+				if (response.status >= MIN_ERROR_STATUS && !preventRetry) {
+					if (filename.includes(DIRECTORY_SEPARATOR)) {
+						await createDirectories();
+						options.preventRetry = true;
+						return await upload(filename, content, options);
+					} else {
+						throw new Error(ERROR_PREFIX_MESSAGE + response.status);
+					}
+				} else {
+					return response;
+				}
+			} else if (response.status >= MIN_ERROR_STATUS) {
+				throw new Error(ERROR_PREFIX_MESSAGE + response.status);
+			}
 		}
 	} catch (error) {
 		if (error.name != ABORT_ERROR_NAME) {
