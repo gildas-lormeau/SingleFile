@@ -225,10 +225,10 @@ an option must be enabled in Safari.
   in Petal Cite: https://github.com/ks-collab/cite-extension
 - singlefile2trilium - Tool to save faithful copy of a web page as a Trilium
   note with SingleFile: https://github.com/nil0x42/singlefile2trilium
-- Trilium-SingleFile - An addon for Trilium Notes to easily import SingleFile 
-  html pages: https://github.com/rauenzi/Trilium-SingleFile
 - SingleFileMacOS - Integration of SingleFile in a swift application using
   webkit: https://github.com/captaindavepdx/SingleFileMacOS
+- Trilium-SingleFile - An addon for Trilium Notes to easily import SingleFile 
+  html pages: https://github.com/rauenzi/Trilium-SingleFile
 - Zotero Connector - Browser extension for Zotero, a tool to help you collect,
   organize, cite, and share your research sources:
   https://github.com/zotero/zotero-connectors
