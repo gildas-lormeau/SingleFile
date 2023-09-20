@@ -41,26 +41,26 @@ async function onMessage(message, sender) {
 	if (message == ACTION_SAVE_PAGE) {
 		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
 		tabs.length = 1;
-		business.saveTabs(tabs);
+		await business.saveTabs(tabs);
 	} else if (message == ACTION_EDIT_AND_SAVE_PAGE) {
 		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
 		tabs.length = 1;
-		business.saveTabs(tabs, { openEditor: true });
+		await business.saveTabs(tabs, { openEditor: true });
 	} else if (message == ACTION_SAVE_SELECTED_LINKS) {
 		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
-		business.saveSelectedLinks(tabs[0]);
+		await business.saveSelectedLinks(tabs[0]);
 	} else if (message == ACTION_SAVE_SELECTED) {
 		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
-		business.saveTabs(tabs, { selected: true });
+		await business.saveTabs(tabs, { selected: true });
 	} else if (message == ACTION_SAVE_SELECTED_TABS) {
 		const tabs = await queryTabs({ currentWindow: true, highlighted: true });
-		business.saveTabs(tabs);
+		await business.saveTabs(tabs);
 	} else if (message == ACTION_SAVE_UNPINNED_TABS) {
 		const tabs = await queryTabs({ currentWindow: true, pinned: false });
-		business.saveTabs(tabs);
+		await business.saveTabs(tabs);
 	} else if (message == ACTION_SAVE_ALL_TABS) {
 		const tabs = await queryTabs({ currentWindow: true });
-		business.saveTabs(tabs);
+		await business.saveTabs(tabs);
 	} else if (message.method) {
 		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
 		const currentTab = tabs[0];
