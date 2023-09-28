@@ -250,7 +250,7 @@ function detectSavedPage(document) {
 }
 
 function serializeShadowRoots(node) {
-	const SHADOWROOT_ATTRIBUTE_NAME = "shadowroot";
+	const SHADOWROOT_ATTRIBUTE_NAME = "shadowrootmode";
 	node.querySelectorAll("*").forEach(element => {
 		const shadowRoot = singlefile.helper.getShadowRoot(element);
 		if (shadowRoot) {

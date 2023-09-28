@@ -6,12 +6,12 @@
 	processNode(document);
 
 	function processNode(node) {
-		node.querySelectorAll("template[shadowroot]").forEach(element => {
+		node.querySelectorAll("template[shadowrootmode]").forEach(element => {
 			let shadowRoot = element.parentElement.shadowRoot;
 			if (!shadowRoot) {
 				try {
 					shadowRoot = element.parentElement.attachShadow({
-						mode: element.getAttribute("shadowroot")
+						mode: element.getAttribute("shadowrootmode")
 					});
 					shadowRoot.innerHTML = element.innerHTML;
 					element.remove();
