@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2022 Gildas Lormeau
+ * Copyright 2010-2020 Gildas Lormeau
  * contact : gildas.lormeau <at> gmail.com
  * 
  * This file is part of SingleFile.
@@ -78,8 +78,8 @@ function injectedScript() {
 			getDetailObject(...arguments).then(detail => dispatchEvent(new CustomEvent(NEW_FONT_FACE_EVENT, { detail })));
 			return new FontFace(...arguments);
 		};
-		globalThis.FontFace.toString = function () { return "function FontFace() { [native code] }"; };
 		globalThis.FontFace.prototype = FontFace.prototype;
+		globalThis.FontFace.toString = function () { return "function FontFace() { [native code] }"; };
 		const deleteFont = document.fonts.delete;
 		document.fonts.delete = function (fontFace) {
 			getDetailObject(fontFace.family).then(detail => dispatchEvent(new CustomEvent(DELETE_FONT_EVENT, { detail })));

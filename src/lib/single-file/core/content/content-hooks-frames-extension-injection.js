@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2022 Gildas Lormeau
+ * Copyright 2010-2020 Gildas Lormeau
  * contact : gildas.lormeau <at> gmail.com
  * 
  * This file is part of SingleFile.

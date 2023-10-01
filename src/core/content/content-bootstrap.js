@@ -45,7 +45,11 @@ browser.runtime.sendMessage({ method: "bootstrap.init" }).then(message => {
 			openEditor(document);
 		}
 	} else {
-		refresh();
+		if (document.readyState == "loading") {
+			document.addEventListener("DOMContentLoaded", refresh);
+		} else {
+			refresh();
+		}
 	}
 });
 browser.runtime.onMessage.addListener(message => {
