@@ -979,7 +979,7 @@ pre code {
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
 		if (message.method == "init") {
-			await init(message.content);
+			await init(message);
 		}
 		if (message.method == "addNote") {
 			addNote(message);
@@ -1095,11 +1095,11 @@ pre code {
 			const file = event.dataTransfer.files[0];
 			event.preventDefault();
 			const content = new TextDecoder().decode(await file.arrayBuffer());
-			await init(content, { filename: file.name });
+			await init({ content }, { filename: file.name });
 		}
 	};
 
-	async function init(content, { filename, reset } = {}) {
+	async function init({ content }, { filename, reset } = {}) {
 		await initConstants();
 		const initScriptContentMatch = content.match(/<script data-template-shadow-root.*<\/script>/);
 		if (initScriptContentMatch && initScriptContentMatch[0]) {
@@ -1888,7 +1888,7 @@ pre code {
 	async function cancelFormatPage() {
 		if (previousContent) {
 			const contentEditable = document.body.contentEditable;
-			await init(previousContent, { reset: true });
+			await init({ content: previousContent }, { reset: true });
 			document.body.contentEditable = contentEditable;
 			onUpdate(false);
 			previousContent = null;
