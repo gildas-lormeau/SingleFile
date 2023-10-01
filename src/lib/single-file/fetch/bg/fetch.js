@@ -99,7 +99,7 @@ function fetchResource(url, options = {}, includeRequestId) {
 						});
 					}
 				} else {
-					reject();
+					reject(new Error("Empty response"));
 				}
 			}
 		};
