@@ -133,8 +133,9 @@ async function downloadTabPage(message, tab) {
 }
 
 async function downloadContent(contents, tab, incognito, message) {
+	const tabId = tab.id;
 	try {
-		const prompt = filename => promptFilename(tab.id, filename);
+		const prompt = filename => promptFilename(tabId, filename);
 		let response;
 		if (message.saveWithWebDAV) {
 			response = await saveWithWebDAV(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.webDAVURL, message.webDAVUser, message.webDAVPassword, { filenameConflictAction: message.filenameConflictAction, prompt });
@@ -142,7 +143,7 @@ async function downloadContent(contents, tab, incognito, message) {
 			await saveToGDrive(message.taskId, encodeSharpCharacter(message.filename), new Blob(contents, { type: MIMETYPE_HTML }), {
 				forceWebAuthFlow: message.forceWebAuthFlow
 			}, {
-				onProgress: (offset, size) => ui.onUploadProgress(tab.id, offset, size),
+				onProgress: (offset, size) => ui.onUploadProgress(tabId, offset, size),
 				filenameConflictAction: message.filenameConflictAction,
 				prompt
 			});
@@ -171,7 +172,7 @@ async function downloadContent(contents, tab, incognito, message) {
 		if (message.replaceBookmarkURL && response && response.url) {
 			await bookmarks.update(message.bookmarkId, { url: response.url });
 		}
-		ui.onEnd(tab.id);
+		ui.onEnd(tabId);
 		if (message.openSavedPage) {
 			const createTabProperties = { active: true, url: URL.createObjectURL(new Blob(contents, { type: MIMETYPE_HTML })) };
 			if (tab.index != null) {
@@ -182,7 +183,7 @@ async function downloadContent(contents, tab, incognito, message) {
 	} catch (error) {
 		if (!error.message || error.message != "upload_cancelled") {
 			console.error(error); // eslint-disable-line no-console
-			ui.onError(tab.id, error.message, error.link);
+			ui.onError(tabId, error.message, error.link);
 		}
 	} finally {
 		if (message.url) {
