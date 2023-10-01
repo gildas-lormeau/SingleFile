@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global fetch, btoa, AbortController */
+/* global fetch, btoa, Blob, FileReader, AbortController */
 
 const EMPTY_STRING = "";
 const CONFLICT_ACTION_SKIP = "skip";
@@ -63,11 +63,12 @@ class GitHub {
 		this.branch = branch;
 	}
 
-	upload(path, content, options) {
+	async upload(path, content, options) {
 		this.controller = new AbortController();
 		options.signal = this.controller.signal;
 		options.headers = this.headers;
-		return upload(this.userName, this.repositoryName, this.branch, path, btoa(unescape(encodeURIComponent(content))), options);
+		const base64Content = content instanceof Blob ? await blobToBase64(content) : btoa(unescape(encodeURIComponent(content)));
+		return upload(this.userName, this.repositoryName, this.branch, path, base64Content, options);
 	}
 
 	abort() {
@@ -179,4 +180,13 @@ async function upload(userName, repositoryName, branch, path, content, options) 
 			INDEX_FILENAME_PREFIX + options.indexFilename + INDEX_FILENAME_SUFFIX +
 			(extension ? EXTENSION_SEPARATOR + extension : EMPTY_STRING);
 	}
+}
+
+function blobToBase64(blob) {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onloadend = () => resolve(reader.result.match(/^data:[^,]+,(.*)$/)[1]);
+		reader.onerror = event => reject(event.detail);
+		reader.readAsDataURL(blob);
+	});
 }
