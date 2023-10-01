@@ -101,9 +101,7 @@ function onTabCreated(tab) {
 }
 
 function onTabActivated(tab) {
-	if (tab) {
-		menus.onTabActivated(tab);
-	}
+	menus.onTabActivated(tab);
 }
 
 function onInit(tab) {
