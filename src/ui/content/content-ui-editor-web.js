@@ -1137,6 +1137,7 @@ pre code {
 			} catch (error) {
 				delete zipOptions.workerScripts;
 			}
+			zipOptions.useWebWorkers = false;
 			const { docContent, origDocContent, resources, url } = await extract(content, {
 				password,
 				prompt,
