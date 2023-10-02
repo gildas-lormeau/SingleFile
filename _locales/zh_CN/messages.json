@@ -257,7 +257,7 @@
 	},
 	"optionsFileFormatSubTitle": {
 		"message": "文件格式",
-		"description": "Options page label: 'File format'"
+		"description": "Options sub-title: 'File format'"
 	},
 	"optionFileFormat": {
 		"message": "格式",

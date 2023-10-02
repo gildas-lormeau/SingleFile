@@ -257,7 +257,7 @@
 	},
 	"optionsFileFormatSubTitle": {
 		"message": "Format de fichier",
-		"description": "Options page label: 'File format'"
+		"description": "Options sub-title: 'File format'"
 	},
 	"optionFileFormat": {
 		"message": "format",
