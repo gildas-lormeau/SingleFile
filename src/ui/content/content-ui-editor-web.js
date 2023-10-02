@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global globalThis, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, URL, MouseEvent, Blob, prompt, MutationObserver, FileReader, Worker, navigator */
+/* global globalThis, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, URL, MouseEvent, Blob, prompt, MutationObserver, FileReader, Worker, navigator, alert */
 
 import * as zip from "single-file-core/vendor/zip/zip.js";
 import { extract } from "single-file-core/processors/compression/compression-extract.js";
@@ -1077,16 +1077,20 @@ pre code {
 				content = content.replace(/<script data-template-shadow-root src.*?<\/script>/g, initScriptContent);
 			}
 			if (pageCompressContent) {
-				const viewport = document.head.querySelector("meta[name=viewport]");
-				window.parent.postMessage(JSON.stringify({
-					method: "setContent",
-					content,
-					title: document.title,
-					doctype: singlefile.helper.getDoctypeString(document),
-					url: pageUrl,
-					viewport: viewport ? viewport.content : null,
-					compressContent: true
-				}), "*");
+				if (message.foregroundSave) {
+					alert("Foreground save not supported for compressed content");
+				} else {
+					const viewport = document.head.querySelector("meta[name=viewport]");
+					window.parent.postMessage(JSON.stringify({
+						method: "setContent",
+						content,
+						title: document.title,
+						doctype: singlefile.helper.getDoctypeString(document),
+						url: pageUrl,
+						viewport: viewport ? viewport.content : null,
+						compressContent: true
+					}), "*");
+				}
 			} else {
 				if (message.foregroundSave) {
 					if (message.filename && message.filename.length) {
