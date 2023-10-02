@@ -185,7 +185,9 @@
 						<p>Select the ouput format of the saved file:
 						</p>
 						<ul>
-							<li><code>"HTML"</code>: HTML file (default format)</li>
+							<li><code>"HTML"</code>: HTML file (default format). This format produces HTML files that do
+								not depend on JavaScript to be opened.
+							</li>
 							<li><code>"self-extracting ZIP (universal)"</code>: self-extracting ZIP file that can be
 								opened on any platform. This format produces files smaller than the "HTML" format but
 								requires JavaScript to be enabled to open the file.
@@ -193,7 +195,8 @@
 							<li><code>"self-extracting ZIP"</code>: self-extracting ZIP file that can be
 								opened on any platform from HTTP but not from the filesystem in some browsers (e.g.
 								in browsers based on Chromium or WebKit) without SingleFile to be installed. This format
-								produces files smaller (approx. 1%) than the "self-extracting ZIP (universal)" format.</li>
+								produces files smaller (approx. 1%) than the "self-extracting ZIP (universal)" format.
+							</li>
 							<li><code>"ZIP"</code>: ZIP file</li>
 						</ul>
 					</li>
