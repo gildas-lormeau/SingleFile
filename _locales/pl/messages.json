@@ -256,7 +256,7 @@
 		"description": "Options page label: 'remove hidden elements'"
 	},
 	"optionsFileFormatSubTitle": {
-		"message": "File format",
+		"message": "Format pliku",
 		"description": "Options sub-title: 'File format'"
 	},
 	"optionFileFormat": {
@@ -268,11 +268,11 @@
 		"description": "Options page label: 'HTML'"
 	},
 	"optionFileFormatSelectSelfExtractingUniversal": {
-		"message": "self-extracting ZIP (universal)",
+		"message": "samorozpakowujący się plik ZIP (uniwersalny)",
 		"description": "Options page label: 'self-extracting ZIP (universal)'"
 	},
 	"optionFileFormatSelectSelfExtracting": {
-		"message": "self-extracting ZIP",
+		"message": "samorozpakowujący się plik ZIP",
 		"description": "Options page label: 'self-extracting ZIP'"
 	},
 	"optionFileFormatSelectZIP": {
@@ -284,11 +284,11 @@
 		"description": "Options page label: 'password'"
 	},
 	"optionCreateRootDirectory": {
-		"message": "create a root directory",
+		"message": "utwórz katalog główny",
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionInsertTextBody": {
-		"message": "make text searchable",
+		"message": "uczyń tekst przeszukiwalnym",
 		"description": "Options page label: 'make text searchable'"
 	},
 	"optionsInfobarSubTitle": {
