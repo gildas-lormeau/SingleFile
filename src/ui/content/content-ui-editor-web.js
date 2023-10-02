@@ -21,13 +21,15 @@
  *   Source.
  */
 
-/* global globalThis, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, URL, MouseEvent, Blob, prompt, MutationObserver, FileReader, Worker */
+/* global globalThis, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, URL, MouseEvent, Blob, prompt, MutationObserver, FileReader, Worker, navigator */
 
 import * as zip from "single-file-core/vendor/zip/zip.js";
 import { extract } from "single-file-core/processors/compression/compression-extract.js";
 import { display } from "single-file-core/processors/compression/compression-display.js";
 
 (globalThis => {
+
+	const IS_NOT_SAFARI = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent) || /Vivaldi/.test(navigator.userAgent) || /OPR/.test(navigator.userAgent);
 
 	const singlefile = globalThis.singlefile;
 
@@ -1137,7 +1139,7 @@ pre code {
 			} catch (error) {
 				delete zipOptions.workerScripts;
 			}
-			zipOptions.useWebWorkers = false;
+			zipOptions.useWebWorkers = IS_NOT_SAFARI;
 			const { docContent, origDocContent, resources, url } = await extract(content, {
 				password,
 				prompt,
