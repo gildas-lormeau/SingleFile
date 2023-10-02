@@ -225,6 +225,16 @@ async function upgrade() {
 	if (!config.processInForeground) {
 		await configStorage.set({ processInForeground: false });
 	}
+	const profileNames = await getProfileNames();
+	profileNames.map(async profileName => {
+		const profile = await getProfile(profileName);
+		for (const key of Object.keys(DEFAULT_CONFIG)) {
+			if (profile[key] === undefined) {
+				profile[key] = DEFAULT_CONFIG[key];
+			}
+		}
+		await setProfile(profileName, profile);
+	});
 }
 
 async function getRule(url, ignoreWildcard) {
