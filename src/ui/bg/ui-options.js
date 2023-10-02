@@ -304,6 +304,7 @@ const promptCancelButton = document.getElementById("promptCancelButton");
 const promptConfirmButton = document.getElementById("promptConfirmButton");
 const manifest = browser.runtime.getManifest();
 const requestPermissionIdentity = manifest.optional_permissions && manifest.optional_permissions.includes("identity");
+
 let sidePanelDisplay;
 if (location.href.endsWith("#side-panel")) {
 	sidePanelDisplay = true;
