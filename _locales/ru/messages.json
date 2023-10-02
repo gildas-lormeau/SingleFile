@@ -280,7 +280,7 @@
 		"description": "Options page label: 'ZIP'"
 	},
 	"optionPassword": {
-		"message": "password",
+		"message": "пароль",
 		"description": "Options page label: 'password'"
 	},
 	"optionCreateRootDirectory": {
