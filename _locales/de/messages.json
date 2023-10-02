@@ -255,6 +255,42 @@
 		"message": "Verborgene Elemente entfernen",
 		"description": "Options page label: 'remove hidden elements'"
 	},
+	"optionsFileFormatSubTitle": {
+		"message": "Dateiformat",
+		"description": "Options page label: 'File format'"
+	},
+	"optionFileFormat": {
+		"message": "format",
+		"description": "Options page label: 'format'"
+	},
+	"optionFileFormatSelectHTML": {
+		"message": "HTML",
+		"description": "Options page label: 'HTML'"
+	},
+	"optionFileFormatSelectSelfExtractingUniversal": {
+		"message": "selbstextrahierendes ZIP (universal)",
+		"description": "Options page label: 'self-extracting ZIP (universal)'"
+	},
+	"optionFileFormatSelectSelfExtracting": {
+		"message": "selbstextrahierendes ZIP",
+		"description": "Options page label: 'self-extracting ZIP'"
+	},
+	"optionFileFormatSelectZIP": {
+		"message": "ZIP",
+		"description": "Options page label: 'ZIP'"
+	},
+	"optionPassword": {
+		"message": "Passwort",
+		"description": "Options page label: 'password'"
+	},
+	"optionCreateRootDirectory": {
+		"message": "Stammverzeichnis erstellen",
+		"description": "Options page label: 'create a root directory'"
+	},
+	"optionInsertTextBody": {
+		"message": "Text durchsuchbar machen",
+		"description": "Options page label: 'make text searchable'"
+	},
 	"optionsInfobarSubTitle": {
 		"message": "Infoknopf",
 		"description": "Options sub-title: 'Infobar'"

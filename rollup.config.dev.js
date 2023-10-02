@@ -55,6 +55,35 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
+	input: ["single-file-core/vendor/zip/z-worker.js"],
+	output: [{
+		file: "lib/single-file-z-worker.js",
+		format: "es",
+		plugins: []
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
+}, {
+	input: ["single-file-core/vendor/zip/zip.js"],
+	output: [{
+		file: "lib/single-file-zip.js",
+		format: "es",
+		plugins: []
+	}],
+	context: "this",
+	plugins: PLUGINS,
+	external: EXTERNAL
+}, {
+	input: ["single-file-core/vendor/zip/zip.min.js"],
+	output: [{
+		file: "lib/single-file-zip.min.js",
+		format: "es",
+		plugins: []
+	}],
+	context: "this",
+	plugins: PLUGINS,
+	external: EXTERNAL
+}, {
 	input: ["src/core/content/content-bootstrap.js"],
 	output: [{
 		file: "lib/single-file-extension-bootstrap.js",
@@ -89,14 +118,18 @@ export default [{
 		file: "lib/single-file-extension-editor-init.js",
 		format: "iife",
 		plugins: []
-	}]
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
 }, {
 	input: ["src/ui/content/content-ui-editor-web.js"],
 	output: [{
 		file: "lib/single-file-extension-editor.js",
 		format: "iife",
 		plugins: []
-	}]
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
 }, {
 	input: ["single-file-core/single-file-editor-helper.js"],
 	output: [{

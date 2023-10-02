@@ -21,7 +21,11 @@
  *   Source.
  */
 
-/* global globalThis, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, URL, MouseEvent, Blob */
+/* global globalThis, window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, URL, MouseEvent, Blob, prompt, MutationObserver, FileReader, Worker */
+
+import * as zip from "single-file-core/vendor/zip/zip.js";
+import { extract } from "single-file-core/processors/compression/compression-extract.js";
+import { display } from "single-file-core/processors/compression/compression-display.js";
 
 (globalThis => {
 
@@ -974,8 +978,9 @@ pre code {
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingTouchTarget, cuttingPath, cuttingPathIndex, previousContent;
-	let removedElements = [], removedElementIndex = 0, initScriptContent, includeInfobar;
+	let removedElements = [], removedElementIndex = 0, initScriptContent, pageResources, pageUrl, pageCompressContent, includeInfobar;
 
+	globalThis.zip = zip;
 	window.onmessage = async event => {
 		const message = JSON.parse(event.data);
 		if (message.method == "init") {
@@ -1069,16 +1074,33 @@ pre code {
 			if (initScriptContent) {
 				content = content.replace(/<script data-template-shadow-root src.*?<\/script>/g, initScriptContent);
 			}
-			if (message.foregroundSave) {
-				if (message.filename && message.filename.length) {
-					const link = document.createElement("a");
-					link.download = message.filename;
-					link.href = URL.createObjectURL(new Blob([content], { type: "text/html" }));
-					link.dispatchEvent(new MouseEvent("click"));
-				}
-				return new Promise(resolve => setTimeout(resolve, 1));
+			debugger;
+			if (pageCompressContent) {
+				const viewport = document.head.querySelector("meta[name=viewport]");
+				window.parent.postMessage(JSON.stringify({
+					method: "setContent",
+					content,
+					title: document.title,
+					doctype: singlefile.helper.getDoctypeString(document),
+					url: pageUrl,
+					viewport: viewport ? viewport.content : null,
+					compressContent: true
+				}), "*");
 			} else {
-				window.parent.postMessage(JSON.stringify({ method: "setContent", content }), "*");
+				if (message.foregroundSave) {
+					if (message.filename && message.filename.length) {
+						const link = document.createElement("a");
+						link.download = message.filename;
+						link.href = URL.createObjectURL(new Blob([content], { type: "text/html" }));
+						link.dispatchEvent(new MouseEvent("click"));
+					}
+					return new Promise(resolve => setTimeout(resolve, 1));
+				} else {
+					window.parent.postMessage(JSON.stringify({
+						method: "setContent",
+						content
+					}), "*");
+				}
 			}
 		}
 		if (message.method == "printPage") {
@@ -1095,65 +1117,148 @@ pre code {
 			const file = event.dataTransfer.files[0];
 			event.preventDefault();
 			const content = new TextDecoder().decode(await file.arrayBuffer());
-			await init({ content }, { filename: file.name });
+			const compressContent = /<html[^>]* data-sfz[^>]*>/i.test(content);
+			if (compressContent) {
+				await init({ content: file, compressContent }, { filename: file.name });
+			} else {
+				await init({ content }, { filename: file.name });
+			}
 		}
 	};
 
-	async function init({ content }, { filename, reset } = {}) {
+	async function init({ content, password, compressContent }, { filename, reset } = {}) {
 		await initConstants();
-		const initScriptContentMatch = content.match(/<script data-template-shadow-root.*<\/script>/);
-		if (initScriptContentMatch && initScriptContentMatch[0]) {
-			initScriptContent = initScriptContentMatch[0];
-		}
-		content = content.replace(/<script data-template-shadow-root.*<\/script>/g, "<script data-template-shadow-root src=/lib/single-file-extension-editor-init.js></script>");
-		const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
-		if (detectSavedPage(contentDocument)) {
-			if (contentDocument.doctype) {
-				if (document.doctype) {
-					document.replaceChild(contentDocument.doctype, document.doctype);
-				} else {
-					document.insertBefore(contentDocument.doctype, document.documentElement);
+		if (compressContent) {
+			const zipOptions = {
+				workerScripts: { inflate: ["/lib/single-file-z-worker.js"] }
+			};
+			try {
+				const worker = new Worker(zipOptions.workerScripts);
+				worker.terminate();
+			} catch (error) {
+				delete zipOptions.workerScripts;
+			}
+			const { docContent, origDocContent, resources, url } = await extract(content, {
+				password,
+				prompt,
+				shadowRootScriptURL: new URL("/lib/single-file-extension-editor-init.js", document.baseURI).href,
+				zipOptions
+			});
+			pageResources = resources;
+			pageUrl = url;
+			pageCompressContent = true;
+			const contentDocument = (new DOMParser()).parseFromString(docContent, "text/html");
+			if (detectSavedPage(contentDocument)) {
+				await display(document, docContent, { disableFramePointerEvents: true });
+				const infobarElement = document.querySelector(singlefile.helper.INFOBAR_TAGNAME);
+				if (infobarElement) {
+					infobarElement.remove();
 				}
-			} else if (document.doctype) {
-				document.doctype.remove();
+				await initPage();
+				let icon;
+				const origContentDocument = (new DOMParser()).parseFromString(origDocContent, "text/html");
+				const iconElement = origContentDocument.querySelector("link[rel*=icon]");
+				if (iconElement) {
+					const iconResource = resources.find(resource => resource.filename == iconElement.getAttribute("href"));
+					if (iconResource && iconResource.blob) {
+						const reader = new FileReader();
+						reader.readAsDataURL(iconResource.blob);
+						icon = await new Promise((resolve, reject) => {
+							reader.addEventListener("load", () => resolve(reader.result), false);
+							reader.addEventListener("error", reject, false);
+						});
+					} else {
+						icon = iconElement.href;
+					}
+				}
+				window.parent.postMessage(JSON.stringify({
+					method: "onInit",
+					title: document.title,
+					icon,
+					filename,
+					reset,
+					formatPageEnabled: isProbablyReaderable(document)
+				}), "*");
 			}
-			const infobarElement = contentDocument.querySelector(singlefile.helper.INFOBAR_TAGNAME);
-			if (infobarElement) {
-				infobarElement.remove();
+		} else {
+			const initScriptContentMatch = content.match(/<script data-template-shadow-root.*<\/script>/);
+			if (initScriptContentMatch && initScriptContentMatch[0]) {
+				initScriptContent = initScriptContentMatch[0];
 			}
-			contentDocument.querySelectorAll("noscript").forEach(element => {
-				element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
-				element.textContent = "";
-			});
-			contentDocument.querySelectorAll("iframe").forEach(element => {
-				const pointerEvents = "pointer-events";
-				element.style.setProperty("-sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
-				element.style.setProperty(pointerEvents, "none", "important");
-			});
-			document.replaceChild(contentDocument.documentElement, document.documentElement);
-			document.querySelectorAll("[data-single-file-note-refs]").forEach(noteRefElement => noteRefElement.dataset.singleFileNoteRefs = noteRefElement.dataset.singleFileNoteRefs.replace(/,/g, " "));
-			deserializeShadowRoots(document);
-			document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
-			document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
-			maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
-			maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
-			document.documentElement.onmousedown = onMouseDown;
-			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
-			document.documentElement.onmouseover = onMouseOver;
-			document.documentElement.onmouseout = onMouseOut;
-			document.documentElement.onkeydown = onKeyDown;
-			document.documentElement.ontouchstart = document.documentElement.ontouchmove = onTouchMove;
-			window.onclick = event => event.preventDefault();
-			const iconElement = document.querySelector("link[rel*=icon]");
-			window.parent.postMessage(JSON.stringify({
-				method: "onInit",
-				title: document.title,
-				icon: iconElement && iconElement.href,
-				filename,
-				reset,
-				formatPageEnabled: isProbablyReaderable(document)
-			}), "*");
+			content = content.replace(/<script data-template-shadow-root.*<\/script>/g, "<script data-template-shadow-root src=/lib/single-file-extension-editor-init.js></script>");
+			const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
+			if (detectSavedPage(contentDocument)) {
+				if (contentDocument.doctype) {
+					if (document.doctype) {
+						document.replaceChild(contentDocument.doctype, document.doctype);
+					} else {
+						document.insertBefore(contentDocument.doctype, document.documentElement);
+					}
+				} else if (document.doctype) {
+					document.doctype.remove();
+				}
+				const infobarElement = contentDocument.querySelector(singlefile.helper.INFOBAR_TAGNAME);
+				if (infobarElement) {
+					infobarElement.remove();
+				}
+				contentDocument.querySelectorAll("noscript").forEach(element => {
+					element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
+					element.textContent = "";
+				});
+				contentDocument.querySelectorAll("iframe").forEach(element => {
+					const pointerEvents = "pointer-events";
+					element.style.setProperty("-sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
+					element.style.setProperty(pointerEvents, "none", "important");
+				});
+				document.replaceChild(contentDocument.documentElement, document.documentElement);
+				document.querySelectorAll("[data-single-file-note-refs]").forEach(noteRefElement => noteRefElement.dataset.singleFileNoteRefs = noteRefElement.dataset.singleFileNoteRefs.replace(/,/g, " "));
+				deserializeShadowRoots(document);
+				document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
+				document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
+				maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
+				maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+				document.documentElement.onmousedown = onMouseDown;
+				document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
+				document.documentElement.onmouseover = onMouseOver;
+				document.documentElement.onmouseout = onMouseOut;
+				document.documentElement.onkeydown = onKeyDown;
+				document.documentElement.ontouchstart = document.documentElement.ontouchmove = onTouchMove;
+				window.onclick = event => event.preventDefault();
+				const iconElement = document.querySelector("link[rel*=icon]");
+				window.parent.postMessage(JSON.stringify({
+					method: "onInit",
+					title: document.title,
+					icon: iconElement && iconElement.href,
+					filename,
+					reset,
+					formatPageEnabled: isProbablyReaderable(document)
+				}), "*");
+			}
 		}
+	}
+
+	async function initPage() {
+		document.querySelectorAll("iframe").forEach(element => {
+			const pointerEvents = "pointer-events";
+			element.style.setProperty("-sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
+			element.style.setProperty(pointerEvents, "none", "important");
+		});
+		document.querySelectorAll("[data-single-file-note-refs]").forEach(noteRefElement => noteRefElement.dataset.singleFileNoteRefs = noteRefElement.dataset.singleFileNoteRefs.replace(/,/g, " "));
+		deserializeShadowRoots(document);
+		reflowNotes();
+		await waitResourcesLoad();
+		reflowNotes();
+		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
+		document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
+		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
+		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+		document.documentElement.onmousedown = onMouseDown;
+		document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
+		document.documentElement.onmouseover = onMouseOver;
+		document.documentElement.onmouseout = onMouseOut;
+		document.documentElement.onkeydown = onKeyDown;
+		document.documentElement.ontouchstart = document.documentElement.ontouchmove = onTouchMove;
+		window.onclick = event => event.preventDefault();
 	}
 
 	async function initConstants() {
@@ -1824,7 +1929,13 @@ pre code {
 	}
 
 	function formatPage(applySystemTheme) {
-		previousContent = getContent(false, []);
+		if (pageCompressContent) {
+			serializeShadowRoots(document);
+			previousContent = document.documentElement.cloneNode(true);
+			deserializeShadowRoots(document);
+		} else {
+			previousContent = getContent(false, []);
+		}
 		const shadowRoots = {};
 		const classesToPreserve = ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"];
 		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
@@ -1888,7 +1999,13 @@ pre code {
 	async function cancelFormatPage() {
 		if (previousContent) {
 			const contentEditable = document.body.contentEditable;
-			await init({ content: previousContent }, { reset: true });
+			if (pageCompressContent) {
+				document.replaceChild(previousContent, document.documentElement);
+				deserializeShadowRoots(document);
+				await initPage();
+			} else {
+				await init({ content: previousContent }, { reset: true });
+			}
 			document.body.contentEditable = contentEditable;
 			onUpdate(false);
 			previousContent = null;
@@ -1935,11 +2052,54 @@ pre code {
 			doc.body.appendChild(element);
 			element.textContent = resource.content;
 		});
-		return singlefile.helper.serialize(doc, compressHTML) + "<script " + SCRIPT_TEMPLATE_SHADOW_ROOT + ">" + getEmbedScript() + "</script>";
+		if (pageCompressContent) {
+			const pageFilename = pageResources
+				.filter(resource => resource.filename.endsWith("index.html"))
+				.sort((resourceLeft, resourceRight) => resourceLeft.filename.length - resourceRight.filename.length)[0].filename;
+			const resources = pageResources.filter(resource => resource.parentResources.includes(pageFilename));
+			doc.querySelectorAll("[src]").forEach(element => resources.forEach(resource => {
+				if (element.src == resource.content) {
+					element.src = resource.name;
+				}
+			}));
+			let content = singlefile.helper.serialize(doc, compressHTML);
+			const REGEXP_ESCAPE = /([{}()^$&.*?/+|[\\\\]|\]|-)/g;
+			resources.forEach(resource => {
+				const searchRegExp = new RegExp(resource.content.replace(REGEXP_ESCAPE, "\\$1"), "g");
+				const position = content.search(searchRegExp);
+				if (position != -1) {
+					content = content.replace(searchRegExp, resource.name);
+				}
+			});
+			return content + "<script " + SCRIPT_TEMPLATE_SHADOW_ROOT + ">" + getEmbedScript() + "</script>";
+		} else {
+			return singlefile.helper.serialize(doc, compressHTML) + "<script " + SCRIPT_TEMPLATE_SHADOW_ROOT + ">" + getEmbedScript() + "</script>";
+		}
 	}
 
 	function onUpdate(saved) {
 		window.parent.postMessage(JSON.stringify({ "method": "onUpdate", saved }), "*");
+	}
+
+	function waitResourcesLoad() {
+		return new Promise(resolve => {
+			let counterMutations = 0;
+			const done = () => {
+				observer.disconnect();
+				resolve();
+			};
+			let timeoutInit = setTimeout(done, 100);
+			const observer = new MutationObserver(() => {
+				if (counterMutations < 20) {
+					counterMutations++;
+					clearTimeout(timeoutInit);
+					timeoutInit = setTimeout(done, 100);
+				} else {
+					done();
+				}
+			});
+			observer.observe(document, { subtree: true, childList: true, attributes: true });
+		});
 	}
 
 	function reflowNotes() {
@@ -2086,6 +2246,7 @@ pre code {
 			const getPosition = ${minifyText(getPosition.toString())};
 			const onMouseUp = ${minifyText(onMouseUp.toString())};
 			const getShadowRoot = ${minifyText(getShadowRoot.toString())};
+			const waitResourcesLoad = ${minifyText(waitResourcesLoad.toString())};
 			const maskNoteElement = getMaskElement(${JSON.stringify(NOTE_MASK_CLASS)});
 			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});
 			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout, cuttingMode, cuttingOuterMode;
@@ -2095,6 +2256,9 @@ pre code {
 			processNode(document);
 			reflowNotes();
 			document.querySelectorAll(${JSON.stringify(NOTE_TAGNAME)}).forEach(noteElement => attachNoteListeners(noteElement));
+			if (document.documentElement.dataset.sfz !== undefined) {
+				waitResourcesLoad().then(reflowNotes);
+			}
 		})()`);
 	}
 

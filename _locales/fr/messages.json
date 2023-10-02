@@ -211,7 +211,7 @@
 		"message": "caractère de remplacement",
 		"description": "Options page label: 'replacement character'"
 	},
-	"optionReplaceEmojisInFilename" : {
+	"optionReplaceEmojisInFilename": {
 		"message": "remplacer les emojis par du texte",
 		"description": "Options page label: 'replace emojis with text'"
 	},
@@ -254,6 +254,42 @@
 	"optionRemoveHiddenElements": {
 		"message": "supprimer les élements cachés",
 		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsFileFormatSubTitle": {
+		"message": "Format de fichier",
+		"description": "Options page label: 'File format'"
+	},
+	"optionFileFormat": {
+		"message": "format",
+		"description": "Options page label: 'format'"
+	},
+	"optionFileFormatSelectHTML": {
+		"message": "HTML",
+		"description": "Options page label: 'HTML'"
+	},
+	"optionFileFormatSelectSelfExtractingUniversal": {
+		"message": "auto-extractibles ZIP (universel)",
+		"description": "Options page label: 'self-extracting ZIP (universal)'"
+	},
+	"optionFileFormatSelectSelfExtracting": {
+		"message": "auto-extractibles ZIP",
+		"description": "Options page label: 'self-extracting ZIP'"
+	},
+	"optionFileFormatSelectZIP": {
+		"message": "ZIP",
+		"description": "Options page label: 'ZIP'"
+	},
+	"optionPassword": {
+		"message": "mot de passe",
+		"description": "Options page label: 'password'"
+	},
+	"optionCreateRootDirectory": {
+		"message": "créer un répertoire racine",
+		"description": "Options page label: 'create a root directory'"
+	},
+	"optionInsertTextBody": {
+		"message": "rendre le texte indexable",
+		"description": "Options page label: 'make text searchable'"
 	},
 	"optionsInfobarSubTitle": {
 		"message": "Barre d'information",

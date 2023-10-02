@@ -113,10 +113,10 @@
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 					<li data-options-label="openSavedPageLabel" id="openSavedPageOption"> <span class="option">Option:
-							open saved pages in a new
-							tab</span>
+							open saved pages in a new tab</span>
 						<p>Check this option to display the saved page in a new tab. This option can be useful, for
-							example, in order to check the page is properly saved.</p>
+							example, in order to check the page is properly saved. This option does not work with
+							archive formats based on ZIP files.</p>
 					</li>
 					<li data-options-label="autoCloseLabel"> <span class="option">Option: auto-close the tab after the
 							page is saved</span>
@@ -175,6 +175,47 @@
 					<li data-options-label="replaceEmojisInFilenameLabel">
 						<span class="option">Option: replace emojis with text</span>
 						<p>Check this option to replace emojis in the file name with their unicode text representation.
+						</p>
+					</li>
+				</ul>
+				<p>File format</p>
+				<ul>
+					<li data-options-label="fileFormatSelectLabel">
+						<span class="option">Option: format</span>
+						<p>Select the ouput format of the saved file:
+						</p>
+						<ul>
+							<li><code>"HTML"</code>: HTML file (default format)</li>
+							<li><code>"self-extracting ZIP (universal)"</code>: self-extracting ZIP file that can be
+								opened on any platform. This format produces files smaller than the "HTML" format but
+								requires JavaScript to be enabled to open the file.
+							</li>
+							<li><code>"self-extracting ZIP"</code>: self-extracting ZIP file that can be
+								opened on any platform from HTTP but not from the filesystem in some browsers (e.g.
+								in browsers based on Chromium or WebKit). This format produces files smaller (approx.
+								1%) than the "self-extracting ZIP (universal)" format.</li>
+							<li><code>"ZIP"</code>: ZIP file</li>
+						</ul>
+					</li>
+					<li data-options-label="passwordLabel">
+						<span class="option">Option: password</span>
+						<p>Type a password to encrypt the ZIP file with AES-256 (compatible with Winzip). Be careful, if
+							you lose the password, it will be impossible to open the file. Enabling this option
+							increases the CPU consumption and the time needed to save or read a page.</p>
+						</p>
+					</li>
+					<li data-options-label="createRootDirectoryLabel">
+						<span class="option">Option: create a root directory</span>
+						<p>Check this option to create a root directory in the ZIP file. The directory name consists of
+							a timestamp and the identifier of the tab where the saved page is displayed.
+						</p>
+					</li>
+					<li data-options-label="insertTextBodyLabel">
+						<span class="option">Option: make text searchable</span>
+						<p>Check this option to insert the text content of the saved page into the self-extracting ZIP
+							file. This makes it possible, for example, to search for pages from the text. Note that if
+							the selected fomrmat is "self-extracting ZIP (universal)", the text content is
+							encoded in UTF-8 but the page is declared in ISO-8859-1.
 						</p>
 					</li>
 				</ul>
@@ -298,7 +339,7 @@
 							images together</span>
 						<p>Check this option to avoid saving multiple times duplicate images. Checking this option
 							should not alter the document in modern browsers and can considerably reduce the size of the
-							file.</p>
+							file. This option is ignored with archive formats based on ZIP files.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 					<li data-options-label="loadDeferredImagesLabel"> <span class="option">Option: save deferred
@@ -369,7 +410,8 @@
 					</li>
 					<li data-options-label="saveToClipboardLabel" id="saveToClipboardOption"> <span
 							class="option">Option: copy to clipboard</span>
-						<p>Check this option to copy the page to the clipboard.</p>
+						<p>Check this option to copy the page to the clipboard. This option does not work with
+							archive formats based on ZIP files.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 					<li data-options-label="saveToGitHubLabel"> <span class="option">Option: upload to GitHub</span>
@@ -532,11 +574,11 @@
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 					<li data-options-label="displayInfobarInEditorLabel"> <span class="option">Option:
-						display the infobar</span>
+							display the infobar</span>
 						<p>Check this option to display the infobar when displaying a page in the annotation editor.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
-					</p>
-				</li>
+						</p>
+					</li>
 				</ul>
 				<p id="bookmarksSection">Bookmarks</p>
 				<ul id="bookmarksOptions">

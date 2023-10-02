@@ -211,7 +211,7 @@
 		"message": "caractere de substituição",
 		"description": "Options page label: 'replacement character'"
 	},
-	"optionReplaceEmojisInFilename" : {
+	"optionReplaceEmojisInFilename": {
 		"message": "substituir emojis por texto",
 		"description": "Options page label: 'replace emojis with text'"
 	},
@@ -254,6 +254,42 @@
 	"optionRemoveHiddenElements": {
 		"message": "remover elementos escondidos",
 		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsFileFormatSubTitle": {
+		"message": "Formato do arquivo",
+		"description": "Options page label: 'File format'"
+	},
+	"optionFileFormat": {
+		"message": "formato",
+		"description": "Options page label: 'format'"
+	},
+	"optionFileFormatSelectHTML": {
+		"message": "HTML",
+		"description": "Options page label: 'HTML'"
+	},
+	"optionFileFormatSelectSelfExtractingUniversal": {
+		"message": "ZIP autoextraível (universal)",
+		"description": "Options page label: 'self-extracting ZIP (universal)'"
+	},
+	"optionFileFormatSelectSelfExtracting": {
+		"message": "ZIP autoextraível",
+		"description": "Options page label: 'self-extracting ZIP'"
+	},
+	"optionFileFormatSelectZIP": {
+		"message": "ZIP",
+		"description": "Options page label: 'ZIP'"
+	},
+	"optionPassword": {
+		"message": "senha",
+		"description": "Options page label: 'password'"
+	},
+	"optionCreateRootDirectory": {
+		"message": "criar um diretório raiz",
+		"description": "Options page label: 'create a root directory'"
+	},
+	"optionInsertTextBody": {
+		"message": "tornar texto pesquisável",
+		"description": "Options page label: 'make text searchable'"
 	},
 	"optionsInfobarSubTitle": {
 		"message": "Infobar",

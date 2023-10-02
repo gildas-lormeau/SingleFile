@@ -160,46 +160,63 @@ async function saveContent(message, tab) {
 				if (options.passReferrerOnError) {
 					enableReferrerOnError();
 				}
+				options.tabId = tabId;
 				pageData = await getPageData(options, null, null, { fetch });
-				if (options.saveToGDrive) {
-					const blob = new Blob([pageData.content], { type: "text/html" });
-					await downloads.saveToGDrive(message.taskId, downloads.encodeSharpCharacter(pageData.filename), blob, options, {
-						forceWebAuthFlow: options.forceWebAuthFlow
-					}, {
-						filenameConflictAction: options.filenameConflictAction
-					});
-				} else if (options.saveWithWebDAV) {
-					await downloads.saveWithWebDAV(message.taskId, downloads.encodeSharpCharacter(pageData.filename), pageData.content, options.webDAVURL, options.webDAVUser, options.webDAVPassword, {
-						filenameConflictAction: options.filenameConflictAction
-					});
-				} else if (options.saveToGitHub) {
-					await (await downloads.saveToGitHub(message.taskId, downloads.encodeSharpCharacter(pageData.filename), pageData.content, options.githubToken, options.githubUser, options.githubRepository, options.githubBranch, {
-						filenameConflictAction: options.filenameConflictAction
-					})).pushPromise;
-				} else if (options.saveWithCompanion) {
-					await companion.save({
-						filename: pageData.filename,
-						content: pageData.content,
-						filenameConflictAction: options.filenameConflictAction
-					});
-				} else {
-					const blob = new Blob([pageData.content], { type: "text/html" });
-					pageData.url = URL.createObjectURL(blob);
-					await downloads.downloadPage(pageData, options);
-					if (options.openSavedPage) {
-						const createTabProperties = { active: true, url: URL.createObjectURL(blob), windowId: tab.windowId };
-						const index = tab.index;
-						try {
-							await browser.tabs.get(tabId);
-							createTabProperties.index = index + 1;
-						} catch (error) {
-							createTabProperties.index = index;
-						}
-						browser.tabs.create(createTabProperties);
-					}
+				let skipped;
+				if (!options.saveToGDrive && !options.saveWithWebDAV && !options.saveToGitHub && !options.saveWithCompanion) {
+					const testSkip = await downloads.testSkipSave(pageData.filename, options);
+					skipped = testSkip.skipped;
+					options.filenameConflictAction = testSkip.filenameConflictAction;
 				}
-				if (pageData.hash) {
-					await woleet.anchor(pageData.hash, options.woleetKey);
+				if (!skipped) {
+					let { content } = pageData;
+					if (options.compressContent) {
+						content = new Blob([new Uint8Array(content)], { type: "text/html" });
+					}
+					if (options.saveToGDrive) {
+						if (!(content instanceof Blob)) {
+							content = new Blob([content], { type: "text/html" });
+						}
+						await downloads.saveToGDrive(message.taskId, downloads.encodeSharpCharacter(pageData.filename), content, options, {
+							forceWebAuthFlow: options.forceWebAuthFlow
+						}, {
+							filenameConflictAction: options.filenameConflictAction
+						});
+					} else if (options.saveWithWebDAV) {
+						await downloads.saveWithWebDAV(message.taskId, downloads.encodeSharpCharacter(pageData.filename), content, options.webDAVURL, options.webDAVUser, options.webDAVPassword, {
+							filenameConflictAction: options.filenameConflictAction
+						});
+					} else if (options.saveToGitHub) {
+						await (await downloads.saveToGitHub(message.taskId, downloads.encodeSharpCharacter(pageData.filename), content, options.githubToken, options.githubUser, options.githubRepository, options.githubBranch, {
+							filenameConflictAction: options.filenameConflictAction
+						})).pushPromise;
+					} else if (options.saveWithCompanion && !options.compressContent) {
+						await companion.save({
+							filename: pageData.filename,
+							content: pageData.content,
+							filenameConflictAction: options.filenameConflictAction
+						});
+					} else {
+						if (!(content instanceof Blob)) {
+							content = new Blob([content], { type: "text/html" });
+						}
+						pageData.url = URL.createObjectURL(content);
+						await downloads.downloadPage(pageData, options);
+						if (options.openSavedPage && !options.compressContent) {
+							const createTabProperties = { active: true, url: URL.createObjectURL(content), windowId: tab.windowId };
+							const index = tab.index;
+							try {
+								await browser.tabs.get(tabId);
+								createTabProperties.index = index + 1;
+							} catch (error) {
+								createTabProperties.index = index;
+							}
+							browser.tabs.create(createTabProperties);
+						}
+					}
+					if (pageData.hash) {
+						await woleet.anchor(pageData.hash, options.woleetKey);
+					}
 				}
 			}
 		} finally {

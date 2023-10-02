@@ -21,24 +21,25 @@
  *   Source.
  */
 
-/* global browser, document, globalThis, location */
+/* global browser, document, globalThis, location, URL, Blob, MouseEvent */
 
 import * as download from "./../common/download.js";
 import { fetch, frameFetch } from "./../../lib/single-file/fetch/content/content-fetch.js";
 import * as ui from "./../../ui/content/content-ui.js";
 import { onError } from "./../../ui/common/content-error.js";
+import * as yabson from "./../../lib/yabson/yabson.js";
 
 const singlefile = globalThis.singlefile;
 const bootstrap = globalThis.singlefileBootstrap;
 
 const MOZ_EXTENSION_PROTOCOL = "moz-extension:";
 
-let processor, processing;
+let processor, processing, downloadParser;
 
 if (!bootstrap || !bootstrap.initializedSingleFile) {
 	singlefile.init({ fetch, frameFetch });
 	browser.runtime.onMessage.addListener(message => {
-		if (message.method == "content.save" || message.method == "content.cancelSave" || message.method == "content.getSelectedLinks" || message.method == "content.error" || message.method == "content.prompt") {
+		if (message.method == "content.save" || message.method == "content.cancelSave" || message.method == "content.download" || message.method == "content.getSelectedLinks" || message.method == "content.error" || message.method == "content.prompt") {
 			return onMessage(message);
 		}
 	});
@@ -70,6 +71,22 @@ async function onMessage(message) {
 			return {
 				urls: ui.getSelectedLinks()
 			};
+		}
+		if (message.method == "content.download") {
+			if (!downloadParser) {
+				downloadParser = yabson.getParser();
+			}
+			const result = await downloadParser.next(message.data);
+			if (result.done) {
+				downloadParser = null;
+				const link = document.createElement("a");
+				link.download = result.value.filename;
+				link.href = URL.createObjectURL(new Blob([result.value.content]), "text/html");
+				link.dispatchEvent(new MouseEvent("click"));
+				URL.revokeObjectURL(link.href);
+				await browser.runtime.sendMessage({ method: "downloads.end", taskId: result.value.taskId });
+			}
+			return {};
 		}
 		if (message.method == "content.error") {
 			onError(message.error, message.link);

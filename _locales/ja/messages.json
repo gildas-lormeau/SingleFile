@@ -211,7 +211,7 @@
 		"message": "置換文字",
 		"description": "Options page label: 'replacement character'"
 	},
-	"optionReplaceEmojisInFilename" : {
+	"optionReplaceEmojisInFilename": {
 		"message": "絵文字をテキストに置き換える",
 		"description": "Options page label: 'replace emojis with text'"
 	},
@@ -254,6 +254,42 @@
 	"optionRemoveHiddenElements": {
 		"message": "隠された要素を削除する",
 		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionsFileFormatSubTitle": {
+		"message": "ファイル形式",
+		"description": "Options page label: 'File format'"
+	},
+	"optionFileFormat": {
+		"message": "形式",
+		"description": "Options page label: 'format'"
+	},
+	"optionFileFormatSelectHTML": {
+		"message": "HTML",
+		"description": "Options page label: 'HTML'"
+	},
+	"optionFileFormatSelectSelfExtractingUniversal": {
+		"message": "自己解凍型ZIP（ユニバーサル）",
+		"description": "Options page label: 'self-extracting ZIP (universal)'"
+	},
+	"optionFileFormatSelectSelfExtracting": {
+		"message": "自己解凍型ZIP",
+		"description": "Options page label: 'self-extracting ZIP'"
+	},
+	"optionFileFormatSelectZIP": {
+		"message": "ZIP",
+		"description": "Options page label: 'ZIP'"
+	},
+	"optionPassword": {
+		"message": "パスワード",
+		"description": "Options page label: 'password'"
+	},
+	"optionCreateRootDirectory": {
+		"message": "ルートディレクトリを作成する",
+		"description": "Options page label: 'create a root directory'"
+	},
+	"optionInsertTextBody": {
+		"message": "テキストを検索可能にする",
+		"description": "Options page label: 'make text searchable'"
 	},
 	"optionsInfobarSubTitle": {
 		"message": "インフォバー",

@@ -83,6 +83,8 @@
 		"lib/single-file-extension-editor-init.js",
 		"lib/single-file-extension-editor.js",
 		"lib/single-file-extension-editor-helper.js",
+		"lib/single-file-zip.min.js",
+		"lib/single-file-z-worker.js",
 		"src/lib/readability/Readability.js",
 		"src/lib/readability/Readability-readerable.js",
 		"src/ui/pages/editor-note-web.css",

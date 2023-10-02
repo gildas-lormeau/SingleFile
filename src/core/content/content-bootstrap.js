@@ -21,13 +21,14 @@
  *   Source.
  */
 
-/* global browser, globalThis, window, document, location, setTimeout, Node */
-
-const singlefile = globalThis.singlefileBootstrap;
+/* global browser, globalThis, window, document, location, setTimeout, XMLHttpRequest, Node, DOMParser */
 
 const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 
-let unloadListenerAdded, optionsAutoSave, tabId, tabIndex, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved, previousLocationHref;
+const singlefile = globalThis.singlefileBootstrap;
+const pendingResponses = new Map();
+
+let unloadListenerAdded, optionsAutoSave, tabId, tabIndex, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved, previousLocationHref, savedPageDetected, compressContent, extractDataFromPageTags, insertTextBody;
 singlefile.pageInfo = {
 	updatedResources: {},
 	visitDate: new Date()
@@ -57,11 +58,62 @@ browser.runtime.onMessage.addListener(message => {
 		message.method == "content.maybeInit" ||
 		message.method == "content.init" ||
 		message.method == "content.openEditor" ||
-		message.method == "devtools.resourceCommitted") {
+		message.method == "devtools.resourceCommitted" ||
+		message.method == "singlefile.fetchResponse") {
 		return onMessage(message);
 	}
 });
 document.addEventListener("DOMContentLoaded", init, false);
+if (globalThis.window == globalThis.top && location && location.href && (location.href.startsWith("file://") || location.href.startsWith("content://"))) {
+	if (document.readyState == "loading") {
+		document.addEventListener("DOMContentLoaded", extractFile, false);
+	} else {
+		extractFile();
+	}
+}
+
+async function extractFile() {
+	if (document.documentElement.dataset.sfz !== undefined) {
+		const data = await getContent();
+		executeBootstrap(data);
+	} else {
+		if ((document.body && document.body.childNodes.length == 1 && document.body.childNodes[0].tagName == "PRE" && /<html[^>]* data-sfz[^>]*>/i.test(document.body.childNodes[0].textContent))) {
+			const doc = (new DOMParser()).parseFromString(document.body.childNodes[0].textContent, "text/html");
+			document.replaceChild(doc.documentElement, document.documentElement);
+			document.querySelectorAll("script").forEach(element => {
+				const scriptElement = document.createElement("script");
+				scriptElement.textContent = element.textContent;
+				element.parentElement.replaceChild(scriptElement, element);
+			});
+			await extractFile();
+		}
+	}
+}
+
+function getContent() {
+	return new Promise((resolve, reject) => {
+		const xhr = new XMLHttpRequest();
+		xhr.open("GET", location.href);
+		xhr.send();
+		xhr.responseType = "arraybuffer";
+		xhr.onload = () => resolve(new Uint8Array(xhr.response));
+		xhr.onerror = () => {
+			const errorMessageElement = document.getElementById("sfz-error-message");
+			if (errorMessageElement) {
+				errorMessageElement.remove();
+			}
+			const requestId = pendingResponses.size;
+			pendingResponses.set(requestId, { resolve, reject });
+			browser.runtime.sendMessage({ method: "singlefile.fetch", requestId, url: location.href });
+		};
+	});
+}
+
+function executeBootstrap(data) {
+	const scriptElement = document.createElement("script");
+	scriptElement.textContent = "(() => { document.currentScript.remove(); const bootstrapReady = this.bootstrap && this.bootstrap([" + (new Uint8Array(data)).toString() + "]); if (bootstrapReady) { bootstrapReady.then(() => document.dispatchEvent(new CustomEvent(\"single-file-display-infobar\"))); } })()";
+	document.body.appendChild(scriptElement);
+}
 
 async function onMessage(message) {
 	if (autoSaveEnabled && message.method == "content.autosave") {
@@ -88,6 +140,36 @@ async function onMessage(message) {
 	}
 	if (message.method == "devtools.resourceCommitted") {
 		singlefile.pageInfo.updatedResources[message.url] = { content: message.content, type: message.type, encoding: message.encoding };
+		return {};
+	}
+	if (message.method == "singlefile.fetchResponse") {
+		return await onFetchResponse(message);
+	}
+}
+
+async function onFetchResponse(message) {
+	const pendingResponse = pendingResponses.get(message.requestId);
+	if (pendingResponse) {
+		if (message.error) {
+			pendingResponse.reject(new Error(message.error));
+			pendingResponses.delete(message.requestId);
+		} else {
+			if (message.truncated) {
+				if (pendingResponse.array) {
+					pendingResponse.array = pendingResponse.array.concat(message.array);
+				} else {
+					pendingResponse.array = message.array;
+					pendingResponses.set(message.requestId, pendingResponse);
+				}
+				if (message.finished) {
+					message.array = pendingResponse.array;
+				}
+			}
+			if (!message.truncated || message.finished) {
+				pendingResponse.resolve(message.array);
+				pendingResponses.delete(message.requestId);
+			}
+		}
 		return {};
 	}
 }
@@ -228,29 +310,49 @@ function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRe
 }
 
 async function openEditor(document) {
-	serializeShadowRoots(document);
-	const content = singlefile.helper.serialize(document);
+	let content;
+	if (compressContent) {
+		content = await getContent();
+	} else {
+		serializeShadowRoots(document);
+		content = singlefile.helper.serialize(document);
+	}
 	for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < content.length; blockIndex++) {
 		const message = {
 			method: "editor.open",
-			filename: decodeURIComponent(location.href.match(/^.*\/(.*)$/)[1])
+			filename: decodeURIComponent(location.href.match(/^.*\/(.*)$/)[1]),
+			compressContent,
+			extractDataFromPageTags,
+			insertTextBody,
+			selfExtractingArchive: compressContent
 		};
 		message.truncated = content.length > MAX_CONTENT_SIZE;
 		if (message.truncated) {
 			message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > content.length;
-			message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+			if (content instanceof Uint8Array) {
+				message.content = Array.from(content.subarray(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE));
+			} else {
+				message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+			}
 		} else {
-			message.content = content;
+			message.content = content instanceof Uint8Array ? Array.from(content) : content;
 		}
 		await browser.runtime.sendMessage(message);
 	}
 }
 
 function detectSavedPage(document) {
-	const helper = singlefile.helper;
-	const firstDocumentChild = document.documentElement.firstChild;
-	return firstDocumentChild.nodeType == Node.COMMENT_NODE &&
-		(firstDocumentChild.textContent.includes(helper.COMMENT_HEADER) || firstDocumentChild.textContent.includes(helper.COMMENT_HEADER_LEGACY));
+	if (savedPageDetected === undefined) {
+		const helper = singlefile.helper;
+		const firstDocumentChild = document.documentElement.firstChild;
+		compressContent = document.documentElement.dataset.sfz == "";
+		extractDataFromPageTags = Boolean(document.querySelector("sfz-extra-data"));
+		insertTextBody = Boolean(document.querySelector("body > main[hidden]"));
+		savedPageDetected = compressContent || (
+			firstDocumentChild.nodeType == Node.COMMENT_NODE &&
+			(firstDocumentChild.textContent.includes(helper.COMMENT_HEADER) || firstDocumentChild.textContent.includes(helper.COMMENT_HEADER_LEGACY)));
+	}
+	return savedPageDetected;
 }
 
 function serializeShadowRoots(node) {
