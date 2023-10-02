@@ -1074,7 +1074,6 @@ pre code {
 			if (initScriptContent) {
 				content = content.replace(/<script data-template-shadow-root src.*?<\/script>/g, initScriptContent);
 			}
-			debugger;
 			if (pageCompressContent) {
 				const viewport = document.head.querySelector("meta[name=viewport]");
 				window.parent.postMessage(JSON.stringify({
