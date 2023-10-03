@@ -334,6 +334,9 @@ if (typeof globalThis == "undefined") {
 						}
 					})
 				},
+				onInstalled: {
+					addListener: listener => nativeAPI.runtime.onInstalled.addListener(listener)
+				},
 				sendMessage: message => new Promise((resolve, reject) => {
 					nativeAPI.runtime.sendMessage(message, response => {
 						if (nativeAPI.runtime.lastError) {
