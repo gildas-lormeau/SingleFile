@@ -1138,7 +1138,7 @@ pre code {
 				workerScripts: { inflate: ["/lib/single-file-z-worker.js"] }
 			};
 			try {
-				const worker = new Worker(zipOptions.workerScripts);
+				const worker = new Worker(zipOptions.workerScripts.inflate[0]);
 				worker.terminate();
 			} catch (error) {
 				delete zipOptions.workerScripts;
