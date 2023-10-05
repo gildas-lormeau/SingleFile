@@ -256,11 +256,11 @@
 		"description": "Options page label: 'remove hidden elements'"
 	},
 	"optionsFileFormatSubTitle": {
-		"message": "File format",
+		"message": "Формат файла",
 		"description": "Options sub-title: 'File format'"
 	},
 	"optionFileFormat": {
-		"message": "format",
+		"message": "формат",
 		"description": "Options page label: 'format'"
 	},
 	"optionFileFormatSelectHTML": {
@@ -268,11 +268,11 @@
 		"description": "Options page label: 'HTML'"
 	},
 	"optionFileFormatSelectSelfExtractingUniversal": {
-		"message": "self-extracting ZIP (universal)",
+		"message": "самораспаковывающийся ZIP (универсальный)",
 		"description": "Options page label: 'self-extracting ZIP (universal)'"
 	},
 	"optionFileFormatSelectSelfExtracting": {
-		"message": "self-extracting ZIP",
+		"message": "самораспаковывающийся ZIP",
 		"description": "Options page label: 'self-extracting ZIP'"
 	},
 	"optionFileFormatSelectZIP": {
@@ -284,11 +284,11 @@
 		"description": "Options page label: 'password'"
 	},
 	"optionCreateRootDirectory": {
-		"message": "create a root directory",
+		"message": "создавать корневую папку",
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionInsertTextBody": {
-		"message": "make text searchable",
+		"message": "делать текст доступным для поиска",
 		"description": "Options page label: 'make text searchable'"
 	},
 	"optionsInfobarSubTitle": {
