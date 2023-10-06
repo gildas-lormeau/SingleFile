@@ -161,4 +161,11 @@ export default [{
 		format: "iife",
 		plugins: []
 	}]
+}, {
+	input: ["src/lib/web-stream/index.js"],
+	output: [{
+		file: "lib/web-stream.js",
+		format: "iife",
+		plugins: []
+	}]
 }];

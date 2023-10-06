@@ -30,6 +30,7 @@
 			],
 			"run_at": "document_start",
 			"js": [
+				"lib/web-stream.js",
 				"lib/chrome-browser-polyfill.js",
 				"lib/single-file-bootstrap.js",
 				"lib/single-file-extension-bootstrap.js",

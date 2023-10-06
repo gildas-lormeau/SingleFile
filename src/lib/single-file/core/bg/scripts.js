@@ -26,6 +26,7 @@
 let contentScript, frameScript;
 
 const contentScriptFiles = [
+	"lib/web-stream.js",
 	"lib/chrome-browser-polyfill.js",
 	"lib/single-file.js"
 ];
