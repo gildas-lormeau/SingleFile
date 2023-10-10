@@ -60,7 +60,7 @@ const DEFAULT_CONFIG = {
 	loadDeferredImagesKeepZoomLevel: false,
 	loadDeferredImagesDispatchScrollEvent: false,
 	loadDeferredImagesBeforeFrames: false,
-	filenameTemplate: "{page-title} ({date-locale} {time-locale}).html",
+	filenameTemplate: "{page-title} ({date-locale} {time-locale}).{filename-extension}",
 	infobarTemplate: "",
 	includeInfobar: !IS_NOT_SAFARI,
 	confirmInfobarContent: false,
