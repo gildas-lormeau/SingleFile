@@ -1076,6 +1076,7 @@ pre code {
 			if (initScriptContent) {
 				content = content.replace(/<script data-template-shadow-root src.*?<\/script>/g, initScriptContent);
 			}
+			debugger;
 			if (pageCompressContent) {
 				if (message.foregroundSave) {
 					alert("Foreground save not supported for compressed content");
