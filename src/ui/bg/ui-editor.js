@@ -278,7 +278,7 @@ addEventListener("message", event => {
 			if (tabData.extractDataFromPageTags !== undefined) {
 				tabData.options.extractDataFromPage = tabData.extractDataFromPageTags;
 			}
-			if (tabData.options.insertTextBody !== undefined) {
+			if (tabData.insertTextBody !== undefined) {
 				tabData.options.insertTextBody = tabData.insertTextBody;
 			}
 			getContentPageData(tabData.content, message.content, { password: tabData.options.password })
