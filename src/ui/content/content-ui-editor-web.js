@@ -2069,14 +2069,8 @@ pre code {
 				}
 			}));
 			let content = singlefile.helper.serialize(doc, compressHTML);
-			const REGEXP_ESCAPE = /([{}()^$&.*?/+|[\\\\]|\]|-)/g;
-			resources.forEach(resource => {
-				const searchRegExp = new RegExp(resource.content.replace(REGEXP_ESCAPE, "\\$1"), "g");
-				const position = content.search(searchRegExp);
-				if (position != -1) {
-					content = content.replace(searchRegExp, resource.name);
-				}
-			});
+			resources.sort((resourceLeft, resourceRight) => resourceRight.content.length - resourceLeft.content.length);
+			resources.forEach(resource => content = content.replaceAll(resource.content, resource.name));
 			return content + "<script " + SCRIPT_TEMPLATE_SHADOW_ROOT + ">" + getEmbedScript() + "</script>";
 		} else {
 			return singlefile.helper.serialize(doc, compressHTML) + "<script " + SCRIPT_TEMPLATE_SHADOW_ROOT + ">" + getEmbedScript() + "</script>";
