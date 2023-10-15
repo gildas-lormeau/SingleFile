@@ -184,14 +184,14 @@ https://github.com/gildas-lormeau/SingleFile/wiki/How-to-execute-a-user-script-b
 |   	                                                                          |        HTML        | Self-extracting ZIP | MHTML | Webarchive (Safari) | HTML+folder |
 | ---                                	                                          |       :---:        |        :---:        | :---: |         :---:       |    :---:    |
 | Pages are saved as a single file                                              | ✓ 	               | ✓ 	                 | ✓     | ✓                   |             |
-| HTML and styles are minified                                                  | ✓                  | ✓ 	                 |       |    	                |             |
-| Unused HTML and styles are removed from files                                 | ✓                  | ✓ 	                 |       |                     |   	        |
-| Binary resources are not encoded in base 64                                   |                    | ✓ 	                 |       | ✓                   | ✓ 	        |
-| Files are compressed                                                          |                    | ✓ 	                 |       |                     |   	        |
+| HTML and styles are minified                                                  | ✓                  | ✓ 	                 |       |    	               |             |
+| Unused HTML and styles are removed from files                                 | ✓                  | ✓ 	                 |       |                     |   	         |
+| Binary resources are not encoded in base 64                                   |                    | ✓ 	                 |       | ✓                   | ✓ 	         |
+| Files are compressed                                                          |                    | ✓ 	                 |       |                     |   	         |
 | Files can be viewed without installing any extension                          | ✓                  | ✓¹                  | ✓²    | ✓³                  | ✓           |
-| Files can be viewed without running JavaScript                                | ✓                  |         	           | ✓     | ✓                   | ✓ 	        |
+| Files can be viewed without running JavaScript                                | ✓                  |         	           | ✓     | ✓                   | ✓ 	         |
 | Files can be unzipped to extract resources and view pages                     |                    | ✓ 	                 |       |                     | n/a         |
-| Files contains the text of the page (plain or formatted) which can be indexed | ✓ 	               | ✓⁴                  | ✓     | ✓ 	                | ✓ 	        |
+| Files contains the text of the page (plain or formatted) which can be indexed | ✓ 	               | ✓⁴                  | ✓     | ✓ 	                 | ✓ 	         |
 
 Footnotes:
 
