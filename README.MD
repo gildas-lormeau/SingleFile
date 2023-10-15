@@ -7,24 +7,25 @@ file.
 
 ## Table of Contents
 
-- [Demo](#demo)
-- [Install](#install)
-- [Getting started](#getting-started)
-- [Additional notes](#additional-notes)
-- [FAQ](#faq)
-- [Release notes](#release-notes)
-- [Known issues](#known-issues)
-- [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
-- [Command Line Interface (SingleFile CLI)](#command-line-interface-singlefile-cli)
-- [Integration with user scripts](#integration-with-user-scripts)
-- [SingleFileZ](#singlefilez)
-- [File format comparison](#file-format-comparison)
-- [Projects using/compatible with SingleFile](#projects-usingcompatible-with-singlefile)
-- [Privacy policy](#privacy-policy)
-- [Contributors](#contributors)
-- [Icons](#icons)
-- [Code derived from third party projects](#code-derived-from-third-party-projects)
-- [License](#license)
+- [SingleFile](#singlefile)
+  - [Table of Contents](#table-of-contents)
+  - [Demo](#demo)
+  - [Install](#install)
+  - [Getting started](#getting-started)
+  - [Additional notes](#additional-notes)
+  - [FAQ](#faq)
+  - [Release notes](#release-notes)
+  - [Known Issues](#known-issues)
+  - [Troubleshooting unknown issues](#troubleshooting-unknown-issues)
+  - [Command Line Interface (SingleFile CLI)](#command-line-interface-singlefile-cli)
+  - [Integration with user scripts](#integration-with-user-scripts)
+  - [File format comparison](#file-format-comparison)
+  - [Projects using/compatible with SingleFile](#projects-usingcompatible-with-singlefile)
+  - [Privacy Policy](#privacy-policy)
+  - [Contributors](#contributors)
+  - [Code derived from third party projects](#code-derived-from-third-party-projects)
+  - [Icons](#icons)
+  - [License](#license)
 
 ## Demo
 
@@ -178,34 +179,23 @@ You can execute a user script just before (and after) SingleFile saves a page.
 For more info, see
 https://github.com/gildas-lormeau/SingleFile/wiki/How-to-execute-a-user-script-before-a-page-is-saved.
 
-## SingleFileZ
-
-SingleFileZ is a fork of SingleFile that allows you to save a webpage as a
-self-extracting HTML file. This HTML file is also a valid ZIP file which
-contains the resources (images, fonts, stylesheets and frames) of the saved
-page. This ZIP file can be unzipped on the filesystem in order, for example, to
-view the page in a browser that would not support pages saved with SingleFileZ.
-
-More info here: https://github.com/gildas-lormeau/SingleFileZ
-
 ## File format comparison
 
-|   	                                                                          | HTML (SingleFile)  | HTML (SingleFileZ) | MAFF  | MHTML | Webarchive (Safari) | HTML+folder |
-| ---                                	                                          |       :---:        |       :---:        | :---: | :---: |         :---:       |    :---:    |
-| Pages are saved as a single file                                              | ✓ 	               | ✓ 	                | ✓     | ✓     | ✓                   |             |
-| HTML and styles are minified                                                  | ✓                  | ✓ 	                |       |       |   	                |             |
-| Unused HTML and styles are removed from files                                 | ✓                  | ✓ 	                |       |       |                     |   	        |
-| Binary resources are not encoded in base 64                                   |                    | ✓ 	                | ✓     |       | ✓                   | ✓ 	        |
-| Files are compressed                                                          |                    | ✓ 	                | ✓     |       |                     |   	        |
-| Files can be viewed without installing any extension                          | ✓                  | ✓¹                 |       | ✓²    | ✓³                  | ✓           |
-| Files can be viewed without running JavaScript                                | ✓                  |         	          | ✓     | ✓     | ✓                   | ✓ 	        |
-| Files can be unzipped to extract resources and view pages                     |                    | ✓ 	                | ✓     |       |                     | n/a         |
-| Files contains the text of the page (plain or formatted) which can be indexed | ✓ 	               | ✓⁴                 |       | ✓     | ✓ 	                | ✓ 	        |
+|   	                                                                          |        HTML        | Self-extracting file | MHTML | Webarchive (Safari) | HTML+folder |
+| ---                                	                                          |       :---:        |        :---:         | :---: |         :---:       |    :---:    |
+| Pages are saved as a single file                                              | ✓ 	               | ✓ 	                  | ✓     | ✓                   |             |
+| HTML and styles are minified                                                  | ✓                  | ✓ 	                  |       |    	                |             |
+| Unused HTML and styles are removed from files                                 | ✓                  | ✓ 	                  |       |                     |   	        |
+| Binary resources are not encoded in base 64                                   |                    | ✓ 	                  | ✓     | ✓                   | ✓ 	        |
+| Files are compressed                                                          |                    | ✓ 	                  | ✓     |                     |   	        |
+| Files can be viewed without installing any extension                          | ✓                  | ✓¹                   | ✓²    | ✓³                  | ✓           |
+| Files can be viewed without running JavaScript                                | ✓                  |         	            | ✓     | ✓                   | ✓ 	        |
+| Files can be unzipped to extract resources and view pages                     |                    | ✓ 	                  | ✓     |                     | n/a         |
+| Files contains the text of the page (plain or formatted) which can be indexed | ✓ 	               | ✓⁴                   |       | ✓ 	                | ✓ 	        |
 
 Footnotes:
 
-¹ A switch must be passed from the command line in Chromium-based browsers, and
-an option must be enabled in Safari.
+¹ When using the "universal" self-extracting file format.
 
 ² Only in Chromium-based browsers, and Internet Explorer.
 
