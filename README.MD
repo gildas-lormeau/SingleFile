@@ -186,8 +186,8 @@ https://github.com/gildas-lormeau/SingleFile/wiki/How-to-execute-a-user-script-b
 | Pages are saved as a single file                                              | ✓ 	               | ✓ 	                  | ✓     | ✓                   |             |
 | HTML and styles are minified                                                  | ✓                  | ✓ 	                  |       |    	                |             |
 | Unused HTML and styles are removed from files                                 | ✓                  | ✓ 	                  |       |                     |   	        |
-| Binary resources are not encoded in base 64                                   |                    | ✓ 	                  | ✓     | ✓                   | ✓ 	        |
-| Files are compressed                                                          |                    | ✓ 	                  | ✓     |                     |   	        |
+| Binary resources are not encoded in base 64                                   |                    | ✓ 	                  |       | ✓                   | ✓ 	        |
+| Files are compressed                                                          |                    | ✓ 	                  |       |                     |   	        |
 | Files can be viewed without installing any extension                          | ✓                  | ✓¹                   | ✓²    | ✓³                  | ✓           |
 | Files can be viewed without running JavaScript                                | ✓                  |         	            | ✓     | ✓                   | ✓ 	        |
 | Files can be unzipped to extract resources and view pages                     |                    | ✓ 	                  | ✓     |                     | n/a         |
