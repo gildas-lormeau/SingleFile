@@ -190,7 +190,7 @@ https://github.com/gildas-lormeau/SingleFile/wiki/How-to-execute-a-user-script-b
 | Files are compressed                                                          |                    | ✓ 	                  |       |                     |   	        |
 | Files can be viewed without installing any extension                          | ✓                  | ✓¹                   | ✓²    | ✓³                  | ✓           |
 | Files can be viewed without running JavaScript                                | ✓                  |         	            | ✓     | ✓                   | ✓ 	        |
-| Files can be unzipped to extract resources and view pages                     |                    | ✓ 	                  | ✓     |                     | n/a         |
+| Files can be unzipped to extract resources and view pages                     |                    | ✓ 	                  |       |                     | n/a         |
 | Files contains the text of the page (plain or formatted) which can be indexed | ✓ 	               | ✓⁴                   | ✓     | ✓ 	                | ✓ 	        |
 
 Footnotes:
