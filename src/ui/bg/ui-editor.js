@@ -270,7 +270,7 @@ addEventListener("message", event => {
 	if (message.method == "setContent") {
 		tabData.options.openEditor = false;
 		tabData.options.openSavedPage = false;
-		if (message.compressContent) {	
+		if (message.compressContent) {
 			tabData.options.compressContent = true;
 			if (tabData.selfExtractingArchive !== undefined) {
 				tabData.options.selfExtractingArchive = tabData.selfExtractingArchive;
@@ -289,7 +289,11 @@ addEventListener("message", event => {
 					pageData.viewport = message.viewport;
 					pageData.url = message.url;
 					pageData.filename = tabData.filename;
-					download.downloadPage(pageData, tabData.options);
+					if (message.foregroundSave) {
+						tabData.options.backgroundSave = false;
+						tabData.options.foregroundSave = true;
+					}
+					return download.downloadPage(pageData, tabData.options);
 				});
 		} else {
 			const pageData = {
@@ -395,11 +399,19 @@ async function downloadContent(message) {
 	const result = await downloadParser.next(message.data);
 	if (result.done) {
 		downloadParser = null;
-		const link = document.createElement("a");
-		link.download = result.value.filename;
-		link.href = URL.createObjectURL(new Blob([result.value.content]), "text/html");
-		link.dispatchEvent(new MouseEvent("click"));
-		URL.revokeObjectURL(link.href);
+		if (result.value.foregroundSave) {
+			editorElement.contentWindow.postMessage(JSON.stringify({
+				method: "download",
+				filename: result.value.filename,
+				content: Array.from(new Uint8Array(result.value.content))
+			}), "*");
+		} else {
+			const link = document.createElement("a");
+			link.download = result.value.filename;
+			link.href = URL.createObjectURL(new Blob([result.value.content]), "text/html");
+			link.dispatchEvent(new MouseEvent("click"));
+			URL.revokeObjectURL(link.href);
+		}
 		return browser.runtime.sendMessage({ method: "downloads.end", taskId: result.value.taskId }).then(() => ({}));
 	} else {
 		return Promise.resolve({});

@@ -72,7 +72,8 @@ async function downloadPage(pageData, options) {
 		insertCanonicalLink: options.insertCanonicalLink,
 		insertMetaNoIndex: options.insertMetaNoIndex,
 		password: options.password,
-		compressContent: options.compressContent
+		compressContent: options.compressContent,
+		foregroundSave: options.foregroundSave
 	};
 	if (options.compressContent) {
 		const blobURL = URL.createObjectURL(new Blob([await yabson.serialize(pageData)], { type: "application/octet-stream" }));
