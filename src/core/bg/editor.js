@@ -39,13 +39,13 @@ export {
 	EDITOR_URL
 };
 
-async function open({ tabIndex, content, filename, compressContent }) {
+async function open({ tabIndex, content, filename, compressContent, selfExtractingArchive, extractDataFromPage }) {
 	const createTabProperties = { active: true, url: EDITOR_PAGE_URL };
 	if (tabIndex != null) {
 		createTabProperties.index = tabIndex;
 	}
 	const tab = await browser.tabs.create(createTabProperties);
-	tabsData.set(tab.id, { content, filename, compressContent });
+	tabsData.set(tab.id, { content, filename, compressContent, selfExtractingArchive, extractDataFromPage });
 }
 
 function onTabRemoved(tabId) {

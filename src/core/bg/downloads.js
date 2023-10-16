@@ -250,7 +250,14 @@ async function downloadCompressedContent(message, tab) {
 		});
 		if (message.openEditor) {
 			ui.onEdit(tabId);
-			await editor.open({ tabIndex: tab.index + 1, filename: message.filename, content: Array.from(new Uint8Array(await blob.arrayBuffer())), compressContent: true });
+			await editor.open({
+				tabIndex: tab.index + 1,
+				filename: message.filename,
+				content: Array.from(new Uint8Array(await blob.arrayBuffer())),
+				compressContent: message.compressContent,
+				selfExtractingArchive: message.selfExtractingArchive,
+				extractDataFromPage: message.extractDataFromPage
+			});
 		} else if (message.foregroundSave) {
 			await downloadPageForeground(message.taskId, message.filename, blob, tabId, message.foregroundSave);
 		} else {
