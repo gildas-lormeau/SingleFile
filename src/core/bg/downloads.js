@@ -256,7 +256,8 @@ async function downloadCompressedContent(message, tab) {
 				content: Array.from(new Uint8Array(await blob.arrayBuffer())),
 				compressContent: message.compressContent,
 				selfExtractingArchive: message.selfExtractingArchive,
-				extractDataFromPage: message.extractDataFromPage
+				extractDataFromPage: message.extractDataFromPage,
+				insertTextBody: message.insertTextBody
 			});
 		} else if (message.foregroundSave) {
 			await downloadPageForeground(message.taskId, message.filename, blob, tabId, message.foregroundSave);
