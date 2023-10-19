@@ -202,17 +202,17 @@ async function saveContent(message, tab) {
 						}
 						pageData.url = URL.createObjectURL(content);
 						await downloads.downloadPage(pageData, options);
-						if (options.openSavedPage && !options.compressContent) {
-							const createTabProperties = { active: true, url: URL.createObjectURL(content), windowId: tab.windowId };
-							const index = tab.index;
-							try {
-								await browser.tabs.get(tabId);
-								createTabProperties.index = index + 1;
-							} catch (error) {
-								createTabProperties.index = index;
-							}
-							browser.tabs.create(createTabProperties);
+					}
+					if (options.openSavedPage) {
+						const createTabProperties = { active: true, url: "/src/ui/pages/viewer.html?compressed=true&blobURI=" + URL.createObjectURL(content), windowId: tab.windowId };
+						const index = tab.index;
+						try {
+							await browser.tabs.get(tabId);
+							createTabProperties.index = index + 1;
+						} catch (error) {
+							createTabProperties.index = index;
 						}
+						browser.tabs.create(createTabProperties);
 					}
 					if (pageData.hash) {
 						await woleet.anchor(pageData.hash, options.woleetKey);

@@ -30,7 +30,6 @@ let DEFAULT_PROFILE_NAME,
 	CURRENT_PROFILE_NAME,
 	BACKGROUND_SAVE_SUPPORTED,
 	AUTO_SAVE_SUPPORTED,
-	OPEN_SAVED_PAGE_SUPPORTED,
 	AUTO_OPEN_EDITOR_SUPPORTED,
 	INFOBAR_SUPPORTED,
 	BOOKMARKS_API_SUPPORTED,
@@ -45,7 +44,6 @@ browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
 		CURRENT_PROFILE_NAME,
 		BACKGROUND_SAVE_SUPPORTED,
 		AUTO_SAVE_SUPPORTED,
-		OPEN_SAVED_PAGE_SUPPORTED,
 		AUTO_OPEN_EDITOR_SUPPORTED,
 		INFOBAR_SUPPORTED,
 		BOOKMARKS_API_SUPPORTED,
@@ -744,9 +742,6 @@ function init() {
 	}
 	if (!BOOKMARKS_API_SUPPORTED) {
 		document.getElementById("bookmarksOptions").hidden = true;
-	}
-	if (!OPEN_SAVED_PAGE_SUPPORTED) {
-		document.getElementById("openSavedPageOption").hidden = true;
 	}
 	if (!AUTO_OPEN_EDITOR_SUPPORTED) {
 		document.getElementById("autoOpenEditorOption").hidden = true;
