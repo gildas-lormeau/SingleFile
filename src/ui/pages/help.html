@@ -15,11 +15,18 @@
 		<div id="titleBorder">
 			<h2>SingleFile</h2>
 			<h4>Save a complete page into a single HTML file</h4>
-		</div> <span id="index"> <a href="#getting-started">Getting started</a> - <a href="#general-notes">Additional
-				notes</a> - <a href="#options">Options description</a> - <a href="#annotation-editor">Annotation
-				editor</a> - <a href="#notes">Technical notes</a> - <a href="#template-variables">Template variables</a>
-			- <a href="#external-messages">Integration with other extensions</a> - <a href="#known-issues">Known
-				issues</a> - <a href="#unknown-issues">Troubleshooting unknown issues</a> -
+		</div>
+		<span id="index">
+			<a href="#getting-started">Getting started</a> -
+			<a href="#general-notes">Additional notes</a> -
+			<a href="#options">Options description</a> -
+			<a href="#annotation-editor">Annotation editor</a> -
+			<a href="#notes">Technical notes</a> -
+			<a href="#template-variables">Template variables</a> -
+			<a href="#template-functions">Template functions</a> -
+			<a href="#external-messages">Integration with other extensions</a> -
+			<a href="#known-issues">Known issues</a> -
+			<a href="#unknown-issues">Troubleshooting unknown issues</a> -
 			<a href="#contributors">Contributors</a> </span>
 		<hr>
 		<ol>
@@ -127,8 +134,8 @@
 					<li data-options-label="filenameTemplateLabel"> <span class="option">Option: template</span>
 						<p>The template allows you to customize the file name of saved pages. You can use any valid
 							character and "/" to create sub-folders (with the option "save pages in background" active).
-							You can also use any variables from <a href="#template-variables">this list</a> anywhere in
-							the template.</p>
+							You can also use any variables from <a href="#template-variables">this list</a> and
+							functions from this <a href="#template-functions">list</a> anywhere in the template.</p>
 						<p>Invalid characters are automatically transformed and collapsed to underscores. File names
 							cannot exceed 192 characters and are truncated if longer. The invalid characters are:
 							<code>[</code> <code>~</code> <code>+</code> <code>\</code> <code>?</code> <code>%</code>
@@ -865,12 +872,15 @@
 					<li><code>{url-protocol}</code>: the protocol of the URL (e.g. "https")</li>
 					<li><code>{url-host}</code>: the host name + the port of the URL (e.g. "example.com_8080")</li>
 					<li><code>{url-hostname}</code>: the host name of the URL (e.g. "example.com")</li>
+					<li><code>{url-hostname-suffix}</code>: the suffix of the host name of the URL (e.g. "com")</li>
+					<li><code>{url-hostname-domain}</code>: the domain of the host name of the URL (e.g. "example")</li>
+					<li><code>{url-hostname-root}</code>: the root of the host name of the URL (e.g. "example.com")</li>
+					<li><code>{url-hostname-subdomains}</code>: the sub-domains of the host name of the URL (e.g.
+						"sub" for "sub.example.com"), "www" is ignored</li>
 					<li><code>{url-port}</code>: the port of the URL (e.g. "8080")</li>
 					<li><code>{url-username}</code>: the user name of the URL (e.g. "john_doe")</li>
 					<li><code>{url-password}</code>: the password of the URL (e.g. "qwerty123")</li>
 					<li><code>{url-search}</code>: the search string of the URL (e.g. "order=ascending")</li>
-					<li><code>{url-search-&lt;name&gt;}</code>: the query parameter "&lt;name&gt;" in the the search
-						string of the URL (e.g. "url-search-order" will return "ascending" in the previous example)</li>
 					<li><code>{url-hash}</code>: the hash of the URL (e.g. "chapter-2")</li>
 					<li><code>{url-referrer}</code>: the URI of the page that "linked" to the page (e.g.
 						"http://example.com")</li>
@@ -889,7 +899,86 @@
 					<li><code>{digest-sha-384}</code>: the SHA-384 hash value of the entire page content</li>
 					<li><code>{digest-sha-512}</code>: the SHA-512 hash value of the entire page content</li>
 					<li><code>{profile-name}</code>: the name of the profile used to save the page</li>
-					<li><code>{filename-extension}</code>: the extension of the filename depending on the file format (i.e. "html", "u.zip.html", "zip.html", "zip")</li>
+					<li><code>{filename-extension}</code>: the extension of the filename depending on the file format
+						(i.e. "html", "u.zip.html", "zip.html", "zip")</li>
+				</ul>
+			</li>
+			<li><a id="template-functions" href="#template-functions">Template functions</a>
+				<p>The template functions are used to format values in the template or to insert values depending on
+					parameters.</p>
+				<p>The syntax of a function call is <code>%<em>function-name</em>&lt;<em>parameter</em>&gt;</code>.
+					You can pass multiple parameters separated with a pipe character (e.g.
+					"%<em>function-name</em>&lt;<em>parameter1</em>|<em>parameter2</em>&gt;"). Like the template
+					variables, you can limit the length of a dynamic value by adding <code>[<em>maxByteSize</em>]</code>
+					or <code>[<em>maxCharSize</em>ch]</code> just after the function name.
+				</p>
+				<ul>
+					<li><code>%if-empty&lt;value|default&gt;</code>: returns the <code>default</code> value if
+						<code>value</code> is empty (e.g. "%if-empty&lt;{page-title}|Untitled&gt;" to return "Untitled"
+						if the page title is empty).
+						You also can pass multiple values separated with a pipe character (e.g.
+						"%if-empty&lt;{page-title}|{page-heading}|Untitled&gt;" to return the page heading if not empty,
+						the page title if not empty or "Untitled" if both are empty).
+					</li>
+					<li><code>%if-not-empty&lt;value|default&gt;</code>: returns the <code>default</code> value if
+						<code>value</code> is not empty (e.g. "%if-not-empty&lt;{page-title}({page-title})&gt; to return
+						the page title surrounded by parentheses if the page title is not empty).
+						You also can pass multiple values separated like with the function <code>%if-empty</code>.
+					</li>
+					<li><code>%substring&lt;value|start|end&gt;</code>: returns a substring of the <code>value</code>
+						(e.g. "%substring&lt;{page-title}|0|20&gt;" to return the first 20 characters of the page
+						title).
+					</li>
+					<li><code>%lowercase&lt;value&gt;</code>: returns the <code>value</code> in lowercase (e.g.
+						"%lowercase&lt;{page-title}&gt;" to return the page title in lowercase).
+					</li>
+					<li><code>%uppercase&lt;value&gt;</code>: returns the <code>value</code> in uppercase (e.g.
+						"%uppercase&lt;{page-title}&gt;" to return the page title in uppercase).
+					</li>
+					<li><code>%capitalize&lt;value&gt;</code>: returns the <code>value</code> with the first letter in
+						uppercase (e.g. "%capitalize&lt;{page-title}&gt;" to return the page title with the first letter
+						in uppercase).
+					</li>
+					<li><code>%replace&lt;value|search|replacement&gt;</code>: returns the <code>value</code> with
+						all <code>search</code> values replaced by <code>replacement</code> (e.g.
+						"%replace&lt;{page-title}| |_&gt;" to replace all spaces by underscores in the page title).
+					</li>
+					<li><code>%trim&lt;value&gt;</code>: returns the <code>value</code> with all leading and trailing
+						whitespace removed (e.g. "%trim&lt;{page-title}&gt;" to remove all leading and trailing
+						whitespace in the page title).
+					</li>
+					<li><code>%trim-left&lt;value&gt;</code>: returns the <code>value</code> with all leading
+						whitespace removed (e.g. "%trim-left&lt;{page-title}&gt;" to remove all leading whitespace in
+						the page title).
+					</li>
+					<li><code>%trim-right&lt;value&gt;</code>: returns the <code>value</code> with all trailing
+						whitespace removed (e.g. "%trim-right&lt;{page-title}&gt;" to remove all trailing whitespace in
+						the page title).
+					</li>
+					<li><code>%pad-left&lt;value|length|pad&gt;</code>: returns the <code>value</code> with
+						<code>pad</code> added to the left side so as to make the length of the <code>value</code> equal
+						to <code>length</code> (e.g. "%pad-left&lt;{page-title}|20|_&gt;" to add underscores to the left
+						side of the page title so as to make its length equal to 20).
+					</li>
+					<li><code>%pad-right&lt;value|length|pad&gt;</code>: returns the <code>value</code> with
+						<code>pad</code> added to the right side so as to make the length of the <code>value</code>
+						equal to <code>length</code> (e.g. "%pad-right&lt;{page-title}|20|_&gt;" to add underscores to
+						the right side of the page title so as to make its length equal to 20).
+					</li>
+					<li><code>%url-search-name&lt;index&gt;</code>: the name of the search parameter at the specified
+						index (e.g. "%url-search-name&lt;0&gt;" for the name of the first search parameter)
+					</li>
+					<li><code>%url-search-value&lt;index&gt;</code>: the value of the search parameter at the specified
+						index (e.g. "%url-search-value&lt;0&gt;" for the value of the first search parameter)
+					</li>
+					<li><code>%page-element-text&lt;selector&gt;</code>: the text content of the first element matching
+						the specified selector (e.g. "%page-element-text&lt;h1&gt;" for the text content of the first H1
+						element)
+					</li>
+					<li><code>%page-element-attribute&lt;selector|attribute&gt;</code>: the value of the specified
+						attribute of the first element matching the specified selector (e.g.
+						"%page-element-attribute&lt;h1|class&gt;" for the class attribute of the first H1 element)
+					</li>
 				</ul>
 			</li>
 			<li>

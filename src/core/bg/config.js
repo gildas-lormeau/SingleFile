@@ -59,7 +59,7 @@ const DEFAULT_CONFIG = {
 	loadDeferredImagesKeepZoomLevel: false,
 	loadDeferredImagesDispatchScrollEvent: false,
 	loadDeferredImagesBeforeFrames: false,
-	filenameTemplate: "{page-title} ({date-locale} {time-locale}).{filename-extension}",
+	filenameTemplate: "%if-empty<{page-title}|No title> ({date-locale} {time-locale}).{filename-extension}",
 	infobarTemplate: "",
 	includeInfobar: !IS_NOT_SAFARI,
 	confirmInfobarContent: false,
@@ -156,7 +156,8 @@ const DEFAULT_CONFIG = {
 	blockFonts: false,
 	blockScripts: true,
 	blockVideos: true,
-	blockAudios: true
+	blockAudios: true,
+	_migratedTemplateFormat: true
 };
 
 const DEFAULT_RULES = [{
@@ -164,6 +165,34 @@ const DEFAULT_RULES = [{
 	"profile": "__Default_Settings__",
 	"autoSaveProfile": "__Disabled_Settings__"
 }];
+
+const MIGRATION_DEFAULT_VARIABLES_VALUES = {
+	"page-title": "No title",
+	"page-heading": "No heading",
+	"page-language": "No language",
+	"page-description": "No description",
+	"page-author": "No author",
+	"page-creator": "No creator",
+	"page-publisher": "No publisher",
+	"url-hash": "No hash",
+	"url-host": "No host",
+	"url-hostname": "No hostname",
+	"url-href": "No href",
+	"url-href-digest-sha-1": "No hash",
+	"url-href-flat": "No href",
+	"url-referrer": "No referrer",
+	"url-referrer-flat": "No referrer",
+	"url-password": "No password",
+	"url-pathname": "No pathname",
+	"url-pathname-flat": "No pathname",
+	"url-port": "No port",
+	"url-protocol": "No protocol",
+	"url-search": "No search",
+	"url-username": "No username",
+	"tab-id": "No tab id",
+	"tab-index": "No tab index",
+	"url-last-segment": "No last segment"
+};
 
 let configStorage;
 let pendingUpgradePromise = upgrade();
@@ -231,8 +260,20 @@ async function upgrade() {
 				profile[key] = DEFAULT_CONFIG[key];
 			}
 		}
+		if (!profile._migratedTemplateFormat) {
+			profile.filenameTemplate = updateFilenameTemplate(profile.filenameTemplate);
+			profile._migratedTemplateFormat = true;
+		}
 		await setProfile(profileName, profile);
 	});
+}
+
+function updateFilenameTemplate(template) {
+	Object.keys(MIGRATION_DEFAULT_VARIABLES_VALUES).forEach(variable => {
+		const value = MIGRATION_DEFAULT_VARIABLES_VALUES[variable];
+		template = template.replaceAll(`{${variable}}`, `%if-empty<{${variable}}|${value}>`);
+	});
+	return template;
 }
 
 async function getRule(url, ignoreWildcard) {
