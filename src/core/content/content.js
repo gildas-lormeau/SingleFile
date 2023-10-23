@@ -127,7 +127,9 @@ async function savePage(message) {
 			} catch (error) {
 				if (!processor.cancelled) {
 					console.error(error); // eslint-disable-line no-console
-					browser.runtime.sendMessage({ method: "ui.processError", error });
+					const errorMessage = error.toString();
+					browser.runtime.sendMessage({ method: "ui.processError", error: errorMessage });
+					onError(errorMessage);
 				}
 			}
 		} else {
