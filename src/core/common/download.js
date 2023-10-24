@@ -25,7 +25,7 @@
 
 import * as yabson from "./../../lib/yabson/yabson.js";
 
-const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
+const MAX_CONTENT_SIZE = 16 * (1024 * 1024);
 
 export {
 	downloadPage
@@ -76,21 +76,25 @@ async function downloadPage(pageData, options) {
 		foregroundSave: options.foregroundSave
 	};
 	if (options.compressContent) {
-		const blobURL = URL.createObjectURL(new Blob([await yabson.serialize(pageData)], { type: "application/octet-stream" }));
+		const blob = new Blob([await yabson.serialize(pageData)], { type: "application/octet-stream" });
+		const blobURL = URL.createObjectURL(blob);
 		message.blobURL = blobURL;
 		const result = await browser.runtime.sendMessage(message);
 		URL.revokeObjectURL(blobURL);
 		if (result.error) {
 			message.blobURL = null;
 			message.pageData = pageData;
-			const serializer = yabson.getSerializer(message);
-			for await (const data of serializer) {
+			let data, indexData = 0;
+			const dataArray = await yabson.serialize(message);
+			do {
+				data = Array.from(dataArray.slice(indexData, indexData + MAX_CONTENT_SIZE));
+				indexData += MAX_CONTENT_SIZE;
 				await browser.runtime.sendMessage({
 					method: "downloads.download",
 					compressContent: true,
-					data: Array.from(data)
+					data
 				});
-			}
+			} while (data.length);
 			await browser.runtime.sendMessage({
 				method: "downloads.download",
 				compressContent: true
