@@ -312,14 +312,18 @@ async function serializeSymbols(data, value) {
 }
 
 async function serializeOwnProperties(data, value) {
-	let entries = Object.entries(value);
-	if (testArray(value)) {
-		entries = entries.filter(([key]) => !testInteger(Number(key)));
-	}
-	await serializeValue(data, entries.length);
-	for (const [key, value] of entries) {
-		await serializeString(data, key);
-		await serializeValue(data, value);
+	if (!ArrayBuffer.isView(value)) {
+		let entries = Object.entries(value);
+		if (testArray(value)) {
+			entries = entries.filter(([key]) => !testInteger(Number(key)));
+		}
+		await serializeValue(data, entries.length);
+		for (const [key, value] of entries) {
+			await serializeString(data, key);
+			await serializeValue(data, value);
+		}
+	} else {
+		await serializeValue(data, 0);
 	}
 }
 
@@ -350,7 +354,7 @@ async function serializeString(data, string) {
 
 async function serializeTypedArray(data, array) {
 	await serializeValue(data, array.length);
-	await data.append(new Uint8Array(array.buffer));
+	await data.append(array instanceof Uint8Array ? array : new Uint8Array(array.buffer));
 }
 
 async function serializeArrayBuffer(data, arrayBuffer) {
