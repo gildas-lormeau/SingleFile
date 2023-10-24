@@ -255,14 +255,14 @@ async function upgrade() {
 	const profileNames = await getProfileNames();
 	profileNames.map(async profileName => {
 		const profile = await getProfile(profileName);
+		if (!profile._migratedTemplateFormat) {
+			profile.filenameTemplate = updateFilenameTemplate(profile.filenameTemplate);
+			profile._migratedTemplateFormat = true;
+		}
 		for (const key of Object.keys(DEFAULT_CONFIG)) {
 			if (profile[key] === undefined) {
 				profile[key] = DEFAULT_CONFIG[key];
 			}
-		}
-		if (!profile._migratedTemplateFormat) {
-			profile.filenameTemplate = updateFilenameTemplate(profile.filenameTemplate);
-			profile._migratedTemplateFormat = true;
 		}
 		await setProfile(profileName, profile);
 	});
