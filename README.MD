@@ -7,7 +7,7 @@ file.
 
 **NEW**: SingleFile can save pages as self-extracting ZIP files, see here for 
 more info: https://gildas-lormeau.github.io/singlefile-updates/version-1-22.html
-and https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md#how-does-the-self-extracting-zip-format-work
+and https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md#how-does-the-self-extracting-zip-format-work.
 
 ## Table of Contents
 
