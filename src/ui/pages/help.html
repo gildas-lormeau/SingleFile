@@ -925,9 +925,34 @@
 						the page title surrounded by parentheses if the page title is not empty).
 						You also can pass multiple values separated like with the function <code>%if-empty</code>.
 					</li>
+					<li><code>%if-equals&lt;value|expected|trueValue|falseValue&gt;</code>: returns the
+						<code>trueValue</code> if <code>value</code> equals <code>expected</code> or the
+						<code>falseValue</code> otherwise (e.g.
+						"%if-equals&lt;{page-title}|Untitled|{page-heading}|{page-title}&gt;"
+						to return the page heading if the page title equals "Untitled" or the page title otherwise).
+					<li><code>%if-not-equals&lt;value|expected|trueValue|falseValue&gt;</code>: returns the
+						<code>trueValue</code> if <code>value</code> does not equal <code>expected</code> or the
+						<code>falseValue</code> otherwise (e.g.
+						"%if-not-equals&lt;{page-title}|Untitled|{page-title}|{page-heading}&gt;"
+						to return the page heading if the page title does not equal "Untitled" or the page title
+						otherwise).
+					<li><code>%if-contains&lt;value|expected|trueValue|falseValue&gt;</code>: returns the
+						<code>trueValue</code> if <code>value</code> contains <code>expected</code> or the
+						<code>falseValue</code> otherwise (e.g.
+						"%if-contains&lt;{page-title}|Untitled|{page-heading}|{page-title}&gt;"
+						to return the page heading if the page title contains "Untitled" or the page title otherwise).
+					</li>
+					<li><code>%if-not-contains&lt;value|expected|trueValue|falseValue&gt;</code>: returns the
+						<code>trueValue</code> if <code>value</code> does not contain <code>expected</code> or the
+						<code>falseValue</code> otherwise (e.g.
+						"%if-not-contains&lt;{page-title}|Untitled|{page-title}|{page-heading}&gt;"
+						to return the page heading if the page title does not contain "Untitled" or the page title
+						otherwise).
+					</li>
 					<li><code>%substring&lt;value|start|end&gt;</code>: returns a substring of the <code>value</code>
 						(e.g. "%substring&lt;{page-title}|0|20&gt;" to return the first 20 characters of the page
-						title).
+						title, "%substring&lt;{page-title}|5&gt;" to return the page title without the first 5
+						characters).
 					</li>
 					<li><code>%lowercase&lt;value&gt;</code>: returns the <code>value</code> in lowercase (e.g.
 						"%lowercase&lt;{page-title}&gt;" to return the page title in lowercase).
@@ -942,6 +967,21 @@
 					<li><code>%replace&lt;value|search|replacement&gt;</code>: returns the <code>value</code> with
 						all <code>search</code> values replaced by <code>replacement</code> (e.g.
 						"%replace&lt;{page-title}| |_&gt;" to replace all spaces by underscores in the page title).
+					</li>
+					<li><code>%repeat&lt;value|count&gt;</code>: returns the <code>value</code> repeated
+						<code>count</code> times (e.g. "%repeat&lt;{page-title}|3&gt;" to repeat the page title 3
+						times).
+					</li>
+					<li><code>%index-of&lt;value|search&gt;</code>: returns the index of the first occurrence of
+						<code>search</code> in <code>value</code> (e.g. "%index-of&lt;{page-title}|&gt;" to return the
+						index of the first occurrence of the character "&gt;" in the page title).
+					</li>
+					<li><code>%last-index-of&lt;value|search&gt;</code>: returns the index of the last occurrence of
+						<code>search</code> in <code>value</code> (e.g. "%last-index-of&lt;{page-title}|&gt;" to return
+						the index of the last occurrence of the character "&gt;" in the page title).
+					</li>
+					<li><code>%length&lt;value&gt;</code>: returns the length of the <code>value</code> (e.g.
+						"%length&lt;{page-title}&gt;" to return the length of the page title).
 					</li>
 					<li><code>%trim&lt;value&gt;</code>: returns the <code>value</code> with all leading and trailing
 						whitespace removed (e.g. "%trim&lt;{page-title}&gt;" to remove all leading and trailing
@@ -970,6 +1010,30 @@
 					</li>
 					<li><code>%url-search-value&lt;index&gt;</code>: the value of the search parameter at the specified
 						index (e.g. "%url-search-value&lt;0&gt;" for the value of the first search parameter)
+					</li>
+					<li><code>%url-segment&lt;index&gt;</code>: the segment of the pathname at the specified index (e.g.
+						"%url-segment&lt;0&gt;" for the first segment of the pathname)
+					</li>
+					<li><code>%url-hostname-subdomain&lt;index&gt;</code>: the subdomain of the hostname at the
+						specified index (e.g. "%url-hostname-subdomain&lt;0&gt;" for the first subdomain of the
+						hostname)
+					</li>
+					<li><code>%stringify&lt;value&gt;</code>: the string representation of the specified value (e.g.
+						"%stringify&lt;{page-title}&gt;" for the string representation of the page title)
+					</li>
+					<li><code>%encode-uri&lt;value&gt;</code>: the URI-encoded representation of the specified value
+						(e.g. "%encode-uri&lt;{page-title}&gt;" for the URI-encoded representation of the page title)
+					</li>
+					<li><code>%decode-uri&lt;value&gt;</code>: the URI-decoded representation of the specified value
+						(e.g. "%decode-uri&lt;{page-title}&gt;" for the URI-decoded representation of the page title)
+					</li>
+					<li><code>%encode-uri-component&lt;value&gt;</code>: the URI-encoded representation of the
+						specified value (e.g. "%encode-uri-component&lt;{page-title}&gt;" for the URI-encoded
+						representation of the page title)
+					</li>
+					<li><code>%decode-uri-component&lt;value&gt;</code>: the URI-decoded representation of the
+						specified value (e.g. "%decode-uri-component&lt;{page-title}&gt;" for the URI-decoded
+						representation of the page title)
 					</li>
 					<li><code>%page-element-text&lt;selector&gt;</code>: the text content of the first element matching
 						the specified selector (e.g. "%page-element-text&lt;h1&gt;" for the text content of the first H1
