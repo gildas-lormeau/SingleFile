@@ -203,7 +203,7 @@ async function downloadContent(contents, tab, incognito, message) {
 				await bookmarks.update(message.bookmarkId, { url: response.url });
 			}
 			ui.onEnd(tabId);
-			if (message.openSavedPage) {
+			if (message.openSavedPage && !message.openEditor) {
 				const createTabProperties = { active: true, url: "/src/ui/pages/viewer.html?blobURI=" + URL.createObjectURL(new Blob(contents, { type: MIMETYPE_HTML })), windowId: tab.windowId };
 				if (tab.index != null) {
 					createTabProperties.index = tab.index + 1;
@@ -298,7 +298,7 @@ async function downloadCompressedContent(message, tab) {
 				await bookmarks.update(message.bookmarkId, { url: response.url });
 			}
 			ui.onEnd(tabId);
-			if (message.openSavedPage) {
+			if (message.openSavedPage && !message.openEditor) {
 				const createTabProperties = { active: true, url: "/src/ui/pages/viewer.html?compressed&blobURI=" + URL.createObjectURL(blob), windowId: tab.windowId };
 				if (tab.index != null) {
 					createTabProperties.index = tab.index + 1;
