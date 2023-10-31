@@ -75,6 +75,7 @@ if (globalThis.window == globalThis.top && location && location.href && (locatio
 async function extractFile() {
 	if (document.documentElement.dataset.sfz !== undefined) {
 		const data = await getContent();
+		document.querySelectorAll("#sfz-error-message").forEach(element => element.remove());
 		executeBootstrap(data);
 	} else {
 		if ((document.body && document.body.childNodes.length == 1 && document.body.childNodes[0].tagName == "PRE" && /<html[^>]* data-sfz[^>]*>/i.test(document.body.childNodes[0].textContent))) {
