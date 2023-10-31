@@ -310,7 +310,7 @@ async function downloadCompressedContent(message, tab) {
 	} catch (error) {
 		if (!error.message || error.message != "upload_cancelled") {
 			console.error(error); // eslint-disable-line no-console
-			ui.onError(tabId, error.message);
+			ui.onError(tabId, error.message, error.link);
 		}
 	} finally {
 		if (message.url) {
