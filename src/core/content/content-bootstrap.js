@@ -112,7 +112,7 @@ function getContent() {
 
 function executeBootstrap(data) {
 	const scriptElement = document.createElement("script");
-	scriptElement.textContent = "(() => { document.currentScript.remove(); const bootstrapReady = this.bootstrap && this.bootstrap([" + (new Uint8Array(data)).toString() + "]); if (bootstrapReady) { bootstrapReady.then(() => document.dispatchEvent(new CustomEvent(\"single-file-display-infobar\"))); } })()";
+	scriptElement.textContent = "(() => { document.currentScript.remove(); globalThis.addEventListener('load', () => { const bootstrapReady = this.bootstrap && this.bootstrap([" + (new Uint8Array(data)).toString() + "]); }))()";
 	document.body.appendChild(scriptElement);
 }
 
