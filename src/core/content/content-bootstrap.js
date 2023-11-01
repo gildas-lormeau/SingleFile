@@ -73,6 +73,7 @@ if (globalThis.window == globalThis.top && location && location.href && (locatio
 }
 
 async function extractFile() {
+	debugger;
 	if (document.documentElement.dataset.sfz !== undefined) {
 		const data = await getContent();
 		document.querySelectorAll("#sfz-error-message").forEach(element => element.remove());
@@ -112,7 +113,11 @@ function getContent() {
 
 function executeBootstrap(data) {
 	const scriptElement = document.createElement("script");
-	scriptElement.textContent = "(() => { document.currentScript.remove(); globalThis.addEventListener('load', () => { const bootstrapReady = this.bootstrap && this.bootstrap([" + (new Uint8Array(data)).toString() + "]); }))()";
+	scriptElement.textContent = "(()=>{" +
+		"document.currentScript.remove();" +
+		"if (document.readyState=='complete') {run()} else {globalThis.addEventListener('load', run)}" +
+		"function run() {this.bootstrap([" + (new Uint8Array(data)).toString() + "])}" +
+		"})()";
 	document.body.appendChild(scriptElement);
 }
 
