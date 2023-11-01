@@ -73,7 +73,6 @@ if (globalThis.window == globalThis.top && location && location.href && (locatio
 }
 
 async function extractFile() {
-	debugger;
 	if (document.documentElement.dataset.sfz !== undefined) {
 		const data = await getContent();
 		document.querySelectorAll("#sfz-error-message").forEach(element => element.remove());
