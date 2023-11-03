@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, matchMedia, addEventListener, navigator, prompt, URL, MouseEvent, Blob, setInterval */
+/* global browser, document, matchMedia, addEventListener, navigator, prompt, URL, MouseEvent, Blob, setInterval, DOMParser */
 
 import * as download from "../../core/common/download.js";
 import { onError } from "./../common/content-error.js";
@@ -29,6 +29,8 @@ import * as zip from "./../../../lib/single-file-zip.js";
 import * as yabson from "./../../lib/yabson/yabson.js";
 
 const FOREGROUND_SAVE = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent) && !/Vivaldi/.test(navigator.userAgent) && !/OPR/.test(navigator.userAgent);
+const SHADOWROOT_ATTRIBUTE_NAME = "shadowrootmode";
+const INFOBAR_TAGNAME = "single-file-infobar";
 
 const editorElement = document.querySelector(".editor");
 const toolbarElement = document.querySelector(".toolbar");
@@ -83,8 +85,10 @@ addPinkNoteButton.onmouseup = () => editorElement.contentWindow.postMessage(JSON
 addBlueNoteButton.onmouseup = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-blue" }), "*");
 addGreenNoteButton.onmouseup = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-green" }), "*");
 document.addEventListener("mouseup", event => {
-	editorElement.contentWindow.focus();
-	toolbarOnTouchEnd(event);
+	if (event.target.tagName.toLowerCase() != INFOBAR_TAGNAME) {
+		editorElement.contentWindow.focus();
+		toolbarOnTouchEnd(event);
+	}
 }, true);
 document.onmousemove = toolbarOnTouchMove;
 highlightButtons.forEach(highlightButton => {
@@ -340,6 +344,13 @@ addEventListener("message", event => {
 	}
 	if (message.method == "savePage") {
 		savePage();
+	}
+	if (message.method == "displayInfobar") {
+		const doc = new DOMParser().parseFromString(message.content, "text/html");
+		deserializeShadowRoots(doc.body);
+		const infobarElement = doc.querySelector(INFOBAR_TAGNAME);
+		infobarElement.shadowRoot.querySelector("style").textContent += ".infobar { position: absolute; }";
+		document.querySelector(".editor-container").appendChild(infobarElement);
 	}
 });
 
@@ -603,4 +614,24 @@ function getPageDataResource(resource, prefixPath = "", pageData) {
 	} else {
 		return pageData;
 	}
+}
+
+function deserializeShadowRoots(node) {
+	node.querySelectorAll(`template[${SHADOWROOT_ATTRIBUTE_NAME}]`).forEach(element => {
+		if (element.parentElement) {
+			let shadowRoot;
+			try {
+				shadowRoot = element.parentElement.attachShadow({ mode: "open" });
+				const contentDocument = (new DOMParser()).parseFromString(element.innerHTML, "text/html");
+				Array.from(contentDocument.head.childNodes).forEach(node => shadowRoot.appendChild(node));
+				Array.from(contentDocument.body.childNodes).forEach(node => shadowRoot.appendChild(node));
+			} catch (error) {
+				// ignored
+			}
+			if (shadowRoot) {
+				deserializeShadowRoots(shadowRoot);
+				element.remove();
+			}
+		}
+	});
 }

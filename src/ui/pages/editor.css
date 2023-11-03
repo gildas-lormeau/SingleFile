@@ -68,6 +68,12 @@ img[type=button].remove-highlight-disabled {
     margin-top: 6px;
 }
 
+.editor-container {
+    position: relative;
+    display: flex;
+    flex: auto;
+}
+
 .editor {
     background-color: white;
     flex: auto;
