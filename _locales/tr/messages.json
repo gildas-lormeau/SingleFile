@@ -287,6 +287,10 @@
 		"message": "kök dizin oluştur",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionPreventAppendedData": {
+		"message": "ZIP verilerinden sonra veri eklemeyin",
+		"description": "Options page label: 'do not append data after the ZIP data'"
+	},
 	"optionInsertTextBody": {
 		"message": "metni aranabilir yap",
 		"description": "Options page label: 'make text searchable'"

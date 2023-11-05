@@ -287,6 +287,10 @@
 		"message": "create a root directory",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionPreventAppendedData": {
+		"message": "do not append data after the ZIP data",
+		"description": "Options page label: 'do not append data after the ZIP data'"
+	},
 	"optionInsertTextBody": {
 		"message": "make text searchable",
 		"description": "Options page label: 'make text searchable'"

@@ -287,6 +287,10 @@
 		"message": "criar um diretório raiz",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionPreventAppendedData": {
+		"message": "não anexe dados após os dados ZIP",
+		"description": "Options page label: 'do not append data after the ZIP data'"
+	},
 	"optionInsertTextBody": {
 		"message": "tornar texto pesquisável",
 		"description": "Options page label: 'make text searchable'"

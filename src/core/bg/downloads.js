@@ -244,6 +244,7 @@ async function downloadCompressedContent(message, tab) {
 				tabId,
 				selfExtractingArchive: message.selfExtractingArchive,
 				extractDataFromPage: message.extractDataFromPage,
+				preventAppendedData: message.preventAppendedData,
 				insertCanonicalLink: message.insertCanonicalLink,
 				insertMetaNoIndex: message.insertMetaNoIndex,
 				password: message.password

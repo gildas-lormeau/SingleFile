@@ -287,6 +287,10 @@
 		"message": "crea una cartella principale",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionPreventAppendedData": {
+		"message": "non aggiungere dati dopo i dati ZIP",
+		"description": "Options page label: 'do not append data after the ZIP data'"
+	},
 	"optionInsertTextBody": {
 		"message": "rendi il testo ricercabile",
 		"description": "Options page label: 'make text searchable'"

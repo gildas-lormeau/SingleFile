@@ -287,6 +287,10 @@
 		"message": "utwórz katalog główny",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionPreventAppendedData": {
+		"message": "do not append data after the ZIP data",
+		"description": "Options page label: 'do not append data after the ZIP data'"
+	},
 	"optionInsertTextBody": {
 		"message": "uczyń tekst przeszukiwalnym",
 		"description": "Options page label: 'make text searchable'"

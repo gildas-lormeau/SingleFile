@@ -287,6 +287,10 @@
 		"message": "створити кореневий каталог",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionPreventAppendedData": {
+		"message": "не додавайте дані після ZIP-архіву",
+		"description": "Options page label: 'do not append data after the ZIP data'"
+	},
 	"optionInsertTextBody": {
 		"message": "зробити текст доступним для пошуку",
 		"description": "Options page label: 'make text searchable'"

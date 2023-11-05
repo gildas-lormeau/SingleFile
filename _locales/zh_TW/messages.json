@@ -287,6 +287,10 @@
 		"message": "創建根目錄",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionPreventAppendedData": {
+		"message": "不要在 ZIP 數據後追加數據",
+		"description": "Options page label: 'do not append data after the ZIP data'"
+	},
 	"optionInsertTextBody": {
 		"message": "使文本可被搜索",
 		"description": "Options page label: 'make text searchable'"
