@@ -129,6 +129,7 @@ const DEFAULT_CONFIG = {
 	createRootDirectory: false,
 	selfExtractingArchive: true,
 	extractDataFromPage: true,
+	preventAppendedData: false,
 	insertTextBody: false,
 	autoSaveExternalSave: false,
 	insertMetaNoIndex: false,
