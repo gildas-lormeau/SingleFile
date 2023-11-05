@@ -269,11 +269,15 @@ async function upgrade() {
 }
 
 function updateFilenameTemplate(template) {
-	Object.keys(MIGRATION_DEFAULT_VARIABLES_VALUES).forEach(variable => {
-		const value = MIGRATION_DEFAULT_VARIABLES_VALUES[variable];
-		template = template.replaceAll(`{${variable}}`, `%if-empty<{${variable}}|${value}>`);
-	});
-	return template;
+	try {
+		Object.keys(MIGRATION_DEFAULT_VARIABLES_VALUES).forEach(variable => {
+			const value = MIGRATION_DEFAULT_VARIABLES_VALUES[variable];
+			template = template.replaceAll(`{${variable}}`, `%if-empty<{${variable}}|${value}>`);
+		});
+		return template;
+	} catch (_error) {
+		// ignored
+	}
 }
 
 async function getRule(url, ignoreWildcard) {
