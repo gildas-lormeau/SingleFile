@@ -924,7 +924,7 @@
 		"description": "label of the button 'Remove all'"
 	},
 	"batchSaveUrlsSavePagesButton": {
-		"message": "Salvar às páginas",
+		"message": "Salvar as páginas",
 		"description": "label of the button 'Save pages'"
 	},
 	"batchSaveUrlsURLTitle": {
