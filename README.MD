@@ -248,7 +248,9 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 - Japanese translation done by Shitennouji（四天王寺)
   (https://github.com/Shitennouji)
 - Polish translation done by xesarni (https://github.com/xesarni)
-- Portuguese-Brazilian translation done by @mezysinc
+- Portuguese translation done by Blackspirits (https://github.com/Blackspirits)
+- Portuguese-Brazilian translation done by @mezysinc, Blackspirits
+  (https://github.com/Blackspirits)
 - Russian translation done by rstp14, kramola-RU
   (https://github.com/kramola-RU), solokot (https://github.com/solokot),
   TotalCaesar659 (https://github.com/TotalCaesar659)
