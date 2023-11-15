@@ -292,7 +292,7 @@ addEventListener("message", event => {
 					pageData.doctype = message.doctype;
 					pageData.viewport = message.viewport;
 					pageData.url = message.url;
-					pageData.filename = tabData.filename;
+					pageData.filename = message.filename || tabData.filename;
 					if (message.foregroundSave) {
 						tabData.options.backgroundSave = false;
 						tabData.options.foregroundSave = true;
@@ -302,7 +302,7 @@ addEventListener("message", event => {
 		} else {
 			const pageData = {
 				content: message.content,
-				filename: tabData.filename
+				filename: message.filename || tabData.filename
 			};
 			tabData.options.compressContent = false;
 			download.downloadPage(pageData, tabData.options);
@@ -510,6 +510,7 @@ function savePage() {
 		method: "getContent",
 		compressHTML: tabData.options.compressHTML,
 		includeInfobar: tabData.options.includeInfobar,
+		backgroundSave: tabData.options.backgroundSave,
 		updatedResources,
 		filename: tabData.filename,
 		foregroundSave: FOREGROUND_SAVE
