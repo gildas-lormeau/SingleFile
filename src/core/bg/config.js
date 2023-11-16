@@ -71,6 +71,7 @@ const DEFAULT_CONFIG = {
 	filenameReplacedCharacters: ["~", "+", "\\\\", "?", "%", "*", ":", "|", "\"", "<", ">", "\x00-\x1f", "\x7F"],
 	filenameReplacementCharacter: "_",
 	replaceEmojisInFilename: false,
+	saveFilenameTemplateData: false,
 	contextMenuEnabled: true,
 	tabMenuEnabled: true,
 	browserActionMenuEnabled: true,

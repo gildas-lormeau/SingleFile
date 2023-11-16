@@ -215,6 +215,10 @@
 		"message": "用文字替换表情符号",
 		"description": "Options page label: 'replace emojis with text'"
 	},
+	"optionSaveFilenameTemplateData": {
+		"message": "将文件名模板数据保存到页面中",
+		"description": "Options page label: 'save the filename template data into the page'"
+	},
 	"optionConfirmFilename": {
 		"message": "打开 “另存为” 对话框以确认文件名",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"

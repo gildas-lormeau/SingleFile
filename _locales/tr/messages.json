@@ -215,6 +215,10 @@
 		"message": "emoji'leri metinle değiştir",
 		"description": "Options page label: 'replace emojis with text'"
 	},
+	"optionSaveFilenameTemplateData": {
+		"message": "dosya adı şablon verilerini sayfaya kaydetme",
+		"description": "Options page label: 'save the filename template data into the page'"
+	},
 	"optionConfirmFilename": {
 		"message": "dosya adını onaylamak için \"Farklı kaydet\" iletişim kutusunu aç",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"

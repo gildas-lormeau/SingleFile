@@ -215,6 +215,10 @@
 		"message": "reemplazar emojis con texto",
 		"description": "Options page label: 'replace emojis with text'"
 	},
+	"optionSaveFilenameTemplateData": {
+		"message": "guardar los datos de la plantilla de nombre de archivo en la página",
+		"description": "Options page label: 'save the filename template data into the page'"
+	},
 	"optionConfirmFilename": {
 		"message": "abrir el cuadro de diálogo \"Guardar como\" para confirmar el nombre del archivo",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"

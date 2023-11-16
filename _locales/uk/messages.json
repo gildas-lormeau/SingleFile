@@ -215,6 +215,10 @@
 		"message": "Замініть смайлики на текст",
 		"description": "Options page label: 'replace emojis with text'"
 	},
+	"optionSaveFilenameTemplateData": {
+		"message": "Збережіть дані шаблону імені файлу на сторінці",
+		"description": "Options page label: 'save the filename template data into the page'"
+	},
 	"optionConfirmFilename": {
 		"message": "відкривати діалогове вікно \"Save as\" для підтвердження імені файлу",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
