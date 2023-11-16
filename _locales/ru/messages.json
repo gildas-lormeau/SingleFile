@@ -168,7 +168,7 @@
 		"description": "Options page label: 'block mixed content'"
 	},
 	"optionSaveOriginalURLs": {
-		"message": "сохранять оригинальные URL встроенных ресурсов",
+		"message": "сохранить оригинальные URL встроенных ресурсов",
 		"description": "Options page label: 'save original URLs of embedded resources'"
 	},
 	"optionIncludeInfobar": {
@@ -216,7 +216,7 @@
 		"description": "Options page label: 'replace emojis with text'"
 	},
 	"optionSaveFilenameTemplateData": {
-		"message": "save the filename template data into the page",
+		"message": "сохранить имя файла шаблона",
 		"description": "Options page label: 'save the filename template data into the page'"
 	},
 	"optionConfirmFilename": {
