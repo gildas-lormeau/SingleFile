@@ -216,7 +216,7 @@
 		"description": "Options page label: 'replace emojis with text'"
 	},
 	"optionSaveFilenameTemplateData": {
-		"message": "save the filename template data into the page",
+		"message": "zapisz dane szablonu nazwy pliku na stronie",
 		"description": "Options page label: 'save the filename template data into the page'"
 	},
 	"optionConfirmFilename": {
