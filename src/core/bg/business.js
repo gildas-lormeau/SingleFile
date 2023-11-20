@@ -254,12 +254,11 @@ function onTabReplaced(addedTabId, removedTabId) {
 	});
 }
 
-async function onSaveEnd(taskId) {
+function onSaveEnd(taskId) {
 	const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
-	console.log(taskId, tasks);
 	if (taskInfo) {
 		if (taskInfo.options.autoClose && !taskInfo.cancelled) {
-			await browser.tabs.remove(taskInfo.tab.id);
+			browser.tabs.remove(taskInfo.tab.id);
 		}
 		taskInfo.done();
 	}
