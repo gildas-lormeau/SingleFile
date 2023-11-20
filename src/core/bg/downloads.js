@@ -40,14 +40,21 @@ import * as yabson from "./../../lib/yabson/yabson.js";
 const partialContents = new Map();
 const tabData = new Map();
 const MIMETYPE_HTML = "text/html";
-const GDRIVE_CLIENT_ID = "207618107333-7tjs1im1pighftpoepea2kvkubnfjj44.apps.googleusercontent.com";
-const GDRIVE_CLIENT_KEY = "VQJ8Gq8Vxx72QyxPyeLtWvUt";
 const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 const CONFLICT_ACTION_SKIP = "skip";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
 const REGEXP_ESCAPE = /([{}()^$&.*?/+|[\\\\]|\]|-)/g;
+let GDRIVE_CLIENT_ID = "207618107333-h1220p1oasj3050kr5r416661adm091a.apps.googleusercontent.com";
+let GDRIVE_CLIENT_KEY = "VQJ8Gq8Vxx72QyxPyeLtWvUt";
 
-const gDrive = new GDrive(GDRIVE_CLIENT_ID, GDRIVE_CLIENT_KEY, SCOPES);
+let gDrive;
+const oauth2 = browser.runtime.getManifest().oauth2;
+if (oauth2) {
+	GDRIVE_CLIENT_ID = oauth2.client_id;
+	GDRIVE_CLIENT_KEY = oauth2.client_secret;
+}
+gDrive = new GDrive(GDRIVE_CLIENT_ID, GDRIVE_CLIENT_KEY, SCOPES);
+
 export {
 	onMessage,
 	downloadPage,
