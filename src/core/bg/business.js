@@ -161,8 +161,11 @@ function addTask(info) {
 		options: info.options,
 		method: info.method,
 		done: function () {
-			tasks.splice(tasks.findIndex(taskInfo => taskInfo.id == this.id), 1);
-			runTasks();
+			const index = tasks.findIndex(taskInfo => taskInfo.id == this.id);
+			if (index > -1) {
+				tasks.splice(index, 1);
+				runTasks();
+			}
 		}
 	};
 	tasks.push(taskInfo);
@@ -251,11 +254,12 @@ function onTabReplaced(addedTabId, removedTabId) {
 	});
 }
 
-function onSaveEnd(taskId) {
+async function onSaveEnd(taskId) {
 	const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
+	console.log(taskId, tasks);
 	if (taskInfo) {
 		if (taskInfo.options.autoClose && !taskInfo.cancelled) {
-			browser.tabs.remove(taskInfo.tab.id);
+			await browser.tabs.remove(taskInfo.tab.id);
 		}
 		taskInfo.done();
 	}
