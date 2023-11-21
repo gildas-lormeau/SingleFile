@@ -39,7 +39,7 @@ function extractAuthCode(authURL) {
 		browser.tabs.onUpdated.addListener(onTabUpdated);
 
 		function onTabUpdated(tabId, changeInfo) {
-			if (changeInfo && changeInfo.url.startsWith(authURL)) {
+			if (changeInfo && changeInfo.url && changeInfo.url.startsWith(authURL)) {
 				browser.tabs.onUpdated.removeListener(onTabUpdated);
 				const code = new URLSearchParams(new URL(changeInfo.url).search).get("code");
 				if (code) {
