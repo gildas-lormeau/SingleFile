@@ -627,6 +627,10 @@
 		"message": "carica su Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
+	"optionSaveToDropbox": {
+		"message": "carica su Dropbox",
+		"description": "Options page label: 'upload to Dropbox'"
+	},
 	"optionSaveToGitHub": {
 		"message": "carica su GitHub",
 		"description": "Options page label: 'upload to GitHub'"

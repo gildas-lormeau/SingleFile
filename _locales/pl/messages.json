@@ -627,6 +627,10 @@
 		"message": "przesyłaj na Dysk Google",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
+	"optionSaveToDropbox": {
+		"message": "przesyłaj na Dropbox",
+		"description": "Options page label: 'upload to Dropbox'"
+	},
 	"optionSaveToGitHub": {
 		"message": "przesyłaj do GitHuba",
 		"description": "Options page label: 'upload to GitHub'"

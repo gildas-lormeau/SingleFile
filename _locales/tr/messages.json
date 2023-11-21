@@ -627,6 +627,10 @@
 		"message": "Google Drive'a yükle",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
+	"optionSaveToDropbox": {
+		"message": "Dropbox'a yükle",
+		"description": "Options page label: 'upload to Dropbox'"
+	},
 	"optionSaveToGitHub": {
 		"message": "GitHub'a yükle",
 		"description": "Options page label: 'upload to GitHub'"

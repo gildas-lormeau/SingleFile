@@ -44,6 +44,7 @@ async function downloadPage(pageData, options) {
 		filename: pageData.filename,
 		saveToClipboard: options.saveToClipboard,
 		saveToGDrive: options.saveToGDrive,
+		saveToDropbox: options.saveToDropbox,
 		saveWithWebDAV: options.saveWithWebDAV,
 		webDAVURL: options.webDAVURL,
 		webDAVUser: options.webDAVUser,
@@ -105,7 +106,7 @@ async function downloadPage(pageData, options) {
 			await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId });
 		}
 	} else {
-		if (options.backgroundSave || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV) {
+		if (options.backgroundSave || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox) {
 			const blobURL = URL.createObjectURL(new Blob([pageData.content], { type: "text/html" }));
 			message.blobURL = blobURL;
 			const result = await browser.runtime.sendMessage(message);

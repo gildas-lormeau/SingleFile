@@ -627,6 +627,10 @@
 		"message": "subir a Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
+	"optionSaveToDropbox": {
+		"message": "subir a Dropbox",
+		"description": "Options page label: 'upload to Dropbox'"
+	},
 	"optionSaveToGitHub": {
 		"message": "subir a GitHub",
 		"description": "Options page label: 'upload to GitHub'"

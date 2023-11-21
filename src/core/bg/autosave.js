@@ -151,7 +151,7 @@ async function saveContent(message, tab) {
 		options.incognito = tab.incognito;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
-		options.keepFilename = options.saveToGDrive || options.saveToGitHub || options.saveWithWebDAV;
+		options.keepFilename = options.saveToGDrive || options.saveToGitHub || options.saveWithWebDAV || options.saveToDropbox;
 		let pageData;
 		try {
 			if (options.autoSaveExternalSave) {
@@ -163,7 +163,7 @@ async function saveContent(message, tab) {
 				options.tabId = tabId;
 				pageData = await getPageData(options, null, null, { fetch });
 				let skipped;
-				if (!options.saveToGDrive && !options.saveWithWebDAV && !options.saveToGitHub && !options.saveWithCompanion) {
+				if (!options.saveToGDrive && !options.saveWithWebDAV && !options.saveToGitHub && !options.saveToDropbox && !options.saveWithCompanion) {
 					const testSkip = await downloads.testSkipSave(pageData.filename, options);
 					skipped = testSkip.skipped;
 					options.filenameConflictAction = testSkip.filenameConflictAction;
@@ -180,6 +180,13 @@ async function saveContent(message, tab) {
 						await downloads.saveToGDrive(message.taskId, downloads.encodeSharpCharacter(pageData.filename), content, options, {
 							forceWebAuthFlow: options.forceWebAuthFlow
 						}, {
+							filenameConflictAction: options.filenameConflictAction
+						});
+					} if (options.saveToDropbox) {
+						if (!(content instanceof Blob)) {
+							content = new Blob([content], { type: "text/html" });
+						}
+						await downloads.saveToDropbox(message.taskId, downloads.encodeSharpCharacter(pageData.filename), content, {
 							filenameConflictAction: options.filenameConflictAction
 						});
 					} else if (options.saveWithWebDAV) {

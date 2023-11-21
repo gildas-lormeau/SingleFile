@@ -627,6 +627,10 @@
 		"message": "Hochladen auf Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
+	"optionSaveToDropbox": {
+		"message": "Hochladen auf Dropbox",
+		"description": "Options page label: 'upload to Dropbox'"
+	},
 	"optionSaveToGitHub": {
 		"message": "Hochladen auf GitHub",
 		"description": "Options page label: 'upload to GitHub'"

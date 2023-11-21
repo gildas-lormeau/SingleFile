@@ -627,6 +627,10 @@
 		"message": "téléverser sur Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
+	"optionSaveToDropbox": {
+		"message": "téléverser sur Dropbox",
+		"description": "Options page label: 'upload to Dropbox'"
+	},
 	"optionSaveToGitHub": {
 		"message": "téléverser sur GitHub",
 		"description": "Options page label: 'upload to GitHub'"
