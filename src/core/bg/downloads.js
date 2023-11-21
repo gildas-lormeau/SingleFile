@@ -313,7 +313,6 @@ async function downloadCompressedContent(message, tab) {
 				}
 				browser.tabs.create(createTabProperties);
 			}
-
 		}
 	} catch (error) {
 		if (!error.message || error.message != "upload_cancelled") {
