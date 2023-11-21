@@ -74,6 +74,7 @@ function init() {
 	if (!IDENTITY_API_SUPPORTED) {
 		document.getElementById("saveToGDriveOption").hidden = true;
 		document.getElementById("saveToGDriveHint").hidden = true;
+		document.getElementById("saveToDropboxOption").hidden = true;
 	}
 	if (!CLIPBOARD_API_SUPPORTED) {
 		document.getElementById("saveToClipboardOption").hidden = true;
