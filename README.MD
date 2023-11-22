@@ -226,6 +226,9 @@ Footnotes:
   webkit: https://github.com/david-littlefield/SingleFileMac
 - Trilium-SingleFile - An addon for Trilium Notes to easily import SingleFile 
   html pages: https://github.com/rauenzi/Trilium-SingleFile
+- Trilium Simple SingleFile Renderer - A plugin to add a new Template note to
+  Trilium for render file created by SingleFile:
+  https://github.com/xnohat/trilium-simple-singlefile-renderer
 - Zotero Connector - Browser extension for Zotero, a tool to help you collect,
   organize, cite, and share your research sources:
   https://github.com/zotero/zotero-connectors
