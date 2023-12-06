@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, globalThis, window, document, location, setTimeout, XMLHttpRequest, Node, DOMParser */
+/* global browser, globalThis, document, location, setTimeout, XMLHttpRequest, Node, DOMParser */
 
 const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 
@@ -217,7 +217,7 @@ async function autoSavePage() {
 			await new Promise(resolve => autoSaveTimeout = setTimeout(resolve, optionsAutoSave.autoSaveDelay * 1000));
 			await autoSavePage();
 		} else {
-			const waitForUserScript = window[helper.WAIT_FOR_USERSCRIPT_PROPERTY_NAME];
+			const waitForUserScript = globalThis[helper.WAIT_FOR_USERSCRIPT_PROPERTY_NAME];
 			let frames = [];
 			let framesSessionId;
 			autoSaveTimeout = null;
@@ -271,7 +271,7 @@ function onUnload() {
 
 function autoSaveUnloadedPage({ autoSaveUnload, autoSaveDiscard, autoSaveRemove }) {
 	const helper = singlefile.helper;
-	const waitForUserScript = window[helper.WAIT_FOR_USERSCRIPT_PROPERTY_NAME];
+	const waitForUserScript = globalThis[helper.WAIT_FOR_USERSCRIPT_PROPERTY_NAME];
 	let frames = [];
 	if (!optionsAutoSave.removeFrames && globalThis.frames && globalThis.frames.length) {
 		frames = singlefile.processors.frameTree.getSync(optionsAutoSave);
