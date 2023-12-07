@@ -36,13 +36,13 @@ https://user-images.githubusercontent.com/396787/156664907-cc458e35-f41b-45ca-91
 SingleFile can be installed on:
 
 - Firefox: https://addons.mozilla.org/firefox/addon/single-file
-- Chrome:
-  https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
-- Safari: https://apps.apple.com/us/app/singlefile-for-safari/id6444322545
-- Microsoft Edge:
-  https://microsoftedge.microsoft.com/addons/detail/efnbkdcfmcmnhlkaijjjmhjjgladedno
 - Firefox for Android:
   https://addons.mozilla.org/en-US/android/addon/single-file
+- Chrome:
+  https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
+- Safari (macOS and iOS): https://apps.apple.com/us/app/singlefile-for-safari/id6444322545
+- Microsoft Edge:
+  https://microsoftedge.microsoft.com/addons/detail/efnbkdcfmcmnhlkaijjjmhjjgladedno
 
 You can also download the zip file
 (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project
