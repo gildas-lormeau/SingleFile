@@ -41,8 +41,8 @@ SingleFile can be installed on:
 - Safari: https://apps.apple.com/us/app/singlefile-for-safari/id6444322545
 - Microsoft Edge:
   https://microsoftedge.microsoft.com/addons/detail/efnbkdcfmcmnhlkaijjjmhjjgladedno
-- Firefox for Android Nightly by following this procedure:
-  https://blog.mozilla.org/addons/2020/09/29/expanded-extension-support-in-firefox-for-android-nightly/
+- Firefox for Android:
+  https://addons.mozilla.org/en-US/android/addon/single-file
 
 You can also download the zip file
 (https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project
