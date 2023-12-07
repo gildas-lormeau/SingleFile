@@ -5,10 +5,6 @@ SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox
 browser, and Opera. It helps you to save a complete web page into a single HTML
 file.
 
-**NEW**: SingleFile can save pages as self-extracting ZIP files, see here for 
-more info: https://gildas-lormeau.github.io/singlefile-updates/version-1-22.html
-and https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md#how-does-the-self-extracting-zip-format-work.
-
 ## Table of Contents
 
 - [SingleFile](#singlefile)
