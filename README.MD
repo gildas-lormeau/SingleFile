@@ -37,7 +37,7 @@ SingleFile can be installed on:
 
 - Firefox: https://addons.mozilla.org/firefox/addon/single-file
 - Firefox for Android:
-  https://addons.mozilla.org/en-US/android/addon/single-file
+  https://addons.mozilla.org/android/addon/single-file
 - Chrome:
   https://chrome.google.com/extensions/detail/mpiodijhokgodhhofbcjdecpffjipkle
 - Safari (macOS and iOS): https://apps.apple.com/us/app/singlefile-for-safari/id6444322545
