@@ -208,7 +208,7 @@
 		"description": "Options page label: 'characters'"
 	},
 	"optionFilenameReplacementCharacter": {
-		"message": "replacement character",
+		"message": "替換字符",
 		"description": "Options page label: 'replacement character'"
 	},
 	"optionReplaceEmojisInFilename": {
@@ -216,7 +216,7 @@
 		"description": "Options page label: 'replace emojis with text'"
 	},
 	"optionSaveFilenameTemplateData": {
-		"message": "將檔案名稱模板數據保存到頁面中",
+		"message": "將文件名模板數據保存到頁面中",
 		"description": "Options page label: 'save the filename template data into the page'"
 	},
 	"optionConfirmFilename": {
@@ -260,7 +260,7 @@
 		"description": "Options page label: 'remove hidden elements'"
 	},
 	"optionsFileFormatSubTitle": {
-		"message": "檔案格式",
+		"message": "文件格式",
 		"description": "Options sub-title: 'File format'"
 	},
 	"optionFileFormat": {
@@ -292,7 +292,7 @@
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionPreventAppendedData": {
-		"message": "不要在 ZIP 數據後追加數據",
+		"message": "不要在 ZIP 數據後添加數據",
 		"description": "Options page label: 'do not append data after the ZIP data'"
 	},
 	"optionInsertTextBody": {
