@@ -112,6 +112,7 @@ button {
     border-width: 1px;
     color: black;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 button:not([disabled]):hover {
