@@ -187,7 +187,7 @@ async function refresh(force) {
 			urlsTable.appendChild(row);
 		}
 	}
-	saveUrlsButton.disabled = !displayedUrls.length;
+	saveUrlsButton.disabled = removeAllButton.disabled = !displayedUrls.length;
 }
 
 function getDisplayedUrls() {
