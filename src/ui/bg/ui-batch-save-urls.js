@@ -50,7 +50,7 @@ addUrlsLabel.textContent = browser.i18n.getMessage("pendingsAddUrls");
 URLLabel.textContent = browser.i18n.getMessage("batchSaveUrlsURLTitle");
 addUrlForm.onsubmit = () => {
 	const value = addUrlInput.value.trim();
-	if (value.length && !urls.includes(value) && (value.startsWith("http://") || value.startsWith("https://") || value.startsWith("file://"))) {
+	if (!urls.includes(value)) {
 		urls.push(value);
 		addUrlInput.value = "";
 		refresh();
@@ -187,6 +187,7 @@ async function refresh(force) {
 			urlsTable.appendChild(row);
 		}
 	}
+	saveUrlsButton.disabled = !displayedUrls.length;
 }
 
 function getDisplayedUrls() {
