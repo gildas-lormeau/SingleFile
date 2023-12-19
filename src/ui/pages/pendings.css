@@ -42,10 +42,16 @@ button {
     border-radius: 2px;
     border-width: 1px;
     color: black;
+    cursor: pointer;
 }
 
-button:not([disabled]):hover {
+button:not(:disabled):hover {
     background-color: #ededed;
+}
+
+button:disabled {
+    opacity: .25;
+    cursor: default;
 }
 
 body>header button {
@@ -234,7 +240,7 @@ html.side-panel #addUrlsButton {
         background-color: #ccc;
     }
 
-    button:hover {
+    button:not(:disabled):hover {
         color: #2A2A2E;
     }
 

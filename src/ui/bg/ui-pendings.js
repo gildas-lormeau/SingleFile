@@ -131,4 +131,5 @@ async function refresh(force) {
 			resultsTable.appendChild(row);
 		}
 	}
+	cancelAllButton.disabled = !results.length;
 }
