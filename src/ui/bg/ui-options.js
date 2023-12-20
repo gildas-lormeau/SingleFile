@@ -477,6 +477,16 @@ importButton.addEventListener("click", () => {
 				reader.addEventListener("error", reject, false);
 			});
 			const config = JSON.parse(serializedConfig);
+			Object.keys(config.profiles).forEach(profileName => {
+				const profile = config.profiles[profileName];
+				if (profile.saveToGDrive && !profile.forceWebAuthFlow) {
+					profile.saveToGDrive = false;
+				}
+				profile.saveToClipboard = false;
+				profile.saveWithCompanion = false;
+				profile.saveCreatedBookmarks = false;
+				profile.passReferrerOnError = false;
+			});
 			await browser.runtime.sendMessage({ method: "config.importConfig", config });
 			await refresh(DEFAULT_PROFILE_NAME);
 			await refreshExternalComponents();
