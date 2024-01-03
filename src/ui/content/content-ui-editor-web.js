@@ -980,174 +980,179 @@ pre code {
 	let removedElements = [], removedElementIndex = 0, initScriptContent, pageResources, pageUrl, pageCompressContent, includeInfobar;
 
 	globalThis.zip = singlefile.helper.zip;
-	window.onmessage = async event => {
-		const message = JSON.parse(event.data);
-		if (message.method == "init") {
-			await init(message);
-		}
-		if (message.method == "addNote") {
-			addNote(message);
-		}
-		if (message.method == "displayNotes") {
-			document.querySelectorAll(NOTE_TAGNAME).forEach(noteElement => noteElement.shadowRoot.querySelector("." + NOTE_CLASS).classList.remove(NOTE_HIDDEN_CLASS));
-		}
-		if (message.method == "hideNotes") {
-			document.querySelectorAll(NOTE_TAGNAME).forEach(noteElement => noteElement.shadowRoot.querySelector("." + NOTE_CLASS).classList.add(NOTE_HIDDEN_CLASS));
-		}
-		if (message.method == "enableHighlight") {
-			if (highlightColor) {
-				document.documentElement.classList.remove(highlightColor + "-mode");
+	initEventListeners();
+	new MutationObserver(initEventListeners).observe(document, { childList: true });
+
+	function initEventListeners() {
+		window.onmessage = async event => {
+			const message = JSON.parse(event.data);
+			if (message.method == "init") {
+				await init(message);
 			}
-			highlightColor = message.color;
-			highlightSelectionMode = true;
-			document.documentElement.classList.add(message.color + "-mode");
-		}
-		if (message.method == "disableHighlight") {
-			disableHighlight();
-			highlightSelectionMode = false;
-		}
-		if (message.method == "displayHighlights") {
-			document.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.remove(HIGHLIGHT_HIDDEN_CLASS));
-		}
-		if (message.method == "hideHighlights") {
-			document.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.add(HIGHLIGHT_HIDDEN_CLASS));
-		}
-		if (message.method == "enableRemoveHighlights") {
-			removeHighlightMode = true;
-			document.documentElement.classList.add("single-file-remove-highlights-mode");
-		}
-		if (message.method == "disableRemoveHighlights") {
-			removeHighlightMode = false;
-			document.documentElement.classList.remove("single-file-remove-highlights-mode");
-		}
-		if (message.method == "enableEditPage") {
-			document.body.contentEditable = true;
-			onUpdate(false);
-		}
-		if (message.method == "formatPage") {
-			formatPage(!message.applySystemTheme);
-		}
-		if (message.method == "cancelFormatPage") {
-			cancelFormatPage();
-		}
-		if (message.method == "disableEditPage") {
-			document.body.contentEditable = false;
-		}
-		if (message.method == "enableCutInnerPage") {
-			cuttingMode = true;
-			document.documentElement.classList.add(CUT_MODE_CLASS);
-		}
-		if (message.method == "enableCutOuterPage") {
-			cuttingOuterMode = true;
-			document.documentElement.classList.add(CUT_MODE_CLASS);
-		}
-		if (message.method == "disableCutInnerPage" || message.method == "disableCutOuterPage") {
-			if (message.method == "disableCutInnerPage") {
-				cuttingMode = false;
-			} else {
-				cuttingOuterMode = false;
+			if (message.method == "addNote") {
+				addNote(message);
 			}
-			document.documentElement.classList.remove(CUT_MODE_CLASS);
-			resetSelectedElements();
-			if (cuttingPath) {
-				unhighlightCutElement();
-				cuttingPath = null;
+			if (message.method == "displayNotes") {
+				document.querySelectorAll(NOTE_TAGNAME).forEach(noteElement => noteElement.shadowRoot.querySelector("." + NOTE_CLASS).classList.remove(NOTE_HIDDEN_CLASS));
 			}
-		}
-		if (message.method == "undoCutPage") {
-			undoCutPage();
-		}
-		if (message.method == "undoAllCutPage") {
-			while (removedElementIndex) {
-				removedElements[removedElementIndex - 1].forEach(element => element.classList.remove(REMOVED_CONTENT_CLASS));
-				removedElementIndex--;
+			if (message.method == "hideNotes") {
+				document.querySelectorAll(NOTE_TAGNAME).forEach(noteElement => noteElement.shadowRoot.querySelector("." + NOTE_CLASS).classList.add(NOTE_HIDDEN_CLASS));
 			}
-		}
-		if (message.method == "redoCutPage") {
-			redoCutPage();
-		}
-		if (message.method == "getContent") {
-			onUpdate(true);
-			includeInfobar = message.includeInfobar;
-			let content = getContent(message.compressHTML, message.updatedResources);
-			if (initScriptContent) {
-				content = content.replace(/<script data-template-shadow-root src.*?<\/script>/g, initScriptContent);
+			if (message.method == "enableHighlight") {
+				if (highlightColor) {
+					document.documentElement.classList.remove(highlightColor + "-mode");
+				}
+				highlightColor = message.color;
+				highlightSelectionMode = true;
+				document.documentElement.classList.add(message.color + "-mode");
 			}
-			let filename;
-			const pageOptions = loadOptionsFromPage(document);
-			if (pageOptions) {
-				pageOptions.backgroundSave = message.backgroundSave;
-				pageOptions.saveDate = new Date(pageOptions.saveDate);
-				pageOptions.visitDate = new Date(pageOptions.visitDate);
-				filename = await singlefile.helper.formatFilename(content, document, pageOptions);
+			if (message.method == "disableHighlight") {
+				disableHighlight();
+				highlightSelectionMode = false;
 			}
-			if (pageCompressContent) {
-				const viewport = document.head.querySelector("meta[name=viewport]");
-				window.parent.postMessage(JSON.stringify({
-					method: "setContent",
-					content,
-					filename,
-					title: document.title,
-					doctype: singlefile.helper.getDoctypeString(document),
-					url: pageUrl,
-					viewport: viewport ? viewport.content : null,
-					compressContent: true,
-					foregroundSave: message.foregroundSave
-				}), "*");
-			} else {
-				if (message.foregroundSave) {
-					if (filename || (message.filename && message.filename.length)) {
-						const link = document.createElement("a");
-						link.download = filename || message.filename;
-						link.href = URL.createObjectURL(new Blob([content], { type: "text/html" }));
-						link.dispatchEvent(new MouseEvent("click"));
-					}
-					return new Promise(resolve => setTimeout(resolve, 1));
+			if (message.method == "displayHighlights") {
+				document.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.remove(HIGHLIGHT_HIDDEN_CLASS));
+			}
+			if (message.method == "hideHighlights") {
+				document.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.add(HIGHLIGHT_HIDDEN_CLASS));
+			}
+			if (message.method == "enableRemoveHighlights") {
+				removeHighlightMode = true;
+				document.documentElement.classList.add("single-file-remove-highlights-mode");
+			}
+			if (message.method == "disableRemoveHighlights") {
+				removeHighlightMode = false;
+				document.documentElement.classList.remove("single-file-remove-highlights-mode");
+			}
+			if (message.method == "enableEditPage") {
+				document.body.contentEditable = true;
+				onUpdate(false);
+			}
+			if (message.method == "formatPage") {
+				formatPage(!message.applySystemTheme);
+			}
+			if (message.method == "cancelFormatPage") {
+				cancelFormatPage();
+			}
+			if (message.method == "disableEditPage") {
+				document.body.contentEditable = false;
+			}
+			if (message.method == "enableCutInnerPage") {
+				cuttingMode = true;
+				document.documentElement.classList.add(CUT_MODE_CLASS);
+			}
+			if (message.method == "enableCutOuterPage") {
+				cuttingOuterMode = true;
+				document.documentElement.classList.add(CUT_MODE_CLASS);
+			}
+			if (message.method == "disableCutInnerPage" || message.method == "disableCutOuterPage") {
+				if (message.method == "disableCutInnerPage") {
+					cuttingMode = false;
 				} else {
+					cuttingOuterMode = false;
+				}
+				document.documentElement.classList.remove(CUT_MODE_CLASS);
+				resetSelectedElements();
+				if (cuttingPath) {
+					unhighlightCutElement();
+					cuttingPath = null;
+				}
+			}
+			if (message.method == "undoCutPage") {
+				undoCutPage();
+			}
+			if (message.method == "undoAllCutPage") {
+				while (removedElementIndex) {
+					removedElements[removedElementIndex - 1].forEach(element => element.classList.remove(REMOVED_CONTENT_CLASS));
+					removedElementIndex--;
+				}
+			}
+			if (message.method == "redoCutPage") {
+				redoCutPage();
+			}
+			if (message.method == "getContent") {
+				onUpdate(true);
+				includeInfobar = message.includeInfobar;
+				let content = getContent(message.compressHTML, message.updatedResources);
+				if (initScriptContent) {
+					content = content.replace(/<script data-template-shadow-root src.*?<\/script>/g, initScriptContent);
+				}
+				let filename;
+				const pageOptions = loadOptionsFromPage(document);
+				if (pageOptions) {
+					pageOptions.backgroundSave = message.backgroundSave;
+					pageOptions.saveDate = new Date(pageOptions.saveDate);
+					pageOptions.visitDate = new Date(pageOptions.visitDate);
+					filename = await singlefile.helper.formatFilename(content, document, pageOptions);
+				}
+				if (pageCompressContent) {
+					const viewport = document.head.querySelector("meta[name=viewport]");
 					window.parent.postMessage(JSON.stringify({
 						method: "setContent",
 						content,
-						filename
+						filename,
+						title: document.title,
+						doctype: singlefile.helper.getDoctypeString(document),
+						url: pageUrl,
+						viewport: viewport ? viewport.content : null,
+						compressContent: true,
+						foregroundSave: message.foregroundSave
 					}), "*");
+				} else {
+					if (message.foregroundSave) {
+						if (filename || (message.filename && message.filename.length)) {
+							const link = document.createElement("a");
+							link.download = filename || message.filename;
+							link.href = URL.createObjectURL(new Blob([content], { type: "text/html" }));
+							link.dispatchEvent(new MouseEvent("click"));
+						}
+						return new Promise(resolve => setTimeout(resolve, 1));
+					} else {
+						window.parent.postMessage(JSON.stringify({
+							method: "setContent",
+							content,
+							filename
+						}), "*");
+					}
 				}
 			}
-		}
-		if (message.method == "printPage") {
-			printPage();
-		}
-		if (message.method == "displayInfobar") {
-			singlefile.helper.displayIcon(document, true);
-			const infobarDoc = document.implementation.createHTMLDocument();
-			infobarDoc.body.appendChild(document.querySelector(singlefile.helper.INFOBAR_TAGNAME));
-			serializeShadowRoots(infobarDoc.body);
-			const content = singlefile.helper.serialize(infobarDoc, true);
-			window.parent.postMessage(JSON.stringify({
-				method: "displayInfobar",
-				content
-			}), "*");
-		}
-		if (message.method == "download") {
-			const link = document.createElement("a");
-			link.download = message.filename;
-			link.href = URL.createObjectURL(new Blob([new Uint8Array(message.content)], { type: "text/html" }));
-			link.dispatchEvent(new MouseEvent("click"));
-		}
-	};
-	window.onresize = reflowNotes;
-	document.ondragover = event => event.preventDefault();
-	document.ondrop = async event => {
-		if (event.dataTransfer.files && event.dataTransfer.files[0]) {
-			const file = event.dataTransfer.files[0];
-			event.preventDefault();
-			const content = new TextDecoder().decode(await file.arrayBuffer());
-			const compressContent = /<html[^>]* data-sfz[^>]*>/i.test(content);
-			if (compressContent) {
-				await init({ content: file, compressContent }, { filename: file.name });
-			} else {
-				await init({ content }, { filename: file.name });
+			if (message.method == "printPage") {
+				printPage();
 			}
-		}
-	};
+			if (message.method == "displayInfobar") {
+				singlefile.helper.displayIcon(document, true);
+				const infobarDoc = document.implementation.createHTMLDocument();
+				infobarDoc.body.appendChild(document.querySelector(singlefile.helper.INFOBAR_TAGNAME));
+				serializeShadowRoots(infobarDoc.body);
+				const content = singlefile.helper.serialize(infobarDoc, true);
+				window.parent.postMessage(JSON.stringify({
+					method: "displayInfobar",
+					content
+				}), "*");
+			}
+			if (message.method == "download") {
+				const link = document.createElement("a");
+				link.download = message.filename;
+				link.href = URL.createObjectURL(new Blob([new Uint8Array(message.content)], { type: "text/html" }));
+				link.dispatchEvent(new MouseEvent("click"));
+			}
+		};
+		window.onresize = reflowNotes;
+		document.ondragover = event => event.preventDefault();
+		document.ondrop = async event => {
+			if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+				const file = event.dataTransfer.files[0];
+				event.preventDefault();
+				const content = new TextDecoder().decode(await file.arrayBuffer());
+				const compressContent = /<html[^>]* data-sfz[^>]*>/i.test(content);
+				if (compressContent) {
+					await init({ content: file, compressContent }, { filename: file.name });
+				} else {
+					await init({ content }, { filename: file.name });
+				}
+			}
+		};
+	}
 
 	async function init({ content, password, compressContent }, { filename, reset } = {}) {
 		await initConstants();
