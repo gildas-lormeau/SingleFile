@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, window, CustomEvent, setTimeout, clearTimeout */
+/* global browser, window, document, CustomEvent, setTimeout, clearTimeout */
 
 const FETCH_REQUEST_EVENT = "single-file-request-fetch";
 const FETCH_ACK_EVENT = "single-file-ack-fetch";
@@ -29,10 +29,6 @@ const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
 const ERR_HOST_FETCH = "Host fetch error (SingleFile)";
 const HOST_FETCH_MAX_DELAY = 2500;
 const USE_HOST_FETCH = Boolean(window.wrappedJSObject);
-
-const addEventListener = (type, listener, options) => window.addEventListener(type, listener, options);
-const dispatchEvent = event => window.dispatchEvent(event);
-const removeEventListener = (type, listener, options) => window.removeEventListener(type, listener, options);
 
 const fetch = (url, options) => window.fetch(url, options);
 
@@ -95,9 +91,9 @@ async function onFetchResponse(message) {
 
 async function hostFetch(url, options) {
 	const result = new Promise((resolve, reject) => {
-		dispatchEvent(new CustomEvent(FETCH_REQUEST_EVENT, { detail: JSON.stringify({ url, options }) }));
-		addEventListener(FETCH_ACK_EVENT, onAckFetch, false);
-		addEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
+		document.dispatchEvent(new CustomEvent(FETCH_REQUEST_EVENT, { detail: JSON.stringify({ url, options }) }));
+		document.addEventListener(FETCH_ACK_EVENT, onAckFetch, false);
+		document.addEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
 		const timeout = setTimeout(() => {
 			removeListeners();
 			reject(new Error(ERR_HOST_FETCH));
@@ -127,8 +123,8 @@ async function hostFetch(url, options) {
 		}
 
 		function removeListeners() {
-			removeEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
-			removeEventListener(FETCH_ACK_EVENT, onAckFetch, false);
+			document.removeEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
+			document.removeEventListener(FETCH_ACK_EVENT, onAckFetch, false);
 		}
 	});
 	try {
