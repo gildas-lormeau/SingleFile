@@ -283,10 +283,6 @@
 		"message": "ZIP",
 		"description": "Options page label: 'ZIP'"
 	},
-	"optionPassword": {
-		"message": "hasło",
-		"description": "Options page label: 'password'"
-	},
 	"optionCreateRootDirectory": {
 		"message": "utwórz katalog główny",
 		"description": "Options page label: 'create a root directory'"
@@ -294,6 +290,10 @@
 	"optionPreventAppendedData": {
 		"message": "nie dołączaj danych po danych ZIP",
 		"description": "Options page label: 'do not append data after the ZIP data'"
+	},
+	"optionPassword": {
+		"message": "hasło",
+		"description": "Options page label: 'password'"
 	},
 	"optionInsertTextBody": {
 		"message": "uczyń tekst przeszukiwalnym",
