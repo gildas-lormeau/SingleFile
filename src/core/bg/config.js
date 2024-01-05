@@ -132,6 +132,7 @@ const DEFAULT_CONFIG = {
 	selfExtractingArchive: true,
 	extractDataFromPage: true,
 	preventAppendedData: false,
+	insertEmbeddedImage: false,
 	insertTextBody: false,
 	autoSaveExternalSave: false,
 	insertMetaNoIndex: false,

@@ -299,6 +299,10 @@
 		"message": "テキストを検索可能にする",
 		"description": "Options page label: 'make text searchable'"
 	},
+	"optionInsertEmbeddedImage": {
+		"message": "insert embedded image",
+		"description": "Options page label: 'insert embedded image'"
+	},
 	"optionsInfobarSubTitle": {
 		"message": "インフォバー",
 		"description": "Options sub-title: 'Infobar'"
@@ -739,6 +743,10 @@
 		"message": "フレームの内容",
 		"description": "Label 'Frame contents' in the log panel"
 	},
+	"logPanelEmbeddedImage": {
+		"message": "埋め込み画像",
+		"description": "Label 'Embedded image' in the log panel"
+	},
 	"logPanelStep": {
 		"message": "ステップ",
 		"description": "Label 'Step' (for 'Step x / 4') in the log panel"
@@ -746,6 +754,14 @@
 	"logPanelWidth": {
 		"message": "115",
 		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+	},
+	"topPanelError": {
+		"message": "SingleFile エラー: ",
+		"description": "Label 'SingleFile error: ' in the top panel when displaying an error message"
+	},
+	"topPanelEmbeddedImageButton": {
+		"message": "画像を開く...",
+		"description": "Top panel button 'Open image...' when embedding an image"
 	},
 	"profileDefaultSettings": {
 		"message": "デフォルトの設定",

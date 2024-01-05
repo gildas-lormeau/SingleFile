@@ -39,7 +39,7 @@ export {
 	EDITOR_URL
 };
 
-async function open({ tabIndex, content, filename, compressContent, selfExtractingArchive, extractDataFromPage, insertTextBody }) {
+async function open({ tabIndex, content, filename, compressContent, selfExtractingArchive, extractDataFromPage, insertTextBody, embeddedImage }) {
 	const createTabProperties = { active: true, url: EDITOR_PAGE_URL };
 	if (tabIndex != null) {
 		createTabProperties.index = tabIndex;
@@ -51,7 +51,8 @@ async function open({ tabIndex, content, filename, compressContent, selfExtracti
 		compressContent, 
 		selfExtractingArchive, 
 		extractDataFromPage,
-		insertTextBody
+		insertTextBody,
+		embeddedImage
 	});
 }
 
@@ -118,7 +119,8 @@ async function onMessage(message, sender) {
 				compressContent: message.compressContent,
 				selfExtractingArchive: message.selfExtractingArchive,
 				extractDataFromPageTags: message.extractDataFromPageTags,
-				insertTextBody: message.insertTextBody
+				insertTextBody: message.insertTextBody,
+				embeddedImage: message.embeddedImage
 			});
 		}
 		return {};

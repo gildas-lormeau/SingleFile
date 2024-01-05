@@ -41,6 +41,7 @@ const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CL
 const SELECT_PX_THRESHOLD = 8;
 const LOG_PANEL_DEFERRED_IMAGES_MESSAGE = browser.i18n.getMessage("logPanelDeferredImages");
 const LOG_PANEL_FRAME_CONTENTS_MESSAGE = browser.i18n.getMessage("logPanelFrameContents");
+const LOG_PANEL_EMBEDDED_IMAGE_MESSAGE = browser.i18n.getMessage("logPanelEmbeddedImage");
 const LOG_PANEL_STEP_MESSAGE = browser.i18n.getMessage("logPanelStep");
 const LOG_PANEL_WIDTH = browser.i18n.getMessage("logPanelWidth");
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
@@ -56,6 +57,8 @@ export {
 	onStartPage,
 	onEndPage,
 	onLoadResource,
+	onInsertingEmbeddedImage,
+	onInsertEmbeddedImage,
 	onLoadingDeferResources,
 	onLoadDeferResources,
 	onLoadingFrames,
@@ -108,6 +111,14 @@ function onLoadingDeferResources(options) {
 
 function onLoadDeferResources(options) {
 	updateLog("load-deferred-images", LOG_PANEL_DEFERRED_IMAGES_MESSAGE, "✓", options);
+}
+
+function onInsertingEmbeddedImage(options) {
+	updateLog("insert-embedded-image", LOG_PANEL_EMBEDDED_IMAGE_MESSAGE, "…", options);
+}
+
+function onInsertEmbeddedImage(options) {
+	updateLog("insert-embedded-image", LOG_PANEL_EMBEDDED_IMAGE_MESSAGE, "✓", options);
 }
 
 function onLoadingFrames(options) {

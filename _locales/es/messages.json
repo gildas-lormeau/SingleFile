@@ -299,6 +299,10 @@
 		"message": "hacer buscable el texto",
 		"description": "Options page label: 'make text searchable'"
 	},
+	"optionInsertEmbeddedImage": {
+		"message": "insert embedded image",
+		"description": "Options page label: 'insert embedded image'"
+	},
 	"optionsInfobarSubTitle": {
 		"message": "Barra informativa",
 		"description": "Options sub-title: 'Infobar'"
@@ -739,6 +743,10 @@
 		"message": "Contenidos de marco (frame)",
 		"description": "Label 'Frame contents' in the log panel"
 	},
+	"logPanelEmbeddedImage": {
+		"message": "Imagen incrustada",
+		"description": "Label 'Embedded image' in the log panel"
+	},
 	"logPanelStep": {
 		"message": "Nivel",
 		"description": "Label 'Step' (for 'Step x / 4') in the log panel"
@@ -746,6 +754,14 @@
 	"logPanelWidth": {
 		"message": "192",
 		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+	},
+	"topPanelError": {
+		"message": "Error de SingleFile: ",
+		"description": "Label 'SingleFile error: ' in the top panel when displaying an error message"
+	},
+	"topPanelEmbeddedImageButton": {
+		"message": "Abrir imagen...",
+		"description": "Top panel button 'Open image...' when embedding an image"
 	},
 	"profileDefaultSettings": {
 		"message": "Configuración predeterminada",

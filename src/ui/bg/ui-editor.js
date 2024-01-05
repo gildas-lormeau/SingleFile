@@ -24,7 +24,7 @@
 /* global browser, document, matchMedia, addEventListener, navigator, prompt, URL, MouseEvent, Blob, setInterval, DOMParser */
 
 import * as download from "../../core/common/download.js";
-import { onError } from "./../common/content-error.js";
+import { onError } from "./../common/common-content-ui.js";
 import * as zip from "./../../../lib/single-file-zip.js";
 import * as yabson from "./../../lib/yabson/yabson.js";
 
@@ -284,6 +284,9 @@ addEventListener("message", event => {
 			}
 			if (tabData.insertTextBody !== undefined) {
 				tabData.options.insertTextBody = tabData.insertTextBody;
+			}
+			if (tabData.embeddedImage !== undefined) {
+				tabData.options.embeddedImage = tabData.embeddedImage;
 			}
 			getContentPageData(tabData.content, message.content, { password: tabData.options.password })
 				.then(pageData => {

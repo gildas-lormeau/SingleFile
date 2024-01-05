@@ -270,7 +270,8 @@ async function downloadCompressedContent(message, tab) {
 				preventAppendedData: message.preventAppendedData,
 				insertCanonicalLink: message.insertCanonicalLink,
 				insertMetaNoIndex: message.insertMetaNoIndex,
-				password: message.password
+				password: message.password,
+				embeddedImage: message.embeddedImage
 			});
 			let response;
 			if (message.openEditor) {
@@ -282,7 +283,8 @@ async function downloadCompressedContent(message, tab) {
 					compressContent: message.compressContent,
 					selfExtractingArchive: message.selfExtractingArchive,
 					extractDataFromPage: message.extractDataFromPage,
-					insertTextBody: message.insertTextBody
+					insertTextBody: message.insertTextBody,
+					embeddedImage: message.embeddedImage
 				});
 			} else if (message.foregroundSave) {
 				await downloadPageForeground(message.taskId, message.filename, blob, tabId, message.foregroundSave);

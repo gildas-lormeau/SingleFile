@@ -91,6 +91,7 @@ const githubBranchLabel = document.getElementById("githubBranchLabel");
 const saveWithCompanionLabel = document.getElementById("saveWithCompanionLabel");
 const compressHTMLLabel = document.getElementById("compressHTMLLabel");
 const insertTextBodyLabel = document.getElementById("insertTextBodyLabel");
+const insertEmbeddedImageLabel = document.getElementById("insertEmbeddedImageLabel");
 const compressCSSLabel = document.getElementById("compressCSSLabel");
 const moveStylesInHeadLabel = document.getElementById("moveStylesInHeadLabel");
 const loadDeferredImagesLabel = document.getElementById("loadDeferredImagesLabel");
@@ -230,6 +231,7 @@ const saveWithCompanionInput = document.getElementById("saveWithCompanionInput")
 const saveToFilesystemInput = document.getElementById("saveToFilesystemInput");
 const compressHTMLInput = document.getElementById("compressHTMLInput");
 const insertTextBodyInput = document.getElementById("insertTextBodyInput");
+const insertEmbeddedImageInput = document.getElementById("insertEmbeddedImageInput");
 const compressCSSInput = document.getElementById("compressCSSInput");
 const moveStylesInHeadInput = document.getElementById("moveStylesInHeadInput");
 const loadDeferredImagesInput = document.getElementById("loadDeferredImagesInput");
@@ -626,6 +628,7 @@ githubBranchLabel.textContent = browser.i18n.getMessage("optionGitHubBranch");
 saveWithCompanionLabel.textContent = browser.i18n.getMessage("optionSaveWithCompanion");
 compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
 insertTextBodyLabel.textContent = browser.i18n.getMessage("optionInsertTextBody");
+insertEmbeddedImageLabel.textContent = browser.i18n.getMessage("optionInsertEmbeddedImage");
 compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
 moveStylesInHeadLabel.textContent = browser.i18n.getMessage("optionMoveStylesInHead");
 loadDeferredImagesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImages");
@@ -985,6 +988,8 @@ async function refresh(profileName) {
 	passwordInput.disabled = !profileOptions.compressContent;
 	insertTextBodyInput.checked = profileOptions.insertTextBody;
 	insertTextBodyInput.disabled = !profileOptions.compressContent || (!profileOptions.selfExtractingArchive && !profileOptions.extractDataFromPage);
+	insertEmbeddedImageInput.checked = profileOptions.insertEmbeddedImage;
+	insertEmbeddedImageInput.disabled = !profileOptions.compressContent;
 	infobarTemplateInput.value = profileOptions.infobarTemplate;
 	blockMixedContentInput.checked = profileOptions.blockMixedContent;
 	saveOriginalURLsInput.checked = profileOptions.saveOriginalURLs;
@@ -1053,6 +1058,7 @@ async function update() {
 			saveWithCompanion: saveWithCompanionInput.checked,
 			compressHTML: compressHTMLInput.checked,
 			insertTextBody: insertTextBodyInput.checked,
+			insertEmbeddedImage: insertEmbeddedImageInput.checked,
 			compressCSS: compressCSSInput.checked,
 			moveStylesInHead: moveStylesInHeadInput.checked,
 			loadDeferredImages: loadDeferredImagesInput.checked,

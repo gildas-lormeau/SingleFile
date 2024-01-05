@@ -26,7 +26,7 @@
 import * as download from "./../common/download.js";
 import { fetch, frameFetch } from "./../../lib/single-file/fetch/content/content-fetch.js";
 import * as ui from "./../../ui/content/content-ui.js";
-import { onError } from "./../../ui/common/content-error.js";
+import { onError, getOpenFileBar, openFile } from "./../../ui/common/common-content-ui.js";
 import * as yabson from "./../../lib/yabson/yabson.js";
 
 const singlefile = globalThis.singlefile;
@@ -34,7 +34,7 @@ const bootstrap = globalThis.singlefileBootstrap;
 
 const MOZ_EXTENSION_PROTOCOL = "moz-extension:";
 
-let processor, processing, downloadParser;
+let processor, processing, downloadParser, openFileInfobar;
 
 if (!bootstrap || !bootstrap.initializedSingleFile) {
 	singlefile.init({ fetch, frameFetch });
@@ -60,6 +60,10 @@ async function onMessage(message) {
 			if (processor) {
 				processor.cancel();
 				ui.onEndPage();
+				if (openFileInfobar) {
+					openFileInfobar.cancel();
+					openFileInfobar = null;
+				}
 				browser.runtime.sendMessage({ method: "ui.processCancelled" });
 			}
 			if (message.options.loadDeferredImages) {
@@ -188,7 +192,22 @@ async function processPage(options) {
 		}
 	};
 	const cancelProcessor = processor.cancel.bind(processor);
-	if (!options.saveRawPage) {
+	if (options.insertEmbeddedImage) {
+		ui.onInsertingEmbeddedImage(options);
+		openFileInfobar = getOpenFileBar();
+		const cancelled = await openFileInfobar.display();
+		if (cancelled) {
+			browser.runtime.sendMessage({ method: "downloads.cancel", taskId: options.taskId });
+		} else {
+			const embeddedImage = await openFile({ accept: "image/*" });
+			if (embeddedImage) {
+				options.embeddedImage = Array.from(embeddedImage);
+			}
+			openFileInfobar.hide();
+			ui.onInsertEmbeddedImage(options);
+		}
+	}
+	if (!options.saveRawPage && !processor.cancelled) {
 		let lazyLoadPromise;
 		if (options.loadDeferredImages) {
 			lazyLoadPromise = singlefile.processors.lazy.process(options);
@@ -231,7 +250,7 @@ async function processPage(options) {
 			preInitializationPromises.push(lazyLoadPromise);
 		}
 	}
-	if (!options.loadDeferredImagesBeforeFrames) {
+	if (!options.loadDeferredImagesBeforeFrames && !processor.cancelled) {
 		[options.frames] = await new Promise(resolve => {
 			const preInitializationAllPromises = Promise.all(preInitializationPromises);
 			processor.cancel = function () {
