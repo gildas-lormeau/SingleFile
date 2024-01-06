@@ -744,7 +744,7 @@
 		"description": "Label 'Frame contents' in the log panel"
 	},
 	"logPanelEmbeddedImage": {
-		"message": "Embedded image",
+		"message": "Встроенное изображение",
 		"description": "Label 'Embedded image' in the log panel"
 	},
 	"logPanelStep": {
@@ -756,11 +756,11 @@
 		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
 	},
 	"topPanelError": {
-		"message": "SingleFile error: ",
+		"message": "Ошибка SingleFile: ",
 		"description": "Label 'SingleFile error: ' in the top panel when displaying an error message"
 	},
 	"topPanelEmbeddedImageButton": {
-		"message": "Open image...",
+		"message": "Открыть изображение...",
 		"description": "Top panel button 'Open image...' when embedding an image"
 	},
 	"profileDefaultSettings": {
