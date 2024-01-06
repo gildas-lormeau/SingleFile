@@ -300,7 +300,7 @@
 		"description": "Options page label: 'make text searchable'"
 	},
 	"optionInsertEmbeddedImage": {
-		"message": "insert embedded image",
+		"message": "вставить встроенное изображение",
 		"description": "Options page label: 'insert embedded image'"
 	},
 	"optionsInfobarSubTitle": {
