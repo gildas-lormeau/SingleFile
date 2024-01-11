@@ -196,9 +196,7 @@ async function processPage(options) {
 		ui.onInsertingEmbeddedImage(options);
 		openFileInfobar = getOpenFileBar();
 		const cancelled = await openFileInfobar.display();
-		if (cancelled) {
-			browser.runtime.sendMessage({ method: "downloads.cancel", taskId: options.taskId });
-		} else {
+		if (!cancelled) {
 			const embeddedImage = await openFile({ accept: "image/*" });
 			if (embeddedImage) {
 				options.embeddedImage = Array.from(embeddedImage);
