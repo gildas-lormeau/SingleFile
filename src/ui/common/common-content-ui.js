@@ -220,7 +220,7 @@ function displayBar(tagName, message, { link, buttonLabel, buttonOnclick } = {})
 					barElement.remove();
 				}
 			};
-			document.body.appendChild(barElement);
+			document.documentElement.appendChild(barElement);
 		}
 	} catch (error) {
 		// iignored
