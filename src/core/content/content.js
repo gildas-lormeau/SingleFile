@@ -199,8 +199,8 @@ async function processPage(options) {
 		if (!cancelled) {
 			options.embeddedImage = await openFile({ accept: "image/*" });
 			openFileInfobar.hide();
-			ui.onInsertEmbeddedImage(options);
 		}
+		ui.onInsertEmbeddedImage(options);
 	}
 	if (!options.saveRawPage && !processor.cancelled) {
 		let lazyLoadPromise;
