@@ -83,7 +83,7 @@ function openFile({ accept } = { accept: "image/*" }) {
 				fileReader.addEventListener("load", async () => {
 					let mimeType = file.type;
 					if (mimeType == "image/png") {
-						resolve(new Uint8Array(fileReader.result));
+						resolve(Array.from(new Uint8Array(fileReader.result)));
 					} else {
 						const dataURI = await new Promise(resolve => {
 							const fileReader = new FileReader();
@@ -101,14 +101,13 @@ function openFile({ accept } = { accept: "image/*" }) {
 							context.drawImage(image, 0, 0);
 							const blob = await canvas.convertToBlob({ type: "image/png" });
 							const fileReader = new FileReader();
-							fileReader.addEventListener("load", () => resolve(new Uint8Array(fileReader.result)));
+							fileReader.addEventListener("load", () => resolve(Array.from(new Uint8Array(fileReader.result))));
 							fileReader.addEventListener("error", () => resolve());
 							fileReader.readAsArrayBuffer(blob);
 						} else {
 							resolve();
 						}
 					}
-					resolve(Array.from(new Uint8Array(fileReader.result)));
 				});
 				fileReader.addEventListener("error", () => resolve());
 				fileReader.readAsArrayBuffer(file);
