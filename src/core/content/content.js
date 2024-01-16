@@ -197,10 +197,7 @@ async function processPage(options) {
 		openFileInfobar = getOpenFileBar();
 		const cancelled = await openFileInfobar.display();
 		if (!cancelled) {
-			const embeddedImage = await openFile({ accept: "image/*" });
-			if (embeddedImage) {
-				options.embeddedImage = Array.from(embeddedImage);
-			}
+			options.embeddedImage = await openFile({ accept: "image/*" });
 			openFileInfobar.hide();
 			ui.onInsertEmbeddedImage(options);
 		}

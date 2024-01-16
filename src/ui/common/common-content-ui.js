@@ -82,7 +82,7 @@ function openFile({ accept } = { accept: "image/*" }) {
 				let mimeType = file.type;
 				if (mimeType == "image/png") {
 					const fileReader = new FileReader();
-					fileReader.addEventListener("load", async () => resolve(Array.from(new Uint8Array(fileReader.result))));
+					fileReader.addEventListener("load", async () => resolve(new Uint8Array(fileReader.result)));
 					fileReader.addEventListener("error", () => resolve());
 					fileReader.readAsArrayBuffer(file);
 				} else {
@@ -103,7 +103,7 @@ function openFile({ accept } = { accept: "image/*" }) {
 						context.drawImage(imageBitmap, 0, 0);
 						const blob = await canvas.convertToBlob({ type: "image/png" });
 						const fileReader = new FileReader();
-						fileReader.addEventListener("load", () => resolve(Array.from(new Uint8Array(fileReader.result))));
+						fileReader.addEventListener("load", () => resolve(new Uint8Array(fileReader.result)));
 						fileReader.addEventListener("error", () => resolve());
 						fileReader.readAsArrayBuffer(blob);
 					} else {
