@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, globalThis, getComputedStyle, FileReader, Image, OffscreenCanvas */
+/* global browser, document, globalThis, getComputedStyle, FileReader, Image, OffscreenCanvas, createImageBitmap */
 
 const singlefile = globalThis.singlefile;
 
@@ -76,41 +76,40 @@ function openFile({ accept } = { accept: "image/*" }) {
 	inputElement.accept = accept;
 	inputElement.click();
 	return new Promise(resolve => {
-		inputElement.addEventListener("change", event => {
+		inputElement.addEventListener("change", async event => {
 			if (event.target.files.length) {
 				const file = event.target.files[0];
-				const fileReader = new FileReader();
-				fileReader.addEventListener("load", async () => {
-					let mimeType = file.type;
-					if (mimeType == "image/png") {
-						resolve(Array.from(new Uint8Array(fileReader.result)));
+				let mimeType = file.type;
+				if (mimeType == "image/png") {
+					const fileReader = new FileReader();
+					fileReader.addEventListener("load", async () => resolve(Array.from(new Uint8Array(fileReader.result))));
+					fileReader.addEventListener("error", () => resolve());
+					fileReader.readAsArrayBuffer(file);
+				} else {
+					const dataURI = await new Promise(resolve => {
+						const fileReader = new FileReader();
+						fileReader.addEventListener("load", () => resolve(fileReader.result));
+						fileReader.addEventListener("error", () => resolve());
+						fileReader.readAsDataURL(file);
+					});
+					if (dataURI) {
+						const imageBitmap = await createImageBitmap(file);
+						const image = new Image();
+						image.src = dataURI;
+						image.addEventListener("error", () => resolve());
+						await new Promise(resolve => image.addEventListener("load", resolve));
+						const canvas = new OffscreenCanvas(image.width, image.height);
+						const context = canvas.getContext("2d");
+						context.drawImage(imageBitmap, 0, 0);
+						const blob = await canvas.convertToBlob({ type: "image/png" });
+						const fileReader = new FileReader();
+						fileReader.addEventListener("load", () => resolve(Array.from(new Uint8Array(fileReader.result))));
+						fileReader.addEventListener("error", () => resolve());
+						fileReader.readAsArrayBuffer(blob);
 					} else {
-						const dataURI = await new Promise(resolve => {
-							const fileReader = new FileReader();
-							fileReader.addEventListener("load", () => resolve(fileReader.result));
-							fileReader.addEventListener("error", () => resolve());
-							fileReader.readAsDataURL(file);
-						});
-						if (dataURI) {
-							const image = new Image();
-							image.src = dataURI;
-							image.addEventListener("error", () => resolve());
-							await new Promise(resolve => image.addEventListener("load", resolve));
-							const canvas = new OffscreenCanvas(image.width, image.height);
-							const context = canvas.getContext("2d");
-							context.drawImage(image, 0, 0);
-							const blob = await canvas.convertToBlob({ type: "image/png" });
-							const fileReader = new FileReader();
-							fileReader.addEventListener("load", () => resolve(Array.from(new Uint8Array(fileReader.result))));
-							fileReader.addEventListener("error", () => resolve());
-							fileReader.readAsArrayBuffer(blob);
-						} else {
-							resolve();
-						}
+						resolve();
 					}
-				});
-				fileReader.addEventListener("error", () => resolve());
-				fileReader.readAsArrayBuffer(file);
+				}
 			} else {
 				resolve();
 			}
