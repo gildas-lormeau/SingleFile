@@ -32,7 +32,6 @@ export {
 };
 
 async function downloadPage(pageData, options) {
-	debugger;
 	if (options.includeBOM) {
 		pageData.content = "\ufeff" + pageData.content;
 	}
