@@ -354,7 +354,7 @@ async function serializeString(data, string) {
 
 async function serializeTypedArray(data, array) {
 	await serializeValue(data, array.length);
-	await data.append(array instanceof Uint8Array ? array : new Uint8Array(array.buffer));
+	await data.append(array.constructor.name == "Uint8Array" ? array : new Uint8Array(array.buffer));
 }
 
 async function serializeArrayBuffer(data, arrayBuffer) {
@@ -852,43 +852,43 @@ function testString(value) {
 }
 
 function testFloat64Array(value) {
-	return value instanceof Float64Array;
+	return value.constructor.name == "Float64Array";
 }
 
 function testUint32Array(value) {
-	return value instanceof Uint32Array;
+	return value.constructor.name == "Uint32Array";
 }
 
 function testInt32Array(value) {
-	return value instanceof Int32Array;
+	return value.constructor.name == "Int32Array";
 }
 
 function testUint16Array(value) {
-	return value instanceof Uint16Array;
+	return value.constructor.name == "Uint16Array";
 }
 
 function testFloat32Array(value) {
-	return value instanceof Float32Array;
+	return value.constructor.name == "Float32Array";
 }
 
 function testInt16Array(value) {
-	return value instanceof Int16Array;
+	return value.constructor.name == "Int16Array";
 }
 
 function testUint8ClampedArray(value) {
-	return value instanceof Uint8ClampedArray;
+	return value.constructor.name == "Uint8ClampedArray";
 }
 
 function testUint8Array(value) {
-	return value instanceof Uint8Array;
+	return value.constructor.name == "Uint8Array";
 }
 
 function testInt8Array(value) {
-	return value instanceof Int8Array;
+	return value.constructor.name == "Int8Array";
 }
 
 function testArrayBuffer(value) {
-	return value instanceof ArrayBuffer;
+	return value.constructor.name == "ArrayBuffer";
 }
 
 function testNumber(value) {
