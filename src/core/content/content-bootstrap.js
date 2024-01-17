@@ -349,11 +349,14 @@ async function openEditor(document) {
 
 async function extractEmbeddedImage(content) {
 	if (content[0] == 0x89 && content[1] == 0x50 && content[2] == 0x4E && content[3] == 0x47) {
-		let blob = new Blob([content], { type: "image/png" });
+		let blob = new Blob([new Uint8Array(content)], { type: "image/png" });
 		const blobURI = URL.createObjectURL(blob);
 		const image = new Image();
 		image.src = blobURI;
-		await new Promise(resolve => image.onload = resolve);
+		await new Promise((resolve, reject) => {
+			image.onload = resolve;
+			image.onerror = reject;
+		});
 		const canvas = new OffscreenCanvas(image.width, image.height);
 		const context = canvas.getContext("2d");
 		context.drawImage(image, 0, 0);
