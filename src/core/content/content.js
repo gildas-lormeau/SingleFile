@@ -192,7 +192,7 @@ async function processPage(options) {
 		}
 	};
 	const cancelProcessor = processor.cancel.bind(processor);
-	if (options.insertEmbeddedImage) {
+	if (options.insertEmbeddedImage && options.compressContent) {
 		ui.onInsertingEmbeddedImage(options);
 		openFileInfobar = getOpenFileBar();
 		const cancelled = await openFileInfobar.display();
