@@ -112,10 +112,10 @@ async function onMessage(message, sender) {
 			const updateTabProperties = { url: EDITOR_PAGE_URL };
 			await browser.tabs.update(tab.id, updateTabProperties);
 			const content = message.compressContent ? contents.flat() : contents.join("");
-			tabsData.set(tab.id, { 
-				url: tab.url, 
-				content, 
-				filename: message.filename, 
+			tabsData.set(tab.id, {
+				url: tab.url,
+				content,
+				filename: message.filename,
 				compressContent: message.compressContent,
 				selfExtractingArchive: message.selfExtractingArchive,
 				extractDataFromPageTags: message.extractDataFromPageTags,
