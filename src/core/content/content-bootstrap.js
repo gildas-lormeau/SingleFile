@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, globalThis, document, location, setTimeout, XMLHttpRequest, Node, DOMParser */
+/* global browser, globalThis, document, location, setTimeout, XMLHttpRequest, Node, DOMParser, Blob, URL, Image, OffscreenCanvas */
 
 const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 
@@ -340,9 +340,26 @@ async function openEditor(document) {
 				message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
 			}
 		} else {
+			message.embeddedImage = await extractEmbeddedImage(content);
 			message.content = content instanceof Uint8Array ? Array.from(content) : content;
 		}
 		await browser.runtime.sendMessage(message);
+	}
+}
+
+async function extractEmbeddedImage(content) {
+	if (content[0] == 0x89 && content[1] == 0x50 && content[2] == 0x4E && content[3] == 0x47) {
+		let blob = new Blob([content], { type: "image/png" });
+		const blobURI = URL.createObjectURL(blob);
+		const image = new Image();
+		image.src = blobURI;
+		await new Promise(resolve => image.onload = resolve);
+		const canvas = new OffscreenCanvas(image.width, image.height);
+		const context = canvas.getContext("2d");
+		context.drawImage(image, 0, 0);
+		blob = await canvas.convertToBlob({ type: "image/png" });
+		const arrayBuffer = await blob.arrayBuffer();
+		return Array.from(new Uint8Array(arrayBuffer));
 	}
 }
 

@@ -85,6 +85,7 @@ async function onMessage(message, sender) {
 					}
 				} else {
 					message.content = content;
+					options.embeddedImage = tabData.embeddedImage;
 					message.options = options;
 				}
 				await browser.tabs.sendMessage(tab.id, message);
