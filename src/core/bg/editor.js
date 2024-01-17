@@ -45,11 +45,11 @@ async function open({ tabIndex, content, filename, compressContent, selfExtracti
 		createTabProperties.index = tabIndex;
 	}
 	const tab = await browser.tabs.create(createTabProperties);
-	tabsData.set(tab.id, { 
-		content, 
-		filename, 
-		compressContent, 
-		selfExtractingArchive, 
+	tabsData.set(tab.id, {
+		content,
+		filename,
+		compressContent,
+		selfExtractingArchive,
 		extractDataFromPage,
 		insertTextBody,
 		embeddedImage
