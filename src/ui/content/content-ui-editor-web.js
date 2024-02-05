@@ -2061,7 +2061,7 @@ pre code {
 			element.textContent = element.getAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
 			element.removeAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME);
 		});
-		doc.querySelectorAll("." + MASK_CLASS + ", " + singlefile.helper.INFOBAR_TAGNAME + ", ." + REMOVED_CONTENT_CLASS).forEach(maskElement => maskElement.remove());
+		doc.querySelectorAll("." + MASK_CLASS + ", " + singlefile.helper.INFOBAR_TAGNAME + ", ." + REMOVED_CONTENT_CLASS).forEach(element => element.remove());
 		if (includeInfobar) {
 			singlefile.helper.appendInfobar(doc, singlefile.helper.extractInfobarData(doc));
 		}
