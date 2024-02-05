@@ -47,6 +47,7 @@
 	const MASK_CLASS = "single-file-mask";
 	const PAGE_MASK_CONTAINER_CLASS = "single-file-page-mask";
 	const HIGHLIGHT_CLASS = "single-file-highlight";
+	const HIGHLIGHTS_STYLESHEET_CLASS = "single-file-highlights-stylesheet";
 	const REMOVED_CONTENT_CLASS = "single-file-removed";
 	const HIGHLIGHT_HIDDEN_CLASS = "single-file-highlight-hidden";
 	const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
@@ -1243,7 +1244,7 @@ pre code {
 				document.querySelectorAll("[data-single-file-note-refs]").forEach(noteRefElement => noteRefElement.dataset.singleFileNoteRefs = noteRefElement.dataset.singleFileNoteRefs.replace(/,/g, " "));
 				deserializeShadowRoots(document);
 				document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
-				document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
+				insertHighlightStylesheet(document);
 				maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 				maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
 				document.documentElement.onmousedown = onMouseDown;
@@ -1285,7 +1286,7 @@ pre code {
 		await waitResourcesLoad();
 		reflowNotes();
 		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
-		document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
+		insertHighlightStylesheet(document);
 		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
 		document.documentElement.onmousedown = onMouseDown;
@@ -2025,7 +2026,7 @@ pre code {
 				element.setAttribute("href", href.substring(document.baseURI.length));
 			}
 		});
-		document.documentElement.appendChild(getStyleElement(HIGHLIGHTS_WEB_STYLESHEET));
+		insertHighlightStylesheet(document);
 		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
 		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
 		reflowNotes();
@@ -2045,6 +2046,14 @@ pre code {
 			document.body.contentEditable = contentEditable;
 			onUpdate(false);
 			previousContent = null;
+		}
+	}
+
+	function insertHighlightStylesheet(doc) {
+		if (!doc.querySelector("." + HIGHLIGHTS_STYLESHEET_CLASS)) {
+			const styleheetHighlights = getStyleElement(HIGHLIGHTS_WEB_STYLESHEET);
+			styleheetHighlights.classList.add(HIGHLIGHTS_STYLESHEET_CLASS);
+			doc.documentElement.appendChild(styleheetHighlights);
 		}
 	}
 
