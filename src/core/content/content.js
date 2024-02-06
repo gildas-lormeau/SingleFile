@@ -150,9 +150,6 @@ async function processPage(options) {
 	const frames = singlefile.processors.frameTree;
 	let framesSessionId;
 	options.keepFilename = options.saveToGDrive || options.saveToGitHub || options.saveWithWebDAV || options.saveToDropbox;
-	if (options.delayBeforeProcessing) {
-		await new Promise(resolve => setTimeout(resolve, options.delayBeforeProcessing * 1000));
-	}
 	singlefile.helper.initDoc(document);
 	ui.onStartPage(options);
 	processor = new singlefile.SingleFile(options);
@@ -257,6 +254,9 @@ async function processPage(options) {
 			};
 			preInitializationAllPromises.then(() => resolve(preInitializationAllPromises));
 		});
+	}
+	if (options.delayBeforeProcessing) {
+		await new Promise(resolve => setTimeout(resolve, options.delayBeforeProcessing * 1000));
 	}
 	framesSessionId = options.frames && options.frames.sessionId;
 	const selectedFrame = options.frames && options.frames.find(frameData => frameData.requestedFrame);
