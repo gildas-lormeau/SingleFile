@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, globalThis, location, URL, Blob, MouseEvent */
+/* global browser, document, globalThis, location, URL, Blob, MouseEvent, setTimeout */
 
 import * as download from "./../common/download.js";
 import { fetch, frameFetch } from "./../../lib/single-file/fetch/content/content-fetch.js";
@@ -150,6 +150,9 @@ async function processPage(options) {
 	const frames = singlefile.processors.frameTree;
 	let framesSessionId;
 	options.keepFilename = options.saveToGDrive || options.saveToGitHub || options.saveWithWebDAV || options.saveToDropbox;
+	if (options.delayBeforeProcessing) {
+		await new Promise(resolve => setTimeout(resolve, options.delayBeforeProcessing * 1000));
+	}
 	singlefile.helper.initDoc(document);
 	ui.onStartPage(options);
 	processor = new singlefile.SingleFile(options);
