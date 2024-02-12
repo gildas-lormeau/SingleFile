@@ -28,7 +28,7 @@ const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 const singlefile = globalThis.singlefileBootstrap;
 const pendingResponses = new Map();
 
-let unloadListenerAdded, optionsAutoSave, tabId, tabIndex, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved, previousLocationHref, savedPageDetected, compressContent, extractDataFromPageTags, insertTextBody;
+let unloadListenerAdded, optionsAutoSave, tabId, tabIndex, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved, previousLocationHref, savedPageDetected, compressContent, extractDataFromPageTags, insertTextBody, insertMetaCSP;
 singlefile.pageInfo = {
 	updatedResources: {},
 	visitDate: new Date()
@@ -329,6 +329,7 @@ async function openEditor(document) {
 			compressContent,
 			extractDataFromPageTags,
 			insertTextBody,
+			insertMetaCSP,
 			selfExtractingArchive: compressContent
 		};
 		message.truncated = content.length > MAX_CONTENT_SIZE;
@@ -373,6 +374,7 @@ function detectSavedPage(document) {
 		compressContent = document.documentElement.dataset.sfz == "";
 		extractDataFromPageTags = Boolean(document.querySelector("sfz-extra-data"));
 		insertTextBody = Boolean(document.querySelector("body > main[hidden]"));
+		insertMetaCSP = Boolean(document.querySelector("meta[http-equiv=content-security-policy]"));
 		savedPageDetected = compressContent || (
 			firstDocumentChild.nodeType == Node.COMMENT_NODE &&
 			(firstDocumentChild.textContent.includes(helper.COMMENT_HEADER) || firstDocumentChild.textContent.includes(helper.COMMENT_HEADER_LEGACY)));

@@ -288,6 +288,9 @@ addEventListener("message", event => {
 			if (tabData.embeddedImage !== undefined) {
 				tabData.options.embeddedImage = tabData.embeddedImage;
 			}
+			if (tabData.insertMetaCSP !== undefined) {
+				tabData.options.insertMetaCSP = tabData.insertMetaCSP;
+			}
 			getContentPageData(tabData.content, message.content, { password: tabData.options.password })
 				.then(pageData => {
 					pageData.content = message.content;
