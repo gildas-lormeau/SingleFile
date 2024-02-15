@@ -1190,9 +1190,9 @@ pre code {
 				const iconElement = origContentDocument.querySelector("link[rel*=icon]");
 				if (iconElement) {
 					const iconResource = resources.find(resource => resource.filename == iconElement.getAttribute("href"));
-					if (iconResource && iconResource.blob) {
+					if (iconResource && iconResource.content) {
 						const reader = new FileReader();
-						reader.readAsDataURL(iconResource.blob);
+						reader.readAsDataURL(await (await fetch(iconResource.content)).blob());
 						icon = await new Promise((resolve, reject) => {
 							reader.addEventListener("load", () => resolve(reader.result), false);
 							reader.addEventListener("error", reject, false);
