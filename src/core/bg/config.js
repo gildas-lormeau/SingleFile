@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, navigator, URL, Blob */
+/* global browser, navigator, URL, Blob, File */
 
 import { download } from "./download-util.js";
 import * as tabsData from "./tabs-data.js";
@@ -44,6 +44,7 @@ const IDENTITY_API_SUPPORTED = IS_NOT_SAFARI;
 const CLIPBOARD_API_SUPPORTED = IS_NOT_SAFARI;
 const NATIVE_API_API_SUPPORTED = IS_NOT_SAFARI;
 const WEB_BLOCKING_API_SUPPORTED = IS_NOT_SAFARI;
+const SHARE_API_SUPPORTED = navigator.canShare && navigator.canShare({ files: [new File([new Blob([""], { type: "text/html" })], "test.html")] });
 
 const DEFAULT_CONFIG = {
 	removeHiddenElements: true,
@@ -113,6 +114,7 @@ const DEFAULT_CONFIG = {
 	githubRepository: "SingleFile-Archives",
 	githubBranch: "main",
 	saveWithCompanion: false,
+	sharePage: false,
 	forceWebAuthFlow: false,
 	resolveFragmentIdentifierURLs: false,
 	userScriptEnabled: false,
@@ -216,6 +218,7 @@ export {
 	CLIPBOARD_API_SUPPORTED,
 	NATIVE_API_API_SUPPORTED,
 	WEB_BLOCKING_API_SUPPORTED,
+	SHARE_API_SUPPORTED,
 	getConfig as get,
 	getRule,
 	getOptions,
@@ -364,7 +367,8 @@ async function onMessage(message) {
 			IDENTITY_API_SUPPORTED,
 			CLIPBOARD_API_SUPPORTED,
 			NATIVE_API_API_SUPPORTED,
-			WEB_BLOCKING_API_SUPPORTED
+			WEB_BLOCKING_API_SUPPORTED,
+			SHARE_API_SUPPORTED
 		};
 	}
 	if (message.method.endsWith(".getRules")) {

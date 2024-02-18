@@ -21,14 +21,33 @@
  *   Source.
  */
 
-/* global browser, document, URL, Blob, MouseEvent, setTimeout, open */
+/* global browser, document, URL, Blob, MouseEvent, setTimeout, open, navigator, File */
 
 import * as yabson from "./../../lib/yabson/yabson.js";
+import { getSharePageBar, setLabels } from "./../../ui/common/common-content-ui.js";
 
 const MAX_CONTENT_SIZE = 16 * (1024 * 1024);
 
+let EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE;
+
+try {
+	EMBEDDED_IMAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelEmbeddedImageButton");
+	SHARE_PAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelSharePageButton");
+	ERROR_TITLE_MESSAGE = browser.i18n.getMessage("topPanelError");
+} catch (error) {
+	// ignored
+}
+
+let sharePageBar;
+setLabels({
+	EMBEDDED_IMAGE_BUTTON_MESSAGE,
+	SHARE_PAGE_BUTTON_MESSAGE,
+	ERROR_TITLE_MESSAGE
+});
+
 export {
-	downloadPage
+	downloadPage,
+	downloadPageForeground
 };
 
 async function downloadPage(pageData, options) {
@@ -78,7 +97,8 @@ async function downloadPage(pageData, options) {
 		insertMetaCSP: options.insertMetaCSP,
 		password: options.password,
 		compressContent: options.compressContent,
-		foregroundSave: options.foregroundSave
+		foregroundSave: options.foregroundSave,
+		sharePage: options.sharePage
 	};
 	if (options.compressContent) {
 		const blob = new Blob([await yabson.serialize(pageData)], { type: "application/octet-stream" });
@@ -110,7 +130,7 @@ async function downloadPage(pageData, options) {
 			await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId });
 		}
 	} else {
-		if (options.backgroundSave || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox) {
+		if ((options.backgroundSave && !options.sharePage) || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox) {
 			const blobURL = URL.createObjectURL(new Blob([pageData.content], { type: "text/html" }));
 			message.blobURL = blobURL;
 			const result = await browser.runtime.sendMessage(message);
@@ -132,7 +152,7 @@ async function downloadPage(pageData, options) {
 			if (options.saveToClipboard) {
 				saveToClipboard(pageData);
 			} else {
-				await downloadPageForeground(pageData);
+				await downloadPageForeground(pageData, options);
 			}
 			if (options.openSavedPage) {
 				open(URL.createObjectURL(new Blob([pageData.content], { type: "text/html" })));
@@ -143,15 +163,37 @@ async function downloadPage(pageData, options) {
 	}
 }
 
-async function downloadPageForeground(pageData) {
-	if (pageData.filename && pageData.filename.length) {
-		const link = document.createElement("a");
-		link.download = pageData.filename;
-		link.href = URL.createObjectURL(new Blob([pageData.content], { type: "text/html" }));
-		link.dispatchEvent(new MouseEvent("click"));
-		setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+async function downloadPageForeground(pageData, options) {
+	if (options.sharePage && navigator.share) {
+		await sharePage(pageData);
+	} else {
+		if (pageData.filename && pageData.filename.length) {
+			const link = document.createElement("a");
+			link.download = pageData.filename;
+			link.href = URL.createObjectURL(new Blob([pageData.content], { type: "text/html" }));
+			link.dispatchEvent(new MouseEvent("click"));
+			return new Promise(resolve => setTimeout(() => { URL.revokeObjectURL(link.href); resolve(); }, 1000));
+		}
 	}
-	return new Promise(resolve => setTimeout(resolve, 1));
+}
+
+async function sharePage(pageData) {
+	sharePageBar = getSharePageBar();
+	const cancelled = await sharePageBar.display();
+	if (!cancelled) {
+		const data = { files: [new File([pageData.content], pageData.filename)] };
+		try {
+			await navigator.share(data);
+			sharePageBar.hide();
+		} catch (error) {
+			sharePageBar.hide();
+			if (error.name === "AbortError") {
+				await sharePage(pageData);
+			} else {
+				throw error;
+			}
+		}
+	}
 }
 
 function saveToClipboard(page) {

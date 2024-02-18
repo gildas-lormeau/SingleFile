@@ -250,7 +250,7 @@ async function downloadCompressedContent(message, tab) {
 	const tabId = tab.id;
 	try {
 		let skipped;
-		if (message.backgroundSave && !message.saveToGDrive && !message.saveToDropbox && !message.saveWithWebDAV && !message.saveToGitHub) {
+		if (message.backgroundSave && !message.saveToGDrive && !message.saveToDropbox && !message.saveWithWebDAV && !message.saveToGitHub && !message.sharePage) {
 			const testSkip = await testSkipSave(message.filename, message);
 			message.filenameConflictAction = testSkip.filenameConflictAction;
 			skipped = testSkip.skipped;
@@ -288,8 +288,14 @@ async function downloadCompressedContent(message, tab) {
 					insertMetaCSP: message.insertMetaCSP,
 					embeddedImage: message.embeddedImage
 				});
-			} else if (message.foregroundSave) {
-				await downloadPageForeground(message.taskId, message.filename, blob, tabId, message.foregroundSave);
+			} else if (message.foregroundSave || !message.backgroundSave || message.sharePage) {
+				const response = await downloadPageForeground(message.taskId, message.filename, blob, tabId, {
+					foregroundSave: true,
+					sharePage: message.sharePage
+				});
+				if (response.error) {
+					throw new Error(response.error);
+				}
 			} else if (message.saveWithWebDAV) {
 				response = await saveWithWebDAV(message.taskId, encodeSharpCharacter(message.filename), blob, message.webDAVURL, message.webDAVUser, message.webDAVPassword, { filenameConflictAction: message.filenameConflictAction, prompt });
 			} else if (message.saveToGDrive) {
@@ -313,20 +319,16 @@ async function downloadCompressedContent(message, tab) {
 				});
 				await response.pushPromise;
 			} else {
-				if (message.backgroundSave) {
-					message.url = URL.createObjectURL(blob);
-					response = await downloadPage(message, {
-						confirmFilename: message.confirmFilename,
-						incognito: tab.incognito,
-						filenameConflictAction: message.filenameConflictAction,
-						filenameReplacementCharacter: message.filenameReplacementCharacter,
-						bookmarkId: message.bookmarkId,
-						replaceBookmarkURL: message.replaceBookmarkURL,
-						includeInfobar: message.includeInfobar
-					});
-				} else {
-					await downloadPageForeground(message.taskId, message.filename, blob, tabId);
-				}
+				message.url = URL.createObjectURL(blob);
+				response = await downloadPage(message, {
+					confirmFilename: message.confirmFilename,
+					incognito: tab.incognito,
+					filenameConflictAction: message.filenameConflictAction,
+					filenameReplacementCharacter: message.filenameReplacementCharacter,
+					bookmarkId: message.bookmarkId,
+					replaceBookmarkURL: message.replaceBookmarkURL,
+					includeInfobar: message.includeInfobar
+				});
 			}
 			if (message.bookmarkId && message.replaceBookmarkURL && response && response.url) {
 				await bookmarks.update(message.bookmarkId, { url: response.url });
@@ -544,13 +546,13 @@ function saveToClipboard(pageData) {
 	}
 }
 
-async function downloadPageForeground(taskId, filename, content, tabId, foregroundSave) {
-	const serializer = yabson.getSerializer({ filename, taskId, foregroundSave, content: await content.arrayBuffer() });
+async function downloadPageForeground(taskId, filename, content, tabId, { foregroundSave, sharePage }) {
+	const serializer = yabson.getSerializer({ filename, taskId, foregroundSave, sharePage, content: await content.arrayBuffer() });
 	for await (const data of serializer) {
 		await browser.tabs.sendMessage(tabId, {
 			method: "content.download",
 			data: Array.from(data)
 		});
 	}
-	await browser.tabs.sendMessage(tabId, { method: "content.download" });
+	return browser.tabs.sendMessage(tabId, { method: "content.download" });
 }

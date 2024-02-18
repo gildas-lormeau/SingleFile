@@ -36,7 +36,8 @@ let DEFAULT_PROFILE_NAME,
 	IDENTITY_API_SUPPORTED,
 	CLIPBOARD_API_SUPPORTED,
 	NATIVE_API_API_SUPPORTED,
-	WEB_BLOCKING_API_SUPPORTED;
+	WEB_BLOCKING_API_SUPPORTED,
+	SHARE_API_SUPPORTED;
 browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
 	({
 		DEFAULT_PROFILE_NAME,
@@ -50,7 +51,8 @@ browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
 		IDENTITY_API_SUPPORTED,
 		CLIPBOARD_API_SUPPORTED,
 		NATIVE_API_API_SUPPORTED,
-		WEB_BLOCKING_API_SUPPORTED
+		WEB_BLOCKING_API_SUPPORTED,
+		SHARE_API_SUPPORTED
 	} = data);
 	init();
 });
@@ -75,6 +77,7 @@ const saveRawPageLabel = document.getElementById("saveRawPageLabel");
 const insertMetaCSPLabel = document.getElementById("insertMetaCSPLabel");
 const saveToClipboardLabel = document.getElementById("saveToClipboardLabel");
 const saveToFilesystemLabel = document.getElementById("saveToFilesystemLabel");
+const sharePageLabel = document.getElementById("sharePageLabel");
 const addProofLabel = document.getElementById("addProofLabel");
 const woleetKeyLabel = document.getElementById("woleetKeyLabel");
 const saveToGDriveLabel = document.getElementById("saveToGDriveLabel");
@@ -228,6 +231,7 @@ const githubUserInput = document.getElementById("githubUserInput");
 const githubRepositoryInput = document.getElementById("githubRepositoryInput");
 const githubBranchInput = document.getElementById("githubBranchInput");
 const saveWithCompanionInput = document.getElementById("saveWithCompanionInput");
+const sharePageInput = document.getElementById("sharePageInput");
 const saveToFilesystemInput = document.getElementById("saveToFilesystemInput");
 const compressHTMLInput = document.getElementById("compressHTMLInput");
 const insertTextBodyInput = document.getElementById("insertTextBodyInput");
@@ -528,6 +532,7 @@ saveWithCompanionInput.addEventListener("click", () => disableDestinationPermiss
 saveToGDriveInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"], false), false);
 saveToDropboxInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"], true, false), false);
 saveWithWebDAVInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"]), false);
+sharePageInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"]), false);
 saveCreatedBookmarksInput.addEventListener("click", saveCreatedBookmarks, false);
 passReferrerOnErrorInput.addEventListener("click", passReferrerOnError, false);
 autoSaveExternalSaveInput.addEventListener("click", () => enableExternalSave(autoSaveExternalSaveInput), false);
@@ -612,6 +617,7 @@ saveRawPageLabel.textContent = browser.i18n.getMessage("optionSaveRawPage");
 insertMetaCSPLabel.textContent = browser.i18n.getMessage("optionInsertMetaCSP");
 saveToClipboardLabel.textContent = browser.i18n.getMessage("optionSaveToClipboard");
 saveToFilesystemLabel.textContent = browser.i18n.getMessage("optionSaveToFilesystem");
+sharePageLabel.textContent = browser.i18n.getMessage("optionSharePage");
 addProofLabel.textContent = browser.i18n.getMessage("optionAddProof");
 woleetKeyLabel.textContent = browser.i18n.getMessage("optionWoleetKey");
 saveToGDriveLabel.textContent = browser.i18n.getMessage("optionSaveToGDrive");
@@ -785,6 +791,9 @@ function init() {
 	if (!WEB_BLOCKING_API_SUPPORTED) {
 		document.getElementById("passReferrerOnErrorOption").hidden = true;
 	}
+	if (!SHARE_API_SUPPORTED) {
+		document.getElementById("sharePageOption").hidden = true;
+	}
 }
 
 async function refresh(profileName) {
@@ -921,7 +930,8 @@ async function refresh(profileName) {
 	githubBranchInput.value = profileOptions.githubBranch;
 	githubBranchInput.disabled = !profileOptions.saveToGitHub;
 	saveWithCompanionInput.checked = profileOptions.saveWithCompanion;
-	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveWithCompanion && !profileOptions.saveToClipboard && !profileOptions.saveWithWebDAV && !profileOptions.saveToDropbox;
+	sharePageInput.checked = profileOptions.sharePage;
+	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveWithCompanion && !profileOptions.saveToClipboard && !profileOptions.saveWithWebDAV && !profileOptions.saveToDropbox && !profileOptions.sharePage;
 	compressHTMLInput.checked = profileOptions.compressHTML;
 	compressCSSInput.checked = profileOptions.compressCSS;
 	moveStylesInHeadInput.checked = profileOptions.moveStylesInHead;
@@ -1056,6 +1066,7 @@ async function update() {
 			githubRepository: githubRepositoryInput.value,
 			githubBranch: githubBranchInput.value,
 			saveWithCompanion: saveWithCompanionInput.checked,
+			sharePage: sharePageInput.checked,
 			compressHTML: compressHTMLInput.checked,
 			insertTextBody: insertTextBodyInput.checked,
 			insertEmbeddedImage: insertEmbeddedImageInput.checked,

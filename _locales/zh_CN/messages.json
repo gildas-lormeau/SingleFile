@@ -615,6 +615,10 @@
 		"message": "保存到文件系统",
 		"description": "Options page label: 'save to filesystem'"
 	},
+	"optionSharePage": {
+		"message": "分享页面",
+		"description": "Options page label: 'share page'"
+	},
 	"optionAddProof": {
 		"message": "添加证明文件存在的指纹",
 		"description": "Options page label: 'add proof of existence'"
@@ -762,6 +766,10 @@
 	"topPanelEmbeddedImageButton": {
 		"message": "打开图片...",
 		"description": "Top panel button 'Open image...' when embedding an image"
+	},
+	"topPanelSharePageButton": {
+		"message": "分享页面...",
+		"description": "Top panel button 'Share page...' when sharing a page"
 	},
 	"profileDefaultSettings": {
 		"message": "默认设置",

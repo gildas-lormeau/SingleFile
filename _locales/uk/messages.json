@@ -615,6 +615,10 @@
 		"message": "збереження у файлову систему",
 		"description": "Options page label: 'save to filesystem'"
 	},
+	"optionSharePage": {
+		"message": "поділитися сторінкою",
+		"description": "Options page label: 'share page'"
+	},
 	"optionAddProof": {
 		"message": "додати докази існування",
 		"description": "Options page label: 'add proof of existence'"
@@ -762,6 +766,10 @@
 	"topPanelEmbeddedImageButton": {
 		"message": "Відкрити зображення..",
 		"description": "Top panel button 'Open image...' when embedding an image"
+	},
+	"topPanelSharePageButton": {
+		"message": "Поділитися сторінкою...",
+		"description": "Top panel button 'Share page...' when sharing a page"
 	},
 	"profileDefaultSettings": {
 		"message": "Типові налаштування",

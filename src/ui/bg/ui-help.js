@@ -32,6 +32,7 @@ let BACKGROUND_SAVE_SUPPORTED,
 	CLIPBOARD_API_SUPPORTED,
 	NATIVE_API_API_SUPPORTED,
 	WEB_BLOCKING_API_SUPPORTED,
+	SHARE_API_SUPPORTED,
 	SELECTABLE_TABS_SUPPORTED;
 browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
 	({
@@ -44,6 +45,7 @@ browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
 		CLIPBOARD_API_SUPPORTED,
 		NATIVE_API_API_SUPPORTED,
 		WEB_BLOCKING_API_SUPPORTED,
+		SHARE_API_SUPPORTED,
 		SELECTABLE_TABS_SUPPORTED
 	} = data);
 	init();
@@ -84,6 +86,9 @@ function init() {
 	}
 	if (!WEB_BLOCKING_API_SUPPORTED) {
 		document.getElementById("passReferrerOnErrorOption").hidden = true;
+	}
+	if (!SHARE_API_SUPPORTED) {
+		document.getElementById("sharePageOption").hidden = true;
 	}
 	if (!SELECTABLE_TABS_SUPPORTED) {
 		document.getElementById("selectableTabsMenu").hidden = true;

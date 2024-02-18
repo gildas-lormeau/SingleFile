@@ -615,6 +615,10 @@
 		"message": "ファイルシステムに保存する",
 		"description": "Options page label: 'save to filesystem'"
 	},
+	"optionSharePage": {
+		"message": "ページを共有する",
+		"description": "Options page label: 'share page'"
+	},
 	"optionAddProof": {
 		"message": "ブロックチェーン証明を追加する",
 		"description": "Options page label: 'add proof of existence'"
@@ -762,6 +766,10 @@
 	"topPanelEmbeddedImageButton": {
 		"message": "画像を開く...",
 		"description": "Top panel button 'Open image...' when embedding an image"
+	},
+	"topPanelSharePageButton": {
+		"message": "ページを共有...",
+		"description": "Top panel button 'Share page...' when sharing a page"
 	},
 	"profileDefaultSettings": {
 		"message": "デフォルトの設定",

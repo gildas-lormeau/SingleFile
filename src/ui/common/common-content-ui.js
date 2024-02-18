@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, globalThis, getComputedStyle, FileReader, Image, OffscreenCanvas, createImageBitmap */
+/* global document, globalThis, getComputedStyle, FileReader, Image, OffscreenCanvas, createImageBitmap */
 
 const singlefile = globalThis.singlefile;
 
@@ -30,16 +30,22 @@ const CLOSE_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAA
 const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CLASS;
 const ERROR_BAR_TAGNAME = "singlefile-error-bar";
 const OPEN_FILE_BAR_TAGNAME = "singlefile-open-file-bar";
-const EMBEDDED_IMAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelEmbeddedImageButton");
-const ERROR_TITLE_MESSAGE = browser.i18n.getMessage("topPanelError");
+const SHARE_PAGE_BAR_TAGNAME = "singlefile-share-page-bar";
+let EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE;
 
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
 
 export {
+	setLabels,
 	openFile,
 	getOpenFileBar,
+	getSharePageBar,
 	onError
 };
+
+function setLabels(labels) {
+	({ EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE } = labels);
+}
 
 function onError(message, link) {
 	console.error("SingleFile", message, link); // eslint-disable-line no-console
@@ -57,6 +63,30 @@ function getOpenFileBar() {
 		},
 		hide: function () {
 			const barElement = document.querySelector(OPEN_FILE_BAR_TAGNAME);
+			if (barElement) {
+				barElement.remove();
+			}
+		},
+		cancel: function () {
+			this.hide();
+			if (resolvePromise) {
+				resolvePromise(true);
+			}
+		}
+	};
+}
+
+function getSharePageBar() {
+	let resolvePromise;
+	return {
+		display: async function () {
+			return new Promise(resolve => {
+				resolvePromise = resolve;
+				displayBar(SHARE_PAGE_BAR_TAGNAME, "", { buttonLabel: SHARE_PAGE_BUTTON_MESSAGE, buttonOnclick: resolve });
+			});
+		},
+		hide: function () {
+			const barElement = document.querySelector(SHARE_PAGE_BAR_TAGNAME);
 			if (barElement) {
 				barElement.remove();
 			}
@@ -143,8 +173,9 @@ function displayBar(tagName, message, { link, buttonLabel, buttonOnclick } = {})
 					padding: 2px;
 					font-family: Arial;
 				}
-				.singlefile-open-file-bar.container {
-					background-color: whitesmoke;
+				.singlefile-open-file-bar.container, .singlefile-share-page-bar.container {
+					background-color: gainsboro;
+					border-block-end: gray 1px solid;
 				}
 				.text {
 					flex: 1;
@@ -172,7 +203,10 @@ function displayBar(tagName, message, { link, buttonLabel, buttonOnclick } = {})
 					font-size: .8rem;
 					align-self: center;
 				}
-				.singlefile-open-file-bar .close-button {
+				.singlefile-open-file-bar button, .singlefile-share-page-bar button{
+					background-color: dimgrey;
+				}
+				.singlefile-open-file-bar .close-button, .singlefile-share-page-bar .close-button{
 					filter: invert(1);
 				}
 				a {
