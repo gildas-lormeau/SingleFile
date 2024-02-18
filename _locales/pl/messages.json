@@ -616,7 +616,7 @@
 		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionSharePage": {
-		"message": "share page",
+		"message": "udostępnij stronę",
 		"description": "Options page label: 'share page'"
 	},
 	"optionAddProof": {
@@ -768,7 +768,7 @@
 		"description": "Top panel button 'Open image...' when embedding an image"
 	},
 	"topPanelSharePageButton": {
-		"message": "Share page...",
+		"message": "Udostępnij stronę...",
 		"description": "Top panel button 'Share page...' when sharing a page"
 	},
 	"profileDefaultSettings": {
