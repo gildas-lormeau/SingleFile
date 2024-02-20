@@ -772,7 +772,7 @@
 		"description": "Top panel button 'Share page...' when sharing a page"
 	},
 	"topPanelShareSelectionButton": {
-		"message": "Share selection...",
+		"message": "Udostępnij wybór...",
 		"description": "Top panel button 'Share selection...' when sharing selected content"
 	},
 	"profileDefaultSettings": {
