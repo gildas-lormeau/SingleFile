@@ -34,7 +34,8 @@ const bootstrap = globalThis.singlefileBootstrap;
 
 const MOZ_EXTENSION_PROTOCOL = "moz-extension:";
 const EMBEDDED_IMAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelEmbeddedImageButton");
-const SHARE_PAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelSharePageButton"); browser.i18n.getMessage("topPanelSharePageButton");
+const SHARE_PAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelSharePageButton");
+const SHARE_SELECTION_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelShareSelectionButton");
 const ERROR_TITLE_MESSAGE = browser.i18n.getMessage("topPanelError");
 
 let processor, processing, downloadParser, openFileInfobar;
@@ -42,6 +43,7 @@ let processor, processing, downloadParser, openFileInfobar;
 setLabels({
 	EMBEDDED_IMAGE_BUTTON_MESSAGE,
 	SHARE_PAGE_BUTTON_MESSAGE,
+	SHARE_SELECTION_BUTTON_MESSAGE,
 	ERROR_TITLE_MESSAGE
 });
 

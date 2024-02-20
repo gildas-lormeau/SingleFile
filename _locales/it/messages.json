@@ -771,6 +771,10 @@
 		"message": "Condividi pagina...",
 		"description": "Top panel button 'Share page...' when sharing a page"
 	},
+	"topPanelShareSelectionButton": {
+		"message": "Condividi selezione...",
+		"description": "Top panel button 'Share selection...' when sharing selected content"
+	},
 	"profileDefaultSettings": {
 		"message": "Impostazioni predefinite",
 		"description": "Label 'Default settings' of the default settings in the options page"

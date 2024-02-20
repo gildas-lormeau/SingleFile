@@ -771,6 +771,10 @@
 		"message": "分享页面...",
 		"description": "Top panel button 'Share page...' when sharing a page"
 	},
+	"topPanelShareSelectionButton": {
+		"message": "分享所选内容...",
+		"description": "Top panel button 'Share selection...' when sharing selected content"
+	},
 	"profileDefaultSettings": {
 		"message": "默认设置",
 		"description": "Label 'Default settings' of the default settings in the options page"

@@ -30,6 +30,7 @@ import * as yabson from "./../../lib/yabson/yabson.js";
 
 const EMBEDDED_IMAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelEmbeddedImageButton");
 const SHARE_PAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelSharePageButton");
+const SHARE_SELECTION_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelShareSelectionButton");
 const ERROR_TITLE_MESSAGE = browser.i18n.getMessage("topPanelError");
 
 const FOREGROUND_SAVE = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent) && !/Vivaldi/.test(navigator.userAgent) && !/OPR/.test(navigator.userAgent);
@@ -533,6 +534,7 @@ function savePage() {
 		labels: {
 			EMBEDDED_IMAGE_BUTTON_MESSAGE,
 			SHARE_PAGE_BUTTON_MESSAGE,
+			SHARE_SELECTION_BUTTON_MESSAGE,
 			ERROR_TITLE_MESSAGE
 		}
 	}), "*");

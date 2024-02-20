@@ -771,6 +771,10 @@
 		"message": "Поділитися сторінкою...",
 		"description": "Top panel button 'Share page...' when sharing a page"
 	},
+	"topPanelShareSelectionButton": {
+		"message": "Seite teilen...",
+		"description": "Top panel button 'Share selection...' when sharing selected content"
+	},
 	"profileDefaultSettings": {
 		"message": "Типові налаштування",
 		"description": "Label 'Default settings' of the default settings in the options page"

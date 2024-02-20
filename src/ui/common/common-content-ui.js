@@ -31,7 +31,7 @@ const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CL
 const ERROR_BAR_TAGNAME = "singlefile-error-bar";
 const OPEN_FILE_BAR_TAGNAME = "singlefile-open-file-bar";
 const SHARE_PAGE_BAR_TAGNAME = "singlefile-share-page-bar";
-let EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE;
+let EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, SHARE_SELECTION_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE;
 
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
 
@@ -44,7 +44,7 @@ export {
 };
 
 function setLabels(labels) {
-	({ EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE } = labels);
+	({ EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, SHARE_SELECTION_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE } = labels);
 }
 
 function onError(message, link) {
@@ -79,10 +79,13 @@ function getOpenFileBar() {
 function getSharePageBar() {
 	let resolvePromise;
 	return {
-		display: async function () {
+		display: async function (selectedContent) {
 			return new Promise(resolve => {
 				resolvePromise = resolve;
-				displayBar(SHARE_PAGE_BAR_TAGNAME, "", { buttonLabel: SHARE_PAGE_BUTTON_MESSAGE, buttonOnclick: resolve });
+				displayBar(SHARE_PAGE_BAR_TAGNAME, "", {
+					buttonLabel: selectedContent ? SHARE_SELECTION_BUTTON_MESSAGE : SHARE_PAGE_BUTTON_MESSAGE,
+					buttonOnclick: resolve
+				});
 			});
 		},
 		hide: function () {

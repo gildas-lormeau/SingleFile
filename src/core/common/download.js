@@ -28,11 +28,12 @@ import { getSharePageBar, setLabels } from "./../../ui/common/common-content-ui.
 
 const MAX_CONTENT_SIZE = 16 * (1024 * 1024);
 
-let EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE;
+let EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, SHARE_SELECTION_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE;
 
 try {
 	EMBEDDED_IMAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelEmbeddedImageButton");
 	SHARE_PAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelSharePageButton");
+	SHARE_SELECTION_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelShareSelectionButton");
 	ERROR_TITLE_MESSAGE = browser.i18n.getMessage("topPanelError");
 } catch (error) {
 	// ignored
@@ -42,6 +43,7 @@ let sharePageBar;
 setLabels({
 	EMBEDDED_IMAGE_BUTTON_MESSAGE,
 	SHARE_PAGE_BUTTON_MESSAGE,
+	SHARE_SELECTION_BUTTON_MESSAGE,
 	ERROR_TITLE_MESSAGE
 });
 
@@ -165,7 +167,7 @@ async function downloadPage(pageData, options) {
 
 async function downloadPageForeground(pageData, options) {
 	if (options.sharePage && navigator.share) {
-		await sharePage(pageData);
+		await sharePage(pageData, options);
 	} else {
 		if (pageData.filename && pageData.filename.length) {
 			const link = document.createElement("a");
@@ -177,9 +179,9 @@ async function downloadPageForeground(pageData, options) {
 	}
 }
 
-async function sharePage(pageData) {
+async function sharePage(pageData, options) {
 	sharePageBar = getSharePageBar();
-	const cancelled = await sharePageBar.display();
+	const cancelled = await sharePageBar.display(options.selected);
 	if (!cancelled) {
 		const data = { files: [new File([pageData.content], pageData.filename)] };
 		try {
@@ -188,7 +190,7 @@ async function sharePage(pageData) {
 		} catch (error) {
 			sharePageBar.hide();
 			if (error.name === "AbortError") {
-				await sharePage(pageData);
+				await sharePage(pageData, options);
 			} else {
 				throw error;
 			}

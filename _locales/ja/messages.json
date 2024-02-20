@@ -771,6 +771,10 @@
 		"message": "ページを共有...",
 		"description": "Top panel button 'Share page...' when sharing a page"
 	},
+	"topPanelShareSelectionButton": {
+		"message": "選択したコンテンツを共有...",
+		"description": "Top panel button 'Share selection...' when sharing selected content"
+	},
 	"profileDefaultSettings": {
 		"message": "デフォルトの設定",
 		"description": "Label 'Default settings' of the default settings in the options page"
