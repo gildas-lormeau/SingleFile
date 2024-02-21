@@ -288,7 +288,7 @@
 		"description": "Options page label: 'password'"
 	},
 	"optionCreateRootDirectory": {
-		"message": "создавать корневую папку",
+		"message": "создать корневую папку",
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionPreventAppendedData": {
@@ -616,7 +616,7 @@
 		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionSharePage": {
-		"message": "share page",
+		"message": "поделиться страницей",
 		"description": "Options page label: 'share page'"
 	},
 	"optionAddProof": {
@@ -768,11 +768,11 @@
 		"description": "Top panel button 'Open image...' when embedding an image"
 	},
 	"topPanelSharePageButton": {
-		"message": "Share page...",
+		"message": "Поделиться страницей...",
 		"description": "Top panel button 'Share page...' when sharing a page"
 	},
 	"topPanelShareSelectionButton": {
-		"message": "Share selection...",
+		"message": "Поделиться выделенным...",
 		"description": "Top panel button 'Share selection...' when sharing selected content"
 	},
 	"profileDefaultSettings": {
