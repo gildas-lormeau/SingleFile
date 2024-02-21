@@ -169,13 +169,13 @@ async function saveContent(message, tab) {
 					options.filenameConflictAction = testSkip.filenameConflictAction;
 				}
 				if (!skipped) {
-					let { content } = pageData;
+					let { content, mimeType: type } = pageData;
 					if (options.compressContent) {
-						content = new Blob([new Uint8Array(content)], { type: "text/html" });
+						content = new Blob([new Uint8Array(content)], { type });
 					}
 					if (options.saveToGDrive) {
 						if (!(content instanceof Blob)) {
-							content = new Blob([content], { type: "text/html" });
+							content = new Blob([content], { type });
 						}
 						await downloads.saveToGDrive(message.taskId, downloads.encodeSharpCharacter(pageData.filename), content, options, {
 							forceWebAuthFlow: options.forceWebAuthFlow
@@ -184,7 +184,7 @@ async function saveContent(message, tab) {
 						});
 					} if (options.saveToDropbox) {
 						if (!(content instanceof Blob)) {
-							content = new Blob([content], { type: "text/html" });
+							content = new Blob([content], { type });
 						}
 						await downloads.saveToDropbox(message.taskId, downloads.encodeSharpCharacter(pageData.filename), content, {
 							filenameConflictAction: options.filenameConflictAction
@@ -205,7 +205,7 @@ async function saveContent(message, tab) {
 						});
 					} else {
 						if (!(content instanceof Blob)) {
-							content = new Blob([content], { type: "text/html" });
+							content = new Blob([content], { type });
 						}
 						pageData.url = URL.createObjectURL(content);
 						await downloads.downloadPage(pageData, options);

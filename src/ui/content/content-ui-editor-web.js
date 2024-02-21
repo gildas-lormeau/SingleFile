@@ -1109,7 +1109,11 @@ pre code {
 				} else {
 					if (message.foregroundSave || message.sharePage) {
 						try {
-							await downloadPageForeground({ content, filename: filename || message.filename }, { sharePage: message.sharePage });
+							await downloadPageForeground({
+								content,
+								filename: filename || message.filename,
+								mimeType: "text/html"
+							}, { sharePage: message.sharePage });
 						} catch (error) {
 							console.log(error); // eslint-disable-line no-console
 							window.parent.postMessage(JSON.stringify({ method: "onError", error: error.message }), "*");
@@ -1138,8 +1142,13 @@ pre code {
 				}), "*");
 			}
 			if (message.method == "download") {
+				debugger;
 				try {
-					await downloadPageForeground({ content: message.content, filename: message.filename }, { sharePage: message.sharePage });
+					await downloadPageForeground({
+						content: message.content,
+						filename: message.filename,
+						mimeType: message.mimeType
+					}, { sharePage: message.sharePage });
 				} catch (error) {
 					console.log(error); // eslint-disable-line no-console
 					window.parent.postMessage(JSON.stringify({ method: "onError", error: error.message }), "*");

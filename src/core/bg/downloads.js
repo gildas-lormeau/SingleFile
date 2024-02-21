@@ -40,7 +40,6 @@ import * as yabson from "./../../lib/yabson/yabson.js";
 
 const partialContents = new Map();
 const tabData = new Map();
-const MIMETYPE_HTML = "text/html";
 const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 const CONFLICT_ACTION_SKIP = "skip";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
@@ -130,6 +129,7 @@ async function downloadTabPage(message, tab) {
 		}
 	} else if (message.compressContent) {
 		let blobParts = tabData.get(tabId);
+		const type = message.mimeType;
 		if (!blobParts) {
 			blobParts = [];
 			tabData.set(tabId, blobParts);
@@ -138,7 +138,7 @@ async function downloadTabPage(message, tab) {
 			blobParts.push(new Uint8Array(message.data));
 		} else {
 			tabData.delete(tabId);
-			const message = await yabson.parse(new Uint8Array((await new Blob(blobParts).arrayBuffer())));
+			const message = await yabson.parse(new Uint8Array((await new Blob(blobParts, { type }).arrayBuffer())));
 			await downloadCompressedContent(message, tab);
 		}
 	} else {
@@ -185,7 +185,7 @@ async function downloadContent(contents, tab, incognito, message) {
 			} else if (message.saveWithWebDAV) {
 				response = await saveWithWebDAV(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.webDAVURL, message.webDAVUser, message.webDAVPassword, { filenameConflictAction: message.filenameConflictAction, prompt });
 			} else if (message.saveToGDrive) {
-				await saveToGDrive(message.taskId, encodeSharpCharacter(message.filename), new Blob(contents, { type: MIMETYPE_HTML }), {
+				await saveToGDrive(message.taskId, encodeSharpCharacter(message.filename), new Blob(contents, { type: message.mimeType }), {
 					forceWebAuthFlow: message.forceWebAuthFlow
 				}, {
 					onProgress: (offset, size) => ui.onUploadProgress(tabId, offset, size),
@@ -193,7 +193,7 @@ async function downloadContent(contents, tab, incognito, message) {
 					prompt
 				});
 			} else if (message.saveToDropbox) {
-				await saveToDropbox(message.taskId, encodeSharpCharacter(message.filename), new Blob(contents, { type: MIMETYPE_HTML }), {
+				await saveToDropbox(message.taskId, encodeSharpCharacter(message.filename), new Blob(contents, { type: message.mimeType }), {
 					onProgress: (offset, size) => ui.onUploadProgress(tabId, offset, size),
 					filenameConflictAction: message.filenameConflictAction,
 					prompt
@@ -211,7 +211,7 @@ async function downloadContent(contents, tab, incognito, message) {
 					filenameConflictAction: message.filenameConflictAction
 				});
 			} else {
-				message.url = URL.createObjectURL(new Blob(contents, { type: MIMETYPE_HTML }));
+				message.url = URL.createObjectURL(new Blob(contents, { type: message.mimeType }));
 				response = await downloadPage(message, {
 					confirmFilename: message.confirmFilename,
 					incognito,
@@ -227,7 +227,7 @@ async function downloadContent(contents, tab, incognito, message) {
 			}
 			ui.onEnd(tabId);
 			if (message.openSavedPage && !message.openEditor) {
-				const createTabProperties = { active: true, url: "/src/ui/pages/viewer.html?blobURI=" + URL.createObjectURL(new Blob(contents, { type: MIMETYPE_HTML })), windowId: tab.windowId };
+				const createTabProperties = { active: true, url: "/src/ui/pages/viewer.html?blobURI=" + URL.createObjectURL(new Blob(contents, { type: message.mimeType })), windowId: tab.windowId };
 				if (tab.index != null) {
 					createTabProperties.index = tab.index + 1;
 				}
@@ -289,7 +289,7 @@ async function downloadCompressedContent(message, tab) {
 					embeddedImage: message.embeddedImage
 				});
 			} else if (message.foregroundSave || !message.backgroundSave || message.sharePage) {
-				const response = await downloadPageForeground(message.taskId, message.filename, blob, tabId, {
+				const response = await downloadPageForeground(message.taskId, message.filename, blob, pageData.mimeType, tabId, {
 					foregroundSave: true,
 					sharePage: message.sharePage
 				});
@@ -540,14 +540,21 @@ function saveToClipboard(pageData) {
 	document.removeEventListener(command, listener);
 
 	function listener(event) {
-		event.clipboardData.setData(MIMETYPE_HTML, pageData.content);
+		event.clipboardData.setData(pageData.mimeType, pageData.content);
 		event.clipboardData.setData("text/plain", pageData.content);
 		event.preventDefault();
 	}
 }
 
-async function downloadPageForeground(taskId, filename, content, tabId, { foregroundSave, sharePage }) {
-	const serializer = yabson.getSerializer({ filename, taskId, foregroundSave, sharePage, content: await content.arrayBuffer() });
+async function downloadPageForeground(taskId, filename, content, mimeType, tabId, { foregroundSave, sharePage }) {
+	const serializer = yabson.getSerializer({
+		filename,
+		taskId,
+		foregroundSave,
+		sharePage,
+		content: await content.arrayBuffer(),
+		mimeType
+	});
 	for await (const data of serializer) {
 		await browser.tabs.sendMessage(tabId, {
 			method: "content.download",
