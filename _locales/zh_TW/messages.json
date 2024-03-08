@@ -300,7 +300,7 @@
 		"description": "Options page label: 'make text searchable'"
 	},
 	"optionInsertEmbeddedImage": {
-		"message": "insert embedded image",
+		"message": "嵌入圖像",
 		"description": "Options page label: 'insert embedded image'"
 	},
 	"optionsInfobarSubTitle": {
@@ -748,7 +748,7 @@
 		"description": "Label 'Frame contents' in the log panel"
 	},
 	"logPanelEmbeddedImage": {
-		"message": "嵌入式圖像",
+		"message": "嵌入圖像",
 		"description": "Label 'Embedded image' in the log panel"
 	},
 	"logPanelStep": {
@@ -760,11 +760,11 @@
 		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
 	},
 	"topPanelError": {
-		"message": "SingleFile 錯誤: ",
+		"message": "SingleFile 錯誤：",
 		"description": "Label 'SingleFile error: ' in the top panel when displaying an error message"
 	},
 	"topPanelEmbeddedImageButton": {
-		"message": "開啟圖片...",
+		"message": "打開圖片...",
 		"description": "Top panel button 'Open image...' when embedding an image"
 	},
 	"topPanelSharePageButton": {
@@ -772,7 +772,7 @@
 		"description": "Top panel button 'Share page...' when sharing a page"
 	},
 	"topPanelShareSelectionButton": {
-		"message": "分享所選內容...",
+		"message": "分享選中內容...",
 		"description": "Top panel button 'Share selection...' when sharing selected content"
 	},
 	"profileDefaultSettings": {
