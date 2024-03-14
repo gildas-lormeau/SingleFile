@@ -1142,7 +1142,6 @@ pre code {
 				}), "*");
 			}
 			if (message.method == "download") {
-				debugger;
 				try {
 					await downloadPageForeground({
 						content: message.content,
