@@ -49,7 +49,7 @@ async function onRequest(message, sender) {
 			const response = await fetchResource(message.url, { referrer: message.referrer, headers: message.headers });
 			return sendResponse(sender.tab.id, message.requestId, response);
 		} catch (error) {
-			return sendResponse(sender.tab.id, message.requestId, { error: error.message, arrray: [] });
+			return sendResponse(sender.tab.id, message.requestId, { error: error.message, array: [] });
 		}
 	} else if (message.method == "singlefile.fetchFrame") {
 		return browser.tabs.sendMessage(sender.tab.id, message);
