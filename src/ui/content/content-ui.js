@@ -222,7 +222,19 @@ function markSelectedContent() {
 				}
 			}
 			if (selectionFound && treeWalker.currentNode == range.endContainer && treeWalker.currentNode.querySelectorAll) {
-				treeWalker.currentNode.querySelectorAll("*").forEach(descendantElement => markSelectedNode(descendantElement));
+				for (
+					let offset = range.startContainer === range.endContainer ? range.startOffset : 0;
+					offset < range.endOffset;
+					offset++
+				) {
+					const node = range.endContainer.childNodes[offset];
+					if (node) {
+						markSelectedNode(node);
+						if (node.querySelectorAll) {
+							node.querySelectorAll("*").forEach(markSelectedNode);
+						}
+					}
+				}
 			}
 		}
 	}
