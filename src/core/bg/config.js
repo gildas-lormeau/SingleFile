@@ -640,7 +640,7 @@ async function exportConfig() {
 	const config = await getConfig();
 	const textContent = JSON.stringify({ profiles: config.profiles, rules: config.rules, maxParallelWorkers: config.maxParallelWorkers, processInForeground: config.processInForeground }, null, 2);
 	const filename = `singlefile-settings-${(new Date()).toISOString().replace(/:/g, "_")}.json`;
-	if (IS_NOT_SAFARI) {
+	if (BACKGROUND_SAVE_SUPPORTED) {
 		const url = URL.createObjectURL(new Blob([textContent], { type: "text/json" }));
 		try {
 			await download({
