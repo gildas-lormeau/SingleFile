@@ -300,8 +300,16 @@
 		"description": "Options page label: 'make text searchable'"
 	},
 	"optionInsertEmbeddedImage": {
-		"message": "insert embedded image",
-		"description": "Options page label: 'insert embedded image'"
+		"message": "imagen incrustada",
+		"description": "Options page label: 'embed image'"
+	},
+	"optionInsertEmbeddedScreenshotImage": {
+		"message": "captura de pantalla",
+		"description": "Options page label: 'page screenshot'"
+	},
+	"optionInsertEmbeddedCustomImage": {
+		"message": "imagen personalizada",
+		"description": "Options page label: 'custom image'"
 	},
 	"optionsInfobarSubTitle": {
 		"message": "Barra informativa",

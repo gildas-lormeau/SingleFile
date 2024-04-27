@@ -451,6 +451,15 @@ if (typeof globalThis == "undefined") {
 					addListener: listener => nativeAPI.tabs.onReplaced.addListener(listener),
 					removeListener: listener => nativeAPI.tabs.onReplaced.removeListener(listener)
 				},
+				captureVisibleTab: (windowId, options) => new Promise((resolve, reject) => {
+					nativeAPI.tabs.captureVisibleTab(windowId, options, dataUrl => {
+						if (nativeAPI.runtime.lastError) {
+							reject(nativeAPI.runtime.lastError);
+						} else {
+							resolve(dataUrl);
+						}
+					});
+				}),
 				executeScript: (tabId, details) => new Promise((resolve, reject) => {
 					nativeAPI.tabs.executeScript(tabId, details, () => {
 						if (nativeAPI.runtime.lastError) {

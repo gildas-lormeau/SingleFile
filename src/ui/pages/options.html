@@ -95,7 +95,8 @@
 				<label for="fileFormatSelectInput" id="fileFormatSelectLabel"></label>
 				<select id="fileFormatSelectInput">
 					<option id="fileFormatSelectHTMLLabel" value="html"></option>
-					<option id="fileFormatSelectSelfExtractingUniversalLabel" value="self-extracting-zip-universal"></option>
+					<option id="fileFormatSelectSelfExtractingUniversalLabel" value="self-extracting-zip-universal">
+					</option>
 					<option id="fileFormatSelectSelfExtractingLabel" value="self-extracting-zip"></option>
 					<option id="fileFormatSelectZIPLabel" value="zip"></option>
 				</select>
@@ -117,8 +118,16 @@
 				<input type="checkbox" id="insertTextBodyInput">
 			</div>
 			<div class="option">
-				<label for="insertEmbeddedImageInput" id="insertEmbeddedImageLabel"></label>
-				<input type="checkbox" id="insertEmbeddedImageInput">
+				<label id="insertEmbeddedImageLabel"></label>
+				<input type="checkbox" id="insertEmbeddedImageInput" name="embeddedImageInput">
+			</div>
+			<div class="option second-level">
+				<label for="insertEmbeddedScreenshotImageInput" id="insertEmbeddedScreenshotImageLabel"></label>
+				<input type="radio" id="insertEmbeddedScreenshotImageInput" name="embeddedImageInput">
+			</div>
+			<div class="option second-level">
+				<label for="insertEmbeddedCustomImageInput" id="insertEmbeddedCustomImageLabel"></label>
+				<input type="radio" id="insertEmbeddedCustomImageInput" name="embeddedImageInput">
 			</div>
 		</details>
 		<details>

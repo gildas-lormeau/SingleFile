@@ -300,8 +300,16 @@
 		"description": "Options page label: 'make text searchable'"
 	},
 	"optionInsertEmbeddedImage": {
-		"message": "嵌入圖像",
-		"description": "Options page label: 'insert embedded image'"
+		"message": "嵌入圖片",
+		"description": "Options page label: 'embed image'"
+	},
+	"optionInsertEmbeddedScreenshotImage": {
+		"message": "截圖",
+		"description": "Options page label: 'page screenshot'"
+	},
+	"optionInsertEmbeddedCustomImage": {
+		"message": "自定義圖片",
+		"description": "Options page label: 'custom image'"
 	},
 	"optionsInfobarSubTitle": {
 		"message": "信息欄",

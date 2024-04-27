@@ -54,6 +54,7 @@ export {
 	markSelection,
 	unmarkSelection,
 	promptMessage as prompt,
+	setVisible,
 	onStartPage,
 	onEndPage,
 	onLoadResource,
@@ -73,6 +74,16 @@ export {
 
 function promptMessage(message, defaultValue) {
 	return prompt(message, defaultValue);
+}
+
+function setVisible(visible) {
+	const maskElement = document.querySelector(MASK_TAGNAME);
+	if (maskElement) {
+		maskElement.style.setProperty("display", visible ? "block" : "none");
+	}
+	if (logsWindowElement) {
+		logsWindowElement.style.setProperty("display", visible ? "block" : "none");
+	}
 }
 
 function onStartPage(options) {

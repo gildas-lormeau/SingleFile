@@ -300,8 +300,16 @@
 		"description": "Options page label: 'make text searchable'"
 	},
 	"optionInsertEmbeddedImage": {
-		"message": "wstaw osadzony obraz",
-		"description": "Options page label: 'insert embedded image'"
+		"message": "embed image",
+		"description": "Options page label: 'embed image'"
+	},
+	"optionInsertEmbeddedScreenshotImage": {
+		"message": "page screenshot",
+		"description": "Options page label: 'page screenshot'"
+	},
+	"optionInsertEmbeddedCustomImage": {
+		"message": "custom image",
+		"description": "Options page label: 'custom image'"
 	},
 	"optionsInfobarSubTitle": {
 		"message": "Pasek informacyjny",

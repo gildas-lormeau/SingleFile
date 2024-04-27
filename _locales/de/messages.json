@@ -300,8 +300,16 @@
 		"description": "Options page label: 'make text searchable'"
 	},
 	"optionInsertEmbeddedImage": {
-		"message": "insert embedded image",
-		"description": "Options page label: 'insert embedded image'"
+		"message": "Eingebettetes Bild",
+		"description": "Options page label: 'embed image'"
+	},
+	"optionInsertEmbeddedScreenshotImage": {
+		"message": "Bildschirmfoto",
+		"description": "Options page label: 'page screenshot'"
+	},
+	"optionInsertEmbeddedCustomImage": {
+		"message": "Benutzerdefiniertes Bild",
+		"description": "Options page label: 'custom image'"
 	},
 	"optionsInfobarSubTitle": {
 		"message": "Infoknopf",

@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, setTimeout */
+/* global browser, setTimeout, OffscreenCanvas, Image, URL */
 
 import * as config from "./config.js";
 import * as autosave from "./autosave.js";
@@ -53,6 +53,9 @@ async function onMessage(message, sender) {
 	}
 	if (message.method.endsWith(".activate")) {
 		await browser.tabs.update(message.tabId, { active: true });
+	}
+	if (message.method.endsWith(".getScreenshot")) {
+		return captureTab(sender.tab.id, message);
 	}
 }
 
@@ -107,4 +110,47 @@ function onTabRemoved(tabId) {
 	editor.onTabRemoved(tabId);
 	business.onTabRemoved(tabId);
 	autosave.onTabRemoved(tabId);
+}
+
+async function captureTab(tabId, options) {
+	const { width, height } = options;
+	const canvas = new OffscreenCanvas(width, height);
+	const context = canvas.getContext("2d");
+	const image = new Image();
+	let y = 0, scrollYStep, activeTabId;
+	if (browser.tabs.captureTab) {
+		scrollYStep = 4 * 1024;
+	} else {
+		scrollYStep = options.innerHeight;
+		activeTabId = (await browser.tabs.query({ active: true, currentWindow: true }))[0].id;
+		await browser.tabs.sendMessage(tabId, { method: "content.beginScrollTo" });
+	}
+	while (y < height) {
+		let imageSrc;
+		if (browser.tabs.captureTab) {
+			imageSrc = await browser.tabs.captureTab(tabId, {
+				format: "png",
+				rect: { x: 0, y, width, height: Math.min(height - y, scrollYStep) }
+			});
+		} else {
+			await browser.tabs.sendMessage(tabId, { method: "content.scrollTo", y });
+			await browser.tabs.update(tabId, { active: true });
+			imageSrc = await browser.tabs.captureVisibleTab(null, {
+				format: "png"
+			});
+		}
+		await new Promise((resolve, reject) => {
+			image.onload = resolve;
+			image.onerror = event => reject(new Error(event.detail));
+			image.src = imageSrc;
+		});
+		context.drawImage(image, 0, y, width, Math.min(height - y, scrollYStep));
+		y += scrollYStep;
+	}
+	if (!browser.tabs.captureTab) {
+		await browser.tabs.update(activeTabId, { active: true });
+		await browser.tabs.sendMessage(tabId, { method: "content.endScrollTo" });
+	}
+	const blob = await canvas.convertToBlob({ type: "image/png" });
+	return URL.createObjectURL(blob);
 }

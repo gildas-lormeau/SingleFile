@@ -95,6 +95,8 @@ const saveWithCompanionLabel = document.getElementById("saveWithCompanionLabel")
 const compressHTMLLabel = document.getElementById("compressHTMLLabel");
 const insertTextBodyLabel = document.getElementById("insertTextBodyLabel");
 const insertEmbeddedImageLabel = document.getElementById("insertEmbeddedImageLabel");
+const insertEmbeddedCustomImageLabel = document.getElementById("insertEmbeddedCustomImageLabel");
+const insertEmbeddedScreenshotImageLabel = document.getElementById("insertEmbeddedScreenshotImageLabel");
 const compressCSSLabel = document.getElementById("compressCSSLabel");
 const moveStylesInHeadLabel = document.getElementById("moveStylesInHeadLabel");
 const loadDeferredImagesLabel = document.getElementById("loadDeferredImagesLabel");
@@ -236,6 +238,8 @@ const saveToFilesystemInput = document.getElementById("saveToFilesystemInput");
 const compressHTMLInput = document.getElementById("compressHTMLInput");
 const insertTextBodyInput = document.getElementById("insertTextBodyInput");
 const insertEmbeddedImageInput = document.getElementById("insertEmbeddedImageInput");
+const insertEmbeddedCustomImageInput = document.getElementById("insertEmbeddedCustomImageInput");
+const insertEmbeddedScreenshotImageInput = document.getElementById("insertEmbeddedScreenshotImageInput");
 const compressCSSInput = document.getElementById("compressCSSInput");
 const moveStylesInHeadInput = document.getElementById("moveStylesInHeadInput");
 const loadDeferredImagesInput = document.getElementById("loadDeferredImagesInput");
@@ -559,6 +563,20 @@ synchronizeInput.addEventListener("click", async () => {
 		await refresh();
 	}
 }, false);
+insertEmbeddedImageInput.addEventListener("click", () => {
+	if (insertEmbeddedImageInput.checked) {
+		insertEmbeddedScreenshotImageInput.checked = true;
+	} else {
+		insertEmbeddedScreenshotImageInput.checked = false;
+		insertEmbeddedCustomImageInput.checked = false;
+	}
+}, false);
+fileFormatSelectInput.addEventListener("change", () => {
+	if (fileFormatSelectInput.value == "html") {
+		insertEmbeddedScreenshotImageInput.checked = false;
+		insertEmbeddedCustomImageInput.checked = false;
+	}
+}, false);
 document.body.onchange = async event => {
 	let target = event.target;
 	if (target != ruleUrlInput &&
@@ -635,6 +653,8 @@ saveWithCompanionLabel.textContent = browser.i18n.getMessage("optionSaveWithComp
 compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
 insertTextBodyLabel.textContent = browser.i18n.getMessage("optionInsertTextBody");
 insertEmbeddedImageLabel.textContent = browser.i18n.getMessage("optionInsertEmbeddedImage");
+insertEmbeddedCustomImageLabel.textContent = browser.i18n.getMessage("optionInsertEmbeddedCustomImage");
+insertEmbeddedScreenshotImageLabel.textContent = browser.i18n.getMessage("optionInsertEmbeddedScreenshotImage");
 compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
 moveStylesInHeadLabel.textContent = browser.i18n.getMessage("optionMoveStylesInHead");
 loadDeferredImagesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImages");
@@ -998,7 +1018,11 @@ async function refresh(profileName) {
 	passwordInput.disabled = !profileOptions.compressContent;
 	insertTextBodyInput.checked = profileOptions.insertTextBody;
 	insertTextBodyInput.disabled = !profileOptions.compressContent || (!profileOptions.selfExtractingArchive && !profileOptions.extractDataFromPage);
-	insertEmbeddedImageInput.checked = profileOptions.insertEmbeddedImage;
+	insertEmbeddedCustomImageInput.checked = profileOptions.insertEmbeddedImage;
+	insertEmbeddedCustomImageInput.disabled = !profileOptions.compressContent || (!profileOptions.insertEmbeddedImage && !profileOptions.insertEmbeddedScreenshotImage);
+	insertEmbeddedScreenshotImageInput.checked = profileOptions.insertEmbeddedScreenshotImage;
+	insertEmbeddedScreenshotImageInput.disabled = !profileOptions.compressContent || (!profileOptions.insertEmbeddedImage && !profileOptions.insertEmbeddedScreenshotImage);
+	insertEmbeddedImageInput.checked = profileOptions.compressContent && (profileOptions.insertEmbeddedImage || profileOptions.insertEmbeddedScreenshotImage);
 	insertEmbeddedImageInput.disabled = !profileOptions.compressContent;
 	infobarTemplateInput.value = profileOptions.infobarTemplate;
 	blockMixedContentInput.checked = profileOptions.blockMixedContent;
@@ -1069,7 +1093,8 @@ async function update() {
 			sharePage: sharePageInput.checked,
 			compressHTML: compressHTMLInput.checked,
 			insertTextBody: insertTextBodyInput.checked,
-			insertEmbeddedImage: insertEmbeddedImageInput.checked,
+			insertEmbeddedImage: insertEmbeddedCustomImageInput.checked,
+			insertEmbeddedScreenshotImage: insertEmbeddedScreenshotImageInput.checked,
 			compressCSS: compressCSSInput.checked,
 			moveStylesInHead: moveStylesInHeadInput.checked,
 			loadDeferredImages: loadDeferredImagesInput.checked,
