@@ -246,10 +246,6 @@ async function processPage(options) {
 					if (event.detail.step < 3) {
 						ui.onEndStage(event.detail.step, options);
 					}
-				} else if (event.type == event.STAGE_TASK_STARTED) {
-					ui.onStartStageTask(event.detail.step, event.detail.task);
-				} else if (event.type == event.STAGE_TASK_ENDED) {
-					ui.onEndStageTask(event.detail.step, event.detail.task);
 				}
 			}
 		}
