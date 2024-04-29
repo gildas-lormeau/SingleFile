@@ -225,6 +225,9 @@ Footnotes:
 - Trilium Simple SingleFile Renderer - A plugin to add a new Template note to
   Trilium for render file created by SingleFile:
   https://github.com/xnohat/trilium-simple-singlefile-renderer
+- web document - Browser extension for saving web documents locally, allowing
+  you to access them offline and quickly search for webpage:
+  https://github.com/wvit/web-document
 - Zotero Connector - Browser extension for Zotero, a tool to help you collect,
   organize, cite, and share your research sources:
   https://github.com/zotero/zotero-connectors
