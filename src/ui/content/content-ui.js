@@ -67,9 +67,7 @@ export {
 	onStartStage,
 	onEndStage,
 	onPageLoading,
-	onLoadPage,
-	onStartStageTask,
-	onEndStageTask
+	onLoadPage
 };
 
 function promptMessage(message, defaultValue) {
@@ -151,10 +149,6 @@ function onEndStage(step, options) {
 function onPageLoading() { }
 
 function onLoadPage() { }
-
-function onStartStageTask() { }
-
-function onEndStageTask() { }
 
 function getSelectedLinks() {
 	let selectionFound;
