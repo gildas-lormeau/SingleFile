@@ -300,15 +300,15 @@
 		"description": "Options page label: 'make text searchable'"
 	},
 	"optionInsertEmbeddedImage": {
-		"message": "嵌入图像",
+		"message": "嵌入图片",
 		"description": "Options page label: 'embed image'"
 	},
 	"optionInsertEmbeddedScreenshotImage": {
-		"message": "截图",
+		"message": "网页截图",
 		"description": "Options page label: 'page screenshot'"
 	},
 	"optionInsertEmbeddedCustomImage": {
-		"message": "自定义图像",
+		"message": "自定义图片",
 		"description": "Options page label: 'custom image'"
 	},
 	"optionsInfobarSubTitle": {
@@ -324,7 +324,7 @@
 		"description": "Options page label: 'group duplicate images together'"
 	},
 	"optionLoadDeferredImages": {
-		"message": "保存延迟加载的图像",
+		"message": "保存延迟加载的图片",
 		"description": "Options page label: 'save deferred images'"
 	},
 	"optionLoadDeferredImagesMaxIdleTime": {
@@ -748,7 +748,7 @@
 		"description": "Options button: 'Import'"
 	},
 	"logPanelDeferredImages": {
-		"message": "延迟加载的图像",
+		"message": "延迟加载的图片",
 		"description": "Label 'Deferred images' in the log panel"
 	},
 	"logPanelFrameContents": {
@@ -756,7 +756,7 @@
 		"description": "Label 'Frame contents' in the log panel"
 	},
 	"logPanelEmbeddedImage": {
-		"message": "嵌入图像",
+		"message": "嵌入图片",
 		"description": "Label 'Embedded image' in the log panel"
 	},
 	"logPanelStep": {
