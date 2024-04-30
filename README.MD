@@ -33,7 +33,7 @@ https://user-images.githubusercontent.com/396787/156664907-cc458e35-f41b-45ca-91
 
 ## Install
 
-SingleFile can be installed on:
+SingleFile can be installed from stores of:
 
 - Firefox: https://addons.mozilla.org/firefox/addon/single-file
 - Firefox for Android:
