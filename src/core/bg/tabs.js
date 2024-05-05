@@ -123,8 +123,8 @@ async function captureTab(tabId, options) {
 	} else {
 		scrollYStep = options.innerHeight;
 		activeTabId = (await browser.tabs.query({ active: true, currentWindow: true }))[0].id;
-		await browser.tabs.sendMessage(tabId, { method: "content.beginScrollTo" });
 	}
+	await browser.tabs.sendMessage(tabId, { method: "content.beginScrollTo" });
 	while (y < height) {
 		let imageSrc;
 		if (browser.tabs.captureTab) {
@@ -149,8 +149,8 @@ async function captureTab(tabId, options) {
 	}
 	if (!browser.tabs.captureTab) {
 		await browser.tabs.update(activeTabId, { active: true });
-		await browser.tabs.sendMessage(tabId, { method: "content.endScrollTo" });
 	}
+	await browser.tabs.sendMessage(tabId, { method: "content.endScrollTo" });
 	const blob = await canvas.convertToBlob({ type: "image/png" });
 	return URL.createObjectURL(blob);
 }
