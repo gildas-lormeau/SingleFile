@@ -116,10 +116,8 @@ async function captureTab(tabId, options) {
 	const { width, height, scale = 1 } = options;
 	const canvasWidth = Math.floor(width * scale);
 	const canvasHeight = Math.floor(height * scale);
-	const canvas = new OffscreenCanvas(canvasWidth, canvasHeight);
-	const context = canvas.getContext("2d");
 	const image = new Image();
-	let y = 0, canvasY = 0, scrollYStep, activeTabId;
+	let y = 0, canvas, canvasY = 0, scrollYStep, activeTabId;
 	if (browser.tabs.captureTab) {
 		scrollYStep = 4 * 1024;
 	} else {
@@ -129,6 +127,8 @@ async function captureTab(tabId, options) {
 	const canvasScrollStep = Math.floor(scrollYStep * scale);
 	await browser.tabs.sendMessage(tabId, { method: "content.beginScrollTo" });
 	try {
+		canvas = new OffscreenCanvas(canvasWidth, canvasHeight);
+		const context = canvas.getContext("2d");
 		while (y < height) {
 			let imageSrc;
 			if (browser.tabs.captureTab) {
@@ -166,6 +166,7 @@ async function captureTab(tabId, options) {
 	} finally {
 		await browser.tabs.sendMessage(tabId, { method: "content.endScrollTo" });
 	}
-	const blob = await canvas.convertToBlob({ type: "image/png" });
-	return URL.createObjectURL(blob);
+	if (canvas) {
+		return URL.createObjectURL(await canvas.convertToBlob({ type: "image/png" }));
+	}
 }
