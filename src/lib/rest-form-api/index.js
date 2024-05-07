@@ -23,7 +23,7 @@
  *   Source.
  */
 
-/* global fetch, btoa, Blob, FileReader, AbortController */
+/* global fetch, Blob, AbortController, File, FormData */
 
 const AUTHORIZATION_HEADER = "Authorization";
 const BEARER_PREFIX_AUTHORIZATION = "Bearer ";
@@ -46,30 +46,30 @@ class RestFormApi {
 	async upload(content, url) {
 
 		this.controller = new AbortController();
-		try{
-			const blob = new Blob([content], { type: 'text/html'})
-			const file = new File([blob], "SingleFile.html", { type: 'text/html' });
+		try {
+			const blob = new Blob([content], { type: "text/html" });
+			const file = new File([blob], "SingleFile.html", { type: "text/html" });
 			let formData = new FormData();
-			if(this.fileFieldName){
-				formData.append(this.fileFieldName, file)
+			if (this.fileFieldName) {
+				formData.append(this.fileFieldName, file);
 			}
-			if(this.urlFieldName){
-				formData.append(this.urlFieldName, url)
+			if (this.urlFieldName) {
+				formData.append(this.urlFieldName, url);
 			}
 			const response = await fetch(this.restApiUrl, {
-				method: 'POST',
+				method: "POST",
 				body: formData,
 				headers: this.headers,
 				signal: this.controller.signal
 			});
-			if ([200,201].includes(response.status)) {
+			if ([200, 201].includes(response.status)) {
 				// do something with the data?
 				const data = await response.json();
 			} else {
 				throw new Error(await response.text());
 			}
 		}
-		catch(e){
+		catch (e) {
 			throw new Error(e);
 		}
 	}
