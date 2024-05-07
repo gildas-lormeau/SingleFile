@@ -37,7 +37,7 @@ import { WebDAV } from "./../../lib/webdav/webdav.js";
 import { GitHub } from "./../../lib/github/github.js";
 import { download } from "./download-util.js";
 import * as yabson from "./../../lib/yabson/yabson.js";
-import {RestFormApi} from "../../lib/../lib/rest-form-api/index";
+import { RestFormApi } from "../../lib/../lib/rest-form-api/index.js";
 
 const partialContents = new Map();
 const tabData = new Map();
@@ -330,6 +330,16 @@ async function downloadCompressedContent(message, tab) {
 					prompt
 				});
 				await response.pushPromise;
+			} else if (message.saveToRestFormApi) {
+				response = await saveToRestFormApi(
+					message.taskId,
+					blob,
+					tab.url,
+					message.saveToRestFormApiToken,
+					message.saveToRestFormApiUrl,
+					message.saveToRestFormApiFileFieldName,
+					message.saveToRestFormApiUrlFieldName
+				);
 			} else {
 				message.url = URL.createObjectURL(blob);
 				response = await downloadPage(message, {

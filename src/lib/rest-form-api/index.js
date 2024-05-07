@@ -23,7 +23,7 @@
  *   Source.
  */
 
-/* global fetch, Blob, AbortController, File, FormData */
+/* global fetch, Blob, AbortController, FormData */
 
 const AUTHORIZATION_HEADER = "Authorization";
 const BEARER_PREFIX_AUTHORIZATION = "Bearer ";
@@ -45,11 +45,10 @@ class RestFormApi {
 
 	async upload(content, url) {
 		this.controller = new AbortController();
-		const blob = new Blob([content], { type: "text/html" });
-		const file = new File([blob], "SingleFile.html", { type: "text/html" });
+		const blob = content instanceof Blob ? content : new Blob([content], { type: "text/html" });
 		let formData = new FormData();
 		if (this.fileFieldName) {
-			formData.append(this.fileFieldName, file);
+			formData.append(this.fileFieldName, blob);
 		}
 		if (this.urlFieldName) {
 			formData.append(this.urlFieldName, url);
