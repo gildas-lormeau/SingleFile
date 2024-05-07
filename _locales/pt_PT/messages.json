@@ -980,19 +980,19 @@
 		"description": "Options page label: 'Upload to a REST Form Api'"
 	},
 	"optionRestFormApiUrl": {
-		"message": "Api's URL",
-		"description": "Specify the Url"
+		"message": "URL",
+		"description": "Options page label: 'URL'"
 	},
 	"optionRestFormApiToken": {
-		"message": "Authorization Token",
-		"description": "Provide the auth bearer token"
+		"message": "token de autorização",
+		"description": "Options page label: 'authorization token'"
 	},
 	"optionRestFormApiFileFieldName": {
-		"message": "Field Name of File attribute",
-		"description": "Map the file's field name to your Api's file field name"
+		"message": "nome do campo de dados do arquivo",
+		"description": "Options page label: 'archive data field name'"
 	},
 	"optionRestFormApiUrlFieldName": {
-		"message": "Field Name of Url attribute",
-		"description": "Map the url's field name to your Api's url field name"
+		"message": "nome do campo URL do arquivo",
+		"description": "Options page label: 'archive URL field name'"
 	}
 }
