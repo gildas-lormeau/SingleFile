@@ -331,6 +331,20 @@ const promptCancelButton = document.getElementById("promptCancelButton");
 const promptConfirmButton = document.getElementById("promptConfirmButton");
 const manifest = browser.runtime.getManifest();
 const requestPermissionIdentity = manifest.optional_permissions && manifest.optional_permissions.includes("identity");
+/**
+ * Save to Rest Form Api functionality
+ */
+const saveToRestFormApiLabel = document.getElementById("saveToRestFormApiLabel");
+const saveToRestFormApiUrlLabel = document.getElementById("saveToRestFormApiUrlLabel");
+const saveToRestFormApiFileFieldNameLabel = document.getElementById("saveToRestFormApiFileFieldNameLabel");
+const saveToRestFormApiUrlFieldNameLabel = document.getElementById("saveToRestFormApiUrlFieldNameLabel");
+const saveToRestFormApiTokenLabel = document.getElementById("saveToRestFormApiTokenLabel");
+const saveToRestFormApiInput = document.getElementById("saveToRestFormApiInput");
+const saveToRestFormApiUrlInput = document.getElementById("saveToRestFormApiUrlInput");
+const saveToRestFormApiFileFieldNameInput = document.getElementById("saveToRestFormApiFileFieldNameInput");
+const saveToRestFormApiUrlFieldNameInput = document.getElementById("saveToRestFormApiUrlFieldNameInput");
+const saveToRestFormApiTokenInput = document.getElementById("saveToRestFormApiTokenInput");
+
 
 let sidePanelDisplay;
 if (location.href.endsWith("#side-panel")) {
@@ -536,6 +550,7 @@ saveWithCompanionInput.addEventListener("click", () => disableDestinationPermiss
 saveToGDriveInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"], false), false);
 saveToDropboxInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"], true, false), false);
 saveWithWebDAVInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"]), false);
+saveToRestFormApiInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"]), false);
 sharePageInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"]), false);
 saveCreatedBookmarksInput.addEventListener("click", saveCreatedBookmarks, false);
 passReferrerOnErrorInput.addEventListener("click", passReferrerOnError, false);
@@ -767,6 +782,13 @@ resetCurrentButton.textContent = browser.i18n.getMessage("optionsResetCurrentBut
 resetCancelButton.textContent = promptCancelButton.textContent = cancelButton.textContent = browser.i18n.getMessage("optionsCancelButton");
 confirmButton.textContent = promptConfirmButton.textContent = browser.i18n.getMessage("optionsOKButton");
 document.getElementById("resetConfirmLabel").textContent = browser.i18n.getMessage("optionsResetConfirm");
+saveToRestFormApiLabel.textContent = browser.i18n.getMessage("optionSaveToRestFormApi");
+saveToRestFormApiUrlLabel.textContent = browser.i18n.getMessage("optionRestFormApiUrl");
+saveToRestFormApiFileFieldNameLabel.textContent = browser.i18n.getMessage("optionRestFormApiFileFieldName");
+saveToRestFormApiUrlFieldNameLabel.textContent = browser.i18n.getMessage("optionRestFormApiUrlFieldName");
+saveToRestFormApiTokenLabel.textContent = browser.i18n.getMessage("optionRestFormApiToken");
+
+
 if (location.href.endsWith("#")) {
 	document.querySelector(".new-window-link").remove();
 	document.documentElement.classList.add("maximized");
@@ -1038,6 +1060,18 @@ async function refresh(profileName) {
 	applySystemThemeInput.checked = profileOptions.applySystemTheme;
 	warnUnsavedPageInput.checked = profileOptions.warnUnsavedPage;
 	displayInfobarInEditorInput.checked = profileOptions.displayInfobarInEditor;
+	/**
+	 *	Rest Form Api Feature
+	 */
+    saveToRestFormApiInput.checked = profileOptions.saveToRestFormApi;
+    saveToRestFormApiUrlInput.value = profileOptions.saveToRestFormApiUrl;
+    saveToRestFormApiUrlInput.disabled = !profileOptions.saveToRestFormApi;
+    saveToRestFormApiTokenInput.value = profileOptions.saveToRestFormApiToken;
+    saveToRestFormApiTokenInput.disabled = !profileOptions.saveToRestFormApi;
+    saveToRestFormApiFileFieldNameInput.value = profileOptions.saveToRestFormApiFileFieldName;
+    saveToRestFormApiFileFieldNameInput.disabled = !profileOptions.saveToRestFormApi;
+    saveToRestFormApiUrlFieldNameInput.value = profileOptions.saveToRestFormApiUrlFieldName;
+    saveToRestFormApiUrlFieldNameInput.disabled = !profileOptions.saveToRestFormApi;
 }
 
 function getProfileText(profileName) {
@@ -1155,7 +1189,12 @@ async function update() {
 			defaultEditorMode: defaultEditorModeInput.value,
 			applySystemTheme: applySystemThemeInput.checked,
 			warnUnsavedPage: warnUnsavedPageInput.checked,
-			displayInfobarInEditor: displayInfobarInEditorInput.checked
+			displayInfobarInEditor: displayInfobarInEditorInput.checked,
+			saveToRestFormApi: saveToRestFormApiInput.checked,
+			saveToRestFormApiUrl: saveToRestFormApiUrlInput.value,
+			saveToRestFormApiToken: saveToRestFormApiTokenInput.value,
+			saveToRestFormApiFileFieldName: saveToRestFormApiFileFieldNameInput.value,
+			saveToRestFormApiUrlFieldName: saveToRestFormApiUrlFieldNameInput.value,
 		}
 	});
 	try {
