@@ -854,6 +854,7 @@
 					`{page-title}[10ch]` to limit the title to 10 characters).
 				</p>
 				<ul>
+					<li><code>{navigator-language}</code>: the language of the browser</li>
 					<li><code>{page-title}</code>: the title of the page</li>
 					<li><code>{page-heading}</code>: the content of the H1 tag in the page</li>
 					<li><code>{page-language}</code>: the language of the page</li>
@@ -1098,6 +1099,15 @@
 					<li><code>%page-element-attribute&lt;selector|attribute&gt;</code>: the value of the specified
 						attribute of the first element matching the specified selector (e.g.
 						"%page-element-attribute&lt;h1|class&gt;" for the class attribute of the first H1 element)
+					</li>
+					<li><code>%date-locale&lt;locales&gt;</code>: the localized value of the date and time (e.g.
+						"%date-locale&lt;en-US&gt;" for the date and time in the US English format)
+					</li>
+					<li><code>%time-locale&lt;locales&gt;</code>: the localized value of the time (e.g.
+						"%time-locale&lt;en-US&gt;" for the time in the US English format)
+					</li>
+					<li><code>%datetime-locale&lt;locales&gt;</code>: the localized value of the date and time (e.g.
+						"%datetime-locale&lt;en-US&gt;" for the date and time in the US English format)
 					</li>
 				</ul>
 			</li>

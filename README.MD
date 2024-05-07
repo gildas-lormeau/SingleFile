@@ -212,6 +212,9 @@ Footnotes:
   https://github.com/ArchiveBox/ArchiveBox
 - htmls-to-datasette - Tool to index HTML files into a Sqlite database:
   https://github.com/pjamar/htmls-to-datasette
+- linkding - Bookmark manager that you can host yourself. It's designed be to
+  be minimal, fast, and easy to set up using Docker:
+  https://github.com/sissbruecker/linkding
 - obsidian-html-plugin - Plugin for reading HTML pages in Obsidian:
   https://github.com/nuthrash/obsidian-html-plugin
 - Petal Cite Web Importer - Browser extension to save PDFs and capture web pages
