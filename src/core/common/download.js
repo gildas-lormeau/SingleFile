@@ -101,7 +101,12 @@ async function downloadPage(pageData, options) {
 		password: options.password,
 		compressContent: options.compressContent,
 		foregroundSave: options.foregroundSave,
-		sharePage: options.sharePage
+		sharePage: options.sharePage,
+		saveToRestFormApi: options.saveToRestFormApi,
+		saveToRestFormApiUrl: options.saveToRestFormApiUrl,
+		saveToRestFormApiFileFieldName: options.saveToRestFormApiFileFieldName,
+		saveToRestFormApiUrlFieldName: options.saveToRestFormApiUrlFieldName,
+		saveToRestFormApiToken: options.saveToRestFormApiToken,
 	};
 	if (options.compressContent) {
 		const blob = new Blob([await yabson.serialize(pageData)], { type: pageData.mimeType });
@@ -134,7 +139,7 @@ async function downloadPage(pageData, options) {
 			await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId });
 		}
 	} else {
-		if ((options.backgroundSave && !options.sharePage) || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox) {
+		if ((options.backgroundSave && !options.sharePage) || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi) {
 			const blobURL = URL.createObjectURL(new Blob([pageData.content], { type: pageData.mimeType }));
 			message.blobURL = blobURL;
 			const result = await browser.runtime.sendMessage(message);

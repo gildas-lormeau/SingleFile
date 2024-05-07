@@ -974,5 +974,25 @@
 	"batchSaveUrlsURLTitle": {
 		"message": "URL",
 		"description": "Title of the column in the table of the URLs"
+	},
+	"optionSaveToRestFormApi": {
+		"message": "Upload to a REST Form Api",
+		"description": "Options page label: 'Upload to a REST Form Api'"
+	},
+	"optionRestFormApiUrl": {
+		"message": "Api's URL",
+		"description": "Specify the Url"
+	},
+	"optionRestFormApiToken": {
+		"message": "Authorization Token",
+		"description": "Provide the auth bearer token"
+	},
+	"optionRestFormApiFileFieldName": {
+		"message": "Field Name of File attribute",
+		"description": "Map the file's field name to your Api's file field name"
+	},
+	"optionRestFormApiUrlFieldName": {
+		"message": "Field Name of Url attribute",
+		"description": "Map the url's field name to your Api's url field name"
 	}
 }
