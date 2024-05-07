@@ -976,23 +976,23 @@
 		"description": "Title of the column in the table of the URLs"
 	},
 	"optionSaveToRestFormApi": {
-		"message": "Upload to a REST Form Api",
+		"message": "Prześlij do API formularza REST",
 		"description": "Options page label: 'Upload to a REST Form Api'"
 	},
 	"optionRestFormApiUrl": {
-		"message": "URL",
+		"message": "adres URL",
 		"description": "Options page label: 'URL'"
 	},
 	"optionRestFormApiToken": {
-		"message": "authorization token",
+		"message": "token autoryzacji",
 		"description": "Options page label: 'authorization token'"
 	},
 	"optionRestFormApiFileFieldName": {
-		"message": "archive data field name",
+		"message": "nazwa pola danych archiwum",
 		"description": "Options page label: 'archive data field name'"
 	},
 	"optionRestFormApiUrlFieldName": {
-		"message": "archive URL field name",
+		"message": "nazwa pola adresu URL archiwum",
 		"description": "Options page label: 'archive URL field name'"
 	}
 }
