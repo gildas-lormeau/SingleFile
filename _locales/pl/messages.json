@@ -976,23 +976,23 @@
 		"description": "Title of the column in the table of the URLs"
 	},
 	"optionSaveToRestFormApi": {
-		"message": "Upload to a REST Form Api",
+		"message": "Prześlij do API formularza REST",
 		"description": "Options page label: 'Upload to a REST Form Api'"
 	},
 	"optionRestFormApiUrl": {
-		"message": "Api's URL",
+		"message": "Adres URL API",
 		"description": "Specify the Url"
 	},
 	"optionRestFormApiToken": {
-		"message": "Authorization Token",
+		"message": "Token autoryzacji",
 		"description": "Provide the auth bearer token"
 	},
 	"optionRestFormApiFileFieldName": {
-		"message": "Field Name of File attribute",
+		"message": "Nazwa pola atrybutu pliku",
 		"description": "Map the file's field name to your Api's file field name"
 	},
 	"optionRestFormApiUrlFieldName": {
-		"message": "Field Name of Url attribute",
+		"message": "Nazwa pola atrybutu URL",
 		"description": "Map the url's field name to your Api's url field name"
 	}
 }
