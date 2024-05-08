@@ -976,8 +976,8 @@
 		"description": "Title of the column in the table of the URLs"
 	},
 	"optionSaveToRestFormApi": {
-		"message": "Upload to a REST Form Api",
-		"description": "Options page label: 'Upload to a REST Form Api'"
+		"message": "enviar para um API de formulário REST",
+		"description": "Options page label: 'upload to a REST Form API'"
 	},
 	"optionRestFormApiUrl": {
 		"message": "URL",
