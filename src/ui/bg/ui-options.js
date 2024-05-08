@@ -969,6 +969,15 @@ async function refresh(profileName) {
 	githubBranchInput.value = profileOptions.githubBranch;
 	githubBranchInput.disabled = !profileOptions.saveToGitHub;
 	saveWithCompanionInput.checked = profileOptions.saveWithCompanion;
+	saveToRestFormApiInput.checked = profileOptions.saveToRestFormApi;
+	saveToRestFormApiUrlInput.value = profileOptions.saveToRestFormApiUrl;
+	saveToRestFormApiUrlInput.disabled = !profileOptions.saveToRestFormApi;
+	saveToRestFormApiTokenInput.value = profileOptions.saveToRestFormApiToken;
+	saveToRestFormApiTokenInput.disabled = !profileOptions.saveToRestFormApi;
+	saveToRestFormApiFileFieldNameInput.value = profileOptions.saveToRestFormApiFileFieldName;
+	saveToRestFormApiFileFieldNameInput.disabled = !profileOptions.saveToRestFormApi;
+	saveToRestFormApiUrlFieldNameInput.value = profileOptions.saveToRestFormApiUrlFieldName;
+	saveToRestFormApiUrlFieldNameInput.disabled = !profileOptions.saveToRestFormApi;
 	sharePageInput.checked = profileOptions.sharePage;
 	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveWithCompanion && !profileOptions.saveToClipboard && !profileOptions.saveWithWebDAV && !profileOptions.saveToDropbox && !profileOptions.saveToRestFormApi && !profileOptions.sharePage;
 	compressHTMLInput.checked = profileOptions.compressHTML;
@@ -1057,9 +1066,6 @@ async function refresh(profileName) {
 	applySystemThemeInput.checked = profileOptions.applySystemTheme;
 	warnUnsavedPageInput.checked = profileOptions.warnUnsavedPage;
 	displayInfobarInEditorInput.checked = profileOptions.displayInfobarInEditor;
-	saveToRestFormApiInput.checked = profileOptions.saveToRestFormApi;
-	saveToRestFormApiUrlInput.value = profileOptions.saveToRestFormApiUrl;
-	saveToRestFormApiUrlInput.disabled = !profileOptions.saveToRestFormApi;
 }
 
 function getProfileText(profileName) {
