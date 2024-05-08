@@ -785,7 +785,6 @@ saveToRestFormApiFileFieldNameLabel.textContent = browser.i18n.getMessage("optio
 saveToRestFormApiUrlFieldNameLabel.textContent = browser.i18n.getMessage("optionRestFormApiUrlFieldName");
 saveToRestFormApiTokenLabel.textContent = browser.i18n.getMessage("optionRestFormApiToken");
 
-
 if (location.href.endsWith("#")) {
 	document.querySelector(".new-window-link").remove();
 	document.documentElement.classList.add("maximized");
