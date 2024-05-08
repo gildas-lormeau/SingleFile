@@ -262,7 +262,7 @@ async function downloadCompressedContent(message, tab) {
 	const tabId = tab.id;
 	try {
 		let skipped;
-		if (message.backgroundSave && !message.saveToGDrive && !message.saveToDropbox && !message.saveWithWebDAV && !message.saveToGitHub && !message.sharePage) {
+		if (message.backgroundSave && !message.saveToGDrive && !message.saveToDropbox && !message.saveWithWebDAV && !message.saveToGitHub && !message.saveToRestFormApi && !message.sharePage) {
 			const testSkip = await testSkipSave(message.filename, message);
 			message.filenameConflictAction = testSkip.filenameConflictAction;
 			skipped = testSkip.skipped;
@@ -598,4 +598,3 @@ async function downloadPageForeground(taskId, filename, content, mimeType, tabId
 	}
 	return browser.tabs.sendMessage(tabId, { method: "content.download" });
 }
-
