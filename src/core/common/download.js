@@ -106,7 +106,7 @@ async function downloadPage(pageData, options) {
 		saveToRestFormApiUrl: options.saveToRestFormApiUrl,
 		saveToRestFormApiFileFieldName: options.saveToRestFormApiFileFieldName,
 		saveToRestFormApiUrlFieldName: options.saveToRestFormApiUrlFieldName,
-		saveToRestFormApiToken: options.saveToRestFormApiToken,
+		saveToRestFormApiToken: options.saveToRestFormApiToken
 	};
 	if (options.compressContent) {
 		const blob = new Blob([await yabson.serialize(pageData)], { type: pageData.mimeType });

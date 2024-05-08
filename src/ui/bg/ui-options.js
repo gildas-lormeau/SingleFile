@@ -331,9 +331,6 @@ const promptCancelButton = document.getElementById("promptCancelButton");
 const promptConfirmButton = document.getElementById("promptConfirmButton");
 const manifest = browser.runtime.getManifest();
 const requestPermissionIdentity = manifest.optional_permissions && manifest.optional_permissions.includes("identity");
-/**
- * Save to Rest Form Api functionality
- */
 const saveToRestFormApiLabel = document.getElementById("saveToRestFormApiLabel");
 const saveToRestFormApiUrlLabel = document.getElementById("saveToRestFormApiUrlLabel");
 const saveToRestFormApiFileFieldNameLabel = document.getElementById("saveToRestFormApiFileFieldNameLabel");
@@ -1060,18 +1057,9 @@ async function refresh(profileName) {
 	applySystemThemeInput.checked = profileOptions.applySystemTheme;
 	warnUnsavedPageInput.checked = profileOptions.warnUnsavedPage;
 	displayInfobarInEditorInput.checked = profileOptions.displayInfobarInEditor;
-	/**
-	 *	Rest Form Api Feature
-	 */
-    saveToRestFormApiInput.checked = profileOptions.saveToRestFormApi;
-    saveToRestFormApiUrlInput.value = profileOptions.saveToRestFormApiUrl;
-    saveToRestFormApiUrlInput.disabled = !profileOptions.saveToRestFormApi;
-    saveToRestFormApiTokenInput.value = profileOptions.saveToRestFormApiToken;
-    saveToRestFormApiTokenInput.disabled = !profileOptions.saveToRestFormApi;
-    saveToRestFormApiFileFieldNameInput.value = profileOptions.saveToRestFormApiFileFieldName;
-    saveToRestFormApiFileFieldNameInput.disabled = !profileOptions.saveToRestFormApi;
-    saveToRestFormApiUrlFieldNameInput.value = profileOptions.saveToRestFormApiUrlFieldName;
-    saveToRestFormApiUrlFieldNameInput.disabled = !profileOptions.saveToRestFormApi;
+	saveToRestFormApiInput.checked = profileOptions.saveToRestFormApi;
+	saveToRestFormApiUrlInput.value = profileOptions.saveToRestFormApiUrl;
+	saveToRestFormApiUrlInput.disabled = !profileOptions.saveToRestFormApi;
 }
 
 function getProfileText(profileName) {

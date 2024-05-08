@@ -170,7 +170,7 @@ const DEFAULT_CONFIG = {
 	saveToRestFormApiUrl: "",
 	saveToRestFormApiFileFieldName: "",
 	saveToRestFormApiUrlFieldName: "",
-	saveToRestFormApiToken: "",
+	saveToRestFormApiToken: ""
 };
 
 const DEFAULT_RULES = [{
