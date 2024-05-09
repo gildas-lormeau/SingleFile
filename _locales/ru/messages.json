@@ -300,15 +300,15 @@
 		"description": "Options page label: 'make text searchable'"
 	},
 	"optionInsertEmbeddedImage": {
-		"message": "embed image",
+		"message": "встроенное изображение",
 		"description": "Options page label: 'embed image'"
 	},
 	"optionInsertEmbeddedScreenshotImage": {
-		"message": "page screenshot",
+		"message": "снимок страницы",
 		"description": "Options page label: 'page screenshot'"
 	},
 	"optionInsertEmbeddedCustomImage": {
-		"message": "custom image",
+		"message": "своё изображение",
 		"description": "Options page label: 'custom image'"
 	},
 	"optionsInfobarSubTitle": {
@@ -660,11 +660,11 @@
 		"description": "Options page label: 'user name'"
 	},
 	"optionGitHubRepository": {
-		"message": "название репозитория",
+		"message": "имя репозитория",
 		"description": "Options page label: 'repository name'"
 	},
 	"optionGitHubBranch": {
-		"message": "название ветки",
+		"message": "имя ветки",
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveWithWebDAV": {
@@ -976,7 +976,7 @@
 		"description": "Title of the column in the table of the URLs"
 	},
 	"optionSaveToRestFormApi": {
-		"message": "upload to a REST Form API",
+		"message": "загрузить в API формы REST",
 		"description": "Options page label: 'upload to a REST Form API'"
 	},
 	"optionRestFormApiUrl": {
@@ -984,15 +984,15 @@
 		"description": "Options page label: 'URL'"
 	},
 	"optionRestFormApiToken": {
-		"message": "authorization token",
+		"message": "токен авторизации",
 		"description": "Options page label: 'authorization token'"
 	},
 	"optionRestFormApiFileFieldName": {
-		"message": "archive data field name",
+		"message": "имя поля данных архива",
 		"description": "Options page label: 'archive data field name'"
 	},
 	"optionRestFormApiUrlFieldName": {
-		"message": "archive URL field name",
+		"message": "имя поля URL архива",
 		"description": "Options page label: 'archive URL field name'"
 	}
 }
