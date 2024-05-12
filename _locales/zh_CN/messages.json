@@ -976,23 +976,23 @@
 		"description": "Title of the column in the table of the URLs"
 	},
 	"optionSaveToRestFormApi": {
-		"message": "upload to a REST Form API",
+		"message": "保存到 REST 表单 API",
 		"description": "Options page label: 'upload to a REST Form API'"
 	},
 	"optionRestFormApiUrl": {
-		"message": "URL",
+		"message": "网址",
 		"description": "Options page label: 'URL'"
 	},
 	"optionRestFormApiToken": {
-		"message": "authorization token",
+		"message": "授权令牌",
 		"description": "Options page label: 'authorization token'"
 	},
 	"optionRestFormApiFileFieldName": {
-		"message": "archive data field namee",
+		"message": "文件字段名称",
 		"description": "Options page label: 'archive data field name'"
 	},
 	"optionRestFormApiUrlFieldName": {
-		"message": "archive URL field name",
+		"message": "网址字段名称",
 		"description": "Options page label: 'archive URL field name'"
 	}
 }
