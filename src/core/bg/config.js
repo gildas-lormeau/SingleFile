@@ -160,6 +160,7 @@ const DEFAULT_CONFIG = {
 	networkTimeout: 0,
 	woleetKey: "",
 	blockImages: false,
+	blockAlternativeImages: true,
 	blockStylesheets: false,
 	blockFonts: false,
 	blockScripts: true,
