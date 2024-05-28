@@ -9,7 +9,7 @@
 		"build": "./build-extension.sh"
 	},
 	"dependencies": {
-		"single-file-core": "1.4.5"
+		"single-file-core": "1.4.6"
 	},
 	"devDependencies": {
 		"@rollup/plugin-node-resolve": "15.0.1",
