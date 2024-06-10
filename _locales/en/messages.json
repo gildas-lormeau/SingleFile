@@ -929,7 +929,7 @@
 	},
 	"pendingsNoPendings": {
 		"message": "No pending saves",
-		"description": "Label displayed when they are no pending saves"
+		"description": "Label displayed when there are no pending saves"
 	},
 	"pendingsAddUrlsButton": {
 		"message": "Add URLs",
@@ -953,7 +953,7 @@
 	},
 	"batchSaveUrlsNoURLs": {
 		"message": "No URLs",
-		"description": "Label displayed when they are no URLs"
+		"description": "Label displayed when there are no URLs"
 	},
 	"batchSaveUrlsAddUrlButton": {
 		"message": "Add URL",
