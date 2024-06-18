@@ -247,6 +247,7 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
   lqzhgood (https://github.com/lqzhgood)
 - Traditional Chinese translation done by frostblazergit
   (https://github.com/frostblazergit), lqzhgood (https://github.com/lqzhgood)
+- Dutch translation done by jooleer (https://github.com/jooleer)
 - German translation done by womotroll (https://github.com/womotroll), bannmann
   (https://github.com/bannmann)
 - Italian translation done by Fastbyte01 (https://github.com/Fastbyte01)
