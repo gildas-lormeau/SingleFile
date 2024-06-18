@@ -140,7 +140,7 @@ export {
 
 async function fetchResource(url, options = {}) {
 	try {
-		const fetchOptions = { cache: "force-cache", headers: options.headers };
+		const fetchOptions = { cache: "force-cache", headers: options.headers, referrerPolicy: "strict-origin-when-cross-origin" };
 		let response;
 		try {
 			if (options.referrer && !USE_HOST_FETCH) {
