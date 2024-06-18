@@ -21,18 +21,18 @@
  *   Source.
  */
 
-/* global browser, window, document, CustomEvent, setTimeout, clearTimeout */
+/* global browser, window, document, CustomEvent */
 
+const FETCH_SUPPORTED_REQUEST_EVENT = "single-file-request-fetch-supported";
+const FETCH_SUPPORTED_RESPONSE_EVENT = "single-file-response-fetch-supported";
 const FETCH_REQUEST_EVENT = "single-file-request-fetch";
-const FETCH_ACK_EVENT = "single-file-ack-fetch";
 const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
 const ERR_HOST_FETCH = "Host fetch error (SingleFile)";
-const HOST_FETCH_MAX_DELAY = 2500;
 const USE_HOST_FETCH = Boolean(window.wrappedJSObject);
 
 const fetch = (url, options) => window.fetch(url, options);
 
-let requestId = 0, pendingResponses = new Map();
+let requestId = 0, pendingResponses = new Map(), hostFetchSupported;
 
 browser.runtime.onMessage.addListener(message => {
 	if (message.method == "singlefile.fetchFrame" && window.frameId && window.frameId == message.frameId) {
@@ -90,51 +90,46 @@ async function onFetchResponse(message) {
 }
 
 async function hostFetch(url, options) {
-	const result = new Promise((resolve, reject) => {
-		document.dispatchEvent(new CustomEvent(FETCH_REQUEST_EVENT, { detail: JSON.stringify({ url, options }) }));
-		document.addEventListener(FETCH_ACK_EVENT, onAckFetch, false);
-		document.addEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
-		const timeout = setTimeout(() => {
-			removeListeners();
-			reject(new Error(ERR_HOST_FETCH));
-		}, HOST_FETCH_MAX_DELAY);
+	if (hostFetchSupported === undefined) {
+		hostFetchSupported = false;
+		document.addEventListener(FETCH_SUPPORTED_RESPONSE_EVENT, () => hostFetchSupported = true, false);
+		document.dispatchEvent(new CustomEvent(FETCH_SUPPORTED_REQUEST_EVENT));
+	}
+	if (hostFetchSupported) {
+		const result = new Promise((resolve, reject) => {
+			document.dispatchEvent(new CustomEvent(FETCH_REQUEST_EVENT, { detail: JSON.stringify({ url, options }) }));
+			document.addEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
 
-		function onResponseFetch(event) {
-			if (event.detail) {
-				if (event.detail.url == url) {
-					removeListeners();
-					if (event.detail.response) {
-						resolve({
-							status: event.detail.status,
-							headers: new Map(event.detail.headers),
-							arrayBuffer: async () => event.detail.response
-						});
-					} else {
-						reject(event.detail.error);
+			function onResponseFetch(event) {
+				if (event.detail) {
+					if (event.detail.url == url) {
+						document.removeEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
+						if (event.detail.response) {
+							resolve({
+								status: event.detail.status,
+								headers: new Map(event.detail.headers),
+								arrayBuffer: async () => event.detail.response
+							});
+						} else {
+							reject(event.detail.error);
+						}
 					}
+				} else {
+					reject();
 				}
+			}
+		});
+		try {
+			return await result;
+		} catch (error) {
+			if (error && error.message == ERR_HOST_FETCH) {
+				return fetch(url, options);
 			} else {
-				reject();
+				throw error;
 			}
 		}
-
-		function onAckFetch() {
-			clearTimeout(timeout);
-		}
-
-		function removeListeners() {
-			document.removeEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
-			document.removeEventListener(FETCH_ACK_EVENT, onAckFetch, false);
-		}
-	});
-	try {
-		return await result;
-	} catch (error) {
-		if (error && error.message == ERR_HOST_FETCH) {
-			return fetch(url, options);
-		} else {
-			throw error;
-		}
+	} else {
+		return fetch(url, options);
 	}
 }
 
