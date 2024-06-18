@@ -116,7 +116,6 @@ async function captureTab(tabId, options) {
 	const { width, height, scale = 1 } = options;
 	const canvasWidth = Math.floor(width * scale);
 	const canvasHeight = Math.floor(height * scale);
-	const image = new Image();
 	let y = 0, canvas, canvasY = 0, scrollYStep, activeTabId;
 	if (browser.tabs.captureTab) {
 		scrollYStep = 4 * 1024;
@@ -143,6 +142,7 @@ async function captureTab(tabId, options) {
 					format: "png"
 				});
 			}
+			const image = new Image();
 			await new Promise((resolve, reject) => {
 				image.onload = resolve;
 				image.onerror = event => reject(new Error(event.detail));
