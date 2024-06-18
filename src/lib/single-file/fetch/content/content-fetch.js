@@ -33,7 +33,7 @@ const USE_HOST_FETCH = Boolean(window.wrappedJSObject);
 const fetch = (url, options) => {
 	options.cache = "force-cache";
 	options.referrerPolicy = "strict-origin-when-cross-origin";
-	window.fetch(url, options);
+	return window.fetch(url, options);
 };
 
 let requestId = 0, pendingResponses = new Map(), hostFetchSupported;
@@ -49,7 +49,7 @@ browser.runtime.onMessage.addListener(message => {
 
 async function onFetchFrame(message) {
 	try {
-		const response = await fetch(message.url, { cache: "force-cache", headers: message.headers });
+		const response = await fetch(message.url, { cache: "force-cache", headers: message.headers, referrerPolicy: "strict-origin-when-cross-origin" });
 		return {
 			status: response.status,
 			headers: [...response.headers],
