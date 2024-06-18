@@ -30,7 +30,11 @@ const FETCH_RESPONSE_EVENT = "single-file-response-fetch";
 const ERR_HOST_FETCH = "Host fetch error (SingleFile)";
 const USE_HOST_FETCH = Boolean(window.wrappedJSObject);
 
-const fetch = (url, options) => window.fetch(url, options);
+const fetch = (url, options) => {
+	options.cache = "force-cache";
+	options.referrerPolicy = "strict-origin-when-cross-origin";
+	window.fetch(url, options);
+};
 
 let requestId = 0, pendingResponses = new Map(), hostFetchSupported;
 
