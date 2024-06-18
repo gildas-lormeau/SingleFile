@@ -146,7 +146,21 @@ export {
 async function fetchResource(url, options = {}) {
 	try {
 		const fetchOptions = { cache: "force-cache", headers: options.headers };
-		return await (options.referrer && USE_HOST_FETCH ? hostFetch(url, fetchOptions) : fetch(url, fetchOptions));
+		let response;
+		try {
+			if (options.referrer && !USE_HOST_FETCH) {
+				response = await fetch(url, fetchOptions);
+			} else {
+				response = await hostFetch(url, fetchOptions);
+			}
+		} catch (error) {
+			if (error && error.message == ERR_HOST_FETCH) {
+				response = await fetch(url, fetchOptions);
+			} else {
+				throw error;
+			}
+		}
+		return response;
 	}
 	catch (error) {
 		requestId++;
