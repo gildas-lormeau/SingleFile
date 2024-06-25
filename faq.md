@@ -12,6 +12,9 @@ As stated in the [privacy policy](https://github.com/gildas-lormeau/SingleFile/b
 ## Why can't I save some pages like https://addons.mozilla.org/addon/single-file?
 For security purposes, browsers block web extensions on certain domains. This prevents a malicious extension to remove or change bad reviews, for example.
 
+## Why aren't images saved on sites like sspai.com or weibo.com?
+These sites require the HTTP header "referer" to be present in order to download images.  For privacy reasons, this feature is not enabled by default in SingleFile. To enable it, you need to check the option "Network > pass "Referer" header after a cross-origin request error".
+
 ## Why don't interactive elements like folding titles, dynamic maps or carousels work properly in saved pages?
 These elements need JavaScript to work properly. By default, SingleFile removes scripts because they can alter the rendering and there is no guarantee they will work offline. However, you can save them by unchecking the option "Network > blocked resources > scripts", and optionally  unchecking "HTML Content > remove hidden elements", unchecking "Stylesheets > remove unused styles", and checking the option "HTML content > save raw page".
 
