@@ -1,4 +1,80 @@
 {
+	"menuSavePage": {
+		"message": "🖺 &Save page with SingleFile",
+		"description": "Menu entry: 'Save page with SingleFile'"
+	},
+	"menuEditAndSavePage": {
+		"message": "📝 &Annotate and save the page...",
+		"description": "Menu entry: 'Annotate and save the page...'"
+	},
+	"menuSaveSelection": {
+		"message": "▋ &D Save selection",
+		"description": "Menu entry: 'Save selection'"
+	},
+	"menuSaveSelectedTabs": {
+		"message": "Save selected &tabs",
+		"description": "Menu entry: 'Save selected tabs'"
+	},
+	"menuSaveUnpinnedTabs": {
+		"message": "Save &unpinned tabs",
+		"description": "Menu entry: 'Save unpinned tabs'"
+	},
+	"menuSaveAllTabs": {
+		"message": "∀ &Y Save all tabs",
+		"description": "Menu entry: 'Save all tabs'"
+	},
+	"menuSelectProfile": {
+		"message": "☰ Select the default &profile",
+		"description": "Menu entry: 'Select the default profile'"
+	},
+	"menuCreateDomainRule": {
+		"message": "☰ Select the profile of the current do&main",
+		"description": "Menu entry: 'Select the profile of the current domain'"
+	},
+	"menuAutoSave": {
+		"message": "🔄 &G Auto-save",
+		"description": "Menu entry: 'Auto-save'"
+	},
+	"menuAutoSaveDisabled": {
+		"message": "&Disabled",
+		"description": "Menu entry: 'Auto-save' > Disabled'"
+	},
+	"menuAutoSaveTab": {
+		"message": "Auto-save this &tab",
+		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+	},
+	"menuAutoSaveUnpinnedTabs": {
+		"message": "Auto-save &unpinned tabs",
+		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+	},
+	"menuAutoSaveAllTabs": {
+		"message": "Auto-save &all tabs",
+		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+	},
+	"menuBatchSaveUrls": {
+		"message": "🗐 &Batch save URLs...",
+		"description": "Menu entry: 'Batch save URLs...'"
+	},
+	"menuViewPendingSaves": {
+		"message": "&View pending saves...",
+		"description": "Menu entry: 'View pending saves...'"
+	},
+	"menuSaveSelectedLinks": {
+		"message": "🔗 Save selected &links",
+		"description": "Menu entry: 'Save selected links'"
+	},
+	"menuSaveFrame": {
+		"message": "Save &frame",
+		"description": "Menu entry: 'Save frame'"
+	},
+	"menuSaveWithProfile": {
+		"message": "☰ Save page with p&rofile",
+		"description": "Menu entry: 'Save with profile'"
+	},
+	"profileDefaultSettings": {
+		"message": "&Default settings",
+		"description": "Label 'Default settings' of the default settings in the options page"
+	},
 	"extensionDescription": {
 		"message": "Save a complete page into a single HTML file",
 		"description": "Description of the extension."
@@ -11,89 +87,17 @@
 		"message": "Save all tabs",
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
-	"menuSavePage": {
-		"message": "Save page with SingleFile",
-		"description": "Menu entry: 'Save page with SingleFile'"
-	},
-	"menuSaveSelectedLinks": {
-		"message": "Save selected links",
-		"description": "Menu entry: 'Save selected links'"
-	},
 	"menuEditPage": {
 		"message": "Annotate the page...",
 		"description": "Menu entry: 'Annotate the page...'"
-	},
-	"menuEditAndSavePage": {
-		"message": "Annotate and save the page...",
-		"description": "Menu entry: 'Annotate and save the page...'"
-	},
-	"menuSaveWithProfile": {
-		"message": "Save page with profile",
-		"description": "Menu entry: 'Save with profile'"
-	},
-	"menuViewPendingSaves": {
-		"message": "View pending saves...",
-		"description": "Menu entry: 'View pending saves...'"
-	},
-	"menuSelectProfile": {
-		"message": "Select the default profile",
-		"description": "Menu entry: 'Select the default profile'"
 	},
 	"menuUpdateRule": {
 		"message": "Select the profile of the current rule",
 		"description": "Menu entry: 'Select the profile of the current rule'"
 	},
-	"menuCreateDomainRule": {
-		"message": "Select the profile of the current domain",
-		"description": "Menu entry: 'Select the profile of the current domain'"
-	},
-	"menuSaveSelection": {
-		"message": "Save selection",
-		"description": "Menu entry: 'Save selection'"
-	},
-	"menuSaveFrame": {
-		"message": "Save frame",
-		"description": "Menu entry: 'Save frame'"
-	},
 	"menuSaveTabs": {
 		"message": "Save tabs",
 		"description": "Menu entry (SingleFile button only): 'Save tabs'"
-	},
-	"menuSaveSelectedTabs": {
-		"message": "Save selected tabs",
-		"description": "Menu entry: 'Save selected tabs'"
-	},
-	"menuSaveUnpinnedTabs": {
-		"message": "Save unpinned tabs",
-		"description": "Menu entry: 'Save unpinned tabs'"
-	},
-	"menuSaveAllTabs": {
-		"message": "Save all tabs",
-		"description": "Menu entry: 'Save all tabs'"
-	},
-	"menuBatchSaveUrls": {
-		"message": "Batch save URLs...",
-		"description": "Menu entry: 'Batch save URLs...'"
-	},
-	"menuAutoSave": {
-		"message": "Auto-save",
-		"description": "Menu entry: 'Auto-save'"
-	},
-	"menuAutoSaveDisabled": {
-		"message": "Disabled",
-		"description": "Menu entry: 'Auto-save' > Disabled'"
-	},
-	"menuAutoSaveTab": {
-		"message": "Auto-save this tab",
-		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
-	},
-	"menuAutoSaveUnpinnedTabs": {
-		"message": "Auto-save unpinned tabs",
-		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
-	},
-	"menuAutoSaveAllTabs": {
-		"message": "Auto-save all tabs",
-		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
 	},
 	"buttonDefaultTooltip": {
 		"message": "Save page with SingleFile",
@@ -782,10 +786,6 @@
 	"topPanelShareSelectionButton": {
 		"message": "Share selection...",
 		"description": "Top panel button 'Share selection...' when sharing selected content"
-	},
-	"profileDefaultSettings": {
-		"message": "Default settings",
-		"description": "Label 'Default settings' of the default settings in the options page"
 	},
 	"profileDisabled": {
 		"message": "Disabled",
