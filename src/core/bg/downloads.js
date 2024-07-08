@@ -130,17 +130,17 @@ async function downloadTabPage(message, tab) {
 			return { error: true };
 		}
 	} else if (message.compressContent) {
-		let blobParts = tabData.get(tabId);
-		const type = message.mimeType;
-		if (!blobParts) {
-			blobParts = [];
-			tabData.set(tabId, blobParts);
+		let parser = tabData.get(tabId);
+		if (!parser) {
+			parser = yabson.getParser();
+			tabData.set(tabId, parser);
 		}
 		if (message.data) {
-			blobParts.push(new Uint8Array(message.data));
+			await parser.next(new Uint8Array(message.data));
 		} else {
 			tabData.delete(tabId);
-			const message = await yabson.parse(new Uint8Array((await new Blob(blobParts, { type }).arrayBuffer())));
+			const result = await parser.next();
+			const message = result.value;
 			await downloadCompressedContent(message, tab);
 		}
 	} else {

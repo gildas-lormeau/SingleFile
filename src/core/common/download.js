@@ -118,17 +118,14 @@ async function downloadPage(pageData, options) {
 			message.embeddedImage = embeddedImage;
 			message.blobURL = null;
 			message.pageData = pageData;
-			let data, indexData = 0;
-			const dataArray = await yabson.serialize(message);
-			do {
-				data = Array.from(dataArray.slice(indexData, indexData + MAX_CONTENT_SIZE));
-				indexData += MAX_CONTENT_SIZE;
+			const serializer = yabson.getSerializer(message);
+			for await (const chunk of serializer) {
 				await browser.runtime.sendMessage({
 					method: "downloads.download",
 					compressContent: true,
-					data
+					data: Array.from(chunk)
 				});
-			} while (data.length);
+			}
 			await browser.runtime.sendMessage({
 				method: "downloads.download",
 				compressContent: true,

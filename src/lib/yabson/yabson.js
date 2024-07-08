@@ -218,10 +218,10 @@ class WriteStream {
 	async append(array) {
 		if (this.offset + array.length > this.value.length) {
 			const offset = this.value.length - this.offset;
-			await this.append(array.subarray(0, offset));
+			await this.append(new Uint8Array(array).subarray(0, offset));
 			await this.appendData({ value: this.value });
 			this.offset = 0;
-			await this.append(array.subarray(offset));
+			await this.append(new Uint8Array(array).subarray(offset));
 		} else {
 			this.value.set(array, this.offset);
 			this.offset += array.length;
@@ -230,7 +230,7 @@ class WriteStream {
 
 	async flush() {
 		if (this.offset) {
-			await this.appendData({ value: this.value.subarray(0, this.offset), done: true });
+			await this.appendData({ value: new Uint8Array(this.value).subarray(0, this.offset), done: true });
 		}
 	}
 }
@@ -503,7 +503,7 @@ class ReadStream {
 
 	async consume(size) {
 		if (this.offset + size > this.value.length) {
-			const pending = this.value.subarray(this.offset, this.value.length);
+			const pending = new Uint8Array(this.value).subarray(this.offset, this.value.length);
 			const value = await this.consumeData();
 			if (pending.length + value.length != this.value.length) {
 				this.value = new Uint8Array(pending.length + value.length);
