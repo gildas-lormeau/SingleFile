@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, URL, Blob, MouseEvent, setTimeout, open, navigator, File */
+/* global browser, document, URL, Blob, MouseEvent, setTimeout, open, navigator, File, setInterval, clearInterval */
 
 import * as yabson from "./../../lib/yabson/yabson.js";
 import { getSharePageBar, setLabels } from "./../../ui/common/common-content-ui.js";
@@ -108,6 +108,9 @@ async function downloadPage(pageData, options) {
 		saveToRestFormApiUrlFieldName: options.saveToRestFormApiUrlFieldName,
 		saveToRestFormApiToken: options.saveToRestFormApiToken
 	};
+	const pingInterval = setInterval(() => {
+		browser.runtime.sendMessage({ method: "downloads.ping" }).then(() => { });
+	}, 5000);
 	if (options.compressContent) {
 		const blob = new Blob([await yabson.serialize(pageData)], { type: pageData.mimeType });
 		const blobURL = URL.createObjectURL(blob);
@@ -167,6 +170,7 @@ async function downloadPage(pageData, options) {
 		}
 		await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId, hash: pageData.hash, woleetKey: options.woleetKey });
 	}
+	clearInterval(pingInterval);
 }
 
 async function downloadPageForeground(pageData, options) {
