@@ -394,7 +394,7 @@ browser.runtime.onMessage.addListener(message => {
 			tabDataContents = [];
 			editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content, password: tabData.options.password, compressContent: message.compressContent }), "*");
 			editorElement.contentWindow.focus();
-			setInterval(() => browser.runtime.sendMessage({ method: "editor.ping" }), 15000);
+			setInterval(() => browser.runtime.sendMessage({ method: "ping" }), 15000);
 		}
 		return Promise.resolve({});
 	}

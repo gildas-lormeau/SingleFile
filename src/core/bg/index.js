@@ -75,6 +75,9 @@ browser.runtime.onMessage.addListener((message, sender) => {
 	if (message.method.startsWith("bootstrap.")) {
 		return bootstrap.onMessage(message, sender);
 	}
+	if (message.method == "ping") {
+		return Promise.resolve({});
+	}
 });
 
 if (browser.runtime.onMessageExternal) {

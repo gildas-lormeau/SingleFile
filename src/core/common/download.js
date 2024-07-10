@@ -109,8 +109,8 @@ async function downloadPage(pageData, options) {
 		saveToRestFormApiToken: options.saveToRestFormApiToken
 	};
 	const pingInterval = setInterval(() => {
-		browser.runtime.sendMessage({ method: "downloads.ping" }).then(() => { });
-	}, 5000);
+		browser.runtime.sendMessage({ method: "ping" }).then(() => { });
+	}, 15000);
 	if (options.compressContent) {
 		const blob = new Blob([await yabson.serialize(pageData)], { type: pageData.mimeType });
 		const blobURL = URL.createObjectURL(blob);

@@ -149,8 +149,8 @@ async function onMessage(message) {
 
 async function savePage(message) {
 	const pingInterval = setInterval(() => {
-		browser.runtime.sendMessage({ method: "downloads.ping" }).then(() => { });
-	}, 5000);
+		browser.runtime.sendMessage({ method: "ping" }).then(() => { });
+	}, 15000);
 	const options = message.options;
 	let selectionFound;
 	if (options.selected || options.optionallySelected) {
