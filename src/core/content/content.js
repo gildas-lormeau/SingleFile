@@ -177,6 +177,8 @@ async function savePage(message) {
 							browser.runtime.sendMessage({ method: "downloads.cancel" });
 							browser.runtime.sendMessage({ method: "ui.processCancelled" });
 						}
+					} else {
+						await download.downloadPage(pageData, options);
 					}
 				}
 			} catch (error) {
