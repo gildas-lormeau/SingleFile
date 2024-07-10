@@ -60,7 +60,7 @@ export {
 	onSaveEnd,
 	onInit,
 	onTabReplaced,
-	cancelTab as onTabRemoved
+	cancelTab as cancel
 };
 
 async function saveSelectedLinks(tab) {

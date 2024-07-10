@@ -169,9 +169,15 @@ async function savePage(message) {
 				const pageData = await processPage(options);
 				if (pageData) {
 					if (((!options.backgroundSave && !options.saveToClipboard) || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi) && options.confirmFilename) {
-						pageData.filename = ui.prompt("Save as", pageData.filename) || pageData.filename;
+						const filename = ui.prompt("Save as", pageData.filename);
+						if (filename) {
+							pageData.filename = filename;
+							await download.downloadPage(pageData, options);
+						} else {
+							browser.runtime.sendMessage({ method: "downloads.cancel" });
+							browser.runtime.sendMessage({ method: "ui.processCancelled" });
+						}
 					}
-					await download.downloadPage(pageData, options);
 				}
 			} catch (error) {
 				if (!processor.cancelled) {

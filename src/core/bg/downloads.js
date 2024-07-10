@@ -101,7 +101,11 @@ async function onMessage(message, sender) {
 		return business.getTasksInfo();
 	}
 	if (message.method.endsWith(".cancel")) {
-		business.cancelTask(message.taskId);
+		if (message.taskId) {
+			business.cancelTask(message.taskId);
+		} else {
+			business.cancel(sender.tab.id);
+		}
 		return {};
 	}
 	if (message.method.endsWith(".cancelAll")) {
@@ -555,6 +559,9 @@ async function downloadPage(pageData, options) {
 			url = "file:///" + encodeSharpCharacter(url);
 		}
 		return { url };
+	}
+	if (downloadData.cancelled) {
+		business.cancelTask(pageData.taskId);
 	}
 }
 

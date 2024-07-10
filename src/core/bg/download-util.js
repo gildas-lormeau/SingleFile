@@ -39,6 +39,28 @@ export {
 
 async function download(downloadInfo, replacementCharacter) {
 	let downloadId;
+	const result = new Promise((resolve, reject) => {
+		browser.downloads.onChanged.addListener(onChanged);
+
+		function onChanged(event) {
+			if (event.id == downloadId && event.state) {
+				if (event.state.current == STATE_DOWNLOAD_COMPLETE) {
+					browser.downloads.search({ id: downloadId })
+						.then(downloadItems => resolve({ filename: downloadItems[0] && downloadItems[0].filename }))
+						.catch(() => resolve({}));
+					browser.downloads.onChanged.removeListener(onChanged);
+				}
+				if (event.state.current == STATE_DOWNLOAD_INTERRUPTED) {
+					if (event.error && event.error.current == STATE_ERROR_CANCELED_CHROMIUM) {
+						resolve({ cancelled: true });
+					} else {
+						reject(new Error(event.state.current));
+					}
+					browser.downloads.onChanged.removeListener(onChanged);
+				}
+			}
+		}
+	});
 	try {
 		downloadId = await browser.downloads.download(downloadInfo);
 	} catch (error) {
@@ -72,26 +94,5 @@ async function download(downloadInfo, replacementCharacter) {
 			throw error;
 		}
 	}
-	return new Promise((resolve, reject) => {
-		browser.downloads.onChanged.addListener(onChanged);
-
-		function onChanged(event) {
-			if (event.id == downloadId && event.state) {
-				if (event.state.current == STATE_DOWNLOAD_COMPLETE) {
-					browser.downloads.search({ id: downloadId })
-						.then(downloadItems => resolve({ filename: downloadItems[0] && downloadItems[0].filename }))
-						.catch(() => resolve({}));
-					browser.downloads.onChanged.removeListener(onChanged);
-				}
-				if (event.state.current == STATE_DOWNLOAD_INTERRUPTED) {
-					if (event.error && event.error.current == STATE_ERROR_CANCELED_CHROMIUM) {
-						resolve({});
-					} else {
-						reject(new Error(event.state.current));
-					}
-					browser.downloads.onChanged.removeListener(onChanged);
-				}
-			}
-		}
-	});
+	return result;
 }
