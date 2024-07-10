@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, globalThis, location, setTimeout, URL */
+/* global browser, document, globalThis, location, setTimeout, URL, setInterval, clearInterval */
 
 import * as download from "./../common/download.js";
 import { fetch, frameFetch } from "./../../lib/single-file/fetch/content/content-fetch.js";
@@ -148,6 +148,9 @@ async function onMessage(message) {
 }
 
 async function savePage(message) {
+	const pingInterval = setInterval(() => {
+		browser.runtime.sendMessage({ method: "downloads.ping" }).then(() => { });
+	}, 5000);
 	const options = message.options;
 	let selectionFound;
 	if (options.selected || options.optionallySelected) {
@@ -197,6 +200,7 @@ async function savePage(message) {
 			bootstrap.pageInfo.processing = false;
 		}
 	}
+	clearInterval(pingInterval);
 }
 
 async function processPage(options) {
