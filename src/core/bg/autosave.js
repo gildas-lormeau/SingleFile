@@ -207,11 +207,11 @@ async function saveContent(message, tab) {
 						await downloads.saveToRestFormApi(
 							message.taskId,
 							content,
-							pageData.url,
-							options.restFormApiToken,
-							options.restFormApiUrl,
-							options.restFormApiFileFieldName,
-							options.restFormApiUrlFieldName
+							options.url,
+							options.saveToRestFormApiToken,
+							options.saveToRestFormApiUrl,
+							options.saveToRestFormApiFileFieldName,
+							options.saveToRestFormApiUrlFieldName
 						);
 					} else {
 						if (!(content instanceof Blob)) {
