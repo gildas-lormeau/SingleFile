@@ -305,7 +305,10 @@ function cancelTab(tabId, stopProcessing = true) {
 }
 
 function cancelTask(taskId) {
-	cancel(tasks.find(taskInfo => taskInfo.id == taskId));
+	const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
+	if (taskInfo) {
+		cancel(taskInfo);
+	}
 }
 
 function cancelAllTasks() {
