@@ -141,22 +141,32 @@ async function downloadPage(pageData, options) {
 		}
 	} else {
 		if ((options.backgroundSave && !options.sharePage) || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi) {
-			const blobURL = URL.createObjectURL(new Blob([pageData.content], { type: pageData.mimeType }));
-			message.blobURL = blobURL;
-			const result = await browser.runtime.sendMessage(message);
-			URL.revokeObjectURL(blobURL);
-			if (result.error) {
-				message.blobURL = null;
-				for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
-					message.truncated = pageData.content.length > MAX_CONTENT_SIZE;
-					if (message.truncated) {
-						message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > pageData.content.length;
-						message.content = pageData.content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
-					} else {
-						message.content = pageData.content;
+			let filename = pageData.filename;
+			if ((options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi) && options.confirmFilename && !options.openEditor) {
+				filename = ui.prompt("Save as", pageData.filename);
+			}
+			if (filename) {
+				message.filename = pageData.filename = filename;
+				const blobURL = URL.createObjectURL(new Blob([pageData.content], { type: pageData.mimeType }));
+				message.blobURL = blobURL;
+				const result = await browser.runtime.sendMessage(message);
+				URL.revokeObjectURL(blobURL);
+				if (result.error) {
+					message.blobURL = null;
+					for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
+						message.truncated = pageData.content.length > MAX_CONTENT_SIZE;
+						if (message.truncated) {
+							message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > pageData.content.length;
+							message.content = pageData.content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
+						} else {
+							message.content = pageData.content;
+						}
+						await browser.runtime.sendMessage(message);
 					}
-					await browser.runtime.sendMessage(message);
 				}
+			} else {
+				browser.runtime.sendMessage({ method: "downloads.cancel" });
+				browser.runtime.sendMessage({ method: "ui.processCancelled" });
 			}
 		} else {
 			if (options.saveToClipboard) {
