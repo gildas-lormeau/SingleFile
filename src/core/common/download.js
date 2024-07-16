@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, URL, Blob, MouseEvent, setTimeout, open, navigator, File, setInterval, clearInterval */
+/* global browser, document, URL, Blob, MouseEvent, setTimeout, open, navigator, File, setInterval, clearInterval, prompt */
 
 import * as yabson from "./../../lib/yabson/yabson.js";
 import { getSharePageBar, setLabels } from "./../../ui/common/common-content-ui.js";
@@ -180,7 +180,17 @@ async function downloadPageForeground(pageData, options) {
 	if (options.sharePage && navigator.share) {
 		await sharePage(pageData, options);
 	} else {
-		if (pageData.filename && pageData.filename.length) {
+		let filename = pageData.filename;
+		if (options.confirmFilename) {
+			filename = prompt("Save as", pageData.filename);
+			if (filename) {
+				pageData.filename = filename;
+			} else {
+				browser.runtime.sendMessage({ method: "downloads.cancel" });
+				browser.runtime.sendMessage({ method: "ui.processCancelled" });
+			}
+		}
+		if (filename) {
 			const link = document.createElement("a");
 			link.download = pageData.filename;
 			link.href = URL.createObjectURL(new Blob([pageData.content], { type: pageData.mimeType }));
