@@ -39,12 +39,17 @@ const LOGS_LINE_TEXT_ELEMENT_CLASSNAME = "singlefile-logs-line-text";
 const LOGS_LINE_STATUS_ELEMENT_CLASSNAME = "singlefile-logs-line-icon";
 const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CLASS;
 const SELECT_PX_THRESHOLD = 8;
-const LOG_PANEL_DEFERRED_IMAGES_MESSAGE = browser.i18n.getMessage("logPanelDeferredImages");
-const LOG_PANEL_FRAME_CONTENTS_MESSAGE = browser.i18n.getMessage("logPanelFrameContents");
-const LOG_PANEL_EMBEDDED_IMAGE_MESSAGE = browser.i18n.getMessage("logPanelEmbeddedImage");
-const LOG_PANEL_STEP_MESSAGE = browser.i18n.getMessage("logPanelStep");
-const LOG_PANEL_WIDTH = browser.i18n.getMessage("logPanelWidth");
+let LOG_PANEL_WIDTH, LOG_PANEL_DEFERRED_IMAGES_MESSAGE, LOG_PANEL_FRAME_CONTENTS_MESSAGE, LOG_PANEL_EMBEDDED_IMAGE_MESSAGE, LOG_PANEL_STEP_MESSAGE;
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
+try {
+	LOG_PANEL_WIDTH = browser.i18n.getMessage("logPanelWidth");
+	LOG_PANEL_DEFERRED_IMAGES_MESSAGE = browser.i18n.getMessage("logPanelDeferredImages");
+	LOG_PANEL_FRAME_CONTENTS_MESSAGE = browser.i18n.getMessage("logPanelFrameContents");
+	LOG_PANEL_EMBEDDED_IMAGE_MESSAGE = browser.i18n.getMessage("logPanelEmbeddedImage");
+	LOG_PANEL_STEP_MESSAGE = browser.i18n.getMessage("logPanelStep");
+} catch (error) {
+	// ignored
+}
 
 let selectedAreaElement, logsWindowElement;
 createLogsWindowElement();
