@@ -21,9 +21,10 @@
  *   Source.
  */
 
-/* global browser, document, URL, Blob, MouseEvent, setTimeout, open, navigator, File, setInterval, clearInterval, prompt */
+/* global browser, document, URL, Blob, MouseEvent, setTimeout, open, navigator, File, setInterval, clearInterval */
 
 import * as yabson from "./../../lib/yabson/yabson.js";
+import * as ui from "./../../ui/content/content-ui.js";
 import { getSharePageBar, setLabels } from "./../../ui/common/common-content-ui.js";
 
 const MAX_CONTENT_SIZE = 16 * (1024 * 1024);
@@ -182,7 +183,7 @@ async function downloadPageForeground(pageData, options) {
 	} else {
 		let filename = pageData.filename;
 		if (options.confirmFilename) {
-			filename = prompt("Save as", pageData.filename);
+			filename = ui.prompt("Save as", pageData.filename);
 			if (filename) {
 				pageData.filename = filename;
 			} else {
