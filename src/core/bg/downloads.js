@@ -237,6 +237,9 @@ async function downloadContent(contents, tab, incognito, message) {
 					replaceBookmarkURL: message.replaceBookmarkURL,
 					includeInfobar: message.includeInfobar
 				});
+				if (!response) {
+					throw new Error("upload_cancelled");
+				}
 			}
 			if (message.bookmarkId && message.replaceBookmarkURL && response && response.url) {
 				await bookmarks.update(message.bookmarkId, { url: response.url });
