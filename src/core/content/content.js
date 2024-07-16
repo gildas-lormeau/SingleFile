@@ -171,7 +171,7 @@ async function savePage(message) {
 			try {
 				const pageData = await processPage(options);
 				if (pageData) {
-					if (((!options.backgroundSave && !options.saveToClipboard && !options.openEditor) || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi) && options.confirmFilename) {
+					if (((!options.backgroundSave && !options.saveToClipboard) || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi) && options.confirmFilename && !options.openEditor) {
 						const filename = ui.prompt("Save as", pageData.filename);
 						if (filename) {
 							pageData.filename = filename;
