@@ -33,6 +33,7 @@ button:not([disabled]):hover {
 button,
 select,
 input[type=text],
+textarea,
 input[type=password] {
     background-color: transparent;
     border-color: rgb(191, 191, 191);
@@ -40,6 +41,12 @@ input[type=password] {
     border-radius: 2px;
     border-width: 1px;
     color: black;
+}
+
+textarea {
+    width: 100%;
+    height: 2.4em;
+    resize: vertical;
 }
 
 input[type=checkbox] {
@@ -674,6 +681,7 @@ html.maximized {
     }
 
     input[type="text"],
+    textarea,
     input[type="password"] {
         background-color: #fff;
     }
