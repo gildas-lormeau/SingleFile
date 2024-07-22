@@ -509,6 +509,31 @@
 							your Google Drive account.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
+					<li data-options-label="saveToS3Label" id="saveToS3Option"> <span class="option">Option: upload to
+							Amazon S3</span>
+						<p>Check this option to save the page on Amazon S3. You must configure the bucket policy to
+							include the permission <code>s3:PutObject</code>, and <code>s3:HeadObject</code> or
+							<code>s3:ListObjects</code>, or <code>s3:GetObject</code> if you do not want to overwrite or
+							skip existing files in the event of a filename conflict.
+						</p>
+						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+					</li>
+					<li data-options-label="S3DomainLabel"> <span class="option">Option: domain</span>
+						<p>Enter the domain of the Amazon S3 server (e.g. <code>s3.amazonaws.com</code>).</p>
+					</li>
+					<li data-options-label="S3RegionLabel"> <span class="option">Option: region</span>
+						<p>Enter the region of the Amazon S3 server (e.g. <code>us-east-1</code>).</p>
+					</li>
+					<li data-options-label="S3BucketLabel"> <span class="option">Option: bucket name</span>
+						<p>Enter the name of the bucket on Amazon S3 where the saved pages will be archived. Pages will
+							be uploaded to <code>&lt;bucket name&gt;.&lt;domain&gt;</code></p>.
+					</li>
+					<li data-options-label="S3AccessKeyLabel"> <span class="option">Option: access key</span>
+						<p>Enter your access key on Amazon S3 (e.g. <code>AKDO525K84LJTH4SFAKE</code>).</p>
+					</li>
+					<li data-options-label="S3SecretKeyLabel"> <span class="option">Option: secret key</span>
+						<p>Enter your secret key on Amazon S3.</p>
+					</li>
 					<li data-options-label="saveToDropboxLabel" id="saveToDropboxOption"> <span class="option">Option:
 							upload to Dropbox</span>
 						<p>Check this option to save the page on Dropbox.</p>

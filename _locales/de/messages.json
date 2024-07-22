@@ -667,6 +667,30 @@
 		"message": "Zweigname",
 		"description": "Options page label: 'branch name'"
 	},
+	"optionSaveToS3": {
+		"message": "Hochladen auf Amazon S3",
+		"description": "Options page label: 'upload to Amazon S3'"
+	},
+	"optionS3Domain": {
+		"message": "Domain",
+		"description": "Options page label: 'domain'"
+	},
+	"optionS3Region": {
+		"message": "Region",
+		"description": "Options page label: 'region'"
+	},
+	"optionS3Bucket": {
+		"message": "Bucket-Name",
+		"description": "Options page label: 'bucket name'"
+	},
+	"optionS3AccessKey": {
+		"message": "Zugangsschlüssel",
+		"description": "Options page label: 'access key'"
+	},
+	"optionS3SecretKey": {
+		"message": "Geheimschlüssel",
+		"description": "Options page label: 'secret key'"
+	},
 	"optionSaveWithWebDAV": {
 		"message": "Hochladen auf einen WebDAV-Server",
 		"description": "Options page label: 'upload to a WebDAV server'"

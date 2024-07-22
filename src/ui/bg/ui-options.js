@@ -21,6 +21,8 @@
  *   Source.
  */
 
+import { save } from "../../core/bg/companion.js";
+
 /* global browser, window, document, localStorage, FileReader, location, fetch, TextDecoder, DOMParser, HTMLElement, MouseEvent */
 
 const HELP_ICON_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABIUlEQVQ4y+2TsarCMBSGvxTBRdqiUZAWOrhJB9EXcPKFfCvfQYfulUKHDqXg4CYUJSioYO4mSDX3ttzt3n87fMlHTpIjlsulxpDZbEYYhgghSNOUOI5Ny2mZYBAELBYLer0eAJ7ncTweKYri4x7LJJRS0u12n7XrukgpjSc0CpVSXK/XZ32/31FKNW85z3PW6zXT6RSAJEnIsqy5UGvNZrNhu90CcDqd+C6tT6J+v//2Th+PB2VZ1hN2Oh3G4zGTyQTbtl/YbrdjtVpxu91+Ljyfz0RRhG3bzOfzF+Y4TvNXvlwuaK2pE4tfzr/wzwsty0IIURlL0998KxRCMBqN8H2/wlzXJQxD2u12vVkeDoeUZUkURRU+GAw4HA7s9/sK+wK6CWHasQ/S/wAAAABJRU5ErkJggg==";
@@ -92,6 +94,12 @@ const githubUserLabel = document.getElementById("githubUserLabel");
 const githubRepositoryLabel = document.getElementById("githubRepositoryLabel");
 const githubBranchLabel = document.getElementById("githubBranchLabel");
 const saveWithCompanionLabel = document.getElementById("saveWithCompanionLabel");
+const saveToS3Label = document.getElementById("saveToS3Label");
+const S3DomainLabel = document.getElementById("S3DomainLabel");
+const S3RegionLabel = document.getElementById("S3RegionLabel");
+const S3BucketLabel = document.getElementById("S3BucketLabel");
+const S3AccessKeyLabel = document.getElementById("S3AccessKeyLabel");
+const S3SecretKeyLabel = document.getElementById("S3SecretKeyLabel");
 const compressHTMLLabel = document.getElementById("compressHTMLLabel");
 const insertTextBodyLabel = document.getElementById("insertTextBodyLabel");
 const insertEmbeddedImageLabel = document.getElementById("insertEmbeddedImageLabel");
@@ -228,6 +236,7 @@ const webDAVURLInput = document.getElementById("webDAVURLInput");
 const webDAVUserInput = document.getElementById("webDAVUserInput");
 const webDAVPasswordInput = document.getElementById("webDAVPasswordInput");
 const saveToGitHubInput = document.getElementById("saveToGitHubInput");
+const saveToS3Input = document.getElementById("saveToS3Input");
 const githubTokenInput = document.getElementById("githubTokenInput");
 const githubUserInput = document.getElementById("githubUserInput");
 const githubRepositoryInput = document.getElementById("githubRepositoryInput");
@@ -341,7 +350,11 @@ const saveToRestFormApiUrlInput = document.getElementById("saveToRestFormApiUrlI
 const saveToRestFormApiFileFieldNameInput = document.getElementById("saveToRestFormApiFileFieldNameInput");
 const saveToRestFormApiUrlFieldNameInput = document.getElementById("saveToRestFormApiUrlFieldNameInput");
 const saveToRestFormApiTokenInput = document.getElementById("saveToRestFormApiTokenInput");
-
+const S3DomainInput = document.getElementById("S3DomainInput");
+const S3RegionInput = document.getElementById("S3RegionInput");
+const S3BucketInput = document.getElementById("S3BucketInput");
+const S3AccessKeyInput = document.getElementById("S3AccessKeyInput");
+const S3SecretKeyInput = document.getElementById("S3SecretKeyInput");
 
 let sidePanelDisplay;
 if (location.href.endsWith("#side-panel")) {
@@ -661,6 +674,12 @@ githubTokenLabel.textContent = browser.i18n.getMessage("optionGitHubToken");
 githubUserLabel.textContent = browser.i18n.getMessage("optionGitHubUser");
 githubRepositoryLabel.textContent = browser.i18n.getMessage("optionGitHubRepository");
 githubBranchLabel.textContent = browser.i18n.getMessage("optionGitHubBranch");
+saveToS3Label.textContent = browser.i18n.getMessage("optionSaveToS3");
+S3DomainLabel.textContent = browser.i18n.getMessage("optionS3Domain");
+S3RegionLabel.textContent = browser.i18n.getMessage("optionS3Region");
+S3BucketLabel.textContent = browser.i18n.getMessage("optionS3Bucket");
+S3AccessKeyLabel.textContent = browser.i18n.getMessage("optionS3AccessKey");
+S3SecretKeyLabel.textContent = browser.i18n.getMessage("optionS3SecretKey");
 saveWithCompanionLabel.textContent = browser.i18n.getMessage("optionSaveWithCompanion");
 compressHTMLLabel.textContent = browser.i18n.getMessage("optionCompressHTML");
 insertTextBodyLabel.textContent = browser.i18n.getMessage("optionInsertTextBody");
@@ -977,8 +996,19 @@ async function refresh(profileName) {
 	saveToRestFormApiFileFieldNameInput.disabled = !profileOptions.saveToRestFormApi;
 	saveToRestFormApiUrlFieldNameInput.value = profileOptions.saveToRestFormApiUrlFieldName;
 	saveToRestFormApiUrlFieldNameInput.disabled = !profileOptions.saveToRestFormApi;
+	saveToS3Input.checked = profileOptions.saveToS3;
+	S3DomainInput.value = profileOptions.S3Domain;
+	S3DomainInput.disabled = !profileOptions.saveToS3;
+	S3RegionInput.value = profileOptions.S3Region;
+	S3RegionInput.disabled = !profileOptions.saveToS3;
+	S3BucketInput.value = profileOptions.S3Bucket;
+	S3BucketInput.disabled = !profileOptions.saveToS3;
+	S3AccessKeyInput.value = profileOptions.S3AccessKey;
+	S3AccessKeyInput.disabled = !profileOptions.saveToS3;
+	S3SecretKeyInput.value = profileOptions.S3SecretKey;
+	S3SecretKeyInput.disabled = !profileOptions.saveToS3;
 	sharePageInput.checked = profileOptions.sharePage;
-	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveWithCompanion && !profileOptions.saveToClipboard && !profileOptions.saveWithWebDAV && !profileOptions.saveToDropbox && !profileOptions.saveToRestFormApi && !profileOptions.sharePage;
+	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveToS3 && !profileOptions.saveWithCompanion && !profileOptions.saveToClipboard && !profileOptions.saveWithWebDAV && !profileOptions.saveToDropbox && !profileOptions.saveToRestFormApi && !profileOptions.sharePage;
 	compressHTMLInput.checked = profileOptions.compressHTML;
 	compressCSSInput.checked = profileOptions.compressCSS;
 	moveStylesInHeadInput.checked = profileOptions.moveStylesInHead;
@@ -1188,6 +1218,12 @@ async function update() {
 			saveToRestFormApiToken: saveToRestFormApiTokenInput.value,
 			saveToRestFormApiFileFieldName: saveToRestFormApiFileFieldNameInput.value,
 			saveToRestFormApiUrlFieldName: saveToRestFormApiUrlFieldNameInput.value,
+			saveToS3: saveToS3Input.checked,
+			S3Domain: S3DomainInput.value,
+			S3Region: S3RegionInput.value,
+			S3Bucket: S3BucketInput.value,
+			S3AccessKey: S3AccessKeyInput.value,
+			S3SecretKey: S3SecretKeyInput.value
 		}
 	});
 	try {

@@ -110,6 +110,7 @@ const DEFAULT_CONFIG = {
 	webDAVPassword: "",
 	saveToGitHub: false,
 	saveToRestFormApi: false,
+	saveToS3: false,
 	githubToken: "",
 	githubUser: "",
 	githubRepository: "SingleFile-Archives",
@@ -171,7 +172,12 @@ const DEFAULT_CONFIG = {
 	saveToRestFormApiUrl: "",
 	saveToRestFormApiFileFieldName: "",
 	saveToRestFormApiUrlFieldName: "",
-	saveToRestFormApiToken: ""
+	saveToRestFormApiToken: "",
+	S3Domain: "s3.amazonaws.com",
+	S3Region: "",
+	S3Bucket: "",
+	S3AccessKey: "",
+	S3SecretKey: ""
 };
 
 const DEFAULT_RULES = [{

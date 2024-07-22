@@ -151,7 +151,7 @@ async function saveContent(message, tab) {
 		options.incognito = tab.incognito;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
-		options.keepFilename = options.saveToGDrive || options.saveToGitHub || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi;
+		options.keepFilename = options.saveToGDrive || options.saveToGitHub || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi || options.saveToS3;
 		let pageData;
 		try {
 			if (options.autoSaveExternalSave) {
@@ -163,7 +163,7 @@ async function saveContent(message, tab) {
 				options.tabId = tabId;
 				pageData = await getPageData(options, null, null, { fetch });
 				let skipped;
-				if (!options.saveToGDrive && !options.saveWithWebDAV && !options.saveToGitHub && !options.saveToDropbox && !options.saveWithCompanion && !options.saveToRestFormApi) {
+				if (!options.saveToGDrive && !options.saveWithWebDAV && !options.saveToGitHub && !options.saveToDropbox && !options.saveWithCompanion && !options.saveToRestFormApi && !options.saveToS3) {
 					const testSkip = await downloads.testSkipSave(pageData.filename, options);
 					skipped = testSkip.skipped;
 					options.filenameConflictAction = testSkip.filenameConflictAction;
@@ -212,6 +212,21 @@ async function saveContent(message, tab) {
 							options.saveToRestFormApiUrl,
 							options.saveToRestFormApiFileFieldName,
 							options.saveToRestFormApiUrlFieldName
+						);
+					} else if (options.saveToS3) {
+						if (!(content instanceof Blob)) {
+							content = new Blob([content], { type });
+						}
+						await downloads.saveToS3(
+							message.taskId,
+							content,
+							options.url,
+							options.S3Domain,
+							options.S3Region,
+							options.S3Bucket,
+							options.S3AccessKey,
+							options.S3SecretKey,
+							options.S3KeyPrefix
 						);
 					} else {
 						if (!(content instanceof Blob)) {

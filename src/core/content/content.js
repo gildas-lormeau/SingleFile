@@ -171,7 +171,7 @@ async function savePage(message) {
 			try {
 				const pageData = await processPage(options);
 				if (pageData) {
-					if (((!options.backgroundSave && !options.saveToClipboard) || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi) && options.confirmFilename && !options.openEditor) {
+					if (((!options.backgroundSave && !options.saveToClipboard) || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi || options.saveToS3) && options.confirmFilename && !options.openEditor) {
 						const filename = ui.prompt("Save as", pageData.filename);
 						if (filename) {
 							pageData.filename = filename;
@@ -206,7 +206,7 @@ async function savePage(message) {
 async function processPage(options) {
 	const frames = singlefile.processors.frameTree;
 	let framesSessionId;
-	options.keepFilename = options.saveToGDrive || options.saveToGitHub || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi;
+	options.keepFilename = options.saveToGDrive || options.saveToGitHub || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi || options.saveToS3;
 	singlefile.helper.initDoc(document);
 	ui.onStartPage(options);
 	processor = new singlefile.SingleFile(options);

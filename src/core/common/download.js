@@ -107,7 +107,13 @@ async function downloadPage(pageData, options) {
 		saveToRestFormApiUrl: options.saveToRestFormApiUrl,
 		saveToRestFormApiFileFieldName: options.saveToRestFormApiFileFieldName,
 		saveToRestFormApiUrlFieldName: options.saveToRestFormApiUrlFieldName,
-		saveToRestFormApiToken: options.saveToRestFormApiToken
+		saveToRestFormApiToken: options.saveToRestFormApiToken,
+		saveToS3: options.saveToS3,
+		S3Domain: options.S3Domain,
+		S3Region: options.S3Region,
+		S3Bucket: options.S3Bucket,
+		S3AccessKey: options.S3AccessKey,
+		S3SecretKey: options.S3SecretKey
 	};
 	const pingInterval = setInterval(() => {
 		browser.runtime.sendMessage({ method: "ping" }).then(() => { });
@@ -140,9 +146,9 @@ async function downloadPage(pageData, options) {
 			await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId });
 		}
 	} else {
-		if ((options.backgroundSave && !options.sharePage) || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi) {
+		if ((options.backgroundSave && !options.sharePage) || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi || options.saveToS3) {
 			let filename = pageData.filename;
-			if ((options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi) && options.confirmFilename && !options.openEditor) {
+			if ((options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi || options.saveToS3) && options.confirmFilename && !options.openEditor) {
 				filename = ui.prompt("Save as", pageData.filename);
 			}
 			if (filename) {

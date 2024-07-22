@@ -667,6 +667,30 @@
 		"message": "ブランチ名",
 		"description": "Options page label: 'branch name'"
 	},
+	"optionSaveToS3": {
+		"message": "Amazon S3 にアップロードする",
+		"description": "Options page label: 'upload to Amazon S3'"
+	},
+	"optionS3Domain": {
+		"message": "ドメイン",
+		"description": "Options page label: 'domain'"
+	},
+	"optionS3Region": {
+		"message": "リージョン",
+		"description": "Options page label: 'region'"
+	},
+	"optionS3Bucket": {
+		"message": "バケット名",
+		"description": "Options page label: 'bucket name'"
+	},
+	"optionS3AccessKey": {
+		"message": "アクセスキー",
+		"description": "Options page label: 'access key'"
+	},
+	"optionS3SecretKey": {
+		"message": "シークレットキー",
+		"description": "Options page label: 'secret key'"
+	},
 	"optionSaveWithWebDAV": {
 		"message": "WebDAVサーバーにアップロードする",
 		"description": "Options page label: 'upload to a WebDAV server'"

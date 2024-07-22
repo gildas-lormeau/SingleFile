@@ -667,6 +667,30 @@
 		"message": "nome do branch (ramo)",
 		"description": "Options page label: 'branch name'"
 	},
+	"optionSaveToS3": {
+		"message": "enviar para o Amazon S3",
+		"description": "Options page label: 'upload to Amazon S3'"
+	},
+	"optionS3Domain": {
+		"message": "domínio",
+		"description": "Options page label: 'domain'"
+	},
+	"optionS3Region": {
+		"message": "região",
+		"description": "Options page label: 'region'"
+	},
+	"optionS3Bucket": {
+		"message": "nome do bucket",
+		"description": "Options page label: 'bucket name'"
+	},
+	"optionS3AccessKey": {
+		"message": "chave de acesso",
+		"description": "Options page label: 'access key'"
+	},
+	"optionS3SecretKey": {
+		"message": "chave secreta",
+		"description": "Options page label: 'secret key'"
+	},
 	"optionSaveWithWebDAV": {
 		"message": "enviar para um servidor WebDAV",
 		"description": "Options page label: 'upload to a WebDAV server'"

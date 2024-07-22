@@ -667,6 +667,30 @@
 		"message": "naam van de branch",
 		"description": "Options page label: 'branch name'"
 	},
+	"optionSaveToS3": {
+		"message": "upload to Amazon S3",
+		"description": "Options page label: 'upload to Amazon S3'"
+	},
+	"optionS3Domain": {
+		"message": "domain",
+		"description": "Options page label: 'domain'"
+	},
+	"optionS3Region": {
+		"message": "region",
+		"description": "Options page label: 'region'"
+	},
+	"optionS3Bucket": {
+		"message": "bucket name",
+		"description": "Options page label: 'bucket name'"
+	},
+	"optionS3AccessKey": {
+		"message": "access key",
+		"description": "Options page label: 'access key'"
+	},
+	"optionS3SecretKey": {
+		"message": "secret key",
+		"description": "Options page label: 'secret key'"
+	},
 	"optionSaveWithWebDAV": {
 		"message": "upload naar een WebDAV-server",
 		"description": "Options page label: 'upload to a WebDAV server'"

@@ -667,6 +667,30 @@
 		"message": "şube adı",
 		"description": "Options page label: 'branch name'"
 	},
+	"optionSaveToS3": {
+		"message": "Amazon S3'e yükleme",
+		"description": "Options page label: 'upload to Amazon S3'"
+	},
+	"optionS3Domain": {
+		"message": "alan adı",
+		"description": "Options page label: 'domain'"
+	},
+	"optionS3Region": {
+		"message": "bölge",
+		"description": "Options page label: 'region'"
+	},
+	"optionS3Bucket": {
+		"message": "kova adı",
+		"description": "Options page label: 'bucket name'"
+	},
+	"optionS3AccessKey": {
+		"message": "erişim anahtarı",
+		"description": "Options page label: 'access key'"
+	},
+	"optionS3SecretKey": {
+		"message": "gizli anahtar",
+		"description": "Options page label: 'secret key'"
+	},
 	"optionSaveWithWebDAV": {
 		"message": "bir WebDAV sunucusuna yükle",
 		"description": "Options page label: 'upload to a WebDAV server'"

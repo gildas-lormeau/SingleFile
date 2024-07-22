@@ -667,6 +667,30 @@
 		"message": "分支名称",
 		"description": "Options page label: 'branch name'"
 	},
+	"optionSaveToS3": {
+		"message": "保存到 Amazon S3",
+		"description": "Options page label: 'upload to Amazon S3'"
+	},
+	"optionS3Domain": {
+		"message": "域名",
+		"description": "Options page label: 'domain'"
+	},
+	"optionS3Region": {
+		"message": "区域",
+		"description": "Options page label: 'region'"
+	},
+	"optionS3Bucket": {
+		"message": "存储桶名称",
+		"description": "Options page label: 'bucket name'"
+	},
+	"optionS3AccessKey": {
+		"message": "访问密钥",
+		"description": "Options page label: 'access key'"
+	},
+	"optionS3SecretKey": {
+		"message": "密钥",
+		"description": "Options page label: 'secret key'"
+	},
 	"optionSaveWithWebDAV": {
 		"message": "保存到 WebDAV 服务器",
 		"description": "Options page label: 'upload to a WebDAV server'"
