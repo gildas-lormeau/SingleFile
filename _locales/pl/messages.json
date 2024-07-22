@@ -668,11 +668,11 @@
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveToS3": {
-		"message": "upload to Amazon S3",
+		"message": "przesyłaj do Amazon S3",
 		"description": "Options page label: 'upload to Amazon S3'"
 	},
 	"optionS3Domain": {
-		"message": "domain",
+		"message": "domena",
 		"description": "Options page label: 'domain'"
 	},
 	"optionS3Region": {
@@ -680,15 +680,15 @@
 		"description": "Options page label: 'region'"
 	},
 	"optionS3Bucket": {
-		"message": "bucket name",
+		"message": "nazwa komory",
 		"description": "Options page label: 'bucket name'"
 	},
 	"optionS3AccessKey": {
-		"message": "access key",
+		"message": "klucz dostępu",
 		"description": "Options page label: 'access key'"
 	},
 	"optionS3SecretKey": {
-		"message": "secret key",
+		"message": "klucz tajny",
 		"description": "Options page label: 'secret key'"
 	},
 	"optionSaveWithWebDAV": {
