@@ -1138,6 +1138,38 @@
 					<li><code>%datetime-locale&lt;locales&gt;</code>: the localized value of the date and time (e.g.
 						"%datetime-locale&lt;en-US&gt;" for the date and time in the US English format)
 					</li>
+					<li><code>%datetime-custom&lt;locale|year|month|day|weekday|hour|minute|second|hour12|time-zone|fractional-seconds-digits|time-zone-name|era|locale-matcher&gt;</code>:
+						the date and time formatted according to the specified locale and options. See below for the
+						list of options. You can pass <code> </code> (space character) as a value to use the default
+						value for an option. You can also omit options at the end of the list. For example, to format
+						the date and time in the US English format with the year, day, and weekday, you can use
+						"%datetime-custom&lt;en-US|numeric| |numeric| |numeric&gt;".
+						<ul>
+							<li><code>locale</code>: the locale to use as a BCP 47 language tag (e.g. "en-US")</li>
+							<li><code>year</code>: the year format (i.e. "numeric", "2-digit")</li>
+							<li><code>month</code>: the month format (i.e. "numeric", "2-digit", "narrow", "short",
+								"long")
+							</li>
+							<li><code>day</code>: the day format (i.e. "numeric", "2-digit")</li>
+							<li><code>weekday</code>: the weekday format (i.e. "narrow", "short", "long")</li>
+							<li><code>hour</code>: the hour format (i.e. "numeric", "2-digit")</li>
+							<li><code>minute</code>: the minute format (i.e. "numeric", "2-digit")</li>
+							<li><code>second</code>: the second format (i.e. "numeric", "2-digit")</li>
+							<li><code>hour12</code>: whether to use 12-hour time (i.e. "true", "false")</li>
+							<li><code>time-zone</code>: the time zone of the IANA Time Zone Database (e.g. "UTC", "GMT",
+								"EST", "PST", "America/New_York")</li>
+							<li><code>fractional-seconds-digits</code>: the number of fractional second digits (i.e.
+								"1" to "3")</li>
+							<li><code>time-zone-name</code>: the time zone name format (i.e. "short", "long",
+								"sortOffset", "longOffset", "shortGeneric", "longGeneric")</li>
+							<li><code>day-period</code>: the day period (i.e. "narrow", "short", "long")</li>
+							<li><code>era</code>: the era (i.e. "narrow", "short", "long")</li>
+							<li><code>locale-matcher</code>: the locale matcher (e.g. "lookup", "best fit")</li>
+						</ul>
+						You can find more information about the options in the <a
+							href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#parameters"
+							target="_blank">DateTimeFormat constructor</a> documentation.
+					</li>
 				</ul>
 			</li>
 			<li>
