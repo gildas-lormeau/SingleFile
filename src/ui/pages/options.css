@@ -45,6 +45,7 @@ input[type=password] {
 
 textarea {
     width: 100%;
+    min-height: 1.2em;
     height: 2.4em;
     resize: vertical;
 }
