@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 
 ---
-
+<!--
 For questions, please create or update a thread here: 
 https://github.com/gildas-lormeau/SingleFile/discussions
 
@@ -11,9 +11,10 @@ Please ensure that you do not find an answer before reporting the issue:
  - in the FAQ: https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md
  - in the list of known issues: https://github.com/gildas-lormeau/SingleFile#known-issues
  - in the help page embedded in the extension
+-->
 
 **Describe the bug**
-A clear and concise description of what the bug is.
+<!-- A clear and concise description of what the bug is. -->
 
 **To Reproduce**
 Steps to reproduce the behavior:
@@ -23,10 +24,10 @@ Steps to reproduce the behavior:
 4. See error
 
 **Expected behavior**
-A clear and concise description of what you expected to happen.
+<!-- A clear and concise description of what you expected to happen. -->
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+<!-- If applicable, add screenshots to help explain your problem. -->
 
 **Environment**
  - OS: [e.g. Win10 Pro, Ubuntu 18.04.1, Android 7.1.2]
@@ -34,4 +35,4 @@ If applicable, add screenshots to help explain your problem.
  - Version: [e.g. 64]
 
 **Additional context**
-Add any other context about the problem here.
+<!-- Add any other context about the problem here. -->
