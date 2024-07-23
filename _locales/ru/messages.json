@@ -668,27 +668,27 @@
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveToS3": {
-		"message": "upload to Amazon S3",
+		"message": "загрузить на Amazon S3",
 		"description": "Options page label: 'upload to Amazon S3'"
 	},
 	"optionS3Domain": {
-		"message": "domain",
+		"message": "домен",
 		"description": "Options page label: 'domain'"
 	},
 	"optionS3Region": {
-		"message": "region",
+		"message": "регион",
 		"description": "Options page label: 'region'"
 	},
 	"optionS3Bucket": {
-		"message": "bucket name",
+		"message": "имя сегмента",
 		"description": "Options page label: 'bucket name'"
 	},
 	"optionS3AccessKey": {
-		"message": "access key",
+		"message": "ключ доступа",
 		"description": "Options page label: 'access key'"
 	},
 	"optionS3SecretKey": {
-		"message": "secret key",
+		"message": "секретный ключ",
 		"description": "Options page label: 'secret key'"
 	},
 	"optionSaveWithWebDAV": {
