@@ -304,13 +304,14 @@ function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRe
 		videos: docData.videos,
 		referrer: docData.referrer,
 		adoptedStyleSheets: docData.adoptedStyleSheets,
+		worklets: docData.worklets,
 		frames: frames,
 		url: location.href,
 		updatedResources,
 		visitDate,
 		autoSaveUnload,
 		autoSaveDiscard,
-		autoSaveRemove
+		autoSaveRemove,
 	});
 }
 
