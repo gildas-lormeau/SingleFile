@@ -86,7 +86,7 @@ async function download(downloadInfo, replacementCharacter) {
 				delete downloadInfo.conflictAction;
 				return download(downloadInfo, replacementCharacter);
 			} else if (errorMessage.includes(ERROR_DOWNLOAD_CANCELED_GECKO)) {
-				return {};
+				return { cancelled: true };
 			} else {
 				throw error;
 			}
