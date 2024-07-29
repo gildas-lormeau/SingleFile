@@ -175,6 +175,10 @@
 		"message": "додавати інформ. панель в сторінку що зберігається",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
+	"optionOpenInfobar": {
+		"message": "тримати інфопанель відкритою",
+		"description": "Options page label: 'keep infobar open'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "не включати збережену дату",
 		"description": "Options page label: 'do not include the saved date'"

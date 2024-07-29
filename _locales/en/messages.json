@@ -175,6 +175,10 @@
 		"message": "include the infobar in the saved page",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
+	"optionOpenInfobar": {
+		"message": "keep infobar open",
+		"description": "Options page label: 'keep infobar open'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "do not include the saved date",
 		"description": "Options page label: 'do not include the saved date'"

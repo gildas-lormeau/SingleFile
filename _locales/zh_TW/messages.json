@@ -175,6 +175,10 @@
 		"message": "在已保存頁面中將信息欄包括在內",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
+	"optionOpenInfobar": {
+		"message": "保持資訊列開啟",
+		"description": "Options page label: 'keep infobar open'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "不包括保存日期",
 		"description": "Options page label: 'do not include the saved date'"

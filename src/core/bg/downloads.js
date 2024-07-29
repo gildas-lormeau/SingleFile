@@ -242,7 +242,8 @@ async function downloadContent(contents, tab, incognito, message) {
 					filenameReplacementCharacter: message.filenameReplacementCharacter,
 					bookmarkId: message.bookmarkId,
 					replaceBookmarkURL: message.replaceBookmarkURL,
-					includeInfobar: message.includeInfobar
+					includeInfobar: message.includeInfobar,
+					openInfobar: message.openInfobar
 				});
 				if (!response) {
 					throw new Error("upload_cancelled");
@@ -368,7 +369,8 @@ async function downloadCompressedContent(message, tab) {
 					filenameReplacementCharacter: message.filenameReplacementCharacter,
 					bookmarkId: message.bookmarkId,
 					replaceBookmarkURL: message.replaceBookmarkURL,
-					includeInfobar: message.includeInfobar
+					includeInfobar: message.includeInfobar,
+					openInfobar: message.openInfobar
 				});
 			}
 			if (message.bookmarkId && message.replaceBookmarkURL && response && response.url) {

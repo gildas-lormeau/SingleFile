@@ -175,6 +175,10 @@
 		"message": "incluir a barra de informações na página guardada",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
+	"optionOpenInfobar": {
+		"message": "manter o infobar aberto",
+		"description": "Options page label: 'keep infobar open'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "não incluir a data em que foi guardada",
 		"description": "Options page label: 'do not include the saved date'"

@@ -63,6 +63,7 @@ const DEFAULT_CONFIG = {
 	filenameTemplate: "%if-empty<{page-title}|No title> ({date-locale} {time-locale}).{filename-extension}",
 	infobarTemplate: "",
 	includeInfobar: !IS_NOT_SAFARI,
+	openInfobar: false,
 	confirmInfobarContent: false,
 	autoClose: false,
 	confirmFilename: false,

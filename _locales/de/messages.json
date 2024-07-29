@@ -175,6 +175,10 @@
 		"message": "Einfügen Inhalt des Infoknopfs in die gespeicherte Seite",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
+	"optionOpenInfobar": {
+		"message": "Infobar offen halten",
+		"description": "Options page label: 'keep infobar open'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "Enthalten nicht das gespeicherte Datum",
 		"description": "Options page label: 'do not include the saved date'"

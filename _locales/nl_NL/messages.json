@@ -175,6 +175,10 @@
 		"message": "neem de infobalk op in de opgeslagen pagina",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
+	"optionOpenInfobar": {
+		"message": "infobalk openhouden",
+		"description": "Options page label: 'keep infobar open'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "sla de opgeslagen datum niet op",
 		"description": "Options page label: 'do not include the saved date'"

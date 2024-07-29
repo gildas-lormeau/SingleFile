@@ -90,6 +90,7 @@ async function downloadPage(pageData, options) {
 		applySystemTheme: options.applySystemTheme,
 		defaultEditorMode: options.defaultEditorMode,
 		includeInfobar: options.includeInfobar,
+		openInfobar: options.openInfobar,
 		warnUnsavedPage: options.warnUnsavedPage,
 		createRootDirectory: options.createRootDirectory,
 		selfExtractingArchive: options.selfExtractingArchive,

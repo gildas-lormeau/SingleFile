@@ -175,6 +175,10 @@
 		"message": "bilgi çubuğunu kaydedilen sayfaya dahil et",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
+	"optionOpenInfobar": {
+		"message": "bilgi çubuğunu açık tut",
+		"description": "Options page label: 'keep infobar open'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "kaydedilen tarihi dahil etme",
 		"description": "Options page label: 'do not include the saved date'"
