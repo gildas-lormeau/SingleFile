@@ -176,7 +176,7 @@
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionOpenInfobar": {
-		"message": "keep infobar open",
+		"message": "не закрывать информационную панель",
 		"description": "Options page label: 'keep infobar open'"
 	},
 	"optionRemoveInfobarSavedDate": {
