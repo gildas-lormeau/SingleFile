@@ -311,7 +311,7 @@ function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRe
 		visitDate,
 		autoSaveUnload,
 		autoSaveDiscard,
-		autoSaveRemove,
+		autoSaveRemove
 	});
 }
 
