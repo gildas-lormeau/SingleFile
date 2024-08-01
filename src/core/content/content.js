@@ -171,18 +171,7 @@ async function savePage(message) {
 			try {
 				const pageData = await processPage(options);
 				if (pageData) {
-					if (((!options.backgroundSave && !options.saveToClipboard) || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi || options.saveToS3) && options.confirmFilename && !options.openEditor) {
-						const filename = ui.prompt("Save as", pageData.filename);
-						if (filename) {
-							pageData.filename = filename;
-							await download.downloadPage(pageData, options);
-						} else {
-							browser.runtime.sendMessage({ method: "downloads.cancel" });
-							browser.runtime.sendMessage({ method: "ui.processCancelled" });
-						}
-					} else {
-						await download.downloadPage(pageData, options);
-					}
+					await download.downloadPage(pageData, options);
 				}
 			} catch (error) {
 				if (!processor.cancelled) {
