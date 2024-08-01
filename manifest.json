@@ -39,10 +39,8 @@
 		}
 	],
 	"background": {
-		"page": "src/core/bg/background.html",
-		"persistent": false
+		"page": "src/core/bg/background.html"
 	},
-	"options_page": "src/ui/pages/options.html",
 	"sidebar_action": {
 		"browser_style": true,
 		"default_title": "SingleFile",
@@ -93,23 +91,15 @@
 		"src/ui/pages/editor-mask-web.css",
 		"src/ui/pages/editor-frame-web.css"
 	],
-	"oauth2": {
-		"client_id": "207618107333-7tjs1im1pighftpoepea2kvkubnfjj44.apps.googleusercontent.com",
-		"scopes": [
-			"https://www.googleapis.com/auth/drive.file"
-		]
-	},
 	"permissions": [
 		"identity",
 		"menus",
-		"contextMenus",
 		"downloads",
 		"storage",
 		"tabs",
 		"<all_urls>"
 	],
 	"optional_permissions": [
-		"identity",
 		"clipboardWrite",
 		"nativeMessaging",
 		"bookmarks",
