@@ -413,7 +413,6 @@ async function onMessage(message) {
 		if (syncConfig && syncConfig.rules && (!localConfig || !localConfig.rules)) {
 			await browser.storage.local.set({ rules: syncConfig.rules, maxParallelWorkers: syncConfig.maxParallelWorkers, processInForeground: syncConfig.processInForeground });
 			const profiles = {};
-			// syncConfig.profileNames.forEach(profileKeyName => profiles[PROFILE_NAME_PREFIX + profileKeyName] = syncConfig[profileKeyName]);
 			await browser.storage.local.set(profiles);
 		}
 		configStorage = browser.storage.local;
