@@ -618,7 +618,7 @@ async function saveToRestFormApi(taskId, content, url, token, restApiUrl, fileFi
 	}
 }
 
-async function downloadPageForeground(taskId, filename, content, mimeType, tabId, { foregroundSave, sharePage }) {
+async function downloadPageForeground(taskId, filename, content, mimeType, tabId, { foregroundSave, sharePage } = {}) {
 	const serializer = yabson.getSerializer({
 		filename,
 		taskId,
