@@ -120,31 +120,40 @@ async function downloadPage(pageData, options) {
 		browser.runtime.sendMessage({ method: "ping" }).then(() => { });
 	}, 15000);
 	if (options.compressContent) {
-		const blob = new Blob([await yabson.serialize(pageData)], { type: pageData.mimeType });
-		const blobURL = URL.createObjectURL(blob);
-		message.blobURL = blobURL;
-		const result = await browser.runtime.sendMessage(message);
-		URL.revokeObjectURL(blobURL);
-		if (result.error) {
-			message.embeddedImage = embeddedImage;
-			message.blobURL = null;
-			message.pageData = pageData;
-			const serializer = yabson.getSerializer(message);
-			for await (const chunk of serializer) {
+		if ((!options.backgroundSave || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi || options.saveToS3) && options.confirmFilename && !options.openEditor) {
+			pageData.filename = ui.prompt("Save as", pageData.filename);
+		}
+		if (pageData.filename) {
+			const blob = new Blob([await yabson.serialize(pageData)], { type: pageData.mimeType });
+			const blobURL = URL.createObjectURL(blob);
+			message.filename = pageData.filename;
+			message.blobURL = blobURL;
+			const result = await browser.runtime.sendMessage(message);
+			URL.revokeObjectURL(blobURL);
+			if (result.error) {
+				message.embeddedImage = embeddedImage;
+				message.blobURL = null;
+				message.pageData = pageData;
+				const serializer = yabson.getSerializer(message);
+				for await (const chunk of serializer) {
+					await browser.runtime.sendMessage({
+						method: "downloads.download",
+						compressContent: true,
+						data: Array.from(chunk)
+					});
+				}
 				await browser.runtime.sendMessage({
 					method: "downloads.download",
 					compressContent: true,
-					data: Array.from(chunk)
+					mimeType: pageData.mimeType
 				});
 			}
-			await browser.runtime.sendMessage({
-				method: "downloads.download",
-				compressContent: true,
-				mimeType: pageData.mimeType
-			});
-		}
-		if (options.backgroundSave) {
-			await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId });
+			if (options.backgroundSave) {
+				await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId });
+			}
+		} else {
+			browser.runtime.sendMessage({ method: "downloads.cancel" });
+			browser.runtime.sendMessage({ method: "ui.processCancelled" });
 		}
 	} else {
 		if ((options.backgroundSave && !options.sharePage) || options.openEditor || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi || options.saveToS3) {
