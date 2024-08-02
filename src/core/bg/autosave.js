@@ -207,6 +207,7 @@ async function saveContent(message, tab) {
 					} else if (options.saveToRestFormApi) {
 						await downloads.saveToRestFormApi(
 							message.taskId,
+							pageData.filename,
 							content,
 							options.url,
 							options.saveToRestFormApiToken,
