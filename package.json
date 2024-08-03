@@ -13,8 +13,8 @@
 		"single-file-core": "1.5.15"
 	},
 	"devDependencies": {
-		"rollup": "2.79.1",
-		"@rollup/plugin-node-resolve": "15.0.1",
+		"rollup": "4.20.0",
+		"@rollup/plugin-node-resolve": "15.2.3",
 		"@rollup/plugin-terser": "0.4.4"
 	},
 	"overrides": {
