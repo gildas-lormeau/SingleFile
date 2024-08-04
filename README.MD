@@ -49,14 +49,9 @@ You can also download the zip file
 and install it manually by unzipping it somewhere on your disk and following
 these instructions:
 
-- Firefox:
-  https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/
-- Chrome:
-  https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked
-- Microsoft Edge:
-  https://docs.microsoft.com/en-us/microsoft-edge/extensions-chromium/getting-started/extension-sideloading
-- Safari:
-  https://github.com/gildas-lormeau/SingleFile-Safari-Extension
+- Firefox: https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox
+- Chrome and Microsoft Edge: see https://github.com/gildas-lormeau/SingleFile-MV3
+- Safari: see https://github.com/gildas-lormeau/SingleFile-Safari-Extension
   
 ## Getting started
 
