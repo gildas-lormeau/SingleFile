@@ -43,12 +43,12 @@ class RestFormApi {
 		this.urlFieldName = urlFieldName;
 	}
 
-	async upload(content, url) {
+	async upload(filename, content, url) {
 		this.controller = new AbortController();
 		const blob = content instanceof Blob ? content : new Blob([content], { type: "text/html" });
 		let formData = new FormData();
 		if (this.fileFieldName) {
-			formData.append(this.fileFieldName, blob);
+			formData.append(this.fileFieldName, blob, filename);
 		}
 		if (this.urlFieldName) {
 			formData.append(this.urlFieldName, url);
