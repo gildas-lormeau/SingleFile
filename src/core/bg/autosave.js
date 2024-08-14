@@ -220,8 +220,8 @@ async function saveContent(message, tab) {
 						}
 						await downloads.saveToS3(
 							message.taskId,
+							pageData.filename,
 							content,
-							options.url,
 							options.S3Domain,
 							options.S3Region,
 							options.S3Bucket,
