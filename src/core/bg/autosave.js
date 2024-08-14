@@ -226,8 +226,7 @@ async function saveContent(message, tab) {
 							options.S3Region,
 							options.S3Bucket,
 							options.S3AccessKey,
-							options.S3SecretKey,
-							options.S3KeyPrefix
+							options.S3SecretKey
 						);
 					} else {
 						if (!(content instanceof Blob)) {
