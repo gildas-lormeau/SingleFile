@@ -487,6 +487,10 @@
 		"message": "変更内容を検証します",
 		"description": "Popup text 'Validate changes' in the options page"
 	},
+	"optionsCancelChangesTooltip": {
+		"message": "変更をキャンセルします",
+		"description": "Popup text 'Cancel changes' in the options page"
+	},
 	"optionsDeleteRuleConfirm": {
 		"message": "選択したルールの削除を確認する",
 		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"

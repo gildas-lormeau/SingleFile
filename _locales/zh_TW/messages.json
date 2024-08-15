@@ -487,6 +487,10 @@
 		"message": "驗證更改",
 		"description": "Popup text 'Validate changes' in the options page"
 	},
+	"optionsCancelChangesTooltip": {
+		"message": "取消變更",
+		"description": "Popup text 'Cancel changes' in the options page"
+	},
 	"optionsDeleteRuleConfirm": {
 		"message": "確認刪除所選規則",
 		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"

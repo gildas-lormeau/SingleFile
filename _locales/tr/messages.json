@@ -487,6 +487,10 @@
 		"message": "Değişiklikleri doğrula",
 		"description": "Popup text 'Validate changes' in the options page"
 	},
+	"optionsCancelChangesTooltip": {
+		"message": "Değişiklikleri iptal et",
+		"description": "Popup text 'Cancel changes' in the options page"
+	},
 	"optionsDeleteRuleConfirm": {
 		"message": "Seçilen kuralın silinmesini onaylayın",
 		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"

@@ -487,6 +487,10 @@
 		"message": "Valider les changements",
 		"description": "Popup text 'Valider les changements' in the options page"
 	},
+	"optionsCancelChangesTooltip": {
+		"message": "Annuler les changements",
+		"description": "Popup text 'Annuler les changements' in the options page"
+	},
 	"optionsDeleteRuleConfirm": {
 		"message": "Confirmer la suppression de la règle selectionnée",
 		"description": "Popup text 'Confirm deletion of the selected rule' in the options page"

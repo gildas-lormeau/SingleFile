@@ -322,6 +322,7 @@ const ruleAutoSaveProfileInput = document.getElementById("ruleAutoSaveProfileInp
 const ruleEditProfileInput = document.getElementById("ruleEditProfileInput");
 const ruleEditAutoSaveProfileInput = document.getElementById("ruleEditAutoSaveProfileInput");
 const ruleAddButton = document.getElementById("ruleAddButton");
+const ruleCancelButton = document.getElementById("ruleCancelButton");
 const rulesElement = document.querySelector(".rules-table");
 const rulesContainerElement = document.querySelector(".rules-table-container");
 const ruleEditUrlInput = document.getElementById("ruleEditUrlInput");
@@ -356,7 +357,7 @@ const S3BucketInput = document.getElementById("S3BucketInput");
 const S3AccessKeyInput = document.getElementById("S3AccessKeyInput");
 const S3SecretKeyInput = document.getElementById("S3SecretKeyInput");
 
-let sidePanelDisplay;
+let sidePanelDisplay, lastURLValue = "", lastProfileValue = "", lastAutoSaveProfileValue = "";
 if (location.href.endsWith("#side-panel")) {
 	sidePanelDisplay = true;
 	document.querySelector(".options-title").remove();
@@ -411,6 +412,14 @@ ruleEditUrlInput.onclick = ruleEditUrlInput.onkeyup = ruleEditUrlInput.onchange 
 	if (rules.find(rule => rule.url == ruleEditUrlInput.value)) {
 		ruleEditButton.disabled = true;
 	}
+};
+ruleCancelButton.onclick = async () => {
+	ruleEditUrlInput.value = lastURLValue;
+	ruleEditProfileInput.value = lastProfileValue;
+	ruleEditAutoSaveProfileInput.value = lastAutoSaveProfileValue;
+	lastURLValue = "";
+	lastProfileValue = "";
+	lastAutoSaveProfileValue = "";
 };
 if (getLocalStorageItem("optionShowAutoSaveProfile")) {
 	showAutoSaveProfileInput.checked = true;
@@ -789,6 +798,7 @@ autoSettingsProfileLabel.textContent = browser.i18n.getMessage("optionsAutoSetti
 autoSettingsAutoSaveProfileLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsAutoSaveProfile");
 ruleAddButton.title = browser.i18n.getMessage("optionsAddRuleTooltip");
 ruleEditButton.title = browser.i18n.getMessage("optionsValidateChangesTooltip");
+ruleCancelButton.title = browser.i18n.getMessage("optionsCancelChangesTooltip");
 rulesDeleteAllButton.title = browser.i18n.getMessage("optionsDeleteRulesTooltip");
 showAllProfilesLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsShowAllProfiles");
 showAutoSaveProfileLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsShowAutoSaveProfile");
@@ -925,9 +935,9 @@ async function refresh(profileName) {
 					createURLElement.hidden = true;
 					editURLElement.hidden = false;
 					rulesDataElement.replaceChild(editURLElement, ruleElement);
-					ruleEditUrlInput.value = rule.url;
-					ruleEditProfileInput.value = rule.profile;
-					ruleEditAutoSaveProfileInput.value = rule.autoSaveProfile;
+					ruleEditUrlInput.value = lastURLValue = rule.url;
+					ruleEditProfileInput.value = lastProfileValue = rule.profile;
+					ruleEditAutoSaveProfileInput.value = lastAutoSaveProfileValue = rule.autoSaveProfile;
 					ruleEditUrlInput.focus();
 					editURLElement.onsubmit = async event => {
 						event.preventDefault();
@@ -936,6 +946,11 @@ async function refresh(profileName) {
 						await refresh();
 						await refreshExternalComponents();
 						ruleUrlInput.focus();
+					};
+					editURLElement.onkeyup = event => {
+						if (event.key == "Escape") {
+							ruleCancelButton.click();
+						}
 					};
 				}
 			}, false);
