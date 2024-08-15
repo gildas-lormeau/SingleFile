@@ -226,7 +226,8 @@ async function saveContent(message, tab) {
 							options.S3Region,
 							options.S3Bucket,
 							options.S3AccessKey,
-							options.S3SecretKey
+							options.S3SecretKey,
+							{ filenameConflictAction: options.filenameConflictAction }
 						);
 					} else {
 						if (!(content instanceof Blob)) {
