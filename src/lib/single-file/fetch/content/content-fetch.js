@@ -142,15 +142,18 @@ export {
 	frameFetch
 };
 
-async function fetchResource(url, options = {}) {
+async function fetchResource(url, options = { cache: "force-cache", referrerPolicy: "strict-origin-when-cross-origin" }) {
 	try {
-		const fetchOptions = { cache: "force-cache", headers: options.headers, referrerPolicy: "strict-origin-when-cross-origin" };
+		const fetchOptions = { cache: options.cache, headers: options.headers, referrerPolicy: options.referrerPolicy };
 		let response;
 		try {
 			if (options.referrer && !USE_HOST_FETCH) {
 				response = await fetch(url, fetchOptions);
 			} else {
 				response = await hostFetch(url, fetchOptions);
+			}
+			if (response.status == 401 || response.status == 403 || response.status == 404) {
+				return await fetchResource(url, { ...options, referrerPolicy: "no-referrer" });
 			}
 		} catch (error) {
 			if (error && error.message == ERR_HOST_FETCH) {
