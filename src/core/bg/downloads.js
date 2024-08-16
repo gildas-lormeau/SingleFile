@@ -221,6 +221,7 @@ async function downloadContent(contents, tab, incognito, message) {
 			} else if (message.saveToRestFormApi) {
 				response = await saveToRestFormApi(
 					message.taskId,
+					message.filename,
 					contents.join(""),
 					tab.url,
 					message.saveToRestFormApiToken,
@@ -348,6 +349,7 @@ async function downloadCompressedContent(message, tab) {
 			} else if (message.saveToRestFormApi) {
 				response = await saveToRestFormApi(
 					message.taskId,
+					message.filename,
 					blob,
 					tab.url,
 					message.saveToRestFormApiToken,
