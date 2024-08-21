@@ -988,6 +988,10 @@
 					<li><code>{filename-extension}</code>: the extension of the filename depending on the file format
 						(i.e. "html", "u.zip.html", "zip.html", "zip")</li>
 					<li><code>{save-action}</code>: the action used to save the page (i.e. "page", "selection")</li>
+					<li><code>{options-json}</code>: the JSON representation of the options used to save the page</li>
+					<li><code>{options-text}</code>: the text representation of the options used to save the page. The
+						text representation is formatted with a list of options and their values separated by a line
+						break (e.g. "option1: value1\noption2: value2")</li>
 				</ul>
 			</li>
 			<li><a id="template-functions" href="#template-functions">Template functions</a>
@@ -1175,6 +1179,9 @@
 						You can find more information about the options in the <a
 							href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#parameters"
 							target="_blank">DateTimeFormat constructor</a> documentation.
+					</li>
+					<li><code>%option-value&lt;key&gt;</code>: the value of the specified option (e.g.
+						"%option-value&lt;displayInfobar&gt;" for the value of the "displayInfobar" option)
 					</li>
 				</ul>
 			</li>
