@@ -152,7 +152,7 @@ async function fetchResource(url, options = { cache: "force-cache", referrerPoli
 			} else {
 				response = await hostFetch(url, fetchOptions);
 			}
-			if (response.status == 401 || response.status == 403 || response.status == 404 && referrerPolicy == "strict-origin-when-cross-origin") {
+			if (response.status == 401 || response.status == 403 || response.status == 404 && options.referrerPolicy == "strict-origin-when-cross-origin") {
 				return await fetchResource(url, { ...options, referrerPolicy: "no-referrer" });
 			}
 		} catch (error) {
