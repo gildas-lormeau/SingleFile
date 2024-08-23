@@ -163,8 +163,7 @@ async function fetchResource(url, options = { cache: "force-cache", referrerPoli
 			}
 		}
 		return response;
-	}
-	catch (error) {
+	} catch (error) {
 		requestId++;
 		const promise = new Promise((resolve, reject) => pendingResponses.set(requestId, { resolve, reject }));
 		await sendMessage({ method: "singlefile.fetch", url, requestId, referrer: options.referrer, headers: options.headers });
