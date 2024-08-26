@@ -150,14 +150,14 @@ async function fetchResource(url, options, useHostFetch = true) {
 			}
 			if (response.status == 401 || response.status == 403 || response.status == 404) {
 				if (fetchOptions.referrerPolicy != "no-referrer") {
-					response = await fetchResource(url, { ...fetchOptions, referrerPolicy: "no-referrer" });
+					response = await fetchResource(url, { ...fetchOptions, referrerPolicy: "no-referrer" }, useHostFetch);
 				}
 			}
 		} catch (error) {
 			if (error && error.message == ERR_HOST_FETCH) {
 				response = await fetchResource(url, { ...fetchOptions }, false);
 			} else if (fetchOptions.referrerPolicy != "no-referrer") {
-				response = await fetchResource(url, { ...fetchOptions, referrerPolicy: "no-referrer" });
+				response = await fetchResource(url, { ...fetchOptions, referrerPolicy: "no-referrer" }, useHostFetch);
 			} else {
 				throw error;
 			}
