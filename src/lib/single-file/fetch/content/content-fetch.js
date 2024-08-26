@@ -123,17 +123,9 @@ async function hostFetch(url, options) {
 				}
 			}
 		});
-		try {
-			return await result;
-		} catch (error) {
-			if (error && error.message == ERR_HOST_FETCH) {
-				return fetch(url, options);
-			} else {
-				throw error;
-			}
-		}
+		return result;
 	} else {
-		return fetch(url, options);
+		throw new Error(ERR_HOST_FETCH);
 	}
 }
 
@@ -142,22 +134,30 @@ export {
 	frameFetch
 };
 
-async function fetchResource(url, options = { cache: "force-cache", referrerPolicy: "strict-origin-when-cross-origin" }) {
+async function fetchResource(url, options, useHostFetch = true) {
 	try {
-		const fetchOptions = { cache: options.cache, headers: options.headers, referrerPolicy: options.referrerPolicy };
+		const fetchOptions = {
+			cache: options.cache || "force-cache",
+			headers: options.headers,
+			referrerPolicy: options.referrerPolicy || "strict-origin-when-cross-origin"
+		};
 		let response;
 		try {
-			if (options.referrer && !USE_HOST_FETCH) {
+			if ((options.referrer && !USE_HOST_FETCH) || !useHostFetch) {
 				response = await fetch(url, fetchOptions);
 			} else {
 				response = await hostFetch(url, fetchOptions);
 			}
-			if (response.status == 401 || response.status == 403 || response.status == 404 && options.referrerPolicy == "strict-origin-when-cross-origin") {
-				return await fetchResource(url, { ...options, referrerPolicy: "no-referrer" });
+			if (response.status == 401 || response.status == 403 || response.status == 404) {
+				if (fetchOptions.referrerPolicy != "no-referrer") {
+					response = await fetchResource(url, { ...fetchOptions, referrerPolicy: "no-referrer" });
+				}
 			}
 		} catch (error) {
 			if (error && error.message == ERR_HOST_FETCH) {
-				response = await fetch(url, fetchOptions);
+				response = await fetchResource(url, { ...fetchOptions }, false);
+			} else if (fetchOptions.referrerPolicy != "no-referrer") {
+				response = await fetchResource(url, { ...fetchOptions, referrerPolicy: "no-referrer" });
 			} else {
 				throw error;
 			}
