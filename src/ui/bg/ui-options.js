@@ -897,6 +897,8 @@ async function refresh(profileName) {
 	optionElement = document.createElement("option");
 	optionElement.value = DISABLED_PROFILE_NAME;
 	optionElement.textContent = browser.i18n.getMessage("profileDisabled");
+	ruleEditProfileInput.appendChild(optionElement.cloneNode(true));
+	ruleProfileInput.appendChild(optionElement.cloneNode(true));
 	ruleAutoSaveProfileInput.appendChild(optionElement);
 	ruleEditAutoSaveProfileInput.appendChild(optionElement.cloneNode(true));
 	const rulesDataElement = rulesElement.querySelector(".rules-data");
