@@ -117,10 +117,14 @@ function onMessage(message) {
 
 async function createMenus(tab) {
 	const [profiles, allTabsData] = await Promise.all([config.getProfiles(), tabsData.get()]);
-	const options = await config.getOptions(tab && tab.url);
+	let options = await config.getOptions(tab && tab.url);
 	if (BROWSER_MENUS_API_SUPPORTED && options) {
 		const pageContextsEnabled = ["page", "frame", "image", "link", "video", "audio", "selection"];
 		const defaultContextsDisabled = [];
+		if (options.profileName == config.DISABLED_PROFILE_NAME) {
+			options = await config.getOptions();
+			options.profileName = config.DISABLED_PROFILE_NAME;
+		}
 		if (options.browserActionMenuEnabled) {
 			defaultContextsDisabled.push("browser_action");
 		}
