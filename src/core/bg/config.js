@@ -178,7 +178,8 @@ const DEFAULT_CONFIG = {
 	S3Region: "",
 	S3Bucket: "",
 	S3AccessKey: "",
-	S3SecretKey: ""
+	S3SecretKey: "",
+	resolveLinks: true
 };
 
 const DEFAULT_RULES = [{
