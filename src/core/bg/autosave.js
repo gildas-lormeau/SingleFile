@@ -152,7 +152,7 @@ async function saveContent(message, tab) {
 		options.incognito = tab.incognito;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
-		options.keepFilename = options.saveToGDrive || options.saveToGitHub || options.saveWithWebDAV || options.saveToDropbox || options.saveToRestFormApi || options.saveToS3;
+		saveToRestFormApi || options.saveToS3;
 		let pageData;
 		try {
 			if (options.autoSaveExternalSave) {
