@@ -195,7 +195,6 @@ async function savePage(message) {
 async function processPage(options) {
 	const frames = singlefile.processors.frameTree;
 	let framesSessionId;
-	saveToRestFormApi || options.saveToS3;
 	singlefile.helper.initDoc(document);
 	ui.onStartPage(options);
 	processor = new singlefile.SingleFile(options);
