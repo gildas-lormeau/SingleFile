@@ -132,7 +132,7 @@ export {
 	frameFetch
 };
 
-async function fetchResource(url, options, useHostFetch = true) {
+async function fetchResource(url, options = {}, useHostFetch = true) {
 	try {
 		const fetchOptions = {
 			cache: options.cache || "force-cache",
