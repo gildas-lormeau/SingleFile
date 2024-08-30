@@ -31,8 +31,6 @@ const ERR_HOST_FETCH = "Host fetch error (SingleFile)";
 const USE_HOST_FETCH = Boolean(window.wrappedJSObject);
 
 const fetch = (url, options) => {
-	options.cache = "force-cache";
-	options.referrerPolicy = "strict-origin-when-cross-origin";
 	return window.fetch(url, options);
 };
 
