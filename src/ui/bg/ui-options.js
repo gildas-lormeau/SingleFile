@@ -505,7 +505,7 @@ exportButton.addEventListener("click", async () => {
 	if (response.filename && response.textContent) {
 		const link = document.createElement("a");
 		link.download = response.filename;
-		link.href = "data:application/octet-stream," + response.textContent;
+		link.href = "data:application/octet-stream;base64," + btoa(unescape(encodeURIComponent(response.textContent)));
 		link.target = "_blank";
 		link.dispatchEvent(new MouseEvent("click"));
 	}
