@@ -152,7 +152,6 @@ async function saveContent(message, tab) {
 		options.incognito = tab.incognito;
 		options.tabId = tabId;
 		options.tabIndex = tab.index;
-		options.saveToRestFormApi || options.saveToS3;
 		let pageData;
 		try {
 			if (options.autoSaveExternalSave) {
