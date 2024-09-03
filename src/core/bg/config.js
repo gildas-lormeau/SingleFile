@@ -179,7 +179,8 @@ const DEFAULT_CONFIG = {
 	S3Bucket: "",
 	S3AccessKey: "",
 	S3SecretKey: "",
-	resolveLinks: true
+	resolveLinks: true,
+	groupDuplicateStylesheets: false
 };
 
 const DEFAULT_RULES = [{
