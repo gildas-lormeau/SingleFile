@@ -371,6 +371,10 @@
 		"message": "CSS içeriğini sıkıştır ",
 		"description": "Options page label: 'compress CSS content'"
 	},
+	"optionGroupDuplicateStylesheets": {
+		"message": "yinelenen stil sayfalarını gruplandır",
+		"description": "Options page label: 'group duplicate stylesheets together'"
+	},
 	"optionMoveStylesInHead": {
 		"message": "dışında bulunan stilleri baş öğesinde taşı",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"

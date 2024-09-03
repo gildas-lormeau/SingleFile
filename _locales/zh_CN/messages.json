@@ -371,6 +371,10 @@
 		"message": "压缩 CSS 内容",
 		"description": "Options page label: 'compress CSS content'"
 	},
+	"optionGroupDuplicateStylesheets": {
+		"message": "将重复样式表分组到一起",
+		"description": "Options page label: 'group duplicate stylesheets together'"
+	},
 	"optionMoveStylesInHead": {
 		"message": "移动 head 标签之外的样式到其内",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"

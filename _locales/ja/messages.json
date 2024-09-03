@@ -371,6 +371,10 @@
 		"message": "CSS コンテンツを圧縮する",
 		"description": "Options page label: 'compress CSS content'"
 	},
+	"optionGroupDuplicateStylesheets": {
+		"message": "オプション重複スタイルシートのグループ化",
+		"description": "Options page label: 'group duplicate stylesheets together'"
+	},
 	"optionMoveStylesInHead": {
 		"message": "head要素の外にあるスタイルをhead要素内に移動する",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"

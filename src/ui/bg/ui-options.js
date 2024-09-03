@@ -249,6 +249,7 @@ const insertEmbeddedImageInput = document.getElementById("insertEmbeddedImageInp
 const insertEmbeddedCustomImageInput = document.getElementById("insertEmbeddedCustomImageInput");
 const insertEmbeddedScreenshotImageInput = document.getElementById("insertEmbeddedScreenshotImageInput");
 const compressCSSInput = document.getElementById("compressCSSInput");
+const groupDuplicateStylesheetsInput = document.getElementById("groupDuplicateStylesheetsInput");
 const moveStylesInHeadInput = document.getElementById("moveStylesInHeadInput");
 const loadDeferredImagesInput = document.getElementById("loadDeferredImagesInput");
 const loadDeferredImagesMaxIdleTimeInput = document.getElementById("loadDeferredImagesMaxIdleTimeInput");
@@ -696,6 +697,7 @@ insertEmbeddedImageLabel.textContent = browser.i18n.getMessage("optionInsertEmbe
 insertEmbeddedCustomImageLabel.textContent = browser.i18n.getMessage("optionInsertEmbeddedCustomImage");
 insertEmbeddedScreenshotImageLabel.textContent = browser.i18n.getMessage("optionInsertEmbeddedScreenshotImage");
 compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
+groupDuplicateStylesheetsLabel.textContent = browser.i18n.getMessage("optionGroupDuplicateStylesheets");
 moveStylesInHeadLabel.textContent = browser.i18n.getMessage("optionMoveStylesInHead");
 loadDeferredImagesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImages");
 loadDeferredImagesMaxIdleTimeLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesMaxIdleTime");
@@ -1029,6 +1031,7 @@ async function refresh(profileName) {
 	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveToS3 && !profileOptions.saveWithCompanion && !profileOptions.saveToClipboard && !profileOptions.saveWithWebDAV && !profileOptions.saveToDropbox && !profileOptions.saveToRestFormApi && !profileOptions.sharePage;
 	compressHTMLInput.checked = profileOptions.compressHTML;
 	compressCSSInput.checked = profileOptions.compressCSS;
+	groupDuplicateStylesheetsInput.checked = profileOptions.groupDuplicateStylesheets;
 	moveStylesInHeadInput.checked = profileOptions.moveStylesInHead;
 	loadDeferredImagesInput.checked = profileOptions.loadDeferredImages;
 	loadDeferredImagesMaxIdleTimeInput.value = profileOptions.loadDeferredImagesMaxIdleTime;
@@ -1172,6 +1175,7 @@ async function update() {
 			insertEmbeddedImage: insertEmbeddedCustomImageInput.checked,
 			insertEmbeddedScreenshotImage: insertEmbeddedScreenshotImageInput.checked,
 			compressCSS: compressCSSInput.checked,
+			groupDuplicateStylesheets: groupDuplicateStylesheetsInput.checked,
 			moveStylesInHead: moveStylesInHeadInput.checked,
 			loadDeferredImages: loadDeferredImagesInput.checked,
 			loadDeferredImagesMaxIdleTime: Math.max(loadDeferredImagesMaxIdleTimeInput.value, 0),

@@ -371,6 +371,10 @@
 		"message": "CSS-Inhalte komprimieren",
 		"description": "Options page label: 'compress CSS content'"
 	},
+	"optionGroupDuplicateStylesheets": {
+		"message": "Doppelte Formatvorlagen zusammenfassen",
+		"description": "Options page label: 'group duplicate stylesheets together'"
+	},
 	"optionMoveStylesInHead": {
 		"message": "Die Stile, die sich außerhalb des Head-Elements befinden, in dieses verschieben",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"

@@ -371,6 +371,10 @@
 		"message": "стискати вміст CSS ",
 		"description": "Options page label: 'compress CSS content'"
 	},
+	"optionGroupDuplicateStylesheets": {
+		"message": "групувати дублікати таблиць стилів",
+		"description": "Options page label: 'group duplicate stylesheets together'"
+	},
 	"optionMoveStylesInHead": {
 		"message": "переміщати в елемент head стилі, що знаходяться за його межами",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"

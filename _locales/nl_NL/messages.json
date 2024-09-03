@@ -371,6 +371,10 @@
 		"message": "CSS-inhoud comprimeren",
 		"description": "Options page label: 'compress CSS content'"
 	},
+	"optionGroupDuplicateStylesheets": {
+		"message": "dubbele stijlbladen samenvoegen",
+		"description": "Options page label: 'group duplicate stylesheets together'"
+	},
 	"optionMoveStylesInHead": {
 		"message": "verplaats de stijlen die zich buiten het head-element bevinden",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
