@@ -372,7 +372,7 @@
 		"description": "Options page label: 'compress CSS content'"
 	},
 	"optionGroupDuplicateStylesheets": {
-		"message": "group duplicate stylesheets together",
+		"message": "grupuj razem duplikaty arkuszy stylów",
 		"description": "Options page label: 'group duplicate stylesheets together'"
 	},
 	"optionMoveStylesInHead": {
