@@ -332,6 +332,7 @@ async function processPage(options) {
 		options.usedFonts = selectedFrame.usedFonts;
 		options.shadowRoots = selectedFrame.shadowRoots;
 		options.adoptedStyleSheets = selectedFrame.adoptedStyleSheets;
+		options.worklets = selectedFrame.worklets;
 	} else {
 		options.doc = document;
 	}
