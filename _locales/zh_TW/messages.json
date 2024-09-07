@@ -156,7 +156,7 @@
 		"description": "Options page label: 'overlay a shadow on the page during processing'"
 	},
 	"optionDisplayInfobar": {
-		"message": "在查看一個已保存的頁面時顯示信息欄",
+		"message": "查看已保存頁面時顯示信息欄",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
 	"optionInfobarTemplate": {
@@ -172,11 +172,11 @@
 		"description": "Options page label: 'save original URLs of embedded resources'"
 	},
 	"optionIncludeInfobar": {
-		"message": "在已保存頁面中將信息欄包括在內",
+		"message": "將信息欄嵌入到保存的頁面中",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionOpenInfobar": {
-		"message": "保持資訊列開啟",
+		"message": "查看已保存頁面時使信息欄為打開狀態",
 		"description": "Options page label: 'keep infobar open'"
 	},
 	"optionRemoveInfobarSavedDate": {
@@ -184,7 +184,7 @@
 		"description": "Options page label: 'do not include the saved date'"
 	},
 	"optionConfirmInfobar": {
-		"message": "打開一個提示對話框來編輯信息欄內容",
+		"message": "打開提示對話框編輯信息欄內容",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionAutoClose": {
@@ -492,7 +492,7 @@
 		"description": "Popup text 'Validate changes' in the options page"
 	},
 	"optionsCancelChangesTooltip": {
-		"message": "取消變更",
+		"message": "取消更改",
 		"description": "Popup text 'Cancel changes' in the options page"
 	},
 	"optionsDeleteRuleConfirm": {
@@ -700,7 +700,7 @@
 		"description": "Options page label: 'access key'"
 	},
 	"optionS3SecretKey": {
-		"message": "秘密密鑰",
+		"message": "密鑰",
 		"description": "Options page label: 'secret key'"
 	},
 	"optionSaveWithWebDAV": {
@@ -1016,7 +1016,7 @@
 		"description": "Options page label: 'upload to a REST Form API'"
 	},
 	"optionRestFormApiUrl": {
-		"message": "地址",
+		"message": "網址",
 		"description": "Options page label: 'URL'"
 	},
 	"optionRestFormApiToken": {
@@ -1024,11 +1024,11 @@
 		"description": "Options page label: 'authorization token'"
 	},
 	"optionRestFormApiFileFieldName": {
-		"message": "文件字段名",
+		"message": "文件字段名稱",
 		"description": "Options page label: 'archive data field name'"
 	},
 	"optionRestFormApiUrlFieldName": {
-		"message": "網址字段名",
+		"message": "網址字段名稱",
 		"description": "Options page label: 'archive URL field name'"
 	}
 }
