@@ -156,7 +156,7 @@
 		"description": "Options page label: 'overlay a shadow on the page during processing'"
 	},
 	"optionDisplayInfobar": {
-		"message": "在查看一个已保存的页面时显示信息栏",
+		"message": "查看已保存页面时显示信息栏",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
 	"optionInfobarTemplate": {
@@ -172,11 +172,11 @@
 		"description": "Options page label: 'save original URLs of embedded resources'"
 	},
 	"optionIncludeInfobar": {
-		"message": "在已保存页面中将信息栏包括在内",
+		"message": "将信息栏嵌入到保存的页面中",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionOpenInfobar": {
-		"message": "保持信息栏打开",
+		"message": "查看已保存页面时使信息栏为打开状态",
 		"description": "Options page label: 'keep infobar open'"
 	},
 	"optionRemoveInfobarSavedDate": {
@@ -184,7 +184,7 @@
 		"description": "Options page label: 'do not include the saved date'"
 	},
 	"optionConfirmInfobar": {
-		"message": "打开一个提示对话框来编辑信息栏内容",
+		"message": "打开提示对话框编辑信息栏内容",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionAutoClose": {
