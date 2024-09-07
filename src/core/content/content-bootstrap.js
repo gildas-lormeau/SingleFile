@@ -111,13 +111,7 @@ function getContent() {
 }
 
 function executeBootstrap(data) {
-	const scriptElement = document.createElement("script");
-	scriptElement.textContent = "(()=>{" +
-		"document.currentScript.remove();" +
-		"if (document.readyState=='complete') {run()} else {globalThis.addEventListener('load', run)}" +
-		"function run() {this.bootstrap([" + (new Uint8Array(data)).toString() + "])}" +
-		"})()";
-	document.body.appendChild(scriptElement);
+	document.dispatchEvent(new CustomEvent("single-file-bootstrap", { detail: { data } }));
 }
 
 async function onMessage(message) {
