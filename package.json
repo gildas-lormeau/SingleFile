@@ -10,7 +10,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"single-file-core": "1.5.28"
+		"single-file-core": "1.5.30"
 	},
 	"devDependencies": {
 		"rollup": "4.20.0",
