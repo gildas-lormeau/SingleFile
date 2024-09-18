@@ -73,7 +73,7 @@ if (globalThis.window == globalThis.top && location && location.href && (locatio
 }
 
 async function extractFile() {
-	if (document.documentElement.dataset.sfz !== undefined) {
+	if (document.documentElement.dataset && document.documentElement.dataset.sfz !== undefined) {
 		const data = await getContent();
 		document.querySelectorAll("#sfz-error-message").forEach(element => element.remove());
 		executeBootstrap(data);
@@ -366,7 +366,7 @@ function detectSavedPage(document) {
 	if (savedPageDetected === undefined) {
 		const helper = singlefile.helper;
 		const firstDocumentChild = document.documentElement.firstChild;
-		compressContent = document.documentElement.dataset.sfz == "";
+		compressContent = document.documentElement.dataset && document.documentElement.dataset.sfz == "";
 		extractDataFromPageTags = Boolean(document.querySelector("sfz-extra-data"));
 		insertTextBody = Boolean(document.querySelector("body > main[hidden]"));
 		insertMetaCSP = Boolean(document.querySelector("meta[http-equiv=content-security-policy]"));
