@@ -223,7 +223,6 @@
 						<p>Type a password to encrypt the ZIP file with AES-256 (compatible with Winzip). Be careful, if
 							you lose the password, it will be impossible to open the file. Enabling this option
 							increases the CPU consumption and the time needed to save or read a page.</p>
-						</p>
 					</li>
 					<li data-options-label="insertEmbeddedImageLabel">
 						<span class="option">Option: embed image</span>
@@ -281,12 +280,12 @@
 							considerably reduce the size of the file without altering the document most of the time. It
 							may also decrease the time needed to save a page.</p>
 					</li>
-					<li data-options-label="saveOriginalURLsLabel"> <span class="option"></span>: save original
-						URLs of embedded resources</span>
+					<li data-options-label="saveOriginalURLsLabel"> <span class="option">: save original
+							URLs of embedded resources</span>
 						<p>Check this option to save the URLs of the resources embedded into the saved page. URLs
 							are stored in attributes with a name prefixed with "data-sf-original-" and suffixed with the
 							original attribute name (e.g. "data-sf-original-src", "data-sf-original-href") for HTML
-							contents. For CSS contents, URLs are stored as comments beginning with "original URL:".
+							contents. For CSS contents, URLs are stored as comments beginning with "original URL:".</p>
 					</li>
 					<li data-options-label="removeInfobarSavedDateLabel">
 						<span class="option">Option: do not include the saved date</span>
@@ -330,13 +329,13 @@
 						<p>Check this option to display a prompt dialog in order to confirm the infobar content before
 							saving the page. </p>
 					</li>
-					<li data-options-label="includeInfobarLabel"> <span class="option"></span>Option: include infobar in
-						the saved page</span>
+					<li data-options-label="includeInfobarLabel"> <span class="option">Option: include infobar in
+							the saved page</span>
 						<p>Check this option to display the ℹ button at the top right of the page when viewing a saved
 							page in a browser where SingleFile is not installed.</p>
 					</li>
-					<li data-options-label="openInfobarLabel"> <span class="option"></span>Option: keep infobar
-						open</span>
+					<li data-options-label="openInfobarLabel"> <span class="option">Option: keep infobar
+							open</span>
 						<p>Check this option to keep the infobar open when viewing a saved page.</p>
 					</li>
 				</ul>
@@ -458,7 +457,7 @@
 							page</span>
 						<p>Check this option to share the page with other applications. This option is only available in
 							browsers supporting the <a href="https://web.dev/web-share/" target="_blank">Web Share
-								API</a>.
+								API</a>.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 					<li data-options-label="saveToClipboardLabel" id="saveToClipboardOption"> <span
@@ -681,7 +680,6 @@
 							display the infobar</span>
 						<p>Check this option to display the infobar when displaying a page in the annotation editor.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
-						</p>
 					</li>
 				</ul>
 				<p id="bookmarksSection">Bookmarks</p>
@@ -857,7 +855,7 @@
 							class="icon button"> (outer elements)</li>
 					<li>undo removes by clicking the button <img src="../resources/button_undo_cut.png"
 							class="icon button"> or the button <img src="../resources/button_undo_all_cut.png"
-							class="icon button"> (undo all)
+							class="icon button"> (undo all)</li>
 					<li>redo removes by clicking the button <img src="../resources/button_redo_cut.png"
 							class="icon button"></li>
 					<li>print the page by clicking the button <img src="../resources/button_print.png"
@@ -885,7 +883,6 @@
 					<li><code>Escape</code>: reset selected elements</li>
 				</ul>
 				</p>
-				</ul>
 			</li>
 			<li><a id="template-variables">Template variables</a>
 				<p>The template variables are used to customize the infobar content or the file name of a saved page.
@@ -1030,12 +1027,14 @@
 						<code>falseValue</code> otherwise (e.g.
 						"%if-equals&lt;{page-title}|Untitled|{page-heading}|{page-title}&gt;"
 						to return the page heading if the page title equals "Untitled" or the page title otherwise).
+					</li>
 					<li><code>%if-not-equals&lt;value|expected|trueValue|falseValue&gt;</code>: returns the
 						<code>trueValue</code> if <code>value</code> does not equal <code>expected</code> or the
 						<code>falseValue</code> otherwise (e.g.
 						"%if-not-equals&lt;{page-title}|Untitled|{page-title}|{page-heading}&gt;"
 						to return the page title if the page title does not equal "Untitled" or the page heading
 						otherwise).
+					</li>
 					<li><code>%if-contains&lt;value|expected|trueValue|falseValue&gt;</code>: returns the
 						<code>trueValue</code> if <code>value</code> contains <code>expected</code> or the
 						<code>falseValue</code> otherwise (e.g.
