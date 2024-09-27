@@ -161,7 +161,7 @@ async function saveContent(message, tab) {
 					enableReferrerOnError();
 				}
 				options.tabId = tabId;
-				pageData = await getPageData(options, null, null, { fetch });
+				pageData = await getPageData(options, { fetch }, null, null);
 				let skipped;
 				if (!options.saveToGDrive && !options.saveWithWebDAV && !options.saveToGitHub && !options.saveToDropbox && !options.saveWithCompanion && !options.saveToRestFormApi && !options.saveToS3) {
 					const testSkip = await downloads.testSkipSave(pageData.filename, options);

@@ -35,6 +35,6 @@ function injectScript(tabId, options) {
 	return scripts.inject(tabId, options);
 }
 
-function getPageData(options, doc, win, initOptions = { fetch, frameFetch }) {
+function getPageData(options, initOptions = { fetch, frameFetch }, doc, win) {
 	return globalThis.singlefile.getPageData(options, initOptions, doc, win);
 }
