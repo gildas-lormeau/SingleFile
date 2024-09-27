@@ -272,7 +272,7 @@ async function fetch(url, options = {}) {
 	return {
 		status: response.status,
 		headers: {
-			get: name => response.headers.get(name)
+			get: name => response.headers[name]
 		},
 		arrayBuffer: () => response.arrayBuffer
 	};
