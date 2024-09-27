@@ -4,6 +4,7 @@
 	"homepage_url": "https://github.com/gildas-lormeau/SingleFile",
 	"icons": {
 		"16": "src/ui/resources/icon_16.png",
+		"32": "src/ui/resources/icon_32.png",
 		"48": "src/ui/resources/icon_48.png",
 		"64": "src/ui/resources/icon_64.png",
 		"128": "src/ui/resources/icon_128.png"
