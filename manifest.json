@@ -9,7 +9,7 @@
 		"64": "src/ui/resources/icon_64.png",
 		"128": "src/ui/resources/icon_128.png"
 	},
-	"version": "1.22.71",
+	"version": "1.22.72",
 	"description": "__MSG_extensionDescription__",
 	"content_scripts": [
 		{
