@@ -1999,6 +1999,14 @@ pre code {
 			classesToPreserve.push(className);
 		});
 		const article = new Readability(document, { classesToPreserve }).parse();
+		const articleMetadata = Object.assign({}, article);
+		delete articleMetadata.content;
+		delete articleMetadata.textContent;
+		for (const key in articleMetadata) {
+			if (articleMetadata[key] == null) {
+				delete articleMetadata[key];
+			}
+		}
 		removedElements = [];
 		removedElementIndex = 0;
 		document.body.innerHTML = "";
@@ -2037,6 +2045,15 @@ pre code {
 		titleElement.classList.add("reader-title");
 		titleElement.textContent = article.title;
 		document.body.insertBefore(titleElement, document.body.firstChild);
+		const existingMetaDataElement = document.querySelector("script[id=singlefile-readability-metadata]");
+		if (existingMetaDataElement) {
+			existingMetaDataElement.remove();
+		}
+		const metaDataElement = document.createElement("script");
+		metaDataElement.type = "application/json";
+		metaDataElement.id = "singlefile-readability-metadata";
+		metaDataElement.textContent = JSON.stringify(articleMetadata, null, 2);
+		document.head.appendChild(metaDataElement);
 		document.querySelectorAll("a[href]").forEach(element => {
 			const href = element.getAttribute("href").trim();
 			if (href.startsWith(document.baseURI + "#")) {
