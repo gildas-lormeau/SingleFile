@@ -1998,6 +1998,7 @@ pre code {
 			containerElement.classList.add(className);
 			classesToPreserve.push(className);
 		});
+		const optionsElement = document.querySelector("script[type=\"application/json\"][" + SCRIPT_OPTIONS + "]");
 		const article = new Readability(document, { classesToPreserve }).parse();
 		const articleMetadata = Object.assign({}, article);
 		delete articleMetadata.content;
@@ -2014,6 +2015,9 @@ pre code {
 		const doc = domParser.parseFromString(article.content, "text/html");
 		const contentEditable = document.body.contentEditable;
 		document.documentElement.replaceChild(doc.body, document.body);
+		if (optionsElement) {
+			document.body.appendChild(optionsElement);
+		}
 		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
 			const noteId = (Array.from(containerElement.classList).find(className => /singlefile-note-id-\d+/.test(className))).split("singlefile-note-id-")[1];
 			containerElement.classList.remove("singlefile-note-id-" + noteId);
