@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>SingleFile帮助</title>
+    <link href="help.css" rel="stylesheet" />
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <meta content="light dark" name="color-scheme" />
+    <link href="/src/ui/resources/icon_128.png" rel="icon" />
+</head>
+
+<body>
+    <div>
+        <div id="titleBorder">
+            <h2>SingleFile</h2>
+            <h4>将整个页面保存到单个HTML文件中</h4>
+        </div><span id="index"><a href="#getting-started">开始使用</a>-<a href="#general-notes">附加说明</a>-<a
+                href="#options">选项说明</a>-<a href="#annotation-editor">注释编辑器</a>-<a href="#notes">技术说明</a>-<a
+                href="#template-variables">模板变量</a>-<a href="#template-functions">模板函数</a>-<a
+                href="#external-messages">与其他扩展集成</a>-<a href="#known-issues">已知问题</a>-<a
+                href="#unknown-issues">排除未知问题</a>-<a href="#contributors">贡献者</a></span>
+        <hr />
+        <ol>
+            <li><a id="getting-started">开始使用</a>
+                <ul>
+                    <li>等待页面完全加载。</li>
+                    <li>单击SingleFile按钮<img class="icon" src="../resources/icon_16.png" />在扩展工具栏中处理和保存页面。</li>
+                    <li>处理页面时，您可以再次单击按钮取消操作。</li>
+                </ul>
+            </li>
+            <li><a id="general-notes">附加说明</a>
+                <ul>
+                    <li>要保存多个选项卡，请先选择它们，然后单击SingleFile按钮<img class="icon" src="../resources/icon_16.png" />.</li>
+                    <li>右键单击SingleFile按钮打开上下文菜单<img class="icon" src="../resources/icon_16.png" />在扩展工具栏或网页上。它允许您保存：<ul>
+                            <li>当前标签，</li>
+                            <li>或所选内容，</li>
+                            <li>或所选帧。</li>
+                        </ul>
+                    </li>
+                    <li>您还可以一键处理多个选项卡并保存：<ul>
+                            <li id="selectableTabsMenu">所选选项卡，</li>
+                            <li>或未缝合的标签，</li>
+                            <li>或所有选项卡。</li>
+                        </ul>
+                    </li>
+                    <li id="autoSaveMenu">上下文菜单还允许您激活以下内容的自动保存：<ul>
+                            <li>当前标签，</li>
+                            <li>或未缝合的标签，</li>
+                            <li>或所有选项卡。</li>
+                        </ul>
+                    </li>
+                    <li>在使用保存页面之前，您可以突出显示文本、添加注释、格式化和删除内容<a href="#annotation-editor">注释编辑器</a>通过在上下文菜单中选择“注释并保存页面…”
+                    </li>
+                    <li id="autoSaveHint">当自动保存功能处于活动状态时，页面每次加载后（如果没有，则在卸载前）都会自动保存。</li>
+                    <li>从上下文菜单中选择“保存选择”，而不首先选择任何内容，以显示一个选择器，该选择器将通过用鼠标悬停在内容上来帮助您选择内容。</li>
+                    <li>右键单击SingleFile按钮，选择“选项”打开选项页面。</li>
+                    <li id="saveToGDriveHint">启用“目的地&gt;上传到Google Drive”选项，将页面上传到Google云端硬盘</li>
+                    <li id="shortcutsSection">
+                        您可以使用可自定义的快捷键Ctrl+Shift+Y保存当前选项卡或所选选项卡。转到about:addons，在齿轮菜单中选择“管理扩展快捷方式”，在Firefox中更改它。首选chrome://extensions/shortcuts在Chrome中更改它。。
+                    </li>
+                    <li>默认保存文件夹是在浏览器中配置的下载文件夹，参见Firefox中的about:preferences，chrome://settings在Chrome浏览器中，在Safari浏览器中选择“设置”&gt;“常规”&gt;“文件下载位置”。
+                    </li>
+                </ul>
+            </li>
+            <li><a id="options">选项说明</a>
+                <p>您可以通过选项页面自定义SingleFile。右键单击SingleFile按钮<img class="icon"
+                        src="../resources/icon_16.png" />在浏览器工具栏中，选择上下文菜单中的“选项”/“管理扩展”以打开选项页面。</p>
+                <p>个人资料</p>
+                <ul>
+                    <li>
+                        <p>配置文件是一组与唯一名称关联的用户定义选项。</p>
+                        <p>选项页面右上角的下拉列表允许您选择配置文件并修改相关选项。下拉列表旁边的按钮分别允许您创建、删除和重命名配置文件。</p>
+                    </li>
+                    <li>
+                        <p>您可以通过SingleFile的上下文菜单选择默认配置文件。该选择是持久的，并应用于所有选项卡。</p>
+                    </li>
+                    <li>
+                        <p>您还可以通过将配置文件与完整或部分URL相关联来覆盖默认配置文件。请参阅<a href="#auto-settings-rules">自动设置规则</a>功能以获取更多信息。</p>
+                    </li>
+                </ul>
+                <p>用户界面</p>
+                <ul>
+                    <li data-options-label="addMenuEntryLabel"><span class="option">选项：在网页的上下文菜单中添加条目</span>
+                        <p>选中此选项可在网页的上下文菜单中显示SingleFile的条目。SingleFile按钮的上下文菜单<img class="icon"
+                                src="../resources/icon_16.png" />无论是否选中此选项，都会显示扩展工具栏中的。</p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="shadowEnabledLabel"><span class="option">选项：在处理过程中在页面上叠加阴影</span>
+                        <p>选中此选项可在SingleFile检索页面资源时在页面上覆盖阴影。这提醒您不要关闭选项卡。</p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="openSavedPageLabel" id="openSavedPageOption"><span
+                            class="option">选项：在新选项卡中打开已保存的页面</span>
+                        <p>选中此选项可在新选项卡中显示保存的页面。例如，此选项可用于检查页面是否已正确保存。</p>
+                    </li>
+                    <li data-options-label="autoCloseLabel"><span class="option">选项：保存页面后自动关闭选项卡</span>
+                        <p>选中此选项可在保存内部显示的页面后自动关闭选项卡。</p>
+                    </li>
+                </ul>
+                <p>文件名</p>
+                <ul>
+                    <li data-options-label="filenameTemplateLabel"><span class="option">选项：模板</span>
+                        <p>该模板允许您自定义已保存页面的文件名。您可以使用任何有效字符和“/”创建子文件夹（启用“在后台保存页面”选项）。您还可以使用以下任何变量<a
+                                href="#template-variables">这个列表</a>功能来自<a href="#template-functions">这个列表</a>模板中的任何位置。
+                        </p>
+                        <p>无效字符会自动转换并折叠为下划线。文件名不能超过192个字符，如果更长，则会被截断。无效字符包括：<code>[</code><code>~</code><code>+</code><code>\</code><code>?</code><code>%</code><code>*</code><code>:</code><code>|</code><code>"</code><code>&lt;</code><code>&gt;</code>以及ASCII表中0到31的控制字符。当您想自定义信息栏时，可以在特殊字符前添加前缀<code>%</code>,<code>&lt;</code>,<code>&gt;</code>,<code>{</code>,<code>}</code>和<code>|</code>具有<code>\</code>（例如。<code>\&gt;</code>)将它们保存在信息栏内容中。
+                        </p>
+                        <p>模板示例：</p>
+                        <ul>
+                            <li><code>{page-title} ({date-iso} {time-locale}).html</code>将为标题为“SingleFile简介”的页面生成类似“SingleFile介绍（2018-09-15
+                                11_06_03 PM）.html”的文件名。</li>
+                            <li><code>存档/{url-last-segment} - {date-iso}</code>将为托管在上的页面生成类似“welcome-2018-09-15”的文件名https://example.com/welcome.html.保存的文件将保存在子目录“archives”中。
+                            </li>
+                            <li><code>archives/{year-locale}/{month-locale}/{day-locale}/{page-title}.html</code>将生成文件名，如“Introduction
+                                to
+                                SingleFile.html”，存储在“archives”文件夹中的3个子目录中，每个子目录对应保存日期的每个部分（例如“2018/9/15/Introduction to
+                                SingleFile.htm”）。</li>
+                        </ul>
+                    </li>
+                    <li data-options-label="filenameMaxLengthLabel"><span class="option">选项：最大长度</span>
+                        <p>输入文件名的最大长度（不带扩展名）及其单位（字节或字符）。</p>
+                    </li>
+                    <li data-options-label="filenameReplacementCharacterLabel"><span class="option">选项：替换字符</span>
+                        <p>输入用于替换文件名中无效字符的字符。</p>
+                    </li>
+                    <li data-options-label="replaceEmojisInFilenameLabel"><span class="option">选项：用文本替换表情符号</span>
+                        <p>选中此选项可将文件名中的表情符号替换为其unicode文本表示形式。</p>
+                    </li>
+                    <li data-options-label="saveFilenameTemplateDataLabel"><span class="option">选项：将文件名模板数据保存到页面中</span>
+                        <p>选中此选项可将模板文件数据保存到页面。这允许您恢复保存页面时以前使用的模板数据，例如，确保再次保存页面时文件与原始文件保存在同一目录中。</p>
+                    </li>
+                    <li data-options-label="confirmFilenameLabel" id="confirmFilenameOption"><span
+                            class="option">选项：打开“另存为”对话框以确认文件名</span>
+                        <p>选中此选项可显示“另存为”对话框，以便在保存页面之前确认文件名。如果未选中“在后台保存页面”选项，则将显示一个提示对话框，而不是“另存为”对话框。</p>
+                    </li>
+                    <li data-options-label="filenameConflictActionLabel" id="filenameConflictActionOption"><span
+                            class="option">选项：文件名冲突解决</span>
+                        <p>当保存的页面的文件名与文件系统上的现有文件名冲突时，选择最合适的操作。“跳过重复文件”操作仅检测当前浏览会话期间下载的文件中的重复项。</p>
+                    </li>
+                </ul>
+                <p>文件格式</p>
+                <ul>
+                    <li data-options-label="fileFormatSelectLabel"><span class="option">选项：格式</span>
+                        <p>选择保存文件的输出格式：</p>
+                        <ul>
+                            <li><code>“HTML”</code>：HTML文件（默认格式）。此格式生成不依赖于JavaScript打开的HTML文件。</li>
+                            <li><code>“自解压ZIP（通用）”</code>：可以在任何平台上打开的自解压ZIP文件。此格式生成的文件小于“HTML”格式，但需要启用JavaScript才能打开文件。
+                            </li>
+                            <li><code>“自解压ZIP”</code>：自解压ZIP文件，可以在任何平台上从HTTP打开，但在某些浏览器（例如基于Chromium或WebKit的浏览器）中不能从文件系统打开，而无需安装SingleFile。这种格式产生的文件比“自解压ZIP（通用）”格式小（约1%）。
+                            </li>
+                            <li><code>“ZIP”</code>：ZIP文件。此格式生成的ZIP文件无法在浏览器中打开，但可以在注释编辑器中打开。</li>
+                        </ul>
+                    </li>
+                    <li data-options-label="passwordLabel"><span class="option">选项：密码</span>
+                        <p>键入密码，使用AES-256（与Winzip兼容）加密ZIP文件。小心，如果你丢失了密码，就无法打开文件。启用此选项会增加CPU消耗和保存或读取页面所需的时间。</p>
+                    </li>
+                    <li data-options-label="insertEmbeddedImageLabel"><span class="option">选项：嵌入图像</span>
+                        <p>选中其中一个选项，在将页面另存为ZIP文件时嵌入图像（自解压或非自解压）。这允许您在文件扩展名更改为“.PNG”时将保存的页面显示为PNG图像。</p>
+                    </li>
+                    <li data-options-label="createRootDirectoryLabel"><span class="option">选项：创建根目录</span>
+                        <p>选中此选项可在ZIP文件中创建根目录。目录名由时间戳和显示已保存页面的选项卡的标识符组成。</p>
+                    </li>
+                    <li data-options-label="preventAppendedDataLabel"><span class="option">选项：不在ZIP数据后附加数据</span>
+                        <p>选中此选项可删除ZIP数据后附加的数据。使用一些不支持带附加数据的ZIP文件的存档管理器，可能更容易打开生成的文件。启用此选项会增加保存页面所需的时间。</p>
+                    </li>
+                    <li data-options-label="insertTextBodyLabel"><span class="option">选项：使文本可搜索</span>
+                        <p>选中此选项可将保存页面的文本内容插入自解压ZIP文件。例如，这使得从文本中搜索页面成为可能。请注意，如果所选格式为“自解压ZIP（通用）”，则文本内容以UTF-8编码，但页面以ISO-8859-1声明。
+                        </p>
+                    </li>
+                </ul>
+                <p>HTML内容</p>
+                <ul>
+                    <li data-options-label="compressHTMLLabel"><span class="option">选项：压缩HTML内容</span>
+                        <p>选中此选项可删除所有HTML注释和不需要的标记、空格、引号和空白字符。选中此选项有助于在不更改文档的情况下减小文件大小。</p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="removeHiddenElementsLabel"><span class="option">选项：删除隐藏元素</span>
+                        <p>选中此选项可删除所有隐藏元素。选中此选项有助于在不更改文档的情况下减小文件大小。它还可能增加CPU消耗和保存页面所需的时间。</p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="insertMetaCSPLabel"><span class="option">选项：设置内容安全策略</span>
+                        <p>选中此选项可添加具有策略的元标记，以阻止加载任何外部资源。</p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="removeFramesLabel"><span class="option">选项：删除框架</span>
+                        <p>选中此选项可删除所有框架和iframe元素。选中此选项可以大大减小文件的大小，而不会在大多数情况下更改文档。它还可以减少保存页面所需的时间。</p>
+                    </li>
+                    <li data-options-label="saveOriginalURLsLabel"><span class="option">：保存嵌入资源的原始URL</span>
+                        <p>选中此选项可保存嵌入到已保存页面中的资源的URL。URL存储在属性中，其名称前缀为“data-sf-original-”，后缀为HTML内容的原始属性名称（例如“data-sf
+                            original src”、“data-sf-original href”）。对于CSS内容，URL存储为以“原始URL:”开头的注释。</p>
+                    </li>
+                    <li data-options-label="removeInfobarSavedDateLabel"><span class="option">选项：不包括保存的日期</span>
+                        <p>选中此选项可删除已保存页面中包含并显示在信息栏中的已保存日期。</p>
+                    </li>
+                    <li data-options-label="saveRawPageLabel"><span class="option">选项：保存原始页面</span>
+                        <p>选中此选项可保存浏览器收到的原始HTML文件。选中此选项后，页面将保存为禁用JavaScript。选中此选项可能会更改文档。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                </ul>
+                <p>信息栏</p>
+                <ul>
+                    <li data-options-label="displayInfobarLabel" id="displayInfobarOption"><span
+                            class="option">选项：查看保存的页面时显示信息栏</span>
+                        <p>选中此选项以显示ℹ 查看保存的页面时，请单击页面右上角的按钮。单击此按钮，您可以获取有关保存日期的更多信息并打开原始URL。</p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="infobarTemplateLabel"><span class="option">选项：信息栏内容模板</span>
+                        <p>该模板允许您自定义信息栏中显示的内容。您可以使用任何有效字符，<code>n</code>对于新线路或<code>\t</code>对于选项卡。您还可以使用以下任何变量<a
+                                href="#template-variables">这个列表</a>模板中的任何位置。如果模板或生成的内容为空，则信息栏将默认显示保存的日期。</p>
+                        <p>模板示例：</p>
+                        <ul>
+                            <li><code>{url href}（{date iso}）</code>将产生类似“https://www.example.com（2018-09-15 11 06
+                                03下午）”。</li>
+                            <li><code>Title: {page-title}</code>将为以“示例域”为标题的页面生成“标题：示例域”等内容。</li>
+                        </ul>
+                    </li>
+                    <li data-options-label="confirmInfobarLabel"><span class="option">选项：打开提示对话框以编辑信息栏内容</span>
+                        <p>选中此选项可显示提示对话框，以便在保存页面之前确认信息栏内容。</p>
+                    </li>
+                    <li data-options-label="includeInfobarLabel"><span class="option">选项：在保存的页面中包含信息栏</span>
+                        <p>选中此选项以显示ℹ 在未安装SingleFile的浏览器中查看保存的页面时，请单击页面右上角的按钮。</p>
+                    </li>
+                    <li data-options-label="openInfobarLabel"><span class="option">选项：保持信息栏打开</span>
+                        <p>选中此选项可在查看已保存的页面时保持信息栏打开。</p>
+                    </li>
+                </ul>
+                <p>样式表</p>
+                <ul>
+                    <li data-options-label="removeUnusedStylesLabel"><span class="option">选项：删除未使用的样式</span>
+                        <p>选中此选项可删除与保存页面中任何元素都不匹配的所有CSS规则和样式。选中此选项不会更改文档，并且可以大大减小文件的大小。它还将增加CPU消耗和保存页面所需的时间。</p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="removeAlternativeMediasLabel"><span class="option">选项：删除屏幕替代设备的样式表</span>
+                        <p>选中此选项可删除不用于屏幕显示的样式表，如打印预览和语音合成器的样式表。选中此选项可以帮助减小文件的大小。</p>
+                    </li>
+                    <li data-options-label="compressCSSLabel"><span class="option">选项：压缩CSS内容</span>
+                        <p>选中此选项可缩小CSS样式表。选中此选项可以在不更改文档的情况下减小文件的大小。它还可能增加CPU消耗和保存页面所需的时间。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="groupDuplicateStylesheetsLabel"><span class="option">选项：将重复的样式表分组在一起</span>
+                        <p>选中此选项可将所有重复的内联样式表组合在一起。选中此选项不应更改文档，并且可以大大减小文件的大小。对于基于ZIP文件的存档格式，此选项将被忽略。请注意，此选项需要启用JavaScript才能正常运行。
+                        </p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="moveStylesInHeadLabel"><span class="option">选项：在head元素中移动其外部的样式</span>
+                        <p>选中此选项可将head元素外的所有样式元素移动到head元素中。这有助于在显示保存的页面时避免出现FOUC（“未样式化内容的闪烁”）。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                </ul>
+                <p>图像</p>
+                <ul>
+                    <li data-options-label="groupDuplicateImagesLabel"><span class="option">选项：将重复图像分组在一起</span>
+                        <p>选中此选项可避免保存多次重复的图像。选中此选项不应更改现代浏览器中的文档，并且可以大大减小文件的大小。对于基于ZIP文件的存档格式，此选项将被忽略。</p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="loadDeferredImagesLabel"><span class="option">选项：保存延迟的图像</span>
+                        <p>选中此选项可保存所有尚未显示的延迟图像（或帧）。这可能有助于在不滚动页面的情况下保存所有图像。此功能已尽最大努力，并不能保证在所有网站上都能正常工作。这也会增加保存页面所需的时间。
+                        </p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="loadDeferredImagesMaxIdleTimeLabel"><span
+                            class="option">选项：最大空闲时间（ms）</span>
+                        <p>输入等待延迟图像的最大延迟时间。例如，如果网络或系统条件恶化，您可以增加此值。否则，您也可以减小此值。</p>
+                    </li>
+                    <li data-options-label="loadDeferredImagesDispatchScrollEventLabel"><span
+                            class="option">选项：发送“滚动”事件</span>
+                        <p>选中此选项以分派<a href="https://developer.mozilla.org/docs/Web/API/Document/scroll_event"
+                                target="_blank">“滚动”事件</a>当等待延迟图像时。这可以改善某些网站上的图像加载，但也可能导致其他一些网站出现意外的滚动问题。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="loadDeferredImagesKeepZoomLevelLabel"><span class="option">选项：缩小页面</span>
+                        <p>选中此选项可通过缩小页面来保存页面的全部内容。例如，这可以帮助使用无限虚拟列表保存页面。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="loadDeferredImagesBeforeFramesLabel"><span class="option">选项：加载延迟帧</span>
+                        <p>选中此选项可在保存帧内容之前加载延迟帧和图像。这将增加保存页面所需的时间。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="removeAlternativeImagesLabel"><span class="option">选项：删除图像以获得其他屏幕分辨率</span>
+                        <p>选中此选项可删除默认显示分辨率较低和/或较高的替代图像。选中此选项可以大大减小文件的大小。</p>
+                    </li>
+                </ul>
+                <p>字体</p>
+                <ul>
+                    <li data-options-label="removeUnusedFontsLabel"><span class="option">选项：删除未使用的字体</span>
+                        <p>选中此选项可删除与任何内容都不匹配的所有字体CSS规则。选中此选项不应更改文档，并且可以大大减小文件的大小。</p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="removeAlternativeFontsLabel"><span class="option">选项：删除替代字体</span>
+                        <p>选中此选项可删除所用字体的替代字体。选中此选项不应更改文档，并且可以大大减小文件的大小。</p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                </ul>
+                <p>目的地</p>
+                <ul>
+                    <li data-options-label="saveToFilesystemLabel"><span class="option">选项：保存到文件系统</span>
+                        <p>选中此选项可将下载的页面保存在计算机的文件系统上。</p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="sharePageLabel" id="sharePageInput"><span class="option">选项：共享页面</span>
+                        <p>选中此选项可与其他应用程序共享页面。此选项仅在支持以下功能的浏览器中可用<a href="https://web.dev/web-share/"
+                                target="_blank">Web共享API</a>.</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="saveToClipboardLabel" id="saveToClipboardOption"><span
+                            class="option">选项：复制到剪贴板</span>
+                        <p>选中此选项可将页面复制到剪贴板。此选项不适用于基于ZIP文件的存档格式。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="saveToGitHubLabel"><span class="option">选项：上传到GitHub</span>
+                        <p>选中此选项可将页面保存在GitHub上。请参阅<a
+                                href="https://github.com/gildas-lormeau/SingleFile/wiki/How-to-publish-saved-pages-with-SingleFile-on-GitHub"
+                                target="_blank">文档页面</a>学习如何配置SingleFile以在GitHub上保存页面。警告：一旦页面保存在GitHub上，删除它很复杂，请参阅<a
+                                href="https://docs.github.com/github/authenticating-to-github/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository"
+                                target="_blank">文档页面</a>在GitHub上获取更多信息。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="githubTokenLabel"><span class="option">选项：访问令牌</span>
+                        <p>在GitHub上输入您的个人访问令牌，请参阅<a
+                                href="https://docs.github.com/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token"
+                                target="_blank">文档页面</a>在GitHub上获取更多信息。</p>
+                    </li>
+                    <li data-options-label="githubUserLabel"><span class="option">选项：用户名</span>
+                        <p>在GitHub上输入您的用户名。</p>
+                    </li>
+                    <li data-options-label="githubRepositoryLabel"><span class="option">选项：存储库名称</span>
+                        <p>在GitHub上输入将存档已保存页面的存储库的名称，请参阅<a
+                                href="https://docs.github.com/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/creating-a-new-repository"
+                                target="_blank">文档页面</a>有关如何创建存储库的更多信息，请访问GitHub。</p>
+                    </li>
+                    <li data-options-label="githubBranchLabel"><span class="option">选项：分支名称</span>
+                        <p>输入将存档页面的存储库分支名称。分支机构<strong>必须</strong>存在于GitHub上，请参阅<a
+                                href="https://docs.github.com/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+                                target="_blank">文档页面</a>关于如何在GitHub.io上发布该分支的更多信息，请访问GitHub。</p>
+                    </li>
+                    <li data-options-label="saveWithWebDAVLabel"><span class="option">选项：上传到WebDAV服务器</span>
+                        <p>选中此选项可将页面保存在WebDAV服务器上。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="webDAVURLLabel"><span class="option">选项：URL</span>
+                        <p>输入WebDAV服务器的URL。</p>
+                    </li>
+                    <li data-options-label="webDAVUserLabel"><span class="option">选项：用户标识符</span>
+                        <p>在WebDAV服务器上输入您的用户标识符。</p>
+                    </li>
+                    <li data-options-label="webDAVPasswordLabel"><span class="option">选项：密码</span>
+                        <p>请输入您的密码。</p>
+                    </li>
+                    <li data-options-label="saveToGDriveLabel" id="saveToGDriveOption"><span
+                            class="option">选项：上传到谷歌云端硬盘</span>
+                        <p>选中此选项可将页面保存在Google云端硬盘上。</p>
+                        <p>SingleFile请求的权限只允许它访问它创建的文件和文件夹。当您取消选中此选项时，SingleFile会自动撤销其对您的Google Drive帐户的访问权限。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="saveToS3Label" id="saveToS3Option"><span class="option">选项：上传到亚马逊S3</span>
+                        <p>选中此选项可将页面保存在Amazon
+                            S3上。您必须配置bucket策略以包含权限<code>s3：放置对象</code>，以及<code>s3：头部对象</code>或<code>s3：列表对象</code>，或<code>s3：获取对象</code>如果您不想在文件名冲突时覆盖或跳过现有文件。
+                        </p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="S3DomainLabel"><span class="option">选项：域</span>
+                        <p>输入Amazon S3服务器的域（例如。<code>s3.amazonaws.com</code>).</p>
+                    </li>
+                    <li data-options-label="S3RegionLabel"><span class="option">选项：地区</span>
+                        <p>输入Amazon S3服务器的区域（例如。<code>美国东部-1</code>).</p>
+                    </li>
+                    <li data-options-label="S3BucketLabel"><span class="option">选项：存储桶名称</span>
+                        <p>在Amazon S3上输入将存档已保存页面的存储桶的名称。页面将上传到<code>&lt;存储桶名称&gt;&lt;域名&gt;</code></p>.
+                    </li>
+                    <li data-options-label="S3AccessKeyLabel"><span class="option">选项：访问密钥</span>
+                        <p>在Amazon S3上输入您的访问密钥（例如。<code>akdo525k84ljth4s蛋糕</code>).</p>
+                    </li>
+                    <li data-options-label="S3SecretKeyLabel"><span class="option">选项：密钥</span>
+                        <p>在Amazon S3上输入您的密钥。</p>
+                    </li>
+                    <li data-options-label="saveToDropboxLabel" id="saveToDropboxOption"><span
+                            class="option">选项：上传到Dropbox</span>
+                        <p>选中此选项可将页面保存在Dropbox上。</p>
+                        <p>SingleFile请求的权限只允许它访问它创建的文件和文件夹。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="saveWithCompanionLabel" id="saveWithCompanionOption"><span
+                            class="option">选项：使用SingleFile Companion保存</span>
+                        <p>选中此选项可将保存过程委托给SingleFile
+                            Companion。它是一个在浏览器之外运行的程序，可以帮助使保存过程更加透明。它还允许将页面保存在下载目录以外的其他目录中。您可以找到更多信息<a
+                                href="https://github.com/gildas-lormeau/single-file-companion" target="_blank">在这里</a>
+                        </p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="saveToRestFormApiLabel"><span class="option">选项：上传到REST表单API</span>
+                        <p>选中此选项可将页面保存在接受表单数据的API终结点上。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="saveToRestFormApiUrlLabel"><span class="option">选项：URL</span>
+                        <p>输入API终结点的URL。</p>
+                    </li>
+                    <li data-options-label="saveToRestFormApiTokenLabel"><span class="option">选项：授权令牌</span>
+                        <p>提供“Bearer”令牌的值以验证请求。</p>
+                    </li>
+                    <li data-options-label="saveToRestFormApiFileFieldNameLabel"><span class="option">选项：存档数据字段名称</span>
+                        <p>输入将包含已保存页面数据的字段的名称。</p>
+                    </li>
+                    <li data-options-label="saveToRestFormApiUrlFieldNameLabel"><span class="option">选项：存档URL字段名</span>
+                        <p>输入将包含已保存页面URL的字段名称。</p>
+                    </li>
+                </ul>
+                <p>网络</p>
+                <ul>
+                    <li data-options-label="blockResourcesLabel"><span class="option">选项：被阻止的资源</span>
+                        <p>选中以下选项以阻止下载相应的资源类型。</p>
+                    </li>
+                    <li data-options-label="blockMixedContentLabel"><span class="option">选项：阻止混合内容</span>
+                        <p>选中此选项可在以HTTPS查看页面时阻止从HTTP提供的活动内容。您可以找到有关混合内容页面的更多信息<a
+                                href="https://developer.mozilla.org/docs/Web/Security/Mixed_content"
+                                target="_blank">在这里</a>.</p>
+                    </li>
+                    <li data-options-label="acceptHeadersLabel"><span class="option">选项：“接受”标题</span>
+                        <p>输入<a href="https://developer.mozilla.org/docs/Web/HTTP/Headers/Accept"
+                                target="_blank">“Accept”HTTP标头</a>以下值用于调整对相应资源类型的支持。</p>
+                        <p class="notice">建议保留这些值<u>事实上</u></p>
+                    </li>
+                    <li data-options-label="setMaxResourceSizeLabel"><span class="option">选项：设置最大大小（MB）</span>
+                        <p>选中此选项可从保存的页面中删除超过给定大小的嵌入式资源（即图像、样式表、脚本和iframe）。</p>
+                    </li>
+                    <li data-options-label="maxResourceSizeLabel"><span class="option">选项：最大大小（MB）</span>
+                        <p>输入最大大小（MB）。</p>
+                    </li>
+                    <li data-options-label="setMaxResourceDelayLabel"><span class="option">选项：设置最大下载延迟</span>
+                        <p>选中此选项可从保存的页面中删除超过给定下载时间的嵌入式资源（即图像、样式表、脚本和iframe）。</p>
+                    </li>
+                    <li data-options-label="maxResourceDelayLabel"><span class="option">选项：最大下载延迟</span>
+                        <p>输入最大下载延迟（秒）。</p>
+                    </li>
+                    <li data-options-label="passReferrerOnErrorLabel" id="passReferrerOnErrorOption"><span
+                            class="option">选项：在跨源错误时传递“Referer”标头</span>
+                        <p>选中此选项，在下载跨源资源时发生401、403或404 HTTP错误后，传递带有“origin”策略的HTTP标头“Referer”。如果无法下载被热链接保护阻止的资源，则应启用此选项。
+                        </p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                </ul>
+                <p>注释编辑器</p>
+                <ul>
+                    <li data-options-label="defaultEditorModeLabel"><span class="option">选项：默认模式</span>
+                        <p>打开注释编辑器时选择默认模式。可用的选项有：
+                        <ul>
+                            <li><code>正常的</code>：默认值</li>
+                            <li><code>编辑页面</code>：启用按钮<img class="icon button"
+                                    src="../resources/button_note_edit.png" /></li>
+                            <li><code>设置页面格式</code>：启用按钮<img class="icon button"
+                                    src="../resources/button_note_format.png" />如果页面可以格式化</li>
+                            <li><code>删除元素</code>：启用按钮<img class="icon button"
+                                    src="../resources/button_cut_inner.png" /></li>
+                            <li><code>移除外部元素</code>：启用按钮<img class="icon button"
+                                    src="../resources/button_cut_outer.png" /></li>
+                        </ul>
+                        </p>
+                    </li>
+                    <li data-options-label="applySystemThemeLabel"><span class="option">选项：在注释编辑器中格式化页面时应用系统主题</span>
+                        <p>如果您不想在注释编辑器中单击“格式化页面以提高可读性”按钮时应用操作系统或浏览器的主题（例如深色或浅色），请取消选中此选项。</p>
+                    </li>
+                    <li data-options-label="warnUnsavedPageLabel"><span class="option">选项：如果页面中有未保存的更改，则发出警告</span>
+                        <p>选中此选项可在您离开注释编辑器（例如关闭选项卡）而不保存更改时显示一个阻止弹出窗口。</p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="openEditorLabel"><span class="option">选项：保存前编辑页面</span>
+                        <p>选中此选项可在保存任何页面之前打开注释编辑器。选中此选项会从上下文菜单中删除“注释并保存页面…”条目。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="autoOpenEditorLabel" id="autoOpenEditorOption"><span
+                            class="option">选项：查看用SingleFile保存的页面时打开注释编辑器</span>
+                        <p>选中此选项可在显示SingleFile保存的页面时打开注释编辑器。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="displayInfobarInEditorLabel"><span class="option">选项：显示信息栏</span>
+                        <p>选中此选项可在注释编辑器中显示页面时显示信息栏。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                </ul>
+                <p id="bookmarksSection">书签</p>
+                <ul id="bookmarksOptions">
+                    <li data-options-label="saveCreatedBookmarksLabel"><span class="option">选项：保存新创建书签的页面</span>
+                        <p>选中此选项可保存添加到书签中的页面。请注意，如果要保存的页面尚未显示在选项卡中，SingleFile将临时打开一个新的选项卡来保存页面。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="replaceBookmarkURLLabel"><span class="option">选项：将新书签链接到已保存的页面</span>
+                        <p>选中此选项，将添加到书签中的页面的URL替换为磁盘上已保存页面的文件URI。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="ignoredBookmarkFoldersLabel"><span class="option">选项：忽略文件夹</span>
+                        <p>输入要忽略的书签文件夹名称列表。文件夹名称必须用逗号分隔。SingleFile将忽略在包含这些名称的文件夹中添加的书签。</p>
+                    </li>
+                    <li data-options-label="allowedBookmarkFoldersLabel"><span class="option">选项：允许的文件夹</span>
+                        <p>输入要允许的书签文件夹名称列表。文件夹名称必须用逗号分隔。SingleFile将仅保存在包含这些名称的文件夹中添加的页面。</p>
+                    </li>
+                </ul>
+                <p id="autoSaveSection">自动保存</p>
+                <ul id="autoSaveOptions">
+                    <li data-options-label="autoSaveLoadOrUnloadLabel"><span class="option">选项：页面加载后或页面卸载时自动保存</span>
+                        <p>选中此选项可在加载后自动保存页面。如果在页面完全加载之前浏览到另一个页面，则页面将在卸载之前保存。当此选项处于活动状态时，您可以保证页面将始终被保存。在卸载页面之前保存页面时，某些框架内容可能会丢失（如果您选中了“删除框架”）。
+                        </p>
+                    </li>
+                    <li data-options-label="autoSaveLoadLabel"><span class="option">选项：页面加载后自动保存</span>
+                        <p>选中此选项可在加载后自动保存页面。</p>
+                    </li>
+                    <li data-options-label="autoSaveUnloadLabel"><span class="option">选项：页面卸载时自动保存</span>
+                        <p>选中此选项可在卸载前自动保存页面，而不是在加载后保存页面。当此选项处于活动状态时，您可以保证页面始终会被保存，但某些框架内容可能会丢失（如果您选中“删除框架”）。</p>
+                    </li>
+                    <li data-options-label="autoSaveDiscardLabel"><span class="option">选项：选项卡丢弃时自动保存</span>
+                        <p>选中此选项可在丢弃选项卡时自动保存页面。某些框架内容可能会丢失（如果选中“删除框架”）。</p>
+                    </li>
+                    <li data-options-label="autoSaveRemoveLabel"><span class="option">选项：删除标签时自动保存</span>
+                        <p>选中此选项可在关闭选项卡时自动保存页面。某些框架内容可能会丢失（如果选中“删除框架”）。</p>
+                    </li>
+                    <li data-options-label="autoSaveDelayLabel"><span class="option">选项：加载后自动保存等待延迟</span>
+                        <p>当勾选“页面加载时自动保存或页面卸载时自动保存”或“页面加载后自动保存”时，输入保存页面之前等待的延迟秒数。</p>
+                    </li>
+                    <li data-options-label="autoSaveRepeatLabel"><span class="option">选项：定期自动保存</span>
+                        <p>选中此选项可在加载后定期自动保存页面。</p>
+                    </li>
+                    <li data-options-label="autoSaveRepeatDelayLabel"><span class="option">选项：周期</span>
+                        <p>在选中“定期自动保存”选项时，输入每页保存前等待的延迟秒数。</p>
+                    </li>
+                    <li data-options-label="autoSaveExternalSaveLabel"><span class="option">选项：使用SingleFile
+                            Companion保存页面</span>
+                        <p>选中此选项可将捕获和保存过程委托给SingleFile
+                            Companion。它是一个在浏览器之外运行的程序，可以帮助使保存过程更加透明。它还允许将页面保存在下载目录以外的其他目录中。您可以找到更多信息<a
+                                href="https://github.com/gildas-lormeau/single-file-companion" target="_blank">在这里</a>
+                        </p>
+                    </li>
+                </ul>
+                <p>杂项。</p>
+                <ul>
+                    <li data-options-label="addProofLabel"><span class="option">选项：添加存在证明</span>
+                        <p>选中此选项可创建要保存的页面存在的全球证明。</p>
+                        <ul>
+                            <li><strong>什么是存在证明（数据锚定）？</strong><br />数据锚定包括通过将数据链接到防篡改和带时间戳的区块链来为数据构建带时间戳存在证明。数据锚定实施依赖于比特币区块链的弹性和不变性，以提供最佳的安全级别
+                            </li>
+                            <li><strong>这如何保护我的数据？</strong><br />锚定机制仅处理数据展示。您的数据将保留在您计算指纹的地方，即浏览器中。他们的机密性完全得到了保护。</li>
+                            <li><strong>备份后的第二天，您可以在此处免费获得证明收据：<a
+                                        href="https://gildas-lormeau.github.io/singlefile-woleet/index.html"
+                                        target="_blank">gildas-lormeau.github.io/singlefile-woleet/index.html</a>证明收据将用于验证证据的有效性</strong>
+                            </li>
+                        </ul>
+                        <p>更多信息<a href="https://doc.woleet.io" target="_blank">doc.woleet.io</a></p>
+                    </li>
+                    <li data-options-label="woleetKeyLabel" hidden=""><span class="option">选项：访问令牌</span>
+                        <p>在Woleet上输入您的个人访问令牌，请参阅<a href="http://app.woleet.io/" target="_blank">注册页面</a>更多信息请访问Woleet。
+                        </p>
+                    </li>
+                    <li data-options-label="backgroundSaveLabel" id="backgroundSaveOption"><span
+                            class="option">选项：在后台保存页面</span>
+                        <p>如果您在保存页面时收到无效的文件名，如“37bec68b-446a-46a5-8642-19a89c231b46.html”或下载中断，请取消选中此选项。如果您希望“另存为”对话框记住上次保存的路径，也可以取消选中此选项。取消选中此选项可防止在文件名模板中使用子目录。
+                        </p>
+                        <p class="notice">建议<u>检查</u>此选项</p>
+                    </li>
+                    <li data-options-label="displayStatsLabel"><span class="option">选项：处理后在控制台中显示统计数据</span>
+                        <p>选中此选项可在浏览器的JavaScript开发工具中显示有关处理的统计信息。选中此选项可能会增加CPU消耗和保存页面所需的时间。</p>
+                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                    </li>
+                </ul>
+                <p id="auto-settings-rules">自动设置规则</p>
+                <ul>
+                    <li>自动设置规则允许您将完整或部分URL与配置文件相关联。它还允许为自动保存关联特定的配置文件，或禁用它（选中“显示‘自动保存配置文件’列”）。当两个或多个规则与要保存的页面的URL匹配时，将选择URL最长的规则。特殊配置文件“-”表示当前配置文件。
+                    </li>
+                    <li>您可以使用特殊值“*”作为URL来创建适用于所有URL的规则</li>
+                    <li>您可以通过在URL前加上“regexp:”来使用正则表达式（例如，“regexp:.*\.com”来匹配所有包含“.com”的URL）。当零条或多条基于URL的规则和一条或多个基于正则表达式的规则与一个URL匹配时，将选择基于正则表达式最长的规则。
+                    </li>
+                </ul>
+                <p>表单按钮</p>
+                <ul>
+                    <li><span class="option">同步选项</span>
+                        <p>选中此选项可同步您的选项，并使其在您登录的浏览器的不同设备上的所有实例中可用。</p>
+                    </li>
+                    <li><span class="option">重置</span>
+                        <p>将所有选项重置为默认值。</p>
+                    </li>
+                </ul>
+            </li>
+            <li><a id="annotation-editor">注释编辑器</a>
+                <p>通过在上下文菜单中选择“注释并保存页面”或启用“注释编辑器&gt;保存前编辑页面”选项，可以打开注释编辑器。它允许您：
+                <ul>
+                    <li>通过单击以下按钮之一添加注释：<img class="icon button" src="../resources/button_note_yellow.png" /><img
+                            class="icon button" src="../resources/button_note_pink.png" /><img class="icon button"
+                            src="../resources/button_note_blue.png" /><img class="icon button"
+                            src="../resources/button_note_green.png" /></li>
+                    <li>通过单击按钮隐藏或显示笔记<img class="icon button" src="../resources/button_note_visible.png" /></li>
+                    <li>通过单击以下按钮之一突出显示文本：<img class="icon button"
+                            src="../resources/button_highlighter_yellow.png" /><img class="icon button"
+                            src="../resources/button_highlighter_pink.png" /><img class="icon button"
+                            src="../resources/button_highlighter_blue.png" /><img class="icon button"
+                            src="../resources/button_highlighter_green.png" /></li>
+                    <li>通过单击按钮隐藏或显示突出显示的文本<img class="icon button" src="../resources/button_highlighter_visible.png" />
+                    </li>
+                    <li>单击按钮删除突出显示的文本<img class="icon button" src="../resources/button_highlighter_delete.png" /></li>
+                    <li>单击按钮编辑页面<img class="icon button" src="../resources/button_note_edit.png" /></li>
+                    <li>通过单击按钮格式化页面以提高可读性（如果可能）<img class="icon button" src="../resources/button_note_format.png" />
+                    </li>
+                    <li>单击按钮删除内容<img class="icon button" src="../resources/button_cut_inner.png" />（内部元件）或<img
+                            class="icon button" src="../resources/button_cut_outer.png" />（外部元素）</li>
+                    <li>单击按钮撤消删除<img class="icon button" src="../resources/button_undo_cut.png" />或按钮<img
+                            class="icon button" src="../resources/button_undo_all_cut.png" />（全部撤消）</li>
+                    <li>点击按钮即可删除redo<img class="icon button" src="../resources/button_redo_cut.png" /></li>
+                    <li>单击按钮打印页面<img class="icon button" src="../resources/button_print.png" />或按<code>Ctrl-P</code>
+                    </li>
+                    <li>单击按钮保存页面<img class="icon button" src="../resources/button_download.png" />或按<code>Ctrl-S</code>
+                    </li>
+                </ul>
+                </p><br />
+                <p>使用删除内容时，可以使用以下键盘快捷键<img class="icon button" src="../resources/button_cut_inner.png" />或<img
+                        class="icon button" src="../resources/button_cut_outer.png" />:
+                <ul>
+                    <li><code>Tab</code>：展开选择</li>
+                    <li><code>Shift-Tab</code>：减少选择</li>
+                    <li><code>Space</code>：删除所选元素</li>
+                    <li><code>Ctrl-Z</code>：撤消上次删除</li>
+                    <li><code>Ctrl-Shift-Z</code>：重新执行上次删除</li>
+                    <li><code>Ctrl</code>：选择/取消选择多个元素，释放<code>Ctrl键</code>键验证选择</li>
+                    <li><code>Shift</code>：暂时反转最后一个选定元素的移除类型（即移除内部元素或移除外部元素），并重置其他选定元素（如果有的话）</li>
+                    <li><code>Escape</code>：重置所选元素</li>
+                </ul>
+                </p>
+            </li>
+            <li><a id="template-variables">模板变量</a>
+                <p>模板变量用于自定义信息栏内容或已保存页面的文件名。它们有助于插入动态值，如保存日期或页面标题。</p>
+                <p>您可以通过添加以下内容来限制动态值的长度<code>[<em>maxByteSize</em>]</code>或<code>[<em>maxCharSize</em>ch]</code>就在变量名之后。这个<code>maxByteSize</code>value是该值的最大长度（以字节为单位）（例如“{page-title}[20]”将标题限制为20个字节）。这个<code>maxCharSize</code>value是以字符为单位的最大长度（例如`{page-title}[10ch]`将标题限制为10个字符）。
+                </p>
+                <ul>
+                    <li><code>{navigator-language}</code>: 浏览器的语言</li>
+                    <li><code>{page-title}</code>: 页面的标题</li>
+                    <li><code>{page-heading}</code>: 页面中 H1 标签的内容</li>
+                    <li><code>{page-language}</code>: 页面的语言</li>
+                    <li><code>{page-description}</code>: 页面的描述</li>
+                    <li><code>{page-author}</code>: 页面的作者</li>
+                    <li><code>{page-creator}</code>: 页面的创建者</li>
+                    <li><code>{page-publisher}</code>: 页面的出版者</li>
+                    <li><code>{datetime-iso}</code>: 保存日期和时间的 ISO 格式（例如 "2018-09-15T22_38_26_317Z"）</li>
+                    <li><code>{datetime-utc}</code>: 保存日期和时间的 UTC 格式（例如 "Sat, 15 Sep 2018 22_38_26 GMT"）</li>
+                    <li><code>{datetime-locale}</code>: 日期和时间的本地化值（例如 "9_16_2018, 12_54_31 AM"）</li>
+                    <li><code>{date-iso}</code>: 保存日期的 ISO 格式（例如 "2018-09-15"）</li>
+                    <li><code>{date-locale}</code>: 保存日期的本地化值（例如 "16_09_2018"）</li>
+                    <li><code>{time-iso}</code>: 保存时间的 ISO 格式（例如 "22_38_26_317"）</li>
+                    <li><code>{time-locale}</code>: 保存时间的本地化值（例如 "00_38_26"）</li>
+                    <li><code>{time-ms}</code>: 保存时间的 Unix Epoch 后的毫秒数（例如 1563582018000）</li>
+                    <li><code>{day-utc}</code>: 保存日期的 UTC 格式的天数（例如 "15"）</li>
+                    <li><code>{day-locale}</code>: 天数的本地化值（例如 "15"）</li>
+                    <li><code>{month-utc}</code>: 保存日期的 UTC 格式的月份（例如 "09"）</li>
+                    <li><code>{month-locale}</code>: 月份的本地化值（例如 "09"）</li>
+                    <li><code>{year-utc}</code>: 保存日期的 UTC 格式的年份（例如 "2018"）</li>
+                    <li><code>{year-locale}</code>: 年份的本地化值（例如 "2018"）</li>
+                    <li><code>{hours-utc}</code>: 保存日期的 UTC 格式的小时（例如 "20"）</li>
+                    <li><code>{hours-locale}</code>: 小时的本地化值（例如 "22"）</li>
+                    <li><code>{minutes-utc}</code>: 保存日期的 UTC 格式的分钟（例如 "38"）</li>
+                    <li><code>{minutes-locale}</code>: 分钟的本地化值（例如 "38"）</li>
+                    <li><code>{seconds-utc}</code>: 保存日期的 UTC 格式的秒数（例如 "31"）</li>
+                    <li><code>{seconds-locale}</code>: 秒数的本地化值（例如 "31"）</li>
+                    <li><code>{visit-datetime-iso}</code>: 访问日期和时间的 ISO 格式（例如 "2018-09-15T22_38_26_317Z"）</li>
+                    <li><code>{visit-datetime-utc}</code>: 访问日期和时间的 UTC 格式（例如 "Sat, 15 Sep 2018 22_38_26 GMT"）</li>
+                    <li><code>{visit-datetime-locale}</code>: 日期和时间的本地化值（例如 "9_16_2018, 12_54_31 AM"）</li>
+                    <li><code>{visit-date-iso}</code>: 访问日期的 ISO 格式（例如 "2018-09-15"）</li>
+                    <li><code>{visit-date-locale}</code>: 访问日期的本地化值（例如 "16_09_2018"）</li>
+                    <li><code>{visit-time-iso}</code>: 访问时间的 ISO 格式（例如 "22_38_26_317"）</li>
+                    <li><code>{visit-time-locale}</code>: 访问时间的本地化值（例如 "00_38_26"）</li>
+                    <li><code>{visit-time-ms}</code>: 访问时间的 Unix Epoch 后的毫秒数（例如 1563582018000）</li>
+                    <li><code>{visit-day-utc}</code>: 访问日期的 UTC 格式的天数（例如 "15"）</li>
+                    <li><code>{visit-day-locale}</code>: 访问日期的本地化天数（例如 "15"）</li>
+                    <li><code>{visit-month-utc}</code>: 访问日期的 UTC 格式的月份（例如 "09"）</li>
+                    <li><code>{visit-month-locale}</code>: 访问日期的本地化月份（例如 "09"）</li>
+                    <li><code>{visit-year-utc}</code>: 访问日期的 UTC 格式的年份（例如 "2018"）</li>
+                    <li><code>{visit-year-locale}</code>: 访问日期的本地化年份（例如 "2018"）</li>
+                    <li><code>{visit-hours-utc}</code>: 访问日期的 UTC 格式的小时（例如 "20"）</li>
+                    <li><code>{visit-hours-locale}</code>: 访问日期的本地化小时（例如 "22"）</li>
+                    <li><code>{visit-minutes-utc}</code>: 访问日期的 UTC 格式的分钟（例如 "38"）</li>
+                    <li><code>{visit-minutes-locale}</code>: 访问日期的本地化分钟（例如 "38"）</li>
+                    <li><code>{visit-seconds-utc}</code>: 访问日期的 UTC 格式的秒数（例如 "31"）</li>
+                    <li><code>{visit-seconds-locale}</code>: 访问日期的本地化秒数（例如 "31"）</li>
+                    <li><code>{url-href}</code>: 页面的 URL（例如 "http://example.com/category/index.html"）</li>
+                    <li><code>{url-href-digest-sha-1}</code>: 页面的 URL 的 SHA-1 哈希值（例如
+                        4b826844d9f5c128533e4ff14d746334f3ac9e00）</li>
+                    <li><code>{url-href-flat}</code>: 替换斜杠后的页面 URL（例如 "http__example.com_category_index.html"）</li>
+                    <li><code>{url-pathname}</code>: URL 的路径名（例如 "category/index.html"）</li>
+                    <li><code>{url-pathname-flat}</code>: 替换斜杠后的 URL 路径名（例如 "category_index.html"）</li>
+                    <li><code>{url-last-segment}</code>: 路径名的最后一部分（没有扩展名）或主机（如果没有找到）（例如 "index"）</li>
+                    <li><code>{url-protocol}</code>: URL 的协议（例如 "https"）</li>
+                    <li><code>{url-host}</code>: URL 的主机名 + 端口（例如 "example.com_8080"）</li>
+                    <li><code>{url-hostname}</code>: URL 的主机名（例如 "example.com"）</li>
+                    <li><code>{url-hostname-suffix}</code>: URL 主机名的后缀（例如 "com"）</li>
+                    <li><code>{url-hostname-domain}</code>: URL 主机名的域名（例如 "example"）</li>
+                    <li><code>{url-hostname-root}</code>: URL 主机名的根（例如 "example.com"）</li>
+                    <li><code>{url-hostname-subdomains}</code>: URL 主机名的子域名（例如 "sub" 对于 "sub.example.com"），"www" 被忽略
+                    </li>
+                    <li><code>{url-port}</code>: URL 的端口（例如 "8080"）</li>
+                    <li><code>{url-username}</code>: URL 的用户名（例如 "john_doe"）</li>
+                    <li><code>{url-password}</code>: URL 的密码（例如 "qwerty123"）</li>
+                    <li><code>{url-search}</code>: URL 的搜索字符串（例如 "order=ascending"）</li>
+                    <li><code>{url-hash}</code>: URL 的哈希值（例如 "chapter-2"）</li>
+                    <li><code>{url-referrer}</code>: 链接到该页面的页面的 URI（例如 "http://example.com"）</li>
+                    <li><code>{url-referrer-flat}</code>: 链接到该页面的页面的 URI，斜杠被替换（例如 "http_example.com"）</li>
+                    <li><code>{bookmark-pathname}</code>: 新创建的书签的路径名（例如 "我的书签/上个月"），当选项 "书签 > 保存新创建书签的页面" 被启用时</li>
+                    <li><code>{bookmark-pathname-flat}</code>: 新创建的书签的路径名，斜杠被替换（例如 "我的书签_上个月"），当选项 "书签 > 保存新创建书签的页面"被启用时
+                    </li>
+                    <li><code>{tab-id}</code>: 标签的唯一标识符（例如 "326"）</li>
+                    <li><code>{tab-index}</code>: 标签在窗口中的索引（例如 "1"）</li>
+                    <li><code>{digest-sha-256}</code>: 整个页面内容的 SHA-256
+                        哈希值（例如e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855）</li>
+                    <li><code>{digest-sha-384}</code>: 整个页面内容的 SHA-384 哈希值</li>
+                    <li><code>{digest-sha-512}</code>: 整个页面内容的 SHA-512 哈希值</li>
+                    <li><code>{profile-name}</code>: 用于保存页面的配置文件名称</li>
+                    <li><code>{filename-extension}</code>: 根据文件格式的文件名扩展名（例如 "html"、"u.zip.html"、"zip.html"、"zip"）</li>
+                    <li><code>{save-action}</code>: 保存页面时使用的操作（例如 "page"、"selection"）</li>
+                    <li><code>{options-json}</code>: 用于保存页面的选项的 JSON 表示。每个属性名称采用小驼峰命名法（例如 "blockScripts"）</li>
+                    <li><code>{options-text}</code>: 用于保存页面的选项的文本表示。文本表示由选项及其值的列表组成，以换行符分隔（例如 "saveRawPage:
+                        false\includeInfobar: true..."）</li>
+                </ul>
+            </li>
+            <li><a href="#template-functions" id="template-functions">模板函数</a>
+                <p>模板函数用于格式化模板中的值或根据参数插入值。</p>
+                <p>函数调用的语法是 <code>%<em>function-name</em>&lt;<em>parameter</em>&gt;</code>。您可以传递多个用管道字符分隔的参数（例如
+                    "%<em>function-name</em>&lt;<em>parameter1</em>|<em>parameter2</em>&gt;"）。与模板变量一样，您可以通过在函数名称后添加
+                    <code>[<em>maxByteSize</em>]</code> 或 <code>[<em>maxCharSize</em>ch]</code> 来限制动态值的长度。
+                </p>
+                <ul>
+                    <li><code>%if-empty&lt;value|default&gt;</code>: 如果 <code>value</code> 为空，则返回 <code>default</code>
+                        值（例如 "%if-empty&lt;{page-title}|Untitled&gt;" 当页面标题为空时返回 "Untitled"）。您还可以传递多个用管道字符分隔的值（例如
+                        "%if-empty&lt;{page-title}|{page-heading}|Untitled&gt;" 当页面标题不为空时返回页面标题，如果不为空则返回页面标题，如果两个都为空则返回
+                        "Untitled"）。</li>
+                    <li><code>%if-not-empty&lt;value|default&gt;</code>: 如果 <code>value</code> 不为空，则返回
+                        <code>default</code> 值（例如 "%if-not-empty&lt;{page-title}({page-title})&gt;"
+                        当页面标题不为空时返回带括号的页面标题）。您也可以传递多个用管道字符分隔的值，就像使用 <code>%if-empty</code> 函数一样。
+                    </li>
+                    <li><code>%if-equals&lt;value|expected|trueValue|falseValue&gt;</code>: 如果 <code>value</code> 等于
+                        <code>expected</code>，则返回 <code>trueValue</code>，否则返回 <code>falseValue</code>（例如
+                        "%if-equals&lt;{page-title}|Untitled|{page-heading}|{page-title}&gt;" 当页面标题等于 "Untitled"
+                        时返回页面标题，否者返回页面标题）。
+                    </li>
+                    <li><code>%if-not-equals&lt;value|expected|trueValue|falseValue&gt;</code>: 如果 <code>value</code>
+                        不等于 <code>expected</code>，则返回 <code>trueValue</code>，否则返回 <code>falseValue</code>（例如
+                        "%if-not-equals&lt;{page-title}|Untitled|{page-title}|{page-heading}&gt;" 当页面标题不等于 "Untitled"
+                        时返回页面标题，否者返回页面标题）。</li>
+                    <li><code>%if-contains&lt;value|expected|trueValue|falseValue&gt;</code>: 如果 <code>value</code> 包含
+                        <code>expected</code>，则返回 <code>trueValue</code>，否则返回 <code>falseValue</code>（例如
+                        "%if-contains&lt;{page-title}|Untitled|{page-heading}|{page-title}&gt;" 当页面标题包含 "Untitled"
+                        时返回页面标题，否者返回页面标题）。
+                    </li>
+                    <li><code>%if-not-contains&lt;value|expected|trueValue|falseValue&gt;</code>: 如果 <code>value</code>
+                        不包含 <code>expected</code>，则返回 <code>trueValue</code>，否则返回 <code>falseValue</code>（例如
+                        "%if-not-contains&lt;{page-title}|Untitled|{page-title}|{page-heading}&gt;" 当页面标题不包含 "Untitled"
+                        时返回页面标题，否者返回页面标题）。</li>
+
+                    <li><code>%substring&lt;value|start|end&gt;</code>: 返回 <code>value</code> 的子字符串（例如
+                        "%substring&lt;{page-title}|0|20&gt;" 返回页面标题的前20个字符，"%substring&lt;{page-title}|5&gt;"
+                        返回页面标题去掉前5个字符的部分）。</li>
+                    <li><code>%lowercase&lt;value&gt;</code>: 返回 <code>value</code> 的小写形式（例如
+                        "%lowercase&lt;{page-title}&gt;" 返回页面标题的小写形式）。</li>
+                    <li><code>%uppercase&lt;value&gt;</code>: 返回 <code>value</code> 的大写形式（例如
+                        "%uppercase&lt;{page-title}&gt;" 返回页面标题的大写形式）。</li>
+                    <li><code>%capitalize&lt;value&gt;</code>: 返回 <code>value</code> 的首字母大写形式（例如
+                        "%capitalize&lt;{page-title}&gt;" 返回页面标题的首字母大写形式）。</li>
+                    <li><code>%replace&lt;value|search|replacement&gt;</code>: 返回 <code>value</code>，将所有
+                        <code>search</code> 值替换为 <code>replacement</code>（例如 "%replace&lt;{page-title}| |_&gt;"
+                        将页面标题中的所有空格替换为下划线）。
+                    </li>
+                    <li><code>%repeat&lt;value|count&gt;</code>: 返回 <code>value</code> 重复 <code>count</code> 次（例如
+                        "%repeat&lt;{page-title}|3&gt;" 将页面标题重复3次）。</li>
+                    <li><code>%index-of&lt;value|search|fromIndex&gt;</code>: 返回 <code>value</code> 中
+                        <code>search</code> 首次出现的索引（例如 "%index-of&lt;{page-title}|"Title"&gt;" 返回字符串 "Title" 在
+                        <code>page-title</code> 中首次出现的索引）。
+                    </li>
+                    <li><code>%last-index-of&lt;value|search|fromIndex&gt;</code>: 返回 <code>value</code> 中
+                        <code>search</code> 最后一次出现的索引（例如 "%last-index-of&lt;{page-title}|"Title"&gt;" 返回字符串 "Title" 在
+                        <code>page-title</code> 中最后一次出现的索引）。
+                    </li>
+                    <li><code>%length&lt;value&gt;</code>: 返回 <code>value</code> 的长度（例如 "%length&lt;{page-title}&gt;"
+                        返回页面标题的长度）。</li>
+                    <li><code>%trim&lt;value&gt;</code>: 返回 <code>value</code>，去掉所有前导和后缀空白字符（例如
+                        "%trim&lt;{page-title}&gt;" 去掉页面标题的所有前导和后缀空白字符）。</li>
+                    <li><code>%trim-left&lt;value&gt;</code>: 返回 <code>value</code>，去掉所有前导空白字符（例如
+                        "%trim-left&lt;{page-title}&gt;" 去掉页面标题的所有前导空白字符）。</li>
+                    <li><code>%trim-right&lt;value&gt;</code>: 返回 <code>value</code>，去掉所有后缀空白字符（例如
+                        "%trim-right&lt;{page-title}&gt;" 去掉页面标题的所有后缀空白字符）。</li>
+
+                    <li><code>%pad-left&lt;value|length|pad&gt;</code>: 返回 <code>value</code>，在左侧添加 <code>pad</code> 以使
+                        <code>value</code> 的长度等于 <code>length</code>（例如 "%pad-left&lt;{page-title}|20|_&gt;"
+                        在页面标题的左侧添加下划线，以使其长度等于20）。
+                    </li>
+                    <li><code>%pad-right&lt;value|length|pad&gt;</code>: 返回 <code>value</code>，在右侧添加 <code>pad</code> 以使
+                        <code>value</code> 的长度等于 <code>length</code>（例如 "%pad-right&lt;{page-title}|20|_&gt;"
+                        在页面标题的右侧添加下划线，以使其长度等于20）。
+                    </li>
+                    <li><code>%url-search-name&lt;index&gt;</code>: 指定索引处的搜索参数名称（例如 "%url-search-name&lt;0&gt;"
+                        获取第一个搜索参数的名称）。</li>
+                    <li><code>%url-search-value&lt;index&gt;</code>: 指定索引处的搜索参数值（例如 "%url-search-value&lt;0&gt;"
+                        获取第一个搜索参数的值）。</li>
+                    <li><code>%url-search-named-value&lt;name&gt;</code>: 指定名称的搜索参数的值（例如
+                        "%url-search-named-value&lt;id&gt;" 获取名为 "id" 的搜索参数的值）。</li>
+                    <li><code>%url-segment&lt;index&gt;</code>: 指定索引处的路径名段（例如 "%url-segment&lt;0&gt;" 获取路径名的第一个段）。</li>
+                    <li><code>%url-hostname-subdomain&lt;index&gt;</code>: 指定索引处的主机名子域（例如
+                        "%url-hostname-subdomain&lt;0&gt;" 获取主机名的第一个子域）。</li>
+                    <li><code>%stringify&lt;value&gt;</code>: 指定值的字符串表示（例如 "%stringify&lt;{page-title}&gt;"
+                        获取页面标题的字符串表示）。</li>
+                    <li><code>%encode-uri&lt;value&gt;</code>: 指定值的 URI 编码表示（例如 "%encode-uri&lt;{page-title}&gt;"
+                        获取页面标题的 URI 编码表示）。</li>
+                    <li><code>%decode-uri&lt;value&gt;</code>: 指定值的 URI 解码表示（例如 "%decode-uri&lt;{page-title}&gt;"
+                        获取页面标题的 URI 解码表示）。</li>
+                    <li><code>%encode-uri-component&lt;value&gt;</code>: 指定值的 URI 编码表示（例如
+                        "%encode-uri-component&lt;{page-title}&gt;" 获取页面标题的 URI 编码表示）。</li>
+                    <li><code>%decode-uri-component&lt;value&gt;</code>: 指定值的 URI 解码表示（例如
+                        "%decode-uri-component&lt;{page-title}&gt;" 获取页面标题的 URI 解码表示）。</li>
+                    <li><code>%page-element-text&lt;selector&gt;</code>: 获取第一个匹配指定选择器的元素的文本内容（例如
+                        "%page-element-text&lt;h1&gt;" 获取第一个 H1 元素的文本内容）。</li>
+                    <li><code>%page-element-attribute&lt;selector|attribute&gt;</code>: 获取第一个匹配指定选择器的元素的指定属性值（例如
+                        "%page-element-attribute&lt;h1|class&gt;" 获取第一个 H1 元素的 class 属性值）。</li>
+                    <li><code>%date-locale&lt;locales&gt;</code>: 日期和时间的本地化值（例如 "%date-locale&lt;en-US&gt;"
+                        表示美国英语格式的日期和时间）。</li>
+                    <li><code>%time-locale&lt;locales&gt;</code>: 时间的本地化值（例如 "%time-locale&lt;en-US&gt;" 表示美国英语格式的时间）。
+                    </li>
+                    <li><code>%datetime-locale&lt;locales&gt;</code>: 日期和时间的本地化值（例如 "%datetime-locale&lt;en-US&gt;"
+                        表示美国英语格式的日期和时间）。</li>
+                    <li><code>%datetime-custom&lt;locale|year|month|day|weekday|hour|minute|second|hour12|time-zone|fractional-seconds-digits|time-zone-name|era|locale-matcher&gt;</code>:
+                        根据指定的区域和选项格式化的日期和时间。请参见下面的选项列表。您可以将
+                        <code> </code>（空格字符）作为值传递，以使用选项的默认值。您还可以省略列表末尾的选项。例如，要以美国英语格式格式化日期和时间，并包含年份、日期和星期几，可以使用
+                        "%datetime-custom&lt;en-US|numeric| |numeric| |numeric&gt;"。
+                        <ul>
+                            <li><code>locale</code>: 作为 BCP 47 语言标签使用的区域（例如 "en-US"）。</li>
+                            <li><code>year</code>: 年份格式（即 "numeric", "2-digit"）。</li>
+                            <li><code>month</code>: 月份格式（即 "numeric", "2-digit", "narrow", "short", "long"）。</li>
+                            <li><code>day</code>: 日期格式（即 "numeric", "2-digit"）。</li>
+                            <li><code>weekday</code>: 星期几格式（即 "narrow", "short", "long"）。</li>
+                            <li><code>hour</code>: 小时格式（即 "numeric", "2-digit"）。</li>
+                            <li><code>minute</code>: 分钟格式（即 "numeric", "2-digit"）。</li>
+                            <li><code>second</code>: 秒格式（即 "numeric", "2-digit"）。</li>
+                            <li><code>hour12</code>: 是否使用12小时制（即 "true", "false"）。</li>
+                            <li><code>time-zone</code>: IANA时区数据库中的时区（例如 "UTC", "GMT", "EST", "PST",
+                                "America/New_York"）。</li>
+                            <li><code>fractional-seconds-digits</code>: 小数秒数字的数量（即 "1" 到 "3"）。</li>
+                            <li><code>time-zone-name</code>: 时区名称格式（即 "short", "long", "shortOffset", "longOffset",
+                                "shortGeneric", "longGeneric"）。</li>
+                            <li><code>day-period</code>: 日期周期（即 "narrow", "short", "long"）。</li>
+                            <li><code>era</code>: 纪元（即 "narrow", "short", "long"）。</li>
+                            <li><code>locale-matcher</code>: 区域匹配器（例如 "lookup", "best fit"）。</li>
+                        </ul>
+                        您可以在<a
+                            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#parameters"
+                            target="_blank">DateTimeFormat 构造函数</a> 文档中找到有关选项的更多信息。
+
+                    <li><code>%option-value&lt;key&gt;</code>：指定选项的值（例如，“displayInfobar”选项的值为“%option
+                        value&lt;displayInfobar&gt;”）</li>
+                </ul>
+            </li>
+            <li><a id="external-messages">与其他扩展集成</a>
+                <p>SingleFile可以接收来自其他扩展名的消息。消息必须发送到SingleFile的扩展ID，并且必须是包含以下值之一的字符串：
+                <ul>
+                    <li><code>“保存页面”</code>：保存当前页面</li>
+                    <li><code>“编辑并保存页面”</code>：在注释编辑器中编辑当前页面并保存</li>
+                    <li><code>“保存所选链接”</code>：保存所选内容中的所有链接</li>
+                    <li><code>“保存所选内容”</code>：保存所选内容</li>
+                    <li><code>“保存所选选项卡”</code>：保存所选选项卡</li>
+                    <li><code>“保存未固定的选项卡”</code>：保存未固定的选项卡</li>
+                    <li><code>“保存所有选项卡”</code>：保存所有选项卡</li>
+                </ul>
+                </p>
+            </li>
+            <li><a id="notes">技术说明</a>
+                <ul>
+                    <li>所有图像都转换为<a href="http://en.wikipedia.org/wiki/Base64" target="_blank">base64</a>.</li>
+                    <li>除框架内容外的所有资源都使用以下方式注入文档中<a href="http://en.wikipedia.org/wiki/Data_URI_scheme"
+                            target="_blank">数据URI方案</a>.</li>
+                    <li>使用srcdoc属性将框架内容作为文本注入文档中。</li>
+                </ul>
+            </li>
+            <li><a id="known-issues">已知问题</a>
+                <ul>
+                    <li>所有浏览器<ul>
+                            <li>出于安全原因，您无法保存托管在上的页面https://chrome.google.com,
+                                https://addons.mozilla.org以及其他一些Mozilla域名。当这种情况发生时，🚫 显示在SingleFile图标的顶部。</li>
+                            <li>出于安全原因，SingleFile有时无法保存画布的图像表示和视频元素的快照。</li>
+                            <li>默认情况下，无法记住上次保存的路径。要规避此限制，请禁用“杂项&gt;在后台保存页面”选项。</li>
+                            <li>文件名中的以下字符被替换为_：~、+、\、？、%、*、：、|、，“，&lt;，&gt;。这样做是为了保持与各种操作系统和文件系统的兼容性。如果你不需要这种兼容性，并且知道自己在做什么，你可以在<a
+                                    href="https://github.com/gildas-lormeau/SingleFile/wiki/Hidden-options">隐藏选项</a>.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>基于Chromium的浏览器<ul>
+                            <li>您必须在扩展页面中启用“允许访问文件URL”选项，以便在查看已保存的页面时显示信息栏，保存或注释存储在文件系统上的页面。</li>
+                            <li>如果已保存页面的文件名看起来像“56833935-156b-4d8c-a00f-19599c6513d3”，请禁用“其他&gt;在后台保存页面”选项。重新安装浏览器也可能解决此问题。
+                            </li>
+                            <li>禁用“文件名”选项，打开“另存为”对话框以确认文件名，只有在禁用“下载前询问每个文件的保存位置”时才有效chrome://settings/downloads</li>
+                        </ul>
+                    </li>
+                    <li>火狐<ul>
+                            <li>如果设置为“提示输入名称”，则“文件名&gt;文件名冲突解决”选项不起作用。</li>
+                            <li>有时，SingleFile无法保存沙盒iframe的内容。</li>
+                            <li>在处理文件系统中的页面时，外部资源（如图像、样式表、字体等）将不会嵌入到保存的页面中。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a id="unknown-issues">排除未知问题</a>
+                <p>如果您发现未知问题，请按照以下步骤操作：</p>
+                <ul>
+                    <li>以匿名方式保存页面。</li>
+                    <li>如果以隐身方式保存页面没有解决问题，请重置SingleFile选项。</li>
+                    <li>如果重置选项没有解决问题，请重新启动浏览器。</li>
+                    <li>如果重新启动浏览器没有解决问题，请尝试禁用所有其他扩展，查看是否存在冲突。</li>
+                    <li>如果存在冲突，请尝试确定针对哪个扩展。</li>
+                    <li>请报告该问题<a href="https://github.com/gildas-lormeau/SingleFile/issues"
+                            target="_blank">在这里</a>并简要描述了如何复制它。</li>
+                </ul>
+                <p>欢迎提出建议：）</p>
+            </li>
+            <li><a id="contributors">贡献者</a>
+                <ul>
+                    <li>yfdyh000完成的中文翻译(<a href="https://github.com/yfdyh000"
+                            target="_blank">GitHub配置文件</a>)KrasnayaPloshchad(<a
+                            href="https://github.com/KrasnayaPloshchad" target="_blank">GitHub配置文件</a>)，冻疮(<a
+                            href="https://github.com/frostblazergit" target="_blank">GitHub配置文件</a>)，夜鹰(<a
+                            href="https://github.com/NightSharp" target="_blank">GitHub配置文件</a>)，lqzhgood(<a
+                            href="https://github.com/lqzhgood" target="_blank">GitHub配置文件</a>)</li>
+                    <li>弗罗斯特开拓者的中国传统翻译(<a href="https://github.com/frostblazergit"
+                            target="_blank">GitHub配置文件</a>)，lqzhgood(<a href="https://github.com/lqzhgood"
+                            target="_blank">GitHub配置文件</a>)</li>
+                    <li>由jooleer完成的荷兰语翻译(<a href="https://github.com/jooleer" target="_blank">GitHub配置文件</a>)</li>
+                    <li>由jooleer完成的荷兰语翻译(<a href="https://github.com/jooleer" target="_blank">GitHub配置文件</a>)</li>
+                    <li>由womotroll完成的德语翻译(<a href="https://github.com/womotroll" target="_blank">GitHub配置文件</a>)，班曼(<a
+                            href="https://github.com/bannmann" target="_blank">GitHub配置文件</a>)</li>
+                    <li>意大利语翻译由Fastbyte01完成(<a href="https://github.com/Fastbyte01" target="_blank">GitHub配置文件</a>)</li>
+                    <li>日语翻译，由四天王（Shitennouji）完成(<a href="https://github.com/Shitennouji"
+                            target="_blank">GitHub配置文件</a>)</li>
+                    <li>xesarni完成的波兰语翻译(<a href="https://github.com/xesarni" target="_blank">GitHub配置文件</a>)</li>
+                    <li>葡萄牙语翻译由@Blackspirits完成(<a href="https://github.com/Blackspirit" target="_blank">GitHub配置文件</a>)
+                    </li>
+                    <li>葡萄牙语巴西语翻译由@mezysinc，Blackspirits完成(<a href="https://github.com/Blackspirit"
+                            target="_blank">GitHub配置文件</a>)</li>
+                    <li>俄语翻译由rstp14完成(<a href="https://github.com/rstp14" target="_blank">GitHub配置文件</a>)克拉莫拉RU(<a
+                            href="https://github.com/kramola-RU" target="_blank">GitHub配置文件</a>)，索洛科特(<a
+                            href="https://github.com/solokot" target="_blank">GitHub配置文件</a>)</li>
+                    <li>西班牙语翻译由strel完成(<a href="https://github.com/strel" target="_blank">GitHub配置文件</a>)</li>
+                    <li>土耳其语翻译由hbaklan943完成(<a href="https://github.com/hbaklan943" target="_blank">GitHub配置文件</a>)</li>
+                    <li>乌克兰语翻译由perdolka完成(<a href="https://github.com/perdolka" target="_blank">GitHub配置文件</a>)吉尔达斯·洛默
+                    </li>
+                </ul>
+            </li>
+            <li><a id="icons">图标</a>
+                <ul>
+                    <li>图标制作人<a href="https://www.flaticon.com/authors/kiranshastry" s="" target="_blank"
+                            title="Kiranshastry">基兰化学</a>从<a href="https://www.flaticon.com/" target="_blank"
+                            title="Flaticon">www.flaticon.com</a>已获得许可<a
+                            href="http://creativecommons.org/licenses/by/3.0/" target="_blank"
+                            title="Creative Commons BY 3.0">CC 3.0</a></li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+    <script src="../bg/ui-help.js" type="module"></script>
+</body>
+
+</html>
