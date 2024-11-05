@@ -194,6 +194,7 @@ if (typeof globalThis == "undefined") {
 				})
 			},
 			i18n: {
+				getUILanguage: () => nativeAPI.i18n.getUILanguage(),
 				getMessage: (messageName, substitutions) => nativeAPI.i18n.getMessage(messageName, substitutions)
 			},
 			identity: {
