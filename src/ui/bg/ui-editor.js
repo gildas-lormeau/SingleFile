@@ -274,7 +274,7 @@ function toolbarOnTouchEnd(event) {
 let updatedResources = {};
 
 addEventListener("resize", viewportSizeChange);
-addEventListener("message", event => {
+addEventListener("message", async event => {
 	const message = JSON.parse(event.data);
 	if (message.method == "setContent") {
 		tabData.options.openEditor = false;
@@ -296,21 +296,19 @@ addEventListener("message", event => {
 			if (tabData.insertMetaCSP !== undefined) {
 				tabData.options.insertMetaCSP = tabData.insertMetaCSP;
 			}
-			getContentPageData(tabData.content, message.content, { password: tabData.options.password })
-				.then(pageData => {
-					pageData.content = message.content;
-					pageData.title = message.title;
-					pageData.doctype = message.doctype;
-					pageData.viewport = message.viewport;
-					pageData.url = message.url;
-					pageData.filename = message.filename || tabData.filename;
-					pageData.mimeType = "text/html";
-					if (message.foregroundSave) {
-						tabData.options.backgroundSave = false;
-						tabData.options.foregroundSave = true;
-					}
-					return download.downloadPage(pageData, tabData.options);
-				});
+			const pageData = await getContentPageData(tabData.content, message.content, { password: tabData.options.password });
+			pageData.content = message.content;
+			pageData.title = message.title;
+			pageData.doctype = message.doctype;
+			pageData.viewport = message.viewport;
+			pageData.url = message.url;
+			pageData.filename = message.filename || tabData.filename;
+			pageData.mimeType = "text/html";
+			if (message.foregroundSave) {
+				tabData.options.backgroundSave = false;
+				tabData.options.foregroundSave = true;
+			}
+			download.downloadPage(pageData, tabData.options);
 		} else {
 			const pageData = {
 				content: message.content,
