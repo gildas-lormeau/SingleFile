@@ -1105,7 +1105,8 @@ pre code {
 						viewport: viewport ? viewport.content : null,
 						compressContent: true,
 						foregroundSave: message.foregroundSave,
-						sharePage: message.sharePage
+						sharePage: message.sharePage,
+						documentHeight: document.documentElement.offsetHeight
 					}), "*");
 				} else {
 					if (message.foregroundSave || message.sharePage) {
