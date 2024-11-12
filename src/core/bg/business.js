@@ -99,6 +99,7 @@ async function saveUrls(urls, options = {}) {
 		if (tabOptions.profileName != config.DISABLED_PROFILE_NAME) {
 			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 			tabOptions.autoClose = true;
+			tabOptions.originalUrl = url;
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
 			if (tabOptions.passReferrerOnError) {
 				requests.enableReferrerOnError();
