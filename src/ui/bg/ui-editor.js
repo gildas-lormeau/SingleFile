@@ -308,7 +308,7 @@ addEventListener("message", async event => {
 				tabData.options.backgroundSave = false;
 				tabData.options.foregroundSave = true;
 			}
-			download.downloadPage(pageData, tabData.options);
+			await download.downloadPage(pageData, tabData.options);
 		} else {
 			const pageData = {
 				content: message.content,
@@ -316,7 +316,7 @@ addEventListener("message", async event => {
 				mimeType: "text/html"
 			};
 			tabData.options.compressContent = false;
-			download.downloadPage(pageData, tabData.options);
+			await download.downloadPage(pageData, tabData.options);
 		}
 	}
 	if (message.method == "onUpdate") {
