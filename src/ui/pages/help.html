@@ -1245,11 +1245,13 @@
 								canvas and snapshots of video elements.</li>
 							<li>The last saved path cannot be remembered by default. To circumvent this limitation,
 								disable the option "Misc. &gt; Save pages in background".</li>
-							<li>The following characters are replaced with _ in filenames: ~, +, \, ?, %, *, :, |, ",
-								&lt;, &gt;. This is done to maintain compatibility with various OSs and file systems.
-								If you don't need that level of compatibility and know what you are doing, you can
-								change the list of forbidden characters in
-								<a href="https://github.com/gildas-lormeau/SingleFile/wiki/Hidden-options">Hidden
+							<li>The following characters are replaced by their full-width equivalent symbols in file
+								names: ~, +, ?, %, *, :, |, ", &lt;, &gt;, \. The replacement characters are
+								respectively: ～, ＋, ？, ％, ＊, ：, ｜, ＂, ＜, ＞, ＼. Other invalid charcaters are replaced by
+								_. This is done to maintain compatibility with various OSs and file systems. If you
+								don't need that level of compatibility and know what you are doing, you can change the
+								list of forbidden characters and the replacement characters in the <a
+									href="https://github.com/gildas-lormeau/SingleFile/wiki/Hidden-options">hidden
 									options</a>.
 							</li>
 						</ul>

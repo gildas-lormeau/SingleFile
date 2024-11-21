@@ -116,11 +116,14 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
     [video](https://developer.mozilla.org/docs/Web/HTML/Element/video) elements.
   - The last saved path cannot be remembered by default. To circumvent this
     limitation, disable the option "Misc > save pages in background".
-  - The following characters are replaced with `_` in file names: `~`, `+`, `\`,
-    `?`, `%`, `*`, `:`, `|`, `"`, `<`, `>`. This is done to maintain compatibility with
-    various OSs and file systems. If you don't need that level of compatibility and know
-    what you are doing, you can change the list of forbidden characters in
-    [Hidden options](https://github.com/gildas-lormeau/SingleFile/wiki/Hidden-options).
+  - The following characters are replaced by their full-width equivalent 
+    symbols in file names: ~, +, ?, %, *, :, |, ", &lt;, &gt;, \. The 
+    replacement characters are respectively: ～, ＋, ？, ％, ＊, ：, ｜, ＂, ＜, ＞, ＼.
+    Other invalid charcaters are replaced by _. This is done to maintain 
+    compatibility with various OSs and file systems. If you don't need that 
+    level of compatibility and know what you are doing, you can change the
+    list of forbidden characters and the replacement characters in the Hidden 
+    options(https://github.com/gildas-lormeau/SingleFile/wiki/Hidden-options).
 - Chromium-based browsers:
   - You must enable the option "Allow access to file URLs" in the extension page
     to display the infobar when viewing a saved page, and to save or to annotate

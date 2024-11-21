@@ -875,8 +875,9 @@
                                 https://addons.mozilla.org以及其他一些Mozilla域名。当这种情况发生时，🚫 显示在SingleFile图标的顶部。</li>
                             <li>出于安全原因，SingleFile有时无法保存画布的图像表示和视频元素的快照。</li>
                             <li>默认情况下，无法记住上次保存的路径。要规避此限制，请禁用“杂项&gt;在后台保存页面”选项。</li>
-                            <li>文件名中的以下字符被替换为_：~、+、\、？、%、*、：、|、，“，&lt;，&gt;。这样做是为了保持与各种操作系统和文件系统的兼容性。如果你不需要这种兼容性，并且知道自己在做什么，你可以在<a
-                                    href="https://github.com/gildas-lormeau/SingleFile/wiki/Hidden-options">隐藏选项</a>.
+                            <li>以下字符在文件名中被替换为其全角等效符号：~、+、?、%、*、:、|、"、<、>、\。替换后的字符分别是：～、＋、？、％、＊、：、｜、＂、＜、＞、＼。其他无效字符会被替换为
+                                    _。这样做是为了兼容不同的操作系统和文件系统。如果不需要这种兼容性，并且知道自己在做什么，可以在<a
+                                        href="https://github.com/gildas-lormeau/SingleFile/wiki/Hidden-options">隐藏选项</a>中更改禁止字符和替换字符的列表。
                             </li>
                         </ul>
                     </li>
