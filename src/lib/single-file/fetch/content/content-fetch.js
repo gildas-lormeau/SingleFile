@@ -55,7 +55,7 @@ async function onFetchFrame(message) {
 		};
 	} catch (error) {
 		return {
-			error: error && error.toString()
+			error: error && (error.message || error.toString())
 		};
 	}
 }

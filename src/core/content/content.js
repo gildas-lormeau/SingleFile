@@ -109,7 +109,7 @@ async function onMessage(message) {
 					});
 				} catch (error) {
 					return {
-						error: error.toString()
+						error: error && (error.message || error.toString())
 					};
 				} finally {
 					await browser.runtime.sendMessage({ method: "downloads.end", taskId: result.value.taskId });
@@ -176,7 +176,7 @@ async function savePage(message) {
 			} catch (error) {
 				if (!processor.cancelled) {
 					console.error(error); // eslint-disable-line no-console
-					const errorMessage = error.toString();
+					const errorMessage = error && (error.message || error.toString());
 					browser.runtime.sendMessage({ method: "ui.processError", error: errorMessage });
 					onError(errorMessage);
 				}
