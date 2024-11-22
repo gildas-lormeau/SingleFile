@@ -33,7 +33,7 @@ https://user-images.githubusercontent.com/396787/156664907-cc458e35-f41b-45ca-91
 
 ## Install
 
-SingleFile can be installed from stores of:
+SingleFile can be installed from the store of:
 
 - Firefox: https://addons.mozilla.org/firefox/addon/single-file
 - Firefox for Android:
@@ -50,8 +50,8 @@ and install it manually by unzipping it somewhere on your disk and following
 these instructions:
 
 - Firefox: https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox
-- Chrome and Microsoft Edge: see https://github.com/gildas-lormeau/SingleFile-MV3
-- Safari: see https://github.com/gildas-lormeau/SingleFile-Safari-Extension
+- Chrome and Microsoft Edge: https://github.com/gildas-lormeau/SingleFile-MV3
+- Safari: https://github.com/gildas-lormeau/SingleFile-Safari-Extension
   
 ## Getting started
 
