@@ -196,13 +196,13 @@ https://github.com/gildas-lormeau/SingleFile/wiki/How-to-execute-a-user-script-b
 
 Footnotes:
 
-¹ When using the "universal" self-extracting file format.
+¹ When using the "universal" self-extracting file format
 
-² Only in Chromium-based browsers, and Internet Explorer.
+² Only in Chromium-based browsers, and Internet Explorer
 
-³ Only in Safari.
+³ Only in Safari
 
-⁴ An option must be enabled in the extension.
+⁴ An option must be enabled in the extension
 
 ## Projects using/compatible with SingleFile
 
