@@ -239,8 +239,9 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 
 ## Contributors
 
-- Chinese translation done by yfdyh000 (https://github.com/yfdyh000),
-  KrasnayaPloshchad (https://github.com/KrasnayaPloshchad), frostblazergit
+- Chinese translation done by yfdyh000 (https://github.com/yfdyh000), Liu8Can
+  (https://github.com/Liu8Can), KrasnayaPloshchad 
+  (https://github.com/KrasnayaPloshchad), frostblazergit
   (https://github.com/frostblazergit), dnknn (https://github.com/dnknn),
   lqzhgood (https://github.com/lqzhgood)
 - Traditional Chinese translation done by frostblazergit
