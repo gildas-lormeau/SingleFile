@@ -145,14 +145,14 @@ async function fetchResource(url, options = {}, useHostFetch = true) {
 				response = await hostFetch(url, fetchOptions);
 			}
 			if (response.status == 401 || response.status == 403 || response.status == 404) {
-				if (fetchOptions.referrerPolicy != "no-referrer") {
+				if (fetchOptions.referrerPolicy != "no-referrer" && !options.referrer) {
 					response = await fetchResource(url, { ...fetchOptions, referrerPolicy: "no-referrer" }, useHostFetch);
 				}
 			}
 		} catch (error) {
 			if (error && error.message == ERR_HOST_FETCH) {
 				response = await fetchResource(url, { ...fetchOptions }, false);
-			} else if (fetchOptions.referrerPolicy != "no-referrer") {
+			} else if (fetchOptions.referrerPolicy != "no-referrer" && !options.referrer) {
 				response = await fetchResource(url, { ...fetchOptions, referrerPolicy: "no-referrer" }, useHostFetch);
 			} else {
 				throw error;
