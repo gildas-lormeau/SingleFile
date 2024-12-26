@@ -28,7 +28,7 @@
 const AUTHORIZATION_HEADER = "Authorization";
 const BEARER_PREFIX_AUTHORIZATION = "Bearer ";
 const ACCEPT_HEADER = "Accept";
-const CONTENT_TYPE = "multipart/form-data";
+const CONTENT_TYPE = "application/json";
 
 export { RestFormApi };
 
