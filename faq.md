@@ -42,3 +42,6 @@ The default configuration of SingleFile is optimized to produce small pages. Thi
 You can also disable the options below. Some resources (e.g. images, frames) on the page may be missing though.
  - HTML content > remove frames
  - Images > save deferred images
+
+## How to convert MHTML files to single HTML files?
+See https://github.com/gildas-lormeau/mhtml-to-html.
