@@ -130,8 +130,9 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
     a page stored on the filesystem.
   - If the file name of a saved page looks like
     "56833935-156b-4d8c-a00f-19599c6513d3.html", disable the option "Misc > save
-    pages in background". Reinstalling the browser may also fix this issue. You
-    can find more info about this bug
+    pages in background". Reinstalling the browser may also fix this issue. This
+    issue might also be due to a conflict with another "downloader" extension. 
+    You can find more info about this bug
     [here](https://bugs.chromium.org/p/chromium/issues/detail?id=892133).
   - Disabling the option "File name > open the "Save as" dialog to confirm the
     file name" will work if and only if the option "Ask where to save each file
