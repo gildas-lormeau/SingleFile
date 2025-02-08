@@ -209,6 +209,9 @@ Footnotes:
 
 - ArchiveBox - Open-source self-hosted web archiving:
   https://github.com/ArchiveBox/ArchiveBox
+- hoarder - self-hostable bookmark-everything app (links, notes and images)
+  with AI-based automatic tagging and full text search: 
+  https://github.com/hoarder-app/hoarder
 - htmls-to-datasette - Tool to index HTML files into a Sqlite database:
   https://github.com/pjamar/htmls-to-datasette
 - linkding - Bookmark manager that you can host yourself. It's designed be to
