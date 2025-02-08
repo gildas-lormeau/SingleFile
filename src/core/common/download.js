@@ -114,7 +114,12 @@ async function downloadPage(pageData, options) {
 		S3Region: options.S3Region,
 		S3Bucket: options.S3Bucket,
 		S3AccessKey: options.S3AccessKey,
-		S3SecretKey: options.S3SecretKey
+		S3SecretKey: options.S3SecretKey,
+		infobarPositionAbsolute: options.infobarPositionAbsolute,
+		infobarPositionTop: options.infobarPositionTop,
+		infobarPositionBottom: options.infobarPositionBottom,
+		infobarPositionLeft: options.infobarPositionLeft,
+		infobarPositionRight: options.infobarPositionRight
 	};
 	const pingInterval = setInterval(() => {
 		browser.runtime.sendMessage({ method: "ping" }).then(() => { });

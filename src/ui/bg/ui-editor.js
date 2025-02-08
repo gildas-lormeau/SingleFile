@@ -565,6 +565,11 @@ function savePage() {
 		compressHTML: tabData.options.compressHTML,
 		includeInfobar: tabData.options.includeInfobar,
 		openInfobar: tabData.options.openInfobar,
+		infobarPositionAbsolute: tabData.options.infobarPositionAbsolute,
+		infobarPositionTop: tabData.options.infobarPositionTop,
+		infobarPositionBottom: tabData.options.infobarPositionBottom,
+		infobarPositionLeft: tabData.options.infobarPositionLeft,
+		infobarPositionRight: tabData.options.infobarPositionRight,
 		backgroundSave: tabData.options.backgroundSave,
 		updatedResources,
 		filename: tabData.filename,
@@ -582,7 +587,12 @@ function savePage() {
 function displayInfobar() {
 	editorElement.contentWindow.postMessage(JSON.stringify({
 		method: "displayInfobar",
-		openInfobar: tabData.options.openInfobar
+		openInfobar: tabData.options.openInfobar,
+		infobarPositionAbsolute: tabData.options.infobarPositionAbsolute,
+		infobarPositionTop: tabData.options.infobarPositionTop,
+		infobarPositionBottom: tabData.options.infobarPositionBottom,
+		infobarPositionLeft: tabData.options.infobarPositionLeft,
+		infobarPositionRight: tabData.options.infobarPositionRight
 	}), "*");
 }
 
