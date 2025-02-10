@@ -243,6 +243,7 @@ See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
 
 ## Contributors
 
+- Azerbaijani translation done by Haciagha_Sadikhov (https://github.com/Hajiagha-Sadikhov)
 - Chinese translation done by yfdyh000 (https://github.com/yfdyh000), Liu8Can
   (https://github.com/Liu8Can), KrasnayaPloshchad 
   (https://github.com/KrasnayaPloshchad), frostblazergit
