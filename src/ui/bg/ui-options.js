@@ -30,6 +30,7 @@ let DEFAULT_PROFILE_NAME,
 	DISABLED_PROFILE_NAME,
 	CURRENT_PROFILE_NAME,
 	BACKGROUND_SAVE_SUPPORTED,
+	AUTOCLOSE_SUPPORTED,
 	AUTO_SAVE_SUPPORTED,
 	AUTO_OPEN_EDITOR_SUPPORTED,
 	INFOBAR_SUPPORTED,
@@ -45,6 +46,7 @@ browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
 		DISABLED_PROFILE_NAME,
 		CURRENT_PROFILE_NAME,
 		BACKGROUND_SAVE_SUPPORTED,
+		AUTOCLOSE_SUPPORTED,
 		AUTO_SAVE_SUPPORTED,
 		AUTO_OPEN_EDITOR_SUPPORTED,
 		INFOBAR_SUPPORTED,
@@ -834,6 +836,9 @@ function init() {
 		document.getElementById("autoSaveSection").hidden = true;
 		document.getElementById("showAutoSaveProfileOption").hidden = true;
 		rulesContainerElement.classList.add("compact");
+	}
+	if (!AUTOCLOSE_SUPPORTED) {
+		document.getElementById("autoCloseOption").hidden = true;
 	}
 	if (!BACKGROUND_SAVE_SUPPORTED) {
 		document.getElementById("backgroundSaveOptions").hidden = true;

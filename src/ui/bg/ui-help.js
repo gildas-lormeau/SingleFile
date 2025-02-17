@@ -24,6 +24,7 @@
 /* global browser, document */
 
 let BACKGROUND_SAVE_SUPPORTED,
+	AUTOCLOSE_SUPPORTED,
 	AUTO_SAVE_SUPPORTED,
 	AUTO_OPEN_EDITOR_SUPPORTED,
 	INFOBAR_SUPPORTED,
@@ -37,6 +38,7 @@ let BACKGROUND_SAVE_SUPPORTED,
 browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
 	({
 		BACKGROUND_SAVE_SUPPORTED,
+		AUTOCLOSE_SUPPORTED,
 		AUTO_SAVE_SUPPORTED,
 		AUTO_OPEN_EDITOR_SUPPORTED,
 		INFOBAR_SUPPORTED,
@@ -57,6 +59,9 @@ function init() {
 		document.getElementById("autoSaveOptions").hidden = true;
 		document.getElementById("autoSaveMenu").hidden = true;
 		document.getElementById("autoSaveHint").hidden = true;
+	}
+	if (!AUTOCLOSE_SUPPORTED) {
+		document.getElementById("autoCloseOption").hidden = true;
 	}
 	if (!BACKGROUND_SAVE_SUPPORTED) {
 		document.getElementById("backgroundSaveOption").hidden = true;

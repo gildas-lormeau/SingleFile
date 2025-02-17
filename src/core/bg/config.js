@@ -33,7 +33,9 @@ const REGEXP_RULE_PREFIX = "regexp:";
 const PROFILE_NAME_PREFIX = "profile_";
 
 const IS_NOT_SAFARI = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent) || /Vivaldi/.test(navigator.userAgent) || /OPR/.test(navigator.userAgent);
-const BACKGROUND_SAVE_SUPPORTED = !(/Mobile.*Firefox/.test(navigator.userAgent) || /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent) && !/Vivaldi/.test(navigator.userAgent) && !/OPR/.test(navigator.userAgent));
+const IS_MOBILE_FIREFOX = /Mobile.*Firefox/.test(navigator.userAgent);
+const BACKGROUND_SAVE_SUPPORTED = !(IS_MOBILE_FIREFOX || /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent) && !/Vivaldi/.test(navigator.userAgent) && !/OPR/.test(navigator.userAgent));
+const AUTOCLOSE_SUPPORTED = !IS_MOBILE_FIREFOX;
 const BADGE_COLOR_SUPPORTED = IS_NOT_SAFARI;
 const AUTO_SAVE_SUPPORTED = IS_NOT_SAFARI;
 const SELECTABLE_TABS_SUPPORTED = IS_NOT_SAFARI;
@@ -233,6 +235,7 @@ export {
 	DISABLED_PROFILE_NAME,
 	CURRENT_PROFILE_NAME,
 	BACKGROUND_SAVE_SUPPORTED,
+	AUTOCLOSE_SUPPORTED,
 	BADGE_COLOR_SUPPORTED,
 	AUTO_SAVE_SUPPORTED,
 	SELECTABLE_TABS_SUPPORTED,
@@ -387,6 +390,7 @@ async function onMessage(message) {
 			DEFAULT_PROFILE_NAME,
 			CURRENT_PROFILE_NAME,
 			BACKGROUND_SAVE_SUPPORTED,
+			AUTOCLOSE_SUPPORTED,
 			BADGE_COLOR_SUPPORTED,
 			AUTO_SAVE_SUPPORTED,
 			SELECTABLE_TABS_SUPPORTED,
