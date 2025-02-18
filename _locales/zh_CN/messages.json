@@ -1030,5 +1030,21 @@
 	"optionRestFormApiUrlFieldName": {
 		"message": "网址字段名称",
 		"description": "Options page label: 'archive URL field name'"
+	},
+	"optionsEditorTitle": {
+		"message": "选项标题：'选项编辑器'",
+		"description": "Options title: 'Options editor'"
+	},
+	"optionsEditorSaveButton": {
+		"message": "保存",
+		"description": "Options editor button: 'Save'"
+	},
+	"optionsEditorConfigSaved": {
+		"message": "配置已保存",
+		"description": "Options editor message: 'Configuration saved'"
+	},
+	"optionsEditorInvalidJSON": {
+		"message": "无效的 JSON",
+		"description": "Options editor error message: 'Invalid JSON'"
 	}
 }

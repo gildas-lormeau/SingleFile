@@ -1030,5 +1030,21 @@
 	"optionRestFormApiUrlFieldName": {
 		"message": "archive URL field name",
 		"description": "Options page label: 'archive URL field name'"
+	},
+	"optionsEditorTitle": {
+		"message": "Editor de opciones",
+		"description": "Options title: 'Options editor'"
+	},
+	"optionsEditorSaveButton": {
+		"message": "Guardar",
+		"description": "Options editor button: 'Save'"
+	},
+	"optionsEditorConfigSaved": {
+		"message": "Configuración guardada",
+		"description": "Options editor message: 'Configuration saved'"
+	},
+	"optionsEditorInvalidJSON": {
+		"message": "JSON no válido",
+		"description": "Options editor error message: 'Invalid JSON'"
 	}
 }

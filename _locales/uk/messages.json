@@ -1030,5 +1030,21 @@
 	"optionRestFormApiUrlFieldName": {
 		"message": "назва поля URL-адреси",
 		"description": "Options page label: 'archive URL field name'"
+	},
+	"optionsEditorTitle": {
+		"message": "Редактор параметрів",
+		"description": "Options title: 'Options editor'"
+	},
+	"optionsEditorSaveButton": {
+		"message": "Зберегти",
+		"description": "Options editor button: 'Save'"
+	},
+	"optionsEditorConfigSaved": {
+		"message": "Конфігурація збережена",
+		"description": "Options editor message: 'Configuration saved'"
+	},
+	"optionsEditorInvalidJSON": {
+		"message": "Недійсний JSON",
+		"description": "Options editor error message: 'Invalid JSON'"
 	}
 }

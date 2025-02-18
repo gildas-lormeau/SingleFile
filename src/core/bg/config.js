@@ -351,6 +351,20 @@ function testRegExpRule(rule) {
 }
 
 async function onMessage(message) {
+	if (message.method.endsWith(".get")) {
+		return await getConfig();
+	}
+	if (message.method.endsWith(".set")) {
+		const { config } = message;
+		const profiles = config.profiles;
+		const rules = config.rules;
+		const maxParallelWorkers = config.maxParallelWorkers;
+		const processInForeground = config.processInForeground;
+		const profileKeyNames = await getProfileKeyNames();
+		await configStorage.remove([...profileKeyNames, "rules", "maxParallelWorkers", "processInForeground"]);
+		await configStorage.set({ rules, maxParallelWorkers, processInForeground });
+		Object.keys(profiles).forEach(profileName => setProfile(profileName, profiles[profileName]));
+	}
 	if (message.method.endsWith(".deleteRules")) {
 		await deleteRules(message.profileName);
 	}

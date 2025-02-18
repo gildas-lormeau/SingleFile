@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html class="maximized">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>SingleFile options editor</title>
+	<link rel="stylesheet" href="options.css">
+	<style>
+		.option {
+			padding: 6px;
+		}
+
+		textarea {
+			width: 100%;
+			height: 80vh;
+		}
+
+		.option.bottom {
+			justify-content: end;
+		}
+	</style>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+	<link rel="icon" href="/src/ui/resources/icon_128.png">
+</head>
+
+<body>
+	<main>
+		<h3>
+			<span class="options-title">
+				<span id="titleLabel"></span>
+			</span>
+		</h3>
+		<div class="option">
+			<textarea id="optionsInput">
+			</textarea>
+		</div>
+		<div class="option bottom">
+			<div class="buttons">
+				<button id="saveButton"></button>
+			</div>
+		</div>
+	</main>
+	<script src="/lib/chrome-browser-polyfill.js"></script>
+	<script type="module" src="../bg/ui-options-editor.js"></script>
+</body>
+
+</html>

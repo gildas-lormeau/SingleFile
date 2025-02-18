@@ -292,7 +292,7 @@
 		"description": "Options page label: 'password'"
 	},
 	"optionCreateRootDirectory": {
-		"message":  "kök qovluğu yarat",
+		"message": "kök qovluğu yarat",
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionPreventAppendedData": {
@@ -900,7 +900,7 @@
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorFormatPage": {
-		"message":  "Səhifəni daha yaxşı oxunacaq şəkildə formatlayın",
+		"message": "Səhifəni daha yaxşı oxunacaq şəkildə formatlayın",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
@@ -1030,5 +1030,21 @@
 	"optionRestFormApiUrlFieldName": {
 		"message": "URL sahə adı",
 		"description": "Options page label: 'archive URL field name'"
+	},
+	"optionsEditorTitle": {
+		"message": "Redaktor seçimləri",
+		"description": "Options title: 'Options editor'"
+	},
+	"optionsEditorSaveButton": {
+		"message": "Yaddaşa qeyd edin",
+		"description": "Options editor button: 'Save'"
+	},
+	"optionsEditorConfigSaved": {
+		"message": "Konfiqurasiya yaddaşa qeyd edildi",
+		"description": "Options editor message: 'Configuration saved'"
+	},
+	"optionsEditorInvalidJSON": {
+		"message": "Yanlış JSON",
+		"description": "Options editor error message: 'Invalid JSON'"
 	}
 }
