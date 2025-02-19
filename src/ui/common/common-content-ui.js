@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global document, globalThis, getComputedStyle, FileReader, Image, OffscreenCanvas, createImageBitmap */
+/* global document, getComputedStyle, FileReader, Image, OffscreenCanvas, createImageBitmap */
 
 const singlefile = globalThis.singlefile;
 
@@ -257,6 +257,7 @@ function displayBar(tagName, message, { link, buttonLabel, buttonOnclick } = {})
 			};
 			document.documentElement.appendChild(barElement);
 		}
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// iignored
 	}

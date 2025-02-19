@@ -21,8 +21,6 @@
  *   Source.
  */
 
-/* global globalThis */
-
 const browser = globalThis.browser;
 const document = globalThis.document;
 const Document = globalThis.Document;

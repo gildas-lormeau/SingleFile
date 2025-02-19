@@ -1,5 +1,3 @@
-/* global require */
-
 import resolve from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 

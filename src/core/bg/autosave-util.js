@@ -47,6 +47,7 @@ async function refreshAutoSaveTabs() {
 		const [options, autoSaveEnabled] = await Promise.all([config.getOptions(tab.url, true), autoSaveIsEnabled(tab)]);
 		try {
 			await browser.tabs.sendMessage(tab.id, { method: "content.init", autoSaveEnabled, options });
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			// ignored
 		}

@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, window, document, localStorage, FileReader, location, fetch, TextDecoder, DOMParser, HTMLElement, MouseEvent */
+/* global browser, window, document, localStorage, FileReader, location, fetch, TextDecoder, DOMParser, HTMLElement, MouseEvent, btoa */
 
 const HELP_ICON_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABIUlEQVQ4y+2TsarCMBSGvxTBRdqiUZAWOrhJB9EXcPKFfCvfQYfulUKHDqXg4CYUJSioYO4mSDX3ttzt3n87fMlHTpIjlsulxpDZbEYYhgghSNOUOI5Ny2mZYBAELBYLer0eAJ7ncTweKYri4x7LJJRS0u12n7XrukgpjSc0CpVSXK/XZ32/31FKNW85z3PW6zXT6RSAJEnIsqy5UGvNZrNhu90CcDqd+C6tT6J+v//2Th+PB2VZ1hN2Oh3G4zGTyQTbtl/YbrdjtVpxu91+Ljyfz0RRhG3bzOfzF+Y4TvNXvlwuaK2pE4tfzr/wzwsty0IIURlL0998KxRCMBqN8H2/wlzXJQxD2u12vVkeDoeUZUkURRU+GAw4HA7s9/sK+wK6CWHasQ/S/wAAAABJRU5ErkJggg==";
 const HELP_PAGE_PATH_PREFIX = "/src/ui/pages/help";
@@ -107,6 +107,7 @@ const insertEmbeddedImageLabel = document.getElementById("insertEmbeddedImageLab
 const insertEmbeddedCustomImageLabel = document.getElementById("insertEmbeddedCustomImageLabel");
 const insertEmbeddedScreenshotImageLabel = document.getElementById("insertEmbeddedScreenshotImageLabel");
 const compressCSSLabel = document.getElementById("compressCSSLabel");
+const groupDuplicateStylesheetsLabel = document.getElementById("groupDuplicateStylesheetsLabel");
 const moveStylesInHeadLabel = document.getElementById("moveStylesInHeadLabel");
 const loadDeferredImagesLabel = document.getElementById("loadDeferredImagesLabel");
 const loadDeferredImagesMaxIdleTimeLabel = document.getElementById("loadDeferredImagesMaxIdleTimeLabel");
@@ -393,6 +394,7 @@ createURLElement.onsubmit = async event => {
 	event.preventDefault();
 	try {
 		await browser.runtime.sendMessage({ method: "config.addRule", url: ruleUrlInput.value, profileName: ruleProfileInput.value, autoSaveProfileName: ruleAutoSaveProfileInput.value });
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}
@@ -453,6 +455,7 @@ addProfileButton.addEventListener("click", async event => {
 	if (profileName) {
 		try {
 			await browser.runtime.sendMessage({ method: "config.createProfile", profileName, fromProfileName: profileNamesInput.value });
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			// ignored
 		}
@@ -468,6 +471,7 @@ deleteProfileButton.addEventListener("click", async event => {
 	if (await confirm(browser.i18n.getMessage("profileDeleteConfirm"), event.clientY + 50)) {
 		try {
 			await browser.runtime.sendMessage({ method: "config.deleteProfile", profileName: profileNamesInput.value });
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			// ignored
 		}
@@ -481,6 +485,7 @@ renameProfileButton.addEventListener("click", async event => {
 	if (profileName) {
 		try {
 			await browser.runtime.sendMessage({ method: "config.renameProfile", profileName: profileNamesInput.value, newProfileName: profileName });
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			// ignored
 		}
@@ -1132,6 +1137,7 @@ function getProfileText(profileName) {
 async function update() {
 	try {
 		await pendingSave;
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}
@@ -1258,6 +1264,7 @@ async function update() {
 	});
 	try {
 		await pendingSave;
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}
@@ -1271,6 +1278,7 @@ async function refreshExternalComponents() {
 		} else {
 			await browser.runtime.sendMessage({ method: "options.refreshPanel", profileName: profileNamesInput.value });
 		}
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}
@@ -1289,6 +1297,7 @@ async function saveCreatedBookmarks() {
 			} else {
 				await disableOption();
 			}
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			saveCreatedBookmarksInput.checked = false;
 			await disableOption();
@@ -1296,6 +1305,7 @@ async function saveCreatedBookmarks() {
 	} else {
 		try {
 			await browser.permissions.remove({ permissions: ["bookmarks"] });
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			// ignored
 		}
@@ -1318,6 +1328,7 @@ async function onClickSaveToClipboard() {
 				saveToClipboardInput.checked = true;
 				await browser.runtime.sendMessage({ method: "downloads.disableGDrive" });
 			}
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			saveToClipboardInput.checked = false;
 		}
@@ -1338,6 +1349,7 @@ async function onClickSaveToGDrive() {
 			} else {
 				saveToGDriveInput.checked = true;
 			}
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			saveToGDriveInput.checked = false;
 			await browser.runtime.sendMessage({ method: "downloads.disableGDrive" });
@@ -1356,6 +1368,7 @@ async function disableDestinationPermissions(permissions, disableGDrive = true, 
 	}
 	try {
 		await browser.permissions.remove({ permissions });
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		//ignored
 	}
@@ -1374,6 +1387,7 @@ async function passReferrerOnError() {
 			} else {
 				await disableOption();
 			}
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			await disableOption();
 		}
@@ -1403,6 +1417,7 @@ async function enableExternalSave(input) {
 			} else {
 				await refreshOption();
 			}
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			input.checked = true;
 			await refreshOption();
@@ -1551,18 +1566,21 @@ async function getHelpPageURL() {
 		const url = browser.runtime.getURL(HELP_PAGE_PATH_PREFIX + "_" + language + ".html");
 		await (await fetch(url)).arrayBuffer();
 		return url;
-	} catch (_error) {
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
 		try {
 			const url = browser.runtime.getURL(HELP_PAGE_PATH_PREFIX + "_" + language.split("_")[0] + ".html");
 			await (await fetch(url)).arrayBuffer();
 			return url;
-		} catch (_error) {
+			// eslint-disable-next-line no-unused-vars
+		} catch (error) {
 			try {
 				const url = browser.runtime.getURL(HELP_PAGE_PATH_PREFIX + "_" + language.split("_")[1] + ".html");
 				await (await fetch(url)).arrayBuffer();
 				return url;
 			}
-			catch (_error) {
+			// eslint-disable-next-line no-unused-vars
+			catch (error) {
 				return browser.runtime.getURL(HELP_PAGE_PATH_DEFAULT);
 			}
 		}
@@ -1572,6 +1590,7 @@ async function getHelpPageURL() {
 function getLocalStorageItem(key) {
 	try {
 		return localStorage.getItem(key);
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}
@@ -1580,6 +1599,7 @@ function getLocalStorageItem(key) {
 function setLocalStorageItem(key, value) {
 	try {
 		return localStorage.setItem(key, value);
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}
@@ -1588,6 +1608,7 @@ function setLocalStorageItem(key, value) {
 function removeLocalStorageItem(key) {
 	try {
 		return localStorage.removeItem(key);
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}

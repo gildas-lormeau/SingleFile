@@ -159,6 +159,7 @@ async function fetchResource(url, options = {}, useHostFetch = true) {
 			}
 		}
 		return response;
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		requestId++;
 		const promise = new Promise((resolve, reject) => pendingResponses.set(requestId, { resolve, reject }));

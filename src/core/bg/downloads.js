@@ -132,6 +132,7 @@ async function downloadTabPage(message, tab) {
 				message.content = await (await fetch(message.blobURL)).text();
 				await downloadContent([message.content], tab, tab.incognito, message);
 			}
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			return { error: true };
 		}

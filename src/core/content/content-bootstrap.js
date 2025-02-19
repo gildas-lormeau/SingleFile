@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, globalThis, document, location, setTimeout, XMLHttpRequest, Node, DOMParser, Blob, URL, Image, OffscreenCanvas */
+/* global browser, document, location, setTimeout, XMLHttpRequest, Node, DOMParser, Blob, URL, Image, OffscreenCanvas, CustomEvent */
 
 const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 

@@ -318,7 +318,8 @@ function updateFilenameTemplate(template) {
 			template = template.replaceAll(`{${variable}}`, `%if-empty<{${variable}}|${value}>`);
 		});
 		return template;
-	} catch (_error) {
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
 		// ignored
 	}
 }

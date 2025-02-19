@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, globalThis, location, setTimeout, URL, setInterval, clearInterval */
+/* global browser, document, location, setTimeout, URL, setInterval, clearInterval */
 
 import * as download from "./../common/download.js";
 import { fetch, frameFetch } from "./../../lib/single-file/fetch/content/content-fetch.js";

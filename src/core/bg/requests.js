@@ -68,6 +68,7 @@ function enableReferrerOnError() {
 	if (!referrerOnErrorEnabled) {
 		try {
 			browser.webRequest.onBeforeSendHeaders.addListener(injectRefererHeader, { urls: ["<all_urls>"] }, ["blocking", "requestHeaders", "extraHeaders"]);
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			browser.webRequest.onBeforeSendHeaders.addListener(injectRefererHeader, { urls: ["<all_urls>"] }, ["blocking", "requestHeaders"]);
 		}
@@ -78,6 +79,7 @@ function enableReferrerOnError() {
 function disableReferrerOnError() {
 	try {
 		browser.webRequest.onBeforeSendHeaders.removeListener(injectRefererHeader);
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}

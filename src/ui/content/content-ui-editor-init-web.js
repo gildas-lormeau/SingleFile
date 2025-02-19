@@ -15,6 +15,7 @@
 					});
 					shadowRoot.innerHTML = element.innerHTML;
 					element.remove();
+					// eslint-disable-next-line no-unused-vars
 				} catch (error) {
 					// ignored
 				}

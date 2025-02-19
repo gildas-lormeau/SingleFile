@@ -68,6 +68,7 @@ async function saveSelectedLinks(tab) {
 	let scriptsInjected;
 	try {
 		scriptsInjected = await injectScript(tab.id, tabOptions);
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}
@@ -149,6 +150,7 @@ async function saveTabs(tabs, options = {}) {
 				let scriptsInjected;
 				try {
 					scriptsInjected = await injectScript(tabId, tabOptions);
+					// eslint-disable-next-line no-unused-vars
 				} catch (error) {
 					// ignored
 				}
@@ -227,6 +229,7 @@ async function runTask(taskInfo) {
 			ui.onStart(taskInfo.tab.id, INJECT_SCRIPTS_STEP);
 			try {
 				scriptsInjected = await injectScript(taskInfo.tab.id, taskInfo.options);
+				// eslint-disable-next-line no-unused-vars
 			} catch (error) {
 				// ignored
 			}

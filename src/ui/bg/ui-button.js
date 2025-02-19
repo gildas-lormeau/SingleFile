@@ -247,6 +247,7 @@ async function refresh(tabId, state) {
 				await refreshAsync(tabId, newState);
 			}
 		}
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}

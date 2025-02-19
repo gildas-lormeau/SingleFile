@@ -48,6 +48,7 @@ async function inject(tabId, options) {
 	if (!options.removeFrames) {
 		try {
 			await browser.tabs.executeScript(tabId, { code: frameScript, allFrames: true, matchAboutBlank: true, runAt: "document_start" });
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			// ignored
 		}
@@ -55,6 +56,7 @@ async function inject(tabId, options) {
 	try {
 		await browser.tabs.executeScript(tabId, { code: contentScript, allFrames: false, runAt: "document_idle" });
 		scriptsInjected = true;
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}

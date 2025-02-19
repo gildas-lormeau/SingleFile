@@ -75,6 +75,7 @@ async function onError(tabId, message, link) {
 		if (message) {
 			await browser.tabs.sendMessage(tabId, { method: "content.error", error: message.toString(), link });
 		}
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}

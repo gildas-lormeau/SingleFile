@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global document, globalThis, location, singlefile, fetch, URLSearchParams, prompt */
+/* global document, location, singlefile, fetch, URLSearchParams, prompt */
 
 import * as zip from "../../../lib/single-file-zip.js";
 

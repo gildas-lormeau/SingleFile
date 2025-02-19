@@ -97,6 +97,7 @@ class GDrive {
 				}
 				this.accessToken = await browser.identity.getAuthToken({ interactive: false });
 				return { revokableAccessToken: this.accessToken };
+				// eslint-disable-next-line no-unused-vars
 			} catch (error) {
 				delete this.accessToken;
 			}
@@ -107,6 +108,7 @@ class GDrive {
 			if (browser.identity && browser.identity.removeCachedAuthToken) {
 				try {
 					await browser.identity.removeCachedAuthToken({ token: accessToken });
+					// eslint-disable-next-line no-unused-vars
 				} catch (error) {
 					// ignored
 				}

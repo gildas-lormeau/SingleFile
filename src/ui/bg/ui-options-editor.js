@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, window, document, localStorage, FileReader, location, fetch, TextDecoder, DOMParser, HTMLElement, MouseEvent */
+/* global browser, document, alert */
 
 const titleLabel = document.getElementById("titleLabel");
 
@@ -38,6 +38,7 @@ saveButton.addEventListener("click", async () => {
     let config;
     try {
         config = JSON.parse(optionsInput.value);
+        // eslint-disable-next-line no-unused-vars
     } catch (error) {
         alert(invalidJSONMessage);
     }
@@ -61,6 +62,7 @@ async function refreshExternalComponents(config) {
             await browser.runtime.sendMessage({ method: "options.refresh", profileName });
             await browser.runtime.sendMessage({ method: "options.refreshPanel", profileName });
         }
+        // eslint-disable-next-line no-unused-vars
     } catch (error) {
         // ignored
     }

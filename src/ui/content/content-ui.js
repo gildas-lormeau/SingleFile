@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, globalThis, prompt, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, setTimeout, getSelection, Node */
+/* global browser, document, prompt, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, setTimeout, getSelection, Node */
 
 const singlefile = globalThis.singlefile;
 
@@ -47,6 +47,7 @@ try {
 	LOG_PANEL_FRAME_CONTENTS_MESSAGE = browser.i18n.getMessage("logPanelFrameContents");
 	LOG_PANEL_EMBEDDED_IMAGE_MESSAGE = browser.i18n.getMessage("logPanelEmbeddedImage");
 	LOG_PANEL_STEP_MESSAGE = browser.i18n.getMessage("logPanelStep");
+	// eslint-disable-next-line no-unused-vars
 } catch (error) {
 	// ignored
 }
@@ -489,6 +490,7 @@ function createMaskElement() {
 			maskElement.offsetWidth;
 		}
 		return maskElement;
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}
@@ -505,6 +507,7 @@ function createProgressBarElement(maskElement) {
 			progressBarContentElement.classList.add(PROGRESSBAR_CONTENT_CLASSNAME);
 			progressBarContent.appendChild(progressBarContentElement);
 		}
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}
@@ -564,6 +567,7 @@ function createLogsWindowElement() {
 			logsContentElement.classList.add(LOGS_CLASSNAME);
 			shadowRoot.appendChild(logsContentElement);
 		}
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}
@@ -589,6 +593,7 @@ function updateLog(id, textContent, textStatus, options) {
 			}
 			updateLogLine(lineElement, textContent, textStatus);
 		}
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}
@@ -622,6 +627,7 @@ function updateProgressBar(index, maxIndex) {
 				}
 			}
 		}
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}

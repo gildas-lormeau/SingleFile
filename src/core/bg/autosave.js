@@ -242,6 +242,7 @@ async function saveContent(message, tab) {
 						try {
 							await browser.tabs.get(tabId);
 							createTabProperties.index = index + 1;
+							// eslint-disable-next-line no-unused-vars
 						} catch (error) {
 							createTabProperties.index = index;
 						}

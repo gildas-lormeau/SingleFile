@@ -72,6 +72,7 @@ async function onTabUpdated(tabId, changeInfo) {
 			try {
 				await browser.tabs.sendMessage(tabId, { method: "content.maybeInit" });
 			}
+			// eslint-disable-next-line no-unused-vars
 			catch (error) {
 				// ignored
 			}

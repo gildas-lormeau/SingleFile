@@ -52,6 +52,7 @@ async function enable() {
 	try {
 		browser.bookmarks.onCreated.removeListener(onCreated);
 		browser.bookmarks.onMoved.removeListener(onMoved);
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}
@@ -81,6 +82,7 @@ async function disable() {
 async function update(id, changes) {
 	try {
 		await browser.bookmarks.update(id, changes);
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// ignored
 	}

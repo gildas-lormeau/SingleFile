@@ -21,8 +21,6 @@
  *   Source.
  */
 
-/* global globalThis */
-
 import * as scripts from "./lib/single-file/core/bg/scripts.js";
 import { fetch, frameFetch } from "./lib/single-file/fetch/content/content-fetch.js";
 

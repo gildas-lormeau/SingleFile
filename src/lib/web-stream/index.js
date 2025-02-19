@@ -21,8 +21,6 @@
  *   Source.
  */
 
-/* global globalThis */
-
 if (typeof globalThis.TransformStream === "undefined") {
 	globalThis.TransformStream = class TransformStream { };
 }

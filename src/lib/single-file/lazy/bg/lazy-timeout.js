@@ -48,6 +48,7 @@ browser.runtime.onMessage.addListener((message, sender) => {
 					deleteTimeout(frameTimeouts, message.type);
 				}
 				await browser.tabs.sendMessage(sender.tab.id, { method: "singlefile.lazyTimeout.onTimeout", type: message.type });
+				// eslint-disable-next-line no-unused-vars
 			} catch (error) {
 				// ignored
 			}

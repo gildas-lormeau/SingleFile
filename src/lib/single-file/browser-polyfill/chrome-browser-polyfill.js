@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global globalThis, window */
+/* global window */
 
 if (typeof globalThis == "undefined") {
 	window.globalThis = window;
@@ -49,6 +49,7 @@ if (typeof globalThis == "undefined") {
 									resolve();
 								}
 							});
+							// eslint-disable-next-line no-unused-vars
 						} catch (error) {
 							FEATURE_TESTS["browserAction.setBadgeText"] = { callbackNotSupported: true };
 						}
@@ -72,6 +73,7 @@ if (typeof globalThis == "undefined") {
 									resolve();
 								}
 							});
+							// eslint-disable-next-line no-unused-vars
 						} catch (error) {
 							FEATURE_TESTS["browserAction.setBadgeBackgroundColor"] = { callbackNotSupported: true };
 						}
@@ -95,6 +97,7 @@ if (typeof globalThis == "undefined") {
 									resolve();
 								}
 							});
+							// eslint-disable-next-line no-unused-vars
 						} catch (error) {
 							FEATURE_TESTS["browserAction.setTitle"] = { callbackNotSupported: true };
 						}
@@ -118,6 +121,7 @@ if (typeof globalThis == "undefined") {
 									resolve();
 								}
 							});
+							// eslint-disable-next-line no-unused-vars
 						} catch (error) {
 							FEATURE_TESTS["browserAction.setIcon"] = { callbackNotSupported: true };
 						}
@@ -307,6 +311,7 @@ if (typeof globalThis == "undefined") {
 									if (response !== undefined) {
 										try {
 											sendResponse(response);
+											// eslint-disable-next-line no-unused-vars
 										} catch (error) {
 											// ignored
 										}
@@ -326,6 +331,7 @@ if (typeof globalThis == "undefined") {
 									if (response !== undefined) {
 										try {
 											sendResponse(response);
+											// eslint-disable-next-line no-unused-vars
 										} catch (error) {
 											// ignored
 										}

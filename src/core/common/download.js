@@ -36,6 +36,7 @@ try {
 	SHARE_PAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelSharePageButton");
 	SHARE_SELECTION_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelShareSelectionButton");
 	ERROR_TITLE_MESSAGE = browser.i18n.getMessage("topPanelError");
+	// eslint-disable-next-line no-unused-vars
 } catch (error) {
 	// ignored
 }
