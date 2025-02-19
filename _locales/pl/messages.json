@@ -1032,19 +1032,19 @@
 		"description": "Options page label: 'archive URL field name'"
 	},
 	"optionsEditorTitle": {
-		"message": "Options editor",
+		"message": "Edytor opcji",
 		"description": "Options title: 'Options editor'"
 	},
 	"optionsEditorSaveButton": {
-		"message": "Save",
+		"message": "Zapisz",
 		"description": "Options editor button: 'Save'"
 	},
 	"optionsEditorConfigSaved": {
-		"message": "Configuration saved",
+		"message": "Konfiguracja zapisana",
 		"description": "Options editor message: 'Configuration saved'"
 	},
 	"optionsEditorInvalidJSON": {
-		"message": "Invalid JSON",
+		"message": "Nieprawidłowy JSON",
 		"description": "Options editor error message: 'Invalid JSON'"
 	}
 }
