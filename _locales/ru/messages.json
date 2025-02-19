@@ -453,7 +453,7 @@
 	},
 	"optionsAutoSettingsUrl": {
 		"message": "URL",
-		"description": "Options label in the auto-settings rules: 'URL'"
+		"description": "Options label in the Auto-settings rules: 'URL'"
 	},
 	"optionsAutoSettingsUrlPlaceholder": {
 		"message": "Введите полный или частичный URL (например, example.com)",
@@ -1032,19 +1032,19 @@
 		"description": "Options page label: 'archive URL field name'"
 	},
 	"optionsEditorTitle": {
-		"message": "Options editor",
+		"message": "Редактор параметров",
 		"description": "Options title: 'Options editor'"
 	},
 	"optionsEditorSaveButton": {
-		"message": "Save",
+		"message": "Сохранить",
 		"description": "Options editor button: 'Save'"
 	},
 	"optionsEditorConfigSaved": {
-		"message": "Configuration saved",
+		"message": "Конфигурация сохранена",
 		"description": "Options editor message: 'Configuration saved'"
 	},
 	"optionsEditorInvalidJSON": {
-		"message": "Invalid JSON",
+		"message": "Неправильный JSON",
 		"description": "Options editor error message: 'Invalid JSON'"
 	}
 }
