@@ -10,10 +10,10 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"eslint": "^9.20.1",
 		"single-file-core": "1.5.45"
 	},
 	"devDependencies": {
+		"eslint": "^9.20.1",
 		"@rollup/plugin-node-resolve": "15.2.3",
 		"@rollup/plugin-terser": "0.4.4",
 		"rollup": "4.22.4"
