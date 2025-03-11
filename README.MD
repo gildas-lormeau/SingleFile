@@ -156,6 +156,8 @@ Footnotes:
   https://github.com/nuthrash/obsidian-html-plugin
 - Petal Cite Web Importer - Browser extension to save PDFs and capture web pages
   in Petal Cite: https://github.com/ks-collab/cite-extension
+- Pocket Search Engine - Semantic search app for Android that works entirely 
+  offline: https://play.google.com/store/apps/details?id=com.pocketsearchengine.app
 - singlefile2trilium - Tool to save faithful copy of a web page as a Trilium
   note with SingleFile: https://github.com/nil0x42/singlefile2trilium
 - SingleFileMac - Integration of SingleFile in a swift application using
