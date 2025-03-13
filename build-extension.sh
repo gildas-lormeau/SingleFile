@@ -3,15 +3,19 @@
 dpkg -s zip &> /dev/null
 if [ $? -ne 0 ]
 then
-    echo "Installing zip"
-    sudo apt install zip
+    if ! command -v zip &> /dev/null; then
+        echo "Installing zip"
+        sudo apt install zip
+    fi
 fi
 
 dpkg -s jq &> /dev/null
 if [ $? -ne 0 ]
 then
-    echo "Installing jq"
-    sudo apt install jq
+    if ! command -v jq &> /dev/null; then
+        echo "Installing jq"
+        sudo apt install jq
+    fi
 fi
 
 npm install
