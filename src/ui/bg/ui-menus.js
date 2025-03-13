@@ -612,18 +612,28 @@ async function updateVisibleValue(tab, visible) {
 	}
 }
 
-function updateTitleValue(id, title) {
+async function updateTitleValue(id, title) {
 	const lastTitleValue = menusTitleState.get(id);
-	menusTitleState.set(id, title);
-	if (lastTitleValue === undefined) {
-		return menus.update(id, { title });
-	} else if (lastTitleValue != title) {
-		return menus.update(id, { title });
+	try {
+		if (lastTitleValue === undefined) {
+			await menus.update(id, { title });
+		} else if (lastTitleValue != title) {
+			await menus.update(id, { title });
+		}
+		menusTitleState.set(id, title);
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		// ignored
 	}
 }
 
 async function updateCheckedValue(id, checked) {
 	checked = Boolean(checked);
-	menusCheckedState.set(id, checked);
-	await menus.update(id, { checked });
+	try {
+		await menus.update(id, { checked });
+		menusCheckedState.set(id, checked);
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		// ignored
+	}
 }
