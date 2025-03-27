@@ -1,7 +1,7 @@
 {
 	"name": "SingleFile",
 	"author": "Gildas Lormeau",
-	"homepage_url": "https://github.com/gildas-lormeau/SingleFile",
+	"homepage_url": "https://www.getsinglefile.com",
 	"icons": {
 		"16": "src/ui/resources/icon_16.png",
 		"32": "src/ui/resources/icon_32.png",
