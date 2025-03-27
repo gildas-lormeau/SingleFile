@@ -24,5 +24,6 @@
   (https://github.com/kramola-RU), solokot (https://github.com/solokot),
   TotalCaesar659 (https://github.com/TotalCaesar659)
 - Spanish translation done by strel (https://github.com/strel)
+- Swedish translation done by NickWick13 (https://github.com/NickWick13)
 - Turkish translation done by hbaklan943 (https://github.com/hbaklan943)
 - Ukrainian translation done by perdolka (https://github.com/perdolka)
