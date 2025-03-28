@@ -154,7 +154,7 @@ Footnotes:
   https://github.com/sissbruecker/linkding
 - obsidian-html-plugin - Plugin for reading HTML pages in Obsidian:
   https://github.com/nuthrash/obsidian-html-plugin
-- Org-Dex.el - Emacs package designed to enhance Org-mode by integrating the 
+- Org-Dex.el - Emacs package designed to enhance Org-mode by integrating 
   SingleFile CLI: https://github.com/nitincodery/org-dex.el
 - Petal Cite Web Importer - Browser extension to save PDFs and capture web pages
   in Petal Cite: https://github.com/ks-collab/cite-extension
