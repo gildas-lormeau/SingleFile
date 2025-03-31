@@ -149,6 +149,8 @@ Footnotes:
   https://github.com/hoarder-app/hoarder
 - htmls-to-datasette - Tool to index HTML files into a Sqlite database:
   https://github.com/pjamar/htmls-to-datasette
+- KOReader - Document viewer primarily aimed at e-ink readers:
+  https://github.com/koreader/koreader
 - linkding - Bookmark manager that you can host yourself. It's designed be to
   be minimal, fast, and easy to set up using Docker:
   https://github.com/sissbruecker/linkding
