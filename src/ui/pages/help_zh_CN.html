@@ -675,7 +675,7 @@
                     <li><code>{visit-seconds-locale}</code>: 访问日期的本地化秒数（例如 "31"）</li>
                     <li><code>{url-href}</code>: 页面的 URL（例如 "http://example.com/category/index.html"）</li>
                     <li><code>{url-href-digest-sha-1}</code>: 页面的 URL 的 SHA-1 哈希值（例如
-                        4b826844d9f5c128533e4ff14d746334f3ac9e00）</li>
+                        4b826844d9f5c128533e4ff14d746334f3ac9e00）<strong>注意：仅支持文件名，而不支持信息栏</strong></li>
                     <li><code>{url-href-flat}</code>: 替换斜杠后的页面 URL（例如 "http__example.com_category_index.html"）</li>
                     <li><code>{url-pathname}</code>: URL 的路径名（例如 "category/index.html"）</li>
                     <li><code>{url-pathname-flat}</code>: 替换斜杠后的 URL 路径名（例如 "category_index.html"）</li>
@@ -702,9 +702,9 @@
                     <li><code>{tab-id}</code>: 标签的唯一标识符（例如 "326"）</li>
                     <li><code>{tab-index}</code>: 标签在窗口中的索引（例如 "1"）</li>
                     <li><code>{digest-sha-256}</code>: 整个页面内容的 SHA-256
-                        哈希值（例如e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855）</li>
-                    <li><code>{digest-sha-384}</code>: 整个页面内容的 SHA-384 哈希值</li>
-                    <li><code>{digest-sha-512}</code>: 整个页面内容的 SHA-512 哈希值</li>
+                        哈希值（例如e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855）<strong>注意：仅支持文件名，而不支持信息栏</strong></li>
+                    <li><code>{digest-sha-384}</code>: 整个页面内容的 SHA-384 哈希值<strong>注意：仅支持文件名，而不支持信息栏</strong></li>
+                    <li><code>{digest-sha-512}</code>: 整个页面内容的 SHA-512 哈希值<strong>注意：仅支持文件名，而不支持信息栏</strong></li>
                     <li><code>{profile-name}</code>: 用于保存页面的配置文件名称</li>
                     <li><code>{filename-extension}</code>: 根据文件格式的文件名扩展名（例如 "html"、"u.zip.html"、"zip.html"、"zip"）</li>
                     <li><code>{save-action}</code>: 保存页面时使用的操作（例如 "page"、"selection"）</li>
