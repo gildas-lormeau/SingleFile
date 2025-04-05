@@ -144,11 +144,10 @@ Footnotes:
 
 - ArchiveBox - Open-source self-hosted web archiving:
   https://github.com/ArchiveBox/ArchiveBox
-- hoarder - Self-hostable bookmark-everything app (links, notes and images)
-  with AI-based automatic tagging and full text search: 
-  https://github.com/hoarder-app/hoarder
 - htmls-to-datasette - Tool to index HTML files into a Sqlite database:
   https://github.com/pjamar/htmls-to-datasette
+- Karakeep - Self-hostable bookmark-everything app with a touch of AI: 
+  https://karakeep.app
 - KOReader - Document viewer primarily aimed at e-ink readers:
   https://github.com/koreader/koreader
 - linkding - Bookmark manager that you can host yourself. It's designed be to
