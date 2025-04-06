@@ -93,6 +93,7 @@ const DEFAULT_CONFIG = {
 	backgroundSave: BACKGROUND_SAVE_SUPPORTED,
 	defaultEditorMode: "normal",
 	applySystemTheme: true,
+	contentWidth: 70,
 	autoSaveDelay: 1,
 	autoSaveLoad: false,
 	autoSaveUnload: false,
