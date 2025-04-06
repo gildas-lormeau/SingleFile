@@ -68,917 +68,6 @@ import { downloadPageForeground } from "../../core/common/download.js";
 	const COMMENT_HEADER = "Page saved with SingleFile";
 	const COMMENT_HEADER_LEGACY = "Archive processed by SingleFile";
 
-	const STYLE_FORMATTED_PAGE = `
-	/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this file,
- * You can obtain one at http://mozilla.org/MPL/2.0/. */
-
-/* Avoid adding ID selector rules in this style sheet, since they could
- * inadvertently match elements in the article content. */
-
-:root {
-  --grey-90-a10: rgba(12, 12, 13, 0.1);
-  --grey-90-a20: rgba(12, 12, 13, 0.2);
-  --grey-90-a30: rgba(12, 12, 13, 0.3);
-  --grey-90-a80: rgba(12, 12, 13, 0.8);
-  --grey-30: #d7d7db;
-  --blue-40: #45a1ff;
-  --blue-40-a30: rgba(69, 161, 255, 0.3);
-  --blue-60: #0060df;
-  --body-padding: 64px;
-  --font-size: 12;
-  --content-width: 70em;
-  --line-height: 1.6em;
-}
-
-body {
-  --main-background: #fff;
-  --main-foreground: #333;
-  --font-color: #000000;
-  --primary-color: #0B83FF;
-  --toolbar-border: var(--grey-90-a20);
-  --toolbar-transparent-border: transparent;
-  --toolbar-box-shadow: var(--grey-90-a10);
-  --toolbar-button-background: transparent;
-  --toolbar-button-background-hover: var(--grey-90-a10);
-  --toolbar-button-foreground-hover: var(--font-color);
-  --toolbar-button-background-active: var(--grey-90-a20);
-  --toolbar-button-foreground-active: var(--primary-color);
-  --toolbar-button-border: transparent;
-  --toolbar-button-border-hover: transparent;
-  --toolbar-button-border-active: transparent;
-  --tooltip-background: var(--grey-90-a80);
-  --tooltip-foreground: white;
-  --tooltip-border: transparent;
-  --popup-background: white;
-  --popup-border: rgba(0, 0, 0, 0.12);
-  --opaque-popup-border: #e0e0e0;
-  --popup-line: var(--grey-30);
-  --popup-shadow: rgba(49, 49, 49, 0.3);
-  --popup-button-background: #edecf0;
-  --popup-button-background-hover: hsla(0,0%,70%,.4);
-  --popup-button-foreground-hover: var(--font-color);
-  --popup-button-background-active: hsla(240,5%,5%,.15);
-  --selected-background: var(--blue-40-a30);
-  --selected-border: var(--blue-40);
-  --font-value-border: var(--grey-30);
-  --icon-fill: #3b3b3c;
-  --icon-disabled-fill: #8080807F;
-  --link-foreground: var(--blue-60);
-  --link-selected-foreground: #333;
-  --visited-link-foreground: #b5007f;
-  /* light colours */
-}
-
-body.sepia {
-  --main-background: #f4ecd8;
-  --main-foreground: #5b4636;
-  --toolbar-border: #5b4636;
-}
-
-body.dark {
-  --main-background: rgb(28, 27, 34);
-  --main-foreground: #eee;
-  --font-color: #fff;
-  --toolbar-border: #4a4a4b;
-  --toolbar-box-shadow: black;
-  --toolbar-button-background-hover: var(--grey-90-a30);
-  --toolbar-button-background-active: var(--grey-90-a80);
-  --tooltip-background: black;
-  --tooltip-foreground: white;
-  --popup-background: rgb(66,65,77);
-  --opaque-popup-border: #434146;
-  --popup-line: rgb(82, 82, 94);
-  --popup-button-background: #5c5c61;
-  --popup-button-background-active: hsla(0,0%,70%,.6);
-  --selected-background: #3E6D9A;
-  --font-value-border: #656468;
-  --icon-fill: #fff;
-  --icon-disabled-fill: #ffffff66;
-  --link-foreground: #45a1ff;
-  --link-selected-foreground: #fff;
-  --visited-link-foreground: #e675fd;
-  /* dark colours */
-}
-
-body.hcm {
-  --main-background: Canvas;
-  --main-foreground: CanvasText;
-  --font-color: CanvasText;
-  --primary-color: SelectedItem;
-  --toolbar-border: CanvasText;
-   /* We need a true transparent but in HCM this would compute to an actual color,
-      so select the page's background color instead: */
-  --toolbar-transparent-border: Canvas;
-  --toolbar-box-shadow: Canvas;
-  --toolbar-button-background: ButtonFace;
-  --toolbar-button-background-hover: ButtonText;
-  --toolbar-button-foreground-hover: ButtonFace;
-  --toolbar-button-background-active: SelectedItem;
-  --toolbar-button-foreground-active: SelectedItemText;
-  --toolbar-button-border: ButtonText;
-  --toolbar-button-border-hover: ButtonText;
-  --toolbar-button-border-active: ButtonText;
-  --tooltip-background: Canvas;
-  --tooltip-foreground: CanvasText;
-  --tooltip-border: CanvasText;
-  --popup-background: Canvas;
-  --popup-border: CanvasText;
-  --opaque-popup-border: CanvasText;
-  --popup-line: CanvasText;
-  --popup-button-background: ButtonFace;
-  --popup-button-background-hover: ButtonText;
-  --popup-button-foreground-hover: ButtonFace;
-  --popup-button-background-active: ButtonText;
-  --selected-background: Canvas;
-  --selected-border: SelectedItem;
-  --font-value-border: CanvasText;
-  --icon-fill: ButtonText;
-  --icon-disabled-fill: GrayText;
-  --link-foreground: LinkText;
-  --link-selected-foreground: ActiveText;
-  --visited-link-foreground: VisitedText;
-}
-
-body {
-  margin: 0;
-  padding: var(--body-padding);
-  background-color: var(--main-background);
-  color: var(--main-foreground);
-}
-
-body.loaded {
-  transition: color 0.4s, background-color 0.4s;
-}
-
-body.dark *::-moz-selection {
-  background-color: var(--selected-background);
-}
-
-a::-moz-selection {
-  color: var(--link-selected-foreground);
-}
-
-body.sans-serif,
-body.sans-serif .remove-button {
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-body.serif,
-body.serif .remove-button {
-  font-family: Georgia, "Times New Roman", serif;
-}
-
-/* Override some controls and content styles based on color scheme */
-
-body.light > .container > .header > .domain {
-  border-bottom-color: #333333 !important;
-}
-
-body.sepia > .container > .header > .domain {
-  border-bottom-color: #5b4636 !important;
-}
-
-body.dark > .container > .header > .domain {
-  border-bottom-color: #eeeeee !important;
-}
-
-body.light blockquote {
-  border-inline-start: 2px solid #333333 !important;
-}
-
-body.sepia blockquote {
-  border-inline-start: 2px solid #5b4636 !important;
-}
-
-body.dark blockquote {
-  border-inline-start: 2px solid #eeeeee !important;
-}
-
-.light-button {
-  color: #333333;
-  background-color: #ffffff;
-}
-
-.dark-button {
-  color: #eeeeee;
-  background-color: #1c1b22;
-}
-
-.sepia-button {
-  color: #5b4636;
-  background-color: #f4ecd8;
-}
-
-.auto-button {
-  text-align: center;
-}
-
-@media (prefers-color-scheme: dark) {
-  .auto-button {
-    background-color: #1c1b22;
-    color: #eeeeee;
-  }
-}
-
-@media not (prefers-color-scheme: dark) {
-  .auto-button {
-    background-color: #ffffff;
-    color: #333333;
-  }
-}
-
-/* Loading/error message */
-
-.reader-message {
-  margin-top: 40px;
-  display: none;
-  text-align: center;
-  width: 100%;
-  font-size: 0.9em;
-}
-
-/* Detector element to see if we're at the top of the doc or not. */
-.top-anchor {
-  position: absolute;
-  top: 0;
-  width: 0;
-  height: 5px;
-  pointer-events: none;
-}
-
-/* Header */
-
-.header {
-  text-align: start;
-  display: none;
-}
-
-.domain {
-  font-size: 0.9em;
-  line-height: 1.48em;
-  padding-bottom: 4px;
-  font-family: Helvetica, Arial, sans-serif;
-  text-decoration: none;
-  border-bottom: 1px solid;
-  color: var(--link-foreground);
-}
-
-.header > h1 {
-  font-size: 1.6em;
-  line-height: 1.25em;
-  width: 100%;
-  margin: 30px 0;
-  padding: 0;
-}
-
-.header > .credits {
-  font-size: 0.9em;
-  line-height: 1.48em;
-  margin: 0 0 10px;
-  padding: 0;
-  font-style: italic;
-}
-
-.header > .meta-data {
-  font-size: 0.65em;
-  margin: 0 0 15px;
-}
-
-.reader-estimated-time {
-  text-align: match-parent;
-}
-
-/* Controls toolbar */
-
-.toolbar-container {
-  position: sticky;
-  z-index: 2;
-  top: 32px;
-  height: 0; /* take up no space, so body is at the top. */
-
-  /* As a stick container, we're positioned relative to the body. Move us to
-   * the edge of the viewport using margins, and take the width of
-   * the body padding into account for calculating our width.
-   */
-  margin-inline-start: calc(-1 * var(--body-padding));
-  width: max(var(--body-padding), calc((100% - var(--content-width)) / 2 + var(--body-padding)));
-  font-size: var(--font-size); /* Needed to ensure 'em' units match, is reset for .reader-controls */
-}
-
-.toolbar {
-  padding-block: 16px;
-  border: 1px solid var(--toolbar-border);
-  border-radius: 6px;
-  box-shadow: 0 2px 8px var(--toolbar-box-shadow);
-
-  width: 32px; /* basic width, without padding/border */
-
-  /* padding should be 16px, except if there's not enough space for that, in
-   * which case use half the available space for padding (=25% on each side).
-   * The 34px here is the width + borders. We use a variable because we need
-   * to know this size for the margin calculation.
-   */
-  --inline-padding: min(16px, calc(25% - 0.25 * 34px));
-  padding-inline: var(--inline-padding);
-
-  /* Keep a maximum of 96px distance to the body, but center once the margin
-   * gets too small. We need to set the start margin, however...
-   * To center, we'd want 50% of the container, but we'd subtract half our
-   * own width (16px) and half the border (1px) and the inline padding.
-   * When the other margin would be 96px, we want 100% - 96px - the complete
-   * width of the actual toolbar (34px + 2 * padding)
-   */
-  margin-inline-start: max(calc(50% - 17px - var(--inline-padding)), calc(100% - 96px - 34px - 2 * var(--inline-padding)));
-
-  font-family: Helvetica, Arial, sans-serif;
-  list-style: none;
-  user-select: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .toolbar {
-    transition-property: border-color, box-shadow;
-    transition-duration: 250ms;
-  }
-
-  .toolbar .toolbar-button {
-    transition-property: opacity;
-    transition-duration: 250ms;
-  }
-
-  .toolbar-container.scrolled .toolbar:not(:hover, :focus-within) {
-    border-color: var(--toolbar-transparent-border);
-    box-shadow: 0 2px 8px transparent;
-  }
-
-  .toolbar-container.scrolled .toolbar:not(:hover, :focus-within) .toolbar-button {
-    opacity: 0.6;
-  }
-
-  .toolbar-container.transition-location {
-    transition-duration: 250ms;
-    transition-property: width;
-  }
-}
-
-.toolbar-container.overlaps .toolbar-button {
-  opacity: 0.1;
-}
-
-.dropdown-open .toolbar {
-  border-color: var(--toolbar-transparent-border);
-  box-shadow: 0 2px 8px transparent;
-}
-
-.reader-controls {
-  /* We use 'em's above this node to get it to the right size. However,
-   * the UI inside the toolbar should use a fixed, smaller size. */
-  font-size: 11px;
-}
-
-button {
-  -moz-context-properties: fill;
-  color: var(--font-color);
-  fill: var(--icon-fill);
-}
-
-button:disabled {
-  fill: var(--icon-disabled-fill);
-}
-
-.toolbar button::-moz-focus-inner {
-  border: 0;
-}
-
-.toolbar-button {
-  position: relative;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  border: 1px solid var(--toolbar-button-border);
-  border-radius: 4px;
-  margin: 4px 0;
-  background-color: var(--toolbar-button-background);
-  background-size: 16px 16px;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.toolbar-button:hover,
-.toolbar-button:focus-visible {
-  background-color: var(--toolbar-button-background-hover);
-  border-color: var(--toolbar-button-border-hover);
-  fill: var(--toolbar-button-foreground-hover);
-}
-
-.open .toolbar-button,
-.toolbar-button:hover:active {
-  background-color: var(--toolbar-button-background-active);
-  border-color: var(--toolbar-button-border-active);
-  color: var(--toolbar-button-foreground-active);
-  fill: var(--toolbar-button-foreground-active);
-}
-
-.hover-label {
-  position: absolute;
-  top: 4px;
-  inset-inline-start: 36px;
-  line-height: 16px;
-  white-space: pre; /* make sure we don't wrap */
-  background-color: var(--tooltip-background);
-  color: var(--tooltip-foreground);
-  padding: 4px 8px;
-  border: 1px solid var(--tooltip-border);
-  border-radius: 2px;
-  visibility: hidden;
-  pointer-events: none;
-  /* Put above .dropdown .dropdown-popup, which has z-index: 1000. */
-  z-index: 1001;
-}
-
-/* Show the hover tooltip on non-dropdown buttons. */
-.toolbar-button:not(.dropdown-toggle):hover > .hover-label,
-.toolbar-button:not(.dropdown-toggle):focus-visible > .hover-label,
-/* Show the hover tooltip for dropdown buttons unless its dropdown is open. */
-:not(.open) > li > .dropdown-toggle:hover > .hover-label,
-:not(.open) > li > .dropdown-toggle:focus-visible > .hover-label {
-  visibility: visible;
-}
-
-.dropdown {
-  text-align: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
-
-.dropdown li {
-  margin: 0;
-  padding: 0;
-}
-
-/* Popup */
-
-.dropdown .dropdown-popup {
-  text-align: start;
-  position: absolute;
-  inset-inline-start: 40px;
-  z-index: 1000;
-  background-color: var(--popup-background);
-  visibility: hidden;
-  border-radius: 4px;
-  border: 1px solid var(--popup-border);
-  box-shadow: 0 0 10px 0 var(--popup-shadow);
-  top: 0;
-}
-
-.open > .dropdown-popup {
-  visibility: visible;
-}
-
-.dropdown-arrow {
-  position: absolute;
-  height: 24px;
-  width: 16px;
-  inset-inline-start: -16px;
-  background-image: url("chrome://global/skin/reader/RM-Type-Controls-Arrow.svg");
-  display: block;
-  -moz-context-properties: fill, stroke;
-  fill: var(--popup-background);
-  stroke: var(--opaque-popup-border);
-  pointer-events: none;
-}
-
-.dropdown-arrow:dir(rtl) {
-  transform: scaleX(-1);
-}
-
-/* Align the style dropdown arrow (narrate does its own) */
-.style-dropdown .dropdown-arrow {
-  top: 7px;
-}
-
-/* Font style popup */
-
-.radio-button {
-  /* We visually hide these, but we keep them around so they can be focused
-   * and changed by interacting with them via the label, or the keyboard, or
-   * assistive technology.
-   */
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-}
-
-.radiorow,
-.buttonrow {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-}
-
-.content-width-value,
-.font-size-value,
-.line-height-value {
-  box-sizing: border-box;
-  width: 36px;
-  height: 20px;
-  line-height: 20px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  margin: auto;
-  border-radius: 10px;
-  border: 1px solid var(--font-value-border);
-  background-color: var(--popup-button-background);
-}
-
-.buttonrow > button {
-  border: 0;
-  height: 60px;
-  width: 90px;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.buttonrow > button:enabled:hover,
-.buttonrow > button:enabled:focus-visible {
-  background-color: var(--popup-button-background-hover);
-  color: var(--popup-button-foreground-hover);
-  fill: var(--popup-button-foreground-hover);
-}
-
-.buttonrow > button:enabled:hover:active {
-  background-color: var(--popup-button-background-active);
-}
-
-.radiorow:not(:last-child),
-.buttonrow:not(:last-child) {
-  border-bottom: 1px solid var(--popup-line);
-}
-
-body.hcm .buttonrow.line-height-buttons {
-  /* On HCM the .color-scheme-buttons row is hidden, so remove the border from the row above it */
-  border-bottom: none;
-}
-
-.radiorow > label {
-  position: relative;
-  box-sizing: border-box;
-  border-radius: 2px;
-  border: 2px solid var(--popup-border);
-}
-
-.radiorow > label[checked] {
-  border-color: var(--selected-border);
-}
-
-/* For the hover style, we draw a line under the item by means of a
- * pseudo-element. Because these items are variable height, and
- * because their contents are variable height, position it absolutely,
- * and give it a width of 100% (the content width) + 4px for the 2 * 2px
- * border width.
- */
-.radiorow > input[type=radio]:focus-visible + label::after,
-.radiorow > label:hover::after {
-  content: "";
-  display: block;
-  border-bottom: 2px solid var(--selected-border);
-  width: calc(100% + 4px);
-  position: absolute;
-  /* to skip the 2 * 2px border + 2px spacing. */
-  bottom: -6px;
-  /* Match the start of the 2px border of the element: */
-  inset-inline-start: -2px;
-}
-
-.font-type-buttons > label {
-  height: 64px;
-  width: 105px;
-  /* Slightly more space between these items. */
-  margin: 10px;
-  /* Center the Sans-serif / Serif labels */
-  text-align: center;
-  background-size: 63px 39px;
-  background-repeat: no-repeat;
-  background-position: center 18px;
-  background-color: var(--popup-button-background);
-  fill: currentColor;
-  -moz-context-properties: fill;
-  /* This mostly matches baselines, but because of differences in font
-   * baselines between serif and sans-serif, this isn't always enough. */
-  line-height: 1;
-  padding-top: 2px;
-}
-
-.font-type-buttons > label[checked] {
-  background-color: var(--selected-background);
-}
-
-.sans-serif-button {
-  font-family: Helvetica, Arial, sans-serif;
-  background-image: url("chrome://global/skin/reader/RM-Sans-Serif.svg");
-}
-
-/* Tweak padding to match the baseline on mac */
-:root[platform=macosx] .sans-serif-button {
-  padding-top: 3px;
-}
-
-.serif-button {
-  font-family: Georgia, "Times New Roman", serif;
-  background-image: url("chrome://global/skin/reader/RM-Serif.svg");
-}
-
-body.hcm .color-scheme-buttons {
-  /* Disallow selecting themes when HCM is on. */
-  display: none;
-}
-
-.color-scheme-buttons > label {
-  padding: 12px;
-  height: 34px;
-  font-size: 12px;
-  /* Center the labels horizontally as well as vertically */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  /* We want 10px between items, but there's no margin collapsing in flexbox. */
-  margin: 10px 5px;
-}
-
-.color-scheme-buttons > input:first-child + label {
-  margin-inline-start: 10px;
-}
-
-.color-scheme-buttons > label:last-child {
-  margin-inline-end: 10px;
-}
-
-/* Toolbar icons */
-
-.close-button {
-  background-image: url("chrome://global/skin/icons/close.svg");
-}
-
-.style-button {
-  background-image: url("chrome://global/skin/reader/RM-Type-Controls-24x24.svg");
-}
-
-.minus-button {
-  background-size: 18px 18px;
-  background-image: url("chrome://global/skin/reader/RM-Minus-24x24.svg");
-}
-
-.plus-button {
-  background-size: 18px 18px;
-  background-image: url("chrome://global/skin/reader/RM-Plus-24x24.svg");
-}
-
-.content-width-minus-button {
-  background-size: 42px 16px;
-  background-image: url("chrome://global/skin/reader/RM-Content-Width-Minus-42x16.svg");
-}
-
-.content-width-plus-button {
-  background-size: 44px 16px;
-  background-image: url("chrome://global/skin/reader/RM-Content-Width-Plus-44x16.svg");
-}
-
-.line-height-minus-button {
-  background-size: 34px 14px;
-  background-image: url("chrome://global/skin/reader/RM-Line-Height-Minus-38x14.svg");
-}
-
-.line-height-plus-button {
-  background-size: 34px 24px;
-  background-image: url("chrome://global/skin/reader/RM-Line-Height-Plus-38x24.svg");
-}
-
-/* Mirror the line height buttons if the article is RTL. */
-.reader-controls[articledir="rtl"] .line-height-minus-button,
-.reader-controls[articledir="rtl"] .line-height-plus-button {
-  transform: scaleX(-1);
-}
-
-@media print {
-  .toolbar {
-    display: none !important;
-  }
-}
-
-/* Article content */
-
-/* Note that any class names from the original article that we want to match on
- * must be added to CLASSES_TO_PRESERVE in ReaderMode.jsm, so that
- * Readability.js doesn't strip them out */
-
-.container {
-  margin: 0 auto;
-  font-size: var(--font-size);
-  max-width: var(--content-width);
-  line-height: var(--line-height);
-}
-
-pre {
-  font-family: inherit;
-}
-
-.moz-reader-content {
-  display: none;
-  font-size: 1em;
-}
-
-@media print {
-  .moz-reader-content p,
-  .moz-reader-content code,
-  .moz-reader-content pre,
-  .moz-reader-content blockquote,
-  .moz-reader-content ul,
-  .moz-reader-content ol,
-  .moz-reader-content li,
-  .moz-reader-content figure,
-  .moz-reader-content .wp-caption {
-    margin: 0 0 10px !important;
-    padding: 0 !important;
-  }
-}
-
-.moz-reader-content h1,
-.moz-reader-content h2,
-.moz-reader-content h3 {
-  font-weight: bold;
-}
-
-.moz-reader-content h1 {
-  font-size: 1.6em;
-  line-height: 1.25em;
-}
-
-.moz-reader-content h2 {
-  font-size: 1.2em;
-  line-height: 1.51em;
-}
-
-.moz-reader-content h3 {
-  font-size: 1em;
-  line-height: 1.66em;
-}
-
-.moz-reader-content a:link {
-  text-decoration: underline;
-  font-weight: normal;
-}
-
-.moz-reader-content a:link,
-.moz-reader-content a:link:hover,
-.moz-reader-content a:link:active {
-  color: var(--link-foreground);
-}
-
-.moz-reader-content a:visited {
-  color: var(--visited-link-foreground);
-}
-
-.moz-reader-content * {
-  max-width: 100%;
-  height: auto;
-}
-
-.moz-reader-content p,
-.moz-reader-content p,
-.moz-reader-content code,
-.moz-reader-content pre,
-.moz-reader-content blockquote,
-.moz-reader-content ul,
-.moz-reader-content ol,
-.moz-reader-content li,
-.moz-reader-content figure,
-.moz-reader-content .wp-caption {
-  margin: -10px -10px 20px;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.moz-reader-content li {
-  margin-bottom: 0;
-}
-
-.moz-reader-content li > ul,
-.moz-reader-content li > ol {
-  margin-bottom: -10px;
-}
-
-.moz-reader-content p > img:only-child,
-.moz-reader-content p > a:only-child > img:only-child,
-.moz-reader-content .wp-caption img,
-.moz-reader-content figure img {
-  display: block;
-}
-
-.moz-reader-content img[moz-reader-center] {
-  margin-inline: auto;
-}
-
-.moz-reader-content .caption,
-.moz-reader-content .wp-caption-text
-.moz-reader-content figcaption {
-  font-size: 0.9em;
-  line-height: 1.48em;
-  font-style: italic;
-}
-
-.moz-reader-content pre {
-  white-space: pre-wrap;
-}
-
-.moz-reader-content blockquote {
-  padding: 0;
-  padding-inline-start: 16px;
-}
-
-.moz-reader-content ul,
-.moz-reader-content ol {
-  padding: 0;
-}
-
-.moz-reader-content ul {
-  padding-inline-start: 30px;
-  list-style: disc;
-}
-
-.moz-reader-content ol {
-  padding-inline-start: 30px;
-}
-
-table,
-th,
-td {
-  border: 1px solid currentColor;
-  border-collapse: collapse;
-  padding: 6px;
-  vertical-align: top;
-}
-
-table {
-  margin: 5px;
-}
-
-/* Visually hide (but don't display: none) screen reader elements */
-.moz-reader-content .visually-hidden,
-.moz-reader-content .visuallyhidden,
-.moz-reader-content .sr-only {
-  display: inline-block;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  border-width: 0;
-}
-
-/* Hide elements with common "hidden" class names */
-.moz-reader-content .hidden,
-.moz-reader-content .invisible {
-  display: none;
-}
-
-/* Enforce wordpress and similar emoji/smileys aren't sized to be full-width,
- * see bug 1399616 for context. */
-.moz-reader-content img.wp-smiley,
-.moz-reader-content img.emoji {
-  display: inline-block;
-  border-width: 0;
-  /* height: auto is implied from '.moz-reader-content *' rule. */
-  width: 1em;
-  margin: 0 .07em;
-  padding: 0;
-}
-
-.reader-show-element {
-  display: initial;
-}
-
-/* Provide extra spacing for images that may be aided with accompanying element such as <figcaption> */
-.moz-reader-block-img:not(:last-child) {
-  margin-block-end: 12px;
-}
-
-.moz-reader-wide-table {
-  overflow-x: auto;
-  display: block;
-}
-
-pre code {
-  background-color: var(--main-background);
-  border: 1px solid var(--font-color);
-  display: block;
-  overflow: auto;
-}`;
-
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingTouchTarget, cuttingPath, cuttingPathIndex, previousContent;
 	let removedElements = [], removedElementIndex = 0, initScriptContent, pageResources, pageUrl, pageCompressContent, includeInfobar, openInfobar, infobarPositionAbsolute, infobarPositionTop, infobarPositionBottom, infobarPositionLeft, infobarPositionRight;
@@ -1033,7 +122,7 @@ pre code {
 				onUpdate(false);
 			}
 			if (message.method == "formatPage") {
-				formatPage(!message.applySystemTheme);
+				formatPage(!message.applySystemTheme, message.contentWidth);
 			}
 			if (message.method == "cancelFormatPage") {
 				cancelFormatPage();
@@ -1996,7 +1085,7 @@ pre code {
 		return path;
 	}
 
-	function formatPage(applySystemTheme) {
+	function formatPage(applySystemTheme, contentWidth) {
 		if (pageCompressContent) {
 			serializeShadowRoots(document);
 			previousContent = document.documentElement.cloneNode(true);
@@ -2045,7 +1134,7 @@ pre code {
 		document.body.contentEditable = contentEditable;
 		document.head.querySelectorAll("style").forEach(styleElement => styleElement.remove());
 		const styleElement = document.createElement("style");
-		styleElement.textContent = STYLE_FORMATTED_PAGE;
+		styleElement.textContent = getStyleFormattedPage(contentWidth);
 		document.head.appendChild(styleElement);
 		document.body.classList.add("moz-reader-content");
 		document.body.classList.add("content-width6");
@@ -2298,6 +1387,919 @@ pre code {
 			maskShadow.appendChild(maskElement);
 			return maskElement;
 		}
+	}
+
+	function getStyleFormattedPage(contentWidth) {
+		return `
+	/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/* Avoid adding ID selector rules in this style sheet, since they could
+ * inadvertently match elements in the article content. */
+
+:root {
+  --grey-90-a10: rgba(12, 12, 13, 0.1);
+  --grey-90-a20: rgba(12, 12, 13, 0.2);
+  --grey-90-a30: rgba(12, 12, 13, 0.3);
+  --grey-90-a80: rgba(12, 12, 13, 0.8);
+  --grey-30: #d7d7db;
+  --blue-40: #45a1ff;
+  --blue-40-a30: rgba(69, 161, 255, 0.3);
+  --blue-60: #0060df;
+  --body-padding: 64px;
+  --font-size: 12;
+  --content-width: ${contentWidth}em;
+  --line-height: 1.6em;
+}
+
+body {
+  --main-background: #fff;
+  --main-foreground: #333;
+  --font-color: #000000;
+  --primary-color: #0B83FF;
+  --toolbar-border: var(--grey-90-a20);
+  --toolbar-transparent-border: transparent;
+  --toolbar-box-shadow: var(--grey-90-a10);
+  --toolbar-button-background: transparent;
+  --toolbar-button-background-hover: var(--grey-90-a10);
+  --toolbar-button-foreground-hover: var(--font-color);
+  --toolbar-button-background-active: var(--grey-90-a20);
+  --toolbar-button-foreground-active: var(--primary-color);
+  --toolbar-button-border: transparent;
+  --toolbar-button-border-hover: transparent;
+  --toolbar-button-border-active: transparent;
+  --tooltip-background: var(--grey-90-a80);
+  --tooltip-foreground: white;
+  --tooltip-border: transparent;
+  --popup-background: white;
+  --popup-border: rgba(0, 0, 0, 0.12);
+  --opaque-popup-border: #e0e0e0;
+  --popup-line: var(--grey-30);
+  --popup-shadow: rgba(49, 49, 49, 0.3);
+  --popup-button-background: #edecf0;
+  --popup-button-background-hover: hsla(0,0%,70%,.4);
+  --popup-button-foreground-hover: var(--font-color);
+  --popup-button-background-active: hsla(240,5%,5%,.15);
+  --selected-background: var(--blue-40-a30);
+  --selected-border: var(--blue-40);
+  --font-value-border: var(--grey-30);
+  --icon-fill: #3b3b3c;
+  --icon-disabled-fill: #8080807F;
+  --link-foreground: var(--blue-60);
+  --link-selected-foreground: #333;
+  --visited-link-foreground: #b5007f;
+  /* light colours */
+}
+
+body.sepia {
+  --main-background: #f4ecd8;
+  --main-foreground: #5b4636;
+  --toolbar-border: #5b4636;
+}
+
+body.dark {
+  --main-background: rgb(28, 27, 34);
+  --main-foreground: #eee;
+  --font-color: #fff;
+  --toolbar-border: #4a4a4b;
+  --toolbar-box-shadow: black;
+  --toolbar-button-background-hover: var(--grey-90-a30);
+  --toolbar-button-background-active: var(--grey-90-a80);
+  --tooltip-background: black;
+  --tooltip-foreground: white;
+  --popup-background: rgb(66,65,77);
+  --opaque-popup-border: #434146;
+  --popup-line: rgb(82, 82, 94);
+  --popup-button-background: #5c5c61;
+  --popup-button-background-active: hsla(0,0%,70%,.6);
+  --selected-background: #3E6D9A;
+  --font-value-border: #656468;
+  --icon-fill: #fff;
+  --icon-disabled-fill: #ffffff66;
+  --link-foreground: #45a1ff;
+  --link-selected-foreground: #fff;
+  --visited-link-foreground: #e675fd;
+  /* dark colours */
+}
+
+body.hcm {
+  --main-background: Canvas;
+  --main-foreground: CanvasText;
+  --font-color: CanvasText;
+  --primary-color: SelectedItem;
+  --toolbar-border: CanvasText;
+   /* We need a true transparent but in HCM this would compute to an actual color,
+      so select the page's background color instead: */
+  --toolbar-transparent-border: Canvas;
+  --toolbar-box-shadow: Canvas;
+  --toolbar-button-background: ButtonFace;
+  --toolbar-button-background-hover: ButtonText;
+  --toolbar-button-foreground-hover: ButtonFace;
+  --toolbar-button-background-active: SelectedItem;
+  --toolbar-button-foreground-active: SelectedItemText;
+  --toolbar-button-border: ButtonText;
+  --toolbar-button-border-hover: ButtonText;
+  --toolbar-button-border-active: ButtonText;
+  --tooltip-background: Canvas;
+  --tooltip-foreground: CanvasText;
+  --tooltip-border: CanvasText;
+  --popup-background: Canvas;
+  --popup-border: CanvasText;
+  --opaque-popup-border: CanvasText;
+  --popup-line: CanvasText;
+  --popup-button-background: ButtonFace;
+  --popup-button-background-hover: ButtonText;
+  --popup-button-foreground-hover: ButtonFace;
+  --popup-button-background-active: ButtonText;
+  --selected-background: Canvas;
+  --selected-border: SelectedItem;
+  --font-value-border: CanvasText;
+  --icon-fill: ButtonText;
+  --icon-disabled-fill: GrayText;
+  --link-foreground: LinkText;
+  --link-selected-foreground: ActiveText;
+  --visited-link-foreground: VisitedText;
+}
+
+body {
+  margin: 0;
+  padding: var(--body-padding);
+  background-color: var(--main-background);
+  color: var(--main-foreground);
+}
+
+body.loaded {
+  transition: color 0.4s, background-color 0.4s;
+}
+
+body.dark *::-moz-selection {
+  background-color: var(--selected-background);
+}
+
+a::-moz-selection {
+  color: var(--link-selected-foreground);
+}
+
+body.sans-serif,
+body.sans-serif .remove-button {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+body.serif,
+body.serif .remove-button {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* Override some controls and content styles based on color scheme */
+
+body.light > .container > .header > .domain {
+  border-bottom-color: #333333 !important;
+}
+
+body.sepia > .container > .header > .domain {
+  border-bottom-color: #5b4636 !important;
+}
+
+body.dark > .container > .header > .domain {
+  border-bottom-color: #eeeeee !important;
+}
+
+body.light blockquote {
+  border-inline-start: 2px solid #333333 !important;
+}
+
+body.sepia blockquote {
+  border-inline-start: 2px solid #5b4636 !important;
+}
+
+body.dark blockquote {
+  border-inline-start: 2px solid #eeeeee !important;
+}
+
+.light-button {
+  color: #333333;
+  background-color: #ffffff;
+}
+
+.dark-button {
+  color: #eeeeee;
+  background-color: #1c1b22;
+}
+
+.sepia-button {
+  color: #5b4636;
+  background-color: #f4ecd8;
+}
+
+.auto-button {
+  text-align: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  .auto-button {
+    background-color: #1c1b22;
+    color: #eeeeee;
+  }
+}
+
+@media not (prefers-color-scheme: dark) {
+  .auto-button {
+    background-color: #ffffff;
+    color: #333333;
+  }
+}
+
+/* Loading/error message */
+
+.reader-message {
+  margin-top: 40px;
+  display: none;
+  text-align: center;
+  width: 100%;
+  font-size: 0.9em;
+}
+
+/* Detector element to see if we're at the top of the doc or not. */
+.top-anchor {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 5px;
+  pointer-events: none;
+}
+
+/* Header */
+
+.header {
+  text-align: start;
+  display: none;
+}
+
+.domain {
+  font-size: 0.9em;
+  line-height: 1.48em;
+  padding-bottom: 4px;
+  font-family: Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  border-bottom: 1px solid;
+  color: var(--link-foreground);
+}
+
+.header > h1 {
+  font-size: 1.6em;
+  line-height: 1.25em;
+  width: 100%;
+  margin: 30px 0;
+  padding: 0;
+}
+
+.header > .credits {
+  font-size: 0.9em;
+  line-height: 1.48em;
+  margin: 0 0 10px;
+  padding: 0;
+  font-style: italic;
+}
+
+.header > .meta-data {
+  font-size: 0.65em;
+  margin: 0 0 15px;
+}
+
+.reader-estimated-time {
+  text-align: match-parent;
+}
+
+/* Controls toolbar */
+
+.toolbar-container {
+  position: sticky;
+  z-index: 2;
+  top: 32px;
+  height: 0; /* take up no space, so body is at the top. */
+
+  /* As a stick container, we're positioned relative to the body. Move us to
+   * the edge of the viewport using margins, and take the width of
+   * the body padding into account for calculating our width.
+   */
+  margin-inline-start: calc(-1 * var(--body-padding));
+  width: max(var(--body-padding), calc((100% - var(--content-width)) / 2 + var(--body-padding)));
+  font-size: var(--font-size); /* Needed to ensure 'em' units match, is reset for .reader-controls */
+}
+
+.toolbar {
+  padding-block: 16px;
+  border: 1px solid var(--toolbar-border);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px var(--toolbar-box-shadow);
+
+  width: 32px; /* basic width, without padding/border */
+
+  /* padding should be 16px, except if there's not enough space for that, in
+   * which case use half the available space for padding (=25% on each side).
+   * The 34px here is the width + borders. We use a variable because we need
+   * to know this size for the margin calculation.
+   */
+  --inline-padding: min(16px, calc(25% - 0.25 * 34px));
+  padding-inline: var(--inline-padding);
+
+  /* Keep a maximum of 96px distance to the body, but center once the margin
+   * gets too small. We need to set the start margin, however...
+   * To center, we'd want 50% of the container, but we'd subtract half our
+   * own width (16px) and half the border (1px) and the inline padding.
+   * When the other margin would be 96px, we want 100% - 96px - the complete
+   * width of the actual toolbar (34px + 2 * padding)
+   */
+  margin-inline-start: max(calc(50% - 17px - var(--inline-padding)), calc(100% - 96px - 34px - 2 * var(--inline-padding)));
+
+  font-family: Helvetica, Arial, sans-serif;
+  list-style: none;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .toolbar {
+    transition-property: border-color, box-shadow;
+    transition-duration: 250ms;
+  }
+
+  .toolbar .toolbar-button {
+    transition-property: opacity;
+    transition-duration: 250ms;
+  }
+
+  .toolbar-container.scrolled .toolbar:not(:hover, :focus-within) {
+    border-color: var(--toolbar-transparent-border);
+    box-shadow: 0 2px 8px transparent;
+  }
+
+  .toolbar-container.scrolled .toolbar:not(:hover, :focus-within) .toolbar-button {
+    opacity: 0.6;
+  }
+
+  .toolbar-container.transition-location {
+    transition-duration: 250ms;
+    transition-property: width;
+  }
+}
+
+.toolbar-container.overlaps .toolbar-button {
+  opacity: 0.1;
+}
+
+.dropdown-open .toolbar {
+  border-color: var(--toolbar-transparent-border);
+  box-shadow: 0 2px 8px transparent;
+}
+
+.reader-controls {
+  /* We use 'em's above this node to get it to the right size. However,
+   * the UI inside the toolbar should use a fixed, smaller size. */
+  font-size: 11px;
+}
+
+button {
+  -moz-context-properties: fill;
+  color: var(--font-color);
+  fill: var(--icon-fill);
+}
+
+button:disabled {
+  fill: var(--icon-disabled-fill);
+}
+
+.toolbar button::-moz-focus-inner {
+  border: 0;
+}
+
+.toolbar-button {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--toolbar-button-border);
+  border-radius: 4px;
+  margin: 4px 0;
+  background-color: var(--toolbar-button-background);
+  background-size: 16px 16px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.toolbar-button:hover,
+.toolbar-button:focus-visible {
+  background-color: var(--toolbar-button-background-hover);
+  border-color: var(--toolbar-button-border-hover);
+  fill: var(--toolbar-button-foreground-hover);
+}
+
+.open .toolbar-button,
+.toolbar-button:hover:active {
+  background-color: var(--toolbar-button-background-active);
+  border-color: var(--toolbar-button-border-active);
+  color: var(--toolbar-button-foreground-active);
+  fill: var(--toolbar-button-foreground-active);
+}
+
+.hover-label {
+  position: absolute;
+  top: 4px;
+  inset-inline-start: 36px;
+  line-height: 16px;
+  white-space: pre; /* make sure we don't wrap */
+  background-color: var(--tooltip-background);
+  color: var(--tooltip-foreground);
+  padding: 4px 8px;
+  border: 1px solid var(--tooltip-border);
+  border-radius: 2px;
+  visibility: hidden;
+  pointer-events: none;
+  /* Put above .dropdown .dropdown-popup, which has z-index: 1000. */
+  z-index: 1001;
+}
+
+/* Show the hover tooltip on non-dropdown buttons. */
+.toolbar-button:not(.dropdown-toggle):hover > .hover-label,
+.toolbar-button:not(.dropdown-toggle):focus-visible > .hover-label,
+/* Show the hover tooltip for dropdown buttons unless its dropdown is open. */
+:not(.open) > li > .dropdown-toggle:hover > .hover-label,
+:not(.open) > li > .dropdown-toggle:focus-visible > .hover-label {
+  visibility: visible;
+}
+
+.dropdown {
+  text-align: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.dropdown li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Popup */
+
+.dropdown .dropdown-popup {
+  text-align: start;
+  position: absolute;
+  inset-inline-start: 40px;
+  z-index: 1000;
+  background-color: var(--popup-background);
+  visibility: hidden;
+  border-radius: 4px;
+  border: 1px solid var(--popup-border);
+  box-shadow: 0 0 10px 0 var(--popup-shadow);
+  top: 0;
+}
+
+.open > .dropdown-popup {
+  visibility: visible;
+}
+
+.dropdown-arrow {
+  position: absolute;
+  height: 24px;
+  width: 16px;
+  inset-inline-start: -16px;
+  background-image: url("chrome://global/skin/reader/RM-Type-Controls-Arrow.svg");
+  display: block;
+  -moz-context-properties: fill, stroke;
+  fill: var(--popup-background);
+  stroke: var(--opaque-popup-border);
+  pointer-events: none;
+}
+
+.dropdown-arrow:dir(rtl) {
+  transform: scaleX(-1);
+}
+
+/* Align the style dropdown arrow (narrate does its own) */
+.style-dropdown .dropdown-arrow {
+  top: 7px;
+}
+
+/* Font style popup */
+
+.radio-button {
+  /* We visually hide these, but we keep them around so they can be focused
+   * and changed by interacting with them via the label, or the keyboard, or
+   * assistive technology.
+   */
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.radiorow,
+.buttonrow {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.content-width-value,
+.font-size-value,
+.line-height-value {
+  box-sizing: border-box;
+  width: 36px;
+  height: 20px;
+  line-height: 20px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: auto;
+  border-radius: 10px;
+  border: 1px solid var(--font-value-border);
+  background-color: var(--popup-button-background);
+}
+
+.buttonrow > button {
+  border: 0;
+  height: 60px;
+  width: 90px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.buttonrow > button:enabled:hover,
+.buttonrow > button:enabled:focus-visible {
+  background-color: var(--popup-button-background-hover);
+  color: var(--popup-button-foreground-hover);
+  fill: var(--popup-button-foreground-hover);
+}
+
+.buttonrow > button:enabled:hover:active {
+  background-color: var(--popup-button-background-active);
+}
+
+.radiorow:not(:last-child),
+.buttonrow:not(:last-child) {
+  border-bottom: 1px solid var(--popup-line);
+}
+
+body.hcm .buttonrow.line-height-buttons {
+  /* On HCM the .color-scheme-buttons row is hidden, so remove the border from the row above it */
+  border-bottom: none;
+}
+
+.radiorow > label {
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 2px solid var(--popup-border);
+}
+
+.radiorow > label[checked] {
+  border-color: var(--selected-border);
+}
+
+/* For the hover style, we draw a line under the item by means of a
+ * pseudo-element. Because these items are variable height, and
+ * because their contents are variable height, position it absolutely,
+ * and give it a width of 100% (the content width) + 4px for the 2 * 2px
+ * border width.
+ */
+.radiorow > input[type=radio]:focus-visible + label::after,
+.radiorow > label:hover::after {
+  content: "";
+  display: block;
+  border-bottom: 2px solid var(--selected-border);
+  width: calc(100% + 4px);
+  position: absolute;
+  /* to skip the 2 * 2px border + 2px spacing. */
+  bottom: -6px;
+  /* Match the start of the 2px border of the element: */
+  inset-inline-start: -2px;
+}
+
+.font-type-buttons > label {
+  height: 64px;
+  width: 105px;
+  /* Slightly more space between these items. */
+  margin: 10px;
+  /* Center the Sans-serif / Serif labels */
+  text-align: center;
+  background-size: 63px 39px;
+  background-repeat: no-repeat;
+  background-position: center 18px;
+  background-color: var(--popup-button-background);
+  fill: currentColor;
+  -moz-context-properties: fill;
+  /* This mostly matches baselines, but because of differences in font
+   * baselines between serif and sans-serif, this isn't always enough. */
+  line-height: 1;
+  padding-top: 2px;
+}
+
+.font-type-buttons > label[checked] {
+  background-color: var(--selected-background);
+}
+
+.sans-serif-button {
+  font-family: Helvetica, Arial, sans-serif;
+  background-image: url("chrome://global/skin/reader/RM-Sans-Serif.svg");
+}
+
+/* Tweak padding to match the baseline on mac */
+:root[platform=macosx] .sans-serif-button {
+  padding-top: 3px;
+}
+
+.serif-button {
+  font-family: Georgia, "Times New Roman", serif;
+  background-image: url("chrome://global/skin/reader/RM-Serif.svg");
+}
+
+body.hcm .color-scheme-buttons {
+  /* Disallow selecting themes when HCM is on. */
+  display: none;
+}
+
+.color-scheme-buttons > label {
+  padding: 12px;
+  height: 34px;
+  font-size: 12px;
+  /* Center the labels horizontally as well as vertically */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* We want 10px between items, but there's no margin collapsing in flexbox. */
+  margin: 10px 5px;
+}
+
+.color-scheme-buttons > input:first-child + label {
+  margin-inline-start: 10px;
+}
+
+.color-scheme-buttons > label:last-child {
+  margin-inline-end: 10px;
+}
+
+/* Toolbar icons */
+
+.close-button {
+  background-image: url("chrome://global/skin/icons/close.svg");
+}
+
+.style-button {
+  background-image: url("chrome://global/skin/reader/RM-Type-Controls-24x24.svg");
+}
+
+.minus-button {
+  background-size: 18px 18px;
+  background-image: url("chrome://global/skin/reader/RM-Minus-24x24.svg");
+}
+
+.plus-button {
+  background-size: 18px 18px;
+  background-image: url("chrome://global/skin/reader/RM-Plus-24x24.svg");
+}
+
+.content-width-minus-button {
+  background-size: 42px 16px;
+  background-image: url("chrome://global/skin/reader/RM-Content-Width-Minus-42x16.svg");
+}
+
+.content-width-plus-button {
+  background-size: 44px 16px;
+  background-image: url("chrome://global/skin/reader/RM-Content-Width-Plus-44x16.svg");
+}
+
+.line-height-minus-button {
+  background-size: 34px 14px;
+  background-image: url("chrome://global/skin/reader/RM-Line-Height-Minus-38x14.svg");
+}
+
+.line-height-plus-button {
+  background-size: 34px 24px;
+  background-image: url("chrome://global/skin/reader/RM-Line-Height-Plus-38x24.svg");
+}
+
+/* Mirror the line height buttons if the article is RTL. */
+.reader-controls[articledir="rtl"] .line-height-minus-button,
+.reader-controls[articledir="rtl"] .line-height-plus-button {
+  transform: scaleX(-1);
+}
+
+@media print {
+  .toolbar {
+    display: none !important;
+  }
+}
+
+/* Article content */
+
+/* Note that any class names from the original article that we want to match on
+ * must be added to CLASSES_TO_PRESERVE in ReaderMode.jsm, so that
+ * Readability.js doesn't strip them out */
+
+.container {
+  margin: 0 auto;
+  font-size: var(--font-size);
+  max-width: var(--content-width);
+  line-height: var(--line-height);
+}
+
+pre {
+  font-family: inherit;
+}
+
+.moz-reader-content {
+  display: none;
+  font-size: 1em;
+}
+
+@media print {
+  .moz-reader-content p,
+  .moz-reader-content code,
+  .moz-reader-content pre,
+  .moz-reader-content blockquote,
+  .moz-reader-content ul,
+  .moz-reader-content ol,
+  .moz-reader-content li,
+  .moz-reader-content figure,
+  .moz-reader-content .wp-caption {
+    margin: 0 0 10px !important;
+    padding: 0 !important;
+  }
+}
+
+.moz-reader-content h1,
+.moz-reader-content h2,
+.moz-reader-content h3 {
+  font-weight: bold;
+}
+
+.moz-reader-content h1 {
+  font-size: 1.6em;
+  line-height: 1.25em;
+}
+
+.moz-reader-content h2 {
+  font-size: 1.2em;
+  line-height: 1.51em;
+}
+
+.moz-reader-content h3 {
+  font-size: 1em;
+  line-height: 1.66em;
+}
+
+.moz-reader-content a:link {
+  text-decoration: underline;
+  font-weight: normal;
+}
+
+.moz-reader-content a:link,
+.moz-reader-content a:link:hover,
+.moz-reader-content a:link:active {
+  color: var(--link-foreground);
+}
+
+.moz-reader-content a:visited {
+  color: var(--visited-link-foreground);
+}
+
+.moz-reader-content * {
+  max-width: 100%;
+  height: auto;
+}
+
+.moz-reader-content p,
+.moz-reader-content p,
+.moz-reader-content code,
+.moz-reader-content pre,
+.moz-reader-content blockquote,
+.moz-reader-content ul,
+.moz-reader-content ol,
+.moz-reader-content li,
+.moz-reader-content figure,
+.moz-reader-content .wp-caption {
+  margin: -10px -10px 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.moz-reader-content li {
+  margin-bottom: 0;
+}
+
+.moz-reader-content li > ul,
+.moz-reader-content li > ol {
+  margin-bottom: -10px;
+}
+
+.moz-reader-content p > img:only-child,
+.moz-reader-content p > a:only-child > img:only-child,
+.moz-reader-content .wp-caption img,
+.moz-reader-content figure img {
+  display: block;
+}
+
+.moz-reader-content img[moz-reader-center] {
+  margin-inline: auto;
+}
+
+.moz-reader-content .caption,
+.moz-reader-content .wp-caption-text
+.moz-reader-content figcaption {
+  font-size: 0.9em;
+  line-height: 1.48em;
+  font-style: italic;
+}
+
+.moz-reader-content pre {
+  white-space: pre-wrap;
+}
+
+.moz-reader-content blockquote {
+  padding: 0;
+  padding-inline-start: 16px;
+}
+
+.moz-reader-content ul,
+.moz-reader-content ol {
+  padding: 0;
+}
+
+.moz-reader-content ul {
+  padding-inline-start: 30px;
+  list-style: disc;
+}
+
+.moz-reader-content ol {
+  padding-inline-start: 30px;
+}
+
+table,
+th,
+td {
+  border: 1px solid currentColor;
+  border-collapse: collapse;
+  padding: 6px;
+  vertical-align: top;
+}
+
+table {
+  margin: 5px;
+}
+
+/* Visually hide (but don't display: none) screen reader elements */
+.moz-reader-content .visually-hidden,
+.moz-reader-content .visuallyhidden,
+.moz-reader-content .sr-only {
+  display: inline-block;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  border-width: 0;
+}
+
+/* Hide elements with common "hidden" class names */
+.moz-reader-content .hidden,
+.moz-reader-content .invisible {
+  display: none;
+}
+
+/* Enforce wordpress and similar emoji/smileys aren't sized to be full-width,
+ * see bug 1399616 for context. */
+.moz-reader-content img.wp-smiley,
+.moz-reader-content img.emoji {
+  display: inline-block;
+  border-width: 0;
+  /* height: auto is implied from '.moz-reader-content *' rule. */
+  width: 1em;
+  margin: 0 .07em;
+  padding: 0;
+}
+
+.reader-show-element {
+  display: initial;
+}
+
+/* Provide extra spacing for images that may be aided with accompanying element such as <figcaption> */
+.moz-reader-block-img:not(:last-child) {
+  margin-block-end: 12px;
+}
+
+.moz-reader-wide-table {
+  overflow-x: auto;
+  display: block;
+}
+
+pre code {
+  background-color: var(--main-background);
+  border: 1px solid var(--font-color);
+  display: block;
+  overflow: auto;
+}`;
 	}
 
 	function getEmbedScript() {
