@@ -139,7 +139,8 @@ Readability.prototype = {
     // Readability-readerable.js. Please keep both copies in sync.
     unlikelyCandidates:
       /-ad-|ai2html|banner|breadcrumbs|combx|comment|community|cover-wrap|disqus|extra|footer|gdpr|header|legends|menu|related|remark|replies|rss|shoutbox|sidebar|skyscraper|social|sponsor|supplemental|ad-break|agegate|pagination|pager|popup|yom-remote/i,
-    okMaybeItsACandidate: /and|article|body|column|content|main|shadow/i,
+    okMaybeItsACandidate:
+      /and|article|body|column|content|main|mathjax|shadow/i,
 
     positive:
       /article|body|content|entry|hentry|h-entry|main|page|pagination|post|text|blog|story/i,
@@ -151,7 +152,7 @@ Readability.prototype = {
     replaceFonts: /<(\/?)font[^>]*>/gi,
     normalize: /\s{2,}/g,
     videos:
-      /\/\/(www\.)?((dailymotion|youtube|youtube-nocookie|player\.vimeo|v\.qq)\.com|(archive|upload\.wikimedia)\.org|player\.twitch\.tv)/i,
+      /\/\/(www\.)?((dailymotion|youtube|youtube-nocookie|player\.vimeo|v\.qq|bilibili|live.bilibili)\.com|(archive|upload\.wikimedia)\.org|player\.twitch\.tv)/i,
     shareElements: /(\b|_)(share|sharedaddy)(\b|_)/i,
     nextLink: /(next|weiter|continue|>([^\|]|$)|»([^\|]|$))/i,
     prevLink: /(prev|earl|old|new|<|«)/i,
@@ -196,7 +197,7 @@ Readability.prototype = {
     "UL",
   ]),
 
-  ALTER_TO_DIV_EXCEPTIONS: ["DIV", "ARTICLE", "SECTION", "P"],
+  ALTER_TO_DIV_EXCEPTIONS: ["DIV", "ARTICLE", "SECTION", "P", "OL", "UL"],
 
   PRESENTATIONAL_ATTRIBUTES: [
     "align",
@@ -433,6 +434,20 @@ Readability.prototype = {
   },
 
   /**
+   * Tests whether a string is a URL or not.
+   *
+   * @param {string} str The string to test
+   * @return {boolean} true if str is a URL, false if not
+   */
+  _isUrl(str) {
+    try {
+      new URL(str);
+      return true;
+    } catch {
+      return false;
+    }
+  },
+  /**
    * Converts each <a> and <img> uri in the given element to an absolute URI,
    * ignoring #ref URIs.
    *
@@ -538,10 +553,7 @@ Readability.prototype = {
         ) {
           var child = node.children[0];
           for (var i = 0; i < node.attributes.length; i++) {
-            child.setAttribute(
-              node.attributes[i].name,
-              node.attributes[i].value
-            );
+            child.setAttributeNode(node.attributes[i].cloneNode());
           }
           node.parentNode.replaceChild(child, node);
           node = child;
@@ -582,13 +594,20 @@ Readability.prototype = {
     }
 
     // If there's a separator in the title, first remove the final part
-    if (/ [\|\-\\\/>»] /.test(curTitle)) {
-      titleHadHierarchicalSeparators = / [\\\/>»] /.test(curTitle);
-      curTitle = origTitle.replace(/(.*)[\|\-\\\/>»] .*/gi, "$1");
+    const titleSeparators = /\|\-–—\\\/>»/.source;
+    if (new RegExp(`\\s[${titleSeparators}]\\s`).test(curTitle)) {
+      titleHadHierarchicalSeparators = /\s[\\\/>»]\s/.test(curTitle);
+      let allSeparators = Array.from(
+        origTitle.matchAll(new RegExp(`\\s[${titleSeparators}]\\s`, "gi"))
+      );
+      curTitle = origTitle.substring(0, allSeparators.pop().index);
 
       // If the resulting title is too short, remove the first part instead:
       if (wordCount(curTitle) < 3) {
-        curTitle = origTitle.replace(/[^\|\-\\\/>»]*[\|\-\\\/>»](.*)/gi, "$1");
+        curTitle = origTitle.replace(
+          new RegExp(`^[^${titleSeparators}]*[${titleSeparators}]`, "gi"),
+          ""
+        );
       }
     } else if (curTitle.includes(": ")) {
       // Check if we have an heading containing this exact string, so we
@@ -630,7 +649,10 @@ Readability.prototype = {
       curTitleWordCount <= 4 &&
       (!titleHadHierarchicalSeparators ||
         curTitleWordCount !=
-          wordCount(origTitle.replace(/[\|\-\\\/>»]+/g, "")) - 1)
+          wordCount(
+            origTitle.replace(new RegExp(`\\s[${titleSeparators}]\\s`, "g"), "")
+          ) -
+            1)
     ) {
       curTitle = origTitle;
     }
@@ -755,19 +777,7 @@ Readability.prototype = {
     }
 
     for (var i = 0; i < node.attributes.length; i++) {
-      try {
-        replacement.setAttribute(
-          node.attributes[i].name,
-          node.attributes[i].value
-        );
-      } catch (ex) {
-        /* it's possible for setAttribute() to throw if the attribute name
-         * isn't a valid XML Name. Such attributes can however be parsed from
-         * source in HTML docs, see https://github.com/whatwg/html/issues/4275,
-         * so we can hit them here and then throw. We don't care about such
-         * attributes so we ignore them.
-         */
-      }
+      replacement.setAttributeNode(node.attributes[i].cloneNode());
     }
     return replacement;
   },
@@ -835,14 +845,17 @@ Readability.prototype = {
     this._removeNodes(
       this._getAllNodesWithTag(articleContent, ["p"]),
       function (paragraph) {
-        var imgCount = paragraph.getElementsByTagName("img").length;
-        var embedCount = paragraph.getElementsByTagName("embed").length;
-        var objectCount = paragraph.getElementsByTagName("object").length;
-        // At this point, nasty iframes have been removed, only remain embedded video ones.
-        var iframeCount = paragraph.getElementsByTagName("iframe").length;
-        var totalCount = imgCount + embedCount + objectCount + iframeCount;
-
-        return totalCount === 0 && !this._getInnerText(paragraph, false);
+        // At this point, nasty iframes have been removed; only embedded video
+        // ones remain.
+        var contentElementCount = this._getAllNodesWithTag(paragraph, [
+          "img",
+          "embed",
+          "object",
+          "iframe",
+        ]).length;
+        return (
+          contentElementCount === 0 && !this._getInnerText(paragraph, false)
+        );
       }
     );
 
@@ -938,6 +951,10 @@ Readability.prototype = {
    * (and its kids) are going away, and we want the next node over.
    *
    * Calling this in a loop will traverse the DOM depth-first.
+   *
+   * @param {Element} node
+   * @param {boolean} ignoreSelfAndKids
+   * @return {Element}
    */
   _getNextNode(node, ignoreSelfAndKids) {
     // First check for kids if those aren't being ignored
@@ -1077,7 +1094,20 @@ Readability.prototype = {
           !this._metadata.byline &&
           this._isValidByline(node, matchString)
         ) {
-          this._articleByline = node.textContent.trim();
+          // Find child node matching [itemprop="name"] and use that if it exists for a more accurate author name byline
+          var endOfSearchMarkerNode = this._getNextNode(node, true);
+          var next = this._getNextNode(node);
+          var itemPropNameNode = null;
+          while (next && next != endOfSearchMarkerNode) {
+            var itemprop = next.getAttribute("itemprop");
+            if (itemprop && itemprop.includes("name")) {
+              itemPropNameNode = next;
+              break;
+            } else {
+              next = this._getNextNode(next);
+            }
+          }
+          this._articleByline = (itemPropNameNode ?? node).textContent.trim();
           node = this._removeAndGetNext(node);
           continue;
         }
@@ -1626,10 +1656,28 @@ Readability.prototype = {
             ""
           );
           var parsed = JSON.parse(content);
-          if (
-            !parsed["@context"] ||
-            !parsed["@context"].match(/^https?\:\/\/schema\.org\/?$/)
-          ) {
+
+          if (Array.isArray(parsed)) {
+            parsed = parsed.find(it => {
+              return (
+                it["@type"] &&
+                it["@type"].match(this.REGEXPS.jsonLdArticleTypes)
+              );
+            });
+            if (!parsed) {
+              return;
+            }
+          }
+
+          var schemaDotOrgRegex = /^https?\:\/\/schema\.org\/?$/;
+          var matches =
+            (typeof parsed["@context"] === "string" &&
+              parsed["@context"].match(schemaDotOrgRegex)) ||
+            (typeof parsed["@context"] === "object" &&
+              typeof parsed["@context"]["@vocab"] == "string" &&
+              parsed["@context"]["@vocab"].match(schemaDotOrgRegex));
+
+          if (!matches) {
             return;
           }
 
@@ -1777,13 +1825,20 @@ Readability.prototype = {
       metadata.title = this._getArticleTitle();
     }
 
+    const articleAuthor =
+      typeof values["article:author"] === "string" &&
+      !this._isUrl(values["article:author"])
+        ? values["article:author"]
+        : undefined;
+
     // get author
     metadata.byline =
       jsonld.byline ||
       values["dc:creator"] ||
       values["dcterm:creator"] ||
       values.author ||
-      values["parsely-author"];
+      values["parsely-author"] ||
+      articleAuthor;
 
     // get description
     metadata.excerpt =
@@ -2312,10 +2367,10 @@ Readability.prototype = {
             }
           }
 
-          // Here we assume if image is less than 100 bytes (or 133B after encoded to base64)
+          // Here we assume if image is less than 100 bytes (or 133 after encoded to base64)
           // it will be too small, therefore it might be placeholder image.
           if (srcCouldBeRemoved) {
-            var b64starts = elem.src.search(/base64\s*/i) + 7;
+            var b64starts = parts[0].length;
             var b64length = elem.src.length - b64starts;
             if (b64length < 133) {
               elem.removeAttribute("src");
