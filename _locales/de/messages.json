@@ -579,6 +579,10 @@
 		"message": "System-Design beim Formatieren einer Seite anwenden",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
+	"optionContentWidth": {
+		"message": "Inhaltbreite (em) beim Formatieren einer Seite",
+		"description": "Options page label: 'content width when formatting a page (em)'"
+	},
 	"optionWarnUnsavedPage": {
 		"message": "Warnen beim Verlassen der Seite mit ungespeicherten Änderungen",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"

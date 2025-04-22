@@ -579,6 +579,10 @@
 		"message": "applica il tema di sistema quando formatti una pagina",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
+	"optionContentWidth": {
+		"message": "larghezza contenuto quando formatti una pagina (em)",
+		"description": "Options page label: 'content width when formatting a page (em)'"
+	},
 	"optionWarnUnsavedPage": {
 		"message": "avvisa se si lascia una pagina con cambiamenti non salvati",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"

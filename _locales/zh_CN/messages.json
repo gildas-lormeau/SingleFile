@@ -579,6 +579,10 @@
 		"message": "在标注编辑器中打开页面时应用系统主题样式",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
+	"optionContentWidth": {
+		"message": "content width when formatting a page (em)",
+		"description": "Options page label: 'content width when formatting a page (em)'"
+	},
 	"optionWarnUnsavedPage": {
 		"message": "离开标注编辑器时提醒保存已修改的内容",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
