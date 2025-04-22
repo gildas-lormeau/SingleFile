@@ -287,6 +287,10 @@
 		"message": "ZIP",
 		"description": "Options page label: 'ZIP'"
 	},
+	"optionPassword": {
+		"message": "hasło",
+		"description": "Options page label: 'password'"
+	},
 	"optionCreateRootDirectory": {
 		"message": "utwórz katalog główny",
 		"description": "Options page label: 'create a root directory'"
@@ -294,10 +298,6 @@
 	"optionPreventAppendedData": {
 		"message": "nie dołączaj danych po danych ZIP",
 		"description": "Options page label: 'do not append data after the ZIP data'"
-	},
-	"optionPassword": {
-		"message": "hasło",
-		"description": "Options page label: 'password'"
 	},
 	"optionInsertTextBody": {
 		"message": "uczyń tekst przeszukiwalnym",
@@ -578,6 +578,10 @@
 	"optionApplySystemTheme": {
 		"message": "zastosuj motyw systemowy podczas formatowania strony",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
+	},
+	"optionContentWidth": {
+		"message": "szerokość zawartości podczas formatowania strony (em)",
+		"description": "Options page label: 'content width when formatting a page (em)'"
 	},
 	"optionWarnUnsavedPage": {
 		"message": "ostrzegaj, jeśli opuszczasz stronę z niezapisanymi zmianami",
