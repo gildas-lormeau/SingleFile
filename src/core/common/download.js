@@ -89,6 +89,7 @@ async function downloadPage(pageData, options) {
 		bookmarkId: options.bookmarkId,
 		replaceBookmarkURL: options.replaceBookmarkURL,
 		applySystemTheme: options.applySystemTheme,
+		contentWidth: options.contentWidth,
 		defaultEditorMode: options.defaultEditorMode,
 		includeInfobar: options.includeInfobar,
 		openInfobar: options.openInfobar,
