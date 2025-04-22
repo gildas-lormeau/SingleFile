@@ -1032,7 +1032,7 @@
 		"description": "Options page label: 'archive URL field name'"
 	},
 	"optionsEditorTitle": {
-		"message": "选项标题：'选项编辑器'",
+		"message": "选项编辑器",
 		"description": "Options title: 'Options editor'"
 	},
 	"optionsEditorSaveButton": {
