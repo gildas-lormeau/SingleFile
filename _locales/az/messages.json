@@ -579,6 +579,10 @@
 		"message": "sistem mövzusunu tətbiq edin",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
+	"optionContentWidth": {
+		"message": "formatlama zamanı səhifənin məzmun genişliyi (em)",
+		"description": "Options page label: 'content width when formatting a page (em)'"
+	},
 	"optionWarnUnsavedPage": {
 		"message": "yaddaşa qeyd edilməmiş dəyişiklikləri saxlayın",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"

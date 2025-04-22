@@ -579,6 +579,10 @@
 		"message": "ページの書式設定時にシステムテーマを適用する",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
+	"optionContentWidth": {
+		"message": "ページの書式設定時のコンテンツ幅（em）",
+		"description": "Options page label: 'content width when formatting a page (em)'"
+	},
 	"optionWarnUnsavedPage": {
 		"message": "未保存の変更がある場合に警告する",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"

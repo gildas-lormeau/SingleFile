@@ -579,6 +579,10 @@
 		"message": "застосовувати системну тему при форматуванні сторінки",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
+	"optionContentWidth": {
+		"message": "ширина вмісту при форматуванні сторінки (em)",
+		"description": "Options page label: 'content width when formatting a page (em)'"
+	},
 	"optionWarnUnsavedPage": {
 		"message": "попереджати при виході зі сторінки з незбереженими змінами",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
