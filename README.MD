@@ -167,6 +167,8 @@ Footnotes:
   webkit: https://github.com/david-littlefield/SingleFileMac
 - SingleFile MV3 CDP Patched - fork of SingleFile patched to allow programmatic 
   control with Chrome DevTools Protocol: https://github.com/Cosmologist/SingleFile-MV3-CDP-Patched
+- SingleFile MCP - Model Context Protocol (MCP) server that provides intelligent web
+  content extraction using single-file and trafilatura: https://github.com/kwinsch/singlefile-mcp
 - Trilium-SingleFile - An addon for Trilium Notes to easily import SingleFile 
   html pages: https://github.com/rauenzi/Trilium-SingleFile
 - Trilium Simple SingleFile Renderer - A plugin to add a new Template note to
@@ -213,4 +215,5 @@ you are interested in licensing the SingleFile code for a commercial service or
 product.
 
 Suggestions are welcome :)
+
 
