@@ -222,6 +222,10 @@ function markSelectedContent() {
 						selectionFound = true;
 						markSelectedNode(treeWalker.currentNode);
 					}
+					if (range.startContainer === range.endContainer && selection.rangeCount == 1 && range.startOffset == 0 && range.endOffset == 0) {
+						selectionFound = true;
+						markSelectedNode(treeWalker.currentNode);
+					}
 				}
 				if (selectionFound && treeWalker.currentNode == range.startContainer) {
 					markSelectedParents(treeWalker.currentNode);
