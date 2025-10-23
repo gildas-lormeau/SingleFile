@@ -357,5 +357,8 @@ async function processPage(options) {
 			console.table(page.stats); // eslint-disable-line no-console
 		}
 	}
+	if (options.delayAfterProcessing) {
+		await new Promise(resolve => setTimeout(resolve, options.delayAfterProcessing * 1000));
+	}
 	return page;
 }

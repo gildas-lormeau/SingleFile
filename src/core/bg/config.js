@@ -176,6 +176,7 @@ const DEFAULT_CONFIG = {
 	blockVideos: true,
 	blockAudios: true,
 	delayBeforeProcessing: 0,
+	delayAfterProcessing: 0,
 	_migratedTemplateFormat: true,
 	saveToRestFormApiUrl: "",
 	saveToRestFormApiFileFieldName: "",
