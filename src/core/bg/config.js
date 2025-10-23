@@ -193,7 +193,8 @@ const DEFAULT_CONFIG = {
 	infobarPositionTop: "16px",
 	infobarPositionRight: "16px",
 	infobarPositionBottom: "",
-	infobarPositionLeft: ""
+	infobarPositionLeft: "",
+	removeNoScriptTags: true
 };
 
 const DEFAULT_RULES = [{
