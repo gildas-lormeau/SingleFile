@@ -187,7 +187,7 @@ async function downloadContent(contents, tab, incognito, message) {
 			let response;
 			if (message.openEditor) {
 				ui.onEdit(tabId);
-				await editor.open({ tabIndex: tab.index + 1, filename: message.filename, content: contents.join("") });
+				await editor.open({ tabIndex: tab.index + 1, filename: message.filename, content: contents.join(""), url: message.originalUrl });
 			} else if (message.saveToClipboard) {
 				message.content = contents.join("");
 				saveToClipboard(message);
@@ -320,7 +320,8 @@ async function downloadCompressedContent(message, tab) {
 					extractDataFromPage: message.extractDataFromPage,
 					insertTextBody: message.insertTextBody,
 					insertMetaCSP: message.insertMetaCSP,
-					embeddedImage: message.embeddedImage
+					embeddedImage: message.embeddedImage,
+					url: message.originalUrl
 				});
 			} else if (message.foregroundSave || !message.backgroundSave || message.sharePage) {
 				const response = await downloadPageForeground(message.taskId, message.filename, blob, pageData.mimeType, tabId, {
