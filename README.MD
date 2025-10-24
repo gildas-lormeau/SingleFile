@@ -153,6 +153,9 @@ Footnotes:
 - linkding - Bookmark manager that you can host yourself. It's designed be to
   be minimal, fast, and easy to set up using Docker:
   https://github.com/sissbruecker/linkding
+- Linkwarden - Self-hosted collaborative bookmark manager to collect, read, 
+  annotate, and fully preserve what matters, all in one place:
+  https://github.com/linkwarden/linkwarden
 - obsidian-html-plugin - Plugin for reading HTML pages in Obsidian:
   https://github.com/nuthrash/obsidian-html-plugin
 - Org-Dex.el - Emacs package designed to enhance Org-mode by integrating 
@@ -215,5 +218,6 @@ you are interested in licensing the SingleFile code for a commercial service or
 product.
 
 Suggestions are welcome :)
+
 
 
