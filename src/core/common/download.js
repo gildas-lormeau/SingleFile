@@ -157,7 +157,8 @@ async function downloadPage(pageData, options) {
 				});
 			}
 			if (options.backgroundSave) {
-				await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId });
+				const hash = options.openEditor ? null : pageData.hash;
+				await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId, hash , woleetKey: options.woleetKey });
 			}
 		} else {
 			browser.runtime.sendMessage({ method: "downloads.cancel" });
@@ -203,7 +204,8 @@ async function downloadPage(pageData, options) {
 			}
 			browser.runtime.sendMessage({ method: "ui.processEnd" });
 		}
-		await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId, hash: pageData.hash, woleetKey: options.woleetKey });
+		const hash = options.openEditor ? null : pageData.hash;
+		await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId, hash, woleetKey: options.woleetKey });
 	}
 	clearInterval(pingInterval);
 }
