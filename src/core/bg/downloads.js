@@ -89,7 +89,7 @@ async function onMessage(message, sender) {
 		return {};
 	}
 	if (message.method.endsWith(".end")) {
-		if (message.hash && !message.openEditor) {
+		if (message.hash) {
 			try {
 				await woleet.anchor(message.hash, message.woleetKey);
 			} catch (error) {
