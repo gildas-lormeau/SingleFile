@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, matchMedia, addEventListener, navigator, prompt, URL, MouseEvent, Blob, setInterval, DOMParser, fetch */
+/* global browser, document, matchMedia, addEventListener, navigator, prompt, URL, MouseEvent, Blob, setInterval, DOMParser, fetch, singlefile */
 
 import * as download from "../../core/common/download.js";
 import { onError } from "./../common/common-content-ui.js";
@@ -331,6 +331,9 @@ addEventListener("message", async event => {
 				tabData.options.backgroundSave = false;
 				tabData.options.foregroundSave = true;
 			}
+			if (tabData.options.addProof) {
+				pageData.hash = await singlefile.helper.digest("SHA-256", message.content);
+			}
 			await download.downloadPage(pageData, tabData.options);
 		} else {
 			const pageData = {
@@ -338,6 +341,9 @@ addEventListener("message", async event => {
 				filename: message.filename || tabData.filename,
 				mimeType: "text/html"
 			};
+			if (tabData.options.addProof) {
+				pageData.hash = await singlefile.helper.digest("SHA-256", message.content);
+			}
 			tabData.options.compressContent = false;
 			await download.downloadPage(pageData, tabData.options);
 		}
