@@ -271,8 +271,6 @@ function toolbarOnTouchEnd(event) {
 	toolbarMoving = false;
 }
 
-let updatedResources = {};
-
 addEventListener("resize", viewportSizeChange);
 addEventListener("message", async event => {
 	const message = JSON.parse(event.data);
@@ -399,8 +397,7 @@ addEventListener("message", async event => {
 });
 
 browser.runtime.onMessage.addListener(message => {
-	if (message.method == "devtools.resourceCommitted" ||
-		message.method == "content.save" ||
+	if (message.method == "content.save" ||
 		message.method == "editor.setTabData" ||
 		message.method == "options.refresh" ||
 		message.method == "content.error" ||
@@ -421,10 +418,6 @@ addEventListener("beforeunload", event => {
 });
 
 async function onMessage(message) {
-	if (message.method == "devtools.resourceCommitted") {
-		updatedResources[message.url] = { content: message.content, type: message.type, encoding: message.encoding };
-		return {};
-	}
 	if (message.method == "content.save") {
 		tabData.options = message.options;
 		savePage();
@@ -536,7 +529,6 @@ function enableEditPage() {
 
 function formatPage() {
 	formatPageButton.classList.remove("format-disabled");
-	updatedResources = {};
 	editorElement.contentWindow.postMessage(JSON.stringify({
 		method: "formatPage",
 		applySystemTheme: tabData.options.applySystemTheme,
@@ -546,7 +538,6 @@ function formatPage() {
 
 function cancelFormatPage() {
 	formatPageButton.classList.add("format-disabled");
-	updatedResources = {};
 	editorElement.contentWindow.postMessage(JSON.stringify({ method: "cancelFormatPage" }), "*");
 }
 
@@ -578,7 +569,6 @@ function savePage() {
 		infobarPositionLeft: tabData.options.infobarPositionLeft,
 		infobarPositionRight: tabData.options.infobarPositionRight,
 		backgroundSave: tabData.options.backgroundSave,
-		updatedResources,
 		filename: tabData.filename,
 		foregroundSave: FOREGROUND_SAVE,
 		sharePage: tabData.options.sharePage,

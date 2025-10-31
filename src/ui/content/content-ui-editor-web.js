@@ -172,7 +172,7 @@ import { downloadPageForeground } from "../../core/common/download.js";
 				infobarPositionBottom = message.infobarPositionBottom;
 				infobarPositionLeft = message.infobarPositionLeft;
 				infobarPositionRight = message.infobarPositionRight;
-				let content = getContent(message.compressHTML, message.updatedResources);
+				let content = getContent(message.compressHTML);
 				if (initScriptContent) {
 					content = content.replace(/<script data-template-shadow-root src.*?<\/script>/g, initScriptContent);
 				}
@@ -1091,7 +1091,7 @@ import { downloadPageForeground } from "../../core/common/download.js";
 			previousContent = document.documentElement.cloneNode(true);
 			deserializeShadowRoots(document);
 		} else {
-			previousContent = getContent(false, []);
+			previousContent = getContent(false);
 		}
 		const shadowRoots = {};
 		const classesToPreserve = ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"];
@@ -1198,7 +1198,7 @@ import { downloadPageForeground } from "../../core/common/download.js";
 		}
 	}
 
-	function getContent(compressHTML, updatedResources) {
+	function getContent(compressHTML) {
 		unhighlightCutElement();
 		serializeShadowRoots(document);
 		const doc = document.cloneNode(true);
@@ -1239,12 +1239,6 @@ import { downloadPageForeground } from "../../core/common/download.js";
 			element.style.removeProperty("-sf-" + pointerEvents);
 		});
 		doc.body.removeAttribute("contentEditable");
-		const newResources = Object.keys(updatedResources).filter(url => updatedResources[url].type == "stylesheet").map(url => updatedResources[url]);
-		newResources.forEach(resource => {
-			const element = doc.createElement("style");
-			doc.body.appendChild(element);
-			element.textContent = resource.content;
-		});
 		if (pageCompressContent) {
 			const pageFilename = pageResources
 				.filter(resource => resource.filename.endsWith("index.html"))

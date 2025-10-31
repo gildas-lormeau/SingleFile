@@ -114,7 +114,6 @@
 		},
 		"gecko_android": {}
 	},
-	"devtools_page": "src/core/devtools/devtools.html",
 	"incognito": "spanning",
 	"manifest_version": 2,
 	"default_locale": "en"

@@ -143,7 +143,6 @@ async function saveContent(message, tab) {
 		options.usedFonts = message.usedFonts;
 		options.shadowRoots = message.shadowRoots;
 		options.referrer = message.referrer;
-		options.updatedResources = message.updatedResources;
 		options.worklets = message.worklets;
 		options.adoptedStyleSheets = message.adoptedStyleSheets;
 		options.visitDate = new Date(message.visitDate);

@@ -534,16 +534,6 @@ if (typeof globalThis == "undefined") {
 					});
 				})
 			},
-			devtools: nativeAPI.devtools && {
-				inspectedWindow: nativeAPI.devtools.inspectedWindow && {
-					onResourceContentCommitted: nativeAPI.devtools.inspectedWindow.onResourceContentCommitted && {
-						addListener: listener => nativeAPI.devtools.inspectedWindow.onResourceContentCommitted.addListener(listener)
-					},
-					get tabId() {
-						return nativeAPI.devtools.inspectedWindow.tabId;
-					}
-				}
-			},
 			webRequest: {
 				onBeforeSendHeaders: {
 					addListener: (listener, filters, extraInfoSpec) => nativeAPI.webRequest.onBeforeSendHeaders.addListener(listener, filters, extraInfoSpec),
