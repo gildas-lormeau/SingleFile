@@ -580,7 +580,7 @@
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionContentWidth": {
-		"message": "content width when formatting a page (em)",
+		"message": "格式化页面时的内容宽度（em）",
 		"description": "Options page label: 'content width when formatting a page (em)'"
 	},
 	"optionWarnUnsavedPage": {
