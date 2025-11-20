@@ -300,6 +300,7 @@ import { downloadPageForeground } from "../../core/common/download.js";
 			const contentDocument = (new DOMParser()).parseFromString(docContent, "text/html");
 			if (detectSavedPage(contentDocument)) {
 				await singlefile.helper.display(document, docContent, { disableFramePointerEvents: true });
+				singlefile.helper.fixInvalidNesting(document);
 				const infobarElement = document.querySelector(singlefile.helper.INFOBAR_TAGNAME);
 				if (infobarElement) {
 					infobarElement.remove();
@@ -361,6 +362,7 @@ import { downloadPageForeground } from "../../core/common/download.js";
 					element.style.setProperty(pointerEvents, "none", "important");
 				});
 				document.replaceChild(contentDocument.documentElement, document.documentElement);
+				singlefile.helper.fixInvalidNesting(document);
 				document.querySelectorAll("[data-single-file-note-refs]").forEach(noteRefElement => noteRefElement.dataset.singleFileNoteRefs = noteRefElement.dataset.singleFileNoteRefs.replace(/,/g, " "));
 				deserializeShadowRoots(document);
 				document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
@@ -1201,6 +1203,7 @@ import { downloadPageForeground } from "../../core/common/download.js";
 	function getContent(compressHTML) {
 		unhighlightCutElement();
 		serializeShadowRoots(document);
+		singlefile.helper.markInvalidNesting(document);
 		const doc = document.cloneNode(true);
 		disableHighlight(doc);
 		resetSelectedElements(doc);
@@ -2328,6 +2331,7 @@ pre code {
 			const NOTE_HEADER_HEIGHT = ${JSON.stringify(NOTE_HEADER_HEIGHT)};
 			const PAGE_MASK_ACTIVE_CLASS = ${JSON.stringify(PAGE_MASK_ACTIVE_CLASS)};
 			const REMOVED_CONTENT_CLASS = ${JSON.stringify(REMOVED_CONTENT_CLASS)};
+			const NESTING_TRACK_ID_ATTRIBUTE_NAME = ${JSON.stringify(singlefile.helper.NESTING_TRACK_ID_ATTRIBUTE_NAME)};
 			const reflowNotes = ${minifyText(reflowNotes.toString())};			
 			const addNoteRef = ${minifyText(addNoteRef.toString())};
 			const deleteNoteRef = ${minifyText(deleteNoteRef.toString())};
@@ -2354,6 +2358,20 @@ pre code {
 			if (document.documentElement.dataset && document.documentElement.dataset.sfz !== undefined) {
 				waitResourcesLoad().then(reflowNotes);
 			}
+			const trackIds = {};
+			document.querySelectorAll("[" + NESTING_TRACK_ID_ATTRIBUTE_NAME + "]").forEach(element => trackIds[element.getAttribute(NESTING_TRACK_ID_ATTRIBUTE_NAME)] = element);
+			Object.keys(trackIds).forEach(id => {
+				const element = trackIds[id];
+				const idParts = id.split(".");
+				if (idParts.length > 1) {
+					const parentId = idParts.slice(0, -1).join(".");
+					const expectedParent = trackIds[parentId];
+					if (expectedParent && element.parentElement !== expectedParent) {
+						expectedParent.appendChild(element);
+					}
+				}
+			});
+			document.querySelectorAll("[" + NESTING_TRACK_ID_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(NESTING_TRACK_ID_ATTRIBUTE_NAME));
 		})()`);
 	}
 
