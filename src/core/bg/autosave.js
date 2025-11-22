@@ -159,11 +159,11 @@ async function saveContent(message, tab) {
 				if (options.passReferrerOnError) {
 					enableReferrerOnError();
 				}
-				options.tabId = tabId;
-				pageData = await getPageData(options, { fetch }, null, null);
-				let skipped;
-				if (!options.saveToGDrive && !options.saveWithWebDAV && !options.saveToGitHub && !options.saveToDropbox && !options.saveWithCompanion && !options.saveToRestFormApi && !options.saveToS3) {
-					const testSkip = await downloads.testSkipSave(pageData.filename, options);
+			options.tabId = tabId;
+			pageData = await getPageData(options, { fetch }, null, null);
+			let skipped;
+			if (!options.saveToGDrive && !options.saveWithWebDAV && !options.saveWithMCP && !options.saveToGitHub && !options.saveToDropbox && !options.saveWithCompanion && !options.saveToRestFormApi && !options.saveToS3) {
+				const testSkip = await downloads.testSkipSave(pageData.filename, options);
 					skipped = testSkip.skipped;
 					options.filenameConflictAction = testSkip.filenameConflictAction;
 				}
@@ -190,6 +190,10 @@ async function saveContent(message, tab) {
 						});
 					} else if (options.saveWithWebDAV) {
 						await downloads.saveWithWebDAV(message.taskId, downloads.encodeSharpCharacter(pageData.filename), content, options.webDAVURL, options.webDAVUser, options.webDAVPassword, {
+							filenameConflictAction: options.filenameConflictAction
+						});
+					} else if (options.saveWithMCP) {
+						await downloads.saveWithMCP(message.taskId, downloads.encodeSharpCharacter(pageData.filename), content, options.mcpServerUrl, options.mcpAuthToken, {
 							filenameConflictAction: options.filenameConflictAction
 						});
 					} else if (options.saveToGitHub) {

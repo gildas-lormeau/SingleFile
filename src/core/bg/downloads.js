@@ -36,6 +36,7 @@ import { Dropbox } from "./../../lib/dropbox/dropbox.js";
 import { WebDAV } from "./../../lib/webdav/webdav.js";
 import { GitHub } from "./../../lib/github/github.js";
 import { S3 } from "./../../lib/s3/s3.js";
+import { MCP } from "./../../lib/mcp/mcp.js";
 import { download } from "./download-util.js";
 import * as yabson from "./../../lib/yabson/yabson.js";
 import { RestFormApi } from "../../lib/../lib/rest-form-api/index.js";
@@ -69,6 +70,7 @@ export {
 	saveWithWebDAV,
 	saveToRestFormApi,
 	saveToS3,
+	saveWithMCP,
 	encodeSharpCharacter
 };
 
@@ -193,6 +195,8 @@ async function downloadContent(contents, tab, incognito, message) {
 				saveToClipboard(message);
 			} else if (message.saveWithWebDAV) {
 				response = await saveWithWebDAV(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.webDAVURL, message.webDAVUser, message.webDAVPassword, { filenameConflictAction: message.filenameConflictAction, prompt });
+			} else if (message.saveWithMCP) {
+				response = await saveWithMCP(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.mcpServerUrl, message.mcpAuthToken, { filenameConflictAction: message.filenameConflictAction, prompt });
 			} else if (message.saveToGDrive) {
 				await saveToGDrive(message.taskId, encodeSharpCharacter(message.filename), new Blob(contents, { type: message.mimeType }), {
 					forceWebAuthFlow: message.forceWebAuthFlow
@@ -284,7 +288,7 @@ async function downloadCompressedContent(message, tab) {
 	const tabId = tab.id;
 	try {
 		let skipped;
-		if (message.backgroundSave && !message.saveToGDrive && !message.saveToDropbox && !message.saveWithWebDAV && !message.saveToGitHub && !message.saveToRestFormApi && !message.sharePage) {
+		if (message.backgroundSave && !message.saveToGDrive && !message.saveToDropbox && !message.saveWithWebDAV && !message.saveWithMCP && !message.saveToGitHub && !message.saveToRestFormApi && !message.sharePage) {
 			const testSkip = await testSkipSave(message.filename, message);
 			message.filenameConflictAction = testSkip.filenameConflictAction;
 			skipped = testSkip.skipped;
@@ -333,6 +337,8 @@ async function downloadCompressedContent(message, tab) {
 				}
 			} else if (message.saveWithWebDAV) {
 				response = await saveWithWebDAV(message.taskId, encodeSharpCharacter(message.filename), blob, message.webDAVURL, message.webDAVUser, message.webDAVPassword, { filenameConflictAction: message.filenameConflictAction, prompt });
+			} else if (message.saveWithMCP) {
+				response = await saveWithMCP(message.taskId, encodeSharpCharacter(message.filename), blob, message.mcpServerUrl, message.mcpAuthToken, { filenameConflictAction: message.filenameConflictAction, prompt });
 			} else if (message.saveToGDrive) {
 				await saveToGDrive(message.taskId, encodeSharpCharacter(message.filename), blob, {
 					forceWebAuthFlow: message.forceWebAuthFlow
@@ -493,6 +499,19 @@ async function saveWithWebDAV(taskId, filename, content, url, username, password
 		}
 	} catch (error) {
 		throw new Error(error.message + " (WebDAV)");
+	}
+}
+
+async function saveWithMCP(taskId, filename, content, serverUrl, authToken, { filenameConflictAction, prompt }) {
+	try {
+		const taskInfo = business.getTaskInfo(taskId);
+		if (!taskInfo || !taskInfo.cancelled) {
+			const client = new MCP(serverUrl, authToken);
+			business.setCancelCallback(taskId, () => client.abort());
+			return await client.upload(filename, content, { filenameConflictAction, prompt });
+		}
+	} catch (error) {
+		throw new Error(error.message + " (MCP)");
 	}
 }
 

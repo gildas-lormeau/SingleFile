@@ -723,6 +723,18 @@
 		"message": "şifrə",
 		"description": "Options page label: 'password'"
 	},
+	"optionSaveWithMCP": {
+		"message": "MCP serverinə yaddaşa qeyd edin",
+		"description": "Options page label: 'upload to an MCP server'"
+	},
+	"optionMCPServerUrl": {
+		"message": "server URL",
+		"description": "Options page label: 'server URL'"
+	},
+	"optionMCPAuthToken": {
+		"message": "avtorizasiya tokeni",
+		"description": "Options page label: 'authentication token'"
+	},
 	"optionSaveWithCompanion": {
 		"message": "SingleFile Companion ilə yaddaşa qeyd edin",
 		"description": "Options page label: 'save with SingleFile Companion'"

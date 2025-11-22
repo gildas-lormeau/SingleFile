@@ -723,6 +723,18 @@
 		"message": "password",
 		"description": "Options page label: 'password'"
 	},
+	"optionSaveWithMCP": {
+		"message": "carica su un server MCP",
+		"description": "Options page label: 'upload to an MCP server'"
+	},
+	"optionMCPServerUrl": {
+		"message": "URL del server",
+		"description": "Options page label: 'server URL'"
+	},
+	"optionMCPAuthToken": {
+		"message": "token di autenticazione",
+		"description": "Options page label: 'authentication token'"
+	},
 	"optionSaveWithCompanion": {
 		"message": "salva con SingleFile Companion",
 		"description": "Options page label: 'save with SingleFile Companion'"

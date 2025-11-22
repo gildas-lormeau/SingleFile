@@ -723,6 +723,18 @@
 		"message": "şifre",
 		"description": "Options page label: 'password'"
 	},
+	"optionSaveWithMCP": {
+		"message": "MCP sunucusuna yükle",
+		"description": "Options page label: 'upload to an MCP server'"
+	},
+	"optionMCPServerUrl": {
+		"message": "sunucu URL'si",
+		"description": "Options page label: 'server URL'"
+	},
+	"optionMCPAuthToken": {
+		"message": "kimlik doğrulama belirteci",
+		"description": "Options page label: 'authentication token'"
+	},
 	"optionSaveWithCompanion": {
 		"message": "SingleFile Companion ile kaydet",
 		"description": "Options page label: 'save with SingleFile Companion'"

@@ -89,6 +89,9 @@ const saveWithWebDAVLabel = document.getElementById("saveWithWebDAVLabel");
 const webDAVURLLabel = document.getElementById("webDAVURLLabel");
 const webDAVUserLabel = document.getElementById("webDAVUserLabel");
 const webDAVPasswordLabel = document.getElementById("webDAVPasswordLabel");
+const saveWithMCPLabel = document.getElementById("saveWithMCPLabel");
+const mcpServerUrlLabel = document.getElementById("mcpServerUrlLabel");
+const mcpAuthTokenLabel = document.getElementById("mcpAuthTokenLabel");
 const saveToGitHubLabel = document.getElementById("saveToGitHubLabel");
 const githubTokenLabel = document.getElementById("githubTokenLabel");
 const githubUserLabel = document.getElementById("githubUserLabel");
@@ -239,6 +242,9 @@ const saveWithWebDAVInput = document.getElementById("saveWithWebDAVInput");
 const webDAVURLInput = document.getElementById("webDAVURLInput");
 const webDAVUserInput = document.getElementById("webDAVUserInput");
 const webDAVPasswordInput = document.getElementById("webDAVPasswordInput");
+const saveWithMCPInput = document.getElementById("saveWithMCPInput");
+const mcpServerUrlInput = document.getElementById("mcpServerUrlInput");
+const mcpAuthTokenInput = document.getElementById("mcpAuthTokenInput");
 const saveToGitHubInput = document.getElementById("saveToGitHubInput");
 const saveToS3Input = document.getElementById("saveToS3Input");
 const githubTokenInput = document.getElementById("githubTokenInput");
@@ -580,6 +586,7 @@ saveWithCompanionInput.addEventListener("click", () => disableDestinationPermiss
 saveToGDriveInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"], false), false);
 saveToDropboxInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"], true, false), false);
 saveWithWebDAVInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"]), false);
+saveWithMCPInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"]), false);
 saveToRestFormApiInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"]), false);
 sharePageInput.addEventListener("click", () => disableDestinationPermissions(["clipboardWrite", "nativeMessaging"]), false);
 saveCreatedBookmarksInput.addEventListener("click", saveCreatedBookmarks, false);
@@ -689,6 +696,9 @@ saveWithWebDAVLabel.textContent = browser.i18n.getMessage("optionSaveWithWebDAV"
 webDAVURLLabel.textContent = browser.i18n.getMessage("optionWebDAVURL");
 webDAVUserLabel.textContent = browser.i18n.getMessage("optionWebDAVUser");
 webDAVPasswordLabel.textContent = browser.i18n.getMessage("optionWebDAVPassword");
+saveWithMCPLabel.textContent = browser.i18n.getMessage("optionSaveWithMCP");
+mcpServerUrlLabel.textContent = browser.i18n.getMessage("optionMCPServerUrl");
+mcpAuthTokenLabel.textContent = browser.i18n.getMessage("optionMCPAuthToken");
 saveToGitHubLabel.textContent = browser.i18n.getMessage("optionSaveToGitHub");
 githubTokenLabel.textContent = browser.i18n.getMessage("optionGitHubToken");
 githubUserLabel.textContent = browser.i18n.getMessage("optionGitHubUser");
@@ -1011,6 +1021,11 @@ async function refresh(profileName) {
 	webDAVUserInput.disabled = !profileOptions.saveWithWebDAV;
 	webDAVPasswordInput.value = profileOptions.webDAVPassword;
 	webDAVPasswordInput.disabled = !profileOptions.saveWithWebDAV;
+	saveWithMCPInput.checked = profileOptions.saveWithMCP;
+	mcpServerUrlInput.value = profileOptions.mcpServerUrl;
+	mcpServerUrlInput.disabled = !profileOptions.saveWithMCP;
+	mcpAuthTokenInput.value = profileOptions.mcpAuthToken;
+	mcpAuthTokenInput.disabled = !profileOptions.saveWithMCP;
 	saveToGitHubInput.checked = profileOptions.saveToGitHub;
 	githubTokenInput.value = profileOptions.githubToken;
 	githubTokenInput.disabled = !profileOptions.saveToGitHub;
@@ -1042,7 +1057,7 @@ async function refresh(profileName) {
 	S3SecretKeyInput.value = profileOptions.S3SecretKey;
 	S3SecretKeyInput.disabled = !profileOptions.saveToS3;
 	sharePageInput.checked = profileOptions.sharePage;
-	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveToS3 && !profileOptions.saveWithCompanion && !profileOptions.saveToClipboard && !profileOptions.saveWithWebDAV && !profileOptions.saveToDropbox && !profileOptions.saveToRestFormApi && !profileOptions.sharePage;
+	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveToS3 && !profileOptions.saveWithCompanion && !profileOptions.saveToClipboard && !profileOptions.saveWithWebDAV && !profileOptions.saveWithMCP && !profileOptions.saveToDropbox && !profileOptions.saveToRestFormApi && !profileOptions.sharePage;
 	compressHTMLInput.checked = profileOptions.compressHTML;
 	compressCSSInput.checked = profileOptions.compressCSS;
 	groupDuplicateStylesheetsInput.checked = profileOptions.groupDuplicateStylesheets;
@@ -1179,6 +1194,9 @@ async function update() {
 			webDAVURL: webDAVURLInput.value,
 			webDAVUser: webDAVUserInput.value,
 			webDAVPassword: webDAVPasswordInput.value,
+			saveWithMCP: saveWithMCPInput.checked,
+			mcpServerUrl: mcpServerUrlInput.value,
+			mcpAuthToken: mcpAuthTokenInput.value,
 			saveToGitHub: saveToGitHubInput.checked,
 			githubToken: githubTokenInput.value,
 			githubUser: githubUserInput.value,

@@ -515,6 +515,25 @@
 					<li data-options-label="webDAVPasswordLabel"> <span class="option">Option: password</span>
 						<p>Enter your password.</p>
 					</li>
+					<li data-options-label="saveWithMCPLabel"> <span class="option">Option: save with MCP server</span>
+						<p>Check this option to save the page via a Model Context Protocol (MCP) server.</p>
+						<p>MCP is an open protocol that standardizes how applications provide context to AI models.
+							When enabled, SingleFile will send saved pages to an MCP server that implements the
+							filesystem tools (write_file, get_file_info).</p>
+						<p class="notice">It is recommended to <u>uncheck</u> this option unless you have an MCP server
+							running</p>
+					</li>
+					<li data-options-label="mcpServerUrlLabel"> <span class="option">Option: server URL</span>
+						<p>Enter the URL of your MCP server (e.g. <code>http://localhost:3000/mcp</code>).</p>
+						<p>The server must implement the HTTP transport as specified in the MCP protocol and provide
+							the <code>write_file</code> and <code>get_file_info</code> tools.</p>
+					</li>
+					<li data-options-label="mcpAuthTokenLabel"> <span class="option">Option: authentication token</span>
+						<p>Enter the Bearer authentication token for your MCP server (optional).</p>
+						<p>If your MCP server requires authentication, the token will be sent in the
+							<code>Authorization: Bearer &lt;token&gt;</code> header with each request.
+						</p>
+					</li>
 					<li data-options-label="saveToGDriveLabel" id="saveToGDriveOption"> <span class="option">Option:
 							upload to Google Drive</span>
 						<p>Check this option to save the page on Google Drive.</p>
@@ -958,7 +977,8 @@
 					<li><code>{url-href}</code>: the URL of the page (e.g. "http://example.com/category/index.html")
 					</li>
 					<li><code>{url-href-digest-sha-1}</code>: the SHA-1 hash value of the URL of the page (e.g.
-						4b826844d9f5c128533e4ff14d746334f3ac9e00) <strong>(note: only supported in filename, not infobar)</strong></li>
+						4b826844d9f5c128533e4ff14d746334f3ac9e00) <strong>(note: only supported in filename, not
+							infobar)</strong></li>
 					<li><code>{url-href-flat}</code>: the URL of the page with replaced slashes (e.g.
 						"http__example.com_category_index.html")</li>
 					<li><code>{url-pathname}</code>: the path name of the URL (e.g. "category/index.html")</li>
@@ -994,9 +1014,12 @@
 					<li><code>{tab-id}</code>: the unique identifier of the tab (e.g. "326")</li>
 					<li><code>{tab-index}</code>: the index of the tab in the window (e.g. "1")</li>
 					<li><code>{digest-sha-256}</code>: the SHA-256 hash value of the entire page content (e.g.
-						e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855) <strong>(note: only supported in filename, not infobar)</strong></li>
-					<li><code>{digest-sha-384}</code>: the SHA-384 hash value of the entire page content <strong>(note: only supported in filename, not infobar)</strong></li>
-					<li><code>{digest-sha-512}</code>: the SHA-512 hash value of the entire page content <strong>(note: only supported in filename, not infobar)</strong></li>
+						e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855) <strong>(note: only supported
+							in filename, not infobar)</strong></li>
+					<li><code>{digest-sha-384}</code>: the SHA-384 hash value of the entire page content <strong>(note:
+							only supported in filename, not infobar)</strong></li>
+					<li><code>{digest-sha-512}</code>: the SHA-512 hash value of the entire page content <strong>(note:
+							only supported in filename, not infobar)</strong></li>
 					<li><code>{profile-name}</code>: the name of the profile used to save the page</li>
 					<li><code>{filename-extension}</code>: the extension of the filename depending on the file format
 						(i.e. "html", "u.zip.html", "zip.html", "zip")</li>

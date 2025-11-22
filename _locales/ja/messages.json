@@ -723,6 +723,18 @@
 		"message": "パスワード",
 		"description": "Options page label: 'password'"
 	},
+	"optionSaveWithMCP": {
+		"message": "MCPサーバーにアップロードする",
+		"description": "Options page label: 'upload to an MCP server'"
+	},
+	"optionMCPServerUrl": {
+		"message": "サーバーURL",
+		"description": "Options page label: 'server URL'"
+	},
+	"optionMCPAuthToken": {
+		"message": "認証トークン",
+		"description": "Options page label: 'authentication token'"
+	},
 	"optionSaveWithCompanion": {
 		"message": "SingleFile Companionで保存する",
 		"description": "Options page label: 'save with SingleFile Companion'"
