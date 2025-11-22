@@ -1,0 +1,21 @@
+{
+  "name": "singlefile-mcp-server",
+  "version": "1.0.0",
+  "description": "Simple MCP Filesystem Server for SingleFile",
+  "author": "Gildas Lormeau",
+  "license": "MIT",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "./start.sh"
+  },
+  "keywords": [
+    "mcp"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.22.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "zod": "^3.25.0"
+  }
+}
