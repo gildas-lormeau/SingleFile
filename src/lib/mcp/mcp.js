@@ -46,59 +46,6 @@ class MCP {
         this.requestId = 0;
     }
 
-    async upload(path, content, options) {
-        this.controller = new AbortController();
-        options.signal = this.controller.signal;
-        options.serverUrl = this.serverUrl;
-        options.authToken = this.authToken;
-        options.getRequestId = () => ++this.requestId;
-        let textContent;
-        if (content instanceof Blob) {
-            textContent = await content.text();
-        } else {
-            textContent = content;
-        }
-
-        return upload(path, textContent, options);
-    }
-
-    abort() {
-        if (this.controller) {
-            this.controller.abort();
-        }
-    }
-}
-
-async function upload(path, content, options) {
-    const { filenameConflictAction, prompt, signal, serverUrl, authToken, getRequestId } = options;
-
-    try {
-        const existsResponse = await checkFileExists(serverUrl, authToken, path, signal, getRequestId);
-
-        if (existsResponse.exists) {
-            if (filenameConflictAction == CONFLICT_ACTION_SKIP) {
-                return { url: path, skipped: true };
-            } else if (filenameConflictAction == CONFLICT_ACTION_OVERWRITE) {
-                // Continue to write
-            } else if (filenameConflictAction == CONFLICT_ACTION_UNIQUIFY) {
-                const { filenameWithoutExtension, extension, indexFilename } = splitFilename(path);
-                options.indexFilename = indexFilename + 1;
-                path = getFilename(filenameWithoutExtension, extension, options.indexFilename);
-                return await upload(path, content, options);
-            } else if (filenameConflictAction == CONFLICT_ACTION_PROMPT) {
-                if (prompt) {
-                    path = await prompt(path);
-                    if (path) {
-                        return await upload(path, content, options);
-                    } else {
-                        return { url: path, skipped: true };
-                    }
-                } else {
-                    options.filenameConflictAction = CONFLICT_ACTION_UNIQUIFY;
-                    return await upload(path, content, options);
-                }
-            }
-        }
 
         const writeResponse = await writeFile(serverUrl, authToken, path, content, signal, getRequestId);
 
