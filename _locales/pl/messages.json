@@ -724,15 +724,15 @@
 		"description": "Options page label: 'password'"
 	},
 	"optionSaveWithMCP": {
-		"message": "upload to an MCP server",
+		"message": "przesyłaj na serwer MCP",
 		"description": "Options page label: 'upload to an MCP server'"
 	},
 	"optionMCPServerUrl": {
-		"message": "server URL",
+		"message": "adres URL serwera",
 		"description": "Options page label: 'server URL'"
 	},
 	"optionMCPAuthToken": {
-		"message": "authentication token",
+		"message": "token uwierzytelniający",
 		"description": "Options page label: 'authentication token'"
 	},
 	"optionSaveWithCompanion": {
