@@ -11,6 +11,50 @@
 		"message": "Spara alla flikar",
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
+	"commandCustomShortcut": {
+		"message": "Anpassad genväg",
+		"description": "Command label: 'Custom shortcut'"
+	},
+	"commandCustomShortcut0": {
+		"message": "Anpassad genväg #1",
+		"description": "Command label: 'Custom shortcut #1'"
+	},
+	"commandCustomShortcut1": {
+		"message": "Anpassad genväg #2",
+		"description": "Command label: 'Custom shortcut #2'"
+	},
+	"commandCustomShortcut2": {
+		"message": "Anpassad genväg #3",
+		"description": "Command label: 'Custom shortcut #3'"
+	},
+	"commandCustomShortcut3": {
+		"message": "Anpassad genväg #4",
+		"description": "Command label: 'Custom shortcut #4'"
+	},
+	"commandCustomShortcut4": {
+		"message": "Anpassad genväg #5",
+		"description": "Command label: 'Custom shortcut #5'"
+	},
+	"commandCustomShortcut5": {
+		"message": "Anpassad genväg #6",
+		"description": "Command label: 'Custom shortcut #6'"
+	},
+	"commandCustomShortcut6": {
+		"message": "Anpassad genväg #7",
+		"description": "Command label: 'Custom shortcut #7'"
+	},
+	"commandCustomShortcut7": {
+		"message": "Anpassad genväg #8",
+		"description": "Command label: 'Custom shortcut #8'"
+	},
+	"commandCustomShortcut8": {
+		"message": "Anpassad genväg #9",
+		"description": "Command label: 'Custom shortcut #9'"
+	},
+	"commandCustomShortcut9": {
+		"message": "Anpassad genväg #10",
+		"description": "Command label: 'Custom shortcut #10'"
+	},
 	"menuSavePage": {
 		"message": "Spara sidan med SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -190,6 +234,14 @@
 	"optionAutoClose": {
 		"message": "stäng fliken automatiskt efter att sidan har sparats",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
+	},
+	"optionCustomShortcut": {
+		"message": "tangentbordsgenväg kommando",
+		"description": "Options page label: 'keyboard shortcut command'"
+	},
+	"optionCustomShortcutDefault": {
+		"message": "standardgenväg",
+		"description": "Options page label: 'default shortcut'"
 	},
 	"optionsFileNameSubTitle": {
 		"message": "Filnamn",

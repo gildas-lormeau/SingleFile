@@ -11,6 +11,50 @@
 		"message": "Sla alle tabbladen op",
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
+	"commandCustomShortcut": {
+		"message": "Aangepaste snelkoppeling",
+		"description": "Command label: 'Custom shortcut'"
+	},
+	"commandCustomShortcut0": {
+		"message": "Aangepaste snelkoppeling #1",
+		"description": "Command label: 'Custom shortcut #1'"
+	},
+	"commandCustomShortcut1": {
+		"message": "Aangepaste snelkoppeling #2",
+		"description": "Command label: 'Custom shortcut #2'"
+	},
+	"commandCustomShortcut2": {
+		"message": "Aangepaste snelkoppeling #3",
+		"description": "Command label: 'Custom shortcut #3'"
+	},
+	"commandCustomShortcut3": {
+		"message": "Aangepaste snelkoppeling #4",
+		"description": "Command label: 'Custom shortcut #4'"
+	},
+	"commandCustomShortcut4": {
+		"message": "Aangepaste snelkoppeling #5",
+		"description": "Command label: 'Custom shortcut #5'"
+	},
+	"commandCustomShortcut5": {
+		"message": "Aangepaste snelkoppeling #6",
+		"description": "Command label: 'Custom shortcut #6'"
+	},
+	"commandCustomShortcut6": {
+		"message": "Aangepaste snelkoppeling #7",
+		"description": "Command label: 'Custom shortcut #7'"
+	},
+	"commandCustomShortcut7": {
+		"message": "Aangepaste snelkoppeling #8",
+		"description": "Command label: 'Custom shortcut #8'"
+	},
+	"commandCustomShortcut8": {
+		"message": "Aangepaste snelkoppeling #9",
+		"description": "Command label: 'Custom shortcut #9'"
+	},
+	"commandCustomShortcut9": {
+		"message": "Aangepaste snelkoppeling #10",
+		"description": "Command label: 'Custom shortcut #10'"
+	},
 	"menuSavePage": {
 		"message": "Sla pagina op met SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -190,6 +234,14 @@
 	"optionAutoClose": {
 		"message": "sluit het tabblad automatisch na het opslaan van de pagina",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
+	},
+	"optionCustomShortcut": {
+		"message": "toetsenbord snelkoppeling opdracht",
+		"description": "Options page label: 'keyboard shortcut command'"
+	},
+	"optionCustomShortcutDefault": {
+		"message": "standaard snelkoppeling",
+		"description": "Options page label: 'default shortcut'"
 	},
 	"optionsFileNameSubTitle": {
 		"message": "Bestandsnaam",

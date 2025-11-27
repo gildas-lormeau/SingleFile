@@ -11,6 +11,50 @@
 		"message": "Guardar todas las pestañas",
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
+	"commandCustomShortcut": {
+		"message": "Atajo personalizado",
+		"description": "Command label: 'Custom shortcut'"
+	},
+	"commandCustomShortcut0": {
+		"message": "Atajo personalizado #1",
+		"description": "Command label: 'Custom shortcut #1'"
+	},
+	"commandCustomShortcut1": {
+		"message": "Atajo personalizado #2",
+		"description": "Command label: 'Custom shortcut #2'"
+	},
+	"commandCustomShortcut2": {
+		"message": "Atajo personalizado #3",
+		"description": "Command label: 'Custom shortcut #3'"
+	},
+	"commandCustomShortcut3": {
+		"message": "Atajo personalizado #4",
+		"description": "Command label: 'Custom shortcut #4'"
+	},
+	"commandCustomShortcut4": {
+		"message": "Atajo personalizado #5",
+		"description": "Command label: 'Custom shortcut #5'"
+	},
+	"commandCustomShortcut5": {
+		"message": "Atajo personalizado #6",
+		"description": "Command label: 'Custom shortcut #6'"
+	},
+	"commandCustomShortcut6": {
+		"message": "Atajo personalizado #7",
+		"description": "Command label: 'Custom shortcut #7'"
+	},
+	"commandCustomShortcut7": {
+		"message": "Atajo personalizado #8",
+		"description": "Command label: 'Custom shortcut #8'"
+	},
+	"commandCustomShortcut8": {
+		"message": "Atajo personalizado #9",
+		"description": "Command label: 'Custom shortcut #9'"
+	},
+	"commandCustomShortcut9": {
+		"message": "Atajo personalizado #10",
+		"description": "Command label: 'Custom shortcut #10'"
+	},
 	"menuSavePage": {
 		"message": "Guardar página con SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -190,6 +234,14 @@
 	"optionAutoClose": {
 		"message": "cerrar automáticamente la pestaña después de guardar la página",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
+	},
+	"optionCustomShortcut": {
+		"message": "comando de atajo de teclado",
+		"description": "Options page label: 'keyboard shortcut command'"
+	},
+	"optionCustomShortcutDefault": {
+		"message": "atajo predeterminado",
+		"description": "Options page label: 'default shortcut'"
 	},
 	"optionsFileNameSubTitle": {
 		"message": "Nombre del archivo",

@@ -11,6 +11,50 @@
 		"message": "Speichern aller Tabs",
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
+	"commandCustomShortcut": {
+		"message": "Benutzerdefinierte Tastenkombination",
+		"description": "Command label: 'Custom shortcut'"
+	},
+	"commandCustomShortcut0": {
+		"message": "Benutzerdefinierte Tastenkombination #1",
+		"description": "Command label: 'Custom shortcut #1'"
+	},
+	"commandCustomShortcut1": {
+		"message": "Benutzerdefinierte Tastenkombination #2",
+		"description": "Command label: 'Custom shortcut #2'"
+	},
+	"commandCustomShortcut2": {
+		"message": "Benutzerdefinierte Tastenkombination #3",
+		"description": "Command label: 'Custom shortcut #3'"
+	},
+	"commandCustomShortcut3": {
+		"message": "Benutzerdefinierte Tastenkombination #4",
+		"description": "Command label: 'Custom shortcut #4'"
+	},
+	"commandCustomShortcut4": {
+		"message": "Benutzerdefinierte Tastenkombination #5",
+		"description": "Command label: 'Custom shortcut #5'"
+	},
+	"commandCustomShortcut5": {
+		"message": "Benutzerdefinierte Tastenkombination #6",
+		"description": "Command label: 'Custom shortcut #6'"
+	},
+	"commandCustomShortcut6": {
+		"message": "Benutzerdefinierte Tastenkombination #7",
+		"description": "Command label: 'Custom shortcut #7'"
+	},
+	"commandCustomShortcut7": {
+		"message": "Benutzerdefinierte Tastenkombination #8",
+		"description": "Command label: 'Custom shortcut #8'"
+	},
+	"commandCustomShortcut8": {
+		"message": "Benutzerdefinierte Tastenkombination #9",
+		"description": "Command label: 'Custom shortcut #9'"
+	},
+	"commandCustomShortcut9": {
+		"message": "Benutzerdefinierte Tastenkombination #10",
+		"description": "Command label: 'Custom shortcut #10'"
+	},
 	"menuSavePage": {
 		"message": "Speichern der Webseite mit SingleFile",
 		"description": "Menu entry: 'Save page with SingleFile'"
@@ -190,6 +234,14 @@
 	"optionAutoClose": {
 		"message": "Automatisches Schließen des Tabs nach dem Speichern der Seite",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
+	},
+	"optionCustomShortcut": {
+		"message": "Tastenkombination Befehl",
+		"description": "Options page label: 'keyboard shortcut command'"
+	},
+	"optionCustomShortcutDefault": {
+		"message": "Standard-Tastenkombination",
+		"description": "Options page label: 'default shortcut'"
 	},
 	"optionsFileNameSubTitle": {
 		"message": "Dateiname",

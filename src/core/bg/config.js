@@ -197,7 +197,8 @@ const DEFAULT_CONFIG = {
 	infobarPositionRight: "16px",
 	infobarPositionBottom: "",
 	infobarPositionLeft: "",
-	removeNoScriptTags: true
+	removeNoScriptTags: true,
+	customShortcut: null
 };
 
 const DEFAULT_RULES = [{
@@ -472,6 +473,7 @@ async function createProfile(profileName, fromProfileName) {
 	}
 	const profileFrom = await getProfile(fromProfileName);
 	const profile = JSON.parse(JSON.stringify(profileFrom));
+	profile.customShortcut = null;
 	await setProfile(profileName, profile);
 }
 

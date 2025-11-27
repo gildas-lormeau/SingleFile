@@ -206,6 +206,18 @@ const removeInfobarSavedDateLabel = document.getElementById("removeInfobarSavedD
 const miscLabel = document.getElementById("miscLabel");
 const helpLabel = document.getElementById("helpLabel");
 const synchronizeLabel = document.getElementById("synchronizeLabel");
+const customShortcutLabel = document.getElementById("customShortcutLabel");
+const customShortcutDefaultLabel = document.getElementById("customShortcutDefaultLabel");
+const customShortcut1Label = document.getElementById("customShortcut0Label");
+const customShortcut2Label = document.getElementById("customShortcut1Label");
+const customShortcut3Label = document.getElementById("customShortcut2Label");
+const customShortcut4Label = document.getElementById("customShortcut3Label");
+const customShortcut5Label = document.getElementById("customShortcut4Label");
+const customShortcut6Label = document.getElementById("customShortcut5Label");
+const customShortcut7Label = document.getElementById("customShortcut6Label");
+const customShortcut8Label = document.getElementById("customShortcut7Label");
+const customShortcut9Label = document.getElementById("customShortcut8Label");
+const customShortcut10Label = document.getElementById("customShortcut9Label");
 const addProfileButton = document.getElementById("addProfileButton");
 const deleteProfileButton = document.getElementById("deleteProfileButton");
 const renameProfileButton = document.getElementById("renameProfileButton");
@@ -214,6 +226,7 @@ const exportButton = document.getElementById("exportButton");
 const importButton = document.getElementById("importButton");
 const fileInput = document.getElementById("fileInput");
 const profileNamesInput = document.getElementById("profileNamesInput");
+const customShortcutInput = document.getElementById("customShortcutInput");
 const removeHiddenElementsInput = document.getElementById("removeHiddenElementsInput");
 const removeUnusedStylesInput = document.getElementById("removeUnusedStylesInput");
 const removeUnusedFontsInput = document.getElementById("removeUnusedFontsInput");
@@ -827,6 +840,18 @@ showAllProfilesLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsS
 showAutoSaveProfileLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsShowAutoSaveProfile");
 ruleUrlInput.placeholder = ruleEditUrlInput.placeholder = browser.i18n.getMessage("optionsAutoSettingsUrlPlaceholder");
 synchronizeLabel.textContent = browser.i18n.getMessage("optionSynchronize");
+customShortcutLabel.textContent = browser.i18n.getMessage("optionCustomShortcut");
+customShortcutDefaultLabel.textContent = browser.i18n.getMessage("optionCustomShortcutDefault");
+customShortcut1Label.textContent = browser.i18n.getMessage("commandCustomShortcut0");
+customShortcut2Label.textContent = browser.i18n.getMessage("commandCustomShortcut1");
+customShortcut3Label.textContent = browser.i18n.getMessage("commandCustomShortcut2");
+customShortcut4Label.textContent = browser.i18n.getMessage("commandCustomShortcut3");
+customShortcut5Label.textContent = browser.i18n.getMessage("commandCustomShortcut4");
+customShortcut6Label.textContent = browser.i18n.getMessage("commandCustomShortcut5");
+customShortcut7Label.textContent = browser.i18n.getMessage("commandCustomShortcut6");
+customShortcut8Label.textContent = browser.i18n.getMessage("commandCustomShortcut7");
+customShortcut9Label.textContent = browser.i18n.getMessage("commandCustomShortcut8");
+customShortcut10Label.textContent = browser.i18n.getMessage("commandCustomShortcut9");
 resetAllButton.textContent = browser.i18n.getMessage("optionsResetAllButton");
 resetCurrentButton.textContent = browser.i18n.getMessage("optionsResetCurrentButton");
 resetCancelButton.textContent = promptCancelButton.textContent = cancelButton.textContent = browser.i18n.getMessage("optionsCancelButton");
@@ -1106,6 +1131,7 @@ async function refresh(profileName) {
 	removeAlternativeFontsInput.checked = profileOptions.removeAlternativeFonts;
 	removeAlternativeImagesInput.checked = profileOptions.removeAlternativeImages;
 	groupDuplicateImagesInput.checked = profileOptions.groupDuplicateImages;
+	customShortcutInput.value = profileOptions.customShortcut || "";
 	removeAlternativeMediasInput.checked = profileOptions.removeAlternativeMedias;
 	saveCreatedBookmarksInput.checked = profileOptions.saveCreatedBookmarks;
 	passReferrerOnErrorInput.checked = profileOptions.passReferrerOnError;
@@ -1160,9 +1186,30 @@ async function update() {
 	} catch (error) {
 		// ignored
 	}
+	const selectedProfileName = profileNamesInput.value;
+	const selectedCustomShortcut = customShortcutInput.value || null;
+	if (selectedCustomShortcut) {
+		try {
+			const config = await browser.runtime.sendMessage({ method: "config.get" });
+			const profiles = config.profiles || {};
+			await Promise.all(Object.keys(profiles).map(profileName => {
+				if (profileName != selectedProfileName && profiles[profileName].customShortcut == selectedCustomShortcut) {
+					return browser.runtime.sendMessage({
+						method: "config.updateProfile",
+						profileName,
+						profile: Object.assign({}, profiles[profileName], { customShortcut: null })
+					});
+				}
+				return Promise.resolve();
+			}));
+			// eslint-disable-next-line no-unused-vars
+		} catch (error) {
+			// ignored
+		}
+	}
 	pendingSave = browser.runtime.sendMessage({
 		method: "config.updateProfile",
-		profileName: profileNamesInput.value,
+		profileName: selectedProfileName,
 		profile: {
 			removeHiddenElements: removeHiddenElementsInput.checked,
 			removeUnusedStyles: removeUnusedStylesInput.checked,
@@ -1282,7 +1329,8 @@ async function update() {
 			S3Region: S3RegionInput.value,
 			S3Bucket: S3BucketInput.value,
 			S3AccessKey: S3AccessKeyInput.value,
-			S3SecretKey: S3SecretKeyInput.value
+			S3SecretKey: S3SecretKeyInput.value,
+			customShortcut: selectedCustomShortcut
 		}
 	});
 	try {

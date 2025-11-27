@@ -76,6 +76,36 @@
 				"default": "Ctrl+Shift+U"
 			},
 			"description": "__MSG_commandSaveAllTabs__"
+		},
+		"custom-command-0": {
+			"description": "__MSG_commandCustomShortcut0__"
+		},
+		"custom-command-1": {
+			"description": "__MSG_commandCustomShortcut1__"
+		},
+		"custom-command-2": {
+			"description": "__MSG_commandCustomShortcut2__"
+		},
+		"custom-command-3": {
+			"description": "__MSG_commandCustomShortcut3__"
+		},
+		"custom-command-4": {
+			"description": "__MSG_commandCustomShortcut4__"
+		},
+		"custom-command-5": {
+			"description": "__MSG_commandCustomShortcut5__"
+		},
+		"custom-command-6": {
+			"description": "__MSG_commandCustomShortcut6__"
+		},
+		"custom-command-7": {
+			"description": "__MSG_commandCustomShortcut7__"
+		},
+		"custom-command-8": {
+			"description": "__MSG_commandCustomShortcut8__"
+		},
+		"custom-command-9": {
+			"description": "__MSG_commandCustomShortcut9__"
 		}
 	},
 	"web_accessible_resources": [
