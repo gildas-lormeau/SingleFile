@@ -97,6 +97,10 @@
                     <li data-options-label="autoCloseLabel"><span class="option">选项：保存页面后自动关闭选项卡</span>
                         <p>选中此选项可在保存内部显示的页面后自动关闭选项卡。</p>
                     </li>
+                    <li data-options-label="customShortcutLabel">
+                        <span class="option">选项：键盘快捷命令</span>
+                        <p>使用此选项可以选择哪个自定义键盘快捷命令（在浏览器扩展的快捷键页面中定义）将触发当前配置文件。当在此处分配了快捷键后，使用该快捷键将按照此配置文件的设置保存页面。</p>
+                    </li>
                 </ul>
                 <p>文件名</p>
                 <ul>
@@ -346,6 +350,22 @@
                     </li>
                     <li data-options-label="webDAVPasswordLabel"><span class="option">选项：密码</span>
                         <p>请输入您的密码。</p>
+                    </li>
+                    <li data-options-label="saveWithMCPLabel"> <span class="option">选项：通过 MCP 服务器保存</span>
+                        <p>选中此选项可以通过 Model Context Protocol（MCP）服务器保存页面。</p>
+                        <p>MCP 是一种开放协议，用于规范应用如何向 AI 模型提供上下文信息。启用此选项后，SingleFile
+                            会将保存的页面发送到实现了文件系统工具（write_file、get_file_info）的 MCP 服务器。</p>
+                        <p class="notice">除非你已经有正在运行的 MCP 服务器，否则建议<u>取消选中</u>此选项</p>
+                    </li>
+                    <li data-options-label="mcpServerUrlLabel"> <span class="option">选项：服务器 URL</span>
+                        <p>输入 MCP 服务器的 URL（例如：<code>http://localhost:3000/mcp</code>）。</p>
+                        <p>服务器必须按照 MCP 协议中指定的方式实现 HTTP 传输，并提供 <code>write_file</code> 和 <code>get_file_info</code> 工具。
+                        </p>
+                    </li>
+                    <li data-options-label="mcpAuthTokenLabel"> <span class="option">选项：认证令牌</span>
+                        <p>输入 MCP 服务器的 Bearer 认证令牌（可选）。</p>
+                        <p>如果 MCP 服务器需要认证，SingleFile 会在每个请求中通过 <code>Authorization: Bearer &lt;token&gt;</code>
+                            请求头发送该令牌。</p>
                     </li>
                     <li data-options-label="saveToGDriveLabel" id="saveToGDriveOption"><span
                             class="option">选项：上传到谷歌云端硬盘</span>
@@ -702,7 +722,8 @@
                     <li><code>{tab-id}</code>: 标签的唯一标识符（例如 "326"）</li>
                     <li><code>{tab-index}</code>: 标签在窗口中的索引（例如 "1"）</li>
                     <li><code>{digest-sha-256}</code>: 整个页面内容的 SHA-256
-                        哈希值（例如e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855）<strong>注意：仅支持文件名，而不支持信息栏</strong></li>
+                        哈希值（例如e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855）<strong>注意：仅支持文件名，而不支持信息栏</strong>
+                    </li>
                     <li><code>{digest-sha-384}</code>: 整个页面内容的 SHA-384 哈希值<strong>注意：仅支持文件名，而不支持信息栏</strong></li>
                     <li><code>{digest-sha-512}</code>: 整个页面内容的 SHA-512 哈希值<strong>注意：仅支持文件名，而不支持信息栏</strong></li>
                     <li><code>{profile-name}</code>: 用于保存页面的配置文件名称</li>
