@@ -12,47 +12,47 @@
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
 	"commandCustomShortcut": {
-		"message": "Custom shortcut",
+		"message": "自定义快捷键",
 		"description": "Command label: 'Custom shortcut'"
 	},
 	"commandCustomShortcut0": {
-		"message": "Custom shortcut #1",
+		"message": "自定义快捷键 #1",
 		"description": "Command label: 'Custom shortcut #1'"
 	},
 	"commandCustomShortcut1": {
-		"message": "Custom shortcut #2",
+		"message": "自定义快捷键 #2",
 		"description": "Command label: 'Custom shortcut #2'"
 	},
 	"commandCustomShortcut2": {
-		"message": "Custom shortcut #3",
+		"message": "自定义快捷键 #3",
 		"description": "Command label: 'Custom shortcut #3'"
 	},
 	"commandCustomShortcut3": {
-		"message": "Custom shortcut #4",
+		"message": "自定义快捷键 #4",
 		"description": "Command label: 'Custom shortcut #4'"
 	},
 	"commandCustomShortcut4": {
-		"message": "Custom shortcut #5",
+		"message": "自定义快捷键 #5",
 		"description": "Command label: 'Custom shortcut #5'"
 	},
 	"commandCustomShortcut5": {
-		"message": "Custom shortcut #6",
+		"message": "自定义快捷键 #6",
 		"description": "Command label: 'Custom shortcut #6'"
 	},
 	"commandCustomShortcut6": {
-		"message": "Custom shortcut #7",
+		"message": "自定义快捷键 #7",
 		"description": "Command label: 'Custom shortcut #7'"
 	},
 	"commandCustomShortcut7": {
-		"message": "Custom shortcut #8",
+		"message": "自定义快捷键 #8",
 		"description": "Command label: 'Custom shortcut #8'"
 	},
 	"commandCustomShortcut8": {
-		"message": "Custom shortcut #9",
+		"message": "自定义快捷键 #9",
 		"description": "Command label: 'Custom shortcut #9'"
 	},
 	"commandCustomShortcut9": {
-		"message": "Custom shortcut #10",
+		"message": "自定义快捷键 #10",
 		"description": "Command label: 'Custom shortcut #10'"
 	},
 	"menuSavePage": {
@@ -236,11 +236,11 @@
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
 	"optionCustomShortcut": {
-		"message": "keyboard shortcut command",
+		"message": "自定义快捷键命令",
 		"description": "Options page label: 'keyboard shortcut command'"
 	},
 	"optionCustomShortcutDefault": {
-		"message": "default shortcut",
+		"message": "默认快捷键",
 		"description": "Options page label: 'default shortcut'"
 	},
 	"optionsFileNameSubTitle": {
