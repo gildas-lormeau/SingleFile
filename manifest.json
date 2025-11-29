@@ -24,6 +24,18 @@
 			],
 			"all_frames": true,
 			"match_about_blank": true
+		}, {
+			"matches": [
+				"<all_urls>"
+			],
+			"run_at": "document_start",
+			"js": [
+				"lib/single-file-hooks-frames.js"
+			],
+			"all_frames": true,
+			"match_about_blank": true,
+			"match_origin_as_fallback": true,
+			"world": "MAIN"
 		},
 		{
 			"matches": [
