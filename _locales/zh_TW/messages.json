@@ -632,7 +632,7 @@
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionContentWidth": {
-		"message": "content width when formatting a page (em)",
+		"message": "格式化頁面時的內容寬度（em）",
 		"description": "Options page label: 'content width when formatting a page (em)'"
 	},
 	"optionWarnUnsavedPage": {
@@ -776,15 +776,15 @@
 		"description": "Options page label: 'password'"
 	},
 	"optionSaveWithMCP": {
-		"message": "upload to an MCP server",
+		"message": "保存到 MCP 服務器",
 		"description": "Options page label: 'upload to an MCP server'"
 	},
 	"optionMCPServerUrl": {
-		"message": "server URL",
+		"message": "服務器 URL",
 		"description": "Options page label: 'server URL'"
 	},
 	"optionMCPAuthToken": {
-		"message": "authentication token",
+		"message": "身份驗證令牌",
 		"description": "Options page label: 'authentication token'"
 	},
 	"optionSaveWithCompanion": {
