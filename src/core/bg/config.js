@@ -53,6 +53,7 @@ const DEFAULT_FILENAME_REPLACEMENT_CHARACTERS = ["～", "＋", "？", "％", "�
 
 const DEFAULT_CONFIG = {
 	removeHiddenElements: true,
+	removedElementsSelector: "",
 	removeUnusedStyles: true,
 	removeUnusedFonts: true,
 	removeFrames: false,

@@ -315,6 +315,10 @@
 		"message": "gizli elementləri çıxarın",
 		"description": "Options page label: 'remove hidden elements'"
 	},
+	"optionRemovedElementsSelector": {
+		"message": "müəyyən elementləri çıxarın",
+		"description": "Options page label: 'remove specific elements'"
+	},
 	"optionsFileFormatSubTitle": {
 		"message": "Fayl formatı",
 		"description": "Options sub-title: 'File format'"

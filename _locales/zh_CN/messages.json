@@ -315,6 +315,10 @@
 		"message": "移除隐藏元素",
 		"description": "Options page label: 'remove hidden elements'"
 	},
+	"optionRemovedElementsSelector": {
+		"message": "移除特定元素",
+		"description": "Options page label: 'remove specific elements'"
+	},
 	"optionsFileFormatSubTitle": {
 		"message": "文件格式",
 		"description": "Options sub-title: 'File format'"

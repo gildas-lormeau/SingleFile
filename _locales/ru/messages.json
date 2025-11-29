@@ -315,6 +315,10 @@
 		"message": "удалить скрытые элементы",
 		"description": "Options page label: 'remove hidden elements'"
 	},
+	"optionRemovedElementsSelector": {
+		"message": "remove specific elements",
+		"description": "Options page label: 'remove specific elements'"
+	},
 	"optionsFileFormatSubTitle": {
 		"message": "Формат файла",
 		"description": "Options sub-title: 'File format'"

@@ -315,6 +315,10 @@
 		"message": "verwijder verborgen elementen",
 		"description": "Options page label: 'remove hidden elements'"
 	},
+	"optionRemovedElementsSelector": {
+		"message": "specifieke elementen verwijderen",
+		"description": "Options page label: 'remove specific elements'"
+	},
 	"optionsFileFormatSubTitle": {
 		"message": "Bestandsformaat",
 		"description": "Options sub-title: 'File format'"

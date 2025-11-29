@@ -315,6 +315,10 @@
 		"message": "隠された要素を削除する",
 		"description": "Options page label: 'remove hidden elements'"
 	},
+	"optionRemovedElementsSelector": {
+		"message": "特定の要素を削除する",
+		"description": "Options page label: 'remove specific elements'"
+	},
 	"optionsFileFormatSubTitle": {
 		"message": "ファイル形式",
 		"description": "Options sub-title: 'File format'"

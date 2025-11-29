@@ -315,6 +315,10 @@
 		"message": "ta bort dolda element",
 		"description": "Options page label: 'remove hidden elements'"
 	},
+	"optionRemovedElementsSelector": {
+		"message": "ta bort specifika element",
+		"description": "Options page label: 'remove specific elements'"
+	},
 	"optionsFileFormatSubTitle": {
 		"message": "Filformat",
 		"description": "Options sub-title: 'File format'"
