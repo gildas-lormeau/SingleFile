@@ -38,6 +38,10 @@ const SHARE_PAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelSharePageButt
 const SHARE_SELECTION_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelShareSelectionButton");
 const ERROR_TITLE_MESSAGE = browser.i18n.getMessage("topPanelError");
 
+const SINGLE_FILE_PREFIX = "single-file-";
+const WAIT_FOR_USERSCRIPT_PROPERTY_NAME = "_singleFile_waitForUserScript";
+const ON_INIT_CAPTURE_EVENT_NAME = SINGLE_FILE_PREFIX + "on-init-capture";
+
 let processor, processing, downloadParser, openFileInfobar, scrollY, transform, overflow;
 
 setLabels({
@@ -248,6 +252,10 @@ async function processPage(options) {
 			}
 		}
 	};
+	const waitForUserScript = globalThis[WAIT_FOR_USERSCRIPT_PROPERTY_NAME];
+	if (options.userScriptEnabled && waitForUserScript) {
+		await waitForUserScript(ON_INIT_CAPTURE_EVENT_NAME, options);
+	}
 	const cancelProcessor = processor.cancel.bind(processor);
 	if (options.insertEmbeddedImage && options.compressContent) {
 		ui.onInsertingEmbeddedImage(options);
