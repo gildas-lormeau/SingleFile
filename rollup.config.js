@@ -3,6 +3,11 @@ import terser from "@rollup/plugin-terser";
 
 const PLUGINS = [resolve({ moduleDirectories: ["node_modules"] })];
 const EXTERNAL = ["single-file-core"];
+const TERSER_HOOKS_OPTIONS = {
+	mangle: {
+		keep_fnames: true
+	}
+};
 
 export default [{
 	input: ["single-file-core/single-file.js"],
@@ -39,7 +44,7 @@ export default [{
 	output: [{
 		file: "lib/single-file-hooks-frames.js",
 		format: "iife",
-		plugins: [terser()]
+		plugins: [terser(TERSER_HOOKS_OPTIONS)]
 	}],
 	plugins: PLUGINS,
 	external: EXTERNAL
