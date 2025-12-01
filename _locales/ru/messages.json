@@ -12,47 +12,47 @@
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
 	"commandCustomShortcut": {
-		"message": "Custom shortcut",
+		"message": "Пользовательская горячая клавиша",
 		"description": "Command label: 'Custom shortcut'"
 	},
 	"commandCustomShortcut0": {
-		"message": "Custom shortcut #1",
+		"message": "Пользовательская горячая клавиша #1",
 		"description": "Command label: 'Custom shortcut #1'"
 	},
 	"commandCustomShortcut1": {
-		"message": "Custom shortcut #2",
+		"message": "Пользовательская горячая клавиша #2",
 		"description": "Command label: 'Custom shortcut #2'"
 	},
 	"commandCustomShortcut2": {
-		"message": "Custom shortcut #3",
+		"message": "Пользовательская горячая клавиша #3",
 		"description": "Command label: 'Custom shortcut #3'"
 	},
 	"commandCustomShortcut3": {
-		"message": "Custom shortcut #4",
+		"message": "Пользовательская горячая клавиша #4",
 		"description": "Command label: 'Custom shortcut #4'"
 	},
 	"commandCustomShortcut4": {
-		"message": "Custom shortcut #5",
+		"message": "Пользовательская горячая клавиша #5",
 		"description": "Command label: 'Custom shortcut #5'"
 	},
 	"commandCustomShortcut5": {
-		"message": "Custom shortcut #6",
+		"message": "Пользовательская горячая клавиша #6",
 		"description": "Command label: 'Custom shortcut #6'"
 	},
 	"commandCustomShortcut6": {
-		"message": "Custom shortcut #7",
+		"message": "Пользовательская горячая клавиша #7",
 		"description": "Command label: 'Custom shortcut #7'"
 	},
 	"commandCustomShortcut7": {
-		"message": "Custom shortcut #8",
+		"message": "Пользовательская горячая клавиша #8",
 		"description": "Command label: 'Custom shortcut #8'"
 	},
 	"commandCustomShortcut8": {
-		"message": "Custom shortcut #9",
+		"message": "Пользовательская горячая клавиша #9",
 		"description": "Command label: 'Custom shortcut #9'"
 	},
 	"commandCustomShortcut9": {
-		"message": "Custom shortcut #10",
+		"message": "Пользовательская горячая клавиша #10",
 		"description": "Command label: 'Custom shortcut #10'"
 	},
 	"menuSavePage": {
@@ -236,11 +236,11 @@
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
 	"optionCustomShortcut": {
-		"message": "keyboard shortcut command",
+		"message": "горячая клавиша команды",
 		"description": "Options page label: 'keyboard shortcut command'"
 	},
 	"optionCustomShortcutDefault": {
-		"message": "default shortcut",
+		"message": "горячая клавиша по умолчанию",
 		"description": "Options page label: 'default shortcut'"
 	},
 	"optionsFileNameSubTitle": {
@@ -316,7 +316,7 @@
 		"description": "Options page label: 'remove hidden elements'"
 	},
 	"optionRemovedElementsSelector": {
-		"message": "remove specific elements",
+		"message": "селектор удаляемых элементов",
 		"description": "Options page label: 'remove specific elements'"
 	},
 	"optionsFileFormatSubTitle": {
