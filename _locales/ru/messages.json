@@ -16,43 +16,43 @@
 		"description": "Command label: 'Custom shortcut'"
 	},
 	"commandCustomShortcut0": {
-		"message": "Пользовательская горячая клавиша #1",
+		"message": "Пользовательская горячая клавиша №1",
 		"description": "Command label: 'Custom shortcut #1'"
 	},
 	"commandCustomShortcut1": {
-		"message": "Пользовательская горячая клавиша #2",
+		"message": "Пользовательская горячая клавиша №2",
 		"description": "Command label: 'Custom shortcut #2'"
 	},
 	"commandCustomShortcut2": {
-		"message": "Пользовательская горячая клавиша #3",
+		"message": "Пользовательская горячая клавиша №3",
 		"description": "Command label: 'Custom shortcut #3'"
 	},
 	"commandCustomShortcut3": {
-		"message": "Пользовательская горячая клавиша #4",
+		"message": "Пользовательская горячая клавиша №4",
 		"description": "Command label: 'Custom shortcut #4'"
 	},
 	"commandCustomShortcut4": {
-		"message": "Пользовательская горячая клавиша #5",
+		"message": "Пользовательская горячая клавиша №5",
 		"description": "Command label: 'Custom shortcut #5'"
 	},
 	"commandCustomShortcut5": {
-		"message": "Пользовательская горячая клавиша #6",
+		"message": "Пользовательская горячая клавиша №6",
 		"description": "Command label: 'Custom shortcut #6'"
 	},
 	"commandCustomShortcut6": {
-		"message": "Пользовательская горячая клавиша #7",
+		"message": "Пользовательская горячая клавиша №7",
 		"description": "Command label: 'Custom shortcut #7'"
 	},
 	"commandCustomShortcut7": {
-		"message": "Пользовательская горячая клавиша #8",
+		"message": "Пользовательская горячая клавиша №8",
 		"description": "Command label: 'Custom shortcut #8'"
 	},
 	"commandCustomShortcut8": {
-		"message": "Пользовательская горячая клавиша #9",
+		"message": "Пользовательская горячая клавиша №9",
 		"description": "Command label: 'Custom shortcut #9'"
 	},
 	"commandCustomShortcut9": {
-		"message": "Пользовательская горячая клавиша #10",
+		"message": "Пользовательская горячая клавиша №10",
 		"description": "Command label: 'Custom shortcut #10'"
 	},
 	"menuSavePage": {
@@ -316,7 +316,7 @@
 		"description": "Options page label: 'remove hidden elements'"
 	},
 	"optionRemovedElementsSelector": {
-		"message": "селектор удаляемых элементов",
+		"message": "удалить указанные элементы",
 		"description": "Options page label: 'remove specific elements'"
 	},
 	"optionsFileFormatSubTitle": {
