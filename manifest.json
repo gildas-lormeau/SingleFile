@@ -122,7 +122,6 @@
 		}
 	},
 	"web_accessible_resources": [
-		"lib/single-file-hooks-frames.js",
 		"lib/single-file-infobar.js",
 		"lib/single-file-extension-editor-init.js",
 		"lib/single-file-extension-editor.js",
