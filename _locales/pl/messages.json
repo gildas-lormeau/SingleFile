@@ -316,7 +316,7 @@
 		"description": "Options page label: 'remove hidden elements'"
 	},
 	"optionRemovedElementsSelector": {
-		"message": "selektor usuwanych elementów",
+		"message": "usuwaj określone elementy",
 		"description": "Options page label: 'remove specific elements'"
 	},
 	"optionsFileFormatSubTitle": {
