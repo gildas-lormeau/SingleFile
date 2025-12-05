@@ -125,7 +125,8 @@ async function downloadPage(pageData, options) {
 		infobarPositionBottom: options.infobarPositionBottom,
 		infobarPositionLeft: options.infobarPositionLeft,
 		infobarPositionRight: options.infobarPositionRight,
-		originalUrl: options.url
+		originalUrl: options.url,
+		title: pageData.title
 	};
 	const pingInterval = setInterval(() => {
 		browser.runtime.sendMessage({ method: "ping" }).then(() => { });

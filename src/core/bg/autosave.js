@@ -204,6 +204,8 @@ async function saveContent(message, tab) {
 						await companion.save({
 							filename: pageData.filename,
 							content: pageData.content,
+							title: pageData.title,
+							url: options.url,
 							filenameConflictAction: options.filenameConflictAction
 						});
 					} else if (options.saveToRestFormApi) {

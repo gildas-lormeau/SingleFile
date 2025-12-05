@@ -332,17 +332,21 @@ addEventListener("message", async event => {
 			if (tabData.options.addProof) {
 				pageData.hash = await singlefile.helper.digest("SHA-256", message.content);
 			}
+			tabData.options.url = message.url;
 			await download.downloadPage(pageData, tabData.options);
 		} else {
 			const pageData = {
 				content: message.content,
 				filename: message.filename || tabData.filename,
-				mimeType: "text/html"
+				mimeType: "text/html",
+				title: message.title,
+				url: message.url
 			};
 			if (tabData.options.addProof) {
 				pageData.hash = await singlefile.helper.digest("SHA-256", message.content);
 			}
 			tabData.options.compressContent = false;
+			tabData.options.url = message.url;
 			await download.downloadPage(pageData, tabData.options);
 		}
 	}
@@ -434,7 +438,13 @@ async function onMessage(message) {
 			tabData = JSON.parse(tabDataContents.join(""));
 			tabData.options = message.options;
 			tabDataContents = [];
-			editorElement.contentWindow.postMessage(JSON.stringify({ method: "init", content: tabData.content, password: tabData.options.password, compressContent: message.compressContent }), "*");
+			editorElement.contentWindow.postMessage(JSON.stringify({ 
+				method: "init", 
+				content: tabData.content, 
+				password: tabData.options.password, 
+				compressContent: message.compressContent,
+				url: tabData.url
+			}), "*");
 			editorElement.contentWindow.focus();
 			setInterval(() => browser.runtime.sendMessage({ method: "ping" }), 15000);
 		}

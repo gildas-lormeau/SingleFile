@@ -221,6 +221,8 @@ async function downloadContent(contents, tab, incognito, message) {
 				await companion.save({
 					filename: message.filename,
 					content: message.content,
+					title: message.title,
+					url: message.originalUrl,
 					filenameConflictAction: message.filenameConflictAction
 				});
 			} else if (message.saveToRestFormApi) {

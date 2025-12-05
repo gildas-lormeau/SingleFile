@@ -215,7 +215,9 @@ import { downloadPageForeground } from "../../core/common/download.js";
 						window.parent.postMessage(JSON.stringify({
 							method: "setContent",
 							content,
-							filename
+							filename,
+							title: document.title,
+							url: pageUrl
 						}), "*");
 					}
 				}
@@ -295,6 +297,8 @@ import { downloadPageForeground } from "../../core/common/download.js";
 			pageCompressContent = true;
 			const contentDocument = (new DOMParser()).parseFromString(docContent, "text/html");
 			if (detectSavedPage(contentDocument)) {
+				const { saveUrl } = singlefile.helper.extractInfobarData(contentDocument);
+				pageUrl = saveUrl;
 				await singlefile.helper.display(document, docContent, { disableFramePointerEvents: true });
 				singlefile.helper.fixInvalidNesting(document);
 				const infobarElement = document.querySelector(singlefile.helper.INFOBAR_TAGNAME);
