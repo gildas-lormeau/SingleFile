@@ -116,15 +116,6 @@ export default [{
 		plugins: [terser()]
 	}]
 }, {
-	input: ["src/ui/content/content-ui-editor-init-web.js"],
-	output: [{
-		file: "lib/single-file-extension-editor-init.js",
-		format: "iife",
-		plugins: [terser()]
-	}],
-	plugins: PLUGINS,
-	external: EXTERNAL
-}, {
 	input: ["src/ui/content/content-ui-editor-web.js"],
 	output: [{
 		file: "lib/single-file-extension-editor.js",

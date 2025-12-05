@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, URL, prompt, MutationObserver, FileReader, Worker, navigator */
+/* global window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, prompt, MutationObserver, FileReader, Worker, navigator */
 
 import { setLabels } from "./../../ui/common/common-content-ui.js";
 import { downloadPageForeground } from "../../core/common/download.js";
@@ -70,7 +70,7 @@ import { downloadPageForeground } from "../../core/common/download.js";
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingTouchTarget, cuttingPath, cuttingPathIndex, previousContent;
-	let removedElements = [], removedElementIndex = 0, initScriptContent, pageResources, pageUrl, pageCompressContent, includeInfobar, openInfobar, infobarPositionAbsolute, infobarPositionTop, infobarPositionBottom, infobarPositionLeft, infobarPositionRight;
+	let removedElements = [], removedElementIndex = 0, pageResources, pageUrl, pageCompressContent, includeInfobar, openInfobar, infobarPositionAbsolute, infobarPositionTop, infobarPositionBottom, infobarPositionLeft, infobarPositionRight;
 
 	globalThis.zip = singlefile.helper.zip;
 	initEventListeners();
@@ -173,9 +173,6 @@ import { downloadPageForeground } from "../../core/common/download.js";
 				infobarPositionLeft = message.infobarPositionLeft;
 				infobarPositionRight = message.infobarPositionRight;
 				let content = getContent(message.compressHTML);
-				if (initScriptContent) {
-					content = content.replace(/<script data-template-shadow-root src.*?<\/script>/g, initScriptContent);
-				}
 				let filename;
 				const pageOptions = loadOptionsFromPage(document);
 				if (pageOptions) {
@@ -291,7 +288,6 @@ import { downloadPageForeground } from "../../core/common/download.js";
 			const { docContent, origDocContent, resources, url } = await singlefile.helper.extract(content, {
 				password,
 				prompt,
-				shadowRootScriptURL: new URL("/lib/single-file-extension-editor-init.js", document.baseURI).href,
 				zipOptions
 			});
 			pageResources = resources;
@@ -332,11 +328,6 @@ import { downloadPageForeground } from "../../core/common/download.js";
 				}), "*");
 			}
 		} else {
-			const initScriptContentMatch = content.match(/<script data-template-shadow-root.*<\/script>/);
-			if (initScriptContentMatch && initScriptContentMatch[0]) {
-				initScriptContent = initScriptContentMatch[0];
-			}
-			content = content.replace(/<script data-template-shadow-root.*<\/script>/g, "<script data-template-shadow-root src=/lib/single-file-extension-editor-init.js></script>");
 			const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
 			if (detectSavedPage(contentDocument)) {
 				if (contentDocument.doctype) {
