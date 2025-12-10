@@ -788,11 +788,11 @@
 		"description": "Options page label: 'upload to an MCP server'"
 	},
 	"optionMCPServerUrl": {
-		"message": "服務器 URL",
+		"message": "服務器地址",
 		"description": "Options page label: 'server URL'"
 	},
 	"optionMCPAuthToken": {
-		"message": "身份驗證令牌",
+		"message": "認證令牌",
 		"description": "Options page label: 'authentication token'"
 	},
 	"optionSaveWithCompanion": {
