@@ -334,6 +334,8 @@ import { downloadPageForeground } from "../../core/common/download.js";
 		} else {
 			const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
 			if (detectSavedPage(contentDocument)) {
+				const { saveUrl } = singlefile.helper.extractInfobarData(contentDocument);
+				pageUrl = saveUrl;
 				if (contentDocument.doctype) {
 					if (document.doctype) {
 						document.replaceChild(contentDocument.doctype, document.doctype);
