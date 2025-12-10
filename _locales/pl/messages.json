@@ -384,7 +384,7 @@
 		"description": "Options page label: 'group duplicate images together'"
 	},
 	"optionImageReductionFactor": {
-		"message": "image reduction factor",
+		"message": "współczynnik redukcji obrazów",
 		"description": "Options page label: 'image reduction factor'"
 	},
 	"optionLoadDeferredImages": {
