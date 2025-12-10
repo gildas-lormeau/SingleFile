@@ -113,6 +113,7 @@ const insertEmbeddedScreenshotImageLabel = document.getElementById("insertEmbedd
 const compressCSSLabel = document.getElementById("compressCSSLabel");
 const groupDuplicateStylesheetsLabel = document.getElementById("groupDuplicateStylesheetsLabel");
 const moveStylesInHeadLabel = document.getElementById("moveStylesInHeadLabel");
+const imageReductionFactorLabel = document.getElementById("imageReductionFactorLabel");
 const loadDeferredImagesLabel = document.getElementById("loadDeferredImagesLabel");
 const loadDeferredImagesMaxIdleTimeLabel = document.getElementById("loadDeferredImagesMaxIdleTimeLabel");
 const loadDeferredImagesKeepZoomLevelLabel = document.getElementById("loadDeferredImagesKeepZoomLevelLabel");
@@ -276,6 +277,7 @@ const insertEmbeddedCustomImageInput = document.getElementById("insertEmbeddedCu
 const insertEmbeddedScreenshotImageInput = document.getElementById("insertEmbeddedScreenshotImageInput");
 const compressCSSInput = document.getElementById("compressCSSInput");
 const groupDuplicateStylesheetsInput = document.getElementById("groupDuplicateStylesheetsInput");
+const imageReductionFactorInput = document.getElementById("imageReductionFactorInput");
 const moveStylesInHeadInput = document.getElementById("moveStylesInHeadInput");
 const loadDeferredImagesInput = document.getElementById("loadDeferredImagesInput");
 const loadDeferredImagesMaxIdleTimeInput = document.getElementById("loadDeferredImagesMaxIdleTimeInput");
@@ -735,6 +737,7 @@ insertEmbeddedScreenshotImageLabel.textContent = browser.i18n.getMessage("option
 compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
 groupDuplicateStylesheetsLabel.textContent = browser.i18n.getMessage("optionGroupDuplicateStylesheets");
 moveStylesInHeadLabel.textContent = browser.i18n.getMessage("optionMoveStylesInHead");
+imageReductionFactorLabel.textContent = browser.i18n.getMessage("optionImageReductionFactor");
 loadDeferredImagesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImages");
 loadDeferredImagesMaxIdleTimeLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesMaxIdleTime");
 loadDeferredImagesKeepZoomLevelLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesKeepZoomLevel");
@@ -1135,6 +1138,7 @@ async function refresh(profileName) {
 	removeAlternativeFontsInput.checked = profileOptions.removeAlternativeFonts;
 	removeAlternativeImagesInput.checked = profileOptions.removeAlternativeImages;
 	groupDuplicateImagesInput.checked = profileOptions.groupDuplicateImages;
+	imageReductionFactorInput.value = profileOptions.imageReductionFactor;
 	customShortcutInput.value = profileOptions.customShortcut || "";
 	removeAlternativeMediasInput.checked = profileOptions.removeAlternativeMedias;
 	saveCreatedBookmarksInput.checked = profileOptions.saveCreatedBookmarks;
@@ -1308,6 +1312,7 @@ async function update() {
 			extractDataFromPage: fileFormatSelectInput.value == "self-extracting-zip-universal",
 			password: passwordInput.value,
 			groupDuplicateImages: groupDuplicateImagesInput.checked,
+			imageReductionFactor: imageReductionFactorInput.value,
 			infobarTemplate: infobarTemplateInput.value,
 			blockMixedContent: blockMixedContentInput.checked,
 			saveOriginalURLs: saveOriginalURLsInput.checked,

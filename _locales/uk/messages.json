@@ -383,6 +383,10 @@
 		"message": "групувати дублікати зображень",
 		"description": "Options page label: 'group duplicate images together'"
 	},
+	"optionImageReductionFactor": {
+		"message": "коефіцієнт зменшення розміру зображення",
+		"description": "Options page label: 'image reduction factor'"
+	},
 	"optionLoadDeferredImages": {
 		"message": "зберегти відстрочені зображення",
 		"description": "Options page label: 'save deferred images'"

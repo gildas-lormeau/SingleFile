@@ -199,7 +199,8 @@ const DEFAULT_CONFIG = {
 	infobarPositionBottom: "",
 	infobarPositionLeft: "",
 	removeNoScriptTags: true,
-	customShortcut: null
+	customShortcut: null,
+	imageReductionFactor: 1
 };
 
 const DEFAULT_RULES = [{

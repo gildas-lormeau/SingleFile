@@ -383,6 +383,10 @@
 		"message": "オプション重複画像のグループ化",
 		"description": "Options page label: 'group duplicate images together'"
 	},
+	"optionImageReductionFactor": {
+		"message": "画像の縮小係数",
+		"description": "Options page label: 'image reduction factor'"
+	},
 	"optionLoadDeferredImages": {
 		"message": "遅延画像を保存する",
 		"description": "Options page label: 'save deferred images'"

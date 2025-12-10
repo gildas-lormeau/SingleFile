@@ -383,6 +383,10 @@
 		"message": "將重複圖片分組到一起",
 		"description": "Options page label: 'group duplicate images together'"
 	},
+	"optionImageReductionFactor": {
+		"message": "圖片縮小係數",
+		"description": "Options page label: 'image reduction factor'"
+	},
 	"optionLoadDeferredImages": {
 		"message": "保存延遲加載的圖片",
 		"description": "Options page label: 'save deferred images'"

@@ -383,6 +383,10 @@
 		"message": "dubbele afbeeldingen samenvoegen",
 		"description": "Options page label: 'group duplicate images together'"
 	},
+	"optionImageReductionFactor": {
+		"message": "factor voor verkleining van afbeeldingen",
+		"description": "Options page label: 'image reduction factor'"
+	},
 	"optionLoadDeferredImages": {
 		"message": "uitgestelde afbeeldingen opslaan",
 		"description": "Options page label: 'save deferred images'"

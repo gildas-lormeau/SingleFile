@@ -383,6 +383,10 @@
 		"message": "group duplicate images together",
 		"description": "Options page label: 'group duplicate images together'"
 	},
+	"optionImageReductionFactor": {
+		"message": "image reduction factor",
+		"description": "Options page label: 'image reduction factor'"
+	},
 	"optionLoadDeferredImages": {
 		"message": "save deferred images",
 		"description": "Options page label: 'save deferred images'"

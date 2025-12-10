@@ -383,6 +383,10 @@
 		"message": "şəkilləri qruplaşdırın",
 		"description": "Options page label: 'group duplicate images together'"
 	},
+	"optionImageReductionFactor": {
+		"message": "şəkil ölçüsünü azaltma əmsalı",
+		"description": "Options page label: 'image reduction factor'"
+	},
 	"optionLoadDeferredImages": {
 		"message": "gözləyən şəkilləri yükləyin",
 		"description": "Options page label: 'save deferred images'"

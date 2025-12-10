@@ -383,6 +383,10 @@
 		"message": "gruppera dubblettbilder",
 		"description": "Options page label: 'group duplicate images together'"
 	},
+	"optionImageReductionFactor": {
+		"message": "faktor för minskning av bildstorlek",
+		"description": "Options page label: 'image reduction factor'"
+	},
 	"optionLoadDeferredImages": {
 		"message": "spara uppskjutna bilder",
 		"description": "Options page label: 'save deferred images'"

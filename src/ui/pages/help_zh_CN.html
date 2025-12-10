@@ -28,7 +28,7 @@
                     <li>单击SingleFile按钮<img class="icon" src="../resources/icon_16.png">在扩展工具栏中处理和保存页面。</li>
                     <li>处理页面时，您可以再次单击按钮取消操作。</li>
                 </ul>
-            </li>
+                </li>
             <li><a id="general-notes">附加说明</a>
                 <ul>
                     <li>要保存多个选项卡，请先选择它们，然后单击SingleFile按钮<img class="icon" src="../resources/icon_16.png">.</li>
@@ -284,6 +284,11 @@
                         <p>选中此选项可在保存帧内容之前加载延迟帧和图像。这将增加保存页面所需的时间。</p>
                         <p class="notice">建议<u>取消选中</u>此选项</p>
                     </li>
+                    <li data-options-label="imageReductionFactorLabel"> <span class="option">图片缩小系数</span>
+						<p>
+                            缩小嵌入在已保存页面中的图像大小。该值表示一个除数。例如，如果设置为 2，图像尺寸将减半；如果设置为 4，图像尺寸将减为四分之一，依此类推。此选项仅适用于 PNG、JPEG 和 WEBP 图像。可以帮助减小最终文件大小，但也可能降低图像质量。默认值为 1（不缩减）。
+						</p>
+					</li>
                     <li data-options-label="removeAlternativeImagesLabel"><span class="option">选项：删除图像以获得其他屏幕分辨率</span>
                         <p>选中此选项可删除默认显示分辨率较低和/或较高的替代图像。选中此选项可以大大减小文件的大小。</p>
                     </li>
