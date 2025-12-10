@@ -162,7 +162,7 @@ async function downloadPage(pageData, options) {
 			}
 			if (options.backgroundSave) {
 				const hash = options.openEditor ? null : pageData.hash;
-				await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId, hash , woleetKey: options.woleetKey });
+				await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId, hash, woleetKey: options.woleetKey });
 			}
 		} else {
 			browser.runtime.sendMessage({ method: "downloads.cancel" });
