@@ -25,6 +25,7 @@
 
 import { setLabels } from "./../../ui/common/common-content-ui.js";
 import { downloadPageForeground } from "../../core/common/download.js";
+import { convert } from "../../lib/mhtml-to-html/mod.js";
 
 (globalThis => {
 
@@ -225,6 +226,12 @@ import { downloadPageForeground } from "../../core/common/download.js";
 			if (message.method == "printPage") {
 				printPage();
 			}
+			if (message.method == "importMht") {
+				let { content, filename } = message;
+				const { data } = await convert(content, { DOMParser: globalThis.DOMParser });
+				content = data;
+				await init({ content }, { filename, reset: true, isMHTML: true });
+			}
 			if (message.method == "displayInfobar") {
 				singlefile.helper.displayIcon(document, true, {
 					openInfobar: message.openInfobar,
@@ -262,18 +269,28 @@ import { downloadPageForeground } from "../../core/common/download.js";
 			if (event.dataTransfer.files && event.dataTransfer.files[0]) {
 				const file = event.dataTransfer.files[0];
 				event.preventDefault();
-				const content = new TextDecoder().decode(await file.arrayBuffer());
+				let content = new TextDecoder().decode(await file.arrayBuffer());
 				const compressContent = /<html[^>]* data-sfz[^>]*>/i.test(content);
 				if (compressContent) {
 					await init({ content: file, compressContent }, { filename: file.name });
 				} else {
-					await init({ content }, { filename: file.name });
+					const isMHTML = /\.mhtml?$|\.mht$/i.test(file.name);
+					let filename = file.name || "Untitled.html";
+					filename = filename.replace(/(\.mhtml|\.mht)$/i, ".html");
+					if (!filename.endsWith(".html")) {
+						filename += ".html";
+					}
+					if (isMHTML) {
+						const { data } = await convert(content, { DOMParser: globalThis.DOMParser });
+						content = data;
+					}
+					await init({ content }, { filename, isMHTML });
 				}
 			}
 		};
 	}
 
-	async function init({ content, password, compressContent }, { filename, reset } = {}) {
+	async function init({ content, password, compressContent }, { filename, reset, isMHTML } = {}) {
 		await initConstants();
 		if (compressContent) {
 			const zipOptions = {
@@ -333,9 +350,11 @@ import { downloadPageForeground } from "../../core/common/download.js";
 			}
 		} else {
 			const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
-			if (detectSavedPage(contentDocument)) {
-				const { saveUrl } = singlefile.helper.extractInfobarData(contentDocument);
-				pageUrl = saveUrl;
+			if (detectSavedPage(contentDocument) || isMHTML) {
+				if (!isMHTML) {
+					const { saveUrl } = singlefile.helper.extractInfobarData(contentDocument);
+					pageUrl = saveUrl;
+				}
 				if (contentDocument.doctype) {
 					if (document.doctype) {
 						document.replaceChild(contentDocument.doctype, document.doctype);

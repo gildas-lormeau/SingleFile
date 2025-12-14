@@ -1007,6 +1007,10 @@
 		"message": "Роздрукувати сторінку",
 		"description": "Title of the button 'Print the page' in the editor"
 	},
+	"editorImportMht": {
+		"message": "Імпортувати файл MHTML",
+		"description": "Title of the button 'Import MHTML file' in the editor"
+	},
 	"pendingsTitle": {
 		"message": "Очікують на збереження",
 		"description": "Title of the pending save page 'Pending saves' in the editor"

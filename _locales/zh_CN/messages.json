@@ -1007,6 +1007,10 @@
 		"message": "打印页面",
 		"description": "Title of the button 'Print the page' in the editor"
 	},
+	"editorImportMht": {
+		"message": "导入 MHTML 文件",
+		"description": "Title of the button 'Import MHTML file' in the editor"
+	},
 	"pendingsTitle": {
 		"message": "挂起保存项",
 		"description": "Title of the pending save page 'Pending saves' in the editor"

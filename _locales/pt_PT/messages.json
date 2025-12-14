@@ -1007,6 +1007,10 @@
 		"message": "Imprimir a página",
 		"description": "Title of the button 'Print the page' in the editor"
 	},
+	"editorImportMht": {
+		"message": "Importar arquivo MHTML",
+		"description": "Title of the button 'Import MHTML file' in the editor"
+	},
 	"pendingsTitle": {
 		"message": "Transferência pendente",
 		"description": "Title of the pending save page 'Pending saves' in the editor"

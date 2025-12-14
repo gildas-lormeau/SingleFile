@@ -1007,6 +1007,10 @@
 		"message": "Sayfayı yazdır",
 		"description": "Title of the button 'Print the page' in the editor"
 	},
+	"editorImportMht": {
+		"message": "MHTML dosyasını içe aktar",
+		"description": "Title of the button 'Import MHTML file' in the editor"
+	},
 	"pendingsTitle": {
 		"message": "Bekleyen kaydetmeler",
 		"description": "Title of the pending save page 'Pending saves' in the editor"

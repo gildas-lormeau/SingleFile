@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, matchMedia, addEventListener, navigator, prompt, URL, MouseEvent, Blob, setInterval, DOMParser, fetch, singlefile */
+/* global browser, document, matchMedia, addEventListener, navigator, prompt, URL, MouseEvent, Blob, setInterval, DOMParser, fetch, TextDecoder, singlefile */
 
 import * as download from "../../core/common/download.js";
 import { onError } from "./../common/common-content-ui.js";
@@ -60,6 +60,7 @@ const undoAllCutPageButton = document.querySelector(".undo-all-cut-page-button")
 const redoCutPageButton = document.querySelector(".redo-cut-page-button");
 const savePageButton = document.querySelector(".save-page-button");
 const printPageButton = document.querySelector(".print-page-button");
+const importMhtButton = document.querySelector(".import-mht-button");
 const lastButton = toolbarElement.querySelector(".buttons:last-of-type [type=button]:last-of-type");
 
 let tabData, tabDataContents = [], downloadParser;
@@ -84,6 +85,7 @@ undoAllCutPageButton.title = browser.i18n.getMessage("editorUndoAllCutPage");
 redoCutPageButton.title = browser.i18n.getMessage("editorRedoCutPage");
 savePageButton.title = browser.i18n.getMessage("editorSavePage");
 printPageButton.title = browser.i18n.getMessage("editorPrintPage");
+importMhtButton.title = browser.i18n.getMessage("editorImportMht");
 
 addYellowNoteButton.onmouseup = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-yellow" }), "*");
 addPinkNoteButton.onmouseup = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-pink" }), "*");
@@ -218,6 +220,28 @@ if (typeof print == "function") {
 } else {
 	printPageButton.remove();
 }
+importMhtButton.onmouseup = async () => {
+	const fileInput = document.createElement("input");
+	fileInput.type = "file";
+	fileInput.accept = ".mht,.mhtml";
+	fileInput.onchange = async () => {
+		if (fileInput.files && fileInput.files[0]) {
+			const file = fileInput.files[0];
+			let filename = file.name || "Untitled.mht";
+			filename = filename.replace(/(\.mhtml|\.mht)$/i, ".html");
+			if (!filename.endsWith(".html")) {
+				filename += ".html";
+			}
+			let content = new TextDecoder().decode(await file.arrayBuffer());
+			editorElement.contentWindow.postMessage(JSON.stringify({
+				method: "importMht",
+				content,
+				filename
+			}), "*");
+		}
+	};
+	fileInput.click();
+};
 
 let toolbarPositionPointer, toolbarMoving, toolbarTranslateMax;
 let orientationPortrait = matchMedia("(orientation: portrait)").matches;
@@ -438,10 +462,10 @@ async function onMessage(message) {
 			tabData = JSON.parse(tabDataContents.join(""));
 			tabData.options = message.options;
 			tabDataContents = [];
-			editorElement.contentWindow.postMessage(JSON.stringify({ 
-				method: "init", 
-				content: tabData.content, 
-				password: tabData.options.password, 
+			editorElement.contentWindow.postMessage(JSON.stringify({
+				method: "init",
+				content: tabData.content,
+				password: tabData.options.password,
 				compressContent: message.compressContent,
 				url: tabData.url
 			}), "*");

@@ -1007,6 +1007,10 @@
 		"message": "Səhifəni çap edin",
 		"description": "Title of the button 'Print the page' in the editor"
 	},
+	"editorImportMht": {
+		"message": "MHTML faylını daxil et",
+		"description": "Title of the button 'Import MHTML file' in the editor"
+	},
 	"pendingsTitle": {
 		"message": "Gözləyənlər",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
