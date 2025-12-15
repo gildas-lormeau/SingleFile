@@ -1008,7 +1008,7 @@
 		"description": "Title of the button 'Print the page' in the editor"
 	},
 	"editorImportMht": {
-		"message": "Import MHTML file",
+		"message": "Импорт MHTML-файла",
 		"description": "Title of the button 'Import MHTML file' in the editor"
 	},
 	"pendingsTitle": {
