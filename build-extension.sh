@@ -23,10 +23,7 @@ npm update
 
 npx rollup -c rollup.config.js
 
-cp package.json package.copy.json
-jq 'del(.dependencies."single-file-cli")' package.copy.json > package.json
 zip -r singlefile-extension-source.zip manifest.json package.json _locales src rollup*.js eslint.config.mjs build-extension.sh
-mv package.copy.json package.json
 
 rm -f singlefile-extension-firefox.zip
 
