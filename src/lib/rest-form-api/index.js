@@ -59,7 +59,7 @@ class RestFormApi {
 			headers: this.headers,
 			signal: this.controller.signal
 		});
-		if ([200, 201].includes(response.status)) {
+		if ([200, 201, 202].includes(response.status)) {
 			return response.json();
 		} else {
 			throw new Error(await response.text());
