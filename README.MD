@@ -164,6 +164,7 @@ Footnotes:
   in Petal Cite: https://github.com/ks-collab/cite-extension
 - Pocket Search Engine - Semantic search app for Android that works entirely 
   offline: https://play.google.com/store/apps/details?id=com.pocketsearchengine.app
+- Readeck - Bookmark manager and a read later tool: https://codeberg.org/readeck/readeck
 - singlefile2trilium - Tool to save faithful copy of a web page as a Trilium
   note with SingleFile: https://github.com/nil0x42/singlefile2trilium
 - SingleFile MV3 CDP Patched - fork of SingleFile patched to allow programmatic 
@@ -216,6 +217,7 @@ you are interested in licensing the SingleFile code for a commercial service or
 product.
 
 Suggestions are welcome :)
+
 
 
 
