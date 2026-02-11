@@ -347,6 +347,10 @@
 		"message": "utwórz katalog główny",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionDisableCompression": {
+		"message": "disable compression",
+		"description": "Options page label: 'disable compression'"
+	},
 	"optionPreventAppendedData": {
 		"message": "nie dołączaj danych po danych ZIP",
 		"description": "Options page label: 'do not append data after the ZIP data'"

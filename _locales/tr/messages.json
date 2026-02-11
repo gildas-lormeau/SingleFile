@@ -351,6 +351,10 @@
 		"message": "kök dizin oluştur",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionDisableCompression": {
+		"message": "sıkıştırmayı devre dışı bırak",
+		"description": "Options page label: 'disable compression'"
+	},
 	"optionPreventAppendedData": {
 		"message": "ZIP verilerinden sonra veri eklemeyin",
 		"description": "Options page label: 'do not append data after the ZIP data'"

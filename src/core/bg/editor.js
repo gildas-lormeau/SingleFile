@@ -39,7 +39,7 @@ export {
 	EDITOR_URL
 };
 
-async function open({ tabIndex, content, filename, compressContent, selfExtractingArchive, extractDataFromPage, insertTextBody, insertMetaCSP, embeddedImage, url }) {
+async function open({ tabIndex, content, filename, compressContent, selfExtractingArchive, disableCompression, extractDataFromPage, insertTextBody, insertMetaCSP, embeddedImage, url }) {
 	const createTabProperties = { active: true, url: EDITOR_PAGE_URL };
 	if (tabIndex != null) {
 		createTabProperties.index = tabIndex;
@@ -51,6 +51,7 @@ async function open({ tabIndex, content, filename, compressContent, selfExtracti
 		filename,
 		compressContent,
 		selfExtractingArchive,
+		disableCompression,
 		extractDataFromPage,
 		insertTextBody,
 		insertMetaCSP,
@@ -121,6 +122,7 @@ async function onMessage(message, sender) {
 				filename: message.filename,
 				compressContent: message.compressContent,
 				selfExtractingArchive: message.selfExtractingArchive,
+				disableCompression: message.disableCompression,
 				extractDataFromPageTags: message.extractDataFromPageTags,
 				insertTextBody: message.insertTextBody,
 				insertMetaCSP: message.insertMetaCSP,

@@ -351,6 +351,10 @@
 		"message": "Stammverzeichnis erstellen",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionDisableCompression": {
+		"message": "Komprimierung deaktivieren",
+		"description": "Options page label: 'disable compression'"
+	},
 	"optionPreventAppendedData": {
 		"message": "Keine Daten nach den ZIP-Daten anhängen",
 		"description": "Options page label: 'do not append data after the ZIP data'"

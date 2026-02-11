@@ -351,6 +351,10 @@
 		"message": "maak een hoofdmap",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionDisableCompression": {
+		"message": "compressie uitschakelen",
+		"description": "Options page label: 'disable compression'"
+	},
 	"optionPreventAppendedData": {
 		"message": "voeg geen gegevens toe na de ZIP-gegevens",
 		"description": "Options page label: 'do not append data after the ZIP data'"

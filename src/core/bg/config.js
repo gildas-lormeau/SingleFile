@@ -146,6 +146,7 @@ const DEFAULT_CONFIG = {
 	compressContent: false,
 	createRootDirectory: false,
 	selfExtractingArchive: true,
+	disableCompression: false,
 	extractDataFromPage: true,
 	preventAppendedData: false,
 	insertEmbeddedImage: false,

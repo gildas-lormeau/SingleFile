@@ -351,6 +351,10 @@
 		"message": "crea una cartella principale",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionDisableCompression": {
+		"message": "disabilita la compressione",
+		"description": "Options page label: 'disable compression'"
+	},
 	"optionPreventAppendedData": {
 		"message": "non aggiungere dati dopo i dati ZIP",
 		"description": "Options page label: 'do not append data after the ZIP data'"

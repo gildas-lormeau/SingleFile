@@ -351,6 +351,10 @@
 		"message": "创建根目录",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionDisableCompression": {
+		"message": "禁用压缩",
+		"description": "Options page label: 'disable compression'"
+	},
 	"optionPreventAppendedData": {
 		"message": "不要在 ZIP 数据后添加数据",
 		"description": "Options page label: 'do not append data after the ZIP data'"

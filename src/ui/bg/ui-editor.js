@@ -306,6 +306,9 @@ addEventListener("message", async event => {
 			if (tabData.selfExtractingArchive !== undefined) {
 				tabData.options.selfExtractingArchive = tabData.selfExtractingArchive;
 			}
+			if (tabData.disableCompression !== undefined) {
+				tabData.options.disableCompression = tabData.disableCompression;
+			}
 			if (tabData.extractDataFromPageTags !== undefined) {
 				tabData.options.extractDataFromPage = tabData.extractDataFromPageTags;
 			}

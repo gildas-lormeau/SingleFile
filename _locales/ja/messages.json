@@ -351,6 +351,10 @@
 		"message": "ルートディレクトリを作成する",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionDisableCompression": {
+		"message": "圧縮を無効にする",
+		"description": "Options page label: 'disable compression'"
+	},
 	"optionPreventAppendedData": {
 		"message": "ZIPデータの後にデータを追加しない",
 		"description": "Options page label: 'do not append data after the ZIP data'"

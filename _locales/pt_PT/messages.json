@@ -351,6 +351,10 @@
 		"message": "criar um diretório raiz",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionDisableCompression": {
+		"message": "desabilitar compactação",
+		"description": "Options page label: 'disable compression'"
+	},
 	"optionPreventAppendedData": {
 		"message": "não anexar dados após os dados ZIP",
 		"description": "Options page label: 'do not append data after the ZIP data'"

@@ -351,6 +351,10 @@
 		"message": "kök qovluğu yarat",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionDisableCompression": {
+		"message": "sıxışdırmanı deaktiv edin",
+		"description": "Options page label: 'disable compression'"
+	},
 	"optionPreventAppendedData": {
 		"message": "ZIP məzmunundan sonra məlumat əlavə etməyin",
 		"description": "Options page label: 'do not append data after the ZIP data'"

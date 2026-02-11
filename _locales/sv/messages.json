@@ -351,6 +351,10 @@
 		"message": "skapa en rotkatalog",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionDisableCompression": {
+		"message": "inaktivera komprimering",
+		"description": "Options page label: 'disable compression'"
+	},
 	"optionPreventAppendedData": {
 		"message": "lägg inte till data efter ZIP-data",
 		"description": "Options page label: 'do not append data after the ZIP data'"
