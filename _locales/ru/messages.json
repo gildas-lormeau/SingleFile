@@ -352,7 +352,7 @@
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionDisableCompression": {
-		"message": "disable compression",
+		"message": "отключить сжатие",
 		"description": "Options page label: 'disable compression'"
 	},
 	"optionPreventAppendedData": {
