@@ -81,7 +81,8 @@
 	"commands": {
 		"save-selected-tabs": {
 			"suggested_key": {
-				"default": "Ctrl+Shift+Y"
+				"default": "Ctrl+Shift+Y",
+				"linux": "Ctrl+Alt+S"
 			},
 			"description": "__MSG_commandSaveSelectedTabs__"
 		},
