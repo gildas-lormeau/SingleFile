@@ -19,6 +19,7 @@
 		"rollup": "^4.57.1"
 	},
 	"overrides": {
-		"terser": "^5.15.0"
+		"terser": "^5.15.0",
+		"serialize-javascript": "^7.0.3"
 	}
 }
