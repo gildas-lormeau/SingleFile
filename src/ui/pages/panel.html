@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -11,13 +11,13 @@
 </head>
 
 <body>
-	<header>
-		<span id="tab-options" class="tab tab-selected"></span>
-		<span id="tab-batch-save-urls" class="tab"></span>
-		<span id="tab-pendings" class="tab"></span>
+	<header role="navigation" aria-label="Panel tabs">
+		<span id="tab-options" class="tab tab-selected" role="tab" aria-selected="true" aria-label="Options tab" tabindex="0"></span>
+		<span id="tab-batch-save-urls" class="tab" role="tab" aria-selected="false" aria-label="Batch save URLs tab" tabindex="-1"></span>
+		<span id="tab-pendings" class="tab" role="tab" aria-selected="false" aria-label="Pending downloads tab" tabindex="-1"></span>
 	</header>
 	<main>
-		<iframe id="view-panel" src="options.html#side-panel"></iframe>
+		<iframe id="view-panel" src="options.html#side-panel" title="Panel content"></iframe>
 	</main>
 	<script src="/lib/chrome-browser-polyfill.js"></script>
 	<script type="module" src="../bg/ui-panel.js"></script>

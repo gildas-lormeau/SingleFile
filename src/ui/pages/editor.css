@@ -34,6 +34,13 @@ img[type=button] {
     max-height: 24px;
 }
 
+/* Accessibility: Focus styles for keyboard navigation */
+img[type=button]:focus,
+img[type=button]:focus-visible {
+    outline: 2px solid #0066cc;
+    outline-offset: 2px;
+}
+
 @media (hover: hover) {
     img[type=button]:hover {
         filter: brightness(0.75);
@@ -45,7 +52,7 @@ img[type=button].format-disabled,
 img[type=button].cut-disabled,
 img[type=button].highlight-disabled,
 img[type=button].remove-highlight-disabled {
-    background-color: #7b7b7b;
+    background-color: #5a5a5a;
     filter: brightness(1.25);
 }
 

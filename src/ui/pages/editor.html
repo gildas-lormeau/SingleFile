@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<meta charset="utf-8">
@@ -11,62 +11,62 @@
 </head>
 
 <body>
-	<div class="toolbar">
-		<div class="buttons">
+	<div class="toolbar" role="toolbar" aria-label="Editor toolbar">
+		<div class="buttons" role="group" aria-label="Note buttons">
 			<img type="button" class="add-note-yellow-button" src="/src/ui/resources/button_note_yellow.png"
-				draggable="false">
+				draggable="false" alt="Add yellow note">
 			<img type="button" class="add-note-pink-button" src="/src/ui/resources/button_note_pink.png"
-				draggable="false">
+				draggable="false" alt="Add pink note">
 			<img type="button" class="add-note-blue-button" src="/src/ui/resources/button_note_blue.png"
-				draggable="false">
+				draggable="false" alt="Add blue note">
 			<img type="button" class="add-note-green-button" src="/src/ui/resources/button_note_green.png"
-				draggable="false">
+				draggable="false" alt="Add green note">
 			<img type="button" class="toggle-notes-button" src="/src/ui/resources/button_note_visible.png"
-				draggable="false">
-			<div class="separator"></div>
+				draggable="false" alt="Toggle notes visibility">
+			<div class="separator" aria-hidden="true"></div>
 		</div>
-		<div class="buttons">
+		<div class="buttons" role="group" aria-label="Highlight buttons">
 			<img type="button" class="highlight-button highlight-yellow-button highlight-disabled" data-color="yellow"
-				src="/src/ui/resources/button_highlighter_yellow.png" draggable="false">
+				src="/src/ui/resources/button_highlighter_yellow.png" draggable="false" alt="Highlight yellow">
 			<img type="button" class="highlight-button highlight-pink-button highlight-disabled" data-color="pink"
-				src="/src/ui/resources/button_highlighter_pink.png" draggable="false">
+				src="/src/ui/resources/button_highlighter_pink.png" draggable="false" alt="Highlight pink">
 			<img type="button" class="highlight-button highlight-blue-button highlight-disabled" data-color="blue"
-				src="/src/ui/resources/button_highlighter_blue.png" draggable="false">
+				src="/src/ui/resources/button_highlighter_blue.png" draggable="false" alt="Highlight blue">
 			<img type="button" class="highlight-button highlight-green-button highlight-disabled" data-color="green"
-				src="/src/ui/resources/button_highlighter_green.png" draggable="false">
+				src="/src/ui/resources/button_highlighter_green.png" draggable="false" alt="Highlight green">
 			<img type="button" class="toggle-highlights-button"
-				src="/src/ui/resources/button_highlighter_visible.png" draggable="false">
+				src="/src/ui/resources/button_highlighter_visible.png" draggable="false" alt="Toggle highlights visibility">
 			<img type="button" class="remove-highlight-button remove-highlight-disabled"
-				src="/src/ui/resources/button_highlighter_delete.png" draggable="false">
-			<div class="separator"></div>
+				src="/src/ui/resources/button_highlighter_delete.png" draggable="false" alt="Remove highlight">
+			<div class="separator" aria-hidden="true"></div>
 		</div>
-		<div class="buttons">
+		<div class="buttons" role="group" aria-label="Edit buttons">
 			<img type="button" class="edit-page-button edit-disabled"
-				src="/src/ui/resources/button_note_edit.png" draggable="false">
+				src="/src/ui/resources/button_note_edit.png" draggable="false" alt="Edit page">
 			<img type="button" class="format-page-button format-disabled"
-				src="/src/ui/resources/button_note_format.png" draggable="false">
-			<div class="separator"></div>
+				src="/src/ui/resources/button_note_format.png" draggable="false" alt="Format page">
+			<div class="separator" aria-hidden="true"></div>
 		</div>
-		<div class="buttons">
+		<div class="buttons" role="group" aria-label="Cut buttons">
 			<img type="button" class="cut-inner-page-button cut-disabled"
-				src="/src/ui/resources/button_cut_inner.png" draggable="false">
+				src="/src/ui/resources/button_cut_inner.png" draggable="false" alt="Cut inner content">
 			<img type="button" class="cut-outer-page-button cut-disabled"
-				src="/src/ui/resources/button_cut_outer.png" draggable="false">
+				src="/src/ui/resources/button_cut_outer.png" draggable="false" alt="Cut outer content">
 			<img type="button" class="undo-cut-page-button" src="/src/ui/resources/button_undo_cut.png"
-				draggable="false">
+				draggable="false" alt="Undo cut">
 			<img type="button" class="undo-all-cut-page-button"
-				src="/src/ui/resources/button_undo_all_cut.png" draggable="false">
+				src="/src/ui/resources/button_undo_all_cut.png" draggable="false" alt="Undo all cuts">
 			<img type="button" class="redo-cut-page-button" src="/src/ui/resources/button_redo_cut.png"
-				draggable="false">
-			<div class="separator"></div>
+				draggable="false" alt="Redo cut">
+			<div class="separator" aria-hidden="true"></div>
 		</div>
-		<div class="buttons">
+		<div class="buttons" role="group" aria-label="Import and save buttons">
 			<img type="button" class="import-mht-button" src="/src/ui/resources/button_import_mht.png"
-				draggable="false">
+				draggable="false" alt="Import MHT">
 			<img type="button" class="print-page-button" src="/src/ui/resources/button_print.png"
-				draggable="false">
+				draggable="false" alt="Print page">
 			<img type="button" class="save-page-button" src="/src/ui/resources/button_download.png"
-				draggable="false">
+				draggable="false" alt="Save page">
 		</div>
 	</div>
 	<div class="editor-container">
