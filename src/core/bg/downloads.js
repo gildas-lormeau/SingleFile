@@ -40,13 +40,13 @@ import { MCP } from "./../../lib/mcp/mcp.js";
 import { download } from "./download-util.js";
 import * as yabson from "./../../lib/yabson/yabson.js";
 import { RestFormApi } from "../../lib/../lib/rest-form-api/index.js";
+import { encodeSharpCharacter, getRegExp } from "./config-utils.js";
 
 const partialContents = new Map();
 const tabData = new Map();
 const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 const CONFLICT_ACTION_SKIP = "skip";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
-const REGEXP_ESCAPE = /([{}()^$&.*?/+|[\\\\]|\]|-)/g;
 let GDRIVE_CLIENT_ID = "207618107333-h1220p1oasj3050kr5r416661adm091a.apps.googleusercontent.com";
 let GDRIVE_CLIENT_KEY = "VQJ8Gq8Vxx72QyxPyeLtWvUt";
 const DROPBOX_CLIENT_ID = "s50p6litdvuzrtb";
@@ -421,13 +421,6 @@ async function downloadCompressedContent(message, tab) {
 	}
 }
 
-function encodeSharpCharacter(path) {
-	return path.replace(/#/g, "%23");
-}
-
-function getRegExp(string) {
-	return string.replace(REGEXP_ESCAPE, "\\$1");
-}
 
 async function getAuthInfo(authOptions, force) {
 	let authInfo = await config.getAuthInfo();
