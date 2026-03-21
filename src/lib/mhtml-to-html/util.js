@@ -162,16 +162,26 @@ function decodeQuotedPrintable(array) {
 }
 
 function decodeBinary(array) {
-    let data = "";
-    for (let indexData = 0; indexData < array.length; indexData++) {
-        data += String.fromCharCode(array[indexData]);
+    const CHUNK_SIZE = 8192;
+    const parts = [];
+    for (let i = 0; i < array.length; i += CHUNK_SIZE) {
+        parts.push(String.fromCharCode.apply(null, array.subarray(i, Math.min(i + CHUNK_SIZE, array.length))));
     }
-    return btoa(data);
+    return btoa(parts.join(""));
 }
 
 function decodeBase64(value, charset) {
-    const decodedData = new Uint8Array(atob(value).split("").map(char => char.charCodeAt(0)));
-    return new TextDecoder(charset).decode(decodedData);
+    try {
+        const binaryString = atob(value);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        return new TextDecoder(charset).decode(bytes);
+    } catch (_) {
+        // eslint-disable-next-line no-unused-vars
+        return value;
+    }
 }
 
 function decodeMimeHeader(encodedSubject) {
