@@ -1,3 +1,5 @@
+/* global TextEncoder, atob */
+
 import { describe, it, expect } from "vitest";
 import {
 	getCharset,
@@ -7,6 +9,8 @@ import {
 	isText,
 	getBoundary,
 	decodeQuotedPrintable,
+	decodeBinary,
+	decodeBase64,
 	decodeMimeHeader,
 	resolvePath,
 	indexOf,
@@ -99,6 +103,51 @@ describe("mhtml-to-html/util", () => {
 			const input = new Uint8Array([0x41, 0x3D, 0x34, 0x32, 0x43]); // A=42C
 			const result = decodeQuotedPrintable(input);
 			expect(result).toEqual(new Uint8Array([0x41, 0x42, 0x43])); // ABC
+		});
+
+		it("passes through = when not followed by two hex digits", () => {
+			const input = new Uint8Array([0x41, 0x3D]); // A=
+			const result = decodeQuotedPrintable(input);
+			expect(result).toEqual(input);
+		});
+	});
+
+	describe("decodeBinary", () => {
+		it("encodes bytes to base64", () => {
+			const input = new Uint8Array([0x48, 0x65, 0x6C, 0x6C, 0x6F]); // Hello
+			expect(decodeBinary(input)).toBe("SGVsbG8=");
+		});
+
+		it("handles empty input", () => {
+			expect(decodeBinary(new Uint8Array([]))).toBe("");
+		});
+
+		it("handles the full byte range", () => {
+			const input = Uint8Array.from({ length: 256 }, (_, index) => index);
+			const decoded = atob(decodeBinary(input));
+			expect(decoded.length).toBe(256);
+			expect(Array.from(decoded, char => char.charCodeAt(0))).toEqual(Array.from(input));
+		});
+
+		it("round-trips large input", () => {
+			const input = Uint8Array.from({ length: 20000 }, (_, index) => index % 256);
+			const decoded = atob(decodeBinary(input));
+			expect(decoded.length).toBe(input.length);
+			expect(Array.from(decoded, char => char.charCodeAt(0))).toEqual(Array.from(input));
+		});
+	});
+
+	describe("decodeBase64", () => {
+		it("decodes base64 to a utf-8 string", () => {
+			expect(decodeBase64("SGVsbG8=", "utf-8")).toBe("Hello");
+		});
+
+		it("decodes multi-byte utf-8 characters", () => {
+			expect(decodeBase64("w6k=", "utf-8")).toBe("é");
+		});
+
+		it("respects the charset parameter", () => {
+			expect(decodeBase64("6Q==", "iso-8859-1")).toBe("é");
 		});
 	});
 

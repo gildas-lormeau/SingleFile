@@ -421,7 +421,6 @@ async function downloadCompressedContent(message, tab) {
 	}
 }
 
-
 async function getAuthInfo(authOptions, force) {
 	let authInfo = await config.getAuthInfo();
 	const options = {

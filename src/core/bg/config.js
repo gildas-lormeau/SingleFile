@@ -27,7 +27,6 @@ import { download } from "./download-util.js";
 import * as tabsData from "./tabs-data.js";
 import {
 	REGEXP_RULE_PREFIX,
-	MIGRATION_DEFAULT_VARIABLES_VALUES,
 	updateFilenameTemplate,
 	sortRules,
 	testRegExpRule,
@@ -217,7 +216,6 @@ const DEFAULT_RULES = [{
 	"autoSaveProfile": "__Disabled_Settings__"
 }];
 
-
 let configStorage;
 let pendingUpgradePromise = upgrade();
 export {
@@ -301,7 +299,6 @@ async function upgrade() {
 	});
 }
 
-
 async function getRule(url, ignoreWildcard) {
 	const { rules } = await configStorage.get(["rules"]);
 	const regExpRules = rules.filter(rule => testRegExpRule(rule));
@@ -320,7 +317,6 @@ async function getConfig() {
 	const profiles = await getProfiles();
 	return { profiles, rules, maxParallelWorkers, processInForeground };
 }
-
 
 async function onMessage(message) {
 	if (message.method.endsWith(".get")) {
