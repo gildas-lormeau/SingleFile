@@ -165,23 +165,23 @@ function decodeBinary(array) {
     const CHUNK_SIZE = 8192;
     const parts = [];
     for (let i = 0; i < array.length; i += CHUNK_SIZE) {
-        parts.push(String.fromCharCode.apply(null, array.subarray(i, Math.min(i + CHUNK_SIZE, array.length))));
+        parts.push(String.fromCharCode.apply(null, array.subarray(i, i + CHUNK_SIZE)));
     }
     return btoa(parts.join(""));
 }
 
 function decodeBase64(value, charset) {
+    let binaryString;
     try {
-        const binaryString = atob(value);
-        const bytes = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
-        }
-        return new TextDecoder(charset).decode(bytes);
-    } catch (_) {
-        // eslint-disable-next-line no-unused-vars
+        binaryString = atob(value);
+    } catch {
         return value;
     }
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return new TextDecoder(charset).decode(bytes);
 }
 
 function decodeMimeHeader(encodedSubject) {
