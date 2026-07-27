@@ -434,8 +434,8 @@ async function getAuthInfo(authOptions, force) {
 	const options = {
 		interactive: true,
 		forceWebAuthFlow: authOptions.forceWebAuthFlow,
-		launchWebAuthFlow: options => launchWebAuthFlow(options),
-		extractAuthCode: authURL => extractAuthCode(authURL)
+		launchWebAuthFlow: (options, authFlow) => launchWebAuthFlow(options, authFlow),
+		extractAuthCode: (authURL, authFlow) => extractAuthCode(authURL, authFlow)
 	};
 	gDrive.setAuthInfo(authInfo, options);
 	if (!authInfo || !authInfo.accessToken || force) {
@@ -452,8 +452,8 @@ async function getAuthInfo(authOptions, force) {
 async function getDropboxAuthInfo(force) {
 	let authInfo = await config.getDropboxAuthInfo();
 	const options = {
-		launchWebAuthFlow: options => launchWebAuthFlow(options),
-		extractAuthCode: authURL => extractAuthCode(authURL)
+		launchWebAuthFlow: (options, authFlow) => launchWebAuthFlow(options, authFlow),
+		extractAuthCode: (authURL, authFlow) => extractAuthCode(authURL, authFlow)
 	};
 	dropbox.setAuthInfo(authInfo);
 	if (!authInfo || !authInfo.accessToken || force) {

@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, fetch, setInterval, URLSearchParams, URL */
+/* global browser, fetch, setInterval, URLSearchParams, URL, crypto */
 
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
@@ -46,13 +46,18 @@ class GDrive {
 			this.accessToken = await browser.identity.getAuthToken({ interactive: options.interactive });
 			return { revokableAccessToken: this.accessToken };
 		} else {
+			if (options.code) {
+				return authFromCode(this, options);
+			}
+			const state = generateState();
 			this.authURL = AUTH_URL +
 				"?client_id=" + this.clientId +
 				"&response_type=code" +
 				"&access_type=offline" +
+				"&state=" + state +
 				"&redirect_uri=" + browser.identity.getRedirectURL() +
 				"&scope=" + this.scopes.join(" ");
-			return options.code ? authFromCode(this, options) : initAuth(this, options);
+			return initAuth(this, options, state);
 		}
 	}
 	setAuthInfo(authInfo, options) {
@@ -272,21 +277,26 @@ async function authFromCode(gdrive, options) {
 	return { accessToken: gdrive.accessToken, refreshToken: gdrive.refreshToken, expirationDate: gdrive.expirationDate };
 }
 
-async function initAuth(gdrive, options) {
+async function initAuth(gdrive, options, state) {
 	let code;
+	const authFlow = { state };
 	try {
 		if (browser.identity && browser.identity.launchWebAuthFlow && !options.forceWebAuthFlow) {
 			const authURL = await browser.identity.launchWebAuthFlow({
 				interactive: options.interactive,
 				url: gdrive.authURL
 			});
-			options.code = new URLSearchParams(new URL(authURL).search).get("code");
+			const searchParams = new URLSearchParams(new URL(authURL).search);
+			if (searchParams.get("state") != state) {
+				throw new Error("invalid_auth_response");
+			}
+			options.code = searchParams.get("code");
 			return await authFromCode(gdrive, options);
 		} else if (options.launchWebAuthFlow) {
-			options.extractAuthCode(browser.identity.getRedirectURL())
+			options.extractAuthCode(browser.identity.getRedirectURL(), authFlow)
 				.then(authCode => code = authCode)
 				.catch(() => { /* ignored */ });
-			return await options.launchWebAuthFlow({ url: gdrive.authURL });
+			return await options.launchWebAuthFlow({ url: gdrive.authURL }, authFlow);
 		} else {
 			throw new Error("auth_not_supported");
 		}
@@ -303,6 +313,17 @@ async function initAuth(gdrive, options) {
 			throw error;
 		}
 	}
+	finally {
+		if (authFlow.cancel) {
+			authFlow.cancel();
+		}
+	}
+}
+
+function generateState() {
+	return Array.from(crypto.getRandomValues(new Uint8Array(16)))
+		.map(value => value.toString(16).padStart(2, "0"))
+		.join("");
 }
 
 function nativeAuth(options = {}) {
