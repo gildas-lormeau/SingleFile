@@ -27,8 +27,7 @@ zip -r singlefile-extension-source.zip manifest.json package.json _locales src r
 
 rm -f singlefile-extension-firefox.zip
 
-cp src/core/bg/config.js config.copy.js
-node -e "const fs=require('fs');const file='src/core/bg/config.js';const updated=fs.readFileSync(file,'utf8').replace(/forceWebAuthFlow: false/g,'forceWebAuthFlow: true');fs.writeFileSync(file,updated);"
-
+# forceWebAuthFlow is no longer patched here: gdrive.js now detects at runtime
+# whether identity.launchWebAuthFlow is usable (it is not on Firefox for Android,
+# which supports neither that method nor the windows API it relies on).
 zip -r singlefile-extension-firefox.zip manifest.json lib _locales src
-mv config.copy.js src/core/bg/config.js

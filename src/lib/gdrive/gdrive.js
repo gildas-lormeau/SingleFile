@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, fetch, setInterval, URLSearchParams, URL, crypto */
+/* global browser, fetch, setInterval, URLSearchParams, URL, crypto, globalThis */
 
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
@@ -281,7 +281,7 @@ async function initAuth(gdrive, options, state) {
 	let code;
 	const authFlow = { state };
 	try {
-		if (browser.identity && browser.identity.launchWebAuthFlow && !options.forceWebAuthFlow) {
+		if (nativeWebAuthFlowSupported() && !options.forceWebAuthFlow) {
 			const authURL = await browser.identity.launchWebAuthFlow({
 				interactive: options.interactive,
 				url: gdrive.authURL
@@ -328,6 +328,15 @@ function generateState() {
 
 function nativeAuth(options = {}) {
 	return Boolean(browser.identity && browser.identity.getAuthToken) && !options.forceWebAuthFlow;
+}
+
+// browser.identity.launchWebAuthFlow opens the authorization page in a window, and
+// neither it nor the windows API is supported on Firefox for Android. The windows
+// API is tested on the native namespaces because the Chrome polyfill does not
+// implement it. When it is missing, the caller falls back to a tab-based flow.
+function nativeWebAuthFlowSupported() {
+	return Boolean(browser.identity && browser.identity.launchWebAuthFlow) &&
+		Boolean((globalThis.chrome && globalThis.chrome.windows) || (globalThis.browser && globalThis.browser.windows));
 }
 
 async function getParentFolderId(gdrive, filename, retry = true) {
