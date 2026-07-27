@@ -176,12 +176,12 @@ async function saveContent(message, tab) {
 						if (!(content instanceof Blob)) {
 							content = new Blob([content], { type });
 						}
-						await downloads.saveToGDrive(message.taskId, downloads.encodeSharpCharacter(pageData.filename), content, options, {
+						await downloads.saveToGDrive(message.taskId, downloads.encodeSharpCharacter(pageData.filename), content, {
 							forceWebAuthFlow: options.forceWebAuthFlow
 						}, {
 							filenameConflictAction: options.filenameConflictAction
 						});
-					} if (options.saveToDropbox) {
+					} else if (options.saveToDropbox) {
 						if (!(content instanceof Blob)) {
 							content = new Blob([content], { type });
 						}
