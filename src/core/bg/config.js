@@ -25,11 +25,17 @@
 
 import { download } from "./download-util.js";
 import * as tabsData from "./tabs-data.js";
+import {
+	REGEXP_RULE_PREFIX,
+	updateFilenameTemplate,
+	sortRules,
+	testRegExpRule,
+	isSameArray
+} from "./config-utils.js";
 
 const CURRENT_PROFILE_NAME = "-";
 const DEFAULT_PROFILE_NAME = "__Default_Settings__";
 const DISABLED_PROFILE_NAME = "__Disabled_Settings__";
-const REGEXP_RULE_PREFIX = "regexp:";
 const PROFILE_NAME_PREFIX = "profile_";
 
 const IS_NOT_SAFARI = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent) || /Vivaldi/.test(navigator.userAgent) || /OPR/.test(navigator.userAgent);
@@ -210,34 +216,6 @@ const DEFAULT_RULES = [{
 	"autoSaveProfile": "__Disabled_Settings__"
 }];
 
-const MIGRATION_DEFAULT_VARIABLES_VALUES = {
-	"page-title": "No title",
-	"page-heading": "No heading",
-	"page-language": "No language",
-	"page-description": "No description",
-	"page-author": "No author",
-	"page-creator": "No creator",
-	"page-publisher": "No publisher",
-	"url-hash": "No hash",
-	"url-host": "No host",
-	"url-hostname": "No hostname",
-	"url-href": "No href",
-	"url-href-digest-sha-1": "No hash",
-	"url-href-flat": "No href",
-	"url-referrer": "No referrer",
-	"url-referrer-flat": "No referrer",
-	"url-password": "No password",
-	"url-pathname": "No pathname",
-	"url-pathname-flat": "No pathname",
-	"url-port": "No port",
-	"url-protocol": "No protocol",
-	"url-search": "No search",
-	"url-username": "No username",
-	"tab-id": "No tab id",
-	"tab-index": "No tab index",
-	"url-last-segment": "No last segment"
-};
-
 let configStorage;
 let pendingUpgradePromise = upgrade();
 export {
@@ -321,19 +299,6 @@ async function upgrade() {
 	});
 }
 
-function updateFilenameTemplate(template) {
-	try {
-		Object.keys(MIGRATION_DEFAULT_VARIABLES_VALUES).forEach(variable => {
-			const value = MIGRATION_DEFAULT_VARIABLES_VALUES[variable];
-			template = template.replaceAll(`{${variable}}`, `%if-empty<{${variable}}|${value}>`);
-		});
-		return template;
-		// eslint-disable-next-line no-unused-vars
-	} catch (error) {
-		// ignored
-	}
-}
-
 async function getRule(url, ignoreWildcard) {
 	const { rules } = await configStorage.get(["rules"]);
 	const regExpRules = rules.filter(rule => testRegExpRule(rule));
@@ -351,14 +316,6 @@ async function getConfig() {
 	const rules = await getRules();
 	const profiles = await getProfiles();
 	return { profiles, rules, maxParallelWorkers, processInForeground };
-}
-
-function sortRules(ruleLeft, ruleRight) {
-	return ruleRight.url.length - ruleLeft.url.length;
-}
-
-function testRegExpRule(rule) {
-	return rule.url.toLowerCase().startsWith(REGEXP_RULE_PREFIX);
 }
 
 async function onMessage(message) {
@@ -733,6 +690,3 @@ async function importConfig(config) {
 	await upgrade();
 }
 
-function isSameArray(arrayLeft, arrayRight) {
-	return arrayLeft.length == arrayRight.length && arrayLeft.every((value, index) => value == arrayRight[index]);
-}
