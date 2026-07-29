@@ -185,9 +185,9 @@ function parse(mhtml, { DOMParser } = { DOMParser: globalThis.DOMParser }, conte
             }
             if (resource.transferEncoding === QUOTED_PRINTABLE_ENCODING) {
                 if (resource.data.length > 2 && resource.data[resource.data.length - 3] === 0x3D && endsWithCRLF(next)) {
-                    resource.data.splice(resource.data.length - 3, 3);
+                    resource.data.length -= 3;
                 } else if (resource.data.length > 1 && resource.data[resource.data.length - 2] === 0x3D && endsWithLF(next)) {
-                    resource.data.splice(resource.data.length - 2, 2);
+                    resource.data.length -= 2;
                 }
             } else if (resource.transferEncoding === BASE64_ENCODING) {
                 if (endsWithCRLF(next)) {
@@ -196,7 +196,9 @@ function parse(mhtml, { DOMParser } = { DOMParser: globalThis.DOMParser }, conte
                     next = next.slice(0, next.length - 1);
                 }
             }
-            resource.data.splice(resource.data.length, 0, ...next);
+            for (let i = 0; i < next.length; i++) {
+                resource.data.push(next[i]);
+            }
             if (!boundaryFound) {
                 next = getLine(transferEncoding);
             }

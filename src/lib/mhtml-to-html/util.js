@@ -162,16 +162,26 @@ function decodeQuotedPrintable(array) {
 }
 
 function decodeBinary(array) {
-    let data = "";
-    for (let indexData = 0; indexData < array.length; indexData++) {
-        data += String.fromCharCode(array[indexData]);
+    const CHUNK_SIZE = 8192;
+    const parts = [];
+    for (let i = 0; i < array.length; i += CHUNK_SIZE) {
+        parts.push(String.fromCharCode.apply(null, array.subarray(i, i + CHUNK_SIZE)));
     }
-    return btoa(data);
+    return btoa(parts.join(""));
 }
 
 function decodeBase64(value, charset) {
-    const decodedData = new Uint8Array(atob(value).split("").map(char => char.charCodeAt(0)));
-    return new TextDecoder(charset).decode(decodedData);
+    let binaryString;
+    try {
+        binaryString = atob(value);
+    } catch {
+        return value;
+    }
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return new TextDecoder(charset).decode(bytes);
 }
 
 function decodeMimeHeader(encodedSubject) {
