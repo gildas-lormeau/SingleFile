@@ -31,6 +31,8 @@ const DEFAULT_PROFILE_NAME = "__Default_Settings__";
 const DISABLED_PROFILE_NAME = "__Disabled_Settings__";
 const REGEXP_RULE_PREFIX = "regexp:";
 const PROFILE_NAME_PREFIX = "profile_";
+const EXTERNAL_CAPTURE_ALLOWED_EXTENSION_IDS_KEY = "externalCaptureAllowedExtensionIds";
+const EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY = "externalCaptureDeniedExtensionIds";
 
 const IS_NOT_SAFARI = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent) || /Vivaldi/.test(navigator.userAgent) || /OPR/.test(navigator.userAgent);
 const IS_MOBILE_FIREFOX = /Mobile.*Firefox/.test(navigator.userAgent);
@@ -46,6 +48,7 @@ const IDENTITY_API_SUPPORTED = IS_NOT_SAFARI;
 const CLIPBOARD_API_SUPPORTED = IS_NOT_SAFARI;
 const NATIVE_API_API_SUPPORTED = IS_NOT_SAFARI;
 const WEB_BLOCKING_API_SUPPORTED = IS_NOT_SAFARI;
+const EXTERNAL_CAPTURE_SUPPORTED = IS_NOT_SAFARI;
 const SHARE_API_SUPPORTED = navigator.canShare && navigator.canShare({ files: [new File([new Blob([""], { type: "text/html" })], "test.html")] });
 const LEGACY_FILENAME_REPLACED_CHARACTERS = ["~", "+", "\\\\", "?", "%", "*", ":", "|", "\"", "<", ">", "\u0000-\u001f", "\u007f"];
 const DEFAULT_FILENAME_REPLACED_CHARACTERS = ["~", "+", "?", "%", "*", ":", "|", "\"", "<", ">", "\\\\", "\x00-\x1f", "\x7F"];
@@ -256,10 +259,13 @@ export {
 	CLIPBOARD_API_SUPPORTED,
 	NATIVE_API_API_SUPPORTED,
 	WEB_BLOCKING_API_SUPPORTED,
+	EXTERNAL_CAPTURE_SUPPORTED,
 	SHARE_API_SUPPORTED,
 	getConfig as get,
 	getRule,
 	getOptions,
+	getExternalCapturePermissions,
+	setExternalCapturePermissions,
 	getProfiles,
 	onMessage,
 	updateRule,
@@ -300,6 +306,12 @@ async function upgrade() {
 	}
 	if (!config.processInForeground) {
 		await configStorage.set({ processInForeground: false });
+	}
+	if (!Array.isArray(config[EXTERNAL_CAPTURE_ALLOWED_EXTENSION_IDS_KEY])) {
+		await configStorage.set({ [EXTERNAL_CAPTURE_ALLOWED_EXTENSION_IDS_KEY]: [] });
+	}
+	if (!Array.isArray(config[EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY])) {
+		await configStorage.set({ [EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY]: [] });
 	}
 	const profileNames = await getProfileNames();
 	profileNames.map(async profileName => {
@@ -351,6 +363,53 @@ async function getConfig() {
 	const rules = await getRules();
 	const profiles = await getProfiles();
 	return { profiles, rules, maxParallelWorkers, processInForeground };
+}
+
+async function getExternalCapturePermissions() {
+	await pendingUpgradePromise;
+	const {
+		externalCaptureAllowedExtensionIds = [],
+		externalCaptureDeniedExtensionIds = []
+	} = await configStorage.get([EXTERNAL_CAPTURE_ALLOWED_EXTENSION_IDS_KEY, EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY]);
+	const allowedExtensions = sanitizeExtensionEntries(externalCaptureAllowedExtensionIds);
+	const deniedExtensions = sanitizeExtensionEntries(externalCaptureDeniedExtensionIds);
+	return {
+		allowedExtensions,
+		allowedExtensionIds: allowedExtensions.map(entry => entry.id),
+		deniedExtensions,
+		deniedExtensionIds: deniedExtensions.map(entry => entry.id)
+	};
+}
+
+async function setExternalCapturePermissions({ allowedExtensions, deniedExtensions } = {}) {
+	await pendingUpgradePromise;
+	const permissions = {};
+	if (allowedExtensions !== undefined) {
+		permissions[EXTERNAL_CAPTURE_ALLOWED_EXTENSION_IDS_KEY] = sanitizeExtensionEntries(allowedExtensions);
+	}
+	if (deniedExtensions !== undefined) {
+		permissions[EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY] = sanitizeExtensionEntries(deniedExtensions);
+	}
+	await configStorage.set(permissions);
+}
+
+function sanitizeExtensionEntries(extensionEntries) {
+	const knownIds = new Set();
+	return (extensionEntries || []).map(extensionEntry => {
+		if (typeof extensionEntry == "string") {
+			return { id: extensionEntry.trim(), name: "" };
+		}
+		return {
+			id: String(extensionEntry.id || "").trim(),
+			name: String(extensionEntry.name || "").trim().replace(/\s+/g, " ").slice(0, 80)
+		};
+	}).filter(extensionEntry => {
+		if (!extensionEntry.id || knownIds.has(extensionEntry.id)) {
+			return false;
+		}
+		knownIds.add(extensionEntry.id);
+		return true;
+	});
 }
 
 function sortRules(ruleLeft, ruleRight) {
@@ -426,6 +485,7 @@ async function onMessage(message) {
 			CLIPBOARD_API_SUPPORTED,
 			NATIVE_API_API_SUPPORTED,
 			WEB_BLOCKING_API_SUPPORTED,
+			EXTERNAL_CAPTURE_SUPPORTED,
 			SHARE_API_SUPPORTED
 		};
 	}
@@ -443,7 +503,7 @@ async function onMessage(message) {
 		const syncConfig = await browser.storage.sync.get();
 		if (!syncConfig || !syncConfig.rules) {
 			const profileKeyNames = await getProfileKeyNames();
-			const localConfig = await browser.storage.local.get(["rules", "maxParallelWorkers", "processInForeground", ...profileKeyNames]);
+			const localConfig = await browser.storage.local.get(["rules", "maxParallelWorkers", "processInForeground", EXTERNAL_CAPTURE_ALLOWED_EXTENSION_IDS_KEY, EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY, ...profileKeyNames]);
 			await browser.storage.sync.set(localConfig);
 		}
 		configStorage = browser.storage.sync;
@@ -455,7 +515,13 @@ async function onMessage(message) {
 		const syncConfig = await browser.storage.sync.get();
 		const localConfig = await browser.storage.local.get();
 		if (syncConfig && syncConfig.rules && (!localConfig || !localConfig.rules)) {
-			await browser.storage.local.set({ rules: syncConfig.rules, maxParallelWorkers: syncConfig.maxParallelWorkers, processInForeground: syncConfig.processInForeground });
+			await browser.storage.local.set({
+				rules: syncConfig.rules,
+				maxParallelWorkers: syncConfig.maxParallelWorkers,
+				processInForeground: syncConfig.processInForeground,
+				externalCaptureAllowedExtensionIds: syncConfig.externalCaptureAllowedExtensionIds || [],
+				externalCaptureDeniedExtensionIds: syncConfig.externalCaptureDeniedExtensionIds || []
+			});
 			const profiles = {};
 			await browser.storage.local.set(profiles);
 		}
@@ -682,7 +748,7 @@ async function resetProfiles() {
 	delete allTabsData.profileName;
 	await tabsData.set(allTabsData);
 	let profileKeyNames = await getProfileKeyNames();
-	await configStorage.remove([...profileKeyNames, "rules", "maxParallelWorkers", "processInForeground"]);
+	await configStorage.remove([...profileKeyNames, "rules", "maxParallelWorkers", "processInForeground", EXTERNAL_CAPTURE_ALLOWED_EXTENSION_IDS_KEY, EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY]);
 	await upgrade();
 }
 

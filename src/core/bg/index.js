@@ -33,6 +33,7 @@ import * as editor from "./editor.js";
 import * as requests from "./requests.js";
 import * as tabsData from "./tabs-data.js";
 import * as tabs from "./tabs.js";
+import * as externalCapturePermissions from "./external-capture-permissions.js";
 import * as externalMesssages from "./external-messages.js";
 import * as ui from "./../../ui/bg/index.js";
 import "./../../lib/single-file/background.js";
@@ -67,6 +68,9 @@ browser.runtime.onMessage.addListener((message, sender) => {
 	}
 	if (message.method.startsWith("requests.")) {
 		return requests.onMessage(message, sender);
+	}
+	if (message.method.startsWith("externalCapture.")) {
+		return externalCapturePermissions.onMessage(message, sender);
 	}
 	if (message.method.startsWith("bootstrap.")) {
 		return bootstrap.onMessage(message, sender);

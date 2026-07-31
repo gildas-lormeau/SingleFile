@@ -659,6 +659,36 @@
 		"message": "Övrigt",
 		"description": "Options sub-title: 'Misc.'"
 	},
+	"optionsExternalCapturePermissionsSubTitle": {
+		"message": "Externt API för sidsparning",
+		"description": "Options sub-title: 'External capture API'"
+	},
+	"optionExternalCaptureAllowedIds": {
+		"message": "tillåtna tillägg, ett per rad",
+		"description": "Options page label: 'allowed extensions, one per line'"
+	},
+	"optionExternalCaptureDeniedIds": {
+		"message": "blockerade tillägg, ett per rad",
+		"description": "Options page label: 'blocked extensions, one per line'"
+	},
+	"optionsExternalCapturePendingRequest": {
+		"message": "Tillägget $EXTENSION_ID$ vill använda SingleFile för att spara sidor i den här webbläsaren och ta emot deras HTML-innehåll. Om du tillåter det kommer det att kunna spara vilken flik som helst när som helst utan att fråga igen, tills du tar bort det från listan nedan.",
+		"description": "Options page prompt to approve an external extension capture request.",
+		"placeholders": {
+			"extension_id": {
+				"content": "$1",
+				"example": "archivebox@example.com"
+			}
+		}
+	},
+	"optionsExternalCaptureApproveButton": {
+		"message": "Tillåt",
+		"description": "Options button: 'Allow'"
+	},
+	"optionsExternalCaptureDenyButton": {
+		"message": "Neka",
+		"description": "Options button: 'Deny'"
+	},
 	"optionBackgroundSave": {
 		"message": "spara sidor i bakgrunden",
 		"description": "Options page label: 'save pages in background'"

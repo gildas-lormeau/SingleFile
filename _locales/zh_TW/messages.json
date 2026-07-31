@@ -659,6 +659,36 @@
 		"message": "雜項",
 		"description": "Options sub-title: 'Misc.'"
 	},
+	"optionsExternalCapturePermissionsSubTitle": {
+		"message": "外部擷取 API",
+		"description": "Options sub-title: 'External capture API'"
+	},
+	"optionExternalCaptureAllowedIds": {
+		"message": "允許的擴充功能，每行一個",
+		"description": "Options page label: 'allowed extensions, one per line'"
+	},
+	"optionExternalCaptureDeniedIds": {
+		"message": "已封鎖的擴充功能，每行一個",
+		"description": "Options page label: 'blocked extensions, one per line'"
+	},
+	"optionsExternalCapturePendingRequest": {
+		"message": "擴充功能 $EXTENSION_ID$ 想要使用 SingleFile 保存此瀏覽器中的頁面並取得其 HTML 內容。如果允許，在您將其從下方清單中移除之前，它可以隨時保存任意分頁而不再詢問。",
+		"description": "Options page prompt to approve an external extension capture request.",
+		"placeholders": {
+			"extension_id": {
+				"content": "$1",
+				"example": "archivebox@example.com"
+			}
+		}
+	},
+	"optionsExternalCaptureApproveButton": {
+		"message": "允許",
+		"description": "Options button: 'Allow'"
+	},
+	"optionsExternalCaptureDenyButton": {
+		"message": "拒絕",
+		"description": "Options button: 'Deny'"
+	},
 	"optionBackgroundSave": {
 		"message": "在後臺保存頁面",
 		"description": "Options page label: 'save pages in background'"

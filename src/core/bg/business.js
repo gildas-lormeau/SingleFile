@@ -50,6 +50,7 @@ ui.init({ isSavingTab, saveTabs, saveUrls, cancelTab, openEditor, saveSelectedLi
 
 export {
 	saveTabs,
+	captureTab,
 	saveUrls,
 	saveSelectedLinks,
 	cancelTask,
@@ -173,6 +174,66 @@ async function saveTabs(tabs, options = {}) {
 	runTasks();
 }
 
+async function captureTab(tab, options = {}) {
+	const tabId = tab.id;
+	const tabOptions = await config.getOptions(tab.url);
+	if (tabOptions.profileName == config.DISABLED_PROFILE_NAME) {
+		throw new Error("SingleFile is disabled for this URL");
+	}
+	Object.assign(tabOptions, options, {
+		silent: true,
+		logsEnabled: false,
+		progressBarEnabled: false,
+		confirmFilename: false,
+		confirmInfobarContent: false,
+		openEditor: false,
+		autoOpenEditor: false,
+		openSavedPage: false,
+		backgroundSave: false,
+		saveToClipboard: false,
+		saveToGDrive: false,
+		saveToDropbox: false,
+		saveWithWebDAV: false,
+		saveWithMCP: false,
+		saveToGitHub: false,
+		saveWithCompanion: false,
+		saveToRestFormApi: false,
+		saveToS3: false,
+		sharePage: false,
+		tabId,
+		tabIndex: tab.index,
+		extensionScriptFiles
+	});
+	await initMaxParallelWorkers();
+	let scriptsInjected;
+	try {
+		scriptsInjected = await injectScript(tabId, tabOptions);
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		// ignored
+	}
+	if (scriptsInjected || editor.isEditor(tab)) {
+		return new Promise((resolve, reject) => {
+			const taskInfo = addTask({
+				status: TASK_PENDING_STATE,
+				tab: {
+					id: tab.id,
+					index: tab.index,
+					url: tab.url,
+					title: tab.title
+				},
+				options: tabOptions,
+				method: "content.capture",
+				resolve,
+				reject
+			});
+			taskInfo.cancel = () => reject(new Error("SingleFile capture was cancelled"));
+			runTasks();
+		});
+	}
+	throw new Error("Cannot access the tab contents");
+}
+
 function addTask(info) {
 	const taskInfo = {
 		id: currentTaskId,
@@ -180,6 +241,8 @@ function addTask(info) {
 		tab: info.tab,
 		options: info.options,
 		method: info.method,
+		resolve: info.resolve,
+		reject: info.reject,
 		done: function (runNextTasks = true) {
 			const index = tasks.findIndex(taskInfo => taskInfo.id == this.id);
 			if (index > -1) {
@@ -245,12 +308,24 @@ async function runTask(taskInfo) {
 	}
 	taskInfo.options.taskId = taskId;
 	try {
-		if (processInForeground) {
+		if (processInForeground && !taskInfo.options.silent) {
 			await browser.tabs.update(taskInfo.tab.id, { active: true });
 		}
-		await browser.tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options });
+		const response = await browser.tabs.sendMessage(taskInfo.tab.id, { method: taskInfo.method, options: taskInfo.options });
+		// tasks saving a page are removed when the download ends, tasks returning the page
+		// data to the caller are done as soon as the content script replies
+		if (taskInfo.resolve && !taskInfo.cancelled) {
+			taskInfo.resolve(response);
+			taskInfo.done();
+		}
 	} catch (error) {
-		if (error && (!error.message || !isIgnoredError(error))) {
+		// the caller is waiting for a result, it must always be settled
+		if (taskInfo.reject) {
+			if (!taskInfo.cancelled) {
+				taskInfo.reject(error);
+			}
+			taskInfo.done();
+		} else if (error && (!error.message || !isIgnoredError(error))) {
 			console.log(error.message ? error.message : error); // eslint-disable-line no-console
 			ui.onError(taskInfo.tab.id, error.message, error.link);
 			taskInfo.done();
@@ -363,7 +438,9 @@ function cancel(taskInfo, runNextTasks) {
 		if (taskInfo.method == "content.autosave") {
 			ui.onEnd(tabId, true);
 		}
-		ui.onCancelled(taskInfo.tab);
+		if (!taskInfo.options.silent) {
+			ui.onCancelled(taskInfo.tab);
+		}
 	}
 	if (taskInfo.cancel) {
 		taskInfo.cancel();

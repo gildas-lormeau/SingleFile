@@ -659,6 +659,36 @@
 		"message": "Miscelánea",
 		"description": "Options sub-title: 'Misc.'"
 	},
+	"optionsExternalCapturePermissionsSubTitle": {
+		"message": "API de captura externa",
+		"description": "Options sub-title: 'External capture API'"
+	},
+	"optionExternalCaptureAllowedIds": {
+		"message": "extensiones permitidas, una por línea",
+		"description": "Options page label: 'allowed extensions, one per line'"
+	},
+	"optionExternalCaptureDeniedIds": {
+		"message": "extensiones bloqueadas, una por línea",
+		"description": "Options page label: 'blocked extensions, one per line'"
+	},
+	"optionsExternalCapturePendingRequest": {
+		"message": "La extensión $EXTENSION_ID$ quiere usar SingleFile para capturar páginas en este navegador y recibir su contenido HTML. Si lo permites, podrá capturar cualquier pestaña en cualquier momento sin volver a preguntar, hasta que la elimines de la lista de abajo.",
+		"description": "Options page prompt to approve an external extension capture request.",
+		"placeholders": {
+			"extension_id": {
+				"content": "$1",
+				"example": "archivebox@example.com"
+			}
+		}
+	},
+	"optionsExternalCaptureApproveButton": {
+		"message": "Permitir",
+		"description": "Options button: 'Allow'"
+	},
+	"optionsExternalCaptureDenyButton": {
+		"message": "Denegar",
+		"description": "Options button: 'Deny'"
+	},
 	"optionBackgroundSave": {
 		"message": "guardar páginas en segundo plano",
 		"description": "Options page label: 'save pages in background'"
