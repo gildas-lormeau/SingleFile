@@ -659,6 +659,36 @@
 		"message": "その他",
 		"description": "Options sub-title: 'Misc.'"
 	},
+	"optionsExternalCapturePermissionsSubTitle": {
+		"message": "外部キャプチャ API",
+		"description": "Options sub-title: 'External capture API'"
+	},
+	"optionExternalCaptureAllowedIds": {
+		"message": "許可する拡張機能（1行に1つ）",
+		"description": "Options page label: 'allowed extensions, one per line'"
+	},
+	"optionExternalCaptureDeniedIds": {
+		"message": "ブロックする拡張機能（1行に1つ）",
+		"description": "Options page label: 'blocked extensions, one per line'"
+	},
+	"optionsExternalCapturePendingRequest": {
+		"message": "拡張機能 $EXTENSION_ID$ が、SingleFile を使用してこのブラウザーのページを保存し、その HTML コンテンツを受け取ろうとしています。許可すると、下のリストから削除するまで、再度確認することなくいつでも任意のタブを保存できるようになります。",
+		"description": "Options page prompt to approve an external extension capture request.",
+		"placeholders": {
+			"extension_id": {
+				"content": "$1",
+				"example": "archivebox@example.com"
+			}
+		}
+	},
+	"optionsExternalCaptureApproveButton": {
+		"message": "許可",
+		"description": "Options button: 'Allow'"
+	},
+	"optionsExternalCaptureDenyButton": {
+		"message": "拒否",
+		"description": "Options button: 'Deny'"
+	},
 	"optionBackgroundSave": {
 		"message": "バックグラウンドでページを保存する",
 		"description": "Options page label: 'save pages in background'"

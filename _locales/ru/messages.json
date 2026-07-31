@@ -659,6 +659,36 @@
 		"message": "Разное",
 		"description": "Options sub-title: 'Misc.'"
 	},
+	"optionsExternalCapturePermissionsSubTitle": {
+		"message": "Внешний API захвата",
+		"description": "Options sub-title: 'External capture API'"
+	},
+	"optionExternalCaptureAllowedIds": {
+		"message": "разрешённые расширения, по одному в строке",
+		"description": "Options page label: 'allowed extensions, one per line'"
+	},
+	"optionExternalCaptureDeniedIds": {
+		"message": "заблокированные расширения, по одному в строке",
+		"description": "Options page label: 'blocked extensions, one per line'"
+	},
+	"optionsExternalCapturePendingRequest": {
+		"message": "Расширение $EXTENSION_ID$ хочет использовать SingleFile для сохранения страниц в этом браузере и получения их HTML-содержимого. Если вы разрешите, оно сможет в любой момент сохранить любую вкладку без повторного запроса, пока вы не удалите его из списка ниже.",
+		"description": "Options page prompt to approve an external extension capture request.",
+		"placeholders": {
+			"extension_id": {
+				"content": "$1",
+				"example": "archivebox@example.com"
+			}
+		}
+	},
+	"optionsExternalCaptureApproveButton": {
+		"message": "Разрешить",
+		"description": "Options button: 'Allow'"
+	},
+	"optionsExternalCaptureDenyButton": {
+		"message": "Отклонить",
+		"description": "Options button: 'Deny'"
+	},
 	"optionBackgroundSave": {
 		"message": "сохранять страницы в фоновом режиме",
 		"description": "Options page label: 'save pages in background'"

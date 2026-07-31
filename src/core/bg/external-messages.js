@@ -25,6 +25,7 @@
 
 import * as autosave from "./autosave.js";
 import * as business from "./business.js";
+import * as externalCapturePermissions from "./external-capture-permissions.js";
 import "./../../lib/single-file/background.js";
 
 const ACTION_SAVE_PAGE = "save-page";
@@ -34,6 +35,61 @@ const ACTION_SAVE_SELECTED = "save-selected-content";
 const ACTION_SAVE_SELECTED_TABS = "save-selected-tabs";
 const ACTION_SAVE_UNPINNED_TABS = "save-unpinned-tabs";
 const ACTION_SAVE_ALL_TABS = "save-all-tabs";
+const METHOD_CAPTURE_PAGE = "capture-page";
+// options an external extension is allowed to set: they define the content of the
+// captured page, they cannot select a destination, display anything in the tab, or
+// delay the capture
+const CAPTURE_OPTION_NAMES = [
+	"removeHiddenElements",
+	"removedElementsSelector",
+	"removeUnusedStyles",
+	"removeUnusedFonts",
+	"removeFrames",
+	"removeNoScriptTags",
+	"removeSavedDate",
+	"removeAlternativeFonts",
+	"removeAlternativeMedias",
+	"removeAlternativeImages",
+	"compressHTML",
+	"compressCSS",
+	"groupDuplicateImages",
+	"maxSizeDuplicateImages",
+	"groupDuplicateStylesheets",
+	"moveStylesInHead",
+	"imageReductionFactor",
+	"loadDeferredImages",
+	"loadDeferredImagesBlockCookies",
+	"loadDeferredImagesBlockStorage",
+	"loadDeferredImagesKeepZoomLevel",
+	"loadDeferredImagesDispatchScrollEvent",
+	"loadDeferredImagesBeforeFrames",
+	"blockImages",
+	"blockAlternativeImages",
+	"blockStylesheets",
+	"blockFonts",
+	"blockScripts",
+	"blockVideos",
+	"blockAudios",
+	"blockMixedContent",
+	"maxResourceSizeEnabled",
+	"maxResourceSize",
+	"saveRawPage",
+	"saveFavicon",
+	"saveOriginalURLs",
+	"resolveLinks",
+	"resolveFragmentIdentifierURLs",
+	"includeBOM",
+	"insertMetaNoIndex",
+	"insertMetaCSP",
+	"insertSingleFileComment",
+	"includeInfobar",
+	"infobarTemplate",
+	"openInfobar",
+	"displayStats",
+	"filenameTemplate",
+	"selected",
+	"optionallySelected"
+];
 
 export { onMessage };
 
@@ -61,7 +117,20 @@ async function onMessage(message, sender) {
 	} else if (message == ACTION_SAVE_ALL_TABS) {
 		const tabs = await queryTabs({ currentWindow: true });
 		await business.saveTabs(tabs);
-	} else if (message.method) {
+	} else if (message && message.method == METHOD_CAPTURE_PAGE) {
+		const captureConfig = getCaptureConfig(message);
+		const permissionGranted = await externalCapturePermissions.requestPermission(sender, message);
+		if (!permissionGranted) {
+			throw new Error("SingleFile capture was not approved for this extension");
+		}
+		const currentTab = message.tabId
+			? await browser.tabs.get(message.tabId)
+			: (await browser.tabs.query({ currentWindow: true, active: true }))[0];
+		if (!currentTab) {
+			return false;
+		}
+		return business.captureTab(currentTab, captureConfig);
+	} else if (message && message.method) {
 		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
 		const currentTab = tabs[0];
 		if (currentTab) {
@@ -70,6 +139,23 @@ async function onMessage(message, sender) {
 			return false;
 		}
 	}
+}
+
+function getCaptureConfig(message) {
+	const { config } = message;
+	if (config == null) {
+		return {};
+	}
+	if (typeof config != "object" || Array.isArray(config)) {
+		throw new Error("SingleFile capture config must be an object");
+	}
+	const captureConfig = {};
+	CAPTURE_OPTION_NAMES.forEach(optionName => {
+		if (config[optionName] !== undefined) {
+			captureConfig[optionName] = config[optionName];
+		}
+	});
+	return captureConfig;
 }
 
 async function queryTabs(options) {

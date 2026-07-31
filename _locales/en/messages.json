@@ -659,6 +659,36 @@
 		"message": "Misc.",
 		"description": "Options sub-title: 'Misc.'"
 	},
+	"optionsExternalCapturePermissionsSubTitle": {
+		"message": "External capture API",
+		"description": "Options sub-title: 'External capture API'"
+	},
+	"optionExternalCaptureAllowedIds": {
+		"message": "allowed extensions, one per line",
+		"description": "Options page label: 'allowed extensions, one per line'"
+	},
+	"optionExternalCaptureDeniedIds": {
+		"message": "blocked extensions, one per line",
+		"description": "Options page label: 'blocked extensions, one per line'"
+	},
+	"optionsExternalCapturePendingRequest": {
+		"message": "Extension $EXTENSION_ID$ wants to use SingleFile to capture pages in this browser and receive their HTML content. If you allow it, it will be able to capture any tab at any time without asking again, until you remove it from the list below.",
+		"description": "Options page prompt to approve an external extension capture request.",
+		"placeholders": {
+			"extension_id": {
+				"content": "$1",
+				"example": "archivebox@example.com"
+			}
+		}
+	},
+	"optionsExternalCaptureApproveButton": {
+		"message": "Allow",
+		"description": "Options button: 'Allow'"
+	},
+	"optionsExternalCaptureDenyButton": {
+		"message": "Deny",
+		"description": "Options button: 'Deny'"
+	},
 	"optionBackgroundSave": {
 		"message": "save pages in background",
 		"description": "Options page label: 'save pages in background'"

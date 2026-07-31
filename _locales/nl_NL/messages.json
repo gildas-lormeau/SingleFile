@@ -659,6 +659,36 @@
 		"message": "Diversen",
 		"description": "Options sub-title: 'Misc.'"
 	},
+	"optionsExternalCapturePermissionsSubTitle": {
+		"message": "Externe capture-API",
+		"description": "Options sub-title: 'External capture API'"
+	},
+	"optionExternalCaptureAllowedIds": {
+		"message": "toegestane extensies, één per regel",
+		"description": "Options page label: 'allowed extensions, one per line'"
+	},
+	"optionExternalCaptureDeniedIds": {
+		"message": "geblokkeerde extensies, één per regel",
+		"description": "Options page label: 'blocked extensions, one per line'"
+	},
+	"optionsExternalCapturePendingRequest": {
+		"message": "De extensie $EXTENSION_ID$ wil SingleFile gebruiken om pagina's in deze browser vast te leggen en de HTML-inhoud ervan te ontvangen. Als je dit toestaat, kan deze op elk moment elk tabblad vastleggen zonder het opnieuw te vragen, totdat je deze uit onderstaande lijst verwijdert.",
+		"description": "Options page prompt to approve an external extension capture request.",
+		"placeholders": {
+			"extension_id": {
+				"content": "$1",
+				"example": "archivebox@example.com"
+			}
+		}
+	},
+	"optionsExternalCaptureApproveButton": {
+		"message": "Toestaan",
+		"description": "Options button: 'Allow'"
+	},
+	"optionsExternalCaptureDenyButton": {
+		"message": "Weigeren",
+		"description": "Options button: 'Deny'"
+	},
 	"optionBackgroundSave": {
 		"message": "sla pagina's op in de achtergrond",
 		"description": "Options page label: 'save pages in background'"

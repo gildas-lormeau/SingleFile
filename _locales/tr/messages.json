@@ -659,6 +659,36 @@
 		"message": "Çeşitli.",
 		"description": "Options sub-title: 'Misc.'"
 	},
+	"optionsExternalCapturePermissionsSubTitle": {
+		"message": "Harici yakalama API'si",
+		"description": "Options sub-title: 'External capture API'"
+	},
+	"optionExternalCaptureAllowedIds": {
+		"message": "izin verilen uzantılar, her satıra bir tane",
+		"description": "Options page label: 'allowed extensions, one per line'"
+	},
+	"optionExternalCaptureDeniedIds": {
+		"message": "engellenen uzantılar, her satıra bir tane",
+		"description": "Options page label: 'blocked extensions, one per line'"
+	},
+	"optionsExternalCapturePendingRequest": {
+		"message": "$EXTENSION_ID$ uzantısı, bu tarayıcıdaki sayfaları SingleFile ile yakalamak ve HTML içeriklerini almak istiyor. İzin verirseniz, aşağıdaki listeden kaldırana kadar tekrar sormadan istediği zaman herhangi bir sekmeyi yakalayabilecek.",
+		"description": "Options page prompt to approve an external extension capture request.",
+		"placeholders": {
+			"extension_id": {
+				"content": "$1",
+				"example": "archivebox@example.com"
+			}
+		}
+	},
+	"optionsExternalCaptureApproveButton": {
+		"message": "İZİN VER",
+		"description": "Options button: 'Allow'"
+	},
+	"optionsExternalCaptureDenyButton": {
+		"message": "REDDET",
+		"description": "Options button: 'Deny'"
+	},
 	"optionBackgroundSave": {
 		"message": "sayfaları arka planda kaydet",
 		"description": "Options page label: 'save pages in background'"
