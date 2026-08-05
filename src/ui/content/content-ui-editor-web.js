@@ -294,16 +294,8 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		await initConstants();
 		if (compressContent) {
 			const zipOptions = {
-				workerScripts: { inflate: ["/lib/single-file-z-worker.js"] }
+				useWebWorkers: false
 			};
-			try {
-				const worker = new Worker(zipOptions.workerScripts.inflate[0]);
-				worker.terminate();
-				// eslint-disable-next-line no-unused-vars
-			} catch (error) {
-				delete zipOptions.workerScripts;
-			}
-			zipOptions.useWebWorkers = IS_NOT_SAFARI;
 			const { docContent, origDocContent, resources, url } = await singlefile.helper.extract(content, {
 				password,
 				prompt,
