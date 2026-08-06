@@ -76,6 +76,20 @@ async function download(downloadInfo, replacementCharacter) {
 			} else if (invalidFilename && downloadInfo.filename.match(/\u200C|\u200D|\u200E|\u200F/)) {
 				downloadInfo.filename = downloadInfo.filename.replace(/\u200C|\u200D|\u200E|\u200F/g, replacementCharacter);
 				return download(downloadInfo, replacementCharacter);
+			} else if (invalidFilename && downloadInfo.filename.match(/[\u00A0\u202F\u00AD\u200B\uFEFF\u2060]/)) {
+				// Both Gecko and Chromium reject certain invisible codepoints in filenames via
+				// downloads.download (soft hyphen U+00AD, ZWSP U+200B, BOM U+FEFF, word joiner
+				// U+2060). Gecko additionally rejects NBSP U+00A0 and narrow NBSP U+202F, which
+				// Chromium accepts. All are valid on every modern filesystem.
+				// Russian/French/Czech/Polish typography routinely puts NBSP after one-letter
+				// prepositions, so well-typeset pages hit this constantly.
+				// Replace targeted: space-like → regular space, invisible markers → empty string.
+				// This runs BEFORE the legacy "strip all non-ASCII" branch so legitimate Cyrillic /
+				// CJK / em-dash / fullwidth colons survive.
+				downloadInfo.filename = downloadInfo.filename
+					.replace(/[\u00A0\u202F]/g, " ")
+					.replace(/[\u00AD\u200B\uFEFF\u2060]/g, "");
+				return download(downloadInfo, replacementCharacter);
 			} else if (invalidFilename && !downloadInfo.filename.match(/^[\x00-\x7F]+$/)) { // eslint-disable-line  no-control-regex
 				downloadInfo.filename = downloadInfo.filename.replace(/[^\x00-\x7F]+/g, replacementCharacter); // eslint-disable-line  no-control-regex
 				return download(downloadInfo, replacementCharacter);
