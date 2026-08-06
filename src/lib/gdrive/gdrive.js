@@ -178,7 +178,7 @@ class MediaUploader {
 			mimeType: this.contentType,
 			parents: options.parents || ["root"]
 		};
-		this.token = options.token;
+		this.token = options.token.token;
 		this.offset = 0;
 		this.chunkSize = options.chunkSize || 512 * 1024;
 		this.filenameConflictAction = options.filenameConflictAction;
