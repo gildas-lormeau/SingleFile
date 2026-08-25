@@ -67,14 +67,15 @@ async function download(downloadInfo, replacementCharacter) {
 		if (error.message) {
 			const errorMessage = error.message.toLowerCase();
 			const invalidFilename = errorMessage.includes(ERROR_INVALID_FILENAME_GECKO) || errorMessage.includes(ERROR_INVALID_FILENAME_CHROMIUM);
+			const sanitizedFilename = sanitizeFilename(downloadInfo.filename, replacementCharacter);
 			if (invalidFilename && downloadInfo.filename.startsWith(".")) {
 				downloadInfo.filename = replacementCharacter + downloadInfo.filename;
 				return download(downloadInfo, replacementCharacter);
 			} else if (invalidFilename && downloadInfo.filename.includes(",")) {
 				downloadInfo.filename = downloadInfo.filename.replace(/,/g, replacementCharacter);
 				return download(downloadInfo, replacementCharacter);
-			} else if (invalidFilename && downloadInfo.filename.match(/\u200C|\u200D|\u200E|\u200F/)) {
-				downloadInfo.filename = downloadInfo.filename.replace(/\u200C|\u200D|\u200E|\u200F/g, replacementCharacter);
+			} else if (invalidFilename && sanitizedFilename != downloadInfo.filename) {
+				downloadInfo.filename = sanitizedFilename;
 				return download(downloadInfo, replacementCharacter);
 			} else if (invalidFilename && !downloadInfo.filename.match(/^[\x00-\x7F]+$/)) { // eslint-disable-line  no-control-regex
 				downloadInfo.filename = downloadInfo.filename.replace(/[^\x00-\x7F]+/g, replacementCharacter); // eslint-disable-line  no-control-regex
@@ -95,4 +96,14 @@ async function download(downloadInfo, replacementCharacter) {
 		}
 	}
 	return result;
+}
+
+function sanitizeFilename(filename, replacementCharacter) {
+	return filename
+		.replace(/[\u00A0\u1680\u2000-\u200A\u202F\u205F\uFEFF]/g, " ")
+		.replace(/\p{Cf}/gu, replacementCharacter)
+		.replace(/[\u0000-\u001F\u007F-\u009F\u2028\u2029]/g, "") // eslint-disable-line no-control-regex
+		.split("/")
+		.map(component => component.replace(/^[\s.\u180E]+|[\s.\u180E]+$/g, ""))
+		.join("/");
 }
