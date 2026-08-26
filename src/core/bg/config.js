@@ -567,7 +567,11 @@ async function getOptions(url, autoSave) {
 		selectedProfileName = tabProfileName;
 	}
 	const profile = await getProfile(selectedProfileName);
-	return Object.assign({ profileName: selectedProfileName }, profile);
+	const options = Object.assign({ profileName: selectedProfileName }, profile);
+	if (!BACKGROUND_SAVE_SUPPORTED) {
+		options.backgroundSave = false;
+	}
+	return options;
 }
 
 async function updateProfile(profileName, profile) {
