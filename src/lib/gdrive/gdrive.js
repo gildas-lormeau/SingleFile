@@ -43,7 +43,7 @@ class GDrive {
 	}
 	async auth(options = { interactive: true }) {
 		if (nativeAuth(options)) {
-			this.accessToken = await browser.identity.getAuthToken({ interactive: options.interactive });
+			this.accessToken = await getAuthToken({ interactive: options.interactive });
 			return { revokableAccessToken: this.accessToken };
 		} else {
 			if (options.code) {
@@ -104,7 +104,7 @@ class GDrive {
 				if (browser.identity && browser.identity.removeCachedAuthToken && this.accessToken) {
 					await browser.identity.removeCachedAuthToken({ token: this.accessToken });
 				}
-				this.accessToken = await browser.identity.getAuthToken({ interactive: false });
+				this.accessToken = await getAuthToken({ interactive: false });
 				return { revokableAccessToken: this.accessToken };
 				// eslint-disable-next-line no-unused-vars
 			} catch (error) {
@@ -343,6 +343,13 @@ function encodeBase64URL(data) {
 
 function nativeAuth(options = {}) {
 	return Boolean(browser.identity && browser.identity.getAuthToken) && !options.forceWebAuthFlow;
+}
+
+// browser.identity.getAuthToken resolves with the token string on older Chromium
+// versions and with a GetAuthTokenResult object since Chrome 105
+async function getAuthToken(details) {
+	const result = await browser.identity.getAuthToken(details);
+	return typeof result == "string" ? result : result && result.token;
 }
 
 // browser.identity.launchWebAuthFlow opens the authorization page in a window, and
