@@ -22,7 +22,7 @@
  */
 /* global fetch */
 const urlService = "https://api.woleet.io/v1/anchor";
-const apiKey = "";
+const apiKey = "WOLEET_API_KEY_PLACEHOLDER";
 export {
 	anchor
 };
