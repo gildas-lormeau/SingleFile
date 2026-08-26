@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, fetch, setInterval, URLSearchParams, URL, crypto, globalThis */
+/* global browser, fetch, setInterval, URLSearchParams, URL, crypto, globalThis, TextEncoder, btoa */
 
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
@@ -50,11 +50,15 @@ class GDrive {
 				return authFromCode(this, options);
 			}
 			const state = generateState();
+			const { verifier, challenge } = await generateCodeVerifier();
+			this.codeVerifier = verifier;
 			this.authURL = AUTH_URL +
 				"?client_id=" + this.clientId +
 				"&response_type=code" +
 				"&access_type=offline" +
 				"&state=" + state +
+				"&code_challenge=" + challenge +
+				"&code_challenge_method=S256" +
 				"&redirect_uri=" + browser.identity.getRedirectURL() +
 				"&scope=" + this.scopes.join(" ");
 			return initAuth(this, options, state);
@@ -268,6 +272,7 @@ async function authFromCode(gdrive, options) {
 			"&client_secret=" + gdrive.clientKey +
 			"&grant_type=authorization_code" +
 			"&code=" + options.code +
+			(gdrive.codeVerifier ? "&code_verifier=" + gdrive.codeVerifier : "") +
 			"&redirect_uri=" + browser.identity.getRedirectURL()
 	});
 	const response = await getJSON(httpResponse);
@@ -324,6 +329,16 @@ function generateState() {
 	return Array.from(crypto.getRandomValues(new Uint8Array(16)))
 		.map(value => value.toString(16).padStart(2, "0"))
 		.join("");
+}
+
+async function generateCodeVerifier() {
+	const verifier = encodeBase64URL(crypto.getRandomValues(new Uint8Array(32)));
+	const challenge = encodeBase64URL(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier))));
+	return { verifier, challenge };
+}
+
+function encodeBase64URL(data) {
+	return btoa(String.fromCharCode(...data)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
 function nativeAuth(options = {}) {
