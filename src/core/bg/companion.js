@@ -47,7 +47,7 @@ async function externalSave(pageData) {
 			pageData
 		});
 	} catch (error) {
-		if (!error.message || !error.message.includes("Native host has exited")) {
+		if (!error.message || !(error.message.includes("Native host has exited") || error.message.includes("An unexpected error occurred"))) {
 			throw error;
 		}
 	}
@@ -64,7 +64,7 @@ async function save(pageData) {
 			pageData
 		});
 	} catch (error) {
-		if (!error.message || !error.message.includes("Native host has exited")) {
+		if (!error.message || !(error.message.includes("Native host has exited") || error.message.includes("An unexpected error occurred"))) {
 			throw error;
 		}
 	}
