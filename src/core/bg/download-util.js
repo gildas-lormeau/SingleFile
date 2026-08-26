@@ -32,6 +32,9 @@ const ERROR_INCOGNITO_GECKO = "'incognito'";
 const ERROR_INCOGNITO_GECKO_ALT = "\"incognito\"";
 const ERROR_INVALID_FILENAME_GECKO = "illegal characters";
 const ERROR_INVALID_FILENAME_CHROMIUM = "invalid filename";
+// mirrors DEFAULT_REPLACED_CHARACTERS/DEFAULT_REPLACEMENT_CHARACTERS in single-file-core core/helper.js
+const LOOKALIKE_CHARACTERS = new Map([["~", "～"], ["+", "＋"], ["?", "？"], ["%", "％"], ["*", "＊"], [":", "："], ["|", "｜"], ["\"", "＂"], ["<", "＜"], [">", "＞"], ["\\", "＼"]]);
+const REGEXP_REPLACEABLE_CHARACTERS = /[~+?%*:|"<>\\]/g;
 
 export {
 	download
@@ -76,6 +79,9 @@ async function download(downloadInfo, replacementCharacter) {
 				return download(downloadInfo, replacementCharacter);
 			} else if (invalidFilename && sanitizedFilename != downloadInfo.filename) {
 				downloadInfo.filename = sanitizedFilename;
+				return download(downloadInfo, replacementCharacter);
+			} else if (invalidFilename && downloadInfo.filename.match(REGEXP_REPLACEABLE_CHARACTERS)) {
+				downloadInfo.filename = downloadInfo.filename.replace(REGEXP_REPLACEABLE_CHARACTERS, character => LOOKALIKE_CHARACTERS.get(character));
 				return download(downloadInfo, replacementCharacter);
 			} else if (invalidFilename && !downloadInfo.filename.match(/^[\x00-\x7F]+$/)) { // eslint-disable-line  no-control-regex
 				downloadInfo.filename = downloadInfo.filename.replace(/[^\x00-\x7F]+/g, replacementCharacter); // eslint-disable-line  no-control-regex
