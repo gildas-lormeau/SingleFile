@@ -288,7 +288,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		};
 	}
 
-	async function init({ content, password, compressContent }, { filename, reset, isMHTML } = {}) {
+	async function init({ content, password, compressContent, url }, { filename, reset, isMHTML } = {}) {
 		await initConstants();
 		if (compressContent) {
 			const zipOptions = {
@@ -392,6 +392,9 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 					formatPageEnabled: isProbablyReaderable(document)
 				}), "*");
 			}
+		}
+		if (!pageUrl && url) {
+			pageUrl = url;
 		}
 	}
 
