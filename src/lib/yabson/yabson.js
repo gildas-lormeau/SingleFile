@@ -162,11 +162,10 @@ function registerType(serialize, parse, test, type) {
 async function clone(object, options) {
 	const serializer = getSerializer(object, options);
 	const parser = getParser();
-	let result;
 	for await (const chunk of serializer) {
-		result = await parser.next(chunk);
+		await parser.next(chunk);
 	}
-	result = await parser.next();
+	const result = await parser.next();
 	return result.value;
 }
 

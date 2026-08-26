@@ -21,15 +21,13 @@
  *   Source.
  */
 
-/* global window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, prompt, MutationObserver, FileReader, Worker, navigator */
+/* global window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, prompt, MutationObserver, FileReader */
 
 import { setLabels } from "./../../ui/common/common-content-ui.js";
 import { downloadPageForeground } from "../../core/common/download.js";
 import { convert } from "../../lib/mhtml-to-html/mod.js";
 
-(globalThis => {
-
-	const IS_NOT_SAFARI = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent) || /Vivaldi/.test(navigator.userAgent) || /OPR/.test(navigator.userAgent);
+(() => {
 
 	const singlefile = globalThis.singlefile;
 
@@ -2450,4 +2448,4 @@ pre code {
 			(firstDocumentChild.textContent.includes(COMMENT_HEADER) || firstDocumentChild.textContent.includes(COMMENT_HEADER_LEGACY));
 	}
 
-})(typeof globalThis == "object" ? globalThis : window);
+})();
