@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      -
+        name: Checkout sources
+        uses: actions/checkout@v4
+      -
+        name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: npm
+      -
+        name: Install dependencies
+        run: npm ci
+      -
+        name: Run linter
+        run: npx eslint .
+      -
+        name: Build the extension packages
+        run: ./build-extension.sh
+      # the checked-in files in lib/ must be exactly what the sources produce
+      -
+        name: Check the committed build output
+        run: git diff --exit-code
+      # the repository and the packages built without WOLEET_API_KEY must stay keyless
+      -
+        name: Check the Woleet API key stays out of the repository
+        run: |
+          grep -q WOLEET_API_KEY_PLACEHOLDER src/lib/woleet/woleet.js
+          grep -q WOLEET_API_KEY_PLACEHOLDER lib/single-file-extension-background.js
+          if git grep -q "eyJhbGciOiJIUzI1NiJ9" -- ':!.github'; then
+            echo "a committed file contains a JWT"
+            exit 1
+          fi
+          unzip -p singlefile-extension-firefox.zip lib/single-file-extension-background.js | grep -q WOLEET_API_KEY_PLACEHOLDER
