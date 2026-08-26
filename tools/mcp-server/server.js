@@ -193,7 +193,7 @@ function createMcpServer() {
                 };
             } catch (error) {
                 if (error.code === FILE_NOT_FOUND_CODE) {
-                    throw new Error(`File not found: ${sanitized}`);
+                    throw new Error(`File not found: ${sanitized}`, { cause: error });
                 }
                 throw error;
             }

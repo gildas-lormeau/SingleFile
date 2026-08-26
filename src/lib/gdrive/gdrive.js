@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, fetch, setInterval, URLSearchParams, URL, crypto, globalThis, TextEncoder, btoa */
+/* global browser, fetch, setInterval, URLSearchParams, URL, crypto, TextEncoder, btoa */
 
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
@@ -312,7 +312,7 @@ async function initAuth(gdrive, options, state) {
 				options.code = code;
 				return await authFromCode(gdrive, options);
 			} else {
-				throw new Error("code_required");
+				throw new Error("code_required", { cause: error });
 			}
 		} else {
 			throw error;

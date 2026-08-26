@@ -13,9 +13,10 @@
 		"single-file-core": "1.5.84"
 	},
 	"devDependencies": {
-		"eslint": "^10.0.0",
+		"@eslint/js": "^10.0.1",
 		"@rollup/plugin-node-resolve": "16.0.3",
 		"@rollup/plugin-terser": "0.4.4",
+		"eslint": "^10.0.0",
 		"rollup": "^4.57.1"
 	},
 	"overrides": {

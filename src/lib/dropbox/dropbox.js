@@ -236,7 +236,7 @@ async function initAuth(dropbox, options, state) {
 				options.code = code;
 				return await authFromCode(dropbox, options);
 			} else {
-				throw new Error("code_required");
+				throw new Error("code_required", { cause: error });
 			}
 		} else {
 			throw error;
