@@ -595,6 +595,8 @@ function enableCutOuterPage() {
 }
 
 function savePage() {
+	const options = tabData.options;
+	const saveWithDestination = Boolean(options.saveToClipboard || options.saveToGDrive || options.saveToGitHub || options.saveWithCompanion || options.saveWithWebDAV || options.saveWithMCP || options.saveToDropbox || options.saveToRestFormApi || options.saveToS3);
 	editorElement.contentWindow.postMessage(JSON.stringify({
 		method: "getContent",
 		compressHTML: tabData.options.compressHTML,
@@ -607,7 +609,7 @@ function savePage() {
 		infobarPositionRight: tabData.options.infobarPositionRight,
 		backgroundSave: tabData.options.backgroundSave,
 		filename: tabData.filename,
-		foregroundSave: FOREGROUND_SAVE,
+		foregroundSave: FOREGROUND_SAVE && !saveWithDestination,
 		sharePage: tabData.options.sharePage,
 		labels: {
 			EMBEDDED_IMAGE_BUTTON_MESSAGE,
