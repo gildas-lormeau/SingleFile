@@ -1,146 +1,146 @@
 {
 	"extensionDescription": {
-		"message": "將一個完整的頁面保存到單個 HTML 文件中",
+		"message": "將完整網頁儲存為單一 HTML 檔案",
 		"description": "Description of the extension."
 	},
 	"commandSaveSelectedTabs": {
-		"message": "保存選中標籤頁或其中的選中內容",
+		"message": "儲存所選分頁或其選取的內容",
 		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
 	},
 	"commandSaveAllTabs": {
-		"message": "保存所有標籤頁",
+		"message": "儲存所有分頁",
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
 	"commandCustomShortcut": {
-		"message": "自定義快捷鍵",
+		"message": "自訂快速鍵",
 		"description": "Command label: 'Custom shortcut'"
 	},
 	"commandCustomShortcut0": {
-		"message": "自定義快捷鍵 #1",
+		"message": "自訂快速鍵 #1",
 		"description": "Command label: 'Custom shortcut #1'"
 	},
 	"commandCustomShortcut1": {
-		"message": "自定義快捷鍵 #2",
+		"message": "自訂快速鍵 #2",
 		"description": "Command label: 'Custom shortcut #2'"
 	},
 	"commandCustomShortcut2": {
-		"message": "自定義快捷鍵 #3",
+		"message": "自訂快速鍵 #3",
 		"description": "Command label: 'Custom shortcut #3'"
 	},
 	"commandCustomShortcut3": {
-		"message": "自定義快捷鍵 #4",
+		"message": "自訂快速鍵 #4",
 		"description": "Command label: 'Custom shortcut #4'"
 	},
 	"commandCustomShortcut4": {
-		"message": "自定義快捷鍵 #5",
+		"message": "自訂快速鍵 #5",
 		"description": "Command label: 'Custom shortcut #5'"
 	},
 	"commandCustomShortcut5": {
-		"message": "自定義快捷鍵 #6",
+		"message": "自訂快速鍵 #6",
 		"description": "Command label: 'Custom shortcut #6'"
 	},
 	"commandCustomShortcut6": {
-		"message": "自定義快捷鍵 #7",
+		"message": "自訂快速鍵 #7",
 		"description": "Command label: 'Custom shortcut #7'"
 	},
 	"commandCustomShortcut7": {
-		"message": "自定義快捷鍵 #8",
+		"message": "自訂快速鍵 #8",
 		"description": "Command label: 'Custom shortcut #8'"
 	},
 	"commandCustomShortcut8": {
-		"message": "自定義快捷鍵 #9",
+		"message": "自訂快速鍵 #9",
 		"description": "Command label: 'Custom shortcut #9'"
 	},
 	"commandCustomShortcut9": {
-		"message": "自定義快捷鍵 #10",
+		"message": "自訂快速鍵 #10",
 		"description": "Command label: 'Custom shortcut #10'"
 	},
 	"menuSavePage": {
-		"message": "使用 SingleFile 保存頁面",
+		"message": "使用 SingleFile 儲存網頁",
 		"description": "Menu entry: 'Save page with SingleFile'"
 	},
 	"menuSaveSelectedLinks": {
-		"message": "保存所選鏈接",
+		"message": "儲存所選連結",
 		"description": "Menu entry: 'Save selected links'"
 	},
 	"menuEditPage": {
-		"message": "標註頁面...",
+		"message": "為網頁加上註解...",
 		"description": "Menu entry: 'Annotate the page...'"
 	},
 	"menuEditAndSavePage": {
-		"message": "標註並保存該頁面...",
+		"message": "為網頁加上註解並儲存...",
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
 	"menuSaveWithProfile": {
-		"message": "使用指定的配置文件保存頁面",
+		"message": "使用設定檔儲存網頁",
 		"description": "Menu entry: 'Save with profile'"
 	},
 	"menuViewPendingSaves": {
-		"message": "查看掛起的保存項...",
+		"message": "查看等候儲存的項目...",
 		"description": "Menu entry: 'View pending saves...'"
 	},
 	"menuSelectProfile": {
-		"message": "選擇默認配置文件",
+		"message": "選取預設設定檔",
 		"description": "Menu entry: 'Select the default profile'"
 	},
 	"menuUpdateRule": {
-		"message": "選擇當前規則的配置文件",
+		"message": "選取目前規則的設定檔",
 		"description": "Menu entry: 'Select the profile of the current rule'"
 	},
 	"menuCreateDomainRule": {
-		"message": "選擇當前域名的配置文件",
+		"message": "選取目前網域的設定檔",
 		"description": "Menu entry: 'Select the profile of the current domain'"
 	},
 	"menuSaveSelection": {
-		"message": "保存選中部分",
+		"message": "儲存選取範圍",
 		"description": "Menu entry: 'Save selection'"
 	},
 	"menuSaveFrame": {
-		"message": "保存框架",
+		"message": "儲存頁框",
 		"description": "Menu entry: 'Save frame'"
 	},
 	"menuSaveTabs": {
-		"message": "保存標籤頁",
+		"message": "儲存分頁",
 		"description": "Menu entry (SingleFile button only): 'Save tabs'"
 	},
 	"menuSaveSelectedTabs": {
-		"message": "保存選中標籤頁",
+		"message": "儲存所選分頁",
 		"description": "Menu entry: 'Save selected tabs'"
 	},
 	"menuSaveUnpinnedTabs": {
-		"message": "保存未固定標籤頁",
+		"message": "儲存未固定的分頁",
 		"description": "Menu entry: 'Save unpinned tabs'"
 	},
 	"menuSaveAllTabs": {
-		"message": "保存所有標籤頁",
+		"message": "儲存所有分頁",
 		"description": "Menu entry: 'Save all tabs'"
 	},
 	"menuBatchSaveUrls": {
-		"message": "批量保存網址...",
+		"message": "批次儲存網址...",
 		"description": "Menu entry: 'Batch save URLs...'"
 	},
 	"menuAutoSave": {
-		"message": "自動保存",
+		"message": "自動儲存",
 		"description": "Menu entry: 'Auto-save'"
 	},
 	"menuAutoSaveDisabled": {
-		"message": "已禁用",
+		"message": "已停用",
 		"description": "Menu entry: 'Auto-save' > Disabled'"
 	},
 	"menuAutoSaveTab": {
-		"message": "自動保存此標籤頁",
+		"message": "自動儲存這個分頁",
 		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
 	},
 	"menuAutoSaveUnpinnedTabs": {
-		"message": "自動保存未固定標籤頁",
+		"message": "自動儲存未固定的分頁",
 		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
 	},
 	"menuAutoSaveAllTabs": {
-		"message": "自動保存所有標籤頁",
+		"message": "自動儲存所有分頁",
 		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
 	},
 	"buttonDefaultTooltip": {
-		"message": "使用 SingleFile 保存頁面",
+		"message": "使用 SingleFile 儲存網頁",
 		"description": "Button title: 'Save page with SingleFile'"
 	},
 	"buttonBlockedBadge": {
@@ -148,7 +148,7 @@
 		"description": "Button badge when the page is blocked: '🚫'"
 	},
 	"buttonBlockedTooltip": {
-		"message": "SingleFile 無法保存此頁面",
+		"message": "無法使用 SingleFile 儲存這個網頁",
 		"description": "Button title: 'This page cannot be saved with SingleFile'"
 	},
 	"buttonInitializingTooltip": {
@@ -160,27 +160,27 @@
 		"description": "Badge label during initialization: '•••'"
 	},
 	"buttonSaveProgressTooltip": {
-		"message": "保存進度：",
+		"message": "儲存進度：",
 		"description": "Button title during save: 'Save progress: xx%'"
 	},
 	"buttonUploadProgressTooltip": {
-		"message": "上傳進度: ",
+		"message": "上傳進度：",
 		"description": "Button title during save: 'Upload progress: xx%'"
 	},
 	"buttonOKBadge": {
-		"message": "完成",
+		"message": "OK",
 		"description": "Badge label: 'OK'"
 	},
 	"buttonErrorBadge": {
-		"message": "錯誤",
+		"message": "ERR",
 		"description": "Badge label for unexpected errors"
 	},
 	"buttonAutoSaveActiveTooltip": {
-		"message": "自動保存活動頁面",
+		"message": "自動儲存已啟用",
 		"description": "Button title: 'Auto-save active'"
 	},
 	"buttonAutoSaveActiveBadge": {
-		"message": "[自動]",
+		"message": "[A]",
 		"description": "Badge label when auto-save is active"
 	},
 	"optionsTitle": {
@@ -188,115 +188,115 @@
 		"description": "Options page title"
 	},
 	"optionsUserInterfaceSubTitle": {
-		"message": "用戶界面",
+		"message": "使用者介面",
 		"description": "Options sub-title: 'User interface'"
 	},
 	"optionAddMenuEntry": {
-		"message": "在頁面的上下文菜單中添加 SingleFile 條目",
+		"message": "在網頁的內容選單中加入項目",
 		"description": "Options page label: 'add entry in the context menu of the webpage'"
 	},
 	"optionDisplayShadow": {
-		"message": "在處理過程中用陰影覆蓋頁面",
+		"message": "處理網頁時覆蓋陰影",
 		"description": "Options page label: 'overlay a shadow on the page during processing'"
 	},
 	"optionDisplayInfobar": {
-		"message": "查看已保存頁面時顯示信息欄",
+		"message": "查看已儲存的網頁時顯示資訊列",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
 	"optionInfobarTemplate": {
-		"message": "信息欄內容模板",
+		"message": "資訊列內容範本",
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionBlockMixedContent": {
-		"message": "攔截混合內容",
+		"message": "封鎖混合內容",
 		"description": "Options page label: 'block mixed content'"
 	},
 	"optionSaveOriginalURLs": {
-		"message": "保存嵌入資源的原始網址",
+		"message": "儲存嵌入資源的原始網址",
 		"description": "Options page label: 'save original URLs of embedded resources'"
 	},
 	"optionIncludeInfobar": {
-		"message": "將信息欄嵌入到保存的頁面中",
+		"message": "在已儲存的網頁中加入資訊列",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionOpenInfobar": {
-		"message": "查看已保存頁面時使信息欄為打開狀態",
+		"message": "保持資訊列開啟",
 		"description": "Options page label: 'keep infobar open'"
 	},
 	"optionRemoveInfobarSavedDate": {
-		"message": "不包括保存日期",
+		"message": "不加入儲存日期",
 		"description": "Options page label: 'do not include the saved date'"
 	},
 	"optionConfirmInfobar": {
-		"message": "打開提示對話框編輯信息欄內容",
+		"message": "開啟提示對話方塊以編輯資訊列內容",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionAutoClose": {
-		"message": "頁面保存後自動關閉該標籤頁",
+		"message": "網頁儲存後自動關閉分頁",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
 	"optionCustomShortcut": {
-		"message": "自定義快捷鍵命令",
+		"message": "鍵盤快速鍵指令",
 		"description": "Options page label: 'keyboard shortcut command'"
 	},
 	"optionCustomShortcutDefault": {
-		"message": "默認快捷鍵",
+		"message": "預設快速鍵",
 		"description": "Options page label: 'default shortcut'"
 	},
 	"optionsFileNameSubTitle": {
-		"message": "文件名",
+		"message": "檔案名稱",
 		"description": "Options sub-title: 'File name'"
 	},
 	"optionFilenameTemplate": {
-		"message": "模板",
+		"message": "範本",
 		"description": "Options page label: 'template'"
 	},
 	"optionFilenameMaxLength": {
-		"message": "最大長度",
+		"message": "長度上限",
 		"description": "Options page label: 'max length'"
 	},
 	"optionFilenameMaxLengthBytesUnit": {
-		"message": "字節",
+		"message": "位元組",
 		"description": "Options page label: 'bytes'"
 	},
 	"optionFilenameMaxLengthCharsUnit": {
-		"message": "字符",
+		"message": "字元",
 		"description": "Options page label: 'characters'"
 	},
 	"optionFilenameReplacementCharacter": {
-		"message": "替換字符",
+		"message": "替換字元",
 		"description": "Options page label: 'replacement character'"
 	},
 	"optionReplaceEmojisInFilename": {
-		"message": "用文字替換表情符號",
+		"message": "將表情符號替換為文字",
 		"description": "Options page label: 'replace emojis with text'"
 	},
 	"optionSaveFilenameTemplateData": {
-		"message": "將文件名模板數據保存到頁面中",
+		"message": "將檔名範本資料儲存至網頁中",
 		"description": "Options page label: 'save the filename template data into the page'"
 	},
 	"optionConfirmFilename": {
-		"message": "打開 “另存為” 對話框以確認文件名",
+		"message": "開啟「另存新檔」對話方塊以確認檔案名稱",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
 	},
 	"optionFilenameConflictAction": {
-		"message": "文件名衝突解決方案",
+		"message": "檔案名稱衝突處理方式",
 		"description": "Options page label: 'filename conflict resolution'"
 	},
 	"optionFilenameConflictActionUniquify": {
-		"message": "創建一個唯一名稱",
+		"message": "建立不重複的名稱",
 		"description": "Value for 'filename conflict resolution' option: 'create a unique name'"
 	},
 	"optionFilenameConflictActionOverwrite": {
-		"message": "覆蓋現有文件",
+		"message": "覆寫現有檔案",
 		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
 	},
 	"optionFilenameConflictActionPrompt": {
-		"message": "指定一個新名稱",
+		"message": "提示輸入名稱",
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionFilenameConflictActionSkip": {
-		"message": "跳過重複文件",
+		"message": "略過重複的檔案",
 		"description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
 	},
 	"optionsHTMLContentSubTitle": {
@@ -308,11 +308,11 @@
 		"description": "Options page label: 'compress HTML content'"
 	},
 	"optionRemoveFrames": {
-		"message": "移除框架",
+		"message": "移除頁框",
 		"description": "Options page label: 'remove frames'"
 	},
 	"optionRemoveHiddenElements": {
-		"message": "移除隱藏元素",
+		"message": "移除隱藏的元素",
 		"description": "Options page label: 'remove hidden elements'"
 	},
 	"optionRemovedElementsSelector": {
@@ -320,7 +320,7 @@
 		"description": "Options page label: 'remove specific elements'"
 	},
 	"optionsFileFormatSubTitle": {
-		"message": "文件格式",
+		"message": "檔案格式",
 		"description": "Options sub-title: 'File format'"
 	},
 	"optionFileFormat": {
@@ -332,11 +332,11 @@
 		"description": "Options page label: 'HTML'"
 	},
 	"optionFileFormatSelectSelfExtractingUniversal": {
-		"message": "自解壓縮 ZIP（通用）",
+		"message": "自我解壓縮 ZIP（通用）",
 		"description": "Options page label: 'self-extracting ZIP (universal)'"
 	},
 	"optionFileFormatSelectSelfExtracting": {
-		"message": "自解壓縮 ZIP",
+		"message": "自我解壓縮 ZIP",
 		"description": "Options page label: 'self-extracting ZIP'"
 	},
 	"optionFileFormatSelectZIP": {
@@ -348,19 +348,19 @@
 		"description": "Options page label: 'password'"
 	},
 	"optionCreateRootDirectory": {
-		"message": "創建根目錄",
+		"message": "建立根目錄",
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionDisableCompression": {
-		"message": "禁用壓縮",
+		"message": "停用壓縮",
 		"description": "Options page label: 'disable compression'"
 	},
 	"optionPreventAppendedData": {
-		"message": "不要在 ZIP 數據後添加數據",
+		"message": "不要在 ZIP 資料後方附加資料",
 		"description": "Options page label: 'do not append data after the ZIP data'"
 	},
 	"optionInsertTextBody": {
-		"message": "使文本可被搜索",
+		"message": "讓文字可供搜尋",
 		"description": "Options page label: 'make text searchable'"
 	},
 	"optionInsertEmbeddedImage": {
@@ -368,15 +368,15 @@
 		"description": "Options page label: 'embed image'"
 	},
 	"optionInsertEmbeddedScreenshotImage": {
-		"message": "網頁截圖",
+		"message": "網頁螢幕擷圖",
 		"description": "Options page label: 'page screenshot'"
 	},
 	"optionInsertEmbeddedCustomImage": {
-		"message": "自定義圖片",
+		"message": "自訂圖片",
 		"description": "Options page label: 'custom image'"
 	},
 	"optionsInfobarSubTitle": {
-		"message": "信息欄",
+		"message": "資訊列",
 		"description": "Options sub-title: 'Infobar'"
 	},
 	"optionsImagesSubTitle": {
@@ -384,47 +384,47 @@
 		"description": "Options sub-title: 'Images'"
 	},
 	"optionGroupDuplicateImages": {
-		"message": "將重複圖片分組到一起",
+		"message": "將重複的圖片歸為一組",
 		"description": "Options page label: 'group duplicate images together'"
 	},
 	"optionImageReductionFactor": {
-		"message": "圖片縮小係數",
+		"message": "圖片縮小比例",
 		"description": "Options page label: 'image reduction factor'"
 	},
 	"optionLoadDeferredImages": {
-		"message": "保存延遲加載的圖片",
+		"message": "儲存延後載入的圖片",
 		"description": "Options page label: 'save deferred images'"
 	},
 	"optionLoadDeferredImagesMaxIdleTime": {
-		"message": "最長空閒時間（毫秒）",
+		"message": "閒置時間上限（毫秒）",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
 	"optionLoadDeferredImagesKeepZoomLevel": {
-		"message": "縮小頁面",
+		"message": "縮小網頁",
 		"description": "Options page label: 'zoom out the page'"
 	},
 	"optionLoadDeferredImagesDispatchScrollEvent": {
-		"message": "觸發滾動事件",
+		"message": "傳送「scroll」事件",
 		"description": "Options page label: 'dispatch \"scroll\" event'"
 	},
 	"optionLoadDeferredImagesBeforeFrames": {
-		"message": "加載延遲框架",
+		"message": "載入延後載入的頁框",
 		"description": "Options page label: 'load deferred frames'"
 	},
 	"optionRemoveAlternativeImages": {
-		"message": "移除用於備選分辨率的圖片",
+		"message": "移除其他螢幕解析度適用的圖片",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"
 	},
 	"optionsFontsSubTitle": {
-		"message": "字體",
+		"message": "字型",
 		"description": "Options sub-title: 'Fonts'"
 	},
 	"optionRemoveUnusedFonts": {
-		"message": "移除未使用字體",
+		"message": "移除未使用的字型",
 		"description": "Options page label: 'remove unused fonts'"
 	},
 	"optionRemoveAlternativeFonts": {
-		"message": "移除備選字體",
+		"message": "移除替代字型",
 		"description": "Options page label: 'remove alternative fonts'"
 	},
 	"optionsStylesheetsSubTitle": {
@@ -436,11 +436,11 @@
 		"description": "Options page label: 'compress CSS content'"
 	},
 	"optionGroupDuplicateStylesheets": {
-		"message": "將重複樣式表分組到一起",
+		"message": "將重複的樣式表歸為一組",
 		"description": "Options page label: 'group duplicate stylesheets together'"
 	},
 	"optionMoveStylesInHead": {
-		"message": "移動 head 標籤之外的樣式到其內",
+		"message": "將 head 元素外的樣式移入其中",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionRemoveUnusedStyles": {
@@ -448,39 +448,39 @@
 		"description": "Options page label: 'remove unused styles'"
 	},
 	"optionRemoveAlternativeMedias": {
-		"message": "移除用於備選設備屏幕的樣式表",
+		"message": "移除螢幕以外裝置適用的樣式表",
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
 	"optionsNetworkSubTitle": {
-		"message": "網絡",
+		"message": "網路",
 		"description": "Options sub-title: 'Network'"
 	},
 	"optionsBlockedResources": {
-		"message": "攔截資源文件",
+		"message": "已封鎖的資源",
 		"description": "Options page label: 'blocked resources'"
 	},
 	"optionsAcceptHeaders": {
-		"message": "“Accept” 請求頭",
+		"message": "「Accept」標頭",
 		"description": "Options page label: '\"Accept\" header'"
 	},
 	"optionResourceScript": {
-		"message": "腳本",
+		"message": "指令碼",
 		"description": "Options page label: 'scripts'"
 	},
 	"optionResourceVideo": {
-		"message": "視頻",
+		"message": "影片",
 		"description": "Options page label: 'videos'"
 	},
 	"optionResourceAudio": {
-		"message": "音頻",
+		"message": "音訊",
 		"description": "Options page label: 'audios'"
 	},
 	"optionResourceDocument": {
-		"message": "文檔",
+		"message": "文件",
 		"description": "Options page label: 'documents'"
 	},
 	"optionResourceFont": {
-		"message": "字體",
+		"message": "字型",
 		"description": "Options page label: 'fonts'"
 	},
 	"optionResourceStylesheet": {
@@ -492,7 +492,7 @@
 		"description": "Options page label: 'images'"
 	},
 	"optionsDestinationSubTitle": {
-		"message": "保存位置",
+		"message": "儲存位置",
 		"description": "Options sub-title: 'Destination'"
 	},
 	"optionsBookmarkSubTitle": {
@@ -500,19 +500,19 @@
 		"description": "Options sub-title: 'Bookmarks'"
 	},
 	"optionsAutoSaveSubTitle": {
-		"message": "自動保存",
+		"message": "自動儲存",
 		"description": "Options sub-title: 'Auto-save'"
 	},
 	"optionsAutoSettingsSubTitle": {
-		"message": "自動設置規則",
+		"message": "自動設定規則",
 		"description": "Options sub-title: 'Auto-settings rules'"
 	},
 	"optionsDeleteDisplayedRulesConfirm": {
-		"message": "確認刪除所有已顯示規則",
+		"message": "確認刪除所有顯示的規則",
 		"description": "Popup text 'Confirm the deletion of all displayed rules'"
 	},
 	"optionsDeleteRulesTooltip": {
-		"message": "刪除所有已顯示規則",
+		"message": "刪除所有顯示的規則",
 		"description": "Popup text 'Delete all displayed rules'"
 	},
 	"optionsAutoSettingsUrl": {
@@ -520,23 +520,23 @@
 		"description": "Options label in the Auto-settings rules: 'URL'"
 	},
 	"optionsAutoSettingsUrlPlaceholder": {
-		"message": "輸入完整的或部分網址 （例如 example.com）",
+		"message": "輸入完整或部分網址（例如 example.com）",
 		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
 	},
 	"optionsAutoSettingsProfile": {
-		"message": "配置文件",
+		"message": "設定檔",
 		"description": "Options label in the Auto-settings rules: 'Profile'"
 	},
 	"optionsAutoSettingsAutoSaveProfile": {
-		"message": "自動保存配置文件",
+		"message": "自動儲存設定檔",
 		"description": "Options label in the Auto-settings rules: 'Auto-save profile'"
 	},
 	"optionsAutoSettingsShowAllProfiles": {
-		"message": "顯示所有配置文件",
+		"message": "顯示所有設定檔",
 		"description": "Options label in the Auto-settings rules: 'display all profiles'"
 	},
 	"optionsAutoSettingsShowAutoSaveProfile": {
-		"message": "顯示 “自動保存配置文件” 列",
+		"message": "顯示「自動儲存設定檔」欄",
 		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
 	},
 	"optionsUpdateRuleTooltip": {
@@ -548,15 +548,15 @@
 		"description": "Popup text 'Delete the rule' in the options page"
 	},
 	"optionsAddRuleTooltip": {
-		"message": "添加規則",
+		"message": "新增規則",
 		"description": "Popup text 'Add the rule' in the options page"
 	},
 	"optionsValidateChangesTooltip": {
-		"message": "驗證更改",
+		"message": "驗證變更",
 		"description": "Popup text 'Validate changes' in the options page"
 	},
 	"optionsCancelChangesTooltip": {
-		"message": "取消更改",
+		"message": "取消變更",
 		"description": "Popup text 'Cancel changes' in the options page"
 	},
 	"optionsDeleteRuleConfirm": {
@@ -564,99 +564,99 @@
 		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
 	},
 	"optionAutoSaveLoadOrUnload": {
-		"message": "在頁面加載完成後或開始卸載時進行自動保存",
+		"message": "網頁載入後或卸載時自動儲存",
 		"description": "auto-save after page load or on page unload"
 	},
 	"optionAutoSaveLoad": {
-		"message": "在頁面加載完成後進行自動保存",
+		"message": "網頁載入後自動儲存",
 		"description": "Options page label: 'auto-save after page load'"
 	},
 	"optionAutoSaveUnload": {
-		"message": "在頁面開始卸載時進行自動保存",
+		"message": "網頁卸載時自動儲存",
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
-		"message": "在頁面丟棄時進行自動保存",
+		"message": "捨棄分頁時自動儲存",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
-		"message": "在頁面移除時進行自動保存",
+		"message": "移除分頁時自動儲存",
 		"description": "Options page label: 'auto-save on tab removal'"
 	},
 	"optionAutoSaveDelay": {
-		"message": "頁面加載完成後延遲該時間再進行自動保存（秒）",
+		"message": "網頁載入後的自動儲存等待時間（秒）",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
 	},
 	"optionAutoSaveRepeat": {
-		"message": "定期自動保存",
+		"message": "定期自動儲存",
 		"description": "Options page label: 'auto-save periodically'"
 	},
 	"optionAutoSaveRepeatDelay": {
-		"message": "週期（秒）",
+		"message": "間隔時間（秒）",
 		"description": "Options page label: 'period (s)'"
 	},
 	"optionAutoSaveExternalSave": {
-		"message": "使用 SingleFile Companion 保存頁面",
+		"message": "使用 SingleFile Companion 儲存網頁",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
 	},
 	"optionsEditorSubTitle": {
-		"message": "標註編輯器",
+		"message": "註解編輯器",
 		"description": "Options sub-title: 'Annotation editor'"
 	},
 	"optionOpenEditor": {
-		"message": "在保存前對該頁面進行標註編輯",
+		"message": "儲存前先為網頁加上註解",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionOpenSavedPage": {
-		"message": "在新標籤頁中打開保存後的頁面",
+		"message": "在新分頁中開啟已儲存的網頁",
 		"description": "Options page label: 'open saved pages in a new tab'"
 	},
 	"optionAutoOpenEditor": {
-		"message": "在標註編輯器中打開用 SingleFile 保存的頁面",
+		"message": "在註解編輯器中開啟以 SingleFile 儲存的網頁",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionDefaultEditorMode": {
-		"message": "默認模式",
+		"message": "預設模式",
 		"description": "Options page label: 'default mode'"
 	},
 	"optionDefaultEditorModeNormal": {
-		"message": "常規",
+		"message": "一般",
 		"description": "Options page label: 'default mode > normal'"
 	},
 	"optionDefaultEditorModeEdit": {
-		"message": "編輯模式",
+		"message": "編輯網頁",
 		"description": "Options page label: 'default mode > edit the page'"
 	},
 	"optionDefaultEditorModeFormat": {
-		"message": "格式化頁面",
+		"message": "設定網頁格式",
 		"description": "Options page label: 'default mode > format the page'"
 	},
 	"optionDefaultEditorModeCut": {
-		"message": "刪除內部文檔元素",
+		"message": "移除元素",
 		"description": "Options page label: 'default mode > remove elements'"
 	},
 	"optionDefaultEditorModeCutExternal": {
-		"message": "刪除外部文檔元素",
+		"message": "移除外部元素",
 		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
-		"message": "在標註編輯器中打開頁面時應用系統主題樣式",
+		"message": "設定網頁格式時套用系統主題",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionContentWidth": {
-		"message": "格式化頁面時的內容寬度（em）",
+		"message": "設定網頁格式時的內容寬度 (em)",
 		"description": "Options page label: 'content width when formatting a page (em)'"
 	},
 	"optionWarnUnsavedPage": {
-		"message": "離開標註編輯器時提醒保存已修改的內容",
+		"message": "離開有未儲存變更的網頁時發出警告",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
 	"optionDisplayInfobarInEditor": {
-		"message": "顯示信息欄",
+		"message": "顯示資訊列",
 		"description": "Title of the button 'display the infobar'"
 	},
 	"optionsMiscSubTitle": {
-		"message": "雜項",
+		"message": "其他",
 		"description": "Options sub-title: 'Misc.'"
 	},
 	"optionsExternalCapturePermissionsSubTitle": {
@@ -668,14 +668,14 @@
 		"description": "Options page label: 'allowed extensions, one per line'"
 	},
 	"optionExternalCaptureDeniedIds": {
-		"message": "已封鎖的擴充功能，每行一個",
+		"message": "封鎖的擴充功能，每行一個",
 		"description": "Options page label: 'blocked extensions, one per line'"
 	},
 	"optionsExternalCapturePendingRequest": {
-		"message": "擴充功能 $EXTENSION_ID$ 想要使用 SingleFile 保存此瀏覽器中的頁面並取得其 HTML 內容。如果允許，在您將其從下方清單中移除之前，它可以隨時保存任意分頁而不再詢問。",
+		"message": "擴充功能 $EXTENSION_ID$ 要求使用 SingleFile 在這個瀏覽器中擷取網頁，並接收網頁的 HTML 內容。如果你允許，這項擴充功能就能隨時擷取任何分頁，不會再次徵詢你的同意，直到你將它從下方清單中移除為止。",
 		"description": "Options page prompt to approve an external extension capture request.",
-		"placeholders": {
-			"extension_id": {
+			"placeholders": {
+				"extension_id": {
 				"content": "$1",
 				"example": "archivebox@example.com"
 			}
@@ -690,87 +690,87 @@
 		"description": "Options button: 'Deny'"
 	},
 	"optionBackgroundSave": {
-		"message": "在後臺保存頁面",
+		"message": "在背景儲存網頁",
 		"description": "Options page label: 'save pages in background'"
 	},
 	"optionDisplayStats": {
-		"message": "處理完成後在控制檯中顯示統計數據",
+		"message": "處理完成後在主控台顯示統計資料",
 		"description": "Options page label: 'display stats in the console after processing'"
 	},
 	"optionSetMaxResourceSize": {
-		"message": "限制資源文件大小",
+		"message": "設定大小上限",
 		"description": "Options page label: 'set maximum size'"
 	},
 	"optionMaxResourceSize": {
-		"message": "大小上限（兆字節）",
+		"message": "大小上限 (MB)",
 		"description": "Options page label: 'maximum size (MB)'"
 	},
 	"optionSetMaxResourceDelay": {
-		"message": "限制資源文件下載超時時間",
+		"message": "設定下載時間上限",
 		"description": "Options page label: 'set maximum download time'"
 	},
 	"optionMaxResourceDelay": {
-		"message": "時間上限（秒）",
+		"message": "下載時間上限（秒）",
 		"description": "Options page label: 'maximum download time (s)'"
 	},
 	"optionPassReferrerOnError": {
-		"message": "跨域請求失敗時添加來源地址頭信息（Referer）",
+		"message": "發生跨來源要求錯誤後傳遞「Referer」標頭",
 		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
 	},
 	"optionSaveRawPage": {
-		"message": "保存原始頁面",
+		"message": "儲存原始網頁",
 		"description": "Options page label: 'save raw page'"
 	},
 	"optionInsertMetaCSP": {
-		"message": "設置內容安全策略",
+		"message": "設定內容安全政策",
 		"description": "Options page label: 'set content security policy'"
 	},
 	"optionSaveToClipboard": {
-		"message": "保存到剪切板",
+		"message": "複製到剪貼簿",
 		"description": "Options page label: 'copy to clipboard'"
 	},
 	"optionSaveToFilesystem": {
-		"message": "保存到文件系統",
+		"message": "儲存到檔案系統",
 		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionSharePage": {
-		"message": "分享頁面",
+		"message": "分享網頁",
 		"description": "Options page label: 'share page'"
 	},
 	"optionAddProof": {
-		"message": "添加證明文件存在的指紋",
+		"message": "新增存在證明",
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
-		"message": "請確認您是否允許 SingleFile 將您要保存的每個頁面的 SHA256 哈希值發送給 Woleet API 。您可以在幫助頁面或者通過點擊該選項旁的問號找到此功能的更多信息。",
+		"message": "請確認你允許 SingleFile 將你要儲存的每個網頁的 SHA256 雜湊傳送給 Woleet API。如要進一步瞭解這項功能，請參閱說明頁面，或點選選項旁的問號。",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionWoleetKey": {
-		"message": "訪問令牌",
+		"message": "存取權杖",
 		"description": "Options page label: 'access token'"
 	},
 	"optionSaveToGDrive": {
-		"message": "保存到 Google Drive",
+		"message": "上傳到 Google 雲端硬碟",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveToDropbox": {
-		"message": "保存到 Dropbox",
+		"message": "上傳到 Dropbox",
 		"description": "Options page label: 'upload to Dropbox'"
 	},
 	"optionSaveToGitHub": {
-		"message": "保存到 GitHub",
+		"message": "上傳到 GitHub",
 		"description": "Options page label: 'upload to GitHub'"
 	},
 	"optionGitHubToken": {
-		"message": "訪問令牌",
+		"message": "存取權杖",
 		"description": "Options page label: 'access token'"
 	},
 	"optionGitHubUser": {
-		"message": "用戶名",
+		"message": "使用者名稱",
 		"description": "Options page label: 'user name'"
 	},
 	"optionGitHubRepository": {
-		"message": "倉庫名稱",
+		"message": "存放區名稱",
 		"description": "Options page label: 'repository name'"
 	},
 	"optionGitHubBranch": {
@@ -778,39 +778,39 @@
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveToS3": {
-		"message": "保存到 Amazon S3",
+		"message": "上傳到 Amazon S3",
 		"description": "Options page label: 'upload to Amazon S3'"
 	},
 	"optionS3Domain": {
-		"message": "域名",
+		"message": "網域",
 		"description": "Options page label: 'domain'"
 	},
 	"optionS3Region": {
-		"message": "區域",
+		"message": "地區",
 		"description": "Options page label: 'region'"
 	},
 	"optionS3Bucket": {
-		"message": "存儲桶名稱",
+		"message": "值區名稱",
 		"description": "Options page label: 'bucket name'"
 	},
 	"optionS3AccessKey": {
-		"message": "訪問密鑰",
+		"message": "存取金鑰",
 		"description": "Options page label: 'access key'"
 	},
 	"optionS3SecretKey": {
-		"message": "密鑰",
+		"message": "私密金鑰",
 		"description": "Options page label: 'secret key'"
 	},
 	"optionSaveWithWebDAV": {
-		"message": "保存到 WebDAV 服務器",
+		"message": "上傳到 WebDAV 伺服器",
 		"description": "Options page label: 'upload to a WebDAV server'"
 	},
 	"optionWebDAVURL": {
-		"message": "地址",
+		"message": "網址",
 		"description": "Options page label: 'URL'"
 	},
 	"optionWebDAVUser": {
-		"message": "用戶名",
+		"message": "使用者 ID",
 		"description": "Options page label: 'user identifier'"
 	},
 	"optionWebDAVPassword": {
@@ -818,63 +818,63 @@
 		"description": "Options page label: 'password'"
 	},
 	"optionSaveWithMCP": {
-		"message": "保存到 MCP 服務器",
+		"message": "上傳到 MCP 伺服器",
 		"description": "Options page label: 'upload to an MCP server'"
 	},
 	"optionMCPServerUrl": {
-		"message": "服務器地址",
+		"message": "伺服器網址",
 		"description": "Options page label: 'server URL'"
 	},
 	"optionMCPAuthToken": {
-		"message": "認證令牌",
+		"message": "驗證權杖",
 		"description": "Options page label: 'authentication token'"
 	},
 	"optionSaveWithCompanion": {
-		"message": "使用 SingleFile Companion 保存",
+		"message": "使用 SingleFile Companion 儲存",
 		"description": "Options page label: 'save with SingleFile Companion'"
 	},
 	"optionSaveCreatedBookmarks": {
-		"message": "創建新書籤時保存其對應頁面",
+		"message": "儲存新增書籤的網頁",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionReplaceBookmarkURL": {
-		"message": "將新書籤的鏈接指向已保存頁面",
+		"message": "將新增書籤連結至已儲存的網頁",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
 	"optionAllowedBookmarkFolders": {
-		"message": "允許文件夾",
+		"message": "允許的資料夾",
 		"description": "Options page label: 'allowed folders'"
 	},
 	"optionIgnoredBookmarkFolders": {
-		"message": "忽略文件夾",
+		"message": "忽略的資料夾",
 		"description": "Options page label: 'ignored folders'"
 	},
 	"optionsHelpLink": {
-		"message": "幫助",
+		"message": "說明",
 		"description": "Options help link"
 	},
 	"optionSynchronize": {
-		"message": "同步選項",
+		"message": "同步處理選項",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionsResetButton": {
-		"message": "重置",
+		"message": "重設",
 		"description": "Options button: 'Reset'"
 	},
 	"optionsResetTooltip": {
-		"message": "重置所有選項為默認值",
+		"message": "將所有選項重設為預設值",
 		"description": "Options 'Reset' button tooltip"
 	},
 	"optionsResetConfirm": {
-		"message": "確認重置所有選項或當前配置文件",
+		"message": "確認重設所有選項或目前的設定檔",
 		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
 	},
 	"optionsResetAllButton": {
-		"message": "重置所有選項",
+		"message": "重設所有選項",
 		"description": "Options confirm button: 'Reset all options'"
 	},
 	"optionsResetCurrentButton": {
-		"message": "重置當前配置文件",
+		"message": "重設目前的設定檔",
 		"description": "Options confirm button: 'Reset current profile'"
 	},
 	"optionsOKButton": {
@@ -886,23 +886,23 @@
 		"description": "Options confirm button: 'Cancel'"
 	},
 	"optionsExportButton": {
-		"message": "導出",
+		"message": "匯出",
 		"description": "Options button: 'Export'"
 	},
 	"optionsImportButton": {
-		"message": "導入",
+		"message": "匯入",
 		"description": "Options button: 'Import'"
 	},
 	"logPanelDeferredImages": {
-		"message": "延遲加載的圖片",
+		"message": "延後載入的圖片",
 		"description": "Label 'Deferred images' in the log panel"
 	},
 	"logPanelFrameContents": {
-		"message": "框架內容",
+		"message": "頁框內容",
 		"description": "Label 'Frame contents' in the log panel"
 	},
 	"logPanelEmbeddedImage": {
-		"message": "嵌入圖片",
+		"message": "嵌入的圖片",
 		"description": "Label 'Embedded image' in the log panel"
 	},
 	"logPanelStep": {
@@ -918,139 +918,139 @@
 		"description": "Label 'SingleFile error: ' in the top panel when displaying an error message"
 	},
 	"topPanelEmbeddedImageButton": {
-		"message": "打開圖片...",
+		"message": "開啟圖片...",
 		"description": "Top panel button 'Open image...' when embedding an image"
 	},
 	"topPanelSharePageButton": {
-		"message": "分享頁面...",
+		"message": "分享網頁...",
 		"description": "Top panel button 'Share page...' when sharing a page"
 	},
 	"topPanelShareSelectionButton": {
-		"message": "分享選中內容...",
+		"message": "分享選取範圍...",
 		"description": "Top panel button 'Share selection...' when sharing selected content"
 	},
 	"profileDefaultSettings": {
-		"message": "默認設置",
+		"message": "預設設定",
 		"description": "Label 'Default settings' of the default settings in the options page"
 	},
 	"profileDisabled": {
-		"message": "已禁用",
+		"message": "已停用",
 		"description": "Label 'Disabled' of the disabled profile name in the options page"
 	},
 	"profileAddButtonTooltip": {
-		"message": "新增配置文件",
+		"message": "新增設定檔",
 		"description": "Tooltip 'Add a new profile' in the options page"
 	},
 	"profileRenameButtonTooltip": {
-		"message": "重命名配置文件",
+		"message": "重新命名設定檔",
 		"description": "Tooltip 'Rename the profile' in the options page"
 	},
 	"profileDeleteButtonTooltip": {
-		"message": "刪除配置文件",
+		"message": "刪除設定檔",
 		"description": "Tooltip 'Delete the profile' in the options page"
 	},
 	"profileAddPrompt": {
-		"message": "新增配置文件",
+		"message": "請輸入這個新設定檔的名稱",
 		"description": "Popup text 'Enter a name for this new profile' in the options page"
 	},
 	"profileDeleteConfirm": {
-		"message": "確認刪除所選配置文件？",
+		"message": "確認刪除所選設定檔",
 		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
 	},
 	"profileRenamePrompt": {
-		"message": "重命名配置文件",
+		"message": "請輸入所選設定檔的新名稱",
 		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
 	},
 	"editorAddYellowNote": {
-		"message": "添加黃色標註",
+		"message": "新增黃色附註",
 		"description": "Title of the button 'Add a yellow note' in the editor"
 	},
 	"editorAddPinkNote": {
-		"message": "添加粉色標註",
+		"message": "新增粉紅色附註",
 		"description": "Title of the button 'Add a pink note' in the editor"
 	},
 	"editorAddBlueNote": {
-		"message": "添加藍色標註",
+		"message": "新增藍色附註",
 		"description": "Title of the button 'Add a blue note' in the editor"
 	},
 	"editorAddGreenNote": {
-		"message": "添加綠色標註",
+		"message": "新增綠色附註",
 		"description": "Title of the button 'Add a green note' in the editor"
 	},
 	"editorHighlightYellow": {
-		"message": "將所選文本高亮為黃色",
+		"message": "以黃色醒目顯示所選文字",
 		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
 	},
 	"editorHighlightPink": {
-		"message": "將所選文本高亮為粉色",
+		"message": "以粉紅色醒目顯示所選文字",
 		"description": "Title of the button 'Highlight selected text in pink' in the editor"
 	},
 	"editorHighlightBlue": {
-		"message": "將所選文本高亮為藍色",
+		"message": "以藍色醒目顯示所選文字",
 		"description": "Title of the button 'Highlight selected text in blue' in the editor"
 	},
 	"editorHighlightGreen": {
-		"message": "將所選文本高亮為綠色",
+		"message": "以綠色醒目顯示所選文字",
 		"description": "Title of the button 'Highlight selected text in green' in the editor"
 	},
 	"editorToggleNotes": {
-		"message": "顯示/隱藏 標註",
+		"message": "顯示／隱藏附註",
 		"description": "Title of the button 'Display/hide notes' in the editor"
 	},
 	"editorToggleHighlights": {
-		"message": "顯示/隱藏 高亮文本",
+		"message": "顯示／隱藏醒目顯示的文字",
 		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
 	},
 	"editorRemoveHighlight": {
-		"message": "移除所選高亮文本",
+		"message": "移除所選的醒目顯示文字",
 		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
 	},
 	"editorEditPage": {
-		"message": "啟用/禁用 編輯模式",
+		"message": "啟用／停用唯讀模式",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorFormatPage": {
-		"message": "格式化頁面以提升可讀性",
+		"message": "設定網頁格式以提高可讀性",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "啟用/禁用 點擊時刪除內部文檔元素",
+		"message": "啟用／停用內部元素移除功能",
 		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "啟用/禁用 點擊時刪除外部文檔元素",
+		"message": "啟用／停用外部元素移除功能",
 		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
-		"message": "撤銷上次移除元素的操作",
+		"message": "還原上次移除的元素",
 		"description": "Title of the button 'Restore last removed element' in the editor"
 	},
 	"editorUndoAllCutPage": {
-		"message": "撤銷所有移除元素的操作",
+		"message": "還原所有已移除的元素",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
 	"editorRedoCutPage": {
-		"message": "恢復上次移除元素的操作",
+		"message": "移除上次還原的元素",
 		"description": "Title of the button 'Remove last restored element' in the editor"
 	},
 	"editorSavePage": {
-		"message": "保存該頁面",
+		"message": "儲存網頁",
 		"description": "Title of the button 'Save the page' in the editor"
 	},
 	"editorPrintPage": {
-		"message": "打印頁面",
+		"message": "列印網頁",
 		"description": "Title of the button 'Print the page' in the editor"
 	},
 	"editorImportMht": {
-		"message": "導入 MHTML 文件",
+		"message": "匯入 MHTML 檔案",
 		"description": "Title of the button 'Import MHTML file' in the editor"
 	},
 	"pendingsTitle": {
-		"message": "掛起保存項",
+		"message": "等候儲存的項目",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
 	},
 	"pendingsCancelAllButton": {
-		"message": "取消全部",
+		"message": "全部取消",
 		"description": "Pending saves button 'Cancel all'"
 	},
 	"pendingsURLTitle": {
@@ -1066,27 +1066,27 @@
 		"description": "Title of the second column in the table of the pending saves 'status'"
 	},
 	"pendingsPendingStatus": {
-		"message": "正在掛起",
+		"message": "待處理",
 		"description": "Value of 'status' for pending saves"
 	},
 	"pendingsProcessingStatus": {
-		"message": "正在處理",
+		"message": "處理中",
 		"description": "Value of 'status' for current saves"
 	},
 	"pendingsCancellingStatus": {
-		"message": "正在取消",
+		"message": "取消中",
 		"description": "Value of 'status' for cancelled saves"
 	},
 	"pendingsNoPendings": {
-		"message": "沒有掛起中的保存項",
-		"description": "Label displayed when they are no pending saves"
+		"message": "沒有等候儲存的項目",
+		"description": "Label displayed when there are no pending saves"
 	},
 	"pendingsAddUrlsButton": {
-		"message": "添加網址",
+		"message": "新增網址",
 		"description": "button 'Add URLs'"
 	},
 	"pendingsAddUrls": {
-		"message": "請按行輸入網址列表",
+		"message": "請輸入以換行分隔的網址清單",
 		"description": "Label of the add URLs input"
 	},
 	"pendingsAddUrlsOKButton": {
@@ -1098,27 +1098,27 @@
 		"description": "Add URLs popup cancel button: 'Cancel'"
 	},
 	"batchSaveUrlsTitle": {
-		"message": "批量保存網址",
+		"message": "批次儲存網址",
 		"description": "Title of the 'batch save URLs' page"
 	},
 	"batchSaveUrlsNoURLs": {
-		"message": "無網址",
-		"description": "Label displayed when they are no URLs"
+		"message": "沒有網址",
+		"description": "Label displayed when there are no URLs"
 	},
 	"batchSaveUrlsAddUrlButton": {
-		"message": "添加網址",
+		"message": "新增網址",
 		"description": "label of the button 'Add URL'"
 	},
 	"batchSaveUrlsAddUrlsButton": {
-		"message": "添加多個網址...",
+		"message": "新增網址...",
 		"description": "label of the button 'Add URLs...'"
 	},
 	"batchSaveUrlsRemoveAllButton": {
-		"message": "刪除所有",
+		"message": "全部移除",
 		"description": "label of the button 'Remove all'"
 	},
 	"batchSaveUrlsSavePagesButton": {
-		"message": "保存頁面",
+		"message": "儲存網頁",
 		"description": "label of the button 'Save pages'"
 	},
 	"batchSaveUrlsURLTitle": {
@@ -1126,7 +1126,7 @@
 		"description": "Title of the column in the table of the URLs"
 	},
 	"optionSaveToRestFormApi": {
-		"message": "保存到 REST 表單 API",
+		"message": "上傳到 REST Form API",
 		"description": "Options page label: 'upload to a REST Form API'"
 	},
 	"optionRestFormApiUrl": {
@@ -1134,15 +1134,15 @@
 		"description": "Options page label: 'URL'"
 	},
 	"optionRestFormApiToken": {
-		"message": "授權令牌",
+		"message": "授權權杖",
 		"description": "Options page label: 'authorization token'"
 	},
 	"optionRestFormApiFileFieldName": {
-		"message": "文件字段名稱",
+		"message": "封存資料欄位名稱",
 		"description": "Options page label: 'archive data field name'"
 	},
 	"optionRestFormApiUrlFieldName": {
-		"message": "網址字段名稱",
+		"message": "封存網址欄位名稱",
 		"description": "Options page label: 'archive URL field name'"
 	},
 	"optionsEditorTitle": {
@@ -1150,15 +1150,15 @@
 		"description": "Options title: 'Options editor'"
 	},
 	"optionsEditorSaveButton": {
-		"message": "保存",
+		"message": "儲存",
 		"description": "Options editor button: 'Save'"
 	},
 	"optionsEditorConfigSaved": {
-		"message": "配置已保存",
+		"message": "設定已儲存",
 		"description": "Options editor message: 'Configuration saved'"
 	},
 	"optionsEditorInvalidJSON": {
-		"message": "無效的 JSON",
+		"message": "JSON 無效",
 		"description": "Options editor error message: 'Invalid JSON'"
 	}
 }
