@@ -659,6 +659,36 @@
 		"message": "Varie",
 		"description": "Options sub-title: 'Misc.'"
 	},
+	"optionsExternalCapturePermissionsSubTitle": {
+		"message": "API di cattura esterna",
+		"description": "Options sub-title: 'External capture API'"
+	},
+	"optionExternalCaptureAllowedIds": {
+		"message": "estensioni autorizzate, una per riga",
+		"description": "Options page label: 'allowed extensions, one per line'"
+	},
+	"optionExternalCaptureDeniedIds": {
+		"message": "estensioni bloccate, una per riga",
+		"description": "Options page label: 'blocked extensions, one per line'"
+	},
+	"optionsExternalCapturePendingRequest": {
+		"message": "L'estensione $EXTENSION_ID$ vuole usare SingleFile per catturare pagine in questo browser e riceverne il contenuto HTML. Se la autorizzi, potrà catturare qualsiasi scheda in qualsiasi momento senza chiedere di nuovo, finché non la rimuovi dall'elenco qui sotto.",
+		"description": "Options page prompt to approve an external extension capture request.",
+		"placeholders": {
+			"extension_id": {
+				"content": "$1",
+				"example": "archivebox@example.com"
+			}
+		}
+	},
+	"optionsExternalCaptureApproveButton": {
+		"message": "Autorizza",
+		"description": "Options button: 'Allow'"
+	},
+	"optionsExternalCaptureDenyButton": {
+		"message": "Rifiuta",
+		"description": "Options button: 'Deny'"
+	},
 	"optionBackgroundSave": {
 		"message": "salva pagine in background",
 		"description": "Options page label: 'save pages in background'"

@@ -424,6 +424,30 @@ a {
     padding: 2px;
 }
 
+.external-capture-request {
+    margin: 8px;
+    padding: 10px;
+    border: 2px solid rgb(180, 35, 24);
+    border-radius: 4px;
+    background-color: #fff1f0;
+    color: rgb(91, 18, 12);
+    line-height: 18px;
+}
+
+.external-capture-permissions--pending > summary {
+    padding: 8px;
+    border: 2px solid rgb(180, 35, 24);
+    border-radius: 4px;
+    background-color: #fee4e2;
+    color: rgb(91, 18, 12);
+    font-weight: bold;
+}
+
+.external-capture-request .buttons {
+    margin-top: 8px;
+    text-align: right;
+}
+
 .option:last-of-type {
     padding-bottom: 12px;
 }
@@ -699,6 +723,18 @@ html.maximized {
 
     .help-content {
         background-color: rgb(85, 85, 97);
+    }
+
+    .external-capture-request {
+        background-color: rgb(84, 28, 28);
+        border-color: rgb(248, 113, 113);
+        color: rgb(254, 226, 226);
+    }
+
+    .external-capture-permissions--pending > summary {
+        background-color: rgb(127, 29, 29);
+        border-color: rgb(248, 113, 113);
+        color: rgb(254, 226, 226);
     }
 
     .rules-table-container,

@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, fetch */
+/* global browser, fetch, crypto, TextEncoder, btoa */
 
 const TOKEN_URL = "https://api.dropboxapi.com/oauth2/token";
 const AUTH_URL = "https://www.dropbox.com/oauth2/authorize";
@@ -42,12 +42,21 @@ class Dropbox {
 		this.clientKey = clientKey;
 	}
 	async auth(options = { interactive: true }) {
+		if (options.code) {
+			return authFromCode(this, options);
+		}
+		const state = generateState();
+		const { verifier, challenge } = await generateCodeVerifier();
+		this.codeVerifier = verifier;
 		this.authURL = AUTH_URL +
 			"?client_id=" + this.clientId +
 			"&response_type=code" +
 			"&token_access_type=offline" +
+			"&state=" + state +
+			"&code_challenge=" + challenge +
+			"&code_challenge_method=S256" +
 			"&redirect_uri=" + browser.identity.getRedirectURL();
-		return options.code ? authFromCode(this, options) : initAuth(this, options);
+		return initAuth(this, options, state);
 	}
 	setAuthInfo(authInfo) {
 		if (authInfo) {
@@ -202,6 +211,7 @@ async function authFromCode(dropbox, options) {
 			"&client_secret=" + dropbox.clientKey +
 			"&grant_type=authorization_code" +
 			"&code=" + options.code +
+			(dropbox.codeVerifier ? "&code_verifier=" + dropbox.codeVerifier : "") +
 			"&redirect_uri=" + browser.identity.getRedirectURL()
 	});
 	const response = await getJSON(httpResponse);
@@ -211,13 +221,14 @@ async function authFromCode(dropbox, options) {
 	return { accessToken: dropbox.accessToken, refreshToken: dropbox.refreshToken, expirationDate: dropbox.expirationDate };
 }
 
-async function initAuth(dropbox, options) {
+async function initAuth(dropbox, options, state) {
 	let code;
+	const authFlow = { state };
 	try {
-		options.extractAuthCode(browser.identity.getRedirectURL())
+		options.extractAuthCode(browser.identity.getRedirectURL(), authFlow)
 			.then(authCode => code = authCode)
 			.catch(() => { /* ignored */ });
-		return await options.launchWebAuthFlow({ url: dropbox.authURL });
+		return await options.launchWebAuthFlow({ url: dropbox.authURL }, authFlow);
 	}
 	catch (error) {
 		if (error.message && (error.message == "code_required" || error.message.includes("access"))) {
@@ -225,12 +236,33 @@ async function initAuth(dropbox, options) {
 				options.code = code;
 				return await authFromCode(dropbox, options);
 			} else {
-				throw new Error("code_required");
+				throw new Error("code_required", { cause: error });
 			}
 		} else {
 			throw error;
 		}
 	}
+	finally {
+		if (authFlow.cancel) {
+			authFlow.cancel();
+		}
+	}
+}
+
+function generateState() {
+	return Array.from(crypto.getRandomValues(new Uint8Array(16)))
+		.map(value => value.toString(16).padStart(2, "0"))
+		.join("");
+}
+
+async function generateCodeVerifier() {
+	const verifier = encodeBase64URL(crypto.getRandomValues(new Uint8Array(32)));
+	const challenge = encodeBase64URL(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier))));
+	return { verifier, challenge };
+}
+
+function encodeBase64URL(data) {
+	return btoa(String.fromCharCode(...data)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
 async function sendFile(mediaUploader) {

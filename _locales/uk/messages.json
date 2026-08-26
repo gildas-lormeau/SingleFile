@@ -659,6 +659,36 @@
 		"message": "Різне",
 		"description": "Options sub-title: 'Misc.'"
 	},
+	"optionsExternalCapturePermissionsSubTitle": {
+		"message": "Зовнішній API захоплення",
+		"description": "Options sub-title: 'External capture API'"
+	},
+	"optionExternalCaptureAllowedIds": {
+		"message": "дозволені розширення, по одному в рядку",
+		"description": "Options page label: 'allowed extensions, one per line'"
+	},
+	"optionExternalCaptureDeniedIds": {
+		"message": "заблоковані розширення, по одному в рядку",
+		"description": "Options page label: 'blocked extensions, one per line'"
+	},
+	"optionsExternalCapturePendingRequest": {
+		"message": "Розширення $EXTENSION_ID$ хоче використовувати SingleFile, щоб зберігати сторінки в цьому браузері й отримувати їхній HTML-вміст. Якщо ви дозволите, воно зможе будь-коли зберегти будь-яку вкладку без повторного запиту, доки ви не вилучите його зі списку нижче.",
+		"description": "Options page prompt to approve an external extension capture request.",
+		"placeholders": {
+			"extension_id": {
+				"content": "$1",
+				"example": "archivebox@example.com"
+			}
+		}
+	},
+	"optionsExternalCaptureApproveButton": {
+		"message": "Дозволити",
+		"description": "Options button: 'Allow'"
+	},
+	"optionsExternalCaptureDenyButton": {
+		"message": "Відхилити",
+		"description": "Options button: 'Deny'"
+	},
 	"optionBackgroundSave": {
 		"message": "зберігати сторінки у фоновому режимі",
 		"description": "Options page label: 'save pages in background'"

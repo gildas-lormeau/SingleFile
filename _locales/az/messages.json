@@ -659,6 +659,36 @@
 		"message": "Müxtəlif",
 		"description": "Options sub-title: 'Misc.'"
 	},
+	"optionsExternalCapturePermissionsSubTitle": {
+		"message": "Xarici tutma API-si",
+		"description": "Options sub-title: 'External capture API'"
+	},
+	"optionExternalCaptureAllowedIds": {
+		"message": "icazə verilən genişləndirmələr, hər sətirdə bir",
+		"description": "Options page label: 'allowed extensions, one per line'"
+	},
+	"optionExternalCaptureDeniedIds": {
+		"message": "bloklanmış genişləndirmələr, hər sətirdə bir",
+		"description": "Options page label: 'blocked extensions, one per line'"
+	},
+	"optionsExternalCapturePendingRequest": {
+		"message": "$EXTENSION_ID$ genişləndirməsi bu brauzerdəki səhifələri SingleFile ilə tutmaq və onların HTML məzmununu almaq istəyir. İcazə versəniz, onu aşağıdakı siyahıdan silənə qədər təkrar soruşmadan istənilən vaxt istənilən nişanı tuta biləcək.",
+		"description": "Options page prompt to approve an external extension capture request.",
+		"placeholders": {
+			"extension_id": {
+				"content": "$1",
+				"example": "archivebox@example.com"
+			}
+		}
+	},
+	"optionsExternalCaptureApproveButton": {
+		"message": "İcazə ver",
+		"description": "Options button: 'Allow'"
+	},
+	"optionsExternalCaptureDenyButton": {
+		"message": "Rədd et",
+		"description": "Options button: 'Deny'"
+	},
 	"optionBackgroundSave": {
 		"message": "səhifələri arxa planda yaddaşa qeyd edin",
 		"description": "Options page label: 'save pages in background'"

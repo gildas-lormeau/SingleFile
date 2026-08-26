@@ -55,6 +55,7 @@ if (!bootstrap || !bootstrap.initializedSingleFile) {
 	singlefile.init({ fetch, frameFetch });
 	browser.runtime.onMessage.addListener(message => {
 		if (message.method == "content.save" ||
+			message.method == "content.capture" ||
 			message.method == "content.cancelSave" ||
 			message.method == "content.download" ||
 			message.method == "content.getSelectedLinks" ||
@@ -78,6 +79,9 @@ async function onMessage(message) {
 		if (message.method == "content.save") {
 			await savePage(message);
 			return {};
+		}
+		if (message.method == "content.capture") {
+			return capturePage(message);
 		}
 		if (message.method == "content.cancelSave") {
 			if (processor) {
@@ -194,6 +198,42 @@ async function savePage(message) {
 	clearInterval(pingInterval);
 }
 
+async function capturePage(message) {
+	const pingInterval = setInterval(() => {
+		browser.runtime.sendMessage({ method: "ping" }).then(() => { });
+	}, 15000);
+	const options = message.options;
+	let selectionFound;
+	if (options.selected || options.optionallySelected) {
+		selectionFound = await ui.markSelection(options.optionallySelected);
+	}
+	if (processing || bootstrap && bootstrap.pageInfo.processing) {
+		clearInterval(pingInterval);
+		throw new Error("SingleFile is already processing this page");
+	}
+	options.visitDate = bootstrap ? bootstrap.pageInfo.visitDate : new Date();
+	if (options.optionallySelected && selectionFound) {
+		options.selected = true;
+	}
+	if (options.selected && !selectionFound) {
+		clearInterval(pingInterval);
+		throw new Error("No selected content found");
+	}
+	if (bootstrap) {
+		bootstrap.pageInfo.processing = true;
+	}
+	processing = true;
+	try {
+		return await processPage(options);
+	} finally {
+		processing = false;
+		if (bootstrap) {
+			bootstrap.pageInfo.processing = false;
+		}
+		clearInterval(pingInterval);
+	}
+}
+
 async function processPage(options) {
 	const frames = singlefile.processors.frameTree;
 	let framesSessionId;
@@ -233,7 +273,9 @@ async function processPage(options) {
 				if (event.type == event.RESOURCE_LOADED) {
 					index++;
 				}
-				await browser.runtime.sendMessage({ method: "ui.processProgress", index, maxIndex });
+				if (!options.silent) {
+					await browser.runtime.sendMessage({ method: "ui.processProgress", index, maxIndex });
+				}
 				ui.onLoadResource(index, maxIndex, options);
 			} else if (!event.detail.frame) {
 				if (event.type == event.PAGE_LOADING) {
