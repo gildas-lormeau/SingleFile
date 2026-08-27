@@ -77,7 +77,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingTouchTarget, cuttingPath, cuttingPathIndex, previousContent;
 	let removedElements = [], removedElementIndex = 0, pageResources, pageUrl, pageCompressContent, includeInfobar, openInfobar, infobarPositionAbsolute, infobarPositionTop, infobarPositionBottom, infobarPositionLeft, infobarPositionRight;
-	let pageArchiveContent, archivePages, archiveManifest, archivePassword, archiveUrlToPath, archiveTocContent, archiveTocPresent, stashedArchivePages, modifiedArchivePagePaths, currentArchivePagePath, archiveTocDisplayed;
+	let pageArchiveContent, archivePages, archiveManifest, archivePassword, archiveUrlToPath, archiveTocContent, archiveTocPresent, stashedArchivePages, modifiedArchivePagePaths, currentArchivePagePath, archiveTocDisplayed, droppedArchiveContent;
 
 	globalThis.zip = singlefile.helper.zip;
 	initEventListeners();
@@ -219,6 +219,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 						url: pageUrl,
 						viewport: viewport ? viewport.content : null,
 						compressContent: true,
+						archiveContent: droppedArchiveContent,
 						foregroundSave: message.foregroundSave,
 						sharePage: message.sharePage,
 						documentHeight: document.documentElement.offsetHeight
@@ -296,6 +297,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				const compressContent = /<html[^>]* data-sfz[^>]*>/i.test(content);
 				if (compressContent) {
 					await init({ content: file, compressContent }, { filename: file.name });
+					droppedArchiveContent = Array.from(new Uint8Array(await file.arrayBuffer()));
 				} else {
 					const isMHTML = /\.mhtml?$|\.mht$/i.test(file.name);
 					let filename = file.name || "Untitled.html";

@@ -363,7 +363,7 @@ addEventListener("message", async event => {
 			if (tabData.insertMetaCSP !== undefined) {
 				tabData.options.insertMetaCSP = tabData.insertMetaCSP;
 			}
-			const pageData = await getContentPageData(tabData.content, message.content, { password: tabData.options.password });
+			const pageData = await getContentPageData(message.archiveContent || tabData.content, message.content, { password: tabData.options.password });
 			pageData.content = message.content;
 			pageData.title = message.title;
 			pageData.doctype = message.doctype;
