@@ -409,7 +409,12 @@ addEventListener("message", async event => {
 		}
 		tabData.docSaved = true;
 		if (!applyArchiveRoute()) {
-			displayArchiveRoute(ARCHIVE_TOC_ROUTE, true);
+			const routeIndex = tabData.url ? tabData.url.indexOf(ARCHIVE_ROUTE_PREFIX) : -1;
+			if (routeIndex != -1) {
+				displayArchiveRoute(tabData.url.substring(routeIndex + ARCHIVE_ROUTE_PREFIX.length), true);
+			} else {
+				displayArchiveRoute(ARCHIVE_TOC_ROUTE, true);
+			}
 		}
 	}
 	if (message.method == "onNavigateArchivePage") {
