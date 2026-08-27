@@ -37,8 +37,13 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	const SHADOWROOT_ATTRIBUTE_NAME = "shadowrootmode";
 	const SCRIPT_TEMPLATE_SHADOW_ROOT = "data-template-shadow-root";
 	const SCRIPT_OPTIONS = "data-single-file-options";
+	const RESERVED_FILES_PREFIX = "sfz-";
 	const PAGES_FILENAME = "sfz-pages.json";
-	const MULTIPAGE_ARCHIVE_ERROR = "This archive contains multiple pages and cannot be edited yet.";
+	const TOC_FILENAME = "sfz-toc.html";
+	const PAGES_PREFIX = "pages/";
+	const INDEX_FILENAME = "index.html";
+	const MODIFIED_PAGE_CLASS = "sfz-modified-page";
+	const MODIFIED_PAGE_STYLE = "." + MODIFIED_PAGE_CLASS + "::after{content:\" \\25CF\";font-size:.75em;opacity:.7}";
 	const NOTE_TAGNAME = "single-file-note";
 	const NOTE_CLASS = "note";
 	const NOTE_MASK_CLASS = "note-mask";
@@ -72,6 +77,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingTouchTarget, cuttingPath, cuttingPathIndex, previousContent;
 	let removedElements = [], removedElementIndex = 0, pageResources, pageUrl, pageCompressContent, includeInfobar, openInfobar, infobarPositionAbsolute, infobarPositionTop, infobarPositionBottom, infobarPositionLeft, infobarPositionRight;
+	let pageArchiveContent, archivePages, archivePassword, archiveUrlToPath, archiveTocContent, stashedArchivePages, modifiedArchivePagePaths, currentArchivePagePath, archiveTocDisplayed;
 
 	globalThis.zip = singlefile.helper.zip;
 	initEventListeners();
@@ -82,6 +88,12 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			const message = JSON.parse(event.data);
 			if (message.method == "init") {
 				await init(message);
+			}
+			if (message.method == "displayArchivePage") {
+				await openArchivePage(message.pagePath);
+			}
+			if (message.method == "displayArchiveToc") {
+				await displayArchiveToc();
 			}
 			if (message.method == "addNote") {
 				addNote(message);
@@ -290,21 +302,25 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		};
 	}
 
-	async function init({ content, password, compressContent, url }, { filename, reset, isMHTML } = {}) {
+	async function init({ content, password, compressContent, url, pagePath }, { filename, reset, isMHTML } = {}) {
 		await initConstants();
 		if (compressContent) {
 			const zipOptions = {
 				useWebWorkers: false
 			};
+			if (pagePath === undefined) {
+				resetArchive();
+				if (await initArchive(content, password, zipOptions, filename)) {
+					return;
+				}
+			}
 			const { docContent, origDocContent, resources, url } = await singlefile.helper.extract(content, {
 				password,
 				prompt,
-				zipOptions
+				zipOptions,
+				pagePath,
+				excludedPaths: archivePages && !pagePath ? [PAGES_PREFIX, RESERVED_FILES_PREFIX] : undefined
 			});
-			if (resources.find(resource => resource.filename == PAGES_FILENAME)) {
-				window.parent.postMessage(JSON.stringify({ method: "onError", error: MULTIPAGE_ARCHIVE_ERROR }), "*");
-				return;
-			}
 			pageResources = resources;
 			pageUrl = url;
 			pageCompressContent = true;
@@ -319,30 +335,32 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 					infobarElement.remove();
 				}
 				await initPage();
-				let icon;
-				const origContentDocument = (new DOMParser()).parseFromString(origDocContent, "text/html");
-				const iconElement = origContentDocument.querySelector("link[rel*=icon]");
-				if (iconElement) {
-					const iconResource = resources.find(resource => resource.filename == iconElement.getAttribute("href"));
-					if (iconResource && iconResource.content) {
-						const reader = new FileReader();
-						reader.readAsDataURL(await (await fetch(iconResource.content)).blob());
-						icon = await new Promise((resolve, reject) => {
-							reader.addEventListener("load", () => resolve(reader.result), false);
-							reader.addEventListener("error", reject, false);
-						});
-					} else {
-						icon = iconElement.href;
+				if (!archivePages) {
+					let icon;
+					const origContentDocument = (new DOMParser()).parseFromString(origDocContent, "text/html");
+					const iconElement = origContentDocument.querySelector("link[rel*=icon]");
+					if (iconElement) {
+						const iconResource = resources.find(resource => resource.filename == iconElement.getAttribute("href"));
+						if (iconResource && iconResource.content) {
+							const reader = new FileReader();
+							reader.readAsDataURL(await (await fetch(iconResource.content)).blob());
+							icon = await new Promise((resolve, reject) => {
+								reader.addEventListener("load", () => resolve(reader.result), false);
+								reader.addEventListener("error", reject, false);
+							});
+						} else {
+							icon = iconElement.href;
+						}
 					}
+					window.parent.postMessage(JSON.stringify({
+						method: "onInit",
+						title: document.title,
+						icon,
+						filename,
+						reset,
+						formatPageEnabled: isProbablyReaderable(document)
+					}), "*");
 				}
-				window.parent.postMessage(JSON.stringify({
-					method: "onInit",
-					title: document.title,
-					icon,
-					filename,
-					reset,
-					formatPageEnabled: isProbablyReaderable(document)
-				}), "*");
 			}
 		} else {
 			const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
@@ -402,6 +420,141 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		if (!pageUrl && url) {
 			pageUrl = url;
 		}
+	}
+
+	async function initArchive(content, password, zipOptions, filename) {
+		const { resources } = await singlefile.helper.extract(content, { password, prompt, zipOptions, pagePath: RESERVED_FILES_PREFIX });
+		const pagesResource = resources.find(resource => RESERVED_FILES_PREFIX + resource.filename == PAGES_FILENAME);
+		if (!pagesResource) {
+			return false;
+		}
+		const manifest = JSON.parse(await (await fetch(pagesResource.content)).text());
+		pageArchiveContent = content;
+		archivePassword = password;
+		archivePages = manifest.pages || [];
+		archiveUrlToPath = new Map();
+		archivePages.forEach(page => {
+			if (page.url) {
+				archiveUrlToPath.set(page.url, page.path);
+			}
+			if (page.originalUrls) {
+				page.originalUrls.forEach(originalUrl => archiveUrlToPath.set(originalUrl, page.path));
+			}
+		});
+		const tocResource = resources.find(resource => RESERVED_FILES_PREFIX + resource.filename == TOC_FILENAME);
+		archiveTocContent = tocResource ? await (await fetch(tocResource.content)).text() : getDefaultArchiveTocContent();
+		stashedArchivePages = new Map();
+		modifiedArchivePagePaths = new Set();
+		window.parent.postMessage(JSON.stringify({
+			method: "onInitArchive",
+			pages: archivePages.map(page => ({ path: page.path, url: page.url, title: page.title })),
+			filename
+		}), "*");
+		return true;
+	}
+
+	function resetArchive() {
+		pageArchiveContent = archivePages = archivePassword = archiveUrlToPath = archiveTocContent = stashedArchivePages = modifiedArchivePagePaths = currentArchivePagePath = undefined;
+		archiveTocDisplayed = false;
+	}
+
+	async function openArchivePage(pagePath) {
+		stashArchivePage();
+		archiveTocDisplayed = false;
+		currentArchivePagePath = pagePath;
+		removedElements = [];
+		removedElementIndex = 0;
+		previousContent = null;
+		const stashedPage = stashedArchivePages.get(pagePath);
+		if (stashedPage) {
+			stashedArchivePages.delete(pagePath);
+			pageResources = stashedPage.resources;
+			pageUrl = stashedPage.url;
+			pageCompressContent = true;
+			document.replaceChild(stashedPage.content, document.documentElement);
+			await initPage();
+		} else {
+			await init({ content: pageArchiveContent, password: archivePassword, compressContent: true, pagePath });
+		}
+		document.addEventListener("click", onArchiveLinkClick, true);
+		window.parent.postMessage(JSON.stringify({
+			method: "onArchivePageDisplayed",
+			pagePath,
+			title: document.title,
+			formatPageEnabled: isProbablyReaderable(document),
+			modified: modifiedArchivePagePaths.size > 0
+		}), "*");
+	}
+
+	async function displayArchiveToc() {
+		stashArchivePage();
+		archiveTocDisplayed = true;
+		currentArchivePagePath = undefined;
+		const tocDocument = (new DOMParser()).parseFromString(archiveTocContent, "text/html");
+		const styleElement = tocDocument.createElement("style");
+		styleElement.textContent = MODIFIED_PAGE_STYLE;
+		tocDocument.head.appendChild(styleElement);
+		tocDocument.querySelectorAll("a[href]").forEach(anchorElement => {
+			const pagePath = getArchivePagePath(anchorElement.getAttribute("href"));
+			if (pagePath !== undefined && modifiedArchivePagePaths.has(pagePath)) {
+				anchorElement.classList.add(MODIFIED_PAGE_CLASS);
+			}
+		});
+		document.replaceChild(document.importNode(tocDocument.documentElement, true), document.documentElement);
+		document.addEventListener("click", onArchiveLinkClick, true);
+		window.parent.postMessage(JSON.stringify({
+			method: "onArchiveTocDisplayed",
+			modified: modifiedArchivePagePaths.size > 0
+		}), "*");
+	}
+
+	function stashArchivePage() {
+		if (archivePages && !archiveTocDisplayed && currentArchivePagePath !== undefined) {
+			serializeShadowRoots(document);
+			stashedArchivePages.set(currentArchivePagePath, {
+				content: document.documentElement,
+				resources: pageResources,
+				url: pageUrl
+			});
+		}
+	}
+
+	function getArchivePagePath(href) {
+		if (archiveUrlToPath.has(href)) {
+			return archiveUrlToPath.get(href);
+		}
+		if (href.endsWith(INDEX_FILENAME)) {
+			const pagePath = href.substring(0, href.length - INDEX_FILENAME.length);
+			if (archivePages.some(page => page.path == pagePath)) {
+				return pagePath;
+			}
+		}
+	}
+
+	function onArchiveLinkClick(event) {
+		if (archivePages && event.target.closest) {
+			const anchorElement = event.target.closest("a[href]");
+			if (anchorElement) {
+				const pagePath = getArchivePagePath(anchorElement.getAttribute("href"));
+				if (pagePath !== undefined) {
+					event.preventDefault();
+					event.stopPropagation();
+					window.parent.postMessage(JSON.stringify({ method: "onNavigateArchivePage", pagePath }), "*");
+				} else if (archiveTocDisplayed) {
+					event.preventDefault();
+				}
+			}
+		}
+	}
+
+	function getDefaultArchiveTocContent() {
+		return "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>Table of contents</title></head><body><main><ul>" +
+			archivePages.map(page => "<li><a href=\"" + escapeArchiveHTML(page.path + INDEX_FILENAME) + "\">" + escapeArchiveHTML(page.title || page.url || page.path) + "</a></li>").join("") +
+			"</ul></main></body></html>";
+	}
+
+	function escapeArchiveHTML(value) {
+		return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 	}
 
 	function loadOptionsFromPage(doc) {
@@ -1277,6 +1430,9 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	}
 
 	function onUpdate(saved) {
+		if (archivePages && !saved && !archiveTocDisplayed && currentArchivePagePath !== undefined) {
+			modifiedArchivePagePaths.add(currentArchivePagePath);
+		}
 		window.parent.postMessage(JSON.stringify({ "method": "onUpdate", saved }), "*");
 	}
 

@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, matchMedia, addEventListener, navigator, prompt, URL, MouseEvent, Blob, setInterval, DOMParser, fetch, TextDecoder, singlefile */
+/* global browser, document, matchMedia, addEventListener, navigator, prompt, URL, MouseEvent, Blob, setInterval, DOMParser, fetch, TextDecoder, singlefile, location */
 
 import * as download from "../../core/common/download.js";
 import { onError } from "./../common/common-content-ui.js";
@@ -62,8 +62,15 @@ const savePageButton = document.querySelector(".save-page-button");
 const printPageButton = document.querySelector(".print-page-button");
 const importMhtButton = document.querySelector(".import-mht-button");
 const lastButton = toolbarElement.querySelector(".buttons:last-of-type [type=button]:last-of-type");
+const archiveButtonsElement = document.querySelector(".archive-buttons");
+const archiveTocButton = document.querySelector(".archive-toc-button");
+const archivePageTitleElement = document.querySelector(".archive-page-title");
 
-let tabData, tabDataContents = [], downloadParser;
+const ARCHIVE_TOC_MESSAGE = browser.i18n.getMessage("editorArchiveToc") || "Table of contents";
+const ARCHIVE_ROUTE_PREFIX = "#sfz/";
+const ARCHIVE_TOC_ROUTE = "?toc";
+
+let tabData, tabDataContents = [], downloadParser, archivePages;
 
 addYellowNoteButton.title = browser.i18n.getMessage("editorAddYellowNote");
 addPinkNoteButton.title = browser.i18n.getMessage("editorAddPinkNote");
@@ -86,6 +93,10 @@ redoCutPageButton.title = browser.i18n.getMessage("editorRedoCutPage");
 savePageButton.title = browser.i18n.getMessage("editorSavePage");
 printPageButton.title = browser.i18n.getMessage("editorPrintPage");
 importMhtButton.title = browser.i18n.getMessage("editorImportMht");
+archiveTocButton.title = ARCHIVE_TOC_MESSAGE;
+
+archiveTocButton.onmouseup = () => displayArchiveRoute(ARCHIVE_TOC_ROUTE);
+addEventListener("hashchange", applyArchiveRoute);
 
 addYellowNoteButton.onmouseup = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-yellow" }), "*");
 addPinkNoteButton.onmouseup = () => editorElement.contentWindow.postMessage(JSON.stringify({ method: "addNote", color: "note-pink" }), "*");
@@ -380,7 +391,43 @@ addEventListener("message", async event => {
 	if (message.method == "onUpdate") {
 		tabData.docSaved = message.saved;
 	}
+	if (message.method == "onInitArchive") {
+		archivePages = message.pages;
+		archiveButtonsElement.hidden = false;
+		savePageButton.hidden = true;
+		importMhtButton.hidden = true;
+		formatPageButton.hidden = true;
+		if (message.filename) {
+			tabData.filename = message.filename;
+		}
+		tabData.docSaved = true;
+		if (!applyArchiveRoute()) {
+			displayArchiveRoute(ARCHIVE_TOC_ROUTE, true);
+		}
+	}
+	if (message.method == "onNavigateArchivePage") {
+		displayArchiveRoute(message.pagePath);
+	}
+	if (message.method == "onArchivePageDisplayed") {
+		const page = archivePages && archivePages.find(page => page.path == message.pagePath);
+		archivePageTitleElement.textContent = message.title || (page && (page.title || page.url)) || "";
+		archivePageTitleElement.title = archivePageTitleElement.textContent;
+		document.title = "[SingleFile] " + archivePageTitleElement.textContent;
+		tabData.options.disableFormatPage = !message.formatPageEnabled;
+		formatPageButton.hidden = !message.formatPageEnabled;
+		tabData.docSaved = !message.modified;
+	}
+	if (message.method == "onArchiveTocDisplayed") {
+		archivePageTitleElement.textContent = ARCHIVE_TOC_MESSAGE;
+		archivePageTitleElement.title = "";
+		formatPageButton.hidden = true;
+		tabData.docSaved = !message.modified;
+	}
 	if (message.method == "onInit") {
+		archivePages = undefined;
+		archiveButtonsElement.hidden = true;
+		savePageButton.hidden = false;
+		importMhtButton.hidden = false;
 		tabData.options.disableFormatPage = !message.formatPageEnabled;
 		formatPageButton.hidden = !message.formatPageEnabled;
 		document.title = "[SingleFile] " + message.title;
@@ -440,6 +487,32 @@ browser.runtime.onMessage.addListener(message => {
 addEventListener("load", () => {
 	browser.runtime.sendMessage({ method: "editor.getTabData" });
 });
+
+function displayArchiveRoute(route, replaceRoute) {
+	const hash = ARCHIVE_ROUTE_PREFIX + route;
+	if (location.hash == hash) {
+		applyArchiveRoute();
+	} else if (replaceRoute) {
+		location.replace(hash);
+	} else {
+		location.hash = hash;
+	}
+}
+
+function applyArchiveRoute() {
+	if (!archivePages || !location.hash.startsWith(ARCHIVE_ROUTE_PREFIX)) {
+		return false;
+	}
+	const route = location.hash.substring(ARCHIVE_ROUTE_PREFIX.length);
+	if (route == ARCHIVE_TOC_ROUTE) {
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "displayArchiveToc" }), "*");
+	} else if (archivePages.some(page => page.path == route)) {
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "displayArchivePage", pagePath: route }), "*");
+	} else {
+		displayArchiveRoute(ARCHIVE_TOC_ROUTE, true);
+	}
+	return true;
+}
 
 addEventListener("beforeunload", event => {
 	if (tabData.options.warnUnsavedPage && !tabData.docSaved) {

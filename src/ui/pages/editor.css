@@ -68,6 +68,43 @@ img[type=button].remove-highlight-disabled {
     margin-top: 6px;
 }
 
+.archive-buttons {
+    margin-left: auto;
+    min-width: 0;
+    align-items: center;
+}
+
+.archive-buttons[hidden] {
+    display: none;
+}
+
+.archive-toc-button {
+    cursor: pointer;
+    background-color: #404040;
+    color: #efefef;
+    padding: 4px 8px;
+    margin-left: 4px;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 24px;
+    flex: none;
+}
+
+@media (hover: hover) {
+    .archive-toc-button:hover {
+        filter: brightness(0.75);
+    }
+}
+
+.archive-page-title {
+    font-size: 14px;
+    color: #404040;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
 .editor-container {
     position: relative;
     display: flex;
