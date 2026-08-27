@@ -132,6 +132,7 @@ async function downloadTabPage(message, tab) {
 				await downloadCompressedContent(message, tab);
 			} else {
 				message.content = await (await fetch(message.blobURL)).text();
+				message.url = message.blobURL;
 				await downloadContent([message.content], tab, tab.incognito, message);
 			}
 			// eslint-disable-next-line no-unused-vars
@@ -242,7 +243,9 @@ async function downloadContent(contents, tab, incognito, message) {
 					prompt
 				});
 			} else {
-				message.url = URL.createObjectURL(new Blob(contents, { type: message.mimeType }));
+				if (!message.url) {
+					message.url = URL.createObjectURL(new Blob(contents, { type: message.mimeType }));
+				}
 				response = await downloadPage(message, {
 					confirmFilename: message.confirmFilename,
 					incognito,
