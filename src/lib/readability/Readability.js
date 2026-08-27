@@ -1174,23 +1174,39 @@ Readability.prototype = {
         // Turn all divs that don't have children block level elements into p's
         if (node.tagName === "DIV") {
           // Put phrasing content into paragraphs.
-          var p = null;
           var childNode = node.firstChild;
           while (childNode) {
             var nextSibling = childNode.nextSibling;
             if (this._isPhrasingContent(childNode)) {
-              if (p !== null) {
-                p.appendChild(childNode);
-              } else if (!this._isWhitespace(childNode)) {
-                p = doc.createElement("p");
-                node.replaceChild(p, childNode);
-                p.appendChild(childNode);
+              var fragment = doc.createDocumentFragment();
+              // Collect all consecutive phrasing content into a fragment.
+              do {
+                nextSibling = childNode.nextSibling;
+                fragment.appendChild(childNode);
+                childNode = nextSibling;
+              } while (childNode && this._isPhrasingContent(childNode));
+
+              // Trim leading and trailing whitespace from the fragment.
+              while (
+                fragment.firstChild &&
+                this._isWhitespace(fragment.firstChild)
+              ) {
+                fragment.firstChild.remove();
               }
-            } else if (p !== null) {
-              while (p.lastChild && this._isWhitespace(p.lastChild)) {
-                p.lastChild.remove();
+              while (
+                fragment.lastChild &&
+                this._isWhitespace(fragment.lastChild)
+              ) {
+                fragment.lastChild.remove();
               }
-              p = null;
+
+              // If the fragment contains anything, wrap it in a paragraph and
+              // insert it before the next non-phrasing node.
+              if (fragment.firstChild) {
+                var p = doc.createElement("p");
+                p.appendChild(fragment);
+                node.insertBefore(p, nextSibling);
+              }
             }
             childNode = nextSibling;
           }
