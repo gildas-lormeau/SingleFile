@@ -37,6 +37,8 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	const SHADOWROOT_ATTRIBUTE_NAME = "shadowrootmode";
 	const SCRIPT_TEMPLATE_SHADOW_ROOT = "data-template-shadow-root";
 	const SCRIPT_OPTIONS = "data-single-file-options";
+	const PAGES_FILENAME = "sfz-pages.json";
+	const MULTIPAGE_ARCHIVE_ERROR = "This archive contains multiple pages and cannot be edited yet.";
 	const NOTE_TAGNAME = "single-file-note";
 	const NOTE_CLASS = "note";
 	const NOTE_MASK_CLASS = "note-mask";
@@ -299,6 +301,10 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				prompt,
 				zipOptions
 			});
+			if (resources.find(resource => resource.filename == PAGES_FILENAME)) {
+				window.parent.postMessage(JSON.stringify({ method: "onError", error: MULTIPAGE_ARCHIVE_ERROR }), "*");
+				return;
+			}
 			pageResources = resources;
 			pageUrl = url;
 			pageCompressContent = true;
