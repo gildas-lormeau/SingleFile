@@ -524,10 +524,11 @@ async function saveArchive(message) {
 		};
 	});
 	const zipScript = await (await fetch("/lib/single-file-zip.min.js")).text();
+	const selfExtractingArchive = tabData.selfExtractingArchive !== undefined ?
+		tabData.selfExtractingArchive :
+		!(originalData[0] == 0x50 && originalData[1] == 0x4B);
 	const data = await zip.createPagesArchive(pages, {
-		selfExtractingArchive: tabData.selfExtractingArchive !== undefined ?
-			tabData.selfExtractingArchive :
-			!(originalData[0] == 0x50 && originalData[1] == 0x4B),
+		selfExtractingArchive,
 		extractDataFromPage: tabData.extractDataFromPageTags !== undefined ? tabData.extractDataFromPageTags : options.extractDataFromPage,
 		preventAppendedData: options.preventAppendedData,
 		includeBOM: options.includeBOM,
@@ -542,11 +543,21 @@ async function saveArchive(message) {
 		pageTransitions: manifest.pageTransitions
 	});
 	await zipReader.close();
-	const link = document.createElement("a");
-	link.download = tabData.filename || "archive.zip.html";
-	link.href = URL.createObjectURL(new Blob([data], { type: "text/html" }));
-	link.dispatchEvent(new MouseEvent("click"));
-	URL.revokeObjectURL(link.href);
+	const downloadOptions = Object.assign({}, options, {
+		compressContent: false,
+		includeBOM: false,
+		saveToClipboard: false,
+		url: manifestPages.length ? manifestPages[0].url : tabData.url
+	});
+	if (message.foregroundSave) {
+		downloadOptions.backgroundSave = false;
+		downloadOptions.foregroundSave = true;
+	}
+	await download.downloadPage({
+		content: data,
+		filename: tabData.filename || "archive.zip.html",
+		mimeType: selfExtractingArchive ? "text/html" : "application/zip"
+	}, downloadOptions);
 	editorElement.contentWindow.postMessage(JSON.stringify({ method: "archiveSaved" }), "*");
 	tabData.docSaved = true;
 
