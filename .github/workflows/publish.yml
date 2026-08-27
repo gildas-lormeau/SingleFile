@@ -72,6 +72,9 @@ jobs:
           MOZILLA_JWT_ISSUER: ${{ secrets.MOZILLA_JWT_ISSUER }}
           MOZILLA_JWT_SECRET: ${{ secrets.MOZILLA_JWT_SECRET }}
         run: |
+          # stray whitespace pasted around the stored secrets breaks the signature
+          MOZILLA_JWT_ISSUER=$(printf %s "$MOZILLA_JWT_ISSUER" | tr -d "[:space:]")
+          MOZILLA_JWT_SECRET=$(printf %s "$MOZILLA_JWT_SECRET" | tr -d "[:space:]")
           jwt=$(node --input-type=module -e '
             import crypto from "node:crypto";
             const encode = value => Buffer.from(JSON.stringify(value)).toString("base64url");
@@ -112,6 +115,8 @@ jobs:
           MOZILLA_JWT_ISSUER: ${{ secrets.MOZILLA_JWT_ISSUER }}
           MOZILLA_JWT_SECRET: ${{ secrets.MOZILLA_JWT_SECRET }}
         run: |
+          MOZILLA_JWT_ISSUER=$(printf %s "$MOZILLA_JWT_ISSUER" | tr -d "[:space:]")
+          MOZILLA_JWT_SECRET=$(printf %s "$MOZILLA_JWT_SECRET" | tr -d "[:space:]")
           rm -rf .amo-package
           unzip -q singlefile-extension-firefox.zip -d .amo-package
           cat > amo-metadata.json << 'EOF'
