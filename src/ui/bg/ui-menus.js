@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, URL */
+/* global browser, URL, setTimeout, clearTimeout */
 
 import * as config from "./../../core/bg/config.js";
 import { queryTabs } from "./../../core/bg/tabs-util.js";
@@ -38,10 +38,11 @@ const MENU_ID_SAVE_WITH_PROFILE = "save-with-profile";
 const MENU_ID_SAVE_SELECTED_LINKS = "save-selected-links";
 const MENU_ID_VIEW_PENDINGS = "view-pendings";
 const MENU_ID_SELECT_PROFILE = "select-profile";
-const MENU_ID_SAVE_WITH_PROFILE_PREFIX = "wasve-with-profile-";
+const MENU_ID_SAVE_WITH_PROFILE_PREFIX = "save-with-profile-";
 const MENU_ID_SELECT_PROFILE_PREFIX = "select-profile-";
 const MENU_ID_ASSOCIATE_WITH_PROFILE = "associate-with-profile";
 const MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX = "associate-with-profile-";
+const MENU_ID_PROFILE_NAME_PREFIX = "name-";
 const MENU_ID_SAVE_SELECTED = "save-selected";
 const MENU_ID_SAVE_FRAME = "save-frame";
 const MENU_ID_SAVE_TABS = "save-tabs";
@@ -87,14 +88,17 @@ const MENU_TOP_VISIBLE_ENTRIES = [
 	MENU_ID_AUTO_SAVE,
 	MENU_ID_ASSOCIATE_WITH_PROFILE
 ];
+const REFRESH_MENUS_DELAY = 1000;
 
 const menusCheckedState = new Map();
 const menusTitleState = new Map();
 let contextMenuVisibleState = true;
 let allMenuVisibleState = true;
-let profileIndexes = new Map();
-let menusCreated, pendingRefresh, business;
+let menusCreated, pendingRefresh, business, refreshMenusTimeout;
 Promise.resolve().then(initialize);
+if (BROWSER_MENUS_API_SUPPORTED) {
+	browser.storage.onChanged.addListener(onStorageChanged);
+}
 export {
 	onMessage,
 	refreshTab as onTabCreated,
@@ -288,17 +292,17 @@ async function createMenus(tab) {
 				parentId: MENU_ID_ASSOCIATE_WITH_PROFILE
 			});
 			menusCheckedState.set(associatedDefaultProfileId, associatedDefaultProfileChecked);
-			profileIndexes = new Map();
-			Object.keys(profiles).forEach((profileName, profileIndex) => {
+			Object.keys(profiles).forEach(profileName => {
 				if (profileName != config.DEFAULT_PROFILE_NAME) {
-					let profileId = MENU_ID_SAVE_WITH_PROFILE_PREFIX + profileIndex;
+					const profileMenuId = getProfileMenuId(profileName);
+					let profileId = MENU_ID_SAVE_WITH_PROFILE_PREFIX + profileMenuId;
 					menus.create({
 						id: profileId,
 						contexts: defaultContexts,
 						title: profileName,
 						parentId: MENU_ID_SAVE_WITH_PROFILE
 					});
-					profileId = MENU_ID_SELECT_PROFILE_PREFIX + profileIndex;
+					profileId = MENU_ID_SELECT_PROFILE_PREFIX + profileMenuId;
 					let profileChecked = allTabsData.profileName == profileName;
 					menus.create({
 						id: profileId,
@@ -309,7 +313,7 @@ async function createMenus(tab) {
 						parentId: MENU_ID_SELECT_PROFILE
 					});
 					menusCheckedState.set(profileId, profileChecked);
-					profileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
+					profileId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileMenuId;
 					profileChecked = Boolean(rule) && rule.profile == profileName;
 					menus.create({
 						id: profileId,
@@ -320,7 +324,6 @@ async function createMenus(tab) {
 						parentId: MENU_ID_ASSOCIATE_WITH_PROFILE
 					});
 					menusCheckedState.set(profileId, profileChecked);
-					profileIndexes.set(profileName, profileIndex);
 				}
 			});
 			if (options.contextMenuEnabled) {
@@ -479,30 +482,21 @@ async function initialize() {
 			if (event.menuItemId.startsWith(MENU_ID_SAVE_WITH_PROFILE_PREFIX)) {
 				const profiles = await config.getProfiles();
 				const profileId = event.menuItemId.split(MENU_ID_SAVE_WITH_PROFILE_PREFIX)[1];
-				let profileName;
-				if (profileId == "default") {
-					profileName = config.DEFAULT_PROFILE_NAME;
-				} else {
-					const profileIndex = Number(profileId);
-					profileName = Object.keys(profiles)[profileIndex];
+				const profileName = profileId == "default" ? config.DEFAULT_PROFILE_NAME : getProfileMenuName(profileId);
+				if (profiles[profileName]) {
+					profiles[profileName].profileName = profileName;
+					business.saveTabs([tab], profiles[profileName]);
 				}
-				profiles[profileName].profileName = profileName;
-				business.saveTabs([tab], profiles[profileName]);
 			}
 			if (event.menuItemId.startsWith(MENU_ID_SELECT_PROFILE_PREFIX)) {
-				const [profiles, allTabsData] = await Promise.all([config.getProfiles(), tabsData.get()]);
+				const allTabsData = await tabsData.get();
 				const profileId = event.menuItemId.split(MENU_ID_SELECT_PROFILE_PREFIX)[1];
-				if (profileId == "default") {
-					allTabsData.profileName = config.DEFAULT_PROFILE_NAME;
-				} else {
-					const profileIndex = Number(profileId);
-					allTabsData.profileName = Object.keys(profiles)[profileIndex];
-				}
+				allTabsData.profileName = profileId == "default" ? config.DEFAULT_PROFILE_NAME : getProfileMenuName(profileId);
 				await tabsData.set(allTabsData);
 				refreshExternalComponents(tab);
 			}
 			if (event.menuItemId.startsWith(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX)) {
-				const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url, true)]);
+				const rule = await config.getRule(tab.url, true);
 				const profileId = event.menuItemId.split(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX)[1];
 				let profileName;
 				if (profileId == "default") {
@@ -510,8 +504,7 @@ async function initialize() {
 				} else if (profileId == "current") {
 					profileName = config.CURRENT_PROFILE_NAME;
 				} else {
-					const profileIndex = Number(profileId);
-					profileName = Object.keys(profiles)[profileIndex];
+					profileName = getProfileMenuName(profileId);
 				}
 				if (rule) {
 					await config.updateRule(rule.url, rule.url, profileName, profileName);
@@ -526,6 +519,38 @@ async function initialize() {
 		} else {
 			(await browser.tabs.query({})).forEach(async tab => await refreshTab(tab));
 		}
+	}
+}
+
+function getProfileMenuId(profileName) {
+	return MENU_ID_PROFILE_NAME_PREFIX + encodeURIComponent(profileName);
+}
+
+function getProfileMenuName(profileId) {
+	return decodeURIComponent(profileId.substring(MENU_ID_PROFILE_NAME_PREFIX.length));
+}
+
+async function onStorageChanged(changes, areaName) {
+	const changedKeys = Object.keys(changes);
+	let menusStale = areaName == "local" && changedKeys.includes("sync");
+	if (!menusStale && (changedKeys.includes("rules") || changedKeys.some(key => key.startsWith(config.PROFILE_NAME_PREFIX)))) {
+		const { sync } = await browser.storage.local.get(["sync"]);
+		menusStale = areaName == (sync ? "sync" : "local");
+	}
+	if (menusStale) {
+		if (refreshMenusTimeout) {
+			clearTimeout(refreshMenusTimeout);
+		}
+		refreshMenusTimeout = setTimeout(refreshMenus, REFRESH_MENUS_DELAY);
+	}
+}
+
+async function refreshMenus() {
+	refreshMenusTimeout = null;
+	const [tab] = await queryTabs({ currentWindow: true, active: true });
+	await createMenus(tab);
+	if (tab) {
+		await refreshTab(tab);
 	}
 }
 
@@ -566,20 +591,14 @@ async function refreshTab(tab) {
 				let selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default";
 				let title = MENU_CREATE_DOMAIN_RULE_MESSAGE;
 				const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url)]);
-				if (rule) {
-					const profileIndex = profileIndexes.get(rule.profile);
-					if (profileIndex) {
-						selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex;
-						title = MENU_UPDATE_RULE_MESSAGE;
-					}
+				if (rule && rule.profile != config.DEFAULT_PROFILE_NAME && profiles[rule.profile]) {
+					selectedEntryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + getProfileMenuId(rule.profile);
+					title = MENU_UPDATE_RULE_MESSAGE;
 				}
 				if (Object.keys(profiles).length > 1) {
-					Object.keys(profiles).forEach((profileName, profileIndex) => {
-						if (profileName == config.DEFAULT_PROFILE_NAME) {
-							promises.push(updateCheckedValue(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default", selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + "default"));
-						} else {
-							promises.push(updateCheckedValue(MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex, selectedEntryId == MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + profileIndex));
-						}
+					Object.keys(profiles).forEach(profileName => {
+						const entryId = MENU_ID_ASSOCIATE_WITH_PROFILE_PREFIX + (profileName == config.DEFAULT_PROFILE_NAME ? "default" : getProfileMenuId(profileName));
+						promises.push(updateCheckedValue(entryId, selectedEntryId == entryId));
 					});
 					promises.push(updateTitleValue(MENU_ID_ASSOCIATE_WITH_PROFILE, title));
 				}

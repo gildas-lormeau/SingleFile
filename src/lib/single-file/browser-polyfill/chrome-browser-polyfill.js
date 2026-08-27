@@ -400,6 +400,10 @@ if (typeof globalThis == "undefined") {
 						});
 					})
 				},
+				onChanged: {
+					addListener: listener => nativeAPI.storage.onChanged.addListener(listener),
+					removeListener: listener => nativeAPI.storage.onChanged.removeListener(listener)
+				},
 				sync: {
 					set: value => new Promise((resolve, reject) => {
 						nativeAPI.storage.sync.set(value, () => {
