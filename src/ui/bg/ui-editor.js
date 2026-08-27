@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, matchMedia, addEventListener, navigator, prompt, URL, MouseEvent, Blob, setInterval, DOMParser, fetch, TextDecoder, singlefile, location */
+/* global browser, document, matchMedia, addEventListener, navigator, prompt, URL, MouseEvent, Blob, setInterval, DOMParser, fetch, TextDecoder, singlefile, location, history */
 
 import * as download from "../../core/common/download.js";
 import { onError } from "./../common/common-content-ui.js";
@@ -312,88 +312,86 @@ addEventListener("message", async event => {
 	if (message.method == "setContent") {
 		tabData.options.openEditor = false;
 		tabData.options.openSavedPage = false;
-		if (message.multiPageArchive) {
-			try {
+		try {
+			if (message.multiPageArchive) {
 				await saveArchive(message);
-			} catch (error) {
-				onError(error.message);
-			}
-			return;
-		}
-		if (message.compressContent) {
-			tabData.options.compressContent = true;
-			if (tabData.selfExtractingArchive !== undefined) {
-				tabData.options.selfExtractingArchive = tabData.selfExtractingArchive;
-			}
-			if (tabData.disableCompression !== undefined) {
-				tabData.options.disableCompression = tabData.disableCompression;
-			}
-			if (tabData.extractDataFromPageTags !== undefined) {
-				tabData.options.extractDataFromPage = tabData.extractDataFromPageTags;
-			}
-			if (tabData.insertTextBody !== undefined) {
-				tabData.options.insertTextBody = tabData.insertTextBody;
-			}
-			if (tabData.embeddedImage !== undefined || tabData.options.insertEmbeddedScreenshotImage) {
-				if (tabData.options.insertEmbeddedScreenshotImage) {
-					toolbarElement.style.display = "none";
-					editorElement.style.height = message.documentHeight + "px";
-					document.documentElement.style.height = message.documentHeight + "px";
-					const infobarElement = document.querySelector(INFOBAR_TAGNAME);
-					if (infobarElement) {
-						infobarElement.style.display = "none";
-					}
-					const screenshotBlobURI = await browser.runtime.sendMessage({
-						method: "tabs.getScreenshot",
-						width: document.documentElement.scrollWidth,
-						height: document.documentElement.scrollHeight,
-						innerHeight: globalThis.innerHeight
-					});
-					tabData.options.embeddedImage = new Uint8Array(await (await fetch(screenshotBlobURI)).arrayBuffer());
-					editorElement.style.height = "";
-					document.documentElement.style.height = "";
-					toolbarElement.style.display = "";
-					if (infobarElement) {
-						infobarElement.style.display = "";
-					}
-				} else {
-					tabData.options.embeddedImage = tabData.embeddedImage;
+			} else if (message.compressContent) {
+				tabData.options.compressContent = true;
+				if (tabData.selfExtractingArchive !== undefined) {
+					tabData.options.selfExtractingArchive = tabData.selfExtractingArchive;
 				}
+				if (tabData.disableCompression !== undefined) {
+					tabData.options.disableCompression = tabData.disableCompression;
+				}
+				if (tabData.extractDataFromPageTags !== undefined) {
+					tabData.options.extractDataFromPage = tabData.extractDataFromPageTags;
+				}
+				if (tabData.insertTextBody !== undefined) {
+					tabData.options.insertTextBody = tabData.insertTextBody;
+				}
+				if (tabData.embeddedImage !== undefined || tabData.options.insertEmbeddedScreenshotImage) {
+					if (tabData.options.insertEmbeddedScreenshotImage) {
+						toolbarElement.style.display = "none";
+						editorElement.style.height = message.documentHeight + "px";
+						document.documentElement.style.height = message.documentHeight + "px";
+						const infobarElement = document.querySelector(INFOBAR_TAGNAME);
+						if (infobarElement) {
+							infobarElement.style.display = "none";
+						}
+						const screenshotBlobURI = await browser.runtime.sendMessage({
+							method: "tabs.getScreenshot",
+							width: document.documentElement.scrollWidth,
+							height: document.documentElement.scrollHeight,
+							innerHeight: globalThis.innerHeight
+						});
+						tabData.options.embeddedImage = new Uint8Array(await (await fetch(screenshotBlobURI)).arrayBuffer());
+						editorElement.style.height = "";
+						document.documentElement.style.height = "";
+						toolbarElement.style.display = "";
+						if (infobarElement) {
+							infobarElement.style.display = "";
+						}
+					} else {
+						tabData.options.embeddedImage = tabData.embeddedImage;
+					}
+				}
+				if (tabData.insertMetaCSP !== undefined) {
+					tabData.options.insertMetaCSP = tabData.insertMetaCSP;
+				}
+				const pageData = await getContentPageData(message.archiveContent || tabData.content, message.content, { password: tabData.options.password });
+				pageData.content = message.content;
+				pageData.title = message.title;
+				pageData.doctype = message.doctype;
+				pageData.viewport = message.viewport;
+				pageData.url = message.url;
+				pageData.filename = message.filename || tabData.filename;
+				pageData.mimeType = "text/html";
+				if (message.foregroundSave) {
+					tabData.options.backgroundSave = false;
+					tabData.options.foregroundSave = true;
+				}
+				if (tabData.options.addProof) {
+					pageData.hash = await singlefile.helper.digest("SHA-256", message.content);
+				}
+				tabData.options.url = message.url;
+				await download.downloadPage(pageData, tabData.options);
+			} else {
+				const pageData = {
+					content: message.content,
+					filename: message.filename || tabData.filename,
+					mimeType: "text/html",
+					title: message.title,
+					url: message.url
+				};
+				if (tabData.options.addProof) {
+					pageData.hash = await singlefile.helper.digest("SHA-256", message.content);
+				}
+				tabData.options.compressContent = false;
+				tabData.options.url = message.url;
+				await download.downloadPage(pageData, tabData.options);
 			}
-			if (tabData.insertMetaCSP !== undefined) {
-				tabData.options.insertMetaCSP = tabData.insertMetaCSP;
-			}
-			const pageData = await getContentPageData(message.archiveContent || tabData.content, message.content, { password: tabData.options.password });
-			pageData.content = message.content;
-			pageData.title = message.title;
-			pageData.doctype = message.doctype;
-			pageData.viewport = message.viewport;
-			pageData.url = message.url;
-			pageData.filename = message.filename || tabData.filename;
-			pageData.mimeType = "text/html";
-			if (message.foregroundSave) {
-				tabData.options.backgroundSave = false;
-				tabData.options.foregroundSave = true;
-			}
-			if (tabData.options.addProof) {
-				pageData.hash = await singlefile.helper.digest("SHA-256", message.content);
-			}
-			tabData.options.url = message.url;
-			await download.downloadPage(pageData, tabData.options);
-		} else {
-			const pageData = {
-				content: message.content,
-				filename: message.filename || tabData.filename,
-				mimeType: "text/html",
-				title: message.title,
-				url: message.url
-			};
-			if (tabData.options.addProof) {
-				pageData.hash = await singlefile.helper.digest("SHA-256", message.content);
-			}
-			tabData.options.compressContent = false;
-			tabData.options.url = message.url;
-			await download.downloadPage(pageData, tabData.options);
+		} catch (error) {
+			onError(error.message);
 		}
 	}
 	if (message.method == "onUpdate") {
@@ -438,6 +436,9 @@ addEventListener("message", async event => {
 	if (message.method == "onInit") {
 		archivePages = undefined;
 		archiveButtonsElement.hidden = true;
+		if (location.hash) {
+			history.replaceState(null, "", location.pathname + location.search);
+		}
 		savePageButton.hidden = false;
 		importMhtButton.hidden = false;
 		tabData.options.disableFormatPage = !message.formatPageEnabled;

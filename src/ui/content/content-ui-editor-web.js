@@ -379,6 +379,9 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		} else {
 			const contentDocument = (new DOMParser()).parseFromString(content, "text/html");
 			if (detectSavedPage(contentDocument) || isMHTML) {
+				resetArchive();
+				pageCompressContent = false;
+				droppedArchiveContent = undefined;
 				if (!isMHTML) {
 					const { saveUrl } = singlefile.helper.extractInfobarData(contentDocument);
 					pageUrl = saveUrl;
