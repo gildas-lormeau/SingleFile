@@ -1045,6 +1045,10 @@
 		"message": "Importuj plik MHTML",
 		"description": "Title of the button 'Import MHTML file' in the editor"
 	},
+	"editorArchiveToc": {
+		"message": "Spis treści",
+		"description": "Title of the table of contents button displayed in the editor when viewing a multi-page archive"
+	},
 	"pendingsTitle": {
 		"message": "Oczekujące zapisy",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
