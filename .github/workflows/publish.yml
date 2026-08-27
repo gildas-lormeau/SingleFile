@@ -80,9 +80,12 @@ jobs:
               encode({ iss: process.env.MOZILLA_JWT_ISSUER, jti: crypto.randomUUID(), iat: now, exp: now + 300 });
             console.log(data + "." + crypto.createHmac("sha256", process.env.MOZILLA_JWT_SECRET).update(data).digest("base64url"));
           ')
-          status=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: JWT $jwt" https://addons.mozilla.org/api/v5/accounts/profile/)
+          status=$(curl -s -o response.json -w "%{http_code}" -H "Authorization: JWT $jwt" https://addons.mozilla.org/api/v5/accounts/profile/)
           if [ "$status" != "200" ]; then
             echo "AMO authentication failed (HTTP $status)"
+            # the error detail says whether the issuer is unknown or the signature
+            # is wrong, without exposing any credential
+            jq .detail response.json
             exit 1
           fi
       # fails early if a web-ext update ever renames an option used below
