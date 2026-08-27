@@ -74,9 +74,10 @@
 					<li id="saveToGDriveHint">Enable the option "Destination &gt; upload to Google Drive" to upload
 						pages to Google Drive</li>
 					<li id="shortcutsSection">You can use the customizable shortcut Ctrl+Shift+Y to save the current tab
-						or the selected tabs.
+						or the highlighted tabs. Note that if text is selected in the page, this shortcut saves only
+						the selected content instead of the entire page.
 						Go to about:addons and select "Manage extension shortcuts" in the cogwheel menu to change it in
-						Firefox. Go to chrome://extensions/shortcuts to change it in Chrome..</li>
+						Firefox. Go to chrome://extensions/shortcuts to change it in Chrome.</li>
 					<li>The default save folder is the download folder configured in your browser, cf. about:preferences
 						in Firefox, chrome://settings in Chrome, and Settings > General > File download location in
 						Safari.</li>
@@ -133,7 +134,9 @@
 						<span class="option">Option: keyboard shortcut command</span>
 						<p>Use this option to select which custom keyboard shortcut command (defined in the extension
 							shortcuts page of your browser) will trigger the current profile. When a shortcut is
-							assigned here, using it will save the page with the settings of this profile.</p>
+							assigned here, using it will save the page with the settings of this profile. Unlike
+							Ctrl+Shift+Y, custom shortcut commands always save the entire page, even when text is
+							selected in the page.</p>
 					</li>
 				</ul>
 				<p>File name</p>
