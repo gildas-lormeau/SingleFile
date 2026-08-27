@@ -25,7 +25,7 @@
 
 import * as download from "../../core/common/download.js";
 import { onError } from "./../common/common-content-ui.js";
-import * as zip from "./../../../lib/single-file-zip.js";
+import * as zip from "./../../../lib/single-file-archive.js";
 import * as yabson from "./../../lib/yabson/yabson.js";
 
 const EMBEDDED_IMAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelEmbeddedImageButton");
@@ -312,6 +312,14 @@ addEventListener("message", async event => {
 	if (message.method == "setContent") {
 		tabData.options.openEditor = false;
 		tabData.options.openSavedPage = false;
+		if (message.multiPageArchive) {
+			try {
+				await saveArchive(message);
+			} catch (error) {
+				onError(error.message);
+			}
+			return;
+		}
 		if (message.compressContent) {
 			tabData.options.compressContent = true;
 			if (tabData.selfExtractingArchive !== undefined) {
@@ -394,7 +402,6 @@ addEventListener("message", async event => {
 	if (message.method == "onInitArchive") {
 		archivePages = message.pages;
 		archiveButtonsElement.hidden = false;
-		savePageButton.hidden = true;
 		importMhtButton.hidden = true;
 		formatPageButton.hidden = true;
 		if (message.filename) {
@@ -487,6 +494,89 @@ browser.runtime.onMessage.addListener(message => {
 addEventListener("load", () => {
 	browser.runtime.sendMessage({ method: "editor.getTabData" });
 });
+
+async function saveArchive(message) {
+	const options = tabData.options;
+	const manifest = message.manifest || {};
+	const manifestPages = manifest.pages || [];
+	const aliases = manifest.aliases || {};
+	const originalData = new Uint8Array(message.archiveContent);
+	const zipReader = new zip.ZipReader(new zip.Uint8ArrayReader(originalData));
+	const entries = await zipReader.getEntries();
+	if (entries.some(entry => entry.encrypted)) {
+		await zipReader.close();
+		throw new Error("Saving encrypted multi-page archives is not supported yet.");
+	}
+	const entryMap = new Map(entries.map(entry => [entry.filename, entry]));
+	const modifiedPages = new Map(message.pages.map(page => [page.path, page]));
+	const pages = manifestPages.map(page => {
+		const modifiedPage = modifiedPages.get(page.path);
+		return {
+			url: page.url,
+			originalUrls: page.originalUrls,
+			title: modifiedPage ? modifiedPage.title : page.title,
+			getData: () => getPageData(page.path)
+		};
+	});
+	const zipScript = await (await fetch("/lib/single-file-zip.min.js")).text();
+	const data = await zip.createPagesArchive(pages, {
+		selfExtractingArchive: tabData.selfExtractingArchive !== undefined ?
+			tabData.selfExtractingArchive :
+			!(originalData[0] == 0x50 && originalData[1] == 0x4B),
+		extractDataFromPage: tabData.extractDataFromPageTags !== undefined ? tabData.extractDataFromPageTags : options.extractDataFromPage,
+		preventAppendedData: options.preventAppendedData,
+		includeBOM: options.includeBOM,
+		insertMetaCSP: tabData.insertMetaCSP !== undefined ? tabData.insertMetaCSP : options.insertMetaCSP,
+		insertCanonicalLink: options.insertCanonicalLink,
+		insertMetaNoIndex: options.insertMetaNoIndex,
+		insertSingleFileComment: true,
+		zipScript,
+		tocPage: message.tocPage,
+		dedupPages: Boolean(manifest.aliases),
+		markUnarchivedLinks: Boolean(manifest.markUnarchivedLinks),
+		pageTransitions: manifest.pageTransitions
+	});
+	await zipReader.close();
+	const link = document.createElement("a");
+	link.download = tabData.filename || "archive.zip.html";
+	link.href = URL.createObjectURL(new Blob([data], { type: "text/html" }));
+	link.dispatchEvent(new MouseEvent("click"));
+	URL.revokeObjectURL(link.href);
+	editorElement.contentWindow.postMessage(JSON.stringify({ method: "archiveSaved" }), "*");
+	tabData.docSaved = true;
+
+	async function getPageData(pagePath) {
+		const pageEntries = entries.filter(entry => pagePath ?
+			entry.filename.startsWith(pagePath) :
+			!entry.filename.startsWith("pages/") && !entry.filename.startsWith("sfz-"));
+		const dataWriter = new zip.Uint8ArrayWriter();
+		const zipWriter = new zip.ZipWriter(dataWriter);
+		const modifiedPage = modifiedPages.get(pagePath);
+		for (const entry of pageEntries) {
+			if (!entry.directory) {
+				const relativeFilename = entry.filename.substring(pagePath.length);
+				if (modifiedPage && relativeFilename == "index.html") {
+					await zipWriter.add(relativeFilename, new zip.TextReader(modifiedPage.content), {
+						comment: entry.comment
+					});
+				} else {
+					const sourceEntry = (aliases[entry.filename] && entryMap.get(aliases[entry.filename])) || entry;
+					const rawData = await sourceEntry.getData(new zip.Uint8ArrayWriter(), { passThrough: true, checkSignature: false });
+					await zipWriter.add(relativeFilename, new zip.Uint8ArrayReader(rawData), {
+						passThrough: true,
+						compressionMethod: sourceEntry.compressionMethod,
+						uncompressedSize: sourceEntry.uncompressedSize,
+						signature: sourceEntry.signature,
+						comment: entry.comment,
+						lastModDate: entry.lastModDate
+					});
+				}
+			}
+		}
+		await zipWriter.close();
+		return await dataWriter.getData();
+	}
+}
 
 function displayArchiveRoute(route, replaceRoute) {
 	const hash = ARCHIVE_ROUTE_PREFIX + route;

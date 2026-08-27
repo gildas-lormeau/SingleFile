@@ -77,7 +77,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingTouchTarget, cuttingPath, cuttingPathIndex, previousContent;
 	let removedElements = [], removedElementIndex = 0, pageResources, pageUrl, pageCompressContent, includeInfobar, openInfobar, infobarPositionAbsolute, infobarPositionTop, infobarPositionBottom, infobarPositionLeft, infobarPositionRight;
-	let pageArchiveContent, archivePages, archivePassword, archiveUrlToPath, archiveTocContent, stashedArchivePages, modifiedArchivePagePaths, currentArchivePagePath, archiveTocDisplayed;
+	let pageArchiveContent, archivePages, archiveManifest, archivePassword, archiveUrlToPath, archiveTocContent, archiveTocPresent, stashedArchivePages, modifiedArchivePagePaths, currentArchivePagePath, archiveTocDisplayed;
 
 	globalThis.zip = singlefile.helper.zip;
 	initEventListeners();
@@ -94,6 +94,13 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			}
 			if (message.method == "displayArchiveToc") {
 				await displayArchiveToc();
+			}
+			if (message.method == "archiveSaved") {
+				modifiedArchivePagePaths.clear();
+				if (archiveTocDisplayed) {
+					await displayArchiveToc();
+				}
+				onUpdate(true);
 			}
 			if (message.method == "addNote") {
 				addNote(message);
@@ -177,7 +184,6 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				redoCutPage();
 			}
 			if (message.method == "getContent") {
-				onUpdate(true);
 				includeInfobar = message.includeInfobar;
 				openInfobar = message.openInfobar;
 				infobarPositionAbsolute = message.infobarPositionAbsolute;
@@ -185,6 +191,11 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				infobarPositionBottom = message.infobarPositionBottom;
 				infobarPositionLeft = message.infobarPositionLeft;
 				infobarPositionRight = message.infobarPositionRight;
+				if (archivePages) {
+					await sendArchiveContent(message);
+					return;
+				}
+				onUpdate(true);
 				let content = getContent(message.compressHTML);
 				let filename;
 				const pageOptions = loadOptionsFromPage(document);
@@ -429,6 +440,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			return false;
 		}
 		const manifest = JSON.parse(await (await fetch(pagesResource.content)).text());
+		archiveManifest = manifest;
 		pageArchiveContent = content;
 		archivePassword = password;
 		archivePages = manifest.pages || [];
@@ -442,6 +454,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			}
 		});
 		const tocResource = resources.find(resource => RESERVED_FILES_PREFIX + resource.filename == TOC_FILENAME);
+		archiveTocPresent = Boolean(tocResource);
 		archiveTocContent = tocResource ? await (await fetch(tocResource.content)).text() : getDefaultArchiveTocContent();
 		stashedArchivePages = new Map();
 		modifiedArchivePagePaths = new Set();
@@ -454,8 +467,8 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	}
 
 	function resetArchive() {
-		pageArchiveContent = archivePages = archivePassword = archiveUrlToPath = archiveTocContent = stashedArchivePages = modifiedArchivePagePaths = currentArchivePagePath = undefined;
-		archiveTocDisplayed = false;
+		pageArchiveContent = archivePages = archiveManifest = archivePassword = archiveUrlToPath = archiveTocContent = stashedArchivePages = modifiedArchivePagePaths = currentArchivePagePath = undefined;
+		archiveTocDisplayed = archiveTocPresent = false;
 	}
 
 	async function openArchivePage(pagePath) {
@@ -505,6 +518,40 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		window.parent.postMessage(JSON.stringify({
 			method: "onArchiveTocDisplayed",
 			modified: modifiedArchivePagePaths.size > 0
+		}), "*");
+	}
+
+	async function sendArchiveContent(message) {
+		const displayedPagePath = currentArchivePagePath;
+		const displayedToc = archiveTocDisplayed;
+		const pages = [];
+		for (const page of archivePages) {
+			if (modifiedArchivePagePaths.has(page.path)) {
+				if (page.path !== currentArchivePagePath || archiveTocDisplayed) {
+					await openArchivePage(page.path);
+				}
+				pages.push({
+					path: page.path,
+					content: getContent(message.compressHTML),
+					title: document.title
+				});
+			}
+		}
+		if (displayedToc) {
+			await displayArchiveToc();
+		} else if (displayedPagePath !== undefined && displayedPagePath !== currentArchivePagePath) {
+			await openArchivePage(displayedPagePath);
+		}
+		const archiveContent = Array.isArray(pageArchiveContent) ? pageArchiveContent : Array.from(new Uint8Array(await pageArchiveContent.arrayBuffer()));
+		window.parent.postMessage(JSON.stringify({
+			method: "setContent",
+			compressContent: true,
+			multiPageArchive: true,
+			archiveContent,
+			pages,
+			manifest: archiveManifest,
+			tocPage: archiveTocPresent,
+			foregroundSave: message.foregroundSave
 		}), "*");
 	}
 
