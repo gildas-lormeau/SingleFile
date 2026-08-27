@@ -330,7 +330,8 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				prompt,
 				zipOptions,
 				pagePath,
-				excludedPaths: archivePages && !pagePath ? [PAGES_PREFIX, RESERVED_FILES_PREFIX] : undefined
+				excludedPaths: archivePages && !pagePath ? [PAGES_PREFIX, RESERVED_FILES_PREFIX] : undefined,
+				aliases: archivePages && pagePath !== undefined ? archiveManifest.aliases : undefined
 			});
 			pageResources = resources;
 			pageUrl = url;
