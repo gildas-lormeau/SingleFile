@@ -63,6 +63,7 @@ const printPageButton = document.querySelector(".print-page-button");
 const importMhtButton = document.querySelector(".import-mht-button");
 const lastButton = toolbarElement.querySelector(".buttons:last-of-type [type=button]:last-of-type");
 const archiveButtonsElement = document.querySelector(".archive-buttons");
+const editButtonsElements = document.querySelectorAll(".edit-buttons");
 const archiveTocButton = document.querySelector(".archive-toc-button");
 const archivePageTitleElement = document.querySelector(".archive-page-title");
 
@@ -425,17 +426,20 @@ addEventListener("message", async event => {
 		document.title = "[SingleFile] " + archivePageTitleElement.textContent;
 		tabData.options.disableFormatPage = !message.formatPageEnabled;
 		formatPageButton.hidden = !message.formatPageEnabled;
+		editButtonsElements.forEach(element => element.hidden = false);
 		tabData.docSaved = !message.modified;
 	}
 	if (message.method == "onArchiveTocDisplayed") {
 		archivePageTitleElement.textContent = ARCHIVE_TOC_MESSAGE;
 		archivePageTitleElement.title = "";
 		formatPageButton.hidden = true;
+		editButtonsElements.forEach(element => element.hidden = true);
 		tabData.docSaved = !message.modified;
 	}
 	if (message.method == "onInit") {
 		archivePages = undefined;
 		archiveButtonsElement.hidden = true;
+		editButtonsElements.forEach(element => element.hidden = false);
 		if (location.hash) {
 			history.replaceState(null, "", location.pathname + location.search);
 		}
