@@ -1,0 +1,128 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Validate the build and the store credentials without submitting
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      -
+        name: Checkout sources
+        uses: actions/checkout@v4
+      -
+        name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: npm
+      -
+        name: Check the credentials are configured
+        env:
+          WOLEET_API_KEY: ${{ secrets.WOLEET_API_KEY }}
+          MOZILLA_JWT_ISSUER: ${{ secrets.MOZILLA_JWT_ISSUER }}
+          MOZILLA_JWT_SECRET: ${{ secrets.MOZILLA_JWT_SECRET }}
+        run: |
+          test -n "$WOLEET_API_KEY"
+          test -n "$MOZILLA_JWT_ISSUER"
+          test -n "$MOZILLA_JWT_SECRET"
+      -
+        name: Check the release tag matches the manifest version
+        if: github.event_name == 'release'
+        run: |
+          tag="${{ github.event.release.tag_name }}"
+          version=$(jq -r .version manifest.json)
+          if [ "${tag#v}" != "$version" ]; then
+            echo "release tag $tag does not match manifest version $version"
+            exit 1
+          fi
+      -
+        name: Build the extension packages
+        env:
+          WOLEET_API_KEY: ${{ secrets.WOLEET_API_KEY }}
+        run: ./build-extension.sh
+      # the store package must carry the injected key, the source zip the placeholder
+      -
+        name: Check the Woleet API key injection
+        run: |
+          if unzip -p singlefile-extension-firefox.zip lib/single-file-extension-background.js | grep -q WOLEET_API_KEY_PLACEHOLDER; then
+            echo "the packaged extension still contains the placeholder"
+            exit 1
+          fi
+          unzip -p singlefile-extension-source.zip src/lib/woleet/woleet.js | grep -q WOLEET_API_KEY_PLACEHOLDER
+      # authenticated read-only call, run in dry runs too, so an expired or wrong
+      # credential is caught before a release depends on it
+      -
+        name: Check the AMO credentials
+        env:
+          MOZILLA_JWT_ISSUER: ${{ secrets.MOZILLA_JWT_ISSUER }}
+          MOZILLA_JWT_SECRET: ${{ secrets.MOZILLA_JWT_SECRET }}
+        run: |
+          jwt=$(node --input-type=module -e '
+            import crypto from "node:crypto";
+            const encode = value => Buffer.from(JSON.stringify(value)).toString("base64url");
+            const now = Math.floor(Date.now() / 1000);
+            const data = encode({ alg: "HS256", typ: "JWT" }) + "." +
+              encode({ iss: process.env.MOZILLA_JWT_ISSUER, jti: crypto.randomUUID(), iat: now, exp: now + 300 });
+            console.log(data + "." + crypto.createHmac("sha256", process.env.MOZILLA_JWT_SECRET).update(data).digest("base64url"));
+          ')
+          status=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: JWT $jwt" https://addons.mozilla.org/api/v5/accounts/profile/)
+          if [ "$status" != "200" ]; then
+            echo "AMO authentication failed (HTTP $status)"
+            exit 1
+          fi
+      # fails early if a web-ext update ever renames an option used below
+      -
+        name: Check the web-ext sign options
+        run: |
+          help=$(npx --yes web-ext@8 sign --help)
+          for option in --channel --api-key --api-secret --amo-metadata --upload-source-code --approval-timeout; do
+            if ! echo "$help" | grep -q -- "$option"; then
+              echo "web-ext sign no longer supports $option"
+              exit 1
+            fi
+          done
+      -
+        name: Attach the packages to the release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" singlefile-extension-firefox.zip singlefile-extension-source.zip --clobber
+      -
+        name: Submit to addons.mozilla.org
+        if: github.event_name == 'release' || !inputs.dry_run
+        env:
+          MOZILLA_JWT_ISSUER: ${{ secrets.MOZILLA_JWT_ISSUER }}
+          MOZILLA_JWT_SECRET: ${{ secrets.MOZILLA_JWT_SECRET }}
+        run: |
+          rm -rf .amo-package
+          unzip -q singlefile-extension-firefox.zip -d .amo-package
+          cat > amo-metadata.json << 'EOF'
+          {
+            "version": {
+              "approval_notes": "The published package differs from the built source by one string: the Woleet API key, injected at packaging time (the source contains the placeholder WOLEET_API_KEY_PLACEHOLDER). Everything else is byte-identical when built with build-extension.sh (Node.js 26; the script runs npm ci and rollup)."
+            }
+          }
+          EOF
+          npx --yes web-ext@8 sign \
+            --source-dir .amo-package \
+            --channel listed \
+            --api-key "$MOZILLA_JWT_ISSUER" \
+            --api-secret "$MOZILLA_JWT_SECRET" \
+            --upload-source-code singlefile-extension-source.zip \
+            --amo-metadata amo-metadata.json \
+            --approval-timeout 0
