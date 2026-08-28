@@ -14,7 +14,7 @@ import express from "express";
 import * as z from "zod";
 
 const PORT = process.env.PORT || 3000;
-const HOST = "0.0.0.0";
+const HOST = process.env.HOST || "127.0.0.1";
 const MCP_ENDPOINT = "/mcp";
 const DEFAULT_SAVE_DIR = "./saved-pages";
 const DEFAULT_BODY_SIZE_LIMIT_MB = 100;
@@ -44,6 +44,7 @@ Arguments:
 
 Environment:
   PORT               Server port (default: 3000)
+  HOST               Server host (default: 127.0.0.1)
 
 Examples:
   node server.js
