@@ -1079,7 +1079,7 @@
 	},
 	"pendingsNoPendings": {
 		"message": "没有挂起中的保存项",
-		"description": "Label displayed when they are no pending saves"
+		"description": "Label displayed when there are no pending saves"
 	},
 	"pendingsAddUrlsButton": {
 		"message": "添加网址",
@@ -1103,7 +1103,7 @@
 	},
 	"batchSaveUrlsNoURLs": {
 		"message": "无网址",
-		"description": "Label displayed when they are no URLs"
+		"description": "Label displayed when there are no URLs"
 	},
 	"batchSaveUrlsAddUrlButton": {
 		"message": "添加网址",

@@ -1079,7 +1079,7 @@
 	},
 	"pendingsNoPendings": {
 		"message": "保留中の保存はありません",
-		"description": "Label displayed when they are no pending saves"
+		"description": "Label displayed when there are no pending saves"
 	},
 	"pendingsAddUrlsButton": {
 		"message": "URL を追加",
@@ -1103,7 +1103,7 @@
 	},
 	"batchSaveUrlsNoURLs": {
 		"message": "URL がありません",
-		"description": "Label displayed when they are no URLs"
+		"description": "Label displayed when there are no URLs"
 	},
 	"batchSaveUrlsAddUrlButton": {
 		"message": "URL を追加",

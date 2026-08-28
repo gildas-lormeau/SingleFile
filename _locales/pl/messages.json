@@ -1083,7 +1083,7 @@
 	},
 	"pendingsNoPendings": {
 		"message": "Brak oczekujących zapisów",
-		"description": "Label displayed when they are no pending saves"
+		"description": "Label displayed when there are no pending saves"
 	},
 	"pendingsAddUrlsButton": {
 		"message": "Dodaj adresy URL",
@@ -1107,7 +1107,7 @@
 	},
 	"batchSaveUrlsNoURLs": {
 		"message": "Brak adresów URL",
-		"description": "Label displayed when they are no URLs"
+		"description": "Label displayed when there are no URLs"
 	},
 	"batchSaveUrlsAddUrlButton": {
 		"message": "Dodaj adres URL",

@@ -1079,7 +1079,7 @@
 	},
 	"pendingsNoPendings": {
 		"message": "Keine ausstehenden Speicherungen",
-		"description": "Label displayed when they are no pending saves"
+		"description": "Label displayed when there are no pending saves"
 	},
 	"pendingsAddUrlsButton": {
 		"message": "URLs hinzufügen",
@@ -1103,7 +1103,7 @@
 	},
 	"batchSaveUrlsNoURLs": {
 		"message": "Keine URLs",
-		"description": "Label displayed when they are no URLs"
+		"description": "Label displayed when there are no URLs"
 	},
 	"batchSaveUrlsAddUrlButton": {
 		"message": "URL hinzufügen",

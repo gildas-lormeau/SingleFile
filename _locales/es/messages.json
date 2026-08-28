@@ -1079,7 +1079,7 @@
 	},
 	"pendingsNoPendings": {
 		"message": "No hay guardados pendientes",
-		"description": "Label displayed when they are no pending saves"
+		"description": "Label displayed when there are no pending saves"
 	},
 	"pendingsAddUrlsButton": {
 		"message": "Añadir URLs",
@@ -1103,7 +1103,7 @@
 	},
 	"batchSaveUrlsNoURLs": {
 		"message": "Sin URLs",
-		"description": "Label displayed when they are no URLs"
+		"description": "Label displayed when there are no URLs"
 	},
 	"batchSaveUrlsAddUrlButton": {
 		"message": "Añadir URL",
