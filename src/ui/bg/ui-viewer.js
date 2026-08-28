@@ -26,6 +26,7 @@
 import * as zip from "../../../lib/single-file-zip.js";
 
 globalThis.zip = zip;
+zip.configure({ workerURI: "/lib/single-file-z-worker.js", workerStartupTimeout: 2000 });
 globalThis.onload = async () => {
 	const params = new URLSearchParams(location.search);
 	const blobURI = params.get("blobURI");
