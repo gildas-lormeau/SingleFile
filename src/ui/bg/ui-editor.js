@@ -37,7 +37,7 @@ const FOREGROUND_SAVE = /Safari/.test(navigator.userAgent) && !/Chrome/.test(nav
 const SHADOWROOT_ATTRIBUTE_NAME = "shadowrootmode";
 const INFOBAR_TAGNAME = "single-file-infobar";
 
-const editorElement = document.querySelector(".editor");
+let editorElement = document.querySelector(".editor");
 const toolbarElement = document.querySelector(".toolbar");
 const highlightYellowButton = document.querySelector(".highlight-yellow-button");
 const highlightPinkButton = document.querySelector(".highlight-pink-button");
@@ -502,7 +502,17 @@ browser.runtime.onMessage.addListener(message => {
 });
 
 addEventListener("load", () => {
-	browser.runtime.sendMessage({ method: "editor.getTabData" });
+	// when reloading the page, Firefox restores the frame from session history
+	// instead of parsing the srcdoc attribute and displays an error page if the
+	// frame document was rewritten with document.write(), so the frame is
+	// rebuilt before requesting the tab data
+	const previousEditorElement = editorElement;
+	editorElement = previousEditorElement.cloneNode(true);
+	editorElement.onload = () => {
+		editorElement.onload = null;
+		browser.runtime.sendMessage({ method: "editor.getTabData" });
+	};
+	previousEditorElement.replaceWith(editorElement);
 });
 
 async function saveArchive(message) {
