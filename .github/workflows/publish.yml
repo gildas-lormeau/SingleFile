@@ -122,7 +122,7 @@ jobs:
           cat > amo-metadata.json << 'EOF'
           {
             "version": {
-              "approval_notes": "The published package differs from the built source by one string: the Woleet API key, injected at packaging time (the source contains the placeholder WOLEET_API_KEY_PLACEHOLDER). Everything else is byte-identical when built with build-extension.sh (Node.js 26; the script runs npm ci and rollup)."
+              "approval_notes": "Build instructions are in README-BUILD.md in the source archive. The published package differs from the built source by one string: the Woleet API key, injected at packaging time (the source contains the placeholder WOLEET_API_KEY_PLACEHOLDER). Everything else is byte-identical when built with build-extension.sh (Node.js 26; the script runs npm ci and rollup)."
             }
           }
           EOF
