@@ -21,10 +21,11 @@
  *   Source.
  */
 
-/* global browser, document, location, setTimeout, XMLHttpRequest, Node, DOMParser, Blob, URL, Image, OffscreenCanvas, CustomEvent */
+/* global browser, document, location, setTimeout, XMLHttpRequest, Node, DOMParser, Blob, URL, Image, OffscreenCanvas, CustomEvent, TextDecoder */
 
 const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 const NESTING_TRACK_ID_ATTRIBUTE_NAME = "data-sf-nesting-track-id";
+const ARCHIVE_SCAN_LENGTH = 1024 * 1024;
 
 const singlefile = globalThis.singlefileBootstrap;
 const pendingResponses = new Map();
@@ -305,6 +306,7 @@ async function openEditor(document) {
 	let content;
 	if (compressContent) {
 		content = await getContent();
+		detectArchiveOptions(content);
 	} else {
 		serializeShadowRoots(document);
 		markInvalidNesting(document);
@@ -353,6 +355,20 @@ async function extractEmbeddedImage(content) {
 		const arrayBuffer = await blob.arrayBuffer();
 		return Array.from(new Uint8Array(arrayBuffer));
 	}
+}
+
+// the markers of a self-extracting archive live in the prologue and in the data appended
+// after it, and both are removed from the document while the page extracts itself, so they
+// are read from the bytes of the file instead of from the document
+function detectArchiveOptions(content) {
+	const bytes = content instanceof Uint8Array ? content : new Uint8Array(content);
+	const decoder = new TextDecoder("windows-1252");
+	const prologue = decoder.decode(bytes.subarray(0, ARCHIVE_SCAN_LENGTH));
+	const appendedData = bytes.length > ARCHIVE_SCAN_LENGTH ?
+		decoder.decode(bytes.subarray(bytes.length - ARCHIVE_SCAN_LENGTH)) : "";
+	extractDataFromPageTags = prologue.includes("<sfz-extra-data>") || appendedData.includes("<sfz-extra-data>");
+	insertTextBody = prologue.includes("<main hidden>");
+	insertMetaCSP = prologue.includes("http-equiv=content-security-policy");
 }
 
 function detectSavedPage(document) {
