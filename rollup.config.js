@@ -81,7 +81,11 @@ export default [{
 	output: [{
 		file: "lib/single-file-zip.min.js",
 		format: "es",
-		plugins: [terser()]
+		// this file is inlined into self-extracting pages, which declare windows-1252, so a
+		// literal non-ASCII character in it is re-decoded there and the CP437 table it belongs
+		// to maps every legacy entry name to garbage. single-file-core escapes them for the
+		// same reason; without this, terser prints the shortest form and undoes that
+		plugins: [terser({ format: { ascii_only: true } })]
 	}],
 	context: "this",
 	plugins: PLUGINS,
