@@ -32,6 +32,15 @@ if (typeof globalThis == "undefined") {
 	const FEATURE_TESTS = {};
 	const NON_COMPLIANT_IMPLEMENTATION = globalThis.origin && globalThis.origin.startsWith("safari-web-extension://");
 
+	function respond(sendResponse, response) {
+		try {
+			sendResponse(response);
+			// eslint-disable-next-line no-unused-vars
+		} catch (error) {
+			// ignored
+		}
+	}
+
 	if ((!globalThis.browser || NON_COMPLIANT_IMPLEMENTATION) && globalThis.chrome) {
 		const nativeAPI = globalThis.chrome;
 		globalThis.__defineGetter__("browser", () => ({
@@ -323,20 +332,28 @@ if (typeof globalThis == "undefined") {
 					removeListener: listener => nativeAPI.runtime.onMessage.removeListener(listener)
 				},
 				onMessageExternal: {
+					// Returning true promises the caller a reply, so one has to be sent on
+					// every path. Firefox reports a rejected handler through runtime.lastError;
+					// Chrome and Safari give a listener no way to set it, so the reason can only
+					// travel as the response value, and { error } is the shape SingleFile
+					// answers with. That asymmetry is documented rather than papered over: it is
+					// the one part of the behavior this polyfill cannot reproduce.
+					//
+					// The catch is deliberately here and not on onMessage above. This event has
+					// a single listener, so nothing can be pre-empted by answering. onMessage is
+					// shared — singlefile.fetchResponse alone has two listeners in the content
+					// scripts — and there a rejecting listener that answered would beat the one
+					// that actually handles the message and turn a working save into a failure.
 					addListener: listener => nativeAPI.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
 						const response = listener(message, sender);
 						if (response && typeof response.then == "function") {
 							response
 								.then(response => {
 									if (response !== undefined) {
-										try {
-											sendResponse(response);
-											// eslint-disable-next-line no-unused-vars
-										} catch (error) {
-											// ignored
-										}
+										respond(sendResponse, response);
 									}
-								});
+								})
+								.catch(error => respond(sendResponse, { error: error && error.message }));
 							return true;
 						}
 					})
