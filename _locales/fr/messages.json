@@ -1390,15 +1390,15 @@
 		"description": "Menu editor badge of the entries the current browser cannot show"
 	},
 	"menusUnsupportedActionHelp": {
-		"message": "Ce navigateur ne prend pas en charge cette entrée, elle n'est donc pas affichée.",
+		"message": "Cette entrée n'est pas affichée car ce navigateur ne la prend pas en charge.",
 		"description": "Menu editor note for an entry the current browser cannot show"
 	},
 	"menusProfileMissingHelp": {
-		"message": "Le profil '$1' n'existe plus, cette entrée utilise donc le profil en vigueur pour la page.",
+		"message": "Le profil '$1' n'existe plus. Cette entrée utilise le profil en vigueur pour la page.",
 		"description": "Menu editor note for an entry bound to a deleted profile"
 	},
 	"menusEmptySubmenuHelp": {
-		"message": "Ce sous-menu n'a aucune entrée visible, il n'est donc pas affiché.",
+		"message": "Ce sous-menu n'est pas affiché car il n'a aucune entrée visible.",
 		"description": "Menu editor note for a submenu whose entries are all skipped"
 	},
 	"menusResetButton": {
@@ -1414,7 +1414,7 @@
 		"description": "Menu editor status when saving the layout fails (for example the sync storage quota)"
 	},
 	"menusUnsupported": {
-		"message": "Ce navigateur ne prend pas en charge les menus d'extension, il n'y a donc rien à personnaliser ici.",
+		"message": "Ce navigateur ne prend pas en charge les menus d'extension. Il n'y a rien à personnaliser ici.",
 		"description": "Menu editor message shown instead of the editor when the browser has no menus API (for example on Android)"
 	},
 	"menusProfilesBadge": {
