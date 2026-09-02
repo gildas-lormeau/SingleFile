@@ -66,6 +66,7 @@ let selected = null;
 let currentSurface = "page";
 let pageContext = "page";
 let dragData = null;
+let renderedJson = "";
 let pendingSave = Promise.resolve();
 
 document.getElementById("titleLabel").textContent = getMessage("menusTitle");
@@ -258,7 +259,11 @@ function render() {
 		applyChromeCap();
 	}
 	renderInspector();
-	jsonInput.value = JSON.stringify(serialize(layout), null, "\t");
+	const json = JSON.stringify(serialize(layout), null, "\t");
+	if (json != renderedJson) {
+		renderedJson = json;
+		jsonInput.value = json;
+	}
 }
 
 function renderList(entries, surface) {
@@ -444,14 +449,24 @@ function wrapOverflowInSubmenu() {
 	commit();
 }
 
+function selectEntry(surface, uid) {
+	selected = { surface, uid };
+	render();
+	focusEntry(uid);
+}
+
+function focusEntry(uid) {
+	const item = uid && menuList.querySelector(".menus-item[data-uid=\"" + uid + "\"]");
+	if (item) {
+		item.focus({ preventScroll: true });
+	}
+}
+
 function bindEntryEvents(item, entry, surface) {
 	item.addEventListener("click", event => {
 		event.stopPropagation();
-		selected = { surface, uid: entry.uid };
-		render();
-		const focusTarget = menuList.querySelector(".menus-item.selected");
-		if (focusTarget) {
-			focusTarget.focus({ preventScroll: true });
+		if (!selected || selected.uid != entry.uid) {
+			selectEntry(surface, entry.uid);
 		}
 	});
 	item.addEventListener("keydown", event => {
@@ -461,6 +476,9 @@ function bindEntryEvents(item, entry, surface) {
 		if (event.key == "Delete" || event.key == "Backspace") {
 			event.preventDefault();
 			removeEntry(surface, entry.uid);
+		} else if (event.key == "Enter" || event.key == " ") {
+			event.preventDefault();
+			selectEntry(surface, entry.uid);
 		} else if (event.altKey && (event.key == "ArrowUp" || event.key == "ArrowDown")) {
 			event.preventDefault();
 			moveEntry(surface, entry.uid, event.key == "ArrowUp" ? -1 : 1);
@@ -627,6 +645,8 @@ function removeEntry(surface, uid) {
 			selected = null;
 		}
 		commit();
+		const neighbour = found.list[found.index] || found.list[found.index - 1];
+		focusEntry(neighbour && neighbour.uid);
 	}
 }
 
@@ -638,10 +658,7 @@ function moveEntry(surface, uid, delta) {
 			found.list.splice(found.index, 1);
 			found.list.splice(newIndex, 0, found.entry);
 			commit();
-			const item = menuList.querySelector(".menus-item.selected");
-			if (item) {
-				item.focus({ preventScroll: true });
-			}
+			focusEntry(uid);
 		}
 	}
 }
@@ -650,12 +667,13 @@ function startRename(label, entry) {
 	const input = document.createElement("input");
 	input.type = "text";
 	input.value = effectiveLabel(entry);
+	const derivedLabel = effectiveLabel(Object.assign({}, entry, { label: undefined }));
 	let done = false;
 	const finish = () => {
 		if (!done) {
 			done = true;
 			const value = input.value.trim();
-			if (value && value != getActionLabel(entry.action)) {
+			if (value && value != derivedLabel) {
 				entry.label = value;
 			} else {
 				delete entry.label;
@@ -663,6 +681,8 @@ function startRename(label, entry) {
 			commit();
 		}
 	};
+	input.addEventListener("click", event => event.stopPropagation());
+	input.addEventListener("dblclick", event => event.stopPropagation());
 	input.addEventListener("blur", finish);
 	input.addEventListener("keydown", event => {
 		if (event.key == "Enter") {
@@ -694,27 +714,30 @@ function renderInspector() {
 		appendRemoveField(entry, surface);
 		return;
 	}
+	const inlineProfiles = definition.dynamic == "profiles" && entry.inline;
 	if (needsProfiles(entry.action)) {
 		inspectorElement.append(createParagraph(getMessage("menusProfilesHelp")));
 	} else if (contextMismatch(entry, surface)) {
 		inspectorElement.append(createParagraph(getMessage("menusContextHelp", [getMessage(CONTEXT_LABEL_KEYS[pageContext])])));
 	}
-	inspectorElement.append(createField(getMessage("menusLabelField"), () => {
-		const input = document.createElement("input");
-		input.type = "text";
-		input.value = entry.label || "";
-		input.placeholder = effectiveLabel(entry);
-		input.addEventListener("change", () => {
-			const value = input.value.trim();
-			if (value) {
-				entry.label = value;
-			} else {
-				delete entry.label;
-			}
-			commit();
-		});
-		return input;
-	}, getMessage("menusLabelHelp")));
+	if (!inlineProfiles) {
+		inspectorElement.append(createField(getMessage("menusLabelField"), () => {
+			const input = document.createElement("input");
+			input.type = "text";
+			input.value = entry.label || "";
+			input.placeholder = effectiveLabel(entry);
+			input.addEventListener("change", () => {
+				const value = input.value.trim();
+				if (value) {
+					entry.label = value;
+				} else {
+					delete entry.label;
+				}
+				commit();
+			});
+			return input;
+		}, getMessage("menusLabelHelp")));
+	}
 	if (definition.bindable && profileNames.length > 1) {
 		inspectorElement.append(createField(getMessage("menusProfileField"), () => {
 			const select = document.createElement("select");
@@ -905,6 +928,7 @@ function bindEvents() {
 		if (data) {
 			layout = withUids(data);
 			selected = null;
+			renderedJson = "";
 			commit();
 			setStatus(ignored ? getMessage("menusJsonIgnored", [String(ignored)]) : "");
 		} else {
