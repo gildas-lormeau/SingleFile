@@ -9,7 +9,8 @@
   (https://github.com/frostblazergit), dnknn (https://github.com/dnknn),
   lqzhgood (https://github.com/lqzhgood)
 - Traditional Chinese translation done by frostblazergit
-  (https://github.com/frostblazergit), lqzhgood (https://github.com/lqzhgood)
+  (https://github.com/frostblazergit), lqzhgood (https://github.com/lqzhgood),
+  notlin4 (https://github.com/notlin4)
 - Dutch translation done by jooleer (https://github.com/jooleer)
 - German translation done by womotroll (https://github.com/womotroll), bannmann
   (https://github.com/bannmann)
