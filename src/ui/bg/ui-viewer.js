@@ -21,26 +21,32 @@
  *   Source.
  */
 
-/* global document, location, singlefile, fetch, URLSearchParams, prompt */
+/* global browser, document, location, singlefile, fetch, URLSearchParams, prompt */
 
 import * as zip from "../../../lib/single-file-zip.js";
+import { onError, setLabels } from "./../common/common-content-ui.js";
 
 globalThis.zip = zip;
 zip.configure({ workerURI: "/lib/single-file-z-worker.js", workerStartupTimeout: 2000 });
+setLabels({ ERROR_TITLE_MESSAGE: browser.i18n.getMessage("topPanelError") });
 globalThis.onload = async () => {
-	const params = new URLSearchParams(location.search);
-	const blobURI = params.get("blobURI");
-	if (blobURI.startsWith("blob:")) {
-		const compressed = params.has("compressed");
-		const response = await fetch(blobURI);
-		if (compressed) {
-			const blob = await response.blob();
-			const { docContent } = await singlefile.helper.extract(blob, { prompt });
-			await singlefile.helper.display(document, docContent);
-		} else {
-			const text = await response.text();
-			document.write(text);
-			document.close();
+	try {
+		const params = new URLSearchParams(location.search);
+		const blobURI = params.get("blobURI");
+		if (blobURI.startsWith("blob:")) {
+			const compressed = params.has("compressed");
+			const response = await fetch(blobURI);
+			if (compressed) {
+				const blob = await response.blob();
+				const { docContent } = await singlefile.helper.extract(blob, { prompt });
+				await singlefile.helper.display(document, docContent);
+			} else {
+				const text = await response.text();
+				document.write(text);
+				document.close();
+			}
 		}
+	} catch (error) {
+		onError(error && (error.message || error.toString()));
 	}
 };

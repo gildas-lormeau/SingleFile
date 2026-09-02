@@ -55,7 +55,7 @@ export {
 };
 
 async function downloadPage(pageData, options) {
-	if (options.includeBOM) {
+	if (options.includeBOM && typeof pageData.content == "string") {
 		pageData.content = "\ufeff" + pageData.content;
 	}
 	const embeddedImage = options.embeddedImage;
