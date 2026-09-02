@@ -1346,11 +1346,11 @@
 		"description": "Menu editor help of the 'Contents' field"
 	},
 	"menusContextsField": {
-		"message": "Appears when right-clicking",
+		"message": "Shown when right-clicking:",
 		"description": "Menu editor field: 'Appears when right-clicking'"
 	},
 	"menusAltLabelHelp": {
-		"message": "Without a custom label, the menu shows '$1' when it applies to the page.",
+		"message": "Without a custom label, the menu shows '$1' when this entry applies to the page.",
 		"description": "Menu editor help about the alternative label of an entry"
 	},
 	"menusSubmenuField": {
@@ -1390,15 +1390,15 @@
 		"description": "Menu editor badge of the entries the current browser cannot show"
 	},
 	"menusUnsupportedActionHelp": {
-		"message": "This browser does not support this entry, so it is not shown.",
+		"message": "This entry is not shown because this browser does not support it.",
 		"description": "Menu editor note for an entry the current browser cannot show"
 	},
 	"menusProfileMissingHelp": {
-		"message": "The profile '$1' no longer exists, so this entry uses the profile in use for the page.",
+		"message": "The profile '$1' no longer exists. This entry uses the profile in use for the page.",
 		"description": "Menu editor note for an entry bound to a deleted profile"
 	},
 	"menusEmptySubmenuHelp": {
-		"message": "This submenu has no visible entries, so it is not shown.",
+		"message": "This submenu is not shown because it has no visible entries.",
 		"description": "Menu editor note for a submenu whose entries are all skipped"
 	},
 	"menusResetButton": {
@@ -1414,7 +1414,7 @@
 		"description": "Menu editor status when saving the layout fails (for example the sync storage quota)"
 	},
 	"menusUnsupported": {
-		"message": "This browser does not support extension menus, so there is nothing to customize here.",
+		"message": "This browser does not support extension menus. There is nothing to customize here.",
 		"description": "Menu editor message shown instead of the editor when the browser has no menus API (for example on Android)"
 	},
 	"menusProfilesBadge": {
