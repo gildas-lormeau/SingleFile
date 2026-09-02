@@ -493,6 +493,9 @@ async function onMessage(message) {
 	if (message.method.endsWith(".getRules")) {
 		return getRules();
 	}
+	if (message.method.endsWith(".getProfileOptions")) {
+		return getProfileOptions(message.profileName);
+	}
 	if (message.method.endsWith(".getProfiles")) {
 		return getProfiles();
 	}
@@ -570,8 +573,11 @@ async function getOptions(url, autoSave) {
 	} else {
 		selectedProfileName = tabProfileName;
 	}
-	const profile = await getProfile(selectedProfileName);
-	const options = Object.assign({ profileName: selectedProfileName }, profile);
+	return getProfileOptions(selectedProfileName);
+}
+
+async function getProfileOptions(profileName) {
+	const options = Object.assign({ profileName }, await getProfile(profileName));
 	if (!BACKGROUND_SAVE_SUPPORTED) {
 		options.backgroundSave = false;
 	}

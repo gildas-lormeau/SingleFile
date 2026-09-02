@@ -714,8 +714,7 @@ async function downloadContent(message) {
 }
 
 async function refreshOptions(profileName) {
-	const profiles = await browser.runtime.sendMessage({ method: "config.getProfiles" });
-	tabData.options = profiles[profileName];
+	tabData.options = await browser.runtime.sendMessage({ method: "config.getProfileOptions", profileName });
 }
 
 function disableEditPage() {
