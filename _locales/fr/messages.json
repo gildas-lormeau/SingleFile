@@ -60,7 +60,7 @@
 		"description": "Menu entry: 'Save page with SingleFile'"
 	},
 	"menuSaveSelectedLinks": {
-		"message": "Sauver les liens selectionnés",
+		"message": "Sauver les liens sélectionnés",
 		"description": "Menu entry: 'Save selected links'"
 	},
 	"menuEditPage": {
@@ -312,7 +312,7 @@
 		"description": "Options page label: 'remove frames'"
 	},
 	"optionRemoveHiddenElements": {
-		"message": "supprimer les élements cachés",
+		"message": "supprimer les éléments cachés",
 		"description": "Options page label: 'remove hidden elements'"
 	},
 	"optionRemovedElementsSelector": {
@@ -560,7 +560,7 @@
 		"description": "Popup text 'Annuler les changements' in the options page"
 	},
 	"optionsDeleteRuleConfirm": {
-		"message": "Confirmer la suppression de la règle selectionnée",
+		"message": "Confirmer la suppression de la règle sélectionnée",
 		"description": "Popup text 'Confirm deletion of the selected rule' in the options page"
 	},
 	"optionAutoSaveLoadOrUnload": {
@@ -580,7 +580,7 @@
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
-		"message": "auto-sauvegarder à la supression de l'onglet",
+		"message": "auto-sauvegarder à la suppression de l'onglet",
 		"description": "Options page label: 'auto-save on tab removal'"
 	},
 	"optionAutoSaveDelay": {
@@ -954,7 +954,7 @@
 		"description": "Popup text 'Enter a name for this new profile' in the options page"
 	},
 	"profileDeleteConfirm": {
-		"message": "Confirmez la suppression du profil selectionné",
+		"message": "Confirmez la suppression du profil sélectionné",
 		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
 	},
 	"profileRenamePrompt": {
@@ -978,19 +978,19 @@
 		"description": "Title of the button 'Add a green note' in the editor"
 	},
 	"editorHighlightYellow": {
-		"message": "Surligner en jaune le text selectionné",
+		"message": "Surligner en jaune le texte sélectionné",
 		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
 	},
 	"editorHighlightPink": {
-		"message": "Surligner en rose le text selectionné",
+		"message": "Surligner en rose le texte sélectionné",
 		"description": "Title of the button 'Highlight selected text in pink' in the editor"
 	},
 	"editorHighlightBlue": {
-		"message": "Surligner en bleu le text selectionné",
+		"message": "Surligner en bleu le texte sélectionné",
 		"description": "Title of the button 'Highlight selected text in blue' in the editor"
 	},
 	"editorHighlightGreen": {
-		"message": "Surligner en vert le text selectionné",
+		"message": "Surligner en vert le texte sélectionné",
 		"description": "Title of the button 'Highlight selected text in green' in the editor"
 	},
 	"editorToggleNotes": {
@@ -1002,11 +1002,11 @@
 		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
 	},
 	"editorRemoveHighlight": {
-		"message": "Supprimer le surlignement du texte selectionné",
+		"message": "Supprimer le surlignement du texte sélectionné",
 		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
 	},
 	"editorEditPage": {
-		"message": "Activer/déactiver le mode lecture seule",
+		"message": "Activer/désactiver le mode lecture seule",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorFormatPage": {
@@ -1014,23 +1014,23 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "Activer/désactiver la supression des éléments internes",
+		"message": "Activer/désactiver la suppression des éléments internes",
 		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "Activer/désactiver la supression des éléments externes",
+		"message": "Activer/désactiver la suppression des éléments externes",
 		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
-		"message": "Restaurer le dernier élement supprimé",
+		"message": "Restaurer le dernier élément supprimé",
 		"description": "Title of the button 'Restore last removed element' in the editor"
 	},
 	"editorUndoAllCutPage": {
-		"message": "Restaurer tous les élements supprimés",
+		"message": "Restaurer tous les éléments supprimés",
 		"description": "Title of the button 'Restore all removed elements' in the editor"
 	},
 	"editorRedoCutPage": {
-		"message": "Supprimer le dernier élement restauré",
+		"message": "Supprimer le dernier élément restauré",
 		"description": "Title of the button 'Remove last restored element' in the editor"
 	},
 	"editorSavePage": {

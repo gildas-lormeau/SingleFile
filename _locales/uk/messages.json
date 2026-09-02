@@ -80,7 +80,7 @@
 		"description": "Menu entry: 'View pending saves...'"
 	},
 	"menuSelectProfile": {
-		"message": "Виберіть профіль за замовчуванням ",
+		"message": "Виберіть профіль за замовчуванням",
 		"description": "Menu entry: 'Select the default profile'"
 	},
 	"menuUpdateRule": {
@@ -204,7 +204,7 @@
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
 	"optionInfobarTemplate": {
-		"message": "шаблон вмісту інформаційної панелі ",
+		"message": "шаблон вмісту інформаційної панелі",
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionBlockMixedContent": {
@@ -412,7 +412,7 @@
 		"description": "Options page label: 'load deferred frames'"
 	},
 	"optionRemoveAlternativeImages": {
-		"message": "видалити зображення для альтернативних розширень екрану ",
+		"message": "видалити зображення для альтернативних розширень екрану",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"
 	},
 	"optionsFontsSubTitle": {
@@ -432,7 +432,7 @@
 		"description": "Options sub-title: 'Stylesheets'"
 	},
 	"optionCompressCSS": {
-		"message": "стискати вміст CSS ",
+		"message": "стискати вміст CSS",
 		"description": "Options page label: 'compress CSS content'"
 	},
 	"optionGroupDuplicateStylesheets": {
@@ -504,7 +504,7 @@
 		"description": "Options sub-title: 'Auto-save'"
 	},
 	"optionsAutoSettingsSubTitle": {
-		"message": "Правила автоналаштування ",
+		"message": "Правила автоналаштування",
 		"description": "Options sub-title: 'Auto-settings rules'"
 	},
 	"optionsDeleteDisplayedRulesConfirm": {
@@ -926,7 +926,7 @@
 		"description": "Top panel button 'Share page...' when sharing a page"
 	},
 	"topPanelShareSelectionButton": {
-		"message": "Seite teilen...",
+		"message": "Поділитися виділеним...",
 		"description": "Top panel button 'Share selection...' when sharing selected content"
 	},
 	"profileDefaultSettings": {

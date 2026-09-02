@@ -132,7 +132,7 @@
 		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
 	},
 	"menuAutoSaveUnpinnedTabs": {
-		"message": "Auto-sava schede sbloccate",
+		"message": "Auto-salva schede sbloccate",
 		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
 	},
 	"menuAutoSaveAllTabs": {
@@ -200,7 +200,7 @@
 		"description": "Options page label: 'overlay a shadow on the page during processing'"
 	},
 	"optionDisplayInfobar": {
-		"message": "Visualizza una barra informatica quando vedi una pagina salvata",
+		"message": "Visualizza una barra informativa quando vedi una pagina salvata",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
 	"optionInfobarTemplate": {
@@ -504,7 +504,7 @@
 		"description": "Options sub-title: 'Auto-save'"
 	},
 	"optionsAutoSettingsSubTitle": {
-		"message": "Regole auto-impostazioni rules",
+		"message": "Regole auto-impostazioni",
 		"description": "Options sub-title: 'Auto-settings rules'"
 	},
 	"optionsDeleteDisplayedRulesConfirm": {
@@ -580,7 +580,7 @@
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
-		"message": "auto-save alla rimozione della scheda",
+		"message": "auto-salva alla rimozione della scheda",
 		"description": "Options page label: 'auto-save on tab removal'"
 	},
 	"optionAutoSaveDelay": {

@@ -870,7 +870,7 @@
 		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
 	},
 	"optionsResetAllButton": {
-		"message": "Restablecer todas las ocpiones",
+		"message": "Restablecer todas las opciones",
 		"description": "Options confirm button: 'Reset all options'"
 	},
 	"optionsResetCurrentButton": {

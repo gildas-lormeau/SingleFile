@@ -148,7 +148,7 @@
 		"description": "Button badge when the page is blocked: '🚫'"
 	},
 	"buttonBlockedTooltip": {
-		"message": "Bu sayfa SinglePage ile kaydedilemiyor",
+		"message": "Bu sayfa SingleFile ile kaydedilemiyor",
 		"description": "Button title: 'This page cannot be saved with SingleFile'"
 	},
 	"buttonInitializingTooltip": {
@@ -528,7 +528,7 @@
 		"description": "Options label in the Auto-settings rules: 'Profile'"
 	},
 	"optionsAutoSettingsAutoSaveProfile": {
-		"message": "Profili otomatik kaydet",
+		"message": "Otomatik kaydetme profili",
 		"description": "Options label in the Auto-settings rules: 'Auto-save profile'"
 	},
 	"optionsAutoSettingsShowAllProfiles": {
@@ -536,7 +536,7 @@
 		"description": "Options label in the Auto-settings rules: 'display all profiles'"
 	},
 	"optionsAutoSettingsShowAutoSaveProfile": {
-		"message": "'Profili otomatik kaydet' sütununu göster",
+		"message": "'Otomatik kaydetme profili' sütununu göster",
 		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
 	},
 	"optionsUpdateRuleTooltip": {
