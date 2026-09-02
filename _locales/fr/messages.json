@@ -1346,11 +1346,11 @@
 		"description": "Menu editor help of the 'Contents' field"
 	},
 	"menusContextsField": {
-		"message": "Apparaît lors d'un clic droit sur",
+		"message": "Affiché lors d'un clic droit sur :",
 		"description": "Menu editor field: 'Appears when right-clicking'"
 	},
 	"menusAltLabelHelp": {
-		"message": "Sans libellé personnalisé, le menu affiche '$1' quand elle s'applique à la page.",
+		"message": "Sans libellé personnalisé, le menu affiche '$1' quand cette entrée s'applique à la page.",
 		"description": "Menu editor help about the alternative label of an entry"
 	},
 	"menusSubmenuField": {
