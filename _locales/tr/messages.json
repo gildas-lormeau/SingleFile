@@ -1045,6 +1045,10 @@
 		"message": "MHTML dosyasını içe aktar",
 		"description": "Title of the button 'Import MHTML file' in the editor"
 	},
+	"editorArchiveToc": {
+		"message": "İçindekiler",
+		"description": "Title of the table of contents button displayed in the editor when viewing a multi-page archive"
+	},
 	"pendingsTitle": {
 		"message": "Bekleyen kaydetmeler",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
@@ -1160,5 +1164,269 @@
 	"optionsEditorInvalidJSON": {
 		"message": "Geçersiz JSON",
 		"description": "Options editor error message: 'Invalid JSON'"
+	},
+	"optionsMenusSubTitle": {
+		"message": "Menüler",
+		"description": "Options sub-title: 'Menus'"
+	},
+	"optionMenusEditor": {
+		"message": "menülerde gösterilen öğeleri ve sıralarını seçin (tüm profiller için ortak)",
+		"description": "Options page label: 'choose the entries displayed in the menus and their order (shared by all profiles)'"
+	},
+	"optionMenusEditorLink": {
+		"message": "Menü düzenleyiciyi aç...",
+		"description": "Options page link: 'Open the menu editor...'"
+	},
+	"optionMenusDefault": {
+		"message": "varsayılan menüler",
+		"description": "Options page state: 'default menus'"
+	},
+	"optionMenusCustomized": {
+		"message": "özelleştirilmiş menüler",
+		"description": "Options page state: 'customized menus'"
+	},
+	"menuSubmenu": {
+		"message": "Alt menü",
+		"description": "Menu editor entry: 'Submenu'"
+	},
+	"menuSeparator": {
+		"message": "Ayırıcı",
+		"description": "Menu editor entry: 'Separator'"
+	},
+	"menusTitle": {
+		"message": "Menü düzenleyici",
+		"description": "Menu editor title"
+	},
+	"menusSubTitle": {
+		"message": "Her SingleFile menüsünde nelerin hangi sırayla görüneceğini seçin. Bu ayarlar tüm profiller için ortaktır.",
+		"description": "Menu editor sub-title"
+	},
+	"menusSurfaceLabel": {
+		"message": "Menü",
+		"description": "Menu editor label of the menu selector"
+	},
+	"menusSurfacePage": {
+		"message": "Sayfa içerik menüsü",
+		"description": "Menu editor menu name: 'Page context menu'"
+	},
+	"menusSurfaceButton": {
+		"message": "Düğme menüsü",
+		"description": "Menu editor menu name: 'Button menu'"
+	},
+	"menusSurfaceTab": {
+		"message": "Sekme menüsü",
+		"description": "Menu editor menu name: 'Tab menu'"
+	},
+	"menusUseForAllButton": {
+		"message": "Tüm menüler için kullan",
+		"description": "Menu editor button: 'Use for all menus'"
+	},
+	"menusUseForAllTooltip": {
+		"message": "Diğer menüleri bu düzenle değiştir",
+		"description": "Menu editor tooltip of the 'Use for all menus' button"
+	},
+	"menusUseForAllStatus": {
+		"message": "Bu düzen artık tüm menülere uygulanıyor.",
+		"description": "Menu editor status after using a layout for all menus"
+	},
+	"menusContextPage": {
+		"message": "Sayfa",
+		"description": "Menu editor context: 'Page'"
+	},
+	"menusContextSelection": {
+		"message": "Seçim",
+		"description": "Menu editor context: 'Selection'"
+	},
+	"menusContextFrame": {
+		"message": "Çerçeve",
+		"description": "Menu editor context: 'Frame'"
+	},
+	"menusContextLink": {
+		"message": "Bağlantı",
+		"description": "Menu editor context: 'Link'"
+	},
+	"menusHintPage": {
+		"message": "Bir sayfaya sağ tıklandığında gösterilir. Gri öğeler seçili bağlamda görünmez.",
+		"description": "Menu editor hint of the page context menu"
+	},
+	"menusHintButton": {
+		"message": "Araç çubuğundaki SingleFile düğmesine sağ tıklandığında gösterilir.",
+		"description": "Menu editor hint of the button menu"
+	},
+	"menusHintTab": {
+		"message": "Bir sekmeye sağ tıklandığında gösterilir.",
+		"description": "Menu editor hint of the tab menu"
+	},
+	"menusAddLabel": {
+		"message": "Ekle",
+		"description": "Menu editor label of the entry selector"
+	},
+	"menusAddButton": {
+		"message": "Ekle",
+		"description": "Menu editor button: 'Add'"
+	},
+	"menusEditHint": {
+		"message": "Yeni öğeler seçili öğenin arkasına veya seçili bir alt menünün içine eklenir. Sıralamayı değiştirmek için sürükleyin, iç içe yerleştirmek için bir alt menünün üzerine bırakın, yeniden adlandırmak için etikete çift tıklayın, kaldırmak için Delete tuşuna basın.",
+		"description": "Menu editor hint about editing"
+	},
+	"menusDynamicBadge": {
+		"message": "dinamik",
+		"description": "Menu editor badge of the entries managed by SingleFile"
+	},
+	"menusRemoveTooltip": {
+		"message": "Bu menüden kaldır",
+		"description": "Menu editor tooltip of the remove button"
+	},
+	"menusActionLimitLine": {
+		"message": "Yalnızca ilk $1 öğe gösteriliyor",
+		"description": "Menu editor line marking the entries hidden by the browser in the button menu"
+	},
+	"menusActionLimitNote": {
+		"message": "Tarayıcı, düğme menüsünde en fazla $1 üst düzey öğe gösterir.",
+		"description": "Menu editor note about the limit of top-level entries in the button menu"
+	},
+	"menusWrapButton": {
+		"message": "Kalanları bir alt menüde topla",
+		"description": "Menu editor button: 'Wrap the rest in a submenu'"
+	},
+	"menusMoreSubmenu": {
+		"message": "Daha fazla...",
+		"description": "Menu editor default label of the submenu created to wrap the hidden entries"
+	},
+	"menusInspectorEmpty": {
+		"message": "Etiketini değiştirmek, bir profile bağlamak veya ne zaman görüneceğini seçmek için menüden bir öğe seçin.",
+		"description": "Menu editor text when no entry is selected"
+	},
+	"menusInspectorSeparator": {
+		"message": "Ayırıcı. Taşımak için sürükleyin, kaldırmak için Delete tuşuna basın.",
+		"description": "Menu editor text when a separator is selected"
+	},
+	"menusLabelField": {
+		"message": "Etiket",
+		"description": "Menu editor field: 'Label'"
+	},
+	"menusLabelHelp": {
+		"message": "Standart etiketi kullanmak için boş bırakın. Windows ve Linux'ta bir harfin önündeki & işareti o harfi klavye kısayolu yapar.",
+		"description": "Menu editor help of the 'Label' field"
+	},
+	"menusProfileField": {
+		"message": "Profil",
+		"description": "Menu editor field: 'Profile'"
+	},
+	"menusProfileNone": {
+		"message": "Sayfa için kullanılan profil",
+		"description": "Menu editor option when no profile is bound to the entry"
+	},
+	"menusProfileHelp": {
+		"message": "Geçerli profil ne olursa olsun tek tıklamayla bu profille kaydetmek için bu öğeyi bir profile bağlayın.",
+		"description": "Menu editor help of the 'Profile' field"
+	},
+	"menusPresentationField": {
+		"message": "Görünüm",
+		"description": "Menu editor field: 'Presentation'"
+	},
+	"menusPresentationSubmenu": {
+		"message": "Tek bir \"Sayfayı profille kaydet\" alt menüsü",
+		"description": "Menu editor presentation option: submenu"
+	},
+	"menusPresentationInline": {
+		"message": "Her profil için bir öğe, doğrudan listelenir",
+		"description": "Menu editor presentation option: inline"
+	},
+	"menusPresentationHelp": {
+		"message": "Liste, seçeneklerde tanımlanan profilleri izler. Yalnızca bazı profilleri göstermek için bunun yerine bu profillere bağlı \"Sayfayı kaydet\" öğeleri ekleyin.",
+		"description": "Menu editor help of the 'Presentation' field"
+	},
+	"menusContentsField": {
+		"message": "İçerik",
+		"description": "Menu editor field: 'Contents'"
+	},
+	"menusContentsHelp": {
+		"message": "Bu öğe, seçenekleri SingleFile tarafından yönetilen bir radyo düğmesi grubudur. Taşıyabilir veya yeniden adlandırabilirsiniz, ancak seçeneklerini düzenleyemezsiniz.",
+		"description": "Menu editor help of the 'Contents' field"
+	},
+	"menusContextsField": {
+		"message": "Sağ tıklandığında görünür",
+		"description": "Menu editor field: 'Appears when right-clicking'"
+	},
+	"menusAltLabelHelp": {
+		"message": "Özel bir etiket yoksa menü, öğe sayfaya uygulandığında \"$1\" gösterir.",
+		"description": "Menu editor help about the alternative label of an entry"
+	},
+	"menusSubmenuField": {
+		"message": "Alt menü",
+		"description": "Menu editor field: 'Submenu'"
+	},
+	"menusSubmenuHelp": {
+		"message": "$1 öğe. Eklemek için öğeleri bu satırın üzerine bırakın.",
+		"description": "Menu editor help of the 'Submenu' field"
+	},
+	"menusRemoveButton": {
+		"message": "Bu menüden kaldır",
+		"description": "Menu editor button: 'Remove from this menu'"
+	},
+	"menusPageOnly": {
+		"message": "\"$1\" yalnızca sayfa içerik menüsünde bulunur.",
+		"description": "Menu editor status when an entry is not allowed in a menu"
+	},
+	"menusJsonLabel": {
+		"message": "JSON olarak düzen",
+		"description": "Menu editor section: 'Layout as JSON'"
+	},
+	"menusJsonApplyButton": {
+		"message": "Uygula",
+		"description": "Menu editor button: 'Apply'"
+	},
+	"menusJsonInvalid": {
+		"message": "Geçersiz JSON",
+		"description": "Menu editor status: 'Invalid JSON'"
+	},
+	"menusJsonIgnored": {
+		"message": "Uygulandı, ancak $1 geçersiz öğe yok sayıldı.",
+		"description": "Menu editor status after applying JSON that contained entries which are not valid (unknown action, wrong shape)"
+	},
+	"menusUnsupportedBadge": {
+		"message": "desteklenmiyor",
+		"description": "Menu editor badge of the entries the current browser cannot show"
+	},
+	"menusUnsupportedActionHelp": {
+		"message": "Bu tarayıcı bu öğeyi desteklemediği için öğe gösterilmiyor.",
+		"description": "Menu editor note for an entry the current browser cannot show"
+	},
+	"menusProfileMissingHelp": {
+		"message": "\"$1\" profili artık mevcut olmadığı için bu öğe sayfa için kullanılan profili kullanıyor.",
+		"description": "Menu editor note for an entry bound to a deleted profile"
+	},
+	"menusEmptySubmenuHelp": {
+		"message": "Bu alt menüde görünür öğe olmadığı için alt menü gösterilmiyor.",
+		"description": "Menu editor note for a submenu whose entries are all skipped"
+	},
+	"menusResetButton": {
+		"message": "Varsayılana sıfırla",
+		"description": "Menu editor button: 'Reset to default'"
+	},
+	"menusResetConfirm": {
+		"message": "Varsayılan menüler geri yüklensin mi?",
+		"description": "Menu editor confirmation before restoring the default menus"
+	},
+	"menusSaveError": {
+		"message": "Menüler kaydedilemedi: $1",
+		"description": "Menu editor status when saving the layout fails (for example the sync storage quota)"
+	},
+	"menusUnsupported": {
+		"message": "Bu tarayıcı uzantı menülerini desteklemediği için burada özelleştirilecek bir şey yok.",
+		"description": "Menu editor message shown instead of the editor when the browser has no menus API (for example on Android)"
+	},
+	"menusProfilesBadge": {
+		"message": "2+ profil gerekir",
+		"description": "Menu editor badge of the entries that only appear when more than one profile exists"
+	},
+	"menusProfilesHelp": {
+		"message": "Bu öğe yalnızca birden fazla profiliniz olduğunda gösterilir.",
+		"description": "Menu editor note for the entries that only appear when more than one profile exists"
+	},
+	"menusContextHelp": {
+		"message": "Bu öğe seçili bağlamda ($1) gösterilmiyor.",
+		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
 	}
 }

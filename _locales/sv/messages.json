@@ -1045,6 +1045,10 @@
 		"message": "Importera en MHTML-fil",
 		"description": "Title of the button 'Import MHTML file' in the editor"
 	},
+	"editorArchiveToc": {
+		"message": "Innehållsförteckning",
+		"description": "Title of the table of contents button displayed in the editor when viewing a multi-page archive"
+	},
 	"pendingsTitle": {
 		"message": "Väntande sparåtgärder",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
@@ -1160,5 +1164,269 @@
 	"optionsEditorInvalidJSON": {
 		"message": "Ogiltig JSON",
 		"description": "Options editor error message: 'Invalid JSON'"
+	},
+	"optionsMenusSubTitle": {
+		"message": "Menyer",
+		"description": "Options sub-title: 'Menus'"
+	},
+	"optionMenusEditor": {
+		"message": "välj vilka alternativ som visas i menyerna och i vilken ordning (gemensamt för alla profiler)",
+		"description": "Options page label: 'choose the entries displayed in the menus and their order (shared by all profiles)'"
+	},
+	"optionMenusEditorLink": {
+		"message": "Öppna menyredigeraren…",
+		"description": "Options page link: 'Open the menu editor...'"
+	},
+	"optionMenusDefault": {
+		"message": "standardmenyer",
+		"description": "Options page state: 'default menus'"
+	},
+	"optionMenusCustomized": {
+		"message": "anpassade menyer",
+		"description": "Options page state: 'customized menus'"
+	},
+	"menuSubmenu": {
+		"message": "Undermeny",
+		"description": "Menu editor entry: 'Submenu'"
+	},
+	"menuSeparator": {
+		"message": "Avgränsare",
+		"description": "Menu editor entry: 'Separator'"
+	},
+	"menusTitle": {
+		"message": "Menyredigerare",
+		"description": "Menu editor title"
+	},
+	"menusSubTitle": {
+		"message": "Välj vad som visas i varje SingleFile-meny och i vilken ordning. Dessa inställningar är gemensamma för alla profiler.",
+		"description": "Menu editor sub-title"
+	},
+	"menusSurfaceLabel": {
+		"message": "Meny",
+		"description": "Menu editor label of the menu selector"
+	},
+	"menusSurfacePage": {
+		"message": "Sidans snabbmeny",
+		"description": "Menu editor menu name: 'Page context menu'"
+	},
+	"menusSurfaceButton": {
+		"message": "Knappens meny",
+		"description": "Menu editor menu name: 'Button menu'"
+	},
+	"menusSurfaceTab": {
+		"message": "Flikens meny",
+		"description": "Menu editor menu name: 'Tab menu'"
+	},
+	"menusUseForAllButton": {
+		"message": "Använd för alla menyer",
+		"description": "Menu editor button: 'Use for all menus'"
+	},
+	"menusUseForAllTooltip": {
+		"message": "Ersätt de andra menyerna med den här layouten",
+		"description": "Menu editor tooltip of the 'Use for all menus' button"
+	},
+	"menusUseForAllStatus": {
+		"message": "Den här layouten gäller nu för alla menyer.",
+		"description": "Menu editor status after using a layout for all menus"
+	},
+	"menusContextPage": {
+		"message": "Sida",
+		"description": "Menu editor context: 'Page'"
+	},
+	"menusContextSelection": {
+		"message": "Markering",
+		"description": "Menu editor context: 'Selection'"
+	},
+	"menusContextFrame": {
+		"message": "Ram",
+		"description": "Menu editor context: 'Frame'"
+	},
+	"menusContextLink": {
+		"message": "Länk",
+		"description": "Menu editor context: 'Link'"
+	},
+	"menusHintPage": {
+		"message": "Visas när du högerklickar på en sida. Gråmarkerade alternativ visas inte i den valda kontexten.",
+		"description": "Menu editor hint of the page context menu"
+	},
+	"menusHintButton": {
+		"message": "Visas när du högerklickar på SingleFile-knappen i verktygsfältet.",
+		"description": "Menu editor hint of the button menu"
+	},
+	"menusHintTab": {
+		"message": "Visas när du högerklickar på en flik.",
+		"description": "Menu editor hint of the tab menu"
+	},
+	"menusAddLabel": {
+		"message": "Lägg till",
+		"description": "Menu editor label of the entry selector"
+	},
+	"menusAddButton": {
+		"message": "Lägg till",
+		"description": "Menu editor button: 'Add'"
+	},
+	"menusEditHint": {
+		"message": "Nya alternativ hamnar efter det markerade alternativet, eller i en markerad undermeny. Dra för att ändra ordning, släpp på en undermeny för att lägga alternativet i den, dubbelklicka på en etikett för att byta namn och tryck på Delete för att ta bort.",
+		"description": "Menu editor hint about editing"
+	},
+	"menusDynamicBadge": {
+		"message": "dynamiskt",
+		"description": "Menu editor badge of the entries managed by SingleFile"
+	},
+	"menusRemoveTooltip": {
+		"message": "Ta bort från den här menyn",
+		"description": "Menu editor tooltip of the remove button"
+	},
+	"menusActionLimitLine": {
+		"message": "Endast de första $1 alternativen visas",
+		"description": "Menu editor line marking the entries hidden by the browser in the button menu"
+	},
+	"menusActionLimitNote": {
+		"message": "Webbläsaren visar högst $1 alternativ på översta nivån i knappens meny.",
+		"description": "Menu editor note about the limit of top-level entries in the button menu"
+	},
+	"menusWrapButton": {
+		"message": "Samla resten i en undermeny",
+		"description": "Menu editor button: 'Wrap the rest in a submenu'"
+	},
+	"menusMoreSubmenu": {
+		"message": "Mer…",
+		"description": "Menu editor default label of the submenu created to wrap the hidden entries"
+	},
+	"menusInspectorEmpty": {
+		"message": "Markera ett alternativ i menyn för att ändra dess etikett, koppla det till en profil eller välja när det visas.",
+		"description": "Menu editor text when no entry is selected"
+	},
+	"menusInspectorSeparator": {
+		"message": "Avgränsare. Dra för att flytta den, tryck på Delete för att ta bort den.",
+		"description": "Menu editor text when a separator is selected"
+	},
+	"menusLabelField": {
+		"message": "Etikett",
+		"description": "Menu editor field: 'Label'"
+	},
+	"menusLabelHelp": {
+		"message": "Lämna tomt för att använda standardetiketten. I Windows och Linux blir bokstaven efter ett & tangentbordsgenväg.",
+		"description": "Menu editor help of the 'Label' field"
+	},
+	"menusProfileField": {
+		"message": "Profil",
+		"description": "Menu editor field: 'Profile'"
+	},
+	"menusProfileNone": {
+		"message": "Profilen som används för sidan",
+		"description": "Menu editor option when no profile is bound to the entry"
+	},
+	"menusProfileHelp": {
+		"message": "Koppla alternativet till en profil för att spara med den i ett klick, oavsett vilken profil som är aktuell.",
+		"description": "Menu editor help of the 'Profile' field"
+	},
+	"menusPresentationField": {
+		"message": "Visning",
+		"description": "Menu editor field: 'Presentation'"
+	},
+	"menusPresentationSubmenu": {
+		"message": "En undermeny ”Spara med profil”",
+		"description": "Menu editor presentation option: submenu"
+	},
+	"menusPresentationInline": {
+		"message": "Ett alternativ per profil, direkt i listan",
+		"description": "Menu editor presentation option: inline"
+	},
+	"menusPresentationHelp": {
+		"message": "Listan följer profilerna som har definierats i inställningarna. Om du bara vill visa vissa profiler lägger du i stället till alternativ av typen ”Spara sidan” som är kopplade till dem.",
+		"description": "Menu editor help of the 'Presentation' field"
+	},
+	"menusContentsField": {
+		"message": "Innehåll",
+		"description": "Menu editor field: 'Contents'"
+	},
+	"menusContentsHelp": {
+		"message": "Det här alternativet är en grupp alternativknappar vars val hanteras av SingleFile. Du kan flytta det eller byta namn på det, men inte redigera valen.",
+		"description": "Menu editor help of the 'Contents' field"
+	},
+	"menusContextsField": {
+		"message": "Visas vid högerklick på",
+		"description": "Menu editor field: 'Appears when right-clicking'"
+	},
+	"menusAltLabelHelp": {
+		"message": "Utan en anpassad etikett visar menyn ”$1” när det gäller sidan.",
+		"description": "Menu editor help about the alternative label of an entry"
+	},
+	"menusSubmenuField": {
+		"message": "Undermeny",
+		"description": "Menu editor field: 'Submenu'"
+	},
+	"menusSubmenuHelp": {
+		"message": "$1 alternativ. Släpp alternativ på den här raden för att lägga till dem.",
+		"description": "Menu editor help of the 'Submenu' field"
+	},
+	"menusRemoveButton": {
+		"message": "Ta bort från den här menyn",
+		"description": "Menu editor button: 'Remove from this menu'"
+	},
+	"menusPageOnly": {
+		"message": "”$1” finns bara i sidans snabbmeny.",
+		"description": "Menu editor status when an entry is not allowed in a menu"
+	},
+	"menusJsonLabel": {
+		"message": "Layout som JSON",
+		"description": "Menu editor section: 'Layout as JSON'"
+	},
+	"menusJsonApplyButton": {
+		"message": "Tillämpa",
+		"description": "Menu editor button: 'Apply'"
+	},
+	"menusJsonInvalid": {
+		"message": "Ogiltig JSON",
+		"description": "Menu editor status: 'Invalid JSON'"
+	},
+	"menusJsonIgnored": {
+		"message": "Tillämpat, men $1 ogiltiga alternativ ignorerades.",
+		"description": "Menu editor status after applying JSON that contained entries which are not valid (unknown action, wrong shape)"
+	},
+	"menusUnsupportedBadge": {
+		"message": "stöds inte",
+		"description": "Menu editor badge of the entries the current browser cannot show"
+	},
+	"menusUnsupportedActionHelp": {
+		"message": "Den här webbläsaren stöder inte alternativet, så det visas inte.",
+		"description": "Menu editor note for an entry the current browser cannot show"
+	},
+	"menusProfileMissingHelp": {
+		"message": "Profilen ”$1” finns inte längre, så alternativet använder profilen som används för sidan.",
+		"description": "Menu editor note for an entry bound to a deleted profile"
+	},
+	"menusEmptySubmenuHelp": {
+		"message": "Undermenyn har inga synliga alternativ, så den visas inte.",
+		"description": "Menu editor note for a submenu whose entries are all skipped"
+	},
+	"menusResetButton": {
+		"message": "Återställ standard",
+		"description": "Menu editor button: 'Reset to default'"
+	},
+	"menusResetConfirm": {
+		"message": "Vill du återställa standardmenyerna?",
+		"description": "Menu editor confirmation before restoring the default menus"
+	},
+	"menusSaveError": {
+		"message": "Menyerna kunde inte sparas: $1",
+		"description": "Menu editor status when saving the layout fails (for example the sync storage quota)"
+	},
+	"menusUnsupported": {
+		"message": "Den här webbläsaren stöder inte tilläggsmenyer, så det finns inget att anpassa här.",
+		"description": "Menu editor message shown instead of the editor when the browser has no menus API (for example on Android)"
+	},
+	"menusProfilesBadge": {
+		"message": "kräver 2+ profiler",
+		"description": "Menu editor badge of the entries that only appear when more than one profile exists"
+	},
+	"menusProfilesHelp": {
+		"message": "Alternativet visas bara när du har fler än en profil.",
+		"description": "Menu editor note for the entries that only appear when more than one profile exists"
+	},
+	"menusContextHelp": {
+		"message": "Alternativet visas inte i den valda kontexten ($1).",
+		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
 	}
 }

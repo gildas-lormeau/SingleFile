@@ -1045,6 +1045,10 @@
 		"message": "导入 MHTML 文件",
 		"description": "Title of the button 'Import MHTML file' in the editor"
 	},
+	"editorArchiveToc": {
+		"message": "目录",
+		"description": "Title of the table of contents button displayed in the editor when viewing a multi-page archive"
+	},
 	"pendingsTitle": {
 		"message": "挂起保存项",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
@@ -1160,5 +1164,269 @@
 	"optionsEditorInvalidJSON": {
 		"message": "无效的 JSON",
 		"description": "Options editor error message: 'Invalid JSON'"
+	},
+	"optionsMenusSubTitle": {
+		"message": "菜单",
+		"description": "Options sub-title: 'Menus'"
+	},
+	"optionMenusEditor": {
+		"message": "选择菜单中显示的条目及其顺序（所有配置文件共用）",
+		"description": "Options page label: 'choose the entries displayed in the menus and their order (shared by all profiles)'"
+	},
+	"optionMenusEditorLink": {
+		"message": "打开菜单编辑器...",
+		"description": "Options page link: 'Open the menu editor...'"
+	},
+	"optionMenusDefault": {
+		"message": "默认菜单",
+		"description": "Options page state: 'default menus'"
+	},
+	"optionMenusCustomized": {
+		"message": "自定义菜单",
+		"description": "Options page state: 'customized menus'"
+	},
+	"menuSubmenu": {
+		"message": "子菜单",
+		"description": "Menu editor entry: 'Submenu'"
+	},
+	"menuSeparator": {
+		"message": "分隔线",
+		"description": "Menu editor entry: 'Separator'"
+	},
+	"menusTitle": {
+		"message": "菜单编辑器",
+		"description": "Menu editor title"
+	},
+	"menusSubTitle": {
+		"message": "选择每个 SingleFile 菜单中显示的条目及其顺序。这些设置由所有配置文件共用。",
+		"description": "Menu editor sub-title"
+	},
+	"menusSurfaceLabel": {
+		"message": "菜单",
+		"description": "Menu editor label of the menu selector"
+	},
+	"menusSurfacePage": {
+		"message": "页面上下文菜单",
+		"description": "Menu editor menu name: 'Page context menu'"
+	},
+	"menusSurfaceButton": {
+		"message": "按钮菜单",
+		"description": "Menu editor menu name: 'Button menu'"
+	},
+	"menusSurfaceTab": {
+		"message": "标签页菜单",
+		"description": "Menu editor menu name: 'Tab menu'"
+	},
+	"menusUseForAllButton": {
+		"message": "应用到所有菜单",
+		"description": "Menu editor button: 'Use for all menus'"
+	},
+	"menusUseForAllTooltip": {
+		"message": "用此布局替换其他菜单",
+		"description": "Menu editor tooltip of the 'Use for all menus' button"
+	},
+	"menusUseForAllStatus": {
+		"message": "此布局现已应用到所有菜单。",
+		"description": "Menu editor status after using a layout for all menus"
+	},
+	"menusContextPage": {
+		"message": "页面",
+		"description": "Menu editor context: 'Page'"
+	},
+	"menusContextSelection": {
+		"message": "选中部分",
+		"description": "Menu editor context: 'Selection'"
+	},
+	"menusContextFrame": {
+		"message": "框架",
+		"description": "Menu editor context: 'Frame'"
+	},
+	"menusContextLink": {
+		"message": "链接",
+		"description": "Menu editor context: 'Link'"
+	},
+	"menusHintPage": {
+		"message": "右键点击页面时显示。灰显的条目不会出现在所选上下文中。",
+		"description": "Menu editor hint of the page context menu"
+	},
+	"menusHintButton": {
+		"message": "右键点击工具栏中的 SingleFile 按钮时显示。",
+		"description": "Menu editor hint of the button menu"
+	},
+	"menusHintTab": {
+		"message": "右键点击标签页时显示。",
+		"description": "Menu editor hint of the tab menu"
+	},
+	"menusAddLabel": {
+		"message": "添加",
+		"description": "Menu editor label of the entry selector"
+	},
+	"menusAddButton": {
+		"message": "添加",
+		"description": "Menu editor button: 'Add'"
+	},
+	"menusEditHint": {
+		"message": "新条目会添加到所选条目之后，或所选子菜单之内。拖动可调整顺序，拖放到子菜单上可嵌套，双击标签可重命名，按 Delete 键可删除。",
+		"description": "Menu editor hint about editing"
+	},
+	"menusDynamicBadge": {
+		"message": "动态",
+		"description": "Menu editor badge of the entries managed by SingleFile"
+	},
+	"menusRemoveTooltip": {
+		"message": "从此菜单中移除",
+		"description": "Menu editor tooltip of the remove button"
+	},
+	"menusActionLimitLine": {
+		"message": "仅显示前 $1 个条目",
+		"description": "Menu editor line marking the entries hidden by the browser in the button menu"
+	},
+	"menusActionLimitNote": {
+		"message": "浏览器在按钮菜单中最多显示 $1 个顶级条目。",
+		"description": "Menu editor note about the limit of top-level entries in the button menu"
+	},
+	"menusWrapButton": {
+		"message": "将其余条目收入子菜单",
+		"description": "Menu editor button: 'Wrap the rest in a submenu'"
+	},
+	"menusMoreSubmenu": {
+		"message": "更多...",
+		"description": "Menu editor default label of the submenu created to wrap the hidden entries"
+	},
+	"menusInspectorEmpty": {
+		"message": "在菜单中选择一个条目，以修改其标签、绑定配置文件或选择其显示时机。",
+		"description": "Menu editor text when no entry is selected"
+	},
+	"menusInspectorSeparator": {
+		"message": "分隔线。拖动可移动，按 Delete 键可删除。",
+		"description": "Menu editor text when a separator is selected"
+	},
+	"menusLabelField": {
+		"message": "标签",
+		"description": "Menu editor field: 'Label'"
+	},
+	"menusLabelHelp": {
+		"message": "留空则使用标准标签。在 Windows 和 Linux 上，字母前的 & 会将该字母设为键盘快捷键。",
+		"description": "Menu editor help of the 'Label' field"
+	},
+	"menusProfileField": {
+		"message": "配置文件",
+		"description": "Menu editor field: 'Profile'"
+	},
+	"menusProfileNone": {
+		"message": "页面当前使用的配置文件",
+		"description": "Menu editor option when no profile is bound to the entry"
+	},
+	"menusProfileHelp": {
+		"message": "将此条目绑定到某个配置文件后，无论当前使用哪个配置文件，都可以一键用它保存。",
+		"description": "Menu editor help of the 'Profile' field"
+	},
+	"menusPresentationField": {
+		"message": "显示方式",
+		"description": "Menu editor field: 'Presentation'"
+	},
+	"menusPresentationSubmenu": {
+		"message": "一个“使用指定的配置文件保存页面”子菜单",
+		"description": "Menu editor presentation option: submenu"
+	},
+	"menusPresentationInline": {
+		"message": "每个配置文件一个条目，直接列出",
+		"description": "Menu editor presentation option: inline"
+	},
+	"menusPresentationHelp": {
+		"message": "列表与选项中定义的配置文件一致。若只想显示部分配置文件，请改为添加绑定到这些配置文件的“保存页面”条目。",
+		"description": "Menu editor help of the 'Presentation' field"
+	},
+	"menusContentsField": {
+		"message": "内容",
+		"description": "Menu editor field: 'Contents'"
+	},
+	"menusContentsHelp": {
+		"message": "此条目是一个由 SingleFile 管理的单选组。您可以移动或重命名它，但不能编辑其选项。",
+		"description": "Menu editor help of the 'Contents' field"
+	},
+	"menusContextsField": {
+		"message": "右键点击时显示于",
+		"description": "Menu editor field: 'Appears when right-clicking'"
+	},
+	"menusAltLabelHelp": {
+		"message": "未设置自定义标签时，此条目应用于页面时菜单中显示为“$1”。",
+		"description": "Menu editor help about the alternative label of an entry"
+	},
+	"menusSubmenuField": {
+		"message": "子菜单",
+		"description": "Menu editor field: 'Submenu'"
+	},
+	"menusSubmenuHelp": {
+		"message": "$1 个条目。将条目拖放到此行即可添加。",
+		"description": "Menu editor help of the 'Submenu' field"
+	},
+	"menusRemoveButton": {
+		"message": "从此菜单中移除",
+		"description": "Menu editor button: 'Remove from this menu'"
+	},
+	"menusPageOnly": {
+		"message": "“$1”仅存在于页面上下文菜单中。",
+		"description": "Menu editor status when an entry is not allowed in a menu"
+	},
+	"menusJsonLabel": {
+		"message": "JSON 格式的布局",
+		"description": "Menu editor section: 'Layout as JSON'"
+	},
+	"menusJsonApplyButton": {
+		"message": "应用",
+		"description": "Menu editor button: 'Apply'"
+	},
+	"menusJsonInvalid": {
+		"message": "无效的 JSON",
+		"description": "Menu editor status: 'Invalid JSON'"
+	},
+	"menusJsonIgnored": {
+		"message": "已应用，但忽略了 $1 个无效条目。",
+		"description": "Menu editor status after applying JSON that contained entries which are not valid (unknown action, wrong shape)"
+	},
+	"menusUnsupportedBadge": {
+		"message": "不支持",
+		"description": "Menu editor badge of the entries the current browser cannot show"
+	},
+	"menusUnsupportedActionHelp": {
+		"message": "此浏览器不支持此条目，因此不会显示。",
+		"description": "Menu editor note for an entry the current browser cannot show"
+	},
+	"menusProfileMissingHelp": {
+		"message": "配置文件“$1”已不存在，因此此条目将使用页面当前使用的配置文件。",
+		"description": "Menu editor note for an entry bound to a deleted profile"
+	},
+	"menusEmptySubmenuHelp": {
+		"message": "此子菜单没有可见条目，因此不会显示。",
+		"description": "Menu editor note for a submenu whose entries are all skipped"
+	},
+	"menusResetButton": {
+		"message": "恢复默认",
+		"description": "Menu editor button: 'Reset to default'"
+	},
+	"menusResetConfirm": {
+		"message": "恢复默认菜单？",
+		"description": "Menu editor confirmation before restoring the default menus"
+	},
+	"menusSaveError": {
+		"message": "无法保存菜单：$1",
+		"description": "Menu editor status when saving the layout fails (for example the sync storage quota)"
+	},
+	"menusUnsupported": {
+		"message": "此浏览器不支持扩展菜单，因此这里没有可自定义的内容。",
+		"description": "Menu editor message shown instead of the editor when the browser has no menus API (for example on Android)"
+	},
+	"menusProfilesBadge": {
+		"message": "需 2 个以上配置文件",
+		"description": "Menu editor badge of the entries that only appear when more than one profile exists"
+	},
+	"menusProfilesHelp": {
+		"message": "此条目仅在您拥有多个配置文件时显示。",
+		"description": "Menu editor note for the entries that only appear when more than one profile exists"
+	},
+	"menusContextHelp": {
+		"message": "此条目不会在所选上下文（$1）中显示。",
+		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
 	}
 }

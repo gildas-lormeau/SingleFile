@@ -1045,6 +1045,10 @@
 		"message": "Importa file MHTML",
 		"description": "Title of the button 'Import MHTML file' in the editor"
 	},
+	"editorArchiveToc": {
+		"message": "Indice",
+		"description": "Title of the table of contents button displayed in the editor when viewing a multi-page archive"
+	},
 	"pendingsTitle": {
 		"message": "Salvataggi in attesa",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
@@ -1160,5 +1164,269 @@
 	"optionsEditorInvalidJSON": {
 		"message": "JSON non valido",
 		"description": "Options editor error message: 'Invalid JSON'"
+	},
+	"optionsMenusSubTitle": {
+		"message": "Menu",
+		"description": "Options sub-title: 'Menus'"
+	},
+	"optionMenusEditor": {
+		"message": "scegli le voci visualizzate nei menu e il loro ordine (condivise da tutti i profili)",
+		"description": "Options page label: 'choose the entries displayed in the menus and their order (shared by all profiles)'"
+	},
+	"optionMenusEditorLink": {
+		"message": "Apri l'editor dei menu...",
+		"description": "Options page link: 'Open the menu editor...'"
+	},
+	"optionMenusDefault": {
+		"message": "menu predefiniti",
+		"description": "Options page state: 'default menus'"
+	},
+	"optionMenusCustomized": {
+		"message": "menu personalizzati",
+		"description": "Options page state: 'customized menus'"
+	},
+	"menuSubmenu": {
+		"message": "Sottomenu",
+		"description": "Menu editor entry: 'Submenu'"
+	},
+	"menuSeparator": {
+		"message": "Separatore",
+		"description": "Menu editor entry: 'Separator'"
+	},
+	"menusTitle": {
+		"message": "Editor menu",
+		"description": "Menu editor title"
+	},
+	"menusSubTitle": {
+		"message": "Scegli cosa appare in ogni menu di SingleFile e in quale ordine. Queste impostazioni sono condivise da tutti i profili.",
+		"description": "Menu editor sub-title"
+	},
+	"menusSurfaceLabel": {
+		"message": "Menu",
+		"description": "Menu editor label of the menu selector"
+	},
+	"menusSurfacePage": {
+		"message": "Menu contestuale della pagina",
+		"description": "Menu editor menu name: 'Page context menu'"
+	},
+	"menusSurfaceButton": {
+		"message": "Menu del pulsante",
+		"description": "Menu editor menu name: 'Button menu'"
+	},
+	"menusSurfaceTab": {
+		"message": "Menu della scheda",
+		"description": "Menu editor menu name: 'Tab menu'"
+	},
+	"menusUseForAllButton": {
+		"message": "Usa per tutti i menu",
+		"description": "Menu editor button: 'Use for all menus'"
+	},
+	"menusUseForAllTooltip": {
+		"message": "Sostituisci gli altri menu con questa disposizione",
+		"description": "Menu editor tooltip of the 'Use for all menus' button"
+	},
+	"menusUseForAllStatus": {
+		"message": "Questa disposizione ora si applica a tutti i menu.",
+		"description": "Menu editor status after using a layout for all menus"
+	},
+	"menusContextPage": {
+		"message": "Pagina",
+		"description": "Menu editor context: 'Page'"
+	},
+	"menusContextSelection": {
+		"message": "Selezione",
+		"description": "Menu editor context: 'Selection'"
+	},
+	"menusContextFrame": {
+		"message": "Frame",
+		"description": "Menu editor context: 'Frame'"
+	},
+	"menusContextLink": {
+		"message": "Link",
+		"description": "Menu editor context: 'Link'"
+	},
+	"menusHintPage": {
+		"message": "Mostrato quando fai clic destro su una pagina. Le voci in grigio non appaiono nel contesto selezionato.",
+		"description": "Menu editor hint of the page context menu"
+	},
+	"menusHintButton": {
+		"message": "Mostrato quando fai clic destro sul pulsante SingleFile nella barra degli strumenti.",
+		"description": "Menu editor hint of the button menu"
+	},
+	"menusHintTab": {
+		"message": "Mostrato quando fai clic destro su una scheda.",
+		"description": "Menu editor hint of the tab menu"
+	},
+	"menusAddLabel": {
+		"message": "Aggiungi",
+		"description": "Menu editor label of the entry selector"
+	},
+	"menusAddButton": {
+		"message": "Aggiungi",
+		"description": "Menu editor button: 'Add'"
+	},
+	"menusEditHint": {
+		"message": "Le nuove voci vengono inserite dopo quella selezionata, o dentro il sottomenu selezionato. Trascina per riordinare, rilascia su un sottomenu per annidare, fai doppio clic su un'etichetta per rinominarla, premi Canc per rimuovere.",
+		"description": "Menu editor hint about editing"
+	},
+	"menusDynamicBadge": {
+		"message": "dinamica",
+		"description": "Menu editor badge of the entries managed by SingleFile"
+	},
+	"menusRemoveTooltip": {
+		"message": "Rimuovi da questo menu",
+		"description": "Menu editor tooltip of the remove button"
+	},
+	"menusActionLimitLine": {
+		"message": "Vengono mostrate solo le prime $1 voci",
+		"description": "Menu editor line marking the entries hidden by the browser in the button menu"
+	},
+	"menusActionLimitNote": {
+		"message": "Il browser mostra al massimo $1 voci di primo livello nel menu del pulsante.",
+		"description": "Menu editor note about the limit of top-level entries in the button menu"
+	},
+	"menusWrapButton": {
+		"message": "Raggruppa il resto in un sottomenu",
+		"description": "Menu editor button: 'Wrap the rest in a submenu'"
+	},
+	"menusMoreSubmenu": {
+		"message": "Altro...",
+		"description": "Menu editor default label of the submenu created to wrap the hidden entries"
+	},
+	"menusInspectorEmpty": {
+		"message": "Seleziona una voce del menu per cambiarne l'etichetta, associarla a un profilo o scegliere quando appare.",
+		"description": "Menu editor text when no entry is selected"
+	},
+	"menusInspectorSeparator": {
+		"message": "Separatore. Trascinalo per spostarlo, premi Canc per rimuoverlo.",
+		"description": "Menu editor text when a separator is selected"
+	},
+	"menusLabelField": {
+		"message": "Etichetta",
+		"description": "Menu editor field: 'Label'"
+	},
+	"menusLabelHelp": {
+		"message": "Lascia vuoto per usare l'etichetta standard. Su Windows e Linux, una & prima di una lettera la rende il tasto di scelta rapida.",
+		"description": "Menu editor help of the 'Label' field"
+	},
+	"menusProfileField": {
+		"message": "Profilo",
+		"description": "Menu editor field: 'Profile'"
+	},
+	"menusProfileNone": {
+		"message": "Profilo in uso per la pagina",
+		"description": "Menu editor option when no profile is bound to the entry"
+	},
+	"menusProfileHelp": {
+		"message": "Associa questa voce a un profilo per salvare con esso in un clic, qualunque sia il profilo corrente.",
+		"description": "Menu editor help of the 'Profile' field"
+	},
+	"menusPresentationField": {
+		"message": "Presentazione",
+		"description": "Menu editor field: 'Presentation'"
+	},
+	"menusPresentationSubmenu": {
+		"message": "Un sottomenu 'Salva pagina con profilo'",
+		"description": "Menu editor presentation option: submenu"
+	},
+	"menusPresentationInline": {
+		"message": "Una voce per profilo, elencate direttamente",
+		"description": "Menu editor presentation option: inline"
+	},
+	"menusPresentationHelp": {
+		"message": "L'elenco segue i profili definiti nelle opzioni. Per mostrare solo alcuni profili, aggiungi invece voci 'Salva pagina' associate a essi.",
+		"description": "Menu editor help of the 'Presentation' field"
+	},
+	"menusContentsField": {
+		"message": "Contenuto",
+		"description": "Menu editor field: 'Contents'"
+	},
+	"menusContentsHelp": {
+		"message": "Questa voce è un gruppo di pulsanti di opzione le cui scelte sono gestite da SingleFile. Puoi spostarla o rinominarla, ma non modificarne le scelte.",
+		"description": "Menu editor help of the 'Contents' field"
+	},
+	"menusContextsField": {
+		"message": "Appare con il clic destro su",
+		"description": "Menu editor field: 'Appears when right-clicking'"
+	},
+	"menusAltLabelHelp": {
+		"message": "Senza un'etichetta personalizzata, il menu mostra '$1' quando si applica alla pagina.",
+		"description": "Menu editor help about the alternative label of an entry"
+	},
+	"menusSubmenuField": {
+		"message": "Sottomenu",
+		"description": "Menu editor field: 'Submenu'"
+	},
+	"menusSubmenuHelp": {
+		"message": "$1 voci. Rilascia delle voci su questa riga per aggiungerle.",
+		"description": "Menu editor help of the 'Submenu' field"
+	},
+	"menusRemoveButton": {
+		"message": "Rimuovi da questo menu",
+		"description": "Menu editor button: 'Remove from this menu'"
+	},
+	"menusPageOnly": {
+		"message": "'$1' esiste solo nel menu contestuale della pagina.",
+		"description": "Menu editor status when an entry is not allowed in a menu"
+	},
+	"menusJsonLabel": {
+		"message": "Disposizione in JSON",
+		"description": "Menu editor section: 'Layout as JSON'"
+	},
+	"menusJsonApplyButton": {
+		"message": "Applica",
+		"description": "Menu editor button: 'Apply'"
+	},
+	"menusJsonInvalid": {
+		"message": "JSON non valido",
+		"description": "Menu editor status: 'Invalid JSON'"
+	},
+	"menusJsonIgnored": {
+		"message": "Applicato, ma $1 voci non valide sono state ignorate.",
+		"description": "Menu editor status after applying JSON that contained entries which are not valid (unknown action, wrong shape)"
+	},
+	"menusUnsupportedBadge": {
+		"message": "non supportata",
+		"description": "Menu editor badge of the entries the current browser cannot show"
+	},
+	"menusUnsupportedActionHelp": {
+		"message": "Questo browser non supporta questa voce, quindi non viene mostrata.",
+		"description": "Menu editor note for an entry the current browser cannot show"
+	},
+	"menusProfileMissingHelp": {
+		"message": "Il profilo '$1' non esiste più, quindi questa voce usa il profilo in uso per la pagina.",
+		"description": "Menu editor note for an entry bound to a deleted profile"
+	},
+	"menusEmptySubmenuHelp": {
+		"message": "Questo sottomenu non ha voci visibili, quindi non viene mostrato.",
+		"description": "Menu editor note for a submenu whose entries are all skipped"
+	},
+	"menusResetButton": {
+		"message": "Ripristina predefiniti",
+		"description": "Menu editor button: 'Reset to default'"
+	},
+	"menusResetConfirm": {
+		"message": "Ripristinare i menu predefiniti?",
+		"description": "Menu editor confirmation before restoring the default menus"
+	},
+	"menusSaveError": {
+		"message": "Impossibile salvare i menu: $1",
+		"description": "Menu editor status when saving the layout fails (for example the sync storage quota)"
+	},
+	"menusUnsupported": {
+		"message": "Questo browser non supporta i menu delle estensioni, quindi non c'è nulla da personalizzare qui.",
+		"description": "Menu editor message shown instead of the editor when the browser has no menus API (for example on Android)"
+	},
+	"menusProfilesBadge": {
+		"message": "richiede 2+ profili",
+		"description": "Menu editor badge of the entries that only appear when more than one profile exists"
+	},
+	"menusProfilesHelp": {
+		"message": "Questa voce viene mostrata solo quando hai più di un profilo.",
+		"description": "Menu editor note for the entries that only appear when more than one profile exists"
+	},
+	"menusContextHelp": {
+		"message": "Questa voce non viene mostrata nel contesto selezionato ($1).",
+		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
 	}
 }

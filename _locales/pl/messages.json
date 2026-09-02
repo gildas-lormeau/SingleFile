@@ -343,6 +343,10 @@
 		"message": "ZIP",
 		"description": "Options page label: 'ZIP'"
 	},
+	"optionPassword": {
+		"message": "hasło",
+		"description": "Options page label: 'password'"
+	},
 	"optionCreateRootDirectory": {
 		"message": "utwórz katalog główny",
 		"description": "Options page label: 'create a root directory'"
@@ -354,10 +358,6 @@
 	"optionPreventAppendedData": {
 		"message": "nie dołączaj danych po danych ZIP",
 		"description": "Options page label: 'do not append data after the ZIP data'"
-	},
-	"optionPassword": {
-		"message": "hasło",
-		"description": "Options page label: 'password'"
 	},
 	"optionInsertTextBody": {
 		"message": "uczyń tekst przeszukiwalnym",
@@ -1164,5 +1164,269 @@
 	"optionsEditorInvalidJSON": {
 		"message": "Nieprawidłowy JSON",
 		"description": "Options editor error message: 'Invalid JSON'"
+	},
+	"optionsMenusSubTitle": {
+		"message": "Menu",
+		"description": "Options sub-title: 'Menus'"
+	},
+	"optionMenusEditor": {
+		"message": "wybierz wpisy wyświetlane w menu i ich kolejność (wspólne dla wszystkich profili)",
+		"description": "Options page label: 'choose the entries displayed in the menus and their order (shared by all profiles)'"
+	},
+	"optionMenusEditorLink": {
+		"message": "Otwórz edytor menu...",
+		"description": "Options page link: 'Open the menu editor...'"
+	},
+	"optionMenusDefault": {
+		"message": "domyślne menu",
+		"description": "Options page state: 'default menus'"
+	},
+	"optionMenusCustomized": {
+		"message": "dostosowane menu",
+		"description": "Options page state: 'customized menus'"
+	},
+	"menuSubmenu": {
+		"message": "Podmenu",
+		"description": "Menu editor entry: 'Submenu'"
+	},
+	"menuSeparator": {
+		"message": "Separator",
+		"description": "Menu editor entry: 'Separator'"
+	},
+	"menusTitle": {
+		"message": "Edytor menu",
+		"description": "Menu editor title"
+	},
+	"menusSubTitle": {
+		"message": "Wybierz, co i w jakiej kolejności ma się pojawiać w każdym menu SingleFile. Te ustawienia są wspólne dla wszystkich profili.",
+		"description": "Menu editor sub-title"
+	},
+	"menusSurfaceLabel": {
+		"message": "Menu",
+		"description": "Menu editor label of the menu selector"
+	},
+	"menusSurfacePage": {
+		"message": "Menu kontekstowe strony",
+		"description": "Menu editor menu name: 'Page context menu'"
+	},
+	"menusSurfaceButton": {
+		"message": "Menu przycisku",
+		"description": "Menu editor menu name: 'Button menu'"
+	},
+	"menusSurfaceTab": {
+		"message": "Menu karty",
+		"description": "Menu editor menu name: 'Tab menu'"
+	},
+	"menusUseForAllButton": {
+		"message": "Użyj dla wszystkich menu",
+		"description": "Menu editor button: 'Use for all menus'"
+	},
+	"menusUseForAllTooltip": {
+		"message": "Zastąp pozostałe menu tym układem",
+		"description": "Menu editor tooltip of the 'Use for all menus' button"
+	},
+	"menusUseForAllStatus": {
+		"message": "Ten układ obowiązuje teraz we wszystkich menu.",
+		"description": "Menu editor status after using a layout for all menus"
+	},
+	"menusContextPage": {
+		"message": "Strona",
+		"description": "Menu editor context: 'Page'"
+	},
+	"menusContextSelection": {
+		"message": "Zaznaczenie",
+		"description": "Menu editor context: 'Selection'"
+	},
+	"menusContextFrame": {
+		"message": "Ramka",
+		"description": "Menu editor context: 'Frame'"
+	},
+	"menusContextLink": {
+		"message": "Odnośnik",
+		"description": "Menu editor context: 'Link'"
+	},
+	"menusHintPage": {
+		"message": "Wyświetlane po kliknięciu strony prawym przyciskiem myszy. Wyszarzone wpisy nie pojawiają się w wybranym kontekście.",
+		"description": "Menu editor hint of the page context menu"
+	},
+	"menusHintButton": {
+		"message": "Wyświetlane po kliknięciu prawym przyciskiem myszy przycisku SingleFile na pasku narzędzi.",
+		"description": "Menu editor hint of the button menu"
+	},
+	"menusHintTab": {
+		"message": "Wyświetlane po kliknięciu karty prawym przyciskiem myszy.",
+		"description": "Menu editor hint of the tab menu"
+	},
+	"menusAddLabel": {
+		"message": "Dodaj",
+		"description": "Menu editor label of the entry selector"
+	},
+	"menusAddButton": {
+		"message": "Dodaj",
+		"description": "Menu editor button: 'Add'"
+	},
+	"menusEditHint": {
+		"message": "Nowe wpisy trafiają za wybrany wpis lub do wybranego podmenu. Przeciągaj, aby zmienić kolejność, upuść na podmenu, aby zagnieździć, kliknij dwukrotnie etykietę, aby zmienić nazwę, naciśnij Delete, aby usunąć.",
+		"description": "Menu editor hint about editing"
+	},
+	"menusDynamicBadge": {
+		"message": "dynamiczny",
+		"description": "Menu editor badge of the entries managed by SingleFile"
+	},
+	"menusRemoveTooltip": {
+		"message": "Usuń z tego menu",
+		"description": "Menu editor tooltip of the remove button"
+	},
+	"menusActionLimitLine": {
+		"message": "Wyświetlane są tylko pierwsze wpisy (maksymalnie $1)",
+		"description": "Menu editor line marking the entries hidden by the browser in the button menu"
+	},
+	"menusActionLimitNote": {
+		"message": "Przeglądarka wyświetla w menu przycisku ograniczoną liczbę wpisów najwyższego poziomu (limit: $1).",
+		"description": "Menu editor note about the limit of top-level entries in the button menu"
+	},
+	"menusWrapButton": {
+		"message": "Zwiń pozostałe w podmenu",
+		"description": "Menu editor button: 'Wrap the rest in a submenu'"
+	},
+	"menusMoreSubmenu": {
+		"message": "Więcej...",
+		"description": "Menu editor default label of the submenu created to wrap the hidden entries"
+	},
+	"menusInspectorEmpty": {
+		"message": "Wybierz wpis w menu, aby zmienić jego etykietę, powiązać go z profilem lub określić, kiedy się pojawia.",
+		"description": "Menu editor text when no entry is selected"
+	},
+	"menusInspectorSeparator": {
+		"message": "Separator. Przeciągnij go, aby przenieść, naciśnij Delete, aby usunąć.",
+		"description": "Menu editor text when a separator is selected"
+	},
+	"menusLabelField": {
+		"message": "Etykieta",
+		"description": "Menu editor field: 'Label'"
+	},
+	"menusLabelHelp": {
+		"message": "Pozostaw puste, aby użyć standardowej etykiety. W systemach Windows i Linux znak & przed literą czyni ją skrótem klawiszowym.",
+		"description": "Menu editor help of the 'Label' field"
+	},
+	"menusProfileField": {
+		"message": "Profil",
+		"description": "Menu editor field: 'Profile'"
+	},
+	"menusProfileNone": {
+		"message": "Profil używany dla strony",
+		"description": "Menu editor option when no profile is bound to the entry"
+	},
+	"menusProfileHelp": {
+		"message": "Powiąż ten wpis z profilem, aby zapisywać z jego użyciem jednym kliknięciem, niezależnie od bieżącego profilu.",
+		"description": "Menu editor help of the 'Profile' field"
+	},
+	"menusPresentationField": {
+		"message": "Prezentacja",
+		"description": "Menu editor field: 'Presentation'"
+	},
+	"menusPresentationSubmenu": {
+		"message": "Jedno podmenu „Zapisz stronę z profilem”",
+		"description": "Menu editor presentation option: submenu"
+	},
+	"menusPresentationInline": {
+		"message": "Jeden wpis na profil, bezpośrednio na liście",
+		"description": "Menu editor presentation option: inline"
+	},
+	"menusPresentationHelp": {
+		"message": "Lista odpowiada profilom zdefiniowanym w opcjach. Aby pokazać tylko niektóre profile, dodaj zamiast tego powiązane z nimi wpisy „Zapisz stronę”.",
+		"description": "Menu editor help of the 'Presentation' field"
+	},
+	"menusContentsField": {
+		"message": "Zawartość",
+		"description": "Menu editor field: 'Contents'"
+	},
+	"menusContentsHelp": {
+		"message": "Ten wpis to grupa opcji wyboru, której pozycje są zarządzane przez SingleFile. Możesz go przenieść lub zmienić jego nazwę, ale nie możesz edytować jego pozycji.",
+		"description": "Menu editor help of the 'Contents' field"
+	},
+	"menusContextsField": {
+		"message": "Pojawia się po kliknięciu prawym przyciskiem",
+		"description": "Menu editor field: 'Appears when right-clicking'"
+	},
+	"menusAltLabelHelp": {
+		"message": "Bez własnej etykiety menu wyświetla „$1”, gdy wpis dotyczy strony.",
+		"description": "Menu editor help about the alternative label of an entry"
+	},
+	"menusSubmenuField": {
+		"message": "Podmenu",
+		"description": "Menu editor field: 'Submenu'"
+	},
+	"menusSubmenuHelp": {
+		"message": "Liczba wpisów: $1. Upuść wpisy na ten wiersz, aby je dodać.",
+		"description": "Menu editor help of the 'Submenu' field"
+	},
+	"menusRemoveButton": {
+		"message": "Usuń z tego menu",
+		"description": "Menu editor button: 'Remove from this menu'"
+	},
+	"menusPageOnly": {
+		"message": "„$1” istnieje tylko w menu kontekstowym strony.",
+		"description": "Menu editor status when an entry is not allowed in a menu"
+	},
+	"menusJsonLabel": {
+		"message": "Układ jako JSON",
+		"description": "Menu editor section: 'Layout as JSON'"
+	},
+	"menusJsonApplyButton": {
+		"message": "Zastosuj",
+		"description": "Menu editor button: 'Apply'"
+	},
+	"menusJsonInvalid": {
+		"message": "Nieprawidłowy JSON",
+		"description": "Menu editor status: 'Invalid JSON'"
+	},
+	"menusJsonIgnored": {
+		"message": "Zastosowano, ale pominięto nieprawidłowe wpisy: $1.",
+		"description": "Menu editor status after applying JSON that contained entries which are not valid (unknown action, wrong shape)"
+	},
+	"menusUnsupportedBadge": {
+		"message": "nieobsługiwany",
+		"description": "Menu editor badge of the entries the current browser cannot show"
+	},
+	"menusUnsupportedActionHelp": {
+		"message": "Ta przeglądarka nie obsługuje tego wpisu, więc nie jest on wyświetlany.",
+		"description": "Menu editor note for an entry the current browser cannot show"
+	},
+	"menusProfileMissingHelp": {
+		"message": "Profil „$1” już nie istnieje, więc ten wpis korzysta z profilu używanego dla strony.",
+		"description": "Menu editor note for an entry bound to a deleted profile"
+	},
+	"menusEmptySubmenuHelp": {
+		"message": "To podmenu nie ma widocznych wpisów, więc nie jest wyświetlane.",
+		"description": "Menu editor note for a submenu whose entries are all skipped"
+	},
+	"menusResetButton": {
+		"message": "Przywróć domyślne",
+		"description": "Menu editor button: 'Reset to default'"
+	},
+	"menusResetConfirm": {
+		"message": "Przywrócić domyślne menu?",
+		"description": "Menu editor confirmation before restoring the default menus"
+	},
+	"menusSaveError": {
+		"message": "Nie można zapisać menu: $1",
+		"description": "Menu editor status when saving the layout fails (for example the sync storage quota)"
+	},
+	"menusUnsupported": {
+		"message": "Ta przeglądarka nie obsługuje menu rozszerzeń, więc nie ma tu nic do dostosowania.",
+		"description": "Menu editor message shown instead of the editor when the browser has no menus API (for example on Android)"
+	},
+	"menusProfilesBadge": {
+		"message": "wymaga 2+ profili",
+		"description": "Menu editor badge of the entries that only appear when more than one profile exists"
+	},
+	"menusProfilesHelp": {
+		"message": "Ten wpis jest wyświetlany tylko wtedy, gdy masz więcej niż jeden profil.",
+		"description": "Menu editor note for the entries that only appear when more than one profile exists"
+	},
+	"menusContextHelp": {
+		"message": "Ten wpis nie jest wyświetlany w wybranym kontekście ($1).",
+		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
 	}
 }

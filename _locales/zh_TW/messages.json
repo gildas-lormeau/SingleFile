@@ -674,8 +674,8 @@
 	"optionsExternalCapturePendingRequest": {
 		"message": "擴充功能 $EXTENSION_ID$ 要求使用 SingleFile 在這個瀏覽器中擷取網頁，並接收網頁的 HTML 內容。如果你允許，這項擴充功能就能隨時擷取任何分頁，不會再次徵詢你的同意，直到你將它從下方清單中移除為止。",
 		"description": "Options page prompt to approve an external extension capture request.",
-			"placeholders": {
-				"extension_id": {
+		"placeholders": {
+			"extension_id": {
 				"content": "$1",
 				"example": "archivebox@example.com"
 			}
@@ -1045,6 +1045,10 @@
 		"message": "匯入 MHTML 檔案",
 		"description": "Title of the button 'Import MHTML file' in the editor"
 	},
+	"editorArchiveToc": {
+		"message": "目錄",
+		"description": "Title of the table of contents button displayed in the editor when viewing a multi-page archive"
+	},
 	"pendingsTitle": {
 		"message": "等候儲存的項目",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
@@ -1160,5 +1164,269 @@
 	"optionsEditorInvalidJSON": {
 		"message": "JSON 無效",
 		"description": "Options editor error message: 'Invalid JSON'"
+	},
+	"optionsMenusSubTitle": {
+		"message": "選單",
+		"description": "Options sub-title: 'Menus'"
+	},
+	"optionMenusEditor": {
+		"message": "選擇選單中顯示的項目及其順序（所有設定檔共用）",
+		"description": "Options page label: 'choose the entries displayed in the menus and their order (shared by all profiles)'"
+	},
+	"optionMenusEditorLink": {
+		"message": "開啟選單編輯器...",
+		"description": "Options page link: 'Open the menu editor...'"
+	},
+	"optionMenusDefault": {
+		"message": "預設選單",
+		"description": "Options page state: 'default menus'"
+	},
+	"optionMenusCustomized": {
+		"message": "自訂選單",
+		"description": "Options page state: 'customized menus'"
+	},
+	"menuSubmenu": {
+		"message": "子選單",
+		"description": "Menu editor entry: 'Submenu'"
+	},
+	"menuSeparator": {
+		"message": "分隔線",
+		"description": "Menu editor entry: 'Separator'"
+	},
+	"menusTitle": {
+		"message": "選單編輯器",
+		"description": "Menu editor title"
+	},
+	"menusSubTitle": {
+		"message": "選擇每個 SingleFile 選單中顯示的項目及其順序。這些設定由所有設定檔共用。",
+		"description": "Menu editor sub-title"
+	},
+	"menusSurfaceLabel": {
+		"message": "選單",
+		"description": "Menu editor label of the menu selector"
+	},
+	"menusSurfacePage": {
+		"message": "網頁內容選單",
+		"description": "Menu editor menu name: 'Page context menu'"
+	},
+	"menusSurfaceButton": {
+		"message": "按鈕選單",
+		"description": "Menu editor menu name: 'Button menu'"
+	},
+	"menusSurfaceTab": {
+		"message": "分頁選單",
+		"description": "Menu editor menu name: 'Tab menu'"
+	},
+	"menusUseForAllButton": {
+		"message": "套用到所有選單",
+		"description": "Menu editor button: 'Use for all menus'"
+	},
+	"menusUseForAllTooltip": {
+		"message": "以這個配置取代其他選單",
+		"description": "Menu editor tooltip of the 'Use for all menus' button"
+	},
+	"menusUseForAllStatus": {
+		"message": "這個配置現在已套用到所有選單。",
+		"description": "Menu editor status after using a layout for all menus"
+	},
+	"menusContextPage": {
+		"message": "網頁",
+		"description": "Menu editor context: 'Page'"
+	},
+	"menusContextSelection": {
+		"message": "選取範圍",
+		"description": "Menu editor context: 'Selection'"
+	},
+	"menusContextFrame": {
+		"message": "頁框",
+		"description": "Menu editor context: 'Frame'"
+	},
+	"menusContextLink": {
+		"message": "連結",
+		"description": "Menu editor context: 'Link'"
+	},
+	"menusHintPage": {
+		"message": "在網頁上按右鍵時顯示。灰色的項目不會出現在所選的情境中。",
+		"description": "Menu editor hint of the page context menu"
+	},
+	"menusHintButton": {
+		"message": "在工具列的 SingleFile 按鈕上按右鍵時顯示。",
+		"description": "Menu editor hint of the button menu"
+	},
+	"menusHintTab": {
+		"message": "在分頁上按右鍵時顯示。",
+		"description": "Menu editor hint of the tab menu"
+	},
+	"menusAddLabel": {
+		"message": "新增",
+		"description": "Menu editor label of the entry selector"
+	},
+	"menusAddButton": {
+		"message": "新增",
+		"description": "Menu editor button: 'Add'"
+	},
+	"menusEditHint": {
+		"message": "新項目會加在所選項目之後，或所選子選單之內。拖曳可調整順序，拖放到子選單上可放入其中，在標籤上按兩下可重新命名，按 Delete 鍵可移除。",
+		"description": "Menu editor hint about editing"
+	},
+	"menusDynamicBadge": {
+		"message": "動態",
+		"description": "Menu editor badge of the entries managed by SingleFile"
+	},
+	"menusRemoveTooltip": {
+		"message": "從這個選單移除",
+		"description": "Menu editor tooltip of the remove button"
+	},
+	"menusActionLimitLine": {
+		"message": "只會顯示前 $1 個項目",
+		"description": "Menu editor line marking the entries hidden by the browser in the button menu"
+	},
+	"menusActionLimitNote": {
+		"message": "瀏覽器在按鈕選單中最多只會顯示 $1 個頂層項目。",
+		"description": "Menu editor note about the limit of top-level entries in the button menu"
+	},
+	"menusWrapButton": {
+		"message": "將其餘項目收進子選單",
+		"description": "Menu editor button: 'Wrap the rest in a submenu'"
+	},
+	"menusMoreSubmenu": {
+		"message": "更多...",
+		"description": "Menu editor default label of the submenu created to wrap the hidden entries"
+	},
+	"menusInspectorEmpty": {
+		"message": "在選單中選取一個項目，即可變更它的標籤、綁定設定檔，或選擇它顯示的時機。",
+		"description": "Menu editor text when no entry is selected"
+	},
+	"menusInspectorSeparator": {
+		"message": "分隔線。拖曳可移動，按 Delete 鍵可移除。",
+		"description": "Menu editor text when a separator is selected"
+	},
+	"menusLabelField": {
+		"message": "標籤",
+		"description": "Menu editor field: 'Label'"
+	},
+	"menusLabelHelp": {
+		"message": "留空則使用標準標籤。在 Windows 和 Linux 上，字母前的 & 會將該字母設為鍵盤快速鍵。",
+		"description": "Menu editor help of the 'Label' field"
+	},
+	"menusProfileField": {
+		"message": "設定檔",
+		"description": "Menu editor field: 'Profile'"
+	},
+	"menusProfileNone": {
+		"message": "網頁目前使用的設定檔",
+		"description": "Menu editor option when no profile is bound to the entry"
+	},
+	"menusProfileHelp": {
+		"message": "將這個項目綁定到某個設定檔後，無論目前使用哪個設定檔，都能一鍵以它儲存。",
+		"description": "Menu editor help of the 'Profile' field"
+	},
+	"menusPresentationField": {
+		"message": "呈現方式",
+		"description": "Menu editor field: 'Presentation'"
+	},
+	"menusPresentationSubmenu": {
+		"message": "一個「使用設定檔儲存網頁」子選單",
+		"description": "Menu editor presentation option: submenu"
+	},
+	"menusPresentationInline": {
+		"message": "每個設定檔一個項目，直接列出",
+		"description": "Menu editor presentation option: inline"
+	},
+	"menusPresentationHelp": {
+		"message": "清單會依照選項中定義的設定檔顯示。若只想顯示部分設定檔，請改為新增綁定到這些設定檔的「儲存網頁」項目。",
+		"description": "Menu editor help of the 'Presentation' field"
+	},
+	"menusContentsField": {
+		"message": "內容",
+		"description": "Menu editor field: 'Contents'"
+	},
+	"menusContentsHelp": {
+		"message": "這個項目是由 SingleFile 管理的單選群組。你可以移動或重新命名它，但無法編輯它的選項。",
+		"description": "Menu editor help of the 'Contents' field"
+	},
+	"menusContextsField": {
+		"message": "按右鍵時顯示於",
+		"description": "Menu editor field: 'Appears when right-clicking'"
+	},
+	"menusAltLabelHelp": {
+		"message": "未設定自訂標籤時，這個項目套用到網頁時，選單會顯示「$1」。",
+		"description": "Menu editor help about the alternative label of an entry"
+	},
+	"menusSubmenuField": {
+		"message": "子選單",
+		"description": "Menu editor field: 'Submenu'"
+	},
+	"menusSubmenuHelp": {
+		"message": "$1 個項目。將項目拖放到這一列即可加入。",
+		"description": "Menu editor help of the 'Submenu' field"
+	},
+	"menusRemoveButton": {
+		"message": "從這個選單移除",
+		"description": "Menu editor button: 'Remove from this menu'"
+	},
+	"menusPageOnly": {
+		"message": "「$1」只存在於網頁內容選單中。",
+		"description": "Menu editor status when an entry is not allowed in a menu"
+	},
+	"menusJsonLabel": {
+		"message": "JSON 格式的配置",
+		"description": "Menu editor section: 'Layout as JSON'"
+	},
+	"menusJsonApplyButton": {
+		"message": "套用",
+		"description": "Menu editor button: 'Apply'"
+	},
+	"menusJsonInvalid": {
+		"message": "無效的 JSON",
+		"description": "Menu editor status: 'Invalid JSON'"
+	},
+	"menusJsonIgnored": {
+		"message": "已套用，但忽略了 $1 個無效項目。",
+		"description": "Menu editor status after applying JSON that contained entries which are not valid (unknown action, wrong shape)"
+	},
+	"menusUnsupportedBadge": {
+		"message": "不支援",
+		"description": "Menu editor badge of the entries the current browser cannot show"
+	},
+	"menusUnsupportedActionHelp": {
+		"message": "這個瀏覽器不支援這個項目，因此不會顯示。",
+		"description": "Menu editor note for an entry the current browser cannot show"
+	},
+	"menusProfileMissingHelp": {
+		"message": "設定檔「$1」已不存在，因此這個項目會使用網頁目前使用的設定檔。",
+		"description": "Menu editor note for an entry bound to a deleted profile"
+	},
+	"menusEmptySubmenuHelp": {
+		"message": "這個子選單沒有可見的項目，因此不會顯示。",
+		"description": "Menu editor note for a submenu whose entries are all skipped"
+	},
+	"menusResetButton": {
+		"message": "還原預設值",
+		"description": "Menu editor button: 'Reset to default'"
+	},
+	"menusResetConfirm": {
+		"message": "要還原預設選單嗎？",
+		"description": "Menu editor confirmation before restoring the default menus"
+	},
+	"menusSaveError": {
+		"message": "無法儲存選單：$1",
+		"description": "Menu editor status when saving the layout fails (for example the sync storage quota)"
+	},
+	"menusUnsupported": {
+		"message": "這個瀏覽器不支援擴充功能選單，因此這裡沒有可自訂的內容。",
+		"description": "Menu editor message shown instead of the editor when the browser has no menus API (for example on Android)"
+	},
+	"menusProfilesBadge": {
+		"message": "需 2 個以上設定檔",
+		"description": "Menu editor badge of the entries that only appear when more than one profile exists"
+	},
+	"menusProfilesHelp": {
+		"message": "這個項目只有在你有多個設定檔時才會顯示。",
+		"description": "Menu editor note for the entries that only appear when more than one profile exists"
+	},
+	"menusContextHelp": {
+		"message": "這個項目不會在所選的情境（$1）中顯示。",
+		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
 	}
 }
