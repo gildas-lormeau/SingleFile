@@ -35,7 +35,7 @@ const ACTIONS = {
 	"save-unpinned-tabs": { labelKey: "menuSaveUnpinnedTabs", bindable: true },
 	"save-all-tabs": { labelKey: "menuSaveAllTabs", bindable: true },
 	"select-profile": { labelKey: "menuSelectProfile", dynamic: "radio-profiles" },
-	"domain-rule": { labelKey: "menuCreateDomainRule", dynamic: "radio-rule" },
+	"domain-rule": { labelKey: "menuCreateDomainRule", altLabelKey: "menuUpdateRule", dynamic: "radio-rule" },
 	"auto-save": { labelKey: "menuAutoSave", dynamic: "radio-autosave" },
 	"batch-save-urls": { labelKey: "menuBatchSaveUrls" },
 	"view-pendings": { labelKey: "menuViewPendingSaves" },

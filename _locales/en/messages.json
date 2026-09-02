@@ -1266,7 +1266,7 @@
 		"description": "Menu editor button: 'Add'"
 	},
 	"menusEditHint": {
-		"message": "New entries go after the selected one. Drag to reorder, drop onto a submenu to nest, double-click a label to rename it, press Delete to remove.",
+		"message": "New entries go after the selected one, or inside a selected submenu. Drag to reorder, drop onto a submenu to nest, double-click a label to rename it, press Delete to remove.",
 		"description": "Menu editor hint about editing"
 	},
 	"menusDynamicBadge": {
@@ -1350,7 +1350,7 @@
 		"description": "Menu editor field: 'Appears when right-clicking'"
 	},
 	"menusAltLabelHelp": {
-		"message": "Its label becomes '$1' on a page already saved with SingleFile.",
+		"message": "Without a custom label, the menu shows '$1' when it applies to the page.",
 		"description": "Menu editor help about the alternative label of an entry"
 	},
 	"menusSubmenuField": {
@@ -1384,6 +1384,22 @@
 	"menusJsonIgnored": {
 		"message": "Applied, but $1 invalid entries were ignored.",
 		"description": "Menu editor status after applying JSON that contained entries which are not valid (unknown action, wrong shape)"
+	},
+	"menusUnsupportedBadge": {
+		"message": "not supported",
+		"description": "Menu editor badge of the entries the current browser cannot show"
+	},
+	"menusUnsupportedActionHelp": {
+		"message": "This browser does not support this entry, so it is not shown.",
+		"description": "Menu editor note for an entry the current browser cannot show"
+	},
+	"menusProfileMissingHelp": {
+		"message": "The profile '$1' no longer exists, so this entry uses the profile in use for the page.",
+		"description": "Menu editor note for an entry bound to a deleted profile"
+	},
+	"menusEmptySubmenuHelp": {
+		"message": "This submenu has no visible entries, so it is not shown.",
+		"description": "Menu editor note for a submenu whose entries are all skipped"
 	},
 	"menusResetButton": {
 		"message": "Reset to default",

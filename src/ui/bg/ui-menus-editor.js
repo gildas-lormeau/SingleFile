@@ -156,6 +156,34 @@ function needsProfiles(action) {
 	return ["profiles", "radio-profiles", "radio-rule"].includes(ACTIONS[action].dynamic) && profileNames.length < 2;
 }
 
+function unsupportedAction(action) {
+	return (action == "auto-save" && constants.AUTO_SAVE_SUPPORTED === false) || (action == "save-selected-tabs" && constants.SELECTABLE_TABS_SUPPORTED === false);
+}
+
+function pageOnly(entry, surface) {
+	const definition = ACTIONS[entry.action];
+	return Boolean(definition.surfaces && !definition.surfaces.includes(surface));
+}
+
+function missingProfile(entry) {
+	return Boolean(entry.profile && !profileNames.includes(entry.profile));
+}
+
+function emptyContainer(entry, surface) {
+	return Boolean(ACTIONS[entry.action].container && !entry.children.some(child => isRenderable(child, surface)));
+}
+
+function isRenderable(entry, surface) {
+	const definition = ACTIONS[entry.action];
+	if (pageOnly(entry, surface) || unsupportedAction(entry.action) || needsProfiles(entry.action)) {
+		return false;
+	}
+	if (surface == "page" && !definition.dynamic && !definition.separator && !effectiveContexts(entry).length) {
+		return false;
+	}
+	return !emptyContainer(entry, surface);
+}
+
 function contextMismatch(entry, surface) {
 	const definition = ACTIONS[entry.action];
 	return surface == "page" && !definition.dynamic && !definition.separator && !effectiveContexts(entry).includes(pageContext);
@@ -249,7 +277,7 @@ function effectiveContexts(entry) {
 }
 
 function renderAddSelect() {
-	addSelect.replaceChildren(...ACTION_NAMES.map(action => {
+	addSelect.replaceChildren(...ACTION_NAMES.filter(action => !unsupportedAction(action)).map(action => {
 		const definition = ACTIONS[action];
 		const option = document.createElement("option");
 		option.value = action;
@@ -307,10 +335,7 @@ function renderList(entries, surface) {
 		if (selected && selected.surface == surface && selected.uid == entry.uid) {
 			item.classList.add("selected");
 		}
-		if (contextMismatch(entry, surface) || needsProfiles(entry.action)) {
-			item.classList.add("unavailable");
-		}
-		if (definition.surfaces && !definition.surfaces.includes(surface)) {
+		if (contextMismatch(entry, surface) || !isRenderable(entry, surface)) {
 			item.classList.add("unavailable");
 		}
 		item.append(renderRow(entry, surface, inlineProfiles));
@@ -354,12 +379,17 @@ function renderRow(entry, surface, inlineProfiles) {
 		const chip = document.createElement("span");
 		chip.className = "menus-chip";
 		chip.textContent = getProfileLabel(entry.profile);
+		if (missingProfile(entry)) {
+			chip.classList.add("missing");
+			chip.title = getMessage("menusProfileMissingHelp", [entry.profile]);
+		}
 		row.append(chip);
 	}
-	if (needsProfiles(entry.action) || (definition.dynamic && !inlineProfiles)) {
+	const badgeKey = unsupportedAction(entry.action) ? "menusUnsupportedBadge" : needsProfiles(entry.action) ? "menusProfilesBadge" : definition.dynamic && !inlineProfiles ? "menusDynamicBadge" : null;
+	if (badgeKey) {
 		const badge = document.createElement("span");
 		badge.className = "menus-badge";
-		badge.textContent = getMessage(needsProfiles(entry.action) ? "menusProfilesBadge" : "menusDynamicBadge");
+		badge.textContent = getMessage(badgeKey);
 		row.append(badge);
 	}
 	if ((definition.container || definition.dynamic) && !inlineProfiles) {
@@ -422,25 +452,36 @@ function renderDynamicChildren(entry) {
 	});
 }
 
+function menuSlots(entry, surface) {
+	const definition = ACTIONS[entry.action];
+	if (definition.separator) {
+		return 1;
+	}
+	if (!isRenderable(entry, surface)) {
+		return 0;
+	}
+	return definition.dynamic == "profiles" && entry.inline ? profileNames.length : 1;
+}
+
 function applyChromeCap() {
 	let count = 0;
-	let overflow = 0;
-	Array.from(menuList.children).forEach(item => {
-		if (!item.classList.contains("separator")) {
-			count++;
-		}
-		if (count > CHROME_ACTION_MENU_LIMIT) {
-			if (count == CHROME_ACTION_MENU_LIMIT + 1 && !item.classList.contains("separator")) {
+	let overflow = false;
+	Array.from(menuList.children).forEach((item, index) => {
+		const slots = menuSlots(layout.button[index], "button");
+		if (slots && count >= CHROME_ACTION_MENU_LIMIT) {
+			if (!overflow) {
+				overflow = true;
 				const line = document.createElement("li");
 				line.className = "menus-cap-line";
 				line.textContent = getMessage("menusActionLimitLine", [String(CHROME_ACTION_MENU_LIMIT)]);
 				menuList.insertBefore(line, item);
 			}
 			item.classList.add("over-cap");
-			overflow++;
 		}
+		count += slots;
 	});
-	capNote.hidden = overflow == 0;
+	overflow = overflow || count > CHROME_ACTION_MENU_LIMIT;
+	capNote.hidden = !overflow;
 	if (overflow) {
 		capNote.replaceChildren();
 		const text = document.createElement("span");
@@ -458,17 +499,15 @@ function wrapOverflowInSubmenu() {
 	let count = 0;
 	let cut = entries.length;
 	for (let index = 0; index < entries.length; index++) {
-		if (!ACTIONS[entries[index].action].separator) {
-			count++;
-		}
-		if (count == CHROME_ACTION_MENU_LIMIT) {
-			cut = index + 1;
+		const slots = menuSlots(entries[index], "button");
+		if (slots && count + slots > CHROME_ACTION_MENU_LIMIT - 1) {
+			cut = index;
 			break;
 		}
+		count += slots;
 	}
-	const rest = entries.slice(cut - 1);
-	const more = createEntry("submenu", { label: getMessage("menusMoreSubmenu"), children: rest });
-	layout.button = entries.slice(0, cut - 1).concat([more]);
+	const more = createEntry("submenu", { label: getMessage("menusMoreSubmenu"), children: entries.slice(cut) });
+	layout.button = entries.slice(0, cut).concat([more]);
 	selected = { surface: "button", uid: more.uid };
 	commit();
 }
@@ -739,10 +778,19 @@ function renderInspector() {
 		return;
 	}
 	const inlineProfiles = definition.dynamic == "profiles" && entry.inline;
-	if (needsProfiles(entry.action)) {
+	if (pageOnly(entry, surface)) {
+		inspectorElement.append(createParagraph(getMessage("menusPageOnly", [getActionLabel(entry.action)])));
+	} else if (unsupportedAction(entry.action)) {
+		inspectorElement.append(createParagraph(getMessage("menusUnsupportedActionHelp")));
+	} else if (needsProfiles(entry.action)) {
 		inspectorElement.append(createParagraph(getMessage("menusProfilesHelp")));
+	} else if (emptyContainer(entry, surface)) {
+		inspectorElement.append(createParagraph(getMessage("menusEmptySubmenuHelp")));
 	} else if (contextMismatch(entry, surface)) {
 		inspectorElement.append(createParagraph(getMessage("menusContextHelp", [getMessage(CONTEXT_LABEL_KEYS[pageContext])])));
+	}
+	if (missingProfile(entry)) {
+		inspectorElement.append(createParagraph(getMessage("menusProfileMissingHelp", [entry.profile])));
 	}
 	if (!inlineProfiles) {
 		inspectorElement.append(createField(getMessage("menusLabelField"), () => {
@@ -902,7 +950,8 @@ function save(menuLayout = serialize(layout)) {
 
 function addSelectedAction() {
 	const found = selected && selected.surface == currentSurface && findEntry(layout[currentSurface], selected.uid);
-	placeEntry(currentSurface, { action: addSelect.value }, found ? found.entry : null, "after");
+	const inside = found && ACTIONS[found.entry.action].container;
+	placeEntry(currentSurface, { action: addSelect.value }, found ? found.entry : null, inside ? "inside" : "after");
 }
 
 function bindEvents() {

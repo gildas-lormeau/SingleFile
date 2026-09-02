@@ -298,6 +298,11 @@ body.menus-dragging * {
     white-space: nowrap;
 }
 
+.menus-item .menus-chip.missing {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
 .menus-item .menus-badge {
     font-size: 9px;
     text-transform: uppercase;

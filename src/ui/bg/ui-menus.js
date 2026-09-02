@@ -147,15 +147,26 @@ function isActionSupported(action) {
 	return true;
 }
 
+function isRenderable(surface, entry, state) {
+	const definition = ACTIONS[entry.action];
+	if (!definition || (definition.surfaces && !definition.surfaces.includes(surface)) || !isActionSupported(entry.action) || !getContexts(surface, entry).length) {
+		return false;
+	}
+	if (definition.dynamic && definition.dynamic != "radio-autosave") {
+		return state.profileNames.length > 1;
+	}
+	if (definition.container) {
+		return entry.children.some(child => isRenderable(surface, child, state));
+	}
+	return true;
+}
+
 function createEntry(surface, entry, id, state, parentId) {
 	const definition = ACTIONS[entry.action];
-	if (!definition || (definition.surfaces && !definition.surfaces.includes(surface)) || !isActionSupported(entry.action)) {
+	if (!isRenderable(surface, entry, state)) {
 		return;
 	}
 	const contexts = getContexts(surface, entry);
-	if (!contexts.length) {
-		return;
-	}
 	const properties = { id, contexts };
 	if (parentId) {
 		properties.parentId = parentId;
@@ -441,7 +452,7 @@ async function refreshTab(tab) {
 				promises.push(updateVisibleValue(tab, options.contextMenuEnabled));
 				const savedPageDetected = allTabsData[tab.id].savedPageDetected;
 				getItems("edit-and-save-page").forEach(([id, item]) => {
-					const title = savedPageDetected ? browser.i18n.getMessage(ACTIONS[item.action].altLabelKey) : item.title;
+					const title = savedPageDetected && !item.entry.label ? browser.i18n.getMessage(ACTIONS[item.action].altLabelKey) : item.title;
 					promises.push(updateTitleValue(id, title));
 					promises.push(menus.update(id, { visible: !options.openEditor || savedPageDetected }));
 				});
