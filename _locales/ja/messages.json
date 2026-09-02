@@ -1222,11 +1222,11 @@
 		"description": "Menu editor button: 'Use for all menus'"
 	},
 	"menusUseForAllTooltip": {
-		"message": "他のメニューをこのレイアウトで置き換えます",
+		"message": "他のメニューをこのメニューで置き換えます",
 		"description": "Menu editor tooltip of the 'Use for all menus' button"
 	},
 	"menusUseForAllStatus": {
-		"message": "このレイアウトがすべてのメニューに適用されました。",
+		"message": "すべてのメニューがこれらのエントリを使用するようになりました。",
 		"description": "Menu editor status after using a layout for all menus"
 	},
 	"menusContextPage": {
@@ -1370,7 +1370,7 @@
 		"description": "Menu editor status when an entry is not allowed in a menu"
 	},
 	"menusJsonLabel": {
-		"message": "JSON 形式のレイアウト",
+		"message": "JSON 形式のメニュー",
 		"description": "Menu editor section: 'Layout as JSON'"
 	},
 	"menusJsonApplyButton": {

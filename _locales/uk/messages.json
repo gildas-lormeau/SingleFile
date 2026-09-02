@@ -1222,11 +1222,11 @@
 		"description": "Menu editor button: 'Use for all menus'"
 	},
 	"menusUseForAllTooltip": {
-		"message": "Замінити інші меню цією структурою",
+		"message": "Замінити інші меню поточним",
 		"description": "Menu editor tooltip of the 'Use for all menus' button"
 	},
 	"menusUseForAllStatus": {
-		"message": "Ця структура тепер застосовується до всіх меню.",
+		"message": "Усі меню тепер використовують ці пункти.",
 		"description": "Menu editor status after using a layout for all menus"
 	},
 	"menusContextPage": {
@@ -1370,7 +1370,7 @@
 		"description": "Menu editor status when an entry is not allowed in a menu"
 	},
 	"menusJsonLabel": {
-		"message": "Структура у форматі JSON",
+		"message": "Меню у форматі JSON",
 		"description": "Menu editor section: 'Layout as JSON'"
 	},
 	"menusJsonApplyButton": {

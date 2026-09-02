@@ -1222,11 +1222,11 @@
 		"description": "Menu editor button: 'Use for all menus'"
 	},
 	"menusUseForAllTooltip": {
-		"message": "Vervang de andere menu's door deze indeling",
+		"message": "Vervang de andere menu's door dit menu",
 		"description": "Menu editor tooltip of the 'Use for all menus' button"
 	},
 	"menusUseForAllStatus": {
-		"message": "Deze indeling geldt nu voor alle menu's.",
+		"message": "Alle menu's gebruiken nu deze items.",
 		"description": "Menu editor status after using a layout for all menus"
 	},
 	"menusContextPage": {
@@ -1370,7 +1370,7 @@
 		"description": "Menu editor status when an entry is not allowed in a menu"
 	},
 	"menusJsonLabel": {
-		"message": "Indeling als JSON",
+		"message": "Menu's als JSON",
 		"description": "Menu editor section: 'Layout as JSON'"
 	},
 	"menusJsonApplyButton": {

@@ -1222,11 +1222,11 @@
 		"description": "Menu editor button: 'Use for all menus'"
 	},
 	"menusUseForAllTooltip": {
-		"message": "Digər menyuları bu düzülüşlə əvəz et",
+		"message": "Digər menyuları bununla əvəz et",
 		"description": "Menu editor tooltip of the 'Use for all menus' button"
 	},
 	"menusUseForAllStatus": {
-		"message": "Bu düzülüş artıq bütün menyulara tətbiq olunur.",
+		"message": "Bütün menyular artıq bu elementlərdən istifadə edir.",
 		"description": "Menu editor status after using a layout for all menus"
 	},
 	"menusContextPage": {
@@ -1370,7 +1370,7 @@
 		"description": "Menu editor status when an entry is not allowed in a menu"
 	},
 	"menusJsonLabel": {
-		"message": "JSON formatında düzülüş",
+		"message": "JSON formatında menyular",
 		"description": "Menu editor section: 'Layout as JSON'"
 	},
 	"menusJsonApplyButton": {

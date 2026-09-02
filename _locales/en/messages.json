@@ -1222,12 +1222,12 @@
 		"description": "Menu editor button: 'Use for all menus'"
 	},
 	"menusUseForAllTooltip": {
-		"message": "Replace the other menus with this layout",
+		"message": "Replace the other menus with this one",
 		"description": "Menu editor tooltip of the 'Use for all menus' button"
 	},
 	"menusUseForAllStatus": {
-		"message": "This layout now applies to all menus.",
-		"description": "Menu editor status after using a layout for all menus"
+		"message": "All menus now use these entries.",
+		"description": "Menu editor status after using a menus for all menus"
 	},
 	"menusContextPage": {
 		"message": "Page",
@@ -1370,8 +1370,8 @@
 		"description": "Menu editor status when an entry is not allowed in a menu"
 	},
 	"menusJsonLabel": {
-		"message": "Layout as JSON",
-		"description": "Menu editor section: 'Layout as JSON'"
+		"message": "Menus as JSON",
+		"description": "Menu editor section: 'menus as JSON'"
 	},
 	"menusJsonApplyButton": {
 		"message": "Apply",
