@@ -179,7 +179,7 @@ function createEntry(surface, entry, id, state, parentId) {
 		const profileName = entry.profile && state.profiles[entry.profile] ? entry.profile : undefined;
 		const title = getTitle(entry, profileName);
 		menus.create(Object.assign(properties, { title }));
-		registerItem(id, { action: entry.action, entry, surface, profileName, title, hideInEditor: !parentId });
+		registerItem(id, { action: entry.action, entry, surface, profileName, title });
 		if (definition.container) {
 			createEntries(surface, entry.children, state, id);
 		}
@@ -189,7 +189,7 @@ function createEntry(surface, entry, id, state, parentId) {
 function createDynamicEntry(surface, entry, properties, state) {
 	const definition = ACTIONS[entry.action];
 	const { id, contexts, parentId } = properties;
-	const item = { action: entry.action, entry, surface, hideInEditor: !parentId };
+	const item = { action: entry.action, entry, surface };
 	if (definition.dynamic == "profiles") {
 		if (state.profileNames.length > 1) {
 			let profilesParentId = parentId;
@@ -206,7 +206,7 @@ function createDynamicEntry(surface, entry, properties, state) {
 					parentId: profilesParentId,
 					title: getProfileTitle(profileName)
 				});
-				registerItem(profileItemId, { action: "save-page", entry, surface, profileName, hideInEditor: entry.inline && !parentId });
+				registerItem(profileItemId, { action: "save-page", entry, surface, profileName });
 			});
 		}
 	} else if (definition.dynamic == "radio-profiles") {
@@ -489,7 +489,7 @@ async function updateAllVisibleValues(visible) {
 		const promises = [];
 		try {
 			menuItems.forEach((item, id) => {
-				if (item.hideInEditor && EDITOR_HIDDEN_ACTIONS.includes(item.action)) {
+				if (EDITOR_HIDDEN_ACTIONS.includes(item.action)) {
 					promises.push(menus.update(id, { visible }));
 				}
 			});

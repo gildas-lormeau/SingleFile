@@ -118,10 +118,13 @@ async function init() {
 }
 
 async function onStorageChanged(changes) {
-	if (Object.keys(changes).includes("menuLayout")) {
+	const keys = Object.keys(changes);
+	if (keys.includes("menuLayout")) {
 		await refreshLayout();
 	}
-	await refreshProfiles();
+	if (keys.includes("sync") || keys.some(key => key.startsWith("profile_"))) {
+		await refreshProfiles();
+	}
 }
 
 async function refreshLayout() {
@@ -947,7 +950,6 @@ function save(menuLayout = serialize(layout)) {
 	ownSaves.push(JSON.stringify(menuLayout ? normalizeLayout(menuLayout) : getDefaultLayout()));
 	pendingSave = pendingSave
 		.then(() => browser.runtime.sendMessage({ method: "config.setMenuLayout", menuLayout }))
-		.then(() => browser.runtime.sendMessage({ method: "ui.refreshMenu" }))
 		.catch(error => setStatus(getMessage("menusSaveError", [error.message || String(error)])));
 	return pendingSave;
 }
