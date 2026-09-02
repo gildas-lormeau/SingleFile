@@ -70,6 +70,8 @@
 						being unloaded if not). </li>
 					<li>Select "Save Selection" from the context menu without selecting any content first to display a
 						selector that will help you choose content by hovering over it with the mouse.</li>
+					<li>You can customize the entries of the menus and their order in the "Menus" section of the
+						options page.</li>
 					<li>Right-click on the SingleFile button and select "Options" to open the options page.</li>
 					<li id="saveToGDriveHint">Enable the option "Destination &gt; upload to Google Drive" to upload
 						pages to Google Drive</li>
@@ -112,6 +114,8 @@
 						<p>Check this option to display an entry for SingleFile in the context menu of the webpage. The
 							context menu of the SingleFile button <img src="../resources/icon_16.png" class="icon"> in
 							the extension toolbar is displayed whether this option is checked or not. </p>
+						<p>The entries of the menus can be customized in the "Menus" section of the options page, see <a
+								href="#menus">Menus</a>.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 					<li data-options-label="shadowEnabledLabel"> <span class="option">Option: overlay a shadow on the
@@ -870,6 +874,30 @@
 						match all URLs containing ".com"). When zero or more rules based on URLs and one or more rules
 						based on regular expressions match a URL, the longest rule based on regular expression will be
 						chosen. </li>
+				</ul>
+				<p id="menus">Menus</p>
+				<ul>
+					<li data-options-label="menusEditorLabel" id="menusOption"> <span class="option">Option: choose the
+							entries displayed in the menus and their order</span>
+						<p>The menu editor lets you choose which entries appear in the context menu of the webpage, in
+							the menu of the SingleFile button <img src="../resources/icon_16.png" class="icon"> and in
+							the menu of the tabs, and in which order. These settings are shared by all profiles. The
+							option "add entry in the context menu of the webpage" of each profile still decides whether
+							the menu is displayed at all.</p>
+						<p>Select the menu to edit, then add entries with the "Add" list. Drag an entry to reorder it or
+							to nest it into a submenu, double-click a label to rename it, press Delete to remove it. The
+							details of the selected entry are displayed below the list.</p>
+						<p>An entry can be bound to a profile to save with it in one click, whatever the current profile
+							is. On Windows and Linux, an "&amp;" before a letter of a custom label makes it the keyboard
+							accelerator.</p>
+						<p>Dimmed entries are not displayed by the browser, for example the entries related to profiles
+							when only one profile exists, or an entry whose contexts do not match the selected context.
+						</p>
+						<p>The browser limits the number of top-level entries in the menu of the SingleFile button. The
+							editor shows this limit and can move the extra entries into a submenu.</p>
+						<p>The layout can be edited as JSON to copy it or share it. "Reset to default" restores the
+							default menus. The layout is included when exporting the options.</p>
+					</li>
 				</ul>
 				<p>Form buttons</p>
 				<ul>

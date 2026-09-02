@@ -54,6 +54,7 @@
                     </li>
                     <li id="autoSaveHint">当自动保存功能处于活动状态时，页面每次加载后（如果没有，则在卸载前）都会自动保存。</li>
                     <li>从上下文菜单中选择“保存选择”，而不首先选择任何内容，以显示一个选择器，该选择器将通过用鼠标悬停在内容上来帮助您选择内容。</li>
+                    <li>您可以在选项页面的“菜单”部分自定义菜单中显示的条目及其顺序。</li>
                     <li>右键单击SingleFile按钮，选择“选项”打开选项页面。</li>
                     <li id="saveToGDriveHint">启用“目的地&gt;上传到Google Drive”选项，将页面上传到Google云端硬盘</li>
                     <li id="shortcutsSection">
@@ -84,6 +85,7 @@
                     <li data-options-label="addMenuEntryLabel"><span class="option">选项：在网页的上下文菜单中添加条目</span>
                         <p>选中此选项可在网页的上下文菜单中显示SingleFile的条目。SingleFile按钮的上下文菜单<img class="icon"
                                 src="../resources/icon_16.png">无论是否选中此选项，都会显示扩展工具栏中的。</p>
+                        <p>菜单中的条目可以在选项页面的“菜单”部分自定义，请参阅<a href="#menus">菜单</a>。</p>
                         <p class="notice">建议<u>检查</u>此选项</p>
                     </li>
                     <li data-options-label="shadowEnabledLabel"><span class="option">选项：在处理过程中在页面上叠加阴影</span>
@@ -593,6 +595,17 @@
                     </li>
                     <li>您可以使用特殊值“*”作为URL来创建适用于所有URL的规则</li>
                     <li>您可以通过在URL前加上“regexp:”来使用正则表达式（例如，“regexp:.*\.com”来匹配所有包含“.com”的URL）。当零条或多条基于URL的规则和一条或多个基于正则表达式的规则与一个URL匹配时，将选择基于正则表达式最长的规则。
+                    </li>
+                </ul>
+                <p id="menus">菜单</p>
+                <ul>
+                    <li data-options-label="menusEditorLabel" id="menusOption"><span class="option">选项：选择菜单中显示的条目及其顺序</span>
+                        <p>菜单编辑器允许您选择网页上下文菜单、SingleFile按钮<img class="icon" src="../resources/icon_16.png">菜单和标签页菜单中显示的条目及其顺序。这些设置由所有配置文件共享。每个配置文件的“在网页的上下文菜单中添加条目”选项仍决定是否显示该菜单。</p>
+                        <p>选择要编辑的菜单，然后使用“添加”列表添加条目。拖动条目以重新排序或将其嵌套到子菜单中，双击标签以重命名，按Delete键删除。所选条目的详细信息显示在列表下方。</p>
+                        <p>条目可以绑定到某个配置文件，以便无论当前配置文件如何，都能一键使用该配置文件保存。在Windows和Linux上，自定义标签中字母前的“&amp;”定义键盘快捷键。</p>
+                        <p>变暗的条目不会在浏览器中显示，例如只有一个配置文件时与配置文件相关的条目，或者其上下文与所选上下文不匹配的条目。</p>
+                        <p>浏览器限制SingleFile按钮菜单中顶级条目的数量。编辑器会显示此限制，并可以将多余的条目移到子菜单中。</p>
+                        <p>布局可以以JSON形式编辑，以便复制或分享。“重置为默认值”恢复默认菜单。导出选项时会包含布局。</p>
                     </li>
                 </ul>
                 <p>表单按钮</p>
