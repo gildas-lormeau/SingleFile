@@ -371,6 +371,7 @@
                         <p>输入 MCP 服务器的 URL（例如：<code>http://localhost:3000/mcp</code>）。</p>
                         <p>服务器必须按照 MCP 协议中指定的方式实现 HTTP 传输，并提供 <code>write_file</code> 和 <code>get_file_info</code> 工具。
                         </p>
+                        <p>压缩归档以 base64 形式通过 <code>write_file</code> 的 <code>encoding</code> 参数发送，服务器必须支持该参数，例如 SingleFile 仓库 <code>tools/mcp-server</code> 目录中附带的服务器。不支持该参数的服务器只能接收未压缩的页面。</p>
                     </li>
                     <li data-options-label="mcpAuthTokenLabel"> <span class="option">选项：认证令牌</span>
                         <p>输入 MCP 服务器的 Bearer 认证令牌（可选）。</p>

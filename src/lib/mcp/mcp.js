@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global fetch, Blob, AbortController */
+/* global fetch, Blob, AbortController, TextDecoder, btoa */
 
 const EMPTY_STRING = "";
 const CONFLICT_ACTION_SKIP = "skip";
@@ -36,6 +36,10 @@ const ABORT_ERROR_NAME = "AbortError";
 const CONTENT_TYPE_HEADER = "Content-Type";
 const JSON_CONTENT_TYPE = "application/json";
 const MCP_JSONRPC_VERSION = "2.0";
+const BASE64_ENCODING = "base64";
+const BASE64_CHUNK_SIZE = 0x8000;
+const WRITE_FILE_TOOL = "write_file";
+const GET_FILE_INFO_TOOL = "get_file_info";
 
 export { MCP };
 
@@ -52,14 +56,19 @@ class MCP {
         options.serverUrl = this.serverUrl;
         options.authToken = this.authToken;
         options.getRequestId = () => ++this.requestId;
-        let textContent;
         if (content instanceof Blob) {
-            textContent = await content.text();
-        } else {
-            textContent = content;
+            const bytes = new Uint8Array(await content.arrayBuffer());
+            try {
+                content = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+            } catch (error) {
+                if (!await supportsBase64(this.serverUrl, this.authToken, options.signal, options.getRequestId)) {
+                    throw new Error("The MCP server does not support binary files (the write_file tool has no 'encoding' argument)", { cause: error });
+                }
+                content = toBase64(bytes);
+                options.encoding = BASE64_ENCODING;
+            }
         }
-
-        return upload(path, textContent, options);
+        return upload(path, content, options);
     }
 
     abort() {
@@ -70,7 +79,7 @@ class MCP {
 }
 
 async function upload(path, content, options) {
-    const { filenameConflictAction, prompt, signal, serverUrl, authToken, getRequestId } = options;
+    const { filenameConflictAction, prompt, signal, serverUrl, authToken, getRequestId, encoding } = options;
 
     try {
         const existsResponse = await checkFileExists(serverUrl, authToken, path, signal, getRequestId);
@@ -100,7 +109,7 @@ async function upload(path, content, options) {
             }
         }
 
-        const writeResponse = await writeFile(serverUrl, authToken, path, content, signal, getRequestId);
+        const writeResponse = await writeFile(serverUrl, authToken, path, content, encoding, signal, getRequestId);
 
         if (writeResponse.success) {
             return { url: path };
@@ -115,81 +124,60 @@ async function upload(path, content, options) {
 }
 
 async function checkFileExists(serverUrl, authToken, path, signal, getRequestId) {
-    const requestBody = {
-        jsonrpc: MCP_JSONRPC_VERSION,
-        id: getRequestId(),
-        method: "tools/call",
-        params: {
-            name: "get_file_info",
-            arguments: {
-                path: path
-            }
-        }
-    };
-
-    const headers = {
-        [CONTENT_TYPE_HEADER]: JSON_CONTENT_TYPE,
-        "Accept": "application/json, text/event-stream"
-    };
-    if (authToken) {
-        headers.Authorization = `Bearer ${authToken}`;
-    }
-    const response = await fetch(serverUrl, {
-        method: "POST",
-        headers,
-        body: JSON.stringify(requestBody),
-        signal
-    });
-    if (!response.ok) {
-        throw new Error(`MCP server error: ${response.status} ${response.statusText}`);
-    }
-    const data = await response.json();
-    if (data.error) {
-        return { exists: false };
-    }
-    if (data.result && data.result.isError) {
-        return { exists: false };
-    }
-    if (data.result) {
-        return { exists: true };
-    }
-    return { exists: false };
+    const data = await callTool(serverUrl, authToken, GET_FILE_INFO_TOOL, { path }, signal, getRequestId);
+    return { exists: Boolean(data.result && !data.result.isError) };
 }
 
-async function writeFile(serverUrl, authToken, path, content, signal, getRequestId) {
-    const requestBody = {
-        jsonrpc: MCP_JSONRPC_VERSION,
-        id: getRequestId(),
-        method: "tools/call",
-        params: {
-            name: "write_file",
-            arguments: {
-                path: path,
-                content: content
-            }
-        }
-    };
-    const headers = {
-        [CONTENT_TYPE_HEADER]: JSON_CONTENT_TYPE,
-        "Accept": "application/json, text/event-stream"
-    };
-    if (authToken) {
-        headers.Authorization = `Bearer ${authToken}`;
+async function writeFile(serverUrl, authToken, path, content, encoding, signal, getRequestId) {
+    const toolArguments = { path, content };
+    if (encoding) {
+        toolArguments.encoding = encoding;
     }
-    const response = await fetch(serverUrl, {
-        method: "POST",
-        headers,
-        body: JSON.stringify(requestBody),
-        signal
-    });
-    if (!response.ok) {
-        throw new Error(`MCP server error: ${response.status} ${response.statusText}`);
-    }
-    const data = await response.json();
+    const data = await callTool(serverUrl, authToken, WRITE_FILE_TOOL, toolArguments, signal, getRequestId);
     if (data.error) {
         throw new Error(data.error.message);
     }
     return { success: true };
+}
+
+async function supportsBase64(serverUrl, authToken, signal, getRequestId) {
+    const data = await callMethod(serverUrl, authToken, "tools/list", {}, signal, getRequestId);
+    const tools = (data.result && data.result.tools) || [];
+    const writeFileTool = tools.find(tool => tool.name == WRITE_FILE_TOOL);
+    const properties = writeFileTool && writeFileTool.inputSchema && writeFileTool.inputSchema.properties;
+    return Boolean(properties && properties.encoding);
+}
+
+function callTool(serverUrl, authToken, name, toolArguments, signal, getRequestId) {
+    return callMethod(serverUrl, authToken, "tools/call", { name, arguments: toolArguments }, signal, getRequestId);
+}
+
+async function callMethod(serverUrl, authToken, method, params, signal, getRequestId) {
+    const headers = {
+        [CONTENT_TYPE_HEADER]: JSON_CONTENT_TYPE,
+        "Accept": "application/json, text/event-stream"
+    };
+    if (authToken) {
+        headers.Authorization = `Bearer ${authToken}`;
+    }
+    const response = await fetch(serverUrl, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ jsonrpc: MCP_JSONRPC_VERSION, id: getRequestId(), method, params }),
+        signal
+    });
+    if (!response.ok) {
+        throw new Error(`MCP server error: ${response.status} ${response.statusText}`);
+    }
+    return response.json();
+}
+
+function toBase64(bytes) {
+    let binary = "";
+    for (let index = 0; index < bytes.length; index += BASE64_CHUNK_SIZE) {
+        binary += String.fromCharCode.apply(null, bytes.subarray(index, index + BASE64_CHUNK_SIZE));
+    }
+    return btoa(binary);
 }
 
 function splitFilename(filename) {

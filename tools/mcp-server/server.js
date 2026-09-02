@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /* eslint-disable no-console */
-/* global process */
+/* global process, Buffer */
 
 import { promises as fs } from "node:fs";
 import path from "node:path";
@@ -26,6 +26,7 @@ const SERVER_NAME = "filesystem";
 const SERVER_VERSION = "1.0.0";
 const CONTENT_TYPE_TEXT = "text";
 const CONTENT_ENCODING_UTF8 = "utf-8";
+const CONTENT_ENCODING_BASE64 = "base64";
 const JSONRPC_VERSION = "2.0";
 const ERROR_CODE_INTERNAL = -32603;
 const FILE_NOT_FOUND_CODE = "ENOENT";
@@ -147,18 +148,23 @@ function createMcpServer() {
         "write_file",
         {
             title: "Write File",
-            description: "Create or overwrite a file with content",
+            description: "Create or overwrite a file with content (text, or binary when encoding is base64)",
             inputSchema: {
                 path: z.string(),
-                content: z.string()
+                content: z.string(),
+                encoding: z.enum([CONTENT_ENCODING_UTF8, CONTENT_ENCODING_BASE64]).optional()
             }
         },
-        async ({ path: filePath, content }) => {
+        async ({ path: filePath, content, encoding }) => {
             const sanitized = sanitizePath(filePath);
             const fullPath = path.join(SAVE_DIR, sanitized);
             const dir = path.dirname(fullPath);
             await fs.mkdir(dir, { recursive: true });
-            await fs.writeFile(fullPath, content, CONTENT_ENCODING_UTF8);
+            if (encoding == CONTENT_ENCODING_BASE64) {
+                await fs.writeFile(fullPath, Buffer.from(content, CONTENT_ENCODING_BASE64));
+            } else {
+                await fs.writeFile(fullPath, content, CONTENT_ENCODING_UTF8);
+            }
             const text = `Successfully wrote to ${sanitized}`;
             return {
                 content: [{ type: CONTENT_TYPE_TEXT, text }]

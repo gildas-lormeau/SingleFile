@@ -561,6 +561,10 @@
 						<p>Enter the URL of your MCP server (e.g. <code>http://localhost:3000/mcp</code>).</p>
 						<p>The server must implement the HTTP transport as specified in the MCP protocol and provide
 							the <code>write_file</code> and <code>get_file_info</code> tools.</p>
+						<p>Compressed archives are sent as base64 through the <code>encoding</code> argument of
+							<code>write_file</code>, which the server must accept, like the server bundled in the
+							<code>tools/mcp-server</code> folder of the SingleFile repository. Servers without it can only
+							receive uncompressed pages.</p>
 					</li>
 					<li data-options-label="mcpAuthTokenLabel"> <span class="option">Option: authentication token</span>
 						<p>Enter the Bearer authentication token for your MCP server (optional).</p>
