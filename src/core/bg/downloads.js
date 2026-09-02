@@ -43,6 +43,7 @@ import { RestFormApi } from "../../lib/../lib/rest-form-api/index.js";
 
 const partialContents = new Map();
 const tabData = new Map();
+const viewerBlobURLs = new Map();
 const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 const CONFLICT_ACTION_SKIP = "skip";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
@@ -59,6 +60,14 @@ if (gDriveOauth2) {
 }
 const gDrive = new GDrive(GDRIVE_CLIENT_ID, GDRIVE_CLIENT_KEY, SCOPES);
 const dropbox = new Dropbox(DROPBOX_CLIENT_ID, DROPBOX_CLIENT_KEY);
+
+browser.tabs.onRemoved.addListener(tabId => {
+	const blobURL = viewerBlobURLs.get(tabId);
+	if (blobURL) {
+		viewerBlobURLs.delete(tabId);
+		URL.revokeObjectURL(blobURL);
+	}
+});
 
 export {
 	onMessage,
@@ -131,9 +140,9 @@ async function downloadTabPage(message, tab) {
 				message.pageData = await yabson.parse(new Uint8Array(await (await fetch(message.blobURL)).arrayBuffer()));
 				await downloadCompressedContent(message, tab);
 			} else {
-				message.content = await (await fetch(message.blobURL)).text();
+				const blob = await (await fetch(message.blobURL)).blob();
 				message.url = message.blobURL;
-				await downloadContent([message.content], tab, tab.incognito, message);
+				await downloadContent(blob, tab, tab.incognito, message);
 			}
 			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
@@ -168,13 +177,13 @@ async function downloadTabPage(message, tab) {
 			contents = [message.content];
 		}
 		if (!message.truncated || message.finished) {
-			await downloadContent(contents, tab, tab.incognito, message);
+			await downloadContent(new Blob(contents, { type: message.mimeType }), tab, tab.incognito, message);
 		}
 	}
 	return {};
 }
 
-async function downloadContent(contents, tab, incognito, message) {
+async function downloadContent(blob, tab, incognito, message) {
 	const tabId = tab.id;
 	try {
 		let skipped;
@@ -190,16 +199,16 @@ async function downloadContent(contents, tab, incognito, message) {
 			let response;
 			if (message.openEditor) {
 				ui.onEdit(tabId);
-				await editor.open({ tabIndex: tab.index + 1, filename: message.filename, content: contents.join(""), url: message.originalUrl });
+				await editor.open({ tabIndex: tab.index + 1, filename: message.filename, content: await blob.text(), url: message.originalUrl });
 			} else if (message.saveToClipboard) {
-				message.content = contents.join("");
+				message.content = await blob.text();
 				saveToClipboard(message);
 			} else if (message.saveWithWebDAV) {
-				response = await saveWithWebDAV(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.webDAVURL, message.webDAVUser, message.webDAVPassword, { filenameConflictAction: message.filenameConflictAction, prompt });
+				response = await saveWithWebDAV(message.taskId, encodeSharpCharacter(message.filename), blob, message.webDAVURL, message.webDAVUser, message.webDAVPassword, { filenameConflictAction: message.filenameConflictAction, prompt });
 			} else if (message.saveWithMCP) {
-				response = await saveWithMCP(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.mcpServerUrl, message.mcpAuthToken, { filenameConflictAction: message.filenameConflictAction, prompt });
+				response = await saveWithMCP(message.taskId, encodeSharpCharacter(message.filename), blob, message.mcpServerUrl, message.mcpAuthToken, { filenameConflictAction: message.filenameConflictAction, prompt });
 			} else if (message.saveToGDrive) {
-				await saveToGDrive(message.taskId, encodeSharpCharacter(message.filename), new Blob(contents, { type: message.mimeType }), {
+				await saveToGDrive(message.taskId, encodeSharpCharacter(message.filename), blob, {
 					forceWebAuthFlow: message.forceWebAuthFlow
 				}, {
 					onProgress: (offset, size) => ui.onUploadProgress(tabId, offset, size),
@@ -207,13 +216,13 @@ async function downloadContent(contents, tab, incognito, message) {
 					prompt
 				});
 			} else if (message.saveToDropbox) {
-				await saveToDropbox(message.taskId, encodeSharpCharacter(message.filename), new Blob(contents, { type: message.mimeType }), {
+				await saveToDropbox(message.taskId, encodeSharpCharacter(message.filename), blob, {
 					onProgress: (offset, size) => ui.onUploadProgress(tabId, offset, size),
 					filenameConflictAction: message.filenameConflictAction,
 					prompt
 				});
 			} else if (message.saveToGitHub) {
-				response = await saveToGitHub(message.taskId, encodeSharpCharacter(message.filename), contents.join(""), message.githubToken, message.githubUser, message.githubRepository, message.githubBranch, {
+				response = await saveToGitHub(message.taskId, encodeSharpCharacter(message.filename), blob, message.githubToken, message.githubUser, message.githubRepository, message.githubBranch, {
 					filenameConflictAction: message.filenameConflictAction,
 					prompt
 				});
@@ -221,7 +230,7 @@ async function downloadContent(contents, tab, incognito, message) {
 			} else if (message.saveWithCompanion) {
 				await companion.save({
 					filename: message.filename,
-					content: message.content,
+					content: await blob.text(),
 					title: message.title,
 					url: message.originalUrl,
 					filenameConflictAction: message.filenameConflictAction
@@ -230,7 +239,7 @@ async function downloadContent(contents, tab, incognito, message) {
 				response = await saveToRestFormApi(
 					message.taskId,
 					message.filename,
-					contents.join(""),
+					blob,
 					message.originalUrl,
 					message.saveToRestFormApiToken,
 					message.saveToRestFormApiUrl,
@@ -238,13 +247,13 @@ async function downloadContent(contents, tab, incognito, message) {
 					message.saveToRestFormApiUrlFieldName
 				);
 			} else if (message.saveToS3) {
-				response = await saveToS3(message.taskId, encodeSharpCharacter(message.filename), new Blob(contents, { type: message.mimeType }), message.S3Domain, message.S3Region, message.S3Bucket, message.S3AccessKey, message.S3SecretKey, {
+				response = await saveToS3(message.taskId, encodeSharpCharacter(message.filename), blob, message.S3Domain, message.S3Region, message.S3Bucket, message.S3AccessKey, message.S3SecretKey, {
 					filenameConflictAction: message.filenameConflictAction,
 					prompt
 				});
 			} else {
 				if (!message.url) {
-					message.url = URL.createObjectURL(new Blob(contents, { type: message.mimeType }));
+					message.url = URL.createObjectURL(blob);
 				}
 				response = await downloadPage(message, {
 					confirmFilename: message.confirmFilename,
@@ -270,11 +279,7 @@ async function downloadContent(contents, tab, incognito, message) {
 			}
 			ui.onEnd(tabId);
 			if (message.openSavedPage && !message.openEditor) {
-				const createTabProperties = { active: true, url: "/src/ui/pages/viewer.html?blobURI=" + URL.createObjectURL(new Blob(contents, { type: message.mimeType })), windowId: tab.windowId };
-				if (tab.index != null) {
-					createTabProperties.index = tab.index + 1;
-				}
-				browser.tabs.create(createTabProperties);
+				await openViewerTab(tab, URL.createObjectURL(blob));
 			}
 		}
 	} catch (error) {
@@ -405,11 +410,7 @@ async function downloadCompressedContent(message, tab) {
 			}
 			ui.onEnd(tabId);
 			if (message.openSavedPage && !message.openEditor) {
-				const createTabProperties = { active: true, url: "/src/ui/pages/viewer.html?compressed&blobURI=" + URL.createObjectURL(blob), windowId: tab.windowId };
-				if (tab.index != null) {
-					createTabProperties.index = tab.index + 1;
-				}
-				browser.tabs.create(createTabProperties);
+				await openViewerTab(tab, URL.createObjectURL(blob), { compressed: true });
 			}
 		}
 	} catch (error) {
@@ -422,6 +423,15 @@ async function downloadCompressedContent(message, tab) {
 			URL.revokeObjectURL(message.url);
 		}
 	}
+}
+
+async function openViewerTab(tab, blobURL, { compressed } = {}) {
+	const createTabProperties = { active: true, url: "/src/ui/pages/viewer.html?" + (compressed ? "compressed&" : "") + "blobURI=" + blobURL, windowId: tab.windowId };
+	if (tab.index != null) {
+		createTabProperties.index = tab.index + 1;
+	}
+	const viewerTab = await browser.tabs.create(createTabProperties);
+	viewerBlobURLs.set(viewerTab.id, blobURL);
 }
 
 function encodeSharpCharacter(path) {
