@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html class="maximized">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>SingleFile menu editor</title>
+	<link rel="stylesheet" href="options.css">
+	<link rel="stylesheet" href="menus.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+	<link rel="icon" href="/src/ui/resources/icon_128.png">
+</head>
+
+<body>
+	<main class="menus-editor">
+		<h3>
+			<span class="options-title">
+				<span id="titleLabel"></span>
+			</span>
+		</h3>
+		<p class="menus-subtitle" id="subTitleLabel"></p>
+		<p class="menus-unsupported" id="unsupportedLabel" hidden></p>
+		<section class="menus-pane">
+			<header>
+				<span class="menus-picker">
+					<label for="surfaceSelect" id="surfaceLabel"></label>
+					<select id="surfaceSelect">
+						<option value="page" id="surfacePageLabel"></option>
+						<option value="button" id="surfaceButtonLabel"></option>
+						<option value="tab" id="surfaceTabLabel"></option>
+					</select>
+				</span>
+				<button type="button" id="copyButton"></button>
+			</header>
+			<div class="menus-body">
+				<div class="menus-chips" id="contextChips" role="group"></div>
+				<ul class="menus-menu" id="menuList"></ul>
+				<div class="menus-note" id="capNote" hidden></div>
+				<p class="menus-hint" id="surfaceHint"></p>
+				<div class="menus-add-row">
+					<label for="addSelect" id="addLabel"></label>
+					<select id="addSelect"></select>
+					<button type="button" id="addButton"></button>
+				</div>
+				<p class="menus-hint" id="editHint"></p>
+			</div>
+		</section>
+		<section class="menus-inspector" id="inspector" aria-live="polite"></section>
+		<details class="menus-json">
+			<summary id="jsonLabel"></summary>
+			<textarea id="jsonInput" spellcheck="false"></textarea>
+			<div class="menus-buttons">
+				<button type="button" id="jsonApplyButton"></button>
+			</div>
+		</details>
+		<div class="menus-bottom">
+			<span id="statusLabel"></span>
+			<div class="menus-buttons">
+				<button type="button" id="resetButton"></button>
+			</div>
+		</div>
+	</main>
+	<script src="/lib/chrome-browser-polyfill.js"></script>
+	<script type="module" src="../bg/ui-menus-editor.js"></script>
+</body>
+
+</html>

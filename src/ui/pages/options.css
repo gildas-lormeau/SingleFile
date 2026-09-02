@@ -756,3 +756,15 @@ html.maximized {
     }
 
 }
+
+.option.menus-editor-link {
+    justify-content: flex-end;
+    padding-right: 6px;
+}
+
+#menusStateLabel {
+    align-self: center;
+    padding-right: 6px;
+    white-space: nowrap;
+    opacity: 0.7;
+}

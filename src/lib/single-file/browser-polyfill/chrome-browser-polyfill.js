@@ -248,9 +248,15 @@ if (typeof globalThis == "undefined") {
 					));
 				}
 			},
-			menus: {
+			menus: nativeAPI.contextMenus && {
 				onClicked: {
 					addListener: listener => nativeAPI.contextMenus.onClicked.addListener(listener)
+				},
+				get ACTION_MENU_TOP_LEVEL_LIMIT() {
+					return nativeAPI.contextMenus.ACTION_MENU_TOP_LEVEL_LIMIT;
+				},
+				get ContextType() {
+					return nativeAPI.contextMenus.ContextType;
 				},
 				create: options => new Promise((resolve, reject) => {
 					nativeAPI.contextMenus.create(options, () => {
