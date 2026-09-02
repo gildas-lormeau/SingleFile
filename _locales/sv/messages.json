@@ -1285,6 +1285,14 @@
 		"message": "Webbläsaren visar högst $1 alternativ på översta nivån i knappens meny.",
 		"description": "Menu editor note about the limit of top-level entries in the button menu"
 	},
+	"menusActionLimitLineWrapped": {
+		"message": "Firefox flyttar följande alternativ till en undermeny ”SingleFile”",
+		"description": "Menu editor line marking the entries Firefox moves into an automatic submenu in the button menu"
+	},
+	"menusActionLimitNoteWrapped": {
+		"message": "Firefox behåller de första $1 alternativen på översta nivån i knappens meny och flyttar resten till en undermeny ”SingleFile”.",
+		"description": "Menu editor note about Firefox moving the extra top-level entries of the button menu into an automatic submenu"
+	},
 	"menusWrapButton": {
 		"message": "Samla resten i en undermeny",
 		"description": "Menu editor button: 'Wrap the rest in a submenu'"

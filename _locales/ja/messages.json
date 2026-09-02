@@ -1285,6 +1285,14 @@
 		"message": "ブラウザーがボタンのメニューに表示する最上位のエントリは最大 $1 件です。",
 		"description": "Menu editor note about the limit of top-level entries in the button menu"
 	},
+	"menusActionLimitLineWrapped": {
+		"message": "Firefox は以下のエントリを「SingleFile」サブメニューに移動します",
+		"description": "Menu editor line marking the entries Firefox moves into an automatic submenu in the button menu"
+	},
+	"menusActionLimitNoteWrapped": {
+		"message": "Firefox はボタンのメニューに最上位のエントリを最初の $1 件だけ残し、残りを「SingleFile」サブメニューに移動します。",
+		"description": "Menu editor note about Firefox moving the extra top-level entries of the button menu into an automatic submenu"
+	},
 	"menusWrapButton": {
 		"message": "残りをサブメニューにまとめる",
 		"description": "Menu editor button: 'Wrap the rest in a submenu'"

@@ -1285,6 +1285,14 @@
 		"message": "浏览器在按钮菜单中最多显示 $1 个顶级条目。",
 		"description": "Menu editor note about the limit of top-level entries in the button menu"
 	},
+	"menusActionLimitLineWrapped": {
+		"message": "Firefox 会将以下条目移入“SingleFile”子菜单",
+		"description": "Menu editor line marking the entries Firefox moves into an automatic submenu in the button menu"
+	},
+	"menusActionLimitNoteWrapped": {
+		"message": "Firefox 会在按钮菜单中保留前 $1 个顶级条目，并将其余条目移入“SingleFile”子菜单。",
+		"description": "Menu editor note about Firefox moving the extra top-level entries of the button menu into an automatic submenu"
+	},
 	"menusWrapButton": {
 		"message": "将其余条目收入子菜单",
 		"description": "Menu editor button: 'Wrap the rest in a submenu'"

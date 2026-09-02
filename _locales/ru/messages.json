@@ -1285,6 +1285,14 @@
 		"message": "Браузер показывает в меню кнопки не более $1 пунктов верхнего уровня.",
 		"description": "Menu editor note about the limit of top-level entries in the button menu"
 	},
+	"menusActionLimitLineWrapped": {
+		"message": "Firefox переносит следующие пункты в подменю «SingleFile»",
+		"description": "Menu editor line marking the entries Firefox moves into an automatic submenu in the button menu"
+	},
+	"menusActionLimitNoteWrapped": {
+		"message": "Firefox оставляет в меню кнопки первые пункты верхнего уровня (не более $1), а остальные переносит в подменю «SingleFile».",
+		"description": "Menu editor note about Firefox moving the extra top-level entries of the button menu into an automatic submenu"
+	},
 	"menusWrapButton": {
 		"message": "Свернуть остальные в подменю",
 		"description": "Menu editor button: 'Wrap the rest in a submenu'"

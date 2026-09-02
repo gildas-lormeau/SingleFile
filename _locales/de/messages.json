@@ -1285,6 +1285,14 @@
 		"message": "Der Browser zeigt im Menü der Schaltfläche höchstens $1 Einträge auf oberster Ebene an.",
 		"description": "Menu editor note about the limit of top-level entries in the button menu"
 	},
+	"menusActionLimitLineWrapped": {
+		"message": "Firefox verschiebt die folgenden Einträge in ein Untermenü 'SingleFile'",
+		"description": "Menu editor line marking the entries Firefox moves into an automatic submenu in the button menu"
+	},
+	"menusActionLimitNoteWrapped": {
+		"message": "Firefox behält die ersten $1 Einträge auf oberster Ebene im Menü der Schaltfläche und verschiebt die übrigen in ein Untermenü 'SingleFile'.",
+		"description": "Menu editor note about Firefox moving the extra top-level entries of the button menu into an automatic submenu"
+	},
 	"menusWrapButton": {
 		"message": "Den Rest in ein Untermenü verschieben",
 		"description": "Menu editor button: 'Wrap the rest in a submenu'"

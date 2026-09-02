@@ -1285,6 +1285,14 @@
 		"message": "Tarayıcı, düğme menüsünde en fazla $1 üst düzey öğe gösterir.",
 		"description": "Menu editor note about the limit of top-level entries in the button menu"
 	},
+	"menusActionLimitLineWrapped": {
+		"message": "Firefox aşağıdaki öğeleri \"SingleFile\" alt menüsüne taşır",
+		"description": "Menu editor line marking the entries Firefox moves into an automatic submenu in the button menu"
+	},
+	"menusActionLimitNoteWrapped": {
+		"message": "Firefox, düğme menüsünde ilk $1 üst düzey öğeyi tutar ve geri kalanını \"SingleFile\" alt menüsüne taşır.",
+		"description": "Menu editor note about Firefox moving the extra top-level entries of the button menu into an automatic submenu"
+	},
 	"menusWrapButton": {
 		"message": "Kalanları bir alt menüde topla",
 		"description": "Menu editor button: 'Wrap the rest in a submenu'"

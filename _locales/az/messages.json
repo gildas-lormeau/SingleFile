@@ -1285,6 +1285,14 @@
 		"message": "Brauzer düymə menyusunda ən çoxu $1 üst səviyyəli element göstərir.",
 		"description": "Menu editor note about the limit of top-level entries in the button menu"
 	},
+	"menusActionLimitLineWrapped": {
+		"message": "Firefox aşağıdakı elementləri 'SingleFile' alt menyusuna köçürür",
+		"description": "Menu editor line marking the entries Firefox moves into an automatic submenu in the button menu"
+	},
+	"menusActionLimitNoteWrapped": {
+		"message": "Firefox düymə menyusunda ilk $1 üst səviyyəli elementi saxlayır və qalanlarını 'SingleFile' alt menyusuna köçürür.",
+		"description": "Menu editor note about Firefox moving the extra top-level entries of the button menu into an automatic submenu"
+	},
 	"menusWrapButton": {
 		"message": "Qalanları alt menyuya yığ",
 		"description": "Menu editor button: 'Wrap the rest in a submenu'"

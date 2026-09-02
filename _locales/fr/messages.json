@@ -1285,6 +1285,14 @@
 		"message": "Le navigateur affiche au plus $1 entrées de premier niveau dans le menu du bouton.",
 		"description": "Menu editor note about the limit of top-level entries in the button menu"
 	},
+	"menusActionLimitLineWrapped": {
+		"message": "Firefox déplace les entrées suivantes dans un sous-menu 'SingleFile'",
+		"description": "Menu editor line marking the entries Firefox moves into an automatic submenu in the button menu"
+	},
+	"menusActionLimitNoteWrapped": {
+		"message": "Firefox conserve les $1 premières entrées de premier niveau dans le menu du bouton et déplace les autres dans un sous-menu 'SingleFile'.",
+		"description": "Menu editor note about Firefox moving the extra top-level entries of the button menu into an automatic submenu"
+	},
 	"menusWrapButton": {
 		"message": "Regrouper le reste dans un sous-menu",
 		"description": "Menu editor button: 'Wrap the rest in a submenu'"
