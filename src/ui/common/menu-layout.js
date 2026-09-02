@@ -132,10 +132,7 @@ function normalizeEntries(entries) {
 				extra.inline = true;
 			}
 			if (Array.isArray(entry.contexts) && !definition.dynamic && !definition.separator) {
-				const contexts = CONTEXTS.filter(context => entry.contexts.includes(context));
-				if (contexts.length) {
-					extra.contexts = contexts;
-				}
+				extra.contexts = CONTEXTS.filter(context => entry.contexts.includes(context));
 			}
 			if (definition.container && Array.isArray(entry.children)) {
 				extra.children = normalizeEntries(entry.children);
