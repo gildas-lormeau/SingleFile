@@ -354,11 +354,7 @@ if (typeof globalThis == "undefined") {
 						const response = listener(message, sender);
 						if (response && typeof response.then == "function") {
 							response
-								.then(response => {
-									if (response !== undefined) {
-										respond(sendResponse, response);
-									}
-								})
+								.then(response => respond(sendResponse, response === undefined ? null : response))
 								.catch(error => respond(sendResponse, { error: error && error.message }));
 							return true;
 						}
