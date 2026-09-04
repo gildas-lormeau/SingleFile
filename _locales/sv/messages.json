@@ -1,6 +1,6 @@
 {
 	"extensionDescription": {
-		"message": "Spara en hel sida i en enda HTML-fil",
+		"message": "Spara en hel webbsida i en enda HTML-fil",
 		"description": "Description of the extension."
 	},
 	"commandSaveSelectedTabs": {
@@ -76,7 +76,7 @@
 		"description": "Menu entry: 'Save with profile'"
 	},
 	"menuViewPendingSaves": {
-		"message": "Visa väntande sparåtgärder…",
+		"message": "Visa väntande sparningar…",
 		"description": "Menu entry: 'View pending saves...'"
 	},
 	"menuSelectProfile": {
@@ -228,7 +228,7 @@
 		"description": "Options page label: 'do not include the saved date'"
 	},
 	"optionConfirmInfobar": {
-		"message": "öppna en dialogruta för att redigera informationsfältets innehåll",
+		"message": "öppna en dialogruta för att redigera innehållet i informationsfältet",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionAutoClose": {
@@ -272,7 +272,7 @@
 		"description": "Options page label: 'replace emojis with text'"
 	},
 	"optionSaveFilenameTemplateData": {
-		"message": "spara data för filnamnsmallen med sidan",
+		"message": "spara data för filnamnsmallen i sidan",
 		"description": "Options page label: 'save the filename template data into the page'"
 	},
 	"optionConfirmFilename": {
@@ -280,7 +280,7 @@
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
 	},
 	"optionFilenameConflictAction": {
-		"message": "åtgärd vid filnamnskonflikt",
+		"message": "hantering av filnamnskonflikter",
 		"description": "Options page label: 'filename conflict resolution'"
 	},
 	"optionFilenameConflictActionUniquify": {
@@ -292,7 +292,7 @@
 		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
 	},
 	"optionFilenameConflictActionPrompt": {
-		"message": "fråga efter ett namn",
+		"message": "fråga efter ett filnamn",
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionFilenameConflictActionSkip": {
@@ -388,7 +388,7 @@
 		"description": "Options page label: 'group duplicate images together'"
 	},
 	"optionImageReductionFactor": {
-		"message": "bildförminskningsfaktor",
+		"message": "förminskningsfaktor för bilder",
 		"description": "Options page label: 'image reduction factor'"
 	},
 	"optionLoadDeferredImages": {
@@ -396,7 +396,7 @@
 		"description": "Options page label: 'save deferred images'"
 	},
 	"optionLoadDeferredImagesMaxIdleTime": {
-		"message": "maximal vilotid (ms)",
+		"message": "maximal inaktivitetstid (ms)",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
 	"optionLoadDeferredImagesKeepZoomLevel": {
@@ -404,7 +404,7 @@
 		"description": "Options page label: 'zoom out the page'"
 	},
 	"optionLoadDeferredImagesDispatchScrollEvent": {
-		"message": "skicka en ”scroll”-händelse",
+		"message": "utlös en ”scroll”-händelse",
 		"description": "Options page label: 'dispatch \"scroll\" event'"
 	},
 	"optionLoadDeferredImagesBeforeFrames": {
@@ -440,7 +440,7 @@
 		"description": "Options page label: 'group duplicate stylesheets together'"
 	},
 	"optionMoveStylesInHead": {
-		"message": "flytta stilar som ligger utanför head-elementet till det",
+		"message": "flytta stilar som ligger utanför head-elementet till head-elementet",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionRemoveUnusedStyles": {
@@ -508,7 +508,7 @@
 		"description": "Options sub-title: 'Auto-settings rules'"
 	},
 	"optionsDeleteDisplayedRulesConfirm": {
-		"message": "Bekräfta borttagningen av alla visade regler",
+		"message": "Vill du ta bort alla visade regler?",
 		"description": "Popup text 'Confirm the deletion of all displayed rules'"
 	},
 	"optionsDeleteRulesTooltip": {
@@ -560,7 +560,7 @@
 		"description": "Popup text 'Cancel changes' in the options page"
 	},
 	"optionsDeleteRuleConfirm": {
-		"message": "Bekräfta borttagningen av den valda regeln",
+		"message": "Vill du ta bort den valda regeln?",
 		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
 	},
 	"optionAutoSaveLoadOrUnload": {
@@ -580,11 +580,11 @@
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
-		"message": "spara automatiskt när en flik tas bort",
+		"message": "spara automatiskt när en flik stängs",
 		"description": "Options page label: 'auto-save on tab removal'"
 	},
 	"optionAutoSaveDelay": {
-		"message": "spara automatiskt efter en viss väntetid sedan sidan lästs in (s)",
+		"message": "väntetid för automatisk sparning efter sidinläsning (s)",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
 	},
 	"optionAutoSaveRepeat": {
@@ -620,7 +620,7 @@
 		"description": "Options page label: 'default mode'"
 	},
 	"optionDefaultEditorModeNormal": {
-		"message": "normal",
+		"message": "normalläge",
 		"description": "Options page label: 'default mode > normal'"
 	},
 	"optionDefaultEditorModeEdit": {
@@ -644,7 +644,7 @@
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionContentWidth": {
-		"message": "innehållsbredd vid formatering av en sida (em)",
+		"message": "innehållsbredd när en sida formateras (em)",
 		"description": "Options page label: 'content width when formatting a page (em)'"
 	},
 	"optionWarnUnsavedPage": {
@@ -672,7 +672,7 @@
 		"description": "Options page label: 'blocked extensions, one per line'"
 	},
 	"optionsExternalCapturePendingRequest": {
-		"message": "Tillägget $EXTENSION_ID$ vill använda SingleFile för att spara sidor i den här webbläsaren och ta emot deras HTML-innehåll. Om du tillåter det kommer det att kunna spara vilken flik som helst när som helst utan att fråga igen, tills du tar bort det från listan nedan.",
+		"message": "Tillägget $EXTENSION_ID$ vill använda SingleFile för att spara sidor i den här webbläsaren och ta emot sidornas HTML-innehåll. Om du tillåter detta kan tillägget när som helst spara valfri flik utan att fråga igen, tills du tar bort det från listan nedan.",
 		"description": "Options page prompt to approve an external extension capture request.",
 		"placeholders": {
 			"extension_id": {
@@ -714,7 +714,7 @@
 		"description": "Options page label: 'maximum download time (s)'"
 	},
 	"optionPassReferrerOnError": {
-		"message": "skicka HTTP-rubriken ”Referer” efter ett fel vid en begäran mellan olika ursprung",
+		"message": "skicka HTTP-rubriken ”Referer” efter ett fel vid en begäran till ett annat ursprung",
 		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
 	},
 	"optionSaveRawPage": {
@@ -770,11 +770,11 @@
 		"description": "Options page label: 'user name'"
 	},
 	"optionGitHubRepository": {
-		"message": "namn på kodförråd",
+		"message": "kodförrådets namn",
 		"description": "Options page label: 'repository name'"
 	},
 	"optionGitHubBranch": {
-		"message": "namn på gren",
+		"message": "grenens namn",
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveToS3": {
@@ -866,7 +866,7 @@
 		"description": "Options 'Reset' button tooltip"
 	},
 	"optionsResetConfirm": {
-		"message": "Bekräfta återställningen av alla inställningar eller den aktuella profilen",
+		"message": "Välj om du vill återställa alla inställningar eller den aktuella profilen.",
 		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
 	},
 	"optionsResetAllButton": {
@@ -894,7 +894,7 @@
 		"description": "Options button: 'Import'"
 	},
 	"logPanelDeferredImages": {
-		"message": "Uppskjutna bilder",
+		"message": "Fördröjda bilder",
 		"description": "Label 'Deferred images' in the log panel"
 	},
 	"logPanelFrameContents": {
@@ -922,7 +922,7 @@
 		"description": "Top panel button 'Open image...' when embedding an image"
 	},
 	"topPanelSharePageButton": {
-		"message": "Dela sida…",
+		"message": "Dela sidan…",
 		"description": "Top panel button 'Share page...' when sharing a page"
 	},
 	"topPanelShareSelectionButton": {
@@ -954,7 +954,7 @@
 		"description": "Popup text 'Enter a name for this new profile' in the options page"
 	},
 	"profileDeleteConfirm": {
-		"message": "Bekräfta borttagningen av den valda profilen",
+		"message": "Vill du ta bort den valda profilen?",
 		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
 	},
 	"profileRenamePrompt": {
@@ -1002,7 +1002,7 @@
 		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
 	},
 	"editorRemoveHighlight": {
-		"message": "Ta bort den markerade texten",
+		"message": "Ta bort färgmarkeringen från den valda texten",
 		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
 	},
 	"editorEditPage": {
@@ -1050,7 +1050,7 @@
 		"description": "Title of the table of contents button displayed in the editor when viewing a multi-page archive"
 	},
 	"pendingsTitle": {
-		"message": "Väntande sparåtgärder",
+		"message": "Väntande sparningar",
 		"description": "Title of the pending save page 'Pending saves' in the editor"
 	},
 	"pendingsCancelAllButton": {
@@ -1082,7 +1082,7 @@
 		"description": "Value of 'status' for cancelled saves"
 	},
 	"pendingsNoPendings": {
-		"message": "Inga väntande sparåtgärder",
+		"message": "Inga väntande sparningar",
 		"description": "Label displayed when there are no pending saves"
 	},
 	"pendingsAddUrlsButton": {
@@ -1170,7 +1170,7 @@
 		"description": "Options sub-title: 'Menus'"
 	},
 	"optionMenusEditor": {
-		"message": "välj vilka alternativ som visas i menyerna och i vilken ordning (gemensamt för alla profiler)",
+		"message": "välj vilka menyalternativ som visas i menyerna och i vilken ordning (gemensamt för alla profiler)",
 		"description": "Options page label: 'choose the entries displayed in the menus and their order (shared by all profiles)'"
 	},
 	"optionMenusEditorLink": {
@@ -1222,7 +1222,7 @@
 		"description": "Menu editor button: 'Use for all menus'"
 	},
 	"menusUseForAllTooltip": {
-		"message": "Ersätt de andra menyerna med den här",
+		"message": "Ersätt de andra menyerna med den här menyn",
 		"description": "Menu editor tooltip of the 'Use for all menus' button"
 	},
 	"menusUseForAllStatus": {
@@ -1246,7 +1246,7 @@
 		"description": "Menu editor context: 'Link'"
 	},
 	"menusHintPage": {
-		"message": "Visas när du högerklickar på en sida. Gråmarkerade alternativ visas inte i den valda kontexten.",
+		"message": "Visas när du högerklickar på en sida. Gråtonade alternativ visas inte i det valda sammanhanget.",
 		"description": "Menu editor hint of the page context menu"
 	},
 	"menusHintButton": {
@@ -1266,7 +1266,7 @@
 		"description": "Menu editor button: 'Add'"
 	},
 	"menusEditHint": {
-		"message": "Nya alternativ hamnar efter det markerade alternativet, eller i en markerad undermeny. Dra för att ändra ordning, släpp på en undermeny för att lägga alternativet i den, dubbelklicka på en etikett för att byta namn och tryck på Delete för att ta bort.",
+		"message": "Nya alternativ placeras efter det markerade alternativet eller i en markerad undermeny. Dra alternativen för att ändra ordningen. Släpp ett alternativ på en undermeny för att lägga till det där. Dubbelklicka på en etikett för att byta namn på alternativet och tryck på Delete för att ta bort det markerade alternativet.",
 		"description": "Menu editor hint about editing"
 	},
 	"menusDynamicBadge": {
@@ -1286,11 +1286,11 @@
 		"description": "Menu editor note about the limit of top-level entries in the button menu"
 	},
 	"menusActionLimitLineWrapped": {
-		"message": "Firefox flyttar följande alternativ till en undermeny ”SingleFile”",
+		"message": "Firefox flyttar följande alternativ till en undermeny med namnet ”SingleFile”",
 		"description": "Menu editor line marking the entries Firefox moves into an automatic submenu in the button menu"
 	},
 	"menusActionLimitNoteWrapped": {
-		"message": "Firefox behåller de första $1 alternativen på översta nivån i knappens meny och flyttar resten till en undermeny ”SingleFile”.",
+		"message": "Firefox behåller de första $1 alternativen på översta nivån i knappens meny och flyttar resten till en undermeny med namnet ”SingleFile”.",
 		"description": "Menu editor note about Firefox moving the extra top-level entries of the button menu into an automatic submenu"
 	},
 	"menusWrapButton": {
@@ -1306,7 +1306,7 @@
 		"description": "Menu editor text when no entry is selected"
 	},
 	"menusInspectorSeparator": {
-		"message": "Avgränsare. Dra för att flytta den, tryck på Delete för att ta bort den.",
+		"message": "Avgränsare. Dra för att flytta den. Tryck på Delete för att ta bort den.",
 		"description": "Menu editor text when a separator is selected"
 	},
 	"menusLabelField": {
@@ -1314,7 +1314,7 @@
 		"description": "Menu editor field: 'Label'"
 	},
 	"menusLabelHelp": {
-		"message": "Lämna tomt för att använda standardetiketten. I Windows och Linux blir bokstaven efter ett & tangentbordsgenväg.",
+		"message": "Lämna tomt för att använda standardetiketten. I Windows och Linux används bokstaven efter tecknet & som kortkommando.",
 		"description": "Menu editor help of the 'Label' field"
 	},
 	"menusProfileField": {
@@ -1334,7 +1334,7 @@
 		"description": "Menu editor field: 'Presentation'"
 	},
 	"menusPresentationSubmenu": {
-		"message": "En undermeny ”Spara med profil”",
+		"message": "En undermeny med namnet ”Spara med profil”",
 		"description": "Menu editor presentation option: submenu"
 	},
 	"menusPresentationInline": {
@@ -1350,7 +1350,7 @@
 		"description": "Menu editor field: 'Contents'"
 	},
 	"menusContentsHelp": {
-		"message": "Det här alternativet är en grupp alternativknappar vars val hanteras av SingleFile. Du kan flytta det eller byta namn på det, men inte redigera valen.",
+		"message": "Det här menyalternativet består av en grupp alternativknappar vars val hanteras av SingleFile. Du kan flytta eller byta namn på menyalternativet, men inte redigera valen.",
 		"description": "Menu editor help of the 'Contents' field"
 	},
 	"menusContextsField": {
@@ -1358,7 +1358,7 @@
 		"description": "Menu editor field: 'Appears when right-clicking'"
 	},
 	"menusAltLabelHelp": {
-		"message": "Utan en anpassad etikett visar menyn ”$1” när det gäller sidan.",
+		"message": "Utan en anpassad etikett visar menyn ”$1” när du högerklickar på en sida.",
 		"description": "Menu editor help about the alternative label of an entry"
 	},
 	"menusSubmenuField": {
@@ -1374,11 +1374,11 @@
 		"description": "Menu editor button: 'Remove from this menu'"
 	},
 	"menusPageOnly": {
-		"message": "”$1” finns bara i sidans snabbmeny.",
+		"message": "Alternativet ”$1” finns bara i sidans snabbmeny.",
 		"description": "Menu editor status when an entry is not allowed in a menu"
 	},
 	"menusJsonLabel": {
-		"message": "Menyer som JSON",
+		"message": "Menylayout som JSON",
 		"description": "Menu editor section: 'Layout as JSON'"
 	},
 	"menusJsonApplyButton": {
@@ -1390,7 +1390,7 @@
 		"description": "Menu editor status: 'Invalid JSON'"
 	},
 	"menusJsonIgnored": {
-		"message": "Tillämpat, men $1 ogiltiga alternativ ignorerades.",
+		"message": "Layouten tillämpades, men ogiltiga alternativ ignorerades: $1.",
 		"description": "Menu editor status after applying JSON that contained entries which are not valid (unknown action, wrong shape)"
 	},
 	"menusUnsupportedBadge": {
@@ -1402,7 +1402,7 @@
 		"description": "Menu editor note for an entry the current browser cannot show"
 	},
 	"menusProfileMissingHelp": {
-		"message": "Profilen ”$1” finns inte längre, så alternativet använder profilen som används för sidan.",
+		"message": "Profilen ”$1” finns inte längre, så alternativet använder sidans profil.",
 		"description": "Menu editor note for an entry bound to a deleted profile"
 	},
 	"menusEmptySubmenuHelp": {
@@ -1410,7 +1410,7 @@
 		"description": "Menu editor note for a submenu whose entries are all skipped"
 	},
 	"menusResetButton": {
-		"message": "Återställ standard",
+		"message": "Återställ till standard",
 		"description": "Menu editor button: 'Reset to default'"
 	},
 	"menusResetConfirm": {
@@ -1434,7 +1434,7 @@
 		"description": "Menu editor note for the entries that only appear when more than one profile exists"
 	},
 	"menusContextHelp": {
-		"message": "Alternativet visas inte i den valda kontexten ($1).",
+		"message": "Alternativet visas inte i det valda sammanhanget ($1).",
 		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
 	}
 }
