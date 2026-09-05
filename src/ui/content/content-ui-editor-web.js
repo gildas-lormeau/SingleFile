@@ -614,7 +614,9 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	function disableFramePointerEvents(doc) {
 		doc.querySelectorAll("iframe").forEach(element => {
 			const pointerEvents = "pointer-events";
-			element.style.setProperty("-sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
+			if (element.style.getPropertyValue(pointerEvents) != "none" || element.style.getPropertyPriority(pointerEvents) != "important") {
+				element.style.setProperty("--sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
+			}
 			element.style.setProperty(pointerEvents, "none", "important");
 		});
 	}
@@ -1468,8 +1470,14 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		});
 		doc.querySelectorAll("iframe").forEach(element => {
 			const pointerEvents = "pointer-events";
-			element.style.setProperty(pointerEvents, element.style.getPropertyValue("-sf-" + pointerEvents), element.style.getPropertyPriority("-sf-" + pointerEvents));
-			element.style.removeProperty("-sf-" + pointerEvents);
+			const savedProperty = "--sf-" + pointerEvents;
+			const savedValue = element.style.getPropertyValue(savedProperty);
+			if (savedValue) {
+				element.style.setProperty(pointerEvents, savedValue, element.style.getPropertyPriority(savedProperty));
+				element.style.removeProperty(savedProperty);
+			} else {
+				element.style.removeProperty(pointerEvents);
+			}
 		});
 		doc.body.removeAttribute("contentEditable");
 		if (pageCompressContent) {
