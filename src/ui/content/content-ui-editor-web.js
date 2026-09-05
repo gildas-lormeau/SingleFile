@@ -702,6 +702,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
 		noteElement.classList.add(NOTE_SELECTED_CLASS);
 		selectedNote = noteElement;
+		saveNoteOffset(containerElement);
 		onUpdate(false);
 	}
 
@@ -773,6 +774,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				deleteNoteRef(containerElement, noteId);
 				addNoteRef(document.documentElement, noteId);
 			}
+			saveNoteOffset(containerElement);
 			onUpdate(false);
 		};
 		removeNoteElement.ontouchend = removeNoteElement.onclick = event => {
@@ -1204,6 +1206,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		noteElement.style.setProperty("position", "absolute");
 		noteElement.style.setProperty("left", (clientX - boundingRectPositionedElement.x - deltaX - borderX) + "px");
 		noteElement.style.setProperty("top", (clientY - boundingRectPositionedElement.y - deltaY - borderY) + "px");
+		saveNoteOffset(containerElement);
 	}
 
 	function resetAnchorNote(containerElement) {
@@ -1213,6 +1216,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		deleteNoteRef(containerElement, noteId);
 		addNoteRef(document.documentElement, noteId);
 		document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
+		saveNoteOffset(containerElement);
 	}
 
 	function getPosition(event) {
@@ -1321,9 +1325,11 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			previousContent = getContent(false);
 		}
 		const shadowRoots = {};
+		const noteOffsets = {};
 		const classesToPreserve = ["single-file-highlight", "single-file-highlight-yellow", "single-file-highlight-green", "single-file-highlight-pink", "single-file-highlight-blue"];
 		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
 			shadowRoots[containerElement.dataset.noteId] = containerElement.shadowRoot;
+			noteOffsets[containerElement.dataset.noteId] = { x: containerElement.dataset.noteOffsetX, y: containerElement.dataset.noteOffsetY };
 			const className = "singlefile-note-id-" + containerElement.dataset.noteId;
 			containerElement.classList.add(className);
 			classesToPreserve.push(className);
@@ -1352,6 +1358,11 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			const noteId = (Array.from(containerElement.classList).find(className => /singlefile-note-id-\d+/.test(className))).split("singlefile-note-id-")[1];
 			containerElement.classList.remove("singlefile-note-id-" + noteId);
 			containerElement.dataset.noteId = noteId;
+			const noteOffset = noteOffsets[noteId];
+			if (noteOffset && noteOffset.x !== undefined && noteOffset.y !== undefined && document.querySelector("[data-single-file-note-refs~=\"" + noteId + "\"]")) {
+				containerElement.dataset.noteOffsetX = noteOffset.x;
+				containerElement.dataset.noteOffsetY = noteOffset.y;
+			}
 			if (!containerElement.shadowRoot) {
 				containerElement.attachShadow({ mode: "open" });
 				containerElement.shadowRoot.appendChild(shadowRoots[noteId]);
@@ -1426,6 +1437,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	}
 
 	function getContent(compressHTML) {
+		saveNoteOffsets();
 		unhighlightCutElement();
 		serializeShadowRoots(document);
 		singlefile.helper.markInvalidNesting(document);
@@ -1518,30 +1530,41 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
 			const noteElement = containerElement.shadowRoot.querySelector("." + NOTE_CLASS);
 			const noteBoundingRect = noteElement.getBoundingClientRect();
-			const anchorElement = getAnchorElement(containerElement);
-			const anchorBoundingRect = anchorElement.getBoundingClientRect();
-			const maxX = anchorBoundingRect.x + Math.max(0, anchorBoundingRect.width - noteBoundingRect.width);
-			const minX = anchorBoundingRect.x;
-			const maxY = anchorBoundingRect.y + Math.max(0, anchorBoundingRect.height - NOTE_HEADER_HEIGHT);
-			const minY = anchorBoundingRect.y;
-			let left = parseInt(noteElement.style.getPropertyValue("left"));
-			let top = parseInt(noteElement.style.getPropertyValue("top"));
-			if (noteBoundingRect.x > maxX) {
-				left -= noteBoundingRect.x - maxX;
+			if (noteBoundingRect.width || noteBoundingRect.height) {
+				const anchorElement = getAnchorElement(containerElement);
+				const anchorBoundingRect = anchorElement.getBoundingClientRect();
+				const offsetX = Number(containerElement.dataset.noteOffsetX);
+				const offsetY = Number(containerElement.dataset.noteOffsetY);
+				const savedOffset = !isNaN(offsetX) && !isNaN(offsetY);
+				const maxX = anchorBoundingRect.x + Math.max(0, anchorBoundingRect.width - noteBoundingRect.width);
+				const minX = anchorBoundingRect.x;
+				const maxY = anchorBoundingRect.y + Math.max(0, anchorBoundingRect.height - NOTE_HEADER_HEIGHT);
+				const minY = anchorBoundingRect.y;
+				const positionX = Math.min(maxX, Math.max(minX, savedOffset ? anchorBoundingRect.x + offsetX : noteBoundingRect.x));
+				const positionY = Math.min(maxY, Math.max(minY, savedOffset ? anchorBoundingRect.y + offsetY : noteBoundingRect.y));
+				const left = parseFloat(noteElement.style.getPropertyValue("left"));
+				const top = parseFloat(noteElement.style.getPropertyValue("top"));
+				noteElement.style.setProperty("position", "absolute");
+				noteElement.style.setProperty("left", (left + positionX - noteBoundingRect.x) + "px");
+				noteElement.style.setProperty("top", (top + positionY - noteBoundingRect.y) + "px");
 			}
-			if (noteBoundingRect.x < minX) {
-				left += minX - noteBoundingRect.x;
-			}
-			if (noteBoundingRect.y > maxY) {
-				top -= noteBoundingRect.y - maxY;
-			}
-			if (noteBoundingRect.y < minY) {
-				top += minY - noteBoundingRect.y;
-			}
-			noteElement.style.setProperty("position", "absolute");
-			noteElement.style.setProperty("left", left + "px");
-			noteElement.style.setProperty("top", top + "px");
 		});
+	}
+
+	function saveNoteOffset(containerElement) {
+		const noteElement = containerElement.shadowRoot.querySelector("." + NOTE_CLASS);
+		if (noteElement) {
+			const noteBoundingRect = noteElement.getBoundingClientRect();
+			if (noteBoundingRect.width || noteBoundingRect.height) {
+				const anchorBoundingRect = getAnchorElement(containerElement).getBoundingClientRect();
+				containerElement.dataset.noteOffsetX = Math.round(noteBoundingRect.x - anchorBoundingRect.x);
+				containerElement.dataset.noteOffsetY = Math.round(noteBoundingRect.y - anchorBoundingRect.y);
+			}
+		}
+	}
+
+	function saveNoteOffsets() {
+		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => saveNoteOffset(containerElement));
 	}
 
 	function resetHighlightedElement(element) {
@@ -2560,7 +2583,8 @@ pre code {
 			const PAGE_MASK_ACTIVE_CLASS = ${JSON.stringify(PAGE_MASK_ACTIVE_CLASS)};
 			const REMOVED_CONTENT_CLASS = ${JSON.stringify(REMOVED_CONTENT_CLASS)};
 			const NESTING_TRACK_ID_ATTRIBUTE_NAME = ${JSON.stringify(singlefile.helper.NESTING_TRACK_ID_ATTRIBUTE_NAME)};
-			const reflowNotes = ${minifyText(reflowNotes.toString())};			
+			const reflowNotes = ${minifyText(reflowNotes.toString())};
+			const saveNoteOffset = ${minifyText(saveNoteOffset.toString())};
 			const addNoteRef = ${minifyText(addNoteRef.toString())};
 			const deleteNoteRef = ${minifyText(deleteNoteRef.toString())};
 			const getNoteRefs = ${minifyText(getNoteRefs.toString())};
@@ -2583,9 +2607,7 @@ pre code {
 			processNode(document);
 			reflowNotes();
 			document.querySelectorAll(${JSON.stringify(NOTE_TAGNAME)}).forEach(noteElement => attachNoteListeners(noteElement));
-			if (document.documentElement.dataset && document.documentElement.dataset.sfz !== undefined) {
-				waitResourcesLoad().then(reflowNotes);
-			}
+			waitResourcesLoad().then(reflowNotes);
 			const trackIds = {};
 			document.querySelectorAll("[" + NESTING_TRACK_ID_ATTRIBUTE_NAME + "]").forEach(element => trackIds[element.getAttribute(NESTING_TRACK_ID_ATTRIBUTE_NAME)] = element);
 			Object.keys(trackIds).forEach(id => {
