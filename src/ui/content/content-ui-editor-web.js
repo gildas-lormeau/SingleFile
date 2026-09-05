@@ -111,6 +111,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			}
 			if (message.method == "displayNotes") {
 				document.querySelectorAll(NOTE_TAGNAME).forEach(noteElement => noteElement.shadowRoot.querySelector("." + NOTE_CLASS).classList.remove(NOTE_HIDDEN_CLASS));
+				reflowNotes();
 			}
 			if (message.method == "hideNotes") {
 				document.querySelectorAll(NOTE_TAGNAME).forEach(noteElement => noteElement.shadowRoot.querySelector("." + NOTE_CLASS).classList.add(NOTE_HIDDEN_CLASS));
