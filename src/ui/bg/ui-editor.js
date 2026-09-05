@@ -592,12 +592,12 @@ async function saveArchive(message) {
 					});
 				} else {
 					const sourceEntry = (aliases[entry.filename] && entryMap.get(aliases[entry.filename])) || entry;
-					const rawData = await sourceEntry.getData(new zip.Uint8ArrayWriter(), { passThrough: true, checkSignature: false });
+					const rawData = await sourceEntry.getData(new zip.Uint8ArrayWriter(), { passThrough: true, checkCrc32: false });
 					await zipWriter.add(relativeFilename, new zip.Uint8ArrayReader(rawData), {
 						passThrough: true,
 						compressionMethod: sourceEntry.compressionMethod,
 						uncompressedSize: sourceEntry.uncompressedSize,
-						signature: sourceEntry.signature,
+						crc32: sourceEntry.crc32,
 						comment: entry.comment,
 						lastModDate: entry.lastModDate
 					});
