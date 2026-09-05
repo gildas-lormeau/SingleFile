@@ -353,7 +353,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				if (infobarElement) {
 					infobarElement.remove();
 				}
-				await initPage();
+				initPage();
 				if (!archivePages) {
 					let icon;
 					const origContentDocument = (new DOMParser()).parseFromString(origDocContent, "text/html");
@@ -408,29 +408,10 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 					element.setAttribute(DISABLED_NOSCRIPT_ATTRIBUTE_NAME, element.innerHTML);
 					element.textContent = "";
 				});
-				contentDocument.querySelectorAll("iframe").forEach(element => {
-					const pointerEvents = "pointer-events";
-					element.style.setProperty("-sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
-					element.style.setProperty(pointerEvents, "none", "important");
-				});
+				disableFramePointerEvents(contentDocument);
 				document.replaceChild(contentDocument.documentElement, document.documentElement);
 				singlefile.helper.fixInvalidNesting(document);
-				document.querySelectorAll("[data-single-file-note-refs]").forEach(noteRefElement => noteRefElement.dataset.singleFileNoteRefs = noteRefElement.dataset.singleFileNoteRefs.replace(/,/g, " "));
-				deserializeShadowRoots(document);
-				reflowNotes();
-				waitResourcesLoad().then(reflowNotes);
-				watchNotesLayout();
-				document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
-				insertHighlightStylesheet(document);
-				maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
-				maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
-				document.documentElement.onmousedown = onMouseDown;
-				document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
-				document.documentElement.onmouseover = onMouseOver;
-				document.documentElement.onmouseout = onMouseOut;
-				document.documentElement.onkeydown = onKeyDown;
-				document.documentElement.ontouchstart = document.documentElement.ontouchmove = onTouchMove;
-				window.onclick = event => event.preventDefault();
+				initPageContent();
 				const iconElement = document.querySelector("link[rel*=icon]");
 				window.parent.postMessage(JSON.stringify({
 					method: "onInit",
@@ -499,7 +480,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			pageUrl = stashedPage.url;
 			pageCompressContent = true;
 			document.replaceChild(stashedPage.content, document.documentElement);
-			await initPage();
+			initPage();
 		} else {
 			await init({ content: pageArchiveContent, password: archivePassword, compressContent: true, pagePath });
 		}
@@ -625,17 +606,24 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		}
 	}
 
-	async function initPage() {
-		document.querySelectorAll("iframe").forEach(element => {
+	function initPage() {
+		disableFramePointerEvents(document);
+		initPageContent();
+	}
+
+	function disableFramePointerEvents(doc) {
+		doc.querySelectorAll("iframe").forEach(element => {
 			const pointerEvents = "pointer-events";
 			element.style.setProperty("-sf-" + pointerEvents, element.style.getPropertyValue(pointerEvents), element.style.getPropertyPriority(pointerEvents));
 			element.style.setProperty(pointerEvents, "none", "important");
 		});
+	}
+
+	function initPageContent() {
 		document.querySelectorAll("[data-single-file-note-refs]").forEach(noteRefElement => noteRefElement.dataset.singleFileNoteRefs = noteRefElement.dataset.singleFileNoteRefs.replace(/,/g, " "));
 		deserializeShadowRoots(document);
 		reflowNotes();
-		await waitResourcesLoad();
-		reflowNotes();
+		waitResourcesLoad().then(reflowNotes);
 		watchNotesLayout();
 		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
 		insertHighlightStylesheet(document);
@@ -1423,7 +1411,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			if (pageCompressContent) {
 				document.replaceChild(previousContent, document.documentElement);
 				deserializeShadowRoots(document);
-				await initPage();
+				initPage();
 			} else {
 				await init({ content: previousContent }, { reset: true });
 			}
