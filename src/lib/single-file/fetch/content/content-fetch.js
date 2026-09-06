@@ -97,8 +97,8 @@ async function hostFetch(url, options) {
 	}
 	if (hostFetchSupported) {
 		const result = new Promise((resolve, reject) => {
-			document.dispatchEvent(new CustomEvent(FETCH_REQUEST_EVENT, { detail: JSON.stringify({ url, options }) }));
 			document.addEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
+			document.dispatchEvent(new CustomEvent(FETCH_REQUEST_EVENT, { detail: JSON.stringify({ url, options }) }));
 
 			function onResponseFetch(event) {
 				if (event.detail) {
@@ -111,11 +111,12 @@ async function hostFetch(url, options) {
 								arrayBuffer: async () => event.detail.response
 							});
 						} else {
-							reject(event.detail.error);
+							reject(new Error(event.detail.error));
 						}
 					}
 				} else {
-					reject();
+					document.removeEventListener(FETCH_RESPONSE_EVENT, onResponseFetch, false);
+					reject(new Error(ERR_HOST_FETCH));
 				}
 			}
 		});
