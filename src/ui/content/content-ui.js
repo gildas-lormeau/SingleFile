@@ -41,6 +41,7 @@ const LOGS_LINE_STATUS_ELEMENT_CLASSNAME = "singlefile-logs-line-icon";
 const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CLASS;
 const SELECT_PX_THRESHOLD = 8;
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
+let UI_DIRECTION = "ltr";
 let LOG_PANEL_WIDTH, LOG_PANEL_DEFERRED_IMAGES_MESSAGE, LOG_PANEL_FRAME_CONTENTS_MESSAGE, LOG_PANEL_EMBEDDED_IMAGE_MESSAGE, LOG_PANEL_STEP_MESSAGE, MASK_CANCEL_BUTTON_MESSAGE;
 try {
 	MASK_CANCEL_BUTTON_MESSAGE = browser.i18n.getMessage("maskCancelButton");
@@ -49,6 +50,7 @@ try {
 	LOG_PANEL_FRAME_CONTENTS_MESSAGE = browser.i18n.getMessage("logPanelFrameContents");
 	LOG_PANEL_EMBEDDED_IMAGE_MESSAGE = browser.i18n.getMessage("logPanelEmbeddedImage");
 	LOG_PANEL_STEP_MESSAGE = browser.i18n.getMessage("logPanelStep");
+	UI_DIRECTION = browser.i18n.getMessage("@@bidi_dir");
 	// eslint-disable-next-line no-unused-vars
 } catch (error) {
 	// ignored
@@ -85,10 +87,10 @@ function promptMessage(message, defaultValue) {
 function setVisible(visible) {
 	const maskElement = document.querySelector(MASK_TAGNAME);
 	if (maskElement) {
-		maskElement.style.setProperty("display", visible ? "block" : "none");
+		maskElement.style.setProperty("display", visible ? "block" : "none", "important");
 	}
 	if (logsWindowElement) {
-		logsWindowElement.style.setProperty("display", visible ? "block" : "none");
+		logsWindowElement.style.setProperty("display", visible ? "block" : "none", "important");
 	}
 }
 
@@ -119,7 +121,9 @@ function onEndPage() {
 	if (maskElement) {
 		maskElement.remove();
 	}
-	logsWindowElement.remove();
+	if (logsWindowElement) {
+		logsWindowElement.remove();
+	}
 	clearLogs();
 }
 
@@ -440,7 +444,7 @@ function moveAreaSelector(target) {
 function getAreaSelector() {
 	let selectorElement = document.querySelector(SELECTION_ZONE_TAGNAME);
 	if (!selectorElement) {
-		selectorElement = createElement(SELECTION_ZONE_TAGNAME, document.body);
+		selectorElement = createElement(SELECTION_ZONE_TAGNAME, document.documentElement);
 		selectorElement.style.setProperty("box-sizing", "border-box", "important");
 		selectorElement.style.setProperty("background-color", "#3ea9d7", "important");
 		selectorElement.style.setProperty("border", "10px solid #0b4892", "important");
@@ -749,5 +753,6 @@ function createElement(tagName, parentElement) {
 		parentElement.appendChild(element);
 	}
 	CSS_PROPERTIES.forEach(property => element.style.setProperty(property, "initial", "important"));
+	element.style.setProperty("direction", UI_DIRECTION, "important");
 	return element;
 }

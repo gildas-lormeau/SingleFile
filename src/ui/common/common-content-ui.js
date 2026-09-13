@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global document, getComputedStyle, FileReader, Image, OffscreenCanvas, createImageBitmap */
+/* global browser, document, getComputedStyle, FileReader, Image, OffscreenCanvas, createImageBitmap */
 
 const singlefile = globalThis.singlefile;
 
@@ -34,6 +34,13 @@ const SHARE_PAGE_BAR_TAGNAME = "singlefile-share-page-bar";
 let EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, SHARE_SELECTION_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE;
 
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
+let UI_DIRECTION = "ltr";
+try {
+	UI_DIRECTION = browser.i18n.getMessage("@@bidi_dir");
+	// eslint-disable-next-line no-unused-vars
+} catch (error) {
+	// ignored
+}
 
 export {
 	setLabels,
@@ -203,7 +210,7 @@ function displayBar(tagName, message, { link, buttonLabel, buttonOnclick } = {})
 					cursor: pointer;
 					transition: opacity 250ms;
 					height: 16px;
-					font-size: .8rem;
+					font-size: 13px;
 					align-self: center;
 				}
 				.singlefile-open-file-bar button, .singlefile-share-page-bar button{
@@ -270,5 +277,6 @@ function createElement(tagName, parentElement) {
 		parentElement.appendChild(element);
 	}
 	CSS_PROPERTIES.forEach(property => element.style.setProperty(property, "initial", "important"));
+	element.style.setProperty("direction", UI_DIRECTION, "important");
 	return element;
 }
