@@ -283,6 +283,7 @@ function selectArea() {
 		let selectedRanges = [];
 		addEventListener("mousemove", mousemoveListener, true);
 		addEventListener("click", clickListener, true);
+		addEventListener("keydown", keydownListener, true);
 		addEventListener("keyup", keypressListener, true);
 		document.addEventListener("contextmenu", contextmenuListener, true);
 		getSelection().removeAllRanges();
@@ -311,8 +312,17 @@ function selectArea() {
 			}
 		}
 
+		function keydownListener(event) {
+			if (event.key == "Escape") {
+				event.preventDefault();
+				event.stopPropagation();
+			}
+		}
+
 		function keypressListener(event) {
 			if (event.key == "Escape") {
+				event.preventDefault();
+				event.stopPropagation();
 				cancel();
 			}
 		}
@@ -358,6 +368,7 @@ function selectArea() {
 			getAreaSelector().remove();
 			removeEventListener("mousemove", mousemoveListener, true);
 			removeEventListener("click", clickListener, true);
+			removeEventListener("keydown", keydownListener, true);
 			removeEventListener("keyup", keypressListener, true);
 			selectedAreaElement = null;
 			resolve(Boolean(selectedRanges.length));
