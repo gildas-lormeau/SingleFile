@@ -162,6 +162,7 @@ const DEFAULT_CONFIG = {
 	autoSaveExternalSave: false,
 	insertMetaNoIndex: false,
 	insertMetaCSP: true,
+	insertCanonicalLink: true,
 	passReferrerOnError: false,
 	password: "",
 	insertSingleFileComment: true,
