@@ -241,7 +241,6 @@ async function processPage(options) {
 	ui.onStartPage(options);
 	processor = new singlefile.SingleFile(options);
 	const preInitializationPromises = [];
-	options.insertCanonicalLink = true;
 	let index = 0, maxIndex = 0, initializing;
 	options.onprogress = async event => {
 		const { options } = event.detail;
