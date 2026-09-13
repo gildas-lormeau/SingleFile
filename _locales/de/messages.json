@@ -913,6 +913,10 @@
 		"message": "150",
 		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
 	},
+	"maskCancelButton": {
+		"message": "Abbrechen (Esc)",
+		"description": "Button 'Cancel (Esc)' in the mask displayed while a page is being saved"
+	},
 	"topPanelError": {
 		"message": "SingleFile Fehler : ",
 		"description": "Label 'SingleFile error: ' in the top panel when displaying an error message"

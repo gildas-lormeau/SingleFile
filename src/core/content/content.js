@@ -200,6 +200,10 @@ async function savePage(message) {
 	clearInterval(pingInterval);
 }
 
+function cancelSave() {
+	browser.runtime.sendMessage({ method: "downloads.cancel" });
+}
+
 async function capturePage(message) {
 	const pingInterval = setInterval(() => {
 		browser.runtime.sendMessage({ method: "ping" }).then(() => { });
@@ -240,7 +244,7 @@ async function processPage(options) {
 	const frames = singlefile.processors.frameTree;
 	let framesSessionId;
 	singlefile.helper.initDoc(document);
-	ui.onStartPage(options);
+	ui.onStartPage(options, cancelSave);
 	processor = new singlefile.SingleFile(options);
 	const preInitializationPromises = [];
 	let index = 0, maxIndex = 0, initializing;

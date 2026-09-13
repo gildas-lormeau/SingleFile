@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, location, setTimeout, XMLHttpRequest, Node, DOMParser, Blob, URL, Image, OffscreenCanvas, CustomEvent, TextDecoder */
+/* global browser, document, location, setTimeout, addEventListener, XMLHttpRequest, Node, DOMParser, Blob, URL, Image, OffscreenCanvas, CustomEvent, TextDecoder */
 
 const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 const NESTING_TRACK_ID_ATTRIBUTE_NAME = "data-sf-nesting-track-id";
@@ -63,12 +63,24 @@ browser.runtime.onMessage.addListener(message => {
 		return onMessage(message);
 	}
 });
+addEventListener("keydown", cancelSaveKeyListener, true);
+addEventListener("keyup", cancelSaveKeyListener, true);
 document.addEventListener("DOMContentLoaded", init, false);
 if (globalThis.window == globalThis.top && location && location.href && (location.href.startsWith("file://") || location.href.startsWith("content://"))) {
 	if (document.readyState == "loading") {
 		document.addEventListener("DOMContentLoaded", extractFile, false);
 	} else {
 		extractFile();
+	}
+}
+
+function cancelSaveKeyListener(event) {
+	if (event.key == "Escape" && singlefile.cancelSave) {
+		event.preventDefault();
+		event.stopPropagation();
+		if (event.type == "keyup") {
+			singlefile.cancelSave();
+		}
 	}
 }
 

@@ -29,6 +29,7 @@ const SELECTED_CONTENT_ATTRIBUTE_NAME = singlefile.helper.SELECTED_CONTENT_ATTRI
 
 const MASK_TAGNAME = "singlefile-mask";
 const MASK_CONTENT_CLASSNAME = "singlefile-mask-content";
+const CANCEL_BUTTON_CLASSNAME = "singlefile-cancel-button";
 const PROGRESSBAR_CLASSNAME = "singlefile-progress-bar";
 const PROGRESSBAR_CONTENT_CLASSNAME = "singlefile-progress-bar-content";
 const SELECTION_ZONE_TAGNAME = "single-file-selection-zone";
@@ -40,8 +41,9 @@ const LOGS_LINE_STATUS_ELEMENT_CLASSNAME = "singlefile-logs-line-icon";
 const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CLASS;
 const SELECT_PX_THRESHOLD = 8;
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
-let LOG_PANEL_WIDTH, LOG_PANEL_DEFERRED_IMAGES_MESSAGE, LOG_PANEL_FRAME_CONTENTS_MESSAGE, LOG_PANEL_EMBEDDED_IMAGE_MESSAGE, LOG_PANEL_STEP_MESSAGE;
+let LOG_PANEL_WIDTH, LOG_PANEL_DEFERRED_IMAGES_MESSAGE, LOG_PANEL_FRAME_CONTENTS_MESSAGE, LOG_PANEL_EMBEDDED_IMAGE_MESSAGE, LOG_PANEL_STEP_MESSAGE, MASK_CANCEL_BUTTON_MESSAGE;
 try {
+	MASK_CANCEL_BUTTON_MESSAGE = browser.i18n.getMessage("maskCancelButton");
 	LOG_PANEL_WIDTH = browser.i18n.getMessage("logPanelWidth");
 	LOG_PANEL_DEFERRED_IMAGES_MESSAGE = browser.i18n.getMessage("logPanelDeferredImages");
 	LOG_PANEL_FRAME_CONTENTS_MESSAGE = browser.i18n.getMessage("logPanelFrameContents");
@@ -90,7 +92,7 @@ function setVisible(visible) {
 	}
 }
 
-function onStartPage(options) {
+function onStartPage(options, cancelSave) {
 	let maskElement = document.querySelector(MASK_TAGNAME);
 	if (!maskElement) {
 		if (options.logsEnabled) {
@@ -101,17 +103,31 @@ function onStartPage(options) {
 			if (options.progressBarEnabled) {
 				createProgressBarElement(maskElement);
 			}
+			if (!options.silent) {
+				createCancelButtonElement(maskElement, cancelSave);
+			}
+		}
+		if (!options.silent) {
+			setCancelSaveShortcut(cancelSave);
 		}
 	}
 }
 
 function onEndPage() {
+	setCancelSaveShortcut(null);
 	const maskElement = document.querySelector(MASK_TAGNAME);
 	if (maskElement) {
 		maskElement.remove();
 	}
 	logsWindowElement.remove();
 	clearLogs();
+}
+
+function setCancelSaveShortcut(cancelSave) {
+	const bootstrap = globalThis.singlefileBootstrap;
+	if (bootstrap) {
+		bootstrap.cancelSave = cancelSave;
+	}
 }
 
 function onLoadResource(index, maxIndex, options) {
@@ -501,6 +517,26 @@ function createMaskElement() {
 					background-color: black;
 					transition: opacity 250ms;
 				}
+				.${CANCEL_BUTTON_CLASSNAME} {
+					position: fixed;
+					bottom: 16px;
+					right: 16px;
+					z-index: 2147483647;
+					margin: 0;
+					padding: 6px 12px;
+					border: 1px solid darkgrey;
+					border-radius: 4px;
+					background-color: dimgrey;
+					color: white;
+					font-family: arial, sans-serif;
+					font-size: 13px;
+					cursor: pointer;
+					opacity: .9;
+					transition: opacity 250ms;
+				}
+				.${CANCEL_BUTTON_CLASSNAME}:hover {
+					opacity: 1;
+				}
 			`;
 			shadowRoot.appendChild(styleElement);
 			let maskElementContent = document.createElement("div");
@@ -527,6 +563,26 @@ function createProgressBarElement(maskElement) {
 			const progressBarContentElement = document.createElement("div");
 			progressBarContentElement.classList.add(PROGRESSBAR_CONTENT_CLASSNAME);
 			progressBarContent.appendChild(progressBarContentElement);
+		}
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		// ignored
+	}
+}
+
+function createCancelButtonElement(maskElement, cancelSave) {
+	try {
+		let cancelButtonElement = maskElement.shadowRoot.querySelector("." + CANCEL_BUTTON_CLASSNAME);
+		if (!cancelButtonElement) {
+			cancelButtonElement = document.createElement("button");
+			cancelButtonElement.classList.add(CANCEL_BUTTON_CLASSNAME);
+			cancelButtonElement.textContent = MASK_CANCEL_BUTTON_MESSAGE;
+			cancelButtonElement.onclick = event => {
+				if (event.button === 0) {
+					cancelSave();
+				}
+			};
+			maskElement.shadowRoot.appendChild(cancelButtonElement);
 		}
 		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
