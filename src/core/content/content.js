@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, location, setTimeout, URL, setInterval, clearInterval */
+/* global browser, document, location, setTimeout, addEventListener, URL, setInterval, clearInterval */
 
 import * as download from "./../common/download.js";
 import { fetch, frameFetch } from "./../../lib/single-file/fetch/content/content-fetch.js";
@@ -71,6 +71,8 @@ if (!bootstrap || !bootstrap.initializedSingleFile) {
 		bootstrap.initializedSingleFile = true;
 	} else {
 		globalThis.singlefileBootstrap = { initializedSingleFile: true };
+		addEventListener("keydown", cancelSaveKeyListener, true);
+		addEventListener("keyup", cancelSaveKeyListener, true);
 	}
 }
 
@@ -202,6 +204,16 @@ async function savePage(message) {
 
 function cancelSave() {
 	browser.runtime.sendMessage({ method: "downloads.cancel" });
+}
+
+function cancelSaveKeyListener(event) {
+	if (event.key == "Escape" && globalThis.singlefileBootstrap.cancelSave) {
+		event.preventDefault();
+		event.stopPropagation();
+		if (event.type == "keyup") {
+			globalThis.singlefileBootstrap.cancelSave();
+		}
+	}
 }
 
 async function capturePage(message) {
