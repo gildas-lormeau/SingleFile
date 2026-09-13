@@ -186,6 +186,8 @@ async function savePage(message) {
 					browser.runtime.sendMessage({ method: "ui.processError", error: errorMessage });
 					onError(errorMessage);
 				}
+			} finally {
+				ui.onEndPage();
 			}
 		} else {
 			browser.runtime.sendMessage({ method: "ui.processCancelled" });
