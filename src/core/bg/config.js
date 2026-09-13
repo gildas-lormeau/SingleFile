@@ -163,6 +163,7 @@ const DEFAULT_CONFIG = {
 	insertMetaNoIndex: false,
 	insertMetaCSP: true,
 	insertCanonicalLink: true,
+	readMaffMetadata: false,
 	passReferrerOnError: false,
 	password: "",
 	insertSingleFileComment: true,
