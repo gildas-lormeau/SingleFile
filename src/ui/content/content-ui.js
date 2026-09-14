@@ -41,19 +41,21 @@ const LOGS_LINE_STATUS_ELEMENT_CLASSNAME = "singlefile-logs-line-icon";
 const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CLASS;
 const SELECT_PX_THRESHOLD = 8;
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
-let UI_DIRECTION = "ltr";
-let LOG_PANEL_WIDTH, LOG_PANEL_DEFERRED_CONTENT_MESSAGE, LOG_PANEL_FRAME_CONTENTS_MESSAGE, LOG_PANEL_EMBEDDED_IMAGE_MESSAGE, LOG_PANEL_STEP_MESSAGE, MASK_CANCEL_BUTTON_MESSAGE;
-try {
-	MASK_CANCEL_BUTTON_MESSAGE = browser.i18n.getMessage("maskCancelButton");
-	LOG_PANEL_WIDTH = browser.i18n.getMessage("logPanelWidth");
-	LOG_PANEL_DEFERRED_CONTENT_MESSAGE = browser.i18n.getMessage("logPanelDeferredContent");
-	LOG_PANEL_FRAME_CONTENTS_MESSAGE = browser.i18n.getMessage("logPanelFrameContents");
-	LOG_PANEL_EMBEDDED_IMAGE_MESSAGE = browser.i18n.getMessage("logPanelEmbeddedImage");
-	LOG_PANEL_STEP_MESSAGE = browser.i18n.getMessage("logPanelStep");
-	UI_DIRECTION = browser.i18n.getMessage("@@bidi_dir");
-	// eslint-disable-next-line no-unused-vars
-} catch (error) {
-	// ignored
+const UI_DIRECTION = getMessage("@@bidi_dir", "ltr");
+const LOG_PANEL_WIDTH = getMessage("logPanelWidth", "122");
+const LOG_PANEL_DEFERRED_CONTENT_MESSAGE = getMessage("logPanelDeferredContent", "Deferred content");
+const LOG_PANEL_FRAME_CONTENTS_MESSAGE = getMessage("logPanelFrameContents", "Frame contents");
+const LOG_PANEL_EMBEDDED_IMAGE_MESSAGE = getMessage("logPanelEmbeddedImage", "Embedded image");
+const LOG_PANEL_STEP_MESSAGE = getMessage("logPanelStep", "Step");
+const MASK_CANCEL_BUTTON_MESSAGE = getMessage("maskCancelButton", "Cancel (Esc)");
+
+function getMessage(messageName, defaultMessage) {
+	try {
+		return browser.i18n.getMessage(messageName) || defaultMessage;
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		return defaultMessage;
+	}
 }
 
 let selectedAreaElement, logsWindowElement;
