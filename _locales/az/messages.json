@@ -187,6 +187,14 @@
 		"message": "SingleFile seçimləri",
 		"description": "Options page title"
 	},
+	"optionsNewWindowLink": {
+		"message": "Seçimləri yeni vərəqdə açın",
+		"description": "Accessible label of the icon opening the options in a new tab"
+	},
+	"optionsEditorLink": {
+		"message": "Seçimlər redaktorunu açın",
+		"description": "Accessible label of the icon opening the options editor"
+	},
 	"optionsUserInterfaceSubTitle": {
 		"message": "İstifadəçi interfeysi",
 		"description": "Options sub-title: 'User interface'"

@@ -187,6 +187,14 @@
 		"message": "Inställningar",
 		"description": "Options page title"
 	},
+	"optionsNewWindowLink": {
+		"message": "Öppna inställningarna i en ny flik",
+		"description": "Accessible label of the icon opening the options in a new tab"
+	},
+	"optionsEditorLink": {
+		"message": "Öppna alternativredigeraren",
+		"description": "Accessible label of the icon opening the options editor"
+	},
 	"optionsUserInterfaceSubTitle": {
 		"message": "Användargränssnitt",
 		"description": "Options sub-title: 'User interface'"

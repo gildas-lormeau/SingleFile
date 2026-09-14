@@ -187,6 +187,14 @@
 		"message": "選項",
 		"description": "Options page title"
 	},
+	"optionsNewWindowLink": {
+		"message": "在新分頁中開啟選項",
+		"description": "Accessible label of the icon opening the options in a new tab"
+	},
+	"optionsEditorLink": {
+		"message": "開啟選項編輯器",
+		"description": "Accessible label of the icon opening the options editor"
+	},
 	"optionsUserInterfaceSubTitle": {
 		"message": "使用者介面",
 		"description": "Options sub-title: 'User interface'"

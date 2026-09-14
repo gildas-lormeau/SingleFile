@@ -187,6 +187,14 @@
 		"message": "Opties",
 		"description": "Options page title"
 	},
+	"optionsNewWindowLink": {
+		"message": "De opties in een nieuw tabblad openen",
+		"description": "Accessible label of the icon opening the options in a new tab"
+	},
+	"optionsEditorLink": {
+		"message": "De optie-editor openen",
+		"description": "Accessible label of the icon opening the options editor"
+	},
 	"optionsUserInterfaceSubTitle": {
 		"message": "Gebruikersinterface",
 		"description": "Options sub-title: 'User interface'"

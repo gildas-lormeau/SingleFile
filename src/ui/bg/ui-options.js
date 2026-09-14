@@ -167,6 +167,8 @@ const disableCompressionLabel = document.getElementById("disableCompressionLabel
 const preventAppendedDataLabel = document.getElementById("preventAppendedDataLabel");
 const passwordLabel = document.getElementById("passwordLabel");
 const titleLabel = document.getElementById("titleLabel");
+const optionsNewWindowLink = document.getElementById("optionsNewWindowLink");
+const optionsEditorLink = document.getElementById("optionsEditorLink");
 const userInterfaceLabel = document.getElementById("userInterfaceLabel");
 const filenameLabel = document.getElementById("filenameLabel");
 const htmlContentLabel = document.getElementById("htmlContentLabel");
@@ -812,6 +814,8 @@ preventAppendedDataLabel.textContent = browser.i18n.getMessage("optionPreventApp
 passwordLabel.textContent = browser.i18n.getMessage("optionPassword");
 groupDuplicateImagesLabel.textContent = browser.i18n.getMessage("optionGroupDuplicateImages");
 titleLabel.textContent = browser.i18n.getMessage("optionsTitle");
+setLinkLabel(optionsNewWindowLink, "optionsNewWindowLink");
+setLinkLabel(optionsEditorLink, "optionsEditorLink");
 userInterfaceLabel.textContent = browser.i18n.getMessage("optionsUserInterfaceSubTitle");
 filenameLabel.textContent = browser.i18n.getMessage("optionsFileNameSubTitle");
 htmlContentLabel.textContent = browser.i18n.getMessage("optionsHTMLContentSubTitle");
@@ -901,7 +905,7 @@ saveToRestFormApiUrlFieldNameLabel.textContent = browser.i18n.getMessage("option
 saveToRestFormApiTokenLabel.textContent = browser.i18n.getMessage("optionRestFormApiToken");
 
 if (location.href.endsWith("#")) {
-	document.querySelector(".new-window-link").remove();
+	optionsNewWindowLink.remove();
 	document.documentElement.classList.add("maximized");
 }
 let tabsData;
@@ -911,6 +915,12 @@ browser.runtime.sendMessage({ method: "tabsData.get" }).then(allTabsData => {
 });
 getHelpContents();
 initExternalCapturePermissions();
+
+function setLinkLabel(linkElement, messageName) {
+	const label = browser.i18n.getMessage(messageName);
+	linkElement.title = label;
+	linkElement.setAttribute("aria-label", label);
+}
 
 function init() {
 	if (!AUTO_SAVE_SUPPORTED) {
