@@ -219,6 +219,18 @@ function displayBar(tagName, message, { link, buttonLabel, buttonOnclick } = {})
 				.singlefile-open-file-bar .close-button, .singlefile-share-page-bar .close-button{
 					filter: invert(1);
 				}
+				@media (prefers-color-scheme: dark) {
+					.singlefile-open-file-bar.container, .singlefile-share-page-bar.container {
+						background-color: #1c1b22;
+						border-block-end: #4a4a55 1px solid;
+					}
+					.singlefile-open-file-bar a, .singlefile-share-page-bar a {
+						color: #8ab4f8;
+					}
+					.singlefile-open-file-bar .close-button, .singlefile-share-page-bar .close-button {
+						filter: none;
+					}
+				}
 				a {
 					color: #303036;
 				}

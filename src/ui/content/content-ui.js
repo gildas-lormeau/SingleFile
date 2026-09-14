@@ -644,6 +644,15 @@ function createLogsWindowElement() {
 					position: relative;
 					top: 1px;
 				}
+				@media (prefers-color-scheme: dark) {
+					.${LOGS_CLASSNAME} {
+						background-color: #1c1b22;
+					}
+					.${LOGS_LINE_CLASSNAME} {
+						color: #eeeeee;
+						background-color: #1c1b22;
+					}
+				}
 			`;
 			shadowRoot.appendChild(styleElement);
 			const logsContentElement = document.createElement("div");
