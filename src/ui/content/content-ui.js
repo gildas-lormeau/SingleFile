@@ -526,7 +526,7 @@ function createMaskElement() {
 				.${CANCEL_BUTTON_CLASSNAME} {
 					position: fixed;
 					bottom: 16px;
-					right: 16px;
+					inset-inline-end: 16px;
 					z-index: 2147483647;
 					margin: 0;
 					padding: 6px 12px;
