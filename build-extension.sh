@@ -1,21 +1,8 @@
 #!/bin/bash
 
-dpkg -s zip &> /dev/null
-if [ $? -ne 0 ]
-then
-    if ! command -v zip &> /dev/null; then
-        echo "Installing zip"
-        sudo apt install zip
-    fi
-fi
-
-dpkg -s jq &> /dev/null
-if [ $? -ne 0 ]
-then
-    if ! command -v jq &> /dev/null; then
-        echo "Installing jq"
-        sudo apt install jq
-    fi
+if ! command -v zip &> /dev/null; then
+    echo "zip is required, please install it"
+    exit 1
 fi
 
 npm ci
