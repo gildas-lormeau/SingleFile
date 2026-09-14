@@ -383,6 +383,10 @@
 		"message": "Afbeeldingen",
 		"description": "Options sub-title: 'Images'"
 	},
+	"optionsDeferredContentSubTitle": {
+		"message": "Uitgestelde inhoud",
+		"description": "Options sub-title: 'Deferred content'"
+	},
 	"optionGroupDuplicateImages": {
 		"message": "dubbele afbeeldingen samenvoegen",
 		"description": "Options page label: 'group duplicate images together'"
@@ -391,25 +395,25 @@
 		"message": "factor voor verkleining van afbeeldingen",
 		"description": "Options page label: 'image reduction factor'"
 	},
-	"optionLoadDeferredImages": {
-		"message": "uitgestelde afbeeldingen opslaan",
-		"description": "Options page label: 'save deferred images'"
+	"optionLoadDeferredContent": {
+		"message": "inhoud opslaan die tijdens het scrollen wordt geladen",
+		"description": "Options page label: 'save content loaded while scrolling'"
 	},
-	"optionLoadDeferredImagesMaxIdleTime": {
+	"optionLoadDeferredContentMaxIdleTime": {
 		"message": "maximale wachttijd (ms)",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
-	"optionLoadDeferredImagesKeepZoomLevel": {
-		"message": "zoom uit op de pagina",
-		"description": "Options page label: 'zoom out the page'"
+	"optionLoadDeferredContentKeepZoomLevel": {
+		"message": "de pagina uitzoomen tijdens het opslaan",
+		"description": "Options page label: 'zoom out the page during the capture'"
 	},
-	"optionLoadDeferredImagesDispatchScrollEvent": {
-		"message": "verzend \"scroll\"-gebeurtenis",
-		"description": "Options page label: 'dispatch \"scroll\" event'"
+	"optionLoadDeferredContentDispatchScrollEvent": {
+		"message": "scrollen simuleren",
+		"description": "Options page label: 'simulate scrolling'"
 	},
-	"optionLoadDeferredImagesBeforeFrames": {
-		"message": "laad uitgestelde frames",
-		"description": "Options page label: 'load deferred frames'"
+	"optionLoadDeferredContentBeforeFrames": {
+		"message": "eerst in frames laden",
+		"description": "Options page label: 'load in frames first'"
 	},
 	"optionRemoveAlternativeImages": {
 		"message": "verwijder afbeeldingen voor alternatieve schermresoluties",
@@ -893,9 +897,9 @@
 		"message": "Importeer",
 		"description": "Options button: 'Import'"
 	},
-	"logPanelDeferredImages": {
-		"message": "Geplaatste afbeeldingen",
-		"description": "Label 'Deferred images' in the log panel"
+	"logPanelDeferredContent": {
+		"message": "Uitgestelde inhoud",
+		"description": "Label 'Deferred content' in the log panel"
 	},
 	"logPanelFrameContents": {
 		"message": "Inhoud van frames",
@@ -911,7 +915,7 @@
 	},
 	"logPanelWidth": {
 		"message": "147",
-		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredContent')"
 	},
 	"maskCancelButton": {
 		"message": "Annuleer (Esc)",

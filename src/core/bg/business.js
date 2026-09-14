@@ -429,8 +429,8 @@ function cancel(taskInfo, runNextTasks) {
 		browser.tabs.sendMessage(tabId, {
 			method: "content.cancelSave",
 			options: {
-				loadDeferredImages: taskInfo.options.loadDeferredImages,
-				loadDeferredImagesKeepZoomLevel: taskInfo.options.loadDeferredImagesKeepZoomLevel
+				loadDeferredContent: taskInfo.options.loadDeferredContent,
+				loadDeferredContentKeepZoomLevel: taskInfo.options.loadDeferredContentKeepZoomLevel
 			}
 		}).catch(() => {
 			// ignored

@@ -383,6 +383,10 @@
 		"message": "圖片",
 		"description": "Options sub-title: 'Images'"
 	},
+	"optionsDeferredContentSubTitle": {
+		"message": "延後載入的內容",
+		"description": "Options sub-title: 'Deferred content'"
+	},
 	"optionGroupDuplicateImages": {
 		"message": "將重複的圖片歸為一組",
 		"description": "Options page label: 'group duplicate images together'"
@@ -391,25 +395,25 @@
 		"message": "圖片縮小比例",
 		"description": "Options page label: 'image reduction factor'"
 	},
-	"optionLoadDeferredImages": {
-		"message": "儲存延後載入的圖片",
-		"description": "Options page label: 'save deferred images'"
+	"optionLoadDeferredContent": {
+		"message": "儲存捲動時載入的內容",
+		"description": "Options page label: 'save content loaded while scrolling'"
 	},
-	"optionLoadDeferredImagesMaxIdleTime": {
+	"optionLoadDeferredContentMaxIdleTime": {
 		"message": "閒置時間上限（毫秒）",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
-	"optionLoadDeferredImagesKeepZoomLevel": {
-		"message": "縮小網頁",
-		"description": "Options page label: 'zoom out the page'"
+	"optionLoadDeferredContentKeepZoomLevel": {
+		"message": "儲存期間縮小網頁",
+		"description": "Options page label: 'zoom out the page during the capture'"
 	},
-	"optionLoadDeferredImagesDispatchScrollEvent": {
-		"message": "傳送「scroll」事件",
-		"description": "Options page label: 'dispatch \"scroll\" event'"
+	"optionLoadDeferredContentDispatchScrollEvent": {
+		"message": "模擬捲動",
+		"description": "Options page label: 'simulate scrolling'"
 	},
-	"optionLoadDeferredImagesBeforeFrames": {
-		"message": "載入延後載入的頁框",
-		"description": "Options page label: 'load deferred frames'"
+	"optionLoadDeferredContentBeforeFrames": {
+		"message": "先在頁框中載入",
+		"description": "Options page label: 'load in frames first'"
 	},
 	"optionRemoveAlternativeImages": {
 		"message": "移除其他螢幕解析度適用的圖片",
@@ -893,9 +897,9 @@
 		"message": "匯入",
 		"description": "Options button: 'Import'"
 	},
-	"logPanelDeferredImages": {
-		"message": "延後載入的圖片",
-		"description": "Label 'Deferred images' in the log panel"
+	"logPanelDeferredContent": {
+		"message": "延後載入的內容",
+		"description": "Label 'Deferred content' in the log panel"
 	},
 	"logPanelFrameContents": {
 		"message": "頁框內容",
@@ -911,7 +915,7 @@
 	},
 	"logPanelWidth": {
 		"message": "122",
-		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredContent')"
 	},
 	"maskCancelButton": {
 		"message": "取消 (Esc)",

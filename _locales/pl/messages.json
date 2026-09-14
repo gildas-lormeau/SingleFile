@@ -383,6 +383,10 @@
 		"message": "Obrazy",
 		"description": "Options sub-title: 'Images'"
 	},
+	"optionsDeferredContentSubTitle": {
+		"message": "Odroczona treść",
+		"description": "Options sub-title: 'Deferred content'"
+	},
 	"optionGroupDuplicateImages": {
 		"message": "grupuj zduplikowane obrazy razem",
 		"description": "Options page label: 'group duplicate images together'"
@@ -391,25 +395,25 @@
 		"message": "współczynnik redukcji obrazów",
 		"description": "Options page label: 'image reduction factor'"
 	},
-	"optionLoadDeferredImages": {
-		"message": "zapisuj odroczone obrazy",
-		"description": "Options page label: 'save deferred images'"
+	"optionLoadDeferredContent": {
+		"message": "zapisuj treść ładowaną podczas przewijania",
+		"description": "Options page label: 'save content loaded while scrolling'"
 	},
-	"optionLoadDeferredImagesMaxIdleTime": {
+	"optionLoadDeferredContentMaxIdleTime": {
 		"message": "maksymalny czas bezczynności (ms)",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
-	"optionLoadDeferredImagesKeepZoomLevel": {
-		"message": "pomniejsz stronę",
-		"description": "Options page label: 'zoom out the page'"
+	"optionLoadDeferredContentKeepZoomLevel": {
+		"message": "pomniejsz stronę podczas zapisywania",
+		"description": "Options page label: 'zoom out the page during the capture'"
 	},
-	"optionLoadDeferredImagesDispatchScrollEvent": {
-		"message": "wysyłaj zdarzenie \"scroll\"",
-		"description": "Options page label: 'dispatch \"scroll\" event'"
+	"optionLoadDeferredContentDispatchScrollEvent": {
+		"message": "symuluj przewijanie",
+		"description": "Options page label: 'simulate scrolling'"
 	},
-	"optionLoadDeferredImagesBeforeFrames": {
-		"message": "ładuj odroczone ramki",
-		"description": "Options page label: 'load deferred frames'"
+	"optionLoadDeferredContentBeforeFrames": {
+		"message": "ładuj najpierw w ramkach",
+		"description": "Options page label: 'load in frames first'"
 	},
 	"optionRemoveAlternativeImages": {
 		"message": "usuwaj obrazy dla alternatywnych rozdzielczości ekranu",
@@ -893,9 +897,9 @@
 		"message": "Importuj",
 		"description": "Options button: 'Import'"
 	},
-	"logPanelDeferredImages": {
-		"message": "Odroczone obrazy",
-		"description": "Label 'Deferred images' in the log panel"
+	"logPanelDeferredContent": {
+		"message": "Odroczona treść",
+		"description": "Label 'Deferred content' in the log panel"
 	},
 	"logPanelFrameContents": {
 		"message": "Zawartość ramki",
@@ -911,7 +915,7 @@
 	},
 	"logPanelWidth": {
 		"message": "130",
-		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredContent')"
 	},
 	"maskCancelButton": {
 		"message": "Anuluj (Esc)",

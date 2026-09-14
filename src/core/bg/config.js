@@ -56,6 +56,15 @@ const BROWSER_MENUS_API_SUPPORTED = Boolean(browser.menus && browser.menus.onCli
 const LEGACY_FILENAME_REPLACED_CHARACTERS = ["~", "+", "\\\\", "?", "%", "*", ":", "|", "\"", "<", ">", "\u0000-\u001f", "\u007f"];
 const DEFAULT_FILENAME_REPLACED_CHARACTERS = ["~", "+", "?", "%", "*", ":", "|", "\"", "<", ">", "\\\\", "\x00-\x1f", "\x7F"];
 const DEFAULT_FILENAME_REPLACEMENT_CHARACTERS = ["～", "＋", "？", "％", "＊", "：", "｜", "＂", "＜", "＞", "＼"];
+const DEPRECATED_OPTION_NAMES = {
+	loadDeferredImages: "loadDeferredContent",
+	loadDeferredImagesMaxIdleTime: "loadDeferredContentMaxIdleTime",
+	loadDeferredImagesBlockCookies: "loadDeferredContentBlockCookies",
+	loadDeferredImagesBlockStorage: "loadDeferredContentBlockStorage",
+	loadDeferredImagesKeepZoomLevel: "loadDeferredContentKeepZoomLevel",
+	loadDeferredImagesBeforeFrames: "loadDeferredContentBeforeFrames",
+	loadDeferredImagesDispatchScrollEvent: null
+};
 
 const DEFAULT_CONFIG = {
 	removeHiddenElements: true,
@@ -65,13 +74,14 @@ const DEFAULT_CONFIG = {
 	removeFrames: false,
 	compressHTML: true,
 	compressCSS: false,
-	loadDeferredImages: true,
-	loadDeferredImagesMaxIdleTime: 1500,
-	loadDeferredImagesBlockCookies: false,
-	loadDeferredImagesBlockStorage: false,
-	loadDeferredImagesKeepZoomLevel: false,
-	loadDeferredImagesDispatchScrollEvent: false,
-	loadDeferredImagesBeforeFrames: false,
+	loadDeferredContent: true,
+	loadDeferredContentMaxIdleTime: 1500,
+	loadDeferredContentBlockCookies: false,
+	loadDeferredContentBlockStorage: false,
+	loadDeferredContentKeepZoomLevel: false,
+	loadDeferredContentDispatchScrollEvent: true,
+	loadDeferredContentBeforeFrames: false,
+	loadDeferredContentMinZoomFactor: 0,
 	filenameTemplate: "%if-empty<{page-title}|No title> ({date-locale} {time-locale}).{filename-extension}",
 	infobarTemplate: "",
 	includeInfobar: !IS_NOT_SAFARI,
@@ -192,6 +202,7 @@ const DEFAULT_CONFIG = {
 	delayBeforeProcessing: 0,
 	delayAfterProcessing: 0,
 	_migratedTemplateFormat: true,
+	_migratedDeferredContentOptions: true,
 	saveToRestFormApiUrl: "",
 	saveToRestFormApiFileFieldName: "",
 	saveToRestFormApiUrlFieldName: "",
@@ -329,6 +340,18 @@ async function upgrade() {
 		if (!profile._migratedTemplateFormat) {
 			profile.filenameTemplate = updateFilenameTemplate(profile.filenameTemplate);
 			profile._migratedTemplateFormat = true;
+		}
+		if (!profile._migratedDeferredContentOptions) {
+			Object.keys(DEPRECATED_OPTION_NAMES).forEach(deprecatedName => {
+				const optionName = DEPRECATED_OPTION_NAMES[deprecatedName];
+				if (profile[deprecatedName] !== undefined) {
+					if (optionName && profile[optionName] === undefined) {
+						profile[optionName] = profile[deprecatedName];
+					}
+					delete profile[deprecatedName];
+				}
+			});
+			profile._migratedDeferredContentOptions = true;
 		}
 		for (const key of Object.keys(DEFAULT_CONFIG)) {
 			if (profile[key] === undefined) {

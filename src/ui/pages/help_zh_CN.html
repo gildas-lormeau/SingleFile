@@ -263,27 +263,27 @@
                         <p>选中此选项可避免保存多次重复的图像。选中此选项不应更改现代浏览器中的文档，并且可以大大减小文件的大小。对于基于ZIP文件的存档格式，此选项将被忽略。</p>
                         <p class="notice">建议<u>检查</u>此选项</p>
                     </li>
-                    <li data-options-label="loadDeferredImagesLabel"><span class="option">选项：保存延迟的图像</span>
-                        <p>选中此选项可保存所有尚未显示的延迟图像（或帧）。这可能有助于在不滚动页面的情况下保存所有图像。此功能已尽最大努力，并不能保证在所有网站上都能正常工作。这也会增加保存页面所需的时间。
+                    <li data-options-label="loadDeferredContentLabel"><span class="option">选项：保存滚动时加载的内容</span>
+                        <p>选中此选项可保存所有尚未显示的延迟内容（图像、帧，以及页面在滚动时卸载的消息）。这可能有助于在不滚动页面的情况下保存所有图像。此功能已尽最大努力，并不能保证在所有网站上都能正常工作。这也会增加保存页面所需的时间。
                         </p>
                         <p class="notice">建议<u>检查</u>此选项</p>
                     </li>
-                    <li data-options-label="loadDeferredImagesMaxIdleTimeLabel"><span
+                    <li data-options-label="loadDeferredContentMaxIdleTimeLabel"><span
                             class="option">选项：最大空闲时间（ms）</span>
-                        <p>输入等待延迟图像的最大延迟时间。例如，如果网络或系统条件恶化，您可以增加此值。否则，您也可以减小此值。</p>
+                        <p>输入等待延迟内容的最大延迟时间。例如，如果网络或系统条件恶化，您可以增加此值。否则，您也可以减小此值。</p>
                     </li>
-                    <li data-options-label="loadDeferredImagesDispatchScrollEventLabel"><span
-                            class="option">选项：发送“滚动”事件</span>
+                    <li data-options-label="loadDeferredContentDispatchScrollEventLabel"><span
+                            class="option">选项：模拟滚动</span>
                         <p>选中此选项以分派<a href="https://developer.mozilla.org/docs/Web/API/Document/scroll_event"
-                                target="_blank">“滚动”事件</a>当等待延迟图像时。这可以改善某些网站上的图像加载，但也可能导致其他一些网站出现意外的滚动问题。</p>
-                        <p class="notice">建议<u>取消选中</u>此选项</p>
+                                target="_blank">“滚动”事件</a>当等待延迟内容时。某些网站通过滚动监听器显示内容，没有该事件便不会加载，但也可能导致其他一些网站出现意外的滚动问题。</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
-                    <li data-options-label="loadDeferredImagesKeepZoomLevelLabel"><span class="option">选项：缩小页面</span>
+                    <li data-options-label="loadDeferredContentKeepZoomLevelLabel"><span class="option">选项：保存期间缩小页面</span>
                         <p>选中此选项可通过缩小页面来保存页面的全部内容。例如，这可以帮助使用无限虚拟列表保存页面。</p>
                         <p class="notice">建议<u>取消选中</u>此选项</p>
                     </li>
-                    <li data-options-label="loadDeferredImagesBeforeFramesLabel"><span class="option">选项：加载延迟帧</span>
-                        <p>选中此选项可在保存帧内容之前加载延迟帧和图像。这将增加保存页面所需的时间。</p>
+                    <li data-options-label="loadDeferredContentBeforeFramesLabel"><span class="option">选项：先在框架中加载</span>
+                        <p>选中此选项可在保存帧内容之前加载帧的延迟内容。这将增加保存页面所需的时间。</p>
                         <p class="notice">建议<u>取消选中</u>此选项</p>
                     </li>
                     <li data-options-label="imageReductionFactorLabel"> <span class="option">图片缩小系数</span>

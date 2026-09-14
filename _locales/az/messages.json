@@ -383,6 +383,10 @@
 		"message": "Şəkillər",
 		"description": "Options sub-title: 'Images'"
 	},
+	"optionsDeferredContentSubTitle": {
+		"message": "Gözləyən məzmun",
+		"description": "Options sub-title: 'Deferred content'"
+	},
 	"optionGroupDuplicateImages": {
 		"message": "şəkilləri qruplaşdırın",
 		"description": "Options page label: 'group duplicate images together'"
@@ -391,25 +395,25 @@
 		"message": "şəkil ölçüsünü azaltma əmsalı",
 		"description": "Options page label: 'image reduction factor'"
 	},
-	"optionLoadDeferredImages": {
-		"message": "gözləyən şəkilləri yükləyin",
-		"description": "Options page label: 'save deferred images'"
+	"optionLoadDeferredContent": {
+		"message": "sürüşdürmə zamanı yüklənən məzmunu saxlayın",
+		"description": "Options page label: 'save content loaded while scrolling'"
 	},
-	"optionLoadDeferredImagesMaxIdleTime": {
+	"optionLoadDeferredContentMaxIdleTime": {
 		"message": "maksimum boş vaxt (ms)",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
-	"optionLoadDeferredImagesKeepZoomLevel": {
-		"message": "zoom səviyyəsini saxlayın",
-		"description": "Options page label: 'zoom out the page'"
+	"optionLoadDeferredContentKeepZoomLevel": {
+		"message": "saxlama zamanı səhifəni kiçildin",
+		"description": "Options page label: 'zoom out the page during the capture'"
 	},
-	"optionLoadDeferredImagesDispatchScrollEvent": {
-		"message": "\"scroll\" hadisəsini göndərin",
-		"description": "Options page label: 'dispatch \"scroll\" event'"
+	"optionLoadDeferredContentDispatchScrollEvent": {
+		"message": "sürüşdürməni simulyasiya edin",
+		"description": "Options page label: 'simulate scrolling'"
 	},
-	"optionLoadDeferredImagesBeforeFrames": {
-		"message": "frame-lərdən əvvəl yükləyin",
-		"description": "Options page label: 'load deferred frames'"
+	"optionLoadDeferredContentBeforeFrames": {
+		"message": "əvvəlcə frame-lərdə yükləyin",
+		"description": "Options page label: 'load in frames first'"
 	},
 	"optionRemoveAlternativeImages": {
 		"message": "alternativ ekran çözünürlüklü şəkilləri çıxarın",
@@ -893,9 +897,9 @@
 		"message": "İçəri al",
 		"description": "Options button: 'Import'"
 	},
-	"logPanelDeferredImages": {
-		"message": "Gözləyən şəkillər",
-		"description": "Label 'Deferred images' in the log panel"
+	"logPanelDeferredContent": {
+		"message": "Gözləyən məzmun",
+		"description": "Label 'Deferred content' in the log panel"
 	},
 	"logPanelFrameContents": {
 		"message": "Frame məzmunu",
@@ -911,7 +915,7 @@
 	},
 	"logPanelWidth": {
 		"message": "122",
-		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredContent')"
 	},
 	"maskCancelButton": {
 		"message": "İmtina (Esc)",

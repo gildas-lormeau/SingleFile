@@ -95,7 +95,7 @@ async function onMessage(message) {
 				}
 				browser.runtime.sendMessage({ method: "ui.processCancelled" });
 			}
-			if (message.options.loadDeferredImages) {
+			if (message.options.loadDeferredContent) {
 				singlefile.processors.lazy.resetZoomLevel(message.options);
 			}
 			return {};
@@ -282,7 +282,7 @@ async function processPage(options) {
 			}
 			if (event.type == event.RESOURCES_INITIALIZED) {
 				maxIndex = event.detail.max;
-				if (options.loadDeferredImages) {
+				if (options.loadDeferredContent) {
 					singlefile.processors.lazy.resetZoomLevel(options);
 				}
 			}
@@ -328,7 +328,7 @@ async function processPage(options) {
 	}
 	if (!options.saveRawPage && !processor.cancelled) {
 		let lazyLoadPromise;
-		if (options.loadDeferredImages) {
+		if (options.loadDeferredContent) {
 			lazyLoadPromise = singlefile.processors.lazy.process(options);
 			ui.onLoadingDeferResources(options);
 			lazyLoadPromise.then(() => {
@@ -336,14 +336,14 @@ async function processPage(options) {
 					ui.onLoadDeferResources(options);
 				}
 			});
-			if (options.loadDeferredImagesBeforeFrames) {
+			if (options.loadDeferredContentBeforeFrames) {
 				await lazyLoadPromise;
 			}
 		}
 		if (!options.removeFrames && frames && globalThis.frames) {
 			let frameTreePromise;
-			if (options.loadDeferredImages) {
-				frameTreePromise = new Promise(resolve => globalThis.setTimeout(() => resolve(frames.getAsync(options)), options.loadDeferredImagesBeforeFrames || !options.loadDeferredImages ? 0 : options.loadDeferredImagesMaxIdleTime));
+			if (options.loadDeferredContent) {
+				frameTreePromise = new Promise(resolve => globalThis.setTimeout(() => resolve(frames.getAsync(options)), options.loadDeferredContentBeforeFrames || !options.loadDeferredContent ? 0 : options.loadDeferredContentMaxIdleTime));
 			} else {
 				frameTreePromise = frames.getAsync(options);
 			}
@@ -353,7 +353,7 @@ async function processPage(options) {
 					ui.onLoadFrames(options);
 				}
 			});
-			if (options.loadDeferredImagesBeforeFrames) {
+			if (options.loadDeferredContentBeforeFrames) {
 				options.frames = await new Promise(resolve => {
 					processor.cancel = function () {
 						cancelProcessor();
@@ -365,11 +365,11 @@ async function processPage(options) {
 				preInitializationPromises.push(frameTreePromise);
 			}
 		}
-		if (options.loadDeferredImages && !options.loadDeferredImagesBeforeFrames) {
+		if (options.loadDeferredContent && !options.loadDeferredContentBeforeFrames) {
 			preInitializationPromises.push(lazyLoadPromise);
 		}
 	}
-	if (!options.loadDeferredImagesBeforeFrames && !processor.cancelled) {
+	if (!options.loadDeferredContentBeforeFrames && !processor.cancelled) {
 		[options.frames] = await new Promise(resolve => {
 			const preInitializationAllPromises = Promise.all(preInitializationPromises);
 			processor.cancel = function () {

@@ -118,11 +118,11 @@ const compressCSSLabel = document.getElementById("compressCSSLabel");
 const groupDuplicateStylesheetsLabel = document.getElementById("groupDuplicateStylesheetsLabel");
 const moveStylesInHeadLabel = document.getElementById("moveStylesInHeadLabel");
 const imageReductionFactorLabel = document.getElementById("imageReductionFactorLabel");
-const loadDeferredImagesLabel = document.getElementById("loadDeferredImagesLabel");
-const loadDeferredImagesMaxIdleTimeLabel = document.getElementById("loadDeferredImagesMaxIdleTimeLabel");
-const loadDeferredImagesKeepZoomLevelLabel = document.getElementById("loadDeferredImagesKeepZoomLevelLabel");
-const loadDeferredImagesDispatchScrollEventLabel = document.getElementById("loadDeferredImagesDispatchScrollEventLabel");
-const loadDeferredImagesBeforeFramesLabel = document.getElementById("loadDeferredImagesBeforeFramesLabel");
+const loadDeferredContentLabel = document.getElementById("loadDeferredContentLabel");
+const loadDeferredContentMaxIdleTimeLabel = document.getElementById("loadDeferredContentMaxIdleTimeLabel");
+const loadDeferredContentKeepZoomLevelLabel = document.getElementById("loadDeferredContentKeepZoomLevelLabel");
+const loadDeferredContentDispatchScrollEventLabel = document.getElementById("loadDeferredContentDispatchScrollEventLabel");
+const loadDeferredContentBeforeFramesLabel = document.getElementById("loadDeferredContentBeforeFramesLabel");
 const addMenuEntryLabel = document.getElementById("addMenuEntryLabel");
 const filenameTemplateLabel = document.getElementById("filenameTemplateLabel");
 const filenameMaxLengthLabel = document.getElementById("filenameMaxLengthLabel");
@@ -179,6 +179,7 @@ const fileFormatSelectLabel = document.getElementById("fileFormatSelectLabel");
 const infobarLabel = document.getElementById("infobarLabel");
 const imagesLabel = document.getElementById("imagesLabel");
 const stylesheetsLabel = document.getElementById("stylesheetsLabel");
+const deferredContentLabel = document.getElementById("deferredContentLabel");
 const fontsLabel = document.getElementById("fontsLabel");
 const networkLabel = document.getElementById("networkLabel");
 const blockResourcesLabel = document.getElementById("blockResourcesLabel");
@@ -287,11 +288,11 @@ const compressCSSInput = document.getElementById("compressCSSInput");
 const groupDuplicateStylesheetsInput = document.getElementById("groupDuplicateStylesheetsInput");
 const imageReductionFactorInput = document.getElementById("imageReductionFactorInput");
 const moveStylesInHeadInput = document.getElementById("moveStylesInHeadInput");
-const loadDeferredImagesInput = document.getElementById("loadDeferredImagesInput");
-const loadDeferredImagesMaxIdleTimeInput = document.getElementById("loadDeferredImagesMaxIdleTimeInput");
-const loadDeferredImagesKeepZoomLevelInput = document.getElementById("loadDeferredImagesKeepZoomLevelInput");
-const loadDeferredImagesDispatchScrollEventInput = document.getElementById("loadDeferredImagesDispatchScrollEventInput");
-const loadDeferredImagesBeforeFramesInput = document.getElementById("loadDeferredImagesBeforeFramesInput");
+const loadDeferredContentInput = document.getElementById("loadDeferredContentInput");
+const loadDeferredContentMaxIdleTimeInput = document.getElementById("loadDeferredContentMaxIdleTimeInput");
+const loadDeferredContentKeepZoomLevelInput = document.getElementById("loadDeferredContentKeepZoomLevelInput");
+const loadDeferredContentDispatchScrollEventInput = document.getElementById("loadDeferredContentDispatchScrollEventInput");
+const loadDeferredContentBeforeFramesInput = document.getElementById("loadDeferredContentBeforeFramesInput");
 const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
 const filenameTemplateInput = document.getElementById("filenameTemplateInput");
 const filenameMaxLengthInput = document.getElementById("filenameMaxLengthInput");
@@ -761,11 +762,11 @@ compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
 groupDuplicateStylesheetsLabel.textContent = browser.i18n.getMessage("optionGroupDuplicateStylesheets");
 moveStylesInHeadLabel.textContent = browser.i18n.getMessage("optionMoveStylesInHead");
 imageReductionFactorLabel.textContent = browser.i18n.getMessage("optionImageReductionFactor");
-loadDeferredImagesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImages");
-loadDeferredImagesMaxIdleTimeLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesMaxIdleTime");
-loadDeferredImagesKeepZoomLevelLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesKeepZoomLevel");
-loadDeferredImagesDispatchScrollEventLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesDispatchScrollEvent");
-loadDeferredImagesBeforeFramesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredImagesBeforeFrames");
+loadDeferredContentLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContent");
+loadDeferredContentMaxIdleTimeLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContentMaxIdleTime");
+loadDeferredContentKeepZoomLevelLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContentKeepZoomLevel");
+loadDeferredContentDispatchScrollEventLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContentDispatchScrollEvent");
+loadDeferredContentBeforeFramesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContentBeforeFrames");
 addMenuEntryLabel.textContent = browser.i18n.getMessage("optionAddMenuEntry");
 filenameTemplateLabel.textContent = browser.i18n.getMessage("optionFilenameTemplate");
 filenameMaxLengthLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLength");
@@ -823,6 +824,7 @@ fileFormatSelectLabel.textContent = browser.i18n.getMessage("optionFileFormat");
 infobarLabel.textContent = browser.i18n.getMessage("optionsInfobarSubTitle");
 imagesLabel.textContent = browser.i18n.getMessage("optionsImagesSubTitle");
 stylesheetsLabel.textContent = browser.i18n.getMessage("optionsStylesheetsSubTitle");
+deferredContentLabel.textContent = browser.i18n.getMessage("optionsDeferredContentSubTitle");
 fontsLabel.textContent = browser.i18n.getMessage("optionsFontsSubTitle");
 networkLabel.textContent = browser.i18n.getMessage("optionsNetworkSubTitle");
 blockResourcesLabel.textContent = browser.i18n.getMessage("optionsBlockedResources");
@@ -1127,15 +1129,15 @@ async function refresh(profileName) {
 	compressCSSInput.checked = profileOptions.compressCSS;
 	groupDuplicateStylesheetsInput.checked = profileOptions.groupDuplicateStylesheets;
 	moveStylesInHeadInput.checked = profileOptions.moveStylesInHead;
-	loadDeferredImagesInput.checked = profileOptions.loadDeferredImages;
-	loadDeferredImagesMaxIdleTimeInput.value = profileOptions.loadDeferredImagesMaxIdleTime;
-	loadDeferredImagesKeepZoomLevelInput.checked = profileOptions.loadDeferredImagesKeepZoomLevel;
-	loadDeferredImagesKeepZoomLevelInput.disabled = !profileOptions.loadDeferredImages;
-	loadDeferredImagesMaxIdleTimeInput.disabled = !profileOptions.loadDeferredImages;
-	loadDeferredImagesDispatchScrollEventInput.checked = profileOptions.loadDeferredImagesDispatchScrollEvent;
-	loadDeferredImagesDispatchScrollEventInput.disabled = !profileOptions.loadDeferredImages;
-	loadDeferredImagesBeforeFramesInput.checked = profileOptions.loadDeferredImagesBeforeFrames;
-	loadDeferredImagesBeforeFramesInput.disabled = !profileOptions.loadDeferredImages;
+	loadDeferredContentInput.checked = profileOptions.loadDeferredContent;
+	loadDeferredContentMaxIdleTimeInput.value = profileOptions.loadDeferredContentMaxIdleTime;
+	loadDeferredContentKeepZoomLevelInput.checked = profileOptions.loadDeferredContentKeepZoomLevel;
+	loadDeferredContentKeepZoomLevelInput.disabled = !profileOptions.loadDeferredContent;
+	loadDeferredContentMaxIdleTimeInput.disabled = !profileOptions.loadDeferredContent;
+	loadDeferredContentDispatchScrollEventInput.checked = profileOptions.loadDeferredContentDispatchScrollEvent;
+	loadDeferredContentDispatchScrollEventInput.disabled = !profileOptions.loadDeferredContent;
+	loadDeferredContentBeforeFramesInput.checked = profileOptions.loadDeferredContentBeforeFrames;
+	loadDeferredContentBeforeFramesInput.disabled = !profileOptions.loadDeferredContent;
 	contextMenuEnabledInput.checked = profileOptions.contextMenuEnabled;
 	filenameTemplateInput.value = profileOptions.filenameTemplate;
 	filenameMaxLengthInput.value = profileOptions.filenameMaxLength;
@@ -1302,11 +1304,11 @@ async function update() {
 			compressCSS: compressCSSInput.checked,
 			groupDuplicateStylesheets: groupDuplicateStylesheetsInput.checked,
 			moveStylesInHead: moveStylesInHeadInput.checked,
-			loadDeferredImages: loadDeferredImagesInput.checked,
-			loadDeferredImagesMaxIdleTime: Math.max(loadDeferredImagesMaxIdleTimeInput.value, 0),
-			loadDeferredImagesKeepZoomLevel: loadDeferredImagesKeepZoomLevelInput.checked,
-			loadDeferredImagesDispatchScrollEvent: loadDeferredImagesDispatchScrollEventInput.checked,
-			loadDeferredImagesBeforeFrames: loadDeferredImagesBeforeFramesInput.checked,
+			loadDeferredContent: loadDeferredContentInput.checked,
+			loadDeferredContentMaxIdleTime: Math.max(loadDeferredContentMaxIdleTimeInput.value, 0),
+			loadDeferredContentKeepZoomLevel: loadDeferredContentKeepZoomLevelInput.checked,
+			loadDeferredContentDispatchScrollEvent: loadDeferredContentDispatchScrollEventInput.checked,
+			loadDeferredContentBeforeFrames: loadDeferredContentBeforeFramesInput.checked,
 			contextMenuEnabled: contextMenuEnabledInput.checked,
 			filenameTemplate: filenameTemplateInput.value,
 			filenameMaxLength: filenameMaxLengthInput.value,

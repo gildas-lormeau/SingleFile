@@ -383,6 +383,10 @@
 		"message": "Imágenes",
 		"description": "Options sub-title: 'Images'"
 	},
+	"optionsDeferredContentSubTitle": {
+		"message": "Contenido diferido",
+		"description": "Options sub-title: 'Deferred content'"
+	},
 	"optionGroupDuplicateImages": {
 		"message": "agrupar imágenes duplicadas combinadamente",
 		"description": "Options page label: 'group duplicate images together'"
@@ -391,25 +395,25 @@
 		"message": "factor de reducción del tamaño de la imagen",
 		"description": "Options page label: 'image reduction factor'"
 	},
-	"optionLoadDeferredImages": {
-		"message": "guardar imágenes diferidas",
-		"description": "Options page label: 'save deferred images'"
+	"optionLoadDeferredContent": {
+		"message": "guardar el contenido que se carga al desplazarse",
+		"description": "Options page label: 'save content loaded while scrolling'"
 	},
-	"optionLoadDeferredImagesMaxIdleTime": {
+	"optionLoadDeferredContentMaxIdleTime": {
 		"message": "periodo máximo de espera (ms)",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
-	"optionLoadDeferredImagesKeepZoomLevel": {
-		"message": "alejar la página",
-		"description": "Options page label: 'zoom out the page'"
+	"optionLoadDeferredContentKeepZoomLevel": {
+		"message": "alejar la página durante la captura",
+		"description": "Options page label: 'zoom out the page during the capture'"
 	},
-	"optionLoadDeferredImagesDispatchScrollEvent": {
-		"message": "enviar evento \"scroll\"",
-		"description": "Options page label: 'dispatch \"scroll\" event'"
+	"optionLoadDeferredContentDispatchScrollEvent": {
+		"message": "simular el desplazamiento",
+		"description": "Options page label: 'simulate scrolling'"
 	},
-	"optionLoadDeferredImagesBeforeFrames": {
-		"message": "guardar marco (frame) diferidas",
-		"description": "Options page label: 'load deferred frames'"
+	"optionLoadDeferredContentBeforeFrames": {
+		"message": "cargar primero en los marcos",
+		"description": "Options page label: 'load in frames first'"
 	},
 	"optionRemoveAlternativeImages": {
 		"message": "eliminar imágenes para resoluciones alternativas de pantalla",
@@ -893,9 +897,9 @@
 		"message": "Importar",
 		"description": "Options button: 'Import'"
 	},
-	"logPanelDeferredImages": {
-		"message": "Imágenes diferidas",
-		"description": "Label 'Deferred images' in the log panel"
+	"logPanelDeferredContent": {
+		"message": "Contenido diferido",
+		"description": "Label 'Deferred content' in the log panel"
 	},
 	"logPanelFrameContents": {
 		"message": "Contenidos de marco (frame)",
@@ -911,7 +915,7 @@
 	},
 	"logPanelWidth": {
 		"message": "192",
-		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredImages')"
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredContent')"
 	},
 	"maskCancelButton": {
 		"message": "Cancelar (Esc)",

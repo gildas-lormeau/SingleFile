@@ -42,11 +42,11 @@ const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CL
 const SELECT_PX_THRESHOLD = 8;
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
 let UI_DIRECTION = "ltr";
-let LOG_PANEL_WIDTH, LOG_PANEL_DEFERRED_IMAGES_MESSAGE, LOG_PANEL_FRAME_CONTENTS_MESSAGE, LOG_PANEL_EMBEDDED_IMAGE_MESSAGE, LOG_PANEL_STEP_MESSAGE, MASK_CANCEL_BUTTON_MESSAGE;
+let LOG_PANEL_WIDTH, LOG_PANEL_DEFERRED_CONTENT_MESSAGE, LOG_PANEL_FRAME_CONTENTS_MESSAGE, LOG_PANEL_EMBEDDED_IMAGE_MESSAGE, LOG_PANEL_STEP_MESSAGE, MASK_CANCEL_BUTTON_MESSAGE;
 try {
 	MASK_CANCEL_BUTTON_MESSAGE = browser.i18n.getMessage("maskCancelButton");
 	LOG_PANEL_WIDTH = browser.i18n.getMessage("logPanelWidth");
-	LOG_PANEL_DEFERRED_IMAGES_MESSAGE = browser.i18n.getMessage("logPanelDeferredImages");
+	LOG_PANEL_DEFERRED_CONTENT_MESSAGE = browser.i18n.getMessage("logPanelDeferredContent");
 	LOG_PANEL_FRAME_CONTENTS_MESSAGE = browser.i18n.getMessage("logPanelFrameContents");
 	LOG_PANEL_EMBEDDED_IMAGE_MESSAGE = browser.i18n.getMessage("logPanelEmbeddedImage");
 	LOG_PANEL_STEP_MESSAGE = browser.i18n.getMessage("logPanelStep");
@@ -141,11 +141,11 @@ function onLoadResource(index, maxIndex, options) {
 }
 
 function onLoadingDeferResources(options) {
-	updateLog("load-deferred-images", LOG_PANEL_DEFERRED_IMAGES_MESSAGE, "…", options);
+	updateLog("load-deferred-content", LOG_PANEL_DEFERRED_CONTENT_MESSAGE, "…", options);
 }
 
 function onLoadDeferResources(options) {
-	updateLog("load-deferred-images", LOG_PANEL_DEFERRED_IMAGES_MESSAGE, "✓", options);
+	updateLog("load-deferred-content", LOG_PANEL_DEFERRED_CONTENT_MESSAGE, "✓", options);
 }
 
 function onInsertingEmbeddedImage(options) {

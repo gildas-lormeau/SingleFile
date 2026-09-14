@@ -412,39 +412,41 @@
 							file. This option is ignored with archive formats based on ZIP files.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="loadDeferredImagesLabel"> <span class="option">Option: save deferred
-							images</span>
-						<p>Check this option to save all the deferred images (or frames) that are not yet displayed.
+					<li data-options-label="loadDeferredContentLabel"> <span class="option">Option: save content loaded while
+							scrolling</span>
+						<p>Check this option to save all the deferred content (images, frames, and the messages a page
+							unmounts while you scroll) that is not yet displayed.
 							This may help to save all the images without scrolling the page. This feature does its best
 							effort and is not guaranteed to work on all sites. It will also increase the time needed to
 							save a page.
 						</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="loadDeferredImagesMaxIdleTimeLabel"> <span class="option">Option: maximum
+					<li data-options-label="loadDeferredContentMaxIdleTimeLabel"> <span class="option">Option: maximum
 							idle time (ms)</span>
-						<p>Enter the maximum delay of time to wait for deferred images. You can increase this value if
+						<p>Enter the maximum delay of time to wait for deferred content. You can increase this value if
 							for example the network or system conditions are degraded. You can also decrease this value
 							otherwise.</p>
 					</li>
-					<li data-options-label="loadDeferredImagesDispatchScrollEventLabel"> <span class="option">Option:
-							dispatch "scroll" event</span>
+					<li data-options-label="loadDeferredContentDispatchScrollEventLabel"> <span class="option">Option: simulate
+							scrolling</span>
 						<p>Check this option to dispatch the <a
 								href="https://developer.mozilla.org/docs/Web/API/Document/scroll_event"
 								target="_blank">"scroll"
-								event</a> when waiting for deferred images. This can improve the loading of images
-							on some sites but it can also cause unexpected scrolling problems on some other sites.</p>
-						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+								event</a> when waiting for deferred content. Some sites reveal their content from a scroll
+							listener and load nothing without it, but it can also cause unexpected scrolling problems on
+							some other sites.</p>
+						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="loadDeferredImagesKeepZoomLevelLabel"> <span class="option">Option: zoom out
-							the page</span>
+					<li data-options-label="loadDeferredContentKeepZoomLevelLabel"> <span class="option">Option: zoom out the page during
+							the capture</span>
 						<p>Check this option to save the entire content of a page by zooming out the page. This can help
 							saving pages using infinite virtual lists for example. </p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="loadDeferredImagesBeforeFramesLabel"> <span class="option">Option: load
-							deferred frames</span>
-						<p>Check this option to load deferred frames and images before saving frame contents. It will
+					<li data-options-label="loadDeferredContentBeforeFramesLabel"> <span class="option">Option: load in frames
+							first</span>
+						<p>Check this option to load the deferred content of frames before saving their contents. It will
 							increase the time needed to save a page.
 						</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
