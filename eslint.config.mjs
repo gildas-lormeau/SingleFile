@@ -34,5 +34,13 @@ export default [
 				"warn"
 			]
 		}
+	},
+	{
+		files: ["test/**"],
+		languageOptions: {
+			globals: {
+				Headers: "readonly"
+			}
+		}
 	}
 ];

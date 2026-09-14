@@ -6,7 +6,8 @@
 	"license": "AGPL-3.0-or-later",
 	"scripts": {
 		"dev": "npx rollup -c rollup.config.dev.js",
-		"build": "./build-extension.sh"
+		"build": "./build-extension.sh",
+		"test": "node --test"
 	},
 	"type": "module",
 	"dependencies": {

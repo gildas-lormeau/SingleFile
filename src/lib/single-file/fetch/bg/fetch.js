@@ -30,7 +30,8 @@ const MAX_CONTENT_SIZE = 8 * (1024 * 1024);
 export {
 	REQUEST_ID_HEADER_NAME,
 	referrers,
-	fetchResource
+	fetchResource,
+	parseHeaders
 };
 
 browser.runtime.onMessage.addListener((message, sender) => {
