@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global fetch, btoa, Blob, FileReader, AbortController */
+/* global fetch, btoa, Blob, AbortController */
 
 const EMPTY_STRING = "";
 const CONFLICT_ACTION_SKIP = "skip";
@@ -182,11 +182,21 @@ async function upload(userName, repositoryName, branch, path, content, options) 
 	}
 }
 
-function blobToBase64(blob) {
-	return new Promise((resolve, reject) => {
-		const reader = new FileReader();
-		reader.onloadend = () => resolve(reader.result.match(/^data:[^,]+,(.*)$/)[1]);
-		reader.onerror = event => reject(event.detail);
+async function blobToBase64(blob) {
+	if (globalThis.FileReader) {
+		const reader = new globalThis.FileReader();
 		reader.readAsDataURL(blob);
-	});
+		const dataURI = await new Promise((resolve, reject) => {
+			reader.addEventListener("load", () => resolve(reader.result), false);
+			reader.addEventListener("error", reject, false);
+		});
+		return dataURI.match(/^data:[^,]*,(.*)$/)[1];
+	} else {
+		const bytes = new Uint8Array(await blob.arrayBuffer());
+		let content = "";
+		for (let offset = 0; offset < bytes.length; offset += 8192) {
+			content += String.fromCharCode(...bytes.subarray(offset, offset + 8192));
+		}
+		return btoa(content);
+	}
 }

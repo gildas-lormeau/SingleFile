@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, window, document, localStorage, FileReader, location, fetch, TextDecoder, DOMParser, HTMLElement, MouseEvent, btoa, URLSearchParams, setInterval, clearInterval */
+/* global browser, window, document, localStorage, location, fetch, TextDecoder, DOMParser, HTMLElement, MouseEvent, btoa, URLSearchParams, setInterval, clearInterval */
 
 const EXTERNAL_CAPTURE_PING_DELAY = 15000;
 const EXTERNAL_CAPTURE_PENDING_REQUEST_TIMEOUT = 300000;
@@ -567,13 +567,7 @@ exportButton.addEventListener("click", async () => {
 importButton.addEventListener("click", () => {
 	fileInput.onchange = async () => {
 		if (fileInput.files.length) {
-			const reader = new FileReader();
-			reader.readAsText(fileInput.files[0]);
-			const serializedConfig = await new Promise((resolve, reject) => {
-				reader.addEventListener("load", () => resolve(reader.result), false);
-				reader.addEventListener("error", reject, false);
-			});
-			const config = JSON.parse(serializedConfig);
+			const config = JSON.parse(await getText(fileInput.files[0]));
 			Object.keys(config.profiles).forEach(profileName => {
 				const profile = config.profiles[profileName];
 				if (profile.saveToGDrive && !profile.forceWebAuthFlow) {
@@ -1815,6 +1809,19 @@ async function getHelpPageURL() {
 				return browser.runtime.getURL(HELP_PAGE_PATH_DEFAULT);
 			}
 		}
+	}
+}
+
+function getText(blob) {
+	if (globalThis.FileReader) {
+		const reader = new globalThis.FileReader();
+		reader.readAsText(blob);
+		return new Promise((resolve, reject) => {
+			reader.addEventListener("load", () => resolve(reader.result), false);
+			reader.addEventListener("error", reject, false);
+		});
+	} else {
+		return blob.text();
 	}
 }
 

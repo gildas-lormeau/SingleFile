@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, prompt, MutationObserver, FileReader, ResizeObserver, requestAnimationFrame */
+/* global window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, prompt, MutationObserver, btoa, ResizeObserver, requestAnimationFrame */
 
 import { setLabels } from "./../../ui/common/common-content-ui.js";
 import { downloadPageForeground } from "../../core/common/download.js";
@@ -361,12 +361,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 					if (iconElement) {
 						const iconResource = resources.find(resource => resource.filename == iconElement.getAttribute("href"));
 						if (iconResource && iconResource.content) {
-							const reader = new FileReader();
-							reader.readAsDataURL(await (await fetch(iconResource.content)).blob());
-							icon = await new Promise((resolve, reject) => {
-								reader.addEventListener("load", () => resolve(reader.result), false);
-								reader.addEventListener("error", reject, false);
-							});
+							icon = await getDataURI(await (await fetch(iconResource.content)).blob());
 						} else {
 							icon = iconElement.href;
 						}
@@ -2708,6 +2703,24 @@ pre code {
 			}
 		} else {
 			return element.shadowRoot;
+		}
+	}
+
+	async function getDataURI(blob) {
+		if (globalThis.FileReader) {
+			const reader = new globalThis.FileReader();
+			reader.readAsDataURL(blob);
+			return new Promise((resolve, reject) => {
+				reader.addEventListener("load", () => resolve(reader.result), false);
+				reader.addEventListener("error", reject, false);
+			});
+		} else {
+			const bytes = new Uint8Array(await blob.arrayBuffer());
+			let content = "";
+			for (let offset = 0; offset < bytes.length; offset += 8192) {
+				content += String.fromCharCode(...bytes.subarray(offset, offset + 8192));
+			}
+			return "data:" + (blob.type || "application/octet-stream") + ";base64," + btoa(content);
 		}
 	}
 
