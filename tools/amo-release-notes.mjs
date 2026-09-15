@@ -88,16 +88,11 @@ function parseArgs(args) {
 }
 
 function toReleaseNotes(text) {
-	const items = text.split("\n")
+	return text.split("\n")
 		.map(line => line.trim())
 		.filter(line => line && !line.startsWith("#"))
-		.map(line => line.replace(/^[-*]\s+/, ""))
-		.map(line => `<li>${escapeHTML(line)}</li>`);
-	return items.length ? `<ul>${items.join("")}</ul>` : "";
-}
-
-function escapeHTML(text) {
-	return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+		.map(line => "- " + line.replace(/^[-*]\s+/, ""))
+		.join("\n");
 }
 
 function loadCredentials() {
@@ -154,7 +149,7 @@ async function request(credentials, url, init = {}) {
 }
 
 async function findVersion(credentials, wanted) {
-	let url = `${API}/addons/addon/${ADDON}/versions/?page_size=50`;
+	let url = `${API}/addons/addon/${ADDON}/versions/?filter=all_with_unlisted&page_size=50`;
 	while (url) {
 		const page = await request(credentials, url);
 		if (!wanted) {
