@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* global process, Buffer, fetch */
+
 import { createHmac, randomBytes } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { createInterface } from "node:readline";

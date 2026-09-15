@@ -42,18 +42,5 @@ export default [
 				Headers: "readonly"
 			}
 		}
-	},
-	{
-		files: ["tools/**"],
-		languageOptions: {
-			globals: {
-				process: "readonly",
-				Buffer: "readonly",
-				fetch: "readonly"
-			}
-		},
-		rules: {
-			"no-console": "off"
-		}
 	}
 ];
