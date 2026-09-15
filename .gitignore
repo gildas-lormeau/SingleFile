@@ -1,6 +1,7 @@
 /.vscode/
 **/node_modules/
 .idea/
+.amo-key
 .woleet-key
 .staging/
 singlefile-extension-*.zip
