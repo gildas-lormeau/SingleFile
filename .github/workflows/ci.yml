@@ -27,6 +27,9 @@ jobs:
         name: Run linter
         run: npx eslint .
       -
+        name: Run the unit tests
+        run: npm test
+      -
         name: Build the extension packages
         run: ./build-extension.sh
       # the checked-in files in lib/ must be exactly what the sources produce
