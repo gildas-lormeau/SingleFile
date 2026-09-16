@@ -231,6 +231,10 @@
 		"message": "インフォバーを開いておく",
 		"description": "Options page label: 'keep infobar open'"
 	},
+	"optionAnimateInfobar": {
+		"message": "インフォバーをアニメーションさせる",
+		"description": "Options page label: 'animate the infobar'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "保存日時を含めない",
 		"description": "Options page label: 'do not include the saved date'"

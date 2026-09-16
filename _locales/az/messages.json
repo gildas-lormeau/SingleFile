@@ -231,6 +231,10 @@
 		"message": "infobarı yaddaşa qeyd edilmiş səhifəni baxarkən açın",
 		"description": "Options page label: 'keep infobar open'"
 	},
+	"optionAnimateInfobar": {
+		"message": "infobarı animasiya et",
+		"description": "Options page label: 'animate the infobar'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "yaddaşa qeyd edilmiş tarixi daxil etməyin",
 		"description": "Options page label: 'do not include the saved date'"

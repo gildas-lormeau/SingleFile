@@ -231,6 +231,10 @@
 		"message": "håll informationsfältet öppet",
 		"description": "Options page label: 'keep infobar open'"
 	},
+	"optionAnimateInfobar": {
+		"message": "animera informationsfältet",
+		"description": "Options page label: 'animate the infobar'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "utelämna sparningsdatumet",
 		"description": "Options page label: 'do not include the saved date'"

@@ -231,6 +231,10 @@
 		"message": "保持資訊列開啟",
 		"description": "Options page label: 'keep infobar open'"
 	},
+	"optionAnimateInfobar": {
+		"message": "為資訊列加入動畫效果",
+		"description": "Options page label: 'animate the infobar'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "不加入儲存日期",
 		"description": "Options page label: 'do not include the saved date'"

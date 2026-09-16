@@ -96,6 +96,7 @@ async function downloadPage(pageData, options) {
 		defaultEditorMode: options.defaultEditorMode,
 		includeInfobar: options.includeInfobar,
 		openInfobar: options.openInfobar,
+		animateInfobar: options.animateInfobar,
 		warnUnsavedPage: options.warnUnsavedPage,
 		createRootDirectory: options.createRootDirectory,
 		selfExtractingArchive: options.selfExtractingArchive,

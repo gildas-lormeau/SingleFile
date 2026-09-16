@@ -231,6 +231,10 @@
 		"message": "查看已保存页面时使信息栏为打开状态",
 		"description": "Options page label: 'keep infobar open'"
 	},
+	"optionAnimateInfobar": {
+		"message": "为信息栏添加动画效果",
+		"description": "Options page label: 'animate the infobar'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "不包括保存日期",
 		"description": "Options page label: 'do not include the saved date'"

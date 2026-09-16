@@ -231,6 +231,10 @@
 		"message": "utrzymuj pasek informacyjny otwarty",
 		"description": "Options page label: 'keep infobar open'"
 	},
+	"optionAnimateInfobar": {
+		"message": "animuj pasek informacyjny",
+		"description": "Options page label: 'animate the infobar'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "nie dołączaj zapisanej daty",
 		"description": "Options page label: 'do not include the saved date'"

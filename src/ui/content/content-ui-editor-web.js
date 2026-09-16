@@ -77,7 +77,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 
 	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
 	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingTouchTarget, cuttingPath, cuttingPathIndex, previousContent;
-	let removedElements = [], removedElementIndex = 0, pageResources, pageUrl, pageCompressContent, includeInfobar, openInfobar, infobarPositionAbsolute, infobarPositionTop, infobarPositionBottom, infobarPositionLeft, infobarPositionRight;
+	let removedElements = [], removedElementIndex = 0, pageResources, pageUrl, pageCompressContent, includeInfobar, openInfobar, animateInfobar, infobarPositionAbsolute, infobarPositionTop, infobarPositionBottom, infobarPositionLeft, infobarPositionRight;
 	let pageArchiveContent, archivePages, archiveManifest, archivePassword, archiveUrlToPath, archiveTocContent, archiveTocPresent, stashedArchivePages, modifiedArchivePagePaths, currentArchivePagePath, archiveTocDisplayed, droppedArchiveContent;
 
 	globalThis.zip = singlefile.helper.zip;
@@ -191,6 +191,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			if (message.method == "getContent") {
 				includeInfobar = message.includeInfobar;
 				openInfobar = message.openInfobar;
+				animateInfobar = message.animateInfobar;
 				infobarPositionAbsolute = message.infobarPositionAbsolute;
 				infobarPositionTop = message.infobarPositionTop;
 				infobarPositionBottom = message.infobarPositionBottom;
@@ -264,6 +265,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			if (message.method == "displayInfobar") {
 				singlefile.helper.displayIcon(document, true, {
 					openInfobar: message.openInfobar,
+					animateInfobar: message.animateInfobar,
 					infobarPositionAbsolute: message.infobarPositionAbsolute,
 					infobarPositionTop: message.infobarPositionTop,
 					infobarPositionBottom: message.infobarPositionBottom,
@@ -1445,6 +1447,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		if (includeInfobar) {
 			const options = singlefile.helper.extractInfobarData(doc);
 			options.openInfobar = openInfobar;
+			options.animateInfobar = animateInfobar;
 			options.infobarPositionAbsolute = infobarPositionAbsolute;
 			options.infobarPositionTop = infobarPositionTop;
 			options.infobarPositionRight = infobarPositionRight;

@@ -231,6 +231,10 @@
 		"message": "bilgi çubuğunu açık tut",
 		"description": "Options page label: 'keep infobar open'"
 	},
+	"optionAnimateInfobar": {
+		"message": "bilgi çubuğunu hareketlendir",
+		"description": "Options page label: 'animate the infobar'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "kaydedilen tarihi dahil etme",
 		"description": "Options page label: 'do not include the saved date'"

@@ -92,6 +92,7 @@ const CAPTURE_OPTION_NAMES = [
 	"includeInfobar",
 	"infobarTemplate",
 	"openInfobar",
+	"animateInfobar",
 	"displayStats",
 	"filenameTemplate",
 	"selected",

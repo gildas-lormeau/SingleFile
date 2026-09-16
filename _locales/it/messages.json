@@ -231,6 +231,10 @@
 		"message": "mantenere aperto l'infobar",
 		"description": "Options page label: 'keep infobar open'"
 	},
+	"optionAnimateInfobar": {
+		"message": "animare l'infobar",
+		"description": "Options page label: 'animate the infobar'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "non includere la data di salvataggio",
 		"description": "Options page label: 'do not include the saved date'"

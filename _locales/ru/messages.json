@@ -231,6 +231,10 @@
 		"message": "не закрывать информационную панель",
 		"description": "Options page label: 'keep infobar open'"
 	},
+	"optionAnimateInfobar": {
+		"message": "анимировать информационную панель",
+		"description": "Options page label: 'animate the infobar'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "не включать дату сохранения",
 		"description": "Options page label: 'do not include the saved date'"

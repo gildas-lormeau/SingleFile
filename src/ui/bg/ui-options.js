@@ -230,6 +230,7 @@ const blockMixedContentLabel = document.getElementById("blockMixedContentLabel")
 const saveOriginalURLsLabel = document.getElementById("saveOriginalURLsLabel");
 const includeInfobarLabel = document.getElementById("includeInfobarLabel");
 const openInfobarLabel = document.getElementById("openInfobarLabel");
+const animateInfobarLabel = document.getElementById("animateInfobarLabel");
 const removeInfobarSavedDateLabel = document.getElementById("removeInfobarSavedDateLabel");
 const miscLabel = document.getElementById("miscLabel");
 const externalCapturePermissionsLabel = document.getElementById("externalCapturePermissionsLabel");
@@ -376,6 +377,7 @@ const blockMixedContentInput = document.getElementById("blockMixedContentInput")
 const saveOriginalURLsInput = document.getElementById("saveOriginalURLsInput");
 const includeInfobarInput = document.getElementById("includeInfobarInput");
 const openInfobarInput = document.getElementById("openInfobarInput");
+const animateInfobarInput = document.getElementById("animateInfobarInput");
 const removeInfobarSavedDateInput = document.getElementById("removeInfobarSavedDateInput");
 const confirmInfobarInput = document.getElementById("confirmInfobarInput");
 const autoCloseInput = document.getElementById("autoCloseInput");
@@ -915,6 +917,7 @@ blockMixedContentLabel.textContent = browser.i18n.getMessage("optionBlockMixedCo
 saveOriginalURLsLabel.textContent = browser.i18n.getMessage("optionSaveOriginalURLs");
 includeInfobarLabel.textContent = browser.i18n.getMessage("optionIncludeInfobar");
 openInfobarLabel.textContent = browser.i18n.getMessage("optionOpenInfobar");
+animateInfobarLabel.textContent = browser.i18n.getMessage("optionAnimateInfobar");
 removeInfobarSavedDateLabel.textContent = browser.i18n.getMessage("optionRemoveInfobarSavedDate");
 confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
 autoCloseLabel.textContent = browser.i18n.getMessage("optionAutoClose");
@@ -1287,6 +1290,7 @@ async function refresh(profileName) {
 	saveOriginalURLsInput.checked = profileOptions.saveOriginalURLs;
 	includeInfobarInput.checked = profileOptions.includeInfobar;
 	openInfobarInput.checked = profileOptions.openInfobar;
+	animateInfobarInput.checked = profileOptions.animateInfobar;
 	removeInfobarSavedDateInput.checked = profileOptions.removeSavedDate;
 	confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
 	autoCloseInput.checked = profileOptions.autoClose;
@@ -1500,6 +1504,7 @@ async function update() {
 			saveOriginalURLs: saveOriginalURLsInput.checked,
 			includeInfobar: includeInfobarInput.checked,
 			openInfobar: openInfobarInput.checked,
+			animateInfobar: animateInfobarInput.checked,
 			removeSavedDate: removeInfobarSavedDateInput.checked,
 			confirmInfobarContent: confirmInfobarInput.checked,
 			autoClose: autoCloseInput.checked,

@@ -231,6 +231,10 @@
 		"message": "infobalk openhouden",
 		"description": "Options page label: 'keep infobar open'"
 	},
+	"optionAnimateInfobar": {
+		"message": "infobalk animeren",
+		"description": "Options page label: 'animate the infobar'"
+	},
 	"optionRemoveInfobarSavedDate": {
 		"message": "sla de opgeslagen datum niet op",
 		"description": "Options page label: 'do not include the saved date'"

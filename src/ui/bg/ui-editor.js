@@ -796,6 +796,7 @@ function savePage() {
 		compressHTML: tabData.options.compressHTML,
 		includeInfobar: tabData.options.includeInfobar,
 		openInfobar: tabData.options.openInfobar,
+		animateInfobar: tabData.options.animateInfobar,
 		infobarPositionAbsolute: tabData.options.infobarPositionAbsolute,
 		infobarPositionTop: tabData.options.infobarPositionTop,
 		infobarPositionBottom: tabData.options.infobarPositionBottom,
@@ -818,6 +819,7 @@ function displayInfobar() {
 	editorElement.contentWindow.postMessage(JSON.stringify({
 		method: "displayInfobar",
 		openInfobar: tabData.options.openInfobar,
+		animateInfobar: tabData.options.animateInfobar,
 		infobarPositionAbsolute: tabData.options.infobarPositionAbsolute,
 		infobarPositionTop: tabData.options.infobarPositionTop,
 		infobarPositionBottom: tabData.options.infobarPositionBottom,

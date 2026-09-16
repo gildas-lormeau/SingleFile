@@ -89,6 +89,7 @@ const DEFAULT_CONFIG = {
 	infobarTemplate: "",
 	includeInfobar: !IS_NOT_SAFARI,
 	openInfobar: false,
+	animateInfobar: true,
 	confirmInfobarContent: false,
 	autoClose: false,
 	confirmFilename: false,
