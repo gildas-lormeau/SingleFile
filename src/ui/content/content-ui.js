@@ -38,6 +38,7 @@ const LOGS_CLASSNAME = "singlefile-logs";
 const LOGS_LINE_CLASSNAME = "singlefile-logs-line";
 const LOGS_LINE_TEXT_ELEMENT_CLASSNAME = "singlefile-logs-line-text";
 const LOGS_LINE_STATUS_ELEMENT_CLASSNAME = "singlefile-logs-line-icon";
+const LOGS_LINE_STATUS_DONE_CLASSNAME = "singlefile-logs-line-icon-done";
 const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CLASS;
 const SELECT_PX_THRESHOLD = 8;
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
@@ -643,6 +644,10 @@ function createLogsWindowElement() {
 					text-align: center;
 					position: relative;
 					top: 1px;
+					color: black;
+				}
+				.${LOGS_LINE_STATUS_ELEMENT_CLASSNAME}.${LOGS_LINE_STATUS_DONE_CLASSNAME} {
+					color: #055000;
 				}
 				@media (prefers-color-scheme: dark) {
 					.${LOGS_CLASSNAME} {
@@ -651,6 +656,12 @@ function createLogsWindowElement() {
 					.${LOGS_LINE_CLASSNAME} {
 						color: #eeeeee;
 						background-color: #1c1b22;
+					}
+					.${LOGS_LINE_STATUS_ELEMENT_CLASSNAME} {
+						color: #eeeeee;
+					}
+					.${LOGS_LINE_STATUS_ELEMENT_CLASSNAME}.${LOGS_LINE_STATUS_DONE_CLASSNAME} {
+						color: #7dc67d;
 					}
 				}
 			`;
@@ -695,7 +706,7 @@ function updateLogLine(lineElement, textContent, textStatus) {
 	const textElement = lineElement.childNodes[0];
 	const statusElement = lineElement.childNodes[1];
 	textElement.textContent = textContent;
-	statusElement.style.setProperty("color", textStatus == "✓" ? "#055000" : "black");
+	statusElement.classList.toggle(LOGS_LINE_STATUS_DONE_CLASSNAME, textStatus == "✓");
 	if (textStatus == "✓") {
 		textElement.style.setProperty("opacity", ".5");
 		statusElement.style.setProperty("opacity", ".5");
