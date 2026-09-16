@@ -85,6 +85,56 @@
 					<input type="text" id="filenameReplacementCharacterInput" class="small-input">
 				</div>
 			</div>
+			<div class="option vertical">
+				<label id="filenameReplacementsLabel"></label>
+				<div class="rules-table-container replacements-table-container">
+					<div class="thead">
+						<div class="tr">
+							<span class="th" id="filenameReplacedCharactersLabel"></span>
+							<span class="th" id="filenameReplacementCharactersLabel"></span>
+							<span class="th"></span>
+						</div>
+					</div>
+					<div class="rules-table">
+						<div class="replacements-data">
+						</div>
+						<div hidden class="tr replacement-view">
+							<span class="td"><input type="text" class="replacement-input replacement-characters-input"></span>
+							<span class="td"><input type="text" class="replacement-input replacement-character-input"></span>
+							<span class="td"><button class="replacement-delete-button"><img
+											src="../resources/button_delete.png"></button></span>
+						</div>
+						<form class="tr replacement-create">
+							<span class="td"><input type="text" id="replacementCharactersInput"
+									class="replacement-input"></span>
+							<span class="td"><input type="text" id="replacementCharacterInput"
+									class="replacement-input"></span>
+							<span class="td"><button id="replacementAddButton" disabled type="submit"><img
+											src="../resources/button_new.png"></button></span>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="option vertical">
+				<div class="rules-table-container preview-table-container">
+					<div class="thead">
+						<div class="tr">
+							<span class="th" id="filenameReplacementsPreviewLabel"></span>
+							<span class="th" id="filenameReplacementsPreviewResultLabel"></span>
+						</div>
+					</div>
+					<div class="tr">
+						<span class="td"><input type="text" id="filenameReplacementsPreviewInput"
+								class="replacement-input"></span>
+						<span class="td" id="filenameReplacementsPreviewOutput"></span>
+					</div>
+				</div>
+			</div>
+			<div class="option replacements-reset">
+				<div class="buttons">
+					<button id="filenameReplacementsResetButton" type="button"></button>
+				</div>
+			</div>
 			<div class="option">
 				<label for="replaceEmojisInFilenameInput" id="replaceEmojisInFilenameLabel"></label>
 				<input type="checkbox" id="replaceEmojisInFilenameInput">
@@ -619,7 +669,7 @@
 				<textarea id="externalCaptureDeniedIdsInput"></textarea>
 			</div>
 		</details>
-		<details>
+		<details id="autoSettingsSection">
 			<summary id="autoSettingsLabel"></summary>
 			<div class="rules-table-container compact">
 				<div class="thead">

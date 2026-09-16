@@ -23,6 +23,15 @@
 
 /* global browser, window, document, localStorage, location, fetch, TextDecoder, DOMParser, HTMLElement, MouseEvent, btoa, URLSearchParams, setInterval, clearInterval */
 
+import {
+	getReplacements,
+	getReplacedCharactersOptions,
+	replaceCharacters,
+	formatCharacters,
+	parseCharacters,
+	testCharacters
+} from "./../common/filename-replacement.js";
+
 const EXTERNAL_CAPTURE_PING_DELAY = 15000;
 const EXTERNAL_CAPTURE_PENDING_REQUEST_TIMEOUT = 300000;
 const HELP_ICON_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABIUlEQVQ4y+2TsarCMBSGvxTBRdqiUZAWOrhJB9EXcPKFfCvfQYfulUKHDqXg4CYUJSioYO4mSDX3ttzt3n87fMlHTpIjlsulxpDZbEYYhgghSNOUOI5Ny2mZYBAELBYLer0eAJ7ncTweKYri4x7LJJRS0u12n7XrukgpjSc0CpVSXK/XZ32/31FKNW85z3PW6zXT6RSAJEnIsqy5UGvNZrNhu90CcDqd+C6tT6J+v//2Th+PB2VZ1hN2Oh3G4zGTyQTbtl/YbrdjtVpxu91+Ljyfz0RRhG3bzOfzF+Y4TvNXvlwuaK2pE4tfzr/wzwsty0IIURlL0998KxRCMBqN8H2/wlzXJQxD2u12vVkeDoeUZUkURRU+GAw4HA7s9/sK+wK6CWHasQ/S/wAAAABJRU5ErkJggg==";
@@ -42,7 +51,9 @@ let DEFAULT_PROFILE_NAME,
 	NATIVE_API_API_SUPPORTED,
 	WEB_BLOCKING_API_SUPPORTED,
 	EXTERNAL_CAPTURE_SUPPORTED,
-	SHARE_API_SUPPORTED;
+	SHARE_API_SUPPORTED,
+	DEFAULT_FILENAME_REPLACED_CHARACTERS,
+	DEFAULT_FILENAME_REPLACEMENT_CHARACTERS;
 browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
 	({
 		DEFAULT_PROFILE_NAME,
@@ -59,7 +70,9 @@ browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
 		NATIVE_API_API_SUPPORTED,
 		WEB_BLOCKING_API_SUPPORTED,
 		EXTERNAL_CAPTURE_SUPPORTED,
-		SHARE_API_SUPPORTED
+		SHARE_API_SUPPORTED,
+		DEFAULT_FILENAME_REPLACED_CHARACTERS,
+		DEFAULT_FILENAME_REPLACEMENT_CHARACTERS
 	} = data);
 	init();
 });
@@ -129,6 +142,11 @@ const filenameMaxLengthLabel = document.getElementById("filenameMaxLengthLabel")
 const filenameMaxLengthBytesUnitLabel = document.getElementById("filenameMaxLengthBytesUnitLabel");
 const filenameMaxLengthCharsUnitLabel = document.getElementById("filenameMaxLengthCharsUnitLabel");
 const filenameReplacementCharacterLabel = document.getElementById("filenameReplacementCharacterLabel");
+const filenameReplacementsLabel = document.getElementById("filenameReplacementsLabel");
+const filenameReplacedCharactersLabel = document.getElementById("filenameReplacedCharactersLabel");
+const filenameReplacementCharactersLabel = document.getElementById("filenameReplacementCharactersLabel");
+const filenameReplacementsPreviewLabel = document.getElementById("filenameReplacementsPreviewLabel");
+const filenameReplacementsPreviewResultLabel = document.getElementById("filenameReplacementsPreviewResultLabel");
 const replaceEmojisInFilenameLabel = document.getElementById("replaceEmojisInFilenameLabel");
 const saveFilenameTemplateDataLabel = document.getElementById("saveFilenameTemplateDataLabel");
 const shadowEnabledLabel = document.getElementById("shadowEnabledLabel");
@@ -300,6 +318,16 @@ const filenameTemplateInput = document.getElementById("filenameTemplateInput");
 const filenameMaxLengthInput = document.getElementById("filenameMaxLengthInput");
 const filenameMaxLengthUnitInput = document.getElementById("filenameMaxLengthUnitInput");
 const filenameReplacementCharacterInput = document.getElementById("filenameReplacementCharacterInput");
+const replacementsContainerElement = document.querySelector(".replacements-table-container");
+const replacementsDataElement = replacementsContainerElement.querySelector(".replacements-data");
+const replacementViewElement = replacementsContainerElement.querySelector(".replacement-view");
+const replacementCreateElement = replacementsContainerElement.querySelector(".replacement-create");
+const replacementCharactersInput = document.getElementById("replacementCharactersInput");
+const replacementCharacterInput = document.getElementById("replacementCharacterInput");
+const replacementAddButton = document.getElementById("replacementAddButton");
+const filenameReplacementsPreviewInput = document.getElementById("filenameReplacementsPreviewInput");
+const filenameReplacementsPreviewOutput = document.getElementById("filenameReplacementsPreviewOutput");
+const filenameReplacementsResetButton = document.getElementById("filenameReplacementsResetButton");
 const replaceEmojisInFilenameInput = document.getElementById("replaceEmojisInFilenameInput");
 const saveFilenameTemplateDataInput = document.getElementById("saveFilenameTemplateDataInput");
 const shadowEnabledInput = document.getElementById("shadowEnabledInput");
@@ -373,8 +401,8 @@ const ruleEditProfileInput = document.getElementById("ruleEditProfileInput");
 const ruleEditAutoSaveProfileInput = document.getElementById("ruleEditAutoSaveProfileInput");
 const ruleAddButton = document.getElementById("ruleAddButton");
 const ruleCancelButton = document.getElementById("ruleCancelButton");
-const rulesElement = document.querySelector(".rules-table");
-const rulesContainerElement = document.querySelector(".rules-table-container");
+const rulesElement = document.querySelector("#autoSettingsSection .rules-table");
+const rulesContainerElement = document.querySelector("#autoSettingsSection .rules-table-container");
 const ruleEditUrlInput = document.getElementById("ruleEditUrlInput");
 const ruleEditButton = document.getElementById("ruleEditButton");
 const createURLElement = rulesElement.querySelector(".rule-create");
@@ -664,8 +692,46 @@ fileFormatSelectInput.addEventListener("change", () => {
 		insertEmbeddedCustomImageInput.checked = false;
 	}
 }, false);
+replacementCharactersInput.addEventListener("input", () => {
+	const validCharacters = testReplacedCharacters(replacementCharactersInput.value);
+	replacementCharactersInput.classList.toggle("invalid-characters", Boolean(replacementCharactersInput.value) && !validCharacters);
+	replacementAddButton.disabled = !validCharacters;
+}, false);
+replacementCreateElement.onsubmit = async event => {
+	event.preventDefault();
+	if (testReplacedCharacters(replacementCharactersInput.value)) {
+		const replacementElement = replacementViewElement.cloneNode(true);
+		replacementElement.querySelector(".replacement-characters-input").value = replacementCharactersInput.value;
+		replacementElement.querySelector(".replacement-character-input").value = replacementCharacterInput.value;
+		replacementElement.hidden = false;
+		replacementElement.className = "tr data";
+		replacementsDataElement.appendChild(replacementElement);
+		replacementCharactersInput.value = replacementCharacterInput.value = "";
+		replacementCharactersInput.classList.remove("invalid-characters");
+		replacementAddButton.disabled = true;
+		await update();
+		await refresh();
+		replacementCharactersInput.focus();
+	}
+};
+filenameReplacementsPreviewInput.addEventListener("input", displayReplacementsPreview, false);
+filenameReplacementCharacterInput.addEventListener("input", () => {
+	displayReplacementCharacterPlaceholders();
+	displayReplacementsPreview();
+}, false);
+filenameReplacementsResetButton.addEventListener("click", async () => {
+	displayReplacements(getReplacements({
+		filenameReplacedCharacters: DEFAULT_FILENAME_REPLACED_CHARACTERS,
+		filenameReplacementCharacters: DEFAULT_FILENAME_REPLACEMENT_CHARACTERS
+	}));
+	await update();
+	await refresh();
+}, false);
 document.body.onchange = async event => {
 	let target = event.target;
+	if (target.classList.contains("replacement-input")) {
+		return;
+	}
 	if (target != ruleUrlInput &&
 		target != ruleProfileInput &&
 		target != ruleAutoSaveProfileInput &&
@@ -769,6 +835,15 @@ filenameMaxLengthLabel.textContent = browser.i18n.getMessage("optionFilenameMaxL
 filenameMaxLengthBytesUnitLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLengthBytesUnit");
 filenameMaxLengthCharsUnitLabel.textContent = browser.i18n.getMessage("optionFilenameMaxLengthCharsUnit");
 filenameReplacementCharacterLabel.textContent = browser.i18n.getMessage("optionFilenameReplacementCharacter");
+filenameReplacementsLabel.textContent = browser.i18n.getMessage("optionFilenameReplacements");
+filenameReplacedCharactersLabel.textContent = browser.i18n.getMessage("optionsFilenameReplacedCharacters");
+filenameReplacementCharactersLabel.textContent = browser.i18n.getMessage("optionsFilenameReplacementCharacters");
+filenameReplacementsPreviewLabel.textContent = browser.i18n.getMessage("optionsFilenameReplacementsPreviewFilename");
+filenameReplacementsPreviewResultLabel.textContent = browser.i18n.getMessage("optionsFilenameReplacementsPreviewResult");
+filenameReplacementsPreviewInput.placeholder = browser.i18n.getMessage("optionsFilenameReplacementsPreviewPlaceholder");
+filenameReplacementsResetButton.textContent = browser.i18n.getMessage("optionsFilenameReplacementsResetButton");
+replacementCharactersInput.placeholder = browser.i18n.getMessage("optionsFilenameReplacedCharactersPlaceholder");
+replacementAddButton.title = browser.i18n.getMessage("optionsAddFilenameReplacementTooltip");
 replaceEmojisInFilenameLabel.textContent = browser.i18n.getMessage("optionReplaceEmojisInFilename");
 saveFilenameTemplateDataLabel.textContent = browser.i18n.getMessage("optionSaveFilenameTemplateData");
 shadowEnabledLabel.textContent = browser.i18n.getMessage("optionDisplayShadow");
@@ -1147,6 +1222,7 @@ async function refresh(profileName) {
 	filenameMaxLengthInput.value = profileOptions.filenameMaxLength;
 	filenameMaxLengthUnitInput.value = profileOptions.filenameMaxLengthUnit;
 	filenameReplacementCharacterInput.value = profileOptions.filenameReplacementCharacter;
+	displayReplacements(getReplacements(profileOptions));
 	replaceEmojisInFilenameInput.checked = profileOptions.replaceEmojisInFilename;
 	saveFilenameTemplateDataInput.checked = profileOptions.saveFilenameTemplateData;
 	shadowEnabledInput.checked = profileOptions.shadowEnabled;
@@ -1224,6 +1300,67 @@ async function refresh(profileName) {
 	displayInfobarInEditorInput.checked = profileOptions.displayInfobarInEditor;
 }
 
+function displayReplacements(replacements) {
+	Array.from(replacementsDataElement.childNodes).forEach(node => node.remove());
+	replacements.forEach(replacement => {
+		const replacementElement = replacementViewElement.cloneNode(true);
+		const charactersInput = replacementElement.querySelector(".replacement-characters-input");
+		const characterInput = replacementElement.querySelector(".replacement-character-input");
+		charactersInput.value = formatCharacters(replacement.characters);
+		characterInput.value = formatCharacters(replacement.replacement);
+		charactersInput.title = browser.i18n.getMessage("optionsFilenameReplacedCharacters");
+		characterInput.title = browser.i18n.getMessage("optionsFilenameReplacementCharacters");
+		replacementElement.hidden = false;
+		replacementElement.className = "tr data";
+		replacementsDataElement.appendChild(replacementElement);
+		const replacementDeleteButton = replacementElement.querySelector(".replacement-delete-button");
+		replacementDeleteButton.title = browser.i18n.getMessage("optionsDeleteFilenameReplacementTooltip");
+		replacementDeleteButton.addEventListener("click", async () => {
+			replacementElement.remove();
+			await update();
+			await refresh();
+		}, false);
+		charactersInput.addEventListener("change", () => updateReplacement(charactersInput, replacement.characters), false);
+		characterInput.addEventListener("change", () => updateReplacement(characterInput, replacement.replacement), false);
+		charactersInput.addEventListener("input", displayReplacementsPreview, false);
+		characterInput.addEventListener("input", displayReplacementsPreview, false);
+	});
+	displayReplacementCharacterPlaceholders();
+	displayReplacementsPreview();
+}
+
+function displayReplacementCharacterPlaceholders() {
+	replacementCharacterInput.placeholder = filenameReplacementCharacterInput.value;
+	replacementsDataElement.querySelectorAll(".replacement-character-input")
+		.forEach(characterInput => characterInput.placeholder = filenameReplacementCharacterInput.value);
+}
+
+function displayReplacementsPreview() {
+	filenameReplacementsPreviewOutput.textContent = filenameReplacementsPreviewInput.value
+		? replaceCharacters(filenameReplacementsPreviewInput.value, getDisplayedReplacements(), filenameReplacementCharacterInput.value)
+		: "";
+}
+
+function getDisplayedReplacements() {
+	return Array.from(replacementsDataElement.querySelectorAll(".tr")).map(replacementElement => ({
+		characters: parseCharacters(replacementElement.querySelector(".replacement-characters-input").value),
+		replacement: parseCharacters(replacementElement.querySelector(".replacement-character-input").value)
+	}));
+}
+
+async function updateReplacement(input, previousValue) {
+	if (input.classList.contains("replacement-characters-input") && !testReplacedCharacters(input.value)) {
+		input.value = formatCharacters(previousValue);
+	}
+	await update();
+	await refresh();
+}
+
+function testReplacedCharacters(value) {
+	const characters = parseCharacters(value);
+	return Boolean(characters) && testCharacters(characters);
+}
+
 function getProfileText(profileName) {
 	return profileName == DEFAULT_PROFILE_NAME ? browser.i18n.getMessage("profileDefaultSettings") : profileName == DISABLED_PROFILE_NAME ? browser.i18n.getMessage("profileDisabled") : profileName;
 }
@@ -1237,6 +1374,7 @@ async function update() {
 	}
 	const selectedProfileName = profileNamesInput.value;
 	const selectedCustomShortcut = customShortcutInput.value || null;
+	const { filenameReplacedCharacters, filenameReplacementCharacters } = getReplacedCharactersOptions(getDisplayedReplacements());
 	if (selectedCustomShortcut) {
 		try {
 			const config = await browser.runtime.sendMessage({ method: "config.get" });
@@ -1318,6 +1456,8 @@ async function update() {
 			filenameMaxLength: filenameMaxLengthInput.value,
 			filenameMaxLengthUnit: filenameMaxLengthUnitInput.value,
 			filenameReplacementCharacter: filenameReplacementCharacterInput.value,
+			filenameReplacedCharacters,
+			filenameReplacementCharacters,
 			replaceEmojisInFilename: replaceEmojisInFilenameInput.checked,
 			saveFilenameTemplateData: saveFilenameTemplateDataInput.checked,
 			shadowEnabled: shadowEnabledInput.checked,
