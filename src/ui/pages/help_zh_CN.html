@@ -86,11 +86,11 @@
                         <p>选中此选项可在网页的上下文菜单中显示SingleFile的条目。SingleFile按钮的上下文菜单<img class="icon"
                                 src="../resources/icon_16.png">无论是否选中此选项，都会显示扩展工具栏中的。</p>
                         <p>菜单中的条目可以在选项页面的“菜单”部分自定义，请参阅<a href="#menus">菜单</a>。</p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="shadowEnabledLabel"><span class="option">选项：在处理过程中在页面上叠加阴影</span>
                         <p>选中此选项可在SingleFile检索页面资源时在页面上覆盖阴影。这提醒您不要关闭选项卡。</p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="openSavedPageLabel" id="openSavedPageOption"><span
                             class="option">选项：在新选项卡中打开已保存的页面</span>
@@ -116,7 +116,7 @@
                         <ul>
                             <li><code>{page-title} ({date-iso} {time-locale}).html</code>将为标题为“SingleFile简介”的页面生成类似“SingleFile介绍（2018-09-15
                                 11_06_03 PM）.html”的文件名。</li>
-                            <li><code>存档/{url-last-segment} - {date-iso}</code>将为托管在上的页面生成类似“welcome-2018-09-15”的文件名https://example.com/welcome.html.保存的文件将保存在子目录“archives”中。
+                            <li><code>archives/{url-last-segment} - {date-iso}</code>将为托管在上的页面生成类似“welcome-2018-09-15”的文件名https://example.com/welcome.html.保存的文件将保存在子目录“archives”中。
                             </li>
                             <li><code>archives/{year-locale}/{month-locale}/{day-locale}/{page-title}.html</code>将生成文件名，如“Introduction
                                 to
@@ -185,18 +185,18 @@
                 <ul>
                     <li data-options-label="compressHTMLLabel"><span class="option">选项：压缩HTML内容</span>
                         <p>选中此选项可删除所有HTML注释和不需要的标记、空格、引号和空白字符。选中此选项有助于在不更改文档的情况下减小文件大小。</p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="removeHiddenElementsLabel"><span class="option">选项：删除隐藏元素</span>
                         <p>选中此选项可删除所有隐藏元素。选中此选项有助于在不更改文档的情况下减小文件大小。它还可能增加CPU消耗和保存页面所需的时间。</p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="removedElementsSelectorLabel"> <span class="option">选项：删除特定元素</span>
                         <p>使用此选项通过提供以逗号分隔的CSS选择器列表从页面中删除元素。</p>
                     </li>
                     <li data-options-label="insertMetaCSPLabel"><span class="option">选项：设置内容安全策略</span>
                         <p>选中此选项可添加具有策略的元标记，以阻止加载任何外部资源。</p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="removeFramesLabel"><span class="option">选项：删除框架</span>
                         <p>选中此选项可删除所有框架和iframe元素。选中此选项可以大大减小文件的大小，而不会在大多数情况下更改文档。它还可以减少保存页面所需的时间。</p>
@@ -217,15 +217,15 @@
                 <ul>
                     <li data-options-label="displayInfobarLabel" id="displayInfobarOption"><span
                             class="option">选项：查看保存的页面时显示信息栏</span>
-                        <p>选中此选项以显示ℹ 查看保存的页面时，请单击页面右上角的按钮。单击此按钮，您可以获取有关保存日期的更多信息并打开原始URL。</p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p>选中此选项可在查看已保存的页面时，在页面右上角显示ℹ按钮。单击此按钮，您可以获取有关保存日期的更多信息并打开原始URL。</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="infobarTemplateLabel"><span class="option">选项：信息栏内容模板</span>
-                        <p>该模板允许您自定义信息栏中显示的内容。您可以使用任何有效字符，<code>n</code>对于新线路或<code>\t</code>对于选项卡。您还可以使用以下任何变量<a
+                        <p>该模板允许您自定义信息栏中显示的内容。您可以使用任何有效字符，<code>\n</code>表示换行或<code>\t</code>表示制表符。您还可以使用以下任何变量<a
                                 href="#template-variables">这个列表</a>模板中的任何位置。如果模板或生成的内容为空，则信息栏将默认显示保存的日期。</p>
                         <p>模板示例：</p>
                         <ul>
-                            <li><code>{url href}（{date iso}）</code>将产生类似“https://www.example.com（2018-09-15 11 06
+                            <li><code>{url-href} ({date-iso})</code>将产生类似“https://www.example.com（2018-09-15 11 06
                                 03下午）”。</li>
                             <li><code>Title: {page-title}</code>将为以“示例域”为标题的页面生成“标题：示例域”等内容。</li>
                         </ul>
@@ -234,7 +234,7 @@
                         <p>选中此选项可显示提示对话框，以便在保存页面之前确认信息栏内容。</p>
                     </li>
                     <li data-options-label="includeInfobarLabel"><span class="option">选项：在保存的页面中包含信息栏</span>
-                        <p>选中此选项以显示ℹ 在未安装SingleFile的浏览器中查看保存的页面时，请单击页面右上角的按钮。</p>
+                        <p>选中此选项可在未安装SingleFile的浏览器中查看已保存的页面时，在页面右上角显示ℹ按钮。</p>
                     </li>
                     <li data-options-label="openInfobarLabel"><span class="option">选项：保持信息栏打开</span>
                         <p>选中此选项可在查看已保存的页面时保持信息栏打开。</p>
@@ -247,7 +247,7 @@
                 <ul>
                     <li data-options-label="removeUnusedStylesLabel"><span class="option">选项：删除未使用的样式</span>
                         <p>选中此选项可删除与保存页面中任何元素都不匹配的所有CSS规则和样式。选中此选项不会更改文档，并且可以大大减小文件的大小。它还将增加CPU消耗和保存页面所需的时间。</p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="removeAlternativeMediasLabel"><span class="option">选项：删除屏幕替代设备的样式表</span>
                         <p>选中此选项可删除不用于屏幕显示的样式表，如打印预览和语音合成器的样式表。选中此选项可以帮助减小文件的大小。</p>
@@ -270,12 +270,12 @@
                 <ul>
                     <li data-options-label="groupDuplicateImagesLabel"><span class="option">选项：将重复图像分组在一起</span>
                         <p>选中此选项可避免保存多次重复的图像。选中此选项不应更改现代浏览器中的文档，并且可以大大减小文件的大小。对于基于ZIP文件的存档格式，此选项将被忽略。</p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="loadDeferredContentLabel"><span class="option">选项：保存滚动时加载的内容</span>
                         <p>选中此选项可保存所有尚未显示的延迟内容（图像、帧，以及页面在滚动时卸载的消息）。这可能有助于在不滚动页面的情况下保存所有图像。此功能已尽最大努力，并不能保证在所有网站上都能正常工作。这也会增加保存页面所需的时间。
                         </p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="loadDeferredContentMaxIdleTimeLabel"><span
                             class="option">选项：最大空闲时间（ms）</span>
@@ -308,18 +308,18 @@
                 <ul>
                     <li data-options-label="removeUnusedFontsLabel"><span class="option">选项：删除未使用的字体</span>
                         <p>选中此选项可删除与任何内容都不匹配的所有字体CSS规则。选中此选项不应更改文档，并且可以大大减小文件的大小。</p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="removeAlternativeFontsLabel"><span class="option">选项：删除替代字体</span>
                         <p>选中此选项可删除所用字体的替代字体。选中此选项不应更改文档，并且可以大大减小文件的大小。</p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                 </ul>
                 <p>目的地</p>
                 <ul>
                     <li data-options-label="saveToFilesystemLabel"><span class="option">选项：保存到文件系统</span>
                         <p>选中此选项可将下载的页面保存在计算机的文件系统上。</p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="sharePageLabel" id="sharePageInput"><span class="option">选项：共享页面</span>
                         <p>选中此选项可与其他应用程序共享页面。此选项仅在支持以下功能的浏览器中可用<a href="https://web.dev/web-share/"
@@ -395,7 +395,7 @@
                     </li>
                     <li data-options-label="saveToS3Label" id="saveToS3Option"><span class="option">选项：上传到亚马逊S3</span>
                         <p>选中此选项可将页面保存在Amazon
-                            S3上。您必须配置bucket策略以包含权限<code>s3：放置对象</code>，以及<code>s3：头部对象</code>或<code>s3：列表对象</code>，或<code>s3：获取对象</code>如果您不想在文件名冲突时覆盖或跳过现有文件。
+                            S3上。您必须配置bucket策略以包含权限<code>s3:PutObject</code>，以及<code>s3:HeadObject</code>或<code>s3:ListObjects</code>，或<code>s3:GetObject</code>如果您不想在文件名冲突时覆盖或跳过现有文件。
                         </p>
                         <p class="notice">建议<u>取消选中</u>此选项</p>
                     </li>
@@ -403,13 +403,13 @@
                         <p>输入Amazon S3服务器的域（例如。<code>s3.amazonaws.com</code>).</p>
                     </li>
                     <li data-options-label="S3RegionLabel"><span class="option">选项：地区</span>
-                        <p>输入Amazon S3服务器的区域（例如。<code>美国东部-1</code>).</p>
+                        <p>输入Amazon S3服务器的区域（例如。<code>us-east-1</code>).</p>
                     </li>
                     <li data-options-label="S3BucketLabel"><span class="option">选项：存储桶名称</span>
-                        <p>在Amazon S3上输入将存档已保存页面的存储桶的名称。页面将上传到<code>&lt;存储桶名称&gt;&lt;域名&gt;</code></p>.
+                        <p>在Amazon S3上输入将存档已保存页面的存储桶的名称。页面将上传到<code>&lt;bucket name&gt;.&lt;domain&gt;</code></p>.
                     </li>
                     <li data-options-label="S3AccessKeyLabel"><span class="option">选项：访问密钥</span>
-                        <p>在Amazon S3上输入您的访问密钥（例如。<code>akdo525k84ljth4s蛋糕</code>).</p>
+                        <p>在Amazon S3上输入您的访问密钥（例如。<code>AKDO525K84LJTH4SFAKE</code>).</p>
                     </li>
                     <li data-options-label="S3SecretKeyLabel"><span class="option">选项：密钥</span>
                         <p>在Amazon S3上输入您的密钥。</p>
@@ -504,7 +504,7 @@
                     </li>
                     <li data-options-label="warnUnsavedPageLabel"><span class="option">选项：如果页面中有未保存的更改，则发出警告</span>
                         <p>选中此选项可在您离开注释编辑器（例如关闭选项卡）而不保存更改时显示一个阻止弹出窗口。</p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="openEditorLabel"><span class="option">选项：保存前编辑页面</span>
                         <p>选中此选项可在保存任何页面之前打开注释编辑器。选中此选项会从上下文菜单中删除“注释并保存页面…”条目。</p>
@@ -595,7 +595,7 @@
                             class="option">选项：在后台保存页面</span>
                         <p>如果您在保存页面时收到无效的文件名，如“37bec68b-446a-46a5-8642-19a89c231b46.html”或下载中断，请取消选中此选项。如果您希望“另存为”对话框记住上次保存的路径，也可以取消选中此选项。取消选中此选项可防止在文件名模板中使用子目录。
                         </p>
-                        <p class="notice">建议<u>检查</u>此选项</p>
+                        <p class="notice">建议<u>选中</u>此选项</p>
                     </li>
                     <li data-options-label="displayStatsLabel"><span class="option">选项：处理后在控制台中显示统计数据</span>
                         <p>选中此选项可在浏览器的JavaScript开发工具中显示有关处理的统计信息。选中此选项可能会增加CPU消耗和保存页面所需的时间。</p>
@@ -668,7 +668,7 @@
                     <li><code>Space</code>：删除所选元素</li>
                     <li><code>Ctrl-Z</code>：撤消上次删除</li>
                     <li><code>Ctrl-Shift-Z</code>：重新执行上次删除</li>
-                    <li><code>Ctrl</code>：选择/取消选择多个元素，释放<code>Ctrl键</code>键验证选择</li>
+                    <li><code>Ctrl</code>：选择/取消选择多个元素，释放<code>Ctrl</code>键验证选择</li>
                     <li><code>Shift</code>：暂时反转最后一个选定元素的移除类型（即移除内部元素或移除外部元素），并重置其他选定元素（如果有的话）</li>
                     <li><code>Escape</code>：重置所选元素</li>
                 </ul>
@@ -905,20 +905,19 @@
                             href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#parameters"
                             target="_blank">DateTimeFormat 构造函数</a> 文档中找到有关选项的更多信息。
                     </li>
-                    <li><code>%option-value&lt;key&gt;</code>：指定选项的值（例如，“displayInfobar”选项的值为“%option
-                        value&lt;displayInfobar&gt;”）</li>
+                    <li><code>%option-value&lt;key&gt;</code>：指定选项的值（例如，“displayInfobar”选项的值为“%option-value&lt;displayInfobar&gt;”）</li>
                 </ul>
             </li>
             <li><a id="external-messages">与其他扩展集成</a>
                 <p>SingleFile可以接收来自其他扩展名的消息。消息必须发送到SingleFile的扩展ID，并且必须是包含以下值之一的字符串：
                 <ul>
-                    <li><code>“保存页面”</code>：保存当前页面</li>
-                    <li><code>“编辑并保存页面”</code>：在注释编辑器中编辑当前页面并保存</li>
-                    <li><code>“保存所选链接”</code>：保存所选内容中的所有链接</li>
-                    <li><code>“保存所选内容”</code>：保存所选内容</li>
-                    <li><code>“保存所选选项卡”</code>：保存所选选项卡</li>
-                    <li><code>“保存未固定的选项卡”</code>：保存未固定的选项卡</li>
-                    <li><code>“保存所有选项卡”</code>：保存所有选项卡</li>
+                    <li><code>"save-page"</code>：保存当前页面</li>
+                    <li><code>"edit-and-save-page"</code>：在注释编辑器中编辑当前页面并保存</li>
+                    <li><code>"save-selected-links"</code>：保存所选内容中的所有链接</li>
+                    <li><code>"save-selected-content"</code>：保存所选内容</li>
+                    <li><code>"save-selected-tabs"</code>：保存所选选项卡</li>
+                    <li><code>"save-unpinned-tabs"</code>：保存未固定的选项卡</li>
+                    <li><code>"save-all-tabs"</code>：保存所有选项卡</li>
                 </ul>
                 </p>
             </li>
