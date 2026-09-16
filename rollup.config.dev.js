@@ -152,7 +152,8 @@ export default [{
 		file: "lib/single-file-extension-background.js",
 		format: "iife",
 		plugins: []
-	}]
+	}],
+	plugins: PLUGINS
 }, {
 	input: ["src/lib/single-file/background.js"],
 	output: [{
