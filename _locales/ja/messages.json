@@ -781,6 +781,10 @@
 		"message": "コンテンツセキュリティポリシーを設定する",
 		"description": "Options page label: 'set content security policy'"
 	},
+	"optionInsertCanonicalLink": {
+		"message": "ページの正規リンクを保存する",
+		"description": "Options page label: 'save the canonical link of the page'"
+	},
 	"optionSaveToClipboard": {
 		"message": "クリップボードに保存する",
 		"description": "Options page label: 'copy to clipboard'"

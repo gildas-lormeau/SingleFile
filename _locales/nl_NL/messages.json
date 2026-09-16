@@ -781,6 +781,10 @@
 		"message": "inhoudsbeveiligingsbeleid instellen",
 		"description": "Options page label: 'set content security policy'"
 	},
+	"optionInsertCanonicalLink": {
+		"message": "sla de canonieke link van de pagina op",
+		"description": "Options page label: 'save the canonical link of the page'"
+	},
 	"optionSaveToClipboard": {
 		"message": "kopieer naar klembord",
 		"description": "Options page label: 'copy to clipboard'"

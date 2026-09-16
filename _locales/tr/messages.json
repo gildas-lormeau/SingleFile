@@ -781,6 +781,10 @@
 		"message": "içerik güvenlik politikası belirle",
 		"description": "Options page label: 'set content security policy'"
 	},
+	"optionInsertCanonicalLink": {
+		"message": "sayfanın kanonik bağlantısını kaydet",
+		"description": "Options page label: 'save the canonical link of the page'"
+	},
 	"optionSaveToClipboard": {
 		"message": "panoya kopyala",
 		"description": "Options page label: 'copy to clipboard'"

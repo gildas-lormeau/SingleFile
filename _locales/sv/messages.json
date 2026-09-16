@@ -781,6 +781,10 @@
 		"message": "ange en innehållssäkerhetspolicy",
 		"description": "Options page label: 'set content security policy'"
 	},
+	"optionInsertCanonicalLink": {
+		"message": "spara sidans kanoniska länk",
+		"description": "Options page label: 'save the canonical link of the page'"
+	},
 	"optionSaveToClipboard": {
 		"message": "kopiera till urklippet",
 		"description": "Options page label: 'copy to clipboard'"

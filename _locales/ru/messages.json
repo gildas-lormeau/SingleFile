@@ -781,6 +781,10 @@
 		"message": "установить политику безопасности содержимого",
 		"description": "Options page label: 'set content security policy'"
 	},
+	"optionInsertCanonicalLink": {
+		"message": "сохранять каноническую ссылку страницы",
+		"description": "Options page label: 'save the canonical link of the page'"
+	},
 	"optionSaveToClipboard": {
 		"message": "копировать в буфер обмена",
 		"description": "Options page label: 'copy to clipboard'"

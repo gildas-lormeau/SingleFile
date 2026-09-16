@@ -781,6 +781,10 @@
 		"message": "设置内容安全策略",
 		"description": "Options page label: 'set content security policy'"
 	},
+	"optionInsertCanonicalLink": {
+		"message": "保存页面的规范链接",
+		"description": "Options page label: 'save the canonical link of the page'"
+	},
 	"optionSaveToClipboard": {
 		"message": "保存到剪切板",
 		"description": "Options page label: 'copy to clipboard'"

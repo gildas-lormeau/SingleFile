@@ -96,6 +96,7 @@ const acceptHeaderStylesheetLabel = document.getElementById("acceptHeaderStylesh
 const acceptHeaderImageLabel = document.getElementById("acceptHeaderImageLabel");
 const saveRawPageLabel = document.getElementById("saveRawPageLabel");
 const insertMetaCSPLabel = document.getElementById("insertMetaCSPLabel");
+const insertCanonicalLinkLabel = document.getElementById("insertCanonicalLinkLabel");
 const saveToClipboardLabel = document.getElementById("saveToClipboardLabel");
 const saveToFilesystemLabel = document.getElementById("saveToFilesystemLabel");
 const sharePageLabel = document.getElementById("sharePageLabel");
@@ -279,6 +280,7 @@ const acceptHeaderStylesheetInput = document.getElementById("acceptHeaderStylesh
 const acceptHeaderImageInput = document.getElementById("acceptHeaderImageInput");
 const saveRawPageInput = document.getElementById("saveRawPageInput");
 const insertMetaCSPInput = document.getElementById("insertMetaCSPInput");
+const insertCanonicalLinkInput = document.getElementById("insertCanonicalLinkInput");
 const saveToClipboardInput = document.getElementById("saveToClipboardInput");
 const addProofInput = document.getElementById("addProofInput");
 const woleetKeyInput = document.getElementById("woleetKeyInput");
@@ -791,6 +793,7 @@ acceptHeaderStylesheetLabel.textContent = browser.i18n.getMessage("optionResourc
 acceptHeaderImageLabel.textContent = browser.i18n.getMessage("optionResourceImage");
 saveRawPageLabel.textContent = browser.i18n.getMessage("optionSaveRawPage");
 insertMetaCSPLabel.textContent = browser.i18n.getMessage("optionInsertMetaCSP");
+insertCanonicalLinkLabel.textContent = browser.i18n.getMessage("optionInsertCanonicalLink");
 saveToClipboardLabel.textContent = browser.i18n.getMessage("optionSaveToClipboard");
 saveToFilesystemLabel.textContent = browser.i18n.getMessage("optionSaveToFilesystem");
 sharePageLabel.textContent = browser.i18n.getMessage("optionSharePage");
@@ -1157,6 +1160,7 @@ async function refresh(profileName) {
 	acceptHeaderImageInput.value = profileOptions.acceptHeaders.image;
 	saveRawPageInput.checked = profileOptions.saveRawPage;
 	insertMetaCSPInput.checked = profileOptions.insertMetaCSP;
+	insertCanonicalLinkInput.checked = profileOptions.insertCanonicalLink;
 	saveToClipboardInput.checked = profileOptions.saveToClipboard;
 	addProofInput.checked = profileOptions.addProof;
 	woleetKeyInput.value = profileOptions.woleetKey;
@@ -1424,6 +1428,7 @@ async function update() {
 			},
 			saveRawPage: saveRawPageInput.checked,
 			insertMetaCSP: insertMetaCSPInput.checked,
+			insertCanonicalLink: insertCanonicalLinkInput.checked,
 			saveToClipboard: saveToClipboardInput.checked,
 			addProof: addProofInput.checked,
 			woleetKey: woleetKeyInput.value,

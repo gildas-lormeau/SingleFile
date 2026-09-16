@@ -781,6 +781,10 @@
 		"message": "mətni təhlükəsizlik siyasəti ilə əlavə edin",
 		"description": "Options page label: 'set content security policy'"
 	},
+	"optionInsertCanonicalLink": {
+		"message": "səhifənin kanonik keçidini yadda saxla",
+		"description": "Options page label: 'save the canonical link of the page'"
+	},
 	"optionSaveToClipboard": {
 		"message": "mətni kəsənlərə kopyalayın",
 		"description": "Options page label: 'copy to clipboard'"

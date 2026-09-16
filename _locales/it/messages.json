@@ -781,6 +781,10 @@
 		"message": "imposta policy di sicurezza contenuto",
 		"description": "Options page label: 'set content security policy'"
 	},
+	"optionInsertCanonicalLink": {
+		"message": "salva il link canonico della pagina",
+		"description": "Options page label: 'save the canonical link of the page'"
+	},
 	"optionSaveToClipboard": {
 		"message": "copia negli appunti",
 		"description": "Options page label: 'copy to clipboard'"
