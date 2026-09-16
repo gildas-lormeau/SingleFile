@@ -696,7 +696,7 @@
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionContentWidth": {
-		"message": "設定網頁格式時的內容寬度 (em)",
+		"message": "設定網頁格式時的內容寬度（em）",
 		"description": "Options page label: 'content width when formatting a page (em)'"
 	},
 	"optionWarnUnsavedPage": {
@@ -754,7 +754,7 @@
 		"description": "Options page label: 'set maximum size'"
 	},
 	"optionMaxResourceSize": {
-		"message": "大小上限 (MB)",
+		"message": "大小上限（MB）",
 		"description": "Options page label: 'maximum size (MB)'"
 	},
 	"optionSetMaxResourceDelay": {
