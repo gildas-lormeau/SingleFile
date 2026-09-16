@@ -87,7 +87,7 @@ function fetchResource(url, options = {}, includeRequestId) {
 		xhrRequest.onreadystatechange = () => {
 			if (xhrRequest.readyState == XMLHttpRequest.DONE) {
 				if (xhrRequest.status || xhrRequest.response.byteLength) {
-					if ((xhrRequest.status == 401 || xhrRequest.status == 403 || xhrRequest.status == 404) && !includeRequestId) {
+					if (options.referrer && (xhrRequest.status == 401 || xhrRequest.status == 403 || xhrRequest.status == 404) && !includeRequestId) {
 						fetchResource(url, options, true)
 							.then(resolve)
 							.catch(reject);
