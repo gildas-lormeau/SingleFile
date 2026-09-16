@@ -44,7 +44,7 @@ class FakeXMLHttpRequest {
 		this.readyState = FakeXMLHttpRequest.DONE;
 		this.status = status;
 		this.response = new Uint8Array([1, 2, 3]).buffer;
-		queueMicrotask(() => this.onreadystatechange());
+		Promise.resolve().then(() => this.onreadystatechange());
 	}
 }
 
