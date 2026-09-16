@@ -23,6 +23,8 @@
 
 /* global browser */
 
+import { LOOKALIKE_CHARACTERS, REGEXP_REPLACEABLE_CHARACTERS } from "./../../ui/common/filename-replacement.js";
+
 const STATE_DOWNLOAD_COMPLETE = "complete";
 const STATE_DOWNLOAD_INTERRUPTED = "interrupted";
 const STATE_ERROR_CANCELED_CHROMIUM = "USER_CANCELED";
@@ -32,9 +34,6 @@ const ERROR_INCOGNITO_GECKO = "'incognito'";
 const ERROR_INCOGNITO_GECKO_ALT = "\"incognito\"";
 const ERROR_INVALID_FILENAME_GECKO = "illegal characters";
 const ERROR_INVALID_FILENAME_CHROMIUM = "invalid filename";
-// mirrors DEFAULT_REPLACED_CHARACTERS/DEFAULT_REPLACEMENT_CHARACTERS in single-file-core core/helper.js
-const LOOKALIKE_CHARACTERS = new Map([["~", "～"], ["+", "＋"], ["?", "？"], ["%", "％"], ["*", "＊"], [":", "："], ["|", "｜"], ["\"", "＂"], ["<", "＜"], [">", "＞"], ["\\", "＼"]]);
-const REGEXP_REPLACEABLE_CHARACTERS = /[~+?%*:|"<>\\]/g;
 
 export {
 	download

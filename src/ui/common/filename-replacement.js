@@ -27,6 +27,12 @@ const HEXADECIMAL_RADIX = 16;
 const CHARACTER_CODE_DIGITS = 2;
 const FIRST_PRINTABLE_CHARACTER_CODE = 0x20;
 const DELETE_CHARACTER_CODE = 0x7f;
+const LOOKALIKE_CHARACTERS = new Map([["~", "～"], ["+", "＋"], ["?", "？"], ["%", "％"], ["*", "＊"], [":", "："], ["|", "｜"], ["\"", "＂"], ["<", "＜"], [">", "＞"], ["\\", "＼"]]);
+const CONTROL_CHARACTERS = ["\x00-\x1f", "\x7F"];
+const REPLACEABLE_CHARACTERS = Array.from(LOOKALIKE_CHARACTERS.keys()).map(getCharacterClassContent);
+const DEFAULT_REPLACED_CHARACTERS = REPLACEABLE_CHARACTERS.concat(CONTROL_CHARACTERS);
+const DEFAULT_REPLACEMENT_CHARACTERS = Array.from(LOOKALIKE_CHARACTERS.values());
+const REGEXP_REPLACEABLE_CHARACTERS = new RegExp("[" + REPLACEABLE_CHARACTERS.join("") + "]", "g");
 
 export {
 	getReplacements,
@@ -34,7 +40,11 @@ export {
 	replaceCharacters,
 	formatCharacters,
 	parseCharacters,
-	testCharacters
+	testCharacters,
+	LOOKALIKE_CHARACTERS,
+	REGEXP_REPLACEABLE_CHARACTERS,
+	DEFAULT_REPLACED_CHARACTERS,
+	DEFAULT_REPLACEMENT_CHARACTERS
 };
 
 function getReplacements({ filenameReplacedCharacters = [], filenameReplacementCharacters = [] }) {
@@ -45,19 +55,10 @@ function getReplacements({ filenameReplacedCharacters = [], filenameReplacementC
 }
 
 function getReplacedCharactersOptions(replacements) {
-	const definedReplacementsFirst = replacements
-		.filter(({ characters }) => characters)
-		.sort((firstReplacement, secondReplacement) => (secondReplacement.replacement ? 1 : 0) - (firstReplacement.replacement ? 1 : 0));
-	const filenameReplacementCharacters = [];
-	for (const { replacement } of definedReplacementsFirst) {
-		if (!replacement) {
-			break;
-		}
-		filenameReplacementCharacters.push(replacement);
-	}
+	const definedReplacements = replacements.filter(({ characters }) => characters);
 	return {
-		filenameReplacedCharacters: definedReplacementsFirst.map(({ characters }) => characters),
-		filenameReplacementCharacters
+		filenameReplacedCharacters: definedReplacements.map(({ characters }) => characters),
+		filenameReplacementCharacters: definedReplacements.map(({ replacement }) => replacement)
 	};
 }
 
@@ -72,7 +73,14 @@ function replaceCharacters(filename, replacements, replacementCharacter) {
 			filename = replaceMatchingCharacters(filename, characters, "+", replacementCharacter);
 		}
 	});
-	return filename;
+	return filename
+		.replace(/\.\.\//g, "")
+		.replace(/^\/+/, "")
+		.replace(/\/+/g, "/")
+		.replace(/\/$/, "")
+		.replace(/\.$/, "")
+		.replace(/\.\//g, "." + replacementCharacter)
+		.replace(/\/\./g, "/" + replacementCharacter);
 }
 
 function formatCharacters(characters) {
@@ -108,6 +116,9 @@ function replaceMatchingCharacters(filename, characters, quantifier, replacement
 }
 
 function getCharacterClass(characters, quantifier) {
-	const classContent = characters.length == 1 && CHARACTER_CLASS_SPECIAL_CHARACTERS.includes(characters) ? "\\" + characters : characters;
-	return new RegExp("[" + classContent + "]" + quantifier, "g");
+	return new RegExp("[" + getCharacterClassContent(characters) + "]" + quantifier, "g");
+}
+
+function getCharacterClassContent(characters) {
+	return characters.length == 1 && CHARACTER_CLASS_SPECIAL_CHARACTERS.includes(characters) ? "\\" + characters : characters;
 }

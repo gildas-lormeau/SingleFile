@@ -11,7 +11,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"single-file-core": "^1.6.1"
+		"single-file-core": "^1.6.2"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",

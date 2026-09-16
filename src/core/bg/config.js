@@ -26,6 +26,10 @@
 import { download } from "./download-util.js";
 import * as tabsData from "./tabs-data.js";
 import { normalizeLayout } from "./../../ui/common/menu-layout.js";
+import {
+	DEFAULT_REPLACED_CHARACTERS as DEFAULT_FILENAME_REPLACED_CHARACTERS,
+	DEFAULT_REPLACEMENT_CHARACTERS as DEFAULT_FILENAME_REPLACEMENT_CHARACTERS
+} from "./../../ui/common/filename-replacement.js";
 
 const CURRENT_PROFILE_NAME = "-";
 const DEFAULT_PROFILE_NAME = "__Default_Settings__";
@@ -54,8 +58,6 @@ const EXTERNAL_CAPTURE_SUPPORTED = IS_NOT_SAFARI;
 const SHARE_API_SUPPORTED = navigator.canShare && navigator.canShare({ files: [new File([new Blob([""], { type: "text/html" })], "test.html")] });
 const BROWSER_MENUS_API_SUPPORTED = Boolean(browser.menus && browser.menus.onClicked && browser.menus.create && browser.menus.update && browser.menus.removeAll);
 const LEGACY_FILENAME_REPLACED_CHARACTERS = ["~", "+", "\\\\", "?", "%", "*", ":", "|", "\"", "<", ">", "\u0000-\u001f", "\u007f"];
-const DEFAULT_FILENAME_REPLACED_CHARACTERS = ["~", "+", "?", "%", "*", ":", "|", "\"", "<", ">", "\\\\", "\x00-\x1f", "\x7F"];
-const DEFAULT_FILENAME_REPLACEMENT_CHARACTERS = ["～", "＋", "？", "％", "＊", "：", "｜", "＂", "＜", "＞", "＼"];
 const DEPRECATED_OPTION_NAMES = {
 	loadDeferredImages: "loadDeferredContent",
 	loadDeferredImagesMaxIdleTime: "loadDeferredContentMaxIdleTime",
