@@ -275,6 +275,46 @@
 		"message": "carácter de reemplazo",
 		"description": "Options page label: 'replacement character'"
 	},
+	"optionFilenameReplacements": {
+		"message": "caracteres reemplazados en los nombres de archivo",
+		"description": "Options page label: 'characters replaced in file names'"
+	},
+	"optionsFilenameReplacedCharacters": {
+		"message": "Caracteres",
+		"description": "Options page column label in the replaced characters table: 'Character(s)'"
+	},
+	"optionsFilenameReplacementCharacters": {
+		"message": "Reemplazado por",
+		"description": "Options page column label in the replaced characters table: 'Replaced with'"
+	},
+	"optionsFilenameReplacedCharactersPlaceholder": {
+		"message": "Escriba un carácter (ej. :)",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+	},
+	"optionsAddFilenameReplacementTooltip": {
+		"message": "Añadir el carácter",
+		"description": "Popup text 'Add the character' in the options page"
+	},
+	"optionsDeleteFilenameReplacementTooltip": {
+		"message": "Dejar de reemplazar este carácter",
+		"description": "Popup text 'Stop replacing this character' in the options page"
+	},
+	"optionsFilenameReplacementsResetButton": {
+		"message": "Restablecer los caracteres predeterminados",
+		"description": "Button label 'Restore default characters' in the options page"
+	},
+	"optionsFilenameReplacementsPreviewFilename": {
+		"message": "Probar un nombre de archivo",
+		"description": "Options page column label in the preview table: 'Test a file name'"
+	},
+	"optionsFilenameReplacementsPreviewResult": {
+		"message": "Resultado",
+		"description": "Options page column label in the preview table: 'Result'"
+	},
+	"optionsFilenameReplacementsPreviewPlaceholder": {
+		"message": "Escriba un nombre de archivo",
+		"description": "Placeholder in the preview table: 'Type a file name'"
+	},
 	"optionReplaceEmojisInFilename": {
 		"message": "reemplazar emojis con texto",
 		"description": "Options page label: 'replace emojis with text'"

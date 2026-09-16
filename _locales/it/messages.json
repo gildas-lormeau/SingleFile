@@ -275,6 +275,46 @@
 		"message": "carattere di sostituzione",
 		"description": "Options page label: 'replacement character'"
 	},
+	"optionFilenameReplacements": {
+		"message": "caratteri sostituiti nei nomi dei file",
+		"description": "Options page label: 'characters replaced in file names'"
+	},
+	"optionsFilenameReplacedCharacters": {
+		"message": "Caratteri",
+		"description": "Options page column label in the replaced characters table: 'Character(s)'"
+	},
+	"optionsFilenameReplacementCharacters": {
+		"message": "Sostituito con",
+		"description": "Options page column label in the replaced characters table: 'Replaced with'"
+	},
+	"optionsFilenameReplacedCharactersPlaceholder": {
+		"message": "Digita un carattere (p.e. :)",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+	},
+	"optionsAddFilenameReplacementTooltip": {
+		"message": "Aggiungi il carattere",
+		"description": "Popup text 'Add the character' in the options page"
+	},
+	"optionsDeleteFilenameReplacementTooltip": {
+		"message": "Non sostituire più questo carattere",
+		"description": "Popup text 'Stop replacing this character' in the options page"
+	},
+	"optionsFilenameReplacementsResetButton": {
+		"message": "Ripristina i caratteri predefiniti",
+		"description": "Button label 'Restore default characters' in the options page"
+	},
+	"optionsFilenameReplacementsPreviewFilename": {
+		"message": "Prova un nome di file",
+		"description": "Options page column label in the preview table: 'Test a file name'"
+	},
+	"optionsFilenameReplacementsPreviewResult": {
+		"message": "Risultato",
+		"description": "Options page column label in the preview table: 'Result'"
+	},
+	"optionsFilenameReplacementsPreviewPlaceholder": {
+		"message": "Digita un nome di file",
+		"description": "Placeholder in the preview table: 'Type a file name'"
+	},
 	"optionReplaceEmojisInFilename": {
 		"message": "sostituisci le emoji con il testo",
 		"description": "Options page label: 'replace emojis with text'"

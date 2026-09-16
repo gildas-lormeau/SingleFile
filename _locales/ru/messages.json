@@ -275,6 +275,46 @@
 		"message": "заменяющий символ",
 		"description": "Options page label: 'replacement character'"
 	},
+	"optionFilenameReplacements": {
+		"message": "символы, заменяемые в именах файлов",
+		"description": "Options page label: 'characters replaced in file names'"
+	},
+	"optionsFilenameReplacedCharacters": {
+		"message": "Символ(ы)",
+		"description": "Options page column label in the replaced characters table: 'Character(s)'"
+	},
+	"optionsFilenameReplacementCharacters": {
+		"message": "Заменяется на",
+		"description": "Options page column label in the replaced characters table: 'Replaced with'"
+	},
+	"optionsFilenameReplacedCharactersPlaceholder": {
+		"message": "Введите символ (например, :)",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+	},
+	"optionsAddFilenameReplacementTooltip": {
+		"message": "Добавить символ",
+		"description": "Popup text 'Add the character' in the options page"
+	},
+	"optionsDeleteFilenameReplacementTooltip": {
+		"message": "Не заменять этот символ",
+		"description": "Popup text 'Stop replacing this character' in the options page"
+	},
+	"optionsFilenameReplacementsResetButton": {
+		"message": "Восстановить символы по умолчанию",
+		"description": "Button label 'Restore default characters' in the options page"
+	},
+	"optionsFilenameReplacementsPreviewFilename": {
+		"message": "Проверить имя файла",
+		"description": "Options page column label in the preview table: 'Test a file name'"
+	},
+	"optionsFilenameReplacementsPreviewResult": {
+		"message": "Результат",
+		"description": "Options page column label in the preview table: 'Result'"
+	},
+	"optionsFilenameReplacementsPreviewPlaceholder": {
+		"message": "Введите имя файла",
+		"description": "Placeholder in the preview table: 'Type a file name'"
+	},
 	"optionReplaceEmojisInFilename": {
 		"message": "заменять эмодзи текстом",
 		"description": "Options page label: 'replace emojis with text'"
