@@ -288,8 +288,8 @@
 		"description": "Options page column label in the replaced characters table: 'Replaced with'"
 	},
 	"optionsFilenameReplacedCharactersPlaceholder": {
-		"message": "输入字符（例如 :）",
-		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+		"message": "输入字符（例如“:”）",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. \":\")'"
 	},
 	"optionsAddFilenameReplacementTooltip": {
 		"message": "添加字符",
@@ -324,7 +324,7 @@
 		"description": "Options page label: 'save the filename template data into the page'"
 	},
 	"optionConfirmFilename": {
-		"message": "打开 “另存为” 对话框以确认文件名",
+		"message": "打开“另存为”对话框以确认文件名",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
 	},
 	"optionFilenameConflictAction": {
@@ -512,7 +512,7 @@
 		"description": "Options page label: 'blocked resources'"
 	},
 	"optionsAcceptHeaders": {
-		"message": "“Accept” 请求头",
+		"message": "“Accept”请求头",
 		"description": "Options page label: '\"Accept\" header'"
 	},
 	"optionResourceScript": {
@@ -572,7 +572,7 @@
 		"description": "Options label in the Auto-settings rules: 'URL'"
 	},
 	"optionsAutoSettingsUrlPlaceholder": {
-		"message": "输入完整的或部分网址 （例如 example.com）",
+		"message": "输入完整的或部分网址（例如 example.com）",
 		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
 	},
 	"optionsAutoSettingsProfile": {
@@ -588,7 +588,7 @@
 		"description": "Options label in the Auto-settings rules: 'display all profiles'"
 	},
 	"optionsAutoSettingsShowAutoSaveProfile": {
-		"message": "显示 “自动保存配置文件” 列",
+		"message": "显示“自动保存配置文件”列",
 		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
 	},
 	"optionsUpdateRuleTooltip": {
@@ -794,7 +794,7 @@
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
-		"message": "请确认您是否允许 SingleFile 将您要保存的每个页面的 SHA256 哈希值发送给 Woleet API 。您可以在帮助页面或者通过点击该选项旁的问号找到此功能的更多信息。",
+		"message": "请确认您是否允许 SingleFile 将您要保存的每个页面的 SHA256 哈希值发送给 Woleet API。您可以在帮助页面或者通过点击该选项旁的问号找到此功能的更多信息。",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionWoleetKey": {

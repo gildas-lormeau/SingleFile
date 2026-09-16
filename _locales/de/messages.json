@@ -288,8 +288,8 @@
 		"description": "Options page column label in the replaced characters table: 'Replaced with'"
 	},
 	"optionsFilenameReplacedCharactersPlaceholder": {
-		"message": "Ein Zeichen eingeben (z.B. :)",
-		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+		"message": "Ein Zeichen eingeben (z.B. \":\")",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. \":\")'"
 	},
 	"optionsAddFilenameReplacementTooltip": {
 		"message": "Zeichen hinzufügen",
@@ -364,7 +364,7 @@
 		"description": "Options page label: 'remove hidden elements'"
 	},
 	"optionRemovedElementsSelector": {
-		"message": "spezifische Elemente entfernen",
+		"message": "Spezifische Elemente entfernen",
 		"description": "Options page label: 'remove specific elements'"
 	},
 	"optionsFileFormatSubTitle": {
@@ -372,7 +372,7 @@
 		"description": "Options sub-title: 'File format'"
 	},
 	"optionFileFormat": {
-		"message": "format",
+		"message": "Format",
 		"description": "Options page label: 'format'"
 	},
 	"optionFileFormatSelectHTML": {
@@ -380,11 +380,11 @@
 		"description": "Options page label: 'HTML'"
 	},
 	"optionFileFormatSelectSelfExtractingUniversal": {
-		"message": "selbstextrahierendes ZIP (universal)",
+		"message": "Selbstextrahierendes ZIP (universal)",
 		"description": "Options page label: 'self-extracting ZIP (universal)'"
 	},
 	"optionFileFormatSelectSelfExtracting": {
-		"message": "selbstextrahierendes ZIP",
+		"message": "Selbstextrahierendes ZIP",
 		"description": "Options page label: 'self-extracting ZIP'"
 	},
 	"optionFileFormatSelectZIP": {
@@ -444,11 +444,11 @@
 		"description": "Options page label: 'image reduction factor'"
 	},
 	"optionLoadDeferredContent": {
-		"message": "beim Scrollen geladene Inhalte speichern",
+		"message": "Beim Scrollen geladene Inhalte speichern",
 		"description": "Options page label: 'save content loaded while scrolling'"
 	},
 	"optionLoadDeferredContentMaxIdleTime": {
-		"message": "maximale Inaktivitätszeit (ms)",
+		"message": "Maximale Inaktivitätszeit (ms)",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
 	"optionLoadDeferredContentKeepZoomLevel": {
@@ -460,7 +460,7 @@
 		"description": "Options page label: 'simulate scrolling'"
 	},
 	"optionLoadDeferredContentBeforeFrames": {
-		"message": "zuerst in Rahmen laden",
+		"message": "Zuerst in Rahmen laden",
 		"description": "Options page label: 'load in frames first'"
 	},
 	"optionRemoveAlternativeImages": {
@@ -716,11 +716,11 @@
 		"description": "Options sub-title: 'External capture API'"
 	},
 	"optionExternalCaptureAllowedIds": {
-		"message": "erlaubte Erweiterungen, eine pro Zeile",
+		"message": "Erlaubte Erweiterungen, eine pro Zeile",
 		"description": "Options page label: 'allowed extensions, one per line'"
 	},
 	"optionExternalCaptureDeniedIds": {
-		"message": "blockierte Erweiterungen, eine pro Zeile",
+		"message": "Blockierte Erweiterungen, eine pro Zeile",
 		"description": "Options page label: 'blocked extensions, one per line'"
 	},
 	"optionsExternalCapturePendingRequest": {
@@ -750,7 +750,7 @@
 		"description": "Options page label: 'display stats in the console after processing'"
 	},
 	"optionSetMaxResourceSize": {
-		"message": "maximale Größe festlegen",
+		"message": "Maximale Größe festlegen",
 		"description": "Options page label: 'set maximum size'"
 	},
 	"optionMaxResourceSize": {
@@ -758,11 +758,11 @@
 		"description": "Options page label: 'maximum size (MB)'"
 	},
 	"optionSetMaxResourceDelay": {
-		"message": "maximale Zeit für den Download festlegen",
+		"message": "Maximale Zeit für den Download festlegen",
 		"description": "Options page label: 'set maximum download time'"
 	},
 	"optionMaxResourceDelay": {
-		"message": "maximale Downloadzeit (s)",
+		"message": "Maximale Downloadzeit (s)",
 		"description": "Options page label: 'maximum download time (s)'"
 	},
 	"optionPassReferrerOnError": {
@@ -1238,7 +1238,7 @@
 		"description": "Options page state: 'default menus'"
 	},
 	"optionMenusCustomized": {
-		"message": "angepasste Menüs",
+		"message": "Angepasste Menüs",
 		"description": "Options page state: 'customized menus'"
 	},
 	"menuSubmenu": {

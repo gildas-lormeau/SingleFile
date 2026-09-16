@@ -288,8 +288,8 @@
 		"description": "Options page column label in the replaced characters table: 'Replaced with'"
 	},
 	"optionsFilenameReplacedCharactersPlaceholder": {
-		"message": "Введіть символ (напр. :)",
-		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+		"message": "Введіть символ (напр. \":\")",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. \":\")'"
 	},
 	"optionsAddFilenameReplacementTooltip": {
 		"message": "Додати символ",
@@ -316,11 +316,11 @@
 		"description": "Placeholder in the preview table: 'Type a file name'"
 	},
 	"optionReplaceEmojisInFilename": {
-		"message": "Замініть смайлики на текст",
+		"message": "замінювати смайлики на текст",
 		"description": "Options page label: 'replace emojis with text'"
 	},
 	"optionSaveFilenameTemplateData": {
-		"message": "Збережіть дані шаблону імені файлу на сторінці",
+		"message": "зберігати дані шаблону імені файлу на сторінці",
 		"description": "Options page label: 'save the filename template data into the page'"
 	},
 	"optionConfirmFilename": {
@@ -328,7 +328,7 @@
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
 	},
 	"optionFilenameConflictAction": {
-		"message": "Розв'язок конфліктів імен файлів",
+		"message": "розв'язання конфліктів імен файлів",
 		"description": "Options page label: 'filename conflict resolution'"
 	},
 	"optionFilenameConflictActionUniquify": {

@@ -288,8 +288,8 @@
 		"description": "Options page column label in the replaced characters table: 'Replaced with'"
 	},
 	"optionsFilenameReplacedCharactersPlaceholder": {
-		"message": "Entrer un caractère (p. ex. :)",
-		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+		"message": "Entrer un caractère (p. ex. \":\")",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. \":\")'"
 	},
 	"optionsAddFilenameReplacementTooltip": {
 		"message": "Ajouter le caractère",
@@ -572,7 +572,7 @@
 		"description": "Options label in the auto-settings rules: 'URL'"
 	},
 	"optionsAutoSettingsUrlPlaceholder": {
-		"message": "Entrer une URL complète ou partielle (e.g. example.com)",
+		"message": "Entrer une URL complète ou partielle (p. ex. example.com)",
 		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
 	},
 	"optionsAutoSettingsProfile": {

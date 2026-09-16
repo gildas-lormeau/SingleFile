@@ -204,15 +204,15 @@
 		"description": "Options page label: 'add entry in the context menu of the webpage'"
 	},
 	"optionDisplayShadow": {
-		"message": "Sovrapponi un'ombra sulla pagina durante la lavorazione",
+		"message": "sovrapponi un'ombra sulla pagina durante la lavorazione",
 		"description": "Options page label: 'overlay a shadow on the page during processing'"
 	},
 	"optionDisplayInfobar": {
-		"message": "Visualizza una barra informativa quando vedi una pagina salvata",
+		"message": "visualizza una barra informativa quando vedi una pagina salvata",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
 	"optionInfobarTemplate": {
-		"message": "Modello del contenuto della barra informativa",
+		"message": "modello del contenuto della barra informativa",
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionBlockMixedContent": {
@@ -236,7 +236,7 @@
 		"description": "Options page label: 'do not include the saved date'"
 	},
 	"optionConfirmInfobar": {
-		"message": "Apri un finestra di dialogo per modificare il contenuto della barra informativa",
+		"message": "apri una finestra di dialogo per modificare il contenuto della barra informativa",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionAutoClose": {
@@ -256,7 +256,7 @@
 		"description": "Options sub-title: 'File name'"
 	},
 	"optionFilenameTemplate": {
-		"message": "Modello",
+		"message": "modello",
 		"description": "Options page label: 'template'"
 	},
 	"optionFilenameMaxLength": {
@@ -288,8 +288,8 @@
 		"description": "Options page column label in the replaced characters table: 'Replaced with'"
 	},
 	"optionsFilenameReplacedCharactersPlaceholder": {
-		"message": "Digita un carattere (p.e. :)",
-		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+		"message": "Digita un carattere (p.e. \":\")",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. \":\")'"
 	},
 	"optionsAddFilenameReplacementTooltip": {
 		"message": "Aggiungi il carattere",
@@ -324,11 +324,11 @@
 		"description": "Options page label: 'save the filename template data into the page'"
 	},
 	"optionConfirmFilename": {
-		"message": "Apri la finesta di dialogo \"Salva come\" per confermare il nome del file",
+		"message": "apri la finestra di dialogo \"Salva come\" per confermare il nome del file",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
 	},
 	"optionFilenameConflictAction": {
-		"message": "Risoluzione conflitto nome file",
+		"message": "risoluzione conflitto nome file",
 		"description": "Options page label: 'filename conflict resolution'"
 	},
 	"optionFilenameConflictActionUniquify": {
@@ -336,7 +336,7 @@
 		"description": "Value for 'filename conflict resolution' option: 'create a unique name'"
 	},
 	"optionFilenameConflictActionOverwrite": {
-		"message": "Sovrascirivi il file esistente",
+		"message": "sovrascrivi il file esistente",
 		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
 	},
 	"optionFilenameConflictActionPrompt": {
@@ -496,7 +496,7 @@
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionRemoveUnusedStyles": {
-		"message": "Rimuovi stili non utilizzati",
+		"message": "rimuovi stili non utilizzati",
 		"description": "Options page label: 'remove unused styles'"
 	},
 	"optionRemoveAlternativeMedias": {
@@ -572,7 +572,7 @@
 		"description": "Options label in the Auto-settings rules: 'URL'"
 	},
 	"optionsAutoSettingsUrlPlaceholder": {
-		"message": "Tipo di URL completo o parziale (p.e. esempio.com)",
+		"message": "Digita un URL completo o parziale (p.e. esempio.com)",
 		"description": "Placeholder in the Auto-settings rules: 'Type a complete or partial URL (e.g. example.com)'"
 	},
 	"optionsAutoSettingsProfile": {

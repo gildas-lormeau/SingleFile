@@ -288,8 +288,8 @@
 		"description": "Options page column label in the replaced characters table: 'Replaced with'"
 	},
 	"optionsFilenameReplacedCharactersPlaceholder": {
-		"message": "Wpisz znak (np. :)",
-		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+		"message": "Wpisz znak (np. \":\")",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. \":\")'"
 	},
 	"optionsAddFilenameReplacementTooltip": {
 		"message": "Dodaj znak",
@@ -580,7 +580,7 @@
 		"description": "Options label in the Auto-settings rules: 'Profile'"
 	},
 	"optionsAutoSettingsAutoSaveProfile": {
-		"message": "Automatyczny zapis profilu",
+		"message": "Profil automatycznego zapisu",
 		"description": "Options label in the Auto-settings rules: 'Auto-save profile'"
 	},
 	"optionsAutoSettingsShowAllProfiles": {
@@ -588,7 +588,7 @@
 		"description": "Options label in the Auto-settings rules: 'display all profiles'"
 	},
 	"optionsAutoSettingsShowAutoSaveProfile": {
-		"message": "wyświetlaj kolumnę 'Automatyczny zapis profilu'",
+		"message": "wyświetlaj kolumnę 'Profil automatycznego zapisu'",
 		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
 	},
 	"optionsUpdateRuleTooltip": {

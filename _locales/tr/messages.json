@@ -252,7 +252,7 @@
 		"description": "Options page label: 'default shortcut'"
 	},
 	"optionsFileNameSubTitle": {
-		"message": "Dosya ismi",
+		"message": "Dosya adı",
 		"description": "Options sub-title: 'File name'"
 	},
 	"optionFilenameTemplate": {
@@ -288,8 +288,8 @@
 		"description": "Options page column label in the replaced characters table: 'Replaced with'"
 	},
 	"optionsFilenameReplacedCharactersPlaceholder": {
-		"message": "Bir karakter yazın (ör. :)",
-		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+		"message": "Bir karakter yazın (ör. \":\")",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. \":\")'"
 	},
 	"optionsAddFilenameReplacementTooltip": {
 		"message": "Karakteri ekle",
@@ -592,7 +592,7 @@
 		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
 	},
 	"optionsUpdateRuleTooltip": {
-		"message": "kuralı güncelle",
+		"message": "Kuralı güncelle",
 		"description": "Popup text 'Update the rule' in the options page"
 	},
 	"optionsDeleteRuleTooltip": {

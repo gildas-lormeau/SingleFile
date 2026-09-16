@@ -288,8 +288,8 @@
 		"description": "Options page column label in the replaced characters table: 'Replaced with'"
 	},
 	"optionsFilenameReplacedCharactersPlaceholder": {
-		"message": "Digite um caractere (p. ex. :)",
-		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+		"message": "Digite um caractere (p. ex. \":\")",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. \":\")'"
 	},
 	"optionsAddFilenameReplacementTooltip": {
 		"message": "Adicionar o caractere",
@@ -328,7 +328,7 @@
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
 	},
 	"optionFilenameConflictAction": {
-		"message": "Resolução de conflito do nome de arquivo",
+		"message": "resolução de conflito do nome de arquivo",
 		"description": "Options page label: 'filename conflict resolution'"
 	},
 	"optionFilenameConflictActionUniquify": {
@@ -564,7 +564,7 @@
 		"description": "Popup text 'Confirm the deletion of all displayed rules'"
 	},
 	"optionsDeleteRulesTooltip": {
-		"message": "Eliminar todas as regras exibidas",
+		"message": "Excluir todas as regras exibidas",
 		"description": "Popup text 'Delete all displayed rules'"
 	},
 	"optionsAutoSettingsUrl": {
@@ -596,7 +596,7 @@
 		"description": "Popup text 'Update the rule' in the options page"
 	},
 	"optionsDeleteRuleTooltip": {
-		"message": "Eliminar a regra",
+		"message": "Excluir a regra",
 		"description": "Popup text 'Delete the rule' in the options page"
 	},
 	"optionsAddRuleTooltip": {
@@ -616,31 +616,31 @@
 		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
 	},
 	"optionAutoSaveLoadOrUnload": {
-		"message": "Salvar autom. após carregamento ou purga da página",
+		"message": "salvar autom. após carregamento ou purga da página",
 		"description": "auto-save after page load or on page unload"
 	},
 	"optionAutoSaveLoad": {
-		"message": "Salvar autom. após carregamento da página",
+		"message": "salvar autom. após carregamento da página",
 		"description": "Options page label: 'auto-save after page load'"
 	},
 	"optionAutoSaveUnload": {
-		"message": "Salvar autom. após purga da página",
+		"message": "salvar autom. após purga da página",
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
-		"message": "Salvar autom. ao descartar a aba",
+		"message": "salvar autom. ao descartar a aba",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
-		"message": "Salvar autom. ao remover a aba",
+		"message": "salvar autom. ao remover a aba",
 		"description": "Options page label: 'auto-save on tab removal'"
 	},
 	"optionAutoSaveDelay": {
-		"message": "Salvar autom. após aguardar o carregamento da página (s)",
+		"message": "salvar autom. após aguardar o carregamento da página (s)",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
 	},
 	"optionAutoSaveRepeat": {
-		"message": "Auto-salvar periodicamente",
+		"message": "salvar autom. periodicamente",
 		"description": "Options page label: 'auto-save periodically'"
 	},
 	"optionAutoSaveRepeatDelay": {
@@ -910,11 +910,11 @@
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionsResetButton": {
-		"message": "Resetar",
+		"message": "Restaurar",
 		"description": "Options button: 'Reset'"
 	},
 	"optionsResetTooltip": {
-		"message": "Resetar todas as opções para valores padrão",
+		"message": "Restaurar todas as opções para os valores padrão",
 		"description": "Options 'Reset' button tooltip"
 	},
 	"optionsResetConfirm": {

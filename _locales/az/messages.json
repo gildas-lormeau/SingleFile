@@ -288,8 +288,8 @@
 		"description": "Options page column label in the replaced characters table: 'Replaced with'"
 	},
 	"optionsFilenameReplacedCharactersPlaceholder": {
-		"message": "Simvol daxil edin (məsələn, :)",
-		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+		"message": "Simvol daxil edin (məsələn, \":\")",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. \":\")'"
 	},
 	"optionsAddFilenameReplacementTooltip": {
 		"message": "Simvol əlavə et",
@@ -544,7 +544,7 @@
 		"description": "Options page label: 'images'"
 	},
 	"optionsDestinationSubTitle": {
-		"message": "Göstərici",
+		"message": "Təyinat",
 		"description": "Options sub-title: 'Destination'"
 	},
 	"optionsBookmarkSubTitle": {
@@ -580,7 +580,7 @@
 		"description": "Options label in the Auto-settings rules: 'Profile'"
 	},
 	"optionsAutoSettingsAutoSaveProfile": {
-		"message": "Auto-save profil",
+		"message": "Avtomatik yaddaşa qeyd profili",
 		"description": "Options label in the Auto-settings rules: 'Auto-save profile'"
 	},
 	"optionsAutoSettingsShowAllProfiles": {
@@ -588,15 +588,15 @@
 		"description": "Options label in the Auto-settings rules: 'display all profiles'"
 	},
 	"optionsAutoSettingsShowAutoSaveProfile": {
-		"message": "Auto-save profilini göstərin",
+		"message": "'Avtomatik yaddaşa qeyd profili' sütununu göstərin",
 		"description": "Options label in the Auto-settings rules: 'display 'Auto-save profile' column'"
 	},
 	"optionsUpdateRuleTooltip": {
-		"message": "Qayda yenilə",
+		"message": "Qaydanı yenilə",
 		"description": "Popup text 'Update the rule' in the options page"
 	},
 	"optionsDeleteRuleTooltip": {
-		"message": "Qayda sil",
+		"message": "Qaydanı sil",
 		"description": "Popup text 'Delete the rule' in the options page"
 	},
 	"optionsAddRuleTooltip": {
@@ -914,7 +914,7 @@
 		"description": "Options button: 'Reset'"
 	},
 	"optionsResetTooltip": {
-		"message": "Seçimləri və ya cari profil sıfırlayın",
+		"message": "Bütün seçimləri ilkin dəyərlərinə sıfırlayın",
 		"description": "Options 'Reset' button tooltip"
 	},
 	"optionsResetConfirm": {

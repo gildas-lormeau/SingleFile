@@ -288,8 +288,8 @@
 		"description": "Options page column label in the replaced characters table: 'Replaced with'"
 	},
 	"optionsFilenameReplacedCharactersPlaceholder": {
-		"message": "輸入字元（例如 :）",
-		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. :)'"
+		"message": "輸入字元（例如「:」）",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. \":\")'"
 	},
 	"optionsAddFilenameReplacementTooltip": {
 		"message": "新增字元",
