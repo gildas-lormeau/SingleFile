@@ -130,6 +130,9 @@
                     <li data-options-label="filenameReplacementCharacterLabel"><span class="option">选项：替换字符</span>
                         <p>输入用于替换文件名中无效字符的字符。</p>
                     </li>
+                    <li data-options-label="filenameReplacementsLabel"><span class="option">选项：文件名中被替换的字符</span>
+                        <p>表格的每一行将文件名中的一个字符替换为另一个字符。编辑第二列可更改该字符替换后的内容，将其留空则使用上面的替换字符，删除某一行则保留该字符不变。第一列还接受字符范围（例如<code>\x00-\x1f</code>）以及<code>\x00</code>到<code>\xff</code>的转义序列。在预览字段中键入文件名即可查看结果。</p>
+                    </li>
                     <li data-options-label="replaceEmojisInFilenameLabel"><span class="option">选项：用文本替换表情符号</span>
                         <p>选中此选项可将文件名中的表情符号替换为其unicode文本表示形式。</p>
                     </li>
@@ -166,6 +169,9 @@
                     </li>
                     <li data-options-label="createRootDirectoryLabel"><span class="option">选项：创建根目录</span>
                         <p>选中此选项可在ZIP文件中创建根目录。目录名由时间戳和显示已保存页面的选项卡的标识符组成。</p>
+                    </li>
+                    <li data-options-label="disableCompressionLabel"><span class="option">选项：禁用压缩</span>
+                        <p>选中此选项可禁用ZIP文件的压缩。这有助于减少CPU消耗和保存页面所需的时间，但会增加生成的文件的大小。</p>
                     </li>
                     <li data-options-label="preventAppendedDataLabel"><span class="option">选项：不在ZIP数据后附加数据</span>
                         <p>选中此选项可删除ZIP数据后附加的数据。使用一些不支持带附加数据的ZIP文件的存档管理器，可能更容易打开生成的文件。启用此选项会增加保存页面所需的时间。</p>
@@ -232,6 +238,9 @@
                     </li>
                     <li data-options-label="openInfobarLabel"><span class="option">选项：保持信息栏打开</span>
                         <p>选中此选项可在查看已保存的页面时保持信息栏打开。</p>
+                    </li>
+                    <li data-options-label="animateInfobarLabel"><span class="option">选项：为信息栏添加动画</span>
+                        <p>选中此选项可在打开已保存的页面时让信息栏闪烁并显示一个扩散的光环。打开信息栏后动画将停止；当系统设置为减少动态效果时，动画不会运行。</p>
                     </li>
                 </ul>
                 <p>样式表</p>
@@ -489,6 +498,9 @@
                     </li>
                     <li data-options-label="applySystemThemeLabel"><span class="option">选项：在注释编辑器中格式化页面时应用系统主题</span>
                         <p>如果您不想在注释编辑器中单击“格式化页面以提高可读性”按钮时应用操作系统或浏览器的主题（例如深色或浅色），请取消选中此选项。</p>
+                    </li>
+                    <li data-options-label="contentWidthLabel"><span class="option">选项：格式化页面时的内容宽度（em）</span>
+                        <p>输入在注释编辑器中单击“格式化页面以提高可读性”按钮时使用的内容宽度（以em为单位）。</p>
                     </li>
                     <li data-options-label="warnUnsavedPageLabel"><span class="option">选项：如果页面中有未保存的更改，则发出警告</span>
                         <p>选中此选项可在您离开注释编辑器（例如关闭选项卡）而不保存更改时显示一个阻止弹出窗口。</p>
