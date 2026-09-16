@@ -30,6 +30,7 @@ import {
 	DEFAULT_REPLACED_CHARACTERS as DEFAULT_FILENAME_REPLACED_CHARACTERS,
 	DEFAULT_REPLACEMENT_CHARACTERS as DEFAULT_FILENAME_REPLACEMENT_CHARACTERS
 } from "./../../ui/common/filename-replacement.js";
+import { DEFAULT_MAX_APPENDED_DATA_LENGTH } from "single-file-core/processors/compression/compression-constants.js";
 
 const CURRENT_PROFILE_NAME = "-";
 const DEFAULT_PROFILE_NAME = "__Default_Settings__";
@@ -167,7 +168,7 @@ const DEFAULT_CONFIG = {
 	disableCompression: false,
 	extractDataFromPage: false,
 	preventAppendedData: false,
-	maxAppendedDataLength: 16361,
+	maxAppendedDataLength: DEFAULT_MAX_APPENDED_DATA_LENGTH,
 	insertEmbeddedImage: false,
 	insertEmbeddedScreenshotImage: false,
 	insertTextBody: false,
