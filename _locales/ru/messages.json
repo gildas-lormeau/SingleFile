@@ -232,7 +232,7 @@
 		"description": "Options page label: 'keep infobar open'"
 	},
 	"optionAnimateInfobar": {
-		"message": "анимировать информационную панель",
+		"message": "анимация информационной панели",
 		"description": "Options page label: 'animate the infobar'"
 	},
 	"optionRemoveInfobarSavedDate": {
@@ -292,7 +292,7 @@
 		"description": "Options page column label in the replaced characters table: 'Replaced with'"
 	},
 	"optionsFilenameReplacedCharactersPlaceholder": {
-		"message": "Введите символ (например, \":\")",
+		"message": "Введите символ (например, «:»)",
 		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. \":\")'"
 	},
 	"optionsAddFilenameReplacementTooltip": {
@@ -328,7 +328,7 @@
 		"description": "Options page label: 'save the filename template data into the page'"
 	},
 	"optionConfirmFilename": {
-		"message": "открыть диалоговое окно \"Сохранить как\" для подтверждения имени файла",
+		"message": "открыть диалоговое окно «Сохранить как» для подтверждения имени файла",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
 	},
 	"optionFilenameConflictAction": {
@@ -448,7 +448,7 @@
 		"description": "Options page label: 'image reduction factor'"
 	},
 	"optionLoadDeferredContent": {
-		"message": "сохранять содержимое, загружаемое при прокрутке",
+		"message": "сохранить содержимое, загружаемое при прокрутке",
 		"description": "Options page label: 'save content loaded while scrolling'"
 	},
 	"optionLoadDeferredContentMaxIdleTime": {
@@ -456,7 +456,7 @@
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
 	"optionLoadDeferredContentKeepZoomLevel": {
-		"message": "уменьшать масштаб страницы во время сохранения",
+		"message": "уменьшить масштаб страницы во время сохранения",
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
@@ -516,7 +516,7 @@
 		"description": "Options page label: 'blocked resources'"
 	},
 	"optionsAcceptHeaders": {
-		"message": "Заголовок \"Accept\"",
+		"message": "Заголовок «Accept»",
 		"description": "Options page label: '\"Accept\" header'"
 	},
 	"optionResourceScript": {
@@ -592,7 +592,7 @@
 		"description": "Checkbox label under the Auto-settings rules table: list the rules of every profile instead of only those of the profile selected above"
 	},
 	"optionsAutoSettingsShowAutoSaveProfile": {
-		"message": "показывать столбец \"Профиль автосохранения\"",
+		"message": "показывать столбец «Профиль автосохранения»",
 		"description": "Checkbox label under the Auto-settings rules table: show or hide the 'Auto-save profile' column. The quoted name must match the translation of optionsAutoSettingsAutoSaveProfile"
 	},
 	"optionsUpdateRuleTooltip": {
@@ -770,7 +770,7 @@
 		"description": "Options page label: 'maximum download time (s)'"
 	},
 	"optionPassReferrerOnError": {
-		"message": "пропустить заголовок \"Referer\" после ошибки запроса перекрёстного источника",
+		"message": "пропустить заголовок «Referer» после ошибки запроса перекрёстного источника",
 		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
 	},
 	"optionSaveRawPage": {
@@ -782,7 +782,7 @@
 		"description": "Options page label: 'set content security policy'"
 	},
 	"optionInsertCanonicalLink": {
-		"message": "сохранять каноническую ссылку страницы",
+		"message": "сохранить каноническую ссылку страницы",
 		"description": "Options page label: 'save the canonical link of the page'"
 	},
 	"optionSaveToClipboard": {
@@ -1070,7 +1070,7 @@
 		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
 	},
 	"editorEditPage": {
-		"message": "Включить/отключить режим \"только для чтения\"",
+		"message": "Включить/отключить режим «только для чтения»",
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorFormatPage": {
@@ -1234,7 +1234,7 @@
 		"description": "Options sub-title: 'Menus'"
 	},
 	"optionMenusEditor": {
-		"message": "выбрать пункты, отображаемые в меню, и их порядок (общие для всех профилей)",
+		"message": "выбор отображаемых в меню пунктов и их порядок (общие для всех профилей)",
 		"description": "Options page label: 'choose the entries displayed in the menus and their order (shared by all profiles)'"
 	},
 	"optionMenusEditorLink": {
