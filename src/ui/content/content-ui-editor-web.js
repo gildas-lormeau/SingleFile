@@ -350,7 +350,6 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				const { saveUrl } = singlefile.helper.extractInfobarData(contentDocument);
 				pageUrl = saveUrl;
 				await singlefile.helper.display(document, docContent, { disableFramePointerEvents: true });
-				singlefile.helper.fixInvalidNesting(document);
 				const infobarElement = document.querySelector(singlefile.helper.INFOBAR_TAGNAME);
 				if (infobarElement) {
 					infobarElement.remove();
@@ -407,7 +406,6 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				});
 				disableFramePointerEvents(contentDocument);
 				document.replaceChild(contentDocument.documentElement, document.documentElement);
-				singlefile.helper.fixInvalidNesting(document);
 				initPageContent();
 				const iconElement = document.querySelector("link[rel*=icon]");
 				window.parent.postMessage(JSON.stringify({
@@ -621,6 +619,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	function initPageContent() {
 		document.querySelectorAll("[data-single-file-note-refs]").forEach(noteRefElement => noteRefElement.dataset.singleFileNoteRefs = noteRefElement.dataset.singleFileNoteRefs.replace(/,/g, " "));
 		deserializeShadowRoots(document);
+		singlefile.helper.fixInvalidNesting(document);
 		reflowNotes();
 		waitResourcesLoad().then(reflowNotes);
 		watchNotesLayout();
@@ -1431,8 +1430,8 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	function getContent(compressHTML) {
 		saveNoteOffsets();
 		unhighlightCutElement();
-		serializeShadowRoots(document);
 		singlefile.helper.markInvalidNesting(document);
+		serializeShadowRoots(document);
 		const doc = document.cloneNode(true);
 		disableHighlight(doc);
 		resetSelectedElements(doc);
