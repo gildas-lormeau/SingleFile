@@ -39,7 +39,7 @@ export {
 	download
 };
 
-async function download(downloadInfo, replacementCharacter) {
+async function download(downloadInfo, replacementCharacter, promptConflictingFilename) {
 	let downloadId;
 	const result = new Promise((resolve, reject) => {
 		browser.downloads.onChanged.addListener(onChanged);
@@ -72,25 +72,32 @@ async function download(downloadInfo, replacementCharacter) {
 			const sanitizedFilename = sanitizeFilename(downloadInfo.filename, replacementCharacter);
 			if (invalidFilename && downloadInfo.filename.startsWith(".")) {
 				downloadInfo.filename = replacementCharacter + downloadInfo.filename;
-				return download(downloadInfo, replacementCharacter);
+				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
 			} else if (invalidFilename && downloadInfo.filename.includes(",")) {
 				downloadInfo.filename = downloadInfo.filename.replace(/,/g, replacementCharacter);
-				return download(downloadInfo, replacementCharacter);
+				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
 			} else if (invalidFilename && sanitizedFilename != downloadInfo.filename) {
 				downloadInfo.filename = sanitizedFilename;
-				return download(downloadInfo, replacementCharacter);
+				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
 			} else if (invalidFilename && downloadInfo.filename.match(REGEXP_REPLACEABLE_CHARACTERS)) {
 				downloadInfo.filename = downloadInfo.filename.replace(REGEXP_REPLACEABLE_CHARACTERS, character => LOOKALIKE_CHARACTERS.get(character));
-				return download(downloadInfo, replacementCharacter);
+				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
 			} else if (invalidFilename && !downloadInfo.filename.match(/^[\x00-\x7F]+$/)) { // eslint-disable-line  no-control-regex
 				downloadInfo.filename = downloadInfo.filename.replace(/[^\x00-\x7F]+/g, replacementCharacter); // eslint-disable-line  no-control-regex
-				return download(downloadInfo, replacementCharacter);
+				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
 			} else if ((errorMessage.includes(ERROR_INCOGNITO_GECKO) || errorMessage.includes(ERROR_INCOGNITO_GECKO_ALT)) && downloadInfo.incognito) {
 				delete downloadInfo.incognito;
-				return download(downloadInfo, replacementCharacter);
+				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
 			} else if (errorMessage == ERROR_CONFLICT_ACTION_GECKO && downloadInfo.conflictAction) {
 				delete downloadInfo.conflictAction;
-				return download(downloadInfo, replacementCharacter);
+				if (promptConflictingFilename && !downloadInfo.saveAs) {
+					const filename = await promptConflictingFilename(downloadInfo.filename);
+					if (!filename) {
+						return { cancelled: true };
+					}
+					downloadInfo.filename = filename;
+				}
+				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
 			} else if (errorMessage.includes(ERROR_DOWNLOAD_CANCELED_GECKO)) {
 				return { cancelled: true };
 			} else {
