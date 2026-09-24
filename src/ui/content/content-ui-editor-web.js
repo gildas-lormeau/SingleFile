@@ -1625,6 +1625,9 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 						const contentDocument = (new DOMParser()).parseFromString(element.innerHTML, "text/html");
 						Array.from(contentDocument.head.childNodes).forEach(node => shadowRoot.appendChild(node));
 						Array.from(contentDocument.body.childNodes).forEach(node => shadowRoot.appendChild(node));
+						if (!element.childNodes.length) {
+							element.remove();
+						}
 						// eslint-disable-next-line no-unused-vars
 					} catch (error) {
 						// ignored
