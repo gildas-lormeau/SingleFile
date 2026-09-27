@@ -24,7 +24,6 @@
 /* global browser */
 
 import * as config from "./config.js";
-import { chunkFinished } from "./../common/chunk-finished.js";
 
 const MAX_CONTENT_SIZE = 32 * (1024 * 1024);
 const EDITOR_PAGE_URL = "/src/ui/pages/editor.html";
@@ -82,7 +81,7 @@ async function onMessage(message, sender) {
 				};
 				message.truncated = content.length > MAX_CONTENT_SIZE;
 				if (message.truncated) {
-					message.finished = chunkFinished(blockIndex, MAX_CONTENT_SIZE, content.length);
+					message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE >= content.length;
 					message.content = content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
 					if (message.finished) {
 						message.options = options;
