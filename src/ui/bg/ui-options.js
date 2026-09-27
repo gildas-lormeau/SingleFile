@@ -1261,6 +1261,7 @@ async function refresh(profileName) {
 	groupDuplicateImagesInput.checked = profileOptions.groupDuplicateImages;
 	imageReductionFactorInput.value = profileOptions.imageReductionFactor;
 	imageQualityInput.value = profileOptions.imageQuality;
+	imageQualityInput.disabled = !(profileOptions.imageReductionFactor > 1);
 	customShortcutInput.value = profileOptions.customShortcut || "";
 	removeAlternativeMediasInput.checked = profileOptions.removeAlternativeMedias;
 	saveCreatedBookmarksInput.checked = profileOptions.saveCreatedBookmarks;
