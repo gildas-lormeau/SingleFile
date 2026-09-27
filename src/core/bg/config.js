@@ -76,7 +76,6 @@ const DEFAULT_CONFIG = {
 	removeUnusedFonts: true,
 	removeFrames: false,
 	compressHTML: true,
-	compressCSS: false,
 	loadDeferredContent: true,
 	loadDeferredContentMaxIdleTime: 1500,
 	loadDeferredContentBlockCookies: false,
@@ -225,7 +224,8 @@ const DEFAULT_CONFIG = {
 	infobarPositionLeft: "",
 	removeNoScriptTags: true,
 	customShortcut: null,
-	imageReductionFactor: 1
+	imageReductionFactor: 1,
+	imageQuality: 0.8
 };
 
 const DEFAULT_RULES = [{

@@ -447,6 +447,10 @@
 		"message": "画像の縮小係数",
 		"description": "Options page label: 'image reduction factor'"
 	},
+	"optionImageQuality": {
+		"message": "縮小した画像の品質",
+		"description": "Options page label: 'quality of resized images'"
+	},
 	"optionLoadDeferredContent": {
 		"message": "スクロール時に読み込まれるコンテンツを保存する",
 		"description": "Options page label: 'save content loaded while scrolling'"
@@ -486,10 +490,6 @@
 	"optionsStylesheetsSubTitle": {
 		"message": "スタイルシート",
 		"description": "Options sub-title: 'Stylesheets'"
-	},
-	"optionCompressCSS": {
-		"message": "CSS コンテンツを圧縮する",
-		"description": "Options page label: 'compress CSS content'"
 	},
 	"optionGroupDuplicateStylesheets": {
 		"message": "オプション重複スタイルシートのグループ化",

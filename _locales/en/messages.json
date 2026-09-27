@@ -447,6 +447,10 @@
 		"message": "image reduction factor",
 		"description": "Options page label: 'image reduction factor'"
 	},
+	"optionImageQuality": {
+		"message": "quality of resized images",
+		"description": "Options page label: 'quality of resized images'"
+	},
 	"optionLoadDeferredContent": {
 		"message": "save content loaded while scrolling",
 		"description": "Options page label: 'save content loaded while scrolling'"
@@ -486,10 +490,6 @@
 	"optionsStylesheetsSubTitle": {
 		"message": "Stylesheets",
 		"description": "Options sub-title: 'Stylesheets'"
-	},
-	"optionCompressCSS": {
-		"message": "compress CSS content",
-		"description": "Options page label: 'compress CSS content'"
 	},
 	"optionGroupDuplicateStylesheets": {
 		"message": "group duplicate stylesheets together",

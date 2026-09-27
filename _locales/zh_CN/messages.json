@@ -447,6 +447,10 @@
 		"message": "图片缩小系数",
 		"description": "Options page label: 'image reduction factor'"
 	},
+	"optionImageQuality": {
+		"message": "缩小后图片的质量",
+		"description": "Options page label: 'quality of resized images'"
+	},
 	"optionLoadDeferredContent": {
 		"message": "保存滚动时加载的内容",
 		"description": "Options page label: 'save content loaded while scrolling'"
@@ -486,10 +490,6 @@
 	"optionsStylesheetsSubTitle": {
 		"message": "样式表",
 		"description": "Options sub-title: 'Stylesheets'"
-	},
-	"optionCompressCSS": {
-		"message": "压缩 CSS 内容",
-		"description": "Options page label: 'compress CSS content'"
 	},
 	"optionGroupDuplicateStylesheets": {
 		"message": "将重复样式表分组到一起",

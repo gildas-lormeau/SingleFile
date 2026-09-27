@@ -447,6 +447,10 @@
 		"message": "görüntü küçültme faktörü",
 		"description": "Options page label: 'image reduction factor'"
 	},
+	"optionImageQuality": {
+		"message": "küçültülen görsellerin kalitesi",
+		"description": "Options page label: 'quality of resized images'"
+	},
 	"optionLoadDeferredContent": {
 		"message": "kaydırma sırasında yüklenen içeriği kaydet",
 		"description": "Options page label: 'save content loaded while scrolling'"
@@ -486,10 +490,6 @@
 	"optionsStylesheetsSubTitle": {
 		"message": "Stil sayfaları",
 		"description": "Options sub-title: 'Stylesheets'"
-	},
-	"optionCompressCSS": {
-		"message": "CSS içeriğini sıkıştır ",
-		"description": "Options page label: 'compress CSS content'"
 	},
 	"optionGroupDuplicateStylesheets": {
 		"message": "yinelenen stil sayfalarını gruplandır",

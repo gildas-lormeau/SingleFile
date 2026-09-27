@@ -128,10 +128,10 @@ const insertTextBodyLabel = document.getElementById("insertTextBodyLabel");
 const insertEmbeddedImageLabel = document.getElementById("insertEmbeddedImageLabel");
 const insertEmbeddedCustomImageLabel = document.getElementById("insertEmbeddedCustomImageLabel");
 const insertEmbeddedScreenshotImageLabel = document.getElementById("insertEmbeddedScreenshotImageLabel");
-const compressCSSLabel = document.getElementById("compressCSSLabel");
 const groupDuplicateStylesheetsLabel = document.getElementById("groupDuplicateStylesheetsLabel");
 const moveStylesInHeadLabel = document.getElementById("moveStylesInHeadLabel");
 const imageReductionFactorLabel = document.getElementById("imageReductionFactorLabel");
+const imageQualityLabel = document.getElementById("imageQualityLabel");
 const loadDeferredContentLabel = document.getElementById("loadDeferredContentLabel");
 const loadDeferredContentMaxIdleTimeLabel = document.getElementById("loadDeferredContentMaxIdleTimeLabel");
 const loadDeferredContentKeepZoomLevelLabel = document.getElementById("loadDeferredContentKeepZoomLevelLabel");
@@ -307,9 +307,9 @@ const insertTextBodyInput = document.getElementById("insertTextBodyInput");
 const insertEmbeddedImageInput = document.getElementById("insertEmbeddedImageInput");
 const insertEmbeddedCustomImageInput = document.getElementById("insertEmbeddedCustomImageInput");
 const insertEmbeddedScreenshotImageInput = document.getElementById("insertEmbeddedScreenshotImageInput");
-const compressCSSInput = document.getElementById("compressCSSInput");
 const groupDuplicateStylesheetsInput = document.getElementById("groupDuplicateStylesheetsInput");
 const imageReductionFactorInput = document.getElementById("imageReductionFactorInput");
+const imageQualityInput = document.getElementById("imageQualityInput");
 const moveStylesInHeadInput = document.getElementById("moveStylesInHeadInput");
 const loadDeferredContentInput = document.getElementById("loadDeferredContentInput");
 const loadDeferredContentMaxIdleTimeInput = document.getElementById("loadDeferredContentMaxIdleTimeInput");
@@ -825,10 +825,10 @@ insertTextBodyLabel.textContent = browser.i18n.getMessage("optionInsertTextBody"
 insertEmbeddedImageLabel.textContent = browser.i18n.getMessage("optionInsertEmbeddedImage");
 insertEmbeddedCustomImageLabel.textContent = browser.i18n.getMessage("optionInsertEmbeddedCustomImage");
 insertEmbeddedScreenshotImageLabel.textContent = browser.i18n.getMessage("optionInsertEmbeddedScreenshotImage");
-compressCSSLabel.textContent = browser.i18n.getMessage("optionCompressCSS");
 groupDuplicateStylesheetsLabel.textContent = browser.i18n.getMessage("optionGroupDuplicateStylesheets");
 moveStylesInHeadLabel.textContent = browser.i18n.getMessage("optionMoveStylesInHead");
 imageReductionFactorLabel.textContent = browser.i18n.getMessage("optionImageReductionFactor");
+imageQualityLabel.textContent = browser.i18n.getMessage("optionImageQuality");
 loadDeferredContentLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContent");
 loadDeferredContentMaxIdleTimeLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContentMaxIdleTime");
 loadDeferredContentKeepZoomLevelLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContentKeepZoomLevel");
@@ -1212,7 +1212,6 @@ async function refresh(profileName) {
 	sharePageInput.checked = profileOptions.sharePage;
 	saveToFilesystemInput.checked = !profileOptions.saveToGDrive && !profileOptions.saveToGitHub && !profileOptions.saveToS3 && !profileOptions.saveWithCompanion && !profileOptions.saveToClipboard && !profileOptions.saveWithWebDAV && !profileOptions.saveWithMCP && !profileOptions.saveToDropbox && !profileOptions.saveToRestFormApi && !profileOptions.sharePage;
 	compressHTMLInput.checked = profileOptions.compressHTML;
-	compressCSSInput.checked = profileOptions.compressCSS;
 	groupDuplicateStylesheetsInput.checked = profileOptions.groupDuplicateStylesheets;
 	moveStylesInHeadInput.checked = profileOptions.moveStylesInHead;
 	loadDeferredContentInput.checked = profileOptions.loadDeferredContent;
@@ -1261,6 +1260,7 @@ async function refresh(profileName) {
 	removeAlternativeImagesInput.checked = profileOptions.removeAlternativeImages;
 	groupDuplicateImagesInput.checked = profileOptions.groupDuplicateImages;
 	imageReductionFactorInput.value = profileOptions.imageReductionFactor;
+	imageQualityInput.value = profileOptions.imageQuality;
 	customShortcutInput.value = profileOptions.customShortcut || "";
 	removeAlternativeMediasInput.checked = profileOptions.removeAlternativeMedias;
 	saveCreatedBookmarksInput.checked = profileOptions.saveCreatedBookmarks;
@@ -1452,7 +1452,6 @@ async function update() {
 			insertTextBody: insertTextBodyInput.checked,
 			insertEmbeddedImage: insertEmbeddedCustomImageInput.checked,
 			insertEmbeddedScreenshotImage: insertEmbeddedScreenshotImageInput.checked,
-			compressCSS: compressCSSInput.checked,
 			groupDuplicateStylesheets: groupDuplicateStylesheetsInput.checked,
 			moveStylesInHead: moveStylesInHeadInput.checked,
 			loadDeferredContent: loadDeferredContentInput.checked,
@@ -1504,6 +1503,7 @@ async function update() {
 			password: passwordInput.value,
 			groupDuplicateImages: groupDuplicateImagesInput.checked,
 			imageReductionFactor: imageReductionFactorInput.value,
+			imageQuality: imageQualityInput.value === "" ? 0.8 : Math.min(Math.max(imageQualityInput.value, 0), 1),
 			infobarTemplate: infobarTemplateInput.value,
 			blockMixedContent: blockMixedContentInput.checked,
 			saveOriginalURLs: saveOriginalURLsInput.checked,

@@ -447,6 +447,10 @@
 		"message": "factor voor verkleining van afbeeldingen",
 		"description": "Options page label: 'image reduction factor'"
 	},
+	"optionImageQuality": {
+		"message": "kwaliteit van verkleinde afbeeldingen",
+		"description": "Options page label: 'quality of resized images'"
+	},
 	"optionLoadDeferredContent": {
 		"message": "inhoud opslaan die tijdens het scrollen wordt geladen",
 		"description": "Options page label: 'save content loaded while scrolling'"
@@ -486,10 +490,6 @@
 	"optionsStylesheetsSubTitle": {
 		"message": "Stijlbladen",
 		"description": "Options sub-title: 'Stylesheets'"
-	},
-	"optionCompressCSS": {
-		"message": "CSS-inhoud comprimeren",
-		"description": "Options page label: 'compress CSS content'"
 	},
 	"optionGroupDuplicateStylesheets": {
 		"message": "dubbele stijlbladen samenvoegen",

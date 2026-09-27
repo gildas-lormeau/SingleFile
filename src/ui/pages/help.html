@@ -402,12 +402,6 @@
 							stylesheets for print preview and speech synthesizers. Checking this option can help to
 							reduce the size of the file.</p>
 					</li>
-					<li data-options-label="compressCSSLabel"> <span class="option">Option: compress CSS content</span>
-						<p>Check this option to minify CSS stylesheets. Checking this option can reduce size of the file
-							without altering the document. It may also increase the CPU consumption and the time needed
-							to save a page.</p>
-						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
-					</li>
 					<li data-options-label="groupDuplicateStylesheetsLabel"> <span class="option">Option: group
 							duplicate stylesheets together</span>
 						<p>Check this option to group together all the duplicate inline stylesheets. Checking this
@@ -480,8 +474,15 @@
 							For example, if you set this value to 2, the dimensions of the images will be halved; if you
 							set it to 4, they will be quartered, and so on. This only applies to PNG, JPEG, and WEBP
 							images. This can help reduce the final file size, but may also reduce the image quality. The
-							default value is 1 (no reduction).
+							default value is 1 (no reduction). Images whose size is not set by the page (e.g. icons, logos)
+							are displayed smaller.
 						</p>
+					</li>
+					<li data-options-label="imageQualityLabel"> <span class="option">Option: quality of resized images</span>
+						<p>Quality of the JPEG and WEBP images resized with the image reduction factor, between 0 and 1. A
+							lower value gives a smaller file and a less sharp image. With 1, WEBP images are saved without
+							loss. This option has no effect on PNG images, or when the image reduction factor is 1. The
+							default value is 0.8.</p>
 					</li>
 					<li data-options-label="removeAlternativeImagesLabel"> <span class="option">Option: remove images
 							for alternative screen resolutions</span>
