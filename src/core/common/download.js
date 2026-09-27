@@ -26,6 +26,7 @@
 import * as yabson from "./../../lib/yabson/yabson.js";
 import * as ui from "./../../ui/content/content-ui.js";
 import { getSharePageBar, setLabels } from "./../../ui/common/common-content-ui.js";
+import { chunkFinished } from "./chunk-finished.js";
 
 const MAX_CONTENT_SIZE = 16 * (1024 * 1024);
 
@@ -193,7 +194,7 @@ async function downloadPage(pageData, options) {
 					for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
 						message.truncated = pageData.content.length > MAX_CONTENT_SIZE;
 						if (message.truncated) {
-							message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > pageData.content.length;
+							message.finished = chunkFinished(blockIndex, MAX_CONTENT_SIZE, pageData.content.length);
 							message.content = pageData.content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
 						} else {
 							message.content = pageData.content;
