@@ -193,7 +193,7 @@ async function downloadPage(pageData, options) {
 					for (let blockIndex = 0; blockIndex * MAX_CONTENT_SIZE < pageData.content.length; blockIndex++) {
 						message.truncated = pageData.content.length > MAX_CONTENT_SIZE;
 						if (message.truncated) {
-							message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > pageData.content.length;
+							message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE >= pageData.content.length;
 							message.content = pageData.content.substring(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE);
 						} else {
 							message.content = pageData.content;

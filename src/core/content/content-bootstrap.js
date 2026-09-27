@@ -335,7 +335,7 @@ async function openEditor(document) {
 		};
 		message.truncated = content.length > MAX_CONTENT_SIZE;
 		if (message.truncated) {
-			message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE > content.length;
+			message.finished = (blockIndex + 1) * MAX_CONTENT_SIZE >= content.length;
 			if (content instanceof Uint8Array) {
 				message.content = Array.from(content.subarray(blockIndex * MAX_CONTENT_SIZE, (blockIndex + 1) * MAX_CONTENT_SIZE));
 			} else {
