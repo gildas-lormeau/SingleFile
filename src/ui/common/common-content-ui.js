@@ -93,6 +93,10 @@ function getSharePageBar() {
 					buttonLabel: selectedContent ? SHARE_SELECTION_BUTTON_MESSAGE : SHARE_PAGE_BUTTON_MESSAGE,
 					buttonOnclick: resolve
 				});
+				const barElement = document.querySelector(SHARE_PAGE_BAR_TAGNAME);
+				if (barElement) {
+					barElement.shadowRoot.querySelector("button").focus({ preventScroll: true });
+				}
 			});
 		},
 		hide: function () {
