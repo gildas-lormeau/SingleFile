@@ -100,9 +100,6 @@ function setVisible(visible) {
 function onStartPage(options, cancelSave) {
 	let maskElement = document.querySelector(MASK_TAGNAME);
 	if (!maskElement) {
-		if (options.logsEnabled) {
-			document.documentElement.appendChild(logsWindowElement);
-		}
 		if (options.shadowEnabled) {
 			const maskElement = createMaskElement();
 			if (options.progressBarEnabled) {
@@ -111,6 +108,10 @@ function onStartPage(options, cancelSave) {
 			if (!options.silent) {
 				createCancelButtonElement(maskElement, cancelSave);
 			}
+		}
+		if (options.logsEnabled) {
+			document.documentElement.appendChild(logsWindowElement);
+			showInTopLayer(logsWindowElement);
 		}
 		if (!options.silent) {
 			setCancelSaveShortcut(cancelSave);
@@ -475,6 +476,7 @@ function createMaskElement() {
 		let maskElement = document.querySelector(MASK_TAGNAME);
 		if (!maskElement) {
 			maskElement = createElement(MASK_TAGNAME, document.documentElement);
+			showInTopLayer(maskElement);
 			const shadowRoot = maskElement.attachShadow({ mode: "open" });
 			const styleElement = document.createElement("style");
 			styleElement.textContent = `
@@ -777,4 +779,19 @@ function createElement(tagName, parentElement) {
 	CSS_PROPERTIES.forEach(property => element.style.setProperty(property, "initial", "important"));
 	element.style.setProperty("direction", UI_DIRECTION, "important");
 	return element;
+}
+
+function showInTopLayer(element) {
+	if (element.showPopover) {
+		try {
+			element.setAttribute("popover", "manual");
+			element.style.setProperty("position", "fixed", "important");
+			element.style.setProperty("top", "0", "important");
+			element.style.setProperty("left", "0", "important");
+			element.showPopover();
+			// eslint-disable-next-line no-unused-vars
+		} catch (error) {
+			element.removeAttribute("popover");
+		}
+	}
 }
