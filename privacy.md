@@ -6,6 +6,7 @@ Your data always belongs to you, and only you. SingleFile does not collect any d
 - If you connect SingleFile to your Google Drive account, data is only transmitted from your browser to servers belonging to Google. 
 - If you connect SingleFile to your Dropbox account, data is only transmitted from your browser to servers belonging to Dropbox. 
 - If you save pages on GitHub, data is only transmitted from your browser to servers belonging to GitHub. 
+- If you save pages with WebDAV, on Amazon S3 or with a REST form API, data is only transmitted from your browser to the server you configured. 
 - If you enable the "synchronize options" setting, your options will be sent to servers belonging to the vendor of the browser you are using. 
 - If you enable the "add proof of existence" setting, a SHA256 hash of each saved page will be sent to servers belonging to Woleet. 
 - When processing a page, SingleFile needs to inject temporary data into the page to save it accurately. SingleFile can download resources that are not displayed or not already cached but present in the page. When using SingleFile in Chromium-based browsers, websites can fetch resources declared in the "web_accessible_resources" section of the manifest.json file. Because of this, a website may be able to detect you are using SingleFile or have saved a page on the website with SingleFile.
@@ -14,7 +15,7 @@ Your data always belongs to you, and only you. SingleFile does not collect any d
 When you request for customer support, we may ask for your email address to get back to you.
 
 ## Changes to our privacy policy
-We keep our privacy notice under regular review and we will place any updates on this document. This privacy notice was last updated on December 2019.
+We keep our privacy notice under regular review and we will place any updates on this document. This privacy notice was last updated on October 2026.
 
 ## How to contact us
 Please contact us if you have any questions about our privacy policy by email to gildas.lormeau &lt;at&gt; gmail.com.
