@@ -499,6 +499,10 @@
 		"message": "переместить в основной элемент стили, найденные вне него",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
+	"optionCustomStylesheet": {
+		"message": "применить пользовательскую таблицу стилей перед сохранением страницы",
+		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
+	},
 	"optionRemoveUnusedStyles": {
 		"message": "удалить неиспользуемые стили",
 		"description": "Options page label: 'remove unused styles'"

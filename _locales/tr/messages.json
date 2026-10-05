@@ -499,6 +499,10 @@
 		"message": "dışında bulunan stilleri baş öğesinde taşı",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
+	"optionCustomStylesheet": {
+		"message": "sayfayı kaydetmeden önce özel bir stil sayfası uygula",
+		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
+	},
 	"optionRemoveUnusedStyles": {
 		"message": "kullanılmayan stilleri kaldır",
 		"description": "Options page label: 'remove unused styles'"

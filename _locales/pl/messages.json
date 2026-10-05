@@ -499,6 +499,10 @@
 		"message": "przenoś do elementu head style znajdujące się poza nim",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
+	"optionCustomStylesheet": {
+		"message": "zastosuj własny arkusz stylów przed zapisaniem strony",
+		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
+	},
 	"optionRemoveUnusedStyles": {
 		"message": "usuwaj nieużywane style",
 		"description": "Options page label: 'remove unused styles'"

@@ -55,6 +55,7 @@ const CAPTURE_OPTION_NAMES = [
 	"maxSizeDuplicateImages",
 	"groupDuplicateStylesheets",
 	"moveStylesInHead",
+	"customStylesheet",
 	"imageReductionFactor",
 	"imageQuality",
 	"loadDeferredContent",

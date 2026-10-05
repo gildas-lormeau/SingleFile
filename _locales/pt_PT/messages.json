@@ -499,6 +499,10 @@
 		"message": "mover para o elemento principal os estilos que se encontram fora dele",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
+	"optionCustomStylesheet": {
+		"message": "aplicar uma folha de estilos personalizada antes de guardar a página",
+		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
+	},
 	"optionRemoveUnusedStyles": {
 		"message": "remover estilos não utilizados",
 		"description": "Options page label: 'remove unused styles'"

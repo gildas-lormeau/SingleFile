@@ -499,6 +499,10 @@
 		"message": "head要素の外にあるスタイルをhead要素内に移動する",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
+	"optionCustomStylesheet": {
+		"message": "ページを保存する前にカスタムスタイルシートを適用する",
+		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
+	},
 	"optionRemoveUnusedStyles": {
 		"message": "未使用のスタイルを削除する",
 		"description": "Options page label: 'remove unused styles'"

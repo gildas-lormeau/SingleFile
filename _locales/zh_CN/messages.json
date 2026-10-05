@@ -499,6 +499,10 @@
 		"message": "移动 head 标签之外的样式到其内",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
+	"optionCustomStylesheet": {
+		"message": "保存页面前应用自定义样式表",
+		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
+	},
 	"optionRemoveUnusedStyles": {
 		"message": "移除未使用的样式",
 		"description": "Options page label: 'remove unused styles'"

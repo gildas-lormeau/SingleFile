@@ -499,6 +499,10 @@
 		"message": "baş elementdə stil-ləri köçürün",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
+	"optionCustomStylesheet": {
+		"message": "səhifəni yadda saxlamazdan əvvəl xüsusi stil cədvəli tətbiq edin",
+		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
+	},
 	"optionRemoveUnusedStyles": {
 		"message": "istifadə olunmayan stil-ləri çıxarın",
 		"description": "Options page label: 'remove unused styles'"

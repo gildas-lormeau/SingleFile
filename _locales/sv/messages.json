@@ -499,6 +499,10 @@
 		"message": "flytta stilar som ligger utanför head-elementet till head-elementet",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
+	"optionCustomStylesheet": {
+		"message": "tillämpa en anpassad stilmall innan sidan sparas",
+		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
+	},
 	"optionRemoveUnusedStyles": {
 		"message": "ta bort oanvända stilar",
 		"description": "Options page label: 'remove unused styles'"

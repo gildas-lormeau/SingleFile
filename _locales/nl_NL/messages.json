@@ -499,6 +499,10 @@
 		"message": "verplaats de stijlen die zich buiten het head-element bevinden",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
+	"optionCustomStylesheet": {
+		"message": "een aangepast stylesheet toepassen voordat de pagina wordt opgeslagen",
+		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
+	},
 	"optionRemoveUnusedStyles": {
 		"message": "verwijder ongebruikte stijlen",
 		"description": "Options page label: 'remove unused styles'"

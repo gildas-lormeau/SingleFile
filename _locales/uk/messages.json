@@ -499,6 +499,10 @@
 		"message": "переміщати в елемент head стилі, що знаходяться за його межами",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
+	"optionCustomStylesheet": {
+		"message": "застосувати користувацьку таблицю стилів перед збереженням сторінки",
+		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
+	},
 	"optionRemoveUnusedStyles": {
 		"message": "видалити невикористовувані стилі",
 		"description": "Options page label: 'remove unused styles'"
