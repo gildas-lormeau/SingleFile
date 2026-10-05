@@ -299,6 +299,9 @@
                             缩小嵌入在已保存页面中的图像大小。该值表示一个除数。例如，如果设置为 2，图像尺寸将减半；如果设置为 4，图像尺寸将减为四分之一，依此类推。此选项仅适用于 PNG、JPEG 和 WEBP 图像。可以帮助减小最终文件大小，但也可能降低图像质量。默认值为 1（不缩减）。
 						</p>
 					</li>
+                    <li data-options-label="imageQualityLabel"><span class="option">选项：调整大小后图像的质量</span>
+                        <p>使用图像缩小系数调整大小后的 JPEG 和 WEBP 图像的质量，取值在 0 到 1 之间。值越低，文件越小，图像也越不清晰。取 1 时，WEBP 图像以无损方式保存。此选项对 PNG 图像无效，图像缩小系数为 1 时也无效。默认值为 0.8。</p>
+                    </li>
                     <li data-options-label="removeAlternativeImagesLabel"><span class="option">选项：删除图像以获得其他屏幕分辨率</span>
                         <p>选中此选项可删除默认显示分辨率较低和/或较高的替代图像。选中此选项可以大大减小文件的大小。</p>
                     </li>
