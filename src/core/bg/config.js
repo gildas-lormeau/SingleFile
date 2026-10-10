@@ -197,7 +197,6 @@ const DEFAULT_CONFIG = {
 	networkTimeout: 0,
 	woleetKey: "",
 	blockImages: false,
-	blockAlternativeImages: true,
 	blockStylesheets: false,
 	blockFonts: false,
 	blockScripts: true,
@@ -358,6 +357,7 @@ async function upgrade() {
 			});
 			profile._migratedDeferredContentOptions = true;
 		}
+		delete profile.blockAlternativeImages;
 		for (const key of Object.keys(DEFAULT_CONFIG)) {
 			if (profile[key] === undefined) {
 				profile[key] = DEFAULT_CONFIG[key];

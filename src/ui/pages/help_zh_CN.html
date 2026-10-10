@@ -607,12 +607,27 @@
                         <p class="notice">建议<u>取消选中</u>此选项</p>
                     </li>
                 </ul>
+                <p>外部捕获 API</p>
+                <ul>
+                    <li data-options-label="externalCaptureAllowedIdsLabel"><span class="option">选项：允许的扩展，每行一个</span>
+                        <p>允许通过外部捕获 API（参见“与其他扩展集成”）捕获页面的扩展，每行一个，以其 ID 标识。当您批准某个扩展的第一次请求时，它会被添加到此处。删除对应的行即可撤销权限。请注意，被允许的扩展可以捕获任何标签页，而不仅仅是当前标签页。</p>
+                    </li>
+                    <li data-options-label="externalCaptureDeniedIdsLabel"><span class="option">选项：已屏蔽的扩展，每行一个</span>
+                        <p>其捕获请求会被直接拒绝而不再询问的扩展，每行一个，以其 ID 标识。当您屏蔽某个扩展的第一次请求时，它会被添加到此处。删除对应的行后，下次请求时会再次询问您。</p>
+                    </li>
+                </ul>
                 <p id="auto-settings-rules">自动设置规则</p>
                 <ul>
                     <li>自动设置规则允许您将完整或部分URL与配置文件相关联。它还允许为自动保存关联特定的配置文件，或禁用它（选中“显示‘自动保存配置文件’列”）。当两个或多个规则与要保存的页面的URL匹配时，将选择URL最长的规则。特殊配置文件“-”表示当前配置文件。
                     </li>
                     <li>您可以使用特殊值“*”作为URL来创建适用于所有URL的规则</li>
                     <li>您可以通过在URL前加上“regexp:”来使用正则表达式（例如，“regexp:.*\.com”来匹配所有包含“.com”的URL）。当零条或多条基于URL的规则和一条或多个基于正则表达式的规则与一个URL匹配时，将选择基于正则表达式最长的规则。
+                    </li>
+                    <li data-options-label="showAllProfilesLabel"><span class="option">选项：显示所有配置文件</span>
+                        <p>选中此选项可显示所有配置文件的规则，而不仅仅是与所选配置文件关联的规则。此时“删除所有规则”按钮会删除所有配置文件的规则。</p>
+                    </li>
+                    <li data-options-label="showAutoSaveProfileLabel"><span class="option">选项：显示“自动保存所用配置文件”列</span>
+                        <p>选中此选项可显示用于为每条规则关联自动保存所用配置文件（或禁用自动保存）的列。</p>
                     </li>
                 </ul>
                 <p id="menus">菜单</p>
@@ -628,7 +643,7 @@
                 </ul>
                 <p>表单按钮</p>
                 <ul>
-                    <li><span class="option">同步选项</span>
+                    <li data-options-label="synchronizeLabel"><span class="option">同步选项</span>
                         <p>选中此选项可同步您的选项，并使其在您登录的浏览器的不同设备上的所有实例中可用。</p>
                     </li>
                     <li><span class="option">重置</span>
