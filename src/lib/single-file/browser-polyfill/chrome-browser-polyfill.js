@@ -31,6 +31,7 @@ if (typeof globalThis == "undefined") {
 
 	const FEATURE_TESTS = {};
 	const NON_COMPLIANT_IMPLEMENTATION = globalThis.origin && globalThis.origin.startsWith("safari-web-extension://");
+	const ERROR_PROPERTY_NAME = "__singleFileError";
 
 	function respond(sendResponse, response) {
 		try {
@@ -331,6 +332,16 @@ if (typeof globalThis == "undefined") {
 											// ignored
 										}
 									}
+								})
+								.catch(error => {
+									if (error && error[ERROR_PROPERTY_NAME]) {
+										try {
+											sendResponse({ [ERROR_PROPERTY_NAME]: error.message });
+											// eslint-disable-next-line no-unused-vars
+										} catch (error) {
+											// ignored
+										}
+									}
 								});
 							return true;
 						}
@@ -345,11 +356,15 @@ if (typeof globalThis == "undefined") {
 					// answers with. That asymmetry is documented rather than papered over: it is
 					// the one part of the behavior this polyfill cannot reproduce.
 					//
-					// The catch is deliberately here and not on onMessage above. This event has
-					// a single listener, so nothing can be pre-empted by answering. onMessage is
-					// shared — singlefile.fetchResponse alone has two listeners in the content
-					// scripts — and there a rejecting listener that answered would beat the one
-					// that actually handles the message and turn a working save into a failure.
+					// The unconditional catch is deliberately here and not on onMessage above.
+					// This event has a single listener, so nothing can be pre-empted by
+					// answering. onMessage is shared — singlefile.fetchResponse alone has two
+					// listeners in the content scripts — and there a rejecting listener that
+					// answered would beat the one that actually handles the message and turn a
+					// working save into a failure. onMessage therefore answers only the
+					// rejections flagged with ERROR_PROPERTY_NAME by the dispatchers that did
+					// handle the message, so that their message and stack reach the sender as
+					// they do natively in Firefox.
 					addListener: listener => nativeAPI.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
 						const response = listener(message, sender);
 						if (response && typeof response.then == "function") {
@@ -367,6 +382,8 @@ if (typeof globalThis == "undefined") {
 					nativeAPI.runtime.sendMessage(message, response => {
 						if (nativeAPI.runtime.lastError) {
 							reject(nativeAPI.runtime.lastError);
+						} else if (response && response[ERROR_PROPERTY_NAME]) {
+							reject(new Error(response[ERROR_PROPERTY_NAME]));
 						} else {
 							resolve(response);
 						}
@@ -503,6 +520,8 @@ if (typeof globalThis == "undefined") {
 					nativeAPI.tabs.sendMessage(tabId, message, options, response => {
 						if (nativeAPI.runtime.lastError) {
 							reject(nativeAPI.runtime.lastError);
+						} else if (response && response[ERROR_PROPERTY_NAME]) {
+							reject(new Error(response[ERROR_PROPERTY_NAME]));
 						} else {
 							resolve(response);
 						}

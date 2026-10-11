@@ -985,6 +985,10 @@
 		"message": "SingleFile 錯誤：",
 		"description": "Label 'SingleFile error: ' in the top panel when displaying an error message"
 	},
+	"topPanelCopyDetailsButton": {
+		"message": "複製詳細資訊",
+		"description": "Button label 'Copy details' in the top panel next to an error message"
+	},
 	"topPanelEmbeddedImageButton": {
 		"message": "開啟圖片...",
 		"description": "Top panel button 'Open image...' when embedding an image"

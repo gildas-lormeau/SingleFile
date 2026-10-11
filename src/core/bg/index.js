@@ -39,6 +39,27 @@ import * as ui from "./../../ui/bg/index.js";
 import "./../../lib/single-file/background.js";
 
 browser.runtime.onMessage.addListener((message, sender) => {
+	let response;
+	try {
+		response = onMessage(message, sender);
+	} catch (error) {
+		return rejectWithStack(error);
+	}
+	if (response && typeof response.catch == "function") {
+		return response.catch(error => rejectWithStack(error));
+	}
+	return response;
+});
+
+function rejectWithStack(error) {
+	console.error(error); // eslint-disable-line no-console
+	const message = (error && (error.message || error.toString())) || "Unexpected error";
+	const wrappedError = new Error(error && error.stack ? message + "\n" + error.stack : message);
+	wrappedError.__singleFileError = true;
+	return Promise.reject(wrappedError);
+}
+
+function onMessage(message, sender) {
 	if (message.method.startsWith("tabs.")) {
 		return tabs.onMessage(message, sender);
 	}
@@ -78,7 +99,7 @@ browser.runtime.onMessage.addListener((message, sender) => {
 	if (message.method == "ping") {
 		return Promise.resolve({});
 	}
-});
+}
 
 if (browser.runtime.onMessageExternal) {
 	browser.runtime.onMessageExternal.addListener(externalMesssages.onMessage);

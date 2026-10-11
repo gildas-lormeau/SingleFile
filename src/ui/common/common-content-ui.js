@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, getComputedStyle, Image, OffscreenCanvas, createImageBitmap, btoa */
+/* global browser, document, navigator, getComputedStyle, Image, OffscreenCanvas, createImageBitmap, btoa */
 
 const singlefile = globalThis.singlefile;
 
@@ -31,7 +31,7 @@ const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CL
 const ERROR_BAR_TAGNAME = "singlefile-error-bar";
 const OPEN_FILE_BAR_TAGNAME = "singlefile-open-file-bar";
 const SHARE_PAGE_BAR_TAGNAME = "singlefile-share-page-bar";
-let EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, SHARE_SELECTION_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE;
+let EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, SHARE_SELECTION_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE, COPY_DETAILS_BUTTON_MESSAGE;
 
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
 let UI_DIRECTION = "ltr";
@@ -51,12 +51,12 @@ export {
 };
 
 function setLabels(labels) {
-	({ EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, SHARE_SELECTION_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE } = labels);
+	({ EMBEDDED_IMAGE_BUTTON_MESSAGE, SHARE_PAGE_BUTTON_MESSAGE, SHARE_SELECTION_BUTTON_MESSAGE, ERROR_TITLE_MESSAGE, COPY_DETAILS_BUTTON_MESSAGE } = labels);
 }
 
-function onError(message, link) {
-	console.error("SingleFile", message, link); // eslint-disable-line no-console
-	displayBar(ERROR_BAR_TAGNAME, ERROR_TITLE_MESSAGE + message, { link });
+function onError(message, link, details) {
+	console.error("SingleFile", details || message, link); // eslint-disable-line no-console
+	displayBar(ERROR_BAR_TAGNAME, ERROR_TITLE_MESSAGE + message, { link, details });
 }
 
 function getOpenFileBar() {
@@ -183,7 +183,7 @@ function getArrayBuffer(blob) {
 	}
 }
 
-function displayBar(tagName, message, { link, buttonLabel, buttonOnclick } = {}) {
+function displayBar(tagName, message, { link, details, buttonLabel, buttonOnclick } = {}) {
 	try {
 		const barElement = document.querySelector(tagName);
 		if (!barElement) {
@@ -241,6 +241,16 @@ function displayBar(tagName, message, { link, buttonLabel, buttonOnclick } = {})
 				.singlefile-open-file-bar button, .singlefile-share-page-bar button{
 					background-color: dimgrey;
 				}
+				.details-button {
+					margin-inline-start: 8px;
+					background-color: white;
+					color: #d35400;
+					border: 1px solid white;
+					font-weight: bold;
+				}
+				.details-button:hover {
+					background-color: #ffe8d6;
+				}
 				.singlefile-open-file-bar .close-button, .singlefile-share-page-bar .close-button{
 					filter: invert(1);
 				}
@@ -285,6 +295,16 @@ function displayBar(tagName, message, { link, buttonLabel, buttonOnclick } = {})
 				buttonElement.onclick = () => buttonOnclick();
 				textElement.appendChild(buttonElement);
 			}
+			if (details) {
+				const buttonElement = document.createElement("button");
+				buttonElement.classList.add("details-button");
+				buttonElement.textContent = COPY_DETAILS_BUTTON_MESSAGE;
+				buttonElement.onclick = async () => {
+					await copyText(details, shadowRoot);
+					buttonElement.textContent = COPY_DETAILS_BUTTON_MESSAGE + " ✓";
+				};
+				textElement.appendChild(buttonElement);
+			}
 			containerElement.appendChild(textElement);
 			const closeElement = document.createElement("img");
 			closeElement.classList.add("close-button");
@@ -304,6 +324,22 @@ function displayBar(tagName, message, { link, buttonLabel, buttonOnclick } = {})
 		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		// iignored
+	}
+}
+
+async function copyText(text, shadowRoot) {
+	try {
+		await navigator.clipboard.writeText(text);
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		const textareaElement = document.createElement("textarea");
+		textareaElement.value = text;
+		textareaElement.style.setProperty("position", "fixed");
+		textareaElement.style.setProperty("opacity", "0");
+		shadowRoot.appendChild(textareaElement);
+		textareaElement.select();
+		document.execCommand("copy");
+		textareaElement.remove();
 	}
 }
 

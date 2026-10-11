@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, document, location, setTimeout, addEventListener, URL, setInterval, clearInterval */
+/* global browser, document, location, navigator, setTimeout, addEventListener, URL, setInterval, clearInterval */
 
 import * as download from "./../common/download.js";
 import { fetch, frameFetch } from "./../../lib/single-file/fetch/content/content-fetch.js";
@@ -37,18 +37,20 @@ const EMBEDDED_IMAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelEmbeddedI
 const SHARE_PAGE_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelSharePageButton");
 const SHARE_SELECTION_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelShareSelectionButton");
 const ERROR_TITLE_MESSAGE = browser.i18n.getMessage("topPanelError");
+const COPY_DETAILS_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelCopyDetailsButton");
 
 const SINGLE_FILE_PREFIX = "single-file-";
 const WAIT_FOR_USERSCRIPT_PROPERTY_NAME = "_singleFile_waitForUserScript";
 const ON_INIT_CAPTURE_EVENT_NAME = SINGLE_FILE_PREFIX + "on-init-capture";
 
-let processor, processing, downloadParser, openFileInfobar, scrollY, transform, overflow;
+let processor, processing, downloadParser, openFileInfobar, scrollY, transform, overflow, lastStep;
 
 setLabels({
 	EMBEDDED_IMAGE_BUTTON_MESSAGE,
 	SHARE_PAGE_BUTTON_MESSAGE,
 	SHARE_SELECTION_BUTTON_MESSAGE,
-	ERROR_TITLE_MESSAGE
+	ERROR_TITLE_MESSAGE,
+	COPY_DETAILS_BUTTON_MESSAGE
 });
 
 if (!bootstrap || !bootstrap.initializedSingleFile) {
@@ -64,7 +66,7 @@ if (!bootstrap || !bootstrap.initializedSingleFile) {
 			message.method == "content.beginScrollTo" ||
 			message.method == "content.scrollTo" ||
 			message.method == "content.endScrollTo") {
-			return onMessage(message);
+			return onMessage(message).catch(error => rejectWithStack(error));
 		}
 	});
 	if (bootstrap) {
@@ -128,7 +130,9 @@ async function onMessage(message) {
 			return {};
 		}
 		if (message.method == "content.error") {
-			onError(message.error, message.link);
+			const [errorMessage, ...stackLines] = String(message.error).split("\n");
+			const stack = stackLines.concat(message.stack || []).join("\n");
+			onError(errorMessage, message.link, getErrorDetails({ message: errorMessage, stack }));
 			return {};
 		}
 		if (message.method == "content.prompt") {
@@ -185,8 +189,9 @@ async function savePage(message) {
 				if (!processor.cancelled) {
 					console.error(error); // eslint-disable-line no-console
 					const errorMessage = error && (error.message || error.toString());
-					browser.runtime.sendMessage({ method: "ui.processError", error: errorMessage });
-					onError(errorMessage);
+					const errorDetails = getErrorDetails(error);
+					browser.runtime.sendMessage({ method: "ui.processError", error: errorMessage, details: errorDetails });
+					onError(errorMessage, undefined, errorDetails);
 				}
 			} finally {
 				ui.onEndPage();
@@ -204,6 +209,43 @@ async function savePage(message) {
 
 function cancelSave() {
 	browser.runtime.sendMessage({ method: "downloads.cancel" });
+}
+
+function getErrorDetails(error) {
+	const details = ["SingleFile " + browser.runtime.getManifest().version, navigator.userAgent, location.href];
+	if (lastStep !== undefined) {
+		details.push(lastStep < 3 ? "Step " + (lastStep + 1) + " / 3" : "Steps completed");
+	}
+	if (error) {
+		const errorMessage = error.message || error.toString();
+		let errorText = (error.name ? error.name + ": " : "") + errorMessage;
+		if (error.stack) {
+			errorText = error.stack.includes(errorMessage) ? error.stack : errorText + "\n" + error.stack;
+		}
+		if (error.remoteStack) {
+			errorText += "\n" + error.remoteStack;
+		}
+		details.push(errorText);
+	}
+	return details.join("\n");
+}
+
+async function sendMessage(message) {
+	try {
+		return await browser.runtime.sendMessage(message);
+	} catch (error) {
+		const [errorMessage, ...stackLines] = String(error && (error.message || error.toString())).split("\n");
+		const wrappedError = new Error(errorMessage + " (" + message.method + ")");
+		wrappedError.remoteStack = stackLines.join("\n");
+		throw wrappedError;
+	}
+}
+
+function rejectWithStack(error) {
+	const message = (error && (error.message || error.toString())) || "Unexpected error";
+	const wrappedError = new Error(error && error.stack ? message + "\n" + error.stack : message);
+	wrappedError.__singleFileError = true;
+	return Promise.reject(wrappedError);
 }
 
 function cancelSaveKeyListener(event) {
@@ -257,6 +299,7 @@ async function processPage(options) {
 	let framesSessionId;
 	singlefile.helper.initDoc(document);
 	ui.onStartPage(options, cancelSave);
+	lastStep = undefined;
 	processor = new singlefile.SingleFile(options);
 	const preInitializationPromises = [];
 	let index = 0, maxIndex = 0, initializing;
@@ -267,7 +310,7 @@ async function processPage(options) {
 				if (!initializing && options.insertEmbeddedScreenshotImage && options.compressContent) {
 					initializing = true;
 					ui.setVisible(false);
-					const screenshotBlobURI = await browser.runtime.sendMessage({
+					const screenshotBlobURI = await sendMessage({
 						method: "tabs.getScreenshot",
 						width: document.documentElement.scrollWidth,
 						height: document.documentElement.scrollHeight,
@@ -291,7 +334,7 @@ async function processPage(options) {
 					index++;
 				}
 				if (!options.silent) {
-					await browser.runtime.sendMessage({ method: "ui.processProgress", index, maxIndex });
+					await sendMessage({ method: "ui.processProgress", index, maxIndex });
 				}
 				ui.onLoadResource(index, maxIndex, options);
 			} else if (!event.detail.frame) {
@@ -301,10 +344,12 @@ async function processPage(options) {
 					ui.onLoadPage();
 				} else if (event.type == event.STAGE_STARTED) {
 					if (event.detail.step < 3) {
+						lastStep = event.detail.step;
 						ui.onStartStage(event.detail.step, options);
 					}
 				} else if (event.type == event.STAGE_ENDED) {
 					if (event.detail.step < 3) {
+						lastStep = event.detail.step + 1;
 						ui.onEndStage(event.detail.step, options);
 					}
 				}

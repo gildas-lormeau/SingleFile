@@ -69,11 +69,11 @@ function onStart(tabId, step, autoSave) {
 	button.onStart(tabId, step, autoSave);
 }
 
-async function onError(tabId, message, link) {
+async function onError(tabId, message, link, stack) {
 	button.onError(tabId);
 	try {
 		if (message) {
-			await browser.tabs.sendMessage(tabId, { method: "content.error", error: message.toString(), link });
+			await browser.tabs.sendMessage(tabId, { method: "content.error", error: message.toString(), link, stack });
 		}
 		// eslint-disable-next-line no-unused-vars
 	} catch (error) {

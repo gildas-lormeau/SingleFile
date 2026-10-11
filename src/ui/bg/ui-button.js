@@ -162,7 +162,7 @@ function onMessage(message, sender) {
 	}
 	if (message.method.endsWith(".processError")) {
 		if (message.error) {
-			console.error("Initialization error", message.error); // eslint-disable-line no-console
+			console.error("Initialization error", message.details || message.error); // eslint-disable-line no-console
 		}
 		onError(sender.tab.id);
 	}

@@ -104,7 +104,7 @@ async function onMessage(message, sender) {
 			try {
 				await woleet.anchor(message.hash, message.woleetKey);
 			} catch (error) {
-				ui.onError(sender.tab.id, error.message, error.link);
+				ui.onError(sender.tab.id, error.message, error.link, error.stack);
 			}
 		}
 		business.onSaveEnd(message.taskId);
@@ -291,7 +291,7 @@ async function downloadContent(blob, tab, incognito, message) {
 	} catch (error) {
 		if (!error.message || error.message != "upload_cancelled") {
 			console.error(error); // eslint-disable-line no-console
-			ui.onError(tabId, error.message, error.link);
+			ui.onError(tabId, error.message, error.link, error.stack);
 		}
 	} finally {
 		if (message.url) {
@@ -425,7 +425,7 @@ async function downloadCompressedContent(message, tab) {
 	} catch (error) {
 		if (!error.message || error.message != "upload_cancelled") {
 			console.error(error); // eslint-disable-line no-console
-			ui.onError(tabId, error.message, error.link);
+			ui.onError(tabId, error.message, error.link, error.stack);
 		}
 	} finally {
 		if (message.url) {
