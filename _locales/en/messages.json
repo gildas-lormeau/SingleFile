@@ -200,59 +200,59 @@
 		"description": "Options sub-title: 'User interface'"
 	},
 	"optionAddMenuEntry": {
-		"message": "add entry in the context menu of the webpage",
+		"message": "Add entry in the context menu of the webpage",
 		"description": "Options page label: 'add entry in the context menu of the webpage'"
 	},
 	"optionDisplayShadow": {
-		"message": "overlay a shadow on the page during processing",
+		"message": "Overlay a shadow on the page during processing",
 		"description": "Options page label: 'overlay a shadow on the page during processing'"
 	},
 	"optionDisplayInfobar": {
-		"message": "display an infobar when viewing a saved page",
+		"message": "Display an infobar when viewing a saved page",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
 	"optionInfobarTemplate": {
-		"message": "template of the infobar content",
+		"message": "Template of the infobar content",
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionBlockMixedContent": {
-		"message": "block mixed content",
+		"message": "Block mixed content",
 		"description": "Options page label: 'block mixed content'"
 	},
 	"optionSaveOriginalURLs": {
-		"message": "save original URLs of embedded resources",
+		"message": "Save original URLs of embedded resources",
 		"description": "Options page label: 'save original URLs of embedded resources'"
 	},
 	"optionIncludeInfobar": {
-		"message": "include the infobar in the saved page",
+		"message": "Include the infobar in the saved page",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionOpenInfobar": {
-		"message": "keep infobar open",
+		"message": "Keep infobar open",
 		"description": "Options page label: 'keep infobar open'"
 	},
 	"optionAnimateInfobar": {
-		"message": "animate the infobar",
+		"message": "Animate the infobar",
 		"description": "Options page label: 'animate the infobar'"
 	},
 	"optionRemoveInfobarSavedDate": {
-		"message": "do not include the saved date",
+		"message": "Do not include the saved date",
 		"description": "Options page label: 'do not include the saved date'"
 	},
 	"optionConfirmInfobar": {
-		"message": "open a prompt dialog to edit the infobar content",
+		"message": "Open a prompt dialog to edit the infobar content",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionAutoClose": {
-		"message": "auto-close the tab after the page is saved",
+		"message": "Auto-close the tab after the page is saved",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
 	"optionCustomShortcut": {
-		"message": "keyboard shortcut command",
+		"message": "Keyboard shortcut command",
 		"description": "Options page label: 'keyboard shortcut command'"
 	},
 	"optionCustomShortcutDefault": {
-		"message": "default shortcut",
+		"message": "Default shortcut",
 		"description": "Options page label: 'default shortcut'"
 	},
 	"optionsFileNameSubTitle": {
@@ -260,11 +260,11 @@
 		"description": "Options sub-title: 'File name'"
 	},
 	"optionFilenameTemplate": {
-		"message": "template",
+		"message": "Template",
 		"description": "Options page label: 'template'"
 	},
 	"optionFilenameMaxLength": {
-		"message": "max length",
+		"message": "Max length",
 		"description": "Options page label: 'max length'"
 	},
 	"optionFilenameMaxLengthBytesUnit": {
@@ -276,11 +276,11 @@
 		"description": "Options page label: 'characters'"
 	},
 	"optionFilenameReplacementCharacter": {
-		"message": "replacement character",
+		"message": "Replacement character",
 		"description": "Options page label: 'replacement character'"
 	},
 	"optionFilenameReplacements": {
-		"message": "characters replaced in file names",
+		"message": "Characters replaced in file names",
 		"description": "Options page label: 'characters replaced in file names'"
 	},
 	"optionsFilenameReplacedCharacters": {
@@ -320,35 +320,35 @@
 		"description": "Placeholder in the preview table: 'Type a file name'"
 	},
 	"optionReplaceEmojisInFilename": {
-		"message": "replace emojis with text",
+		"message": "Replace emojis with text",
 		"description": "Options page label: 'replace emojis with text'"
 	},
 	"optionSaveFilenameTemplateData": {
-		"message": "save the filename template data into the page",
+		"message": "Save the filename template data into the page",
 		"description": "Options page label: 'save the filename template data into the page'"
 	},
 	"optionConfirmFilename": {
-		"message": "open the \"Save as\" dialog to confirm the file name",
+		"message": "Open the \"Save as\" dialog to confirm the file name",
 		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
 	},
 	"optionFilenameConflictAction": {
-		"message": "file name conflict resolution",
+		"message": "File name conflict resolution",
 		"description": "Options page label: 'filename conflict resolution'"
 	},
 	"optionFilenameConflictActionUniquify": {
-		"message": "create a unique name",
+		"message": "Create a unique name",
 		"description": "Value for 'filename conflict resolution' option: 'create a unique name'"
 	},
 	"optionFilenameConflictActionOverwrite": {
-		"message": "overwrite the existing file",
+		"message": "Overwrite the existing file",
 		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
 	},
 	"optionFilenameConflictActionPrompt": {
-		"message": "prompt for a name",
+		"message": "Prompt for a name",
 		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
 	},
 	"optionFilenameConflictActionSkip": {
-		"message": "skip duplicate files",
+		"message": "Skip duplicate files",
 		"description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
 	},
 	"optionsHTMLContentSubTitle": {
@@ -356,19 +356,19 @@
 		"description": "Options sub-title: 'HTML content'"
 	},
 	"optionCompressHTML": {
-		"message": "compress HTML content",
+		"message": "Compress HTML content",
 		"description": "Options page label: 'compress HTML content'"
 	},
 	"optionRemoveFrames": {
-		"message": "remove frames",
+		"message": "Remove frames",
 		"description": "Options page label: 'remove frames'"
 	},
 	"optionRemoveHiddenElements": {
-		"message": "remove hidden elements",
+		"message": "Remove hidden elements",
 		"description": "Options page label: 'remove hidden elements'"
 	},
 	"optionRemovedElementsSelector": {
-		"message": "remove specific elements",
+		"message": "Remove specific elements",
 		"description": "Options page label: 'remove specific elements'"
 	},
 	"optionsFileFormatSubTitle": {
@@ -376,7 +376,7 @@
 		"description": "Options sub-title: 'File format'"
 	},
 	"optionFileFormat": {
-		"message": "format",
+		"message": "Format",
 		"description": "Options page label: 'format'"
 	},
 	"optionFileFormatSelectHTML": {
@@ -384,11 +384,11 @@
 		"description": "Options page label: 'HTML'"
 	},
 	"optionFileFormatSelectSelfExtractingUniversal": {
-		"message": "self-extracting ZIP (universal)",
+		"message": "Self-extracting ZIP (universal)",
 		"description": "Options page label: 'self-extracting ZIP (universal)'"
 	},
 	"optionFileFormatSelectSelfExtracting": {
-		"message": "self-extracting ZIP",
+		"message": "Self-extracting ZIP",
 		"description": "Options page label: 'self-extracting ZIP'"
 	},
 	"optionFileFormatSelectZIP": {
@@ -396,35 +396,35 @@
 		"description": "Options page label: 'ZIP'"
 	},
 	"optionPassword": {
-		"message": "password",
+		"message": "Password",
 		"description": "Options page label: 'password'"
 	},
 	"optionCreateRootDirectory": {
-		"message": "create a root directory",
+		"message": "Create a root directory",
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionDisableCompression": {
-		"message": "disable compression",
+		"message": "Disable compression",
 		"description": "Options page label: 'disable compression'"
 	},
 	"optionPreventAppendedData": {
-		"message": "do not append data after the ZIP data",
+		"message": "Do not append data after the ZIP data",
 		"description": "Options page label: 'do not append data after the ZIP data'"
 	},
 	"optionInsertTextBody": {
-		"message": "make text searchable",
+		"message": "Make text searchable",
 		"description": "Options page label: 'make text searchable'"
 	},
 	"optionInsertEmbeddedImage": {
-		"message": "embed image",
+		"message": "Embed image",
 		"description": "Options page label: 'embed image'"
 	},
 	"optionInsertEmbeddedScreenshotImage": {
-		"message": "page screenshot",
+		"message": "Page screenshot",
 		"description": "Options page label: 'page screenshot'"
 	},
 	"optionInsertEmbeddedCustomImage": {
-		"message": "custom image",
+		"message": "Custom image",
 		"description": "Options page label: 'custom image'"
 	},
 	"optionsInfobarSubTitle": {
@@ -440,39 +440,39 @@
 		"description": "Options sub-title: 'Deferred content'"
 	},
 	"optionGroupDuplicateImages": {
-		"message": "group duplicate images together",
+		"message": "Group duplicate images together",
 		"description": "Options page label: 'group duplicate images together'"
 	},
 	"optionImageReductionFactor": {
-		"message": "image reduction factor",
+		"message": "Image reduction factor",
 		"description": "Options page label: 'image reduction factor'"
 	},
 	"optionImageQuality": {
-		"message": "quality of resized images",
+		"message": "Quality of resized images",
 		"description": "Options page label: 'quality of resized images'"
 	},
 	"optionLoadDeferredContent": {
-		"message": "save content loaded while scrolling",
+		"message": "Save content loaded while scrolling",
 		"description": "Options page label: 'save content loaded while scrolling'"
 	},
 	"optionLoadDeferredContentMaxIdleTime": {
-		"message": "maximum idle time (ms)",
+		"message": "Maximum idle time (ms)",
 		"description": "Options page label: 'maximum idle time (ms)'"
 	},
 	"optionLoadDeferredContentKeepZoomLevel": {
-		"message": "zoom out the page during the capture",
+		"message": "Zoom out the page during the capture",
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
-		"message": "simulate scrolling",
+		"message": "Simulate scrolling",
 		"description": "Options page label: 'simulate scrolling'"
 	},
 	"optionLoadDeferredContentBeforeFrames": {
-		"message": "load in frames first",
+		"message": "Load in frames first",
 		"description": "Options page label: 'load in frames first'"
 	},
 	"optionRemoveAlternativeImages": {
-		"message": "remove images for alternative screen resolutions",
+		"message": "Remove images for alternative screen resolutions",
 		"description": "Options page label: 'remove images for alternative screen resolutions'"
 	},
 	"optionsFontsSubTitle": {
@@ -480,11 +480,11 @@
 		"description": "Options sub-title: 'Fonts'"
 	},
 	"optionRemoveUnusedFonts": {
-		"message": "remove unused fonts",
+		"message": "Remove unused fonts",
 		"description": "Options page label: 'remove unused fonts'"
 	},
 	"optionRemoveAlternativeFonts": {
-		"message": "remove alternative fonts",
+		"message": "Remove alternative fonts",
 		"description": "Options page label: 'remove alternative fonts'"
 	},
 	"optionsStylesheetsSubTitle": {
@@ -492,23 +492,23 @@
 		"description": "Options sub-title: 'Stylesheets'"
 	},
 	"optionGroupDuplicateStylesheets": {
-		"message": "group duplicate stylesheets together",
+		"message": "Group duplicate stylesheets together",
 		"description": "Options page label: 'group duplicate stylesheets together'"
 	},
 	"optionMoveStylesInHead": {
-		"message": "move in the head element the styles found outside of it",
+		"message": "Move in the head element the styles found outside of it",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionCustomStylesheet": {
-		"message": "apply a custom stylesheet before saving the page",
+		"message": "Apply a custom stylesheet before saving the page",
 		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
 	},
 	"optionRemoveUnusedStyles": {
-		"message": "remove unused styles",
+		"message": "Remove unused styles",
 		"description": "Options page label: 'remove unused styles'"
 	},
 	"optionRemoveAlternativeMedias": {
-		"message": "remove stylesheets for alternative devices to screens",
+		"message": "Remove stylesheets for alternative devices to screens",
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
 	"optionsNetworkSubTitle": {
@@ -516,7 +516,7 @@
 		"description": "Options sub-title: 'Network'"
 	},
 	"optionsBlockedResources": {
-		"message": "blocked resources",
+		"message": "Blocked resources",
 		"description": "Options page label: 'blocked resources'"
 	},
 	"optionsAcceptHeaders": {
@@ -524,31 +524,31 @@
 		"description": "Options page label: '\"Accept\" header'"
 	},
 	"optionResourceScript": {
-		"message": "scripts",
+		"message": "Scripts",
 		"description": "Options page label: 'scripts'"
 	},
 	"optionResourceVideo": {
-		"message": "videos",
+		"message": "Videos",
 		"description": "Options page label: 'videos'"
 	},
 	"optionResourceAudio": {
-		"message": "audios",
+		"message": "Audios",
 		"description": "Options page label: 'audios'"
 	},
 	"optionResourceDocument": {
-		"message": "documents",
+		"message": "Documents",
 		"description": "Options page label: 'documents'"
 	},
 	"optionResourceFont": {
-		"message": "fonts",
+		"message": "Fonts",
 		"description": "Options page label: 'fonts'"
 	},
 	"optionResourceStylesheet": {
-		"message": "stylesheets",
+		"message": "Stylesheets",
 		"description": "Options page label: 'stylesheets'"
 	},
 	"optionResourceImage": {
-		"message": "images",
+		"message": "Images",
 		"description": "Options page label: 'images'"
 	},
 	"optionsDestinationSubTitle": {
@@ -592,11 +592,11 @@
 		"description": "Column header in the Auto-settings rules table, naming the profile of settings used when a page matching the rule is saved automatically. It is a noun phrase, 'the profile used for auto-saving', never 'automatically save the profile'"
 	},
 	"optionsAutoSettingsShowAllProfiles": {
-		"message": "display all profiles",
+		"message": "Display all profiles",
 		"description": "Checkbox label under the Auto-settings rules table: list the rules of every profile instead of only those of the profile selected above"
 	},
 	"optionsAutoSettingsShowAutoSaveProfile": {
-		"message": "display 'Auto-save profile' column",
+		"message": "Display 'Auto-save profile' column",
 		"description": "Checkbox label under the Auto-settings rules table: show or hide the 'Auto-save profile' column. The quoted name must match the translation of optionsAutoSettingsAutoSaveProfile"
 	},
 	"optionsUpdateRuleTooltip": {
@@ -624,39 +624,39 @@
 		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
 	},
 	"optionAutoSaveLoadOrUnload": {
-		"message": "auto-save after page load or on page unload",
+		"message": "Auto-save after page load or on page unload",
 		"description": "auto-save after page load or on page unload"
 	},
 	"optionAutoSaveLoad": {
-		"message": "auto-save after page load",
+		"message": "Auto-save after page load",
 		"description": "Options page label: 'auto-save after page load'"
 	},
 	"optionAutoSaveUnload": {
-		"message": "auto-save on page unload",
+		"message": "Auto-save on page unload",
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
-		"message": "auto-save on tab discard",
+		"message": "Auto-save on tab discard",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
-		"message": "auto-save on tab removal",
+		"message": "Auto-save on tab removal",
 		"description": "Options page label: 'auto-save on tab removal'"
 	},
 	"optionAutoSaveDelay": {
-		"message": "auto-save waiting delay after page load (s)",
+		"message": "Auto-save waiting delay after page load (s)",
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
 	},
 	"optionAutoSaveRepeat": {
-		"message": "auto-save periodically",
+		"message": "Auto-save periodically",
 		"description": "Options page label: 'auto-save periodically'"
 	},
 	"optionAutoSaveRepeatDelay": {
-		"message": "period (s.)",
+		"message": "Period (s.)",
 		"description": "Options page label: 'period (s)'"
 	},
 	"optionAutoSaveExternalSave": {
-		"message": "save the page with SingleFile Companion",
+		"message": "Save the page with SingleFile Companion",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
 	},
 	"optionsEditorSubTitle": {
@@ -664,55 +664,55 @@
 		"description": "Options sub-title: 'Annotation editor'"
 	},
 	"optionOpenEditor": {
-		"message": "annotate the page before saving",
+		"message": "Annotate the page before saving",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionOpenSavedPage": {
-		"message": "open saved pages in a new tab",
+		"message": "Open saved pages in a new tab",
 		"description": "Options page label: 'open saved pages in a new tab'"
 	},
 	"optionAutoOpenEditor": {
-		"message": "open pages saved with SingleFile in the annotation editor",
+		"message": "Open pages saved with SingleFile in the annotation editor",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionDefaultEditorMode": {
-		"message": "default mode",
+		"message": "Default mode",
 		"description": "Options page label: 'default mode'"
 	},
 	"optionDefaultEditorModeNormal": {
-		"message": "normal",
+		"message": "Normal",
 		"description": "Options page label: 'default mode > normal'"
 	},
 	"optionDefaultEditorModeEdit": {
-		"message": "edit the page",
+		"message": "Edit the page",
 		"description": "Options page label: 'default mode > edit the page'"
 	},
 	"optionDefaultEditorModeFormat": {
-		"message": "format the page",
+		"message": "Format the page",
 		"description": "Options page label: 'default mode > format the page'"
 	},
 	"optionDefaultEditorModeCut": {
-		"message": "remove elements",
+		"message": "Remove elements",
 		"description": "Options page label: 'default mode > remove elements'"
 	},
 	"optionDefaultEditorModeCutExternal": {
-		"message": "remove external elements",
+		"message": "Remove external elements",
 		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
-		"message": "apply the system theme when formatting a page",
+		"message": "Apply the system theme when formatting a page",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionContentWidth": {
-		"message": "content width when formatting a page (em)",
+		"message": "Content width when formatting a page (em)",
 		"description": "Options page label: 'content width when formatting a page (em)'"
 	},
 	"optionWarnUnsavedPage": {
-		"message": "warn if leaving page with unsaved changes",
+		"message": "Warn if leaving page with unsaved changes",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
 	"optionDisplayInfobarInEditor": {
-		"message": "display the infobar",
+		"message": "Display the infobar",
 		"description": "Title of the button 'display the infobar'"
 	},
 	"optionsMiscSubTitle": {
@@ -724,11 +724,11 @@
 		"description": "Options sub-title: 'External capture API'"
 	},
 	"optionExternalCaptureAllowedIds": {
-		"message": "allowed extensions, one per line",
+		"message": "Allowed extensions, one per line",
 		"description": "Options page label: 'allowed extensions, one per line'"
 	},
 	"optionExternalCaptureDeniedIds": {
-		"message": "blocked extensions, one per line",
+		"message": "Blocked extensions, one per line",
 		"description": "Options page label: 'blocked extensions, one per line'"
 	},
 	"optionsExternalCapturePendingRequest": {
@@ -750,59 +750,59 @@
 		"description": "Options button: 'Deny'"
 	},
 	"optionBackgroundSave": {
-		"message": "save pages in background",
+		"message": "Save pages in background",
 		"description": "Options page label: 'save pages in background'"
 	},
 	"optionDisplayStats": {
-		"message": "display stats in the console after processing",
+		"message": "Display stats in the console after processing",
 		"description": "Options page label: 'display stats in the console after processing'"
 	},
 	"optionSetMaxResourceSize": {
-		"message": "set maximum size",
+		"message": "Set maximum size",
 		"description": "Options page label: 'set maximum size'"
 	},
 	"optionMaxResourceSize": {
-		"message": "maximum size (MB)",
+		"message": "Maximum size (MB)",
 		"description": "Options page label: 'maximum size (MB)'"
 	},
 	"optionSetMaxResourceDelay": {
-		"message": "set maximum download time",
+		"message": "Set maximum download time",
 		"description": "Options page label: 'set maximum download time'"
 	},
 	"optionMaxResourceDelay": {
-		"message": "maximum download time (s)",
+		"message": "Maximum download time (s)",
 		"description": "Options page label: 'maximum download time (s)'"
 	},
 	"optionPassReferrerOnError": {
-		"message": "pass \"Referer\" header after a cross-origin request error",
+		"message": "Pass \"Referer\" header after a cross-origin request error",
 		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
 	},
 	"optionSaveRawPage": {
-		"message": "save raw page",
+		"message": "Save raw page",
 		"description": "Options page label: 'save raw page'"
 	},
 	"optionInsertMetaCSP": {
-		"message": "set content security policy",
+		"message": "Set content security policy",
 		"description": "Options page label: 'set content security policy'"
 	},
 	"optionInsertCanonicalLink": {
-		"message": "save the canonical link of the page",
+		"message": "Save the canonical link of the page",
 		"description": "Options page label: 'save the canonical link of the page'"
 	},
 	"optionSaveToClipboard": {
-		"message": "copy to clipboard",
+		"message": "Copy to clipboard",
 		"description": "Options page label: 'copy to clipboard'"
 	},
 	"optionSaveToFilesystem": {
-		"message": "save to filesystem",
+		"message": "Save to filesystem",
 		"description": "Options page label: 'save to filesystem'"
 	},
 	"optionSharePage": {
-		"message": "share page",
+		"message": "Share page",
 		"description": "Options page label: 'share page'"
 	},
 	"optionAddProof": {
-		"message": "add proof of existence",
+		"message": "Add proof of existence",
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
@@ -810,63 +810,63 @@
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionWoleetKey": {
-		"message": "access token",
+		"message": "Access token",
 		"description": "Options page label: 'access token'"
 	},
 	"optionSaveToGDrive": {
-		"message": "upload to Google Drive",
+		"message": "Upload to Google Drive",
 		"description": "Options page label: 'upload to Google Drive'"
 	},
 	"optionSaveToDropbox": {
-		"message": "upload to Dropbox",
+		"message": "Upload to Dropbox",
 		"description": "Options page label: 'upload to Dropbox'"
 	},
 	"optionSaveToGitHub": {
-		"message": "upload to GitHub",
+		"message": "Upload to GitHub",
 		"description": "Options page label: 'upload to GitHub'"
 	},
 	"optionGitHubToken": {
-		"message": "access token",
+		"message": "Access token",
 		"description": "Options page label: 'access token'"
 	},
 	"optionGitHubUser": {
-		"message": "user name",
+		"message": "User name",
 		"description": "Options page label: 'user name'"
 	},
 	"optionGitHubRepository": {
-		"message": "repository name",
+		"message": "Repository name",
 		"description": "Options page label: 'repository name'"
 	},
 	"optionGitHubBranch": {
-		"message": "branch name",
+		"message": "Branch name",
 		"description": "Options page label: 'branch name'"
 	},
 	"optionSaveToS3": {
-		"message": "upload to Amazon S3",
+		"message": "Upload to Amazon S3",
 		"description": "Options page label: 'upload to Amazon S3'"
 	},
 	"optionS3Domain": {
-		"message": "domain",
+		"message": "Domain",
 		"description": "Options page label: 'domain'"
 	},
 	"optionS3Region": {
-		"message": "region",
+		"message": "Region",
 		"description": "Options page label: 'region'"
 	},
 	"optionS3Bucket": {
-		"message": "bucket name",
+		"message": "Bucket name",
 		"description": "Options page label: 'bucket name'"
 	},
 	"optionS3AccessKey": {
-		"message": "access key",
+		"message": "Access key",
 		"description": "Options page label: 'access key'"
 	},
 	"optionS3SecretKey": {
-		"message": "secret key",
+		"message": "Secret key",
 		"description": "Options page label: 'secret key'"
 	},
 	"optionSaveWithWebDAV": {
-		"message": "upload to a WebDAV server",
+		"message": "Upload to a WebDAV server",
 		"description": "Options page label: 'upload to a WebDAV server'"
 	},
 	"optionWebDAVURL": {
@@ -874,51 +874,51 @@
 		"description": "Options page label: 'URL'"
 	},
 	"optionWebDAVUser": {
-		"message": "user identifier",
+		"message": "User identifier",
 		"description": "Options page label: 'user identifier'"
 	},
 	"optionWebDAVPassword": {
-		"message": "password",
+		"message": "Password",
 		"description": "Options page label: 'password'"
 	},
 	"optionSaveWithMCP": {
-		"message": "upload to an MCP server",
+		"message": "Upload to an MCP server",
 		"description": "Options page label: 'upload to an MCP server'"
 	},
 	"optionMCPServerUrl": {
-		"message": "server URL",
+		"message": "Server URL",
 		"description": "Options page label: 'server URL'"
 	},
 	"optionMCPAuthToken": {
-		"message": "authentication token",
+		"message": "Authentication token",
 		"description": "Options page label: 'authentication token'"
 	},
 	"optionSaveWithCompanion": {
-		"message": "save with SingleFile Companion",
+		"message": "Save with SingleFile Companion",
 		"description": "Options page label: 'save with SingleFile Companion'"
 	},
 	"optionSaveCreatedBookmarks": {
-		"message": "save the page of a newly created bookmark",
+		"message": "Save the page of a newly created bookmark",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionReplaceBookmarkURL": {
-		"message": "link the new bookmark to the saved page",
+		"message": "Link the new bookmark to the saved page",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
 	"optionAllowedBookmarkFolders": {
-		"message": "allowed folders",
+		"message": "Allowed folders",
 		"description": "Options page label: 'allowed folders'"
 	},
 	"optionIgnoredBookmarkFolders": {
-		"message": "ignored folders",
+		"message": "Ignored folders",
 		"description": "Options page label: 'ignored folders'"
 	},
 	"optionsHelpLink": {
-		"message": "help",
+		"message": "Help",
 		"description": "Options help link"
 	},
 	"optionSynchronize": {
-		"message": "synchronize options",
+		"message": "Synchronize options",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionsResetButton": {
@@ -1138,19 +1138,19 @@
 		"description": "Title of the first column in the table of the pending saves 'Title'"
 	},
 	"pendingsStatusTitle": {
-		"message": "status",
+		"message": "Status",
 		"description": "Title of the second column in the table of the pending saves 'status'"
 	},
 	"pendingsPendingStatus": {
-		"message": "pending",
+		"message": "Pending",
 		"description": "Value of 'status' for pending saves"
 	},
 	"pendingsProcessingStatus": {
-		"message": "processing",
+		"message": "Processing",
 		"description": "Value of 'status' for current saves"
 	},
 	"pendingsCancellingStatus": {
-		"message": "cancelling",
+		"message": "Cancelling",
 		"description": "Value of 'status' for cancelled saves"
 	},
 	"pendingsNoPendings": {
@@ -1202,7 +1202,7 @@
 		"description": "Title of the column in the table of the URLs"
 	},
 	"optionSaveToRestFormApi": {
-		"message": "upload to a REST Form API",
+		"message": "Upload to a REST Form API",
 		"description": "Options page label: 'upload to a REST Form API'"
 	},
 	"optionRestFormApiUrl": {
@@ -1210,15 +1210,15 @@
 		"description": "Options page label: 'URL'"
 	},
 	"optionRestFormApiToken": {
-		"message": "authorization token",
+		"message": "Authorization token",
 		"description": "Options page label: 'authorization token'"
 	},
 	"optionRestFormApiFileFieldName": {
-		"message": "archive data field name",
+		"message": "Archive data field name",
 		"description": "Options page label: 'archive data field name'"
 	},
 	"optionRestFormApiUrlFieldName": {
-		"message": "archive URL field name",
+		"message": "Archive URL field name",
 		"description": "Options page label: 'archive URL field name'"
 	},
 	"optionsEditorTitle": {
@@ -1242,7 +1242,7 @@
 		"description": "Options sub-title: 'Menus'"
 	},
 	"optionMenusEditor": {
-		"message": "choose the entries displayed in the menus and their order (shared by all profiles)",
+		"message": "Choose the entries displayed in the menus and their order (shared by all profiles)",
 		"description": "Options page label: 'choose the entries displayed in the menus and their order (shared by all profiles)'"
 	},
 	"optionMenusEditorLink": {
@@ -1250,11 +1250,11 @@
 		"description": "Options page link: 'Open the menu editor...'"
 	},
 	"optionMenusDefault": {
-		"message": "default menus",
+		"message": "Default menus",
 		"description": "Options page state: 'default menus'"
 	},
 	"optionMenusCustomized": {
-		"message": "customized menus",
+		"message": "Customized menus",
 		"description": "Options page state: 'customized menus'"
 	},
 	"menuSubmenu": {

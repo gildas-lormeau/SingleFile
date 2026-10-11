@@ -73,7 +73,7 @@
 					<li>You can customize the entries of the menus and their order in the "Menus" section of the
 						options page.</li>
 					<li>Right-click on the SingleFile button and select "Options" to open the options page.</li>
-					<li id="saveToGDriveHint">Enable the option "Destination &gt; upload to Google Drive" to upload
+					<li id="saveToGDriveHint">Enable the option "Destination &gt; Upload to Google Drive" to upload
 						pages to Google Drive</li>
 					<li id="shortcutsSection">You can use the customizable shortcut Ctrl+Shift+Y to save the current tab
 						or the highlighted tabs. Note that if text is selected in the page, this shortcut saves only
@@ -109,7 +109,7 @@
 				</ul>
 				<p>User interface</p>
 				<ul>
-					<li data-options-label="addMenuEntryLabel"> <span class="option">Option: add entry in the context
+					<li data-options-label="addMenuEntryLabel"> <span class="option">Option: Add entry in the context
 							menu of the webpage</span>
 						<p>Check this option to display an entry for SingleFile in the context menu of the webpage. The
 							context menu of the SingleFile button <img src="../resources/icon_16.png" class="icon"> in
@@ -118,24 +118,24 @@
 								href="#menus">Menus</a>.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="shadowEnabledLabel"> <span class="option">Option: overlay a shadow on the
+					<li data-options-label="shadowEnabledLabel"> <span class="option">Option: Overlay a shadow on the
 							page during processing</span>
 						<p>Check this option to overlay a shadow on the page when SingleFile is retrieving page
 							resources. This reminds you that you should not close the tab. </p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
 					<li data-options-label="openSavedPageLabel" id="openSavedPageOption"> <span class="option">Option:
-							open saved pages in a new tab</span>
+							Open saved pages in a new tab</span>
 						<p>Check this option to display the saved page in a new tab. This option can be useful, for
 							example, in order to check the page is properly saved.</p>
 					</li>
 					<li data-options-label="autoCloseLabel" id="autoCloseOption"> <span class="option">Option:
-							auto-close the tab after the
+							Auto-close the tab after the
 							page is saved</span>
 						<p>Check this option to automatically close the tab after saving the page displayed inside. </p>
 					</li>
 					<li data-options-label="customShortcutLabel">
-						<span class="option">Option: keyboard shortcut command</span>
+						<span class="option">Option: Keyboard shortcut command</span>
 						<p>Use this option to select which custom keyboard shortcut command (defined in the extension
 							shortcuts page of your browser) will trigger the current profile. When a shortcut is
 							assigned here, using it will save the page with the settings of this profile. Unlike
@@ -145,9 +145,9 @@
 				</ul>
 				<p>File name</p>
 				<ul>
-					<li data-options-label="filenameTemplateLabel"> <span class="option">Option: template</span>
+					<li data-options-label="filenameTemplateLabel"> <span class="option">Option: Template</span>
 						<p>The template allows you to customize the file name of saved pages. You can use any valid
-							character and "/" to create sub-folders (with the option "save pages in background" active).
+							character and "/" to create sub-folders (with the option "Save pages in background" active).
 							You can also use any variables from <a href="#template-variables">this list</a> and
 							functions from <a href="#template-functions">this list</a> anywhere in the template.</p>
 						<p>Invalid characters are automatically transformed and collapsed to underscores. File names
@@ -173,16 +173,16 @@
 								"2018/9/15/Introduction to SingleFile.html").</li>
 						</ul>
 					</li>
-					<li data-options-label="filenameMaxLengthLabel"> <span class="option">Option: max length</span>
+					<li data-options-label="filenameMaxLengthLabel"> <span class="option">Option: Max length</span>
 						<p>Enter the maximum length of the filename (without the extension) and its unit (bytes or
 							characters).</p>
 					</li>
-					<li data-options-label="filenameReplacementCharacterLabel"> <span class="option">Option: replacement
+					<li data-options-label="filenameReplacementCharacterLabel"> <span class="option">Option: Replacement
 							character</span>
 						<p>Enter the character used to replace invalid characters in the filename.</p>
 					</li>
 					<li data-options-label="filenameReplacementsLabel">
-						<span class="option">Option: characters replaced in file names</span>
+						<span class="option">Option: Characters replaced in file names</span>
 						<p>Each row of the table replaces one character of the file name with another one. Edit the
 							second column to change what a character becomes, leave it empty to use the replacement
 							character above, and delete a row to keep the character as it is. The first column also
@@ -191,47 +191,47 @@
 							result.</p>
 					</li>
 					<li data-options-label="replaceEmojisInFilenameLabel">
-						<span class="option">Option: replace emojis with text</span>
+						<span class="option">Option: Replace emojis with text</span>
 						<p>Check this option to replace emojis in the file name with their unicode text representation.
 						</p>
 					</li>
 					<li data-options-label="saveFilenameTemplateDataLabel">
-						<span class="option">Option: save the filename template data into the page</span>
+						<span class="option">Option: Save the filename template data into the page</span>
 						<p>Check this option to save the template file data to the page. This allows you to recover
 							template data previously used when saving the page and, for example, to ensure that the file
 							is saved in the same directory as the original file when saving the page again.
 						</p>
 					</li>
 					<li data-options-label="confirmFilenameLabel" id="confirmFilenameOption"> <span
-							class="option">Option: open the "Save as"
+							class="option">Option: Open the "Save as"
 							dialog to confirm the file name</span>
 						<p>Check this option to display the "Save as" dialog in order to confirm the file name before
-							saving the page. If the option "save pages in background" is unchecked then a prompt dialog
+							saving the page. If the option "Save pages in background" is unchecked then a prompt dialog
 							will be displayed instead of the "Save as" dialog. </p>
 					</li>
 					<li data-options-label="filenameConflictActionLabel" id="filenameConflictActionOption"> <span
-							class="option">Option: file name
+							class="option">Option: File name
 							conflict resolution</span>
 						<p>Choose the most appropriate action when the filename of the saved page is conflicting with
-							existing ones on the filesystem. The "skip duplicate files" action only detects duplicates
+							existing ones on the filesystem. The "Skip duplicate files" action only detects duplicates
 							among files downloaded during the current browsing session.</p>
 					</li>
 				</ul>
 				<p>File format</p>
 				<ul>
 					<li data-options-label="fileFormatSelectLabel">
-						<span class="option">Option: format</span>
+						<span class="option">Option: Format</span>
 						<p>Select the output format of the saved file:
 						</p>
 						<ul>
 							<li><code>"HTML"</code>: HTML file (default format). This format produces HTML files that do
 								not depend on JavaScript to be opened.
 							</li>
-							<li><code>"self-extracting ZIP (universal)"</code>: self-extracting ZIP file that can be
+							<li><code>"Self-extracting ZIP (universal)"</code>: self-extracting ZIP file that can be
 								opened on any platform. This format produces files smaller than the "HTML" format but
 								requires JavaScript to be enabled to open the file.
 							</li>
-							<li><code>"self-extracting ZIP"</code>: self-extracting ZIP file that can be
+							<li><code>"Self-extracting ZIP"</code>: self-extracting ZIP file that can be
 								opened on any platform from HTTP but not from the filesystem in some browsers (e.g.
 								in browsers based on Chromium or WebKit) without SingleFile to be installed. This format
 								produces files smaller (approx. 1%) than the "self-extracting ZIP (universal)" format.
@@ -242,86 +242,86 @@
 						</ul>
 					</li>
 					<li data-options-label="passwordLabel">
-						<span class="option">Option: password</span>
+						<span class="option">Option: Password</span>
 						<p>Type a password to encrypt the ZIP file with AES-256 (compatible with Winzip). Be careful, if
 							you lose the password, it will be impossible to open the file. Enabling this option
 							increases the CPU consumption and the time needed to save or read a page.</p>
 					</li>
 					<li data-options-label="insertEmbeddedImageLabel">
-						<span class="option">Option: embed image</span>
+						<span class="option">Option: Embed image</span>
 						<p>Check one of the options to embed an image when saving the page as a ZIP file
 							(self-extracting or not). This allows you to display the saved page as a PNG image when
 							the filename extension is changed to ".png".
 						</p>
 					</li>
 					<li data-options-label="createRootDirectoryLabel">
-						<span class="option">Option: create a root directory</span>
+						<span class="option">Option: Create a root directory</span>
 						<p>Check this option to create a root directory in the ZIP file. The directory name consists of
 							a timestamp and the identifier of the tab where the saved page is displayed.
 						</p>
 					</li>
 					<li data-options-label="disableCompressionLabel">
-						<span class="option">Option: disable compression</span>
+						<span class="option">Option: Disable compression</span>
 						<p>Check this option to disable the compression of the ZIP file. This can help to reduce the
 							CPU consumption and the time needed to save a page but it will increase the size of the
 							resulting file.</p>
 					</li>
 					<li data-options-label="preventAppendedDataLabel">
-						<span class="option">Option: do not append data after the ZIP data</span>
+						<span class="option">Option: Do not append data after the ZIP data</span>
 						<p>Check this option to remove the data appended after the ZIP data. The resulting file may be
 							easier to open with some archive managers that do not support ZIP files with appended data.
 							Enabling this option increases the time needed to save a page.
 						</p>
 					</li>
 					<li data-options-label="insertTextBodyLabel">
-						<span class="option">Option: make text searchable</span>
+						<span class="option">Option: Make text searchable</span>
 						<p>Check this option to insert the text content of the saved page into the self-extracting ZIP
 							file. This makes it possible, for example, to search for pages from the text. Note that if
-							the selected format is "self-extracting ZIP (universal)", the text content is
+							the selected format is "Self-extracting ZIP (universal)", the text content is
 							encoded in UTF-8 but the page is declared in ISO-8859-1.
 						</p>
 					</li>
 				</ul>
 				<p>HTML content</p>
 				<ul>
-					<li data-options-label="compressHTMLLabel"> <span class="option">Option: compress HTML
+					<li data-options-label="compressHTMLLabel"> <span class="option">Option: Compress HTML
 							content</span>
 						<p>Check this option to remove all HTML comments and unneeded tags, spaces, quotes and
 							whitespace characters. Checking this option helps to reduce the size of the file without
 							altering the document.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="removeHiddenElementsLabel"> <span class="option">Option: remove hidden
+					<li data-options-label="removeHiddenElementsLabel"> <span class="option">Option: Remove hidden
 							elements</span>
 						<p>Check this option to remove all hidden elements. Checking this option can help to reduce the
 							size of the file without altering the document. It may also increase the CPU consumption and
 							the time needed to save a page.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="removedElementsSelectorLabel"> <span class="option">Option: remove specific
+					<li data-options-label="removedElementsSelectorLabel"> <span class="option">Option: Remove specific
 							elements</span>
 						<p>Use this option to remove elements from the page by providing a list of CSS selectors
 							separated by commas.</p>
 					</li>
-					<li data-options-label="insertMetaCSPLabel"> <span class="option">Option: set content security
+					<li data-options-label="insertMetaCSPLabel"> <span class="option">Option: Set content security
 							policy</span>
 						<p>Check this option to add a meta tag with a policy to block any external resources from being
 							loaded.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="insertCanonicalLinkLabel"> <span class="option">Option: save the canonical
+					<li data-options-label="insertCanonicalLinkLabel"> <span class="option">Option: Save the canonical
 							link of the page</span>
 						<p>Check this option to insert a link element pointing at the address the page was saved from, so
 							that the saved copy still declares where it came from. A canonical link already present in the
 							page is left as it is, and nothing is inserted when the page is not saved from an HTTP(S)
 							address.</p>
 					</li>
-					<li data-options-label="removeFramesLabel"> <span class="option">Option: remove frames</span>
+					<li data-options-label="removeFramesLabel"> <span class="option">Option: Remove frames</span>
 						<p>Check this option to remove all frame and iframe elements. Checking this option can
 							considerably reduce the size of the file without altering the document most of the time. It
 							may also decrease the time needed to save a page.</p>
 					</li>
-					<li data-options-label="saveOriginalURLsLabel"> <span class="option">: save original
+					<li data-options-label="saveOriginalURLsLabel"> <span class="option">: Save original
 							URLs of embedded resources</span>
 						<p>Check this option to save the URLs of the resources embedded into the saved page. URLs
 							are stored in attributes with a name prefixed with "data-sf-original-" and suffixed with the
@@ -329,11 +329,11 @@
 							contents. For CSS contents, URLs are stored as comments beginning with "original URL:".</p>
 					</li>
 					<li data-options-label="removeInfobarSavedDateLabel">
-						<span class="option">Option: do not include the saved date</span>
+						<span class="option">Option: Do not include the saved date</span>
 						<p>Check this option to remove the saved date included in the saved page and displayed in the
 							infobar.</p>
 					</li>
-					<li data-options-label="saveRawPageLabel"> <span class="option">Option: save raw page</span>
+					<li data-options-label="saveRawPageLabel"> <span class="option">Option: Save raw page</span>
 						<p>Check this option to save the raw HTML file that the browser received. When this option is
 							checked, the page will be saved as if JavaScript was disabled. Checking this option may
 							alter the document.</p>
@@ -343,14 +343,14 @@
 				<p>Infobar</p>
 				<ul>
 					<li data-options-label="displayInfobarLabel" id="displayInfobarOption"> <span class="option">Option:
-							display an infobar when
+							Display an infobar when
 							viewing a saved page</span>
 						<p>Check this option to display the ℹ button at the top right of the page when viewing a saved
 							page. By clicking this button, you can get more information about the saved date and open
 							the original URL.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="infobarTemplateLabel"> <span class="option">Option: template of the infobar
+					<li data-options-label="infobarTemplateLabel"> <span class="option">Option: Template of the infobar
 							content</span>
 						<p>The template allows you to customize the content displayed in the infobar. You can use any
 							valid character, <code>\n</code> for new lines or <code>\t</code> for tabs. You can also use
@@ -365,21 +365,21 @@
 								a page having "Example Domain" as title.</li>
 						</ul>
 					</li>
-					<li data-options-label="confirmInfobarLabel"> <span class="option">Option: open a prompt dialog to
+					<li data-options-label="confirmInfobarLabel"> <span class="option">Option: Open a prompt dialog to
 							edit the infobar content</span>
 						<p>Check this option to display a prompt dialog in order to confirm the infobar content before
 							saving the page. </p>
 					</li>
-					<li data-options-label="includeInfobarLabel"> <span class="option">Option: include infobar in
+					<li data-options-label="includeInfobarLabel"> <span class="option">Option: Include infobar in
 							the saved page</span>
 						<p>Check this option to display the ℹ button at the top right of the page when viewing a saved
 							page in a browser where SingleFile is not installed.</p>
 					</li>
-					<li data-options-label="openInfobarLabel"> <span class="option">Option: keep infobar
+					<li data-options-label="openInfobarLabel"> <span class="option">Option: Keep infobar
 							open</span>
 						<p>Check this option to keep the infobar open when viewing a saved page.</p>
 					</li>
-					<li data-options-label="animateInfobarLabel"> <span class="option">Option: animate the
+					<li data-options-label="animateInfobarLabel"> <span class="option">Option: Animate the
 							infobar</span>
 						<p>Check this option to make the infobar blink and display an expanding ring when a saved page
 							is opened. The animation stops when the infobar is opened, and does not run when the system
@@ -388,7 +388,7 @@
 				</ul>
 				<p>Stylesheets</p>
 				<ul>
-					<li data-options-label="removeUnusedStylesLabel"> <span class="option">Option: remove unused
+					<li data-options-label="removeUnusedStylesLabel"> <span class="option">Option: Remove unused
 							styles</span>
 						<p>Check this option to remove all the CSS rules and styles that do not match any element in the
 							saved page. Checking this option will not alter the document and can considerably reduce the
@@ -396,13 +396,13 @@
 							page.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="removeAlternativeMediasLabel"> <span class="option">Option: remove
+					<li data-options-label="removeAlternativeMediasLabel"> <span class="option">Option: Remove
 							stylesheets for alternative devices to screens</span>
 						<p>Check this option to remove stylesheets that are not used for the screen display like
 							stylesheets for print preview and speech synthesizers. Checking this option can help to
 							reduce the size of the file.</p>
 					</li>
-					<li data-options-label="groupDuplicateStylesheetsLabel"> <span class="option">Option: group
+					<li data-options-label="groupDuplicateStylesheetsLabel"> <span class="option">Option: Group
 							duplicate stylesheets together</span>
 						<p>Check this option to group together all the duplicate inline stylesheets. Checking this
 							option should not alter the document and can considerably reduce the size of the file. This
@@ -410,7 +410,7 @@
 							requires JavaScript to be enabled in order to function properly.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="moveStylesInHeadLabel"> <span class="option">Option: move in the head
+					<li data-options-label="moveStylesInHeadLabel"> <span class="option">Option: Move in the head
 							element the styles found outside of it</span>
 						<p>
 							Check this option to move all the style elements found outside the head element into the
@@ -418,7 +418,7 @@
 							displaying a saved page.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="customStylesheetLabel"> <span class="option">Option: apply a custom
+					<li data-options-label="customStylesheetLabel"> <span class="option">Option: Apply a custom
 							stylesheet before saving the page</span>
 						<p>Use this option to insert CSS rules into the page, and into its frames, just before it is
 							saved. They are inserted as the last stylesheet, so they take precedence over the styles of
@@ -430,14 +430,14 @@
 				</ul>
 				<p>Images</p>
 				<ul>
-					<li data-options-label="groupDuplicateImagesLabel"> <span class="option">Option: group duplicate
+					<li data-options-label="groupDuplicateImagesLabel"> <span class="option">Option: Group duplicate
 							images together</span>
 						<p>Check this option to avoid saving multiple times duplicate images. Checking this option
 							should not alter the document in modern browsers and can considerably reduce the size of the
 							file. This option is ignored with archive formats based on ZIP files.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="loadDeferredContentLabel"> <span class="option">Option: save content loaded while
+					<li data-options-label="loadDeferredContentLabel"> <span class="option">Option: Save content loaded while
 							scrolling</span>
 						<p>Check this option to save all the deferred content (images, frames, and the messages a page
 							unmounts while you scroll) that is not yet displayed.
@@ -447,13 +447,13 @@
 						</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="loadDeferredContentMaxIdleTimeLabel"> <span class="option">Option: maximum
+					<li data-options-label="loadDeferredContentMaxIdleTimeLabel"> <span class="option">Option: Maximum
 							idle time (ms)</span>
 						<p>Enter the maximum delay of time to wait for deferred content. You can increase this value if
 							for example the network or system conditions are degraded. You can also decrease this value
 							otherwise.</p>
 					</li>
-					<li data-options-label="loadDeferredContentDispatchScrollEventLabel"> <span class="option">Option: simulate
+					<li data-options-label="loadDeferredContentDispatchScrollEventLabel"> <span class="option">Option: Simulate
 							scrolling</span>
 						<p>Check this option to dispatch the <a
 								href="https://developer.mozilla.org/docs/Web/API/Document/scroll_event"
@@ -463,20 +463,20 @@
 							some other sites.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="loadDeferredContentKeepZoomLevelLabel"> <span class="option">Option: zoom out the page during
+					<li data-options-label="loadDeferredContentKeepZoomLevelLabel"> <span class="option">Option: Zoom out the page during
 							the capture</span>
 						<p>Check this option to save the entire content of a page by zooming out the page. This can help
 							saving pages using infinite virtual lists for example. </p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="loadDeferredContentBeforeFramesLabel"> <span class="option">Option: load in frames
+					<li data-options-label="loadDeferredContentBeforeFramesLabel"> <span class="option">Option: Load in frames
 							first</span>
 						<p>Check this option to load the deferred content of frames before saving their contents. It will
 							increase the time needed to save a page.
 						</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="imageReductionFactorLabel"> <span class="option">size reduction
+					<li data-options-label="imageReductionFactorLabel"> <span class="option">Size reduction
 							factor</span>
 						<p>
 							Reduce the size of images embedded in the saved page. The value corresponds to a divisor.
@@ -487,13 +487,13 @@
 							are displayed smaller.
 						</p>
 					</li>
-					<li data-options-label="imageQualityLabel"> <span class="option">Option: quality of resized images</span>
+					<li data-options-label="imageQualityLabel"> <span class="option">Option: Quality of resized images</span>
 						<p>Quality of the JPEG and WEBP images resized with the image reduction factor, between 0 and 1. A
 							lower value gives a smaller file and a less sharp image. With 1, WEBP images are saved without
 							loss. This option has no effect on PNG images, or when the image reduction factor is 1. The
 							default value is 0.8.</p>
 					</li>
-					<li data-options-label="removeAlternativeImagesLabel"> <span class="option">Option: remove images
+					<li data-options-label="removeAlternativeImagesLabel"> <span class="option">Option: Remove images
 							for alternative screen resolutions</span>
 						<p>Check this option to remove images that are alternatives in lower and/or higher resolutions
 							to the ones displayed by default. Checking this option can considerably reduce the size of
@@ -502,13 +502,13 @@
 				</ul>
 				<p>Fonts</p>
 				<ul>
-					<li data-options-label="removeUnusedFontsLabel"> <span class="option">Option: remove unused
+					<li data-options-label="removeUnusedFontsLabel"> <span class="option">Option: Remove unused
 							fonts</span>
 						<p>Check this option to remove all font CSS rules that do not match any content. Checking this
 							option should not alter the document and can considerably reduce the size of the file.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="removeAlternativeFontsLabel"> <span class="option">Option: remove
+					<li data-options-label="removeAlternativeFontsLabel"> <span class="option">Option: Remove
 							alternative fonts</span>
 						<p>Check this option to remove fonts that are alternatives to the ones used. Checking this
 							option should not alter the document and can considerably reduce the size of the file.</p>
@@ -517,12 +517,12 @@
 				</ul>
 				<p>Destination</p>
 				<ul>
-					<li data-options-label="saveToFilesystemLabel"> <span class="option">Option: save to
+					<li data-options-label="saveToFilesystemLabel"> <span class="option">Option: Save to
 							filesystem</span>
 						<p>Check this option to save the downloaded page on the filesystem of your computer.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="sharePageLabel" id="sharePageInput"> <span class="option">Option: share
+					<li data-options-label="sharePageLabel" id="sharePageInput"> <span class="option">Option: Share
 							page</span>
 						<p>Check this option to share the page with other applications. This option is only available in
 							browsers supporting the <a href="https://web.dev/web-share/" target="_blank">Web Share
@@ -530,12 +530,12 @@
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 					<li data-options-label="saveToClipboardLabel" id="saveToClipboardOption"> <span
-							class="option">Option: copy to clipboard</span>
+							class="option">Option: Copy to clipboard</span>
 						<p>Check this option to copy the page to the clipboard. This option does not work with
 							archive formats based on ZIP files.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="saveToGitHubLabel"> <span class="option">Option: upload to GitHub</span>
+					<li data-options-label="saveToGitHubLabel"> <span class="option">Option: Upload to GitHub</span>
 						<p>Check this option to save the page on GitHub. See the <a
 								href="https://github.com/gildas-lormeau/SingleFile/wiki/How-to-publish-saved-pages-with-SingleFile-on-GitHub"
 								target="_blank">documentation page</a> to learn how to configure SingleFile to save
@@ -545,15 +545,15 @@
 								target="_blank">documentation page</a> on GitHub for more information.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="githubTokenLabel"> <span class="option">Option: access token</span>
+					<li data-options-label="githubTokenLabel"> <span class="option">Option: Access token</span>
 						<p>Enter your personal access token on GitHub, see the <a
 								href="https://docs.github.com/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token"
 								target="_blank">documentation page</a> on GitHub for more information.</p>
 					</li>
-					<li data-options-label="githubUserLabel"> <span class="option">Option: user name</span>
+					<li data-options-label="githubUserLabel"> <span class="option">Option: User name</span>
 						<p>Enter your user name on GitHub.</p>
 					</li>
-					<li data-options-label="githubRepositoryLabel"> <span class="option">Option: repository name</span>
+					<li data-options-label="githubRepositoryLabel"> <span class="option">Option: Repository name</span>
 						<p>Enter the name of the repository on GitHub where the saved pages will be archived, see
 							the <a
 								href="https://docs.github.com/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/creating-a-new-repository"
@@ -561,7 +561,7 @@
 							repository.
 						</p>
 					</li>
-					<li data-options-label="githubBranchLabel"> <span class="option">Option: branch name</span>
+					<li data-options-label="githubBranchLabel"> <span class="option">Option: Branch name</span>
 						<p>Enter the repository branch name where pages will be archived. The branch
 							<strong>must</strong> exist on GitHub, see the <a
 								href="https://docs.github.com/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
@@ -569,7 +569,7 @@
 							the branch on github.io.
 						</p>
 					</li>
-					<li data-options-label="saveWithWebDAVLabel"> <span class="option">Option: upload to a WebDAV
+					<li data-options-label="saveWithWebDAVLabel"> <span class="option">Option: Upload to a WebDAV
 							server</span>
 						<p>Check this option to save the page on a WebDAV server.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
@@ -577,13 +577,13 @@
 					<li data-options-label="webDAVURLLabel"> <span class="option">Option: URL</span>
 						<p>Enter the URL of the WebDAV server.</p>
 					</li>
-					<li data-options-label="webDAVUserLabel"> <span class="option">Option: user identifier</span>
+					<li data-options-label="webDAVUserLabel"> <span class="option">Option: User identifier</span>
 						<p>Enter your user identifier on the WebDAV server.</p>
 					</li>
-					<li data-options-label="webDAVPasswordLabel"> <span class="option">Option: password</span>
+					<li data-options-label="webDAVPasswordLabel"> <span class="option">Option: Password</span>
 						<p>Enter your password.</p>
 					</li>
-					<li data-options-label="saveWithMCPLabel"> <span class="option">Option: save with MCP server</span>
+					<li data-options-label="saveWithMCPLabel"> <span class="option">Option: Save with MCP server</span>
 						<p>Check this option to save the page via a Model Context Protocol (MCP) server.</p>
 						<p>MCP is an open protocol that standardizes how applications provide context to AI models.
 							When enabled, SingleFile will send saved pages to an MCP server that implements the
@@ -591,7 +591,7 @@
 						<p class="notice">It is recommended to <u>uncheck</u> this option unless you have an MCP server
 							running</p>
 					</li>
-					<li data-options-label="mcpServerUrlLabel"> <span class="option">Option: server URL</span>
+					<li data-options-label="mcpServerUrlLabel"> <span class="option">Option: Server URL</span>
 						<p>Enter the URL of your MCP server (e.g. <code>http://localhost:3000/mcp</code>).</p>
 						<p>The server must implement the HTTP transport as specified in the MCP protocol and provide
 							the <code>write_file</code> and <code>get_file_info</code> tools.</p>
@@ -600,21 +600,21 @@
 							<code>tools/mcp-server</code> folder of the SingleFile repository. Servers without it can only
 							receive uncompressed pages.</p>
 					</li>
-					<li data-options-label="mcpAuthTokenLabel"> <span class="option">Option: authentication token</span>
+					<li data-options-label="mcpAuthTokenLabel"> <span class="option">Option: Authentication token</span>
 						<p>Enter the Bearer authentication token for your MCP server (optional).</p>
 						<p>If your MCP server requires authentication, the token will be sent in the
 							<code>Authorization: Bearer &lt;token&gt;</code> header with each request.
 						</p>
 					</li>
 					<li data-options-label="saveToGDriveLabel" id="saveToGDriveOption"> <span class="option">Option:
-							upload to Google Drive</span>
+							Upload to Google Drive</span>
 						<p>Check this option to save the page on Google Drive.</p>
 						<p>The permissions requested by SingleFile allow it to access only to the files and folders it
 							has created. When you uncheck this option, SingleFile revokes automatically its access to
 							your Google Drive account.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="saveToS3Label" id="saveToS3Option"> <span class="option">Option: upload to
+					<li data-options-label="saveToS3Label" id="saveToS3Option"> <span class="option">Option: Upload to
 							Amazon S3</span>
 						<p>Check this option to save the page on Amazon S3. You must configure the bucket policy to
 							include the permission <code>s3:PutObject</code>, and <code>s3:HeadObject</code> or
@@ -623,31 +623,31 @@
 						</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="S3DomainLabel"> <span class="option">Option: domain</span>
+					<li data-options-label="S3DomainLabel"> <span class="option">Option: Domain</span>
 						<p>Enter the domain of the Amazon S3 server (e.g. <code>s3.amazonaws.com</code>).</p>
 					</li>
-					<li data-options-label="S3RegionLabel"> <span class="option">Option: region</span>
+					<li data-options-label="S3RegionLabel"> <span class="option">Option: Region</span>
 						<p>Enter the region of the Amazon S3 server (e.g. <code>us-east-1</code>).</p>
 					</li>
-					<li data-options-label="S3BucketLabel"> <span class="option">Option: bucket name</span>
+					<li data-options-label="S3BucketLabel"> <span class="option">Option: Bucket name</span>
 						<p>Enter the name of the bucket on Amazon S3 where the saved pages will be archived. Pages will
 							be uploaded to <code>&lt;bucket name&gt;.&lt;domain&gt;</code></p>.
 					</li>
-					<li data-options-label="S3AccessKeyLabel"> <span class="option">Option: access key</span>
+					<li data-options-label="S3AccessKeyLabel"> <span class="option">Option: Access key</span>
 						<p>Enter your access key on Amazon S3 (e.g. <code>AKDO525K84LJTH4SFAKE</code>).</p>
 					</li>
-					<li data-options-label="S3SecretKeyLabel"> <span class="option">Option: secret key</span>
+					<li data-options-label="S3SecretKeyLabel"> <span class="option">Option: Secret key</span>
 						<p>Enter your secret key on Amazon S3.</p>
 					</li>
 					<li data-options-label="saveToDropboxLabel" id="saveToDropboxOption"> <span class="option">Option:
-							upload to Dropbox</span>
+							Upload to Dropbox</span>
 						<p>Check this option to save the page on Dropbox.</p>
 						<p>The permissions requested by SingleFile allow it to access only to the files and folders it
 							has created.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 					<li data-options-label="saveWithCompanionLabel" id="saveWithCompanionOption"> <span
-							class="option">Option: save with
+							class="option">Option: Save with
 							SingleFile Companion</span>
 						<p>Check this option to delegate the saving process to SingleFile Companion. It is a program
 							that runs outside the browser and can help to make the saving process more transparent. It
@@ -656,7 +656,7 @@
 								target="_blank">here</a></p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="saveToRestFormApiLabel"> <span class="option">Option: upload to a REST Form
+					<li data-options-label="saveToRestFormApiLabel"> <span class="option">Option: Upload to a REST Form
 							API</span>
 						<p>Check this option to save the page on an API endpoint accepting form data.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
@@ -664,27 +664,27 @@
 					<li data-options-label="saveToRestFormApiUrlLabel"> <span class="option">Option: URL</span>
 						<p>Enter the URL of the API endpoint.</p>
 					</li>
-					<li data-options-label="saveToRestFormApiTokenLabel"> <span class="option">Option: authorization
+					<li data-options-label="saveToRestFormApiTokenLabel"> <span class="option">Option: Authorization
 							token</span>
 						<p>Provide the the value of the "Bearer" token to authenticate the request.</p>
 					</li>
-					<li data-options-label="saveToRestFormApiFileFieldNameLabel"> <span class="option">Option: archive
+					<li data-options-label="saveToRestFormApiFileFieldNameLabel"> <span class="option">Option: Archive
 							data field name</span>
 						<p>Enter the name of the field that will contain the data of the saved page.</p>
 					</li>
-					<li data-options-label="saveToRestFormApiUrlFieldNameLabel"> <span class="option">Option: archive
+					<li data-options-label="saveToRestFormApiUrlFieldNameLabel"> <span class="option">Option: Archive
 							URL field name</span>
 						<p>Enter the name of the field that will contain the URL of the saved page.</p>
 					</li>
 				</ul>
 				<p>Network</p>
 				<ul>
-					<li data-options-label="blockResourcesLabel"> <span class="option">Option: blocked resources</span>
+					<li data-options-label="blockResourcesLabel"> <span class="option">Option: Blocked resources</span>
 						<p>
 							Check the options below to block the download of the corresponding resource types.
 						</p>
 					</li>
-					<li data-options-label="blockMixedContentLabel"> <span class="option">Option: block mixed
+					<li data-options-label="blockMixedContentLabel"> <span class="option">Option: Block mixed
 							contents</span>
 						<p>Check this option to block active content served from HTTP when viewing a page in HTTPS. You
 							can find more information about mixed content pages <a
@@ -699,25 +699,25 @@
 						</p>
 						<p class="notice">It is recommended to leave these values <u>as they are</u></p>
 					</li>
-					<li data-options-label="setMaxResourceSizeLabel"> <span class="option">Option: set maximum size
+					<li data-options-label="setMaxResourceSizeLabel"> <span class="option">Option: Set maximum size
 							(MB)</span>
 						<p>Check this option to remove from the saved page embedded resources (i.e. images, stylesheets,
 							scripts and iframes) that exceeds a given size.</p>
 					</li>
-					<li data-options-label="maxResourceSizeLabel"> <span class="option">Option: maximum size (MB)</span>
+					<li data-options-label="maxResourceSizeLabel"> <span class="option">Option: Maximum size (MB)</span>
 						<p>Enter the maximum size in megabytes.</p>
 					</li>
-					<li data-options-label="setMaxResourceDelayLabel"> <span class="option">Option: set maximum
+					<li data-options-label="setMaxResourceDelayLabel"> <span class="option">Option: Set maximum
 							download delay (s)</span>
 						<p>Check this option to remove from the saved page embedded resources (i.e. images, stylesheets,
 							scripts and iframes) that exceeds a given download time.</p>
 					</li>
-					<li data-options-label="maxResourceDelayLabel"> <span class="option">Option: maximum download delay
+					<li data-options-label="maxResourceDelayLabel"> <span class="option">Option: Maximum download delay
 							(s)</span>
 						<p>Enter the maximum download delay in seconds.</p>
 					</li>
 					<li data-options-label="passReferrerOnErrorLabel" id="passReferrerOnErrorOption"> <span
-							class="option">Option: pass \"Referer\"
+							class="option">Option: Pass \"Referer\"
 							header on
 							cross-origin errors</span>
 						<p>Check this option to pass the HTTP header "Referer" with the "origin" policy after an 401,
@@ -728,79 +728,79 @@
 				</ul>
 				<p>Annotation editor</p>
 				<ul>
-					<li data-options-label="defaultEditorModeLabel"> <span class="option">Option: default mode</span>
+					<li data-options-label="defaultEditorModeLabel"> <span class="option">Option: Default mode</span>
 						<p>Select the default mode when opening the annotation editor. The available choices are:
 						<ul>
-							<li><code>normal</code>: default value</li>
-							<li><code>edit the page</code>: enable the button <img
+							<li><code>Normal</code>: default value</li>
+							<li><code>Edit the page</code>: enable the button <img
 									src="../resources/button_note_edit.png" class="icon button"></li>
-							<li><code>format the page</code>: enable the button <img
+							<li><code>Format the page</code>: enable the button <img
 									src="../resources/button_note_format.png" class="icon button"> if the page can be
 								formatted</li>
-							<li><code>remove elements</code>: enable the button <img
+							<li><code>Remove elements</code>: enable the button <img
 									src="../resources/button_cut_inner.png" class="icon button"></li>
-							<li><code>remove external elements</code>: enable the button <img
+							<li><code>Remove external elements</code>: enable the button <img
 									src="../resources/button_cut_outer.png" class="icon button"></li>
 						</ul>
 						</p>
 					</li>
-					<li data-options-label="applySystemThemeLabel"> <span class="option">Option: apply the system theme
+					<li data-options-label="applySystemThemeLabel"> <span class="option">Option: Apply the system theme
 							when formatting a page in the annotation editor</span>
 						<p>Uncheck this option if you do not want to apply the theme of the operating system or the
 							browser (e.g. dark or light) when you click on the button "Format the page for better
 							readability" in the annotation editor.</p>
 					</li>
-					<li data-options-label="contentWidthLabel"> <span class="option">Option: content width when
+					<li data-options-label="contentWidthLabel"> <span class="option">Option: Content width when
 							formatting a page (em)</span>
 						<p>Enter the content width in em to use when you click on the button "Format the page for better
 							readability" in the annotation editor.</p>
 					</li>
-					<li data-options-label="warnUnsavedPageLabel"> <span class="option">Option: warn if leaving page
+					<li data-options-label="warnUnsavedPageLabel"> <span class="option">Option: Warn if leaving page
 							with unsaved changes</span>
 						<p>Check this option to display a blocking popup when you leave the annotation editor (e.g.
 							close the tab) without saving the changes.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="openEditorLabel"> <span class="option">Option: edit page before
+					<li data-options-label="openEditorLabel"> <span class="option">Option: Edit page before
 							saving</span>
 						<p>Check this option to open the annotation editor before saving any page. Checking this option
 							removes the entry "Annotate and save the page..." from the context menu.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 					<li data-options-label="autoOpenEditorLabel" id="autoOpenEditorOption"> <span class="option">Option:
-							open the annotation editor when viewing a page saved with SingleFile</span>
+							Open the annotation editor when viewing a page saved with SingleFile</span>
 						<p>Check this option to open the annotation editor when displaying a page saved by SingleFile.
 						</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 					<li data-options-label="displayInfobarInEditorLabel"> <span class="option">Option:
-							display the infobar</span>
+							Display the infobar</span>
 						<p>Check this option to display the infobar when displaying a page in the annotation editor.</p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
 				</ul>
 				<p id="bookmarksSection">Bookmarks</p>
 				<ul id="bookmarksOptions">
-					<li data-options-label="saveCreatedBookmarksLabel"> <span class="option">Option: save the page of a
+					<li data-options-label="saveCreatedBookmarksLabel"> <span class="option">Option: Save the page of a
 							newly created bookmark</span>
 						<p>Check this option to save pages that you add into your bookmarks. Note that if the page is to
 							be saved is not already displayed in a tab, SingleFile will open temporarily a new tab to
 							save the page. </p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="replaceBookmarkURLLabel"> <span class="option">Option: link the new bookmark
+					<li data-options-label="replaceBookmarkURLLabel"> <span class="option">Option: Link the new bookmark
 							to the saved page</span>
 						<p>Check this option to replace the URL of the page added into your bookmark with the file URI
 							of the saved page on your disk. </p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
-					<li data-options-label="ignoredBookmarkFoldersLabel"> <span class="option">Option: ignored
+					<li data-options-label="ignoredBookmarkFoldersLabel"> <span class="option">Option: Ignored
 							folders</span>
 						<p>Enter a list of bookmark folder names to ignore. The folder names must be separated with a
 							comma. SingleFile will ignore bookmarks added in folders that contains these names.
 						</p>
 					</li>
-					<li data-options-label="allowedBookmarkFoldersLabel"> <span class="option">Option: allowed
+					<li data-options-label="allowedBookmarkFoldersLabel"> <span class="option">Option: Allowed
 							folders</span>
 						<p>Enter a list of bookmark folder names to allow. The folder names must be separated with a
 							comma. SingleFile will only save pages added in folders that contains these names.
@@ -809,47 +809,47 @@
 				</ul>
 				<p id="autoSaveSection">Auto-save</p>
 				<ul id="autoSaveOptions">
-					<li data-options-label="autoSaveLoadOrUnloadLabel"> <span class="option">Option: auto-save after
+					<li data-options-label="autoSaveLoadOrUnloadLabel"> <span class="option">Option: Auto-save after
 							page load or on page unload</span>
 						<p>Check this option to auto-save pages after being loaded. If you browse to another page before
 							the page is fully loaded then the page will be saved just before being unloaded. With this
 							option active, you are guaranteed pages will always be saved. Some frame contents may be
-							missing (if you checked "remove frames") when pages are saved before being unloaded. </p>
+							missing (if you checked "Remove frames") when pages are saved before being unloaded. </p>
 					</li>
-					<li data-options-label="autoSaveLoadLabel"> <span class="option">Option: auto-save after page
+					<li data-options-label="autoSaveLoadLabel"> <span class="option">Option: Auto-save after page
 							load</span>
 						<p>Check this option to auto-save pages after being loaded.</p>
 					</li>
-					<li data-options-label="autoSaveUnloadLabel"> <span class="option">Option: auto-save on page
+					<li data-options-label="autoSaveUnloadLabel"> <span class="option">Option: Auto-save on page
 							unload</span>
 						<p>Check this option to auto-save pages before being unloaded instead of saving pages after
 							being loaded. With this option active, you are guaranteed pages will always be saved but
-							some frame contents may be missing (if you checked "remove frames"). </p>
+							some frame contents may be missing (if you checked "Remove frames"). </p>
 					</li>
-					<li data-options-label="autoSaveDiscardLabel"> <span class="option">Option: auto-save on tab
+					<li data-options-label="autoSaveDiscardLabel"> <span class="option">Option: Auto-save on tab
 							discard</span>
 						<p>Check this option to auto-save pages when discarding a tab. Some frame contents may be
-							missing (if you checked "remove frames"). </p>
+							missing (if you checked "Remove frames"). </p>
 					</li>
-					<li data-options-label="autoSaveRemoveLabel"> <span class="option">Option: auto-save on tab
+					<li data-options-label="autoSaveRemoveLabel"> <span class="option">Option: Auto-save on tab
 							removal</span>
 						<p>Check this option to auto-save pages when closing a tab. Some frame contents may be missing
-							(if you checked "remove frames"). </p>
+							(if you checked "Remove frames"). </p>
 					</li>
-					<li data-options-label="autoSaveDelayLabel"> <span class="option">Option: auto-save waiting delay
+					<li data-options-label="autoSaveDelayLabel"> <span class="option">Option: Auto-save waiting delay
 							after load (s)</span>
-						<p>Enter the delay in seconds to wait before saving a page when the "auto-save on page load or
-							on page unload" or "auto-save on page load" is checked. </p>
+						<p>Enter the delay in seconds to wait before saving a page when the "Auto-save on page load or
+							on page unload" or "Auto-save on page load" is checked. </p>
 					</li>
-					<li data-options-label="autoSaveRepeatLabel"> <span class="option">Option: auto-save
+					<li data-options-label="autoSaveRepeatLabel"> <span class="option">Option: Auto-save
 							periodically</span>
 						<p>Check this option to auto-save pages periodically after load.</p>
 					</li>
-					<li data-options-label="autoSaveRepeatDelayLabel"> <span class="option">Option: period (s)</span>
-						<p>Enter the delay in seconds to wait before each page saving when the "auto-save
+					<li data-options-label="autoSaveRepeatDelayLabel"> <span class="option">Option: Period (s)</span>
+						<p>Enter the delay in seconds to wait before each page saving when the "Auto-save
 							periodically" option is checked. </p>
 					</li>
-					<li data-options-label="autoSaveExternalSaveLabel"> <span class="option">Option: save the page with
+					<li data-options-label="autoSaveExternalSaveLabel"> <span class="option">Option: Save the page with
 							SingleFile Companion</span>
 						<p>Check this option to delegate the capturing and saving process to SingleFile Companion. It is
 							a program that runs outside the browser and can help to make the saving process more
@@ -861,7 +861,7 @@
 				</ul>
 				<p>Misc.</p>
 				<ul>
-					<li data-options-label="addProofLabel"> <span class="option">Option: add proof of existence</span>
+					<li data-options-label="addProofLabel"> <span class="option">Option: Add proof of existence</span>
 						<p>Check this option to create a worldwide proof of the existence of the page you want to save.
 						</p>
 						<ul>
@@ -880,12 +880,12 @@
 						</ul>
 						<p> More information <a href="https://doc.woleet.io" target="_blank">doc.woleet.io</a> </p>
 					</li>
-					<li data-options-label="woleetKeyLabel" hidden> <span class="option">Option: access token</span>
+					<li data-options-label="woleetKeyLabel" hidden> <span class="option">Option: Access token</span>
 						<p>Enter your personal access token on Woleet, see the <a href="http://app.woleet.io/"
 								target="_blank">registration page</a> on Woleet for more information.</p>
 					</li>
 					<li data-options-label="backgroundSaveLabel" id="backgroundSaveOption"> <span class="option">Option:
-							save pages in
+							Save pages in
 							background</span>
 						<p>Uncheck this option if you get invalid file names like
 							"37bec68b-446a-46a5-8642-19a89c231b46.html" or interrupted downloads when saving pages. You
@@ -893,7 +893,7 @@
 							path. Unchecking this option prevent using sub-directories in filename templates.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
 					</li>
-					<li data-options-label="displayStatsLabel"> <span class="option">Option: display stats in the
+					<li data-options-label="displayStatsLabel"> <span class="option">Option: Display stats in the
 							console after processing</span>
 						<p>Check this option to display stats about processing in the JavaScript developer tools of your
 							browser. Checking this option may increase the CPU consumption and the time needed to save a
@@ -903,14 +903,14 @@
 				</ul>
 				<p>External capture API</p>
 				<ul>
-					<li data-options-label="externalCaptureAllowedIdsLabel"> <span class="option">Option: allowed
+					<li data-options-label="externalCaptureAllowedIdsLabel"> <span class="option">Option: Allowed
 							extensions, one per line</span>
 						<p>Extensions allowed to capture pages through the external capture API (see "Integration with
 							other extensions"), one per line, identified by their ID. An extension is added here when
 							you approve its first request. Remove its line to revoke the permission. Note that an
 							allowed extension can capture any tab, not only the active one.</p>
 					</li>
-					<li data-options-label="externalCaptureDeniedIdsLabel"> <span class="option">Option: blocked
+					<li data-options-label="externalCaptureDeniedIdsLabel"> <span class="option">Option: Blocked
 							extensions, one per line</span>
 						<p>Extensions whose capture requests are rejected without prompting, one per line, identified by
 							their ID. An extension is added here when you block its first request. Remove its line to be
@@ -920,7 +920,7 @@
 				<p id="auto-settings-rules">Auto-settings rules</p>
 				<ul>
 					<li>The auto-settings rules let you associate a complete or partial URL with a profile. It also
-						allows to associate a specific profile for the auto-save, or to disable it (check "display
+						allows to associate a specific profile for the auto-save, or to disable it (check "Display
 						'Auto-save profile' column"). When two or more rules match a URL of a page to save, the rule
 						with the longest URL will be chosen. The special profile "-" means the current profile. </li>
 					<li>You can use the special value "*" as URL to create a rule that applies to all URLs</li>
@@ -928,13 +928,13 @@
 						match all URLs containing ".com"). When zero or more rules based on URLs and one or more rules
 						based on regular expressions match a URL, the longest rule based on regular expression will be
 						chosen. </li>
-					<li data-options-label="showAllProfilesLabel"> <span class="option">Option: display all
+					<li data-options-label="showAllProfilesLabel"> <span class="option">Option: Display all
 							profiles</span>
 						<p>Check this option to display the rules of all the profiles instead of the rules associated
 							with the selected profile only. The "Delete all rules" button then deletes the rules of all
 							the profiles.</p>
 					</li>
-					<li data-options-label="showAutoSaveProfileLabel"> <span class="option">Option: display 'Auto-save
+					<li data-options-label="showAutoSaveProfileLabel"> <span class="option">Option: Display 'Auto-save
 							profile' column</span>
 						<p>Check this option to display the column where the profile used by the auto-save, or its
 							deactivation, is associated with each rule.</p>
@@ -942,12 +942,12 @@
 				</ul>
 				<p id="menus">Menus</p>
 				<ul>
-					<li data-options-label="menusEditorLabel" id="menusOption"> <span class="option">Option: choose the
+					<li data-options-label="menusEditorLabel" id="menusOption"> <span class="option">Option: Choose the
 							entries displayed in the menus and their order</span>
 						<p>The menu editor lets you choose which entries appear in the context menu of the webpage, in
 							the menu of the SingleFile button <img src="../resources/icon_16.png" class="icon"> and in
 							the menu of the tabs, and in which order. These settings are shared by all profiles. The
-							option "add entry in the context menu of the webpage" of each profile still decides whether
+							option "Add entry in the context menu of the webpage" of each profile still decides whether
 							the menu is displayed at all.</p>
 						<p>Select the menu to edit, then add entries with the "Add" list. Drag an entry to reorder it or
 							to nest it into a submenu, double-click a label to rename it, press Delete to remove it. The
@@ -966,7 +966,7 @@
 				</ul>
 				<p>Form buttons</p>
 				<ul>
-					<li data-options-label="synchronizeLabel"><span class="option">synchronize options</span>
+					<li data-options-label="synchronizeLabel"><span class="option">Synchronize options</span>
 						<p>Check this option to synchronize your options and make them available in all instances of the
 							browser you are logged into, on different devices.</p>
 					</li>
@@ -977,7 +977,7 @@
 			</li>
 			<li><a id="annotation-editor">Annotation editor</a>
 				<p>The annotation editor can be opened by selecting "Annotate and save the page" in the context menu or
-					by enabling the option "Annotation editor &gt; edit page before saving". It allows you to:
+					by enabling the option "Annotation editor &gt; Edit page before saving". It allows you to:
 				<ul>
 					<li>add notes by clicking one of these buttons: <img src="../resources/button_note_yellow.png"
 							class="icon button"> <img src="../resources/button_note_pink.png" class="icon button"> <img
@@ -1146,10 +1146,10 @@
 					<li><code>{url-original}</code>: the original URL of the page (e.g.
 						"http://example.com/index.html")</li>
 					<li><code>{bookmark-pathname}</code>: the path name of the newly created bookmark (e.g. "My
-						Bookmarks/Last Month") when the option "Bookmarks &gt; save the page of a
+						Bookmarks/Last Month") when the option "Bookmarks &gt; Save the page of a
 						newly created bookmark" is enabled</li>
 					<li><code>{bookmark-pathname-flat}</code>: the path name of the newly created bookmark with replaced
-						slashes (e.g. "My Bookmarks_Last Month") when the option "Bookmarks &gt; save the page of a
+						slashes (e.g. "My Bookmarks_Last Month") when the option "Bookmarks &gt; Save the page of a
 						newly created bookmark" is enabled</li>
 					<li><code>{tab-id}</code>: the unique identifier of the tab (e.g. "326")</li>
 					<li><code>{tab-index}</code>: the index of the tab in the window (e.g. "1")</li>
@@ -1461,15 +1461,15 @@
 							<li>If the filename of a saved page looks like "56833935-156b-4d8c-a00f-19599c6513d3",
 								disable the option "Misc. &gt; Save pages in background". Reinstalling the browser may
 								also fix this issue.</li>
-							<li>Disabling the option 'File name &gt; open the "Save as" dialog to confirm the file name'
+							<li>Disabling the option 'File name &gt; Open the "Save as" dialog to confirm the file name'
 								will work if and only if "Ask where to save each file before downloading" is disabled in
 								chrome://settings/downloads</li>
 						</ul>
 					</li>
 					<li>Firefox
 						<ul>
-							<li>The "File name &gt; file name conflict resolution" option does not work if set to
-								"prompt for a name".
+							<li>The "File name &gt; File name conflict resolution" option does not work if set to
+								"Prompt for a name".
 							</li>
 							<li>Sometimes, SingleFile is unable to save the contents of sandboxed iframes.</li>
 							<li>When processing a page from the filesystem, external resources (e.g. images,
