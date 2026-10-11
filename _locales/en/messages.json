@@ -1342,7 +1342,7 @@
 		"description": "Menu editor hint about editing"
 	},
 	"menusDynamicBadge": {
-		"message": "dynamic",
+		"message": "Dynamic",
 		"description": "Menu editor badge of the entries managed by SingleFile"
 	},
 	"menusRemoveTooltip": {
