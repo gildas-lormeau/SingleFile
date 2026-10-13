@@ -7,7 +7,7 @@ SingleFile is a browser extension designed to help users save web pages as compl
 No, SingleFile is not a tool used by professionals to archive content on the Web, especially in the academic field. Professionals prefer to rely on tools based on the [WARC specification](https://iipc.github.io/warc-specifications/) instead. 
 
 ## Does SingleFile upload any data to third-party servers?
-As stated in the [privacy policy](https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md), SingleFile does not upload any data to third-party servers. All the work is done in your browser. However, when you save a page with SingleFile, it can download resources (images, CSS, frame contents, fonts etc.) that are not displayed or not already cached but present in the page.
+As stated in the [privacy policy](https://github.com/gildas-lormeau/SingleFile/blob/main/privacy.md), SingleFile does not upload any data to third-party servers. All the work is done in your browser. However, when you save a page with SingleFile, it can download resources (images, CSS, frame contents, fonts etc.) that are not displayed or not already cached but present in the page.
 
 ## Why can't I save some pages like https://addons.mozilla.org/addon/single-file?
 For security purposes, browsers block web extensions on certain domains. This prevents a malicious extension to remove or change bad reviews, for example.
@@ -25,7 +25,7 @@ By default, Chrome extensions are not allowed to access to pages stored on the f
 The self-extracting ZIP files created by SingleFile are essentially regular ZIP files. They take advantage of the flexibility in the ZIP specification, which allows for additional data to be included before and after the ZIP payload. See this [presentation](https://github.com/gildas-lormeau/Polyglot-HTML-ZIP-PNG) for more info.
 
 ## What are the permissions requested by SingleFile for?
-The permissions requested by SingleFile are defined in the [manifest.json](https://github.com/gildas-lormeau/SingleFile/blob/master/manifest.json) file. Below are the reasons why they are necessary.
+The permissions requested by SingleFile are defined in the [manifest.json](https://github.com/gildas-lormeau/SingleFile/blob/main/manifest.json) file. Below are the reasons why they are necessary.
  - `identity`: allows SingleFile to connect to your Google Drive account.
  - `storage`: allows SingleFile to store your settings.
  - `menus/contextMenus`: allows SingleFile to display an entry in the context menu of web pages.

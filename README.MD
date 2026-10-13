@@ -44,7 +44,7 @@ SingleFile can be installed from the store of:
   https://microsoftedge.microsoft.com/addons/detail/efnbkdcfmcmnhlkaijjjmhjjgladedno
 
 You can also download the zip file
-(https://github.com/gildas-lormeau/SingleFile/archive/master.zip) of the project
+(https://github.com/gildas-lormeau/SingleFile/archive/main.zip) of the project
 and install it manually by unzipping it somewhere on your disk and following
 these instructions:
 
@@ -95,7 +95,7 @@ these instructions:
 
 ## FAQ
 
-See https://github.com/gildas-lormeau/SingleFile/blob/master/faq.md
+See https://github.com/gildas-lormeau/SingleFile/blob/main/faq.md
 
 ## Release notes
 
@@ -103,7 +103,7 @@ See https://addons.mozilla.org/firefox/addon/single-file/versions/
 
 ## Known Issues and Troubleshooting
 
-See https://github.com/gildas-lormeau/SingleFile/blob/master/known-issues.md
+See https://github.com/gildas-lormeau/SingleFile/blob/main/known-issues.md
 
 ## Command Line Interface (SingleFile CLI)
 
@@ -185,11 +185,11 @@ Footnotes:
 
 ## Privacy Policy
 
-See https://github.com/gildas-lormeau/SingleFile/blob/master/privacy.md
+See https://github.com/gildas-lormeau/SingleFile/blob/main/privacy.md
 
 ## Contributors
 
-See https://github.com/gildas-lormeau/SingleFile/blob/master/contributors.md
+See https://github.com/gildas-lormeau/SingleFile/blob/main/contributors.md
 
 ## Code derived from third party projects
 
