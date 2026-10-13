@@ -531,15 +531,15 @@ function createMaskElement() {
 				}
 				.${CANCEL_BUTTON_CLASSNAME} {
 					position: fixed;
-					bottom: 16px;
-					inset-inline-end: 16px;
+					bottom: 24px;
+					inset-inline-end: 8px;
 					z-index: 2147483647;
 					margin: 0;
 					padding: 6px 12px;
-					border: 1px solid darkgrey;
+					border: 1px solid rgba(0, 0, 0, .3);
 					border-radius: 4px;
-					background-color: dimgrey;
-					color: white;
+					background-color: white;
+					color: black;
 					font-family: arial, sans-serif;
 					font-size: 13px;
 					cursor: pointer;
@@ -548,6 +548,13 @@ function createMaskElement() {
 				}
 				.${CANCEL_BUTTON_CLASSNAME}:hover {
 					opacity: 1;
+				}
+				@media (prefers-color-scheme: dark) {
+					.${CANCEL_BUTTON_CLASSNAME} {
+						border-color: rgba(238, 238, 238, .3);
+						background-color: #1c1b22;
+						color: #eeeeee;
+					}
 				}
 			`;
 			shadowRoot.appendChild(styleElement);
@@ -625,6 +632,7 @@ function createLogsWindowElement() {
 					z-index: 2147483647;
 					opacity: 0.9;
 					padding: 4px;
+					border-radius: 4px;
 					background-color: white;
 					min-width: ${LOG_PANEL_WIDTH}px;
 					min-height: 16px;
