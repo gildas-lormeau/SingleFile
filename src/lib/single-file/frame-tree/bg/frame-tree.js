@@ -28,4 +28,7 @@ browser.runtime.onMessage.addListener((message, sender) => {
 		browser.tabs.sendMessage(sender.tab.id, message, { frameId: 0 });
 		return Promise.resolve({});
 	}
+	if (message.method == "singlefile.frameTree.getOptions") {
+		return browser.tabs.sendMessage(sender.tab.id, message, { frameId: 0 });
+	}
 });
