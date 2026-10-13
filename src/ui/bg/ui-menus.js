@@ -60,7 +60,7 @@ const menusTitleState = new Map();
 let menuItems = new Map();
 let contextMenuVisibleState = true;
 let allMenuVisibleState = true;
-let menusCreated, pendingRefresh, business, refreshMenusTimeout;
+let menusCreated, pendingRefresh, business, refreshMenusTimeout, createMenusPromise;
 Promise.resolve().then(initialize);
 if (BROWSER_MENUS_API_SUPPORTED) {
 	browser.storage.onChanged.addListener(onStorageChanged);
@@ -85,7 +85,12 @@ function onMessage(message) {
 	}
 }
 
-async function createMenus(tab) {
+function createMenus(tab) {
+	createMenusPromise = buildMenus(tab);
+	return createMenusPromise;
+}
+
+async function buildMenus(tab) {
 	const [profiles, allTabsData, menuLayout] = await Promise.all([config.getProfiles(), tabsData.get(), config.getMenuLayout()]);
 	let options = await config.getOptions(tab && tab.url);
 	if (BROWSER_MENUS_API_SUPPORTED && options) {
@@ -294,6 +299,7 @@ async function initialize() {
 	if (BROWSER_MENUS_API_SUPPORTED) {
 		createMenus();
 		menus.onClicked.addListener(async (event, tab) => {
+			await createMenusPromise;
 			const item = menuItems.get(event.menuItemId);
 			if (!item) {
 				return;
