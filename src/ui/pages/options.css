@@ -125,11 +125,16 @@ h3 a {
 .sync-input input {
     margin: 0;
     margin-right: 4px;
-    vertical-align: bottom;
+    vertical-align: middle;
 }
 
 .buttons {
     white-space: nowrap;
+}
+
+.sync-input+.help-content {
+    white-space: normal;
+    text-align: left;
 }
 
 .buttons button {
@@ -348,8 +353,7 @@ h3 a {
     box-sizing: content-box;
 }
 
-.rules-table-container+.option label,
-.rules-table-container+.option+.option label {
+.rules-table-container~.option label {
     text-align: right;
     width: 100%;
     align-self: center;
