@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global browser, window, document, location */
+/* global browser, window, document, location, localStorage */
 
 const URLLabel = document.getElementById("URLLabel");
 const addUrlsLabel = document.getElementById("addUrlsLabel");
@@ -38,8 +38,11 @@ const addUrlsInput = document.getElementById("addUrlsInput");
 const addUrlsCancelButton = document.getElementById("addUrlsCancelButton");
 const addUrlsOKButton = document.getElementById("addUrlsOKButton");
 const saveUrlsButton = document.getElementById("saveUrlsButton");
+const profileSelect = document.getElementById("profileSelect");
+const PROFILE_STORAGE_KEY = "batchSaveUrlsProfileName";
 document.title = browser.i18n.getMessage("batchSaveUrlsTitle");
 const noPendingsText = browser.i18n.getMessage("batchSaveUrlsNoURLs");
+const skippedByRuleText = browser.i18n.getMessage("batchSaveUrlsSkippedByRule");
 addUrlButton.textContent = browser.i18n.getMessage("batchSaveUrlsAddUrlButton");
 addUrlsButton.textContent = browser.i18n.getMessage("batchSaveUrlsAddUrlsButton");
 removeAllButton.textContent = browser.i18n.getMessage("batchSaveUrlsRemoveAllButton");
@@ -59,6 +62,7 @@ addUrlForm.onsubmit = () => {
 };
 removeAllButton.onclick = async () => {
 	const displayedUrls = getDisplayedUrls();
+	displayedUrls.forEach(url => statuses.delete(url));
 	urls = urls.filter(url => !displayedUrls.includes(url));
 	await refresh();
 };
@@ -69,14 +73,28 @@ if (location.href.endsWith("#side-panel")) {
 saveUrlsButton.onclick = async () => {
 	const displayedUrls = getDisplayedUrls();
 	if (displayedUrls.length) {
-		await browser.runtime.sendMessage({ method: "downloads.saveUrls", urls: displayedUrls });
-		urls = urls.filter(url => !displayedUrls.includes(url));
-		refresh();
+		displayedUrls.forEach(url => statuses.delete(url));
+		const response = await browser.runtime.sendMessage({ method: "downloads.saveUrls", urls: displayedUrls, profileName: profileSelect.value || undefined });
+		const skippedUrls = (response && response.skippedUrls) || [];
+		skippedUrls.forEach(url => statuses.set(url, skippedByRuleText));
+		urls = urls.filter(url => !displayedUrls.includes(url) || skippedUrls.includes(url));
+		refresh(true);
 	}
+};
+profileSelect.onchange = () => {
+	try {
+		localStorage.setItem(PROFILE_STORAGE_KEY, profileSelect.value);
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		// ignored
+	}
+	refresh(true);
 };
 
 let previousState;
 let urls = [];
+let DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME;
+const statuses = new Map();
 
 filterButton.onclick = () => {
 	filterPanel.hidden = !filterPanel.hidden;
@@ -110,7 +128,41 @@ browser.runtime.onMessage.addListener(message => {
 		refresh();
 	}
 });
-refresh();
+init();
+
+async function init() {
+	const [constants, profiles] = await Promise.all([
+		browser.runtime.sendMessage({ method: "config.getConstants" }),
+		browser.runtime.sendMessage({ method: "config.getProfiles" })
+	]);
+	({ DEFAULT_PROFILE_NAME, DISABLED_PROFILE_NAME } = constants);
+	addProfileOption("", browser.i18n.getMessage("batchSaveUrlsProfileAuto"));
+	Object.keys(profiles)
+		.sort((name, otherName) => name == DEFAULT_PROFILE_NAME ? -1 : otherName == DEFAULT_PROFILE_NAME ? 1 : name.localeCompare(otherName))
+		.forEach(profileName => addProfileOption(profileName, getProfileText(profileName)));
+	let storedProfileName;
+	try {
+		storedProfileName = localStorage.getItem(PROFILE_STORAGE_KEY);
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		// ignored
+	}
+	if (storedProfileName && Array.from(profileSelect.options).some(option => option.value == storedProfileName)) {
+		profileSelect.value = storedProfileName;
+	}
+	refresh(true);
+}
+
+function addProfileOption(value, text) {
+	const optionElement = document.createElement("option");
+	optionElement.value = value;
+	optionElement.textContent = text;
+	profileSelect.appendChild(optionElement);
+}
+
+function getProfileText(profileName) {
+	return profileName == DEFAULT_PROFILE_NAME ? browser.i18n.getMessage("profileDefaultSettings") : profileName == DISABLED_PROFILE_NAME ? browser.i18n.getMessage("profileDisabled") : profileName;
+}
 
 function resetTable() {
 	urlsTable.innerHTML = "";
@@ -121,23 +173,41 @@ function updateTable(urls) {
 		urls.forEach((url, indexUrl) => {
 			const row = document.createElement("div");
 			const cellURL = document.createElement("span");
+			const cellProfile = document.createElement("span");
 			const cellCancel = document.createElement("span");
 			const buttonCancel = document.createElement("button");
 			row.className = "urls-row";
 			cellURL.textContent = url;
 			cellURL.className = "result-url-title";
+			cellProfile.className = "result-profile";
+			displayProfile(url, cellProfile);
 			buttonCancel.textContent = "×";
 			buttonCancel.onclick = () => cancel(indexUrl);
 			cellCancel.appendChild(buttonCancel);
 			cellCancel.className = "result-cancel";
 			row.appendChild(cellURL);
+			if (statuses.has(url)) {
+				const cellStatus = document.createElement("span");
+				cellStatus.className = "result-status";
+				cellStatus.textContent = statuses.get(url);
+				row.appendChild(cellStatus);
+			}
+			row.appendChild(cellProfile);
 			row.appendChild(cellCancel);
 			urlsTable.appendChild(row);
 		});
 	}
 }
 
+async function displayProfile(url, cellProfile) {
+	const profileName = profileSelect.value || await browser.runtime.sendMessage({ method: "config.getProfileName", url });
+	cellProfile.textContent = getProfileText(profileName);
+	cellProfile.title = cellProfile.textContent;
+	cellProfile.classList.toggle("disabled", profileName == DISABLED_PROFILE_NAME);
+}
+
 async function cancel(index) {
+	statuses.delete(urls[index]);
 	urls.splice(index, 1);
 	await refresh();
 }

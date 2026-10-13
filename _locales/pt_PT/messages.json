@@ -1201,6 +1201,14 @@
 		"message": "URL",
 		"description": "Title of the column in the table of the URLs"
 	},
+	"batchSaveUrlsProfileAuto": {
+		"message": "Perfil segundo as regras e a seleção atual",
+		"description": "First entry of the profile dropdown of the 'batch save URLs' page: the profile of each URL comes from the rules and from the profile selected in the options page"
+	},
+	"batchSaveUrlsSkippedByRule": {
+		"message": "Ignorada: uma regra associa esta página ao perfil desativado",
+		"description": "Status displayed next to a URL the batch save skipped because its rule maps it to the disabled profile"
+	},
 	"optionSaveToRestFormApi": {
 		"message": "carregar para um formulário REST API",
 		"description": "Options page label: 'upload to a REST Form API'"

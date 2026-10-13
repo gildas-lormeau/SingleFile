@@ -126,8 +126,7 @@ async function onMessage(message, sender) {
 		return {};
 	}
 	if (message.method.endsWith(".saveUrls")) {
-		business.saveUrls(message.urls);
-		return {};
+		return business.saveUrls(message.urls, {}, message.profileName);
 	}
 }
 

@@ -94,11 +94,14 @@ async function batchSaveUrls() {
 	return browser.tabs.create({ active: true, url: "/src/ui/pages/batch-save-urls.html" });
 }
 
-async function saveUrls(urls, options = {}) {
+async function saveUrls(urls, options = {}, profileName) {
 	await initMaxParallelWorkers();
+	const skippedUrls = [];
 	const pendingTasks = await Promise.all(urls.map(async url => {
-		const tabOptions = await config.getOptions(url);
-		if (tabOptions.profileName != config.DISABLED_PROFILE_NAME) {
+		const tabOptions = profileName ? await config.getProfileOptions(profileName) : await config.getOptions(url);
+		if (tabOptions.profileName == config.DISABLED_PROFILE_NAME) {
+			skippedUrls.push(url);
+		} else {
 			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
 			tabOptions.autoClose = true;
 			tabOptions.originalUrl = url;
@@ -116,6 +119,7 @@ async function saveUrls(urls, options = {}) {
 	}));
 	pendingTasks.filter(Boolean).forEach(addTask);
 	runTasks();
+	return { skippedUrls };
 }
 
 async function saveTabs(tabs, options = {}) {

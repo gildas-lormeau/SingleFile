@@ -177,6 +177,36 @@ body>footer button {
     user-select: none;
 }
 
+.result-profile,
+.result-status {
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30%;
+}
+
+.result-profile.disabled,
+.result-status {
+    color: #b00000;
+}
+
+.footer-buttons {
+    display: flex;
+    align-items: center;
+}
+
+#profileSelect {
+    font-size: 12px;
+    max-width: 320px;
+    margin-left: 8px;
+    padding: 4px;
+    background-color: #fbfbfb;
+    border: solid 1px rgb(191, 191, 191);
+    border-radius: 2px;
+    color: black;
+}
+
 .result-cancel {
     text-align: right;
     width: 19px;
@@ -299,6 +329,20 @@ html.side-panel,
     .header-buttons {
         flex-direction: column;
     }
+
+    .footer-buttons {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    #profileSelect {
+        max-width: 100%;
+        margin-top: 5px;
+    }
+
+    .result-profile {
+        display: none;
+    }
 }
 
 @media (max-width:400px) {
@@ -402,6 +446,17 @@ html.side-panel,
 
     .result-cancel button {
         color: #202023;
+    }
+
+    #profileSelect {
+        background-color: #202023;
+        color: #fdfdfd;
+        border-color: rgb(81, 81, 81);
+    }
+
+    .result-profile.disabled,
+    .result-status {
+        color: #ff7b7b;
     }
 
     .result-cancel button:hover {

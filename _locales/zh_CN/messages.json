@@ -1201,6 +1201,14 @@
 		"message": "网址",
 		"description": "Title of the column in the table of the URLs"
 	},
+	"batchSaveUrlsProfileAuto": {
+		"message": "按规则和当前选择确定配置",
+		"description": "First entry of the profile dropdown of the 'batch save URLs' page: the profile of each URL comes from the rules and from the profile selected in the options page"
+	},
+	"batchSaveUrlsSkippedByRule": {
+		"message": "已跳过：规则将此页面映射到已禁用的配置",
+		"description": "Status displayed next to a URL the batch save skipped because its rule maps it to the disabled profile"
+	},
 	"optionSaveToRestFormApi": {
 		"message": "保存到 REST 表单 API",
 		"description": "Options page label: 'upload to a REST Form API'"

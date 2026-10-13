@@ -1201,6 +1201,14 @@
 		"message": "URL",
 		"description": "Title of the column in the table of the URLs"
 	},
+	"batchSaveUrlsProfileAuto": {
+		"message": "Профіль за правилами та поточним вибором",
+		"description": "First entry of the profile dropdown of the 'batch save URLs' page: the profile of each URL comes from the rules and from the profile selected in the options page"
+	},
+	"batchSaveUrlsSkippedByRule": {
+		"message": "Пропущено: правило призначає цій сторінці вимкнений профіль",
+		"description": "Status displayed next to a URL the batch save skipped because its rule maps it to the disabled profile"
+	},
 	"optionSaveToRestFormApi": {
 		"message": "завантажити на REST Form Api",
 		"description": "Options page label: 'upload to a REST Form API'"
