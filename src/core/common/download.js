@@ -85,6 +85,8 @@ async function downloadPage(pageData, options) {
 		saveWithCompanion: options.saveWithCompanion,
 		forceWebAuthFlow: options.forceWebAuthFlow,
 		filenameReplacementCharacter: options.filenameReplacementCharacter,
+		filenameReplacedCharacters: options.filenameReplacedCharacters,
+		filenameReplacementCharacters: options.filenameReplacementCharacters,
 		openEditor: options.openEditor,
 		openSavedPage: options.openSavedPage,
 		compressHTML: options.compressHTML,

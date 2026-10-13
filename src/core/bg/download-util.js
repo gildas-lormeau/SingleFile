@@ -23,8 +23,6 @@
 
 /* global browser */
 
-import { LOOKALIKE_CHARACTERS, REGEXP_REPLACEABLE_CHARACTERS } from "./../../ui/common/filename-replacement.js";
-
 const STATE_DOWNLOAD_COMPLETE = "complete";
 const STATE_DOWNLOAD_INTERRUPTED = "interrupted";
 const STATE_ERROR_CANCELED_CHROMIUM = "USER_CANCELED";
@@ -34,12 +32,16 @@ const ERROR_INCOGNITO_GECKO = "'incognito'";
 const ERROR_INCOGNITO_GECKO_ALT = "\"incognito\"";
 const ERROR_INVALID_FILENAME_GECKO = "illegal characters";
 const ERROR_INVALID_FILENAME_CHROMIUM = "invalid filename";
+const ILLEGAL_CHARACTERS = ["\\", ":", "*", "?", "\"", "<", ">", "|", "%"];
+const ILLEGAL_CHARACTERS_MOBILE = [";", "+", "=", "[", "]"];
 
 export {
 	download
 };
 
-async function download(downloadInfo, replacementCharacter, promptConflictingFilename) {
+async function download(downloadInfo, options) {
+	const replacementCharacter = options.filenameReplacementCharacter;
+	const promptConflictingFilename = options.promptConflictingFilename;
 	let downloadId;
 	const result = new Promise((resolve, reject) => {
 		browser.downloads.onChanged.addListener(onChanged);
@@ -72,22 +74,25 @@ async function download(downloadInfo, replacementCharacter, promptConflictingFil
 			const sanitizedFilename = sanitizeFilename(downloadInfo.filename, replacementCharacter);
 			if (invalidFilename && downloadInfo.filename.startsWith(".")) {
 				downloadInfo.filename = replacementCharacter + downloadInfo.filename;
-				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
+				return download(downloadInfo, options);
 			} else if (invalidFilename && downloadInfo.filename.includes(",")) {
 				downloadInfo.filename = downloadInfo.filename.replace(/,/g, replacementCharacter);
-				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
+				return download(downloadInfo, options);
 			} else if (invalidFilename && sanitizedFilename != downloadInfo.filename) {
 				downloadInfo.filename = sanitizedFilename;
-				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
-			} else if (invalidFilename && downloadInfo.filename.match(REGEXP_REPLACEABLE_CHARACTERS)) {
-				downloadInfo.filename = downloadInfo.filename.replace(REGEXP_REPLACEABLE_CHARACTERS, character => LOOKALIKE_CHARACTERS.get(character));
-				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
+				return download(downloadInfo, options);
+			} else if (invalidFilename && containsCharacters(downloadInfo.filename, ILLEGAL_CHARACTERS)) {
+				downloadInfo.filename = replaceIllegalCharacters(downloadInfo.filename, ILLEGAL_CHARACTERS, options);
+				return download(downloadInfo, options);
+			} else if (invalidFilename && containsCharacters(downloadInfo.filename, ILLEGAL_CHARACTERS_MOBILE)) {
+				downloadInfo.filename = replaceIllegalCharacters(downloadInfo.filename, ILLEGAL_CHARACTERS_MOBILE, options);
+				return download(downloadInfo, options);
 			} else if (invalidFilename && !downloadInfo.filename.match(/^[\x00-\x7F]+$/)) { // eslint-disable-line  no-control-regex
 				downloadInfo.filename = downloadInfo.filename.replace(/[^\x00-\x7F]+/g, replacementCharacter); // eslint-disable-line  no-control-regex
-				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
+				return download(downloadInfo, options);
 			} else if ((errorMessage.includes(ERROR_INCOGNITO_GECKO) || errorMessage.includes(ERROR_INCOGNITO_GECKO_ALT)) && downloadInfo.incognito) {
 				delete downloadInfo.incognito;
-				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
+				return download(downloadInfo, options);
 			} else if (errorMessage == ERROR_CONFLICT_ACTION_GECKO && downloadInfo.conflictAction) {
 				delete downloadInfo.conflictAction;
 				if (promptConflictingFilename && !downloadInfo.saveAs) {
@@ -97,7 +102,7 @@ async function download(downloadInfo, replacementCharacter, promptConflictingFil
 					}
 					downloadInfo.filename = filename;
 				}
-				return download(downloadInfo, replacementCharacter, promptConflictingFilename);
+				return download(downloadInfo, options);
 			} else if (errorMessage.includes(ERROR_DOWNLOAD_CANCELED_GECKO)) {
 				return { cancelled: true };
 			} else {
@@ -108,6 +113,30 @@ async function download(downloadInfo, replacementCharacter, promptConflictingFil
 		}
 	}
 	return result;
+}
+
+function containsCharacters(filename, characters) {
+	return characters.some(character => filename.includes(character));
+}
+
+function replaceIllegalCharacters(filename, illegalCharacters, options) {
+	const replacedCharacters = options.filenameReplacedCharacters || [];
+	const replacementCharacters = options.filenameReplacementCharacters || [];
+	illegalCharacters.forEach(character => {
+		const index = replacedCharacters.findIndex(characters => matchesCharacterClass(character, characters));
+		const replacement = index == -1 ? "" : replacementCharacters[index];
+		filename = filename.replaceAll(character, replacement && replacement != character ? replacement : options.filenameReplacementCharacter);
+	});
+	return filename;
+}
+
+function matchesCharacterClass(character, characters) {
+	try {
+		return new RegExp("[" + characters + "]").test(character);
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		return false;
+	}
 }
 
 function sanitizeFilename(filename, replacementCharacter) {
