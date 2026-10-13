@@ -59,7 +59,7 @@ function getMessage(messageName, defaultMessage) {
 	}
 }
 
-let selectedAreaElement, logsWindowElement;
+let selectedAreaElement, logsWindowElement, backdropStyleElement;
 createLogsWindowElement();
 
 export {
@@ -127,6 +127,9 @@ function onEndPage() {
 	}
 	if (logsWindowElement) {
 		logsWindowElement.remove();
+	}
+	if (backdropStyleElement) {
+		backdropStyleElement.remove();
 	}
 	clearLogs();
 }
@@ -784,6 +787,14 @@ function createElement(tagName, parentElement) {
 function showInTopLayer(element) {
 	if (element.showPopover) {
 		try {
+			if (!backdropStyleElement) {
+				backdropStyleElement = document.createElement("style");
+				backdropStyleElement.className = SINGLE_FILE_UI_ELEMENT_CLASS;
+				backdropStyleElement.textContent = `.${SINGLE_FILE_UI_ELEMENT_CLASS}::backdrop { background: transparent !important; backdrop-filter: none !important; }`;
+			}
+			if (!backdropStyleElement.isConnected) {
+				document.documentElement.appendChild(backdropStyleElement);
+			}
 			element.setAttribute("popover", "manual");
 			element.style.setProperty("position", "fixed", "important");
 			element.style.setProperty("top", "0", "important");
