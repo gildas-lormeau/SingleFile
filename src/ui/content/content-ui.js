@@ -798,7 +798,10 @@ function showInTopLayer(element) {
 			if (!backdropStyleElement) {
 				backdropStyleElement = document.createElement("style");
 				backdropStyleElement.className = SINGLE_FILE_UI_ELEMENT_CLASS;
-				backdropStyleElement.textContent = `.${SINGLE_FILE_UI_ELEMENT_CLASS}::backdrop { background: transparent !important; backdrop-filter: none !important; }`;
+				backdropStyleElement.textContent = `
+					.${SINGLE_FILE_UI_ELEMENT_CLASS}::backdrop { background: transparent !important; backdrop-filter: none !important; }
+					.${SINGLE_FILE_UI_ELEMENT_CLASS}::before, .${SINGLE_FILE_UI_ELEMENT_CLASS}::after { content: none !important; }
+				`;
 			}
 			if (!backdropStyleElement.isConnected) {
 				document.documentElement.appendChild(backdropStyleElement);
