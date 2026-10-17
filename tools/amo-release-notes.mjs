@@ -12,7 +12,7 @@ const USAGE = `usage: node tools/amo-release-notes.mjs --notes <file> [--version
 Sets the "What's new" text of a version on addons.mozilla.org, which the release
 workflow does not send.
 
-  --notes <file>    one item per line, a leading "- " optional, "#" lines ignored
+  --notes <file>    one item per line, a leading "- " optional, "#" lines ignored, no markup
   --version <v>     defaults to the most recent listed version
   --dry-run         show what would be sent, write nothing
   --yes             do not ask for confirmation
@@ -41,6 +41,9 @@ async function main() {
 	const releaseNotes = toReleaseNotes(readFileSync(options.notes, "utf8"));
 	if (!releaseNotes) {
 		throw new Error(`no items found in ${options.notes}`);
+	}
+	if (/^- </.test(releaseNotes)) {
+		throw new Error(`${options.notes} holds markup: the notes are plain lines, one item per line, and the list is built by AMO`);
 	}
 	const credentials = loadCredentials();
 	const version = await findVersion(credentials, options.version);
