@@ -48,7 +48,7 @@ browser.runtime.onMessage.addListener(message => {
 
 async function onFetchFrame(message) {
 	try {
-		const response = await fetch(message.url, { cache: "force-cache", headers: message.headers, referrerPolicy: "strict-origin-when-cross-origin" });
+		const response = await fetch(message.url, { cache: message.cache || "force-cache", headers: message.headers, referrerPolicy: "strict-origin-when-cross-origin" });
 		return {
 			status: response.status,
 			headers: [...response.headers],
@@ -167,13 +167,13 @@ async function fetchResource(url, options = {}, useHostFetch = true) {
 	} catch (error) {
 		requestId++;
 		const promise = new Promise((resolve, reject) => pendingResponses.set(requestId, { resolve, reject }));
-		await sendMessage({ method: "singlefile.fetch", url, requestId, referrer: options.referrer, headers: options.headers });
+		await sendMessage({ method: "singlefile.fetch", url, requestId, referrer: options.referrer, headers: options.headers, cache: options.cache });
 		return promise;
 	}
 }
 
 async function frameFetch(url, options) {
-	const response = await sendMessage({ method: "singlefile.fetchFrame", url, frameId: options.frameId, referrer: options.referrer, headers: options.headers });
+	const response = await sendMessage({ method: "singlefile.fetchFrame", url, frameId: options.frameId, referrer: options.referrer, headers: options.headers, cache: options.cache });
 	return {
 		status: response.status,
 		headers: getHeaders(response.headers),
