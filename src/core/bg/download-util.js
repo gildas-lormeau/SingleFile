@@ -131,11 +131,15 @@ function replaceIllegalCharacters(filename, illegalCharacters, options) {
 }
 
 function matchesCharacterClass(character, characters) {
+	const pattern = "[" + characters + "]";
 	try {
-		return new RegExp("[" + characters + "]").test(character);
-		// eslint-disable-next-line no-unused-vars
-	} catch (error) {
-		return false;
+		return new RegExp(pattern, "u").test(character);
+	} catch {
+		try {
+			return new RegExp(pattern).test(character);
+		} catch {
+			return false;
+		}
 	}
 }
 

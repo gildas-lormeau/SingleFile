@@ -116,7 +116,12 @@ function replaceMatchingCharacters(filename, characters, quantifier, replacement
 }
 
 function getCharacterClass(characters, quantifier) {
-	return new RegExp("[" + getCharacterClassContent(characters) + "]" + quantifier, "g");
+	const pattern = "[" + getCharacterClassContent(characters) + "]" + quantifier;
+	try {
+		return new RegExp(pattern, "gu");
+	} catch {
+		return new RegExp(pattern, "g");
+	}
 }
 
 function getCharacterClassContent(characters) {
