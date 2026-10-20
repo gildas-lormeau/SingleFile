@@ -838,7 +838,7 @@ function getPosition(event) {
 }
 
 async function getContentPageData(zipContent, page, options) {
-	zip.configure({ workerScripts: { inflate: ["/lib/single-file-z-worker.js"] } });
+	zip.configure({ workerURI: "/lib/single-file-z-worker.js", workerStartupTimeout: 2000 });
 	const zipReader = new zip.ZipReader(new zip.Uint8ArrayReader(new Uint8Array(zipContent)));
 	const entries = await zipReader.getEntries();
 	const resources = [];
