@@ -832,6 +832,8 @@
                         "%uppercase&lt;{page-title}&gt;" 返回页面标题的大写形式）。</li>
                     <li><code>%capitalize&lt;value&gt;</code>: 返回 <code>value</code> 的首字母大写形式（例如
                         "%capitalize&lt;{page-title}&gt;" 返回页面标题的首字母大写形式）。</li>
+                    <li><code>%titlecase&lt;value&gt;</code>: 返回 <code>value</code> 的每个单词首字母大写形式，其他字母保持不变（例如
+                        "%titlecase&lt;%lowercase&lt;{page-title}&gt;&gt;" 返回页面标题的标题大小写形式）。</li>
                     <li><code>%replace&lt;value|search|replacement&gt;</code>: 返回 <code>value</code>，将所有
                         <code>search</code> 值替换为 <code>replacement</code>（例如 "%replace&lt;{page-title}| |_&gt;"
                         将页面标题中的所有空格替换为下划线）。

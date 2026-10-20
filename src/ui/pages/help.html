@@ -1234,6 +1234,10 @@
 						uppercase (e.g. "%capitalize&lt;{page-title}&gt;" to return the page title with the first letter
 						in uppercase).
 					</li>
+					<li><code>%titlecase&lt;value&gt;</code>: returns the <code>value</code> with the first letter of
+						each word in uppercase, the other letters are left unchanged (e.g.
+						"%titlecase&lt;%lowercase&lt;{page-title}&gt;&gt;" to return the page title in title case).
+					</li>
 					<li><code>%replace&lt;value|search|replacement&gt;</code>: returns the <code>value</code> with
 						all <code>search</code> values replaced by <code>replacement</code> (e.g.
 						"%replace&lt;{page-title}| |_&gt;" to replace all spaces by underscores in the page title).
