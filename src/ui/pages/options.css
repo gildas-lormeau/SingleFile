@@ -4,6 +4,7 @@
 
 body {
     background-color: #fff;
+    user-select: text;
     font-family: sans-serif;
     font-size: 12px;
     min-width: 480px;
