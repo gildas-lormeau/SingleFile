@@ -487,6 +487,15 @@ a {
     align-items: center;
 }
 
+.option>label::first-letter,
+.sync-input label::first-letter {
+    text-transform: uppercase;
+}
+
+.sync-input label {
+    display: inline-block;
+}
+
 .option.vertical {
     flex-direction: column;
 }

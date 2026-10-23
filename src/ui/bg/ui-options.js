@@ -975,6 +975,7 @@ resetCancelButton.textContent = promptCancelButton.textContent = cancelButton.te
 confirmButton.textContent = promptConfirmButton.textContent = browser.i18n.getMessage("optionsOKButton");
 externalCaptureApproveButton.textContent = browser.i18n.getMessage("optionsExternalCaptureApproveButton");
 externalCaptureDenyButton.textContent = browser.i18n.getMessage("optionsExternalCaptureDenyButton");
+document.documentElement.lang = browser.i18n.getUILanguage();
 document.getElementById("resetConfirmLabel").textContent = browser.i18n.getMessage("optionsResetConfirm");
 saveToRestFormApiLabel.textContent = browser.i18n.getMessage("optionSaveToRestFormApi");
 saveToRestFormApiUrlLabel.textContent = browser.i18n.getMessage("optionRestFormApiUrl");
