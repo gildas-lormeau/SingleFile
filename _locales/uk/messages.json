@@ -483,6 +483,10 @@
 		"message": "видалити невикористовувані шрифти",
 		"description": "Options page label: 'remove unused fonts'"
 	},
+	"optionRemoveUnusedGlyphs": {
+		"message": "видалити невикористовувані гліфи",
+		"description": "Options page label: 'remove unused glyphs'"
+	},
 	"optionRemoveAlternativeFonts": {
 		"message": "видалити альтернативні шрифти",
 		"description": "Options page label: 'remove alternative fonts'"

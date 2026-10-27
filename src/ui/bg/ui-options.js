@@ -80,6 +80,7 @@ const removeHiddenElementsLabel = document.getElementById("removeHiddenElementsL
 const removedElementsSelectorLabel = document.getElementById("removedElementsSelectorLabel");
 const removeUnusedStylesLabel = document.getElementById("removeUnusedStylesLabel");
 const removeUnusedFontsLabel = document.getElementById("removeUnusedFontsLabel");
+const removeUnusedGlyphsLabel = document.getElementById("removeUnusedGlyphsLabel");
 const removeFramesLabel = document.getElementById("removeFramesLabel");
 const blockScriptsLabel = document.getElementById("blockScriptsLabel");
 const blockAudiosLabel = document.getElementById("blockAudiosLabel");
@@ -265,6 +266,7 @@ const removeHiddenElementsInput = document.getElementById("removeHiddenElementsI
 const removedElementsSelectorInput = document.getElementById("removedElementsSelectorInput");
 const removeUnusedStylesInput = document.getElementById("removeUnusedStylesInput");
 const removeUnusedFontsInput = document.getElementById("removeUnusedFontsInput");
+const removeUnusedGlyphsInput = document.getElementById("removeUnusedGlyphsInput");
 const removeFramesInput = document.getElementById("removeFramesInput");
 const blockScriptsInput = document.getElementById("blockScriptsInput");
 const blockVideosInput = document.getElementById("blockVideosInput");
@@ -779,6 +781,7 @@ removeHiddenElementsLabel.textContent = browser.i18n.getMessage("optionRemoveHid
 removedElementsSelectorLabel.textContent = browser.i18n.getMessage("optionRemovedElementsSelector");
 removeUnusedStylesLabel.textContent = browser.i18n.getMessage("optionRemoveUnusedStyles");
 removeUnusedFontsLabel.textContent = browser.i18n.getMessage("optionRemoveUnusedFonts");
+removeUnusedGlyphsLabel.textContent = browser.i18n.getMessage("optionRemoveUnusedGlyphs");
 removeFramesLabel.textContent = browser.i18n.getMessage("optionRemoveFrames");
 blockScriptsLabel.textContent = browser.i18n.getMessage("optionResourceScript");
 blockAudiosLabel.textContent = browser.i18n.getMessage("optionResourceAudio");
@@ -1148,6 +1151,7 @@ async function refresh(profileName) {
 	removedElementsSelectorInput.value = profileOptions.removedElementsSelector;
 	removeUnusedStylesInput.checked = profileOptions.removeUnusedStyles;
 	removeUnusedFontsInput.checked = profileOptions.removeUnusedFonts;
+	removeUnusedGlyphsInput.checked = profileOptions.removeUnusedGlyphs;
 	removeFramesInput.checked = profileOptions.removeFrames;
 	blockScriptsInput.checked = profileOptions.blockScripts;
 	blockVideosInput.checked = profileOptions.blockVideos;
@@ -1416,6 +1420,7 @@ async function update() {
 			removedElementsSelector: removedElementsSelectorInput.value,
 			removeUnusedStyles: removeUnusedStylesInput.checked,
 			removeUnusedFonts: removeUnusedFontsInput.checked,
+			removeUnusedGlyphs: removeUnusedGlyphsInput.checked,
 			removeFrames: removeFramesInput.checked,
 			blockScripts: blockScriptsInput.checked,
 			blockVideos: blockVideosInput.checked,

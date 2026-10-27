@@ -44,6 +44,7 @@ const CAPTURE_OPTION_NAMES = [
 	"removedElementsSelector",
 	"removeUnusedStyles",
 	"removeUnusedFonts",
+	"removeUnusedGlyphs",
 	"removeFrames",
 	"removeNoScriptTags",
 	"removeSavedDate",

@@ -483,6 +483,10 @@
 		"message": "supprimer les polices de caractère inutilisées",
 		"description": "Options page label: 'remove unused fonts'"
 	},
+	"optionRemoveUnusedGlyphs": {
+		"message": "supprimer les glyphes inutilisés",
+		"description": "Options page label: 'remove unused glyphs'"
+	},
 	"optionRemoveAlternativeFonts": {
 		"message": "supprimer les polices de caractère alternatives",
 		"description": "Options page label: 'remove alternative fonts'"

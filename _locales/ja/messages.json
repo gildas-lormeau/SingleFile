@@ -483,6 +483,10 @@
 		"message": "未使用のフォントを削除する",
 		"description": "Options page label: 'remove unused fonts'"
 	},
+	"optionRemoveUnusedGlyphs": {
+		"message": "未使用のグリフを削除する",
+		"description": "Options page label: 'remove unused glyphs'"
+	},
 	"optionRemoveAlternativeFonts": {
 		"message": "代替フォントを削除する",
 		"description": "Options page label: 'remove alternative fonts'"

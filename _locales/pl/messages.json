@@ -483,6 +483,10 @@
 		"message": "usuwaj nieużywane czcionki",
 		"description": "Options page label: 'remove unused fonts'"
 	},
+	"optionRemoveUnusedGlyphs": {
+		"message": "usuwaj nieużywane glify",
+		"description": "Options page label: 'remove unused glyphs'"
+	},
 	"optionRemoveAlternativeFonts": {
 		"message": "usuwaj alternatywne czcionki",
 		"description": "Options page label: 'remove alternative fonts'"

@@ -483,6 +483,10 @@
 		"message": "istifadə olunmayan şriftləri çıxarın",
 		"description": "Options page label: 'remove unused fonts'"
 	},
+	"optionRemoveUnusedGlyphs": {
+		"message": "istifadə olunmayan qlifləri çıxarın",
+		"description": "Options page label: 'remove unused glyphs'"
+	},
 	"optionRemoveAlternativeFonts": {
 		"message": "alternativ şriftləri çıxarın",
 		"description": "Options page label: 'remove alternative fonts'"

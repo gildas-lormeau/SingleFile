@@ -483,6 +483,10 @@
 		"message": "ta bort oanvända teckensnitt",
 		"description": "Options page label: 'remove unused fonts'"
 	},
+	"optionRemoveUnusedGlyphs": {
+		"message": "ta bort oanvända glyfer",
+		"description": "Options page label: 'remove unused glyphs'"
+	},
 	"optionRemoveAlternativeFonts": {
 		"message": "ta bort alternativa teckensnitt",
 		"description": "Options page label: 'remove alternative fonts'"

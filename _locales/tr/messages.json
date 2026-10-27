@@ -483,6 +483,10 @@
 		"message": "kullanılmayan yazı tiplerini kaldır",
 		"description": "Options page label: 'remove unused fonts'"
 	},
+	"optionRemoveUnusedGlyphs": {
+		"message": "kullanılmayan glifleri kaldır",
+		"description": "Options page label: 'remove unused glyphs'"
+	},
 	"optionRemoveAlternativeFonts": {
 		"message": "alternatif yazı tiplerini kaldır",
 		"description": "Options page label: 'remove alternative fonts'"

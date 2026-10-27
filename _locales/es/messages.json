@@ -483,6 +483,10 @@
 		"message": "eliminar fuentes no usadas",
 		"description": "Options page label: 'remove unused fonts'"
 	},
+	"optionRemoveUnusedGlyphs": {
+		"message": "eliminar glifos no usados",
+		"description": "Options page label: 'remove unused glyphs'"
+	},
 	"optionRemoveAlternativeFonts": {
 		"message": "eliminar fuentes alternativas",
 		"description": "Options page label: 'remove alternative fonts'"
