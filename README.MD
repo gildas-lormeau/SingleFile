@@ -1,6 +1,6 @@
 # SingleFile
 
-SingleFile helps you to save a complete web page into a single HTML
+[SingleFile](https://www.getsinglefile.com) helps you to save a complete web page into a single HTML
 file. SingleFile is a Web Extension (and a CLI tool) compatible with Chrome, Firefox
 (Desktop and Mobile), Microsoft Edge, Safari, Vivaldi, Brave, Waterfox, Yandex
 browser, and Opera.
@@ -34,6 +34,7 @@ https://user-images.githubusercontent.com/396787/156664907-cc458e35-f41b-45ca-91
 
 SingleFile can be installed from the store of:
 
+- All browsers: https://www.getsinglefile.com
 - Firefox: https://addons.mozilla.org/firefox/addon/single-file
 - Firefox for Android:
   https://addons.mozilla.org/android/addon/single-file
