@@ -331,7 +331,10 @@ async function downloadCompressedContent(message, tab) {
 				password: message.password,
 				embeddedImage: message.embeddedImage
 			});
-			let response;
+			let response, hash;
+			if (message.addProof && !message.openEditor) {
+				hash = await singlefile.helper.digest("SHA-256", new Uint8Array(await blob.arrayBuffer()));
+			}
 			if (message.openEditor) {
 				ui.onEdit(tabId);
 				await editor.open({
@@ -423,6 +426,9 @@ async function downloadCompressedContent(message, tab) {
 			ui.onEnd(tabId);
 			if (message.openSavedPage && !message.openEditor) {
 				await openViewerTab(tab, URL.createObjectURL(blob), { compressed: true });
+			}
+			if (hash) {
+				await woleet.anchor(hash, message.woleetKey);
 			}
 		}
 	} catch (error) {

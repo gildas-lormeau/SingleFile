@@ -62,6 +62,8 @@ async function downloadPage(pageData, options) {
 	const message = {
 		method: "downloads.download",
 		taskId: options.taskId,
+		addProof: options.addProof,
+		woleetKey: options.woleetKey,
 		insertTextBody: options.insertTextBody,
 		confirmFilename: options.confirmFilename,
 		filenameConflictAction: options.filenameConflictAction,
@@ -168,8 +170,7 @@ async function downloadPage(pageData, options) {
 				});
 			}
 			if (options.backgroundSave) {
-				const hash = options.openEditor ? null : pageData.hash;
-				await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId, hash, woleetKey: options.woleetKey });
+				await browser.runtime.sendMessage({ method: "downloads.end", taskId: options.taskId });
 			}
 		} else {
 			browser.runtime.sendMessage({ method: "downloads.cancel" });
