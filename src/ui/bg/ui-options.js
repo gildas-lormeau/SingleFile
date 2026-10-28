@@ -600,7 +600,8 @@ exportButton.addEventListener("click", async () => {
 		link.dispatchEvent(new MouseEvent("click"));
 	}
 }, false);
-importButton.addEventListener("click", () => {
+importButton.addEventListener("click", event => {
+	const positionY = event.clientY + 50;
 	fileInput.onchange = async () => {
 		if (fileInput.files.length) {
 			const config = JSON.parse(await getText(fileInput.files[0]));
@@ -614,7 +615,11 @@ importButton.addEventListener("click", () => {
 				profile.saveCreatedBookmarks = false;
 				profile.passReferrerOnError = false;
 			});
-			await browser.runtime.sendMessage({ method: "config.importConfig", config });
+			try {
+				await browser.runtime.sendMessage({ method: "config.importConfig", config });
+			} catch (error) {
+				await alert(browser.i18n.getMessage("optionsImportError") + " " + error.message, positionY);
+			}
 			await refresh(DEFAULT_PROFILE_NAME);
 			await refreshExternalComponents();
 			fileInput.value = "";
@@ -677,9 +682,14 @@ externalCaptureDeniedIdsInput.addEventListener("change", updateExternalCapturePe
 externalCaptureApproveButton.addEventListener("click", () => respondExternalCaptureRequest(true), false);
 externalCaptureDenyButton.addEventListener("click", () => respondExternalCaptureRequest(false), false);
 browser.runtime.sendMessage({ method: "config.isSync" }).then(data => synchronizeInput.checked = data.sync);
-synchronizeInput.addEventListener("click", async () => {
+synchronizeInput.addEventListener("click", async event => {
 	if (synchronizeInput.checked) {
-		await browser.runtime.sendMessage({ method: "config.enableSync" });
+		try {
+			await browser.runtime.sendMessage({ method: "config.enableSync" });
+		} catch (error) {
+			synchronizeInput.checked = false;
+			await alert(browser.i18n.getMessage("optionSynchronizeError") + " " + error.message, event.clientY + 50);
+		}
 		await refresh(DEFAULT_PROFILE_NAME);
 	} else {
 		await browser.runtime.sendMessage({ method: "config.disableSync" });
@@ -1841,6 +1851,15 @@ async function confirm(message, positionY) {
 			resolve(value);
 		}
 	});
+}
+
+async function alert(message, positionY) {
+	cancelButton.hidden = true;
+	try {
+		await confirm(message, positionY);
+	} finally {
+		cancelButton.hidden = false;
+	}
 }
 
 async function reset(positionY) {
