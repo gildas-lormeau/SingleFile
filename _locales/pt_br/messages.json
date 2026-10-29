@@ -324,7 +324,7 @@
 		"description": "Options page label: 'replace emojis with text'"
 	},
 	"optionSaveFilenameTemplateData": {
-		"message": "save the filename template data into the page",
+		"message": "salvar os dados do modelo de nome de arquivo na página",
 		"description": "Options page label: 'save the filename template data into the page'"
 	},
 	"optionConfirmFilename": {
@@ -925,6 +925,10 @@
 		"message": "sincronizar opções",
 		"description": "Options label: 'synchronize options'"
 	},
+	"optionSynchronizeError": {
+		"message": "Não foi possível copiar as opções para o armazenamento sincronizado, elas continuam salvas localmente.",
+		"description": "Options error: 'The options could not be copied to the synchronized storage, they are still stored locally.'"
+	},
 	"optionsResetButton": {
 		"message": "Restaurar",
 		"description": "Options button: 'Reset'"
@@ -960,6 +964,10 @@
 	"optionsImportButton": {
 		"message": "Importar",
 		"description": "Options button: 'Import'"
+	},
+	"optionsImportError": {
+		"message": "Não foi possível importar as opções, as opções atuais permanecem inalteradas.",
+		"description": "Options error: 'The settings could not be imported, the current settings are unchanged.'"
 	},
 	"logPanelDeferredContent": {
 		"message": "Conteúdo diferido",

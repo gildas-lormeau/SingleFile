@@ -925,6 +925,10 @@
 		"message": "senkronizasyon seçenekleri",
 		"description": "Options label: 'synchronize options'"
 	},
+	"optionSynchronizeError": {
+		"message": "Seçenekler senkronize depolama alanına kopyalanamadı; hâlâ yerel olarak saklanıyor.",
+		"description": "Options error: 'The options could not be copied to the synchronized storage, they are still stored locally.'"
+	},
 	"optionsResetButton": {
 		"message": "Sıfırla",
 		"description": "Options button: 'Reset'"
@@ -960,6 +964,10 @@
 	"optionsImportButton": {
 		"message": "İçe aktar",
 		"description": "Options button: 'Import'"
+	},
+	"optionsImportError": {
+		"message": "Seçenekler içe aktarılamadı; mevcut seçenekler değiştirilmedi.",
+		"description": "Options error: 'The settings could not be imported, the current settings are unchanged.'"
 	},
 	"logPanelDeferredContent": {
 		"message": "Ertelenmiş içerik",

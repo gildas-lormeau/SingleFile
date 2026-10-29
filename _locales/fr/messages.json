@@ -925,6 +925,10 @@
 		"message": "synchronizer les options",
 		"description": "Options label: 'synchronize options'"
 	},
+	"optionSynchronizeError": {
+		"message": "Les options n'ont pas pu être copiées dans le stockage synchronisé, elles restent enregistrées localement.",
+		"description": "Options error: 'The options could not be copied to the synchronized storage, they are still stored locally.'"
+	},
 	"optionsResetButton": {
 		"message": "Remise à zéro",
 		"description": "Options button: 'Reset'"
@@ -960,6 +964,10 @@
 	"optionsImportButton": {
 		"message": "Importer",
 		"description": "Options button: 'Import'"
+	},
+	"optionsImportError": {
+		"message": "Les options n'ont pas pu être importées, les options actuelles restent inchangées.",
+		"description": "Options error: 'The settings could not be imported, the current settings are unchanged.'"
 	},
 	"logPanelDeferredContent": {
 		"message": "Contenu différé",

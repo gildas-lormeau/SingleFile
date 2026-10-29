@@ -925,6 +925,10 @@
 		"message": "同步處理選項",
 		"description": "Options label: 'synchronize options'"
 	},
+	"optionSynchronizeError": {
+		"message": "選項無法複製到同步儲存空間，仍儲存在本機。",
+		"description": "Options error: 'The options could not be copied to the synchronized storage, they are still stored locally.'"
+	},
 	"optionsResetButton": {
 		"message": "重設",
 		"description": "Options button: 'Reset'"
@@ -960,6 +964,10 @@
 	"optionsImportButton": {
 		"message": "匯入",
 		"description": "Options button: 'Import'"
+	},
+	"optionsImportError": {
+		"message": "選項匯入失敗，目前的選項維持不變。",
+		"description": "Options error: 'The settings could not be imported, the current settings are unchanged.'"
 	},
 	"logPanelDeferredContent": {
 		"message": "延後載入的內容",

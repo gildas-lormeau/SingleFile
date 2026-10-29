@@ -925,6 +925,10 @@
 		"message": "параметри синхронізації",
 		"description": "Options label: 'synchronize options'"
 	},
+	"optionSynchronizeError": {
+		"message": "Не вдалося скопіювати параметри до синхронізованого сховища. Вони й надалі зберігаються локально.",
+		"description": "Options error: 'The options could not be copied to the synchronized storage, they are still stored locally.'"
+	},
 	"optionsResetButton": {
 		"message": "Скидання",
 		"description": "Options button: 'Reset'"
@@ -960,6 +964,10 @@
 	"optionsImportButton": {
 		"message": "Імпорт",
 		"description": "Options button: 'Import'"
+	},
+	"optionsImportError": {
+		"message": "Не вдалося імпортувати параметри. Поточні параметри залишилися без змін.",
+		"description": "Options error: 'The settings could not be imported, the current settings are unchanged.'"
 	},
 	"logPanelDeferredContent": {
 		"message": "Відстрочений вміст",

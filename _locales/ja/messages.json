@@ -4,7 +4,7 @@
 		"description": "Description of the extension."
 	},
 	"commandSaveSelectedTabs": {
-		"message": "Save the selected tabs or their selected contents",
+		"message": "選択したタブまたはその選択範囲を保存",
 		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
 	},
 	"commandSaveAllTabs": {
@@ -810,7 +810,7 @@
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
-		"message": "Confirm you allow SingleFile to send to the Woleet API a SHA256 hash of each page you are going to save. You can find more information about this feature in the help page or by clicking on the question mark next to the option.",
+		"message": "保存する各ページの SHA256 ハッシュを SingleFile が Woleet API に送信することを許可するか確認してください。この機能の詳細は、ヘルプページまたはオプションの横にある疑問符をクリックして確認できます。",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionWoleetKey": {
@@ -925,6 +925,10 @@
 		"message": "同期オプション",
 		"description": "Options label: 'synchronize options'"
 	},
+	"optionSynchronizeError": {
+		"message": "オプションを同期ストレージにコピーできませんでした。オプションは引き続きローカルに保存されています。",
+		"description": "Options error: 'The options could not be copied to the synchronized storage, they are still stored locally.'"
+	},
 	"optionsResetButton": {
 		"message": "リセット",
 		"description": "Options button: 'Reset'"
@@ -960,6 +964,10 @@
 	"optionsImportButton": {
 		"message": "インポート",
 		"description": "Options button: 'Import'"
+	},
+	"optionsImportError": {
+		"message": "オプションをインポートできませんでした。現在のオプションは変更されていません。",
+		"description": "Options error: 'The settings could not be imported, the current settings are unchanged.'"
 	},
 	"logPanelDeferredContent": {
 		"message": "遅延コンテンツ",

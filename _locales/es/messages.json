@@ -810,7 +810,7 @@
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
-		"message": "Confirm you allow SingleFile to send to the Woleet API a SHA256 hash of each page you are going to save. You can find more information about this feature in the help page or by clicking on the question mark next to the option.",
+		"message": "Confirme que autoriza a SingleFile a enviar a la API de Woleet un hash SHA256 de cada página que vaya a guardar. Encontrará más información sobre esta función en la página de ayuda o haciendo clic en el signo de interrogación situado junto a la opción.",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionWoleetKey": {
@@ -925,6 +925,10 @@
 		"message": "sincronizar opciones",
 		"description": "Options label: 'synchronize options'"
 	},
+	"optionSynchronizeError": {
+		"message": "No se pudieron copiar las opciones al almacenamiento sincronizado, siguen guardadas localmente.",
+		"description": "Options error: 'The options could not be copied to the synchronized storage, they are still stored locally.'"
+	},
 	"optionsResetButton": {
 		"message": "Restablecer",
 		"description": "Options button: 'Reset'"
@@ -960,6 +964,10 @@
 	"optionsImportButton": {
 		"message": "Importar",
 		"description": "Options button: 'Import'"
+	},
+	"optionsImportError": {
+		"message": "No se pudieron importar las opciones, las opciones actuales no han cambiado.",
+		"description": "Options error: 'The settings could not be imported, the current settings are unchanged.'"
 	},
 	"logPanelDeferredContent": {
 		"message": "Contenido diferido",
@@ -1222,15 +1230,15 @@
 		"description": "Options page label: 'URL'"
 	},
 	"optionRestFormApiToken": {
-		"message": "authorization token",
+		"message": "token de autorización",
 		"description": "Options page label: 'authorization token'"
 	},
 	"optionRestFormApiFileFieldName": {
-		"message": "archive data field name",
+		"message": "nombre del campo de los datos del archivo",
 		"description": "Options page label: 'archive data field name'"
 	},
 	"optionRestFormApiUrlFieldName": {
-		"message": "archive URL field name",
+		"message": "nombre del campo de la URL del archivo",
 		"description": "Options page label: 'archive URL field name'"
 	},
 	"optionsEditorTitle": {
