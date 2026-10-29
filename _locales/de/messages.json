@@ -806,7 +806,7 @@
 		"description": "Options page label: 'share page'"
 	},
 	"optionAddProof": {
-		"message": "Existenzberechtigung hinzufügen",
+		"message": "Existenznachweis hinzufügen",
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
