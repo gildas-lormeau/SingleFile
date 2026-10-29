@@ -704,7 +704,7 @@
 		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
-		"message": "appliquer le thème système lors du formattage d'une page",
+		"message": "appliquer le thème système lors du formatage d'une page",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionContentWidth": {
@@ -922,7 +922,7 @@
 		"description": "Options help link"
 	},
 	"optionSynchronize": {
-		"message": "synchronizer les options",
+		"message": "synchroniser les options",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionSynchronizeError": {
