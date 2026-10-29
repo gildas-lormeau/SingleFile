@@ -1,6 +1,6 @@
 {
 	"extensionDescription": {
-		"message": "Extensionin təsviri.",
+		"message": "Tam səhifəni tək bir HTML faylında yaddaşa qeyd edin",
 		"description": "Description of the extension."
 	},
 	"commandSaveSelectedTabs": {
@@ -84,11 +84,11 @@
 		"description": "Menu entry: 'Select the default profile'"
 	},
 	"menuUpdateRule": {
-		"message": "Qayda yenilə",
+		"message": "Cari qaydanın profilini seçin",
 		"description": "Menu entry: 'Select the profile of the current rule'"
 	},
 	"menuCreateDomainRule": {
-		"message": "Domain qaydası yarat",
+		"message": "Cari domenin profilini seçin",
 		"description": "Menu entry: 'Select the profile of the current domain'"
 	},
 	"menuSaveSelection": {
@@ -152,7 +152,7 @@
 		"description": "Button title: 'This page cannot be saved with SingleFile'"
 	},
 	"buttonInitializingTooltip": {
-		"message": "SingleFile Başlatırlır",
+		"message": "SingleFile başladılır",
 		"description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
 	},
 	"buttonInitializingBadge": {
@@ -240,7 +240,7 @@
 		"description": "Options page label: 'do not include the saved date'"
 	},
 	"optionConfirmInfobar": {
-		"message": "infobarın açılmasını təsdiqləyin",
+		"message": "infobar məzmununu redaktə etmək üçün sorğu dialoqu açın",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionAutoClose": {
@@ -560,7 +560,7 @@
 		"description": "Options sub-title: 'Destination'"
 	},
 	"optionsBookmarkSubTitle": {
-		"message": "Bookmarks",
+		"message": "Əlfəcinlər",
 		"description": "Options sub-title: 'Bookmarks'"
 	},
 	"optionsAutoSaveSubTitle": {
@@ -652,7 +652,7 @@
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
 	},
 	"optionAutoSaveRepeat": {
-		"message": "avtomatik olaraq yaddaşa qeyd et",
+		"message": "dövri olaraq avtomatik yaddaşa qeyd edin",
 		"description": "Options page label: 'auto-save periodically'"
 	},
 	"optionAutoSaveRepeatDelay": {
@@ -660,7 +660,7 @@
 		"description": "Options page label: 'period (s)'"
 	},
 	"optionAutoSaveExternalSave": {
-		"message": "xarici yaddaşa qeyd et",
+		"message": "səhifəni SingleFile Companion ilə yaddaşa qeyd edin",
 		"description": "Options page label: 'save the page with SingleFile Companion'"
 	},
 	"optionsEditorSubTitle": {
@@ -668,7 +668,7 @@
 		"description": "Options sub-title: 'Annotation editor'"
 	},
 	"optionOpenEditor": {
-		"message": "səhifəni yaddaşa qeyd etdikdən sonra redaktoru açın",
+		"message": "yaddaşa qeyd etməzdən əvvəl səhifəni annotasiya edin",
 		"description": "Options page label: 'annotate the page before saving'"
 	},
 	"optionOpenSavedPage": {
@@ -676,7 +676,7 @@
 		"description": "Options page label: 'open saved pages in a new tab'"
 	},
 	"optionAutoOpenEditor": {
-		"message": "səhifəni yaddaşa qeyd etdikdən sonra redaktoru avtomatik olaraq açın",
+		"message": "SingleFile ilə yaddaşa qeyd edilmiş səhifələri annotasiya redaktorunda açın",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionDefaultEditorMode": {
@@ -712,7 +712,7 @@
 		"description": "Options page label: 'content width when formatting a page (em)'"
 	},
 	"optionWarnUnsavedPage": {
-		"message": "yaddaşa qeyd edilməmiş dəyişiklikləri saxlayın",
+		"message": "yaddaşa qeyd edilməmiş dəyişikliklərlə səhifədən çıxarkən xəbərdarlıq edin",
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
 	"optionDisplayInfobarInEditor": {
@@ -778,7 +778,7 @@
 		"description": "Options page label: 'maximum download time (s)'"
 	},
 	"optionPassReferrerOnError": {
-		"message": "çap \"Referer\" başlığını keçirin",
+		"message": "cross-origin sorğu xətasından sonra \"Referer\" başlığını ötürün",
 		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
 	},
 	"optionSaveRawPage": {
@@ -786,7 +786,7 @@
 		"description": "Options page label: 'save raw page'"
 	},
 	"optionInsertMetaCSP": {
-		"message": "mətni təhlükəsizlik siyasəti ilə əlavə edin",
+		"message": "məzmun təhlükəsizlik siyasəti təyin edin",
 		"description": "Options page label: 'set content security policy'"
 	},
 	"optionInsertCanonicalLink": {
@@ -794,7 +794,7 @@
 		"description": "Options page label: 'save the canonical link of the page'"
 	},
 	"optionSaveToClipboard": {
-		"message": "mətni kəsənlərə kopyalayın",
+		"message": "mübadilə buferinə kopyalayın",
 		"description": "Options page label: 'copy to clipboard'"
 	},
 	"optionSaveToFilesystem": {
@@ -902,11 +902,11 @@
 		"description": "Options page label: 'save with SingleFile Companion'"
 	},
 	"optionSaveCreatedBookmarks": {
-		"message": "yaddaşa qeyd edilmiş səhifənin yerini yaddaşa qeyd edin",
+		"message": "yeni yaradılmış əlfəcinin səhifəsini yaddaşa qeyd edin",
 		"description": "Options page label: 'save the page of a newly created bookmark'"
 	},
 	"optionReplaceBookmarkURL": {
-		"message": "yaddaşa qeyd edilmiş səhifənin URL-ni əvəz edin",
+		"message": "yeni əlfəcini yaddaşa qeyd edilmiş səhifəyə bağlayın",
 		"description": "Options page label: 'link the new bookmark to the saved page'"
 	},
 	"optionAllowedBookmarkFolders": {
@@ -914,7 +914,7 @@
 		"description": "Options page label: 'allowed folders'"
 	},
 	"optionIgnoredBookmarkFolders": {
-		"message": "sorğulanan qovluqlar",
+		"message": "nəzərə alınmayan qovluqlar",
 		"description": "Options page label: 'ignored folders'"
 	},
 	"optionsHelpLink": {
@@ -1002,7 +1002,7 @@
 		"description": "Button label 'Copy details' in the top panel next to an error message"
 	},
 	"topPanelEmbeddedImageButton": {
-		"message": "Şəkil əlavə et...",
+		"message": "Şəkli aç...",
 		"description": "Top panel button 'Open image...' when embedding an image"
 	},
 	"topPanelSharePageButton": {
@@ -1242,7 +1242,7 @@
 		"description": "Options page label: 'archive URL field name'"
 	},
 	"optionsEditorTitle": {
-		"message": "Redaktor seçimləri",
+		"message": "Seçimlər redaktoru",
 		"description": "Options title: 'Options editor'"
 	},
 	"optionsEditorSaveButton": {

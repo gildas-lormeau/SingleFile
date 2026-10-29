@@ -176,7 +176,7 @@
 		"description": "Badge label for unexpected errors"
 	},
 	"buttonAutoSaveActiveTooltip": {
-		"message": "自动保存活动页面",
+		"message": "自动保存已启用",
 		"description": "Button title: 'Auto-save active'"
 	},
 	"buttonAutoSaveActiveBadge": {
@@ -216,7 +216,7 @@
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionBlockMixedContent": {
-		"message": "拦截混合內容",
+		"message": "拦截混合内容",
 		"description": "Options page label: 'block mixed content'"
 	},
 	"optionSaveOriginalURLs": {
@@ -704,7 +704,7 @@
 		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
-		"message": "在标注编辑器中打开页面时应用系统主题样式",
+		"message": "格式化页面时应用系统主题",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionContentWidth": {

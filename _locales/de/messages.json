@@ -160,11 +160,11 @@
 		"description": "Badge label during initialization: '•••'"
 	},
 	"buttonSaveProgressTooltip": {
-		"message": "Speicherung aktiviert: ",
+		"message": "Speicherfortschritt: ",
 		"description": "Button title during save: 'Save progress: xx%'"
 	},
 	"buttonUploadProgressTooltip": {
-		"message": "Upload aktiviert: ",
+		"message": "Upload-Fortschritt: ",
 		"description": "Button title during save: 'Upload progress: xx%'"
 	},
 	"buttonOKBadge": {
@@ -208,11 +208,11 @@
 		"description": "Options page label: 'overlay a shadow on the page during processing'"
 	},
 	"optionDisplayInfobar": {
-		"message": "Infoknopf beim Betrachten einer gespeicherten Seite anzeigen",
+		"message": "Infobar beim Betrachten einer gespeicherten Seite anzeigen",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
 	"optionInfobarTemplate": {
-		"message": "Muster für Inhalt des Infoknopfs",
+		"message": "Muster für Inhalt der Infobar",
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionBlockMixedContent": {
@@ -224,7 +224,7 @@
 		"description": "Options page label: 'save original URLs of embedded resources'"
 	},
 	"optionIncludeInfobar": {
-		"message": "Einfügen Inhalt des Infoknopfs in die gespeicherte Seite",
+		"message": "Einfügen Inhalt der Infobar in die gespeicherte Seite",
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionOpenInfobar": {
@@ -240,7 +240,7 @@
 		"description": "Options page label: 'do not include the saved date'"
 	},
 	"optionConfirmInfobar": {
-		"message": "Inhalt des Infoknopfs im Dialogfenster eingeben",
+		"message": "Inhalt der Infobar im Dialogfenster eingeben",
 		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
 	},
 	"optionAutoClose": {
@@ -428,7 +428,7 @@
 		"description": "Options page label: 'custom image'"
 	},
 	"optionsInfobarSubTitle": {
-		"message": "Infoknopf",
+		"message": "Infobar",
 		"description": "Options sub-title: 'Infobar'"
 	},
 	"optionsImagesSubTitle": {
@@ -640,7 +640,7 @@
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
-		"message": "Automatische Speicherung beim Schließen des Tabs",
+		"message": "Automatische Speicherung beim Verwerfen (Entladen) des Tabs",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
@@ -716,7 +716,7 @@
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
 	"optionDisplayInfobarInEditor": {
-		"message": "Anzeige der Infoknopf",
+		"message": "Anzeige der Infobar",
 		"description": "Title of the button 'display the infobar'"
 	},
 	"optionsMiscSubTitle": {
@@ -878,7 +878,7 @@
 		"description": "Options page label: 'URL'"
 	},
 	"optionWebDAVUser": {
-		"message": "Benutzerkennwort",
+		"message": "Benutzerkennung",
 		"description": "Options page label: 'user identifier'"
 	},
 	"optionWebDAVPassword": {
@@ -938,7 +938,7 @@
 		"description": "Options 'Reset' button tooltip"
 	},
 	"optionsResetConfirm": {
-		"message": "Zurücksetzung aller Optionen des aktuellen Profils bestätigen",
+		"message": "Zurücksetzung aller Optionen oder des aktuellen Profils bestätigen",
 		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
 	},
 	"optionsResetAllButton": {

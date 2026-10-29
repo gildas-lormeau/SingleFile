@@ -160,11 +160,11 @@
 		"description": "Badge label during initialization: '•••'"
 	},
 	"buttonSaveProgressTooltip": {
-		"message": "Salvar progresso: ",
+		"message": "Progresso do salvamento: ",
 		"description": "Button title during save: 'Save progress: xx%'"
 	},
 	"buttonUploadProgressTooltip": {
-		"message": "Enviar progresso: ",
+		"message": "Progresso do envio: ",
 		"description": "Button title during save: 'Upload progress: xx%'"
 	},
 	"buttonOKBadge": {
@@ -628,7 +628,7 @@
 		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
 	},
 	"optionAutoSaveLoadOrUnload": {
-		"message": "salvar autom. após carregamento ou purga da página",
+		"message": "salvar autom. após o carregamento ou ao descarregar a página",
 		"description": "auto-save after page load or on page unload"
 	},
 	"optionAutoSaveLoad": {
@@ -636,7 +636,7 @@
 		"description": "Options page label: 'auto-save after page load'"
 	},
 	"optionAutoSaveUnload": {
-		"message": "salvar autom. após purga da página",
+		"message": "salvar autom. ao descarregar a página",
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
@@ -1094,7 +1094,7 @@
 		"description": "Title of the button 'Enable/disable read-only' in the editor"
 	},
 	"editorFormatPage": {
-		"message": "Formatar à página para melhor legibilidade",
+		"message": "Formatar a página para melhor legibilidade",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
@@ -1234,7 +1234,7 @@
 		"description": "Options page label: 'authorization token'"
 	},
 	"optionRestFormApiFileFieldName": {
-		"message": "nome do campo de dados do ficheiro",
+		"message": "nome do campo de dados do arquivo",
 		"description": "Options page label: 'archive data field name'"
 	},
 	"optionRestFormApiUrlFieldName": {

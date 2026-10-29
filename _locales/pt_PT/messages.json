@@ -160,11 +160,11 @@
 		"description": "Badge label during initialization: '•••'"
 	},
 	"buttonSaveProgressTooltip": {
-		"message": "Guardar progresso: ",
+		"message": "Progresso da gravação: ",
 		"description": "Button title during save: 'Save progress: xx%'"
 	},
 	"buttonUploadProgressTooltip": {
-		"message": "Carregar progresso: ",
+		"message": "Progresso do carregamento: ",
 		"description": "Button title during save: 'Upload progress: xx%'"
 	},
 	"buttonOKBadge": {
@@ -216,7 +216,7 @@
 		"description": "Options page label: 'template of the infobar content'"
 	},
 	"optionBlockMixedContent": {
-		"message": "bloco de conteúdo misto",
+		"message": "bloquear conteúdo misto",
 		"description": "Options page label: 'block mixed content'"
 	},
 	"optionSaveOriginalURLs": {
@@ -228,7 +228,7 @@
 		"description": "Options page label: 'include the infobar in the saved page'"
 	},
 	"optionOpenInfobar": {
-		"message": "manter o infobar aberto",
+		"message": "manter a barra de informações aberta",
 		"description": "Options page label: 'keep infobar open'"
 	},
 	"optionAnimateInfobar": {
@@ -500,7 +500,7 @@
 		"description": "Options page label: 'group duplicate stylesheets together'"
 	},
 	"optionMoveStylesInHead": {
-		"message": "mover para o elemento principal os estilos que se encontram fora dele",
+		"message": "mover para o elemento head os estilos que se encontram fora dele",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionCustomStylesheet": {
@@ -628,7 +628,7 @@
 		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
 	},
 	"optionAutoSaveLoadOrUnload": {
-		"message": "guardar automaticamente após o carregamento da página ou quando a página é transferida",
+		"message": "guardar automaticamente após o carregamento da página ou ao sair da página",
 		"description": "auto-save after page load or on page unload"
 	},
 	"optionAutoSaveLoad": {
@@ -636,11 +636,11 @@
 		"description": "Options page label: 'auto-save after page load'"
 	},
 	"optionAutoSaveUnload": {
-		"message": "guardar automaticamente quando a página é transferida",
+		"message": "guardar automaticamente ao sair da página",
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
-		"message": "guardar automaticamente quando o separador é eliminado",
+		"message": "guardar automaticamente quando o separador é descartado",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
@@ -922,7 +922,7 @@
 		"description": "Options help link"
 	},
 	"optionSynchronize": {
-		"message": "opções de sincronização",
+		"message": "sincronizar opções",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionSynchronizeError": {
@@ -1126,7 +1126,7 @@
 		"description": "Title of the button 'Print the page' in the editor"
 	},
 	"editorImportMht": {
-		"message": "Importar arquivo MHTML",
+		"message": "Importar ficheiro MHTML",
 		"description": "Title of the button 'Import MHTML file' in the editor"
 	},
 	"editorArchiveToc": {

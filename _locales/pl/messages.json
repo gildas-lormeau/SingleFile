@@ -524,7 +524,7 @@
 		"description": "Options page label: 'blocked resources'"
 	},
 	"optionsAcceptHeaders": {
-		"message": "nagłówek \"Akceptuj\"",
+		"message": "nagłówek \"Accept\"",
 		"description": "Options page label: '\"Accept\" header'"
 	},
 	"optionResourceScript": {
@@ -858,7 +858,7 @@
 		"description": "Options page label: 'region'"
 	},
 	"optionS3Bucket": {
-		"message": "nazwa komory",
+		"message": "nazwa bucketa",
 		"description": "Options page label: 'bucket name'"
 	},
 	"optionS3AccessKey": {

@@ -160,11 +160,11 @@
 		"description": "Badge label during initialization: '•••'"
 	},
 	"buttonSaveProgressTooltip": {
-		"message": "İlerlemeyi kaydet: ",
+		"message": "Kaydetme ilerlemesi: ",
 		"description": "Button title during save: 'Save progress: xx%'"
 	},
 	"buttonUploadProgressTooltip": {
-		"message": "İlerlemeyi yükle: ",
+		"message": "Yükleme ilerlemesi: ",
 		"description": "Button title during save: 'Upload progress: xx%'"
 	},
 	"buttonOKBadge": {
@@ -324,7 +324,7 @@
 		"description": "Options page label: 'replace emojis with text'"
 	},
 	"optionSaveFilenameTemplateData": {
-		"message": "dosya adı şablon verilerini sayfaya kaydetme",
+		"message": "dosya adı şablon verilerini sayfaya kaydet",
 		"description": "Options page label: 'save the filename template data into the page'"
 	},
 	"optionConfirmFilename": {
@@ -716,7 +716,7 @@
 		"description": "Title of the button 'warn if leaving page with unsaved changes'"
 	},
 	"optionDisplayInfobarInEditor": {
-		"message": "bilgi çubuğunu görüntüleme",
+		"message": "bilgi çubuğunu görüntüle",
 		"description": "Title of the button 'display the infobar'"
 	},
 	"optionsMiscSubTitle": {
@@ -922,7 +922,7 @@
 		"description": "Options help link"
 	},
 	"optionSynchronize": {
-		"message": "senkronizasyon seçenekleri",
+		"message": "seçenekleri senkronize et",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionSynchronizeError": {

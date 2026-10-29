@@ -628,7 +628,7 @@
 		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
 	},
 	"optionAutoSaveLoadOrUnload": {
-		"message": "auto-guardar tras cargar la página o al purgar la página",
+		"message": "auto-guardar tras cargar la página o al descargar la página",
 		"description": "auto-save after page load or on page unload"
 	},
 	"optionAutoSaveLoad": {
@@ -636,7 +636,7 @@
 		"description": "Options page label: 'auto-save after page load'"
 	},
 	"optionAutoSaveUnload": {
-		"message": "auto-guardar al purgar la página",
+		"message": "auto-guardar al descargar la página",
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
@@ -704,7 +704,7 @@
 		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
-		"message": "aplicar diseño del sistema al formatear una páginae",
+		"message": "aplicar el tema del sistema al formatear una página",
 		"description": "Title of the button 'apply the system theme when formatting a page'"
 	},
 	"optionContentWidth": {
@@ -858,7 +858,7 @@
 		"description": "Options page label: 'region'"
 	},
 	"optionS3Bucket": {
-		"message": "bucket nombre",
+		"message": "nombre del bucket",
 		"description": "Options page label: 'bucket name'"
 	},
 	"optionS3AccessKey": {
@@ -1222,7 +1222,7 @@
 		"description": "Status displayed next to a URL the batch save skipped because its rule maps it to the disabled profile"
 	},
 	"optionSaveToRestFormApi": {
-		"message": "subir a un formulario REST Api",
+		"message": "subir a una API REST Form",
 		"description": "Options page label: 'upload to a REST Form API'"
 	},
 	"optionRestFormApiUrl": {

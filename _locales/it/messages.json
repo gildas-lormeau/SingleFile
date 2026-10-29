@@ -4,7 +4,7 @@
 		"description": "Description of the extension."
 	},
 	"commandSaveSelectedTabs": {
-		"message": "Salva la scheda selezionata o i suoi contenuti selezionati",
+		"message": "Salva le schede selezionate o i loro contenuti selezionati",
 		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
 	},
 	"commandSaveAllTabs": {
@@ -512,7 +512,7 @@
 		"description": "Options page label: 'remove unused styles'"
 	},
 	"optionRemoveAlternativeMedias": {
-		"message": "rimuovi stili non utilizzati per per schermi dispositivi alternativi",
+		"message": "rimuovi i fogli di stile per dispositivi alternativi agli schermi",
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
 	"optionsNetworkSubTitle": {
@@ -528,15 +528,15 @@
 		"description": "Options page label: '\"Accept\" header'"
 	},
 	"optionResourceScript": {
-		"message": "scripts",
+		"message": "script",
 		"description": "Options page label: 'scripts'"
 	},
 	"optionResourceVideo": {
-		"message": "videos",
+		"message": "video",
 		"description": "Options page label: 'videos'"
 	},
 	"optionResourceAudio": {
-		"message": "audios",
+		"message": "audio",
 		"description": "Options page label: 'audios'"
 	},
 	"optionResourceDocument": {
@@ -628,7 +628,7 @@
 		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
 	},
 	"optionAutoSaveLoadOrUnload": {
-		"message": "auto-salva dopo il caricamento della pagina o al non caricamento della pagina",
+		"message": "auto-salva dopo il caricamento della pagina o alla chiusura della pagina",
 		"description": "auto-save after page load or on page unload"
 	},
 	"optionAutoSaveLoad": {
@@ -636,7 +636,7 @@
 		"description": "Options page label: 'auto-save after page load'"
 	},
 	"optionAutoSaveUnload": {
-		"message": "auto-salva al non caricamento della pagina",
+		"message": "auto-salva alla chiusura della pagina",
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
@@ -810,7 +810,7 @@
 		"description": "Options page label: 'add proof of existence'"
 	},
 	"optionsAddProofConfirm": {
-		"message": "Conferma che permetti a SingleFile di inare alle API Woleet un hash SHA256 di ogni pagina che stai per salvare. Puoi trovare maggiori informazioni su questa caratteristica nella pagina di aiuto o facendo clic sul punto esclamativo accanto all'opzione.",
+		"message": "Conferma che permetti a SingleFile di inviare alle API Woleet un hash SHA256 di ogni pagina che stai per salvare. Puoi trovare maggiori informazioni su questa funzione nella pagina di aiuto o facendo clic sul punto interrogativo accanto all'opzione.",
 		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
 	},
 	"optionWoleetKey": {
@@ -1138,7 +1138,7 @@
 		"description": "Title of the pending save page 'Pending saves' in the editor"
 	},
 	"pendingsCancelAllButton": {
-		"message": "Cancella tutto",
+		"message": "Annulla tutto",
 		"description": "Pending saves button 'Cancel all'"
 	},
 	"pendingsURLTitle": {
@@ -1162,7 +1162,7 @@
 		"description": "Value of 'status' for current saves"
 	},
 	"pendingsCancellingStatus": {
-		"message": "cancellazione",
+		"message": "annullamento",
 		"description": "Value of 'status' for cancelled saves"
 	},
 	"pendingsNoPendings": {

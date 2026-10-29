@@ -1450,7 +1450,7 @@
 		"description": "Menu editor field: 'Appears when right-clicking'"
 	},
 	"menusAltLabelHelp": {
-		"message": "Utan en anpassad etikett visar menyn ”$1” när du högerklickar på en sida.",
+		"message": "Utan en anpassad etikett visar menyn ”$1” när alternativet gäller sidan.",
 		"description": "Menu editor help about the alternative label of an entry"
 	},
 	"menusSubmenuField": {
