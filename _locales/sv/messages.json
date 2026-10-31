@@ -12,47 +12,47 @@
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
 	"commandCustomShortcut": {
-		"message": "Anpassad genväg",
+		"message": "Anpassat kortkommando",
 		"description": "Command label: 'Custom shortcut'"
 	},
 	"commandCustomShortcut0": {
-		"message": "Anpassad genväg #1",
+		"message": "Anpassat kortkommando #1",
 		"description": "Command label: 'Custom shortcut #1'"
 	},
 	"commandCustomShortcut1": {
-		"message": "Anpassad genväg #2",
+		"message": "Anpassat kortkommando #2",
 		"description": "Command label: 'Custom shortcut #2'"
 	},
 	"commandCustomShortcut2": {
-		"message": "Anpassad genväg #3",
+		"message": "Anpassat kortkommando #3",
 		"description": "Command label: 'Custom shortcut #3'"
 	},
 	"commandCustomShortcut3": {
-		"message": "Anpassad genväg #4",
+		"message": "Anpassat kortkommando #4",
 		"description": "Command label: 'Custom shortcut #4'"
 	},
 	"commandCustomShortcut4": {
-		"message": "Anpassad genväg #5",
+		"message": "Anpassat kortkommando #5",
 		"description": "Command label: 'Custom shortcut #5'"
 	},
 	"commandCustomShortcut5": {
-		"message": "Anpassad genväg #6",
+		"message": "Anpassat kortkommando #6",
 		"description": "Command label: 'Custom shortcut #6'"
 	},
 	"commandCustomShortcut6": {
-		"message": "Anpassad genväg #7",
+		"message": "Anpassat kortkommando #7",
 		"description": "Command label: 'Custom shortcut #7'"
 	},
 	"commandCustomShortcut7": {
-		"message": "Anpassad genväg #8",
+		"message": "Anpassat kortkommando #8",
 		"description": "Command label: 'Custom shortcut #8'"
 	},
 	"commandCustomShortcut8": {
-		"message": "Anpassad genväg #9",
+		"message": "Anpassat kortkommando #9",
 		"description": "Command label: 'Custom shortcut #9'"
 	},
 	"commandCustomShortcut9": {
-		"message": "Anpassad genväg #10",
+		"message": "Anpassat kortkommando #10",
 		"description": "Command label: 'Custom shortcut #10'"
 	},
 	"menuSavePage": {
@@ -72,7 +72,7 @@
 		"description": "Menu entry: 'Annotate and save the page...'"
 	},
 	"menuSaveWithProfile": {
-		"message": "Spara med profil",
+		"message": "Spara sidan med profil",
 		"description": "Menu entry: 'Save with profile'"
 	},
 	"menuViewPendingSaves": {
@@ -192,7 +192,7 @@
 		"description": "Accessible label of the icon opening the options in a new tab"
 	},
 	"optionsEditorLink": {
-		"message": "Öppna alternativredigeraren",
+		"message": "Öppna inställningsredigeraren",
 		"description": "Accessible label of the icon opening the options editor"
 	},
 	"optionsUserInterfaceSubTitle": {
@@ -248,11 +248,11 @@
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
 	"optionCustomShortcut": {
-		"message": "kommando för tangentbordsgenväg",
+		"message": "kortkommando",
 		"description": "Options page label: 'keyboard shortcut command'"
 	},
 	"optionCustomShortcutDefault": {
-		"message": "standardgenväg",
+		"message": "standardkortkommando",
 		"description": "Options page label: 'default shortcut'"
 	},
 	"optionsFileNameSubTitle": {
@@ -584,7 +584,7 @@
 		"description": "Column header in the Auto-settings rules table: the complete or partial URL a rule matches against the page being saved"
 	},
 	"optionsAutoSettingsUrlPlaceholder": {
-		"message": "Ange en fullständig eller delvis URL (t.ex. example.com)",
+		"message": "Ange en fullständig URL eller en del av en URL (t.ex. example.com)",
 		"description": "Placeholder of the URL field in the Auto-settings rules table"
 	},
 	"optionsAutoSettingsProfile": {
@@ -640,7 +640,7 @@
 		"description": "Options page label: 'auto-save on page unload'"
 	},
 	"optionAutoSaveDiscard": {
-		"message": "spara automatiskt när en flik kasseras",
+		"message": "spara automatiskt när innehållet i en flik tas bort ur minnet",
 		"description": "Options page label: 'auto-save on tab discard'"
 	},
 	"optionAutoSaveRemove": {
@@ -700,7 +700,7 @@
 		"description": "Options page label: 'default mode > remove elements'"
 	},
 	"optionDefaultEditorModeCutExternal": {
-		"message": "ta bort externa element",
+		"message": "ta bort element utanför markeringen",
 		"description": "Options page label: 'default mode > remove external elements'"
 	},
 	"optionApplySystemTheme": {
@@ -1098,11 +1098,11 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "Aktivera eller inaktivera borttagning av interna element",
+		"message": "Aktivera eller inaktivera borttagning av markerade element",
 		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "Aktivera eller inaktivera borttagning av externa element",
+		"message": "Aktivera eller inaktivera borttagning av element utanför markeringen",
 		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
 	},
 	"editorUndoCutPage": {
@@ -1418,7 +1418,7 @@
 		"description": "Menu editor option when no profile is bound to the entry"
 	},
 	"menusProfileHelp": {
-		"message": "Koppla alternativet till en profil för att spara med den i ett klick, oavsett vilken profil som är aktuell.",
+		"message": "Koppla alternativet till en profil för att spara med den genom ett enda klick, oavsett vilken profil som är aktuell.",
 		"description": "Menu editor help of the 'Profile' field"
 	},
 	"menusPresentationField": {
@@ -1470,8 +1470,8 @@
 		"description": "Menu editor status when an entry is not allowed in a menu"
 	},
 	"menusJsonLabel": {
-		"message": "Menylayout som JSON",
-		"description": "Menu editor section: 'Layout as JSON'"
+		"message": "Menyer som JSON",
+		"description": "Menu editor section: 'menus as JSON'"
 	},
 	"menusJsonApplyButton": {
 		"message": "Tillämpa",
