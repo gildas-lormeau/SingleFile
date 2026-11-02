@@ -70,17 +70,24 @@ function replaceCharacters(filename, replacements, replacementCharacter) {
 	});
 	replacements.forEach(({ characters, replacement }) => {
 		if (!replacement) {
-			filename = replaceMatchingCharacters(filename, characters, "+", replacementCharacter);
+			if (replacementCharacter) {
+				filename = replaceMatchingCharacters(filename, characters, "+", replacementCharacter);
+			} else {
+				filename = replaceMatchingCharacters(filename, characters, "+", (match, offset, string) => /\s/.test(match) && testWordCharacter(string[offset - 1]) && testWordCharacter(string[offset + match.length]) ? " " : "", "\\s*");
+			}
 		}
 	});
 	return filename
-		.replace(/\.\.\//g, "")
+		.replace(/(^|\/)\.\.(?=\/|$)/g, "$1")
+		.replace(/[.\s]+(?=\/|$)/g, "")
 		.replace(/^\/+/, "")
 		.replace(/\/+/g, "/")
 		.replace(/\/$/, "")
-		.replace(/\.$/, "")
-		.replace(/\.\//g, "." + replacementCharacter)
 		.replace(/\/\./g, "/" + replacementCharacter);
+}
+
+function testWordCharacter(character) {
+	return character !== undefined && !/[\s./]/.test(character);
 }
 
 function formatCharacters(characters) {
@@ -106,17 +113,17 @@ function testCharacters(characters) {
 	}
 }
 
-function replaceMatchingCharacters(filename, characters, quantifier, replacement) {
+function replaceMatchingCharacters(filename, characters, quantifier, replacement, context = "") {
 	try {
-		return filename.replace(getCharacterClass(characters, quantifier), replacement);
+		return filename.replace(getCharacterClass(characters, quantifier, context), replacement);
 		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 		return filename;
 	}
 }
 
-function getCharacterClass(characters, quantifier) {
-	const pattern = "[" + getCharacterClassContent(characters) + "]" + quantifier;
+function getCharacterClass(characters, quantifier, context = "") {
+	const pattern = context + "[" + getCharacterClassContent(characters) + "]" + quantifier + context;
 	try {
 		return new RegExp(pattern, "gu");
 	} catch {

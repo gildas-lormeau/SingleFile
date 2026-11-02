@@ -82,6 +82,14 @@ test("the options preview replaces the same characters as the core helper", () =
 	}
 });
 
+test("an empty fallback character removes the characters like the core helper", () => {
+	const samples = SAMPLES.concat(["John 🔥 Doe", "John🔥Doe", "Hot 🔥.html", "🔥 John", "a/ 🔥 b"]);
+	const replacements = getReplacements({ filenameReplacedCharacters: ["\\p{Extended_Pictographic}", "#"], filenameReplacementCharacters: ["", ""] });
+	for (const sample of samples) {
+		assert.equal(replaceCharacters(sample, replacements, ""), getValidFilename(sample, ["\\p{Extended_Pictographic}", "#"], "", ["", ""]), JSON.stringify(sample));
+	}
+});
+
 test("the default tables are the ones the core helper falls back to", () => {
 	assert.deepEqual(DEFAULT_REPLACED_CHARACTERS, CORE_REPLACED_CHARACTERS);
 	assert.deepEqual(DEFAULT_REPLACEMENT_CHARACTERS, CORE_REPLACEMENT_CHARACTERS);
