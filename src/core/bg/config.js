@@ -196,6 +196,7 @@ const DEFAULT_CONFIG = {
 	},
 	moveStylesInHead: false,
 	customStylesheet: "",
+	embeddedScript: "",
 	networkTimeout: 0,
 	woleetKey: "",
 	blockImages: false,

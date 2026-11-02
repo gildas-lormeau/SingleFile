@@ -57,6 +57,7 @@ const CAPTURE_OPTION_NAMES = [
 	"groupDuplicateStylesheets",
 	"moveStylesInHead",
 	"customStylesheet",
+	"embeddedScript",
 	"imageReductionFactor",
 	"imageQuality",
 	"loadDeferredContent",
