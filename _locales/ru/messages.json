@@ -520,7 +520,7 @@
 		"description": "Options page label: 'remove unused styles'"
 	},
 	"optionRemoveAlternativeMedias": {
-		"message": "удалить таблицы стилей для устройств, отличных от экранов",
+		"message": "удалить таблицы стилей, не предназначенные для отображения на экране",
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
 	"optionsNetworkSubTitle": {
@@ -786,7 +786,7 @@
 		"description": "Options page label: 'maximum download time (s)'"
 	},
 	"optionPassReferrerOnError": {
-		"message": "пропустить заголовок «Referer» после ошибки запроса перекрёстного источника",
+		"message": "передавать заголовок «Referer» после ошибки запроса перекрёстного источника",
 		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
 	},
 	"optionSaveRawPage": {
