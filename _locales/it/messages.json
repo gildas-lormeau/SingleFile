@@ -211,6 +211,14 @@
 		"message": "visualizza una barra informativa quando vedi una pagina salvata",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
+	"optionDisplayInfobarFileAccessFirefox": {
+		"message": "SingleFile non può visualizzare la barra informativa né salvare le pagine aperte dal filesystem perché non è autorizzato ad accedere ai file locali. Per risolvere il problema, attiva \"Accedi ai file locali sul tuo computer\" in \"Permessi e dati\" nella pagina di SingleFile in about:addons.",
+		"description": "Options page warning displayed in Firefox when the extension cannot access local files: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access local files. To fix this, enable \"Access local files on your computer\" in \"Permissions and data\" on the SingleFile page in about:addons.'"
+	},
+	"optionDisplayInfobarFileAccessChromium": {
+		"message": "SingleFile non può visualizzare la barra informativa né salvare le pagine aperte dal filesystem perché non è autorizzato ad accedere agli URL dei file. Per risolvere il problema, attiva \"Consenti l'accesso agli URL dei file\" nella pagina di SingleFile nella pagina delle estensioni del browser.",
+		"description": "Options page warning displayed in Chromium-based browsers when the extension cannot access file URLs: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access file URLs. To fix this, enable \"Allow access to file URLs\" on the SingleFile page in the extensions page of the browser.'"
+	},
 	"optionInfobarTemplate": {
 		"message": "modello del contenuto della barra informativa",
 		"description": "Options page label: 'template of the infobar content'"

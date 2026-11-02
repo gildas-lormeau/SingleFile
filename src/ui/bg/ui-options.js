@@ -1008,6 +1008,22 @@ browser.runtime.sendMessage({ method: "tabsData.get" }).then(allTabsData => {
 getHelpContents();
 initExternalCapturePermissions();
 
+async function displayFileAccessWarning() {
+	let fileAccessAllowed, firefoxVersion;
+	try {
+		fileAccessAllowed = await browser.extension.isAllowedFileSchemeAccess();
+		if (browser.runtime.getBrowserInfo) {
+			firefoxVersion = parseInt((await browser.runtime.getBrowserInfo()).version, 10);
+		}
+	} catch {
+		fileAccessAllowed = true;
+	}
+	if (!fileAccessAllowed && (firefoxVersion === undefined || firefoxVersion >= 153)) {
+		document.getElementById("fileAccessWarningLabel").textContent = browser.i18n.getMessage(firefoxVersion === undefined ? "optionDisplayInfobarFileAccessChromium" : "optionDisplayInfobarFileAccessFirefox");
+		document.getElementById("fileAccessWarning").hidden = false;
+	}
+}
+
 function setLinkLabel(linkElement, messageName) {
 	const label = browser.i18n.getMessage(messageName);
 	linkElement.title = label;
@@ -1034,7 +1050,9 @@ function init() {
 	if (!AUTO_OPEN_EDITOR_SUPPORTED) {
 		document.getElementById("autoOpenEditorOption").hidden = true;
 	}
-	if (!INFOBAR_SUPPORTED) {
+	if (INFOBAR_SUPPORTED) {
+		displayFileAccessWarning();
+	} else {
 		document.getElementById("displayInfobarOption").hidden = true;
 	}
 	if (!EXTERNAL_CAPTURE_SUPPORTED) {

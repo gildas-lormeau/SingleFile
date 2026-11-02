@@ -211,6 +211,14 @@
 		"message": "yaddaşa qeyd edilmiş səhifəni baxarkən infobar göstərin",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
+	"optionDisplayInfobarFileAccessFirefox": {
+		"message": "SingleFile-a yerli fayllara giriş icazəsi verilmədiyi üçün o, infobarı göstərə və fayl sistemindən açılmış səhifələri yaddaşa qeyd edə bilmir. Bunu düzəltmək üçün about:addons-dakı SingleFile səhifəsində \"İcazələr və məlumatlar\" bölməsindəki \"Kompüterinizdəki yerli fayllara giriş\" seçimini aktivləşdirin.",
+		"description": "Options page warning displayed in Firefox when the extension cannot access local files: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access local files. To fix this, enable \"Access local files on your computer\" in \"Permissions and data\" on the SingleFile page in about:addons.'"
+	},
+	"optionDisplayInfobarFileAccessChromium": {
+		"message": "SingleFile-a fayl URL-lərinə giriş icazəsi verilmədiyi üçün o, infobarı göstərə və fayl sistemindən açılmış səhifələri yaddaşa qeyd edə bilmir. Bunu düzəltmək üçün brauzerin genişləndirmələr səhifəsindəki SingleFile səhifəsində \"Fayl URL-lərinə girişə icazə ver\" seçimini aktivləşdirin.",
+		"description": "Options page warning displayed in Chromium-based browsers when the extension cannot access file URLs: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access file URLs. To fix this, enable \"Allow access to file URLs\" on the SingleFile page in the extensions page of the browser.'"
+	},
 	"optionInfobarTemplate": {
 		"message": "infobar məzmununun şablonu",
 		"description": "Options page label: 'template of the infobar content'"

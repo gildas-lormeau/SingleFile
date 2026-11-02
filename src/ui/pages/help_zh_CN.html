@@ -222,6 +222,7 @@
                             class="option">选项：查看保存的页面时显示信息栏</span>
                         <p>选中此选项可在查看已保存的页面时，在页面右上角显示ℹ按钮。单击此按钮，您可以获取有关保存日期的更多信息并打开原始URL。</p>
                         <p class="notice">建议<u>选中</u>此选项</p>
+                        <p class="notice">在 Firefox 153 及更高版本中，只有在 about:addons 的 SingleFile 页面的“权限和数据”中启用“访问计算机上的本地文件”权限后，才会显示信息栏。在基于 Chromium 的浏览器中，必须在扩展页面中启用“允许访问文件URL”选项。</p>
                     </li>
                     <li data-options-label="infobarTemplateLabel"><span class="option">选项：信息栏内容模板</span>
                         <p>该模板允许您自定义信息栏中显示的内容。您可以使用任何有效字符，<code>\n</code>表示换行或<code>\t</code>表示制表符。您还可以使用以下任何变量<a
@@ -976,6 +977,7 @@
                         </ul>
                     </li>
                     <li>火狐<ul>
+                            <li>自 Firefox 153 起，您必须在 about:addons 的 SingleFile 页面的“权限和数据”中启用“访问计算机上的本地文件”权限，以便在查看已保存的页面时显示信息栏，保存或注释存储在文件系统上的页面。</li>
                             <li>如果设置为“提示输入名称”，则“文件名&gt;文件名冲突解决”选项不起作用。</li>
                             <li>有时，SingleFile无法保存沙盒iframe的内容。</li>
                             <li>在处理文件系统中的页面时，外部资源（如图像、样式表、字体等）将不会嵌入到保存的页面中。</li>

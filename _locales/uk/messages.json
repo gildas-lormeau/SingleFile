@@ -211,6 +211,14 @@
 		"message": "відображати інформ. панель під час перегляду збереженої сторінки",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
+	"optionDisplayInfobarFileAccessFirefox": {
+		"message": "SingleFile не може відобразити інформаційну панель або зберегти сторінки, відкриті з файлової системи, оскільки йому не дозволено доступ до локальних файлів. Щоб це виправити, увімкніть «Доступ до локальних файлів на вашому комп'ютері» в розділі «Дозволи та дані» на сторінці SingleFile в about:addons.",
+		"description": "Options page warning displayed in Firefox when the extension cannot access local files: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access local files. To fix this, enable \"Access local files on your computer\" in \"Permissions and data\" on the SingleFile page in about:addons.'"
+	},
+	"optionDisplayInfobarFileAccessChromium": {
+		"message": "SingleFile не може відобразити інформаційну панель або зберегти сторінки, відкриті з файлової системи, оскільки йому не дозволено доступ до URL-адрес файлів. Щоб це виправити, увімкніть «Дозволити доступ до URL-адрес файлів» на сторінці SingleFile у списку розширень браузера.",
+		"description": "Options page warning displayed in Chromium-based browsers when the extension cannot access file URLs: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access file URLs. To fix this, enable \"Allow access to file URLs\" on the SingleFile page in the extensions page of the browser.'"
+	},
 	"optionInfobarTemplate": {
 		"message": "шаблон вмісту інформаційної панелі",
 		"description": "Options page label: 'template of the infobar content'"

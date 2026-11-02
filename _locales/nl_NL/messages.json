@@ -211,6 +211,14 @@
 		"message": "toon een infobalk bij het bekijken van een opgeslagen pagina",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
+	"optionDisplayInfobarFileAccessFirefox": {
+		"message": "SingleFile kan de infobalk niet tonen en geen pagina's opslaan die vanuit het bestandssysteem zijn geopend, omdat het geen toegang heeft tot lokale bestanden. Om dit op te lossen, schakel je \"Toegang tot lokale bestanden op je computer\" in onder \"Machtigingen en gegevens\" op de SingleFile-pagina in about:addons.",
+		"description": "Options page warning displayed in Firefox when the extension cannot access local files: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access local files. To fix this, enable \"Access local files on your computer\" in \"Permissions and data\" on the SingleFile page in about:addons.'"
+	},
+	"optionDisplayInfobarFileAccessChromium": {
+		"message": "SingleFile kan de infobalk niet tonen en geen pagina's opslaan die vanuit het bestandssysteem zijn geopend, omdat het geen toegang heeft tot bestands-URL's. Om dit op te lossen, schakel je \"Toegang tot bestands-URL's toestaan\" in op de SingleFile-pagina op de extensiepagina van de browser.",
+		"description": "Options page warning displayed in Chromium-based browsers when the extension cannot access file URLs: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access file URLs. To fix this, enable \"Allow access to file URLs\" on the SingleFile page in the extensions page of the browser.'"
+	},
 	"optionInfobarTemplate": {
 		"message": "sjabloon van de infobalkinhoud",
 		"description": "Options page label: 'template of the infobar content'"

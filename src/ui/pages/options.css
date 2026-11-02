@@ -500,6 +500,10 @@ a {
     flex-direction: column;
 }
 
+.option.warning {
+    color: rgb(180, 35, 24);
+}
+
 .option.vertical label {
     align-self: flex-start;
     min-height: 24px;

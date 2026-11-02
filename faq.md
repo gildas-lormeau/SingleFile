@@ -18,8 +18,10 @@ These sites require the HTTP header "referer" to be present in order to download
 ## Why don't interactive elements like folding titles, dynamic maps or carousels work properly in saved pages?
 These elements need JavaScript to work properly. By default, SingleFile removes scripts because they can alter the rendering and there is no guarantee they will work offline. However, you can save them by unchecking the option "Network > blocked resources > scripts", and optionally  unchecking "HTML Content > remove hidden elements", unchecking "Stylesheets > remove unused styles", and checking the option "HTML content > save raw page".
 
-## Why isn't the infobar displayed / Why cannot I save a page from the filesystem in Chrome?
+## Why isn't the infobar displayed / Why cannot I save a page from the filesystem in Chrome or Firefox?
 By default, Chrome extensions are not allowed to access to pages stored on the filesystem. Therefore, you must enable the option "Allow access to file URLs" in the extension page to display the infobar when viewing a saved page, or to save a page stored on the filesystem.
+
+Since Firefox 153, extensions are not allowed to access local files by default either. You must enable the permission "Access local files on your computer" in "Permissions and data" on the SingleFile page in about:addons.
 
 ## How does the self-extracting ZIP format work?
 The self-extracting ZIP files created by SingleFile are essentially regular ZIP files. They take advantage of the flexibility in the ZIP specification, which allows for additional data to be included before and after the ZIP payload. See this [presentation](https://github.com/gildas-lormeau/Polyglot-HTML-ZIP-PNG) for more info.

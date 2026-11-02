@@ -211,6 +211,9 @@ if (typeof globalThis == "undefined") {
 				getUILanguage: () => nativeAPI.i18n.getUILanguage(),
 				getMessage: (messageName, substitutions) => nativeAPI.i18n.getMessage(messageName, substitutions)
 			},
+			extension: {
+				isAllowedFileSchemeAccess: () => new Promise(resolve => nativeAPI.extension.isAllowedFileSchemeAccess(resolve))
+			},
 			identity: {
 				getRedirectURL() {
 					return nativeAPI.identity.getRedirectURL();

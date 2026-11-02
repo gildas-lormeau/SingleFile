@@ -211,6 +211,14 @@
 		"message": "visa ett informationsfält när du visar en sparad sida",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
+	"optionDisplayInfobarFileAccessFirefox": {
+		"message": "SingleFile kan inte visa informationsfältet eller spara sidor som har öppnats från filsystemet, eftersom tillägget inte får åtkomst till lokala filer. Åtgärda detta genom att aktivera ”Åtkomst till lokala filer på din dator” under ”Behörigheter och data” på SingleFile-sidan i about:addons.",
+		"description": "Options page warning displayed in Firefox when the extension cannot access local files: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access local files. To fix this, enable \"Access local files on your computer\" in \"Permissions and data\" on the SingleFile page in about:addons.'"
+	},
+	"optionDisplayInfobarFileAccessChromium": {
+		"message": "SingleFile kan inte visa informationsfältet eller spara sidor som har öppnats från filsystemet, eftersom tillägget inte får åtkomst till fil-URL:er. Åtgärda detta genom att aktivera ”Tillåt åtkomst till fil-URL:er” på SingleFile-sidan på webbläsarens sida för tillägg.",
+		"description": "Options page warning displayed in Chromium-based browsers when the extension cannot access file URLs: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access file URLs. To fix this, enable \"Allow access to file URLs\" on the SingleFile page in the extensions page of the browser.'"
+	},
 	"optionInfobarTemplate": {
 		"message": "mall för informationsfältets innehåll",
 		"description": "Options page label: 'template of the infobar content'"

@@ -349,6 +349,10 @@
 							page. By clicking this button, you can get more information about the saved date and open
 							the original URL.</p>
 						<p class="notice">It is recommended to <u>check</u> this option</p>
+						<p class="notice">In Firefox 153 and later, the infobar is displayed only if the permission
+							"Access local files on your computer" is enabled in "Permissions and data" on the SingleFile
+							page in about:addons. In Chromium-based browsers, the option "Allow access to file URLs" must
+							be enabled in the extension page.</p>
 					</li>
 					<li data-options-label="infobarTemplateLabel"> <span class="option">Option: template of the infobar
 							content</span>
@@ -1480,6 +1484,9 @@
 					</li>
 					<li>Firefox
 						<ul>
+							<li>Since Firefox 153, you must enable the permission "Access local files on your computer"
+								in "Permissions and data" on the SingleFile page in about:addons to display the infobar
+								when viewing a saved page, to save or to annotate a page stored on the filesystem.</li>
 							<li>The "File name &gt; file name conflict resolution" option does not work if set to
 								"prompt for a name".
 							</li>

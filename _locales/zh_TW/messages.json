@@ -211,6 +211,14 @@
 		"message": "查看已儲存的網頁時顯示資訊列",
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
+	"optionDisplayInfobarFileAccessFirefox": {
+		"message": "由於 SingleFile 未獲准存取本機檔案，因此無法顯示資訊列，也無法儲存從檔案系統開啟的網頁。如要解決此問題，請在 about:addons 的 SingleFile 頁面中，於「權限與資料」下啟用「存取你電腦上的本機檔案」。",
+		"description": "Options page warning displayed in Firefox when the extension cannot access local files: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access local files. To fix this, enable \"Access local files on your computer\" in \"Permissions and data\" on the SingleFile page in about:addons.'"
+	},
+	"optionDisplayInfobarFileAccessChromium": {
+		"message": "由於 SingleFile 未獲准存取檔案網址，因此無法顯示資訊列，也無法儲存從檔案系統開啟的網頁。如要解決此問題，請在瀏覽器擴充功能頁面的 SingleFile 頁面中啟用「允許存取檔案網址」。",
+		"description": "Options page warning displayed in Chromium-based browsers when the extension cannot access file URLs: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access file URLs. To fix this, enable \"Allow access to file URLs\" on the SingleFile page in the extensions page of the browser.'"
+	},
 	"optionInfobarTemplate": {
 		"message": "資訊列內容範本",
 		"description": "Options page label: 'template of the infobar content'"
