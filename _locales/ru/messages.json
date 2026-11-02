@@ -500,7 +500,7 @@
 		"description": "Options page label: 'group duplicate stylesheets together'"
 	},
 	"optionMoveStylesInHead": {
-		"message": "переместить в основной элемент стили, найденные вне него",
+		"message": "переместить в элемент head стили, найденные вне него",
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionCustomStylesheet": {
@@ -512,7 +512,7 @@
 		"description": "Options page label: 'remove unused styles'"
 	},
 	"optionRemoveAlternativeMedias": {
-		"message": "удалить таблицы стилей для экранов альтернативных устройств",
+		"message": "удалить таблицы стилей для устройств, отличных от экранов",
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
 	"optionsNetworkSubTitle": {
@@ -652,7 +652,7 @@
 		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
 	},
 	"optionAutoSaveRepeat": {
-		"message": "переодическое автосохранение",
+		"message": "периодическое автосохранение",
 		"description": "Options page label: 'auto-save periodically'"
 	},
 	"optionAutoSaveRepeatDelay": {
@@ -676,7 +676,7 @@
 		"description": "Options page label: 'open saved pages in a new tab'"
 	},
 	"optionAutoOpenEditor": {
-		"message": "сохранять открытые страницы из редактора аннотаций SingleFile",
+		"message": "открывать страницы, сохранённые с помощью SingleFile, в редакторе аннотаций",
 		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
 	},
 	"optionDefaultEditorMode": {
@@ -922,7 +922,7 @@
 		"description": "Options help link"
 	},
 	"optionSynchronize": {
-		"message": "параметры синхронизации",
+		"message": "синхронизировать параметры",
 		"description": "Options label: 'synchronize options'"
 	},
 	"optionSynchronizeError": {
