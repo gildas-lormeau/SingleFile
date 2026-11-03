@@ -212,7 +212,7 @@
 		"description": "Options page label: 'display an infobar when viewing a saved page'"
 	},
 	"optionDisplayInfobarFileAccessFirefox": {
-		"message": "SingleFile không thể hiển thị thanh thông tin hoặc lưu các trang được mở từ hệ thống tệp vì không được phép truy cập tệp cục bộ. Để khắc phục, hãy bật “Access local files on your computer” trong “Quyền hạn và dữ liệu” trên trang SingleFile trong about:addons.",
+		"message": "SingleFile không thể hiển thị thanh thông tin hoặc lưu các trang được mở từ hệ thống tệp vì không được phép truy cập tệp cục bộ. Để khắc phục, hãy bật “Truy cập các tập tin cục bộ trên máy tính của bạn” trong “Quyền hạn và dữ liệu” trên trang SingleFile trong about:addons.",
 		"description": "Options page warning displayed in Firefox when the extension cannot access local files: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access local files. To fix this, enable \"Access local files on your computer\" in \"Permissions and data\" on the SingleFile page in about:addons.'"
 	},
 	"optionDisplayInfobarFileAccessChromium": {
@@ -492,7 +492,7 @@
 		"description": "Options page label: 'remove unused fonts'"
 	},
 	"optionRemoveUnusedGlyphs": {
-		"message": "xóa các nét chữ (glyph) không dùng",
+		"message": "xóa các glyph không dùng",
 		"description": "Options page label: 'remove unused glyphs'"
 	},
 	"optionRemoveAlternativeFonts": {
@@ -500,11 +500,11 @@
 		"description": "Options page label: 'remove alternative fonts'"
 	},
 	"optionsStylesheetsSubTitle": {
-		"message": "Biểu định kiểu",
+		"message": "Bảng định kiểu",
 		"description": "Options sub-title: 'Stylesheets'"
 	},
 	"optionGroupDuplicateStylesheets": {
-		"message": "gộp các biểu định kiểu trùng lặp",
+		"message": "gộp các bảng định kiểu trùng lặp",
 		"description": "Options page label: 'group duplicate stylesheets together'"
 	},
 	"optionMoveStylesInHead": {
@@ -512,7 +512,7 @@
 		"description": "Options page label: 'move in the head element the styles found outside of it'"
 	},
 	"optionCustomStylesheet": {
-		"message": "áp dụng biểu định kiểu tùy chỉnh trước khi lưu trang",
+		"message": "áp dụng bảng định kiểu tùy chỉnh trước khi lưu trang",
 		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
 	},
 	"optionRemoveUnusedStyles": {
@@ -520,7 +520,7 @@
 		"description": "Options page label: 'remove unused styles'"
 	},
 	"optionRemoveAlternativeMedias": {
-		"message": "xóa các biểu định kiểu dành cho thiết bị không phải màn hình",
+		"message": "xóa các bảng định kiểu dành cho thiết bị không phải màn hình",
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
 	"optionsNetworkSubTitle": {
@@ -556,7 +556,7 @@
 		"description": "Options page label: 'fonts'"
 	},
 	"optionResourceStylesheet": {
-		"message": "biểu định kiểu",
+		"message": "bảng định kiểu",
 		"description": "Options page label: 'stylesheets'"
 	},
 	"optionResourceImage": {
@@ -886,7 +886,7 @@
 		"description": "Options page label: 'URL'"
 	},
 	"optionWebDAVUser": {
-		"message": "mã định danh người dùng",
+		"message": "tên người dùng",
 		"description": "Options page label: 'user identifier'"
 	},
 	"optionWebDAVPassword": {
@@ -1398,11 +1398,11 @@
 		"description": "Menu editor button: 'Wrap the rest in a submenu'"
 	},
 	"menusMoreSubmenu": {
-		"message": "Thêm…",
+		"message": "Khác…",
 		"description": "Menu editor default label of the submenu created to wrap the hidden entries"
 	},
 	"menusInspectorEmpty": {
-		"message": "Chọn một mục trong menu để thay đổi nhãn, gán mục đó với một hồ sơ hoặc chọn thời điểm mục đó xuất hiện.",
+		"message": "Chọn một mục trong menu để thay đổi nhãn, gắn mục đó với một hồ sơ hoặc chọn thời điểm mục đó xuất hiện.",
 		"description": "Menu editor text when no entry is selected"
 	},
 	"menusInspectorSeparator": {
@@ -1426,7 +1426,7 @@
 		"description": "Menu editor option when no profile is bound to the entry"
 	},
 	"menusProfileHelp": {
-		"message": "Gán mục này với một hồ sơ để lưu bằng hồ sơ đó chỉ với một cú nhấp, bất kể hồ sơ hiện tại là gì.",
+		"message": "Gắn mục này với một hồ sơ để lưu bằng hồ sơ đó chỉ với một cú nhấp, bất kể hồ sơ hiện tại là gì.",
 		"description": "Menu editor help of the 'Profile' field"
 	},
 	"menusPresentationField": {
@@ -1442,7 +1442,7 @@
 		"description": "Menu editor presentation option: inline"
 	},
 	"menusPresentationHelp": {
-		"message": "Danh sách theo các hồ sơ được định nghĩa trong tùy chọn. Để chỉ hiển thị một số hồ sơ, hãy thêm các mục “Lưu trang” được gán với các hồ sơ đó.",
+		"message": "Danh sách theo các hồ sơ được định nghĩa trong tùy chọn. Để chỉ hiển thị một số hồ sơ, hãy thêm các mục “Lưu trang” được gắn với các hồ sơ đó.",
 		"description": "Menu editor help of the 'Presentation' field"
 	},
 	"menusContentsField": {
