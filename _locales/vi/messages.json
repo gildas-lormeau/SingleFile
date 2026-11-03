@@ -1,0 +1,1540 @@
+{
+	"extensionDescription": {
+		"message": "Lưu toàn bộ trang web vào một tệp HTML duy nhất",
+		"description": "Description of the extension."
+	},
+	"commandSaveSelectedTabs": {
+		"message": "Lưu các thẻ đã chọn hoặc nội dung đã chọn trong đó",
+		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
+	},
+	"commandSaveAllTabs": {
+		"message": "Lưu tất cả các thẻ",
+		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
+	},
+	"commandCustomShortcut": {
+		"message": "Phím tắt tùy chỉnh",
+		"description": "Command label: 'Custom shortcut'"
+	},
+	"commandCustomShortcut0": {
+		"message": "Phím tắt tùy chỉnh #1",
+		"description": "Command label: 'Custom shortcut #1'"
+	},
+	"commandCustomShortcut1": {
+		"message": "Phím tắt tùy chỉnh #2",
+		"description": "Command label: 'Custom shortcut #2'"
+	},
+	"commandCustomShortcut2": {
+		"message": "Phím tắt tùy chỉnh #3",
+		"description": "Command label: 'Custom shortcut #3'"
+	},
+	"commandCustomShortcut3": {
+		"message": "Phím tắt tùy chỉnh #4",
+		"description": "Command label: 'Custom shortcut #4'"
+	},
+	"commandCustomShortcut4": {
+		"message": "Phím tắt tùy chỉnh #5",
+		"description": "Command label: 'Custom shortcut #5'"
+	},
+	"commandCustomShortcut5": {
+		"message": "Phím tắt tùy chỉnh #6",
+		"description": "Command label: 'Custom shortcut #6'"
+	},
+	"commandCustomShortcut6": {
+		"message": "Phím tắt tùy chỉnh #7",
+		"description": "Command label: 'Custom shortcut #7'"
+	},
+	"commandCustomShortcut7": {
+		"message": "Phím tắt tùy chỉnh #8",
+		"description": "Command label: 'Custom shortcut #8'"
+	},
+	"commandCustomShortcut8": {
+		"message": "Phím tắt tùy chỉnh #9",
+		"description": "Command label: 'Custom shortcut #9'"
+	},
+	"commandCustomShortcut9": {
+		"message": "Phím tắt tùy chỉnh #10",
+		"description": "Command label: 'Custom shortcut #10'"
+	},
+	"menuSavePage": {
+		"message": "Lưu trang bằng SingleFile",
+		"description": "Menu entry: 'Save page with SingleFile'"
+	},
+	"menuSaveSelectedLinks": {
+		"message": "Lưu các liên kết đã chọn",
+		"description": "Menu entry: 'Save selected links'"
+	},
+	"menuEditPage": {
+		"message": "Chú thích trang…",
+		"description": "Menu entry: 'Annotate the page...'"
+	},
+	"menuEditAndSavePage": {
+		"message": "Chú thích và lưu trang…",
+		"description": "Menu entry: 'Annotate and save the page...'"
+	},
+	"menuSaveWithProfile": {
+		"message": "Lưu trang với hồ sơ",
+		"description": "Menu entry: 'Save with profile'"
+	},
+	"menuViewPendingSaves": {
+		"message": "Xem các lượt lưu đang chờ…",
+		"description": "Menu entry: 'View pending saves...'"
+	},
+	"menuSelectProfile": {
+		"message": "Chọn hồ sơ mặc định",
+		"description": "Menu entry: 'Select the default profile'"
+	},
+	"menuUpdateRule": {
+		"message": "Chọn hồ sơ của quy tắc hiện tại",
+		"description": "Menu entry: 'Select the profile of the current rule'"
+	},
+	"menuCreateDomainRule": {
+		"message": "Chọn hồ sơ của tên miền hiện tại",
+		"description": "Menu entry: 'Select the profile of the current domain'"
+	},
+	"menuSaveSelection": {
+		"message": "Lưu vùng chọn",
+		"description": "Menu entry: 'Save selection'"
+	},
+	"menuSaveFrame": {
+		"message": "Lưu khung",
+		"description": "Menu entry: 'Save frame'"
+	},
+	"menuSaveTabs": {
+		"message": "Lưu các thẻ",
+		"description": "Menu entry (SingleFile button only): 'Save tabs'"
+	},
+	"menuSaveSelectedTabs": {
+		"message": "Lưu các thẻ đã chọn",
+		"description": "Menu entry: 'Save selected tabs'"
+	},
+	"menuSaveUnpinnedTabs": {
+		"message": "Lưu các thẻ không được ghim",
+		"description": "Menu entry: 'Save unpinned tabs'"
+	},
+	"menuSaveAllTabs": {
+		"message": "Lưu tất cả các thẻ",
+		"description": "Menu entry: 'Save all tabs'"
+	},
+	"menuBatchSaveUrls": {
+		"message": "Lưu hàng loạt URL…",
+		"description": "Menu entry: 'Batch save URLs...'"
+	},
+	"menuAutoSave": {
+		"message": "Tự động lưu",
+		"description": "Menu entry: 'Auto-save'"
+	},
+	"menuAutoSaveDisabled": {
+		"message": "Đã tắt",
+		"description": "Menu entry: 'Auto-save' > Disabled'"
+	},
+	"menuAutoSaveTab": {
+		"message": "Tự động lưu thẻ này",
+		"description": "Menu entry: 'Auto-save' > Auto-save this tab'"
+	},
+	"menuAutoSaveUnpinnedTabs": {
+		"message": "Tự động lưu các thẻ không được ghim",
+		"description": "Menu entry: 'Auto-save' > Auto-save unpinned tabs'"
+	},
+	"menuAutoSaveAllTabs": {
+		"message": "Tự động lưu tất cả các thẻ",
+		"description": "Menu entry: 'Auto-save' > Auto-save all tabs'"
+	},
+	"buttonDefaultTooltip": {
+		"message": "Lưu trang bằng SingleFile",
+		"description": "Button title: 'Save page with SingleFile'"
+	},
+	"buttonBlockedBadge": {
+		"message": "🚫",
+		"description": "Button badge when the page is blocked: '🚫'"
+	},
+	"buttonBlockedTooltip": {
+		"message": "Không thể lưu trang này bằng SingleFile",
+		"description": "Button title: 'This page cannot be saved with SingleFile'"
+	},
+	"buttonInitializingTooltip": {
+		"message": "Đang khởi tạo SingleFile",
+		"description": "Button title during initialization: 'Initializing SingleFile (x/2)'"
+	},
+	"buttonInitializingBadge": {
+		"message": "•••",
+		"description": "Badge label during initialization: '•••'"
+	},
+	"buttonSaveProgressTooltip": {
+		"message": "Tiến trình lưu: ",
+		"description": "Button title during save: 'Save progress: xx%'"
+	},
+	"buttonUploadProgressTooltip": {
+		"message": "Tiến trình tải lên: ",
+		"description": "Button title during save: 'Upload progress: xx%'"
+	},
+	"buttonOKBadge": {
+		"message": "OK",
+		"description": "Badge label: 'OK'"
+	},
+	"buttonErrorBadge": {
+		"message": "LỖI",
+		"description": "Badge label for unexpected errors"
+	},
+	"buttonAutoSaveActiveTooltip": {
+		"message": "Đang bật tự động lưu",
+		"description": "Button title: 'Auto-save active'"
+	},
+	"buttonAutoSaveActiveBadge": {
+		"message": "[A]",
+		"description": "Badge label when auto-save is active"
+	},
+	"optionsTitle": {
+		"message": "Tùy chọn",
+		"description": "Options page title"
+	},
+	"optionsNewWindowLink": {
+		"message": "Mở tùy chọn trong thẻ mới",
+		"description": "Accessible label of the icon opening the options in a new tab"
+	},
+	"optionsEditorLink": {
+		"message": "Mở trình chỉnh sửa tùy chọn",
+		"description": "Accessible label of the icon opening the options editor"
+	},
+	"optionsUserInterfaceSubTitle": {
+		"message": "Giao diện người dùng",
+		"description": "Options sub-title: 'User interface'"
+	},
+	"optionAddMenuEntry": {
+		"message": "thêm mục vào menu ngữ cảnh của trang web",
+		"description": "Options page label: 'add entry in the context menu of the webpage'"
+	},
+	"optionDisplayShadow": {
+		"message": "phủ bóng mờ lên trang trong khi xử lý",
+		"description": "Options page label: 'overlay a shadow on the page during processing'"
+	},
+	"optionDisplayInfobar": {
+		"message": "hiển thị thanh thông tin khi xem trang đã lưu",
+		"description": "Options page label: 'display an infobar when viewing a saved page'"
+	},
+	"optionDisplayInfobarFileAccessFirefox": {
+		"message": "SingleFile không thể hiển thị thanh thông tin hoặc lưu các trang được mở từ hệ thống tệp vì không được phép truy cập tệp cục bộ. Để khắc phục, hãy bật “Truy cập các tập tin cục bộ trên máy tính của bạn” trong “Quyền hạn và dữ liệu” trên trang SingleFile trong about:addons.",
+		"description": "Options page warning displayed in Firefox when the extension cannot access local files: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access local files. To fix this, enable \"Access local files on your computer\" in \"Permissions and data\" on the SingleFile page in about:addons.'"
+	},
+	"optionDisplayInfobarFileAccessChromium": {
+		"message": "SingleFile không thể hiển thị thanh thông tin hoặc lưu các trang được mở từ hệ thống tệp vì không được phép truy cập URL của tệp. Để khắc phục, hãy bật “Cho phép truy cập vào các URL của tệp” trên trang SingleFile trong trang tiện ích mở rộng của trình duyệt.",
+		"description": "Options page warning displayed in Chromium-based browsers when the extension cannot access file URLs: 'SingleFile cannot display the infobar or save pages opened from the filesystem because it is not allowed to access file URLs. To fix this, enable \"Allow access to file URLs\" on the SingleFile page in the extensions page of the browser.'"
+	},
+	"optionInfobarTemplate": {
+		"message": "mẫu nội dung thanh thông tin",
+		"description": "Options page label: 'template of the infobar content'"
+	},
+	"optionBlockMixedContent": {
+		"message": "chặn nội dung hỗn hợp",
+		"description": "Options page label: 'block mixed content'"
+	},
+	"optionSaveOriginalURLs": {
+		"message": "lưu URL gốc của các tài nguyên nhúng",
+		"description": "Options page label: 'save original URLs of embedded resources'"
+	},
+	"optionIncludeInfobar": {
+		"message": "đưa thanh thông tin vào trang đã lưu",
+		"description": "Options page label: 'include the infobar in the saved page'"
+	},
+	"optionOpenInfobar": {
+		"message": "giữ thanh thông tin luôn mở",
+		"description": "Options page label: 'keep infobar open'"
+	},
+	"optionAnimateInfobar": {
+		"message": "tạo hiệu ứng động cho thanh thông tin",
+		"description": "Options page label: 'animate the infobar'"
+	},
+	"optionRemoveInfobarSavedDate": {
+		"message": "không bao gồm ngày lưu",
+		"description": "Options page label: 'do not include the saved date'"
+	},
+	"optionConfirmInfobar": {
+		"message": "mở hộp thoại để chỉnh sửa nội dung thanh thông tin",
+		"description": "Options page label: 'open a prompt dialog to edit the infobar content'"
+	},
+	"optionAutoClose": {
+		"message": "tự động đóng thẻ sau khi đã lưu trang",
+		"description": "Options page label: 'auto-close the tab after the page is saved'"
+	},
+	"optionCustomShortcut": {
+		"message": "lệnh phím tắt",
+		"description": "Options page label: 'keyboard shortcut command'"
+	},
+	"optionCustomShortcutDefault": {
+		"message": "phím tắt mặc định",
+		"description": "Options page label: 'default shortcut'"
+	},
+	"optionsFileNameSubTitle": {
+		"message": "Tên tệp",
+		"description": "Options sub-title: 'File name'"
+	},
+	"optionFilenameTemplate": {
+		"message": "mẫu",
+		"description": "Options page label: 'template'"
+	},
+	"optionFilenameMaxLength": {
+		"message": "độ dài tối đa",
+		"description": "Options page label: 'max length'"
+	},
+	"optionFilenameMaxLengthBytesUnit": {
+		"message": "byte",
+		"description": "Options page label: 'bytes'"
+	},
+	"optionFilenameMaxLengthCharsUnit": {
+		"message": "ký tự",
+		"description": "Options page label: 'characters'"
+	},
+	"optionFilenameReplacementCharacter": {
+		"message": "ký tự thay thế",
+		"description": "Options page label: 'replacement character'"
+	},
+	"optionFilenameReplacements": {
+		"message": "các ký tự được thay thế trong tên tệp",
+		"description": "Options page label: 'characters replaced in file names'"
+	},
+	"optionsFilenameReplacedCharacters": {
+		"message": "Ký tự",
+		"description": "Options page column label in the replaced characters table: 'Character(s)'"
+	},
+	"optionsFilenameReplacementCharacters": {
+		"message": "Thay bằng",
+		"description": "Options page column label in the replaced characters table: 'Replaced with'"
+	},
+	"optionsFilenameReplacedCharactersPlaceholder": {
+		"message": "Nhập một ký tự (ví dụ: “:”)",
+		"description": "Placeholder in the replaced characters table: 'Type a character (e.g. \":\")'"
+	},
+	"optionsAddFilenameReplacementTooltip": {
+		"message": "Thêm ký tự",
+		"description": "Popup text 'Add the character' in the options page"
+	},
+	"optionsDeleteFilenameReplacementTooltip": {
+		"message": "Ngừng thay thế ký tự này",
+		"description": "Popup text 'Stop replacing this character' in the options page"
+	},
+	"optionsFilenameReplacementsResetButton": {
+		"message": "Khôi phục các ký tự mặc định",
+		"description": "Button label 'Restore default characters' in the options page"
+	},
+	"optionsFilenameReplacementsPreviewFilename": {
+		"message": "Thử một tên tệp",
+		"description": "Options page column label in the preview table: 'Test a file name'"
+	},
+	"optionsFilenameReplacementsPreviewResult": {
+		"message": "Kết quả",
+		"description": "Options page column label in the preview table: 'Result'"
+	},
+	"optionsFilenameReplacementsPreviewPlaceholder": {
+		"message": "Nhập một tên tệp",
+		"description": "Placeholder in the preview table: 'Type a file name'"
+	},
+	"optionReplaceEmojisInFilename": {
+		"message": "thay biểu tượng cảm xúc bằng văn bản",
+		"description": "Options page label: 'replace emojis with text'"
+	},
+	"optionSaveFilenameTemplateData": {
+		"message": "lưu dữ liệu mẫu tên tệp vào trang",
+		"description": "Options page label: 'save the filename template data into the page'"
+	},
+	"optionConfirmFilename": {
+		"message": "mở hộp thoại “Lưu thành” để xác nhận tên tệp",
+		"description": "Options page label: 'open the \"Save as\" dialog to confirm the file name'"
+	},
+	"optionFilenameConflictAction": {
+		"message": "xử lý trùng tên tệp",
+		"description": "Options page label: 'filename conflict resolution'"
+	},
+	"optionFilenameConflictActionUniquify": {
+		"message": "tạo tên không trùng lặp",
+		"description": "Value for 'filename conflict resolution' option: 'create a unique name'"
+	},
+	"optionFilenameConflictActionOverwrite": {
+		"message": "ghi đè tệp hiện có",
+		"description": "Value for 'filename conflict resolution' option: 'overwrite the existing file'"
+	},
+	"optionFilenameConflictActionPrompt": {
+		"message": "hỏi tên tệp",
+		"description": "Value for 'name conflict resolution' option: 'prompt for a name'"
+	},
+	"optionFilenameConflictActionSkip": {
+		"message": "bỏ qua tệp trùng lặp",
+		"description": "Value for 'filename conflict resolution' option: 'skip duplicate files'"
+	},
+	"optionsHTMLContentSubTitle": {
+		"message": "Nội dung HTML",
+		"description": "Options sub-title: 'HTML content'"
+	},
+	"optionCompressHTML": {
+		"message": "nén nội dung HTML",
+		"description": "Options page label: 'compress HTML content'"
+	},
+	"optionRemoveFrames": {
+		"message": "xóa các khung",
+		"description": "Options page label: 'remove frames'"
+	},
+	"optionRemoveHiddenElements": {
+		"message": "xóa các phần tử bị ẩn",
+		"description": "Options page label: 'remove hidden elements'"
+	},
+	"optionRemovedElementsSelector": {
+		"message": "xóa các phần tử cụ thể",
+		"description": "Options page label: 'remove specific elements'"
+	},
+	"optionsFileFormatSubTitle": {
+		"message": "Định dạng tệp",
+		"description": "Options sub-title: 'File format'"
+	},
+	"optionFileFormat": {
+		"message": "định dạng",
+		"description": "Options page label: 'format'"
+	},
+	"optionFileFormatSelectHTML": {
+		"message": "HTML",
+		"description": "Options page label: 'HTML'"
+	},
+	"optionFileFormatSelectSelfExtractingUniversal": {
+		"message": "ZIP tự giải nén (phổ dụng)",
+		"description": "Options page label: 'self-extracting ZIP (universal)'"
+	},
+	"optionFileFormatSelectSelfExtracting": {
+		"message": "ZIP tự giải nén",
+		"description": "Options page label: 'self-extracting ZIP'"
+	},
+	"optionFileFormatSelectZIP": {
+		"message": "ZIP",
+		"description": "Options page label: 'ZIP'"
+	},
+	"optionPassword": {
+		"message": "mật khẩu",
+		"description": "Options page label: 'password'"
+	},
+	"optionCreateRootDirectory": {
+		"message": "tạo thư mục gốc",
+		"description": "Options page label: 'create a root directory'"
+	},
+	"optionDisableCompression": {
+		"message": "tắt nén",
+		"description": "Options page label: 'disable compression'"
+	},
+	"optionPreventAppendedData": {
+		"message": "không nối thêm dữ liệu sau dữ liệu ZIP",
+		"description": "Options page label: 'do not append data after the ZIP data'"
+	},
+	"optionInsertTextBody": {
+		"message": "cho phép tìm kiếm văn bản",
+		"description": "Options page label: 'make text searchable'"
+	},
+	"optionInsertEmbeddedImage": {
+		"message": "nhúng hình ảnh",
+		"description": "Options page label: 'embed image'"
+	},
+	"optionInsertEmbeddedScreenshotImage": {
+		"message": "ảnh chụp màn hình trang",
+		"description": "Options page label: 'page screenshot'"
+	},
+	"optionInsertEmbeddedCustomImage": {
+		"message": "hình ảnh tùy chỉnh",
+		"description": "Options page label: 'custom image'"
+	},
+	"optionsInfobarSubTitle": {
+		"message": "Thanh thông tin",
+		"description": "Options sub-title: 'Infobar'"
+	},
+	"optionsImagesSubTitle": {
+		"message": "Hình ảnh",
+		"description": "Options sub-title: 'Images'"
+	},
+	"optionsDeferredContentSubTitle": {
+		"message": "Nội dung tải sau",
+		"description": "Options sub-title: 'Deferred content'"
+	},
+	"optionGroupDuplicateImages": {
+		"message": "gộp các hình ảnh trùng lặp",
+		"description": "Options page label: 'group duplicate images together'"
+	},
+	"optionImageReductionFactor": {
+		"message": "hệ số thu nhỏ hình ảnh",
+		"description": "Options page label: 'image reduction factor'"
+	},
+	"optionImageQuality": {
+		"message": "chất lượng hình ảnh đã đổi kích thước",
+		"description": "Options page label: 'quality of resized images'"
+	},
+	"optionLoadDeferredContent": {
+		"message": "lưu nội dung được tải khi cuộn trang",
+		"description": "Options page label: 'save content loaded while scrolling'"
+	},
+	"optionLoadDeferredContentMaxIdleTime": {
+		"message": "thời gian chờ tối đa (ms)",
+		"description": "Options page label: 'maximum idle time (ms)'"
+	},
+	"optionLoadDeferredContentKeepZoomLevel": {
+		"message": "thu nhỏ trang trong khi lưu",
+		"description": "Options page label: 'zoom out the page during the capture'"
+	},
+	"optionLoadDeferredContentDispatchScrollEvent": {
+		"message": "giả lập cuộn trang",
+		"description": "Options page label: 'simulate scrolling'"
+	},
+	"optionLoadDeferredContentBeforeFrames": {
+		"message": "tải nội dung trong các khung trước",
+		"description": "Options page label: 'load in frames first'"
+	},
+	"optionRemoveAlternativeImages": {
+		"message": "xóa hình ảnh dành cho các độ phân giải màn hình khác",
+		"description": "Options page label: 'remove images for alternative screen resolutions'"
+	},
+	"optionsFontsSubTitle": {
+		"message": "Phông chữ",
+		"description": "Options sub-title: 'Fonts'"
+	},
+	"optionRemoveUnusedFonts": {
+		"message": "xóa các phông chữ không dùng",
+		"description": "Options page label: 'remove unused fonts'"
+	},
+	"optionRemoveUnusedGlyphs": {
+		"message": "xóa các glyph không dùng",
+		"description": "Options page label: 'remove unused glyphs'"
+	},
+	"optionRemoveAlternativeFonts": {
+		"message": "xóa các phông chữ thay thế",
+		"description": "Options page label: 'remove alternative fonts'"
+	},
+	"optionsStylesheetsSubTitle": {
+		"message": "Bảng định kiểu",
+		"description": "Options sub-title: 'Stylesheets'"
+	},
+	"optionGroupDuplicateStylesheets": {
+		"message": "gộp các bảng định kiểu trùng lặp",
+		"description": "Options page label: 'group duplicate stylesheets together'"
+	},
+	"optionMoveStylesInHead": {
+		"message": "chuyển các kiểu nằm ngoài phần tử head vào trong phần tử này",
+		"description": "Options page label: 'move in the head element the styles found outside of it'"
+	},
+	"optionCustomStylesheet": {
+		"message": "áp dụng bảng định kiểu tùy chỉnh trước khi lưu trang",
+		"description": "Options page label: 'apply a custom stylesheet before saving the page'"
+	},
+	"optionRemoveUnusedStyles": {
+		"message": "xóa các kiểu không dùng",
+		"description": "Options page label: 'remove unused styles'"
+	},
+	"optionRemoveAlternativeMedias": {
+		"message": "xóa các bảng định kiểu dành cho thiết bị không phải màn hình",
+		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
+	},
+	"optionsNetworkSubTitle": {
+		"message": "Mạng",
+		"description": "Options sub-title: 'Network'"
+	},
+	"optionsBlockedResources": {
+		"message": "tài nguyên bị chặn",
+		"description": "Options page label: 'blocked resources'"
+	},
+	"optionsAcceptHeaders": {
+		"message": "tiêu đề “Accept”",
+		"description": "Options page label: '\"Accept\" header'"
+	},
+	"optionResourceScript": {
+		"message": "tập lệnh",
+		"description": "Options page label: 'scripts'"
+	},
+	"optionResourceVideo": {
+		"message": "video",
+		"description": "Options page label: 'videos'"
+	},
+	"optionResourceAudio": {
+		"message": "âm thanh",
+		"description": "Options page label: 'audios'"
+	},
+	"optionResourceDocument": {
+		"message": "tài liệu",
+		"description": "Options page label: 'documents'"
+	},
+	"optionResourceFont": {
+		"message": "phông chữ",
+		"description": "Options page label: 'fonts'"
+	},
+	"optionResourceStylesheet": {
+		"message": "bảng định kiểu",
+		"description": "Options page label: 'stylesheets'"
+	},
+	"optionResourceImage": {
+		"message": "hình ảnh",
+		"description": "Options page label: 'images'"
+	},
+	"optionsDestinationSubTitle": {
+		"message": "Nơi lưu",
+		"description": "Options sub-title: 'Destination'"
+	},
+	"optionsBookmarkSubTitle": {
+		"message": "Dấu trang",
+		"description": "Options sub-title: 'Bookmarks'"
+	},
+	"optionsAutoSaveSubTitle": {
+		"message": "Tự động lưu",
+		"description": "Options sub-title: 'Auto-save'"
+	},
+	"optionsAutoSettingsSubTitle": {
+		"message": "Quy tắc cài đặt tự động",
+		"description": "Options sub-title: the table of rules that pick a profile automatically from the URL of the page being saved"
+	},
+	"optionsDeleteDisplayedRulesConfirm": {
+		"message": "Xác nhận xóa tất cả các quy tắc đang hiển thị",
+		"description": "Popup text 'Confirm the deletion of all displayed rules'"
+	},
+	"optionsDeleteRulesTooltip": {
+		"message": "Xóa tất cả các quy tắc đang hiển thị",
+		"description": "Popup text 'Delete all displayed rules'"
+	},
+	"optionsAutoSettingsUrl": {
+		"message": "URL",
+		"description": "Column header in the Auto-settings rules table: the complete or partial URL a rule matches against the page being saved"
+	},
+	"optionsAutoSettingsUrlPlaceholder": {
+		"message": "Nhập URL đầy đủ hoặc một phần (ví dụ: example.com)",
+		"description": "Placeholder of the URL field in the Auto-settings rules table"
+	},
+	"optionsAutoSettingsProfile": {
+		"message": "Hồ sơ",
+		"description": "Column header in the Auto-settings rules table, naming the profile of settings used when a page matching the rule is saved manually. It is a noun, the name of a profile, not an instruction to save"
+	},
+	"optionsAutoSettingsAutoSaveProfile": {
+		"message": "Hồ sơ tự động lưu",
+		"description": "Column header in the Auto-settings rules table, naming the profile of settings used when a page matching the rule is saved automatically. It is a noun phrase, 'the profile used for auto-saving', never 'automatically save the profile'"
+	},
+	"optionsAutoSettingsShowAllProfiles": {
+		"message": "hiển thị tất cả các hồ sơ",
+		"description": "Checkbox label under the Auto-settings rules table: list the rules of every profile instead of only those of the profile selected above"
+	},
+	"optionsAutoSettingsShowAutoSaveProfile": {
+		"message": "hiển thị cột “Hồ sơ tự động lưu”",
+		"description": "Checkbox label under the Auto-settings rules table: show or hide the 'Auto-save profile' column. The quoted name must match the translation of optionsAutoSettingsAutoSaveProfile"
+	},
+	"optionsUpdateRuleTooltip": {
+		"message": "Cập nhật quy tắc",
+		"description": "Popup text 'Update the rule' in the options page"
+	},
+	"optionsDeleteRuleTooltip": {
+		"message": "Xóa quy tắc",
+		"description": "Popup text 'Delete the rule' in the options page"
+	},
+	"optionsAddRuleTooltip": {
+		"message": "Thêm quy tắc",
+		"description": "Popup text 'Add the rule' in the options page"
+	},
+	"optionsValidateChangesTooltip": {
+		"message": "Xác nhận thay đổi",
+		"description": "Popup text 'Validate changes' in the options page"
+	},
+	"optionsCancelChangesTooltip": {
+		"message": "Hủy thay đổi",
+		"description": "Popup text 'Cancel changes' in the options page"
+	},
+	"optionsDeleteRuleConfirm": {
+		"message": "Xác nhận xóa quy tắc đã chọn",
+		"description": "Popup text 'Confirm the deletion of the selected rule' in the options page"
+	},
+	"optionAutoSaveLoadOrUnload": {
+		"message": "tự động lưu sau khi tải trang hoặc khi rời trang",
+		"description": "auto-save after page load or on page unload"
+	},
+	"optionAutoSaveLoad": {
+		"message": "tự động lưu sau khi tải trang",
+		"description": "Options page label: 'auto-save after page load'"
+	},
+	"optionAutoSaveUnload": {
+		"message": "tự động lưu khi rời trang",
+		"description": "Options page label: 'auto-save on page unload'"
+	},
+	"optionAutoSaveDiscard": {
+		"message": "tự động lưu khi thẻ bị loại bỏ khỏi bộ nhớ",
+		"description": "Options page label: 'auto-save on tab discard'"
+	},
+	"optionAutoSaveRemove": {
+		"message": "tự động lưu khi đóng thẻ",
+		"description": "Options page label: 'auto-save on tab removal'"
+	},
+	"optionAutoSaveDelay": {
+		"message": "thời gian chờ tự động lưu sau khi tải trang (giây)",
+		"description": "Options page label: 'auto-save waiting delay after page load (s)'"
+	},
+	"optionAutoSaveRepeat": {
+		"message": "tự động lưu định kỳ",
+		"description": "Options page label: 'auto-save periodically'"
+	},
+	"optionAutoSaveRepeatDelay": {
+		"message": "chu kỳ (giây)",
+		"description": "Options page label: 'period (s)'"
+	},
+	"optionAutoSaveExternalSave": {
+		"message": "lưu trang bằng SingleFile Companion",
+		"description": "Options page label: 'save the page with SingleFile Companion'"
+	},
+	"optionsEditorSubTitle": {
+		"message": "Trình chỉnh sửa chú thích",
+		"description": "Options sub-title: 'Annotation editor'"
+	},
+	"optionOpenEditor": {
+		"message": "chú thích trang trước khi lưu",
+		"description": "Options page label: 'annotate the page before saving'"
+	},
+	"optionOpenSavedPage": {
+		"message": "mở các trang đã lưu trong thẻ mới",
+		"description": "Options page label: 'open saved pages in a new tab'"
+	},
+	"optionAutoOpenEditor": {
+		"message": "mở các trang đã lưu bằng SingleFile trong trình chỉnh sửa chú thích",
+		"description": "Options page label: 'open pages saved with SingleFile in the annotation editor'"
+	},
+	"optionDefaultEditorMode": {
+		"message": "chế độ mặc định",
+		"description": "Options page label: 'default mode'"
+	},
+	"optionDefaultEditorModeNormal": {
+		"message": "bình thường",
+		"description": "Options page label: 'default mode > normal'"
+	},
+	"optionDefaultEditorModeEdit": {
+		"message": "chỉnh sửa trang",
+		"description": "Options page label: 'default mode > edit the page'"
+	},
+	"optionDefaultEditorModeFormat": {
+		"message": "định dạng trang",
+		"description": "Options page label: 'default mode > format the page'"
+	},
+	"optionDefaultEditorModeCut": {
+		"message": "xóa phần tử",
+		"description": "Options page label: 'default mode > remove elements'"
+	},
+	"optionDefaultEditorModeCutExternal": {
+		"message": "xóa phần tử bên ngoài",
+		"description": "Options page label: 'default mode > remove external elements'"
+	},
+	"optionApplySystemTheme": {
+		"message": "áp dụng chủ đề hệ thống khi định dạng trang",
+		"description": "Title of the button 'apply the system theme when formatting a page'"
+	},
+	"optionContentWidth": {
+		"message": "độ rộng nội dung khi định dạng trang (em)",
+		"description": "Options page label: 'content width when formatting a page (em)'"
+	},
+	"optionWarnUnsavedPage": {
+		"message": "cảnh báo khi rời trang có thay đổi chưa lưu",
+		"description": "Title of the button 'warn if leaving page with unsaved changes'"
+	},
+	"optionDisplayInfobarInEditor": {
+		"message": "hiển thị thanh thông tin",
+		"description": "Title of the button 'display the infobar'"
+	},
+	"optionsMiscSubTitle": {
+		"message": "Khác",
+		"description": "Options sub-title: 'Misc.'"
+	},
+	"optionsExternalCapturePermissionsSubTitle": {
+		"message": "API ghi lại trang từ bên ngoài",
+		"description": "Options sub-title: 'External capture API'"
+	},
+	"optionExternalCaptureAllowedIds": {
+		"message": "các tiện ích mở rộng được phép, mỗi tiện ích một dòng",
+		"description": "Options page label: 'allowed extensions, one per line'"
+	},
+	"optionExternalCaptureDeniedIds": {
+		"message": "các tiện ích mở rộng bị chặn, mỗi tiện ích một dòng",
+		"description": "Options page label: 'blocked extensions, one per line'"
+	},
+	"optionsExternalCapturePendingRequest": {
+		"message": "Tiện ích mở rộng $EXTENSION_ID$ muốn dùng SingleFile để ghi lại các trang trong trình duyệt này và nhận nội dung HTML của chúng. Nếu bạn cho phép, tiện ích này có thể ghi lại bất kỳ thẻ nào vào bất kỳ lúc nào mà không hỏi lại, cho đến khi bạn gỡ bỏ nó khỏi danh sách bên dưới.",
+		"description": "Options page prompt to approve an external extension capture request.",
+		"placeholders": {
+			"extension_id": {
+				"content": "$1",
+				"example": "archivebox@example.com"
+			}
+		}
+	},
+	"optionsExternalCaptureApproveButton": {
+		"message": "Cho phép",
+		"description": "Options button: 'Allow'"
+	},
+	"optionsExternalCaptureDenyButton": {
+		"message": "Từ chối",
+		"description": "Options button: 'Deny'"
+	},
+	"optionBackgroundSave": {
+		"message": "lưu trang trong nền",
+		"description": "Options page label: 'save pages in background'"
+	},
+	"optionDisplayStats": {
+		"message": "hiển thị thống kê trong bảng điều khiển sau khi xử lý",
+		"description": "Options page label: 'display stats in the console after processing'"
+	},
+	"optionSetMaxResourceSize": {
+		"message": "đặt kích thước tối đa",
+		"description": "Options page label: 'set maximum size'"
+	},
+	"optionMaxResourceSize": {
+		"message": "kích thước tối đa (MB)",
+		"description": "Options page label: 'maximum size (MB)'"
+	},
+	"optionSetMaxResourceDelay": {
+		"message": "đặt thời gian tải xuống tối đa",
+		"description": "Options page label: 'set maximum download time'"
+	},
+	"optionMaxResourceDelay": {
+		"message": "thời gian tải xuống tối đa (giây)",
+		"description": "Options page label: 'maximum download time (s)'"
+	},
+	"optionPassReferrerOnError": {
+		"message": "gửi tiêu đề “Referer” sau lỗi yêu cầu khác nguồn gốc",
+		"description": "Options page label: 'pass \"Referer\" header after a cross-origin request error'"
+	},
+	"optionSaveRawPage": {
+		"message": "lưu trang thô",
+		"description": "Options page label: 'save raw page'"
+	},
+	"optionInsertMetaCSP": {
+		"message": "đặt chính sách bảo mật nội dung",
+		"description": "Options page label: 'set content security policy'"
+	},
+	"optionInsertCanonicalLink": {
+		"message": "lưu liên kết chuẩn của trang",
+		"description": "Options page label: 'save the canonical link of the page'"
+	},
+	"optionSaveToClipboard": {
+		"message": "sao chép vào bảng nhớ tạm",
+		"description": "Options page label: 'copy to clipboard'"
+	},
+	"optionSaveToFilesystem": {
+		"message": "lưu vào hệ thống tệp",
+		"description": "Options page label: 'save to filesystem'"
+	},
+	"optionSharePage": {
+		"message": "chia sẻ trang",
+		"description": "Options page label: 'share page'"
+	},
+	"optionAddProof": {
+		"message": "thêm bằng chứng tồn tại",
+		"description": "Options page label: 'add proof of existence'"
+	},
+	"optionsAddProofConfirm": {
+		"message": "Xác nhận rằng bạn cho phép SingleFile gửi mã băm SHA256 của mỗi trang bạn sắp lưu đến API Woleet. Bạn có thể tìm thêm thông tin về tính năng này trong trang trợ giúp hoặc bằng cách nhấp vào dấu chấm hỏi bên cạnh tùy chọn.",
+		"description": "Popup text displayed wen enabling the option 'add proof of existence'"
+	},
+	"optionWoleetKey": {
+		"message": "mã truy cập",
+		"description": "Options page label: 'access token'"
+	},
+	"optionSaveToGDrive": {
+		"message": "tải lên Google Drive",
+		"description": "Options page label: 'upload to Google Drive'"
+	},
+	"optionSaveToDropbox": {
+		"message": "tải lên Dropbox",
+		"description": "Options page label: 'upload to Dropbox'"
+	},
+	"optionSaveToGitHub": {
+		"message": "tải lên GitHub",
+		"description": "Options page label: 'upload to GitHub'"
+	},
+	"optionGitHubToken": {
+		"message": "mã truy cập",
+		"description": "Options page label: 'access token'"
+	},
+	"optionGitHubUser": {
+		"message": "tên người dùng",
+		"description": "Options page label: 'user name'"
+	},
+	"optionGitHubRepository": {
+		"message": "tên kho lưu trữ",
+		"description": "Options page label: 'repository name'"
+	},
+	"optionGitHubBranch": {
+		"message": "tên nhánh",
+		"description": "Options page label: 'branch name'"
+	},
+	"optionSaveToS3": {
+		"message": "tải lên Amazon S3",
+		"description": "Options page label: 'upload to Amazon S3'"
+	},
+	"optionS3Domain": {
+		"message": "tên miền",
+		"description": "Options page label: 'domain'"
+	},
+	"optionS3Region": {
+		"message": "khu vực",
+		"description": "Options page label: 'region'"
+	},
+	"optionS3Bucket": {
+		"message": "tên bucket",
+		"description": "Options page label: 'bucket name'"
+	},
+	"optionS3AccessKey": {
+		"message": "khóa truy cập",
+		"description": "Options page label: 'access key'"
+	},
+	"optionS3SecretKey": {
+		"message": "khóa bí mật",
+		"description": "Options page label: 'secret key'"
+	},
+	"optionSaveWithWebDAV": {
+		"message": "tải lên máy chủ WebDAV",
+		"description": "Options page label: 'upload to a WebDAV server'"
+	},
+	"optionWebDAVURL": {
+		"message": "URL",
+		"description": "Options page label: 'URL'"
+	},
+	"optionWebDAVUser": {
+		"message": "tên người dùng",
+		"description": "Options page label: 'user identifier'"
+	},
+	"optionWebDAVPassword": {
+		"message": "mật khẩu",
+		"description": "Options page label: 'password'"
+	},
+	"optionSaveWithMCP": {
+		"message": "tải lên máy chủ MCP",
+		"description": "Options page label: 'upload to an MCP server'"
+	},
+	"optionMCPServerUrl": {
+		"message": "URL máy chủ",
+		"description": "Options page label: 'server URL'"
+	},
+	"optionMCPAuthToken": {
+		"message": "mã xác thực",
+		"description": "Options page label: 'authentication token'"
+	},
+	"optionSaveWithCompanion": {
+		"message": "lưu bằng SingleFile Companion",
+		"description": "Options page label: 'save with SingleFile Companion'"
+	},
+	"optionSaveCreatedBookmarks": {
+		"message": "lưu trang của dấu trang vừa tạo",
+		"description": "Options page label: 'save the page of a newly created bookmark'"
+	},
+	"optionReplaceBookmarkURL": {
+		"message": "liên kết dấu trang mới với trang đã lưu",
+		"description": "Options page label: 'link the new bookmark to the saved page'"
+	},
+	"optionAllowedBookmarkFolders": {
+		"message": "các thư mục được phép",
+		"description": "Options page label: 'allowed folders'"
+	},
+	"optionIgnoredBookmarkFolders": {
+		"message": "các thư mục bị bỏ qua",
+		"description": "Options page label: 'ignored folders'"
+	},
+	"optionsHelpLink": {
+		"message": "trợ giúp",
+		"description": "Options help link"
+	},
+	"optionSynchronize": {
+		"message": "đồng bộ hóa tùy chọn",
+		"description": "Options label: 'synchronize options'"
+	},
+	"optionSynchronizeError": {
+		"message": "Không thể sao chép tùy chọn sang bộ nhớ đồng bộ, tùy chọn vẫn được lưu cục bộ.",
+		"description": "Options error: 'The options could not be copied to the synchronized storage, they are still stored locally.'"
+	},
+	"optionsResetButton": {
+		"message": "Đặt lại",
+		"description": "Options button: 'Reset'"
+	},
+	"optionsResetTooltip": {
+		"message": "Đặt lại tất cả tùy chọn về giá trị mặc định",
+		"description": "Options 'Reset' button tooltip"
+	},
+	"optionsResetConfirm": {
+		"message": "Xác nhận đặt lại tất cả tùy chọn hoặc hồ sơ hiện tại",
+		"description": "Popup text 'Confirm the reset of all options or the current profile' in the options page"
+	},
+	"optionsResetAllButton": {
+		"message": "Đặt lại tất cả tùy chọn",
+		"description": "Options confirm button: 'Reset all options'"
+	},
+	"optionsResetCurrentButton": {
+		"message": "Đặt lại hồ sơ hiện tại",
+		"description": "Options confirm button: 'Reset current profile'"
+	},
+	"optionsOKButton": {
+		"message": "OK",
+		"description": "Options confirm button: 'OK'"
+	},
+	"optionsCancelButton": {
+		"message": "Hủy",
+		"description": "Options confirm button: 'Cancel'"
+	},
+	"optionsExportButton": {
+		"message": "Xuất",
+		"description": "Options button: 'Export'"
+	},
+	"optionsImportButton": {
+		"message": "Nhập",
+		"description": "Options button: 'Import'"
+	},
+	"optionsImportError": {
+		"message": "Không thể nhập cài đặt, cài đặt hiện tại vẫn được giữ nguyên.",
+		"description": "Options error: 'The settings could not be imported, the current settings are unchanged.'"
+	},
+	"logPanelDeferredContent": {
+		"message": "Nội dung tải sau",
+		"description": "Label 'Deferred content' in the log panel"
+	},
+	"logPanelFrameContents": {
+		"message": "Nội dung khung",
+		"description": "Label 'Frame contents' in the log panel"
+	},
+	"logPanelEmbeddedImage": {
+		"message": "Hình ảnh nhúng",
+		"description": "Label 'Embedded image' in the log panel"
+	},
+	"logPanelStep": {
+		"message": "Bước",
+		"description": "Label 'Step' (for 'Step x / 4') in the log panel"
+	},
+	"logPanelWidth": {
+		"message": "130",
+		"description": "Width of the log panel in pixels, it should be adjusted for the longest label beginning with 'log' (e.g. 'logPanelDeferredContent')"
+	},
+	"maskCancelButton": {
+		"message": "Hủy (Esc)",
+		"description": "Button 'Cancel (Esc)' in the mask displayed while a page is being saved"
+	},
+	"topPanelError": {
+		"message": "Lỗi SingleFile: ",
+		"description": "Label 'SingleFile error: ' in the top panel when displaying an error message"
+	},
+	"topPanelCopyDetailsButton": {
+		"message": "Sao chép chi tiết",
+		"description": "Button label 'Copy details' in the top panel next to an error message"
+	},
+	"topPanelEmbeddedImageButton": {
+		"message": "Mở hình ảnh…",
+		"description": "Top panel button 'Open image...' when embedding an image"
+	},
+	"topPanelSharePageButton": {
+		"message": "Chia sẻ trang…",
+		"description": "Top panel button 'Share page...' when sharing a page"
+	},
+	"topPanelShareSelectionButton": {
+		"message": "Chia sẻ vùng chọn…",
+		"description": "Top panel button 'Share selection...' when sharing selected content"
+	},
+	"profileDefaultSettings": {
+		"message": "Cài đặt mặc định",
+		"description": "Label 'Default settings' of the default settings in the options page"
+	},
+	"profileDisabled": {
+		"message": "Đã tắt",
+		"description": "Label 'Disabled' of the disabled profile name in the options page"
+	},
+	"profileAddButtonTooltip": {
+		"message": "Thêm hồ sơ mới",
+		"description": "Tooltip 'Add a new profile' in the options page"
+	},
+	"profileRenameButtonTooltip": {
+		"message": "Đổi tên hồ sơ",
+		"description": "Tooltip 'Rename the profile' in the options page"
+	},
+	"profileDeleteButtonTooltip": {
+		"message": "Xóa hồ sơ",
+		"description": "Tooltip 'Delete the profile' in the options page"
+	},
+	"profileAddPrompt": {
+		"message": "Nhập tên cho hồ sơ mới này",
+		"description": "Popup text 'Enter a name for this new profile' in the options page"
+	},
+	"profileDeleteConfirm": {
+		"message": "Xác nhận xóa hồ sơ đã chọn",
+		"description": "Popup text 'Confirm the deletion of the selected profile' in the options page"
+	},
+	"profileRenamePrompt": {
+		"message": "Nhập tên mới cho hồ sơ đã chọn",
+		"description": "Popup text 'Enter a new name for the selected profile' in the options page"
+	},
+	"editorAddYellowNote": {
+		"message": "Thêm ghi chú màu vàng",
+		"description": "Title of the button 'Add a yellow note' in the editor"
+	},
+	"editorAddPinkNote": {
+		"message": "Thêm ghi chú màu hồng",
+		"description": "Title of the button 'Add a pink note' in the editor"
+	},
+	"editorAddBlueNote": {
+		"message": "Thêm ghi chú màu xanh lam",
+		"description": "Title of the button 'Add a blue note' in the editor"
+	},
+	"editorAddGreenNote": {
+		"message": "Thêm ghi chú màu xanh lục",
+		"description": "Title of the button 'Add a green note' in the editor"
+	},
+	"editorHighlightYellow": {
+		"message": "Tô sáng văn bản đã chọn bằng màu vàng",
+		"description": "Title of the button 'Highlight selected text in yellow' in the editor"
+	},
+	"editorHighlightPink": {
+		"message": "Tô sáng văn bản đã chọn bằng màu hồng",
+		"description": "Title of the button 'Highlight selected text in pink' in the editor"
+	},
+	"editorHighlightBlue": {
+		"message": "Tô sáng văn bản đã chọn bằng màu xanh lam",
+		"description": "Title of the button 'Highlight selected text in blue' in the editor"
+	},
+	"editorHighlightGreen": {
+		"message": "Tô sáng văn bản đã chọn bằng màu xanh lục",
+		"description": "Title of the button 'Highlight selected text in green' in the editor"
+	},
+	"editorToggleNotes": {
+		"message": "Hiện/ẩn ghi chú",
+		"description": "Title of the button 'Display/hide notes' in the editor"
+	},
+	"editorToggleHighlights": {
+		"message": "Hiện/ẩn văn bản được tô sáng",
+		"description": "Title of the button 'Display/hide the highlighted text' in the editor"
+	},
+	"editorRemoveHighlight": {
+		"message": "Bỏ tô sáng văn bản đã chọn",
+		"description": "Title of the button 'Remove the selected highlighted text' in the editor"
+	},
+	"editorEditPage": {
+		"message": "Bật/tắt chế độ chỉ đọc",
+		"description": "Title of the button 'Enable/disable read-only' in the editor"
+	},
+	"editorFormatPage": {
+		"message": "Định dạng trang để dễ đọc hơn",
+		"description": "Title of the button 'Format the page for better readability' in the editor"
+	},
+	"editorCutInnerPage": {
+		"message": "Bật/tắt xóa phần tử bên trong",
+		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+	},
+	"editorCutOuterPage": {
+		"message": "Bật/tắt xóa phần tử bên ngoài",
+		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
+	},
+	"editorUndoCutPage": {
+		"message": "Khôi phục phần tử bị xóa gần nhất",
+		"description": "Title of the button 'Restore last removed element' in the editor"
+	},
+	"editorUndoAllCutPage": {
+		"message": "Khôi phục tất cả phần tử đã xóa",
+		"description": "Title of the button 'Restore all removed elements' in the editor"
+	},
+	"editorRedoCutPage": {
+		"message": "Xóa phần tử được khôi phục gần nhất",
+		"description": "Title of the button 'Remove last restored element' in the editor"
+	},
+	"editorSavePage": {
+		"message": "Lưu trang",
+		"description": "Title of the button 'Save the page' in the editor"
+	},
+	"editorPrintPage": {
+		"message": "In trang",
+		"description": "Title of the button 'Print the page' in the editor"
+	},
+	"editorImportMht": {
+		"message": "Nhập tệp MHTML",
+		"description": "Title of the button 'Import MHTML file' in the editor"
+	},
+	"editorArchiveToc": {
+		"message": "Mục lục",
+		"description": "Title of the table of contents button displayed in the editor when viewing a multi-page archive"
+	},
+	"pendingsTitle": {
+		"message": "Lượt lưu đang chờ",
+		"description": "Title of the pending save page 'Pending saves' in the editor"
+	},
+	"pendingsCancelAllButton": {
+		"message": "Hủy tất cả",
+		"description": "Pending saves button 'Cancel all'"
+	},
+	"pendingsURLTitle": {
+		"message": "URL",
+		"description": "Title of the first column in the table of the pending saves 'URL'"
+	},
+	"pendingsTitleTitle": {
+		"message": "Tiêu đề",
+		"description": "Title of the first column in the table of the pending saves 'Title'"
+	},
+	"pendingsStatusTitle": {
+		"message": "trạng thái",
+		"description": "Title of the second column in the table of the pending saves 'status'"
+	},
+	"pendingsPendingStatus": {
+		"message": "đang chờ",
+		"description": "Value of 'status' for pending saves"
+	},
+	"pendingsProcessingStatus": {
+		"message": "đang xử lý",
+		"description": "Value of 'status' for current saves"
+	},
+	"pendingsCancellingStatus": {
+		"message": "đang hủy",
+		"description": "Value of 'status' for cancelled saves"
+	},
+	"pendingsNoPendings": {
+		"message": "Không có lượt lưu nào đang chờ",
+		"description": "Label displayed when there are no pending saves"
+	},
+	"pendingsAddUrlsButton": {
+		"message": "Thêm URL",
+		"description": "button 'Add URLs'"
+	},
+	"pendingsAddUrls": {
+		"message": "Nhập danh sách URL, mỗi URL một dòng",
+		"description": "Label of the add URLs input"
+	},
+	"pendingsAddUrlsOKButton": {
+		"message": "OK",
+		"description": "Add URLs popup confirm button: 'OK'"
+	},
+	"pendingsAddUrlsCancelButton": {
+		"message": "Hủy",
+		"description": "Add URLs popup cancel button: 'Cancel'"
+	},
+	"batchSaveUrlsTitle": {
+		"message": "Lưu hàng loạt URL",
+		"description": "Title of the 'batch save URLs' page"
+	},
+	"batchSaveUrlsNoURLs": {
+		"message": "Không có URL nào",
+		"description": "Label displayed when there are no URLs"
+	},
+	"batchSaveUrlsAddUrlButton": {
+		"message": "Thêm URL",
+		"description": "label of the button 'Add URL'"
+	},
+	"batchSaveUrlsAddUrlsButton": {
+		"message": "Thêm các URL…",
+		"description": "label of the button 'Add URLs...'"
+	},
+	"batchSaveUrlsRemoveAllButton": {
+		"message": "Gỡ bỏ tất cả",
+		"description": "label of the button 'Remove all'"
+	},
+	"batchSaveUrlsSavePagesButton": {
+		"message": "Lưu các trang",
+		"description": "label of the button 'Save pages'"
+	},
+	"batchSaveUrlsURLTitle": {
+		"message": "URL",
+		"description": "Title of the column in the table of the URLs"
+	},
+	"batchSaveUrlsProfileAuto": {
+		"message": "Hồ sơ theo quy tắc và lựa chọn hiện tại",
+		"description": "First entry of the profile dropdown of the 'batch save URLs' page: the profile of each URL comes from the rules and from the profile selected in the options page"
+	},
+	"batchSaveUrlsSkippedByRule": {
+		"message": "Đã bỏ qua: một quy tắc gán trang này cho hồ sơ đã tắt",
+		"description": "Status displayed next to a URL the batch save skipped because its rule maps it to the disabled profile"
+	},
+	"optionSaveToRestFormApi": {
+		"message": "tải lên REST Form API",
+		"description": "Options page label: 'upload to a REST Form API'"
+	},
+	"optionRestFormApiUrl": {
+		"message": "URL",
+		"description": "Options page label: 'URL'"
+	},
+	"optionRestFormApiToken": {
+		"message": "mã ủy quyền",
+		"description": "Options page label: 'authorization token'"
+	},
+	"optionRestFormApiFileFieldName": {
+		"message": "tên trường dữ liệu bản lưu trữ",
+		"description": "Options page label: 'archive data field name'"
+	},
+	"optionRestFormApiUrlFieldName": {
+		"message": "tên trường URL bản lưu trữ",
+		"description": "Options page label: 'archive URL field name'"
+	},
+	"optionsEditorTitle": {
+		"message": "Trình chỉnh sửa tùy chọn",
+		"description": "Options title: 'Options editor'"
+	},
+	"optionsEditorSaveButton": {
+		"message": "Lưu",
+		"description": "Options editor button: 'Save'"
+	},
+	"optionsEditorConfigSaved": {
+		"message": "Đã lưu cấu hình",
+		"description": "Options editor message: 'Configuration saved'"
+	},
+	"optionsEditorInvalidJSON": {
+		"message": "JSON không hợp lệ",
+		"description": "Options editor error message: 'Invalid JSON'"
+	},
+	"optionsMenusSubTitle": {
+		"message": "Menu",
+		"description": "Options sub-title: 'Menus'"
+	},
+	"optionMenusEditor": {
+		"message": "chọn các mục hiển thị trong menu và thứ tự của chúng (dùng chung cho mọi hồ sơ)",
+		"description": "Options page label: 'choose the entries displayed in the menus and their order (shared by all profiles)'"
+	},
+	"optionMenusEditorLink": {
+		"message": "Mở trình chỉnh sửa menu…",
+		"description": "Options page link: 'Open the menu editor...'"
+	},
+	"optionMenusDefault": {
+		"message": "menu mặc định",
+		"description": "Options page state: 'default menus'"
+	},
+	"optionMenusCustomized": {
+		"message": "menu đã tùy chỉnh",
+		"description": "Options page state: 'customized menus'"
+	},
+	"menuSubmenu": {
+		"message": "Menu con",
+		"description": "Menu editor entry: 'Submenu'"
+	},
+	"menuSeparator": {
+		"message": "Dấu phân cách",
+		"description": "Menu editor entry: 'Separator'"
+	},
+	"menusTitle": {
+		"message": "Trình chỉnh sửa menu",
+		"description": "Menu editor title"
+	},
+	"menusSubTitle": {
+		"message": "Chọn những gì xuất hiện trong từng menu của SingleFile và thứ tự của chúng. Các cài đặt này được dùng chung cho mọi hồ sơ.",
+		"description": "Menu editor sub-title"
+	},
+	"menusSurfaceLabel": {
+		"message": "Menu",
+		"description": "Menu editor label of the menu selector"
+	},
+	"menusSurfacePage": {
+		"message": "Menu ngữ cảnh của trang",
+		"description": "Menu editor menu name: 'Page context menu'"
+	},
+	"menusSurfaceButton": {
+		"message": "Menu của nút",
+		"description": "Menu editor menu name: 'Button menu'"
+	},
+	"menusSurfaceTab": {
+		"message": "Menu của thẻ",
+		"description": "Menu editor menu name: 'Tab menu'"
+	},
+	"menusUseForAllButton": {
+		"message": "Dùng cho mọi menu",
+		"description": "Menu editor button: 'Use for all menus'"
+	},
+	"menusUseForAllTooltip": {
+		"message": "Thay thế các menu khác bằng menu này",
+		"description": "Menu editor tooltip of the 'Use for all menus' button"
+	},
+	"menusUseForAllStatus": {
+		"message": "Tất cả các menu giờ đều dùng các mục này.",
+		"description": "Menu editor status after using a menus for all menus"
+	},
+	"menusContextPage": {
+		"message": "Trang",
+		"description": "Menu editor context: 'Page'"
+	},
+	"menusContextSelection": {
+		"message": "Vùng chọn",
+		"description": "Menu editor context: 'Selection'"
+	},
+	"menusContextFrame": {
+		"message": "Khung",
+		"description": "Menu editor context: 'Frame'"
+	},
+	"menusContextLink": {
+		"message": "Liên kết",
+		"description": "Menu editor context: 'Link'"
+	},
+	"menusHintPage": {
+		"message": "Hiển thị khi nhấp chuột phải vào trang. Các mục bị làm mờ không xuất hiện trong ngữ cảnh đã chọn.",
+		"description": "Menu editor hint of the page context menu"
+	},
+	"menusHintButton": {
+		"message": "Hiển thị khi nhấp chuột phải vào nút SingleFile trên thanh công cụ.",
+		"description": "Menu editor hint of the button menu"
+	},
+	"menusHintTab": {
+		"message": "Hiển thị khi nhấp chuột phải vào một thẻ.",
+		"description": "Menu editor hint of the tab menu"
+	},
+	"menusAddLabel": {
+		"message": "Thêm",
+		"description": "Menu editor label of the entry selector"
+	},
+	"menusAddButton": {
+		"message": "Thêm",
+		"description": "Menu editor button: 'Add'"
+	},
+	"menusEditHint": {
+		"message": "Mục mới được thêm sau mục đang chọn, hoặc vào trong menu con đang chọn. Kéo để sắp xếp lại, thả vào một menu con để lồng vào, nhấp đúp vào nhãn để đổi tên, nhấn Delete để gỡ bỏ.",
+		"description": "Menu editor hint about editing"
+	},
+	"menusDynamicBadge": {
+		"message": "động",
+		"description": "Menu editor badge of the entries managed by SingleFile"
+	},
+	"menusRemoveTooltip": {
+		"message": "Gỡ bỏ khỏi menu này",
+		"description": "Menu editor tooltip of the remove button"
+	},
+	"menusActionLimitLine": {
+		"message": "Chỉ hiển thị $1 mục đầu tiên",
+		"description": "Menu editor line marking the entries hidden by the browser in the button menu"
+	},
+	"menusActionLimitNote": {
+		"message": "Trình duyệt chỉ hiển thị tối đa $1 mục cấp cao nhất trong menu của nút.",
+		"description": "Menu editor note about the limit of top-level entries in the button menu"
+	},
+	"menusActionLimitLineWrapped": {
+		"message": "Firefox chuyển các mục sau vào menu con “SingleFile”",
+		"description": "Menu editor line marking the entries Firefox moves into an automatic submenu in the button menu"
+	},
+	"menusActionLimitNoteWrapped": {
+		"message": "Firefox giữ $1 mục cấp cao nhất đầu tiên trong menu của nút và chuyển các mục còn lại vào menu con “SingleFile”.",
+		"description": "Menu editor note about Firefox moving the extra top-level entries of the button menu into an automatic submenu"
+	},
+	"menusWrapButton": {
+		"message": "Gộp các mục còn lại vào menu con",
+		"description": "Menu editor button: 'Wrap the rest in a submenu'"
+	},
+	"menusMoreSubmenu": {
+		"message": "Khác…",
+		"description": "Menu editor default label of the submenu created to wrap the hidden entries"
+	},
+	"menusInspectorEmpty": {
+		"message": "Chọn một mục trong menu để thay đổi nhãn, gắn mục đó với một hồ sơ hoặc chọn thời điểm mục đó xuất hiện.",
+		"description": "Menu editor text when no entry is selected"
+	},
+	"menusInspectorSeparator": {
+		"message": "Dấu phân cách. Kéo để di chuyển, nhấn Delete để gỡ bỏ.",
+		"description": "Menu editor text when a separator is selected"
+	},
+	"menusLabelField": {
+		"message": "Nhãn",
+		"description": "Menu editor field: 'Label'"
+	},
+	"menusLabelHelp": {
+		"message": "Để trống để dùng nhãn tiêu chuẩn. Trên Windows và Linux, ký tự & đặt trước một chữ cái sẽ biến chữ cái đó thành phím truy cập.",
+		"description": "Menu editor help of the 'Label' field"
+	},
+	"menusProfileField": {
+		"message": "Hồ sơ",
+		"description": "Menu editor field: 'Profile'"
+	},
+	"menusProfileNone": {
+		"message": "Hồ sơ đang dùng cho trang",
+		"description": "Menu editor option when no profile is bound to the entry"
+	},
+	"menusProfileHelp": {
+		"message": "Gắn mục này với một hồ sơ để lưu bằng hồ sơ đó chỉ với một cú nhấp, bất kể hồ sơ hiện tại là gì.",
+		"description": "Menu editor help of the 'Profile' field"
+	},
+	"menusPresentationField": {
+		"message": "Cách trình bày",
+		"description": "Menu editor field: 'Presentation'"
+	},
+	"menusPresentationSubmenu": {
+		"message": "Một menu con “Lưu trang với hồ sơ”",
+		"description": "Menu editor presentation option: submenu"
+	},
+	"menusPresentationInline": {
+		"message": "Mỗi hồ sơ một mục, liệt kê trực tiếp",
+		"description": "Menu editor presentation option: inline"
+	},
+	"menusPresentationHelp": {
+		"message": "Danh sách theo các hồ sơ được định nghĩa trong tùy chọn. Để chỉ hiển thị một số hồ sơ, hãy thêm các mục “Lưu trang” được gắn với các hồ sơ đó.",
+		"description": "Menu editor help of the 'Presentation' field"
+	},
+	"menusContentsField": {
+		"message": "Nội dung",
+		"description": "Menu editor field: 'Contents'"
+	},
+	"menusContentsHelp": {
+		"message": "Mục này là một nhóm nút chọn, các lựa chọn trong đó do SingleFile quản lý. Bạn có thể di chuyển hoặc đổi tên mục này, nhưng không thể sửa các lựa chọn.",
+		"description": "Menu editor help of the 'Contents' field"
+	},
+	"menusContextsField": {
+		"message": "Hiển thị khi nhấp chuột phải vào:",
+		"description": "Menu editor field: 'Appears when right-clicking'"
+	},
+	"menusAltLabelHelp": {
+		"message": "Khi không có nhãn tùy chỉnh, menu sẽ hiển thị “$1” khi mục này áp dụng cho trang.",
+		"description": "Menu editor help about the alternative label of an entry"
+	},
+	"menusSubmenuField": {
+		"message": "Menu con",
+		"description": "Menu editor field: 'Submenu'"
+	},
+	"menusSubmenuHelp": {
+		"message": "$1 mục. Thả các mục vào hàng này để thêm chúng.",
+		"description": "Menu editor help of the 'Submenu' field"
+	},
+	"menusRemoveButton": {
+		"message": "Gỡ bỏ khỏi menu này",
+		"description": "Menu editor button: 'Remove from this menu'"
+	},
+	"menusPageOnly": {
+		"message": "“$1” chỉ có trong menu ngữ cảnh của trang.",
+		"description": "Menu editor status when an entry is not allowed in a menu"
+	},
+	"menusJsonLabel": {
+		"message": "Menu dưới dạng JSON",
+		"description": "Menu editor section: 'menus as JSON'"
+	},
+	"menusJsonApplyButton": {
+		"message": "Áp dụng",
+		"description": "Menu editor button: 'Apply'"
+	},
+	"menusJsonInvalid": {
+		"message": "JSON không hợp lệ",
+		"description": "Menu editor status: 'Invalid JSON'"
+	},
+	"menusJsonIgnored": {
+		"message": "Đã áp dụng, nhưng $1 mục không hợp lệ đã bị bỏ qua.",
+		"description": "Menu editor status after applying JSON that contained entries which are not valid (unknown action, wrong shape)"
+	},
+	"menusUnsupportedBadge": {
+		"message": "không hỗ trợ",
+		"description": "Menu editor badge of the entries the current browser cannot show"
+	},
+	"menusUnsupportedActionHelp": {
+		"message": "Mục này không được hiển thị vì trình duyệt này không hỗ trợ.",
+		"description": "Menu editor note for an entry the current browser cannot show"
+	},
+	"menusProfileMissingHelp": {
+		"message": "Hồ sơ “$1” không còn tồn tại. Mục này dùng hồ sơ đang dùng cho trang.",
+		"description": "Menu editor note for an entry bound to a deleted profile"
+	},
+	"menusEmptySubmenuHelp": {
+		"message": "Menu con này không được hiển thị vì không có mục nào hiển thị.",
+		"description": "Menu editor note for a submenu whose entries are all skipped"
+	},
+	"menusResetButton": {
+		"message": "Khôi phục mặc định",
+		"description": "Menu editor button: 'Reset to default'"
+	},
+	"menusResetConfirm": {
+		"message": "Khôi phục menu mặc định?",
+		"description": "Menu editor confirmation before restoring the default menus"
+	},
+	"menusSaveError": {
+		"message": "Không thể lưu menu: $1",
+		"description": "Menu editor status when saving the layout fails (for example the sync storage quota)"
+	},
+	"menusUnsupported": {
+		"message": "Trình duyệt này không hỗ trợ menu tiện ích mở rộng. Không có gì để tùy chỉnh ở đây.",
+		"description": "Menu editor message shown instead of the editor when the browser has no menus API (for example on Android)"
+	},
+	"menusProfilesBadge": {
+		"message": "cần 2+ hồ sơ",
+		"description": "Menu editor badge of the entries that only appear when more than one profile exists"
+	},
+	"menusProfilesHelp": {
+		"message": "Mục này chỉ hiển thị khi bạn có nhiều hơn một hồ sơ.",
+		"description": "Menu editor note for the entries that only appear when more than one profile exists"
+	},
+	"menusContextHelp": {
+		"message": "Mục này không được hiển thị trong ngữ cảnh đã chọn ($1).",
+		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
+	}
+}

@@ -28,3 +28,4 @@
 - Swedish translation done by NickWick13 (https://github.com/NickWick13)
 - Turkish translation done by hbaklan943 (https://github.com/hbaklan943)
 - Ukrainian translation done by perdolka (https://github.com/perdolka)
+- Vietnamese translation done by dinhkarate (https://github.com/dinhkarate)
