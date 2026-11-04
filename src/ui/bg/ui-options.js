@@ -37,6 +37,7 @@ const EXTERNAL_CAPTURE_PENDING_REQUEST_TIMEOUT = 300000;
 const HELP_ICON_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABIUlEQVQ4y+2TsarCMBSGvxTBRdqiUZAWOrhJB9EXcPKFfCvfQYfulUKHDqXg4CYUJSioYO4mSDX3ttzt3n87fMlHTpIjlsulxpDZbEYYhgghSNOUOI5Ny2mZYBAELBYLer0eAJ7ncTweKYri4x7LJJRS0u12n7XrukgpjSc0CpVSXK/XZ32/31FKNW85z3PW6zXT6RSAJEnIsqy5UGvNZrNhu90CcDqd+C6tT6J+v//2Th+PB2VZ1hN2Oh3G4zGTyQTbtl/YbrdjtVpxu91+Ljyfz0RRhG3bzOfzF+Y4TvNXvlwuaK2pE4tfzr/wzwsty0IIURlL0998KxRCMBqN8H2/wlzXJQxD2u12vVkeDoeUZUkURRU+GAw4HA7s9/sK+wK6CWHasQ/S/wAAAABJRU5ErkJggg==";
 const HELP_PAGE_PATH_PREFIX = "/src/ui/pages/help";
 const HELP_PAGE_PATH_DEFAULT = "/src/ui/pages/help.html";
+const HELP_PAGE_LANGUAGES = ["zh_CN"];
 let DEFAULT_PROFILE_NAME,
 	DISABLED_PROFILE_NAME,
 	CURRENT_PROFILE_NAME,
@@ -1984,31 +1985,11 @@ async function getHelpContents() {
 	});
 }
 
-async function getHelpPageURL() {
+function getHelpPageURL() {
 	const language = browser.i18n.getUILanguage().replace(/-/g, "_");
-	try {
-		const url = browser.runtime.getURL(HELP_PAGE_PATH_PREFIX + "_" + language + ".html");
-		await (await fetch(url)).arrayBuffer();
-		return url;
-		// eslint-disable-next-line no-unused-vars
-	} catch (error) {
-		try {
-			const url = browser.runtime.getURL(HELP_PAGE_PATH_PREFIX + "_" + language.split("_")[0] + ".html");
-			await (await fetch(url)).arrayBuffer();
-			return url;
-			// eslint-disable-next-line no-unused-vars
-		} catch (error) {
-			try {
-				const url = browser.runtime.getURL(HELP_PAGE_PATH_PREFIX + "_" + language.split("_")[1] + ".html");
-				await (await fetch(url)).arrayBuffer();
-				return url;
-			}
-			// eslint-disable-next-line no-unused-vars
-			catch (error) {
-				return browser.runtime.getURL(HELP_PAGE_PATH_DEFAULT);
-			}
-		}
-	}
+	const [languageCode, regionCode] = language.split("_");
+	const helpPageLanguage = [language, languageCode, regionCode].find(candidate => HELP_PAGE_LANGUAGES.includes(candidate));
+	return browser.runtime.getURL(helpPageLanguage ? HELP_PAGE_PATH_PREFIX + "_" + helpPageLanguage + ".html" : HELP_PAGE_PATH_DEFAULT);
 }
 
 function getText(blob) {
