@@ -47,7 +47,9 @@ async function onTabReplaced(addedTabId, removedTabId) {
 	let tabsData = await getPersistent();
 	await updateTabsData(tabsData, addedTabId, removedTabId);
 	setPersistent(tabsData);
-	await updateTabsData(temporaryData, addedTabId, removedTabId);
+	if (temporaryData) {
+		await updateTabsData(temporaryData, addedTabId, removedTabId);
+	}
 }
 
 async function updateTabsData(tabsData, addedTabId, removedTabId) {

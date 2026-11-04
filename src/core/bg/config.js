@@ -342,7 +342,7 @@ async function upgrade() {
 	if (!Array.isArray(config[EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY])) {
 		await configStorage.set({ [EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY]: [] });
 	}
-	const profileNames = await getProfileNames();
+	const profileNames = await readProfileNames();
 	profileNames.map(async profileName => {
 		const profile = await getProfile(profileName);
 		if (!profile._migratedTemplateFormat) {
@@ -389,6 +389,7 @@ function updateFilenameTemplate(template) {
 }
 
 async function getRule(url, ignoreWildcard) {
+	await pendingUpgradePromise;
 	const { rules } = await configStorage.get(["rules"]);
 	const regExpRules = rules.filter(rule => testRegExpRule(rule));
 	let rule = regExpRules.sort(sortRules).find(rule => url && url.match(new RegExp(rule.url.split(REGEXP_RULE_PREFIX)[1])));
@@ -755,14 +756,21 @@ async function deleteProfile(profileName) {
 }
 
 async function getRules() {
+	await pendingUpgradePromise;
 	return (await configStorage.get(["rules"])).rules;
 }
 
 async function getProfileNames() {
+	await pendingUpgradePromise;
+	return readProfileNames();
+}
+
+async function readProfileNames() {
 	return Object.keys(await configStorage.get()).filter(key => key.startsWith(PROFILE_NAME_PREFIX)).map(key => key.substring(PROFILE_NAME_PREFIX.length));
 }
 
 async function getProfileKeyNames() {
+	await pendingUpgradePromise;
 	return Object.keys(await configStorage.get()).filter(key => key.startsWith(PROFILE_NAME_PREFIX));
 }
 
@@ -825,10 +833,12 @@ async function updateRule(url, newURL, profile, autoSaveProfile) {
 }
 
 async function getAuthInfo() {
+	await pendingUpgradePromise;
 	return (await configStorage.get()).authInfo;
 }
 
 async function getDropboxAuthInfo() {
+	await pendingUpgradePromise;
 	return (await configStorage.get()).dropboxAuthInfo;
 }
 
