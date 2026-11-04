@@ -1106,12 +1106,12 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "Enable/disable removing of internal elements",
-		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+		"message": "Remove the element under the mouse (red outline)",
+		"description": "Title of the button 'Remove the element under the mouse' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "Enable/disable removing of external elements",
-		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
+		"message": "Keep the element under the mouse and remove everything else (green outline)",
+		"description": "Title of the button 'Keep the element under the mouse and remove everything else' in the editor"
 	},
 	"editorUndoCutPage": {
 		"message": "Restore last removed element",
