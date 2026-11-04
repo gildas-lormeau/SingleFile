@@ -311,6 +311,7 @@ if (typeof globalThis == "undefined") {
 				})
 			},
 			runtime: {
+				id: nativeAPI.runtime.id,
 				sendNativeMessage: (application, message) => new Promise((resolve, reject) => {
 					nativeAPI.runtime.sendNativeMessage(application, message, result => {
 						if (nativeAPI.runtime.lastError) {
