@@ -35,35 +35,35 @@ const configSavedMessage = browser.i18n.getMessage("optionsEditorConfigSaved");
 
 init();
 saveButton.addEventListener("click", async () => {
-    let config;
-    try {
-        config = JSON.parse(optionsInput.value);
-        // eslint-disable-next-line no-unused-vars
-    } catch (error) {
-        alert(invalidJSONMessage);
-    }
-    if (config) {
-        await browser.runtime.sendMessage({ method: "config.set", config });
-        await refreshExternalComponents(config);
-        alert(configSavedMessage);
-    }
-    saveButton.blur();
+	let config;
+	try {
+		config = JSON.parse(optionsInput.value);
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		alert(invalidJSONMessage);
+	}
+	if (config) {
+		await browser.runtime.sendMessage({ method: "config.set", config });
+		await refreshExternalComponents(config);
+		alert(configSavedMessage);
+	}
+	saveButton.blur();
 });
 
 async function init() {
-    const config = await browser.runtime.sendMessage({ method: "config.get" });
-    optionsInput.value = JSON.stringify(config, null, 4);
+	const config = await browser.runtime.sendMessage({ method: "config.get" });
+	optionsInput.value = JSON.stringify(config, null, 4);
 }
 
 async function refreshExternalComponents(config) {
-    try {
-        await browser.runtime.sendMessage({ method: "ui.refreshMenu" });
-        for (const profileName of Object.keys(config.profiles)) {
-            await browser.runtime.sendMessage({ method: "options.refresh", profileName });
-            await browser.runtime.sendMessage({ method: "options.refreshPanel", profileName });
-        }
-        // eslint-disable-next-line no-unused-vars
-    } catch (error) {
-        // ignored
-    }
+	try {
+		await browser.runtime.sendMessage({ method: "ui.refreshMenu" });
+		for (const profileName of Object.keys(config.profiles)) {
+			await browser.runtime.sendMessage({ method: "options.refresh", profileName });
+			await browser.runtime.sendMessage({ method: "options.refreshPanel", profileName });
+		}
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		// ignored
+	}
 }

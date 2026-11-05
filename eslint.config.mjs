@@ -5,7 +5,7 @@ export default [
 		ignores: [
 			"lib/**",
 			"src/lib/readability/**",
-			"src/lib/mhtml-to-html/vendor/**"
+			"src/lib/mhtml-to-html/**"
 		]
 	},
 	js.configs.recommended,
@@ -18,6 +18,13 @@ export default [
 			}
 		},
 		rules: {
+			"indent": [
+				"error",
+				"tab",
+				{
+					"SwitchCase": 1
+				}
+			],
 			"linebreak-style": [
 				"error",
 				"unix"
@@ -32,6 +39,12 @@ export default [
 			],
 			"no-console": [
 				"warn"
+			],
+			"no-empty": [
+				"error",
+				{
+					"allowEmptyCatch": true
+				}
 			]
 		}
 	},
