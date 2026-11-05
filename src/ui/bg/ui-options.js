@@ -138,6 +138,7 @@ const imageQualityLabel = document.getElementById("imageQualityLabel");
 const loadDeferredContentLabel = document.getElementById("loadDeferredContentLabel");
 const loadDeferredContentMaxIdleTimeLabel = document.getElementById("loadDeferredContentMaxIdleTimeLabel");
 const loadDeferredContentKeepZoomLevelLabel = document.getElementById("loadDeferredContentKeepZoomLevelLabel");
+const loadDeferredContentKeepEmulatedScreenSizeLabel = document.getElementById("loadDeferredContentKeepEmulatedScreenSizeLabel");
 const loadDeferredContentDispatchScrollEventLabel = document.getElementById("loadDeferredContentDispatchScrollEventLabel");
 const loadDeferredContentBeforeFramesLabel = document.getElementById("loadDeferredContentBeforeFramesLabel");
 const addMenuEntryLabel = document.getElementById("addMenuEntryLabel");
@@ -319,6 +320,7 @@ const customStylesheetInput = document.getElementById("customStylesheetInput");
 const loadDeferredContentInput = document.getElementById("loadDeferredContentInput");
 const loadDeferredContentMaxIdleTimeInput = document.getElementById("loadDeferredContentMaxIdleTimeInput");
 const loadDeferredContentKeepZoomLevelInput = document.getElementById("loadDeferredContentKeepZoomLevelInput");
+const loadDeferredContentKeepEmulatedScreenSizeInput = document.getElementById("loadDeferredContentKeepEmulatedScreenSizeInput");
 const loadDeferredContentDispatchScrollEventInput = document.getElementById("loadDeferredContentDispatchScrollEventInput");
 const loadDeferredContentBeforeFramesInput = document.getElementById("loadDeferredContentBeforeFramesInput");
 const contextMenuEnabledInput = document.getElementById("contextMenuEnabledInput");
@@ -849,6 +851,7 @@ imageQualityLabel.textContent = browser.i18n.getMessage("optionImageQuality");
 loadDeferredContentLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContent");
 loadDeferredContentMaxIdleTimeLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContentMaxIdleTime");
 loadDeferredContentKeepZoomLevelLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContentKeepZoomLevel");
+loadDeferredContentKeepEmulatedScreenSizeLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContentKeepEmulatedScreenSize");
 loadDeferredContentDispatchScrollEventLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContentDispatchScrollEvent");
 loadDeferredContentBeforeFramesLabel.textContent = browser.i18n.getMessage("optionLoadDeferredContentBeforeFrames");
 addMenuEntryLabel.textContent = browser.i18n.getMessage("optionAddMenuEntry");
@@ -1256,6 +1259,8 @@ async function refresh(profileName) {
 	loadDeferredContentMaxIdleTimeInput.value = profileOptions.loadDeferredContentMaxIdleTime;
 	loadDeferredContentKeepZoomLevelInput.checked = profileOptions.loadDeferredContentKeepZoomLevel;
 	loadDeferredContentKeepZoomLevelInput.disabled = !profileOptions.loadDeferredContent;
+	loadDeferredContentKeepEmulatedScreenSizeInput.checked = profileOptions.loadDeferredContentKeepEmulatedScreenSize;
+	loadDeferredContentKeepEmulatedScreenSizeInput.disabled = !profileOptions.loadDeferredContent;
 	loadDeferredContentMaxIdleTimeInput.disabled = !profileOptions.loadDeferredContent;
 	loadDeferredContentDispatchScrollEventInput.checked = profileOptions.loadDeferredContentDispatchScrollEvent;
 	loadDeferredContentDispatchScrollEventInput.disabled = !profileOptions.loadDeferredContent;
@@ -1498,6 +1503,7 @@ async function update() {
 			loadDeferredContent: loadDeferredContentInput.checked,
 			loadDeferredContentMaxIdleTime: Math.max(loadDeferredContentMaxIdleTimeInput.value, 0),
 			loadDeferredContentKeepZoomLevel: loadDeferredContentKeepZoomLevelInput.checked,
+			loadDeferredContentKeepEmulatedScreenSize: loadDeferredContentKeepEmulatedScreenSizeInput.checked,
 			loadDeferredContentDispatchScrollEvent: loadDeferredContentDispatchScrollEventInput.checked,
 			loadDeferredContentBeforeFrames: loadDeferredContentBeforeFramesInput.checked,
 			contextMenuEnabled: contextMenuEnabledInput.checked,

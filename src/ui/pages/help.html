@@ -473,6 +473,15 @@
 							saving pages using infinite virtual lists for example. </p>
 						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
 					</li>
+					<li data-options-label="loadDeferredContentKeepEmulatedScreenSizeLabel"> <span class="option">Option: keep the
+							emulated screen size during the capture</span>
+						<p>While loading deferred content, SingleFile makes the page believe the screen is as tall as the
+							whole document, then restores the real size before saving. Check this option to keep the
+							emulated size until the page has been saved. This helps saving pages which only keep on screen
+							the content you have scrolled to (e.g. social network timelines), but elements sized from the
+							screen height (e.g. full-screen images) will be saved at the emulated size.</p>
+						<p class="notice">It is recommended to <u>uncheck</u> this option</p>
+					</li>
 					<li data-options-label="loadDeferredContentBeforeFramesLabel"> <span class="option">Option: load in frames
 							first</span>
 						<p>Check this option to load the deferred content of frames before saving their contents. It will

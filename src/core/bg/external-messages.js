@@ -67,6 +67,7 @@ const CAPTURE_OPTION_NAMES = [
 	"loadDeferredContentDispatchScrollEvent",
 	"loadDeferredContentBeforeFrames",
 	"loadDeferredContentMinZoomFactor",
+	"loadDeferredContentKeepEmulatedScreenSize",
 	"loadDeferredImages",
 	"loadDeferredImagesBlockCookies",
 	"loadDeferredImagesBlockStorage",

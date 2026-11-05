@@ -86,6 +86,7 @@ const DEFAULT_CONFIG = {
 	loadDeferredContentDispatchScrollEvent: true,
 	loadDeferredContentBeforeFrames: false,
 	loadDeferredContentMinZoomFactor: 0,
+	loadDeferredContentKeepEmulatedScreenSize: false,
 	filenameTemplate: "%if-empty<{page-title}|No title> ({date-locale} {time-locale}).{filename-extension}",
 	infobarTemplate: "",
 	includeInfobar: !IS_NOT_SAFARI,
