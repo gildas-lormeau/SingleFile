@@ -471,6 +471,10 @@
 		"message": "thu nhỏ trang trong khi lưu",
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
+	"optionLoadDeferredContentKeepEmulatedScreenSize": {
+		"message": "keep the emulated screen size during the capture",
+		"description": "Options page label: 'keep the emulated screen size during the capture'"
+	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
 		"message": "giả lập cuộn trang",
 		"description": "Options page label: 'simulate scrolling'"

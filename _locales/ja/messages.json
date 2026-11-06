@@ -471,6 +471,10 @@
 		"message": "保存中にページを縮小する",
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
+	"optionLoadDeferredContentKeepEmulatedScreenSize": {
+		"message": "keep the emulated screen size during the capture",
+		"description": "Options page label: 'keep the emulated screen size during the capture'"
+	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
 		"message": "スクロールをシミュレートする",
 		"description": "Options page label: 'simulate scrolling'"

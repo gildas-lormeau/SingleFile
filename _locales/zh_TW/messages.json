@@ -471,6 +471,10 @@
 		"message": "儲存期間縮小網頁",
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
+	"optionLoadDeferredContentKeepEmulatedScreenSize": {
+		"message": "keep the emulated screen size during the capture",
+		"description": "Options page label: 'keep the emulated screen size during the capture'"
+	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
 		"message": "模擬捲動",
 		"description": "Options page label: 'simulate scrolling'"

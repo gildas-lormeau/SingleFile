@@ -471,6 +471,10 @@
 		"message": "diminuir o zoom da página durante a gravação",
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
+	"optionLoadDeferredContentKeepEmulatedScreenSize": {
+		"message": "keep the emulated screen size during the capture",
+		"description": "Options page label: 'keep the emulated screen size during the capture'"
+	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
 		"message": "simular o deslocamento",
 		"description": "Options page label: 'simulate scrolling'"

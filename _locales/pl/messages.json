@@ -471,6 +471,10 @@
 		"message": "pomniejsz stronę podczas zapisywania",
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
+	"optionLoadDeferredContentKeepEmulatedScreenSize": {
+		"message": "keep the emulated screen size during the capture",
+		"description": "Options page label: 'keep the emulated screen size during the capture'"
+	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
 		"message": "symuluj przewijanie",
 		"description": "Options page label: 'simulate scrolling'"
