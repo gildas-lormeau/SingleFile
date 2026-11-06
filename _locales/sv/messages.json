@@ -472,7 +472,7 @@
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
 	"optionLoadDeferredContentKeepEmulatedScreenSize": {
-		"message": "keep the emulated screen size during the capture",
+		"message": "behåll den emulerade skärmstorleken under sparandet",
 		"description": "Options page label: 'keep the emulated screen size during the capture'"
 	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
@@ -1110,12 +1110,12 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "Aktivera eller inaktivera borttagning av markerade element",
-		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+		"message": "Ta bort elementet under muspekaren (röd ram)",
+		"description": "Title of the button 'Remove the element under the mouse' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "Aktivera eller inaktivera borttagning av element utanför markeringen",
-		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
+		"message": "Behåll elementet under muspekaren och ta bort allt annat (grön ram)",
+		"description": "Title of the button 'Keep the element under the mouse and remove everything else' in the editor"
 	},
 	"editorUndoCutPage": {
 		"message": "Återställ det senast borttagna elementet",

@@ -472,7 +472,7 @@
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
 	"optionLoadDeferredContentKeepEmulatedScreenSize": {
-		"message": "keep the emulated screen size during the capture",
+		"message": "kaydetme sırasında öykünülen ekran boyutunu koru",
 		"description": "Options page label: 'keep the emulated screen size during the capture'"
 	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
@@ -1110,12 +1110,12 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "Dahili elemanların kaldırılmasını etkinleştirin/devre dışı bırak",
-		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+		"message": "Farenin altındaki öğeyi kaldır (kırmızı çerçeve)",
+		"description": "Title of the button 'Remove the element under the mouse' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "Harici öğelerin kaldırılmasını etkinleştirin/devre dışı bırak",
-		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
+		"message": "Farenin altındaki öğeyi koru ve geri kalan her şeyi kaldır (yeşil çerçeve)",
+		"description": "Title of the button 'Keep the element under the mouse and remove everything else' in the editor"
 	},
 	"editorUndoCutPage": {
 		"message": "Son kaldırılan öğeyi geri yükle",

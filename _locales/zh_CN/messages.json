@@ -472,7 +472,7 @@
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
 	"optionLoadDeferredContentKeepEmulatedScreenSize": {
-		"message": "keep the emulated screen size during the capture",
+		"message": "保存期间保持模拟的屏幕尺寸",
 		"description": "Options page label: 'keep the emulated screen size during the capture'"
 	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
@@ -1110,12 +1110,12 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "启用/禁用 点击时删除内部文档元素",
-		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+		"message": "删除鼠标下的元素（红色轮廓）",
+		"description": "Title of the button 'Remove the element under the mouse' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "启用/禁用 点击时删除外部文档元素",
-		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
+		"message": "保留鼠标下的元素并删除其余所有内容（绿色轮廓）",
+		"description": "Title of the button 'Keep the element under the mouse and remove everything else' in the editor"
 	},
 	"editorUndoCutPage": {
 		"message": "撤销上次移除元素的操作",

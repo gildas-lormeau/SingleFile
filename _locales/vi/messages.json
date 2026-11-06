@@ -472,7 +472,7 @@
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
 	"optionLoadDeferredContentKeepEmulatedScreenSize": {
-		"message": "keep the emulated screen size during the capture",
+		"message": "giữ kích thước màn hình giả lập trong khi lưu",
 		"description": "Options page label: 'keep the emulated screen size during the capture'"
 	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
@@ -1110,12 +1110,12 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "Bật/tắt xóa phần tử bên trong",
-		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+		"message": "Xóa phần tử dưới con trỏ chuột (viền đỏ)",
+		"description": "Title of the button 'Remove the element under the mouse' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "Bật/tắt xóa phần tử bên ngoài",
-		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
+		"message": "Giữ phần tử dưới con trỏ chuột và xóa tất cả phần còn lại (viền xanh lá)",
+		"description": "Title of the button 'Keep the element under the mouse and remove everything else' in the editor"
 	},
 	"editorUndoCutPage": {
 		"message": "Khôi phục phần tử bị xóa gần nhất",

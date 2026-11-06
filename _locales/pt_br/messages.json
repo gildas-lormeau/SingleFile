@@ -472,7 +472,7 @@
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
 	"optionLoadDeferredContentKeepEmulatedScreenSize": {
-		"message": "keep the emulated screen size during the capture",
+		"message": "manter o tamanho de tela emulado durante a captura",
 		"description": "Options page label: 'keep the emulated screen size during the capture'"
 	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
@@ -1110,12 +1110,12 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "Ativar/desativar a remoção de elementos internos",
-		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+		"message": "Remover o elemento sob o mouse (contorno vermelho)",
+		"description": "Title of the button 'Remove the element under the mouse' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "Ativar/desativar a remoção de elementos externos",
-		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
+		"message": "Manter o elemento sob o mouse e remover todo o resto (contorno verde)",
+		"description": "Title of the button 'Keep the element under the mouse and remove everything else' in the editor"
 	},
 	"editorUndoCutPage": {
 		"message": "Restaurar o último elemento removido",

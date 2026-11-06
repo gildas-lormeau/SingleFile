@@ -472,7 +472,7 @@
 		"description": "Options page label: 'zoom out the page during the capture'"
 	},
 	"optionLoadDeferredContentKeepEmulatedScreenSize": {
-		"message": "keep the emulated screen size during the capture",
+		"message": "保存中にエミュレートした画面サイズを維持する",
 		"description": "Options page label: 'keep the emulated screen size during the capture'"
 	},
 	"optionLoadDeferredContentDispatchScrollEvent": {
@@ -1110,12 +1110,12 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorCutInnerPage": {
-		"message": "内部要素の削除を有効/無効にする",
-		"description": "Title of the button 'Enable/disable removing of internal elements' in the editor"
+		"message": "マウスの下の要素を削除する（赤い枠）",
+		"description": "Title of the button 'Remove the element under the mouse' in the editor"
 	},
 	"editorCutOuterPage": {
-		"message": "外部要素の削除を有効/無効にする",
-		"description": "Title of the button 'Enable/disable removing of external elements' in the editor"
+		"message": "マウスの下の要素を残し、それ以外をすべて削除する（緑の枠）",
+		"description": "Title of the button 'Keep the element under the mouse and remove everything else' in the editor"
 	},
 	"editorUndoCutPage": {
 		"message": "最後に削除された要素を復元する",
