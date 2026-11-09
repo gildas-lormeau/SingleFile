@@ -1230,6 +1230,13 @@
 						to return the page title if the page title does not equal "Untitled" or the page heading
 						otherwise).
 					</li>
+					<li><code>%switch&lt;value|case1|result1|case2|result2|...|default&gt;</code>: compares
+						<code>value</code> with each <code>case</code> and returns the <code>result</code> of the first
+						one that is equal, or the <code>default</code> value if none is (e.g.
+						"%switch&lt;{url-hostname-domain}|bbc|BBC|imdb|IMDb|%capitalize&lt;{url-hostname-domain}&gt;&gt;"
+						to return "BBC" when the domain is "bbc", "IMDb" when it is "imdb", or the capitalized domain
+						otherwise).
+					</li>
 					<li><code>%if-contains&lt;value|expected|trueValue|falseValue&gt;</code>: returns the
 						<code>trueValue</code> if <code>value</code> contains <code>expected</code> or the
 						<code>falseValue</code> otherwise (e.g.

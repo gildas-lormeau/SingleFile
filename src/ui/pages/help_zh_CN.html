@@ -818,6 +818,11 @@
                         不等于 <code>expected</code>，则返回 <code>trueValue</code>，否则返回 <code>falseValue</code>（例如
                         "%if-not-equals&lt;{page-title}|Untitled|{page-title}|{page-heading}&gt;" 当页面标题不等于 "Untitled"
                         时返回页面标题，否者返回页面标题）。</li>
+                    <li><code>%switch&lt;value|case1|result1|case2|result2|...|default&gt;</code>: 将 <code>value</code>
+                        依次与每个 <code>case</code> 比较，返回第一个相等项对应的 <code>result</code>，如果都不相等则返回
+                        <code>default</code>（例如 "%switch&lt;{url-hostname-domain}|bbc|BBC|imdb|IMDb|%capitalize&lt;{url-hostname-domain}&gt;&gt;"
+                        当域名为 "bbc" 时返回 "BBC"，为 "imdb" 时返回 "IMDb"，否则返回首字母大写的域名）。
+                    </li>
                     <li><code>%if-contains&lt;value|expected|trueValue|falseValue&gt;</code>: 如果 <code>value</code> 包含
                         <code>expected</code>，则返回 <code>trueValue</code>，否则返回 <code>falseValue</code>（例如
                         "%if-contains&lt;{page-title}|Untitled|{page-heading}|{page-title}&gt;" 当页面标题包含 "Untitled"
