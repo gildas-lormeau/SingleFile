@@ -264,7 +264,7 @@ function onVisibilityChange() {
 
 function onUnload() {
 	if (!pageAutoSaved && document.body && (optionsAutoSave.autoSaveUnload || optionsAutoSave.autoSaveLoadOrUnload || optionsAutoSave.autoSaveRemove)) {
-		autoSaveUnloadedPage({ autoSaveUnload: optionsAutoSave.autoSaveUnload, autoSaveRemove: optionsAutoSave.autoSaveRemove });
+		autoSaveUnloadedPage({ autoSaveUnload: optionsAutoSave.autoSaveUnload || optionsAutoSave.autoSaveLoadOrUnload, autoSaveRemove: optionsAutoSave.autoSaveRemove });
 	}
 }
 
@@ -280,6 +280,10 @@ function autoSaveUnloadedPage({ autoSaveUnload, autoSaveDiscard, autoSaveRemove 
 	}
 	const docData = helper.preProcessDoc(document, globalThis, optionsAutoSave);
 	savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRemove });
+	if (frames && frames.sessionId) {
+		singlefile.processors.frameTree.cleanup(frames.sessionId);
+	}
+	helper.postProcessDoc(document, docData.markedElements, docData.invalidElements);
 }
 
 function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRemove } = {}) {
