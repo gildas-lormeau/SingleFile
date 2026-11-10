@@ -52,15 +52,13 @@ async function onMessage(message, sender) {
 	if (message.method.endsWith(".save")) {
 		const tab = sender.tab || { id: message.tabId, index: message.tabIndex, url: message.url, incognito: message.incognito };
 		if (!message.autoSaveUnload && (message.autoSaveDiscard || message.autoSaveRemove)) {
-			if (sender.tab) {
+			const pendingMessage = pendingMessages[tab.id];
+			if (pendingMessage && ((pendingMessage.removed && message.autoSaveRemove) || (pendingMessage.discarded && message.autoSaveDiscard))) {
+				delete pendingMessages[tab.id];
+				await saveContent(message, tab);
+			} else if (sender.tab) {
 				message.tab = sender.tab;
 				pendingMessages[sender.tab.id] = message;
-			} else if (pendingMessages[message.tabId] &&
-				((pendingMessages[message.tabId].removed && message.autoSaveRemove) ||
-					(pendingMessages[message.tabId].discarded && message.autoSaveDiscard))
-			) {
-				delete pendingMessages[message.tabId];
-				await saveContent(message, tab);
 			}
 		} else {
 			delete pendingMessages[message.tabId];
