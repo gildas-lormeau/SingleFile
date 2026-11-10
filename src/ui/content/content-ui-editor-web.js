@@ -21,7 +21,7 @@
  *   Source.
  */
 
-/* global window, document, fetch, DOMParser, getComputedStyle, setTimeout, clearTimeout, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, prompt, MutationObserver, btoa, ResizeObserver, requestAnimationFrame */
+/* global window, document, fetch, DOMParser, NodeFilter, Readability, isProbablyReaderable, matchMedia, TextDecoder, Node, prompt, MutationObserver, btoa */
 
 import { setLabels } from "./../../ui/common/common-content-ui.js";
 import { downloadPageForeground } from "../../core/common/download.js";
@@ -30,12 +30,8 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 (() => {
 
 	const singlefile = globalThis.singlefile;
+	const { NOTE_TAGNAME, MASK_CLASS, HIGHLIGHT_CLASS, HIGHLIGHT_HIDDEN_CLASS, REMOVED_CONTENT_CLASS, SHADOWROOT_ATTRIBUTE_NAME, SCRIPT_TEMPLATE_SHADOW_ROOT } = singlefile.helper.notes;
 
-	const FORBIDDEN_TAG_NAMES = ["a", "area", "audio", "base", "br", "col", "command", "embed", "hr", "img", "iframe", "input", "keygen", "link", "meta", "param", "source", "track", "video", "wbr"];
-	const BUTTON_ANCHOR_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAgMAAAAOFJJnAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtaIVETuIOASsThZERRylikWwUNoKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APEydFJ0UVK/F9SaBHjwXE/3t173L0DhFqJqWbbOKBqlpGMRcVMdkUMvKIbfQCG0SExU4+nFtLwHF/38PH1LsKzvM/9OXqUnMkAn0g8y3TDIl4nnt60dM77xCFWlBTic+Ixgy5I/Mh12eU3zgWHBZ4ZMtLJOeIQsVhoYbmFWdFQiaeIw4qqUb6QcVnhvMVZLVVY4578hcGctpziOs0hxLCIOBIQIaOCDZRgIUKrRoqJJO1HPfyDjj9BLplcG2DkmEcZKiTHD/4Hv7s185MTblIwCrS/2PbHCBDYBepV2/4+tu36CeB/Bq60pr9cA2Y+Sa82tfAR0LsNXFw3NXkPuNwBBp50yZAcyU9TyOeB9zP6pizQfwt0rbq9NfZx+gCkqaulG+DgEBgtUPaax7s7W3v790yjvx825XKP2aKCdAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+QLEQA4M3Y7LzIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAACVBMVEUAAAAAAACKioqjwG1pAAAAAXRSTlMAQObYZgAAAAFiS0dEAmYLfGQAAABkSURBVBjThc47CsNADIThWfD0bnSfbdIroP/+V0mhsN5gTNToK0YPaSvnF9B9wGykG54j/2GF1/hauE4E1AOuNxrBdA5KUXIqdiCnqC1zIZ2mFJQzKJ3wesOhcwDM4+fo7cOuD9C4HTQ9HAAQAAAAAElFTkSuQmCC";
-	const BUTTON_CLOSE_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAgMAAAAOFJJnAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtaIVETuIOASsThZERRylikWwUNoKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APEydFJ0UVK/F9SaBHjwXE/3t173L0DhFqJqWbbOKBqlpGMRcVMdkUMvKIbfQCG0SExU4+nFtLwHF/38PH1LsKzvM/9OXqUnMkAn0g8y3TDIl4nnt60dM77xCFWlBTic+Ixgy5I/Mh12eU3zgWHBZ4ZMtLJOeIQsVhoYbmFWdFQiaeIw4qqUb6QcVnhvMVZLVVY4578hcGctpziOs0hxLCIOBIQIaOCDZRgIUKrRoqJJO1HPfyDjj9BLplcG2DkmEcZKiTHD/4Hv7s185MTblIwCrS/2PbHCBDYBepV2/4+tu36CeB/Bq60pr9cA2Y+Sa82tfAR0LsNXFw3NXkPuNwBBp50yZAcyU9TyOeB9zP6pizQfwt0rbq9NfZx+gCkqaulG+DgEBgtUPaax7s7W3v790yjvx825XKP2aKCdAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+QLEQA6Na1u6IUAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAACVBMVEUAAAAAAACKioqjwG1pAAAAAXRSTlMAQObYZgAAAAFiS0dEAmYLfGQAAABlSURBVBhXTc/BEUQhCAPQ58ES6McSPED/rfwDI7vOMCoJIeGd6CvFgZXiwk47Ia5VUKdrVXcb39kfqxqmTg+I2xJ2tqhVTaGaQjTl7/GgIc/4CL4Vs3RsjLFndcxPnAn4iww8A3yQjRZjti1t6AAAAABJRU5ErkJggg==";
-	const SHADOWROOT_ATTRIBUTE_NAME = "shadowrootmode";
-	const SCRIPT_TEMPLATE_SHADOW_ROOT = "data-template-shadow-root";
 	const SCRIPT_OPTIONS = "data-single-file-options";
 	const RESERVED_FILES_PREFIX = "sfz-";
 	const PAGES_FILENAME = "sfz-pages.json";
@@ -44,39 +40,18 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	const INDEX_FILENAME = "index.html";
 	const MODIFIED_PAGE_CLASS = "sfz-modified-page";
 	const MODIFIED_PAGE_STYLE = "." + MODIFIED_PAGE_CLASS + "::after{content:\" \\25CF\";font-size:.75em;opacity:.7}";
-	const NOTE_TAGNAME = "single-file-note";
-	const NOTE_CLASS = "note";
-	const NOTE_MASK_CLASS = "note-mask";
-	const NOTE_HIDDEN_CLASS = "note-hidden";
-	const NOTE_ANCHORED_CLASS = "note-anchored";
-	const NOTE_SELECTED_CLASS = "note-selected";
-	const NOTE_MOVING_CLASS = "note-moving";
-	const NOTE_MASK_MOVING_CLASS = "note-mask-moving";
-	const PAGE_MASK_CLASS = "page-mask";
-	const MASK_CLASS = "single-file-mask";
-	const PAGE_MASK_CONTAINER_CLASS = "single-file-page-mask";
-	const HIGHLIGHT_CLASS = "single-file-highlight";
-	const HIGHLIGHTS_STYLESHEET_CLASS = "single-file-highlights-stylesheet";
-	const REMOVED_CONTENT_CLASS = "single-file-removed";
-	const HIGHLIGHT_HIDDEN_CLASS = "single-file-highlight-hidden";
-	const PAGE_MASK_ACTIVE_CLASS = "page-mask-active";
 	const CUT_HOVER_CLASS = "single-file-cut-hover";
 	const CUT_OUTER_HOVER_CLASS = "single-file-cut-outer-hover";
 	const CUT_SELECTED_CLASS = "single-file-cut-selected";
 	const CUT_OUTER_SELECTED_CLASS = "single-file-cut-outer-selected";
 	const CUT_MODE_CLASS = "single-file-cut-mode";
-	const NOTE_INITIAL_POSITION_X = 20;
-	const NOTE_INITIAL_POSITION_Y = 20;
-	const NOTE_INITIAL_WIDTH = 150;
-	const NOTE_INITIAL_HEIGHT = 150;
-	const NOTE_HEADER_HEIGHT = 25;
 	const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-file-disabled-noscript";
 	const COMMENT_HEADER = "Page saved with SingleFile";
 	const COMMENT_HEADER_LEGACY = "Archive processed by SingleFile";
 	const EDIT_MESSAGE_METHODS = ["addNote", "displayNotes", "hideNotes", "enableHighlight", "disableHighlight", "displayHighlights", "hideHighlights", "enableRemoveHighlights", "disableRemoveHighlights", "enableEditPage", "disableEditPage", "formatPage", "cancelFormatPage", "enableCutInnerPage", "enableCutOuterPage", "disableCutInnerPage", "disableCutOuterPage", "undoCutPage", "undoAllCutPage", "redoCutPage"];
 
-	let NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET;
-	let selectedNote, anchorElement, maskNoteElement, maskPageElement, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, highlightColor, collapseNoteTimeout, cuttingOuterMode, cuttingMode, cuttingTouchTarget, cuttingPath, cuttingPathIndex, previousContent;
+	let NOTES_SCRIPT, notes;
+	let highlightSelectionMode, removeHighlightMode, highlightColor, cuttingOuterMode, cuttingMode, cuttingTouchTarget, cuttingPath, cuttingPathIndex, previousContent;
 	let removedElements = [], removedElementIndex = 0, pageResources, pageUrl, pageCompressContent, includeInfobar, openInfobar, animateInfobar, infobarPositionAbsolute, infobarPositionTop, infobarPositionBottom, infobarPositionLeft, infobarPositionRight;
 	let pageArchiveContent, archivePages, archiveManifest, archivePassword, archiveUrlToPath, archiveTocContent, archiveTocPresent, stashedArchivePages, modifiedArchivePagePaths, currentArchivePagePath, archiveTocDisplayed, droppedArchiveContent;
 
@@ -107,14 +82,13 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				return;
 			}
 			if (message.method == "addNote") {
-				addNote(message);
+				notes.addNote(message);
 			}
 			if (message.method == "displayNotes") {
-				document.querySelectorAll(NOTE_TAGNAME).forEach(noteElement => noteElement.shadowRoot.querySelector("." + NOTE_CLASS).classList.remove(NOTE_HIDDEN_CLASS));
-				reflowNotes();
+				notes.displayNotes();
 			}
 			if (message.method == "hideNotes") {
-				document.querySelectorAll(NOTE_TAGNAME).forEach(noteElement => noteElement.shadowRoot.querySelector("." + NOTE_CLASS).classList.add(NOTE_HIDDEN_CLASS));
+				notes.hideNotes();
 			}
 			if (message.method == "enableHighlight") {
 				if (highlightColor) {
@@ -294,7 +268,11 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				}
 			}
 		};
-		window.onresize = reflowNotes;
+		window.onresize = () => {
+			if (notes) {
+				notes.reflowNotes();
+			}
+		};
 		document.ondragover = event => event.preventDefault();
 		document.ondrop = async event => {
 			if (event.dataTransfer.files && event.dataTransfer.files[0]) {
@@ -620,13 +598,12 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		document.querySelectorAll("[data-single-file-note-refs]").forEach(noteRefElement => noteRefElement.dataset.singleFileNoteRefs = noteRefElement.dataset.singleFileNoteRefs.replace(/,/g, " "));
 		deserializeShadowRoots(document);
 		singlefile.helper.fixInvalidNesting(document);
-		reflowNotes();
-		waitResourcesLoad().then(reflowNotes);
-		watchNotesLayout();
-		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => attachNoteListeners(containerElement, true));
-		insertHighlightStylesheet(document);
-		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
-		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
+		notes = singlefile.helper.notes.init(document, { editable: true, onUpdate });
+		notes.reflowNotes();
+		notes.waitResourcesLoad().then(notes.reflowNotes);
+		notes.watchNotesLayout();
+		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => notes.attachNoteListeners(containerElement));
+		singlefile.helper.notes.insertHighlightsStylesheet(document);
 		document.documentElement.onmousedown = onMouseDown;
 		document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
 		document.documentElement.onmouseover = onMouseOver;
@@ -637,248 +614,8 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	}
 
 	async function initConstants() {
-		[NOTES_WEB_STYLESHEET, MASK_WEB_STYLESHEET, HIGHLIGHTS_WEB_STYLESHEET] = await Promise.all([
-			minifyText(await ((await fetch("../pages/editor-note-web.css")).text())),
-			minifyText(await ((await fetch("../pages/editor-mask-web.css")).text())),
-			minifyText(await ((await fetch("../pages/editor-frame-web.css")).text()))
-		]);
-	}
-
-	function addNote({ color }) {
-		const containerElement = document.createElement(NOTE_TAGNAME);
-		const noteElement = document.createElement("div");
-		const headerElement = document.createElement("header");
-		const blockquoteElement = document.createElement("blockquote");
-		const mainElement = document.createElement("textarea");
-		const resizeElement = document.createElement("div");
-		const removeNoteElement = document.createElement("img");
-		const anchorIconElement = document.createElement("img");
-		const noteShadow = containerElement.attachShadow({ mode: "open" });
-		headerElement.appendChild(anchorIconElement);
-		headerElement.appendChild(removeNoteElement);
-		blockquoteElement.appendChild(mainElement);
-		noteElement.appendChild(headerElement);
-		noteElement.appendChild(blockquoteElement);
-		noteElement.appendChild(resizeElement);
-		noteShadow.appendChild(getStyleElement(NOTES_WEB_STYLESHEET));
-		noteShadow.appendChild(noteElement);
-		const notesElements = Array.from(document.querySelectorAll(NOTE_TAGNAME));
-		const noteId = Math.max.call(Math, 0, ...notesElements.map(noteElement => Number(noteElement.dataset.noteId))) + 1;
-		blockquoteElement.cite = "https://www.w3.org/TR/annotation-model/#selector(type=CssSelector,value=[data-single-file-note-refs~=\"" + noteId + "\"])";
-		noteElement.classList.add(NOTE_CLASS);
-		noteElement.classList.add(NOTE_ANCHORED_CLASS);
-		noteElement.classList.add(color);
-		noteElement.dataset.color = color;
-		mainElement.dir = "auto";
-		const boundingRectDocument = document.documentElement.getBoundingClientRect();
-		let positionX = NOTE_INITIAL_WIDTH + NOTE_INITIAL_POSITION_X - 1 - boundingRectDocument.x;
-		let positionY = NOTE_INITIAL_HEIGHT + NOTE_INITIAL_POSITION_Y - 1 - boundingRectDocument.y;
-		while (Array.from(document.elementsFromPoint(positionX - window.scrollX, positionY - window.scrollY)).find(element => element.tagName.toLowerCase() == NOTE_TAGNAME)) {
-			positionX += NOTE_INITIAL_POSITION_X;
-			positionY += NOTE_INITIAL_POSITION_Y;
-		}
-		noteElement.style.setProperty("left", (positionX - NOTE_INITIAL_WIDTH - 1) + "px");
-		noteElement.style.setProperty("top", (positionY - NOTE_INITIAL_HEIGHT - 1) + "px");
-		resizeElement.className = "note-resize";
-		resizeElement.ondragstart = event => event.preventDefault();
-		removeNoteElement.className = "note-remove";
-		removeNoteElement.src = BUTTON_CLOSE_URL;
-		removeNoteElement.ondragstart = event => event.preventDefault();
-		anchorIconElement.className = "note-anchor";
-		anchorIconElement.src = BUTTON_ANCHOR_URL;
-		anchorIconElement.ondragstart = event => event.preventDefault();
-		containerElement.dataset.noteId = noteId;
-		addNoteRef(document.documentElement, noteId);
-		attachNoteListeners(containerElement, true);
-		document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
-		noteElement.classList.add(NOTE_SELECTED_CLASS);
-		selectedNote = noteElement;
-		saveNoteOffset(containerElement);
-		onUpdate(false);
-	}
-
-	function attachNoteListeners(containerElement, editable = false) {
-		const SELECT_PX_THRESHOLD = 4;
-		const COLLAPSING_NOTE_DELAY = 750;
-		const noteShadow = containerElement.shadowRoot;
-		const noteElement = noteShadow.childNodes[1];
-		const headerElement = noteShadow.querySelector("header");
-		const mainElement = noteShadow.querySelector("textarea");
-		const noteId = containerElement.dataset.noteId;
-		const resizeElement = noteShadow.querySelector(".note-resize");
-		const anchorIconElement = noteShadow.querySelector(".note-anchor");
-		const removeNoteElement = noteShadow.querySelector(".note-remove");
-		mainElement.readOnly = !editable;
-		if (!editable) {
-			anchorIconElement.style.setProperty("display", "none", "important");
-		} else {
-			anchorIconElement.style.removeProperty("display");
-		}
-		headerElement.ontouchstart = headerElement.onmousedown = event => {
-			if (event.target == headerElement) {
-				collapseNoteTimeout = setTimeout(() => {
-					noteElement.classList.toggle("note-collapsed");
-					hideMaskNote();
-				}, COLLAPSING_NOTE_DELAY);
-				event.preventDefault();
-				const position = getPosition(event);
-				const clientX = position.clientX;
-				const clientY = position.clientY;
-				const boundingRect = noteElement.getBoundingClientRect();
-				const deltaX = clientX - boundingRect.left;
-				const deltaY = clientY - boundingRect.top;
-				maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
-				document.documentElement.style.setProperty("user-select", "none", "important");
-				anchorElement = getAnchorElement(containerElement);
-				displayMaskNote();
-				selectNote(noteElement);
-				moveNote(event, deltaX, deltaY);
-				movingNoteMode = { event, deltaX, deltaY };
-				document.documentElement.ontouchmove = document.documentElement.onmousemove = event => {
-					clearTimeout(collapseNoteTimeout);
-					if (!movingNoteMode) {
-						movingNoteMode = { deltaX, deltaY };
-					}
-					movingNoteMode.event = event;
-					moveNote(event, deltaX, deltaY);
-				};
-			}
-		};
-		resizeElement.ontouchstart = resizeElement.onmousedown = event => {
-			event.preventDefault();
-			resizingNoteMode = true;
-			selectNote(noteElement);
-			maskPageElement.classList.add(PAGE_MASK_ACTIVE_CLASS);
-			document.documentElement.style.setProperty("user-select", "none", "important");
-			document.documentElement.ontouchmove = document.documentElement.onmousemove = event => {
-				event.preventDefault();
-				const { clientX, clientY } = getPosition(event);
-				const boundingRectNote = noteElement.getBoundingClientRect();
-				noteElement.style.width = clientX - boundingRectNote.left + "px";
-				noteElement.style.height = clientY - boundingRectNote.top + "px";
-			};
-		};
-		anchorIconElement.ontouchend = anchorIconElement.onclick = event => {
-			event.preventDefault();
-			noteElement.classList.toggle(NOTE_ANCHORED_CLASS);
-			if (!noteElement.classList.contains(NOTE_ANCHORED_CLASS)) {
-				deleteNoteRef(containerElement, noteId);
-				addNoteRef(document.documentElement, noteId);
-			}
-			saveNoteOffset(containerElement);
-			onUpdate(false);
-		};
-		removeNoteElement.ontouchend = removeNoteElement.onclick = event => {
-			event.preventDefault();
-			deleteNoteRef(containerElement, noteId);
-			containerElement.remove();
-		};
-		noteElement.onmousedown = () => {
-			selectNote(noteElement);
-		};
-
-		function moveNote(event, deltaX, deltaY) {
-			event.preventDefault();
-			const { clientX, clientY } = getPosition(event);
-			noteElement.classList.add(NOTE_MOVING_CLASS);
-			if (editable) {
-				if (noteElement.classList.contains(NOTE_ANCHORED_CLASS)) {
-					deleteNoteRef(containerElement, noteId);
-					anchorElement = getTarget(clientX, clientY) || document.documentElement;
-					addNoteRef(anchorElement, noteId);
-				} else {
-					anchorElement = document.documentElement;
-				}
-			}
-			document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
-			noteElement.style.setProperty("left", (clientX - deltaX) + "px");
-			noteElement.style.setProperty("top", (clientY - deltaY) + "px");
-			noteElement.style.setProperty("position", "fixed");
-			displayMaskNote();
-		}
-
-		function displayMaskNote() {
-			if (anchorElement == document.documentElement || anchorElement == document.documentElement) {
-				hideMaskNote();
-			} else {
-				const boundingRectAnchor = anchorElement.getBoundingClientRect();
-				maskNoteElement.classList.add(NOTE_MASK_MOVING_CLASS);
-				if (selectedNote) {
-					maskNoteElement.classList.add(selectedNote.dataset.color);
-				}
-				maskNoteElement.style.setProperty("top", (boundingRectAnchor.y - 3) + "px");
-				maskNoteElement.style.setProperty("left", (boundingRectAnchor.x - 3) + "px");
-				maskNoteElement.style.setProperty("width", (boundingRectAnchor.width + 3) + "px");
-				maskNoteElement.style.setProperty("height", (boundingRectAnchor.height + 3) + "px");
-			}
-		}
-
-		function hideMaskNote() {
-			maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
-			if (selectedNote) {
-				maskNoteElement.classList.remove(selectedNote.dataset.color);
-			}
-		}
-
-		function selectNote(noteElement) {
-			if (selectedNote) {
-				selectedNote.classList.remove(NOTE_SELECTED_CLASS);
-				maskNoteElement.classList.remove(selectedNote.dataset.color);
-			}
-			noteElement.classList.add(NOTE_SELECTED_CLASS);
-			noteElement.classList.add(noteElement.dataset.color);
-			selectedNote = noteElement;
-		}
-
-		function getTarget(clientX, clientY) {
-			const targets = Array.from(document.elementsFromPoint(clientX, clientY)).filter(element => element.matches("html *:not(" + NOTE_TAGNAME + "):not(." + MASK_CLASS + ")"));
-			if (!targets.includes(document.documentElement)) {
-				targets.push(document.documentElement);
-			}
-			let newTarget, target = targets[0], boundingRect = target.getBoundingClientRect();
-			newTarget = determineTargetElement("floor", target, clientX - boundingRect.left, getMatchedParents(target, "left"));
-			if (newTarget == target) {
-				newTarget = determineTargetElement("ceil", target, boundingRect.left + boundingRect.width - clientX, getMatchedParents(target, "right"));
-			}
-			if (newTarget == target) {
-				newTarget = determineTargetElement("floor", target, clientY - boundingRect.top, getMatchedParents(target, "top"));
-			}
-			if (newTarget == target) {
-				newTarget = determineTargetElement("ceil", target, boundingRect.top + boundingRect.height - clientY, getMatchedParents(target, "bottom"));
-			}
-			target = newTarget;
-			while (boundingRect = target && target.getBoundingClientRect(), boundingRect && boundingRect.width <= SELECT_PX_THRESHOLD && boundingRect.height <= SELECT_PX_THRESHOLD) {
-				target = target.parentElement;
-			}
-			return target;
-		}
-
-		function getMatchedParents(target, property) {
-			let element = target, matchedParent, parents = [];
-			do {
-				const boundingRect = element.getBoundingClientRect();
-				if (element.parentElement && !element.parentElement.tagName.toLowerCase() != NOTE_TAGNAME && !element.classList.contains(MASK_CLASS)) {
-					const parentBoundingRect = element.parentElement.getBoundingClientRect();
-					matchedParent = Math.abs(parentBoundingRect[property] - boundingRect[property]) <= SELECT_PX_THRESHOLD;
-					if (matchedParent) {
-						if (element.parentElement.clientWidth > SELECT_PX_THRESHOLD && element.parentElement.clientHeight > SELECT_PX_THRESHOLD &&
-							((element.parentElement.clientWidth - element.clientWidth > SELECT_PX_THRESHOLD) || (element.parentElement.clientHeight - element.clientHeight > SELECT_PX_THRESHOLD))) {
-							parents.push(element.parentElement);
-						}
-						element = element.parentElement;
-					}
-				} else {
-					matchedParent = false;
-				}
-			} while (matchedParent && element);
-			return parents;
-		}
-
-		function determineTargetElement(roundingMethod, target, widthDistance, parents) {
-			if (Math[roundingMethod](widthDistance / SELECT_PX_THRESHOLD) <= parents.length) {
-				target = parents[parents.length - Math[roundingMethod](widthDistance / SELECT_PX_THRESHOLD) - 1];
-			}
-			return target;
+		if (!NOTES_SCRIPT) {
+			NOTES_SCRIPT = await (await fetch("/lib/single-file-notes.js")).text();
 		}
 	}
 
@@ -908,23 +645,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				element = element.parentElement;
 			}
 		}
-		if (resizingNoteMode) {
-			event.preventDefault();
-			resizingNoteMode = false;
-			document.documentElement.style.removeProperty("user-select");
-			maskPageElement.classList.remove(PAGE_MASK_ACTIVE_CLASS);
-			document.documentElement.ontouchmove = onTouchMove;
-			document.documentElement.onmousemove = null;
-			onUpdate(false);
-		}
-		if (movingNoteMode) {
-			event.preventDefault();
-			anchorNote(movingNoteMode.event || event, selectedNote, movingNoteMode.deltaX, movingNoteMode.deltaY);
-			movingNoteMode = null;
-			document.documentElement.ontouchmove = onTouchMove;
-			document.documentElement.onmousemove = null;
-			onUpdate(false);
-		}
+		notes.onMouseUp(event);
 		if ((cuttingMode || cuttingOuterMode) && cuttingPath) {
 			event.preventDefault();
 			if (event.ctrlKey) {
@@ -933,10 +654,6 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			} else {
 				validateCutElement(event.shiftKey);
 			}
-		}
-		if (collapseNoteTimeout) {
-			clearTimeout(collapseNoteTimeout);
-			collapseNoteTimeout = null;
 		}
 	}
 
@@ -973,7 +690,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	function onTouchMove(event) {
 		if (cuttingMode || cuttingOuterMode) {
 			event.preventDefault();
-			const { clientX, clientY } = getPosition(event);
+			const { clientX, clientY } = singlefile.helper.notes.getPosition(event);
 			const target = document.elementFromPoint(clientX, clientY);
 			if (cuttingTouchTarget != target) {
 				onMouseOut();
@@ -1098,7 +815,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 					elementsRemoved.forEach(element => {
 						unhighlightCutElement(element);
 						if (element.tagName.toLowerCase() == NOTE_TAGNAME) {
-							resetAnchorNote(element);
+							notes.resetAnchorNote(element);
 						} else {
 							element.classList.add(REMOVED_CONTENT_CLASS);
 						}
@@ -1119,7 +836,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 					elementsKept.forEach(elementKept => removed = removed && (elementKept != element && !isAncestor(elementKept, element) && !isAncestor(element, elementKept)));
 					if (removed) {
 						if (element.tagName.toLowerCase() == NOTE_TAGNAME) {
-							resetAnchorNote(element);
+							notes.resetAnchorNote(element);
 						} else {
 							elements.push(element);
 						}
@@ -1157,66 +874,6 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			element.classList.remove(CUT_OUTER_SELECTED_CLASS);
 			element.classList.remove(CUT_SELECTED_CLASS);
 		});
-	}
-
-	function anchorNote(event, noteElement, deltaX, deltaY) {
-		event.preventDefault();
-		const { clientX, clientY } = getPosition(event);
-		document.documentElement.style.removeProperty("user-select");
-		noteElement.classList.remove(NOTE_MOVING_CLASS);
-		maskNoteElement.classList.remove(NOTE_MASK_MOVING_CLASS);
-		maskPageElement.classList.remove(PAGE_MASK_ACTIVE_CLASS);
-		maskNoteElement.classList.remove(noteElement.dataset.color);
-		const headerElement = noteElement.querySelector("header");
-		headerElement.ontouchmove = document.documentElement.onmousemove = null;
-		let currentElement = anchorElement;
-		let positionedElement;
-		while (currentElement.parentElement && !positionedElement) {
-			if (!FORBIDDEN_TAG_NAMES.includes(currentElement.tagName.toLowerCase())) {
-				const currentElementStyle = getComputedStyle(currentElement);
-				if (currentElementStyle.position != "static") {
-					positionedElement = currentElement;
-				}
-			}
-			currentElement = currentElement.parentElement;
-		}
-		if (!positionedElement) {
-			positionedElement = document.documentElement;
-		}
-		const containerElement = noteElement.getRootNode().host;
-		if (positionedElement == document.documentElement) {
-			const firstMaskElement = document.querySelector("." + MASK_CLASS);
-			firstMaskElement.parentElement.insertBefore(containerElement, firstMaskElement);
-		} else {
-			positionedElement.appendChild(containerElement);
-		}
-		const boundingRectPositionedElement = positionedElement.getBoundingClientRect();
-		const stylePositionedElement = window.getComputedStyle(positionedElement);
-		const borderX = parseInt(stylePositionedElement.getPropertyValue("border-left-width"));
-		const borderY = parseInt(stylePositionedElement.getPropertyValue("border-top-width"));
-		noteElement.style.setProperty("position", "absolute");
-		noteElement.style.setProperty("left", (clientX - boundingRectPositionedElement.x - deltaX - borderX) + "px");
-		noteElement.style.setProperty("top", (clientY - boundingRectPositionedElement.y - deltaY - borderY) + "px");
-		saveNoteOffset(containerElement);
-	}
-
-	function resetAnchorNote(containerElement) {
-		const noteId = containerElement.dataset.noteId;
-		const noteElement = containerElement.shadowRoot.childNodes[1];
-		noteElement.classList.remove(NOTE_ANCHORED_CLASS);
-		deleteNoteRef(containerElement, noteId);
-		addNoteRef(document.documentElement, noteId);
-		document.documentElement.insertBefore(containerElement, maskPageElement.getRootNode().host);
-		saveNoteOffset(containerElement);
-	}
-
-	function getPosition(event) {
-		if (event.touches && event.touches.length) {
-			const touch = event.touches[0];
-			return touch;
-		} else {
-			return event;
-		}
 	}
 
 	function highlightSelection() {
@@ -1396,10 +1053,10 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				element.setAttribute("href", href.substring(document.baseURI.length));
 			}
 		});
-		insertHighlightStylesheet(document);
-		maskPageElement = getMaskElement(PAGE_MASK_CLASS, PAGE_MASK_CONTAINER_CLASS);
-		maskNoteElement = getMaskElement(NOTE_MASK_CLASS);
-		reflowNotes();
+		singlefile.helper.notes.insertHighlightsStylesheet(document);
+		notes = singlefile.helper.notes.init(document, { editable: true, onUpdate });
+		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => notes.attachNoteListeners(containerElement));
+		notes.reflowNotes();
 		onUpdate(false);
 	}
 
@@ -1419,16 +1076,8 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		}
 	}
 
-	function insertHighlightStylesheet(doc) {
-		if (!doc.querySelector("." + HIGHLIGHTS_STYLESHEET_CLASS)) {
-			const styleheetHighlights = getStyleElement(HIGHLIGHTS_WEB_STYLESHEET);
-			styleheetHighlights.classList.add(HIGHLIGHTS_STYLESHEET_CLASS);
-			doc.documentElement.appendChild(styleheetHighlights);
-		}
-	}
-
 	function getContent(compressHTML) {
-		saveNoteOffsets();
+		notes.saveNoteOffsets();
 		unhighlightCutElement();
 		singlefile.helper.markInvalidNesting(document);
 		serializeShadowRoots(document);
@@ -1455,16 +1104,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			singlefile.helper.appendInfobar(doc, options);
 		}
 		doc.querySelectorAll("." + HIGHLIGHT_CLASS).forEach(noteElement => noteElement.classList.remove(HIGHLIGHT_HIDDEN_CLASS));
-		doc.querySelectorAll(`template[${SHADOWROOT_ATTRIBUTE_NAME}]`).forEach(templateElement => {
-			const noteElement = templateElement.querySelector("." + NOTE_CLASS);
-			if (noteElement) {
-				noteElement.classList.remove(NOTE_HIDDEN_CLASS);
-			}
-			const mainElement = templateElement.querySelector("textarea");
-			if (mainElement) {
-				mainElement.textContent = mainElement.value;
-			}
-		});
+		singlefile.helper.notes.serializeNotes(doc);
 		doc.querySelectorAll("iframe").forEach(element => {
 			const pointerEvents = "pointer-events";
 			const savedProperty = "--sf-" + pointerEvents;
@@ -1490,9 +1130,9 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			let content = singlefile.helper.serialize(doc, compressHTML);
 			resources.sort((resourceLeft, resourceRight) => resourceRight.content.length - resourceLeft.content.length);
 			resources.forEach(resource => content = content.replaceAll(resource.content, resource.name));
-			return content + "<script " + SCRIPT_TEMPLATE_SHADOW_ROOT + ">" + getEmbedScript() + "</script>";
+			return content + "<script " + SCRIPT_TEMPLATE_SHADOW_ROOT + ">" + NOTES_SCRIPT + "</script>";
 		} else {
-			return singlefile.helper.serialize(doc, compressHTML) + "<script " + SCRIPT_TEMPLATE_SHADOW_ROOT + ">" + getEmbedScript() + "</script>";
+			return singlefile.helper.serialize(doc, compressHTML) + "<script " + SCRIPT_TEMPLATE_SHADOW_ROOT + ">" + NOTES_SCRIPT + "</script>";
 		}
 	}
 
@@ -1501,93 +1141,6 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			modifiedArchivePagePaths.add(currentArchivePagePath);
 		}
 		window.parent.postMessage(JSON.stringify({ "method": "onUpdate", saved }), "*");
-	}
-
-	function waitResourcesLoad() {
-		return new Promise(resolve => {
-			let counterMutations = 0;
-			const done = () => {
-				observer.disconnect();
-				resolve();
-			};
-			let timeoutInit = setTimeout(done, 100);
-			const observer = new MutationObserver(() => {
-				if (counterMutations < 20) {
-					counterMutations++;
-					clearTimeout(timeoutInit);
-					timeoutInit = setTimeout(done, 100);
-				} else {
-					done();
-				}
-			});
-			observer.observe(document, { subtree: true, childList: true, attributes: true });
-		});
-	}
-
-	function reflowNotes() {
-		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => {
-			const noteElement = containerElement.shadowRoot.querySelector("." + NOTE_CLASS);
-			const noteBoundingRect = noteElement.getBoundingClientRect();
-			if ((noteBoundingRect.width || noteBoundingRect.height) && !noteElement.classList.contains(NOTE_MOVING_CLASS)) {
-				const anchorElement = getAnchorElement(containerElement);
-				const anchorBoundingRect = anchorElement.getBoundingClientRect();
-				const offsetX = Number(containerElement.dataset.noteOffsetX);
-				const offsetY = Number(containerElement.dataset.noteOffsetY);
-				const savedOffset = anchorElement != document.documentElement && !isNaN(offsetX) && !isNaN(offsetY);
-				const maxX = anchorBoundingRect.x + Math.max(0, anchorBoundingRect.width - noteBoundingRect.width);
-				const minX = anchorBoundingRect.x;
-				const maxY = anchorBoundingRect.y + Math.max(0, anchorBoundingRect.height - NOTE_HEADER_HEIGHT);
-				const minY = anchorBoundingRect.y;
-				const positionX = Math.min(maxX, Math.max(minX, savedOffset ? anchorBoundingRect.x + offsetX : noteBoundingRect.x));
-				const positionY = Math.min(maxY, Math.max(minY, savedOffset ? anchorBoundingRect.y + offsetY : noteBoundingRect.y));
-				const left = parseFloat(noteElement.style.getPropertyValue("left"));
-				const top = parseFloat(noteElement.style.getPropertyValue("top"));
-				noteElement.style.setProperty("position", "absolute");
-				if (Math.abs(positionX - noteBoundingRect.x) > 0.5) {
-					noteElement.style.setProperty("left", (left + positionX - noteBoundingRect.x) + "px");
-				}
-				if (Math.abs(positionY - noteBoundingRect.y) > 0.5) {
-					noteElement.style.setProperty("top", (top + positionY - noteBoundingRect.y) + "px");
-				}
-			}
-		});
-	}
-
-	function watchNotesLayout() {
-		if (globalThis.ResizeObserver) {
-			let reflowPending;
-			new ResizeObserver(() => {
-				if (!reflowPending) {
-					reflowPending = requestAnimationFrame(() => {
-						reflowPending = null;
-						reflowNotes();
-					});
-				}
-			}).observe(document.documentElement);
-		}
-		if (document.fonts) {
-			document.fonts.ready.then(() => reflowNotes());
-		}
-	}
-
-	function saveNoteOffset(containerElement) {
-		const noteElement = containerElement.shadowRoot.querySelector("." + NOTE_CLASS);
-		if (noteElement) {
-			const anchorElement = getAnchorElement(containerElement);
-			const noteBoundingRect = noteElement.getBoundingClientRect();
-			if (anchorElement == document.documentElement) {
-				delete containerElement.dataset.noteOffsetX;
-				delete containerElement.dataset.noteOffsetY;
-			} else if (noteBoundingRect.width || noteBoundingRect.height) {
-				const anchorBoundingRect = anchorElement.getBoundingClientRect();
-				containerElement.dataset.noteOffsetX = Math.round(noteBoundingRect.x - anchorBoundingRect.x);
-				containerElement.dataset.noteOffsetY = Math.round(noteBoundingRect.y - anchorBoundingRect.y);
-			}
-		}
-	}
-
-	function saveNoteOffsets() {
-		document.querySelectorAll(NOTE_TAGNAME).forEach(containerElement => saveNoteOffset(containerElement));
 	}
 
 	function resetHighlightedElement(element) {
@@ -1601,7 +1154,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 
 	function serializeShadowRoots(node) {
 		node.querySelectorAll("*").forEach(element => {
-			const shadowRoot = getShadowRoot(element);
+			const shadowRoot = singlefile.helper.notes.getShadowRoot(element);
 			if (shadowRoot) {
 				serializeShadowRoots(shadowRoot);
 				const templateElement = document.createElement("template");
@@ -1615,7 +1168,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	function deserializeShadowRoots(node) {
 		node.querySelectorAll(`template[${SHADOWROOT_ATTRIBUTE_NAME}]`).forEach(element => {
 			if (element.parentElement) {
-				let shadowRoot = getShadowRoot(element.parentElement);
+				let shadowRoot = singlefile.helper.notes.getShadowRoot(element.parentElement);
 				if (shadowRoot) {
 					Array.from(element.childNodes).forEach(node => shadowRoot.appendChild(node));
 					element.remove();
@@ -1638,29 +1191,6 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 				}
 			}
 		});
-	}
-
-	function getMaskElement(className, containerClassName) {
-		let maskElement = document.documentElement.querySelector("." + className);
-		if (!maskElement) {
-			maskElement = document.createElement("div");
-			const maskContainerElement = document.createElement("div");
-			if (containerClassName) {
-				maskContainerElement.classList.add(containerClassName);
-			}
-			maskContainerElement.classList.add(MASK_CLASS);
-			const firstNote = document.querySelector(NOTE_TAGNAME);
-			if (firstNote && firstNote.parentElement == document.documentElement) {
-				document.documentElement.insertBefore(maskContainerElement, firstNote);
-			} else {
-				document.documentElement.appendChild(maskContainerElement);
-			}
-			maskElement.classList.add(className);
-			const maskShadow = maskContainerElement.attachShadow({ mode: "open" });
-			maskShadow.appendChild(getStyleElement(MASK_WEB_STYLESHEET));
-			maskShadow.appendChild(maskElement);
-			return maskElement;
-		}
 	}
 
 	function getStyleFormattedPage(contentWidth) {
@@ -2576,139 +2106,8 @@ pre code {
 }`;
 	}
 
-	function getEmbedScript() {
-		return minifyText(`(() => {
-			document.currentScript.remove();
-			const processNode = node => {
-				node.querySelectorAll("template[${SHADOWROOT_ATTRIBUTE_NAME}]").forEach(element=>{
-					let shadowRoot = getShadowRoot(element.parentElement);
-					if (!shadowRoot) {
-						try {
-							shadowRoot = element.parentElement.attachShadow({mode:element.getAttribute("${SHADOWROOT_ATTRIBUTE_NAME}")});
-							shadowRoot.innerHTML = element.innerHTML;
-							element.remove();
-						} catch (error) {}						
-						if (shadowRoot) {
-							processNode(shadowRoot);
-						}
-					}					
-				})
-			};
-			const FORBIDDEN_TAG_NAMES = ${JSON.stringify(FORBIDDEN_TAG_NAMES)};
-			const NOTE_TAGNAME = ${JSON.stringify(NOTE_TAGNAME)};
-			const NOTE_CLASS = ${JSON.stringify(NOTE_CLASS)};
-			const NOTE_ANCHORED_CLASS = ${JSON.stringify(NOTE_ANCHORED_CLASS)};
-			const NOTE_SELECTED_CLASS = ${JSON.stringify(NOTE_SELECTED_CLASS)};
-			const NOTE_MOVING_CLASS = ${JSON.stringify(NOTE_MOVING_CLASS)};
-			const NOTE_MASK_MOVING_CLASS = ${JSON.stringify(NOTE_MASK_MOVING_CLASS)};
-			const MASK_CLASS = ${JSON.stringify(MASK_CLASS)};
-			const HIGHLIGHT_CLASS = ${JSON.stringify(HIGHLIGHT_CLASS)};
-			const NOTES_WEB_STYLESHEET = ${JSON.stringify(NOTES_WEB_STYLESHEET)};
-			const MASK_WEB_STYLESHEET = ${JSON.stringify(MASK_WEB_STYLESHEET)};
-			const NOTE_HEADER_HEIGHT = ${JSON.stringify(NOTE_HEADER_HEIGHT)};
-			const PAGE_MASK_ACTIVE_CLASS = ${JSON.stringify(PAGE_MASK_ACTIVE_CLASS)};
-			const REMOVED_CONTENT_CLASS = ${JSON.stringify(REMOVED_CONTENT_CLASS)};
-			const NESTING_TRACK_ID_ATTRIBUTE_NAME = ${JSON.stringify(singlefile.helper.NESTING_TRACK_ID_ATTRIBUTE_NAME)};
-			const reflowNotes = ${minifyText(reflowNotes.toString())};
-			const saveNoteOffset = ${minifyText(saveNoteOffset.toString())};
-			const watchNotesLayout = ${minifyText(watchNotesLayout.toString())};
-			const addNoteRef = ${minifyText(addNoteRef.toString())};
-			const deleteNoteRef = ${minifyText(deleteNoteRef.toString())};
-			const getNoteRefs = ${minifyText(getNoteRefs.toString())};
-			const setNoteRefs = ${minifyText(setNoteRefs.toString())};
-			const getAnchorElement = ${minifyText(getAnchorElement.toString())};
-			const getMaskElement = ${minifyText(getMaskElement.toString())};
-			const getStyleElement = ${minifyText(getStyleElement.toString())};
-			const attachNoteListeners = ${minifyText(attachNoteListeners.toString())};
-			const anchorNote = ${minifyText(anchorNote.toString())};
-			const getPosition = ${minifyText(getPosition.toString())};
-			const onMouseUp = ${minifyText(onMouseUp.toString())};
-			const getShadowRoot = ${minifyText(getShadowRoot.toString())};
-			const waitResourcesLoad = ${minifyText(waitResourcesLoad.toString())};
-			const maskNoteElement = getMaskElement(${JSON.stringify(NOTE_MASK_CLASS)});
-			const maskPageElement = getMaskElement(${JSON.stringify(PAGE_MASK_CLASS)}, ${JSON.stringify(PAGE_MASK_CONTAINER_CLASS)});
-			let selectedNote, highlightSelectionMode, removeHighlightMode, resizingNoteMode, movingNoteMode, collapseNoteTimeout, cuttingMode, cuttingOuterMode;
-			window.onresize = reflowNotes;
-			window.onUpdate = () => {};
-			document.documentElement.onmouseup = document.documentElement.ontouchend = onMouseUp;
-			processNode(document);
-			reflowNotes();
-			document.querySelectorAll(${JSON.stringify(NOTE_TAGNAME)}).forEach(noteElement => attachNoteListeners(noteElement));
-			waitResourcesLoad().then(reflowNotes);
-			watchNotesLayout();
-			const trackIds = {};
-			document.querySelectorAll("[" + NESTING_TRACK_ID_ATTRIBUTE_NAME + "]").forEach(element => trackIds[element.getAttribute(NESTING_TRACK_ID_ATTRIBUTE_NAME)] = element);
-			Object.keys(trackIds).forEach(id => {
-				const element = trackIds[id];
-				const idParts = id.split(".");
-				if (idParts.length > 1) {
-					const parentId = idParts.slice(0, -1).join(".");
-					const expectedParent = trackIds[parentId];
-					if (expectedParent && element.parentElement !== expectedParent) {
-						expectedParent.appendChild(element);
-					}
-				}
-			});
-			document.querySelectorAll("[" + NESTING_TRACK_ID_ATTRIBUTE_NAME + "]").forEach(element => element.removeAttribute(NESTING_TRACK_ID_ATTRIBUTE_NAME));
-		})()`);
-	}
-
-	function getStyleElement(stylesheet) {
-		const linkElement = document.createElement("style");
-		linkElement.textContent = stylesheet;
-		return linkElement;
-	}
-
-	function getAnchorElement(containerElement) {
-		return document.querySelector("[data-single-file-note-refs~=\"" + containerElement.dataset.noteId + "\"]") || document.documentElement;
-	}
-
-	function addNoteRef(anchorElement, noteId) {
-		const noteRefs = getNoteRefs(anchorElement);
-		noteRefs.push(noteId);
-		setNoteRefs(anchorElement, noteRefs);
-	}
-
-	function deleteNoteRef(containerElement, noteId) {
-		const anchorElement = getAnchorElement(containerElement);
-		const noteRefs = getNoteRefs(anchorElement).filter(noteRefs => noteRefs != noteId);
-		if (noteRefs.length) {
-			setNoteRefs(anchorElement, noteRefs);
-		} else {
-			delete anchorElement.dataset.singleFileNoteRefs;
-		}
-	}
-
-	function getNoteRefs(anchorElement) {
-		return anchorElement.dataset.singleFileNoteRefs ? anchorElement.dataset.singleFileNoteRefs.split(" ") : [];
-	}
-
-	function setNoteRefs(anchorElement, noteRefs) {
-		anchorElement.dataset.singleFileNoteRefs = noteRefs.join(" ");
-	}
-
-	function minifyText(text) {
-		return text.replace(/[\n\t\s]+/g, " ");
-	}
-
 	function isAncestor(element, otherElement) {
 		return otherElement.parentElement && (element == otherElement.parentElement || isAncestor(element, otherElement.parentElement));
-	}
-
-	function getShadowRoot(element) {
-		const chrome = window.chrome;
-		if (element.openOrClosedShadowRoot) {
-			return element.openOrClosedShadowRoot;
-		} else if (chrome && chrome.dom && chrome.dom.openOrClosedShadowRoot) {
-			try {
-				return chrome.dom.openOrClosedShadowRoot(element);
-				/* eslint-disable-next-line no-unused-vars */
-			} catch (error) {
-				return element.shadowRoot;
-			}
-		} else {
-			return element.shadowRoot;
-		}
 	}
 
 	async function getDataURI(blob) {

@@ -140,6 +140,15 @@ export default [{
 	plugins: PLUGINS,
 	external: EXTERNAL
 }, {
+	input: ["single-file-core/single-file-notes.js"],
+	output: [{
+		file: "lib/single-file-notes.js",
+		format: "iife",
+		plugins: []
+	}],
+	plugins: PLUGINS,
+	external: EXTERNAL
+}, {
 	input: ["src/lib/single-file/browser-polyfill/chrome-browser-polyfill.js"],
 	output: [{
 		file: "lib/chrome-browser-polyfill.js",
