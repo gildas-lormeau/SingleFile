@@ -39,13 +39,14 @@ const INJECT_SCRIPTS_STEP = 1;
 const EXECUTE_SCRIPTS_STEP = 2;
 const TASK_PENDING_STATE = "pending";
 const TASK_PROCESSING_STATE = "processing";
+const AUTOSAVE_METHOD = "content.autosave";
 
 const extensionScriptFiles = [
 	"lib/single-file-extension.js"
 ];
 
 const tasks = [];
-let currentTaskId = 0, maxParallelWorkers, processInForeground;
+let currentTaskId = 1, maxParallelWorkers, processInForeground;
 ui.init({ isSavingTab, saveTabs, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
 
 export {
@@ -58,8 +59,10 @@ export {
 	getTasksInfo,
 	getTaskInfo,
 	setCancelCallback,
+	onSaveStart,
 	onSaveEnd,
 	onInit,
+	onTabRemoved,
 	onTabReplaced,
 	cancelTab as cancel
 };
@@ -147,7 +150,7 @@ async function saveTabs(tabs, options = {}) {
 						status: TASK_PROCESSING_STATE,
 						tab: tabData,
 						options: tabOptions,
-						method: "content.autosave"
+						method: AUTOSAVE_METHOD
 					});
 					runTask(taskInfo);
 				}
@@ -321,6 +324,8 @@ async function runTask(taskInfo) {
 		if (taskInfo.resolve && !taskInfo.cancelled) {
 			taskInfo.resolve(response);
 			taskInfo.done();
+		} else if (taskInfo.method == AUTOSAVE_METHOD && (!response || response.pageAutoSaved)) {
+			endAutoSaveTask(taskInfo);
 		}
 	} catch (error) {
 		// the caller is waiting for a result, it must always be settled
@@ -333,6 +338,8 @@ async function runTask(taskInfo) {
 			console.log(error.message ? error.message : error); // eslint-disable-line no-console
 			ui.onError(taskInfo.tab.id, error.message, error.link, error.stack);
 			taskInfo.done();
+		} else if (taskInfo.method == AUTOSAVE_METHOD) {
+			endAutoSaveTask(taskInfo);
 		}
 	}
 }
@@ -351,6 +358,29 @@ function isSavingTab(tab) {
 
 function onInit(tab) {
 	cancelTab(tab.id, false);
+	endAutoSaveTasks(tab.id);
+}
+
+function onTabRemoved(tabId) {
+	cancelTab(tabId);
+	endAutoSaveTasks(tabId);
+}
+
+function endAutoSaveTasks(tabId) {
+	Array.from(tasks).filter(taskInfo => taskInfo.tab.id == tabId && taskInfo.method == AUTOSAVE_METHOD).forEach(endAutoSaveTask);
+}
+
+function endAutoSaveTask(taskInfo) {
+	if (!taskInfo.saving) {
+		taskInfo.done();
+	}
+}
+
+function onSaveStart(taskId) {
+	const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
+	if (taskInfo) {
+		taskInfo.saving = true;
+	}
 }
 
 function onTabReplaced(addedTabId, removedTabId) {
@@ -439,7 +469,7 @@ function cancel(taskInfo, runNextTasks) {
 		}).catch(() => {
 			// ignored
 		});
-		if (taskInfo.method == "content.autosave") {
+		if (taskInfo.method == AUTOSAVE_METHOD) {
 			ui.onEnd(tabId, true);
 		}
 		if (!taskInfo.options.silent) {

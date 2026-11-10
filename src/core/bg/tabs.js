@@ -107,7 +107,7 @@ async function onTabActivated(activeInfo) {
 }
 
 function onTabRemoved(tabId) {
-	business.cancel(tabId);
+	business.onTabRemoved(tabId);
 	tabsData.remove(tabId);
 	editor.onTabRemoved(tabId);
 	autosave.onTabRemoved(tabId);

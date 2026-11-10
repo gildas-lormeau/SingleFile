@@ -50,6 +50,7 @@ export {
 
 async function onMessage(message, sender) {
 	if (message.method.endsWith(".save")) {
+		const tab = sender.tab || { id: message.tabId, index: message.tabIndex, url: message.url, incognito: message.incognito };
 		if (message.autoSaveDiscard || message.autoSaveRemove) {
 			if (sender.tab) {
 				message.tab = sender.tab;
@@ -59,15 +60,15 @@ async function onMessage(message, sender) {
 					(pendingMessages[message.tabId].discarded && message.autoSaveDiscard))
 			) {
 				delete pendingMessages[message.tabId];
-				await saveContent(message, { id: message.tabId, index: message.tabIndex, url: sender.url });
+				await saveContent(message, tab);
 			}
 			if (message.autoSaveUnload) {
 				delete pendingMessages[message.tabId];
-				await saveContent(message, sender.tab);
+				await saveContent(message, tab);
 			}
 		} else {
 			delete pendingMessages[message.tabId];
-			await saveContent(message, sender.tab);
+			await saveContent(message, tab);
 		}
 		return {};
 	}
@@ -128,6 +129,9 @@ async function onInit(tab) {
 
 async function saveContent(message, tab) {
 	const tabId = tab.id;
+	if (message.taskId) {
+		business.onSaveStart(message.taskId);
+	}
 	const options = await config.getOptions(tab.url, true);
 	if (options) {
 		ui.onStart(tabId, 1, true);
@@ -270,6 +274,8 @@ async function saveContent(message, tab) {
 			}
 			ui.onEnd(tabId, true);
 		}
+	} else if (message.taskId) {
+		business.onSaveEnd(message.taskId);
 	}
 }
 
