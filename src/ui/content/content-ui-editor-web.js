@@ -610,7 +610,40 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 		document.documentElement.onmouseout = onMouseOut;
 		document.documentElement.onkeydown = onKeyDown;
 		document.documentElement.ontouchstart = document.documentElement.ontouchmove = onTouchMove;
-		window.onclick = event => event.preventDefault();
+		window.onclick = onClick;
+	}
+
+	function onClick(event) {
+		event.preventDefault();
+		const editing = highlightSelectionMode || removeHighlightMode || cuttingMode || cuttingOuterMode || document.body.isContentEditable;
+		if (!editing && event.target.closest) {
+			const linkElement = event.target.closest("a[href^='#'], area[href^='#']");
+			if (linkElement) {
+				scrollToFragment(linkElement.getAttribute("href").substring(1));
+			}
+		}
+	}
+
+	function scrollToFragment(fragment) {
+		let targetElement = findFragmentTarget(fragment);
+		if (!targetElement) {
+			try {
+				targetElement = findFragmentTarget(decodeURIComponent(fragment));
+			} catch {
+				// ignored
+			}
+		}
+		if (targetElement) {
+			targetElement.scrollIntoView();
+		} else if (!fragment || fragment.toLowerCase() == "top") {
+			window.scrollTo(0, 0);
+		}
+	}
+
+	function findFragmentTarget(fragment) {
+		if (fragment) {
+			return document.getElementById(fragment) || document.querySelector("a[name=" + JSON.stringify(fragment) + "]");
+		}
 	}
 
 	async function initConstants() {
