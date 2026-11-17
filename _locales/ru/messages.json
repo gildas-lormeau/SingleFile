@@ -96,7 +96,7 @@
 		"description": "Menu entry: 'Save selection'"
 	},
 	"menuEditAndSaveSelection": {
-		"message": "Annotate and save the selection...",
+		"message": "Аннотировать и сохранить выделенное...",
 		"description": "Menu entry: 'Annotate and save the selection...'"
 	},
 	"menuSaveFrame": {
