@@ -9,6 +9,7 @@ npm ci
 
 ./build.sh
 
+rm -f singlefile-extension-source.zip
 zip -r singlefile-extension-source.zip README-BUILD.md manifest.json package.json package-lock.json _locales src rollup*.js eslint.config.mjs build-extension.sh build.sh
 
 rm -f singlefile-extension-firefox.zip
