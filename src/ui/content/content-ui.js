@@ -59,6 +59,8 @@ function getMessage(messageName, defaultMessage) {
 	}
 }
 
+const markedElements = new Set();
+
 let selectedAreaElement, logsWindowElement, backdropStyleElement;
 createLogsWindowElement();
 
@@ -186,9 +188,9 @@ function onLoadPage() { }
 function getSelectedLinks() {
 	let selectionFound;
 	const links = [];
-	const selection = getSelection();
-	for (let indexRange = 0; indexRange < selection.rangeCount; indexRange++) {
-		let range = selection.getRangeAt(indexRange);
+	const selectedRanges = getSelectedRanges();
+	for (let indexRange = 0; indexRange < selectedRanges.length; indexRange++) {
+		let range = selectedRanges[indexRange];
 		if (range && range.commonAncestorContainer) {
 			const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
 			let rangeSelectionFound = false;
@@ -238,10 +240,10 @@ async function markSelection(optionallySelected) {
 }
 
 function markSelectedContent() {
-	const selection = getSelection();
+	const selectedRanges = getSelectedRanges();
 	let selectionFound;
-	for (let indexRange = 0; indexRange < selection.rangeCount; indexRange++) {
-		let range = selection.getRangeAt(indexRange);
+	for (let indexRange = 0; indexRange < selectedRanges.length; indexRange++) {
+		let range = selectedRanges[indexRange];
 		if (range && range.commonAncestorContainer) {
 			const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
 			let rangeSelectionFound = false;
@@ -253,7 +255,7 @@ function markSelectedContent() {
 						selectionFound = true;
 						markSelectedNode(treeWalker.currentNode);
 					}
-					if (range.startContainer === range.endContainer && selection.rangeCount == 1 && range.startOffset == 0 && range.endOffset == 0) {
+					if (range.startContainer === range.endContainer && selectedRanges.length == 1 && range.startOffset == 0 && range.endOffset == 0) {
 						if (range.startContainer.tagName === "IMG" || range.startContainer.tagName === "VIDEO") {
 							selectionFound = true;
 							markSelectedNode(treeWalker.currentNode);
@@ -289,19 +291,75 @@ function markSelectedContent() {
 	return selectionFound;
 }
 
+function getSelectedRanges() {
+	const selection = getSelection();
+	const selectedRanges = [];
+	for (let indexRange = 0; indexRange < selection.rangeCount; indexRange++) {
+		selectedRanges.push(selection.getRangeAt(indexRange));
+	}
+	if (selectedRanges.length == 1 && selectedRanges[0].collapsed && selection.getComposedRanges) {
+		const composedRange = getComposedRange(selection);
+		if (composedRange) {
+			selectedRanges[0] = composedRange;
+		}
+	}
+	return selectedRanges;
+}
+
+function getComposedRange(selection) {
+	const shadowRoots = [];
+	let staticRange, shadowRootFound;
+	do {
+		shadowRootFound = false;
+		staticRange = getComposedStaticRange(selection, shadowRoots);
+		if (staticRange) {
+			[
+				staticRange.startContainer.childNodes[staticRange.startOffset],
+				staticRange.endContainer.childNodes[staticRange.endOffset - 1]
+			].forEach(node => {
+				const shadowRoot = node && node.nodeType == Node.ELEMENT_NODE && singlefile.helper.getShadowRoot(node);
+				if (shadowRoot && !shadowRoots.includes(shadowRoot)) {
+					shadowRoots.push(shadowRoot);
+					shadowRootFound = true;
+				}
+			});
+		}
+	} while (shadowRootFound);
+	if (staticRange && !staticRange.collapsed && staticRange.startContainer.getRootNode() == staticRange.endContainer.getRootNode()) {
+		const range = document.createRange();
+		range.setStart(staticRange.startContainer, staticRange.startOffset);
+		range.setEnd(staticRange.endContainer, staticRange.endOffset);
+		return range;
+	}
+}
+
+function getComposedStaticRange(selection, shadowRoots) {
+	try {
+		return selection.getComposedRanges({ shadowRoots })[0];
+	} catch {
+		return selection.getComposedRanges(...shadowRoots)[0];
+	}
+}
+
 function markSelectedNode(node) {
 	const element = node.nodeType == Node.ELEMENT_NODE ? node : node.parentElement;
-	element.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+	if (element) {
+		element.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
+		markedElements.add(element);
+	}
 }
 
 function markSelectedParents(node) {
-	if (node.parentElement) {
+	const parentElement = node.parentElement || (node.parentNode && node.parentNode.host);
+	if (parentElement) {
 		markSelectedNode(node);
-		markSelectedParents(node.parentElement);
+		markSelectedParents(parentElement);
 	}
 }
 
 function unmarkSelection() {
+	markedElements.forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
+	markedElements.clear();
 	document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
 }
 
