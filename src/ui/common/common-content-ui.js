@@ -214,6 +214,10 @@ function displayBar(tagName, message, { link, details, buttonLabel, buttonOnclic
 				}
 				.text {
 					flex: 1;
+					display: flex;
+					flex-wrap: wrap;
+					align-items: center;
+					gap: 4px 8px;
 					padding-top: 4px;
 					padding-bottom: 4px;
 					padding-left: 8px;					
@@ -242,7 +246,6 @@ function displayBar(tagName, message, { link, details, buttonLabel, buttonOnclic
 					background-color: dimgrey;
 				}
 				.details-button {
-					margin-inline-start: 8px;
 					background-color: white;
 					color: #d35400;
 					border: 1px solid white;
@@ -280,14 +283,18 @@ function displayBar(tagName, message, { link, details, buttonLabel, buttonOnclic
 			const textElement = document.createElement("span");
 			textElement.classList.add("text");
 			const content = message.split("__DOC_LINK__");
-			textElement.textContent = content[0];
-			if (link && content.length == 2) {
-				const linkElement = document.createElement("a");
-				linkElement.textContent = link;
-				linkElement.href = link;
-				linkElement.target = "_blank";
-				textElement.appendChild(linkElement);
-				textElement.appendChild(document.createTextNode(content[1]));
+			if (message) {
+				const messageElement = document.createElement("span");
+				messageElement.textContent = content[0];
+				if (link && content.length == 2) {
+					const linkElement = document.createElement("a");
+					linkElement.textContent = link;
+					linkElement.href = link;
+					linkElement.target = "_blank";
+					messageElement.appendChild(linkElement);
+					messageElement.appendChild(document.createTextNode(content[1]));
+				}
+				textElement.appendChild(messageElement);
 			}
 			if (buttonLabel && buttonOnclick) {
 				const buttonElement = document.createElement("button");
