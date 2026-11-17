@@ -95,6 +95,10 @@
 		"message": "Guardar selección",
 		"description": "Menu entry: 'Save selection'"
 	},
+	"menuEditAndSaveSelection": {
+		"message": "Annotate and save the selection...",
+		"description": "Menu entry: 'Annotate and save the selection...'"
+	},
 	"menuSaveFrame": {
 		"message": "Guardar marco (frame)",
 		"description": "Menu entry: 'Save frame'"

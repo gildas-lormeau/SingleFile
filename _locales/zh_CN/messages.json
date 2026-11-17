@@ -95,6 +95,10 @@
 		"message": "保存选中部分",
 		"description": "Menu entry: 'Save selection'"
 	},
+	"menuEditAndSaveSelection": {
+		"message": "Annotate and save the selection...",
+		"description": "Menu entry: 'Annotate and save the selection...'"
+	},
 	"menuSaveFrame": {
 		"message": "保存框架",
 		"description": "Menu entry: 'Save frame'"

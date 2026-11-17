@@ -95,6 +95,10 @@
 		"message": "Sauver la sélection",
 		"description": "Menu entry: 'Save selection'"
 	},
+	"menuEditAndSaveSelection": {
+		"message": "Annoter et sauver la sélection...",
+		"description": "Menu entry: 'Annotate and save the selection...'"
+	},
 	"menuSaveFrame": {
 		"message": "Sauver le cadre",
 		"description": "Menu entry: 'Save frame'"

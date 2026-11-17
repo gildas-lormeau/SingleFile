@@ -27,6 +27,7 @@ const ACTIONS = {
 	"save-page": { labelKey: "menuSavePage", bindable: true },
 	"edit-and-save-page": { labelKey: "menuEditAndSavePage", altLabelKey: "menuEditPage", bindable: true },
 	"save-selection": { labelKey: "menuSaveSelection", bindable: true },
+	"edit-and-save-selection": { labelKey: "menuEditAndSaveSelection", bindable: true },
 	"save-selected-links": { labelKey: "menuSaveSelectedLinks", contexts: ["selection"] },
 	"save-frame": { labelKey: "menuSaveFrame", contexts: ["frame"], surfaces: ["page"] },
 	"save-with-profile": { labelKey: "menuSaveWithProfile", dynamic: "profiles" },

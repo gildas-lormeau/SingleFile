@@ -95,6 +95,10 @@
 		"message": "Spara markeringen",
 		"description": "Menu entry: 'Save selection'"
 	},
+	"menuEditAndSaveSelection": {
+		"message": "Annotate and save the selection...",
+		"description": "Menu entry: 'Annotate and save the selection...'"
+	},
 	"menuSaveFrame": {
 		"message": "Spara ramen",
 		"description": "Menu entry: 'Save frame'"

@@ -43,7 +43,7 @@ const SURFACE_CONTEXTS = {
 	button: ["browser_action"],
 	tab: ["tab"]
 };
-const EDITOR_HIDDEN_ACTIONS = ["edit-and-save-page", "save-selected-links", "save-selection", "save-frame", "auto-save", "domain-rule"];
+const EDITOR_HIDDEN_ACTIONS = ["edit-and-save-page", "save-selected-links", "save-selection", "edit-and-save-selection", "save-frame", "auto-save", "domain-rule"];
 const AUTO_SAVE_MODES = [
 	{ mode: "disabled", labelKey: "menuAutoSaveDisabled" },
 	{ mode: "tab", labelKey: "menuAutoSaveTab" },
@@ -334,6 +334,9 @@ async function initialize() {
 			if (item.action == "save-selection") {
 				business.saveTabs([tab], Object.assign(profileOptions, { selected: true }));
 			}
+			if (item.action == "edit-and-save-selection") {
+				business.saveTabs([tab], Object.assign(profileOptions, { selected: true, openEditor: true }));
+			}
 			if (item.action == "save-frame") {
 				business.saveTabs([tab], { frameId: event.frameId });
 			}
@@ -464,6 +467,7 @@ async function refreshTab(tab) {
 				});
 				if (config.SELECTABLE_TABS_SUPPORTED) {
 					getItems("save-selection").forEach(([id]) => promises.push(menus.update(id, { visible: !options.saveRawPage })));
+					getItems("edit-and-save-selection").forEach(([id]) => promises.push(menus.update(id, { visible: !options.saveRawPage && !options.openEditor })));
 				}
 				const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url, true)]);
 				const profileNames = Object.keys(profiles);

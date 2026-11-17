@@ -95,6 +95,10 @@
 		"message": "Seçimi yaddaşa qeyd et",
 		"description": "Menu entry: 'Save selection'"
 	},
+	"menuEditAndSaveSelection": {
+		"message": "Annotate and save the selection...",
+		"description": "Menu entry: 'Annotate and save the selection...'"
+	},
 	"menuSaveFrame": {
 		"message": "Frame-i yaddaşa qeyd et",
 		"description": "Menu entry: 'Save frame'"

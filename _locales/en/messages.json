@@ -95,6 +95,10 @@
 		"message": "Save selection",
 		"description": "Menu entry: 'Save selection'"
 	},
+	"menuEditAndSaveSelection": {
+		"message": "Annotate and save the selection...",
+		"description": "Menu entry: 'Annotate and save the selection...'"
+	},
 	"menuSaveFrame": {
 		"message": "Save frame",
 		"description": "Menu entry: 'Save frame'"
