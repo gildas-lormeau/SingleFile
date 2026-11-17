@@ -61,3 +61,39 @@ jobs:
             exit 1
           fi
           unzip -p singlefile-extension-firefox.zip lib/single-file-extension-background.js | grep -q WOLEET_API_KEY_PLACEHOLDER
+
+  # The functional suite of single-file-tests drives this extension in a real browser and checks the
+  # files it saves, the way the release gate does on a packaged build. It is new on the runners: until
+  # it has shown it is stable there, its result is reported and does not fail the workflow.
+  functional:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      -
+        name: Checkout sources
+        uses: actions/checkout@v5
+        with:
+          path: single-file
+      -
+        name: Checkout the functional suite
+        uses: actions/checkout@v5
+        with:
+          repository: gildas-lormeau/single-file-tests
+          path: single-file-tests
+      -
+        name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 26
+      # the suite looks for the extension in the sibling directory, and for the browser where these
+      # variables say: a browser and a driver installed together are of the same version
+      -
+        name: Install the browser
+        run: |
+          firefox=$(npx --yes @puppeteer/browsers install firefox@stable --path "$RUNNER_TEMP/browsers" | tail -1 | cut -d' ' -f2-)
+          echo "SF_FIREFOX_PATH=$firefox" >> "$GITHUB_ENV"
+      -
+        name: Run the functional suite
+        working-directory: single-file-tests
+        run: node extension/run.mjs --browser=firefox
