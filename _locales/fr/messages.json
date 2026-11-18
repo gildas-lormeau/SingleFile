@@ -119,6 +119,18 @@
 		"message": "Sauver tous les onglets",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveSelectedTabsInArchive": {
+		"message": "Sauver les onglets sélectionnés dans une seule archive",
+		"description": "Menu entry: 'Save selected tabs in one archive'"
+	},
+	"menuSaveUnpinnedTabsInArchive": {
+		"message": "Sauver les onglets non épinglés dans une seule archive",
+		"description": "Menu entry: 'Save unpinned tabs in one archive'"
+	},
+	"menuSaveAllTabsInArchive": {
+		"message": "Sauver tous les onglets dans une seule archive",
+		"description": "Menu entry: 'Save all tabs in one archive'"
+	},
 	"menuBatchSaveUrls": {
 		"message": "Sauver des URLs par lot...",
 		"description": "Menu entry: 'Batch save URLs...'"
