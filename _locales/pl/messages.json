@@ -96,7 +96,7 @@
 		"description": "Menu entry: 'Save selection'"
 	},
 	"menuEditAndSaveSelection": {
-		"message": "Annotate and save the selection...",
+		"message": "Dodaj adnotację i zapisz wybór...",
 		"description": "Menu entry: 'Annotate and save the selection...'"
 	},
 	"menuSaveFrame": {
@@ -120,15 +120,15 @@
 		"description": "Menu entry: 'Save all tabs'"
 	},
 	"menuSaveSelectedTabsInArchive": {
-		"message": "Save selected tabs in one archive",
+		"message": "Zapisz wybrane karty w jednym archiwum",
 		"description": "Menu entry: 'Save selected tabs in one archive'"
 	},
 	"menuSaveUnpinnedTabsInArchive": {
-		"message": "Save unpinned tabs in one archive",
+		"message": "Zapisz nieprzypięte karty w jednym archiwum",
 		"description": "Menu entry: 'Save unpinned tabs in one archive'"
 	},
 	"menuSaveAllTabsInArchive": {
-		"message": "Save all tabs in one archive",
+		"message": "Zapisz wszystkie karty w jednym archiwum",
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
 	"menuBatchSaveUrls": {
