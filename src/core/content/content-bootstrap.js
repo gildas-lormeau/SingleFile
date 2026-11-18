@@ -29,7 +29,7 @@ const ARCHIVE_SCAN_LENGTH = 1024 * 1024;
 const singlefile = globalThis.singlefileBootstrap;
 const pendingResponses = new Map();
 
-let unloadListenerAdded, optionsAutoSave, tabId, tabIndex, incognito, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved, previousLocationHref, savedPageDetected, compressContent, extractDataFromPageTags, insertTextBody, insertMetaCSP;
+let unloadListenerAdded, optionsAutoSave, tabId, tabIndex, incognito, autoSaveEnabled, autoSaveTimeout, autoSavingPage, pageAutoSaved, pageCapturedBeforeUnload, previousLocationHref, savedPageDetected, compressContent, extractDataFromPageTags, insertTextBody, insertMetaCSP;
 singlefile.pageInfo = {
 	visitDate: new Date()
 };
@@ -245,11 +245,13 @@ async function autoSavePage() {
 function refresh() {
 	if (autoSaveEnabled && optionsAutoSave && (optionsAutoSave.autoSaveUnload || optionsAutoSave.autoSaveLoadOrUnload || optionsAutoSave.autoSaveDiscard || optionsAutoSave.autoSaveRemove)) {
 		if (!unloadListenerAdded) {
+			globalThis.addEventListener("beforeunload", onBeforeUnload);
 			globalThis.addEventListener("unload", onUnload);
 			document.addEventListener("visibilitychange", onVisibilityChange);
 			unloadListenerAdded = true;
 		}
 	} else {
+		globalThis.removeEventListener("beforeunload", onBeforeUnload);
 		globalThis.removeEventListener("unload", onUnload);
 		document.removeEventListener("visibilitychange", onVisibilityChange);
 		unloadListenerAdded = false;
@@ -262,13 +264,33 @@ function onVisibilityChange() {
 	}
 }
 
-function onUnload() {
-	if (!pageAutoSaved && document.body && (optionsAutoSave.autoSaveUnload || optionsAutoSave.autoSaveLoadOrUnload || optionsAutoSave.autoSaveRemove)) {
-		autoSaveUnloadedPage({ autoSaveUnload: optionsAutoSave.autoSaveUnload || optionsAutoSave.autoSaveLoadOrUnload, autoSaveRemove: optionsAutoSave.autoSaveRemove });
+function onBeforeUnload() {
+	if (isUnloadedPageAutoSaved()) {
+		autoSaveUnloadedPage({
+			autoSaveUnload: optionsAutoSave.autoSaveUnload || optionsAutoSave.autoSaveLoadOrUnload,
+			autoSaveDiscard: optionsAutoSave.autoSaveDiscard,
+			autoSaveRemove: optionsAutoSave.autoSaveRemove,
+			autoSaveBeforeUnload: true
+		});
+		pageCapturedBeforeUnload = true;
 	}
 }
 
-function autoSaveUnloadedPage({ autoSaveUnload, autoSaveDiscard, autoSaveRemove }) {
+function onUnload() {
+	if (isUnloadedPageAutoSaved()) {
+		if (pageCapturedBeforeUnload) {
+			browser.runtime.sendMessage({ method: "autosave.unload", tabId });
+		} else {
+			autoSaveUnloadedPage({ autoSaveUnload: optionsAutoSave.autoSaveUnload || optionsAutoSave.autoSaveLoadOrUnload, autoSaveRemove: optionsAutoSave.autoSaveRemove });
+		}
+	}
+}
+
+function isUnloadedPageAutoSaved() {
+	return !pageAutoSaved && document.body && (optionsAutoSave.autoSaveUnload || optionsAutoSave.autoSaveLoadOrUnload || optionsAutoSave.autoSaveRemove);
+}
+
+function autoSaveUnloadedPage({ autoSaveUnload, autoSaveDiscard, autoSaveRemove, autoSaveBeforeUnload }) {
 	const helper = singlefile.helper;
 	const waitForUserScript = globalThis[helper.WAIT_FOR_USERSCRIPT_PROPERTY_NAME];
 	let frames = [];
@@ -279,14 +301,14 @@ function autoSaveUnloadedPage({ autoSaveUnload, autoSaveDiscard, autoSaveRemove 
 		waitForUserScript(helper.ON_BEFORE_CAPTURE_EVENT_NAME);
 	}
 	const docData = helper.preProcessDoc(document, globalThis, optionsAutoSave);
-	savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRemove });
+	savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRemove, autoSaveBeforeUnload });
 	if (frames && frames.sessionId) {
 		singlefile.processors.frameTree.cleanup(frames.sessionId);
 	}
 	helper.postProcessDoc(document, docData.markedElements, docData.invalidElements);
 }
 
-function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRemove } = {}) {
+function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRemove, autoSaveBeforeUnload } = {}) {
 	const helper = singlefile.helper;
 	const visitDate = singlefile.pageInfo.visitDate.getTime();
 	browser.runtime.sendMessage({
@@ -312,7 +334,8 @@ function savePage(docData, frames, { autoSaveUnload, autoSaveDiscard, autoSaveRe
 		visitDate,
 		autoSaveUnload,
 		autoSaveDiscard,
-		autoSaveRemove
+		autoSaveRemove,
+		autoSaveBeforeUnload
 	});
 }
 
