@@ -120,15 +120,15 @@
 		"description": "Menu entry: 'Save all tabs'"
 	},
 	"menuSaveSelectedTabsInArchive": {
-		"message": "Save selected tabs in one archive",
+		"message": "Сохранить выбранные вкладки в один архив",
 		"description": "Menu entry: 'Save selected tabs in one archive'"
 	},
 	"menuSaveUnpinnedTabsInArchive": {
-		"message": "Save unpinned tabs in one archive",
+		"message": "Сохранить незакреплённые вкладки в один архив",
 		"description": "Menu entry: 'Save unpinned tabs in one archive'"
 	},
 	"menuSaveAllTabsInArchive": {
-		"message": "Save all tabs in one archive",
+		"message": "Сохранить все вкладки в один архив",
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
 	"menuBatchSaveUrls": {
