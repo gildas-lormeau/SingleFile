@@ -21,11 +21,12 @@
  *   Source.
  */
 
-/* global browser, document, prompt, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, setTimeout, getSelection, Node, URL */
+/* global browser, document, prompt, getComputedStyle, addEventListener, removeEventListener, requestAnimationFrame, setTimeout, getSelection, Node, NodeFilter, URL */
 
 const singlefile = globalThis.singlefile;
 
 const SELECTED_CONTENT_ATTRIBUTE_NAME = singlefile.helper.SELECTED_CONTENT_ATTRIBUTE_NAME;
+const SELECTED_TEXT_ATTRIBUTE_NAME = singlefile.helper.SELECTED_TEXT_ATTRIBUTE_NAME;
 
 const MASK_TAGNAME = "singlefile-mask";
 const MASK_CONTENT_CLASSNAME = "singlefile-mask-content";
@@ -60,6 +61,7 @@ function getMessage(messageName, defaultMessage) {
 }
 
 const markedElements = new Set();
+const selectedTextNodes = new Set();
 
 let selectedAreaElement, logsWindowElement, backdropStyleElement;
 createLogsWindowElement();
@@ -282,13 +284,49 @@ function markSelectedContent() {
 						markSelectedNode(node);
 						if (node.querySelectorAll) {
 							node.querySelectorAll("*").forEach(markSelectedNode);
+							const textWalker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+							while (textWalker.nextNode()) {
+								selectedTextNodes.add(textWalker.currentNode);
+							}
 						}
 					}
 				}
 			}
 		}
 	}
+	if (selectionFound) {
+		markSelectedText();
+	}
 	return selectionFound;
+}
+
+function markSelectedText() {
+	markedElements.forEach(element => {
+		const selectedTextIndexes = [];
+		let textIndex = 0, textFound = false, textSelected = false, unselectedTextFound = false;
+		Array.from(element.childNodes).concat([null]).forEach(node => {
+			if (node && node.nodeType == Node.TEXT_NODE) {
+				textFound = textFound || /\S/.test(node.data);
+				textSelected = textSelected || selectedTextNodes.has(node);
+			} else {
+				if (textFound) {
+					if (textSelected) {
+						selectedTextIndexes.push(textIndex);
+					} else {
+						unselectedTextFound = true;
+					}
+					textIndex++;
+				}
+				textFound = false;
+				textSelected = false;
+			}
+		});
+		if (unselectedTextFound) {
+			element.setAttribute(SELECTED_TEXT_ATTRIBUTE_NAME, selectedTextIndexes.join(" "));
+		} else {
+			element.removeAttribute(SELECTED_TEXT_ATTRIBUTE_NAME);
+		}
+	});
 }
 
 function getSelectedRanges() {
@@ -343,6 +381,9 @@ function getComposedStaticRange(selection, shadowRoots) {
 
 function markSelectedNode(node) {
 	const element = node.nodeType == Node.ELEMENT_NODE ? node : node.parentElement;
+	if (node.nodeType == Node.TEXT_NODE) {
+		selectedTextNodes.add(node);
+	}
 	if (element) {
 		element.setAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME, "");
 		markedElements.add(element);
@@ -358,9 +399,14 @@ function markSelectedParents(node) {
 }
 
 function unmarkSelection() {
-	markedElements.forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
+	markedElements.forEach(selectedContent => {
+		selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME);
+		selectedContent.removeAttribute(SELECTED_TEXT_ATTRIBUTE_NAME);
+	});
 	markedElements.clear();
+	selectedTextNodes.clear();
 	document.querySelectorAll("[" + SELECTED_CONTENT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_CONTENT_ATTRIBUTE_NAME));
+	document.querySelectorAll("[" + SELECTED_TEXT_ATTRIBUTE_NAME + "]").forEach(selectedContent => selectedContent.removeAttribute(SELECTED_TEXT_ATTRIBUTE_NAME));
 }
 
 function selectArea() {
