@@ -1125,6 +1125,10 @@
 		"message": "Səhifəni daha yaxşı oxunacaq şəkildə formatlayın",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
+	"editorEditInfobar": {
+		"message": "Edit the infobar message",
+		"description": "Title of the button 'Edit the infobar message' in the editor, also the text of the prompt asking for the message"
+	},
 	"editorCutInnerPage": {
 		"message": "Siçanın altındakı elementi silin (qırmızı çərçivə)",
 		"description": "Title of the button 'Remove the element under the mouse' in the editor"

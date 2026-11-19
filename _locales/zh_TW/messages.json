@@ -1125,6 +1125,10 @@
 		"message": "設定網頁格式以提高可讀性",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
+	"editorEditInfobar": {
+		"message": "Edit the infobar message",
+		"description": "Title of the button 'Edit the infobar message' in the editor, also the text of the prompt asking for the message"
+	},
 	"editorCutInnerPage": {
 		"message": "移除滑鼠下方的元素（紅色外框）",
 		"description": "Title of the button 'Remove the element under the mouse' in the editor"

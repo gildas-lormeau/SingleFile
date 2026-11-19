@@ -1125,6 +1125,10 @@
 		"message": "Formatera sidan för bättre läsbarhet",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
+	"editorEditInfobar": {
+		"message": "Edit the infobar message",
+		"description": "Title of the button 'Edit the infobar message' in the editor, also the text of the prompt asking for the message"
+	},
 	"editorCutInnerPage": {
 		"message": "Ta bort elementet under muspekaren (röd ram)",
 		"description": "Title of the button 'Remove the element under the mouse' in the editor"

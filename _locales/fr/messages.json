@@ -1125,6 +1125,10 @@
 		"message": "Formater la  page pour une meilleure lisibilité",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
+	"editorEditInfobar": {
+		"message": "Modifier le message de la barre d'information",
+		"description": "Title of the button 'Edit the infobar message' in the editor, also the text of the prompt asking for the message"
+	},
 	"editorCutInnerPage": {
 		"message": "Supprimer l'élément sous la souris (contour rouge)",
 		"description": "Title of the button 'Remove the element under the mouse' in the editor"
