@@ -48,6 +48,10 @@ const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 const CONFLICT_ACTION_SKIP = "skip";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
 const REGEXP_ESCAPE = /([{}()^$&.*?/+|[\\\\]|\]|-)/g;
+const ARCHIVE_MODULE_PATH = "/lib/single-file-archive.js";
+const ZIP_SCRIPT_PATH = "/lib/single-file-zip.min.js";
+const SELF_EXTRACTING_ARCHIVE_MIME_TYPE = "text/html";
+const ARCHIVE_MIME_TYPE = "application/zip";
 let GDRIVE_CLIENT_ID = "207618107333-h1220p1oasj3050kr5r416661adm091a.apps.googleusercontent.com";
 let GDRIVE_CLIENT_KEY = "VQJ8Gq8Vxx72QyxPyeLtWvUt";
 const DROPBOX_CLIENT_ID = "s50p6litdvuzrtb";
@@ -68,6 +72,8 @@ browser.tabs.onRemoved.addListener(tabId => {
 		URL.revokeObjectURL(blobURL);
 	}
 });
+
+business.setArchiveEndCallback(downloadArchive);
 
 export {
 	onMessage,
@@ -300,138 +306,194 @@ async function downloadContent(blob, tab, incognito, message) {
 async function downloadCompressedContent(message, tab) {
 	const tabId = tab.id;
 	try {
-		let skipped;
 		const pageData = message.pageData;
-		const prompt = filename => promptFilename(tabId, filename);
-		const blob = await singlefile.processors.compression.process(pageData, {
-			insertTextBody: message.insertTextBody,
-			url: pageData.url || tab.url,
-			createRootDirectory: message.createRootDirectory,
-			tabId,
-			selfExtractingArchive: message.selfExtractingArchive,
-			disableCompression: message.disableCompression,
-			extractDataFromPage: message.extractDataFromPage,
-			preventAppendedData: message.preventAppendedData,
-			maxAppendedDataLength: message.maxAppendedDataLength,
-			insertCanonicalLink: message.insertCanonicalLink,
-			insertMetaNoIndex: message.insertMetaNoIndex,
-			insertMetaCSP: message.insertMetaCSP,
-			password: message.password,
-			embeddedImage: message.embeddedImage
-		});
-		let response, hash;
-		if (message.addProof && !message.openEditor) {
-			hash = await singlefile.helper.digest("SHA-256", new Uint8Array(await blob.arrayBuffer()));
-		}
-		if (message.openEditor) {
-			ui.onEdit(tabId);
-			await editor.open({
-				tabIndex: tab.index + 1,
-				filename: message.filename,
-				content: Array.from(new Uint8Array(await blob.arrayBuffer())),
-				compressContent: message.compressContent,
+		const archivePage = { tab, message, url: pageData.url || tab.url, title: pageData.title };
+		if (business.addArchivePage(message.taskId, archivePage)) {
+			archivePage.blob = await singlefile.processors.compression.process(pageData, {
+				url: archivePage.url,
+				tabId,
+				disableCompression: message.disableCompression
+			});
+			message.pageData = message.blob = null;
+			ui.onEnd(tabId);
+		} else {
+			const blob = await singlefile.processors.compression.process(pageData, {
+				insertTextBody: message.insertTextBody,
+				url: pageData.url || tab.url,
+				createRootDirectory: message.createRootDirectory,
+				tabId,
 				selfExtractingArchive: message.selfExtractingArchive,
 				disableCompression: message.disableCompression,
 				extractDataFromPage: message.extractDataFromPage,
-				insertTextBody: message.insertTextBody,
+				preventAppendedData: message.preventAppendedData,
+				maxAppendedDataLength: message.maxAppendedDataLength,
+				insertCanonicalLink: message.insertCanonicalLink,
+				insertMetaNoIndex: message.insertMetaNoIndex,
 				insertMetaCSP: message.insertMetaCSP,
-				embeddedImage: message.embeddedImage,
-				url: message.originalUrl
+				password: message.password,
+				embeddedImage: message.embeddedImage
 			});
-		} else if (message.foregroundSave || !message.backgroundSave || message.sharePage) {
-			const response = await downloadPageForeground(message.taskId, message.filename, blob, pageData.mimeType, tabId, {
-				foregroundSave: true,
-				sharePage: message.sharePage
-			});
-			if (response.error) {
-				throw new Error(response.error);
-			}
-		} else if (message.saveWithWebDAV) {
-			response = await saveWithWebDAV(message.taskId, encodeSharpCharacter(message.filename), blob, message.webDAVURL, message.webDAVUser, message.webDAVPassword, { filenameConflictAction: message.filenameConflictAction, prompt });
-		} else if (message.saveWithMCP) {
-			response = await saveWithMCP(message.taskId, encodeSharpCharacter(message.filename), blob, message.mcpServerUrl, message.mcpAuthToken, { filenameConflictAction: message.filenameConflictAction, prompt });
-		} else if (message.saveToGDrive) {
-			await saveToGDrive(message.taskId, encodeSharpCharacter(message.filename), blob, {
-				forceWebAuthFlow: message.forceWebAuthFlow
-			}, {
-				onProgress: (offset, size) => ui.onUploadProgress(tabId, offset, size),
-				filenameConflictAction: message.filenameConflictAction,
-				prompt
-			});
-		} else if (message.saveToDropbox) {
-			await saveToDropbox(message.taskId, encodeSharpCharacter(message.filename), blob, {
-				onProgress: (offset, size) => ui.onUploadProgress(tabId, offset, size),
-				filenameConflictAction: message.filenameConflictAction,
-				prompt
-			});
-		} else if (message.saveToGitHub) {
-			response = await saveToGitHub(message.taskId, encodeSharpCharacter(message.filename), blob, message.githubToken, message.githubUser, message.githubRepository, message.githubBranch, {
-				filenameConflictAction: message.filenameConflictAction,
-				prompt
-			});
-			await response.pushPromise;
-		} else if (message.saveToRestFormApi) {
-			response = await saveToRestFormApi(
-				message.taskId,
-				message.filename,
-				blob,
-				message.originalUrl,
-				message.saveToRestFormApiToken,
-				message.saveToRestFormApiUrl,
-				message.saveToRestFormApiFileFieldName,
-				message.saveToRestFormApiUrlFieldName
-			);
-		} else if (message.saveToS3) {
-			response = await saveToS3(message.taskId, encodeSharpCharacter(message.filename), blob, message.S3Domain, message.S3Region, message.S3Bucket, message.S3AccessKey, message.S3SecretKey, {
-				filenameConflictAction: message.filenameConflictAction,
-				prompt
-			});
-		} else {
-			const testSkip = await testSkipSave(message.filename, message);
-			skipped = testSkip.skipped;
-			if (!skipped) {
-				message.filenameConflictAction = testSkip.filenameConflictAction;
-				message.url = URL.createObjectURL(blob);
-				response = await downloadPage(message, {
-					confirmFilename: message.confirmFilename,
-					incognito: tab.incognito,
-					filenameConflictAction: message.filenameConflictAction,
-					filenameReplacementCharacter: message.filenameReplacementCharacter,
-					filenameReplacedCharacters: message.filenameReplacedCharacters,
-					filenameReplacementCharacters: message.filenameReplacementCharacters,
-					promptConflictingFilename: filename => promptConflictingFilename(tabId, filename),
-					bookmarkId: message.bookmarkId,
-					replaceBookmarkURL: message.replaceBookmarkURL,
-					includeInfobar: message.includeInfobar,
-					openInfobar: message.openInfobar,
-					animateInfobar: message.animateInfobar,
-					infobarPositionAbsolute: message.infobarPositionAbsolute,
-					infobarPositionTop: message.infobarPositionTop,
-					infobarPositionBottom: message.infobarPositionBottom,
-					infobarPositionLeft: message.infobarPositionLeft,
-					infobarPositionRight: message.infobarPositionRight
-				});
-			}
-		}
-		if (message.bookmarkId && message.replaceBookmarkURL && response && response.url) {
-			await bookmarks.update(message.bookmarkId, { url: response.url });
-		}
-		ui.onEnd(tabId);
-		if (message.openSavedPage && !message.openEditor && !skipped) {
-			await openViewerTab(tab, URL.createObjectURL(blob), { compressed: true });
-		}
-		if (hash && !skipped) {
-			await woleet.anchor(hash, message.woleetKey);
+			await saveCompressedContent(blob, pageData.mimeType, message, tab);
 		}
 	} catch (error) {
-		if (!error.message || error.message != "upload_cancelled") {
-			console.error(error); // eslint-disable-line no-console
-			ui.onError(tabId, error.message, error.link, error.stack);
-		}
+		onDownloadError(tabId, error);
 	} finally {
 		if (message.url) {
 			URL.revokeObjectURL(message.url);
 		}
+	}
+}
+
+async function downloadArchive(archive) {
+	const pages = archive.pages.filter(page => page && page.blob);
+	if (pages.length) {
+		const { tab, message, saveOptions } = pages[0];
+		const mimeType = message.selfExtractingArchive ? SELF_EXTRACTING_ARCHIVE_MIME_TYPE : ARCHIVE_MIME_TYPE;
+		const archiveMessage = Object.assign({}, message, saveOptions, { url: null });
+		try {
+			const { createPagesArchive } = await import(ARCHIVE_MODULE_PATH);
+			const content = await createPagesArchive(pages.map(page => ({
+				url: page.url,
+				title: page.title,
+				getData: async () => new Uint8Array(await page.blob.arrayBuffer())
+			})), {
+				selfExtractingArchive: message.selfExtractingArchive,
+				extractDataFromPage: message.extractDataFromPage,
+				preventAppendedData: message.preventAppendedData,
+				maxAppendedDataLength: message.maxAppendedDataLength,
+				insertCanonicalLink: message.insertCanonicalLink,
+				insertMetaNoIndex: message.insertMetaNoIndex,
+				insertMetaCSP: message.insertMetaCSP,
+				insertSingleFileComment: true,
+				createRootDirectory: message.createRootDirectory,
+				zipScript: await (await fetch(ZIP_SCRIPT_PATH)).text(),
+				tocPage: true
+			});
+			await saveCompressedContent(new Blob([content], { type: mimeType }), mimeType, archiveMessage, tab);
+		} catch (error) {
+			onDownloadError(tab.id, error);
+		} finally {
+			if (archiveMessage.url) {
+				URL.revokeObjectURL(archiveMessage.url);
+			}
+		}
+	}
+}
+
+function onDownloadError(tabId, error) {
+	if (!error.message || error.message != "upload_cancelled") {
+		console.error(error); // eslint-disable-line no-console
+		ui.onError(tabId, error.message, error.link, error.stack);
+	}
+}
+
+async function saveCompressedContent(blob, mimeType, message, tab) {
+	const tabId = tab.id;
+	let skipped;
+	const prompt = filename => promptFilename(tabId, filename);
+	let response, hash;
+	if (message.addProof && !message.openEditor) {
+		hash = await singlefile.helper.digest("SHA-256", new Uint8Array(await blob.arrayBuffer()));
+	}
+	if (message.openEditor) {
+		ui.onEdit(tabId);
+		await editor.open({
+			tabIndex: tab.index + 1,
+			filename: message.filename,
+			content: Array.from(new Uint8Array(await blob.arrayBuffer())),
+			compressContent: message.compressContent,
+			selfExtractingArchive: message.selfExtractingArchive,
+			disableCompression: message.disableCompression,
+			extractDataFromPage: message.extractDataFromPage,
+			insertTextBody: message.insertTextBody,
+			insertMetaCSP: message.insertMetaCSP,
+			embeddedImage: message.embeddedImage,
+			url: message.originalUrl
+		});
+	} else if (message.foregroundSave || !message.backgroundSave || message.sharePage) {
+		const response = await downloadPageForeground(message.taskId, message.filename, blob, mimeType, tabId, {
+			foregroundSave: true,
+			sharePage: message.sharePage
+		});
+		if (response.error) {
+			throw new Error(response.error);
+		}
+	} else if (message.saveWithWebDAV) {
+		response = await saveWithWebDAV(message.taskId, encodeSharpCharacter(message.filename), blob, message.webDAVURL, message.webDAVUser, message.webDAVPassword, { filenameConflictAction: message.filenameConflictAction, prompt });
+	} else if (message.saveWithMCP) {
+		response = await saveWithMCP(message.taskId, encodeSharpCharacter(message.filename), blob, message.mcpServerUrl, message.mcpAuthToken, { filenameConflictAction: message.filenameConflictAction, prompt });
+	} else if (message.saveToGDrive) {
+		await saveToGDrive(message.taskId, encodeSharpCharacter(message.filename), blob, {
+			forceWebAuthFlow: message.forceWebAuthFlow
+		}, {
+			onProgress: (offset, size) => ui.onUploadProgress(tabId, offset, size),
+			filenameConflictAction: message.filenameConflictAction,
+			prompt
+		});
+	} else if (message.saveToDropbox) {
+		await saveToDropbox(message.taskId, encodeSharpCharacter(message.filename), blob, {
+			onProgress: (offset, size) => ui.onUploadProgress(tabId, offset, size),
+			filenameConflictAction: message.filenameConflictAction,
+			prompt
+		});
+	} else if (message.saveToGitHub) {
+		response = await saveToGitHub(message.taskId, encodeSharpCharacter(message.filename), blob, message.githubToken, message.githubUser, message.githubRepository, message.githubBranch, {
+			filenameConflictAction: message.filenameConflictAction,
+			prompt
+		});
+		await response.pushPromise;
+	} else if (message.saveToRestFormApi) {
+		response = await saveToRestFormApi(
+			message.taskId,
+			message.filename,
+			blob,
+			message.originalUrl,
+			message.saveToRestFormApiToken,
+			message.saveToRestFormApiUrl,
+			message.saveToRestFormApiFileFieldName,
+			message.saveToRestFormApiUrlFieldName
+		);
+	} else if (message.saveToS3) {
+		response = await saveToS3(message.taskId, encodeSharpCharacter(message.filename), blob, message.S3Domain, message.S3Region, message.S3Bucket, message.S3AccessKey, message.S3SecretKey, {
+			filenameConflictAction: message.filenameConflictAction,
+			prompt
+		});
+	} else {
+		const testSkip = await testSkipSave(message.filename, message);
+		skipped = testSkip.skipped;
+		if (!skipped) {
+			message.filenameConflictAction = testSkip.filenameConflictAction;
+			message.url = URL.createObjectURL(blob);
+			response = await downloadPage(message, {
+				confirmFilename: message.confirmFilename,
+				incognito: tab.incognito,
+				filenameConflictAction: message.filenameConflictAction,
+				filenameReplacementCharacter: message.filenameReplacementCharacter,
+				filenameReplacedCharacters: message.filenameReplacedCharacters,
+				filenameReplacementCharacters: message.filenameReplacementCharacters,
+				promptConflictingFilename: filename => promptConflictingFilename(tabId, filename),
+				bookmarkId: message.bookmarkId,
+				replaceBookmarkURL: message.replaceBookmarkURL,
+				includeInfobar: message.includeInfobar,
+				openInfobar: message.openInfobar,
+				animateInfobar: message.animateInfobar,
+				infobarPositionAbsolute: message.infobarPositionAbsolute,
+				infobarPositionTop: message.infobarPositionTop,
+				infobarPositionBottom: message.infobarPositionBottom,
+				infobarPositionLeft: message.infobarPositionLeft,
+				infobarPositionRight: message.infobarPositionRight
+			});
+		}
+	}
+	if (message.bookmarkId && message.replaceBookmarkURL && response && response.url) {
+		await bookmarks.update(message.bookmarkId, { url: response.url });
+	}
+	ui.onEnd(tabId);
+	if (message.openSavedPage && !message.openEditor && !skipped) {
+		await openViewerTab(tab, URL.createObjectURL(blob), { compressed: true });
+	}
+	if (hash && !skipped) {
+		await woleet.anchor(hash, message.woleetKey);
 	}
 }
 

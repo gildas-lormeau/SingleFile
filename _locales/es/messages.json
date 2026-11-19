@@ -119,6 +119,18 @@
 		"message": "Guardar todas las pestañas",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveSelectedTabsInArchive": {
+		"message": "Save selected tabs in one archive",
+		"description": "Menu entry: 'Save selected tabs in one archive'"
+	},
+	"menuSaveUnpinnedTabsInArchive": {
+		"message": "Save unpinned tabs in one archive",
+		"description": "Menu entry: 'Save unpinned tabs in one archive'"
+	},
+	"menuSaveAllTabsInArchive": {
+		"message": "Save all tabs in one archive",
+		"description": "Menu entry: 'Save all tabs in one archive'"
+	},
 	"menuBatchSaveUrls": {
 		"message": "Guardar por lotes URLs...",
 		"description": "Menu entry: 'Batch save URLs...'"

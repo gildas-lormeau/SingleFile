@@ -119,6 +119,18 @@
 		"message": "すべてのタブを保存",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveSelectedTabsInArchive": {
+		"message": "Save selected tabs in one archive",
+		"description": "Menu entry: 'Save selected tabs in one archive'"
+	},
+	"menuSaveUnpinnedTabsInArchive": {
+		"message": "Save unpinned tabs in one archive",
+		"description": "Menu entry: 'Save unpinned tabs in one archive'"
+	},
+	"menuSaveAllTabsInArchive": {
+		"message": "Save all tabs in one archive",
+		"description": "Menu entry: 'Save all tabs in one archive'"
+	},
 	"menuBatchSaveUrls": {
 		"message": "URLを一括保存する...",
 		"description": "Menu entry: 'Batch save URLs...'"

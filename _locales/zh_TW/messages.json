@@ -119,6 +119,18 @@
 		"message": "儲存所有分頁",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveSelectedTabsInArchive": {
+		"message": "將所選分頁儲存到同一個封存檔",
+		"description": "Menu entry: 'Save selected tabs in one archive'"
+	},
+	"menuSaveUnpinnedTabsInArchive": {
+		"message": "將未固定的分頁儲存到同一個封存檔",
+		"description": "Menu entry: 'Save unpinned tabs in one archive'"
+	},
+	"menuSaveAllTabsInArchive": {
+		"message": "將所有分頁儲存到同一個封存檔",
+		"description": "Menu entry: 'Save all tabs in one archive'"
+	},
 	"menuBatchSaveUrls": {
 		"message": "批次儲存網址...",
 		"description": "Menu entry: 'Batch save URLs...'"

@@ -146,7 +146,7 @@ function isActionSupported(action) {
 	if (action == "auto-save") {
 		return config.AUTO_SAVE_SUPPORTED;
 	}
-	if (action == "save-selected-tabs") {
+	if (action == "save-selected-tabs" || action == "save-selected-tabs-in-archive") {
 		return config.SELECTABLE_TABS_SUPPORTED;
 	}
 	return true;
@@ -351,6 +351,18 @@ async function initialize() {
 			if (item.action == "save-all-tabs") {
 				const tabs = await queryTabs({ currentWindow: true });
 				business.saveTabs(tabs, profileOptions);
+			}
+			if (item.action == "save-selected-tabs-in-archive") {
+				const tabs = await queryTabs({ currentWindow: true, highlighted: true });
+				business.saveTabsInArchive(tabs, profileOptions);
+			}
+			if (item.action == "save-unpinned-tabs-in-archive") {
+				const tabs = await queryTabs({ currentWindow: true, pinned: false });
+				business.saveTabsInArchive(tabs, profileOptions);
+			}
+			if (item.action == "save-all-tabs-in-archive") {
+				const tabs = await queryTabs({ currentWindow: true });
+				business.saveTabsInArchive(tabs, profileOptions);
 			}
 			if (item.action == "batch-save-urls") {
 				business.batchSaveUrls();

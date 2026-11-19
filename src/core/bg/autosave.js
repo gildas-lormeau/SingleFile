@@ -51,7 +51,12 @@ export {
 async function onMessage(message, sender) {
 	if (message.method.endsWith(".save")) {
 		const tab = sender.tab || { id: message.tabId, index: message.tabIndex, url: message.url, incognito: message.incognito };
-		if (!message.autoSaveUnload && (message.autoSaveDiscard || message.autoSaveRemove)) {
+		if (message.autoSaveBeforeUnload) {
+			if (sender.tab) {
+				message.tab = sender.tab;
+				pendingMessages[sender.tab.id] = message;
+			}
+		} else if (!message.autoSaveUnload && (message.autoSaveDiscard || message.autoSaveRemove)) {
 			const pendingMessage = pendingMessages[tab.id];
 			if (pendingMessage && ((pendingMessage.removed && message.autoSaveRemove) || (pendingMessage.discarded && message.autoSaveDiscard))) {
 				delete pendingMessages[tab.id];
@@ -66,6 +71,14 @@ async function onMessage(message, sender) {
 		}
 		return {};
 	}
+	if (message.method.endsWith(".unload")) {
+		const pendingMessage = pendingMessages[message.tabId];
+		if (pendingMessage && pendingMessage.autoSaveBeforeUnload && pendingMessage.autoSaveUnload) {
+			delete pendingMessages[message.tabId];
+			await saveContent(pendingMessage, pendingMessage.tab);
+		}
+		return {};
+	}
 }
 
 function onTabUpdated(tabId) {
@@ -76,7 +89,7 @@ async function onTabRemoved(tabId) {
 	const message = pendingMessages[tabId];
 	if (message) {
 		delete pendingMessages[tabId];
-		if (message.autoSaveRemove) {
+		if (message.autoSaveRemove || (message.autoSaveBeforeUnload && message.autoSaveUnload)) {
 			await saveContent(message, message.tab);
 		}
 	} else {
@@ -88,7 +101,9 @@ async function onTabDiscarded(tabId) {
 	const message = pendingMessages[tabId];
 	if (message) {
 		delete pendingMessages[tabId];
-		await saveContent(message, message.tab);
+		if (!message.autoSaveBeforeUnload || message.autoSaveDiscard) {
+			await saveContent(message, message.tab);
+		}
 	} else {
 		pendingMessages[tabId] = { discarded: true };
 	}

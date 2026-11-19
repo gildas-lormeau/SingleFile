@@ -35,6 +35,9 @@ const ACTION_SAVE_SELECTED = "save-selected-content";
 const ACTION_SAVE_SELECTED_TABS = "save-selected-tabs";
 const ACTION_SAVE_UNPINNED_TABS = "save-unpinned-tabs";
 const ACTION_SAVE_ALL_TABS = "save-all-tabs";
+const ACTION_SAVE_SELECTED_TABS_IN_ARCHIVE = "save-selected-tabs-in-archive";
+const ACTION_SAVE_UNPINNED_TABS_IN_ARCHIVE = "save-unpinned-tabs-in-archive";
+const ACTION_SAVE_ALL_TABS_IN_ARCHIVE = "save-all-tabs-in-archive";
 const METHOD_CAPTURE_PAGE = "capture-page";
 // options an external extension is allowed to set: they define the content of the
 // captured page, they cannot select a destination, display anything in the tab, or
@@ -129,6 +132,15 @@ async function onMessage(message, sender) {
 	} else if (message == ACTION_SAVE_ALL_TABS) {
 		const tabs = await queryTabs({ currentWindow: true });
 		await business.saveTabs(tabs);
+	} else if (message == ACTION_SAVE_SELECTED_TABS_IN_ARCHIVE) {
+		const tabs = await queryTabs({ currentWindow: true, highlighted: true });
+		await business.saveTabsInArchive(tabs);
+	} else if (message == ACTION_SAVE_UNPINNED_TABS_IN_ARCHIVE) {
+		const tabs = await queryTabs({ currentWindow: true, pinned: false });
+		await business.saveTabsInArchive(tabs);
+	} else if (message == ACTION_SAVE_ALL_TABS_IN_ARCHIVE) {
+		const tabs = await queryTabs({ currentWindow: true });
+		await business.saveTabsInArchive(tabs);
 	} else if (message && message.method == METHOD_CAPTURE_PAGE) {
 		const captureConfig = getCaptureConfig(message);
 		const currentTab = message.tabId

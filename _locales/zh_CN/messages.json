@@ -119,6 +119,18 @@
 		"message": "保存所有标签页",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveSelectedTabsInArchive": {
+		"message": "将选中标签页保存到同一个存档",
+		"description": "Menu entry: 'Save selected tabs in one archive'"
+	},
+	"menuSaveUnpinnedTabsInArchive": {
+		"message": "将未固定标签页保存到同一个存档",
+		"description": "Menu entry: 'Save unpinned tabs in one archive'"
+	},
+	"menuSaveAllTabsInArchive": {
+		"message": "将所有标签页保存到同一个存档",
+		"description": "Menu entry: 'Save all tabs in one archive'"
+	},
 	"menuBatchSaveUrls": {
 		"message": "批量保存网址...",
 		"description": "Menu entry: 'Batch save URLs...'"

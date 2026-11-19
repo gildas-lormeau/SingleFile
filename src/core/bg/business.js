@@ -40,17 +40,59 @@ const EXECUTE_SCRIPTS_STEP = 2;
 const TASK_PENDING_STATE = "pending";
 const TASK_PROCESSING_STATE = "processing";
 const AUTOSAVE_METHOD = "content.autosave";
+const ARCHIVE_PASSWORD_ERROR = "Saving tabs in one archive is not supported with a password yet.";
+const ARCHIVE_SAVE_OPTION_NAMES = [
+	"backgroundSave",
+	"confirmFilename",
+	"openSavedPage",
+	"saveToClipboard",
+	"saveToGDrive",
+	"saveToDropbox",
+	"saveWithWebDAV",
+	"saveWithMCP",
+	"saveToGitHub",
+	"saveWithCompanion",
+	"saveToRestFormApi",
+	"saveToS3",
+	"sharePage",
+	"addProof"
+];
+const ARCHIVE_PAGE_OPTIONS = {
+	compressContent: true,
+	backgroundSave: true,
+	confirmFilename: false,
+	openEditor: false,
+	autoOpenEditor: false,
+	openSavedPage: false,
+	saveToClipboard: false,
+	saveToGDrive: false,
+	saveToDropbox: false,
+	saveWithWebDAV: false,
+	saveWithMCP: false,
+	saveToGitHub: false,
+	saveWithCompanion: false,
+	saveToRestFormApi: false,
+	saveToS3: false,
+	sharePage: false,
+	addProof: false,
+	insertEmbeddedImage: false,
+	insertEmbeddedScreenshotImage: false,
+	autoClose: false
+};
 
 const extensionScriptFiles = [
 	"lib/single-file-extension.js"
 ];
 
 const tasks = [];
-let currentTaskId = 1, maxParallelWorkers, processInForeground;
-ui.init({ isSavingTab, saveTabs, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
+let currentTaskId = 1, maxParallelWorkers, processInForeground, onArchiveEnd;
+ui.init({ isSavingTab, saveTabs, saveTabsInArchive, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
 
 export {
 	saveTabs,
+	saveTabsInArchive,
+	addArchivePage,
+	setArchiveEndCallback,
 	captureTab,
 	saveUrls,
 	saveSelectedLinks,
@@ -125,13 +167,52 @@ async function saveUrls(urls, options = {}, profileName) {
 	return { skippedUrls };
 }
 
-async function saveTabs(tabs, options = {}) {
+async function saveTabsInArchive(tabs, options = {}) {
+	const tabsOptions = await Promise.all(tabs.map(tab => config.getOptions(tab.url)));
+	if (tabsOptions.some(tabOptions => Object.assign({}, tabOptions, options).password)) {
+		const tab = tabs.find(tab => tab.active) || tabs[0];
+		try {
+			await injectScript(tab.id, { extensionScriptFiles, tabId: tab.id, tabIndex: tab.index });
+			// eslint-disable-next-line no-unused-vars
+		} catch (error) {
+			// ignored
+		}
+		ui.onError(tab.id, ARCHIVE_PASSWORD_ERROR);
+	} else {
+		await saveTabs(tabs, options, { pages: [], pendingCount: 0 });
+	}
+}
+
+function addArchivePage(taskId, page) {
+	const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
+	if (taskInfo && taskInfo.archive) {
+		page.saveOptions = taskInfo.archiveSaveOptions;
+		taskInfo.archive.pages[taskInfo.archiveIndex] = page;
+		return true;
+	}
+}
+
+function setArchiveEndCallback(callback) {
+	onArchiveEnd = callback;
+}
+
+async function saveTabs(tabs, options = {}, archive) {
 	await initMaxParallelWorkers();
 	const pendingTasks = await Promise.all(tabs.map(async tab => {
 		const tabId = tab.id;
 		const tabOptions = await config.getOptions(tab.url);
 		if (tabOptions.profileName != config.DISABLED_PROFILE_NAME) {
 			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
+			let archiveSaveOptions;
+			if (archive) {
+				archiveSaveOptions = {};
+				ARCHIVE_SAVE_OPTION_NAMES.forEach(name => archiveSaveOptions[name] = tabOptions[name]);
+				if (!tabOptions.compressContent) {
+					tabOptions.selfExtractingArchive = true;
+					tabOptions.extractDataFromPage = true;
+				}
+				Object.assign(tabOptions, ARCHIVE_PAGE_OPTIONS);
+			}
 			tabOptions.tabId = tabId;
 			tabOptions.tabIndex = tab.index;
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
@@ -169,7 +250,9 @@ async function saveTabs(tabs, options = {}) {
 						status: TASK_PENDING_STATE,
 						tab: tabData,
 						options: tabOptions,
-						method: "content.save"
+						method: "content.save",
+						archive,
+						archiveSaveOptions
 					};
 				} else {
 					ui.onForbiddenDomain(tab);
@@ -179,7 +262,12 @@ async function saveTabs(tabs, options = {}) {
 			ui.onForbiddenDomain(tab);
 		}
 	}));
-	pendingTasks.filter(Boolean).forEach(addTask);
+	const addedTasks = pendingTasks.filter(Boolean);
+	if (archive) {
+		archive.pendingCount = addedTasks.length;
+		addedTasks.forEach((taskInfo, index) => taskInfo.archiveIndex = index);
+	}
+	addedTasks.forEach(addTask);
 	runTasks();
 }
 
@@ -252,10 +340,19 @@ function addTask(info) {
 		method: info.method,
 		resolve: info.resolve,
 		reject: info.reject,
+		archive: info.archive,
+		archiveIndex: info.archiveIndex,
+		archiveSaveOptions: info.archiveSaveOptions,
 		done: function (runNextTasks = true) {
 			const index = tasks.findIndex(taskInfo => taskInfo.id == this.id);
 			if (index > -1) {
 				tasks.splice(index, 1);
+				if (this.archive) {
+					this.archive.pendingCount--;
+					if (!this.archive.pendingCount && onArchiveEnd) {
+						onArchiveEnd(this.archive);
+					}
+				}
 				if (runNextTasks) {
 					runTasks();
 				}
@@ -326,6 +423,8 @@ async function runTask(taskInfo) {
 			taskInfo.done();
 		} else if (taskInfo.method == AUTOSAVE_METHOD && (!response || response.pageAutoSaved)) {
 			endAutoSaveTask(taskInfo);
+		} else if (taskInfo.archive) {
+			taskInfo.done();
 		}
 	} catch (error) {
 		// the caller is waiting for a result, it must always be settled
@@ -340,6 +439,8 @@ async function runTask(taskInfo) {
 			taskInfo.done();
 		} else if (taskInfo.method == AUTOSAVE_METHOD) {
 			endAutoSaveTask(taskInfo);
+		} else if (taskInfo.archive) {
+			taskInfo.done();
 		}
 	}
 }
