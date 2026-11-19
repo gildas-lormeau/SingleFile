@@ -61,7 +61,6 @@ const redoCutPageButton = document.querySelector(".redo-cut-page-button");
 const savePageButton = document.querySelector(".save-page-button");
 const printPageButton = document.querySelector(".print-page-button");
 const importMhtButton = document.querySelector(".import-mht-button");
-const lastButton = toolbarElement.querySelector(".buttons:last-of-type [type=button]:last-of-type");
 const archiveButtonsElement = document.querySelector(".archive-buttons");
 const editButtonsElements = document.querySelectorAll(".edit-buttons");
 const archiveTocButton = document.querySelector(".archive-toc-button");
@@ -272,7 +271,9 @@ function viewportSizeChange() {
 function toolbarOnTouchStart(event) {
 	const position = getPosition(event);
 	toolbarPositionPointer = (orientationPortrait ? position.pageY : position.pageX) - toolbarTranslate;
-	toolbarTranslateMax = (orientationPortrait ? -lastButton.getBoundingClientRect().top : -lastButton.getBoundingClientRect().left) + toolbarTranslate;
+	const visibleButtons = Array.from(toolbarElement.querySelectorAll("[type=button]")).filter(button => button.getClientRects().length);
+	const lastButtonRect = visibleButtons[visibleButtons.length - 1].getBoundingClientRect();
+	toolbarTranslateMax = (orientationPortrait ? -lastButtonRect.top : -lastButtonRect.left) + toolbarTranslate;
 }
 
 function toolbarOnTouchMove(event) {
