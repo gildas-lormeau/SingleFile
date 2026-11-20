@@ -1126,7 +1126,7 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorEditInfobar": {
-		"message": "Edit the infobar message",
+		"message": "Edytuj komunikat na pasku informacyjnym",
 		"description": "Title of the button 'Edit the infobar message' in the editor, also the text of the prompt asking for the message"
 	},
 	"editorCutInnerPage": {
