@@ -96,7 +96,7 @@
 		"description": "Menu entry: 'Save selection'"
 	},
 	"menuEditAndSaveSelection": {
-		"message": "Annotate and save the selection...",
+		"message": "Seçimi redaktə et və yaddaşa qeyd et...",
 		"description": "Menu entry: 'Annotate and save the selection...'"
 	},
 	"menuSaveFrame": {
@@ -120,15 +120,15 @@
 		"description": "Menu entry: 'Save all tabs'"
 	},
 	"menuSaveSelectedTabsInArchive": {
-		"message": "Save selected tabs in one archive",
+		"message": "Seçilmiş tabları bir arxivdə yaddaşa qeyd et",
 		"description": "Menu entry: 'Save selected tabs in one archive'"
 	},
 	"menuSaveUnpinnedTabsInArchive": {
-		"message": "Save unpinned tabs in one archive",
+		"message": "Sabit olmayan tabları bir arxivdə yaddaşa qeyd et",
 		"description": "Menu entry: 'Save unpinned tabs in one archive'"
 	},
 	"menuSaveAllTabsInArchive": {
-		"message": "Save all tabs in one archive",
+		"message": "Bütün tabları bir arxivdə yaddaşa qeyd et",
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
 	"menuBatchSaveUrls": {
@@ -1126,7 +1126,7 @@
 		"description": "Title of the button 'Format the page for better readability' in the editor"
 	},
 	"editorEditInfobar": {
-		"message": "Edit the infobar message",
+		"message": "Infobar mesajını redaktə et",
 		"description": "Title of the button 'Edit the infobar message' in the editor, also the text of the prompt asking for the message"
 	},
 	"editorCutInnerPage": {
