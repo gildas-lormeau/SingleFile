@@ -194,6 +194,16 @@ function getSelectedLinks() {
 	for (let indexRange = 0; indexRange < selectedRanges.length; indexRange++) {
 		let range = selectedRanges[indexRange];
 		if (range && range.commonAncestorContainer) {
+			const startTextSelected = range.startContainer.nodeType != Node.TEXT_NODE || range.startOffset < range.startContainer.data.length;
+			if (!range.collapsed && startTextSelected) {
+				const startElement = range.startContainer.nodeType == Node.ELEMENT_NODE ? range.startContainer : range.startContainer.parentElement;
+				const startLinkElement = startElement && startElement.closest("a");
+				if (startLinkElement && startLinkElement.tagName == "A" && startLinkElement.href) {
+					const url = new URL(startLinkElement.href);
+					url.hash = "";
+					links.push(url.href);
+				}
+			}
 			const treeWalker = document.createTreeWalker(range.commonAncestorContainer);
 			let rangeSelectionFound = false;
 			let finished = false;
