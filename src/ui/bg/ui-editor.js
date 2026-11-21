@@ -53,6 +53,7 @@ const addBlueNoteButton = document.querySelector(".add-note-blue-button");
 const addGreenNoteButton = document.querySelector(".add-note-green-button");
 const editPageButton = document.querySelector(".edit-page-button");
 const formatPageButton = document.querySelector(".format-page-button");
+const editInfobarButton = document.querySelector(".edit-infobar-button");
 const cutInnerPageButton = document.querySelector(".cut-inner-page-button");
 const cutOuterPageButton = document.querySelector(".cut-outer-page-button");
 const undoCutPageButton = document.querySelector(".undo-cut-page-button");
@@ -61,7 +62,6 @@ const redoCutPageButton = document.querySelector(".redo-cut-page-button");
 const savePageButton = document.querySelector(".save-page-button");
 const printPageButton = document.querySelector(".print-page-button");
 const importMhtButton = document.querySelector(".import-mht-button");
-const lastButton = toolbarElement.querySelector(".buttons:last-of-type [type=button]:last-of-type");
 const archiveButtonsElement = document.querySelector(".archive-buttons");
 const editButtonsElements = document.querySelectorAll(".edit-buttons");
 const archiveTocButton = document.querySelector(".archive-toc-button");
@@ -86,6 +86,7 @@ toggleHighlightsButton.title = browser.i18n.getMessage("editorToggleHighlights")
 removeHighlightButton.title = browser.i18n.getMessage("editorRemoveHighlight");
 editPageButton.title = browser.i18n.getMessage("editorEditPage");
 formatPageButton.title = browser.i18n.getMessage("editorFormatPage");
+editInfobarButton.title = browser.i18n.getMessage("editorEditInfobar");
 cutInnerPageButton.title = browser.i18n.getMessage("editorCutInnerPage");
 cutOuterPageButton.title = browser.i18n.getMessage("editorCutOuterPage");
 undoCutPageButton.title = browser.i18n.getMessage("editorUndoCutPage");
@@ -213,6 +214,9 @@ cutOuterPageButton.onmouseup = () => {
 		disableCutOuterPage();
 	}
 };
+editInfobarButton.onmouseup = () => {
+	editorElement.contentWindow.postMessage(JSON.stringify({ method: "getInfobarContent" }), "*");
+};
 undoCutPageButton.onmouseup = () => {
 	editorElement.contentWindow.postMessage(JSON.stringify({ method: "undoCutPage" }), "*");
 };
@@ -272,7 +276,9 @@ function viewportSizeChange() {
 function toolbarOnTouchStart(event) {
 	const position = getPosition(event);
 	toolbarPositionPointer = (orientationPortrait ? position.pageY : position.pageX) - toolbarTranslate;
-	toolbarTranslateMax = (orientationPortrait ? -lastButton.getBoundingClientRect().top : -lastButton.getBoundingClientRect().left) + toolbarTranslate;
+	const visibleButtons = Array.from(toolbarElement.querySelectorAll("[type=button]")).filter(button => button.getClientRects().length);
+	const lastButtonRect = visibleButtons[visibleButtons.length - 1].getBoundingClientRect();
+	toolbarTranslateMax = (orientationPortrait ? -lastButtonRect.top : -lastButtonRect.left) + toolbarTranslate;
 }
 
 function toolbarOnTouchMove(event) {
@@ -398,6 +404,9 @@ addEventListener("message", async event => {
 	if (message.method == "onUpdate") {
 		tabData.docSaved = message.saved;
 	}
+	if (message.method == "onInfobarContent") {
+		editInfobarContent(message.content);
+	}
 	if (message.method == "onInitArchive") {
 		archivePages = message.pages;
 		archiveButtonsElement.hidden = false;
@@ -426,6 +435,7 @@ addEventListener("message", async event => {
 		document.title = "[SingleFile] " + archivePageTitleElement.textContent;
 		tabData.options.disableFormatPage = !message.formatPageEnabled;
 		formatPageButton.hidden = !message.formatPageEnabled;
+		editInfobarButton.hidden = !message.infobarEditable;
 		editButtonsElements.forEach(element => element.hidden = false);
 		tabData.docSaved = !message.modified;
 	}
@@ -447,6 +457,7 @@ addEventListener("message", async event => {
 		importMhtButton.hidden = false;
 		tabData.options.disableFormatPage = !message.formatPageEnabled;
 		formatPageButton.hidden = !message.formatPageEnabled;
+		editInfobarButton.hidden = !message.infobarEditable;
 		document.title = "[SingleFile] " + message.title;
 		if (message.filename) {
 			tabData.filename = message.filename;
@@ -826,6 +837,18 @@ function displayInfobar() {
 		infobarPositionLeft: tabData.options.infobarPositionLeft,
 		infobarPositionRight: tabData.options.infobarPositionRight
 	}), "*");
+}
+
+function editInfobarContent(content) {
+	const infobarContent = prompt(browser.i18n.getMessage("editorEditInfobar"), content.replace(/\n/g, "\\n"));
+	if (infobarContent != null) {
+		editorElement.contentWindow.postMessage(JSON.stringify({ method: "setInfobarContent", content: infobarContent.replace(/\\n/g, "\n") }), "*");
+		const infobarElement = document.querySelector(".editor-container " + INFOBAR_TAGNAME);
+		if (infobarElement) {
+			infobarElement.remove();
+			displayInfobar();
+		}
+	}
 }
 
 function getPosition(event) {

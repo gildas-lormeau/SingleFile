@@ -96,7 +96,7 @@
 		"description": "Menu entry: 'Save selection'"
 	},
 	"menuEditAndSaveSelection": {
-		"message": "Annotate and save the selection...",
+		"message": "标注并保存选中部分...",
 		"description": "Menu entry: 'Annotate and save the selection...'"
 	},
 	"menuSaveFrame": {
@@ -1124,6 +1124,10 @@
 	"editorFormatPage": {
 		"message": "格式化页面以提升可读性",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
+	},
+	"editorEditInfobar": {
+		"message": "编辑信息栏消息",
+		"description": "Title of the button 'Edit the infobar message' in the editor, also the text of the prompt asking for the message"
 	},
 	"editorCutInnerPage": {
 		"message": "删除鼠标下的元素（红色轮廓）",

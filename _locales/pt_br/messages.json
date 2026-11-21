@@ -96,7 +96,7 @@
 		"description": "Menu entry: 'Save selection'"
 	},
 	"menuEditAndSaveSelection": {
-		"message": "Annotate and save the selection...",
+		"message": "Anotar e salvar a seleção...",
 		"description": "Menu entry: 'Annotate and save the selection...'"
 	},
 	"menuSaveFrame": {
@@ -120,15 +120,15 @@
 		"description": "Menu entry: 'Save all tabs'"
 	},
 	"menuSaveSelectedTabsInArchive": {
-		"message": "Save selected tabs in one archive",
+		"message": "Salvar abas selecionadas em um único arquivo",
 		"description": "Menu entry: 'Save selected tabs in one archive'"
 	},
 	"menuSaveUnpinnedTabsInArchive": {
-		"message": "Save unpinned tabs in one archive",
+		"message": "Salvar abas não fixadas em um único arquivo",
 		"description": "Menu entry: 'Save unpinned tabs in one archive'"
 	},
 	"menuSaveAllTabsInArchive": {
-		"message": "Save all tabs in one archive",
+		"message": "Salvar todas abas em um único arquivo",
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
 	"menuBatchSaveUrls": {
@@ -1124,6 +1124,10 @@
 	"editorFormatPage": {
 		"message": "Formatar a página para melhor legibilidade",
 		"description": "Title of the button 'Format the page for better readability' in the editor"
+	},
+	"editorEditInfobar": {
+		"message": "Editar a mensagem do infobar",
+		"description": "Title of the button 'Edit the infobar message' in the editor, also the text of the prompt asking for the message"
 	},
 	"editorCutInnerPage": {
 		"message": "Remover o elemento sob o mouse (contorno vermelho)",

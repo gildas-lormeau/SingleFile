@@ -48,7 +48,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 	const DISABLED_NOSCRIPT_ATTRIBUTE_NAME = "data-single-file-disabled-noscript";
 	const COMMENT_HEADER = "Page saved with SingleFile";
 	const COMMENT_HEADER_LEGACY = "Archive processed by SingleFile";
-	const EDIT_MESSAGE_METHODS = ["addNote", "displayNotes", "hideNotes", "enableHighlight", "disableHighlight", "displayHighlights", "hideHighlights", "enableRemoveHighlights", "disableRemoveHighlights", "enableEditPage", "disableEditPage", "formatPage", "cancelFormatPage", "enableCutInnerPage", "enableCutOuterPage", "disableCutInnerPage", "disableCutOuterPage", "undoCutPage", "undoAllCutPage", "redoCutPage"];
+	const EDIT_MESSAGE_METHODS = ["addNote", "displayNotes", "hideNotes", "enableHighlight", "disableHighlight", "displayHighlights", "hideHighlights", "enableRemoveHighlights", "disableRemoveHighlights", "enableEditPage", "disableEditPage", "formatPage", "cancelFormatPage", "enableCutInnerPage", "enableCutOuterPage", "disableCutInnerPage", "disableCutOuterPage", "undoCutPage", "undoAllCutPage", "redoCutPage", "getInfobarContent", "setInfobarContent"];
 
 	let NOTES_SCRIPT, notes;
 	let highlightSelectionMode, removeHighlightMode, highlightColor, cuttingOuterMode, cuttingMode, cuttingTouchTarget, cuttingPath, cuttingPathIndex, previousContent;
@@ -227,6 +227,18 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 					}
 				}
 			}
+			if (message.method == "getInfobarContent") {
+				const infobarData = singlefile.helper.extractInfobarData(document);
+				if (infobarData) {
+					window.parent.postMessage(JSON.stringify({ method: "onInfobarContent", content: infobarData.infobarContent || "" }), "*");
+				}
+			}
+			if (message.method == "setInfobarContent") {
+				const infobarData = singlefile.helper.extractInfobarData(document);
+				if (infobarData && (infobarData.infobarContent || "") != message.content.trim() && singlefile.helper.updateInfobarContent(document, message.content)) {
+					onUpdate(false);
+				}
+			}
 			if (message.method == "printPage") {
 				printPage();
 			}
@@ -351,7 +363,8 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 						icon,
 						filename,
 						reset,
-						formatPageEnabled: isProbablyReaderable(document)
+						formatPageEnabled: isProbablyReaderable(document),
+						infobarEditable: Boolean(singlefile.helper.extractInfobarData(document))
 					}), "*");
 				}
 			}
@@ -392,7 +405,8 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 					icon: iconElement && iconElement.href,
 					filename,
 					reset,
-					formatPageEnabled: isProbablyReaderable(document)
+					formatPageEnabled: isProbablyReaderable(document),
+					infobarEditable: Boolean(singlefile.helper.extractInfobarData(document))
 				}), "*");
 			}
 		}
@@ -463,6 +477,7 @@ import { convert } from "../../lib/mhtml-to-html/mod.js";
 			pagePath,
 			title: document.title,
 			formatPageEnabled: isProbablyReaderable(document),
+			infobarEditable: Boolean(singlefile.helper.extractInfobarData(document)),
 			modified: modifiedArchivePagePaths.size > 0
 		}), "*");
 	}
