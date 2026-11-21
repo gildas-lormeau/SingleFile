@@ -28,7 +28,7 @@ browser, and Opera.
 
 ## Demo
 
-https://github.com/user-attachments/assets/0ccd9367-2b47-42d8-8a75-d6d27177bd4a
+https://github.com/user-attachments/assets/7f9c7bce-212a-4344-8b51-dbf23b493e9b
 
 ## Install
 
