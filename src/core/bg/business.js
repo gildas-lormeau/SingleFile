@@ -423,7 +423,7 @@ async function runTask(taskInfo) {
 			taskInfo.done();
 		} else if (taskInfo.method == AUTOSAVE_METHOD && (!response || response.pageAutoSaved)) {
 			endAutoSaveTask(taskInfo);
-		} else if (taskInfo.archive) {
+		} else if (taskInfo.archive || (response && response.taskEnded)) {
 			taskInfo.done();
 		}
 	} catch (error) {

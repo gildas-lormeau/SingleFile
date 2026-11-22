@@ -81,8 +81,7 @@ if (!bootstrap || !bootstrap.initializedSingleFile) {
 async function onMessage(message) {
 	if (!location.href.startsWith(MOZ_EXTENSION_PROTOCOL)) {
 		if (message.method == "content.save") {
-			await savePage(message);
-			return {};
+			return { taskEnded: await savePage(message) };
 		}
 		if (message.method == "content.capture") {
 			return capturePage(message);
@@ -166,7 +165,7 @@ async function savePage(message) {
 		browser.runtime.sendMessage({ method: "ping" }).then(() => { });
 	}, 15000);
 	const options = message.options;
-	let selectionFound;
+	let selectionFound, taskEnded = true;
 	if (options.selected || options.optionallySelected) {
 		selectionFound = await ui.markSelection(options.optionallySelected);
 	}
@@ -184,9 +183,10 @@ async function savePage(message) {
 				const pageData = await processPage(options);
 				if (pageData) {
 					await download.downloadPage(pageData, options);
+					taskEnded = false;
 				}
 			} catch (error) {
-				if (!processor.cancelled) {
+				if (!processor || !processor.cancelled) {
 					console.error(error); // eslint-disable-line no-console
 					const errorMessage = error && (error.message || error.toString());
 					const errorDetails = getErrorDetails(error);
@@ -205,6 +205,7 @@ async function savePage(message) {
 		}
 	}
 	clearInterval(pingInterval);
+	return taskEnded;
 }
 
 function cancelSave() {
