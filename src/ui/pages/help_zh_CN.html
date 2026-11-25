@@ -16,7 +16,7 @@
             <h2>SingleFile</h2>
             <h4>将整个页面保存到单个HTML文件中</h4>
         </div><span id="index"><a href="#getting-started">开始使用</a>-<a href="#general-notes">附加说明</a>-<a
-                href="#options">选项说明</a>-<a href="#annotation-editor">注释编辑器</a>-<a href="#notes">技术说明</a>-<a
+                href="#options">选项说明</a>-<a href="#multi-page-archives">多页存档</a>-<a href="#annotation-editor">注释编辑器</a>-<a href="#notes">技术说明</a>-<a
                 href="#template-variables">模板变量</a>-<a href="#template-functions">模板函数</a>-<a
                 href="#external-messages">与其他扩展集成</a>-<a href="#known-issues">已知问题</a>-<a
                 href="#unknown-issues">排除未知问题</a>-<a href="#contributors">贡献者</a></span>
@@ -44,6 +44,7 @@
                             <li>或所有选项卡。</li>
                         </ul>
                     </li>
+                    <li>您还可以将多个选项卡保存到一个文件中，或分步创建这样的文件，请参阅<a href="#multi-page-archives">多页存档</a>。</li>
                     <li id="autoSaveMenu">上下文菜单还允许您激活以下内容的自动保存：<ul>
                             <li>当前标签，</li>
                             <li>或未缝合的标签，</li>
@@ -657,6 +658,39 @@
                     <li><span class="option">重置</span>
                         <p>将所有选项重置为默认值。</p>
                     </li>
+                </ul>
+            </li>
+            <li><a id="multi-page-archives">多页存档</a>
+                <p>多页存档是一个包含多个已保存页面的文件。打开时会显示列出这些页面的目录。在存档的页面中，指向存档内另一个页面的链接会打开已保存的副本，而不是原始网站。</p>
+                <p>将选项卡保存到同一个存档</p>
+                <ul>
+                    <li>打开SingleFile按钮<img class="icon" src="../resources/icon_16.png">的上下文菜单，选择“保存标签页”，然后选择：<ul>
+                            <li id="selectableTabsArchiveMenu">“将选中标签页保存到同一个存档”，</li>
+                            <li>或“将未固定标签页保存到同一个存档”，</li>
+                            <li>或“将所有标签页保存到同一个存档”。</li>
+                        </ul>
+                    </li>
+                    <li>页面按选项卡的顺序排列。文件使用第一个选项卡的名称和保存位置。</li>
+                    <li>无法保存的选项卡不会包含在存档中。</li>
+                </ul>
+                <p>分步创建存档</p>
+                <ul>
+                    <li>在“保存标签页”菜单中选择：<ul>
+                            <li>“Add the tab to the archive in progress”，</li>
+                            <li id="selectableTabsAddMenu">或“Add the selected tabs to the archive in progress”。</li>
+                        </ul>
+                        页面会被保存并保留在SingleFile中，此时不会写入任何文件。
+                    </li>
+                    <li>要添加链接，请在上下文菜单中选择“批量保存网址...”或“保存所选链接”，然后在列出网址的页面中单击“Add to the archive in progress”。</li>
+                    <li>在“保存标签页”菜单中选择“View the archive in progress...”以显示已添加的页面。您可以重命名页面、更改页面顺序和移除页面。选择文件名和配置文件，然后单击“Save the archive”。</li>
+                    <li>保存存档后，页面仍保留在列表中，直到您将其移除。您可以添加更多页面并再次保存存档。</li>
+                    <li>隐私窗口的选项卡无法添加到正在创建的存档中。</li>
+                </ul>
+                <p>存档的格式</p>
+                <ul>
+                    <li>格式由“文件格式&gt;格式”选项决定。使用“HTML”格式时，存档会保存为“自解压缩 ZIP（通用）”文件，因为HTML文件无法包含多个页面。</li>
+                    <li>以“ZIP”格式保存的存档无法在浏览器中打开，但可以在注释编辑器中打开。</li>
+                    <li>多页存档不能使用密码保护。</li>
                 </ul>
             </li>
             <li><a id="annotation-editor">注释编辑器</a>

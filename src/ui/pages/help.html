@@ -20,6 +20,7 @@
 			<a href="#getting-started">Getting started</a> -
 			<a href="#general-notes">Additional notes</a> -
 			<a href="#options">Options description</a> -
+			<a href="#multi-page-archives">Multi-page archives</a> -
 			<a href="#annotation-editor">Annotation editor</a> -
 			<a href="#notes">Technical notes</a> -
 			<a href="#template-variables">Template variables</a> -
@@ -56,6 +57,8 @@
 							<li>or all the tabs.</li>
 						</ul>
 					</li>
+					<li>You can also save several tabs in one file, or build such a file in several steps, see <a
+							href="#multi-page-archives">Multi-page archives</a>.</li>
 					<li id="autoSaveMenu">The context menu also allows you to activate the auto-save of: <ul>
 							<li>the current tab,</li>
 							<li>or the unpinned tabs,</li>
@@ -1008,6 +1011,50 @@
 					<li><span class="option">Reset</span>
 						<p>Reset all options to their default values.</p>
 					</li>
+				</ul>
+			</li>
+			<li><a id="multi-page-archives">Multi-page archives</a>
+				<p>A multi-page archive is one file that holds several saved pages. It opens on a table of contents
+					that lists the pages. In a page of the archive, a link to another page of the archive opens the
+					saved copy instead of the original site.</p>
+				<p>Saving tabs in one archive</p>
+				<ul>
+					<li>Open the context menu of the SingleFile button <img src="../resources/icon_16.png"
+							class="icon">, then "Save tabs", and select: <ul>
+							<li id="selectableTabsArchiveMenu">"Save selected tabs in one archive",</li>
+							<li>or "Save unpinned tabs in one archive",</li>
+							<li>or "Save all tabs in one archive".</li>
+						</ul>
+					</li>
+					<li>The pages are in the order of the tabs. The file gets the name and the destination of the
+						first tab.</li>
+					<li>A tab that cannot be saved is left out of the archive.</li>
+				</ul>
+				<p>Building an archive in several steps</p>
+				<ul>
+					<li>In the "Save tabs" menu, select: <ul>
+							<li>"Add the tab to the archive in progress",</li>
+							<li id="selectableTabsAddMenu">or "Add the selected tabs to the archive in progress".</li>
+						</ul>
+						The page is saved and kept in SingleFile. No file is written at this point.
+					</li>
+					<li>To add links, select "Batch save URLs..." or "Save selected links" in the context menu, then
+						click on "Add to the archive in progress" in the page that lists the URLs.</li>
+					<li>Select "View the archive in progress..." in the "Save tabs" menu to display the pages that
+						were added. You can rename a page, change the order of the pages and remove pages. Choose the
+						file name and the profile, then click on "Save the archive".</li>
+					<li>The pages stay in the list after the archive is saved, until you remove them. You can add
+						more pages and save the archive again.</li>
+					<li>The tabs of a private window cannot be added to the archive in progress.</li>
+				</ul>
+				<p>Format of the archive</p>
+				<ul>
+					<li>The format is the one of the option "File format &gt; format". With the "HTML" format, the
+						archive is saved as a "self-extracting ZIP (universal)" file, because an HTML file cannot
+						hold several pages.</li>
+					<li>An archive saved in the "ZIP" format cannot be opened in a browser but can be opened in the
+						annotation editor.</li>
+					<li>A multi-page archive cannot be protected with a password.</li>
 				</ul>
 			</li>
 			<li><a id="annotation-editor">Annotation editor</a>

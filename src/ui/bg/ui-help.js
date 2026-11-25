@@ -97,6 +97,8 @@ function init() {
 	}
 	if (!SELECTABLE_TABS_SUPPORTED) {
 		document.getElementById("selectableTabsMenu").hidden = true;
+		document.getElementById("selectableTabsArchiveMenu").hidden = true;
+		document.getElementById("selectableTabsAddMenu").hidden = true;
 		document.getElementById("shortcutsSection").hidden = true;
 	}
 }
