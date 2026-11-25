@@ -28,9 +28,11 @@ const titleLabel = document.getElementById("titleLabel");
 const resultsTable = document.getElementById("resultsTable");
 const cancelAllButton = document.getElementById("cancelAllButton");
 const addUrlsButton = document.getElementById("addUrlsButton");
+const viewArchiveButton = document.getElementById("viewArchiveButton");
 document.title = browser.i18n.getMessage("pendingsTitle");
 cancelAllButton.textContent = browser.i18n.getMessage("pendingsCancelAllButton");
 addUrlsButton.textContent = browser.i18n.getMessage("pendingsAddUrlsButton");
+viewArchiveButton.textContent = browser.i18n.getMessage("menuViewArchive");
 URLLabel.textContent = browser.i18n.getMessage("pendingsURLTitle");
 titleLabel.textContent = browser.i18n.getMessage("pendingsTitleTitle");
 document.getElementById("statusLabel").textContent = browser.i18n.getMessage("pendingsStatusTitle");
@@ -45,6 +47,7 @@ cancelAllButton.onclick = async () => {
 	await refresh();
 };
 addUrlsButton.onclick = () => window.open("batch-save-urls.html", "sf-add-urls");
+viewArchiveButton.onclick = () => window.open("archive.html", "sf-archive");
 if (location.href.endsWith("#side-panel")) {
 	document.documentElement.classList.add("side-panel");
 }

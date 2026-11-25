@@ -249,6 +249,10 @@ html.side-panel,
     padding-top: 3px;
 }
 
+html.side-panel #viewArchiveButton {
+    display: none;
+}
+
 .side-panel #URLLabel, .side-panel #filterButton {
     display: none;
 }

@@ -147,6 +147,7 @@ html.side-panel,
     display: flex;
 }
 
+html.side-panel #viewArchiveButton,
 html.side-panel #addUrlsButton {
     display: none;
 }

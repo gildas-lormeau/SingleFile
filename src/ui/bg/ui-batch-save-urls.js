@@ -39,6 +39,7 @@ const addUrlsCancelButton = document.getElementById("addUrlsCancelButton");
 const addUrlsOKButton = document.getElementById("addUrlsOKButton");
 const saveUrlsButton = document.getElementById("saveUrlsButton");
 const addToArchiveButton = document.getElementById("addToArchiveButton");
+const viewArchiveButton = document.getElementById("viewArchiveButton");
 const profileSelect = document.getElementById("profileSelect");
 const PROFILE_STORAGE_KEY = "batchSaveUrlsProfileName";
 document.title = browser.i18n.getMessage("batchSaveUrlsTitle");
@@ -49,6 +50,7 @@ addUrlsButton.textContent = browser.i18n.getMessage("batchSaveUrlsAddUrlsButton"
 removeAllButton.textContent = browser.i18n.getMessage("batchSaveUrlsRemoveAllButton");
 saveUrlsButton.textContent = browser.i18n.getMessage("batchSaveUrlsSavePagesButton");
 addToArchiveButton.textContent = browser.i18n.getMessage("batchSaveUrlsAddToArchiveButton");
+viewArchiveButton.textContent = browser.i18n.getMessage("menuViewArchive");
 addUrlsCancelButton.textContent = browser.i18n.getMessage("pendingsAddUrlsCancelButton");
 addUrlsOKButton.textContent = browser.i18n.getMessage("pendingsAddUrlsOKButton");
 addUrlsLabel.textContent = browser.i18n.getMessage("pendingsAddUrls");
@@ -74,6 +76,7 @@ if (location.href.endsWith("#side-panel")) {
 }
 saveUrlsButton.onclick = () => processUrls("downloads.saveUrls");
 addToArchiveButton.onclick = () => processUrls("archive.addUrls");
+viewArchiveButton.onclick = () => window.open("archive.html", "sf-archive");
 profileSelect.onchange = () => {
 	try {
 		localStorage.setItem(PROFILE_STORAGE_KEY, profileSelect.value);
