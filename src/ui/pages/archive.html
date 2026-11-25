@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>&nbsp;</title>
+	<link rel="stylesheet" href="archive.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+	<link rel="icon" href="/src/ui/resources/icon_128.png">
+</head>
+
+<body>
+	<header>
+		<div class="header-buttons">
+			<button id="removeAllButton"></button>
+		</div>
+	</header>
+	<main>
+		<div class="page-row page-head">
+			<span class="page-title" id="pagesLabel"></span>
+			<span class="page-size" id="totalSizeLabel"></span>
+		</div>
+		<div id="pagesTable">
+		</div>
+	</main>
+	<footer>
+		<div id="errorLabel" class="error" hidden></div>
+		<div class="footer-fields">
+			<label>
+				<span id="filenameLabel"></span>
+				<input id="filenameInput" type="text">
+			</label>
+			<label>
+				<span id="profileLabel"></span>
+				<select id="profileSelect"></select>
+			</label>
+			<button id="saveButton"></button>
+		</div>
+	</footer>
+	<script src="/lib/chrome-browser-polyfill.js"></script>
+	<script type="module" src="../bg/ui-archive.js"></script>
+</body>
+
+</html>

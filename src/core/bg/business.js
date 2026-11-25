@@ -41,6 +41,8 @@ const TASK_PENDING_STATE = "pending";
 const TASK_PROCESSING_STATE = "processing";
 const AUTOSAVE_METHOD = "content.autosave";
 const ARCHIVE_PASSWORD_ERROR = "Saving tabs in one archive is not supported with a password yet.";
+const ARCHIVE_PRIVATE_TAB_ERROR = "The tabs of a private window cannot be added to the archive in progress.";
+const ARCHIVE_POSITION_FACTOR = 1000;
 const ARCHIVE_SAVE_OPTION_NAMES = [
 	"backgroundSave",
 	"confirmFilename",
@@ -86,11 +88,12 @@ const extensionScriptFiles = [
 
 const tasks = [];
 let currentTaskId = 1, maxParallelWorkers, processInForeground, onArchiveEnd;
-ui.init({ isSavingTab, saveTabs, saveTabsInArchive, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
+ui.init({ isSavingTab, saveTabs, saveTabsInArchive, addTabsToArchive, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
 
 export {
 	saveTabs,
 	saveTabsInArchive,
+	addTabsToArchive,
 	addArchivePage,
 	setArchiveEndCallback,
 	captureTab,
@@ -168,26 +171,49 @@ async function saveUrls(urls, options = {}, profileName) {
 }
 
 async function saveTabsInArchive(tabs, options = {}) {
-	const tabsOptions = await Promise.all(tabs.map(tab => config.getOptions(tab.url)));
-	if (tabsOptions.some(tabOptions => Object.assign({}, tabOptions, options).password)) {
-		const tab = tabs.find(tab => tab.active) || tabs[0];
-		try {
-			await injectScript(tab.id, { extensionScriptFiles, tabId: tab.id, tabIndex: tab.index });
-			// eslint-disable-next-line no-unused-vars
-		} catch (error) {
-			// ignored
-		}
-		ui.onError(tab.id, ARCHIVE_PASSWORD_ERROR);
+	if (await testArchivePassword(tabs, options)) {
+		await displayArchiveError(tabs, ARCHIVE_PASSWORD_ERROR);
 	} else {
 		await saveTabs(tabs, options, { pages: [], pendingCount: 0 });
 	}
 }
 
+async function addTabsToArchive(tabs, options = {}) {
+	if (tabs.some(tab => tab.incognito)) {
+		await displayArchiveError(tabs, ARCHIVE_PRIVATE_TAB_ERROR);
+	} else if (await testArchivePassword(tabs, options)) {
+		await displayArchiveError(tabs, ARCHIVE_PASSWORD_ERROR);
+	} else {
+		await saveTabs(tabs, options, { pages: [], pendingCount: 0, persistent: true, date: Date.now() });
+	}
+}
+
+async function testArchivePassword(tabs, options) {
+	const tabsOptions = await Promise.all(tabs.map(tab => config.getOptions(tab.url)));
+	return tabsOptions.some(tabOptions => Object.assign({}, tabOptions, options).password);
+}
+
+async function displayArchiveError(tabs, message) {
+	const tab = tabs.find(tab => tab.active) || tabs[0];
+	try {
+		await injectScript(tab.id, { extensionScriptFiles, tabId: tab.id, tabIndex: tab.index });
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		// ignored
+	}
+	ui.onError(tab.id, message);
+}
+
 function addArchivePage(taskId, page) {
 	const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
 	if (taskInfo && taskInfo.archive) {
-		page.saveOptions = taskInfo.archiveSaveOptions;
-		taskInfo.archive.pages[taskInfo.archiveIndex] = page;
+		if (taskInfo.archive.persistent) {
+			page.persistent = true;
+			page.position = taskInfo.archive.date * ARCHIVE_POSITION_FACTOR + taskInfo.archiveIndex;
+		} else {
+			page.saveOptions = taskInfo.archiveSaveOptions;
+			taskInfo.archive.pages[taskInfo.archiveIndex] = page;
+		}
 		return true;
 	}
 }
@@ -349,7 +375,7 @@ function addTask(info) {
 				tasks.splice(index, 1);
 				if (this.archive) {
 					this.archive.pendingCount--;
-					if (!this.archive.pendingCount && onArchiveEnd) {
+					if (!this.archive.pendingCount && !this.archive.persistent && onArchiveEnd) {
 						onArchiveEnd(this.archive);
 					}
 				}

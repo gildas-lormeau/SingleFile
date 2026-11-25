@@ -43,7 +43,7 @@ const SURFACE_CONTEXTS = {
 	button: ["browser_action"],
 	tab: ["tab"]
 };
-const EDITOR_HIDDEN_ACTIONS = ["edit-and-save-page", "save-selected-links", "save-selection", "edit-and-save-selection", "save-frame", "auto-save", "domain-rule"];
+const EDITOR_HIDDEN_ACTIONS = ["edit-and-save-page", "save-selected-links", "save-selection", "edit-and-save-selection", "save-frame", "auto-save", "domain-rule", "add-tab-to-archive"];
 const AUTO_SAVE_MODES = [
 	{ mode: "disabled", labelKey: "menuAutoSaveDisabled" },
 	{ mode: "tab", labelKey: "menuAutoSaveTab" },
@@ -146,7 +146,7 @@ function isActionSupported(action) {
 	if (action == "auto-save") {
 		return config.AUTO_SAVE_SUPPORTED;
 	}
-	if (action == "save-selected-tabs" || action == "save-selected-tabs-in-archive") {
+	if (action == "save-selected-tabs" || action == "save-selected-tabs-in-archive" || action == "add-selected-tabs-to-archive") {
 		return config.SELECTABLE_TABS_SUPPORTED;
 	}
 	return true;
@@ -363,6 +363,16 @@ async function initialize() {
 			if (item.action == "save-all-tabs-in-archive") {
 				const tabs = await queryTabs({ currentWindow: true });
 				business.saveTabsInArchive(tabs, profileOptions);
+			}
+			if (item.action == "add-tab-to-archive") {
+				business.addTabsToArchive([tab], profileOptions);
+			}
+			if (item.action == "add-selected-tabs-to-archive") {
+				const tabs = await queryTabs({ currentWindow: true, highlighted: true });
+				business.addTabsToArchive(tabs, profileOptions);
+			}
+			if (item.action == "view-archive") {
+				await browser.tabs.create({ active: true, url: "/src/ui/pages/archive.html" });
 			}
 			if (item.action == "batch-save-urls") {
 				business.batchSaveUrls();

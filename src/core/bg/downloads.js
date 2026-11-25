@@ -27,6 +27,7 @@ import * as config from "./config.js";
 import * as bookmarks from "./bookmarks.js";
 import * as companion from "./companion.js";
 import * as business from "./business.js";
+import * as archiveStore from "./archive-store.js";
 import * as editor from "./editor.js";
 import { launchWebAuthFlow, extractAuthCode } from "./tabs-util.js";
 import * as ui from "./../../ui/bg/index.js";
@@ -86,6 +87,7 @@ export {
 	saveToRestFormApi,
 	saveToS3,
 	saveWithMCP,
+	saveArchive,
 	encodeSharpCharacter
 };
 
@@ -309,11 +311,23 @@ async function downloadCompressedContent(message, tab) {
 		const pageData = message.pageData;
 		const archivePage = { tab, message, url: pageData.url || tab.url, title: pageData.title };
 		if (business.addArchivePage(message.taskId, archivePage)) {
-			archivePage.blob = await singlefile.processors.compression.process(pageData, {
+			const blob = await singlefile.processors.compression.process(pageData, {
 				url: archivePage.url,
 				tabId,
 				disableCompression: message.disableCompression
 			});
+			if (archivePage.persistent) {
+				await archiveStore.add({
+					size: blob.size,
+					position: archivePage.position,
+					url: archivePage.url,
+					title: archivePage.title,
+					filename: message.filename,
+					date: Date.now()
+				}, blob);
+			} else {
+				archivePage.blob = blob;
+			}
 			message.pageData = message.blob = null;
 			ui.onEnd(tabId);
 		} else {
@@ -348,34 +362,38 @@ async function downloadArchive(archive) {
 	const pages = archive.pages.filter(page => page && page.blob);
 	if (pages.length) {
 		const { tab, message, saveOptions } = pages[0];
-		const mimeType = message.selfExtractingArchive ? SELF_EXTRACTING_ARCHIVE_MIME_TYPE : ARCHIVE_MIME_TYPE;
-		const archiveMessage = Object.assign({}, message, saveOptions, { url: null });
-		try {
-			const { createPagesArchive } = await import(ARCHIVE_MODULE_PATH);
-			const content = await createPagesArchive(pages.map(page => ({
-				url: page.url,
-				title: page.title,
-				getData: async () => new Uint8Array(await page.blob.arrayBuffer())
-			})), {
-				selfExtractingArchive: message.selfExtractingArchive,
-				extractDataFromPage: message.extractDataFromPage,
-				preventAppendedData: message.preventAppendedData,
-				maxAppendedDataLength: message.maxAppendedDataLength,
-				insertCanonicalLink: message.insertCanonicalLink,
-				insertMetaNoIndex: message.insertMetaNoIndex,
-				insertMetaCSP: message.insertMetaCSP,
-				insertSingleFileComment: true,
-				createRootDirectory: message.createRootDirectory,
-				zipScript: await (await fetch(ZIP_SCRIPT_PATH)).text(),
-				tocPage: true
-			});
-			await saveCompressedContent(new Blob([content], { type: mimeType }), mimeType, archiveMessage, tab);
-		} catch (error) {
-			onDownloadError(tab.id, error);
-		} finally {
-			if (archiveMessage.url) {
-				URL.revokeObjectURL(archiveMessage.url);
-			}
+		await saveArchive(pages, Object.assign({}, message, saveOptions), tab);
+	}
+}
+
+async function saveArchive(pages, message, tab) {
+	const mimeType = message.selfExtractingArchive ? SELF_EXTRACTING_ARCHIVE_MIME_TYPE : ARCHIVE_MIME_TYPE;
+	const archiveMessage = Object.assign({}, message, { url: null });
+	try {
+		const { createPagesArchive } = await import(ARCHIVE_MODULE_PATH);
+		const content = await createPagesArchive(pages.map(page => ({
+			url: page.url,
+			title: page.title,
+			getData: async () => new Uint8Array(await (page.blob || await archiveStore.getData(page.id)).arrayBuffer())
+		})), {
+			selfExtractingArchive: message.selfExtractingArchive,
+			extractDataFromPage: message.extractDataFromPage,
+			preventAppendedData: message.preventAppendedData,
+			maxAppendedDataLength: message.maxAppendedDataLength,
+			insertCanonicalLink: message.insertCanonicalLink,
+			insertMetaNoIndex: message.insertMetaNoIndex,
+			insertMetaCSP: message.insertMetaCSP,
+			insertSingleFileComment: true,
+			createRootDirectory: message.createRootDirectory,
+			zipScript: await (await fetch(ZIP_SCRIPT_PATH)).text(),
+			tocPage: true
+		});
+		await saveCompressedContent(new Blob([content], { type: mimeType }), mimeType, archiveMessage, tab);
+	} catch (error) {
+		onDownloadError(tab.id, error);
+	} finally {
+		if (archiveMessage.url) {
+			URL.revokeObjectURL(archiveMessage.url);
 		}
 	}
 }

@@ -131,6 +131,18 @@
 		"message": "Zapisz wszystkie karty w jednym archiwum",
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
+	"menuAddTabToArchive": {
+		"message": "Add the tab to the archive in progress",
+		"description": "Menu entry: 'Add the tab to the archive in progress'"
+	},
+	"menuAddSelectedTabsToArchive": {
+		"message": "Add the selected tabs to the archive in progress",
+		"description": "Menu entry: 'Add the selected tabs to the archive in progress'"
+	},
+	"menuViewArchive": {
+		"message": "View the archive in progress...",
+		"description": "Menu entry: 'View the archive in progress...'"
+	},
 	"menuBatchSaveUrls": {
 		"message": "Zapisz wsadowo adresy URL...",
 		"description": "Menu entry: 'Batch save URLs...'"
@@ -1564,5 +1576,41 @@
 	"menusContextHelp": {
 		"message": "Ten wpis nie jest wyświetlany w wybranym kontekście ($1).",
 		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
+	},
+	"archiveTitle": {
+		"message": "Archive in progress",
+		"description": "Title of the 'Archive in progress' page, which lists the pages added to a multi-page archive before it is saved"
+	},
+	"archiveNoPages": {
+		"message": "No pages",
+		"description": "Text displayed in the 'Archive in progress' page when no page has been added"
+	},
+	"archiveRemoveAllButton": {
+		"message": "Remove all",
+		"description": "Button label in the 'Archive in progress' page: 'Remove all'"
+	},
+	"archiveSaveButton": {
+		"message": "Save the archive",
+		"description": "Button label in the 'Archive in progress' page: 'Save the archive'"
+	},
+	"archiveFilenameLabel": {
+		"message": "File name",
+		"description": "Label of the file name field in the 'Archive in progress' page"
+	},
+	"archiveProfileLabel": {
+		"message": "Profile",
+		"description": "Label of the profile dropdown in the 'Archive in progress' page"
+	},
+	"archiveMoveUpButton": {
+		"message": "Move up",
+		"description": "Tooltip of the button moving a page up in the 'Archive in progress' page"
+	},
+	"archiveMoveDownButton": {
+		"message": "Move down",
+		"description": "Tooltip of the button moving a page down in the 'Archive in progress' page"
+	},
+	"archiveRemoveButton": {
+		"message": "Remove",
+		"description": "Tooltip of the button removing a page in the 'Archive in progress' page"
 	}
 }
