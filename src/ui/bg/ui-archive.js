@@ -21,11 +21,12 @@
  *   Source.
  */
 
-/* global browser, document, setInterval, localStorage, prompt, URL, Blob, MouseEvent */
+/* global browser, document, setInterval, localStorage, prompt, URL, Blob, MouseEvent, crypto, location */
 
 import * as yabson from "./../../lib/yabson/yabson.js";
 
 const PROFILE_STORAGE_KEY = "archiveProfileName";
+const PAGE_MESSAGE_METHOD = "page.message";
 const REFRESH_DELAY = 1000;
 const SIZE_UNITS = ["B", "KB", "MB", "GB"];
 const SIZE_UNIT_FACTOR = 1024;
@@ -48,7 +49,12 @@ document.getElementById("profileLabel").textContent = browser.i18n.getMessage("a
 removeAllButton.textContent = browser.i18n.getMessage("archiveRemoveAllButton");
 saveButton.textContent = browser.i18n.getMessage("archiveSaveButton");
 
+const pageId = crypto.randomUUID();
 let pages = [], previousState, filenameEdited, saving, downloadParser;
+
+if (location.href.endsWith("#side-panel")) {
+	document.documentElement.classList.add("side-panel");
+}
 
 removeAllButton.onclick = async () => {
 	await browser.runtime.sendMessage({ method: "archive.clear" });
@@ -64,7 +70,14 @@ profileSelect.onchange = () => {
 		// ignored
 	}
 };
-browser.runtime.onMessage.addListener(message => {
+browser.runtime.onMessage.addListener(({ method, pageId: targetPageId, message }) => {
+	if (method == PAGE_MESSAGE_METHOD && targetPageId == pageId) {
+		return onPageMessage(message);
+	}
+});
+init();
+
+function onPageMessage(message) {
 	if (message.method == "content.error") {
 		displayError(message.error);
 		return Promise.resolve({});
@@ -75,8 +88,7 @@ browser.runtime.onMessage.addListener(message => {
 	if (message.method == "content.download") {
 		return downloadContent(message);
 	}
-});
-init();
+}
 
 async function init() {
 	const [constants, profiles] = await Promise.all([
@@ -213,7 +225,7 @@ async function save() {
 	saveButton.disabled = true;
 	displayError();
 	try {
-		const response = await browser.runtime.sendMessage({ method: "archive.save", profileName: profileSelect.value, filename: filenameInput.value });
+		const response = await browser.runtime.sendMessage({ method: "archive.save", pageId, profileName: profileSelect.value, filename: filenameInput.value });
 		if (response && response.error) {
 			displayError(response.error);
 		}

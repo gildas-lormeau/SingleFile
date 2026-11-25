@@ -21,11 +21,10 @@
  *   Source.
  */
 
-/* global browser */
-
 import * as button from "./ui-button.js";
 import * as menus from "./ui-menus.js";
 import * as command from "./ui-commands.js";
+import { sendMessage } from "./../../core/bg/tabs-util.js";
 
 export {
 	onMessage,
@@ -73,7 +72,7 @@ async function onError(tabId, message, link, stack) {
 	button.onError(tabId);
 	try {
 		if (message) {
-			await browser.tabs.sendMessage(tabId, { method: "content.error", error: message.toString(), link, stack });
+			await sendMessage(tabId, { method: "content.error", error: message.toString(), link, stack });
 		}
 		// eslint-disable-next-line no-unused-vars
 	} catch (error) {

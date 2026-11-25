@@ -26,27 +26,39 @@
 const optionsTab = document.getElementById("tab-options");
 const pendingsTab = document.getElementById("tab-pendings");
 const batchSaveUrlsTab = document.getElementById("tab-batch-save-urls");
+const archiveTab = document.getElementById("tab-archive");
 const viewPanel = document.getElementById("view-panel");
 
 optionsTab.textContent = optionsTab.title = browser.i18n.getMessage("optionsTitle");
 pendingsTab.textContent = pendingsTab.title = browser.i18n.getMessage("pendingsTitle");
 batchSaveUrlsTab.textContent = batchSaveUrlsTab.title = browser.i18n.getMessage("batchSaveUrlsTitle");
+archiveTab.textContent = archiveTab.title = browser.i18n.getMessage("archiveTitle");
 
 optionsTab.onclick = () => {
 	optionsTab.classList.add("tab-selected");
 	pendingsTab.classList.remove("tab-selected");
 	batchSaveUrlsTab.classList.remove("tab-selected");
+	archiveTab.classList.remove("tab-selected");
 	viewPanel.src = "options.html#side-panel";
 };
 pendingsTab.onclick = () => {
 	optionsTab.classList.remove("tab-selected");
 	pendingsTab.classList.add("tab-selected");
 	batchSaveUrlsTab.classList.remove("tab-selected");
+	archiveTab.classList.remove("tab-selected");
 	viewPanel.src = "pendings.html#side-panel";
 };
 batchSaveUrlsTab.onclick = () => {
 	optionsTab.classList.remove("tab-selected");
 	pendingsTab.classList.remove("tab-selected");
 	batchSaveUrlsTab.classList.add("tab-selected");
+	archiveTab.classList.remove("tab-selected");
 	viewPanel.src = "batch-save-urls.html#side-panel";
+};
+archiveTab.onclick = () => {
+	optionsTab.classList.remove("tab-selected");
+	pendingsTab.classList.remove("tab-selected");
+	batchSaveUrlsTab.classList.remove("tab-selected");
+	archiveTab.classList.add("tab-selected");
+	viewPanel.src = "archive.html#side-panel";
 };

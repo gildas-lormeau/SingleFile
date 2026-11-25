@@ -170,6 +170,62 @@ body>footer button {
     text-align: right;
 }
 
+html.side-panel body {
+    margin: 0;
+}
+
+html.side-panel,
+.side-panel .page-head,
+.side-panel body>main {
+    background-color: #fbfbfb;
+}
+
+.side-panel body>header,
+.side-panel body>main,
+.side-panel body>footer {
+    border: 0;
+    margin-left: 8px;
+    margin-right: 12px;
+}
+
+.side-panel .page-head {
+    border-bottom: dashed 1px rgb(191, 191, 191);
+    min-height: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.side-panel .page-row {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.side-panel .page-size {
+    min-width: 0;
+}
+
+.side-panel .footer-fields {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.side-panel .footer-fields label,
+.side-panel .footer-fields label:first-child {
+    flex: none;
+    min-width: 0;
+    margin-left: 0;
+}
+
+.side-panel .footer-fields select {
+    flex: 1;
+    max-width: none;
+    min-width: 0;
+}
+
+.side-panel .footer-fields button {
+    align-self: flex-end;
+}
+
 @media (prefers-color-scheme: dark) {
     html {
         background-color: #373737;
@@ -202,5 +258,14 @@ body>footer button {
 
     .error {
         color: #ff7b7b;
+    }
+
+    html.side-panel,
+    .side-panel .page-head,
+    .side-panel body>main,
+    .side-panel button,
+    .side-panel select,
+    .side-panel input {
+        background-color: #38383d;
     }
 }

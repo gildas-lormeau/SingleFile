@@ -23,11 +23,27 @@
 
 /* global browser, URLSearchParams, URL */
 
+const PAGE_MESSAGE_METHOD = "page.message";
+
 export {
+	sendMessage,
+	isPageId,
 	queryTabs,
 	extractAuthCode,
 	launchWebAuthFlow
 };
+
+function sendMessage(tabId, message) {
+	if (isPageId(tabId)) {
+		return browser.runtime.sendMessage({ method: PAGE_MESSAGE_METHOD, pageId: tabId, message });
+	} else {
+		return browser.tabs.sendMessage(tabId, message);
+	}
+}
+
+function isPageId(tabId) {
+	return typeof tabId == "string";
+}
 
 async function queryTabs(options) {
 	const tabs = await browser.tabs.query(options);

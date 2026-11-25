@@ -24,7 +24,7 @@
 /* global browser */
 
 import * as config from "./../../core/bg/config.js";
-import { queryTabs } from "./../../core/bg/tabs-util.js";
+import { queryTabs, isPageId } from "./../../core/bg/tabs-util.js";
 import * as tabsData from "./../../core/bg/tabs-data.js";
 import { autoSaveIsEnabled } from "../../core/bg/autosave-util.js";
 
@@ -229,6 +229,9 @@ async function refreshTab(tab) {
 }
 
 async function refresh(tabId, state) {
+	if (isPageId(tabId)) {
+		return;
+	}
 	try {
 		const allTabsData = tabsData.getTemporary(tabId);
 		if (state) {

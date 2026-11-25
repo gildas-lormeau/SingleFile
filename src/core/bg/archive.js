@@ -60,11 +60,11 @@ async function onMessage(message, sender) {
 		return business.addUrlsToArchive(message.urls, message.profileName);
 	}
 	if (message.method.endsWith(".save")) {
-		return save(message, sender.tab);
+		return save(message, sender.tab || {});
 	}
 }
 
-async function save({ profileName, filename }, tab) {
+async function save({ profileName, filename, pageId }, { windowId, index }) {
 	const pages = await archiveStore.getPages();
 	if (pages.length) {
 		const options = await config.getProfileOptions(profileName);
@@ -78,7 +78,7 @@ async function save({ profileName, filename }, tab) {
 		options.compressContent = true;
 		options.openEditor = false;
 		options.filename = getFilename(filename || pages[0].filename, options);
-		await downloads.saveArchive(pages, options, tab);
+		await downloads.saveArchive(pages, options, { id: String(pageId), windowId, index });
 	}
 	return {};
 }
