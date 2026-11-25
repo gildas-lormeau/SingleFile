@@ -201,6 +201,7 @@ const DEFAULT_CONFIG = {
 	networkTimeout: 0,
 	woleetKey: "",
 	blockImages: false,
+	linkBlockedImages: false,
 	blockStylesheets: false,
 	blockFonts: false,
 	blockScripts: true,

@@ -477,6 +477,10 @@ a {
     margin-left: 10px;
 }
 
+.option.third-level {
+    margin-left: 20px;
+}
+
 .option:not([hidden]) {
     display: flex;
     justify-content: space-between;

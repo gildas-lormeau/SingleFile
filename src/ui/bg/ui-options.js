@@ -89,6 +89,7 @@ const blockVideosLabel = document.getElementById("blockVideosLabel");
 const blockFontsLabel = document.getElementById("blockFontsLabel");
 const blockStylesheetsLabel = document.getElementById("blockStylesheetsLabel");
 const blockImagesLabel = document.getElementById("blockImagesLabel");
+const linkBlockedImagesLabel = document.getElementById("linkBlockedImagesLabel");
 const acceptHeaderDocumentLabel = document.getElementById("acceptHeaderDocumentLabel");
 const acceptHeaderScriptLabel = document.getElementById("acceptHeaderScriptLabel");
 const acceptHeaderAudioLabel = document.getElementById("acceptHeaderAudioLabel");
@@ -276,6 +277,7 @@ const blockAudiosInput = document.getElementById("blockAudiosInput");
 const blockFontsInput = document.getElementById("blockFontsInput");
 const blockStylesheetsInput = document.getElementById("blockStylesheetsInput");
 const blockImagesInput = document.getElementById("blockImagesInput");
+const linkBlockedImagesInput = document.getElementById("linkBlockedImagesInput");
 const acceptHeaderDocumentInput = document.getElementById("acceptHeaderDocumentInput");
 const acceptHeaderScriptInput = document.getElementById("acceptHeaderScriptInput");
 const acceptHeaderAudioInput = document.getElementById("acceptHeaderAudioInput");
@@ -802,6 +804,7 @@ blockVideosLabel.textContent = browser.i18n.getMessage("optionResourceVideo");
 blockFontsLabel.textContent = browser.i18n.getMessage("optionResourceFont");
 blockStylesheetsLabel.textContent = browser.i18n.getMessage("optionResourceStylesheet");
 blockImagesLabel.textContent = browser.i18n.getMessage("optionResourceImage");
+linkBlockedImagesLabel.textContent = browser.i18n.getMessage("optionLinkBlockedImages");
 acceptHeaderDocumentLabel.textContent = browser.i18n.getMessage("optionResourceDocument");
 acceptHeaderScriptLabel.textContent = browser.i18n.getMessage("optionResourceScript");
 acceptHeaderAudioLabel.textContent = browser.i18n.getMessage("optionResourceAudio");
@@ -1191,6 +1194,8 @@ async function refresh(profileName) {
 	blockFontsInput.checked = profileOptions.blockFonts;
 	blockStylesheetsInput.checked = profileOptions.blockStylesheets;
 	blockImagesInput.checked = profileOptions.blockImages;
+	linkBlockedImagesInput.checked = profileOptions.linkBlockedImages;
+	linkBlockedImagesInput.disabled = !profileOptions.blockImages;
 	acceptHeaderDocumentInput.value = profileOptions.acceptHeaders.document;
 	acceptHeaderScriptInput.value = profileOptions.acceptHeaders.script;
 	acceptHeaderAudioInput.value = profileOptions.acceptHeaders.audio;
@@ -1462,6 +1467,7 @@ async function update() {
 			blockFonts: blockFontsInput.checked,
 			blockStylesheets: blockStylesheetsInput.checked,
 			blockImages: blockImagesInput.checked,
+			linkBlockedImages: linkBlockedImagesInput.checked,
 			acceptHeaders: {
 				document: acceptHeaderDocumentInput.value,
 				script: acceptHeaderScriptInput.value,

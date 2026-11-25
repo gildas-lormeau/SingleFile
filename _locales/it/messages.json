@@ -583,6 +583,10 @@
 		"message": "immagini",
 		"description": "Options page label: 'images'"
 	},
+	"optionLinkBlockedImages": {
+		"message": "load the blocked images from the original site (the saved page is not self-contained)",
+		"description": "Options page label: 'load the blocked images from the original site (the saved page is not self-contained)'"
+	},
 	"optionsDestinationSubTitle": {
 		"message": "Destinazione",
 		"description": "Options sub-title: 'Destination'"

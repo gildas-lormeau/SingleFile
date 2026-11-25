@@ -78,6 +78,7 @@ const CAPTURE_OPTION_NAMES = [
 	"loadDeferredImagesDispatchScrollEvent",
 	"loadDeferredImagesBeforeFrames",
 	"blockImages",
+	"linkBlockedImages",
 	"blockAlternativeImages",
 	"blockStylesheets",
 	"blockFonts",
