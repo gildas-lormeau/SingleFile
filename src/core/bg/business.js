@@ -57,7 +57,8 @@ const ARCHIVE_SAVE_OPTION_NAMES = [
 	"saveToRestFormApi",
 	"saveToS3",
 	"sharePage",
-	"addProof"
+	"addProof",
+	"archiveDedupPages"
 ];
 const ARCHIVE_PAGE_OPTIONS = {
 	compressContent: true,

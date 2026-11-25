@@ -171,6 +171,9 @@
                     <li data-options-label="createRootDirectoryLabel"><span class="option">选项：创建根目录</span>
                         <p>选中此选项可在ZIP文件中创建根目录。目录名由时间戳和显示已保存页面的选项卡的标识符组成。</p>
                     </li>
+                    <li data-options-label="archiveDedupPagesLabel"><span class="option">选项：多页存档中各页面共用的文件只存储一次</span>
+                        <p>选中此选项后，<a href="#multi-page-archives">多页存档</a>中多个页面共用的文件（例如图像、字体、样式表）只存储一次。当页面来自同一网站时，存档会更小。在ZIP文件中，每个重复文件都会被替换为指向已存储文件的符号链接。请注意，不支持ZIP文件中符号链接的工具（例如Windows的文件资源管理器）会解压出一个小的文本文件，而不是重复的文件。</p>
+                    </li>
                     <li data-options-label="disableCompressionLabel"><span class="option">选项：禁用压缩</span>
                         <p>选中此选项可禁用ZIP文件的压缩。这有助于减少CPU消耗和保存页面所需的时间，但会增加生成的文件的大小。</p>
                     </li>

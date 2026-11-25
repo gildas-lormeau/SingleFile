@@ -187,6 +187,7 @@ const replaceBookmarkURLLabel = document.getElementById("replaceBookmarkURLLabel
 const allowedBookmarkFoldersLabel = document.getElementById("allowedBookmarkFoldersLabel");
 const ignoredBookmarkFoldersLabel = document.getElementById("ignoredBookmarkFoldersLabel");
 const createRootDirectoryLabel = document.getElementById("createRootDirectoryLabel");
+const archiveDedupPagesLabel = document.getElementById("archiveDedupPagesLabel");
 const disableCompressionLabel = document.getElementById("disableCompressionLabel");
 const preventAppendedDataLabel = document.getElementById("preventAppendedDataLabel");
 const passwordLabel = document.getElementById("passwordLabel");
@@ -379,6 +380,7 @@ const allowedBookmarkFoldersInput = document.getElementById("allowedBookmarkFold
 const ignoredBookmarkFoldersInput = document.getElementById("ignoredBookmarkFoldersInput");
 const fileFormatSelectInput = document.getElementById("fileFormatSelectInput");
 const createRootDirectoryInput = document.getElementById("createRootDirectoryInput");
+const archiveDedupPagesInput = document.getElementById("archiveDedupPagesInput");
 const disableCompressionInput = document.getElementById("disableCompressionInput");
 const preventAppendedDataInput = document.getElementById("preventAppendedDataInput");
 const passwordInput = document.getElementById("passwordInput");
@@ -906,6 +908,7 @@ replaceBookmarkURLLabel.textContent = browser.i18n.getMessage("optionReplaceBook
 allowedBookmarkFoldersLabel.textContent = browser.i18n.getMessage("optionAllowedBookmarkFolders");
 ignoredBookmarkFoldersLabel.textContent = browser.i18n.getMessage("optionIgnoredBookmarkFolders");
 createRootDirectoryLabel.textContent = browser.i18n.getMessage("optionCreateRootDirectory");
+archiveDedupPagesLabel.textContent = browser.i18n.getMessage("optionArchiveDedupPages");
 disableCompressionLabel.textContent = browser.i18n.getMessage("optionDisableCompression");
 preventAppendedDataLabel.textContent = browser.i18n.getMessage("optionPreventAppendedData");
 passwordLabel.textContent = browser.i18n.getMessage("optionPassword");
@@ -1324,6 +1327,7 @@ async function refresh(profileName) {
 		"self-extracting-zip-universal" : "self-extracting-zip" : "zip" : "html";
 	createRootDirectoryInput.checked = profileOptions.createRootDirectory;
 	createRootDirectoryInput.disabled = !profileOptions.compressContent;
+	archiveDedupPagesInput.checked = profileOptions.archiveDedupPages;
 	disableCompressionInput.checked = profileOptions.disableCompression;
 	disableCompressionInput.disabled = !profileOptions.compressContent;
 	preventAppendedDataInput.checked = profileOptions.preventAppendedData;
@@ -1549,6 +1553,7 @@ async function update() {
 			ignoredBookmarkFolders: ignoredBookmarkFoldersInput.value.replace(/([^\\]),/g, "$1 ,").split(/[^\\],/).map(folder => folder.replace(/\\,/g, ",")),
 			compressContent: fileFormatSelectInput.value.includes("zip"),
 			createRootDirectory: createRootDirectoryInput.checked,
+			archiveDedupPages: archiveDedupPagesInput.checked,
 			disableCompression: disableCompressionInput.checked,
 			preventAppendedData: preventAppendedDataInput.checked,
 			selfExtractingArchive: fileFormatSelectInput.value.includes("self-extracting"),

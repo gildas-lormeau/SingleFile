@@ -384,6 +384,7 @@ async function saveArchive(pages, message, tab) {
 			insertMetaNoIndex: message.insertMetaNoIndex,
 			insertMetaCSP: message.insertMetaCSP,
 			insertSingleFileComment: true,
+			dedupPages: message.archiveDedupPages,
 			createRootDirectory: message.createRootDirectory,
 			zipScript: await (await fetch(ZIP_SCRIPT_PATH)).text(),
 			tocPage: true

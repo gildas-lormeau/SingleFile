@@ -263,6 +263,17 @@
 							a timestamp and the identifier of the tab where the saved page is displayed.
 						</p>
 					</li>
+					<li data-options-label="archiveDedupPagesLabel">
+						<span class="option">Option: store only once the files shared by the pages of a multi-page
+							archive</span>
+						<p>Check this option to store only once the files that several pages of a <a
+								href="#multi-page-archives">multi-page archive</a> have in common (e.g. images, fonts,
+							stylesheets). The archive is smaller when its pages come from the same site. In the ZIP
+							file, each duplicate file is replaced by a symbolic link to the stored file. Note that the
+							tools that do not support symbolic links in ZIP files (e.g. the file explorer of Windows)
+							extract a small text file instead of the duplicate file.
+						</p>
+					</li>
 					<li data-options-label="disableCompressionLabel">
 						<span class="option">Option: disable compression</span>
 						<p>Check this option to disable the compression of the ZIP file. This can help to reduce the

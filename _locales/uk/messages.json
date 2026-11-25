@@ -439,6 +439,10 @@
 		"message": "створити кореневий каталог",
 		"description": "Options page label: 'create a root directory'"
 	},
+	"optionArchiveDedupPages": {
+		"message": "store only once the files shared by the pages of a multi-page archive",
+		"description": "Options page label: 'store only once the files shared by the pages of a multi-page archive'"
+	},
 	"optionDisableCompression": {
 		"message": "вимкнути стиснення",
 		"description": "Options page label: 'disable compression'"
