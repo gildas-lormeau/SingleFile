@@ -132,15 +132,15 @@
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
 	"menuAddTabToArchive": {
-		"message": "Add the tab to the archive in progress",
+		"message": "Dodaj kartę do tworzonego archiwum",
 		"description": "Menu entry: 'Add the tab to the archive in progress'"
 	},
 	"menuAddSelectedTabsToArchive": {
-		"message": "Add the selected tabs to the archive in progress",
+		"message": "Dodaj wybrane karty do tworzonego archiwum",
 		"description": "Menu entry: 'Add the selected tabs to the archive in progress'"
 	},
 	"menuViewArchive": {
-		"message": "View the archive in progress...",
+		"message": "Zobacz tworzone archiwum...",
 		"description": "Menu entry: 'View the archive in progress...'"
 	},
 	"menuBatchSaveUrls": {
@@ -440,7 +440,7 @@
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionArchiveDedupPages": {
-		"message": "store only once the files shared by the pages of a multi-page archive",
+		"message": "przechowuj tylko raz pliki współdzielone przez strony archiwum wielostronicowego",
 		"description": "Options page label: 'store only once the files shared by the pages of a multi-page archive'"
 	},
 	"optionDisableCompression": {
@@ -600,7 +600,7 @@
 		"description": "Options page label: 'images'"
 	},
 	"optionLinkBlockedImages": {
-		"message": "load the blocked images from the original site (the saved page is not self-contained)",
+		"message": "wczytaj zablokowane obrazy z oryginalnej witryny (zapisana strona nie jest niezależna)",
 		"description": "Options page label: 'load the blocked images from the original site (the saved page is not self-contained)'"
 	},
 	"optionsDestinationSubTitle": {
@@ -1262,7 +1262,7 @@
 		"description": "label of the button 'Save pages'"
 	},
 	"batchSaveUrlsAddToArchiveButton": {
-		"message": "Add to the archive in progress",
+		"message": "Dodaj do tworzonego archiwum",
 		"description": "Button label in the 'batch save URLs' page: 'Add to the archive in progress'"
 	},
 	"batchSaveUrlsURLTitle": {
@@ -1586,39 +1586,39 @@
 		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
 	},
 	"archiveTitle": {
-		"message": "Archive in progress",
+		"message": "Tworzone archiwum",
 		"description": "Title of the 'Archive in progress' page, which lists the pages added to a multi-page archive before it is saved"
 	},
 	"archiveNoPages": {
-		"message": "No pages",
+		"message": "Brak stron",
 		"description": "Text displayed in the 'Archive in progress' page when no page has been added"
 	},
 	"archiveRemoveAllButton": {
-		"message": "Remove all",
+		"message": "Usuń wszystkie",
 		"description": "Button label in the 'Archive in progress' page: 'Remove all'"
 	},
 	"archiveSaveButton": {
-		"message": "Save the archive",
+		"message": "Zapisz archiwum",
 		"description": "Button label in the 'Archive in progress' page: 'Save the archive'"
 	},
 	"archiveFilenameLabel": {
-		"message": "File name",
+		"message": "Nazwa pliku",
 		"description": "Label of the file name field in the 'Archive in progress' page"
 	},
 	"archiveProfileLabel": {
-		"message": "Profile",
+		"message": "Profil",
 		"description": "Label of the profile dropdown in the 'Archive in progress' page"
 	},
 	"archiveMoveUpButton": {
-		"message": "Move up",
+		"message": "Przenieś w górę",
 		"description": "Tooltip of the button moving a page up in the 'Archive in progress' page"
 	},
 	"archiveMoveDownButton": {
-		"message": "Move down",
+		"message": "Przenieś w dół",
 		"description": "Tooltip of the button moving a page down in the 'Archive in progress' page"
 	},
 	"archiveRemoveButton": {
-		"message": "Remove",
+		"message": "Usuń",
 		"description": "Tooltip of the button removing a page in the 'Archive in progress' page"
 	}
 }
