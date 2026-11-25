@@ -22,6 +22,7 @@
  */
 
 import * as config from "./config.js";
+import * as business from "./business.js";
 import * as downloads from "./downloads.js";
 import * as archiveStore from "./archive-store.js";
 
@@ -54,6 +55,9 @@ async function onMessage(message, sender) {
 	if (message.method.endsWith(".setPositions")) {
 		await archiveStore.setPositions(message.ids);
 		return {};
+	}
+	if (message.method.endsWith(".addUrls")) {
+		return business.addUrlsToArchive(message.urls, message.profileName);
 	}
 	if (message.method.endsWith(".save")) {
 		return save(message, sender.tab);

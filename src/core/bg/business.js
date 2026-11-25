@@ -94,6 +94,7 @@ export {
 	saveTabs,
 	saveTabsInArchive,
 	addTabsToArchive,
+	addUrlsToArchive,
 	addArchivePage,
 	setArchiveEndCallback,
 	captureTab,
@@ -142,7 +143,7 @@ async function batchSaveUrls() {
 	return browser.tabs.create({ active: true, url: "/src/ui/pages/batch-save-urls.html" });
 }
 
-async function saveUrls(urls, options = {}, profileName) {
+async function saveUrls(urls, options = {}, profileName, archive) {
 	await initMaxParallelWorkers();
 	const skippedUrls = [];
 	const pendingTasks = await Promise.all(urls.map(async url => {
@@ -151,6 +152,13 @@ async function saveUrls(urls, options = {}, profileName) {
 			skippedUrls.push(url);
 		} else {
 			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
+			if (archive) {
+				if (!tabOptions.compressContent) {
+					tabOptions.selfExtractingArchive = true;
+					tabOptions.extractDataFromPage = true;
+				}
+				Object.assign(tabOptions, ARCHIVE_PAGE_OPTIONS);
+			}
 			tabOptions.autoClose = true;
 			tabOptions.originalUrl = url;
 			tabOptions.extensionScriptFiles = extensionScriptFiles;
@@ -161,11 +169,17 @@ async function saveUrls(urls, options = {}, profileName) {
 				tab: { url },
 				status: TASK_PENDING_STATE,
 				options: tabOptions,
-				method: "content.save"
+				method: "content.save",
+				archive
 			};
 		}
 	}));
-	pendingTasks.filter(Boolean).forEach(addTask);
+	const addedTasks = pendingTasks.filter(Boolean);
+	if (archive) {
+		archive.pendingCount = addedTasks.length;
+		addedTasks.forEach((taskInfo, index) => taskInfo.archiveIndex = index);
+	}
+	addedTasks.forEach(addTask);
 	runTasks();
 	return { skippedUrls };
 }
@@ -185,6 +199,15 @@ async function addTabsToArchive(tabs, options = {}) {
 		await displayArchiveError(tabs, ARCHIVE_PASSWORD_ERROR);
 	} else {
 		await saveTabs(tabs, options, { pages: [], pendingCount: 0, persistent: true, date: Date.now() });
+	}
+}
+
+async function addUrlsToArchive(urls, profileName) {
+	const urlsOptions = await Promise.all(urls.map(url => profileName ? config.getProfileOptions(profileName) : config.getOptions(url)));
+	if (urlsOptions.some(urlOptions => urlOptions.password)) {
+		return { error: ARCHIVE_PASSWORD_ERROR };
+	} else {
+		return saveUrls(urls, {}, profileName, { pages: [], pendingCount: 0, persistent: true, date: Date.now() });
 	}
 }
 

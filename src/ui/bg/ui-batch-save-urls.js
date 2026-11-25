@@ -38,6 +38,7 @@ const addUrlsInput = document.getElementById("addUrlsInput");
 const addUrlsCancelButton = document.getElementById("addUrlsCancelButton");
 const addUrlsOKButton = document.getElementById("addUrlsOKButton");
 const saveUrlsButton = document.getElementById("saveUrlsButton");
+const addToArchiveButton = document.getElementById("addToArchiveButton");
 const profileSelect = document.getElementById("profileSelect");
 const PROFILE_STORAGE_KEY = "batchSaveUrlsProfileName";
 document.title = browser.i18n.getMessage("batchSaveUrlsTitle");
@@ -47,6 +48,7 @@ addUrlButton.textContent = browser.i18n.getMessage("batchSaveUrlsAddUrlButton");
 addUrlsButton.textContent = browser.i18n.getMessage("batchSaveUrlsAddUrlsButton");
 removeAllButton.textContent = browser.i18n.getMessage("batchSaveUrlsRemoveAllButton");
 saveUrlsButton.textContent = browser.i18n.getMessage("batchSaveUrlsSavePagesButton");
+addToArchiveButton.textContent = browser.i18n.getMessage("batchSaveUrlsAddToArchiveButton");
 addUrlsCancelButton.textContent = browser.i18n.getMessage("pendingsAddUrlsCancelButton");
 addUrlsOKButton.textContent = browser.i18n.getMessage("pendingsAddUrlsOKButton");
 addUrlsLabel.textContent = browser.i18n.getMessage("pendingsAddUrls");
@@ -70,17 +72,8 @@ addUrlsButton.onclick = displayAddUrlsPopup;
 if (location.href.endsWith("#side-panel")) {
 	document.documentElement.classList.add("side-panel");
 }
-saveUrlsButton.onclick = async () => {
-	const displayedUrls = getDisplayedUrls();
-	if (displayedUrls.length) {
-		displayedUrls.forEach(url => statuses.delete(url));
-		const response = await browser.runtime.sendMessage({ method: "downloads.saveUrls", urls: displayedUrls, profileName: profileSelect.value || undefined });
-		const skippedUrls = (response && response.skippedUrls) || [];
-		skippedUrls.forEach(url => statuses.set(url, skippedByRuleText));
-		urls = urls.filter(url => !displayedUrls.includes(url) || skippedUrls.includes(url));
-		refresh(true);
-	}
-};
+saveUrlsButton.onclick = () => processUrls("downloads.saveUrls");
+addToArchiveButton.onclick = () => processUrls("archive.addUrls");
 profileSelect.onchange = () => {
 	try {
 		localStorage.setItem(PROFILE_STORAGE_KEY, profileSelect.value);
@@ -129,6 +122,22 @@ browser.runtime.onMessage.addListener(message => {
 	}
 });
 init();
+
+async function processUrls(method) {
+	const displayedUrls = getDisplayedUrls();
+	if (displayedUrls.length) {
+		displayedUrls.forEach(url => statuses.delete(url));
+		const response = await browser.runtime.sendMessage({ method, urls: displayedUrls, profileName: profileSelect.value || undefined });
+		if (response && response.error) {
+			displayedUrls.forEach(url => statuses.set(url, response.error));
+		} else {
+			const skippedUrls = (response && response.skippedUrls) || [];
+			skippedUrls.forEach(url => statuses.set(url, skippedByRuleText));
+			urls = urls.filter(url => !displayedUrls.includes(url) || skippedUrls.includes(url));
+		}
+		refresh(true);
+	}
+}
 
 async function init() {
 	const [constants, profiles] = await Promise.all([
@@ -257,7 +266,7 @@ async function refresh(force) {
 			urlsTable.appendChild(row);
 		}
 	}
-	saveUrlsButton.disabled = removeAllButton.disabled = !displayedUrls.length;
+	saveUrlsButton.disabled = addToArchiveButton.disabled = removeAllButton.disabled = !displayedUrls.length;
 }
 
 function getDisplayedUrls() {
