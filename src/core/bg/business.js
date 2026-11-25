@@ -244,7 +244,7 @@ async function saveTabs(tabs, options = {}, archive) {
 				} catch (error) {
 					// ignored
 				}
-				if (scriptsInjected || editor.isEditor(tab)) {
+				if (editor.isEditor(tab) ? !archive : scriptsInjected) {
 					ui.onStart(tabId, EXECUTE_SCRIPTS_STEP);
 					return {
 						status: TASK_PENDING_STATE,
