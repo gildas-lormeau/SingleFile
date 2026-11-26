@@ -188,6 +188,12 @@ const allowedBookmarkFoldersLabel = document.getElementById("allowedBookmarkFold
 const ignoredBookmarkFoldersLabel = document.getElementById("ignoredBookmarkFoldersLabel");
 const createRootDirectoryLabel = document.getElementById("createRootDirectoryLabel");
 const archiveDedupPagesLabel = document.getElementById("archiveDedupPagesLabel");
+const archiveTableOfContentsLabel = document.getElementById("archiveTableOfContentsLabel");
+const archiveMarkUnarchivedLinksLabel = document.getElementById("archiveMarkUnarchivedLinksLabel");
+const archivePageTransitionsLabel = document.getElementById("archivePageTransitionsLabel");
+const archivePageTransitionsAutoLabel = document.getElementById("archivePageTransitionsAutoLabel");
+const archivePageTransitionsFadeLabel = document.getElementById("archivePageTransitionsFadeLabel");
+const archivePageTransitionsNoneLabel = document.getElementById("archivePageTransitionsNoneLabel");
 const disableCompressionLabel = document.getElementById("disableCompressionLabel");
 const preventAppendedDataLabel = document.getElementById("preventAppendedDataLabel");
 const passwordLabel = document.getElementById("passwordLabel");
@@ -381,6 +387,9 @@ const ignoredBookmarkFoldersInput = document.getElementById("ignoredBookmarkFold
 const fileFormatSelectInput = document.getElementById("fileFormatSelectInput");
 const createRootDirectoryInput = document.getElementById("createRootDirectoryInput");
 const archiveDedupPagesInput = document.getElementById("archiveDedupPagesInput");
+const archiveTableOfContentsInput = document.getElementById("archiveTableOfContentsInput");
+const archiveMarkUnarchivedLinksInput = document.getElementById("archiveMarkUnarchivedLinksInput");
+const archivePageTransitionsInput = document.getElementById("archivePageTransitionsInput");
 const disableCompressionInput = document.getElementById("disableCompressionInput");
 const preventAppendedDataInput = document.getElementById("preventAppendedDataInput");
 const passwordInput = document.getElementById("passwordInput");
@@ -909,6 +918,12 @@ allowedBookmarkFoldersLabel.textContent = browser.i18n.getMessage("optionAllowed
 ignoredBookmarkFoldersLabel.textContent = browser.i18n.getMessage("optionIgnoredBookmarkFolders");
 createRootDirectoryLabel.textContent = browser.i18n.getMessage("optionCreateRootDirectory");
 archiveDedupPagesLabel.textContent = browser.i18n.getMessage("optionArchiveDedupPages");
+archiveTableOfContentsLabel.textContent = browser.i18n.getMessage("optionArchiveTableOfContents");
+archiveMarkUnarchivedLinksLabel.textContent = browser.i18n.getMessage("optionArchiveMarkUnarchivedLinks");
+archivePageTransitionsLabel.textContent = browser.i18n.getMessage("optionArchivePageTransitions");
+archivePageTransitionsAutoLabel.textContent = browser.i18n.getMessage("optionArchivePageTransitionsAuto");
+archivePageTransitionsFadeLabel.textContent = browser.i18n.getMessage("optionArchivePageTransitionsFade");
+archivePageTransitionsNoneLabel.textContent = browser.i18n.getMessage("optionArchivePageTransitionsNone");
 disableCompressionLabel.textContent = browser.i18n.getMessage("optionDisableCompression");
 preventAppendedDataLabel.textContent = browser.i18n.getMessage("optionPreventAppendedData");
 passwordLabel.textContent = browser.i18n.getMessage("optionPassword");
@@ -1328,6 +1343,9 @@ async function refresh(profileName) {
 	createRootDirectoryInput.checked = profileOptions.createRootDirectory;
 	createRootDirectoryInput.disabled = !profileOptions.compressContent;
 	archiveDedupPagesInput.checked = profileOptions.archiveDedupPages;
+	archiveTableOfContentsInput.checked = profileOptions.archiveTableOfContents;
+	archiveMarkUnarchivedLinksInput.checked = profileOptions.archiveMarkUnarchivedLinks;
+	archivePageTransitionsInput.value = profileOptions.archivePageTransitions;
 	disableCompressionInput.checked = profileOptions.disableCompression;
 	disableCompressionInput.disabled = !profileOptions.compressContent;
 	preventAppendedDataInput.checked = profileOptions.preventAppendedData;
@@ -1554,6 +1572,9 @@ async function update() {
 			compressContent: fileFormatSelectInput.value.includes("zip"),
 			createRootDirectory: createRootDirectoryInput.checked,
 			archiveDedupPages: archiveDedupPagesInput.checked,
+			archiveTableOfContents: archiveTableOfContentsInput.checked,
+			archiveMarkUnarchivedLinks: archiveMarkUnarchivedLinksInput.checked,
+			archivePageTransitions: archivePageTransitionsInput.value,
 			disableCompression: disableCompressionInput.checked,
 			preventAppendedData: preventAppendedDataInput.checked,
 			selfExtractingArchive: fileFormatSelectInput.value.includes("self-extracting"),

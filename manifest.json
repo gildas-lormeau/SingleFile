@@ -121,6 +121,12 @@
 		},
 		"custom-command-9": {
 			"description": "__MSG_commandCustomShortcut9__"
+		},
+		"add-tab-to-archive": {
+			"description": "__MSG_menuAddTabToArchive__"
+		},
+		"view-archive": {
+			"description": "__MSG_archiveTitle__"
 		}
 	},
 	"web_accessible_resources": [

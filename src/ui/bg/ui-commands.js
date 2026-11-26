@@ -47,6 +47,11 @@ if (BROWSER_COMMANDS_API_SUPPORTED) {
 		} else if (command == "save-all-tabs") {
 			const tabs = await queryTabs({ currentWindow: true });
 			business.saveTabs(tabs);
+		} else if (command == "add-tab-to-archive") {
+			const tabs = await queryTabs({ currentWindow: true, active: true });
+			business.addTabsToArchive(tabs);
+		} else if (command == "view-archive") {
+			await browser.tabs.create({ active: true, url: "/src/ui/pages/archive.html" });
 		} else if (command.startsWith("custom-command-")) {
 			const profiles = await config.getProfiles();
 			let selectedProfile;

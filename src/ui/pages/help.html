@@ -274,6 +274,35 @@
 							extract a small text file instead of the duplicate file.
 						</p>
 					</li>
+					<li data-options-label="archiveTableOfContentsLabel">
+						<span class="option">Option: add a table of contents to multi-page archives</span>
+						<p>Uncheck this option to save a <a href="#multi-page-archives">multi-page archive</a> without
+							its table of contents. The archive then opens on its first page, and the other pages can
+							only be reached through the links of the saved pages.
+						</p>
+					</li>
+					<li data-options-label="archiveMarkUnarchivedLinksLabel">
+						<span class="option">Option: mark the links to pages that are not in the multi-page
+							archive</span>
+						<p>Check this option to display a small arrow after each link that leads to a page that was
+							not saved in the <a href="#multi-page-archives">multi-page archive</a>. Such a link opens
+							the original site. The arrow is added when the archive is displayed, the saved pages are
+							not modified.
+						</p>
+					</li>
+					<li data-options-label="archivePageTransitionsLabel">
+						<span class="option">Option: page transitions in multi-page archives</span>
+						<p>Select the transition displayed when going from a page of a <a
+								href="#multi-page-archives">multi-page archive</a> to another one:
+						</p>
+						<ul>
+							<li><code>"when the saved pages ask for it"</code>: a transition is displayed only when
+								the page being left asks for one in its stylesheets (default).</li>
+							<li><code>"fade"</code>: a fade is always displayed.</li>
+							<li><code>"none"</code>: no transition is displayed.</li>
+						</ul>
+						<p>No transition is displayed when the system is set to reduce motion.</p>
+					</li>
 					<li data-options-label="disableCompressionLabel">
 						<span class="option">Option: disable compression</span>
 						<p>Check this option to disable the compression of the ZIP file. This can help to reduce the
@@ -1064,6 +1093,12 @@
 						file name and the profile, then click on "Save the archive".</li>
 					<li>The pages stay in the list after the archive is saved, until you remove them. You can add
 						more pages and save the archive again.</li>
+					<li>On a link, "Add the tab to the archive in progress" adds the page of the link instead of the
+						current page, when this entry was added to the context menu of the pages in the "Menus"
+						section of the options page.</li>
+					<li>You can assign keyboard shortcuts to "Add the tab to the archive in progress" and to
+						"Archive in progress" in the extension shortcuts page of your browser. They have no default
+						shortcut.</li>
 					<li>The tabs of a private window cannot be added to the archive in progress.</li>
 				</ul>
 				<p>Format of the archive</p>

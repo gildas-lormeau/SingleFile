@@ -365,7 +365,11 @@ async function initialize() {
 				business.saveTabsInArchive(tabs, profileOptions);
 			}
 			if (item.action == "add-tab-to-archive") {
-				business.addTabsToArchive([tab], profileOptions);
+				if (event.linkUrl) {
+					business.addUrlsToArchive([event.linkUrl], item.profileName, tab);
+				} else {
+					business.addTabsToArchive([tab], profileOptions);
+				}
 			}
 			if (item.action == "add-selected-tabs-to-archive") {
 				const tabs = await queryTabs({ currentWindow: true, highlighted: true });

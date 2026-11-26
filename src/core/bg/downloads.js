@@ -385,9 +385,11 @@ async function saveArchive(pages, message, tab) {
 			insertMetaCSP: message.insertMetaCSP,
 			insertSingleFileComment: true,
 			dedupPages: message.archiveDedupPages,
+			markUnarchivedLinks: message.archiveMarkUnarchivedLinks,
+			pageTransitions: message.archivePageTransitions,
 			createRootDirectory: message.createRootDirectory,
 			zipScript: await (await fetch(ZIP_SCRIPT_PATH)).text(),
-			tocPage: true
+			tocPage: message.archiveTableOfContents
 		});
 		await saveCompressedContent(new Blob([content], { type: mimeType }), mimeType, archiveMessage, tab);
 	} catch (error) {

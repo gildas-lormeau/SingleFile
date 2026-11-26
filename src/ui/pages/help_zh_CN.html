@@ -174,6 +174,21 @@
                     <li data-options-label="archiveDedupPagesLabel"><span class="option">选项：多页存档中各页面共用的文件只存储一次</span>
                         <p>选中此选项后，<a href="#multi-page-archives">多页存档</a>中多个页面共用的文件（例如图像、字体、样式表）只存储一次。当页面来自同一网站时，存档会更小。在ZIP文件中，每个重复文件都会被替换为指向已存储文件的符号链接。请注意，不支持ZIP文件中符号链接的工具（例如Windows的文件资源管理器）会解压出一个小的文本文件，而不是重复的文件。</p>
                     </li>
+                    <li data-options-label="archiveTableOfContentsLabel"><span class="option">选项：为多页存档添加目录</span>
+                        <p>取消选中此选项可保存不带目录的<a href="#multi-page-archives">多页存档</a>。此时存档会打开第一个页面，其他页面只能通过已保存页面中的链接访问。</p>
+                    </li>
+                    <li data-options-label="archiveMarkUnarchivedLinksLabel"><span class="option">选项：标记指向不在多页存档中的页面的链接</span>
+                        <p>选中此选项后，指向未保存在<a href="#multi-page-archives">多页存档</a>中的页面的每个链接后面都会显示一个小箭头。这样的链接会打开原始网站。箭头是在显示存档时添加的，已保存的页面不会被修改。</p>
+                    </li>
+                    <li data-options-label="archivePageTransitionsLabel"><span class="option">选项：多页存档中的页面过渡效果</span>
+                        <p>选择在<a href="#multi-page-archives">多页存档</a>的页面之间切换时显示的过渡效果：</p>
+                        <ul>
+                            <li><code>“when the saved pages ask for it”</code>：仅当离开的页面在其样式表中要求过渡效果时才显示（默认）。</li>
+                            <li><code>“fade”</code>：始终显示淡入淡出效果。</li>
+                            <li><code>“none”</code>：不显示过渡效果。</li>
+                        </ul>
+                        <p>当系统设置为减少动态效果时，不显示任何过渡效果。</p>
+                    </li>
                     <li data-options-label="disableCompressionLabel"><span class="option">选项：禁用压缩</span>
                         <p>选中此选项可禁用ZIP文件的压缩。这有助于减少CPU消耗和保存页面所需的时间，但会增加生成的文件的大小。</p>
                     </li>
@@ -689,6 +704,8 @@
                     <li>要添加链接，请在上下文菜单中选择“批量保存网址...”或“保存所选链接”，然后在列出网址的页面中单击“Add to the archive in progress”。</li>
                     <li>在“保存标签页”菜单中选择“View the archive in progress...”以显示已添加的页面。您可以重命名页面、更改页面顺序和移除页面。选择文件名和配置文件，然后单击“Save the archive”。</li>
                     <li>保存存档后，页面仍保留在列表中，直到您将其移除。您可以添加更多页面并再次保存存档。</li>
+                    <li>如果已在选项页面的“菜单”部分将“Add the tab to the archive in progress”添加到页面的上下文菜单中，则在链接上使用它会添加该链接指向的页面，而不是当前页面。</li>
+                    <li>您可以在浏览器的扩展快捷键页面中为“Add the tab to the archive in progress”和“Archive in progress”指定键盘快捷键。它们没有默认快捷键。</li>
                     <li>隐私窗口的选项卡无法添加到正在创建的存档中。</li>
                 </ul>
                 <p>存档的格式</p>

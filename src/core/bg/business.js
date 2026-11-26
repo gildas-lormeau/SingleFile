@@ -58,7 +58,10 @@ const ARCHIVE_SAVE_OPTION_NAMES = [
 	"saveToS3",
 	"sharePage",
 	"addProof",
-	"archiveDedupPages"
+	"archiveDedupPages",
+	"archiveTableOfContents",
+	"archiveMarkUnarchivedLinks",
+	"archivePageTransitions"
 ];
 const ARCHIVE_PAGE_OPTIONS = {
 	compressContent: true,
@@ -89,7 +92,7 @@ const extensionScriptFiles = [
 
 const tasks = [];
 let currentTaskId = 1, maxParallelWorkers, processInForeground, onArchiveEnd;
-ui.init({ isSavingTab, saveTabs, saveTabsInArchive, addTabsToArchive, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
+ui.init({ isSavingTab, saveTabs, saveTabsInArchive, addTabsToArchive, addUrlsToArchive, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
 
 export {
 	saveTabs,
@@ -203,10 +206,19 @@ async function addTabsToArchive(tabs, options = {}) {
 	}
 }
 
-async function addUrlsToArchive(urls, profileName) {
+async function addUrlsToArchive(urls, profileName, tab) {
 	const urlsOptions = await Promise.all(urls.map(url => profileName ? config.getProfileOptions(profileName) : config.getOptions(url)));
-	if (urlsOptions.some(urlOptions => urlOptions.password)) {
-		return { error: ARCHIVE_PASSWORD_ERROR };
+	let error;
+	if (tab && tab.incognito) {
+		error = ARCHIVE_PRIVATE_TAB_ERROR;
+	} else if (urlsOptions.some(urlOptions => urlOptions.password)) {
+		error = ARCHIVE_PASSWORD_ERROR;
+	}
+	if (error) {
+		if (tab) {
+			await displayArchiveError([tab], error);
+		}
+		return { error };
 	} else {
 		return saveUrls(urls, {}, profileName, { pages: [], pendingCount: 0, persistent: true, date: Date.now() });
 	}

@@ -443,6 +443,30 @@
 		"message": "store only once the files shared by the pages of a multi-page archive",
 		"description": "Options page label: 'store only once the files shared by the pages of a multi-page archive'"
 	},
+	"optionArchiveTableOfContents": {
+		"message": "add a table of contents to multi-page archives",
+		"description": "Options page label: 'add a table of contents to multi-page archives'"
+	},
+	"optionArchiveMarkUnarchivedLinks": {
+		"message": "mark the links to pages that are not in the multi-page archive",
+		"description": "Options page label: 'mark the links to pages that are not in the multi-page archive'"
+	},
+	"optionArchivePageTransitions": {
+		"message": "page transitions in multi-page archives",
+		"description": "Options page label: 'page transitions in multi-page archives'"
+	},
+	"optionArchivePageTransitionsAuto": {
+		"message": "when the saved pages ask for it",
+		"description": "Options page label, entry of 'page transitions in multi-page archives': a transition is displayed only when the saved page asks for one in its stylesheets"
+	},
+	"optionArchivePageTransitionsFade": {
+		"message": "fade",
+		"description": "Options page label, entry of 'page transitions in multi-page archives': 'fade'"
+	},
+	"optionArchivePageTransitionsNone": {
+		"message": "none",
+		"description": "Options page label, entry of 'page transitions in multi-page archives': 'none'"
+	},
 	"optionDisableCompression": {
 		"message": "deshabilitar compresión",
 		"description": "Options page label: 'disable compression'"
