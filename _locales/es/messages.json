@@ -132,15 +132,15 @@
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
 	"menuAddTabToArchive": {
-		"message": "Add the tab to the archive in progress",
+		"message": "Añadir la pestaña al archivo en curso",
 		"description": "Menu entry: 'Add the tab to the archive in progress'"
 	},
 	"menuAddSelectedTabsToArchive": {
-		"message": "Add the selected tabs to the archive in progress",
+		"message": "Añadir las pestañas seleccionadas al archivo en curso",
 		"description": "Menu entry: 'Add the selected tabs to the archive in progress'"
 	},
 	"menuViewArchive": {
-		"message": "View the archive in progress...",
+		"message": "Ver el archivo en curso...",
 		"description": "Menu entry: 'View the archive in progress...'"
 	},
 	"menuBatchSaveUrls": {
@@ -440,31 +440,31 @@
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionArchiveDedupPages": {
-		"message": "store only once the files shared by the pages of a multi-page archive",
+		"message": "almacenar una sola vez los archivos compartidos por las páginas de un archivo multipágina",
 		"description": "Options page label: 'store only once the files shared by the pages of a multi-page archive'"
 	},
 	"optionArchiveTableOfContents": {
-		"message": "add a table of contents to multi-page archives",
+		"message": "añadir un índice a los archivos multipágina",
 		"description": "Options page label: 'add a table of contents to multi-page archives'"
 	},
 	"optionArchiveMarkUnarchivedLinks": {
-		"message": "mark the links to pages that are not in the multi-page archive",
+		"message": "marcar los enlaces a páginas que no están en el archivo multipágina",
 		"description": "Options page label: 'mark the links to pages that are not in the multi-page archive'"
 	},
 	"optionArchivePageTransitions": {
-		"message": "page transitions in multi-page archives",
+		"message": "transiciones entre páginas en los archivos multipágina",
 		"description": "Options page label: 'page transitions in multi-page archives'"
 	},
 	"optionArchivePageTransitionsAuto": {
-		"message": "when the saved pages ask for it",
+		"message": "cuando las páginas guardadas lo solicitan",
 		"description": "Options page label, entry of 'page transitions in multi-page archives': a transition is displayed only when the saved page asks for one in its stylesheets"
 	},
 	"optionArchivePageTransitionsFade": {
-		"message": "fade",
+		"message": "fundido",
 		"description": "Options page label, entry of 'page transitions in multi-page archives': 'fade'"
 	},
 	"optionArchivePageTransitionsNone": {
-		"message": "none",
+		"message": "ninguna",
 		"description": "Options page label, entry of 'page transitions in multi-page archives': 'none'"
 	},
 	"optionDisableCompression": {
@@ -624,7 +624,7 @@
 		"description": "Options page label: 'images'"
 	},
 	"optionLinkBlockedImages": {
-		"message": "load the blocked images from the original site (the saved page is not self-contained)",
+		"message": "cargar las imágenes bloqueadas desde el sitio original (la página guardada no es autónoma)",
 		"description": "Options page label: 'load the blocked images from the original site (the saved page is not self-contained)'"
 	},
 	"optionsDestinationSubTitle": {
@@ -1286,7 +1286,7 @@
 		"description": "label of the button 'Save pages'"
 	},
 	"batchSaveUrlsAddToArchiveButton": {
-		"message": "Add to the archive in progress",
+		"message": "Añadir al archivo en curso",
 		"description": "Button label in the 'batch save URLs' page: 'Add to the archive in progress'"
 	},
 	"batchSaveUrlsURLTitle": {
@@ -1610,47 +1610,47 @@
 		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
 	},
 	"archiveTitle": {
-		"message": "Archive in progress",
+		"message": "Archivo en curso",
 		"description": "Title of the 'Archive in progress' page, which lists the pages added to a multi-page archive before it is saved"
 	},
 	"archiveNoPages": {
-		"message": "No pages",
+		"message": "Sin páginas",
 		"description": "Text displayed in the 'Archive in progress' page when no page has been added"
 	},
 	"archiveRemoveAllButton": {
-		"message": "Remove all",
+		"message": "Eliminar todo",
 		"description": "Button label in the 'Archive in progress' page: 'Remove all'"
 	},
 	"archiveSaveButton": {
-		"message": "Save the archive",
+		"message": "Guardar el archivo",
 		"description": "Button label in the 'Archive in progress' page: 'Save the archive'"
 	},
 	"archiveFilenameLabel": {
-		"message": "File name",
+		"message": "Nombre del archivo",
 		"description": "Label of the file name field in the 'Archive in progress' page"
 	},
 	"archiveProfileLabel": {
-		"message": "Profile",
+		"message": "Perfil",
 		"description": "Label of the profile dropdown in the 'Archive in progress' page"
 	},
 	"archiveMoveUpButton": {
-		"message": "Move up",
+		"message": "Subir",
 		"description": "Tooltip of the button moving a page up in the 'Archive in progress' page"
 	},
 	"archiveMoveDownButton": {
-		"message": "Move down",
+		"message": "Bajar",
 		"description": "Tooltip of the button moving a page down in the 'Archive in progress' page"
 	},
 	"archiveRemoveButton": {
-		"message": "Remove",
+		"message": "Eliminar",
 		"description": "Tooltip of the button removing a page in the 'Archive in progress' page"
 	},
 	"archiveNotSaved": {
-		"message": "not saved",
+		"message": "no guardada",
 		"description": "Status displayed in the 'Archive in progress' page for a page that could not be saved"
 	},
 	"archiveFailedPages": {
-		"message": "Pages not saved: $1",
+		"message": "Páginas no guardadas: $1",
 		"description": "Text displayed in the 'Archive in progress' page with the number of pages that could not be saved"
 	}
 }

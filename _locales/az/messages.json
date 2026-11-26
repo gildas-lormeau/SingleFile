@@ -132,15 +132,15 @@
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
 	"menuAddTabToArchive": {
-		"message": "Add the tab to the archive in progress",
+		"message": "Tabı hazırlanan arxivə əlavə et",
 		"description": "Menu entry: 'Add the tab to the archive in progress'"
 	},
 	"menuAddSelectedTabsToArchive": {
-		"message": "Add the selected tabs to the archive in progress",
+		"message": "Seçilmiş tabları hazırlanan arxivə əlavə et",
 		"description": "Menu entry: 'Add the selected tabs to the archive in progress'"
 	},
 	"menuViewArchive": {
-		"message": "View the archive in progress...",
+		"message": "Hazırlanan arxivi göstər...",
 		"description": "Menu entry: 'View the archive in progress...'"
 	},
 	"menuBatchSaveUrls": {
@@ -440,31 +440,31 @@
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionArchiveDedupPages": {
-		"message": "store only once the files shared by the pages of a multi-page archive",
+		"message": "çoxsəhifəli arxivin səhifələri üçün ortaq olan faylları yalnız bir dəfə saxlayın",
 		"description": "Options page label: 'store only once the files shared by the pages of a multi-page archive'"
 	},
 	"optionArchiveTableOfContents": {
-		"message": "add a table of contents to multi-page archives",
+		"message": "çoxsəhifəli arxivlərə mündəricat əlavə edin",
 		"description": "Options page label: 'add a table of contents to multi-page archives'"
 	},
 	"optionArchiveMarkUnarchivedLinks": {
-		"message": "mark the links to pages that are not in the multi-page archive",
+		"message": "çoxsəhifəli arxivdə olmayan səhifələrə aparan linkləri işarələyin",
 		"description": "Options page label: 'mark the links to pages that are not in the multi-page archive'"
 	},
 	"optionArchivePageTransitions": {
-		"message": "page transitions in multi-page archives",
+		"message": "çoxsəhifəli arxivlərdə səhifələr arasında keçidlər",
 		"description": "Options page label: 'page transitions in multi-page archives'"
 	},
 	"optionArchivePageTransitionsAuto": {
-		"message": "when the saved pages ask for it",
+		"message": "yaddaşa qeyd edilmiş səhifələr tələb etdikdə",
 		"description": "Options page label, entry of 'page transitions in multi-page archives': a transition is displayed only when the saved page asks for one in its stylesheets"
 	},
 	"optionArchivePageTransitionsFade": {
-		"message": "fade",
+		"message": "yumşaq keçid",
 		"description": "Options page label, entry of 'page transitions in multi-page archives': 'fade'"
 	},
 	"optionArchivePageTransitionsNone": {
-		"message": "none",
+		"message": "yoxdur",
 		"description": "Options page label, entry of 'page transitions in multi-page archives': 'none'"
 	},
 	"optionDisableCompression": {
@@ -624,7 +624,7 @@
 		"description": "Options page label: 'images'"
 	},
 	"optionLinkBlockedImages": {
-		"message": "load the blocked images from the original site (the saved page is not self-contained)",
+		"message": "bloklanmış şəkilləri orijinal saytdan yükləyin (yaddaşa qeyd edilmiş səhifə avtonom olmur)",
 		"description": "Options page label: 'load the blocked images from the original site (the saved page is not self-contained)'"
 	},
 	"optionsDestinationSubTitle": {
@@ -1286,7 +1286,7 @@
 		"description": "label of the button 'Save pages'"
 	},
 	"batchSaveUrlsAddToArchiveButton": {
-		"message": "Add to the archive in progress",
+		"message": "Hazırlanan arxivə əlavə edin",
 		"description": "Button label in the 'batch save URLs' page: 'Add to the archive in progress'"
 	},
 	"batchSaveUrlsURLTitle": {
@@ -1610,47 +1610,47 @@
 		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
 	},
 	"archiveTitle": {
-		"message": "Archive in progress",
+		"message": "Hazırlanan arxiv",
 		"description": "Title of the 'Archive in progress' page, which lists the pages added to a multi-page archive before it is saved"
 	},
 	"archiveNoPages": {
-		"message": "No pages",
+		"message": "Səhifə yoxdur",
 		"description": "Text displayed in the 'Archive in progress' page when no page has been added"
 	},
 	"archiveRemoveAllButton": {
-		"message": "Remove all",
+		"message": "Bütününü silin",
 		"description": "Button label in the 'Archive in progress' page: 'Remove all'"
 	},
 	"archiveSaveButton": {
-		"message": "Save the archive",
+		"message": "Arxivi yaddaşa qeyd edin",
 		"description": "Button label in the 'Archive in progress' page: 'Save the archive'"
 	},
 	"archiveFilenameLabel": {
-		"message": "File name",
+		"message": "Fayl adı",
 		"description": "Label of the file name field in the 'Archive in progress' page"
 	},
 	"archiveProfileLabel": {
-		"message": "Profile",
+		"message": "Profil",
 		"description": "Label of the profile dropdown in the 'Archive in progress' page"
 	},
 	"archiveMoveUpButton": {
-		"message": "Move up",
+		"message": "Yuxarı köçürün",
 		"description": "Tooltip of the button moving a page up in the 'Archive in progress' page"
 	},
 	"archiveMoveDownButton": {
-		"message": "Move down",
+		"message": "Aşağı köçürün",
 		"description": "Tooltip of the button moving a page down in the 'Archive in progress' page"
 	},
 	"archiveRemoveButton": {
-		"message": "Remove",
+		"message": "Silin",
 		"description": "Tooltip of the button removing a page in the 'Archive in progress' page"
 	},
 	"archiveNotSaved": {
-		"message": "not saved",
+		"message": "yaddaşa qeyd edilməyib",
 		"description": "Status displayed in the 'Archive in progress' page for a page that could not be saved"
 	},
 	"archiveFailedPages": {
-		"message": "Pages not saved: $1",
+		"message": "Yaddaşa qeyd edilməyən səhifələr: $1",
 		"description": "Text displayed in the 'Archive in progress' page with the number of pages that could not be saved"
 	}
 }

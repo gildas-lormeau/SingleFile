@@ -132,15 +132,15 @@
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
 	"menuAddTabToArchive": {
-		"message": "Add the tab to the archive in progress",
+		"message": "Додати вкладку до поточного архіву",
 		"description": "Menu entry: 'Add the tab to the archive in progress'"
 	},
 	"menuAddSelectedTabsToArchive": {
-		"message": "Add the selected tabs to the archive in progress",
+		"message": "Додати вибрані вкладки до поточного архіву",
 		"description": "Menu entry: 'Add the selected tabs to the archive in progress'"
 	},
 	"menuViewArchive": {
-		"message": "View the archive in progress...",
+		"message": "Перегляд поточного архіву...",
 		"description": "Menu entry: 'View the archive in progress...'"
 	},
 	"menuBatchSaveUrls": {
@@ -440,31 +440,31 @@
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionArchiveDedupPages": {
-		"message": "store only once the files shared by the pages of a multi-page archive",
+		"message": "зберігати лише один раз файли, спільні для сторінок багатосторінкового архіву",
 		"description": "Options page label: 'store only once the files shared by the pages of a multi-page archive'"
 	},
 	"optionArchiveTableOfContents": {
-		"message": "add a table of contents to multi-page archives",
+		"message": "додавати зміст до багатосторінкових архівів",
 		"description": "Options page label: 'add a table of contents to multi-page archives'"
 	},
 	"optionArchiveMarkUnarchivedLinks": {
-		"message": "mark the links to pages that are not in the multi-page archive",
+		"message": "позначати посилання на сторінки, яких немає в багатосторінковому архіві",
 		"description": "Options page label: 'mark the links to pages that are not in the multi-page archive'"
 	},
 	"optionArchivePageTransitions": {
-		"message": "page transitions in multi-page archives",
+		"message": "переходи між сторінками в багатосторінкових архівах",
 		"description": "Options page label: 'page transitions in multi-page archives'"
 	},
 	"optionArchivePageTransitionsAuto": {
-		"message": "when the saved pages ask for it",
+		"message": "коли цього вимагають збережені сторінки",
 		"description": "Options page label, entry of 'page transitions in multi-page archives': a transition is displayed only when the saved page asks for one in its stylesheets"
 	},
 	"optionArchivePageTransitionsFade": {
-		"message": "fade",
+		"message": "розчинення",
 		"description": "Options page label, entry of 'page transitions in multi-page archives': 'fade'"
 	},
 	"optionArchivePageTransitionsNone": {
-		"message": "none",
+		"message": "немає",
 		"description": "Options page label, entry of 'page transitions in multi-page archives': 'none'"
 	},
 	"optionDisableCompression": {
@@ -624,7 +624,7 @@
 		"description": "Options page label: 'images'"
 	},
 	"optionLinkBlockedImages": {
-		"message": "load the blocked images from the original site (the saved page is not self-contained)",
+		"message": "завантажувати заблоковані зображення з оригінального сайту (збережена сторінка не є автономною)",
 		"description": "Options page label: 'load the blocked images from the original site (the saved page is not self-contained)'"
 	},
 	"optionsDestinationSubTitle": {
@@ -1286,7 +1286,7 @@
 		"description": "label of the button 'Save pages'"
 	},
 	"batchSaveUrlsAddToArchiveButton": {
-		"message": "Add to the archive in progress",
+		"message": "Додати до поточного архіву",
 		"description": "Button label in the 'batch save URLs' page: 'Add to the archive in progress'"
 	},
 	"batchSaveUrlsURLTitle": {
@@ -1610,47 +1610,47 @@
 		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
 	},
 	"archiveTitle": {
-		"message": "Archive in progress",
+		"message": "Поточний архів",
 		"description": "Title of the 'Archive in progress' page, which lists the pages added to a multi-page archive before it is saved"
 	},
 	"archiveNoPages": {
-		"message": "No pages",
+		"message": "Немає сторінок",
 		"description": "Text displayed in the 'Archive in progress' page when no page has been added"
 	},
 	"archiveRemoveAllButton": {
-		"message": "Remove all",
+		"message": "Видалити всі",
 		"description": "Button label in the 'Archive in progress' page: 'Remove all'"
 	},
 	"archiveSaveButton": {
-		"message": "Save the archive",
+		"message": "Зберегти архів",
 		"description": "Button label in the 'Archive in progress' page: 'Save the archive'"
 	},
 	"archiveFilenameLabel": {
-		"message": "File name",
+		"message": "Ім'я файлу",
 		"description": "Label of the file name field in the 'Archive in progress' page"
 	},
 	"archiveProfileLabel": {
-		"message": "Profile",
+		"message": "Профіль",
 		"description": "Label of the profile dropdown in the 'Archive in progress' page"
 	},
 	"archiveMoveUpButton": {
-		"message": "Move up",
+		"message": "Перемістити вгору",
 		"description": "Tooltip of the button moving a page up in the 'Archive in progress' page"
 	},
 	"archiveMoveDownButton": {
-		"message": "Move down",
+		"message": "Перемістити вниз",
 		"description": "Tooltip of the button moving a page down in the 'Archive in progress' page"
 	},
 	"archiveRemoveButton": {
-		"message": "Remove",
+		"message": "Видалити",
 		"description": "Tooltip of the button removing a page in the 'Archive in progress' page"
 	},
 	"archiveNotSaved": {
-		"message": "not saved",
+		"message": "не збережено",
 		"description": "Status displayed in the 'Archive in progress' page for a page that could not be saved"
 	},
 	"archiveFailedPages": {
-		"message": "Pages not saved: $1",
+		"message": "Не збережено сторінок: $1",
 		"description": "Text displayed in the 'Archive in progress' page with the number of pages that could not be saved"
 	}
 }
