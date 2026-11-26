@@ -33,8 +33,7 @@ let BACKGROUND_SAVE_SUPPORTED,
 	CLIPBOARD_API_SUPPORTED,
 	NATIVE_API_API_SUPPORTED,
 	WEB_BLOCKING_API_SUPPORTED,
-	SHARE_API_SUPPORTED,
-	SELECTABLE_TABS_SUPPORTED;
+	SHARE_API_SUPPORTED;
 browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
 	({
 		BACKGROUND_SAVE_SUPPORTED,
@@ -47,8 +46,7 @@ browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
 		CLIPBOARD_API_SUPPORTED,
 		NATIVE_API_API_SUPPORTED,
 		WEB_BLOCKING_API_SUPPORTED,
-		SHARE_API_SUPPORTED,
-		SELECTABLE_TABS_SUPPORTED
+		SHARE_API_SUPPORTED
 	} = data);
 	init();
 });
@@ -94,11 +92,5 @@ function init() {
 	}
 	if (!SHARE_API_SUPPORTED) {
 		document.getElementById("sharePageOption").hidden = true;
-	}
-	if (!SELECTABLE_TABS_SUPPORTED) {
-		document.getElementById("selectableTabsMenu").hidden = true;
-		document.getElementById("selectableTabsArchiveMenu").hidden = true;
-		document.getElementById("selectableTabsAddMenu").hidden = true;
-		document.getElementById("shortcutsSection").hidden = true;
 	}
 }

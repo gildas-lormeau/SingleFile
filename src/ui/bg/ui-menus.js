@@ -146,9 +146,6 @@ function isActionSupported(action) {
 	if (action == "auto-save") {
 		return config.AUTO_SAVE_SUPPORTED;
 	}
-	if (action == "save-selected-tabs" || action == "save-selected-tabs-in-archive" || action == "add-selected-tabs-to-archive") {
-		return config.SELECTABLE_TABS_SUPPORTED;
-	}
 	return true;
 }
 
@@ -491,10 +488,8 @@ async function refreshTab(tab) {
 					promises.push(updateTitleValue(id, title));
 					promises.push(menus.update(id, { visible: !options.openEditor || savedPageDetected }));
 				});
-				if (config.SELECTABLE_TABS_SUPPORTED) {
-					getItems("save-selection").forEach(([id]) => promises.push(menus.update(id, { visible: !options.saveRawPage })));
-					getItems("edit-and-save-selection").forEach(([id]) => promises.push(menus.update(id, { visible: !options.saveRawPage && !options.openEditor })));
-				}
+				getItems("save-selection").forEach(([id]) => promises.push(menus.update(id, { visible: !options.saveRawPage })));
+				getItems("edit-and-save-selection").forEach(([id]) => promises.push(menus.update(id, { visible: !options.saveRawPage && !options.openEditor })));
 				const [profiles, rule] = await Promise.all([config.getProfiles(), config.getRule(tab.url, true)]);
 				const profileNames = Object.keys(profiles);
 				if (profileNames.length > 1) {

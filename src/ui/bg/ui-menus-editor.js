@@ -161,7 +161,7 @@ function needsProfiles(action) {
 }
 
 function unsupportedAction(action) {
-	return (action == "auto-save" && constants.AUTO_SAVE_SUPPORTED === false) || ((action == "save-selected-tabs" || action == "save-selected-tabs-in-archive" || action == "add-selected-tabs-to-archive") && constants.SELECTABLE_TABS_SUPPORTED === false);
+	return action == "auto-save" && constants.AUTO_SAVE_SUPPORTED === false;
 }
 
 function pageOnly(entry, surface) {
