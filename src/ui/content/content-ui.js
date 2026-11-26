@@ -42,6 +42,7 @@ const LOGS_LINE_STATUS_ELEMENT_CLASSNAME = "singlefile-logs-line-icon";
 const LOGS_LINE_STATUS_DONE_CLASSNAME = "singlefile-logs-line-icon-done";
 const SINGLE_FILE_UI_ELEMENT_CLASS = singlefile.helper.SINGLE_FILE_UI_ELEMENT_CLASS;
 const SELECT_PX_THRESHOLD = 8;
+const TEXT_FIELD_TAG_NAMES = ["INPUT", "TEXTAREA"];
 const CSS_PROPERTIES = new Set(Array.from(getComputedStyle(document.documentElement)));
 const UI_DIRECTION = getMessage("@@bidi_dir", "ltr");
 const LOG_PANEL_WIDTH = getMessage("logPanelWidth", "122");
@@ -373,12 +374,18 @@ function getComposedRange(selection) {
 			});
 		}
 	} while (shadowRootFound);
-	if (staticRange && !staticRange.collapsed && staticRange.startContainer.getRootNode() == staticRange.endContainer.getRootNode()) {
+	if (staticRange && !staticRange.collapsed && staticRange.startContainer.getRootNode() == staticRange.endContainer.getRootNode() && !isTextFieldRange(staticRange)) {
 		const range = document.createRange();
 		range.setStart(staticRange.startContainer, staticRange.startOffset);
 		range.setEnd(staticRange.endContainer, staticRange.endOffset);
 		return range;
 	}
+}
+
+function isTextFieldRange(range) {
+	const node = range.startContainer.childNodes[range.startOffset];
+	return range.startContainer == range.endContainer && range.endOffset == range.startOffset + 1 &&
+		node && node.nodeType == Node.ELEMENT_NODE && TEXT_FIELD_TAG_NAMES.includes(node.tagName);
 }
 
 function getComposedStaticRange(selection, shadowRoots) {
