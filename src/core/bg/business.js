@@ -85,7 +85,8 @@ const ARCHIVE_PAGE_OPTIONS = {
 	addProof: false,
 	insertEmbeddedImage: false,
 	insertEmbeddedScreenshotImage: false,
-	autoClose: false
+	autoClose: false,
+	archiveTask: true
 };
 
 const extensionScriptFiles = [

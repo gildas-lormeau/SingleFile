@@ -333,7 +333,7 @@ async function downloadCompressedContent(message, tab) {
 			}
 			message.pageData = message.blob = null;
 			ui.onEnd(tabId);
-		} else {
+		} else if (!message.archiveTask) {
 			const blob = await singlefile.processors.compression.process(pageData, {
 				insertTextBody: message.insertTextBody,
 				url: pageData.url || tab.url,

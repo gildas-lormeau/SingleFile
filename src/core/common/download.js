@@ -109,6 +109,7 @@ async function downloadPage(pageData, options) {
 		preventAppendedData: options.preventAppendedData,
 		maxAppendedDataLength: options.maxAppendedDataLength,
 		extractDataFromPage: options.extractDataFromPage,
+		archiveTask: options.archiveTask,
 		insertCanonicalLink: options.insertCanonicalLink,
 		insertMetaNoIndex: options.insertMetaNoIndex,
 		insertMetaCSP: options.insertMetaCSP,
