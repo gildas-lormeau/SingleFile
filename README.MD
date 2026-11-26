@@ -85,10 +85,13 @@ these instructions:
   upload to GitHub" to upload pages to Google Drive or GitHub respectively.
 - Enable the option "Misc. > add proof of existence" to prove the existence of
   saved pages by linking the SHA256 of the pages into the blockchain.
-- You can use the customizable shortkey Ctrl+Shift+Y to save the current tab or
-  the selected tabs. Go to about:addons and select "Manage extension shortcuts"
-  in the cogwheel menu to change it in Firefox. Go to
-  chrome://extensions/shortcuts to change it in Chrome.
+- You can use the customizable shortcut Ctrl+Shift+Y to save the current tab or
+  the selected tabs. If some content is selected in the page, this shortcut
+  saves only the selected content. To always save the entire page, assign a
+  shortcut to the command "Save the selected tabs (entire pages)", which has no
+  default shortcut. Go to about:addons and select "Manage extension shortcuts"
+  in the cogwheel menu to change the shortcuts in Firefox. Go to
+  chrome://extensions/shortcuts to change them in Chrome.
 - The default save folder is the download folder configured in your browser, cf.
   about:addons in Firefox and chrome://settings in Chrome.
 - See the extension help in the options page for more detailed information about
