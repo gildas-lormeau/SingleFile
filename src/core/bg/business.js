@@ -44,6 +44,7 @@ const AUTOSAVE_METHOD = "content.autosave";
 const ARCHIVE_PASSWORD_ERROR = "Saving tabs in one archive is not supported with a password yet.";
 const ARCHIVE_PRIVATE_TAB_ERROR = "The tabs of a private window cannot be added to the archive in progress.";
 const ARCHIVE_POSITION_FACTOR = 1000;
+const PAUSED_TASKS_STORAGE_KEY = "pausedTasks";
 const NEW_TAB_URL_REGEXP = /^(about:(blank|newtab|home)|(chrome|edge):\/\/(newtab|new-tab-page))/;
 const ARCHIVE_SAVE_OPTION_NAMES = [
 	"backgroundSave",
@@ -94,7 +95,8 @@ const extensionScriptFiles = [
 ];
 
 const tasks = [];
-let currentTaskId = 1, maxParallelWorkers, processInForeground, onArchiveEnd;
+let currentTaskId = 1, maxParallelWorkers, processInForeground, onArchiveEnd, paused = false, endedTasksCount = 0, tasksStored = false, tasksStorePending = false;
+const tasksRestored = restoreTasks();
 ui.init({ isSavingTab, saveTabs, saveTabsInArchive, addTabsToArchive, addUrlsToArchive, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
 
 export {
@@ -109,6 +111,8 @@ export {
 	saveSelectedLinks,
 	cancelTask,
 	cancelAllTasks,
+	pauseTasks,
+	resumeTasks,
 	getTasksInfo,
 	getTaskInfo,
 	setCancelCallback,
@@ -191,6 +195,7 @@ async function saveUrls(urls, options = {}, profileName, archive) {
 		});
 	}
 	addedTasks.forEach(addTask);
+	storeTasks();
 	runTasks();
 	return { skippedUrls };
 }
@@ -428,6 +433,9 @@ async function captureTab(tab, options = {}) {
 }
 
 function addTask(info) {
+	if (!tasks.length) {
+		endedTasksCount = 0;
+	}
 	const taskInfo = {
 		id: currentTaskId,
 		status: info.status,
@@ -443,6 +451,13 @@ function addTask(info) {
 			const index = tasks.findIndex(taskInfo => taskInfo.id == this.id);
 			if (index > -1) {
 				tasks.splice(index, 1);
+				if (!this.cancelled) {
+					endedTasksCount++;
+				}
+				if (!tasks.length) {
+					paused = false;
+				}
+				storeTasks();
 				if (this.archive) {
 					this.archive.pendingCount--;
 					if (!this.cancelled && !isArchivePageSaved(this)) {
@@ -468,17 +483,113 @@ function openEditor(tab) {
 }
 
 async function initMaxParallelWorkers() {
+	await tasksRestored;
 	const configData = await config.get();
 	processInForeground = configData.processInForeground;
 	maxParallelWorkers = processInForeground ? 1 : configData.maxParallelWorkers;
 }
 
 function runTasks() {
-	const processingCount = tasks.filter(taskInfo => taskInfo.status == TASK_PROCESSING_STATE).length;
-	for (let index = 0; index < Math.min(tasks.length - processingCount, (maxParallelWorkers - processingCount)); index++) {
-		const taskInfo = tasks.find(taskInfo => taskInfo.status == TASK_PENDING_STATE);
-		if (taskInfo) {
-			runTask(taskInfo);
+	if (!paused) {
+		const processingCount = tasks.filter(taskInfo => taskInfo.status == TASK_PROCESSING_STATE).length;
+		for (let index = 0; index < Math.min(tasks.length - processingCount, (maxParallelWorkers - processingCount)); index++) {
+			const taskInfo = tasks.find(taskInfo => taskInfo.status == TASK_PENDING_STATE);
+			if (taskInfo) {
+				runTask(taskInfo);
+			}
+		}
+	}
+}
+
+async function pauseTasks() {
+	await tasksRestored;
+	if (tasks.length) {
+		paused = true;
+		storeTasks();
+	}
+}
+
+async function resumeTasks() {
+	await initMaxParallelWorkers();
+	paused = false;
+	storeTasks();
+	runTasks();
+}
+
+function storeTasks() {
+	if ((paused || tasksStored) && !tasksStorePending) {
+		tasksStorePending = true;
+		Promise.resolve().then(async () => {
+			tasksStorePending = false;
+			try {
+				await writeTasks();
+				// eslint-disable-next-line no-unused-vars
+			} catch (error) {
+				// ignored
+			}
+		});
+	}
+}
+
+async function writeTasks() {
+	if (browser.storage.session) {
+		if (paused) {
+			const options = [];
+			const optionsIndexes = new Map();
+			const storedTasks = tasks.filter(isStorableTask).map(taskInfo => {
+				const taskOptions = JSON.stringify(Object.assign({}, taskInfo.options, { originalUrl: undefined }));
+				let optionsIndex = optionsIndexes.get(taskOptions);
+				if (optionsIndex === undefined) {
+					optionsIndex = options.push(taskOptions) - 1;
+					optionsIndexes.set(taskOptions, optionsIndex);
+				}
+				return {
+					url: taskInfo.tab.url,
+					optionsIndex,
+					archiveDate: taskInfo.archive && taskInfo.archive.date,
+					archiveIndex: taskInfo.archiveIndex
+				};
+			});
+			tasksStored = true;
+			await browser.storage.session.set({ [PAUSED_TASKS_STORAGE_KEY]: { tasks: storedTasks, options, endedTasksCount } });
+		} else {
+			tasksStored = false;
+			await browser.storage.session.remove(PAUSED_TASKS_STORAGE_KEY);
+		}
+	}
+}
+
+function isStorableTask(taskInfo) {
+	return taskInfo.status == TASK_PENDING_STATE && !taskInfo.tab.id && !taskInfo.resolve && (!taskInfo.archive || taskInfo.archive.persistent);
+}
+
+async function restoreTasks() {
+	if (browser.storage.session) {
+		try {
+			const storedData = (await browser.storage.session.get(PAUSED_TASKS_STORAGE_KEY))[PAUSED_TASKS_STORAGE_KEY];
+			if (storedData) {
+				const archives = new Map();
+				storedData.tasks.forEach(({ url, optionsIndex, archiveDate, archiveIndex }) => {
+					const options = JSON.parse(storedData.options[optionsIndex]);
+					let archive;
+					options.originalUrl = url;
+					if (archiveDate) {
+						archive = archives.get(archiveDate);
+						if (!archive) {
+							archive = { pages: [], pendingCount: 0, persistent: true, date: archiveDate };
+							archives.set(archiveDate, archive);
+						}
+						archive.pendingCount++;
+					}
+					addTask({ status: TASK_PENDING_STATE, tab: { url }, options, method: "content.save", archive, archiveIndex });
+				});
+				paused = Boolean(tasks.length);
+				endedTasksCount = storedData.endedTasksCount;
+				tasksStored = true;
+			}
+			// eslint-disable-next-line no-unused-vars
+		} catch (error) {
+			// ignored
 		}
 	}
 }
@@ -637,19 +748,22 @@ function cancelTab(tabId, stopProcessing = true) {
 	).forEach(cancel);
 }
 
-function cancelTask(taskId) {
+async function cancelTask(taskId) {
+	await tasksRestored;
 	const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
 	if (taskInfo) {
 		cancel(taskInfo);
 	}
 }
 
-function cancelAllTasks() {
+async function cancelAllTasks() {
+	await tasksRestored;
 	Array.from(tasks).forEach(taskInfo => cancel(taskInfo, false));
 }
 
-function getTasksInfo() {
-	return tasks.map(mapTaskInfo);
+async function getTasksInfo() {
+	await tasksRestored;
+	return { tasks: tasks.map(mapTaskInfo), paused, endedTasksCount };
 }
 
 function getTaskInfo(taskId) {

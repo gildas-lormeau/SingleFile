@@ -444,6 +444,35 @@ if (typeof globalThis == "undefined") {
 					addListener: listener => nativeAPI.storage.onChanged.addListener(listener),
 					removeListener: listener => nativeAPI.storage.onChanged.removeListener(listener)
 				},
+				session: {
+					set: value => new Promise((resolve, reject) => {
+						nativeAPI.storage.session.set(value, () => {
+							if (nativeAPI.runtime.lastError) {
+								reject(nativeAPI.runtime.lastError);
+							} else {
+								resolve();
+							}
+						});
+					}),
+					get: keys => new Promise((resolve, reject) => {
+						nativeAPI.storage.session.get(keys, value => {
+							if (nativeAPI.runtime.lastError) {
+								reject(nativeAPI.runtime.lastError);
+							} else {
+								resolve(value);
+							}
+						});
+					}),
+					remove: keys => new Promise((resolve, reject) => {
+						nativeAPI.storage.session.remove(keys, () => {
+							if (nativeAPI.runtime.lastError) {
+								reject(nativeAPI.runtime.lastError);
+							} else {
+								resolve();
+							}
+						});
+					})
+				},
 				sync: {
 					set: value => new Promise((resolve, reject) => {
 						nativeAPI.storage.sync.set(value, () => {

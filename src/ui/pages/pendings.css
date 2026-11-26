@@ -266,3 +266,7 @@ html.side-panel #addUrlsButton {
         color: #fdfdfd;
     }
 }
+
+#progressLabel {
+    margin-left: 8px;
+}

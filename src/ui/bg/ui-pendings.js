@@ -27,10 +27,15 @@ const URLLabel = document.getElementById("URLLabel");
 const titleLabel = document.getElementById("titleLabel");
 const resultsTable = document.getElementById("resultsTable");
 const cancelAllButton = document.getElementById("cancelAllButton");
+const pauseButton = document.getElementById("pauseButton");
+const progressLabel = document.getElementById("progressLabel");
 const addUrlsButton = document.getElementById("addUrlsButton");
 const viewArchiveButton = document.getElementById("viewArchiveButton");
 document.title = browser.i18n.getMessage("pendingsTitle");
 cancelAllButton.textContent = browser.i18n.getMessage("pendingsCancelAllButton");
+const pauseText = browser.i18n.getMessage("pendingsPauseButton");
+const resumeText = browser.i18n.getMessage("pendingsResumeButton");
+pauseButton.textContent = pauseText;
 addUrlsButton.textContent = browser.i18n.getMessage("pendingsAddUrlsButton");
 viewArchiveButton.textContent = browser.i18n.getMessage("menuViewArchive");
 URLLabel.textContent = browser.i18n.getMessage("pendingsURLTitle");
@@ -44,6 +49,11 @@ const statusText = {
 const noPendingsText = browser.i18n.getMessage("pendingsNoPendings");
 cancelAllButton.onclick = async () => {
 	await browser.runtime.sendMessage({ method: "downloads.cancelAll" });
+	await refresh();
+};
+let paused = false;
+pauseButton.onclick = async () => {
+	await browser.runtime.sendMessage({ method: paused ? "downloads.resume" : "downloads.pause" });
 	await refresh();
 };
 addUrlsButton.onclick = () => window.open("batch-save-urls.html", "sf-add-urls");
@@ -110,8 +120,13 @@ async function selectTab(tabId) {
 }
 
 async function refresh(force) {
-	const results = await browser.runtime.sendMessage({ method: "downloads.getInfo" });
+	const tasksInfo = await browser.runtime.sendMessage({ method: "downloads.getInfo" });
+	const results = tasksInfo.tasks;
 	const currentState = JSON.stringify(results);
+	paused = tasksInfo.paused;
+	pauseButton.textContent = paused ? resumeText : pauseText;
+	pauseButton.disabled = !results.length;
+	progressLabel.textContent = results.length ? tasksInfo.endedTasksCount + " / " + (tasksInfo.endedTasksCount + results.length) : "";
 	if (previousState != currentState || force) {
 		previousState = currentState;
 		resetTable();

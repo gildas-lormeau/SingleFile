@@ -1221,6 +1221,14 @@
 		"message": "取消全部",
 		"description": "Pending saves button 'Cancel all'"
 	},
+	"pendingsPauseButton": {
+		"message": "Pause",
+		"description": "Pending saves button 'Pause'"
+	},
+	"pendingsResumeButton": {
+		"message": "Resume",
+		"description": "Pending saves button 'Resume'"
+	},
 	"pendingsURLTitle": {
 		"message": "网址",
 		"description": "Title of the first column in the table of the pending saves 'URL'"

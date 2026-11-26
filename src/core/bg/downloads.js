@@ -125,14 +125,22 @@ async function onMessage(message, sender) {
 	}
 	if (message.method.endsWith(".cancel")) {
 		if (message.taskId) {
-			business.cancelTask(message.taskId);
+			await business.cancelTask(message.taskId);
 		} else {
 			business.cancel(sender.tab.id);
 		}
 		return {};
 	}
 	if (message.method.endsWith(".cancelAll")) {
-		business.cancelAllTasks();
+		await business.cancelAllTasks();
+		return {};
+	}
+	if (message.method.endsWith(".pause")) {
+		await business.pauseTasks();
+		return {};
+	}
+	if (message.method.endsWith(".resume")) {
+		await business.resumeTasks();
 		return {};
 	}
 	if (message.method.endsWith(".saveUrls")) {
