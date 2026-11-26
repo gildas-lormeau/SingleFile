@@ -12,7 +12,7 @@
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
 	"commandSaveEntireTabs": {
-		"message": "Save the selected tabs (entire pages)",
+		"message": "Spara de markerade flikarna (hela sidor)",
 		"description": "Command (no default shortcut): 'Save the selected tabs (entire pages)'"
 	},
 	"commandCustomShortcut": {
