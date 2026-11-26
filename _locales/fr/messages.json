@@ -4,7 +4,7 @@
 		"description": "Description of the extension."
 	},
 	"commandSaveSelectedTabs": {
-		"message": "Sauvegarder les onglets sélectionnés ou leurs contenus sélectionnés",
+		"message": "Sauver les onglets sélectionnés ou leurs contenus sélectionnés",
 		"description": "Command (Ctrl+Shift+Y): 'Save the selected tabs or their selected contents'"
 	},
 	"commandSaveAllTabs": {
@@ -12,7 +12,7 @@
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
 	"commandSaveEntireTabs": {
-		"message": "Save the selected tabs (entire pages)",
+		"message": "Sauver les onglets sélectionnés (pages entières)",
 		"description": "Command (no default shortcut): 'Save the selected tabs (entire pages)'"
 	},
 	"commandCustomShortcut": {
