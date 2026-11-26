@@ -92,6 +92,9 @@
 			},
 			"description": "__MSG_commandSaveAllTabs__"
 		},
+		"save-entire-tabs": {
+			"description": "__MSG_commandSaveEntireTabs__"
+		},
 		"custom-command-0": {
 			"description": "__MSG_commandCustomShortcut0__"
 		},

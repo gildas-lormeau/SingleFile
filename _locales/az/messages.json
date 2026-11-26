@@ -11,6 +11,10 @@
 		"message": "Bütün tabları yaddaşa qeyd et",
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
+	"commandSaveEntireTabs": {
+		"message": "Save the selected tabs (entire pages)",
+		"description": "Command (no default shortcut): 'Save the selected tabs (entire pages)'"
+	},
 	"commandCustomShortcut": {
 		"message": "Xüsusi qısa yol",
 		"description": "Command label: 'Custom shortcut'"

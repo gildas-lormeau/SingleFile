@@ -11,6 +11,10 @@
 		"message": "保存所有标签页",
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
+	"commandSaveEntireTabs": {
+		"message": "Save the selected tabs (entire pages)",
+		"description": "Command (no default shortcut): 'Save the selected tabs (entire pages)'"
+	},
 	"commandCustomShortcut": {
 		"message": "自定义快捷键",
 		"description": "Command label: 'Custom shortcut'"

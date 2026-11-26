@@ -11,6 +11,10 @@
 		"message": "Guardar todas las pestañas",
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
+	"commandSaveEntireTabs": {
+		"message": "Save the selected tabs (entire pages)",
+		"description": "Command (no default shortcut): 'Save the selected tabs (entire pages)'"
+	},
 	"commandCustomShortcut": {
 		"message": "Atajo personalizado",
 		"description": "Command label: 'Custom shortcut'"

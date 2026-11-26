@@ -47,6 +47,9 @@ if (BROWSER_COMMANDS_API_SUPPORTED) {
 		} else if (command == "save-all-tabs") {
 			const tabs = await queryTabs({ currentWindow: true });
 			business.saveTabs(tabs);
+		} else if (command == "save-entire-tabs") {
+			const highlightedTabs = await queryTabs({ currentWindow: true, highlighted: true });
+			business.saveTabs(highlightedTabs);
 		} else if (command == "add-tab-to-archive") {
 			const tabs = await queryTabs({ currentWindow: true, active: true });
 			business.addTabsToArchive(tabs);
