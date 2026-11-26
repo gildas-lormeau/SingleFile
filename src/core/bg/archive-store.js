@@ -32,6 +32,7 @@ let databasePromise;
 
 export {
 	add,
+	addFailure,
 	getPages,
 	getData,
 	remove,
@@ -48,6 +49,10 @@ function add(page, data) {
 			resolve(request.result);
 		};
 	});
+}
+
+function addFailure(page) {
+	return runTransaction("readwrite", stores => stores[PAGES_STORE_NAME].add(page));
 }
 
 async function getPages() {

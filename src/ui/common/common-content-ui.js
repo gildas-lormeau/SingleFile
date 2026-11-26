@@ -56,6 +56,10 @@ function setLabels(labels) {
 
 function onError(message, link, details) {
 	console.error("SingleFile", details || message, link); // eslint-disable-line no-console
+	const barElement = document.querySelector(ERROR_BAR_TAGNAME);
+	if (barElement) {
+		barElement.remove();
+	}
 	displayBar(ERROR_BAR_TAGNAME, ERROR_TITLE_MESSAGE + message, { link, details });
 }
 

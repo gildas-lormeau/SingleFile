@@ -122,6 +122,11 @@ body>footer button {
     padding-right: 10px;
 }
 
+.page-failed .page-title input,
+.page-failed .page-size {
+    color: #c00;
+}
+
 .no-page {
     color: #888;
     padding: 10px;
@@ -257,6 +262,11 @@ html.side-panel,
     }
 
     .error {
+        color: #ff7b7b;
+    }
+
+    .page-failed .page-title input,
+    .page-failed .page-size {
         color: #ff7b7b;
     }
 

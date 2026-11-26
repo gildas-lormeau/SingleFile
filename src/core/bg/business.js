@@ -26,6 +26,7 @@
 import * as config from "./config.js";
 import { autoSaveIsEnabled } from "./autosave-util.js";
 import * as editor from "./editor.js";
+import * as archiveStore from "./archive-store.js";
 import * as requests from "./requests.js";
 import * as ui from "./../../ui/bg/index.js";
 import { injectScript } from "./../../index.js";
@@ -43,6 +44,7 @@ const AUTOSAVE_METHOD = "content.autosave";
 const ARCHIVE_PASSWORD_ERROR = "Saving tabs in one archive is not supported with a password yet.";
 const ARCHIVE_PRIVATE_TAB_ERROR = "The tabs of a private window cannot be added to the archive in progress.";
 const ARCHIVE_POSITION_FACTOR = 1000;
+const NEW_TAB_URL_REGEXP = /^(about:(blank|newtab|home)|(chrome|edge):\/\/(newtab|new-tab-page))/;
 const ARCHIVE_SAVE_OPTION_NAMES = [
 	"backgroundSave",
 	"confirmFilename",
@@ -181,7 +183,11 @@ async function saveUrls(urls, options = {}, profileName, archive) {
 	const addedTasks = pendingTasks.filter(Boolean);
 	if (archive) {
 		archive.pendingCount = addedTasks.length;
-		addedTasks.forEach((taskInfo, index) => taskInfo.archiveIndex = index);
+		pendingTasks.forEach((taskInfo, index) => {
+			if (taskInfo) {
+				taskInfo.archiveIndex = index;
+			}
+		});
 	}
 	addedTasks.forEach(addTask);
 	runTasks();
@@ -192,7 +198,7 @@ async function saveTabsInArchive(tabs, options = {}) {
 	if (await testArchivePassword(tabs, options)) {
 		await displayArchiveError(tabs, ARCHIVE_PASSWORD_ERROR);
 	} else {
-		await saveTabs(tabs, options, { pages: [], pendingCount: 0 });
+		await saveTabs(tabs, options, { pages: [], pendingCount: 0, failedTabs: [] });
 	}
 }
 
@@ -243,6 +249,7 @@ async function displayArchiveError(tabs, message) {
 function addArchivePage(taskId, page) {
 	const taskInfo = tasks.find(taskInfo => taskInfo.id == taskId);
 	if (taskInfo && taskInfo.archive) {
+		taskInfo.archivePage = page;
 		if (taskInfo.archive.persistent) {
 			page.persistent = true;
 			page.position = taskInfo.archive.date * ARCHIVE_POSITION_FACTOR + taskInfo.archiveIndex;
@@ -254,13 +261,33 @@ function addArchivePage(taskId, page) {
 	}
 }
 
+function addArchiveFailure(archive, archiveIndex, { url, title }) {
+	if (archive) {
+		if (archive.persistent) {
+			archiveStore.addFailure({
+				position: archive.date * ARCHIVE_POSITION_FACTOR + archiveIndex,
+				url,
+				title,
+				date: Date.now(),
+				failed: true
+			}).catch(() => { });
+		} else if (url && !NEW_TAB_URL_REGEXP.test(url)) {
+			archive.failedTabs.push({ url, title });
+		}
+	}
+}
+
+function isArchivePageSaved({ archivePage }) {
+	return Boolean(archivePage && (archivePage.blobURL || archivePage.blob || archivePage.saved));
+}
+
 function setArchiveEndCallback(callback) {
 	onArchiveEnd = callback;
 }
 
 async function saveTabs(tabs, options = {}, archive) {
 	await initMaxParallelWorkers();
-	const pendingTasks = await Promise.all(tabs.map(async tab => {
+	const pendingTasks = await Promise.all(tabs.map(async (tab, indexTab) => {
 		const tabId = tab.id;
 		const tabOptions = await config.getOptions(tab.url);
 		if (tabOptions.profileName != config.DISABLED_PROFILE_NAME) {
@@ -318,16 +345,22 @@ async function saveTabs(tabs, options = {}, archive) {
 					};
 				} else {
 					ui.onForbiddenDomain(tab);
+					addArchiveFailure(archive, indexTab, tab);
 				}
 			}
 		} else {
 			ui.onForbiddenDomain(tab);
+			addArchiveFailure(archive, indexTab, tab);
 		}
 	}));
 	const addedTasks = pendingTasks.filter(Boolean);
 	if (archive) {
 		archive.pendingCount = addedTasks.length;
-		addedTasks.forEach((taskInfo, index) => taskInfo.archiveIndex = index);
+		pendingTasks.forEach((taskInfo, index) => {
+			if (taskInfo) {
+				taskInfo.archiveIndex = index;
+			}
+		});
 	}
 	addedTasks.forEach(addTask);
 	runTasks();
@@ -411,6 +444,9 @@ function addTask(info) {
 				tasks.splice(index, 1);
 				if (this.archive) {
 					this.archive.pendingCount--;
+					if (!this.cancelled && !isArchivePageSaved(this)) {
+						addArchiveFailure(this.archive, this.archiveIndex, this.tab);
+					}
 					if (!this.archive.pendingCount && !this.archive.persistent && onArchiveEnd) {
 						onArchiveEnd(this.archive);
 					}

@@ -38,10 +38,12 @@ const saveButton = document.getElementById("saveButton");
 const filenameInput = document.getElementById("filenameInput");
 const profileSelect = document.getElementById("profileSelect");
 const errorLabel = document.getElementById("errorLabel");
+const failedLabel = document.getElementById("failedLabel");
 const noPagesText = browser.i18n.getMessage("archiveNoPages");
 const moveUpText = browser.i18n.getMessage("archiveMoveUpButton");
 const moveDownText = browser.i18n.getMessage("archiveMoveDownButton");
 const removeText = browser.i18n.getMessage("archiveRemoveButton");
+const notSavedText = browser.i18n.getMessage("archiveNotSaved");
 document.title = browser.i18n.getMessage("archiveTitle");
 document.getElementById("pagesLabel").textContent = browser.i18n.getMessage("archiveTitle");
 document.getElementById("filenameLabel").textContent = browser.i18n.getMessage("archiveFilenameLabel");
@@ -128,7 +130,7 @@ async function refresh() {
 		updateTable();
 	}
 	removeAllButton.disabled = !pages.length;
-	saveButton.disabled = !pages.length || saving;
+	saveButton.disabled = !getSavedPages().length || saving;
 }
 
 function updateTable() {
@@ -150,10 +152,18 @@ function updateTable() {
 			inputElement.focus();
 		}
 	}
-	totalSizeLabel.textContent = pages.length ? formatSize(pages.reduce((total, page) => total + page.size, 0)) : "";
+	const savedPages = getSavedPages();
+	const failedCount = pages.length - savedPages.length;
+	totalSizeLabel.textContent = savedPages.length ? formatSize(savedPages.reduce((total, page) => total + page.size, 0)) : "";
+	failedLabel.hidden = !failedCount;
+	failedLabel.textContent = failedCount ? browser.i18n.getMessage("archiveFailedPages", [String(failedCount)]) : "";
 	if (!filenameEdited) {
-		filenameInput.value = pages.length ? pages[0].filename : "";
+		filenameInput.value = savedPages.length ? savedPages[0].filename : "";
 	}
+}
+
+function getSavedPages() {
+	return pages.filter(page => !page.failed);
 }
 
 function getRow(page, indexPage) {
@@ -189,7 +199,13 @@ function getRow(page, indexPage) {
 	inputTitle.dataset.pageId = page.id;
 	inputTitle.onchange = () => setTitle(page.id, inputTitle.value);
 	labelURL.textContent = labelURL.title = page.url;
-	cellSize.textContent = formatSize(page.size);
+	if (page.failed) {
+		row.classList.add("page-failed");
+		inputTitle.readOnly = true;
+		cellSize.textContent = notSavedText;
+	} else {
+		cellSize.textContent = formatSize(page.size);
+	}
 	cellMove.appendChild(buttonUp);
 	cellMove.appendChild(buttonDown);
 	cellTitle.appendChild(inputTitle);

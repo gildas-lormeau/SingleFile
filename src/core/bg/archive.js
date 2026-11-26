@@ -65,7 +65,7 @@ async function onMessage(message, sender) {
 }
 
 async function save({ profileName, filename, pageId }, { windowId, index }) {
-	const pages = await archiveStore.getPages();
+	const pages = (await archiveStore.getPages()).filter(page => !page.failed);
 	if (pages.length) {
 		const options = await config.getProfileOptions(profileName);
 		if (options.password) {
