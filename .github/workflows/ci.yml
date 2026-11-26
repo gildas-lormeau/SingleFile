@@ -69,6 +69,11 @@ jobs:
     runs-on: ubuntu-26.04
     timeout-minutes: 30
     continue-on-error: true
+    # the specs are split into groups of similar length, one machine each, to shorten the run
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
     steps:
       -
         name: Checkout sources
@@ -96,4 +101,4 @@ jobs:
       -
         name: Run the functional suite
         working-directory: single-file-tests
-        run: node extension/run.mjs --browser=firefox
+        run: node extension/run.mjs --browser=firefox --shard=${{ matrix.shard }}/3
