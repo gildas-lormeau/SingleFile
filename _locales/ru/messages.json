@@ -12,7 +12,7 @@
 		"description": "Command (Ctrl+Shift+U): 'Save all tabs'"
 	},
 	"commandSaveEntireTabs": {
-		"message": "Save the selected tabs (entire pages)",
+		"message": "Сохранить выбранные вкладки (страницы целиком)",
 		"description": "Command (no default shortcut): 'Save the selected tabs (entire pages)'"
 	},
 	"commandCustomShortcut": {
@@ -136,15 +136,15 @@
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
 	"menuAddTabToArchive": {
-		"message": "Add the tab to the archive in progress",
+		"message": "Добавить вкладку в текущий архив",
 		"description": "Menu entry: 'Add the tab to the archive in progress'"
 	},
 	"menuAddSelectedTabsToArchive": {
-		"message": "Add the selected tabs to the archive in progress",
+		"message": "Добавить выбранные вкладки в текущий архив",
 		"description": "Menu entry: 'Add the selected tabs to the archive in progress'"
 	},
 	"menuViewArchive": {
-		"message": "View the archive in progress...",
+		"message": "Просмотр текущего архива...",
 		"description": "Menu entry: 'View the archive in progress...'"
 	},
 	"menuBatchSaveUrls": {
@@ -444,31 +444,31 @@
 		"description": "Options page label: 'create a root directory'"
 	},
 	"optionArchiveDedupPages": {
-		"message": "store only once the files shared by the pages of a multi-page archive",
+		"message": "сохранять один экземпляр файла, совместно используемого страницами многостраничного архива",
 		"description": "Options page label: 'store only once the files shared by the pages of a multi-page archive'"
 	},
 	"optionArchiveTableOfContents": {
-		"message": "add a table of contents to multi-page archives",
+		"message": "добавить оглавление в многостраничные архивы",
 		"description": "Options page label: 'add a table of contents to multi-page archives'"
 	},
 	"optionArchiveMarkUnarchivedLinks": {
-		"message": "mark the links to pages that are not in the multi-page archive",
+		"message": "отметить ссылки на страницы, которые не входят в многостраничный архив",
 		"description": "Options page label: 'mark the links to pages that are not in the multi-page archive'"
 	},
 	"optionArchivePageTransitions": {
-		"message": "page transitions in multi-page archives",
+		"message": "переходы между страницами в многостраничных архивах",
 		"description": "Options page label: 'page transitions in multi-page archives'"
 	},
 	"optionArchivePageTransitionsAuto": {
-		"message": "when the saved pages ask for it",
+		"message": "при запросе от сохранённых страниц",
 		"description": "Options page label, entry of 'page transitions in multi-page archives': a transition is displayed only when the saved page asks for one in its stylesheets"
 	},
 	"optionArchivePageTransitionsFade": {
-		"message": "fade",
+		"message": "затухание",
 		"description": "Options page label, entry of 'page transitions in multi-page archives': 'fade'"
 	},
 	"optionArchivePageTransitionsNone": {
-		"message": "none",
+		"message": "нет",
 		"description": "Options page label, entry of 'page transitions in multi-page archives': 'none'"
 	},
 	"optionDisableCompression": {
@@ -628,7 +628,7 @@
 		"description": "Options page label: 'images'"
 	},
 	"optionLinkBlockedImages": {
-		"message": "load the blocked images from the original site (the saved page is not self-contained)",
+		"message": "загружать заблокированные изображения с исходного сайта (сохранённая страница не является автономной)",
 		"description": "Options page label: 'load the blocked images from the original site (the saved page is not self-contained)'"
 	},
 	"optionsDestinationSubTitle": {
@@ -1290,7 +1290,7 @@
 		"description": "label of the button 'Save pages'"
 	},
 	"batchSaveUrlsAddToArchiveButton": {
-		"message": "Add to the archive in progress",
+		"message": "Добавить в текущий архив",
 		"description": "Button label in the 'batch save URLs' page: 'Add to the archive in progress'"
 	},
 	"batchSaveUrlsURLTitle": {
@@ -1614,47 +1614,47 @@
 		"description": "Menu editor note for an entry whose contexts exclude the context selected above the list"
 	},
 	"archiveTitle": {
-		"message": "Archive in progress",
+		"message": "Текущий архив",
 		"description": "Title of the 'Archive in progress' page, which lists the pages added to a multi-page archive before it is saved"
 	},
 	"archiveNoPages": {
-		"message": "No pages",
+		"message": "Нет страниц",
 		"description": "Text displayed in the 'Archive in progress' page when no page has been added"
 	},
 	"archiveRemoveAllButton": {
-		"message": "Remove all",
+		"message": "Удалить все",
 		"description": "Button label in the 'Archive in progress' page: 'Remove all'"
 	},
 	"archiveSaveButton": {
-		"message": "Save the archive",
+		"message": "Сохранить архив",
 		"description": "Button label in the 'Archive in progress' page: 'Save the archive'"
 	},
 	"archiveFilenameLabel": {
-		"message": "File name",
+		"message": "Имя файла",
 		"description": "Label of the file name field in the 'Archive in progress' page"
 	},
 	"archiveProfileLabel": {
-		"message": "Profile",
+		"message": "Профиль",
 		"description": "Label of the profile dropdown in the 'Archive in progress' page"
 	},
 	"archiveMoveUpButton": {
-		"message": "Move up",
+		"message": "Переместить вверх",
 		"description": "Tooltip of the button moving a page up in the 'Archive in progress' page"
 	},
 	"archiveMoveDownButton": {
-		"message": "Move down",
+		"message": "Переместить вниз",
 		"description": "Tooltip of the button moving a page down in the 'Archive in progress' page"
 	},
 	"archiveRemoveButton": {
-		"message": "Remove",
+		"message": "Удалить",
 		"description": "Tooltip of the button removing a page in the 'Archive in progress' page"
 	},
 	"archiveNotSaved": {
-		"message": "not saved",
+		"message": "не сохранено",
 		"description": "Status displayed in the 'Archive in progress' page for a page that could not be saved"
 	},
 	"archiveFailedPages": {
-		"message": "Pages not saved: $1",
+		"message": "Страницы не сохранены: $1",
 		"description": "Text displayed in the 'Archive in progress' page with the number of pages that could not be saved"
 	}
 }
