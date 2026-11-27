@@ -299,6 +299,10 @@
 		"message": "fermer automatiquement l'onglet après l'enregistrement de la page",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
+	"optionButtonSaveSelection": {
+		"message": "sauver la sélection, s'il y en a une, lors du clic sur le bouton de SingleFile",
+		"description": "Options page label: 'save the selection, if there is one, when clicking on the SingleFile button'"
+	},
 	"optionCustomShortcut": {
 		"message": "commande de raccourci clavier",
 		"description": "Options page label: 'keyboard shortcut command'"

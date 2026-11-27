@@ -333,6 +333,9 @@ async function saveTabs(tabs, options = {}, archive) {
 		const tabOptions = await config.getOptions(tab.url);
 		if (tabOptions.profileName != config.DISABLED_PROFILE_NAME) {
 			Object.keys(options).forEach(key => tabOptions[key] = options[key]);
+			if (tabOptions.buttonClicked && tabOptions.buttonSaveSelection) {
+				tabOptions.optionallySelected = true;
+			}
 			let archiveSaveOptions;
 			if (archive) {
 				archiveSaveOptions = {};

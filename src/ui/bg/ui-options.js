@@ -239,6 +239,7 @@ const showAutoSaveProfileLabel = document.getElementById("showAutoSaveProfileLab
 const groupDuplicateImagesLabel = document.getElementById("groupDuplicateImagesLabel");
 const confirmInfobarLabel = document.getElementById("confirmInfobarLabel");
 const autoCloseLabel = document.getElementById("autoCloseLabel");
+const buttonSaveSelectionLabel = document.getElementById("buttonSaveSelectionLabel");
 const editorLabel = document.getElementById("editorLabel");
 const openEditorLabel = document.getElementById("openEditorLabel");
 const openSavedPageLabel = document.getElementById("openSavedPageLabel");
@@ -414,6 +415,7 @@ const animateInfobarInput = document.getElementById("animateInfobarInput");
 const removeInfobarSavedDateInput = document.getElementById("removeInfobarSavedDateInput");
 const confirmInfobarInput = document.getElementById("confirmInfobarInput");
 const autoCloseInput = document.getElementById("autoCloseInput");
+const buttonSaveSelectionInput = document.getElementById("buttonSaveSelectionInput");
 const openEditorInput = document.getElementById("openEditorInput");
 const openSavedPageInput = document.getElementById("openSavedPageInput");
 const autoOpenEditorInput = document.getElementById("autoOpenEditorInput");
@@ -1001,6 +1003,7 @@ animateInfobarLabel.textContent = browser.i18n.getMessage("optionAnimateInfobar"
 removeInfobarSavedDateLabel.textContent = browser.i18n.getMessage("optionRemoveInfobarSavedDate");
 confirmInfobarLabel.textContent = browser.i18n.getMessage("optionConfirmInfobar");
 autoCloseLabel.textContent = browser.i18n.getMessage("optionAutoClose");
+buttonSaveSelectionLabel.textContent = browser.i18n.getMessage("optionButtonSaveSelection");
 editorLabel.textContent = browser.i18n.getMessage("optionsEditorSubTitle");
 openEditorLabel.textContent = browser.i18n.getMessage("optionOpenEditor");
 openSavedPageLabel.textContent = browser.i18n.getMessage("optionOpenSavedPage");
@@ -1414,6 +1417,7 @@ async function refresh(profileName) {
 	removeInfobarSavedDateInput.checked = profileOptions.removeSavedDate;
 	confirmInfobarInput.checked = profileOptions.confirmInfobarContent;
 	autoCloseInput.checked = profileOptions.autoClose;
+	buttonSaveSelectionInput.checked = profileOptions.buttonSaveSelection;
 	openEditorInput.checked = profileOptions.openEditor;
 	openSavedPageInput.checked = profileOptions.openSavedPage;
 	autoOpenEditorInput.checked = profileOptions.autoOpenEditor;
@@ -1638,6 +1642,7 @@ async function update() {
 			removeSavedDate: removeInfobarSavedDateInput.checked,
 			confirmInfobarContent: confirmInfobarInput.checked,
 			autoClose: autoCloseInput.checked,
+			buttonSaveSelection: buttonSaveSelectionInput.checked,
 			openEditor: openEditorInput.checked,
 			openSavedPage: openSavedPageInput.checked,
 			autoOpenEditor: autoOpenEditorInput.checked,

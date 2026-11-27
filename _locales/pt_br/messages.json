@@ -299,6 +299,10 @@
 		"message": "fechar autom. a aba após página ser salva",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
+	"optionButtonSaveSelection": {
+		"message": "save the selection, if there is one, when clicking on the SingleFile button",
+		"description": "Options page label: 'save the selection, if there is one, when clicking on the SingleFile button'"
+	},
 	"optionCustomShortcut": {
 		"message": "comando de atalho de teclado",
 		"description": "Options page label: 'keyboard shortcut command'"

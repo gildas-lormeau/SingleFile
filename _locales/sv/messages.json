@@ -299,6 +299,10 @@
 		"message": "stäng fliken automatiskt efter att sidan har sparats",
 		"description": "Options page label: 'auto-close the tab after the page is saved'"
 	},
+	"optionButtonSaveSelection": {
+		"message": "save the selection, if there is one, when clicking on the SingleFile button",
+		"description": "Options page label: 'save the selection, if there is one, when clicking on the SingleFile button'"
+	},
 	"optionCustomShortcut": {
 		"message": "kortkommando",
 		"description": "Options page label: 'keyboard shortcut command'"

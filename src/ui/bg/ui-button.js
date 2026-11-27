@@ -117,14 +117,14 @@ browser.browserAction.onClicked.addListener(async tab => {
 	if (highlightedTabs.length <= 1) {
 		toggleSaveTab(tab);
 	} else {
-		business.saveTabs(highlightedTabs);
+		business.saveTabs(highlightedTabs, { buttonClicked: true });
 	}
 
 	function toggleSaveTab(tab) {
 		if (business.isSavingTab(tab)) {
 			business.cancelTab(tab.id);
 		} else {
-			business.saveTabs([tab]);
+			business.saveTabs([tab], { buttonClicked: true });
 		}
 	}
 });
