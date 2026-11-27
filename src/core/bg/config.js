@@ -349,34 +349,39 @@ async function upgrade() {
 	const profileNames = await readProfileNames();
 	profileNames.map(async profileName => {
 		const profile = await getProfile(profileName);
-		if (!profile._migratedTemplateFormat) {
-			profile.filenameTemplate = updateFilenameTemplate(profile.filenameTemplate);
-			profile._migratedTemplateFormat = true;
-		}
-		if (!profile._migratedDeferredContentOptions) {
-			Object.keys(DEPRECATED_OPTION_NAMES).forEach(deprecatedName => {
-				const optionName = DEPRECATED_OPTION_NAMES[deprecatedName];
-				if (profile[deprecatedName] !== undefined) {
-					if (optionName && profile[optionName] === undefined) {
-						profile[optionName] = profile[deprecatedName];
-					}
-					delete profile[deprecatedName];
-				}
-			});
-			profile._migratedDeferredContentOptions = true;
-		}
-		delete profile.blockAlternativeImages;
-		for (const key of Object.keys(DEFAULT_CONFIG)) {
-			if (profile[key] === undefined) {
-				profile[key] = DEFAULT_CONFIG[key];
-			}
-		}
-		if (isSameArray(profile.filenameReplacedCharacters, LEGACY_FILENAME_REPLACED_CHARACTERS)
-			&& isSameArray(profile.filenameReplacementCharacters, DEFAULT_FILENAME_REPLACEMENT_CHARACTERS)) {
-			profile.filenameReplacedCharacters = DEFAULT_FILENAME_REPLACED_CHARACTERS;
-		}
+		upgradeProfile(profile);
 		await setProfile(profileName, profile);
 	});
+}
+
+function upgradeProfile(profile) {
+	if (!profile._migratedTemplateFormat) {
+		profile.filenameTemplate = updateFilenameTemplate(profile.filenameTemplate);
+		profile._migratedTemplateFormat = true;
+	}
+	if (!profile._migratedDeferredContentOptions) {
+		Object.keys(DEPRECATED_OPTION_NAMES).forEach(deprecatedName => {
+			const optionName = DEPRECATED_OPTION_NAMES[deprecatedName];
+			if (profile[deprecatedName] !== undefined) {
+				if (optionName && profile[optionName] === undefined) {
+					profile[optionName] = profile[deprecatedName];
+				}
+				delete profile[deprecatedName];
+			}
+		});
+		profile._migratedDeferredContentOptions = true;
+	}
+	delete profile.blockAlternativeImages;
+	for (const key of Object.keys(DEFAULT_CONFIG)) {
+		if (profile[key] === undefined) {
+			profile[key] = DEFAULT_CONFIG[key];
+		}
+	}
+	if (isSameArray(profile.filenameReplacedCharacters, LEGACY_FILENAME_REPLACED_CHARACTERS)
+		&& isSameArray(profile.filenameReplacementCharacters, DEFAULT_FILENAME_REPLACEMENT_CHARACTERS)) {
+		profile.filenameReplacedCharacters = DEFAULT_FILENAME_REPLACED_CHARACTERS;
+	}
+	return profile;
 }
 
 function updateFilenameTemplate(template) {
@@ -930,7 +935,7 @@ async function importConfig(config) {
 	if (menuLayout) {
 		newConfig[MENU_LAYOUT_KEY] = menuLayout;
 	}
-	Object.keys(config.profiles).forEach(profileName => newConfig[PROFILE_NAME_PREFIX + profileName] = config.profiles[profileName]);
+	Object.keys(config.profiles).forEach(profileName => newConfig[PROFILE_NAME_PREFIX + profileName] = upgradeProfile(config.profiles[profileName]));
 	await configStorage.set(newConfig);
 	const staleKeys = [...profileKeyNames, MENU_LAYOUT_KEY].filter(key => !(key in newConfig));
 	if (staleKeys.length) {
