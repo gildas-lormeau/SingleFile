@@ -588,7 +588,7 @@
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
 	"optionApplyPrintStylesheets": {
-		"message": "apply the print stylesheets (save the page as it would be printed)",
+		"message": "zastosuj arkusze stylów do wydruku (zapisz stronę tak, jakby miała zostać wydrukowana)",
 		"description": "Options page label: 'apply the print stylesheets (save the page as it would be printed)'"
 	},
 	"optionsNetworkSubTitle": {
@@ -652,39 +652,39 @@
 		"description": "Options sub-title: the table of rules that pick a profile automatically from the URL of the page being saved"
 	},
 	"optionsGlobalSettingsSubTitle": {
-		"message": "Settings shared by all the profiles",
+		"message": "Ustawienia współdzielone przez wszystkie profile",
 		"description": "Options title displayed above the sections that do not depend on the selected profile"
 	},
 	"optionsAutoSaveTabsSubTitle": {
-		"message": "Auto-saved tabs",
+		"message": "Automatycznie zapisane karty",
 		"description": "Options sub-title: the tab groups and the containers whose tabs are auto-saved"
 	},
 	"optionAutoSaveTabsDescription": {
-		"message": "the tabs of the selected groups and containers are auto-saved, in addition to the tabs chosen in the auto-save menu",
+		"message": "karty wybranych grup i kontenerów są zapisywane automatycznie, podobnie jak karty wskazane w menu automatycznego zapisywania",
 		"description": "Options page: description displayed under the sub-title 'Auto-saved tabs'"
 	},
 	"optionAutoSaveTabGroups": {
-		"message": "tab groups",
+		"message": "grupy kart",
 		"description": "Options page label: title of the list of tab groups whose tabs are auto-saved"
 	},
 	"optionAutoSaveTabGroupsPermission": {
-		"message": "Allow SingleFile to read the tab groups",
+		"message": "Zezwól SingleFile na odczytywanie grup kart",
 		"description": "Options page button: asks the browser for the permission to read the names of the tab groups"
 	},
 	"optionAutoSaveTabGroupsEmpty": {
-		"message": "No named tab group is open",
+		"message": "Żadna nazwana grupa kart nie jest otwarta",
 		"description": "Options page: text displayed in place of the list of tab groups when there is none"
 	},
 	"optionAutoSaveTabGroupNotOpen": {
-		"message": "(not open)",
+		"message": "(nieotwarta)",
 		"description": "Options page: suffix displayed after the name of a checked tab group that is not open in the browser"
 	},
 	"optionAutoSaveContainers": {
-		"message": "containers",
+		"message": "kontenery",
 		"description": "Options page label: title of the list of containers (Firefox) whose tabs are auto-saved"
 	},
 	"optionAutoSaveNoContainer": {
-		"message": "tabs without a container",
+		"message": "karty bez kontenera",
 		"description": "Options page option: auto-save the tabs that are not in a container (Firefox)"
 	},
 	"optionsDeleteDisplayedRulesConfirm": {
@@ -1262,11 +1262,11 @@
 		"description": "Pending saves button 'Cancel all'"
 	},
 	"pendingsPauseButton": {
-		"message": "Pause",
+		"message": "Wstrzymaj",
 		"description": "Pending saves button 'Pause'"
 	},
 	"pendingsResumeButton": {
-		"message": "Resume",
+		"message": "Wznów",
 		"description": "Pending saves button 'Resume'"
 	},
 	"pendingsURLTitle": {
