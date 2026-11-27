@@ -47,6 +47,7 @@ const IS_NOT_SAFARI = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navig
 const IS_MOBILE_FIREFOX = /Mobile.*Firefox/.test(navigator.userAgent);
 const BACKGROUND_SAVE_SUPPORTED = !(IS_MOBILE_FIREFOX || /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent) && !/Vivaldi/.test(navigator.userAgent) && !/OPR/.test(navigator.userAgent));
 const AUTOCLOSE_SUPPORTED = !IS_MOBILE_FIREFOX;
+const SYNC_SUPPORTED = !IS_MOBILE_FIREFOX;
 const BADGE_COLOR_SUPPORTED = IS_NOT_SAFARI;
 const AUTO_SAVE_SUPPORTED = IS_NOT_SAFARI;
 const AUTO_OPEN_EDITOR_SUPPORTED = IS_NOT_SAFARI;
@@ -283,6 +284,7 @@ export {
 	PROFILE_NAME_PREFIX,
 	BACKGROUND_SAVE_SUPPORTED,
 	AUTOCLOSE_SUPPORTED,
+	SYNC_SUPPORTED,
 	BADGE_COLOR_SUPPORTED,
 	AUTO_SAVE_SUPPORTED,
 	AUTO_OPEN_EDITOR_SUPPORTED,
@@ -598,6 +600,7 @@ async function onMessage(message) {
 			CURRENT_PROFILE_NAME,
 			BACKGROUND_SAVE_SUPPORTED,
 			AUTOCLOSE_SUPPORTED,
+			SYNC_SUPPORTED,
 			BADGE_COLOR_SUPPORTED,
 			AUTO_SAVE_SUPPORTED,
 			AUTO_OPEN_EDITOR_SUPPORTED,

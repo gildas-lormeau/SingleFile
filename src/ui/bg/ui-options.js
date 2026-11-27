@@ -46,6 +46,7 @@ let DEFAULT_PROFILE_NAME,
 	CURRENT_PROFILE_NAME,
 	BACKGROUND_SAVE_SUPPORTED,
 	AUTOCLOSE_SUPPORTED,
+	SYNC_SUPPORTED,
 	AUTO_SAVE_SUPPORTED,
 	AUTO_OPEN_EDITOR_SUPPORTED,
 	INFOBAR_SUPPORTED,
@@ -65,6 +66,7 @@ browser.runtime.sendMessage({ method: "config.getConstants" }).then(data => {
 		CURRENT_PROFILE_NAME,
 		BACKGROUND_SAVE_SUPPORTED,
 		AUTOCLOSE_SUPPORTED,
+		SYNC_SUPPORTED,
 		AUTO_SAVE_SUPPORTED,
 		AUTO_OPEN_EDITOR_SUPPORTED,
 		INFOBAR_SUPPORTED,
@@ -1110,6 +1112,9 @@ function init() {
 	}
 	if (!AUTOCLOSE_SUPPORTED) {
 		document.getElementById("autoCloseOption").hidden = true;
+	}
+	if (!SYNC_SUPPORTED) {
+		synchronizeInput.parentElement.hidden = true;
 	}
 	if (!BACKGROUND_SAVE_SUPPORTED) {
 		document.getElementById("backgroundSaveOptions").hidden = true;
