@@ -27,6 +27,7 @@ import * as config from "./config.js";
 import * as bootstrap from "./bootstrap.js";
 import * as archive from "./archive.js";
 import * as autosave from "./autosave.js";
+import * as autoSaveTabs from "./autosave-tabs.js";
 import * as bookmarks from "./bookmarks.js";
 import * as companion from "./companion.js";
 import * as downloads from "./downloads.js";
@@ -69,6 +70,9 @@ function onMessage(message, sender) {
 	}
 	if (message.method.startsWith("archive.")) {
 		return archive.onMessage(message, sender);
+	}
+	if (message.method.startsWith("autoSaveTabs.")) {
+		return autoSaveTabs.onMessage(message, sender);
 	}
 	if (message.method.startsWith("autosave.")) {
 		return autosave.onMessage(message, sender);

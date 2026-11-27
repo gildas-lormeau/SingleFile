@@ -149,14 +149,16 @@
 		"downloads",
 		"storage",
 		"tabs",
-		"<all_urls>"
+		"<all_urls>",
+		"contextualIdentities"
 	],
 	"optional_permissions": [
 		"clipboardWrite",
 		"nativeMessaging",
 		"bookmarks",
 		"webRequest",
-		"webRequestBlocking"
+		"webRequestBlocking",
+		"tabGroups"
 	],
 	"browser_specific_settings": {
 		"gecko": {

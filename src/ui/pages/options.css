@@ -449,6 +449,35 @@ details {
     border-top: #bfbfbf 1px dashed;
 }
 
+.global-settings-title {
+    color: black;
+    margin-left: 6px;
+    margin-right: 12px;
+    padding-left: 6px;
+    padding-top: 22px;
+    padding-bottom: 8px;
+    border-top: #bfbfbf 1px dashed;
+    font-weight: bold;
+}
+
+.auto-save-tabs-description {
+    padding-left: 8px;
+    padding-top: 4px;
+    padding-bottom: 6px;
+}
+
+.auto-save-tabs-description::first-letter {
+    text-transform: uppercase;
+}
+
+.auto-save-tabs-list .option.verbatim>label::first-letter {
+    text-transform: none;
+}
+
+.auto-save-tabs-list .option.unavailable>label {
+    opacity: .5;
+}
+
 details:last-of-type {
     border-bottom: #bfbfbf 1px dashed;
 }
@@ -751,6 +780,10 @@ html.maximized {
 
     html.maximized {
         background-color: #373737;
+    }
+
+    .global-settings-title {
+        color: #fdfdfd;
     }
 
     main,

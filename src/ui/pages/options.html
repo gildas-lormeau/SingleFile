@@ -703,6 +703,7 @@
 				<input type="checkbox" id="displayStatsInput">
 			</div>
 		</details>
+		<div class="global-settings-title" id="globalSettingsLabel"></div>
 		<details id="externalCapturePermissionsSection">
 			<summary id="externalCapturePermissionsLabel"></summary>
 			<div id="externalCapturePendingRequest" class="external-capture-request" hidden>
@@ -770,6 +771,24 @@
 			<div class="option" id="showAutoSaveProfileOption">
 				<label for="showAutoSaveProfileInput" id="showAutoSaveProfileLabel"></label>
 				<input type="checkbox" id="showAutoSaveProfileInput">
+			</div>
+		</details>
+		<details id="autoSaveTabsSection">
+			<summary id="autoSaveTabsLabel"></summary>
+			<div class="auto-save-tabs-description" id="autoSaveTabsDescriptionLabel"></div>
+			<div id="autoSaveTabGroupsOptions">
+				<div class="option">
+					<label id="autoSaveTabGroupsLabel"></label>
+					<button id="autoSaveTabGroupsPermissionButton" type="button"></button>
+				</div>
+				<div class="option second-level" id="autoSaveTabGroupsEmptyLabel"></div>
+				<div class="auto-save-tabs-list" id="autoSaveTabGroupsList"></div>
+			</div>
+			<div id="autoSaveContainersOptions">
+				<div class="option">
+					<label id="autoSaveContainersLabel"></label>
+				</div>
+				<div class="auto-save-tabs-list" id="autoSaveContainersList"></div>
 			</div>
 		</details>
 		<details id="menusSection">

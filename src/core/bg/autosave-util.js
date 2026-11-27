@@ -26,6 +26,8 @@
 import * as config from "./config.js";
 import * as tabsData from "./tabs-data.js";
 
+const NO_GROUP_ID = -1;
+
 export {
 	autoSaveIsEnabled,
 	refreshAutoSaveTabs
@@ -33,12 +35,30 @@ export {
 
 async function autoSaveIsEnabled(tab) {
 	if (tab) {
-		const [allTabsData, rule] = await Promise.all([tabsData.get(), config.getRule(tab.url)]);
+		const [allTabsData, rule, autoSavedTab] = await Promise.all([tabsData.get(), config.getRule(tab.url), isAutoSavedTab(tab)]);
 		return Boolean(allTabsData.autoSaveAll ||
 			(allTabsData.autoSaveUnpinned && !tab.pinned) ||
-			(allTabsData[tab.id] && allTabsData[tab.id].autoSave)) &&
+			(allTabsData[tab.id] && allTabsData[tab.id].autoSave) ||
+			autoSavedTab) &&
 			(!rule || rule.autoSaveProfile != config.DISABLED_PROFILE_NAME);
 	}
+}
+
+async function isAutoSavedTab(tab) {
+	const { groups, containers } = await config.getAutoSaveTabs();
+	if (containers.includes(tab.cookieStoreId)) {
+		return true;
+	}
+	if (groups.length && tab.groupId !== undefined && tab.groupId != NO_GROUP_ID) {
+		try {
+			const group = await browser.tabGroups.get(tab.groupId);
+			return groups.includes(group.title);
+			// eslint-disable-next-line no-unused-vars
+		} catch (error) {
+			// ignored
+		}
+	}
+	return false;
 }
 
 async function refreshAutoSaveTabs() {

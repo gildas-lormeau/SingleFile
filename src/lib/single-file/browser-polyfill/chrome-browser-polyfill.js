@@ -291,6 +291,15 @@ if (typeof globalThis == "undefined") {
 				})
 			},
 			permissions: {
+				contains: permissions => new Promise((resolve, reject) => {
+					nativeAPI.permissions.contains(permissions, result => {
+						if (nativeAPI.runtime.lastError) {
+							reject(nativeAPI.runtime.lastError);
+						} else {
+							resolve(result);
+						}
+					});
+				}),
 				request: permissions => new Promise((resolve, reject) => {
 					nativeAPI.permissions.request(permissions, result => {
 						if (nativeAPI.runtime.lastError) {
@@ -510,6 +519,29 @@ if (typeof globalThis == "undefined") {
 							}
 						});
 					})
+				}
+			},
+			tabGroups: {
+				get: groupId => new Promise((resolve, reject) => {
+					nativeAPI.tabGroups.get(groupId, result => {
+						if (nativeAPI.runtime.lastError) {
+							reject(nativeAPI.runtime.lastError);
+						} else {
+							resolve(result);
+						}
+					});
+				}),
+				query: options => new Promise((resolve, reject) => {
+					nativeAPI.tabGroups.query(options, result => {
+						if (nativeAPI.runtime.lastError) {
+							reject(nativeAPI.runtime.lastError);
+						} else {
+							resolve(result);
+						}
+					});
+				}),
+				onUpdated: {
+					addListener: listener => nativeAPI.tabGroups.onUpdated.addListener(listener)
 				}
 			},
 			tabs: {

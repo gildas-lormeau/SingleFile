@@ -321,7 +321,7 @@ async function saveTabs(tabs, options = {}, archive) {
 				title: tab.title
 			};
 			if (options.autoSave) {
-				if (autoSaveIsEnabled(tab)) {
+				if (await autoSaveIsEnabled(tab)) {
 					const taskInfo = addTask({
 						status: TASK_PROCESSING_STATE,
 						tab: tabData,

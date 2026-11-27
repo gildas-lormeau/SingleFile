@@ -41,6 +41,7 @@ const PROFILE_NAME_PREFIX = "profile_";
 const EXTERNAL_CAPTURE_ALLOWED_EXTENSION_IDS_KEY = "externalCaptureAllowedExtensionIds";
 const EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY = "externalCaptureDeniedExtensionIds";
 const MENU_LAYOUT_KEY = "menuLayout";
+const AUTO_SAVE_TABS_KEY = "autoSaveTabs";
 
 const IS_NOT_SAFARI = !/Safari/.test(navigator.userAgent) || /Chrome/.test(navigator.userAgent) || /Vivaldi/.test(navigator.userAgent) || /OPR/.test(navigator.userAgent);
 const IS_MOBILE_FIREFOX = /Mobile.*Firefox/.test(navigator.userAgent);
@@ -300,6 +301,8 @@ export {
 	MENU_LAYOUT_KEY,
 	getExternalCapturePermissions,
 	setExternalCapturePermissions,
+	getAutoSaveTabs,
+	setAutoSaveTabs,
 	getProfiles,
 	onMessage,
 	updateRule,
@@ -416,7 +419,7 @@ async function getConfig() {
 	const rules = await getRules();
 	const profiles = await getProfiles();
 	const menuLayout = await getMenuLayout();
-	const config = { profiles, rules, maxParallelWorkers, processInForeground };
+	const config = { profiles, rules, maxParallelWorkers, processInForeground, autoSaveTabs: await getAutoSaveTabs() };
 	if (menuLayout) {
 		config.menuLayout = menuLayout;
 	}
@@ -487,6 +490,22 @@ async function setExternalCapturePermissions({ allowedExtensions, deniedExtensio
 	await configStorage.set(permissions);
 }
 
+async function getAutoSaveTabs() {
+	await pendingUpgradePromise;
+	const { autoSaveTabs = {} } = await configStorage.get([AUTO_SAVE_TABS_KEY]);
+	return sanitizeAutoSaveTabs(autoSaveTabs);
+}
+
+async function setAutoSaveTabs(autoSaveTabs) {
+	await pendingUpgradePromise;
+	await configStorage.set({ [AUTO_SAVE_TABS_KEY]: sanitizeAutoSaveTabs(autoSaveTabs) });
+}
+
+function sanitizeAutoSaveTabs({ groups, containers } = {}) {
+	const sanitizeNames = names => [...new Set((Array.isArray(names) ? names : []).filter(name => name && typeof name == "string"))];
+	return { groups: sanitizeNames(groups), containers: sanitizeNames(containers) };
+}
+
 function sanitizeExtensionEntries(extensionEntries) {
 	const knownIds = new Set();
 	return (extensionEntries || []).map(extensionEntry => {
@@ -526,7 +545,7 @@ async function onMessage(message) {
 		const processInForeground = config.processInForeground;
 		const profileKeyNames = await getProfileKeyNames();
 		await configStorage.remove([...profileKeyNames, "rules", "maxParallelWorkers", "processInForeground", MENU_LAYOUT_KEY]);
-		await configStorage.set({ rules, maxParallelWorkers, processInForeground });
+		await configStorage.set({ rules, maxParallelWorkers, processInForeground, [AUTO_SAVE_TABS_KEY]: sanitizeAutoSaveTabs(config.autoSaveTabs) });
 		await setMenuLayout(config.menuLayout);
 		Object.keys(profiles).forEach(profileName => setProfile(profileName, profiles[profileName]));
 	}
@@ -611,7 +630,7 @@ async function onMessage(message) {
 		const syncConfig = await syncStorage.get();
 		if (!syncConfig || !syncConfig.rules) {
 			const profileKeyNames = await getProfileKeyNames();
-			const localConfig = await browser.storage.local.get(["rules", "maxParallelWorkers", "processInForeground", EXTERNAL_CAPTURE_ALLOWED_EXTENSION_IDS_KEY, EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY, MENU_LAYOUT_KEY, ...profileKeyNames]);
+			const localConfig = await browser.storage.local.get(["rules", "maxParallelWorkers", "processInForeground", EXTERNAL_CAPTURE_ALLOWED_EXTENSION_IDS_KEY, EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY, MENU_LAYOUT_KEY, AUTO_SAVE_TABS_KEY, ...profileKeyNames]);
 			await syncStorage.set(localConfig);
 		}
 		await browser.storage.local.set({ sync: true });
@@ -629,7 +648,8 @@ async function onMessage(message) {
 				maxParallelWorkers: syncConfig.maxParallelWorkers,
 				processInForeground: syncConfig.processInForeground,
 				externalCaptureAllowedExtensionIds: syncConfig.externalCaptureAllowedExtensionIds || [],
-				externalCaptureDeniedExtensionIds: syncConfig.externalCaptureDeniedExtensionIds || []
+				externalCaptureDeniedExtensionIds: syncConfig.externalCaptureDeniedExtensionIds || [],
+				[AUTO_SAVE_TABS_KEY]: sanitizeAutoSaveTabs(syncConfig[AUTO_SAVE_TABS_KEY])
 			});
 			if (syncConfig[MENU_LAYOUT_KEY]) {
 				await browser.storage.local.set({ [MENU_LAYOUT_KEY]: syncConfig[MENU_LAYOUT_KEY] });
@@ -883,7 +903,7 @@ async function resetProfiles() {
 	delete allTabsData.profileName;
 	await tabsData.set(allTabsData);
 	let profileKeyNames = await getProfileKeyNames();
-	await configStorage.remove([...profileKeyNames, "rules", "maxParallelWorkers", "processInForeground", EXTERNAL_CAPTURE_ALLOWED_EXTENSION_IDS_KEY, EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY, MENU_LAYOUT_KEY]);
+	await configStorage.remove([...profileKeyNames, "rules", "maxParallelWorkers", "processInForeground", EXTERNAL_CAPTURE_ALLOWED_EXTENSION_IDS_KEY, EXTERNAL_CAPTURE_DENIED_EXTENSION_IDS_KEY, MENU_LAYOUT_KEY, AUTO_SAVE_TABS_KEY]);
 	await upgrade();
 }
 
@@ -897,7 +917,7 @@ async function resetProfile(profileName) {
 
 async function exportConfig() {
 	const config = await getConfig();
-	const exportedConfig = { profiles: config.profiles, rules: config.rules, maxParallelWorkers: config.maxParallelWorkers, processInForeground: config.processInForeground };
+	const exportedConfig = { profiles: config.profiles, rules: config.rules, maxParallelWorkers: config.maxParallelWorkers, processInForeground: config.processInForeground, autoSaveTabs: config.autoSaveTabs };
 	if (config.menuLayout) {
 		exportedConfig.menuLayout = config.menuLayout;
 	}
@@ -931,7 +951,7 @@ async function importConfig(config) {
 		delete allTabsData.profileName;
 		await tabsData.set(allTabsData);
 	}
-	const newConfig = { rules: config.rules, maxParallelWorkers: config.maxParallelWorkers, processInForeground: config.processInForeground };
+	const newConfig = { rules: config.rules, maxParallelWorkers: config.maxParallelWorkers, processInForeground: config.processInForeground, [AUTO_SAVE_TABS_KEY]: sanitizeAutoSaveTabs(config.autoSaveTabs) };
 	const menuLayout = normalizeLayout(config.menuLayout);
 	if (menuLayout) {
 		newConfig[MENU_LAYOUT_KEY] = menuLayout;

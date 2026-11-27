@@ -33,6 +33,9 @@ import {
 } from "./../common/filename-replacement.js";
 
 const EXTERNAL_CAPTURE_PING_DELAY = 15000;
+const TAB_GROUPS_PERMISSION = "tabGroups";
+const DEFAULT_CONTAINER_ID = "firefox-default";
+const AUTO_SAVE_TABS_INPUT_CLASS = "auto-save-tabs-input";
 const EXTERNAL_CAPTURE_PENDING_REQUEST_TIMEOUT = 300000;
 const HELP_ICON_URL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABIUlEQVQ4y+2TsarCMBSGvxTBRdqiUZAWOrhJB9EXcPKFfCvfQYfulUKHDqXg4CYUJSioYO4mSDX3ttzt3n87fMlHTpIjlsulxpDZbEYYhgghSNOUOI5Ny2mZYBAELBYLer0eAJ7ncTweKYri4x7LJJRS0u12n7XrukgpjSc0CpVSXK/XZ32/31FKNW85z3PW6zXT6RSAJEnIsqy5UGvNZrNhu90CcDqd+C6tT6J+v//2Th+PB2VZ1hN2Oh3G4zGTyQTbtl/YbrdjtVpxu91+Ljyfz0RRhG3bzOfzF+Y4TvNXvlwuaK2pE4tfzr/wzwsty0IIURlL0998KxRCMBqN8H2/wlzXJQxD2u12vVkeDoeUZUkURRU+GAw4HA7s9/sK+wK6CWHasQ/S/wAAAABJRU5ErkJggg==";
 const HELP_PAGE_PATH_PREFIX = "/src/ui/pages/help";
@@ -222,6 +225,12 @@ const destinationLabel = document.getElementById("destinationLabel");
 const bookmarksLabel = document.getElementById("bookmarksLabel");
 const autoSaveLabel = document.getElementById("autoSaveLabel");
 const autoSettingsLabel = document.getElementById("autoSettingsLabel");
+const globalSettingsLabel = document.getElementById("globalSettingsLabel");
+const autoSaveTabsLabel = document.getElementById("autoSaveTabsLabel");
+const autoSaveTabsDescriptionLabel = document.getElementById("autoSaveTabsDescriptionLabel");
+const autoSaveTabGroupsLabel = document.getElementById("autoSaveTabGroupsLabel");
+const autoSaveTabGroupsEmptyLabel = document.getElementById("autoSaveTabGroupsEmptyLabel");
+const autoSaveContainersLabel = document.getElementById("autoSaveContainersLabel");
 const autoSettingsUrlLabel = document.getElementById("autoSettingsUrlLabel");
 const autoSettingsProfileLabel = document.getElementById("autoSettingsProfileLabel");
 const autoSettingsAutoSaveProfileLabel = document.getElementById("autoSettingsAutoSaveProfileLabel");
@@ -428,6 +437,12 @@ const ruleEditAutoSaveProfileInput = document.getElementById("ruleEditAutoSavePr
 const ruleAddButton = document.getElementById("ruleAddButton");
 const ruleCancelButton = document.getElementById("ruleCancelButton");
 const rulesElement = document.querySelector("#autoSettingsSection .rules-table");
+const autoSaveTabsSection = document.getElementById("autoSaveTabsSection");
+const autoSaveTabGroupsOptions = document.getElementById("autoSaveTabGroupsOptions");
+const autoSaveTabGroupsPermissionButton = document.getElementById("autoSaveTabGroupsPermissionButton");
+const autoSaveTabGroupsList = document.getElementById("autoSaveTabGroupsList");
+const autoSaveContainersOptions = document.getElementById("autoSaveContainersOptions");
+const autoSaveContainersList = document.getElementById("autoSaveContainersList");
 const rulesContainerElement = document.querySelector("#autoSettingsSection .rules-table-container");
 const ruleEditUrlInput = document.getElementById("ruleEditUrlInput");
 const ruleEditButton = document.getElementById("ruleEditButton");
@@ -698,6 +713,20 @@ addProofInput.addEventListener("click", async event => {
 externalCaptureAllowedIdsInput.addEventListener("change", updateExternalCapturePermissions, false);
 externalCaptureDeniedIdsInput.addEventListener("change", updateExternalCapturePermissions, false);
 externalCaptureApproveButton.addEventListener("click", () => respondExternalCaptureRequest(true), false);
+autoSaveTabGroupsPermissionButton.addEventListener("click", async () => {
+	try {
+		await browser.permissions.request({ permissions: [TAB_GROUPS_PERMISSION] });
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		// ignored
+	}
+	await refreshAutoSaveTabs();
+}, false);
+autoSaveTabsSection.addEventListener("toggle", () => {
+	if (autoSaveTabsSection.open) {
+		refreshAutoSaveTabs();
+	}
+}, false);
 externalCaptureDenyButton.addEventListener("click", () => respondExternalCaptureRequest(false), false);
 browser.runtime.sendMessage({ method: "config.isSync" }).then(data => synchronizeInput.checked = data.sync);
 synchronizeInput.addEventListener("click", async event => {
@@ -766,6 +795,10 @@ filenameReplacementsResetButton.addEventListener("click", async () => {
 document.body.onchange = async event => {
 	let target = event.target;
 	if (target.classList.contains("replacement-input")) {
+		return;
+	}
+	if (target.classList.contains(AUTO_SAVE_TABS_INPUT_CLASS)) {
+		await updateAutoSaveTabs();
 		return;
 	}
 	if (target != ruleUrlInput &&
@@ -987,6 +1020,13 @@ exportButton.textContent = browser.i18n.getMessage("optionsExportButton");
 importButton.textContent = browser.i18n.getMessage("optionsImportButton");
 resetButton.title = browser.i18n.getMessage("optionsResetTooltip");
 autoSettingsLabel.textContent = browser.i18n.getMessage("optionsAutoSettingsSubTitle");
+globalSettingsLabel.textContent = browser.i18n.getMessage("optionsGlobalSettingsSubTitle");
+autoSaveTabsLabel.textContent = browser.i18n.getMessage("optionsAutoSaveTabsSubTitle");
+autoSaveTabsDescriptionLabel.textContent = browser.i18n.getMessage("optionAutoSaveTabsDescription");
+autoSaveTabGroupsLabel.textContent = browser.i18n.getMessage("optionAutoSaveTabGroups");
+autoSaveTabGroupsPermissionButton.textContent = browser.i18n.getMessage("optionAutoSaveTabGroupsPermission");
+autoSaveTabGroupsEmptyLabel.textContent = browser.i18n.getMessage("optionAutoSaveTabGroupsEmpty");
+autoSaveContainersLabel.textContent = browser.i18n.getMessage("optionAutoSaveContainers");
 autoSettingsUrlLabel.textContent = autoSettingsUrlLabel.title = browser.i18n.getMessage("optionsAutoSettingsUrl");
 autoSettingsProfileLabel.textContent = autoSettingsProfileLabel.title = browser.i18n.getMessage("optionsAutoSettingsProfile");
 autoSettingsAutoSaveProfileLabel.textContent = autoSettingsAutoSaveProfileLabel.title = browser.i18n.getMessage("optionsAutoSettingsAutoSaveProfile");
@@ -1035,6 +1075,7 @@ browser.runtime.sendMessage({ method: "tabsData.get" }).then(allTabsData => {
 });
 getHelpContents();
 initExternalCapturePermissions();
+refreshAutoSaveTabs();
 
 async function displayFileAccessWarning() {
 	let fileAccessAllowed, firefoxVersion;
@@ -1725,6 +1766,63 @@ async function initExternalCapturePermissions() {
 			externalCaptureApproveButton.focus();
 		}
 	}
+}
+
+async function refreshAutoSaveTabs() {
+	const { groups, containers } = await browser.runtime.sendMessage({ method: "autoSaveTabs.get" });
+	const groupItems = [
+		...groups.names.map(name => ({ id: name, name })),
+		...groups.selected.filter(name => !groups.names.includes(name)).map(name => ({ id: name, name, unavailable: true, suffix: browser.i18n.getMessage("optionAutoSaveTabGroupNotOpen") }))
+	];
+	const containerItems = [
+		{ id: DEFAULT_CONTAINER_ID, name: browser.i18n.getMessage("optionAutoSaveNoContainer"), localized: true },
+		...containers.items,
+		...containers.selected
+			.filter(id => id != DEFAULT_CONTAINER_ID && !containers.items.find(item => item.id == id))
+			.map(id => ({ id, name: id, unavailable: true }))
+	];
+	autoSaveTabsSection.hidden = !groups.supported && !containers.supported;
+	autoSaveTabGroupsOptions.hidden = !groups.supported;
+	autoSaveTabGroupsPermissionButton.hidden = groups.granted;
+	autoSaveTabGroupsEmptyLabel.hidden = !groups.granted || Boolean(groupItems.length);
+	autoSaveContainersOptions.hidden = !containers.supported;
+	displayAutoSaveTabs(autoSaveTabGroupsList, groupItems, groups.selected);
+	displayAutoSaveTabs(autoSaveContainersList, containerItems, containers.selected);
+}
+
+function displayAutoSaveTabs(listElement, items, selectedIds) {
+	listElement.textContent = "";
+	items.forEach((item, indexItem) => {
+		const optionElement = document.createElement("div");
+		const labelElement = document.createElement("label");
+		const inputElement = document.createElement("input");
+		optionElement.className = "option second-level";
+		if (item.unavailable) {
+			optionElement.classList.add("unavailable");
+		}
+		if (!item.localized) {
+			optionElement.classList.add("verbatim");
+		}
+		inputElement.type = "checkbox";
+		inputElement.id = listElement.id + "-" + indexItem;
+		inputElement.className = AUTO_SAVE_TABS_INPUT_CLASS;
+		inputElement.dataset.value = item.id;
+		inputElement.checked = selectedIds.includes(item.id);
+		labelElement.htmlFor = inputElement.id;
+		labelElement.textContent = item.suffix ? item.name + " " + item.suffix : item.name;
+		optionElement.append(labelElement, inputElement);
+		listElement.append(optionElement);
+	});
+}
+
+async function updateAutoSaveTabs() {
+	const getSelectedIds = listElement => Array.from(listElement.querySelectorAll("input"))
+		.filter(inputElement => inputElement.checked)
+		.map(inputElement => inputElement.dataset.value);
+	await browser.runtime.sendMessage({
+		method: "autoSaveTabs.set",
+		autoSaveTabs: { groups: getSelectedIds(autoSaveTabGroupsList), containers: getSelectedIds(autoSaveContainersList) }
+	});
 }
 
 async function refreshExternalCapturePermissions() {

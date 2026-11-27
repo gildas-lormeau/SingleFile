@@ -651,6 +651,42 @@
 		"message": "Règles d'auto-configuration",
 		"description": "Options sub-title: the table of rules that pick a profile automatically from the URL of the page being saved"
 	},
+	"optionsGlobalSettingsSubTitle": {
+		"message": "Paramètres communs à tous les profils",
+		"description": "Options title displayed above the sections that do not depend on the selected profile"
+	},
+	"optionsAutoSaveTabsSubTitle": {
+		"message": "Onglets auto-sauvegardés",
+		"description": "Options sub-title: the tab groups and the containers whose tabs are auto-saved"
+	},
+	"optionAutoSaveTabsDescription": {
+		"message": "les onglets des groupes et conteneurs sélectionnés sont auto-sauvegardés, en plus des onglets choisis dans le menu d'auto-sauvegarde",
+		"description": "Options page: description displayed under the sub-title 'Auto-saved tabs'"
+	},
+	"optionAutoSaveTabGroups": {
+		"message": "groupes d'onglets",
+		"description": "Options page label: title of the list of tab groups whose tabs are auto-saved"
+	},
+	"optionAutoSaveTabGroupsPermission": {
+		"message": "Autoriser SingleFile à lire les groupes d'onglets",
+		"description": "Options page button: asks the browser for the permission to read the names of the tab groups"
+	},
+	"optionAutoSaveTabGroupsEmpty": {
+		"message": "Aucun groupe d'onglets nommé n'est ouvert",
+		"description": "Options page: text displayed in place of the list of tab groups when there is none"
+	},
+	"optionAutoSaveTabGroupNotOpen": {
+		"message": "(non ouvert)",
+		"description": "Options page: suffix displayed after the name of a checked tab group that is not open in the browser"
+	},
+	"optionAutoSaveContainers": {
+		"message": "conteneurs",
+		"description": "Options page label: title of the list of containers (Firefox) whose tabs are auto-saved"
+	},
+	"optionAutoSaveNoContainer": {
+		"message": "onglets sans conteneur",
+		"description": "Options page option: auto-save the tabs that are not in a container (Firefox)"
+	},
 	"optionsDeleteDisplayedRulesConfirm": {
 		"message": "Confirmez la suppression de toutes les règles affichées",
 		"description": "Popup text 'Confirm the deletion of all displayed rules'"

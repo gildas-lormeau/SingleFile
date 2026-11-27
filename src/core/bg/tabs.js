@@ -25,6 +25,7 @@
 
 import * as config from "./config.js";
 import * as autosave from "./autosave.js";
+import * as autoSaveTabs from "./autosave-tabs.js";
 import * as business from "./business.js";
 import * as editor from "./editor.js";
 import * as tabsData from "./tabs-data.js";
@@ -88,6 +89,9 @@ async function onTabUpdated(tabId, changeInfo) {
 	}
 	if (changeInfo.discarded) {
 		autosave.onTabDiscarded(tabId);
+	}
+	if (changeInfo.groupId !== undefined) {
+		autoSaveTabs.onTabGroupChanged();
 	}
 }
 

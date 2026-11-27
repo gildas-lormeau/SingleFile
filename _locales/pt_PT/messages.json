@@ -651,6 +651,42 @@
 		"message": "Regras de configuração automática",
 		"description": "Options sub-title: the table of rules that pick a profile automatically from the URL of the page being saved"
 	},
+	"optionsGlobalSettingsSubTitle": {
+		"message": "Settings shared by all the profiles",
+		"description": "Options title displayed above the sections that do not depend on the selected profile"
+	},
+	"optionsAutoSaveTabsSubTitle": {
+		"message": "Auto-saved tabs",
+		"description": "Options sub-title: the tab groups and the containers whose tabs are auto-saved"
+	},
+	"optionAutoSaveTabsDescription": {
+		"message": "the tabs of the selected groups and containers are auto-saved, in addition to the tabs chosen in the auto-save menu",
+		"description": "Options page: description displayed under the sub-title 'Auto-saved tabs'"
+	},
+	"optionAutoSaveTabGroups": {
+		"message": "tab groups",
+		"description": "Options page label: title of the list of tab groups whose tabs are auto-saved"
+	},
+	"optionAutoSaveTabGroupsPermission": {
+		"message": "Allow SingleFile to read the tab groups",
+		"description": "Options page button: asks the browser for the permission to read the names of the tab groups"
+	},
+	"optionAutoSaveTabGroupsEmpty": {
+		"message": "No named tab group is open",
+		"description": "Options page: text displayed in place of the list of tab groups when there is none"
+	},
+	"optionAutoSaveTabGroupNotOpen": {
+		"message": "(not open)",
+		"description": "Options page: suffix displayed after the name of a checked tab group that is not open in the browser"
+	},
+	"optionAutoSaveContainers": {
+		"message": "containers",
+		"description": "Options page label: title of the list of containers (Firefox) whose tabs are auto-saved"
+	},
+	"optionAutoSaveNoContainer": {
+		"message": "tabs without a container",
+		"description": "Options page option: auto-save the tabs that are not in a container (Firefox)"
+	},
 	"optionsDeleteDisplayedRulesConfirm": {
 		"message": "Confirmar a eliminação de todas as regras apresentadas",
 		"description": "Popup text 'Confirm the deletion of all displayed rules'"
