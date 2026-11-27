@@ -588,7 +588,7 @@
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
 	"optionApplyPrintStylesheets": {
-		"message": "apply the print stylesheets (save the page as it would be printed)",
+		"message": "применить таблицы стилей для печати (сохранить страницу в том виде, в каком она будет распечатана)",
 		"description": "Options page label: 'apply the print stylesheets (save the page as it would be printed)'"
 	},
 	"optionsNetworkSubTitle": {
@@ -652,39 +652,39 @@
 		"description": "Options sub-title: the table of rules that pick a profile automatically from the URL of the page being saved"
 	},
 	"optionsGlobalSettingsSubTitle": {
-		"message": "Settings shared by all the profiles",
+		"message": "Общие для всех профилей настройки",
 		"description": "Options title displayed above the sections that do not depend on the selected profile"
 	},
 	"optionsAutoSaveTabsSubTitle": {
-		"message": "Auto-saved tabs",
+		"message": "Автосохраняемые вкладки",
 		"description": "Options sub-title: the tab groups and the containers whose tabs are auto-saved"
 	},
 	"optionAutoSaveTabsDescription": {
-		"message": "the tabs of the selected groups and containers are auto-saved, in addition to the tabs chosen in the auto-save menu",
+		"message": "вкладки выбранных групп и контейнеров сохраняются автоматически, в дополнение к вкладкам, выбранным в меню автосохранения",
 		"description": "Options page: description displayed under the sub-title 'Auto-saved tabs'"
 	},
 	"optionAutoSaveTabGroups": {
-		"message": "tab groups",
+		"message": "группы вкладок",
 		"description": "Options page label: title of the list of tab groups whose tabs are auto-saved"
 	},
 	"optionAutoSaveTabGroupsPermission": {
-		"message": "Allow SingleFile to read the tab groups",
+		"message": "Разрешить SingleFile читать группы вкладок",
 		"description": "Options page button: asks the browser for the permission to read the names of the tab groups"
 	},
 	"optionAutoSaveTabGroupsEmpty": {
-		"message": "No named tab group is open",
+		"message": "Нет открытых групп вкладок",
 		"description": "Options page: text displayed in place of the list of tab groups when there is none"
 	},
 	"optionAutoSaveTabGroupNotOpen": {
-		"message": "(not open)",
+		"message": "(не открыта)",
 		"description": "Options page: suffix displayed after the name of a checked tab group that is not open in the browser"
 	},
 	"optionAutoSaveContainers": {
-		"message": "containers",
+		"message": "контейнеры",
 		"description": "Options page label: title of the list of containers (Firefox) whose tabs are auto-saved"
 	},
 	"optionAutoSaveNoContainer": {
-		"message": "tabs without a container",
+		"message": "вкладки без контейнера",
 		"description": "Options page option: auto-save the tabs that are not in a container (Firefox)"
 	},
 	"optionsDeleteDisplayedRulesConfirm": {
@@ -1262,11 +1262,11 @@
 		"description": "Pending saves button 'Cancel all'"
 	},
 	"pendingsPauseButton": {
-		"message": "Pause",
+		"message": "Приостановить",
 		"description": "Pending saves button 'Pause'"
 	},
 	"pendingsResumeButton": {
-		"message": "Resume",
+		"message": "Возобновить",
 		"description": "Pending saves button 'Resume'"
 	},
 	"pendingsURLTitle": {
@@ -1451,7 +1451,7 @@
 	},
 	"menusUseForAllStatus": {
 		"message": "Все меню теперь используют эти пункты.",
-		"description": "Menu editor status after using a layout for all menus"
+		"description": "Menu editor status after using a menus for all menus"
 	},
 	"menusContextPage": {
 		"message": "Страница",
