@@ -1451,7 +1451,7 @@
 	},
 	"menusUseForAllStatus": {
 		"message": "Alla menyer använder nu de här alternativen.",
-		"description": "Menu editor status after using a layout for all menus"
+		"description": "Menu editor status after applying the entries of a menu to all the menus"
 	},
 	"menusContextPage": {
 		"message": "Sida",
@@ -1603,7 +1603,7 @@
 	},
 	"menusJsonLabel": {
 		"message": "Menyer som JSON",
-		"description": "Menu editor section: 'menus as JSON'"
+		"description": "Menu editor section: 'Menus as JSON'"
 	},
 	"menusJsonApplyButton": {
 		"message": "Tillämpa",

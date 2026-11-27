@@ -1451,7 +1451,7 @@
 	},
 	"menusUseForAllStatus": {
 		"message": "Усі меню тепер використовують ці пункти.",
-		"description": "Menu editor status after using a layout for all menus"
+		"description": "Menu editor status after applying the entries of a menu to all the menus"
 	},
 	"menusContextPage": {
 		"message": "Сторінка",
@@ -1603,7 +1603,7 @@
 	},
 	"menusJsonLabel": {
 		"message": "Меню у форматі JSON",
-		"description": "Menu editor section: 'Layout as JSON'"
+		"description": "Menu editor section: 'Menus as JSON'"
 	},
 	"menusJsonApplyButton": {
 		"message": "Застосувати",

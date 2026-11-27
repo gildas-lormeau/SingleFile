@@ -1451,7 +1451,7 @@
 	},
 	"menusUseForAllStatus": {
 		"message": "Alle Menüs verwenden jetzt diese Einträge.",
-		"description": "Menu editor status after using a layout for all menus"
+		"description": "Menu editor status after applying the entries of a menu to all the menus"
 	},
 	"menusContextPage": {
 		"message": "Seite",
@@ -1603,7 +1603,7 @@
 	},
 	"menusJsonLabel": {
 		"message": "Menüs als JSON",
-		"description": "Menu editor section: 'Layout as JSON'"
+		"description": "Menu editor section: 'Menus as JSON'"
 	},
 	"menusJsonApplyButton": {
 		"message": "Übernehmen",

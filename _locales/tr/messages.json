@@ -1451,7 +1451,7 @@
 	},
 	"menusUseForAllStatus": {
 		"message": "Tüm menüler artık bu öğeleri kullanıyor.",
-		"description": "Menu editor status after using a layout for all menus"
+		"description": "Menu editor status after applying the entries of a menu to all the menus"
 	},
 	"menusContextPage": {
 		"message": "Sayfa",
@@ -1603,7 +1603,7 @@
 	},
 	"menusJsonLabel": {
 		"message": "JSON olarak menüler",
-		"description": "Menu editor section: 'Layout as JSON'"
+		"description": "Menu editor section: 'Menus as JSON'"
 	},
 	"menusJsonApplyButton": {
 		"message": "Uygula",

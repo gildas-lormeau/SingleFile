@@ -1451,7 +1451,7 @@
 	},
 	"menusUseForAllStatus": {
 		"message": "所有選單現在都使用這些項目。",
-		"description": "Menu editor status after using a layout for all menus"
+		"description": "Menu editor status after applying the entries of a menu to all the menus"
 	},
 	"menusContextPage": {
 		"message": "網頁",
@@ -1603,7 +1603,7 @@
 	},
 	"menusJsonLabel": {
 		"message": "JSON 格式的選單",
-		"description": "Menu editor section: 'Layout as JSON'"
+		"description": "Menu editor section: 'Menus as JSON'"
 	},
 	"menusJsonApplyButton": {
 		"message": "套用",

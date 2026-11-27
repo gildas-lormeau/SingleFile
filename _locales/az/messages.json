@@ -1451,7 +1451,7 @@
 	},
 	"menusUseForAllStatus": {
 		"message": "Bütün menyular artıq bu elementlərdən istifadə edir.",
-		"description": "Menu editor status after using a layout for all menus"
+		"description": "Menu editor status after applying the entries of a menu to all the menus"
 	},
 	"menusContextPage": {
 		"message": "Səhifə",
@@ -1603,7 +1603,7 @@
 	},
 	"menusJsonLabel": {
 		"message": "JSON formatında menyular",
-		"description": "Menu editor section: 'Layout as JSON'"
+		"description": "Menu editor section: 'Menus as JSON'"
 	},
 	"menusJsonApplyButton": {
 		"message": "Tətbiq et",
