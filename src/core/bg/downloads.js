@@ -49,6 +49,7 @@ const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
 const CONFLICT_ACTION_SKIP = "skip";
 const CONFLICT_ACTION_UNIQUIFY = "uniquify";
 const REGEXP_ESCAPE = /([{}()^$&.*?/+|[\\\\]|\]|-)/g;
+const HTTP_URL_REGEXP = /^https?:\/\//i;
 const ARCHIVE_MODULE_PATH = "/lib/single-file-archive.js";
 const ZIP_SCRIPT_PATH = "/lib/single-file-zip.min.js";
 const SELF_EXTRACTING_ARCHIVE_MIME_TYPE = "text/html";
@@ -296,7 +297,7 @@ async function downloadContent(blob, tab, incognito, message) {
 				}
 			}
 		}
-		if (message.bookmarkId && message.replaceBookmarkURL && response && response.url) {
+		if (message.bookmarkId && message.replaceBookmarkURL && response && HTTP_URL_REGEXP.test(response.url)) {
 			await bookmarks.update(message.bookmarkId, { url: response.url });
 		}
 		ui.onEnd(tabId);
@@ -521,7 +522,7 @@ async function saveCompressedContent(blob, mimeType, message, tab) {
 			});
 		}
 	}
-	if (message.bookmarkId && message.replaceBookmarkURL && response && response.url) {
+	if (message.bookmarkId && message.replaceBookmarkURL && response && HTTP_URL_REGEXP.test(response.url)) {
 		await bookmarks.update(message.bookmarkId, { url: response.url });
 	}
 	ui.onEnd(tabId);
