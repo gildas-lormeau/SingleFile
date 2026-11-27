@@ -123,6 +123,10 @@
 		"message": "Zapisz wszystkie karty",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveTabGroup": {
+		"message": "Save tab group",
+		"description": "Menu entry: 'Save tab group'"
+	},
 	"menuSaveSelectedTabsInArchive": {
 		"message": "Zapisz wybrane karty w jednym archiwum",
 		"description": "Menu entry: 'Save selected tabs in one archive'"

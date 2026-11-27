@@ -123,6 +123,10 @@
 		"message": "Save all tabs",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveTabGroup": {
+		"message": "Save tab group",
+		"description": "Menu entry: 'Save tab group'"
+	},
 	"menuSaveSelectedTabsInArchive": {
 		"message": "Save selected tabs in one archive",
 		"description": "Menu entry: 'Save selected tabs in one archive'"

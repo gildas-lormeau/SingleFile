@@ -123,6 +123,10 @@
 		"message": "Bütün tabları yaddaşa qeyd et",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveTabGroup": {
+		"message": "Save tab group",
+		"description": "Menu entry: 'Save tab group'"
+	},
 	"menuSaveSelectedTabsInArchive": {
 		"message": "Seçilmiş tabları bir arxivdə yaddaşa qeyd et",
 		"description": "Menu entry: 'Save selected tabs in one archive'"

@@ -161,7 +161,7 @@ function needsProfiles(action) {
 }
 
 function unsupportedAction(action) {
-	return (action == "auto-save" && constants.AUTO_SAVE_SUPPORTED === false) || ((action == "save-tab-group-in-archive" || action == "add-tab-group-to-archive") && constants.TAB_GROUPS_SUPPORTED === false);
+	return (action == "auto-save" && constants.AUTO_SAVE_SUPPORTED === false) || ((action == "save-tab-group" || action == "save-tab-group-in-archive" || action == "add-tab-group-to-archive") && constants.TAB_GROUPS_SUPPORTED === false);
 }
 
 function pageOnly(entry, surface) {

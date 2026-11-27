@@ -123,6 +123,10 @@
 		"message": "Sla alle tabbladen op",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveTabGroup": {
+		"message": "Save tab group",
+		"description": "Menu entry: 'Save tab group'"
+	},
 	"menuSaveSelectedTabsInArchive": {
 		"message": "Sla geselecteerde tabbladen op in één archief",
 		"description": "Menu entry: 'Save selected tabs in one archive'"

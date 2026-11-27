@@ -42,7 +42,7 @@ const TASK_PENDING_STATE = "pending";
 const TASK_PROCESSING_STATE = "processing";
 const AUTOSAVE_METHOD = "content.autosave";
 const ARCHIVE_PASSWORD_ERROR = "Saving tabs in one archive is not supported with a password yet.";
-const ARCHIVE_NO_TAB_GROUP_ERROR = "The tab is not in a tab group.";
+const NO_TAB_GROUP_ERROR = "The tab is not in a tab group.";
 const NO_GROUP_ID = -1;
 const ARCHIVE_PRIVATE_TAB_ERROR = "The tabs of a private window cannot be added to the archive in progress.";
 const ARCHIVE_POSITION_FACTOR = 1000;
@@ -99,10 +99,11 @@ const extensionScriptFiles = [
 const tasks = [];
 let currentTaskId = 1, maxParallelWorkers, processInForeground, onArchiveEnd, paused = false, endedTasksCount = 0, tasksStored = false, tasksStorePending = false;
 const tasksRestored = restoreTasks();
-ui.init({ isSavingTab, saveTabs, saveTabsInArchive, saveTabGroupInArchive, addTabsToArchive, addTabGroupToArchive, addUrlsToArchive, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
+ui.init({ isSavingTab, saveTabs, saveTabGroup, saveTabsInArchive, saveTabGroupInArchive, addTabsToArchive, addTabGroupToArchive, addUrlsToArchive, saveUrls, cancelTab, openEditor, saveSelectedLinks, batchSaveUrls });
 
 export {
 	saveTabs,
+	saveTabGroup,
 	saveTabsInArchive,
 	saveTabGroupInArchive,
 	addTabsToArchive,
@@ -212,6 +213,13 @@ async function saveTabsInArchive(tabs, options = {}) {
 	}
 }
 
+async function saveTabGroup(tab, options = {}) {
+	const tabs = await getTabGroupTabs(tab);
+	if (tabs) {
+		await saveTabs(tabs, options);
+	}
+}
+
 async function saveTabGroupInArchive(tab, options = {}) {
 	const tabs = await getTabGroupTabs(tab);
 	if (tabs) {
@@ -228,7 +236,7 @@ async function addTabGroupToArchive(tab, options = {}) {
 
 async function getTabGroupTabs(tab) {
 	if (tab.groupId === undefined || tab.groupId == NO_GROUP_ID) {
-		await displayArchiveError([tab], ARCHIVE_NO_TAB_GROUP_ERROR);
+		await displayArchiveError([tab], NO_TAB_GROUP_ERROR);
 	} else {
 		const tabs = await browser.tabs.query({ groupId: tab.groupId });
 		return tabs.sort((tab1, tab2) => tab1.index - tab2.index);

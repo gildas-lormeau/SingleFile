@@ -123,6 +123,10 @@
 		"message": "Guardar todos os separadores",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveTabGroup": {
+		"message": "Save tab group",
+		"description": "Menu entry: 'Save tab group'"
+	},
 	"menuSaveSelectedTabsInArchive": {
 		"message": "Guardar separadores selecionados num único arquivo",
 		"description": "Menu entry: 'Save selected tabs in one archive'"

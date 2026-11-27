@@ -123,6 +123,10 @@
 		"message": "Зберегти всі вкладки",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveTabGroup": {
+		"message": "Save tab group",
+		"description": "Menu entry: 'Save tab group'"
+	},
 	"menuSaveSelectedTabsInArchive": {
 		"message": "Зберегти вибрані вкладки в один архів",
 		"description": "Menu entry: 'Save selected tabs in one archive'"

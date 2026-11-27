@@ -123,6 +123,10 @@
 		"message": "儲存所有分頁",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveTabGroup": {
+		"message": "Save tab group",
+		"description": "Menu entry: 'Save tab group'"
+	},
 	"menuSaveSelectedTabsInArchive": {
 		"message": "將所選分頁儲存到同一個封存檔",
 		"description": "Menu entry: 'Save selected tabs in one archive'"

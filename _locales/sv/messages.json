@@ -123,6 +123,10 @@
 		"message": "Spara alla flikar",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveTabGroup": {
+		"message": "Save tab group",
+		"description": "Menu entry: 'Save tab group'"
+	},
 	"menuSaveSelectedTabsInArchive": {
 		"message": "Spara markerade flikar i ett arkiv",
 		"description": "Menu entry: 'Save selected tabs in one archive'"

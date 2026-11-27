@@ -123,6 +123,10 @@
 		"message": "Sauver tous les onglets",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveTabGroup": {
+		"message": "Sauver le groupe d'onglets",
+		"description": "Menu entry: 'Save tab group'"
+	},
 	"menuSaveSelectedTabsInArchive": {
 		"message": "Sauver les onglets sélectionnés dans une seule archive",
 		"description": "Menu entry: 'Save selected tabs in one archive'"

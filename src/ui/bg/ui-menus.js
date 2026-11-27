@@ -146,7 +146,7 @@ function isActionSupported(action) {
 	if (action == "auto-save") {
 		return config.AUTO_SAVE_SUPPORTED;
 	}
-	if (action == "save-tab-group-in-archive" || action == "add-tab-group-to-archive") {
+	if (action == "save-tab-group" || action == "save-tab-group-in-archive" || action == "add-tab-group-to-archive") {
 		return config.TAB_GROUPS_SUPPORTED;
 	}
 	return true;
@@ -351,6 +351,9 @@ async function initialize() {
 			if (item.action == "save-all-tabs") {
 				const tabs = await queryTabs({ currentWindow: true });
 				business.saveTabs(tabs, profileOptions);
+			}
+			if (item.action == "save-tab-group") {
+				business.saveTabGroup(tab, profileOptions);
 			}
 			if (item.action == "save-selected-tabs-in-archive") {
 				const tabs = await queryTabs({ currentWindow: true, highlighted: true });

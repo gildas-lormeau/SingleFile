@@ -123,6 +123,10 @@
 		"message": "すべてのタブを保存",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveTabGroup": {
+		"message": "Save tab group",
+		"description": "Menu entry: 'Save tab group'"
+	},
 	"menuSaveSelectedTabsInArchive": {
 		"message": "選択したタブを 1 つのアーカイブに保存",
 		"description": "Menu entry: 'Save selected tabs in one archive'"

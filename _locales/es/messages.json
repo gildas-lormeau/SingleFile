@@ -123,6 +123,10 @@
 		"message": "Guardar todas las pestañas",
 		"description": "Menu entry: 'Save all tabs'"
 	},
+	"menuSaveTabGroup": {
+		"message": "Save tab group",
+		"description": "Menu entry: 'Save tab group'"
+	},
 	"menuSaveSelectedTabsInArchive": {
 		"message": "Guardar pestañas seleccionadas en un solo archivo",
 		"description": "Menu entry: 'Save selected tabs in one archive'"
