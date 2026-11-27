@@ -33,7 +33,7 @@ const BEARER_PREFIX_AUTHORIZATION = "Bearer ";
 const ACCEPT_HEADER = "Accept";
 const GITHUB_API_CONTENT_TYPE = "application/vnd.github+json";
 const GITHUB_API_VERSION_HEADER = "X-GitHub-Api-Version";
-const GITHUB_API_VERSION = "2022-11-28";
+const GITHUB_API_VERSION = "2026-03-10";
 const EXTENSION_SEPARATOR = ".";
 const INDEX_FILENAME_PREFIX = " (";
 const INDEX_FILENAME_SUFFIX = ")";
@@ -80,6 +80,7 @@ class GitHub {
 
 async function upload(userName, repositoryName, branch, path, content, options) {
 	const { filenameConflictAction, prompt, signal, headers } = options;
+	let uploadedPath = path;
 	while (pendingPush) {
 		await pendingPush;
 	}
@@ -89,10 +90,11 @@ async function upload(userName, repositoryName, branch, path, content, options) 
 		pendingPush = null;
 	}
 	return {
-		url: `${GITHUB_URL}/${userName}/${repositoryName}/${BLOB_PATH}/${branch}/${path}`
+		url: `${GITHUB_URL}/${userName}/${repositoryName}/${BLOB_PATH}/${branch}/${uploadedPath}`
 	};
 
 	async function createContent({ path, content, message = EMPTY_STRING, sha }) {
+		uploadedPath = path;
 		try {
 			const response = await fetchContentData(PUT_METHOD, JSON.stringify({
 				content,
