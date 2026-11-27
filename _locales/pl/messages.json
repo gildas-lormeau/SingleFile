@@ -124,7 +124,7 @@
 		"description": "Menu entry: 'Save all tabs'"
 	},
 	"menuSaveTabGroup": {
-		"message": "Save tab group",
+		"message": "Zapisz grupę kart",
 		"description": "Menu entry: 'Save tab group'"
 	},
 	"menuSaveSelectedTabsInArchive": {
@@ -140,7 +140,7 @@
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
 	"menuSaveTabGroupInArchive": {
-		"message": "Save tab group in one archive",
+		"message": "Zapisz grupę kart w jednym archiwum",
 		"description": "Menu entry: 'Save tab group in one archive'"
 	},
 	"menuAddTabToArchive": {
@@ -152,7 +152,7 @@
 		"description": "Menu entry: 'Add the selected tabs to the archive in progress'"
 	},
 	"menuAddTabGroupToArchive": {
-		"message": "Add the tab group to the archive in progress",
+		"message": "Dodaj grupę kart do tworzonego archiwum",
 		"description": "Menu entry: 'Add the tab group to the archive in progress'"
 	},
 	"menuViewArchive": {
