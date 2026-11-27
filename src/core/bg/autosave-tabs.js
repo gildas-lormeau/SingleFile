@@ -64,10 +64,15 @@ async function getInfo() {
 	if (groups.supported) {
 		try {
 			groups.granted = await browser.permissions.contains({ permissions: [TAB_GROUPS_PERMISSION] });
-			if (groups.granted) {
-				const tabGroups = await browser.tabGroups.query({});
-				groups.names = [...new Set(tabGroups.map(group => group.title).filter(title => title))];
-			}
+			// eslint-disable-next-line no-unused-vars
+		} catch (error) {
+			groups.supported = false;
+		}
+	}
+	if (groups.granted) {
+		try {
+			const tabGroups = await browser.tabGroups.query({});
+			groups.names = [...new Set(tabGroups.map(group => group.title).filter(title => title))];
 			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			// ignored
