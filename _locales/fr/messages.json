@@ -135,6 +135,10 @@
 		"message": "Sauver tous les onglets dans une seule archive",
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
+	"menuSaveTabGroupInArchive": {
+		"message": "Sauver le groupe d'onglets dans une seule archive",
+		"description": "Menu entry: 'Save tab group in one archive'"
+	},
 	"menuAddTabToArchive": {
 		"message": "Ajouter l'onglet à l'archive en cours",
 		"description": "Menu entry: 'Add the tab to the archive in progress'"
@@ -142,6 +146,10 @@
 	"menuAddSelectedTabsToArchive": {
 		"message": "Ajouter les onglets sélectionnés à l'archive en cours",
 		"description": "Menu entry: 'Add the selected tabs to the archive in progress'"
+	},
+	"menuAddTabGroupToArchive": {
+		"message": "Ajouter le groupe d'onglets à l'archive en cours",
+		"description": "Menu entry: 'Add the tab group to the archive in progress'"
 	},
 	"menuViewArchive": {
 		"message": "Voir l'archive en cours...",

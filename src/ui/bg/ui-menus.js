@@ -146,6 +146,9 @@ function isActionSupported(action) {
 	if (action == "auto-save") {
 		return config.AUTO_SAVE_SUPPORTED;
 	}
+	if (action == "save-tab-group-in-archive" || action == "add-tab-group-to-archive") {
+		return config.TAB_GROUPS_SUPPORTED;
+	}
 	return true;
 }
 
@@ -361,6 +364,9 @@ async function initialize() {
 				const tabs = await queryTabs({ currentWindow: true });
 				business.saveTabsInArchive(tabs, profileOptions);
 			}
+			if (item.action == "save-tab-group-in-archive") {
+				business.saveTabGroupInArchive(tab, profileOptions);
+			}
 			if (item.action == "add-tab-to-archive") {
 				if (event.linkUrl) {
 					business.addUrlsToArchive([event.linkUrl], item.profileName, tab);
@@ -371,6 +377,9 @@ async function initialize() {
 			if (item.action == "add-selected-tabs-to-archive") {
 				const tabs = await queryTabs({ currentWindow: true, highlighted: true });
 				business.addTabsToArchive(tabs, profileOptions);
+			}
+			if (item.action == "add-tab-group-to-archive") {
+				business.addTabGroupToArchive(tab, profileOptions);
 			}
 			if (item.action == "view-archive") {
 				await browser.tabs.create({ active: true, url: "/src/ui/pages/archive.html" });

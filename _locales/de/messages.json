@@ -135,6 +135,10 @@
 		"message": "Speichern aller Tabs in einem Archiv",
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
+	"menuSaveTabGroupInArchive": {
+		"message": "Save tab group in one archive",
+		"description": "Menu entry: 'Save tab group in one archive'"
+	},
 	"menuAddTabToArchive": {
 		"message": "Hinzufügen des Tabs zum aktuellen Archiv",
 		"description": "Menu entry: 'Add the tab to the archive in progress'"
@@ -142,6 +146,10 @@
 	"menuAddSelectedTabsToArchive": {
 		"message": "Hinzufügen der ausgewählten Tabs zum aktuellen Archiv",
 		"description": "Menu entry: 'Add the selected tabs to the archive in progress'"
+	},
+	"menuAddTabGroupToArchive": {
+		"message": "Add the tab group to the archive in progress",
+		"description": "Menu entry: 'Add the tab group to the archive in progress'"
 	},
 	"menuViewArchive": {
 		"message": "Anzeigen des aktuellen Archivs...",

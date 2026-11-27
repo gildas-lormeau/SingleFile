@@ -38,6 +38,8 @@ const ACTION_SAVE_ALL_TABS = "save-all-tabs";
 const ACTION_SAVE_SELECTED_TABS_IN_ARCHIVE = "save-selected-tabs-in-archive";
 const ACTION_SAVE_UNPINNED_TABS_IN_ARCHIVE = "save-unpinned-tabs-in-archive";
 const ACTION_SAVE_ALL_TABS_IN_ARCHIVE = "save-all-tabs-in-archive";
+const ACTION_SAVE_TAB_GROUP_IN_ARCHIVE = "save-tab-group-in-archive";
+const ACTION_ADD_TAB_GROUP_TO_ARCHIVE = "add-tab-group-to-archive";
 const ACTION_ADD_TAB_TO_ARCHIVE = "add-tab-to-archive";
 const ACTION_ADD_SELECTED_TABS_TO_ARCHIVE = "add-selected-tabs-to-archive";
 const METHOD_CAPTURE_PAGE = "capture-page";
@@ -145,6 +147,9 @@ async function onMessage(message, sender) {
 	} else if (message == ACTION_SAVE_ALL_TABS_IN_ARCHIVE) {
 		const tabs = await queryTabs({ currentWindow: true });
 		await business.saveTabsInArchive(tabs);
+	} else if (message == ACTION_SAVE_TAB_GROUP_IN_ARCHIVE) {
+		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
+		await business.saveTabGroupInArchive(tabs[0]);
 	} else if (message == ACTION_ADD_TAB_TO_ARCHIVE) {
 		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
 		tabs.length = 1;
@@ -152,6 +157,9 @@ async function onMessage(message, sender) {
 	} else if (message == ACTION_ADD_SELECTED_TABS_TO_ARCHIVE) {
 		const tabs = await queryTabs({ currentWindow: true, highlighted: true });
 		await business.addTabsToArchive(tabs);
+	} else if (message == ACTION_ADD_TAB_GROUP_TO_ARCHIVE) {
+		const tabs = await browser.tabs.query({ currentWindow: true, active: true });
+		await business.addTabGroupToArchive(tabs[0]);
 	} else if (message && message.method == METHOD_CAPTURE_PAGE) {
 		const captureConfig = getCaptureConfig(message);
 		const currentTab = message.tabId

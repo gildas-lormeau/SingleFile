@@ -135,6 +135,10 @@
 		"message": "Sla alle tabbladen op in één archief",
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
+	"menuSaveTabGroupInArchive": {
+		"message": "Save tab group in one archive",
+		"description": "Menu entry: 'Save tab group in one archive'"
+	},
 	"menuAddTabToArchive": {
 		"message": "Voeg tabblad toe aan het archief in opbouw",
 		"description": "Menu entry: 'Add the tab to the archive in progress'"
@@ -142,6 +146,10 @@
 	"menuAddSelectedTabsToArchive": {
 		"message": "Voeg geselecteerde tabbladen toe aan het archief in opbouw",
 		"description": "Menu entry: 'Add the selected tabs to the archive in progress'"
+	},
+	"menuAddTabGroupToArchive": {
+		"message": "Add the tab group to the archive in progress",
+		"description": "Menu entry: 'Add the tab group to the archive in progress'"
 	},
 	"menuViewArchive": {
 		"message": "Bekijk het archief in opbouw...",

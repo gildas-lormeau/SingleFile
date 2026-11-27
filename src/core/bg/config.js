@@ -58,6 +58,7 @@ const NATIVE_API_API_SUPPORTED = IS_NOT_SAFARI;
 const WEB_BLOCKING_API_SUPPORTED = IS_NOT_SAFARI;
 const EXTERNAL_CAPTURE_SUPPORTED = IS_NOT_SAFARI;
 const SHARE_API_SUPPORTED = navigator.canShare && navigator.canShare({ files: [new File([new Blob([""], { type: "text/html" })], "test.html")] });
+const TAB_GROUPS_SUPPORTED = Boolean(browser.tabs.group);
 const BROWSER_MENUS_API_SUPPORTED = Boolean(browser.menus && browser.menus.onClicked && browser.menus.create && browser.menus.update && browser.menus.removeAll);
 const LEGACY_FILENAME_REPLACED_CHARACTERS = ["~", "+", "\\\\", "?", "%", "*", ":", "|", "\"", "<", ">", "\u0000-\u001f", "\u007f"];
 const DEPRECATED_OPTION_NAMES = {
@@ -293,6 +294,7 @@ export {
 	EXTERNAL_CAPTURE_SUPPORTED,
 	SHARE_API_SUPPORTED,
 	BROWSER_MENUS_API_SUPPORTED,
+	TAB_GROUPS_SUPPORTED,
 	getConfig as get,
 	getRule,
 	getOptions,
@@ -607,6 +609,7 @@ async function onMessage(message) {
 			EXTERNAL_CAPTURE_SUPPORTED,
 			SHARE_API_SUPPORTED,
 			BROWSER_MENUS_API_SUPPORTED,
+			TAB_GROUPS_SUPPORTED,
 			DEFAULT_FILENAME_REPLACED_CHARACTERS,
 			DEFAULT_FILENAME_REPLACEMENT_CHARACTERS
 		};

@@ -1106,7 +1106,9 @@
 							class="icon">, then "Save tabs", and select: <ul>
 							<li id="selectableTabsArchiveMenu">"Save selected tabs in one archive",</li>
 							<li>or "Save unpinned tabs in one archive",</li>
-							<li>or "Save all tabs in one archive".</li>
+							<li>or "Save all tabs in one archive",</li>
+							<li>or "Save tab group in one archive", which saves the tabs of the tab group of the
+								current tab.</li>
 						</ul>
 					</li>
 					<li>The pages are in the order of the tabs. The file gets the name and the destination of the
@@ -1118,7 +1120,9 @@
 				<ul>
 					<li>In the "Save tabs" menu, select: <ul>
 							<li>"Add the tab to the archive in progress",</li>
-							<li id="selectableTabsAddMenu">or "Add the selected tabs to the archive in progress".</li>
+							<li id="selectableTabsAddMenu">or "Add the selected tabs to the archive in progress",</li>
+							<li>or "Add the tab group to the archive in progress", which adds the tabs of the tab
+								group of the current tab.</li>
 						</ul>
 						The page is saved and kept in SingleFile. No file is written at this point.
 					</li>
@@ -1599,10 +1603,18 @@
 						<code>"save-all-tabs-in-archive"</code>: save all the tabs in one archive
 					</li>
 					<li>
+						<code>"save-tab-group-in-archive"</code>: save the tabs of the tab group of the current tab
+						in one archive
+					</li>
+					<li>
 						<code>"add-tab-to-archive"</code>: add the current tab to the archive in progress
 					</li>
 					<li>
 						<code>"add-selected-tabs-to-archive"</code>: add the selected tabs to the archive in progress
+					</li>
+					<li>
+						<code>"add-tab-group-to-archive"</code>: add the tabs of the tab group of the current tab to
+						the archive in progress
 					</li>
 				</ul>
 				<p>To capture the current page and receive the saved HTML, send an object message with

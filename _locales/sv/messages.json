@@ -135,6 +135,10 @@
 		"message": "Spara alla flikar i ett arkiv",
 		"description": "Menu entry: 'Save all tabs in one archive'"
 	},
+	"menuSaveTabGroupInArchive": {
+		"message": "Save tab group in one archive",
+		"description": "Menu entry: 'Save tab group in one archive'"
+	},
 	"menuAddTabToArchive": {
 		"message": "Lägg till fliken i det pågående arkivet",
 		"description": "Menu entry: 'Add the tab to the archive in progress'"
@@ -142,6 +146,10 @@
 	"menuAddSelectedTabsToArchive": {
 		"message": "Lägg till markerade flikar i det pågående arkivet",
 		"description": "Menu entry: 'Add the selected tabs to the archive in progress'"
+	},
+	"menuAddTabGroupToArchive": {
+		"message": "Add the tab group to the archive in progress",
+		"description": "Menu entry: 'Add the tab group to the archive in progress'"
 	},
 	"menuViewArchive": {
 		"message": "Visa det pågående arkivet…",
