@@ -34,12 +34,13 @@ export {
 	remove
 };
 
-function onMessage(message) {
+async function onMessage(message) {
 	if (message.method.endsWith(".get")) {
 		return getPersistent();
 	}
 	if (message.method.endsWith(".set")) {
-		return setPersistent(message.tabsData);
+		await setPersistent(message.tabsData);
+		return {};
 	}
 }
 
