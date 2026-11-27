@@ -55,6 +55,7 @@ const CAPTURE_OPTION_NAMES = [
 	"removeSavedDate",
 	"removeAlternativeFonts",
 	"removeAlternativeMedias",
+	"applyPrintStylesheets",
 	"removeAlternativeImages",
 	"compressHTML",
 	"groupDuplicateImages",

@@ -587,6 +587,10 @@
 		"message": "видалити таблиці стилів для пристроїв, відмінних від екранів",
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
+	"optionApplyPrintStylesheets": {
+		"message": "apply the print stylesheets (save the page as it would be printed)",
+		"description": "Options page label: 'apply the print stylesheets (save the page as it would be printed)'"
+	},
 	"optionsNetworkSubTitle": {
 		"message": "Мережа",
 		"description": "Options sub-title: 'Network'"

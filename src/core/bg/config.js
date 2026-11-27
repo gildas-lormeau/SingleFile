@@ -126,6 +126,7 @@ const DEFAULT_CONFIG = {
 	autoSaveRepeatDelay: 10,
 	removeAlternativeFonts: true,
 	removeAlternativeMedias: true,
+	applyPrintStylesheets: false,
 	removeAlternativeImages: true,
 	groupDuplicateImages: true,
 	maxSizeDuplicateImages: 512 * 1024,

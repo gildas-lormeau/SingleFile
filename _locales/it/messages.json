@@ -587,6 +587,10 @@
 		"message": "rimuovi i fogli di stile per dispositivi alternativi agli schermi",
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
+	"optionApplyPrintStylesheets": {
+		"message": "apply the print stylesheets (save the page as it would be printed)",
+		"description": "Options page label: 'apply the print stylesheets (save the page as it would be printed)'"
+	},
 	"optionsNetworkSubTitle": {
 		"message": "Rete",
 		"description": "Options sub-title: 'Network'"

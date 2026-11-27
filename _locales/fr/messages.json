@@ -587,6 +587,10 @@
 		"message": "supprimer les feuilles de styles pour les appareils autres que des écrans",
 		"description": "Options page label: 'remove stylesheets for alternative devices to screens'"
 	},
+	"optionApplyPrintStylesheets": {
+		"message": "appliquer les feuilles de style d'impression (sauver la page telle qu'elle serait imprimée)",
+		"description": "Options page label: 'apply the print stylesheets (save the page as it would be printed)'"
+	},
 	"optionsNetworkSubTitle": {
 		"message": "Réseau",
 		"description": "Options sub-title: 'Network'"
