@@ -381,10 +381,26 @@ async function downloadArchive(archive) {
 		const { tab, message, saveOptions } = pages[0];
 		await saveArchive(pages, Object.assign({}, message, saveOptions), tab);
 		if (archive.failedTabs.length) {
-			const { tab: displayedTab } = pages.find(page => page.tab.active) || pages[0];
+			const displayedTab = await getArchiveErrorTab(pages.map(page => page.tab));
 			ui.onError(displayedTab.id, archive.failedTabs.length + ARCHIVE_FAILURE_COUNT_MESSAGE + archive.failedTabs.map(failedTab => failedTab.url).join(ARCHIVE_FAILURE_SEPARATOR));
 		}
 	}
+}
+
+async function getArchiveErrorTab(savedTabs) {
+	let displayedTab;
+	try {
+		const activeTab = (await browser.tabs.query({ active: true, windowId: savedTabs[0].windowId }))[0];
+		displayedTab = activeTab && savedTabs.find(tab => tab.id == activeTab.id);
+		if (!displayedTab) {
+			displayedTab = savedTabs[0];
+			await browser.tabs.update(displayedTab.id, { active: true });
+		}
+		// eslint-disable-next-line no-unused-vars
+	} catch (error) {
+		// ignored
+	}
+	return displayedTab || savedTabs[0];
 }
 
 async function saveArchive(pages, message, tab) {

@@ -40,6 +40,8 @@ const ERROR_TITLE_MESSAGE = browser.i18n.getMessage("topPanelError");
 const COPY_DETAILS_BUTTON_MESSAGE = browser.i18n.getMessage("topPanelCopyDetailsButton");
 
 const SINGLE_FILE_PREFIX = "single-file-";
+const FILE_PROTOCOL = "file:";
+const SAVED_PAGE_URL_REGEXP = /^ url: (.*?) *$/;
 const WAIT_FOR_USERSCRIPT_PROPERTY_NAME = "_singleFile_waitForUserScript";
 const ON_INIT_CAPTURE_EVENT_NAME = SINGLE_FILE_PREFIX + "on-init-capture";
 
@@ -182,6 +184,10 @@ async function savePage(message) {
 			try {
 				const pageData = await processPage(options);
 				if (pageData) {
+					const savedPageURL = getSavedPageURL();
+					if (savedPageURL) {
+						pageData.url = savedPageURL;
+					}
 					await download.downloadPage(pageData, options);
 					taskEnded = false;
 				}
@@ -206,6 +212,19 @@ async function savePage(message) {
 	}
 	clearInterval(pingInterval);
 	return taskEnded;
+}
+
+function getSavedPageURL() {
+	if (location.protocol == FILE_PROTOCOL) {
+		const helper = singlefile.helper;
+		const firstChild = document.documentElement.firstChild;
+		if (firstChild && firstChild.nodeType == firstChild.COMMENT_NODE &&
+			(firstChild.textContent.includes(helper.COMMENT_HEADER) || firstChild.textContent.includes(helper.COMMENT_HEADER_LEGACY))) {
+			const urlData = firstChild.textContent.split("\n")[2];
+			const urlMatch = urlData && urlData.match(SAVED_PAGE_URL_REGEXP);
+			return urlMatch && urlMatch[1];
+		}
+	}
 }
 
 function cancelSave() {
