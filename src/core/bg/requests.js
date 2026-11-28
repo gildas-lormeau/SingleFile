@@ -65,7 +65,7 @@ function injectRefererHeader(details) {
 }
 
 function enableReferrerOnError() {
-	if (!referrerOnErrorEnabled) {
+	if (!referrerOnErrorEnabled && browser.webRequest) {
 		try {
 			browser.webRequest.onBeforeSendHeaders.addListener(injectRefererHeader, { urls: ["<all_urls>"] }, ["blocking", "requestHeaders", "extraHeaders"]);
 			// eslint-disable-next-line no-unused-vars
