@@ -63,12 +63,11 @@ jobs:
           unzip -p singlefile-extension-firefox.zip lib/single-file-extension-background.js | grep -q WOLEET_API_KEY_PLACEHOLDER
 
   # The functional suite of single-file-tests drives this extension in a real browser and checks the
-  # files it saves, the way the release gate does on a packaged build. It is new on the runners: until
-  # it has shown it is stable there, its result is reported and does not fail the workflow.
+  # files it saves, the way the release gate does on a packaged build. A group that fails makes the
+  # workflow fail: a test failing now and then gets its cause found, it is not tolerated here.
   functional:
     runs-on: ubuntu-26.04
     timeout-minutes: 30
-    continue-on-error: true
     # the specs are split into groups of similar length, one machine each, to shorten the run
     strategy:
       fail-fast: false
