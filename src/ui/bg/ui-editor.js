@@ -557,6 +557,7 @@ async function saveArchive(message) {
 		selfExtractingArchive,
 		extractDataFromPage: tabData.extractDataFromPageTags !== undefined ? tabData.extractDataFromPageTags : options.extractDataFromPage,
 		preventAppendedData: options.preventAppendedData,
+		removeSavedDate: options.removeSavedDate,
 		includeBOM: options.includeBOM,
 		insertMetaCSP: tabData.insertMetaCSP !== undefined ? tabData.insertMetaCSP : options.insertMetaCSP,
 		insertCanonicalLink: options.insertCanonicalLink,

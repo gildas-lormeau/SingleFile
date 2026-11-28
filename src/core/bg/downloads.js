@@ -330,7 +330,8 @@ async function downloadCompressedContent(message, tab) {
 			const blob = await singlefile.processors.compression.process(pageData, {
 				url: archivePage.url,
 				tabId,
-				disableCompression: message.disableCompression
+				disableCompression: message.disableCompression,
+				removeSavedDate: message.removeSavedDate
 			});
 			if (archivePage.persistent) {
 				await archiveStore.add({
@@ -357,6 +358,7 @@ async function downloadCompressedContent(message, tab) {
 				disableCompression: message.disableCompression,
 				extractDataFromPage: message.extractDataFromPage,
 				preventAppendedData: message.preventAppendedData,
+				removeSavedDate: message.removeSavedDate,
 				maxAppendedDataLength: message.maxAppendedDataLength,
 				insertCanonicalLink: message.insertCanonicalLink,
 				insertMetaNoIndex: message.insertMetaNoIndex,
@@ -416,6 +418,7 @@ async function saveArchive(pages, message, tab) {
 			selfExtractingArchive: message.selfExtractingArchive,
 			extractDataFromPage: message.extractDataFromPage,
 			preventAppendedData: message.preventAppendedData,
+			removeSavedDate: message.removeSavedDate,
 			maxAppendedDataLength: message.maxAppendedDataLength,
 			insertCanonicalLink: message.insertCanonicalLink,
 			insertMetaNoIndex: message.insertMetaNoIndex,

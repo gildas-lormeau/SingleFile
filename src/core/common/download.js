@@ -107,6 +107,7 @@ async function downloadPage(pageData, options) {
 		disableCompression: options.disableCompression,
 		embeddedImage: embeddedImage ? Array.from(embeddedImage) : null,
 		preventAppendedData: options.preventAppendedData,
+		removeSavedDate: options.removeSavedDate,
 		maxAppendedDataLength: options.maxAppendedDataLength,
 		extractDataFromPage: options.extractDataFromPage,
 		archiveTask: options.archiveTask,
