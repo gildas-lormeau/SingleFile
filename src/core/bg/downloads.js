@@ -302,7 +302,12 @@ async function downloadContent(blob, tab, incognito, message) {
 		}
 		ui.onEnd(tabId);
 		if (message.openSavedPage && !message.openEditor && !skipped) {
-			await openViewerTab(tab, URL.createObjectURL(blob));
+			const uploadedPageURL = getUploadedPageURL(message, response);
+			if (uploadedPageURL) {
+				await openTab(tab, uploadedPageURL);
+			} else {
+				await openViewerTab(tab, URL.createObjectURL(blob));
+			}
 		}
 	} catch (error) {
 		if (!error.message || error.message != "upload_cancelled") {
@@ -527,20 +532,35 @@ async function saveCompressedContent(blob, mimeType, message, tab) {
 	}
 	ui.onEnd(tabId);
 	if (message.openSavedPage && !message.openEditor && !skipped) {
-		await openViewerTab(tab, URL.createObjectURL(blob), { compressed: true });
+		const uploadedPageURL = getUploadedPageURL(message, response);
+		if (uploadedPageURL) {
+			await openTab(tab, uploadedPageURL);
+		} else {
+			await openViewerTab(tab, URL.createObjectURL(blob), { compressed: true });
+		}
 	}
 	if (hash && !skipped) {
 		await woleet.anchor(hash, message.woleetKey);
 	}
 }
 
+function getUploadedPageURL(message, response) {
+	if (message.saveToRestFormApi && response && HTTP_URL_REGEXP.test(response.url)) {
+		return response.url;
+	}
+}
+
 async function openViewerTab(tab, blobURL, { compressed } = {}) {
-	const createTabProperties = { active: true, url: "/src/ui/pages/viewer.html?" + (compressed ? "compressed&" : "") + "blobURI=" + blobURL, windowId: tab.windowId };
+	const viewerTab = await openTab(tab, "/src/ui/pages/viewer.html?" + (compressed ? "compressed&" : "") + "blobURI=" + blobURL);
+	viewerBlobURLs.set(viewerTab.id, blobURL);
+}
+
+function openTab(tab, url) {
+	const createTabProperties = { active: true, url, windowId: tab.windowId };
 	if (tab.index != null) {
 		createTabProperties.index = tab.index + 1;
 	}
-	const viewerTab = await browser.tabs.create(createTabProperties);
-	viewerBlobURLs.set(viewerTab.id, blobURL);
+	return browser.tabs.create(createTabProperties);
 }
 
 function encodeSharpCharacter(path) {
