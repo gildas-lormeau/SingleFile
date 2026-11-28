@@ -898,17 +898,13 @@ function getPageData(resources) {
 		resource.name = filename;
 		if (filename.startsWith("images/")) {
 			resourcePageData.resources.images.push(resource);
-		}
-		if (filename.startsWith("fonts/")) {
+		} else if (filename.startsWith("fonts/")) {
 			resourcePageData.resources.fonts.push(resource);
-		}
-		if (filename.startsWith("scripts/")) {
+		} else if (filename.startsWith("scripts/")) {
 			resourcePageData.resources.scripts.push(resource);
-		}
-		if (filename.endsWith(".css")) {
+		} else if (filename.endsWith(".css")) {
 			resourcePageData.resources.stylesheets.push(resource);
-		}
-		if (filename.endsWith(".html")) {
+		} else if (filename.endsWith(".html")) {
 			resourcePageData.content = resource.content;
 		}
 	}
